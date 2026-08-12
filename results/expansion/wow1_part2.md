@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 59 / 208.
+Progress: 60 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -391,5 +391,11 @@ Repeated minimum eigenspaces, normalization, and quantification over choices are
 > "- (mean of nonpositive eigenvalues) < chromatic number of complement of G."
 
 For every arsenal member, the negated arithmetic mean of adjacency eigenvalues `<=0` (zeros included) is below `chi(bar G)` by more than `1e-6`. Dense eigendecomposition and closed forms for `C5[K_m]` agree.
+
+### wow-697 — SKIP_OCR
+
+> "range of the largest eigenvector <n — my."
+
+The unknown `my` symbol and unspecified Perron-vector normalization prevent a determinate comparison.
 
 
