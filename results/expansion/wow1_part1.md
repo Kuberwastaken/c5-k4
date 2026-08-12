@@ -809,4 +809,8 @@ Rainbow depends on unspecified greedy coloration/order.
 
 Carrier complement gives `chi=3 <= Laplacian range=10+2sqrt(5)`.
 
+### wow-317 — HOLD where applicable
+
+Carrier complement degree mode 8 is at most minimum Even 12.
+
 <!-- NEXT -->
