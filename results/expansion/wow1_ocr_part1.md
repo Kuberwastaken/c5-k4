@@ -171,3 +171,11 @@ Printed p.73 confirms the operator and inherited triangle-free hypothesis; no
 radical was lost.  With WoW `size=|E|`, the literal bound fails database graphs,
 including `K3,3`: `|E|/2=9/2 > R=3`.  The carrier complement also fails
 `40 > 10`.  It is therefore source-faithful but database-inconsistent.
+
+### wow-228 — SKIP_DEFINITION
+
+> mean of coordinates of resolution of Maxine <= size/2.
+
+Printed p.74 confirms the exact statement under the regular-graph hypothesis.
+The source does not define “resolution of Maxine”, and Maxine's tie choices are
+representation dependent.  Recovery does not supply an evaluable invariant.
