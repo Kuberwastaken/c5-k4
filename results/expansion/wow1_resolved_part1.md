@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-55 — RETRO-VIOLATION — dense arsenal
+
+> The second largest eigenvalue is not more than the minimode of distance. Disproved by Peter Puget 11. 88, and later independently by Favaron, Maheo and Sacle. 1.91
+
+On the source-faithful minimode-as-smallest-modal-distance reading, `C5[K4]` has `lambda_2=(sqrt(5)-1)4/2-1=5.472135... > 1`, its unique modal distance. `T(7)` likewise gives `3>2`. Both are additional witnesses to the already-refuted statement; values are beyond the `1e-6` guard and independently recomputed.
+
 ### wow-53 — HOLD / NO ADDITIONAL WITNESS
 
 > average temperature < minimal frequency of the distance matrix. Proved by Shui-Tain Chen, U. of Houston. April 87.
