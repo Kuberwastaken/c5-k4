@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 138 / 208.
+Progress: 139 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -865,5 +865,11 @@ In the surrounding PR/RP block the arsenal is inapplicable. Literal universal re
 > "second largest eigenvalue ... product of global minimum degree and counterindependence number."
 
 The contextual/derived-invariant reading is not instantiated by the arsenal. Literal universal form fails 984/995 atlas graphs, proving transcription/context loss rather than a new kill.
+
+### wow-811 — N/A_ARSENAL / DB_REJECTED
+
+> "second largest eigenvalue ... product of frequency of maximum degree and jet number."
+
+Literal universal reading fails 829/995 nontrivial connected atlas graphs and small calibrators; the contextual PR/RP statement cannot be tested on the arsenal.
 
 
