@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-188 — RETRO-VIOLATION — T(7)
+
+> The mode of eigenvalues of Laplacian < n - the matching number. Michael J. Dinneen, Los Alamos National Laboratory and University of Victoria, Victoria, B.C (comp. 107.) August 91.
+
+The inherited source condition `sum D <= sum E` selects `T(7)`. Its Laplacian spectrum is `0^1, 7^6, 12^14`, hence the modal Laplacian eigenvalue is 12, while `n-mu=21-10=11`. Thus `12>11`. The result survives both the modal-value and modal-frequency readings (14 also exceeds 11), and exact formulas agree with a separate numerical eigensolver. It is a witness to an already-refuted row.
+
 ### wow-187 — HOLD / NO ADDITIONAL WITNESS
 
 > The mode of eigenvalues of Laplacian < n - the independence num- ber. Tony L. Brewster, Michael Dinneen and Vance Faber (comp. 107), 10. 90.
