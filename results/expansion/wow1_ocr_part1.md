@@ -297,3 +297,13 @@ Printed p.78 recovers the complete fraction.  All arsenal graphs are regular,
 so `sum temperature = nd/(n-d)`.  Exact arithmetic verifies the bound
 throughout; the carrier gives `(27/19)*(220/9)/2 = 330/19 < 20`.
 No candidate violation arises.
+
+### wow-307 — HOLD_WHERE_APPLICABLE
+
+> If the distance rank is strictly less than the rank then the average
+> distance <= n / largest eigenvalue.
+
+Printed p.81 recovers the full condition and denominator.  The rank hypothesis
+selects `T(7),T(8),T(9)` from the arsenal.  Their exact average distances are
+`3/2,14/9,8/5`, while `n/lambda_max` is respectively
+`21/10,28/12,36/14`; all hold with clear margin.
