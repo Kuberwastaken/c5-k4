@@ -445,4 +445,8 @@ Even-parity range is 0 on all vertex-transitive arsenal members.
 
 `sum 1/Even` is at most chromatic number throughout.
 
+### wow-181 — SKIP_OCR
+
+Garble: `range of resolution of Maxine < maximum of E.` Resolution of Maxine is undefined/order-dependent.
+
 <!-- NEXT -->
