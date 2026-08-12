@@ -725,4 +725,8 @@ Inherited `girth>5` excludes every arsenal graph.
 
 Inherited `girth>5` excludes every arsenal graph.
 
+### wow-288 — N/A_ARSENAL
+
+Inherited `girth>5` excludes every arsenal graph.
+
 <!-- NEXT -->
