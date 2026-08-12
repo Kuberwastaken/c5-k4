@@ -337,4 +337,8 @@ The minimum positive adjacency eigenvalue is below exact `n/average_distance` th
 
 Variance of positive adjacency eigenvalues is at most `|E|/average_distance` throughout; spectral guard applied.
 
+### wow-144 — HOLD
+
+Variance of positive adjacency eigenvalues is at most `|E|-mu` throughout; spectral guard applied.
+
 <!-- NEXT -->
