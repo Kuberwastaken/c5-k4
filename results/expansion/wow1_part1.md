@@ -365,4 +365,8 @@ Even- and odd-parity vectors are constant on every vertex-transitive arsenal gra
 
 The odd-parity vector range is 0, at most the positive matching number.
 
+### wow-154 — HOLD
+
+Standard normalized adjacency spectral deviation is at most exact `n/average_distance`; an unnormalized-sum parse fails DB sanity and is rejected.
+
 <!-- NEXT -->
