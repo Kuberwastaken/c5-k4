@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 72 / 208.
+Progress: 73 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -469,5 +469,11 @@ For regular arsenal graphs temperature is exact `d/(n-d)`; guarded inertia count
 > "- mean of nonpositive eigenvalues < sum of reciprocals of all temperatures."
 
 For regular graphs the right side is exact `n(n-d)/d`; direct spectral means are much smaller throughout. Closed-form and dense spectra agree.
+
+### wow-716 — HOLD
+
+> "the diameter - radius < the matching number."
+
+All arsenal members have `diameter=radius`, left side 0, and a positive matching. Exact BFS eccentricities and Edmonds matching agree.
 
 
