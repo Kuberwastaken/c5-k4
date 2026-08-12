@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 119 / 208.
+Progress: 120 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -751,5 +751,11 @@ No arsenal member is supplied as a critical Ramsey graph of the required order/c
 > "If G is a complement of a r(3,n) graph ..."
 
 No arsenal member is established as the complement of a critical Ramsey graph. Triangle-freeness alone is insufficient.
+
+### wow-788 — SKIP_OCR
+
+> "do > az."
+
+The coordinate definitions and even the OCR subscripts are lost; the following commentary cannot restore the assertion.
 
 
