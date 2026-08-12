@@ -19,5 +19,13 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 0 / 208.
+Progress: 1 / 208.
 
+### wow-450 — N/A_ARSENAL
+
+> "If G is the RG(n)-graph then the matching = n — independence."
+
+The assertion is restricted to the specifically constructed `RG(n)` graph; none
+of the campaign graphs is asserted or evidenced to be an `RG(n)` instance.
+Accordingly this carrier arsenal cannot test the equality. The text is readable
+enough to preserve the hypothesis, so this is `N/A_ARSENAL`, not `SKIP_OCR`.
