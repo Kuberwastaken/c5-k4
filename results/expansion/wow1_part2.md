@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 3 / 208.
+Progress: 4 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -49,3 +49,12 @@ The record has merged at least two numbered assertions, and the right side
 `n(n)` plus the object following "rank of" are missing. There is no faithful
 inequality to evaluate, and the `RP` restriction would in any case exclude the
 arsenal. No intended notation is guessed.
+
+### wow-458 — SKIP_OCR
+
+> "Let e(v) be the number of vertices at even distance from v in RP[2..n]/ ...
+> The sum of reciprocals of e(v) is not more than n(n). A70. Let S be ..."
+
+The unknown `n(n)` right-hand side and the merge into a different `PR[S]`
+conjecture make this unusable. Both surviving clauses concern constructed
+number-theoretic graphs rather than the arsenal. No repair is inferred.
