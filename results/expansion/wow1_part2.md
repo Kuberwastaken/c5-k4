@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 156 / 208.
+Progress: 157 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -973,5 +973,11 @@ The blue graph depends on unspecified `P`, so its minimum degree is not an arsen
 > "residue of B(G) ... residue of complement of G."
 
 The left graph cannot be constructed without the missing Ramseyan property parameter.
+
+### wow-835 — N/A_ARSENAL (missing P)
+
+> "red clique number ... complement of the blue graph."
+
+Red/blue graphs are undefined without `P`; moreover the record explicitly reports known counterexamples. It is not a carrier claim.
 
 
