@@ -497,4 +497,8 @@ Exact average distance is at most `sum 1/degree` on applicable `T(7..9)` and the
 
 Garble: `length of autocoordinates of Maxine of D2`. The construction is undefined/order-dependent.
 
+### wow-205 — HOLD
+
+All arsenal graphs satisfy `n/2 <= n-residue`.
+
 <!-- NEXT -->
