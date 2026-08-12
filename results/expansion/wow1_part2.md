@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 206 / 208.
+Progress: 207 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -1275,5 +1275,11 @@ For the applicable graph both sides equal 1.
 > "If G is cubic triangle-free ..."
 
 No campaign graph is cubic.
+
+### wow-893 — SKIP_OCR
+
+> "Let G be a regular triangle-free graph and s ... Then blue clique number is greater or equal to -1 +8/2."
+
+The OCR gives a constant-looking 8 where context suggests `s`. Literal RHS 3 already fails `C4`; intended `-1+s/2` holds here, but the no-guess rule requires skipping.
 
 
