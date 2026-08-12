@@ -51,14 +51,16 @@ tight as **local maps of conjecture space**:
    independent exact recomputation, source recovery, and a no-`sorry` Lean
    certificate.
 
-That procedure has now produced three prospective structural transfers, not
-merely retrospective explanations of the original four kills:
+That procedure has now produced three prospective structural transfers and one
+prospective theorem recovery, not merely retrospective explanations of the
+original four kills:
 
 | Tightness map | Obstruction exposed | Deliberate separating family | New crossing |
 |---|---|---|---|
 | `C₅[K_m]` on the `L_s+b` frontier | `α=λ_max` prevents #181 from crossing | triangular graphs `T(n)` | #181 under the formalized square-degree reading |
 | diameter-two equality wall around #176 | the selected square-degree vertices cannot separate in the original metric | two triangles joined by a long path (`D_L`) | #176, then adjacent #172 |
 | regular clique blow-ups in the independent-domination cluster | center geometry and the Caro--Wei correction move together | nonuniform `P₇` clique blow-ups | #430a |
+| repeated equality in #438b | matching edges seem able to evade both induced-subgraph corrections | low-degree false-twin layer | no crossing: the attempted separation yields a stronger arbitrary-subset theorem proving #438b |
 
 The `P₇` crossing is especially important: it is the second instance in a
 substantially different conjecture cluster of the same prospective pattern
@@ -70,6 +72,14 @@ the best diagnostic carrier, but the research object is now the repeatable
 navigation of tightness walls into new graph families. Direct carrier kills,
 spawned counterexamples, retro-kills, and interpretation-dependent statements
 remain counted separately below.
+
+The development record also publishes its zeroes. Method v0.2 found no
+crossing for #382e after 212,502 wall-directed substitutions, all connected
+order-eight graphs, and 20,000 unrestricted-weight samples; and no crossing
+for #61 across 968 nonisomorphic degree-preserving switch realizations. Both
+end as bounded holds with sharply stated theorem signals, not inflated truth
+claims. See [`method_v02_382e.md`](results/expansion/method_v02_382e.md) and
+[`method_v02_61.md`](results/expansion/method_v02_61.md).
 
 The full versioned development protocol is [`METHOD.md`](METHOD.md). It fixes
 the residual-wall workflow, theorem-shadow taxonomy, transformation catalogue,
@@ -320,7 +330,7 @@ number of still-open WOWII bounds — it is an extremal witness for:
 | 401b | γ₂ ≤ ⌊3·Tdist_max / freq[T_max(v)]⌋ | 4 = ⌊81/20⌋ |
 | 422b | i(G) ≤ α(G[M]) + γ(∅)² | 2 = 2 + 0 |
 | 430a | i(G) ≤ α(G[N(C)]) + 2⌊CW − 1⌋ | 2 = 2 + 0 |
-| 438b | α₂ ≤ a(G) + a(G[V−H₂]) + \|E(G[H₂])\| | 4 = 2 + 2 + 0 |
+| 438b | α₂ ≤ a(G) + a(G[V−H₂]) + \|E(G[H₂])\| | 4 = 2 + 2 + 0; now proved by a stronger arbitrary-subset theorem ([PR #4916](https://github.com/google-deepmind/formal-conjectures/pull/4916)) |
 
 It is just as tight against the **proved** part of the corpus — a
 zero-slack witness of theorems 4, 7, 15, 16, 18, 37, 57, 68, 89, 94, 99,
@@ -408,8 +418,9 @@ regular graphs instinctively. Ranked targets:
    (139), proved QA (163), both family sweeps (30+ members), transcription
    audit, and adversarial verification all reported. The original carrier
    score is 4 direct kills + spawned 181 + 8 retro-kills. Follow-up navigation
-   of its tightness walls has now additionally disproved 172, 176, and 430a
-   with purpose-built families. The carrier family itself cannot cross the remaining walls —
+   of its tightness walls has now additionally disproved 172, 176, and 430a,
+   with purpose-built families, and proved the formerly open 438b by a
+   stronger universal inequality. The carrier family itself cannot cross the remaining walls —
    it sits at exact equality on them (window-argument proofs in
    [`results/family_domination.md`](results/family_domination.md)).
    For the diameter-two `L_s+b` cluster 176/182--185, that equality is now
