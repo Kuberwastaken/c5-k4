@@ -333,4 +333,8 @@ All arsenal graphs are regular, hence temperature deviation is 0 and the Randić
 
 The minimum positive adjacency eigenvalue is below exact `n/average_distance` throughout, outside the `1e-6` guard.
 
+### wow-143 — HOLD
+
+Variance of positive adjacency eigenvalues is at most `|E|/average_distance` throughout; spectral guard applied.
+
 <!-- NEXT -->
