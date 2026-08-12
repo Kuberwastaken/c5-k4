@@ -133,4 +133,8 @@ The inherited triangle-free hypothesis selects only `complement(C5[K4])`; its av
 
 On the natural clique-coordinate reading, `C5[K4]` has `chi=10 > 8=max frequency`; the cycle blow-ups similarly fail. The same row explicitly records Staton's counterexample and Rödl's arbitrarily large gaps, so this is only a retro-witness.
 
+### wow-71 — HOLD — historically proved
+
+Every arsenal graph is bridgeless, so the cut-edge count is zero. The row explicitly records proofs by Shearer and Staton.
+
 <!-- NEXT -->
