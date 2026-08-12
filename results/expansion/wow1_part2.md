@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 70 / 208.
+Progress: 71 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -457,5 +457,11 @@ With source normalization `sum |x_i|=n`, connected regular arsenal graphs have P
 > "mo < n— the residue."
 
 `mo` is not pinned to ordinary versus GF(2) nullity. No value is guessed.
+
+### wow-712 — HOLD
+
+> "The minimum temperature < number of nonpositive eigenvalues."
+
+For regular arsenal graphs temperature is exact `d/(n-d)`; guarded inertia counts are safely larger for every member.
 
 
