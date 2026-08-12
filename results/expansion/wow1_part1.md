@@ -625,4 +625,8 @@ Regular graphs have dual degree `r`; exact `r <= n/average_distance` holds throu
 
 Minimum full-spectrum Laplacian derivative is 0 from multiplicities, below positive `sum 1/dual_degree`.
 
+### wow-254 — HOLD
+
+Minimum Laplacian derivative is 0, below positive `sum 1/Odd`.
+
 <!-- NEXT -->
