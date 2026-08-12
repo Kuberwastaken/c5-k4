@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 92 / 208.
+Progress: 93 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -589,5 +589,11 @@ Direct max-min evaluation of the stated two-player game gives market values `6,9
 > "residue of G is not less than p*n ... p*n = max deg/av. deg."
 
 Every arsenal graph is regular, hence the stationary maximum gives `p*n=Delta/d_avg=1`. Exact Havel-Hakimi residues are at least 2, so the original and graph-theoretic readings both hold.
+
+### wow-753 — HOLD
+
+> "Let h be min h(v) ... chromatic number of G is at most h+2."
+
+Direct BFS-layer edge counts give minimum horizontal-edge values `12,34,67,111,166,309,40,46,55,96,154,16` in arsenal order. Exact/structured chromatic numbers are safely at most `h+2`; no candidate.
 
 
