@@ -346,3 +346,10 @@ the normalized row. The candidate predicate cannot be instantiated faithfully.
 **Status:** proved (WoW annotation). The blue graph again depends on the
 omitted fixed-chromatic-number property from the section heading. The campaign
 cannot compute its minimum degree without choosing a different conjecture.
+
+## wow-834 — HOLD
+
+**Status:** refuted (WoW annotation). With `temperature(v)=d(v)/(n-d(v))`,
+the carrier has average distance `27/19 < 1+8/12=5/3` using complement
+temperature; its complement has `30/19 < 1+11/9=20/9`. Exact distance counts
+and regular-degree formulas agree, and every arsenal member holds.
