@@ -425,4 +425,8 @@ Minimum consecutive adjacency-eigenvalue gap is 0 from multiplicities, below `n/
 
 Exact `n/average_distance` is at most the Euclidean norm of the Laplacian spectrum throughout.
 
+### wow-174 — HOLD
+
+Because Even is constant, `sum 1/Even=n/E <= n/average_distance` throughout.
+
 <!-- NEXT -->
