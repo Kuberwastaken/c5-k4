@@ -96,6 +96,13 @@ false right side `4/3`.  The carrier family remains useful independent
 evidence, but the simple witness makes this a conservative stale/trivial
 retro-kill rather than a novelty claim.
 
+### graphbrain-alpha-upper-133 — HOLD_ARSENAL
+
+> `independence_number(x) <= e^(e^card_center(x)) + radius_pendants_thm_invariant(x)`
+
+No violation was found on all 996 connected nonempty Graph Atlas graphs through order 7 where the exact author expression is defined, the named controls, or campaign and threshold families.  Real comparisons use the `1e-6` guard and ILP/LP runs stay within 60 seconds.  This is an arsenal hold, not a proof.
+
+
 ### graphbrain-alpha-upper-132 — HOLD_ARSENAL
 
 > `independence_number(x) <= maximum(szekeres_wilf(x), 10^floor(lovasz_theta_over_root_n(x)))`
