@@ -204,3 +204,12 @@ Printed p.74 confirms the exact regular-graph statement.  Under the established
 edge-count meaning of size, it fails the database gate on `K7`:
 `|E|/2=21/2 > 6=n-alpha`.  The carrier also fails `55 > 18`.  No exponent
 or radical was lost; the source itself is inconsistent with the test database.
+
+### wow-238 — SKIP_DEFINITION
+
+> The mean of autocoordinates of resolution Maxine of the complement of
+> G <= n/2.
+
+Printed p.75 confirms the complete regular-graph statement.  Autocoordinates
+and resolution of Maxine are not defined by the source, leaving no faithful
+left-hand quantity.
