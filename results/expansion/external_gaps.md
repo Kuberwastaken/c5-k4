@@ -96,3 +96,9 @@ closed-form theta value agree.  No named-arsenal violation was found.
 `theta(C5[K4])=sqrt(5)`, the right side is `2*floor(1.4436...)=2`, again
 equality.  The value is far outside the `1e-6` boundary guard, and the named
 arsenal produced no violation.
+
+#### Figure 14 / lower-009 — `HOLD_ARSENAL`
+
+`alpha >= floor(arccosh(theta))^2`.  On `C5[K4]` the right side is
+`floor(1.4436...)^2=1`, below `alpha=2`.  This is also outside the numerical
+guard band.  No named-arsenal violation was found.
