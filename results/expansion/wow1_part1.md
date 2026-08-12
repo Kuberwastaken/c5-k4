@@ -817,4 +817,8 @@ Carrier complement degree mode 8 is at most minimum Even 12.
 
 Carrier complement maximum degree 8 is at most mode Even 12.
 
+### wow-319 — SKIP_OCR
+
+Inverse Rainbow is greedy-coloration/order dependent; no robust reading.
+
 <!-- NEXT -->
