@@ -621,4 +621,8 @@ Maxine zero-coordinate count is order-dependent; row calls the maximum-independe
 
 Regular graphs have dual degree `r`; exact `r <= n/average_distance` holds throughout.
 
+### wow-252 — HOLD
+
+Minimum full-spectrum Laplacian derivative is 0 from multiplicities, below positive `sum 1/dual_degree`.
+
 <!-- NEXT -->
