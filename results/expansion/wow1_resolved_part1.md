@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-137 — HOLD / NO ADDITIONAL WITNESS
+
+> 2nd largest eigenvalue < harmonic. James B. Shearer October 88. [/FMS2]. November 88.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
 ### wow-128 — PROVED_HOLD
 
 > The second smallest eigenvalues of Laplacian < n/averagedistance. Vance Faber, Los Alamos National Laboratory, deduced from the results of [CF] that for every fixed d = maximum degree there are at most finitely many countereramples to this conjecture and ev...
