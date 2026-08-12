@@ -305,3 +305,10 @@ graph of its independence order; no arsenal member meets the antecedent.
 `alpha(G) <= 1+lambda_max(bar G)`. The carrier gives `2 <= 9`; its complement
 gives `8 <= 12`. Direct complement diagonalization and the closed-form
 spectra agree beyond the `1e-6` guard.
+
+## wow-800 — HOLD
+
+**Status:** proved (Aouchiche--Hansen survey). The source says the inequality
+is valid for all graphs: `alpha(G) <= 1+n_nonpositive(bar G)`. Guarded
+complement spectra verify it throughout the arsenal; the carrier gives
+`2 <= 18`, and its complement gives `8 <= 18`.
