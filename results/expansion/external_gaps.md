@@ -126,3 +126,16 @@ also has `mu=14` (pair within every `K4` fiber) and `alpha=3<12`.  Both are far
 outside the `1e-6` guard.  Independent library evaluation and structural
 matching/independence proofs agree; see the executable certificate.  This is a
 stale retro-kill of a still-open-as-posted line, not a novelty claim.
+
+#### Figure 14 / lower-082 — `RETRO_KILL`
+
+`alpha >= floor(log(tan(order)^2)/log(10))`, using the program's ordinary
+real-radian `tan` and natural `log` (the quotient makes the logarithm base
+irrelevant).  Direct evaluation for every order `2,...,10` gives a right side
+at most `1`, so every nonempty connected graph in the stated database passes.
+At order 11, however, `K11` has `alpha=1` but right side
+`floor(4.708027945...)=4`.  The carrier-family witness `C5[K11]` has order 55,
+`alpha=2`, and right side `floor(3.309951816...)=3`.  Both evaluations are far
+outside the `1e-6` integer-boundary guard and independently reproduce.  This
+is a stale retro-kill of a still-open-as-posted line, not a novelty claim; see
+the executable certificate.
