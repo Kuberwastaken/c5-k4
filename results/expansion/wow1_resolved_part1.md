@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-39 — SKIP_BUNDLED_OCR
+
+> The deviation of the distance matrix is not more than the number of positive eigenvalues. AO. The deviation of the distance matrix is not more than the number of negative eigenvalues. Al. chromatic number + radius 1s not more than the maximum degree + the f...
+
+This row merges at least four numbered statements (`39`, `40`, `41`, `42`) and truncates the last one. Assigning its single status to a particular inequality would be unsafe; no verdict is inferred from the bundled OCR.
+
 ### wow-38 — HOLD / NO ADDITIONAL WITNESS
 
 > The variance of the distance matrix is not more than the negative of the smallest eigenvalue.
