@@ -352,3 +352,12 @@ Printed p.82 confirms the statement.  The source says matchings in this section
 are computed by greedy algorithms, but does not specify the vertex/edge ordering
 or quantifier defining “mismatching”.  The right side is therefore not a stable
 graph invariant.
+
+### wow-270 — HOLD_PROVED
+
+> 2 sqrt(n) <= bichromatic number.
+
+Printed p.78 recovers the radical and identifies the statement as a known result
+of Fink.  Here bichromatic means `chi(G)+chi(complement(G))`; the standard
+AM-GM argument `chi(G)chi(complement(G)) >= n` proves the bound.  The carrier
+gives `2sqrt(20) = 8.944272... <= 13`.  This is a proved theorem, not a target.
