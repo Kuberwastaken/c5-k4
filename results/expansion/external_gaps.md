@@ -194,3 +194,11 @@ Every vertex-transitive graph containing an induced `C4` is conjectured
 Hamiltonian.  Applicable controls `K3,3` and the cube are vertex-transitive,
 contain induced 4-cycles, and have directly checked Hamilton cycles.  The
 `C5[K4]` carrier is not an applicable witness.  No violation was found.
+
+#### Hamiltonicity 11 — `HOLD_ARSENAL`
+
+Every distance-regular perfect graph is conjectured Hamiltonian.  Complete
+graphs and complete balanced bipartite controls meet the hypothesis and have
+explicit Hamilton cycles (for the nontrivial balanced cases).  The carrier
+contains an induced `C5` and is not perfect.  No applicable arsenal graph
+violated the statement.
