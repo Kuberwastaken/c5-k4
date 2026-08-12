@@ -93,6 +93,13 @@ Author-repository, issue-history, exact-formula, and broader invariant searches
 found no pre-existing counterexample.  This is a candidate new disproof; an
 executable certificate is prepared separately.
 
+### graphbrain-alpha-upper-040 — DB_REJECTED
+
+> `independence_number(x) <= ceil(sqrt(average_distance(x))^order(x))`
+
+The identical author-project reading already fails the mandatory small-graph gate on connected Graph Atlas graph `atlas:@`: `alpha=1` while the right side is `0`.  It is therefore a database-inconsistent/as-posted falsehood, not a new campaign counterexample.  The result was independently recomputed from the author invariant definitions; undefined domain cases were excluded.
+
+
 ### graphbrain-alpha-upper-039 — HOLD_ARSENAL
 
 > `independence_number(x) <= maximum(max_even_minus_even_horizontal(x), matching_number(x) - 1)^different_degrees(x)`
