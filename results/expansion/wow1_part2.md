@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 52 / 208.
+Progress: 53 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -349,5 +349,11 @@ At least two conjectures are merged, `inverse dual degree` has no surviving defi
 > "minimum of Even < chromatic number of G + chromatic number of the complement of G."
 
 This remains in the explicitly restricted 634--654 block, whose equality hypothesis is not met by the tested arsenal. `Even` is also undefined in the OCR extract.
+
+### wow-656 — SKIP_OCR
+
+> "——“+ < sum of coordinates of a maximum clique. independence . Size"
+
+The left expression is destroyed and the remaining words do not determine an operand or grouping. No repair is attempted.
 
 
