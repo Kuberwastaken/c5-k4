@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 75 / 208.
+Progress: 76 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -487,5 +487,11 @@ All arsenal members have `diameter=radius`, left side 0, and a positive matching
 > "mean of dual degree - mean degree < scope of degree."
 
 The degree range is clear, but the dual-degree mean is not defined. Since regularity makes the right side zero, guessing could manufacture a false candidate; none is made.
+
+### wow-719 — SKIP_OCR
+
+> "mean of dual degree - mean degree < scope of dual degree."
+
+Both uses of Dual Degree depend on a missing definition. No verdict from a guessed sequence is trustworthy.
 
 
