@@ -96,6 +96,13 @@ false right side `4/3`.  The carrier family remains useful independent
 evidence, but the simple witness makes this a conservative stale/trivial
 retro-kill rather than a novelty claim.
 
+### graphbrain-alpha-upper-128 — RETRO_KILL_AUTHOR_SOURCE
+
+> `independence_number(x) <= ceil(laplacian_energy(x)*max_degree(x))`
+
+The author project's current graph-object source explicitly supplies a counterexample to this exact formula.  The still-open issue entry is stale; this is a retro-kill and no novelty is claimed.
+
+
 ### graphbrain-alpha-upper-127 — RETRO_KILL_AUTHOR_SOURCE
 
 > `independence_number(x) <= minimum(fractional_alpha(x), 10^laplacian_energy(x))`
