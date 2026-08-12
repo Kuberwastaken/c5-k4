@@ -93,6 +93,13 @@ Author-repository, issue-history, exact-formula, and broader invariant searches
 found no pre-existing counterexample.  This is a candidate new disproof; an
 executable certificate is prepared separately.
 
+### graphbrain-alpha-upper-096 — DB_REJECTED
+
+> `independence_number(x) <= maximum(max_even_minus_even_horizontal(x), size(x)/min_degree(x) - 1)`
+
+The exact author reading fails the mandatory small-graph gate on connected Graph Atlas graph `atlas:FpUK_`: `alpha=4` and right side `3.5`.  This is database-inconsistent as posted, not a new campaign counterexample.  Undefined-domain cases were excluded.
+
+
 ### graphbrain-alpha-upper-095 — HOLD_ARSENAL
 
 > `independence_number(x) <= e^different_degrees(x) + maximum(card_center(x), max_even_minus_even_horizontal(x))`
