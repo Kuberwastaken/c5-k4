@@ -463,11 +463,11 @@ Garble: `maximum of autocoordinates of Maxine of the complement`. The constructi
 
 ### wow-185 — HOLD where applicable
 
-Inherited section condition `sum Odd < sum Even` selects `T(7..9)` and the carrier complement; all satisfy `|E|/alpha <= ||degree sequence||`.
+Inherited section condition `sum Odd <= sum Even` selects `T(7..9)` and the carrier complement; all satisfy `|E|/alpha <= ||degree sequence||`.
 
 ### wow-191 — VIOLATED — NEW CANDIDATE
 
-The inherited condition `sum Odd < sum Even` selects `T(n)=L(K_n)` and the carrier complement, not the cycle blow-ups. `T(7)` gives `min deficiency=20 > |E|/omega=105/6`; `T(8),T(9)` also fail, while the complement holds. The primary scan p.70 confirms `<=`. Independent exhaustive testing found zero failures on all 996 connected nonempty Atlas graphs through order 7 and all named calibration graphs. Independently, `def_min(T(n))=(n-2)(n-3)` and `|E|/omega=n(n-2)/2`, so every `n>=7` fails. Four novelty searches found no prior refutation of WoW #191 or this statement.
+The inherited condition `sum Odd <= sum Even` selects `T(n)=L(K_n)` and the carrier complement, not the cycle blow-ups. The primary scan p.69 confirms the non-strict section condition, and p.70 confirms the non-strict conjectured bound. `T(7)` gives `min deficiency=20 > |E|/omega=105/6`; `T(8),T(9)` also fail, while the complement holds. Independent exhaustive testing found zero failures on all 996 connected nonempty Atlas graphs through order 7 and all named calibration graphs. Independently, `def_min(T(n))=(n-2)(n-3)` and `|E|/omega=n(n-2)/2`, so every `n>=7` fails. Four novelty searches found no prior refutation of WoW #191 or this statement.
 
 ### wow-192 — DB_SANITY_FAIL / corrupt reading
 
@@ -475,11 +475,11 @@ Literal `mean Even <= n-mu` fails 50 applicable connected Atlas graphs through o
 
 ### wow-193 — HOLD where applicable
 
-Under inherited `sum Odd < sum Even`, `mean Odd <= n-mu` holds: `T7` gives `10<=11`, `T8` `12<=14`, `T9` `14<=18`, complement `8<=10`.
+Under inherited `sum Odd <= sum Even`, `mean Odd <= n-mu` holds: `T7` gives `10<=11`, `T8` `12<=14`, `T9` `14<=18`, complement `8<=10`.
 
 ### wow-195 — HOLD where applicable
 
-Restoring inherited `sum Odd < sum Even` is essential: applicable `T(7..9)` and the carrier complement satisfy `lambda_max(A)<=max Even`. Cycle blow-ups and `K3` are inapplicable.
+Restoring inherited `sum Odd <= sum Even` is essential: applicable `T(7..9)` and the carrier complement satisfy `lambda_max(A)<=max Even`. Cycle blow-ups and `K3` are inapplicable.
 
 ### wow-198 — HOLD where applicable
 
@@ -911,7 +911,7 @@ One candidate survives the complete protocol:
 
 - **wow-191:** `T(n)=L(K_n)`, every `n>=7`, refutes
   `minimum deficiency <= |E|/omega` under the inherited
-  `sum Odd < sum Even` hypothesis.  The first witness is `T(7)`:
+  `sum Odd <= sum Even` hypothesis.  The first witness is `T(7)`:
   `20 > 105/6`.  The primary scan confirms the statement, the complete DB gate
   has no failure, and an independent closed-form derivation confirms the family.
 Targeted web searches by number, statement, and invariant combination found no

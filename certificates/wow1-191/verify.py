@@ -131,7 +131,7 @@ def evaluate(q: int) -> dict[str, object]:
         "clique_witness": [list(labels[vertex]) for vertex in clique_vertices],
         "sum_odd": sum(odd),
         "sum_even": sum(even),
-        "hypothesis_sum_odd_lt_sum_even": sum(odd) < sum(even),
+        "hypothesis_sum_odd_le_sum_even": sum(odd) <= sum(even),
         "conjectured_upper_bound": {"numerator": rhs.numerator, "denominator": rhs.denominator},
         "conjecture_holds": min(deficiencies) <= rhs,
         "violation_numerator_after_multiplying_by_omega": (
@@ -145,14 +145,14 @@ def verify(family_through: int = 10) -> dict[str, object]:
         raise ValueError("family-through must be at least 7")
     checked = [evaluate(q) for q in range(3, family_through + 1)]
     witness = checked[7 - 3]
-    assert witness["hypothesis_sum_odd_lt_sum_even"] is True
+    assert witness["hypothesis_sum_odd_le_sum_even"] is True
     assert witness["conjecture_holds"] is False
     assert witness["minimum_deficiency"] == 20
     assert witness["size"] == 105
     assert witness["clique_number"] == 6
     assert witness["conjectured_upper_bound"] == {"numerator": 35, "denominator": 2}
     assert all(
-        row["hypothesis_sum_odd_lt_sum_even"] is True and row["conjecture_holds"] is False
+        row["hypothesis_sum_odd_le_sum_even"] is True and row["conjecture_holds"] is False
         for row in checked
         if int(row["q"]) >= 7
     )
@@ -164,7 +164,7 @@ def verify(family_through: int = 10) -> dict[str, object]:
             "range": "every integer q >= 7",
             "minimum_deficiency": "(q-2)(q-3)",
             "size_over_clique_number": "q(q-2)/2",
-            "hypothesis": "sum Odd < sum Even",
+            "hypothesis": "sum Odd <= sum Even",
         },
         "constructed_family_checked": {"first_q": 3, "last_q": family_through},
     }

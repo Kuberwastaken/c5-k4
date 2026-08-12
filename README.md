@@ -126,7 +126,7 @@ independent recomputation, and a targeted novelty check.
 
 | # | Conjecture | Counterexample | Exact failure |
 |---|---|---|---|
-| **191** | If `sum Odd < sum Even`, minimum deficiency ≤ \|E\|/ω | `T(7) = L(K₇)` | `20 > 105/6`; in fact every `T(n)`, `n ≥ 7`, fails |
+| **191** | If `sum Odd ≤ sum Even`, minimum deficiency ≤ \|E\|/ω | `T(7) = L(K₇)` | `20 > 105/6`; in fact every `T(n)`, `n ≥ 7`, fails |
 | **889** | A connected regular triangle-free graph has a blue clique on `w/4` vertices | complement of `C₅[K₄]` | blue clique number `1 < 8/4 = 2` |
 
 The first is another T(n) lever: for `T(n)`, minimum deficiency is

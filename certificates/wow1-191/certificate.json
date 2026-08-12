@@ -1,7 +1,7 @@
 {
   "certificate": "WoW-I #191 is false",
   "closed_form_family": {
-    "hypothesis": "sum Odd < sum Even",
+    "hypothesis": "sum Odd <= sum Even",
     "minimum_deficiency": "(q-2)(q-3)",
     "range": "every integer q >= 7",
     "size_over_clique_number": "q(q-2)/2"
@@ -21,7 +21,7 @@
     },
     "degree": 10,
     "even_coordinate": 11,
-    "hypothesis_sum_odd_lt_sum_even": true,
+    "hypothesis_sum_odd_le_sum_even": true,
     "minimum_deficiency": 20,
     "odd_coordinate": 10,
     "order": 21,

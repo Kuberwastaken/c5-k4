@@ -16,7 +16,7 @@ class CertificateTests(unittest.TestCase):
         self.assertEqual(result["minimum_deficiency"], 20)
         self.assertEqual(result["sum_odd"], 210)
         self.assertEqual(result["sum_even"], 231)
-        self.assertTrue(result["hypothesis_sum_odd_lt_sum_even"])
+        self.assertTrue(result["hypothesis_sum_odd_le_sum_even"])
         self.assertFalse(result["conjecture_holds"])
         self.assertGreater(20, Fraction(105, 6))
 
@@ -30,12 +30,12 @@ class CertificateTests(unittest.TestCase):
         for q in range(3, 7):
             result = verify.evaluate(q)
             self.assertFalse(
-                result["hypothesis_sum_odd_lt_sum_even"]
+                result["hypothesis_sum_odd_le_sum_even"]
                 and not result["conjecture_holds"]
             )
         for q in range(7, 11):
             result = verify.evaluate(q)
-            self.assertTrue(result["hypothesis_sum_odd_lt_sum_even"])
+            self.assertTrue(result["hypothesis_sum_odd_le_sum_even"])
             self.assertFalse(result["conjecture_holds"])
 
 

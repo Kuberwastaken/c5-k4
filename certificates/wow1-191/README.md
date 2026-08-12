@@ -13,7 +13,7 @@ The verification is exact and uses only the Python standard library.
 ## Statement and conventions
 
 The primary July 2004 scan, page 70, prints the conjecture in the section for
-graphs satisfying `sum Odd < sum Even`:
+graphs satisfying `sum Odd <= sum Even`:
 
 ```text
 minimum deficiency <= size / clique.
