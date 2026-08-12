@@ -124,16 +124,21 @@ final write. Cap any ILP/CBC solve at 60s (`PULP_CBC_CMD(msg=0,
 timeLimit=60)`) and record a bracket if it times out; an unbounded solve
 already wedged one agent for 55 minutes.
 
-## Infrastructure running right now
-A shell loop `.../scratchpad/wowii309/autocommit2.sh` (started 10:27Z, runs
-6h, i.e. until ~16:27Z) commits and pushes the repo every 2 minutes:
-it syncs agent reports, commits all worktrees on all branches, merges every
-branch into main, pushes main, and appends a heartbeat to
-`.../scratchpad/wowii309/autocommit.log`. **Check it is alive**
-(`ps -ef | grep autocommit2`); if it has expired, either restart it or just
-commit/push yourself — sequential commits with clear messages, pushing as
-you go, is the standing rule for this repo. Never force-push or rewrite
-history.
+## Infrastructure — you own committing now
+An auto-commit loop ran during the previous session (syncing agent reports
+and pushing every 2 minutes; that is why the history has many
+`log: worktree sync HH:MM:SSZ` commits). **It is dead as of 14:03Z and is
+deliberately not being restarted** — you are the only writer now, and two
+processes competing for the git index would cause `index.lock` races.
+Verified at handoff: working tree clean, nothing unpushed, main in sync
+with origin.
+
+So: **commit and push yourself, as you go.** Small sequential commits with
+clear conventional messages; push each one (standing authorization — do
+not batch or wait to be asked). Never force-push or rewrite history. If
+you want the safety net back for long unattended runs, the script is at
+`.../scratchpad/wowii309/autocommit2.sh` — but only run it while no agent
+of yours is touching git.
 
 Git identity for commits: `Kuber Mehta <kuberhob@gmail.com>`. Do **not**
 add Claude/Anthropic co-author trailers.
