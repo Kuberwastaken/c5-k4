@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 15 / 208.
+Progress: 16 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -122,5 +122,11 @@ This belongs to the number-theoretic graph sequence in the surrounding section. 
 > "The number of cubic nonresidues < n / average distance of Paley graph with n vertices."
 
 This is explicitly restricted to Paley graphs. None occurs in this WoW-I arsenal, hence no campaign graph can witness or refute it.
+
++### wow-537 — N/A_ARSENAL
+
+> "If G is a connected Cayley graph of cyclic groups with at least two vertices then chromatic number < rank."
+
+No arsenal graph is supplied with a cyclic Cayley representation satisfying the stated hypothesis. The lane therefore has no admissible instance.
 
 
