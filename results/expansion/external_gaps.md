@@ -108,3 +108,9 @@ guard band.  No named-arsenal violation was found.
 `alpha >= ceil(theta)-radius`.  On `C5[K4]`, this is
 `2 >= ceil(sqrt(5))-2 = 1`.  The closed form avoids spectral rounding, and no
 named-arsenal violation was found.
+
+#### Figure 14 / lower-014 — `HOLD_ARSENAL`
+
+`alpha >= ceil(theta)-girth`.  On `C5[K4]`, the right side is
+`ceil(sqrt(5))-3=0`, so the inequality has slack `2`.  No named-arsenal
+violation was found.
