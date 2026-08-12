@@ -665,4 +665,8 @@ Garble: `feng hte f Dual Pegres < bichromatic number.`
 
 Garble: `averaged stance (manimum degree) <n.`
 
+### wow-269 — SKIP_OCR
+
+Garble: `laveragedistance (sumo fremper atures) <n.`
+
 <!-- NEXT -->
