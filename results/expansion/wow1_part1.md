@@ -305,4 +305,8 @@ With standard normalized Laplacian spectral deviation, all regular arsenal membe
 
 Vertex deficiency is constant on every regular vertex-transitive arsenal graph, so its range is 0.
 
+### wow-131 — HOLD
+
+Direct exact evaluation gives `min deficiency <= |E|/average_distance` throughout the arsenal.
+
 <!-- NEXT -->
