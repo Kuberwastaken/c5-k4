@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 51 / 208.
+Progress: 52 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -343,5 +343,11 @@ Reading Degree as the degree-sequence mode frequency, every regular arsenal grap
 > "average distance < inverse dual degree ... (co 653. average distance frequency of mode of 1-Residue."
 
 At least two conjectures are merged, `inverse dual degree` has no surviving definition, and embedded 653 has no comparison sign. No reading is selected.
+
+### wow-654 — N/A_ARSENAL
+
+> "minimum of Even < chromatic number of G + chromatic number of the complement of G."
+
+This remains in the explicitly restricted 634--654 block, whose equality hypothesis is not met by the tested arsenal. `Even` is also undefined in the OCR extract.
 
 
