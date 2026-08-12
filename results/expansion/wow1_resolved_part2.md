@@ -242,3 +242,10 @@ Neither comparison nor right-hand side survives, so no predicate is guessed.
 across a chosen complete eigenbasis. Repeated eigenspaces make that basis
 nonunique, as the source itself notes, and the OCR alternates `m(v)` and
 `p(v)`. No invariant reading survives.
+
+## wow-771 — HOLD
+
+**Status:** refuted (WoW annotation). The hypothesis is cubic. No primary
+carrier-family graph is cubic; the named Petersen calibration graph is, and
+gives `alpha=4 = n_nonnegative-diameter=6-2`. A guarded eigenspectrum and
+exact independent-set search agree.
