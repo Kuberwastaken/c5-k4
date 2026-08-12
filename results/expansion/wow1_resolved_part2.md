@@ -353,3 +353,9 @@ cannot compute its minimum degree without choosing a different conjecture.
 the carrier has average distance `27/19 < 1+8/12=5/3` using complement
 temperature; its complement has `30/19 < 1+11/9=20/9`. Exact distance counts
 and regular-degree formulas agree, and every arsenal member holds.
+
+## wow-840 — NOT_APPLICABLE
+
+**Status:** refuted (WoW annotation). This record is introductory prose defining
+fullerenes and isolated-pentagon isomers; it does not preserve a standalone
+inequality. No arsenal graph is a fullerene in any event.
