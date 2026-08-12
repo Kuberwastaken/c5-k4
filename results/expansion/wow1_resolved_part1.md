@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-165 — HOLD / NO ADDITIONAL WITNESS
+
+> mode of eigenvalues of Laplacian < size / average distance.Tony L. Brewster, Michael Dinneen and Vance Faber, see 107 and 158.10. 90.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed average_distance, distance, laplacian, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
 ### wow-160 — PROVED_HOLD
 
 > - smallest eigenvalue < size/2. Odile Favaron, Maryvonne Maho and Jean-Francois Sacle notice that largest eigenvalue-smallest eigenvalue < size/2 and the equality holds true iff G is a a union of a complete bipartite graph and isolated vertices. December 88.
