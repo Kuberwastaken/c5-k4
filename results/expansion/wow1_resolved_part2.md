@@ -340,3 +340,9 @@ verdict is possible.
 **Status:** refuted (WoW annotation). Both `c(v)` and the red graph inherit
 the fixed-chromatic-number setup of #822--#825, whose parameter is absent from
 the normalized row. The candidate predicate cannot be instantiated faithfully.
+
+## wow-828 — NOT_APPLICABLE
+
+**Status:** proved (WoW annotation). The blue graph again depends on the
+omitted fixed-chromatic-number property from the section heading. The campaign
+cannot compute its minimum degree without choosing a different conjecture.
