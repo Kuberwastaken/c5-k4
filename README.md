@@ -334,6 +334,11 @@ regular graphs instinctively. Ranked targets:
    retro-kills; the family provably cannot cross the remaining walls —
    it sits at exact equality on them (window-argument proofs in
    [`results/family_domination.md`](results/family_domination.md)).
+   For the diameter-two `L_s+b` cluster 176/182--185, that equality is now
+   explained exactly: every statement collapses to the already-proved WOWII
+   173 baseline `L_s+b>=n+1` (DeLaViña--Waller 2008), so this common-wall
+   search is impossible rather than merely unsuccessful. See
+   [`wowii_173_wall.md`](results/expansion/wowii_173_wall.md).
    Three more entries (401b, 412f, 448b) are corrupt as published
    (violated by stars/K₄/C₄ inside Graffiti.pc's own database) and can
    only be hunted from DeLaViña's original output: the Wayback follow-up

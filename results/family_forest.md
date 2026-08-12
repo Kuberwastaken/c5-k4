@@ -225,6 +225,12 @@ it sits precisely on the frontier of the whole L_s+b group and dips below only f
 because alpha(T(7)) = 3 > lambda_max = 2 (the alpha/lambda gap is the lever; all blow-up family
 members have alpha approximately = lambda_max + cycle-slack, which is why they could not kill it).
 
+**Follow-up (2026-08-12):** the common diameter-two wall for 176 and 182--185
+is exactly the already-proved WOWII 173 baseline, not merely a persistent
+empirical relation. See [`wowii_173_wall.md`](expansion/wowii_173_wall.md) for
+the primary source, reductions, and independent atlas audit. No diameter-two
+search can cross this wall.
+
 Infinite family + closed forms (L(K_n), n >= 7; brute/ILP-confirmed through T(11)):
 - alpha(T(n)) = floor(n/2) (max matching of K_n)
 - b(T(n)) = n for n even, n-1 for n odd (induced bipartite in L(K_n) <=> disjoint paths + even
