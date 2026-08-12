@@ -2,7 +2,7 @@
 
 ![C5[K4] — five K4 blobs on a cycle, complete join between adjacent blobs](assets/c5k4.png)
 
-**One 20-vertex graph that keeps killing conjectures.**
+**One 20-vertex graph that became a counterexample-discovery program.**
 
 C₅[K₄] is the lexicographic product of the 5-cycle with the complete graph K₄:
 blow every vertex of a pentagon into a K₄ clique and join adjacent blobs
@@ -36,6 +36,40 @@ in `google-deepmind/formal-conjectures`, and 12 nonduplicate major human
 conjectures. It found one especially clean, apparently unrecorded
 open-as-posted disproof: Graph Brain upper-081 is false on C₅[K₄], on a
 9-vertex windmill, and on two infinite families.
+
+## From one carrier to a discovery procedure
+
+The project no longer stops at asking which published inequalities are
+violated by `C₅[K₄]`. Its more general follow-up uses graphs that are exactly
+tight as **local maps of conjecture space**:
+
+1. find a graph or family on an equality wall;
+2. identify the invariant that prevents it from crossing that wall;
+3. move to a purpose-built family that changes that invariant while preserving
+   the rest of the extremal structure;
+4. require the candidate to pass the historical database-sanity gate,
+   independent exact recomputation, source recovery, and a no-`sorry` Lean
+   certificate.
+
+That procedure has now produced three prospective structural transfers, not
+merely retrospective explanations of the original four kills:
+
+| Tightness map | Obstruction exposed | Deliberate separating family | New crossing |
+|---|---|---|---|
+| `C₅[K_m]` on the `L_s+b` frontier | `α=λ_max` prevents #181 from crossing | triangular graphs `T(n)` | #181 under the formalized square-degree reading |
+| diameter-two equality wall around #176 | the selected square-degree vertices cannot separate in the original metric | two triangles joined by a long path (`D_L`) | #176, then adjacent #172 |
+| regular clique blow-ups in the independent-domination cluster | center geometry and the Caro--Wei correction move together | nonuniform `P₇` clique blow-ups | #430a |
+
+The `P₇` crossing is especially important: it is the second instance in a
+substantially different conjecture cluster of the same prospective pattern
+
+`tight carrier → isolate obstruction → separate invariant → new counterexample`.
+
+That is the expanding claim of this repository. `C₅[K₄]` remains the seed and
+the best diagnostic carrier, but the research object is now the repeatable
+navigation of tightness walls into new graph families. Direct carrier kills,
+spawned counterexamples, retro-kills, and interpretation-dependent statements
+remain counted separately below.
 
 ## The kills
 
