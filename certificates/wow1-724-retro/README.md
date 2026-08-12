@@ -28,17 +28,17 @@ Its adjacency spectrum is
 
 ```text
 2m                                      multiplicity 1
-((sqrt(5)-1)m/2 - 1)                   multiplicity 2
+((sqrt(5)-1)m/2)                       multiplicity 2
 0                                      multiplicity 5m-5
--((sqrt(5)+1)m/2 + 1)                  multiplicity 2
+-((sqrt(5)+1)m/2)                      multiplicity 2
 ```
 
-There are therefore `5m-2` nonnegative eigenvalues (zero is included), the
-largest eigenvalue is `2m`, and the smallest nonnegative eigenvalue is zero.
+There are therefore `5m-2` nonnegative eigenvalues. For `m >= 2`, zero occurs,
+the largest eigenvalue is `2m`, and the smallest nonnegative eigenvalue is zero.
 Moreover, `alpha(H_m)=2m`: two nonadjacent cycle blobs form an independent
 set, while an independent set cannot meet more than two base positions.
 
-WoW #724's two sides are consequently
+For the relevant range `m >= 2`, WoW #724's two sides are consequently
 
 ```text
 LHS = (5m-2) - 2m + 0 = 3m-2
