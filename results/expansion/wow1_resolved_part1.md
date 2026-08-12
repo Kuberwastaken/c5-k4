@@ -43,3 +43,9 @@ Direct evaluation of the applicable arsenal using the source hypotheses and the 
 > The weight of an edge with endpoints of degree x and y is the reciprocal of the square root of xy. The Randic index of a graph is the sum of weights of its edges. Conjecture: If G is a connected graph then the average distance between its distinct vertices ...
 
 The applicable arsenal satisfies the source-faithful inequality using the listed average_distance, degree, distance, randic_index, tree quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-6 — HOLD / NO ADDITIONAL WITNESS
+
+> average distance is not more than the variance of the degree sequence + maximal frequency of the degree sequence, (4.) The conjecture was refuted by James B. Shearer, IBM Research Center at Yorktown Heights. 10.89.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed average_distance, degree, distance quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
