@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 196 / 208.
+Progress: 197 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -1213,5 +1213,11 @@ For `bar(C5[K4])`, red independence is 2 and diameter 2, so `2>=3/2`.
 > "If G is regular triangle-free of degree d, red independence ... at most n/d."
 
 The applicable graph gives `2<=20/8=5/2`.
+
+### wow-885a — SKIP_OCR
+
+> "that the red independence number is at least as large as the blue clique numoer. and"
+
+This is a dangling continuation with its hypothesis and preceding connective missing. No standalone claim is inferred.
 
 
