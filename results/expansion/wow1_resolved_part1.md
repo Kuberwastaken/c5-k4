@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-289 — HOLD WHERE APPLICABLE
+
+> If girth is > 5 then the second largest eigenvalue < the mean dual degree. James B. Shearer, October 88.
+
+The girth-at-least-5 hypothesis excludes the main dense arsenal. Direct checks on `C5`-`C9`, Petersen, and Heawood satisfy `lambda_2 <= mean dual degree`; no additional witness to the already-refuted row appears.
+
 ### wow-281 — HOLD WHERE APPLICABLE
 
 > maz (matching, mismatching) number of negative eigenvalues of Dis- tance. Michael J. Dinneen, Los Alamos National Laboratory and University of Victoria, Victoria, B.C (comp. 107.) August 91.
