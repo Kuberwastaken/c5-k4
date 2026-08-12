@@ -1,0 +1,58 @@
+{
+  "corpus": "CONJECTURING / Graph Brain Hamiltonicity conjectures",
+  "source_title": "New Conditions for Graph Hamiltonicity",
+  "source_url": "https://math1um.github.io/Research/r31.pdf",
+  "source_retrieved_at": "2026-08-12",
+  "source_kind": "author-hosted primary paper PDF with clean text layer",
+  "entry_count": 6,
+  "entries": [
+    {
+      "id": "graphbrain-hamiltonicity-7",
+      "statement_text": "Every connected bipartite distance-regular graph is Hamiltonian.",
+      "status": "open-as-published",
+      "status_detail": "The paper calls this its most intriguing conjecture left open.",
+      "source_conjecture_number": "7",
+      "transcription_confidence": "high"
+    },
+    {
+      "id": "graphbrain-hamiltonicity-8",
+      "statement_text": "Every graph which is both planar and vertex transitive is Hamiltonian.",
+      "status": "proved-in-source",
+      "status_detail": "The same paper proves this later as Theorem 20.",
+      "source_conjecture_number": "8",
+      "transcription_confidence": "high"
+    },
+    {
+      "id": "graphbrain-hamiltonicity-9",
+      "statement_text": "Every graph which is both Eulerian and vertex transitive is Hamiltonian.",
+      "status": "open-as-published",
+      "status_detail": "Listed among conjectures for which the authors found neither proof nor counterexample.",
+      "source_conjecture_number": "9",
+      "transcription_confidence": "high"
+    },
+    {
+      "id": "graphbrain-hamiltonicity-10",
+      "statement_text": "Every graph which is vertex transitive and contains an induced C4 is Hamiltonian.",
+      "status": "open-as-published",
+      "status_detail": "Listed among conjectures for which the authors found neither proof nor counterexample.",
+      "source_conjecture_number": "10",
+      "transcription_confidence": "high"
+    },
+    {
+      "id": "graphbrain-hamiltonicity-11",
+      "statement_text": "Every graph which is both distance regular and perfect is Hamiltonian.",
+      "status": "open-as-published",
+      "status_detail": "Listed among conjectures for which the authors found neither proof nor counterexample.",
+      "source_conjecture_number": "11",
+      "transcription_confidence": "high"
+    },
+    {
+      "id": "graphbrain-hamiltonicity-12",
+      "statement_text": "Every graph which is semi-symmetric is Hamiltonian.",
+      "status": "open-as-published",
+      "status_detail": "Listed among conjectures for which the authors found neither proof nor counterexample.",
+      "source_conjecture_number": "12",
+      "transcription_confidence": "high"
+    }
+  ]
+}
