@@ -669,4 +669,8 @@ Garble: `averaged stance (manimum degree) <n.`
 
 Garble: `laveragedistance (sumo fremper atures) <n.`
 
+### wow-270 — SKIP_OCR — historically known
+
+OCR destroyed the exponent/formula; the row says the intended result is known from Fink.
+
 <!-- NEXT -->
