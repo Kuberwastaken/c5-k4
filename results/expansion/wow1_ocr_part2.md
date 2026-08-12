@@ -16,7 +16,7 @@ where possible; spectral gaps at most `1e-6` are ties, and any ILP solve is
 capped at 60 seconds. A source statement that is recovered but restricted to an
 inapplicable construction is recorded as `N/A_ARSENAL`.
 
-Progress: 31 / 54.
+Progress: 32 / 54.
 ### wow-456 — N/A_ARSENAL
 
 PDF p.95: `The residue of the graph RP[2..n] is not more than pi(n).` The source cleanly restores `pi(n)` and identifies RP/residue definitions, but this is restricted to the number-theoretic RP construction; no arsenal graph is admissible.
@@ -110,4 +110,7 @@ PDF p.103: `mean(Rainbow) <= size/independence`, under the same inherited condit
 ### wow-662 — HOLD
 
 PDF p.103: `deviation of eigenvalues <= n-independence`, under the same condition. For each regular graph the eigenvalue RMS deviation is exactly `sqrt(d)`; on all applicable C5[K_m], `sqrt(3m-1) < 5m-2`, safely beyond the spectral guard.
+### wow-693 — HOLD
+
+PDF p.104 defines `m1` as the multiplicity of 1 as an adjacency eigenvalue over GF(2), then states `independence <= n-m1`. Exact binary row reduction gives RHS 5 on every C5[K_m], 7 on C7/C9 blow-ups, 15/28/28 on T(7/8/9), and 20 on the complement carrier; all hold.
 
