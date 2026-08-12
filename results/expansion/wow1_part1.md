@@ -505,4 +505,8 @@ All arsenal graphs satisfy `n/2 <= n-residue`.
 
 Average distance is at most the number of negative gravity eigenvalues throughout.
 
+### wow-212 — SKIP_OCR / historically refuted
+
+Garble: `Inverse coordinates of Maxine < n/2.` Maxine is representation-dependent, and the row explicitly gives `P5` as a counterexample.
+
 <!-- NEXT -->
