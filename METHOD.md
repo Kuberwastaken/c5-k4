@@ -1,9 +1,11 @@
-# Invariant-Wall Navigation: Development Method v0.1
+# Invariant-Wall Navigation: Development Method v0.2
 
 **Status:** committed development protocol, 2026-08-12
 
-**Scope:** existing open finite-graph statements already present in
-[`google-deepmind/formal-conjectures`](https://github.com/google-deepmind/formal-conjectures)
+**Scope:** existing published finite-graph conjectures already represented in
+[`google-deepmind/formal-conjectures`](https://github.com/google-deepmind/formal-conjectures),
+or source-recovered WoW/Graph Brain statements suitable for one-file upstream
+formalization. This does not include generating new conjectures.
 
 **Not yet:** a preregistered held-out evaluation or a general-purpose discovery engine
 
@@ -65,7 +67,7 @@ For a candidate family `F(theta)`, the working record must contain:
 
 This turns "tightness" into a concrete object rather than a visual analogy.
 
-## Method v0.1
+## Method v0.2
 
 ### Phase 0 — Freeze the target and its provenance
 
@@ -100,6 +102,11 @@ Every reading must first survive the historical-control set:
 A reading contradicted by an applicable control that the conjecturer could
 reasonably have known is presumed corrupt or mistranscribed, not newly false.
 It is logged and rejected unless primary-source evidence resolves the conflict.
+
+For a statement with conditional clauses, each clause is gated separately on
+the controls satisfying that clause. A passing default branch cannot rescue a
+corrupt exceptional branch, as the source-faithful leaf clause of WOWII 434c
+demonstrates.
 
 All arithmetic is exact where possible. Spectral comparisons use the existing
 `1e-6` guard and are never promoted from a smaller numerical gap. Every ILP or
@@ -186,6 +193,18 @@ Search the smallest parameter region capable of testing the prediction:
 The objective is not the smallest graph at this phase. It is a transparent
 structural witness. Minimality is a separate bounded follow-up.
 
+Before optimizing transformation parameters, derive any quotient-level or
+family-level necessary condition for a negative residual. If that condition is
+never negative on the declared quotient universe, stop: larger weights cannot
+help. The complete 422b trial is the model—all quotient/set residuals were
+nonnegative, so no positive clique weights of any expanded order could cross.
+
+When a bounded local surgery repeatedly reaches equality but never crosses,
+record which parameter is pinned by the construction. Do not silently add more
+edge edits. The barbell Wave 1 trial showed that endpoint clique size and two
+local edge toggles are pinning coordinates for 169/174/180/182; a further trial
+must change the quotient or core geometry.
+
 ### Phase 7 — Candidate verification
 
 No apparent crossing is a result until it passes all gates:
@@ -248,9 +267,10 @@ trial with multiple consequences.
 ## Development-set program: formal-conjectures only
 
 Until a future protocol is frozen and tagged for a held-out corpus, work stays
-inside already-published open declarations in `formal-conjectures`. This keeps
-the public research trail legible and produces independently reviewable Lean
-artifacts while Method v0.1 is refined.
+inside already-published statements that are either present in
+`formal-conjectures` or can be submitted there with a recovered primary source.
+This keeps the public research trail legible and produces independently
+reviewable Lean artifacts while Method v0.2 is refined.
 
 ### Wave A — known tight walls
 
@@ -302,6 +322,21 @@ No target already inspected, discussed, ranked, or searched in this repository
 will be counted as held out.
 
 ## Method changelog
+
+### v0.2 — 2026-08-12
+
+- Required conditional clauses to pass the database gate independently after
+  WOWII 434c's source-faithful leaf exception failed on `P4`.
+- Added quotient-level necessary-condition pruning after the exhaustive 422b
+  trial proved that no positive clique weights over quotients through order
+  nine can cross its residual wall.
+- Classified persistent unit slack plus structural reduction as theorem
+  evidence, not permission for an unbounded search; WOWII 183 is reduced to a
+  precise diameter-three core with local independence at most three.
+- Recorded pinning coordinates for failed local surgery. The barbell cluster
+  can reach equality but needs a quotient-level change to cross.
+- Broadened the submission scope only to source-recovered existing statements
+  suitable for `formal-conjectures`; no new conjecture generation is admitted.
 
 ### v0.1 — 2026-08-12
 
