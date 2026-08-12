@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 40 / 208.
+Progress: 41 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -277,5 +277,11 @@ The `Rainbow` coordinate sequence is undefined in the extracted source, preventi
 > "mean Rainbow < Randic."
 
 The Randić index is standard, but the left coordinate sequence is not defined in this record. A one-sided computation cannot establish the verdict.
+
++### wow-640 — N/A_ARSENAL
+
+> "chromatic number < maximal frequency of coordinates of maximum clique."
+
+This lies under the explicit 634--654 hypothesis `chi(bar G)=n-nu(G)`, which no campaign member is established to satisfy. Additionally clique-vector coordinates are not defined here.
 
 
