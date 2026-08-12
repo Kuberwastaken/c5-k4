@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-61 — HOLD / NO ADDITIONAL WITNESS
+
+> mode of distance is not more than the matching number. Disproved by Alon, Saks, Seymour and Winkler,who also proved that the conjecture is true for regular graphs of high degree, > 10 is enough.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed degree, distance, matching quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
 ### wow-60 — HOLD / NO ADDITIONAL WITNESS
 
 > mode of distance is not more than the independence number. Disproved by Alon, Saks, Seymour and Winkler.
