@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-64 — HOLD / NO ADDITIONAL WITNESS
+
+> If G is triangle-free then the mode of Degree < then the Randic Index. Disproved by James B. Shearer. July 87.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed degree, randic_index quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
 ### wow-62 — HOLD / NO ADDITIONAL WITNESS
 
 > If G is a regular graph of degree d then the average distance is not more than n/d, comp 127. Peter Puget proved the conjecture for graphs of diameter < 3 and constructed an infinite family of graphs of diameter 4 and even F such that average distance = 2+ ...
