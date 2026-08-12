@@ -749,4 +749,8 @@ Inherited `girth>5` excludes every arsenal graph; A&H supplies the spectral read
 
 Inherited `girth>5` excludes the arsenal and the formula is garbled.
 
+### wow-296 — N/A_ARSENAL
+
+Tree hypothesis excludes every arsenal graph.
+
 <!-- NEXT -->
