@@ -55,3 +55,9 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 > Let m be the mode of distance of connected graph, 1.e the distance which occurs most often. Conjecture: m is not more than the average distance + the matching number. This conjecture was refuted by Hi Dong Qi, Dept. of Applied Mathemat- ics, Beijing Institu...
 
 The applicable arsenal satisfies the source-faithful inequality using the listed average_distance, distance, matching quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-11 — HOLD / NO ADDITIONAL WITNESS
+
+> average temperature is not more than the variance of the degree sequence + maximum frequency of the degree sequence. (-1, 4.) Disproved by William Staton, OleMiss 6. 88.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed degree, temperature quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
