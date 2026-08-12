@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 173 / 208.
+Progress: 174 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -1075,5 +1075,11 @@ The explicit fullerene hypothesis is not met.
 > "number of positive eigenvalues of a fullerene ..."
 
 No arsenal member is cubic planar/fullerenic.
+
+### wow-856 — N/A_ARSENAL (universal alternate DB_REJECTED)
+
+> "sum of positive eigenvalues ... > 1 + number of eigenvalues greater or equal to -1."
+
+The record sits inside the fullerene block and compares 846, so the arsenal is inapplicable. Isolated universal reading would fail on `bar(C5[K4])`: `4+4sqrt(5)~=12.9443 < 19`; but it also fails 879/995 nontrivial connected atlas graphs, including `K2,K3,C5--C9,P7,K3,3,K7` and stars. The gate decisively rejects that reading.
 
 
