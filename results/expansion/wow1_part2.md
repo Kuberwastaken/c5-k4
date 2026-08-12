@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 37 / 208.
+Progress: 38 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -259,5 +259,11 @@ The right side is irrecoverable OCR garble and `Rainbow` is likewise undefined. 
 > "inverse of coordinates of Maxine < n /2."
 
 The phrase does not specify whether `inverse` means reciprocal sum, reversed vector, or another defined try-out, and Maxine coordinates depend on missing conventions.
+
++### wow-635 — N/A_ARSENAL
+
+> "size/independence < chromatic number of G + chromatic number of the complement of G."
+
+The surrounding text explicitly restricts conjectures 634--654 to graphs satisfying `chi(bar G)=n-nu(G)`. None of the non-triangle-free blow-ups or triangular graphs is certified in that class; the triangle-free complement of `C5[K4]` also fails it (`chi(C5[K4])=4`, while `20-nu=10`). No admissible arsenal instance.
 
 
