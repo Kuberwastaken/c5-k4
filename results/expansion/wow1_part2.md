@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 33 / 208.
+Progress: 34 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -235,5 +235,11 @@ Although the left side is clear, `coordinates of Maxine` depends on an unspecifi
 > "mean of dual degree < mean of Even."
 
 The OCR corpus does not preserve definitions of either derived coordinate sequence sufficiently to evaluate the comparison.
+
++### wow-604 — SKIP_OCR
+
+> "mean of Even < chromatic number + chromatic number of the complement."
+
+The chromatic side is clear but `Even` is undefined here; no distance-parity invariant is substituted for this named coordinate sequence.
 
 
