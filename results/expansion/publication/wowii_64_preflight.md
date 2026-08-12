@@ -1,5 +1,12 @@
 # WOWII 64 upstream publication preflight
 
+> **Cancelled.** This checklist led to accidental issue #4917 because it
+> checked only the upstream filename/history and failed to treat the already
+> merged `c5-k4` proof commit as completed campaign work. The issue was closed,
+> no PR was opened, and the unused fork branch was deleted. WOWII 64 is also
+> externally claimed by Gebendorfer, so it is ineligible for the new
+> apparently-unclaimed-result release workflow.
+
 Date: **2026-08-12 UTC**
 
 This is the mandatory public-write gate from `UPSTREAM_PROTOCOL.md`. The

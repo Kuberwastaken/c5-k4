@@ -1,7 +1,13 @@
-# DeepMind `formal-conjectures` publication protocol
+# Public-result publication protocol
 
-**Standing rule:** every public issue and PR from this campaign follows the
-WOWII 172/176 layout. This is a release gate, not optional guidance.
+**Standing rule, superseding the earlier upstream workflow:** do not open new
+issues or PRs in `google-deepmind/formal-conjectures` from this campaign.
+Treat that repository as read-only for corpus selection, duplicate checks, and
+status comparison. Publish newly validated, apparently unclaimed
+counterexamples as versioned releases of `Kuberwastaken/c5-k4` instead.
+
+Existing upstream PRs may be monitored and repaired in response to CI or
+review, but this does not authorize a new upstream issue, PR, or comment.
 
 Canonical exemplars:
 
@@ -12,19 +18,21 @@ Canonical exemplars:
   and PR [#4911](https://github.com/google-deepmind/formal-conjectures/pull/4911)
   for WOWII 176.
 
-## Scope gate
+## Scope and novelty gate
 
 Before any public write, all answers below must be yes:
 
-1. Is this an existing problem from a collection already represented in
-   `google-deepmind/formal-conjectures`?
+1. Is this an existing problem from the campaign's frozen
+   `formal-conjectures`-represented scope?
 2. For this campaign, is it Written on the Wall **II**, not WoW I or Graph
    Brain?
-3. Does the current upstream repository not already contain the file,
-   declaration, issue, or focused PR?
-4. Has the primary source/status and every plausible reading been audited?
-5. Is the claimed result complete rather than a conditional arithmetic core,
-   bounded hold, theorem signal, or source erratum?
+3. Has the primary source/status and every plausible reading been audited?
+4. Is the result complete rather than a conditional arithmetic core, bounded
+   hold, theorem signal, or source erratum?
+5. Is it apparently unclaimed after checking literature, the current upstream
+   repository, its issue/PR history, and this project's own commits, tags, and
+   releases?
+6. Is the proposed tag/version absent from both local and remote tags?
 
 If any answer is no, stop the publication path. Keep the work local and label
 its actual status.
@@ -39,12 +47,8 @@ The public workflow starts only after `c5-k4` contains sequential commits for:
 4. the complete no-`sorry` Lean certificate;
 5. a warning-as-error build and axiom audit.
 
-The complete proof belongs in `c5-k4`. The upstream problem file follows the
-172/176 benchmark layout: concise source-faithful definitions and statement,
-`answer(True/False)`, `@[category research solved, AMS 5]`, an immutable
-`formal_proof using lean4` link, and repository-standard `by sorry`. Do not
-copy a long executable certificate into the benchmark PR unless a maintainer
-explicitly asks for it.
+The complete proof, verifier, source audit, and result report all belong in
+`c5-k4` before a release is drafted.
 
 ## Immutable-link gate
 
@@ -66,13 +70,13 @@ whole-file blob link is better than a stale line range.
 
 Record the full resolved SHA and URL in the local publication checklist.
 
-## Issue order and format
+## Release format
 
-Create the issue first. One issue covers one WoW II problem. Its title is:
+One release covers one WoW II problem. Its tag and title are:
 
 ```text
-Formalize the disproof of WOWII Conjecture N
-Formalize the proof of WOWII Conjecture N
+wowii-N-v1
+WOWII Conjecture N: counterexample and formal certificate
 ```
 
 Use these sections in this order:
@@ -89,47 +93,16 @@ Use these sections in this order:
    historical priority, and known earlier results.
 7. `## AI assistance disclosure` — same responsibility wording as 172/176.
 
-After creation, read the rendered issue back via GitHub and verify every link.
-
-## Branch and PR format
-
-Only after the issue exists:
-
-1. branch from the exact current `upstream/main`;
-2. add one problem file for one conjecture;
-3. run the target `lake --wfail build`;
-4. commit only that file at the logical checkpoint;
-5. push the one branch;
-6. open one non-draft PR that closes the issue.
-
-PR title:
-
-```text
-WrittenOnTheWallII: disprove conjecture N
-WrittenOnTheWallII: prove conjecture N
-```
-
-PR body sections, matching 172/176:
-
-1. `## Summary` — exact statement, compact witness/proof data, and
-   `Closes #ISSUE`.
-2. `## Follow-up discovery pattern` — how the carrier/tight wall led here,
-   with immutable method and detailed-result links.
-3. `## Formal proof` — verified immutable certificate and audit link, with
-   exact trust assumptions.
-4. `## Reading note` or `## Source/status note`.
-5. `## Verification` — target build and external warning-as-error command.
-6. `## AI assistance disclosure`.
-
-After creation, read back the PR body/files/base/head. Confirm exactly one
-problem file, `main` as base, the intended fork branch as head, and all links
-HTTP 200. Then monitor CI. A transient infrastructure failure is reported as
-such; it never changes the mathematical status.
+Create the release from the exact audited commit, not from a moving branch.
+After creation, read the rendered release and its target commit back through
+GitHub, verify every link, and confirm that the tag resolves to the intended
+commit. Do not upload generated binaries when the committed source,
+certificate, and verifier are the actual durable artifacts.
 
 ## Public-write preflight checklist
 
-Each future submission must add and commit a short checklist under
-`results/expansion/publication/` before the issue is created. It records:
+Each future release must add and commit a short checklist under
+`results/expansion/publication/` before the release is created. It records:
 
 - upstream SHA and eligible collection;
 - exact duplicate-search queries and results;
@@ -138,8 +111,8 @@ Each future submission must add and commit a short checklist under
 - complete Lean build command/result and trust assumptions;
 - full SHA from `git rev-parse`;
 - HTTP-200 checks for every planned URL;
-- proposed issue title and PR title;
-- confirmation that the issue and PR bodies were generated from the canonical
-  section order above.
+- proposed tag and release title;
+- confirmation that the release body uses the canonical section order above;
+- confirmation that no new upstream issue or PR will be opened.
 
-No checklist, no public write.
+No checklist, no release.
