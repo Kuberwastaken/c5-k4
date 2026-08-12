@@ -377,4 +377,8 @@ Garble: `mean of autocoordinates of Maxine of D2 < the matching number.` The con
 
 Garble: `mean of autocoordinates of Maxine of D2 < the chromatic number.` The construction is undefined/order-dependent.
 
+### wow-157 — HOLD
+
+Radius is at most the smaller of minimum Odd and minimum Even counts throughout the arsenal.
+
 <!-- NEXT -->
