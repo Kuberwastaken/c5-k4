@@ -429,4 +429,8 @@ Exact `n/average_distance` is at most the Euclidean norm of the Laplacian spectr
 
 Because Even is constant, `sum 1/Even=n/E <= n/average_distance` throughout.
 
+### wow-175 — SKIP_OCR
+
+Garble: `mean of autocoordinates of Maxine of D2`. The construction is undefined/order-dependent.
+
 <!-- NEXT -->
