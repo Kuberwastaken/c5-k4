@@ -87,3 +87,12 @@ Printed p.67 confirms this companion to 155.  The source defines Maxine and
 `D2` but not autocoordinates, so the same representation-dependent definition
 gap prevents a faithful evaluation.  The OCR's trailing `x * x` is not present
 in the source and was only page ornament/noise.
+
+### wow-161 — SKIP_DEFINITION
+
+> The maximum of autocoordinates of Maxine of the complement of G <= the
+> average transmission of the distance matrix.
+
+The full inequality is clean on printed p.68.  It repairs the truncated OCR but
+not the absent definition of autocoordinates or Maxine's tie-order dependence.
+No faithful numerical reading can be assigned from the source.
