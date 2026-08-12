@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 184 / 208.
+Progress: 185 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -1141,5 +1141,11 @@ The applicable arsenal member `bar(C5[K4])` has red graph `C5[K4]` with independ
 > "number of red components ... [at most] twice the number of components."
 
 For `bar(C5[K4])`, red graph `C5[K4]` is connected, so `1<=2*1`.
+
+### wow-867 — HOLD / TIGHT
+
+> "red clique number is at least as large as maximum degree."
+
+For the applicable triangle-free graph `bar(C5[K4])`, red graph is `C5[K4]`, with clique number 8 exactly equal to `Delta(G)=8`.
 
 
