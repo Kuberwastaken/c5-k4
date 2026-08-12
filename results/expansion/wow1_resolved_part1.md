@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-145 — HOLD / NO ADDITIONAL WITNESS
+
+> minimum of derivative of positive eigenvalues < n/average distance. [FMS'2], December 89.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed average_distance, distance, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
 ### wow-141 — HOLD / NO ADDITIONAL WITNESS
 
 > range of positive eigenvalues < the matching number. [FMS2]. December 88.
