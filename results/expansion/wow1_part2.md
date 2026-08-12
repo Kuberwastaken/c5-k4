@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 10 / 208.
+Progress: 11 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -92,5 +92,11 @@ The hypothesis is specifically a Paley graph. The WoW-I handoff arsenal contains
 > "pi(n) sum of reciprocals of coordinates of a maximum clique."
 
 The relation symbol between the two quantities is absent. Consequently no inequality or equality survives to evaluate.
+
++### wow-516 — SKIP_OCR
+
+> "deviation of S < frequency of mode of eigenvalues of Laplacian."
+
+The set/vector `S` is undefined in the surviving record. Testing a guessed spectral sequence would violate the no-guess OCR rule.
 
 
