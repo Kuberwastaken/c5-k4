@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 118 / 208.
+Progress: 119 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -745,5 +745,11 @@ This is truncated number-theory setup; no complete conjectural assertion survive
 > "If G is a critical Ramsey graph r(3,a) ..."
 
 No arsenal member is supplied as a critical Ramsey graph of the required order/class.
+
+### wow-787 — N/A_ARSENAL
+
+> "If G is a complement of a r(3,n) graph ..."
+
+No arsenal member is established as the complement of a critical Ramsey graph. Triangle-freeness alone is insufficient.
 
 
