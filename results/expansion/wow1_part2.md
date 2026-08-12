@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 182 / 208.
+Progress: 183 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -1129,5 +1129,11 @@ No arsenal graph is cubic of order 16 and girth 5.
 > "Let G be triangle-free. Then the red counter-independence number is < the blue clique number."
 
 For `G=bar(C5[K4])`, the natural #822 distance coloring gives red graph `C5[K4]` and empty blue graph, apparently `2<=1`. But the same reading fails 11/89 applicable connected triangle-free nontrivial atlas graphs, including `C4,C5`, and named Petersen and `K3,3`. The printed follow-up about maximal blue cliques is incompatible with this parse on `C5`, confirming a terminology mismatch. Gate rejected; not a kill.
+
+### wow-865 — HOLD / TIGHT
+
+> "If G is triangle-free ... blue clique number > 1/2(red independence number)."
+
+The applicable arsenal member `bar(C5[K4])` has red graph `C5[K4]` with independence 2 and empty blue graph with clique number 1, giving exact non-strict equality `1=2/2`. The source convention uses `>` for at-least bounds; a strict parse fails the `C5` sanity gate and is discarded.
 
 
