@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 116 / 208.
+Progress: 117 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -733,5 +733,11 @@ With `g` the global minimum degree/degeneracy of the complement as stated, exact
 > "jet number is not more than (n-s(k)+k)/2."
 
 Enumerating each `k<jet(G)` and the minimum span size `s(k)` verifies all readings across the arsenal. Closest brackets are `T(7),k=2: 3<=7/2` and `T(9),k=3:4<=9/2`; no ILP was used.
+
+### wow-784 — SKIP_OCR
+
+> "I decided to try to obtain conjectures related to the twin prime conjecture ... q(3) is 8"
+
+This is truncated number-theory setup; no complete conjectural assertion survives.
 
 
