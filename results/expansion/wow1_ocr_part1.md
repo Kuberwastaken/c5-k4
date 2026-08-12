@@ -221,3 +221,13 @@ left-hand quantity.
 Printed p.76 confirms the statement.  The source itself records that on cycles
 of order `6k`, Maxine may return only `2k` vertices, producing a counterexample
 (to this and 147).  This is an explicit historical refutation, not a new kill.
+
+### wow-248 — SKIP_ALGORITHM
+
+> The number of zero coordinates of Maxine <= chromatic number of the
+> complement of G.
+
+Printed p.76 confirms the statement and notes the maximum-independent-set repair
+is obvious.  For Maxine itself the output changes with unresolved tie ordering;
+the scan gives no quantifier over performances, so the all-readings rule leaves
+this algorithm-dependent row unclassified.
