@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 28 / 208.
+Progress: 29 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -205,5 +205,11 @@ No arsenal member is a tree. The hypothesis fails throughout the lane.
 > "chromatic number of the complement of G = n - the matching number."
 
 The literal standard reading appears false on the carrier (`C5[K4]`: `chi(bar G)=3`, `n-nu(G)=10`) but is rejected by the mandatory database gate: it fails on 665 of the 996 connected atlas graphs through order 7 (the count includes `K1`; the usual nontrivial count is 995). In particular `K3` gives `chi(bar K3)=1 != 3-nu(K3)=2`, and named calibration `K7` also fails. An independent direct coloring/matching enumeration on `K3` gives the same result. Thus the printed broad equality cannot be the faithful tested conjecture and is not a campaign kill.
+
++### wow-597 — SKIP_OCR
+
+> "radius < maximal frequency of Even."
+
+`Even` is an undefined coordinate sequence in the surviving text; its maximal frequency cannot be computed without guessing the missing definition.
 
 
