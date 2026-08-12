@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 120 / 208.
+Progress: 121 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -757,5 +757,11 @@ No arsenal member is established as the complement of a critical Ramsey graph. T
 > "do > az."
 
 The coordinate definitions and even the OCR subscripts are lost; the following commentary cannot restore the assertion.
+
+### wow-789 — N/A_ARSENAL
+
+> "market value of critical Ramsey triangle-free graphs ..."
+
+The assertion is restricted to critical Ramsey graphs, a class not instantiated by the arsenal.
 
 
