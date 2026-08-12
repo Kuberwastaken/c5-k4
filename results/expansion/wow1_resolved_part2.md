@@ -278,3 +278,10 @@ falsifiable row.
 three positive eigenvalues. It gives jet numbers `3,3,4` on `T(7),T(8),T(9)`
 versus `7,8,9`. A separate neighborhood-complement predicate reproduces each
 jet, so `jet <= n_positive` holds throughout.
+
+## wow-783 — NOT_APPLICABLE
+
+**Status:** refuted (WoW annotation). This concerns arithmetic-progression
+graphs on intervals of primes. None of the campaign graphs is supplied with
+the required prime labeling, and testing an arbitrary isomorphic graph would
+erase the number-theoretic hypothesis.
