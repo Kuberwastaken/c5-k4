@@ -525,4 +525,8 @@ On the triangle-free carrier complement, `|E|/alpha=10 <= mean Even=12`; order r
 
 Temperature deviation is 0 on every regular arsenal graph.
 
+### wow-219 — HOLD
+
+The second-largest gravity eigenvalue is far below the number of nonedges throughout (carrier representative about `2.48 <= 80`).
+
 <!-- NEXT -->
