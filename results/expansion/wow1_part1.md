@@ -605,4 +605,8 @@ Even is constant on every vertex-transitive arsenal graph, so `maxfreq(Even)=n >
 
 Inherited `K4`-free hypothesis selects the carrier complement: `|E|-n=60 <= sum deficiency=560`.
 
+### wow-245 — HOLD where applicable
+
+On the `K4`-free carrier complement, `|E|=80 <= sum Even=240`; row cites proof.
+
 <!-- NEXT -->
