@@ -19,3 +19,12 @@ when the scan itself does not define a historical program-dependent invariant.
 
 Progress is committed and pushed one recovered row at a time.
 
+### wow-86 — SKIP_SOURCE
+
+> variance of coordinates of a maximal clique maximum of Even.
+
+The primary scan (printed p.43, PDF p.43) confirms that the comparison operator
+is absent in the source itself, between “clique” and “maximum”.  This is not an
+OCR loss: the July 2004 document preserves a damaged original entry.  Supplying
+`<=` would be editorial conjecture rather than source recovery.  The row remains
+unevaluable.
