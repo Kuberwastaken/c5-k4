@@ -649,4 +649,8 @@ Even-parity scope is 0 on every vertex-transitive arsenal graph, so matching is 
 
 `-lambda_min(A) <= max Even`; carrier `2sqrt(5)-1 <= 9`, all others hold outside guard.
 
+### wow-263 — SKIP_OCR
+
+Maxine-coordinate range is algorithm/order-dependent.
+
 <!-- NEXT -->
