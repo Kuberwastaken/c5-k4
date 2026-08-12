@@ -825,4 +825,8 @@ Inverse Rainbow is greedy-coloration/order dependent; no robust reading.
 
 Carrier complement gives `n-residue=17 <= mu(G)+mu(complement G)=20`.
 
+### wow-322 — HOLD where applicable
+
+Triangle-free carrier complement has `Inverse Even=sum 1/12=5/3`, below distance spectral range about `34.4721`.
+
 <!-- NEXT -->
