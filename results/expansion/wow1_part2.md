@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 191 / 208.
+Progress: 192 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -1183,5 +1183,11 @@ For `bar(C5[K4])`, the deletion-degree sum equals its 80 edges, so mean over 20 
 > "If G is a cubic, connected, triangle-free graph ..."
 
 No arsenal member is cubic; the stronger theorem in commentary is not the stated conjecture.
+
+### wow-875 — N/A_ARSENAL
+
+> "Let G be a cubic, connected, triangle-free graph ..."
+
+No degree-3 campaign graph exists.
 
 
