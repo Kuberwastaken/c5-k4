@@ -34,18 +34,18 @@ are excluded rather than double-counted.
 
 | rank | statement | why it can use this arsenal | initial state |
 |---:|---|---|---|
-| 1 | Dean cycle divisibility (`delta(G) >= k >= 3` gives a cycle of length divisible by `k`; only `k=5` open in the source lock) | direct exact cycle predicate; dense carrier family and triangular graphs admit `k=5` | queued |
-| 2 | graphical multiplicative Merino--Welsh (`max(alpha_acyclic, alpha_totally_cyclic) >= tau`) | direct deletion/contraction evaluation on the smaller arsenal members; false matroid sibling | queued |
-| 3 | Erdős--Gyárfás power-of-two cycle conjecture | direct cycle predicate on every arsenal graph with minimum degree at least 3 | queued |
-| 4 | Reed's chromatic bound | `chi`, `Delta`, and `omega` are already core arsenal invariants; the carrier is known to sit near this wall | queued |
-| 5 | Total Coloring Conjecture (`chi'' <= Delta+2`) | finite coloring certificate; evaluate manageable arsenal members with a 60-second cap | queued |
-| 6 | Erdős--Nešetřil strong chromatic-index bound | finite coloring predicate on squared line graphs | queued |
-| 7 | Tutte's nowhere-zero 5-flow conjecture | applies to bridgeless arsenal graphs and has an exact modular-flow predicate | queued |
-| 8 | Lovász vertex-transitive Hamilton-path conjecture | every main arsenal member is vertex-transitive; Hamilton paths are direct certificates | queued |
-| 9 | Hadwiger's clique-minor conjecture | carrier chromatic numbers exceed the proved small-colour cases, while explicit branch-set certificates are finite | queued |
-| 10 | Fan--Raspaud three-perfect-matching conjecture | exactly three named arsenal controls are bridgeless cubic graphs | queued |
-| 11 | Petersen-colouring conjecture | same three bridgeless cubic controls; edge-map certificates are finite | queued |
-| 12 | Dominating Cycle Conjecture | the cubic controls are admissible; a cycle is a direct certificate | queued |
+| 1 | Dean cycle divisibility (`delta(G) >= k >= 3` gives a cycle of length divisible by `k`; only `k=5` open in the source lock) | direct exact cycle predicate; dense carrier family and triangular graphs admit `k=5` | HOLD |
+| 2 | graphical multiplicative Merino--Welsh (`alpha_acyclic * alpha_totally_cyclic >= tau^2`) | direct Tutte evaluation on the smaller arsenal members; false matroid sibling | BOUNDED HOLD |
+| 3 | Erdős--Gyárfás power-of-two cycle conjecture | direct cycle predicate on every arsenal graph with minimum degree at least 3 | HOLD |
+| 4 | Reed's chromatic bound | `chi`, `Delta`, and `omega` are already core arsenal invariants; the carrier is known to sit near this wall | HOLD; carrier family sharp |
+| 5 | Total Coloring Conjecture (`chi'' <= Delta+2`) | finite coloring certificate; evaluate manageable arsenal members with a 60-second cap | 10 HOLD; 5 UNKNOWN |
+| 6 | Erdős--Nešetřil strong chromatic-index bound | finite coloring predicate on squared line graphs | HOLD |
+| 7 | Tutte's nowhere-zero 5-flow conjecture | applies to bridgeless arsenal graphs and has an exact modular-flow predicate | HOLD |
+| 8 | Lovász vertex-transitive Hamilton-path conjecture | every main arsenal member is vertex-transitive; Hamilton paths are direct certificates | HOLD |
+| 9 | Hadwiger's clique-minor conjecture | carrier chromatic numbers exceed the proved small-colour cases, while explicit branch-set certificates are finite | HOLD |
+| 10 | Fan--Raspaud three-perfect-matching conjecture | exactly three named arsenal controls are bridgeless cubic graphs | HOLD on applicable controls |
+| 11 | Petersen-colouring conjecture | same three bridgeless cubic controls; edge-map certificates are finite | HOLD on applicable controls |
+| 12 | Dominating Cycle Conjecture | the cubic controls are admissible; a cycle is a direct certificate | HOLD on applicable controls |
 
 Other ranked source targets are not admissible for these fixed objects
 (trees, digraphs, planar cubic graphs, polytopes, hypergraphs, Latin squares,
@@ -137,7 +137,7 @@ assignments attain it. Thus the original carrier is exactly sharp
 separately replayed across all edges. There is no numerical or optimization
 ambiguity and no violation to promote through the novelty gate.
 
-### 5. Total Coloring Conjecture — HOLD where solved; four capped UNKNOWN
+### 5. Total Coloring Conjecture — HOLD where solved; five capped UNKNOWN
 
 The exact predicate is a proper colouring of the total graph (original
 vertices and edges, with incidence and adjacency conflicts) using at most
@@ -289,3 +289,36 @@ that no edge has both endpoints outside it. Thus all applicable arsenal
 controls hold. The higher-degree carrier graphs do not satisfy the cubic
 hypothesis and cannot disprove this statement.
 
+## Acquisition leads that do not transfer to the fixed arsenal
+
+The source's recent-object registry also identifies unswept object lanes, but
+they require acquiring different graphs rather than reusing this campaign's
+carriers:
+
+| source rank | object -> target | source state / why not tested here |
+|---:|---|---|
+| 2 | Baralic 15-facet-colourable simple 4-polytope -> Barnette polytope Hamiltonicity | face-lattice import required; not an ordinary graph-only hypothesis |
+| 3, 7, 8 | order-144 nonabelian PDS Cayley SRGs -> SRG/Cayley Hamiltonicity | separate GAP/PDS objects; source already has dedicated lanes |
+| 4 | switched `(148,77,36,44)` SRG -> SRG Hamiltonicity | switching artifact recovery required; source already has a dedicated lane |
+| 5 | order-40 strong snarks -> Petersen colouring | dedicated source lane, no transfer to noncubic carriers |
+| 6 | order-38 proper snarks -> Tutte 5-flow | dedicated source lane already reports positive flows on its selected slice |
+
+The five new graphic Merino--Welsh excluded-minor objects were already
+evaluated as `NO_HIT` in the discovery checkout and are not duplicated. The
+order-81, order-125, and order-147 Cayley objects are theorem-covered according
+to its exact-hypothesis audit.
+
+## Completion audit
+
+- Twelve distinct open universal graph statements from outside the existing
+  WoW-I, WoW-II, AutoGraphiX, and TxGraffiti corpora were screened.
+- No gate-surviving violation was found. Consequently there was no candidate
+  on which to run a web novelty claim; current-status assertions remain those
+  of the source checkout's dated primary-source locks.
+- Every positive verdict is supported by an exact combinatorial witness or an
+  elementary edge-count certificate. The only unresolved computations are the
+  five explicitly marked Total Coloring rows, all stopped at their declared
+  60-second solver/process limits.
+- The main new structural observation is sharpness, not a disproof:
+  `C5[K_m]` attains equality in Reed's bound for every tested `m`, with the
+  closed-form identity extending to all positive integer `m`.
