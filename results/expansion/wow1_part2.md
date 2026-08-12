@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 165 / 208.
+Progress: 166 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -1027,5 +1027,11 @@ This is explicitly in the fullerene block and names a fullerene; the arsenal has
 > "If G is [a fullerene] ..."
 
 The record's market-game bound is restricted to fullerenes. No admissible campaign graph.
+
+### wow-848 — N/A_ARSENAL
+
+> "number of negative eigenvalues of a fullerene ..."
+
+No arsenal member satisfies the cubic planar fullerene hypothesis.
 
 
