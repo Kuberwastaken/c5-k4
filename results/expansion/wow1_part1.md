@@ -141,4 +141,8 @@ Every arsenal graph is bridgeless, so the cut-edge count is zero. The row explic
 
 All arsenal graphs are regular; direct temperature/depth evaluation holds (carrier `11/9 <= 18`). The row records independent proofs.
 
+### wow-73 — HOLD
+
+Every arsenal graph has no cut vertices, so the cut-vertex coordinate vector is empty/zero and its maximum is 0, at most `alpha`.
+
 <!-- NEXT -->
