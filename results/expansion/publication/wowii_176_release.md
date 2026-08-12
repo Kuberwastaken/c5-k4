@@ -34,4 +34,6 @@ Date: **2026-08-12 UTC**
 
 ## Release lock
 
-Pending a follow-up lock commit. No release may be created while pending.
+Resolved with `git rev-parse` to
+`51faa868b85ce5069e4017dfa97845772435229a`. The annotated tag must dereference
+to exactly that preflight snapshot.
