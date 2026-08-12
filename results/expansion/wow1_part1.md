@@ -253,4 +253,8 @@ The tree hypothesis excludes every mandated arsenal graph.
 
 The tree hypothesis excludes every arsenal graph; the row cites `[FMS]` and characterizes equality.
 
+### wow-109 — HOLD / historically refuted elsewhere
+
+The even-distance-vector range is 0 on all vertex-transitive arsenal graphs. The row explicitly reports Puget's counterexample to the general statement.
+
 <!-- NEXT -->
