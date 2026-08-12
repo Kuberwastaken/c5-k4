@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 130 / 208.
+Progress: 131 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -817,5 +817,11 @@ For the regular vertex-transitive arsenal, equal-size open neighborhoods cannot 
 > "Every performance of Maxine and MIN produces a maximum independent set in G."
 
 Primary context restricts this to graphs satisfying the special neighborhood-intersection/PR-domain construction described in the same record. No arsenal member is established in that domain; the universal isolated reading is not faithful.
+
+### wow-802 — N/A_ARSENAL (universal alternate DB_REJECTED)
+
+> "independence ... not more than the Turan bound + largest eigenvalue - second largest eigenvalue."
+
+Context says "for these graphs" and discusses `PR[2..n]`, which the arsenal does not instantiate. The isolated universal reading apparently fails on `bar(C5[K4])`: `8 > 20/9+8-(2sqrt(5)-2) ~=7.750086`; however it also fails 118/995 connected nontrivial atlas graphs and named `P7,C8,C9` and large stars. The mandatory gate discards that alternate, so this is not a kill.
 
 
