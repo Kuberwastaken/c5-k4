@@ -545,4 +545,8 @@ Inherited `girth>5` section hypothesis excludes every arsenal graph.
 
 Inherited `girth>5` section hypothesis excludes every arsenal graph.
 
+### wow-225 — N/A_ARSENAL
+
+Inherited `girth>5` section hypothesis excludes every arsenal graph.
+
 <!-- NEXT -->
