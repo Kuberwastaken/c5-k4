@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 90 / 208.
+Progress: 91 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -577,5 +577,11 @@ This is not an assertion over abstract connected graphs, so the carrier cannot t
 > "For every two points p and q inside of a triangle, the distance from p to sides is not more than the distance from q to vertices."
 
 The quantified objects are Euclidean points in a triangle. No arsenal member supplies them.
+
+### wow-749 — HOLD
+
+> "the average distance of G is not more than the market value of G."
+
+Direct max-min evaluation of the stated two-player game gives market values `6,9,12,15,18,24` on `C5[K_m]` (`m=2,3,4,5,6,8`), `12,15` on `C7[K3],C9[K3]`, `14,19,25` on `T(7..9)`, and 12 on `bar(C5[K4])`. Exact average distances range only 1.41--2.38, so all hold.
 
 
