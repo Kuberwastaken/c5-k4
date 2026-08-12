@@ -169,4 +169,8 @@ The maximal-independent-set coordinate mode is at most 4, while the smallest ars
 
 The coordinate mean is at most the diameter (at most 4), while `n-residue>=8`; the row also cites its proof from #79 and #98.
 
+### wow-82 — HOLD — historically validated
+
+Coordinate range for any maximal clique is at most `diameter+1<=5`, and `max Even>=5`; the row itself says the conjecture is valid for all maximal cliques.
+
 <!-- NEXT -->
