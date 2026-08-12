@@ -661,4 +661,8 @@ Garble: `mean of coordinates of Maxine < Nav dist’`; RHS is unusable.
 
 Garble: `feng hte f Dual Pegres < bichromatic number.`
 
+### wow-268 — SKIP_OCR
+
+Garble: `averaged stance (manimum degree) <n.`
+
 <!-- NEXT -->
