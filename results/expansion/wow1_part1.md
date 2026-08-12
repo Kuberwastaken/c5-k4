@@ -457,4 +457,8 @@ Garble: `mean of autocoordinates of Maxine of the complement`. The construction 
 
 Garble: `length of autocoordinates of Maxine of the complement`. The construction is undefined.
 
+### wow-184 — SKIP_OCR
+
+Garble: `maximum of autocoordinates of Maxine of the complement`. The construction is undefined.
+
 <!-- NEXT -->
