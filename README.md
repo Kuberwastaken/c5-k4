@@ -27,6 +27,14 @@ WoW I: #191 and #889. AutoGraphiX produced no claimable kill, and
 TxGraffiti's sole curated apparent violation is a printed-statement erratum,
 not new mathematics.
 
+A further sweep covered all **228 independence-number bounds** still listed
+as open in Graph Brain issue #421, all **178 resolved/annotated WoW I rows**,
+all **94 WoW I source-recovery rows**, the current finite-graph declarations
+in `google-deepmind/formal-conjectures`, and 12 nonduplicate major human
+conjectures. It found one especially clean, apparently unrecorded
+open-as-posted disproof: Graph Brain upper-081 is false on C₅[K₄], on a
+9-vertex windmill, and on two infinite families.
+
 ## The kills
 
 Among the 220 WOWII conjectures that were still open in July 2026, C₅[K₄]
@@ -137,6 +145,64 @@ vertex therefore has `w=8`, while the #822 blue graph has no edges.
 The complete per-entry audits are
 [`results/expansion/wow1_part1.md`](results/expansion/wow1_part1.md) and
 [`results/expansion/wow1_part2.md`](results/expansion/wow1_part2.md).
+
+### A Graph Brain kill — and an order-9 witness
+
+The complete 228-entry Graph Brain sweep found one source-faithful result
+that survives the full protocol and appears not to have been recorded before.
+Upper-081, still present in the author's open issue, asserts
+
+```text
+independence_number(G) <= 2*diameter(G)/(edge_connectivity(G)-vertex_connectivity(G)).
+```
+
+On C₅[K₄], `(alpha, diameter, edge connectivity, vertex connectivity) =
+(2, 2, 11, 8)`, so the asserted upper bound is `4/3 < 2`, an exact failure by
+`2/3`. More generally, C₅[K_m] has right side `4/(m-1)`: it is tight at
+`m=3` and false for every `m>=4`.
+
+There is an even smaller structural witness. Take two K₅s sharing exactly
+one vertex (order 9, graph6 `H~}CKMF`). It has `(alpha,D,lambda,kappa) =
+(2,2,4,1)`, hence the same false right side `4/3`. For the windmill made from
+`t` copies of K_s sharing one hub, the values are `alpha=t`, `D=2`,
+`lambda=s-1`, and `kappa=1`; the bound fails whenever `t(s-2)>4`.
+
+All 995 nontrivial connected Graph Atlas graphs through order 7 pass under
+the author's evaluator semantics (58 have a nonzero denominator; zero is
+mapped to `+Infinity`). The exact statement, invariant definitions,
+independent recomputation, named controls, source/status search, and
+machine-readable certificate are in
+[`results/expansion/graphbrain_upper.md`](results/expansion/graphbrain_upper.md)
+and [`certificates/graphbrain-alpha-upper-081/`](certificates/graphbrain-alpha-upper-081/).
+The claim here is deliberately narrow: **apparently unrecorded and open as
+posted**, not proof of absolute bibliographic priority.
+
+### Further reach found by the exhaustive follow-up
+
+- The other 227 Graph Brain bounds produced eight gate-surviving
+  open-as-posted retro-kills: lower-033, 055, 061, 071, 082, 087 and
+  upper-066, 069. Simple witnesses make these stale falsehoods rather than
+  serious novelty claims. The two complete ledgers contain exact verdicts
+  for all 89 lower and 139 upper bounds.
+- The complement family `H_m = complement(C5[K_m])`, `m>=3`, is a connected
+  infinite counterexample family to already-refuted WoW I #724. On `H_m`,
+  the asserted left side is `3m-2` while `alpha=2m`; C₅[K₄]'s complement
+  gives `10>8`. The historical source recorded only disconnected `2C5`, so
+  this connected family appears to be new evidence for an old refutation.
+- Six more resolved WoW I rows (#23, 29, 55, 124, 166, 188) acquire
+  additional carrier-family witnesses. No proved theorem was contradicted;
+  row #207 instead exposes a metadata defect because its stored statement
+  duplicates proved row #43.
+- The current formal-conjectures sweep and 12-target human-conjecture sweep
+  found no additional disproof. They did prove a useful sharpness identity:
+  `chi(C5[K_m]) = ceil(5m/2) = ceil((Delta+1+omega)/2)`, so the family meets
+  Reed's bound exactly for every `m`.
+
+Full records: [`graphbrain_lower.md`](results/expansion/graphbrain_lower.md),
+[`wow1_resolved_part1.md`](results/expansion/wow1_resolved_part1.md),
+[`wow1_resolved_part2.md`](results/expansion/wow1_resolved_part2.md),
+[`formal_conjectures.md`](results/expansion/formal_conjectures.md), and
+[`breakthrough_targets.md`](results/expansion/breakthrough_targets.md).
 
 ### It would have killed eight more
 
@@ -259,9 +325,11 @@ regular graphs instinctively. Ranked targets:
    (violated by stars/K₄/C₄ inside Graffiti.pc's own database) and can
    only be hunted from DeLaViña's original wording.
 2. **Written on the Wall I — swept**: all 409 eligible open/unannotated
-   records now have durable verdicts. I found #191 and #889; 90
-   statements remain `SKIP_OCR` rather than guessed. The two lane reports
-   contain zero missing, extra, or duplicate IDs.
+   records, all 178 resolved/annotated records, and all 94 rows carrying a
+   source/OCR gap now have durable audits. I found #191 and #889 plus the
+   connected #724 retro-family; damaged definitions and unrecoverable source
+   text remain explicit rather than guessed. Every lane has zero missing,
+   extra, or duplicate IDs.
 3. **AutoGraphiX — swept**: all 71 targets now have verdicts. Forty-five
    hold on the arsenal, 24 remain unreadable/missing-definition, one is
    inapplicable and already proved, and the only apparent violation fails
@@ -273,11 +341,15 @@ regular graphs instinctively. Ranked targets:
    raw Optimist equality is trivially false. The μ*/H lead is strict on
    C₅[K₄] (`9 < 10`), not tight. Full audit:
    [`results/expansion/txgraffiti.md`](results/expansion/txgraffiti.md).
-5. **Modern corpora — Graph Brain / CONJECTURING**: same
-   domination/independence vocabulary, databases of connected graphs to
-   n ≈ 10.
-6. **google-deepmind/formal-conjectures beyond WOWII**: any
-   `research open` statement quantified over all finite simple graphs.
+5. **Graph Brain / CONJECTURING — swept**: all 228 open-as-posted alpha
+   bounds now have exact ledgers. Upper-081 is the one apparently unrecorded
+   source-faithful kill; eight more are conservatively recorded as retro-kills,
+   48 upper bounds fail the small-graph gate, and 19 already have
+   counterexamples in the author's own source.
+6. **google-deepmind/formal-conjectures beyond WOWII — swept at current
+   upstream**: 77 current open finite-graph declarations were classified;
+   23 were concretely applicable and none failed. Twelve major human
+   conjectures likewise produced no kill.
 
 Where it is useless, equally worth knowing: asymptotic/extremal
 statements, anything with tree/bipartite/triangle-free/planar/sparse
