@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 186 / 208.
+Progress: 187 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -1153,5 +1153,11 @@ For the applicable triangle-free graph `bar(C5[K4])`, red graph is `C5[K4]`, wit
 > "independence number of the blue graph ... minimum span of two nonadjacent vertices."
 
 For `bar(C5[K4])`, blue graph is empty so alpha is 20, while exhaustive pair neighborhoods give minimum span 8. Thus `20>=8`.
+
+### wow-869 — HOLD
+
+> "independence number of the blue graph ... sum of temperatures."
+
+The applicable graph has blue independence 20 and temperature sum `20*(8/12)=40/3`; hence it holds exactly rationally.
 
 
