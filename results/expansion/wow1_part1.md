@@ -181,4 +181,8 @@ The row says the unrestricted strongest version was refuted and retains dominati
 
 A distance-to-clique coordinate vector supported in `[0,diam]` has variance at most `diam^2/4<=4`; every arsenal graph has `n-residue>=8`.
 
+### wow-85 — HOLD
+
+The same variance is at most 4, while the smallest adjacency rank in the arsenal is 5.
+
 <!-- NEXT -->
