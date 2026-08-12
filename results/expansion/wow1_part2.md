@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 93 / 208.
+Progress: 94 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -595,5 +595,11 @@ Every arsenal graph is regular, hence the stationary maximum gives `p*n=Delta/d_
 > "Let h be min h(v) ... chromatic number of G is at most h+2."
 
 Direct BFS-layer edge counts give minimum horizontal-edge values `12,34,67,111,166,309,40,46,55,96,154,16` in arsenal order. Exact/structured chromatic numbers are safely at most `h+2`; no candidate.
+
+### wow-754 — SKIP_OCR
+
+> "The chip-firing game ... if the game terminates th"
+
+The record truncates before any conjectural assertion. Definitions alone cannot be tested, and no continuation is guessed.
 
 
