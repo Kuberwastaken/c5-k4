@@ -657,4 +657,8 @@ Maxine-coordinate range is algorithm/order-dependent.
 
 Garble: `mean of coordinates of Maxine < Nav dist’`; RHS is unusable.
 
+### wow-267 — SKIP_OCR
+
+Garble: `feng hte f Dual Pegres < bichromatic number.`
+
 <!-- NEXT -->
