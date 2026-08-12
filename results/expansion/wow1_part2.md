@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 17 / 208.
+Progress: 18 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -135,4 +135,15 @@ No arsenal graph is supplied with a cyclic Cayley representation satisfying the 
 
 The cyclic-Cayley hypothesis is not established for any arsenal member, and `rainbow` is not recoverable as an invariant from the record. No carrier test is admissible.
 
+### wow-543 — HOLD
+
+> "n — independence < the sum of positive eigenvalues."
+
+Interpreting WoW's comparison convention as `n-alpha <= sum(lambda_i>0)`, all
+arsenal members hold with spectral gaps safely above `1e-6`. The closest is the
+complement of `C5[K4]`: `n-alpha=12`, while the positive adjacency spectral sum
+is exactly `8 + 8((sqrt(5)-1)/2) = 4+4sqrt(5) ~= 12.944271910`, slack
+`0.944271910`. Direct symmetric eigensolution and an independent dense-matrix
+`eigvalsh` recomputation agree. An initial mental-arithmetic concern was
+withdrawn before the DB gate because exact recomputation showed no violation.
 
