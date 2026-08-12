@@ -32,3 +32,10 @@ admissible witness. The OCR phrase `inverse Dual Degree` is not guessed at.
 `lambda_max(L) <= 2 + alpha`, is explicitly for trees. Every arsenal graph
 contains cycles, so none is applicable. (The OCR `<` represents the source's
 non-strict comparison convention.)
+
+## wow-596 — SKIP_OCR
+
+**Status:** refuted (WoW annotation). The normalized row has lost its
+comparison sign: `radius maximal frequency of mid-Degree`. The surrounding
+definition describes a derived Havel--Hakimi sequence, but the predicate is
+still absent. No reading is invented and no arsenal verdict is claimed.
