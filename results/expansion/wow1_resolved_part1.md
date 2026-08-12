@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-31 — HOLD / NO ADDITIONAL WITNESS
+
+> The negative of the largest negative distance eigenvalue is not more than the independence number. A counterexample is D2(B4). James B. Shearer, 7.88.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed alpha, distance, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
 ### wow-30 — HOLD / NO ADDITIONAL WITNESS
 
 > The number of positive distance eigenvalues is not more than sum of temperatures of vertices. A counterexample is D6(B6). James. B. Shearer, July 88.
