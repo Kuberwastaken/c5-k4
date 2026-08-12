@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-112 — HOLD / NO ADDITIONAL WITNESS
+
+> Radius < maximal frequency of the degree sequence. Disproved by Shui- Tain Chen. April 88. James B. Shearer found a bipartite counterexample. May 88. Shui-Tain Chen proved the conjecture for trees, October 88.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed bipartite, degree, radius, tree quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
 ### wow-110 — HOLD / NO ADDITIONAL WITNESS
 
 > Even(v) is the number of vertices at even distance from v. Conjecture: If G is triangle-free then range of Even < Range of Degree. Disproved by William Staton. March 88.
