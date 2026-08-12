@@ -178,3 +178,10 @@ certified from the record.
 of distinct planar point configurations, not graph-distance matrices. The
 campaign arsenal supplies no planar configuration realizing the required
 object, so graph substitution would change the statement.
+
+## wow-729 — NOT_APPLICABLE
+
+**Status:** annotated refuted in corpus metadata, though the quoted inequality
+is the standard nonnegative-matrix row-sum bound. Its objects are planar point
+configurations and their Euclidean distance matrices. No arsenal graph is an
+admissible instance; the metadata tension is recorded without inventing one.
