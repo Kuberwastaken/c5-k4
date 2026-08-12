@@ -173,4 +173,8 @@ The coordinate mean is at most the diameter (at most 4), while `n-residue>=8`; t
 
 Coordinate range for any maximal clique is at most `diameter+1<=5`, and `max Even>=5`; the row itself says the conjecture is valid for all maximal cliques.
 
+### wow-83 — HOLD under surviving reading
+
+The row says the unrestricted strongest version was refuted and retains dominating cliques. For a dominating clique its coordinate scope is at most 4, while `max Even>=5`.
+
 <!-- NEXT -->
