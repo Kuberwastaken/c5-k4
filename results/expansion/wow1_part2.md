@@ -1288,4 +1288,22 @@ The OCR gives a constant-looking 8 where context suggests `s`. Literal RHS 3 alr
 
 No arsenal member is cubic.
 
+## Coverage audit
+
+The corpus was reparsed independently with anchored ID regex `^wow-(\d+)` and
+prefix status matching. Exactly 208 records qualify and exactly 208 distinct
+record headings occur above, with no missing, extra, or duplicate IDs.
+
+- 48 `HOLD` records (including tight cases)
+- 102 `N/A_ARSENAL` records (including 11 missing-`P` Ramseyan constructions
+  and 3 context-restricted records whose universal alternates failed the gate)
+- 54 `SKIP_OCR` records
+- 2 primary `DB_REJECTED` corrupt/terminology readings
+- 1 existential `NON_UNIVERSAL / N/A` record
+- 1 gate-surviving violation: **wow-889**, witnessed by `bar(C5[K4])`
+
+No ILP/CBC call was needed. All spectral comparisons used the `1e-6` guard.
+Every apparent violation was reported immediately, subjected to the applicable
+atlas and named-graph gate, and independently recomputed. Of them, only wow-889
+survived; its primary wording/definition and novelty were also checked.
 
