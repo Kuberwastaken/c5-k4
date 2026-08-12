@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 63 / 208.
+Progress: 64 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -415,5 +415,11 @@ For each regular arsenal graph the right side is `n/sqrt(d)`; exact average pair
 > "deviation of distance < residue."
 
 Taking standard deviation of unordered-pair distances, exact histograms give values below Havel-Hakimi residue for every arsenal graph, beyond `1e-6`. Ordered pairs excluding the diagonal give the same verdict.
+
+### wow-701 — SKIP_OCR
+
+> "The average distance < the inverse rainbow."
+
+`inverse rainbow` has no recoverable definition or normalization. No surrogate is used.
 
 
