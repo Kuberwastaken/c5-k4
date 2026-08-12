@@ -93,6 +93,13 @@ Author-repository, issue-history, exact-formula, and broader invariant searches
 found no pre-existing counterexample.  This is a candidate new disproof; an
 executable certificate is prepared separately.
 
+### graphbrain-alpha-upper-023 — DB_REJECTED
+
+> `independence_number(x) <= floor(sigma_2(x)^(1/density(x)))`
+
+The identical author-project reading already fails the mandatory small-graph gate on connected Graph Atlas graph `atlas:Fn{GO`: `alpha=4` while the right side is `3`.  It is therefore a database-inconsistent/as-posted falsehood, not a new campaign counterexample.  The result was recomputed from the author invariant definitions; any undefined domain cases were excluded rather than coerced.
+
+
 ### graphbrain-alpha-upper-022 — DB_REJECTED
 
 > `independence_number(x) <= 2*diameter(x)/min_common_neighbors(x) + max_common_neighbors(x)`
