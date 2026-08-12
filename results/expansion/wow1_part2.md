@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 154 / 208.
+Progress: 155 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -961,5 +961,11 @@ Without the Ramseyan class/property `P`, the blue graph is undefined for an arse
 > "residue of the blue graph ... degree of R(G) ..."
 
 Both red and blue graphs require missing parameter `P`; no evaluation is possible.
+
+### wow-832 — N/A_ARSENAL (missing P)
+
+> "average distance ... minimum degree of B(G) ..."
+
+The blue graph depends on unspecified `P`, so its minimum degree is not an arsenal invariant.
 
 
