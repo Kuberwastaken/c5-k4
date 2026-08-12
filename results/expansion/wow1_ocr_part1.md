@@ -162,3 +162,12 @@ Printed p.72 confirms the inequality and the inherited triangle-free hypothesis.
 The row itself gives `P5` as a counterexample for a suitable vertex order and asks
 for a representation-independent example.  This is a historically recorded
 refutation, not a new target; Maxine's order dependence is explicit.
+
+### wow-213 — DB_REJECTED
+
+> size/2 <= Randic.
+
+Printed p.73 confirms the operator and inherited triangle-free hypothesis; no
+radical was lost.  With WoW `size=|E|`, the literal bound fails database graphs,
+including `K3,3`: `|E|/2=9/2 > R=3`.  The carrier complement also fails
+`40 > 10`.  It is therefore source-faithful but database-inconsistent.
