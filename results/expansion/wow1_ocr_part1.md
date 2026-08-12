@@ -256,3 +256,12 @@ source never defines autocoordinates, so source recovery cannot evaluate it.
 Printed p.78 confirms the full statement.  The source explicitly makes Maxine
 dependent on maximum-degree tie choices and gives no quantifier here; coordinate
 range can therefore not be treated as a graph invariant without guessing.
+
+### wow-266 — SKIP_ALGORITHM
+
+> mean of coordinates of Maxine <= size / (2 average distance).
+
+Printed p.78 cleanly recovers the fraction destroyed by OCR.  The formula is
+legible, but the unquantified Maxine performance remains tie-order dependent;
+no canonical execution is specified, so a faithful graph-invariant test is not
+possible.
