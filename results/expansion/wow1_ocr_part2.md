@@ -16,7 +16,7 @@ where possible; spectral gaps at most `1e-6` are ties, and any ILP solve is
 capped at 60 seconds. A source statement that is recovered but restricted to an
 inapplicable construction is recorded as `N/A_ARSENAL`.
 
-Progress: 14 / 54.
+Progress: 15 / 54.
 ### wow-456 — N/A_ARSENAL
 
 PDF p.95: `The residue of the graph RP[2..n] is not more than pi(n).` The source cleanly restores `pi(n)` and identifies RP/residue definitions, but this is restricted to the number-theoretic RP construction; no arsenal graph is admissible.
@@ -59,4 +59,7 @@ PDF p.99 restores `mean(Rainbow) <= size/independence`. Rainbow is the color-cla
 ### wow-568 — HOLD
 
 PDF p.99: `number of positive eigenvalues - number of negative eigenvalues <= size/independence`. Guarded inertia (`1e-6`) and exact closed-form spectra agree. The left side is nonpositive on the blow-ups and triangular graphs and zero on the complement carrier; all hold.
+### wow-574 — HOLD
+
+PDF p.99: `chi(complement G)/independence <= mode(Even)`. On each regular diameter-two arsenal graph, Even is constant `n-d` (including the vertex at distance zero), so its mode is `n-d`; exact colorings leave positive slack throughout.
 
