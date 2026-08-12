@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 18 / 208.
+Progress: 19 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -146,4 +146,10 @@ is exactly `8 + 8((sqrt(5)-1)/2) = 4+4sqrt(5) ~= 12.944271910`, slack
 `0.944271910`. Direct symmetric eigensolution and an independent dense-matrix
 `eigvalsh` recomputation agree. An initial mental-arithmetic concern was
 withdrawn before the DB gate because exact recomputation showed no violation.
++### wow-547 — SKIP_OCR
+
+> "independence < n — modeofmid — Degree."
+
+The OCR leaves two subtraction marks around a fused `modeofmid-Degree` token; the intended grouping and invariant are not reliably recoverable.
+
 
