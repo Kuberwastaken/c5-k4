@@ -249,4 +249,8 @@ For visible #102, degree variance is zero on every regular arsenal graph, below 
 
 The tree hypothesis excludes every mandated arsenal graph.
 
+### wow-106 — N/A_ARSENAL — historically proved
+
+The tree hypothesis excludes every arsenal graph; the row cites `[FMS]` and characterizes equality.
+
 <!-- NEXT -->
