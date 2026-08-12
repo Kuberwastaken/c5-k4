@@ -117,3 +117,43 @@ coloring formulas and by an independent exact coloring search on the tractable
 members. None of the arsenal graphs has the special hypotheses
 `Delta = 6` and `omega = 2`, so `reed_conjecture_Delta_6_omega_2` is not
 applicable. There is no violation to pass to the database gate.
+
+### `erdos_64` (power-of-two cycle) — HOLD
+
+Every arsenal graph with minimum degree at least three except Petersen contains
+an explicit 4-cycle (`2^2`). For example, `comp(C5[K4])` contains
+`0-4-1-5-0`, and a common-neighbor search produced 4-cycles in every
+`C5[K_m]`, `C7[K3]`, `C9[K3]`, and `T(n)` member. Petersen has no 4-cycle but
+does contain an 8-cycle. The latter was checked by a separate simple-cycle
+enumeration. Thus all eligible arsenal graphs satisfy the statement.
+
+### `erdos_23` (triangle-free bipartization) — HOLD, tight
+
+Only `comp(C5[K4])` and Petersen are triangle-free members whose orders are
+multiples of five. The former is exactly the independent-part blow-up of
+`C5` with part size four: its maximum cut has 64 of 80 edges, so exactly
+`16 = 4^2` deletions suffice and are necessary. Petersen's exact maximum cut
+has 12 of 15 edges, so only `3 <= 2^2` deletions are needed. A second method
+enumerated all bipartitions (fixing one vertex's side) and obtained the same
+max-cut values. No violation survives.
+
+### `erdos_128` (dense large induced subgraphs force a triangle) — HOLD/vacuous
+
+Graphs in the arsenal that contain triangles satisfy the conclusion. For the
+two triangle-free candidates, the premise fails exactly: among subsets meeting
+Lean's condition `2|V'|+1 >= |V|`, `comp(C5[K4])` has a 10-vertex subset with
+8 edges, not strictly more than `20^2/50 = 8`; Petersen has a 5-vertex subset
+with 2 edges, not strictly more than `10^2/50 = 2`. The first minimum was
+independently obtained both by subset enumeration and by minimizing
+`sum x_i x_(i+1)` over five part occupancies `0 <= x_i <= 4`.
+
+### `erdos_742` (Murty--Simon) — HOLD / mostly not applicable
+
+Deleting a single edge leaves diameter two for every dense blow-up and every
+triangular graph, so those objects fail diameter-2-criticality. Both applicable
+arsenal members satisfy the bound: `comp(C5[K4])` is diameter-2-critical with
+`80 <= 20^2/4 = 100`, and Petersen is diameter-2-critical with
+`15 <= 10^2/4 = 25`. Criticality was checked by deleting every edge and
+recomputing all-pairs distances; a separate structural check uses that each
+edge is the unique length-one route for its endpoints and has no common
+neighbor in these triangle-free diameter-two graphs.
