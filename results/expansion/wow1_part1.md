@@ -161,4 +161,8 @@ Every arsenal graph has no cut vertices; under the zero-vector convention its mo
 
 For all maximal/maximum-independent-set coordinate readings, the modal coordinate is at most the diameter (at most 4), whereas `n-residue` is at least 8 in the arsenal.
 
+### wow-78 — HOLD
+
+The maximal-independent-set coordinate mode is at most 4, while the smallest arsenal Randić index is 5.
+
 <!-- NEXT -->
