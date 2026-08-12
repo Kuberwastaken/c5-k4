@@ -361,3 +361,12 @@ Printed p.78 recovers the radical and identifies the statement as a known result
 of Fink.  Here bichromatic means `chi(G)+chi(complement(G))`; the standard
 AM-GM argument `chi(G)chi(complement(G)) >= n` proves the bound.  The carrier
 gives `2sqrt(20) = 8.944272... <= 13`.  This is a proved theorem, not a target.
+
+### wow-277 — N/A_ARSENAL
+
+> If girth is >= 5 then mean of coordinates of Maxine <= n / independence.
+
+Printed p.78 recovers the missing fraction exactly.  No mandated arsenal graph
+has girth at least 5: the blow-ups and triangular graphs contain triangles, and
+the carrier complement contains 4-cycles.  Thus the inherited hypothesis makes
+this lane inapplicable; Maxine's order ambiguity would also remain.
