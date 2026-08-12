@@ -16,7 +16,7 @@ where possible; spectral gaps at most `1e-6` are ties, and any ILP solve is
 capped at 60 seconds. A source statement that is recovered but restricted to an
 inapplicable construction is recorded as `N/A_ARSENAL`.
 
-Progress: 39 / 54.
+Progress: 40 / 54.
 ### wow-456 — N/A_ARSENAL
 
 PDF p.95: `The residue of the graph RP[2..n] is not more than pi(n).` The source cleanly restores `pi(n)` and identifies RP/residue definitions, but this is restricted to the number-theoretic RP construction; no arsenal graph is admissible.
@@ -134,4 +134,7 @@ The primary page itself prints `The range range of rainbow n - m1` without a rel
 ### wow-707 — N/A_TRYOUT
 
 PDF p.105: `radius <= number of positive components of the smallest eigenvector`. The surrounding source says smallest-eigenvector statements are try-outs and proposes uniqueness as an added hypothesis. Every arsenal graph has a multiple smallest eigenvalue; all-vector readings fail the small-graph gate.
+### wow-708 — N/A_TRYOUT
+
+PDF p.105 defines `V` as the positive-component vector of a smallest eigenvector and `v=<V,V>`, then states `average distance <= v`. The smallest eigenspace is nonunique for every arsenal member, so the source's uniqueness reading has no admissible graph; unrestricted choices are representation-dependent and DB-unsafe.
 
