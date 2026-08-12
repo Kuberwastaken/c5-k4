@@ -35,3 +35,14 @@ The scan (printed p.45) shows `William Staton. April 88.` is the attribution and
 date completing conjecture 97, which begins immediately above it on the same
 page.  The OCR parser incorrectly created a second row numbered 96.  There is no
 statement to evaluate.
+
+### wow-123 — DB_REJECTED
+
+> size/2 <= the rank of the gravity matrix.
+
+The scan (printed p.52) recovers the operator exactly; `size` is the number of
+edges in WoW I.  Thus the literal source statement is not an OCR problem.  It
+fails the mandatory database gate already on `K7`: `|E|/2 = 21/2 > 7`, while
+the gravity matrix has rank 7.  The carrier similarly gives `55 > 20`.
+Consequently this is a bad-as-printed/database-inconsistent entry, not a new
+counterexample.
