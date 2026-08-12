@@ -393,4 +393,8 @@ Garble: `maximum of autocoordinates of Maxine of the complement`. This represent
 
 `chi/omega` is at most the range of positive adjacency eigenvalues throughout; `1e-6` guard applied.
 
+### wow-163 — HOLD
+
+`chi/omega <= min Even` holds with wide margin throughout.
+
 <!-- NEXT -->
