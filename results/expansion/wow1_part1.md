@@ -869,4 +869,8 @@ No arsenal graph is a heliotropic plant.
 
 No arsenal graph is a geotropic plant.
 
+### wow-399 — HOLD where applicable
+
+Primary scan p.84 supplies inherited connected `alpha<=2` hypothesis. Eligible cycle blow-ups have positive adjacency-eigenvalue range about 2.764 through 11.056, below matchings 5 through 20.
+
 <!-- NEXT -->
