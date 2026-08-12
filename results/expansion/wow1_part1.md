@@ -381,4 +381,8 @@ Garble: `mean of autocoordinates of Maxine of D2 < the chromatic number.` The co
 
 Radius is at most the smaller of minimum Odd and minimum Even counts throughout the arsenal.
 
+### wow-159 — HOLD
+
+Under edge-count `size`, `|E|/omega <= sum Even` throughout; the order reading also holds.
+
 <!-- NEXT -->
