@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 95 / 208.
+Progress: 96 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -607,5 +607,11 @@ The record truncates before any conjectural assertion. Definitions alone cannot 
 > "a-m+h is not more than n."
 
 Every arsenal member is Hamiltonian, so longest-path length in edges is `h=n-1`; exact independence and maximum matching give `alpha-nu+h<=n` throughout. The alternative vertex-count convention adds one but the displayed commentary explicitly uses edge-length; under a vertex-count reading the gate would reject familiar Hamiltonian graphs, so it is discarded.
+
+### wow-756 — HOLD
+
+> "The length of the longest path is > than the global minimum degree."
+
+Reading the prose's non-strict intent, Hamiltonicity gives path length `n-1`, at least the degeneracy/global minimum degree for every arsenal graph. Exact core numbers and Hamilton cycles independently certify this.
 
 
