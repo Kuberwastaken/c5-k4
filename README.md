@@ -323,7 +323,9 @@ regular graphs instinctively. Ranked targets:
    [`results/family_domination.md`](results/family_domination.md)).
    Three more entries (401b, 412f, 448b) are corrupt as published
    (violated by stars/K₄/C₄ inside Graffiti.pc's own database) and can
-   only be hunted from DeLaViña's original wording.
+   only be hunted from DeLaViña's original output: the Wayback follow-up
+   reached the earliest available captures (2010 for 401b/412f, 2016 for
+   448b) and found the same corrupt wording already present there.
 2. **Written on the Wall I — swept**: all 409 eligible open/unannotated
    records, all 178 resolved/annotated records, and all 94 rows carrying a
    source/OCR gap now have durable audits. I found #191 and #889 plus the
