@@ -70,3 +70,28 @@ checked distinct vertices, closure, and all five edges. The carrier therefore
 does not disprove Dean's conjecture. No optimization or floating-point
 comparison is involved.
 
+### 2. Graphical multiplicative Merino--Welsh — BOUNDED HOLD
+
+Exact source-lock statement for a connected bridgeless graph is
+`alpha(G) * alpha*(G) >= tau(G)^2`, where the three quantities count acyclic
+orientations, totally cyclic orientations, and spanning trees. The 2026 source
+audit still lists the graphical statement as open; the 2024 counterexamples
+are nongraphic matroids and therefore do not settle this target.
+
+An exact subset-rank specialization of the Tutte polynomial evaluated the
+small named controls and the smallest carrier-family member. Matrix-tree
+Bareiss elimination independently supplied `tau`:
+
+| graph | `alpha` | `alpha*` | `tau` | multiplicative slack |
+|---|---:|---:|---:|---:|
+| `K4` | 24 | 24 | 16 | 320 |
+| `K3,3` | 230 | 102 | 81 | 16,899 |
+| Petersen | 16,680 | 1,920 | 2,000 | 28,025,600 |
+| `C5[K2]` | 183,360 | 17,099,904 | 311,040 | 3,038,692,515,840 |
+
+The `C5[K2]` product is about `32.409` times `tau^2`, nowhere near the
+boundary. Exact general Tutte evaluation is exponential in the edge count, so
+the denser family members were not mislabeled as tested. This admissible
+bounded screen finds no disproof and supplies no candidate requiring the
+database or novelty gates.
+
