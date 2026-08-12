@@ -9,7 +9,7 @@
 - **OCR discipline:** an expression that cannot be recovered faithfully from the corpus is recorded as `SKIP_OCR` with the surviving garble quoted; no intended formula is guessed.
 - **ILP discipline:** no solver call may exceed 60 seconds. (This lane currently needs no ILP.)
 
-Progress: **2/71** entries evaluated (70 strict-open + 1 open-in-full).
+Progress: **3/71** entries evaluated (70 strict-open + 1 open-in-full).
 
 ## Verdicts
 
@@ -25,4 +25,8 @@ All four inequalities hold on every arsenal graph. The closest arsenal compariso
 ### `agx-survey-C23` — NOT_APPLICABLE (and subsequently proved)
 
 Statement: among **unicyclic** graphs of order `n`, specified cycles maximize adjacency energy for `n <= 7` and `n in {9,10,11,13,15}`, while the lollipop `Lol(n,6)` does so for every other order. None of the campaign arsenal graphs is unicyclic: each has an edge surplus larger than one, including the smallest `C5[K2]` (`n=10`, `m=25`). Thus the hypothesis excludes the entire arsenal and there is no carrier verdict to test. This is the one corpus entry counted separately from the 70 strict-open entries; its metadata also records that Andriantiana and Wagner proved the full conjecture in 2011.
+
+### `agx-survey-C32` — HOLD
+
+Statement: for every connected graph, algebraic connectivity `a` times matching number `mu` satisfies `a*mu >= 1`, with equality only for a star. It holds throughout the arsenal. The minimum product is `10` on Petersen (`a=2`, `mu=5`); the carrier gives the exact value `10*(10-2sqrt(5)) = 100-20sqrt(5) = 55.278640450...`. Direct Laplacian diagonalization and NetworkX maximum-cardinality matching agree; for `C5[K_m]`, the independently derived value is `a=m(5-sqrt(5))/2` and `mu=floor(5m/2)`. All margins exceed the `1e-6` guard by orders of magnitude, so no candidate gate is triggered.
 
