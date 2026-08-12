@@ -248,3 +248,11 @@ invariant reading.
 
 Printed p.77 corrects OCR `Dy` to `D2` and confirms the bound.  Nevertheless the
 source never defines autocoordinates, so source recovery cannot evaluate it.
+
+### wow-263 — SKIP_ALGORITHM
+
+> range of coordinates of Maxine <= 1 + range of positive eigenvalues.
+
+Printed p.78 confirms the full statement.  The source explicitly makes Maxine
+dependent on maximum-degree tie choices and gives no quantifier here; coordinate
+range can therefore not be treated as a graph invariant without guessing.
