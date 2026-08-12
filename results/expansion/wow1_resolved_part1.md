@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-362 — SKIP_SPECIAL_CLASS
+
+> If G is a geotropic plant then 1/2 (average distance) (the average degree) < independence number. This conjecture was refuted by AutoGraphiX with a counter-example with 17 vertices. First AGX explored systematically graphs with up to 14 vertices then ex- tr...
+
+The geotropic-plant hypothesis is not recoverable in full from this truncated row. The historical AutoGraphiX counterexample is recorded, but applying the inequality to arbitrary arsenal graphs would discard its defining hypothesis.
+
 ### wow-345 — SKIP_SPECIAL_CLASS
 
 > Cvetkovic deduced from Cauchy’s Interlacing Theorem that for every graph the independence number is smaller or equal to the number of nonnegative eigenvalues as well as the number of nonpositive eigenvalues. He also noticed that there are graphs for which w...
