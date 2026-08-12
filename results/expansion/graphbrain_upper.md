@@ -1,0 +1,38 @@
+# Graph Brain / CONJECTURING alpha upper-bound sweep
+
+## Scope, sources, and protocol
+
+This lane covers exactly the **139** author-posted upper bounds in
+`corpora/graphbrain_open_alpha.json`.  The primary machine-readable source is
+the Graph Brain Project's author-project GitHub issue #421, and invariant
+semantics are taken from the accompanying
+`math1um/objects-invariants-properties` Sage source.  The primary paper is
+Bushaw–Larson–Van Cleemput et al., *Automated Conjecturing VII: The Graph Brain
+Project & Big Mathematics* (arXiv:1801.01814v1).  The paper says the project had
+520 stored graphs rather than claiming an exhaustive all-connected-through-10
+database; its Figure 14 entries were additionally tested on all connected
+graphs through order 10 and random graphs through order 100.  I therefore state
+database coverage entry by entry and do not silently promote the paper's test
+description.
+
+For every source-faithful, defined expression I test the campaign arsenal and
+useful extensions `C5[K_m]`, `C7[K_m]`, triangular graphs `T(q)=L(K_q)`, and
+complete graphs when the formula exposes a threshold.  Any apparent violation
+must pass the identical-reading DB-sanity gate on every connected nonempty
+Graph Atlas graph through order 7 plus named calibration graphs, be independently
+recomputed, and receive a status/novelty check.  Trigonometric functions use
+radians.  A `1e-6` guard protects floating integer/floor/ceiling boundaries.
+Every ILP solve is capped at 60 seconds.  An absent or irrecoverable invariant
+definition is `SKIP_UNDEFINED`, never guessed.
+
+## Frozen manifest
+
+The exact lane manifest is:
+
+`graphbrain-alpha-upper-001`, `graphbrain-alpha-upper-002`, `graphbrain-alpha-upper-003`, `graphbrain-alpha-upper-004`, `graphbrain-alpha-upper-005`, `graphbrain-alpha-upper-006`, `graphbrain-alpha-upper-007`, `graphbrain-alpha-upper-008`, `graphbrain-alpha-upper-009`, `graphbrain-alpha-upper-010`, `graphbrain-alpha-upper-011`, `graphbrain-alpha-upper-012`, `graphbrain-alpha-upper-013`, `graphbrain-alpha-upper-014`, `graphbrain-alpha-upper-015`, `graphbrain-alpha-upper-016`, `graphbrain-alpha-upper-017`, `graphbrain-alpha-upper-018`, `graphbrain-alpha-upper-019`, `graphbrain-alpha-upper-020`, `graphbrain-alpha-upper-021`, `graphbrain-alpha-upper-022`, `graphbrain-alpha-upper-023`, `graphbrain-alpha-upper-024`, `graphbrain-alpha-upper-025`, `graphbrain-alpha-upper-026`, `graphbrain-alpha-upper-027`, `graphbrain-alpha-upper-028`, `graphbrain-alpha-upper-029`, `graphbrain-alpha-upper-030`, `graphbrain-alpha-upper-031`, `graphbrain-alpha-upper-032`, `graphbrain-alpha-upper-033`, `graphbrain-alpha-upper-034`, `graphbrain-alpha-upper-035`, `graphbrain-alpha-upper-036`, `graphbrain-alpha-upper-037`, `graphbrain-alpha-upper-038`, `graphbrain-alpha-upper-039`, `graphbrain-alpha-upper-040`, `graphbrain-alpha-upper-041`, `graphbrain-alpha-upper-042`, `graphbrain-alpha-upper-043`, `graphbrain-alpha-upper-044`, `graphbrain-alpha-upper-045`, `graphbrain-alpha-upper-046`, `graphbrain-alpha-upper-047`, `graphbrain-alpha-upper-048`, `graphbrain-alpha-upper-049`, `graphbrain-alpha-upper-050`, `graphbrain-alpha-upper-051`, `graphbrain-alpha-upper-052`, `graphbrain-alpha-upper-053`, `graphbrain-alpha-upper-054`, `graphbrain-alpha-upper-055`, `graphbrain-alpha-upper-056`, `graphbrain-alpha-upper-057`, `graphbrain-alpha-upper-058`, `graphbrain-alpha-upper-059`, `graphbrain-alpha-upper-060`, `graphbrain-alpha-upper-061`, `graphbrain-alpha-upper-062`, `graphbrain-alpha-upper-063`, `graphbrain-alpha-upper-064`, `graphbrain-alpha-upper-065`, `graphbrain-alpha-upper-066`, `graphbrain-alpha-upper-067`, `graphbrain-alpha-upper-068`, `graphbrain-alpha-upper-069`, `graphbrain-alpha-upper-070`, `graphbrain-alpha-upper-071`, `graphbrain-alpha-upper-072`, `graphbrain-alpha-upper-073`, `graphbrain-alpha-upper-074`, `graphbrain-alpha-upper-075`, `graphbrain-alpha-upper-076`, `graphbrain-alpha-upper-077`, `graphbrain-alpha-upper-078`, `graphbrain-alpha-upper-079`, `graphbrain-alpha-upper-080`, `graphbrain-alpha-upper-081`, `graphbrain-alpha-upper-082`, `graphbrain-alpha-upper-083`, `graphbrain-alpha-upper-084`, `graphbrain-alpha-upper-085`, `graphbrain-alpha-upper-086`, `graphbrain-alpha-upper-087`, `graphbrain-alpha-upper-088`, `graphbrain-alpha-upper-089`, `graphbrain-alpha-upper-090`, `graphbrain-alpha-upper-091`, `graphbrain-alpha-upper-092`, `graphbrain-alpha-upper-093`, `graphbrain-alpha-upper-094`, `graphbrain-alpha-upper-095`, `graphbrain-alpha-upper-096`, `graphbrain-alpha-upper-097`, `graphbrain-alpha-upper-098`, `graphbrain-alpha-upper-099`, `graphbrain-alpha-upper-100`, `graphbrain-alpha-upper-101`, `graphbrain-alpha-upper-102`, `graphbrain-alpha-upper-103`, `graphbrain-alpha-upper-104`, `graphbrain-alpha-upper-105`, `graphbrain-alpha-upper-106`, `graphbrain-alpha-upper-107`, `graphbrain-alpha-upper-108`, `graphbrain-alpha-upper-109`, `graphbrain-alpha-upper-110`, `graphbrain-alpha-upper-111`, `graphbrain-alpha-upper-112`, `graphbrain-alpha-upper-113`, `graphbrain-alpha-upper-114`, `graphbrain-alpha-upper-115`, `graphbrain-alpha-upper-116`, `graphbrain-alpha-upper-117`, `graphbrain-alpha-upper-118`, `graphbrain-alpha-upper-119`, `graphbrain-alpha-upper-120`, `graphbrain-alpha-upper-121`, `graphbrain-alpha-upper-122`, `graphbrain-alpha-upper-123`, `graphbrain-alpha-upper-124`, `graphbrain-alpha-upper-125`, `graphbrain-alpha-upper-126`, `graphbrain-alpha-upper-127`, `graphbrain-alpha-upper-128`, `graphbrain-alpha-upper-129`, `graphbrain-alpha-upper-130`, `graphbrain-alpha-upper-131`, `graphbrain-alpha-upper-132`, `graphbrain-alpha-upper-133`, `graphbrain-alpha-upper-134`, `graphbrain-alpha-upper-135`, `graphbrain-alpha-upper-136`, `graphbrain-alpha-upper-137`, `graphbrain-alpha-upper-138`, `graphbrain-alpha-upper-139`.
+
+Manifest audit: 139 unique IDs, no missing or extra IDs relative to the frozen
+corpus selection `id.startswith("graphbrain-alpha-upper-")`.
+
+## Incremental verdict ledger
+
