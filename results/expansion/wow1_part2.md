@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 198 / 208.
+Progress: 199 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -1225,5 +1225,11 @@ This is a dangling continuation with its hypothesis and preceding connective mis
 > "Jf G is regular of degree d then the blue clique number is at most DeLaVina noticed ... lower bound n/(1+d?)."
 
 The entire upper-bound right side is lost. The commentary's separate lower bound cannot restore it.
+
+### wow-886 — HOLD / TIGHT
+
+> "If G is regular triangle-free then red independence ... radius ..."
+
+On `bar(C5[K4])`, red independence and radius are both 2. The source's non-strict convention gives equality; strict reading fails the `C5` sanity gate and is rejected.
 
 
