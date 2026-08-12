@@ -349,4 +349,8 @@ Exact average distance is at most the harmonic index throughout the regular arse
 
 Under both mean-entry conventions for the printed gravity matrix, mean gravity is at most `sum Odd` throughout.
 
+### wow-150 — HOLD
+
+The minimum consecutive gravity-eigenvalue gap is 0 because of multiplicities. A distinct-values-only parse is nonstandard and rejected.
+
 <!-- NEXT -->
