@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 132 / 208.
+Progress: 133 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -829,5 +829,11 @@ Context says "for these graphs" and discusses `PR[2..n]`, which the arsenal does
 > "independence ... not more than residue of complement + minimum phi function."
 
 The construction is a PR[S] try-out depending on a chosen maximum independent set, not a general invariant. Universal reading fails on `bar(C5[K4])` by `8>2+0`, but also on `K1,3` and 182/995 atlas graphs under every-MIS semantics (310 under any-MIS). Gate rejected; no kill.
+
+### wow-804 — N/A_ARSENAL / DB_REJECTED
+
+> "independence ... greater or equal to upper quotient ... + number of eigenvalues greater or equal to 1."
+
+This remains in the PR/RP context and no arsenal member instantiates it. A universal reading fails 490/995 connected nontrivial atlas graphs, including small calibration graphs, so it cannot support a carrier claim.
 
 
