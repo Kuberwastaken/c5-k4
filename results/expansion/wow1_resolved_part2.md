@@ -1,0 +1,22 @@
+# WoW I resolved/annotated sweep — ids >= 450
+
+This durable lane covers exactly the 56 records in `corpora/graffiti_wow.json`
+whose numeric WoW identifier is at least 450 and whose status does not begin
+with `open` or `unannotated`.  It asks a deliberately retrospective question:
+which already-proved, already-refuted, or otherwise annotated claims are also
+met, made sharp, or refuted by the campaign arsenal?
+
+Every usable statement is read with its inherited section hypothesis and is
+tested on `C5[K_m]` for `m in {2,3,4,5,6,8}`, `C7[K3]`, `C9[K3]`,
+`T(n)=L(K_n)` for `n in {7,8,9}`, and the complement of `C5[K4]`, with
+named comparison graphs where applicable.  A candidate is not called a
+retro-kill unless it passes the four handoff gates: the applicable connected
+Atlas graphs through order 7 plus named graphs, every plausible reading,
+independent recomputation, and a literature/novelty check.  Spectral tests use
+a `1e-6` guard.  No ILP run may exceed 60 seconds.  OCR damage and hypotheses
+that exclude the entire arsenal are recorded rather than repaired by guesswork.
+
+Verdict labels distinguish `HOLD`, `TIGHT`, `RETRO_KILL`, `NOT_APPLICABLE`,
+`SKIP_OCR`, and `DB_REJECTED` (a literal reading already fails Graffiti-era
+sanity graphs and therefore cannot support a mathematical claim).
+
