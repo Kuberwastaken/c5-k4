@@ -68,3 +68,11 @@ and complement closed form agree.
 634--654 hypothesis, `complement(C5[K4])`, `|E|/alpha=10`, while the sum of
 positive adjacency eigenvalues is `8+2(sqrt(5)-1)=10+2sqrt(5)`.
 Direct diagonalization agrees beyond the `1e-6` guard. It is not a retro-witness.
+
+## wow-648 — NOT_APPLICABLE
+
+**Status:** refuted (WoW annotation). This is existential: it predicts graphs
+in the 634--654 class with `chi(bar G)/alpha >= average_distance`, rather than
+a universal bound that an arsenal graph could falsify. The eligible complement
+carrier is not a witness to the existential claim (`10/8 < 30/19`); that fact
+is not a disproof.
