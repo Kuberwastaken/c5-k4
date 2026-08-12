@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 30 / 208.
+Progress: 31 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -217,5 +217,11 @@ The literal standard reading appears false on the carrier (`C5[K4]`: `chi(bar G)
 > "range of coordinates of matching < quoragedistance."
 
 The right-hand token `quoragedistance` is OCR garble and no unique standard invariant follows from it.
+
++### wow-600 — SKIP_OCR
+
+> "mean of rainbow < inverse Odd."
+
+Both `rainbow` and `Odd` refer to lost coordinate-sequence definitions. No faithful numerical reading survives.
 
 
