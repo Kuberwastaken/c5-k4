@@ -119,8 +119,10 @@ infinite family of counterexamples with unboundedly growing margin
 (closed forms: α = ⌊n/2⌋, b = n or n−1, L_s = n(n−1)/2 − n + 2...,
 confirmed exhaustively through T(11)). The violation is
 **reading-dependent** (the in-G parse of deg_avg holds with slack 9) and
-is documented as such. As of 2026-08-12, **conjecture 181 is unclaimed**
-in formal-conjectures and absent from the literature burst.
+is documented as such. The complete no-`sorry` Lean certificate is
+[`lean/GraphConjecture181.lean`](lean/GraphConjecture181.lean); the upstream
+submission is tracked in [formal-conjectures issue #4905](https://github.com/google-deepmind/formal-conjectures/issues/4905)
+and [draft PR #4907](https://github.com/google-deepmind/formal-conjectures/pull/4907).
 
 One graph killed four conjectures; its tightness frontier then aimed the
 next shot. Full analysis: [`results/family_forest.md`](results/family_forest.md).
@@ -136,6 +138,10 @@ independent recomputation, and a targeted novelty check.
 |---|---|---|---|
 | **191** | If `sum Odd ≤ sum Even`, minimum deficiency ≤ \|E\|/ω | `T(7) = L(K₇)` | `20 > 105/6`; in fact every `T(n)`, `n ≥ 7`, fails |
 | **889** | A connected regular triangle-free graph has a blue clique on `w/4` vertices | complement of `C₅[K₄]` | blue clique number `1 < 8/4 = 2` |
+
+Both disproofs have complete no-`sorry` Lean certificates:
+[`#191`](lean/GraphConjecture191.lean) and
+[`#889`](lean/GraphConjecture889.lean).
 
 The first is another T(n) lever: for `T(n)`, minimum deficiency is
 `(n−2)(n−3)` while `|E|/ω = n(n−2)/2`. The second uses the complement of the
@@ -407,6 +413,10 @@ and DeLaViña's verbatim invariant definitions (recovered from her
   verifiers, and the counterexample certificates.
   Upstream: [formal-conjectures PR #4592](https://github.com/google-deepmind/formal-conjectures/pull/4592),
   [issue #4590](https://github.com/google-deepmind/formal-conjectures/issues/4590).
+- **Conjecture 181 (spawned by the carrier)** — complete Lean 4 certificate
+  [`GraphConjecture181.lean`](lean/GraphConjecture181.lean).
+  Upstream: [formal-conjectures draft PR #4907](https://github.com/google-deepmind/formal-conjectures/pull/4907),
+  [issue #4905](https://github.com/google-deepmind/formal-conjectures/issues/4905).
 - **Conjecture 309** — J. J. Gebendorfer, *An Infinite Family of
   Counterexamples to Written on the Wall II Conjecture 309*, Zenodo,
   2026-07-25. [doi:10.5281/zenodo.21553295](https://doi.org/10.5281/zenodo.21553295)
