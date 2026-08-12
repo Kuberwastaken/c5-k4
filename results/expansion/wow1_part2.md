@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 158 / 208.
+Progress: 159 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -985,5 +985,11 @@ Red/blue graphs are undefined without `P`; moreover the record explicitly report
 > "red clique number ... blue jet number ... residue of blue graph."
 
 Every nonstandard graph in the formula depends on missing `P`, so no faithful arsenal instance exists.
+
+### wow-837 — N/A_ARSENAL (missing P)
+
+> "red clique number ... maximum red degree ..."
+
+The derived red graph is unspecified because `P` is missing. The source additionally says this conjecture is correct.
 
 
