@@ -155,3 +155,23 @@ graph. The UNKNOWN rows are neither positive nor negative evidence. Thus the
 main carrier does not disprove Total Coloring, and this bounded pass exposes no
 candidate counterexample.
 
+### 6. Erdos--Nesetril strong chromatic-index bound — HOLD
+
+The conjectured bound is `5 Delta^2/4` for even `Delta` and
+`(5 Delta^2-2 Delta+1)/4` for odd `Delta`. For eleven arsenal graphs,
+including every `C5[K_m]` member and the original carrier, the number of edges
+itself is no larger than the bound, so assigning a distinct colour to every
+edge is already a formal certificate. The only nontrivial rows were coloured
+on `L(G)^2` and replayed conflict-by-conflict:
+
+| graph | `Delta` | edges | bound | certificate colours |
+|---|---:|---:|---:|---:|
+| `C7[K3]` | 8 | 84 | 80 | 42 |
+| `C9[K3]` | 8 | 108 | 80 | 36 |
+| `T(9)` | 14 | 252 | 245 | 94 |
+| Petersen | 3 | 15 | 10 | 5 |
+
+In particular `C5[K4]` has only 110 edges against a bound of 146, while its
+complement has 80 edges against a bound of exactly 80. All cases hold with
+large or elementary margins; no 60-second optimization was needed.
+
