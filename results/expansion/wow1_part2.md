@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 57 / 208.
+Progress: 58 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -379,5 +379,11 @@ The token `my` is an unrecovered symbol/subscript. Without its definition the ri
 > "there is an eigenvector E belonging to the smallest eigenvalue such that the frequency of maximum of E < independence."
 
 Repeated minimum eigenspaces, normalization, and quantification over choices are unresolved; the bipartite-equality comment also conflicts with literal strict inequality. No faithful reading is selected.
+
+### wow-695 — SKIP_OCR
+
+> "range of nonpositive eigenvalues <1+n— mo."
+
+`mo` may mean ordinary or GF(2) nullity, and `range` is ambiguous. These readings differ, so none is guessed.
 
 
