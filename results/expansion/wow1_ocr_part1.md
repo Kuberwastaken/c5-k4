@@ -315,3 +315,12 @@ selects `T(7),T(8),T(9)` from the arsenal.  Their exact average distances are
 Printed p.81 repairs the OCR completely.  The triangle-free carrier complement
 has `|E|/alpha=80/8=10` and, being 8-regular on 20 vertices, harmonic index
 `|E|/8=10`: exact equality.  This is a recovered tightness witness, not a kill.
+
+### wow-311 — SKIP_ALGORITHM
+
+> If G is a triangle-free graph then n / independence <= range of
+> coordinates of Maxine.
+
+Printed p.82 supplies the missing fraction and operator.  The Maxine-coordinate
+range still depends on unspecified maximum-degree tie order, with no quantifier
+over runs, so the statement is not a well-defined graph invariant to evaluate.
