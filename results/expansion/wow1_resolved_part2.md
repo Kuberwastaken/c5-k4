@@ -298,3 +298,10 @@ Laplacian symbol and right side to `d <= -1+1`, so it is unusable independently.
 Ramsey triangle-free graphs `R(3,a+1)`. Although the complement carrier is
 regular and triangle-free, it is not certified as a largest critical Ramsey
 graph of its independence order; no arsenal member meets the antecedent.
+
+## wow-792 — HOLD
+
+**Status:** proved (Aouchiche--Hansen survey). All arsenal graphs satisfy
+`alpha(G) <= 1+lambda_max(bar G)`. The carrier gives `2 <= 9`; its complement
+gives `8 <= 12`. Direct complement diagonalization and the closed-form
+spectra agree beyond the `1e-6` guard.
