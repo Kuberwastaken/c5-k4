@@ -93,6 +93,13 @@ Author-repository, issue-history, exact-formula, and broader invariant searches
 found no pre-existing counterexample.  This is a candidate new disproof; an
 executable certificate is prepared separately.
 
+### graphbrain-alpha-upper-004 — HOLD_ARSENAL
+
+> `independence_number(x) <= ceil(e^girth(x)) + max_even_minus_even_horizontal(x)`
+
+The source-faithful expression has no violation on all 996 connected nonempty Graph Atlas graphs through order 7 where it is defined, the named controls, or the campaign families and threshold complete graphs.  Exact arithmetic was used where available; real-valued comparisons obey the `1e-6` guard.  This is only an arsenal hold, not a proof.
+
+
 ### graphbrain-alpha-upper-003 — RETRO_KILL_AUTHOR_SOURCE
 
 > `independence_number(x) <= max_even_minus_even_horizontal(x) + sinh(max_degree(x) - 1)`
