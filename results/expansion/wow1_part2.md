@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 200 / 208.
+Progress: 201 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -1237,5 +1237,11 @@ On `bar(C5[K4])`, red independence and radius are both 2. The source's non-stric
 > "If G is a cubic (connected) triangle-free graph ..."
 
 No arsenal member is cubic.
+
+### wow-888 — SKIP_OCR
+
+> "If G is a regular ... triangle-free graph and a the average distance ... blue clique with m-1 vertices."
+
+The conclusion uses undefined `m` after defining only `a`. No substitution is guessed.
 
 
