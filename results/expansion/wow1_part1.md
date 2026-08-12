@@ -281,4 +281,8 @@ All arsenal graphs satisfy `alpha <= n-radius`; the carrier gives `2 <= 18` and 
 
 Inherited triangle-free reading selects the carrier complement: `2m=160 <= sum Even=240`.
 
+### wow-122 — HOLD
+
+Both binary Maxine-coordinate readings give a very loose RHS `n/mean = n^2/|I|`; all arsenal graphs hold.
+
 <!-- NEXT -->
