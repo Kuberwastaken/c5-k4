@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 143 / 208.
+Progress: 144 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -895,5 +895,11 @@ This is a problem asking for a new invariant tailored to `RP[n]`, not a fixed un
 > "Let G(1) be the 3-vertex clique ... Solve the lower interpolation problem for G(k)."
 
 No arsenal member is one of the recursively amalgamated-triangle graphs, and no candidate inequality is supplied.
+
+### wow-816 — N/A_ARSENAL
+
+> "Solve the lower interpolation problem for generalized Petersen graphs ..."
+
+This is an open-ended invariant-design problem, not an assertion falsifiable by the arsenal.
 
 
