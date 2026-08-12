@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 127 / 208.
+Progress: 128 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -799,5 +799,11 @@ The stated dual deletion on constant regular degree sequences was simulated exac
 > "Turan bound = 1 + the average temperature of the complement of G."
 
 For a `d`-regular order-`n` graph, complement temperature is `(n-1-d)/(d+1)`, so the right side is exactly `n/(d+1)`, the Caro-Wei/Turán bound. All arsenal graphs are regular.
+
+### wow-798 — N/A_ARSENAL
+
+> "Let p=4k+4+1 be a prime ... [quadratic-residue word sequence]"
+
+This is a number-theoretic sequence assertion, not a universal graph bound. The commentary also records Odlyzko's proof.
 
 
