@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-34 — HOLD / NO ADDITIONAL WITNESS
+
+> n - rank of the distance matrix is not more than the maximum frequency of the distance. Disproved by James B. Shearer, comp 23.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed distance, rank quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
 ### wow-33 — HOLD / NO ADDITIONAL WITNESS
 
 > The negative of the largest negative distance eigenvalue is not more than the chromatic number. Disproved by Alon, Saks, Seymour, Shearer and Winkler. comp 28.
