@@ -86,6 +86,672 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-18 — HOLD / NO ADDITIONAL WITNESS
+
+> radius is not more than the number of vertices of maximum degree + the maximum frequency of the degree sequence. Disproved by Shui-Tain Chen, University of Houston, March 88. February 19. 87.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-19 — PROVED_HOLD
+
+> Let a be the smallest eigenvalue of a graph G. Then - a is < Randic index of G. (3.) This conjecture was proved by Favaron, Maheo and Sacle, University of Paris-Sud. comp also conj’s 20, 21, 27 and 28. [FMS2] O. Favaron, M. Maheo and J-P. Sacle, Some Result...
+
+Direct evaluation of the applicable arsenal using the source hypotheses and the listed randic_index, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
+### wow-22 — HOLD / NO ADDITIONAL WITNESS
+
+> Let e be the largest negative eigenvalue of a graph. Then -e is smaller or equal to the independence number. The Paley graph with 101 vertices 1s a counter-example. Noga Alon, Tel Aviv University and Bellcore. June 88. Alon and myself noticed that the conje...
+
+The applicable arsenal satisfies the source-faithful inequality using the listed alpha, degree, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-23 — RETRO-VIOLATION — T(q), q≥7
+
+> rank of the adjacency matrix is not more than the rank of the distance Matrie. Even cycles Cy, n > 6 or more are counterecamples. James B. Shearer, Thomas J. Watson Research Center, Yorktown Heights, May 88. The counterexample is Ce (and all bigger even cyc...
+
+`T(7)=L(K7)` has adjacency rank 21 but distance-matrix rank 7, so it violates `rank(A) <= rank(D)`; generally `T(q)` has full adjacency rank `q(q-1)/2` while its distance matrix has rank `q`. This is a new witness to an already-refuted conjecture, not new mathematics. The closed-form spectra and an independent numerical rank computation agree.
+
+### wow-24 — PROVED_HOLD
+
+> average temperature is not more than the number of negative eigenvalues. This and the next conjecture were proved by Shearer.
+
+Direct evaluation of the applicable arsenal using the source hypotheses and the listed spectrum, temperature quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
+### wow-25 — PROVED_HOLD
+
+> average temperature is not more than the number of negative eigenvalues of the distance matrix. (-1.) see 24.
+
+Direct evaluation of the applicable arsenal using the source hypotheses and the listed distance, spectrum, temperature quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
+### wow-26 — HOLD / NO ADDITIONAL WITNESS
+
+> Sum of reciprocals of degrees is not more than the rank of the distance matriz. (1.) This was disproved by Alon, Saks, Seymour, Shearer and Winkler.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed degree, distance, rank quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-28 — HOLD / NO ADDITIONAL WITNESS
+
+> Randic index is not more than the sum of positive eigenvalues. This conjecture is false, but working on a counterexample I formed a conjecture that for trees the value of Randic index is close, and seem to be correlated with the sum of the positive eigenval...
+
+The applicable arsenal satisfies the source-faithful inequality using the listed randic_index, spectrum, tree quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-29 — RETRO-VIOLATION — T(q), q≥7
+
+> The Randic index is not more than the number of negative distance eigen- values. Disproved by Alon, Saks, Seymour, Shearer and Winkler. July 88.
+
+For `T(q)`, regularity gives `R=n/2=q(q-1)/4`, while the distance spectrum has exactly `q-1` negative eigenvalues. Thus `T(7)` gives `10.5 > 6`, and every `q>=7` violates. This supplements the row's historical refutation; it is not a new conjecture kill. Exact spectral multiplicities and a separate eigensolver agree.
+
+### wow-30 — HOLD / NO ADDITIONAL WITNESS
+
+> The number of positive distance eigenvalues is not more than sum of temperatures of vertices. A counterexample is D6(B6). James. B. Shearer, July 88.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed distance, spectrum, temperature quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-31 — HOLD / NO ADDITIONAL WITNESS
+
+> The negative of the largest negative distance eigenvalue is not more than the independence number. A counterexample is D2(B4). James B. Shearer, 7.88.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed alpha, distance, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-33 — HOLD / NO ADDITIONAL WITNESS
+
+> The negative of the largest negative distance eigenvalue is not more than the chromatic number. Disproved by Alon, Saks, Seymour, Shearer and Winkler. comp 28.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed chromatic_number, distance, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-34 — HOLD / NO ADDITIONAL WITNESS
+
+> n - rank of the distance matrix is not more than the maximum frequency of the distance. Disproved by James B. Shearer, comp 23.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed distance, rank quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-35 — PROVED_HOLD
+
+> The diameter of a graph is not more than the negative of the largest negative distance eigenvalue. This and the next conjecture follows from interlacing theorem. James B. Shearer, 7.88
+
+Direct evaluation of the applicable arsenal using the source hypotheses and the listed diameter, distance, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
+### wow-36 — PROVED_HOLD
+
+> The diameter of a graph is not more than the number of negative eigen- values of the distance matrix. James B. Shearer, see 35.
+
+Direct evaluation of the applicable arsenal using the source hypotheses and the listed diameter, distance quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
+### wow-37 — PROVED_HOLD
+
+> Radius is not more than the sum of positive eigenvalues. Proved in [FA2]. Also partially proved by Zang Shu, Beijing Institute of Technology.
+
+Direct evaluation of the applicable arsenal using the source hypotheses and the listed radius, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
+### wow-38 — HOLD / NO ADDITIONAL WITNESS
+
+> The variance of the distance matrix is not more than the negative of the smallest eigenvalue.
+
+The row depends on the distance-matrix variance convention. Under the source-faithful convention used in the existing campaign profiles, every applicable arsenal graph holds; no alternate convention is introduced and no additional historical witness is claimed.
+
+### wow-39 — SKIP_BUNDLED_OCR
+
+> The deviation of the distance matrix is not more than the number of positive eigenvalues. AO. The deviation of the distance matrix is not more than the number of negative eigenvalues. Al. chromatic number + radius 1s not more than the maximum degree + the f...
+
+This row merges at least four numbered statements (`39`, `40`, `41`, `42`) and truncates the last one. Assigning its single status to a particular inequality would be unsafe; no verdict is inferred from the bundled OCR.
+
+### wow-43 — PROVED_HOLD
+
+> Let s be the smallest eigenvalue of G, and m its matching number. Then - s 1s smaller or equal to m. Proved by Favaron, Maheo and Sacle, University of Paris-Sud, /FMS2/. 4A, The second largest eigenvalue is not more than the independence number. Noga Alon f...
+
+Direct evaluation of the applicable arsenal using the source hypotheses and the listed alpha, connectivity, matching, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
+### wow-45 — PROVED_HOLD
+
+> The second largest eigenvalue is not more than the matching number. Proved by Noga Alon, 5.88.
+
+Direct evaluation of the applicable arsenal using the source hypotheses and the listed matching, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
+### wow-46 — HOLD / BUNDLED SOURCE
+
+> The smallest positive eigenvalue < number of vertices of the center of a graph. Disproved by James B. Shearer. May 88. See also 58. AT. The smallest positive eigenvalue < number of vertices on the boundary. Disproved by Peter Puget, The University of Puget ...
+
+The row bundles #46 and #47. On every arsenal graph, the smallest positive adjacency eigenvalue is at most both the center size and periphery size (both equal `n` for the regular vertex-transitive members). No additional witness arises, but the two historical refutations remain external.
+
+### wow-48 — PROVED_HOLD
+
+> The sum of positive eigenvalues < largest eigenvalue of the distance matrix. Peter Puget, The University of Puget Sound. September 88. A9. -largest negative eigenvalue < minimal frequency of the distance matrix.
+
+Direct evaluation of the applicable arsenal using the source hypotheses and the listed distance, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
+### wow-50 — HOLD / NO ADDITIONAL WITNESS
+
+> The number of zero eigenvalues < smallest mode of the distance matriz. s.f. April 87.
+
+The row depends on the distance minimode convention. Under the source-faithful convention used in the existing campaign profiles, every applicable arsenal graph holds; no alternate convention is introduced and no additional historical witness is claimed.
+
+### wow-51 — PROVED_HOLD
+
+> The number of zero eigenvalues < the number of vertices in the center of the graph. s.f. April 87.
+
+Direct evaluation of the applicable arsenal using the source hypotheses and the listed spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
+### wow-52 — HOLD / NO ADDITIONAL WITNESS
+
+> The number of zero eigenvalues < the number of vertices in the boundary of the graph. s.f.
+
+The row depends on the boundary/periphery terminology. Under the source-faithful convention used in the existing campaign profiles, every applicable arsenal graph holds; no alternate convention is introduced and no additional historical witness is claimed.
+
+### wow-53 — HOLD / NO ADDITIONAL WITNESS
+
+> average temperature < minimal frequency of the distance matrix. Proved by Shui-Tain Chen, U. of Houston. April 87.
+
+The row depends on the minimum-frequency convention. Under the source-faithful convention used in the existing campaign profiles, every applicable arsenal graph holds; no alternate convention is introduced and no additional historical witness is claimed.
+
+### wow-55 — RETRO-VIOLATION — dense arsenal
+
+> The second largest eigenvalue is not more than the minimode of distance. Disproved by Peter Puget 11. 88, and later independently by Favaron, Maheo and Sacle. 1.91
+
+On the source-faithful minimode-as-smallest-modal-distance reading, `C5[K4]` has `lambda_2=(sqrt(5)-1)4/2-1=5.472135... > 1`, its unique modal distance. `T(7)` likewise gives `3>2`. Both are additional witnesses to the already-refuted statement; values are beyond the `1e-6` guard and independently recomputed.
+
+### wow-56 — HOLD / NO ADDITIONAL WITNESS
+
+> The second largest eigenvalue is not more than the number of centers. Disproved by Halina Bielak, U. of Marie Curie-Skladowska, Lublin, Poland. It seems that I lost 57. Perhaps someone has an original version.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-58 — HOLD / NO ADDITIONAL WITNESS
+
+> - largest negative eigenvalue is not more than the number of centers. Disproved by Peter Puget
+
+The applicable arsenal satisfies the source-faithful inequality using the listed spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-59 — HOLD / NO ADDITIONAL WITNESS
+
+> Diameter is not more than the sum of positive eigenvalues. Disproved by Peter Puget
+
+The applicable arsenal satisfies the source-faithful inequality using the listed diameter, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-60 — HOLD / NO ADDITIONAL WITNESS
+
+> mode of distance is not more than the independence number. Disproved by Alon, Saks, Seymour and Winkler.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed alpha, distance quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-61 — HOLD / NO ADDITIONAL WITNESS
+
+> mode of distance is not more than the matching number. Disproved by Alon, Saks, Seymour and Winkler,who also proved that the conjecture is true for regular graphs of high degree, > 10 is enough.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed degree, distance, matching quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-62 — HOLD / NO ADDITIONAL WITNESS
+
+> If G is a regular graph of degree d then the average distance is not more than n/d, comp 127. Peter Puget proved the conjecture for graphs of diameter < 3 and constructed an infinite family of graphs of diameter 4 and even F such that average distance = 2+ ...
+
+The applicable arsenal satisfies the source-faithful inequality using the listed average_distance, degree, diameter, distance, path, tree quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-64 — HOLD / NO ADDITIONAL WITNESS
+
+> If G is triangle-free then the mode of Degree < then the Randic Index. Disproved by James B. Shearer. July 87.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed degree, randic_index quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-65 — HOLD / NO ADDITIONAL WITNESS
+
+> If G is triangle-free then the mode of Degree < the matching number. Disproved by Thomas Spencer, Rensselaer Polytechnic Institute February 8&7.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed degree, matching quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-66 — HOLD / NO ADDITIONAL WITNESS
+
+> If G is triangle-free then radius < the sum of reciprocal of degrees. Disproved by Thomas Spencer, Rensselaer Polytechnic Institute Febru- ary 87. I wrote in [FA2] that it was the first counterexample with over 100 vertices but that was incorrect. The first...
+
+The applicable arsenal satisfies the source-faithful inequality using the listed average_distance, degree, distance, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-67 — HOLD / NO ADDITIONAL WITNESS
+
+> chromatic number of a triangle-free graph is not more than the maximum frequency of its degree sequence (mfd.). Disproved by William Staton, U. of Mississippi, July 87. Staton skillfully modified Myctelski’s construction of triangle-free graphs with high ch...
+
+The applicable arsenal satisfies the source-faithful inequality using the listed chromatic_number, degree quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-68 — HOLD / NO ADDITIONAL WITNESS
+
+> If G is triangle-free then the matching number < then the maximal fre- quency of the degree sequence. Disproved by Thomas Spencer, Rensselaer Poly- technic Institute February 87. November 26. 87.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed degree, matching quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-69 — HOLD / NO ADDITIONAL WITNESS
+
+> Residue 1s not more than the independence number. This is really a joint conjecture of Graffiti and myself, because I began to an- ticipate this conjecture writing the code for residue.
+
+The row depends on the residue algorithm already covered by its proof. Under the source-faithful convention used in the existing campaign profiles, every applicable arsenal graph holds; no alternate convention is introduced and no additional historical witness is claimed.
+
+### wow-79 — HOLD — HISTORICALLY PROVED
+
+> mean of coordinates of a maximal independent set < matching. Proved by William Staton for all independent sets. The equality holds true iff the graph has no edges, but there are graphs like stars in which the two invariants can be arbitrarily close. January...
+
+The row records Staton's proof for all independent sets. The arsenal has positive matching number and no source-faithful contradiction; ordering-dependent coordinate variants are not substituted for the proved statement.
+
+### wow-81 — SKIP_ORDER_DEPENDENT
+
+> variance of coordinates of a maximal independent set < maximal frequency of Even. Disproved by William Staton. March 88.
+
+The coordinate vector depends on the selected maximal independent set and ordering conventions not frozen in the corpus. The row is already refuted; guessing an ordering would not yield a defensible additional witness.
+
+### wow-95 — HOLD / NO ADDITIONAL WITNESS
+
+> The mode of the distance < the residue. Cy is a counterexample with the interpretation of the mode as the largest of modes. Odile Favaron , Maryvonne Maheo and Jean-Francois Sacle, July 88.
+
+The row depends on the modal tie plus residue convention. Under the source-faithful convention used in the existing campaign profiles, every applicable arsenal graph holds; no alternate convention is introduced and no additional historical witness is claimed.
+
+### wow-101 — HOLD / NO ADDITIONAL WITNESS
+
+> The variance of the degree sequence is < than the independence number. Disproved independently by James B. Shearer and William Staton. Febru- ary 88.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed alpha, degree quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-107 — HOLD / NO ADDITIONAL WITNESS
+
+> A graph G is even-regular if the vector E defined in conjecture 96 is constant. If G is even-regular then the mode of the distance matrix < radius. Vance Faber, Los Alamos National Laboratory used LANL Cray com- puter and Reed’s program listing all at most ...
+
+The row depends on the even-regular/modal convention. Under the source-faithful convention used in the existing campaign profiles, every applicable arsenal graph holds; no alternate convention is introduced and no additional historical witness is claimed.
+
+### wow-110 — HOLD / NO ADDITIONAL WITNESS
+
+> Even(v) is the number of vertices at even distance from v. Conjecture: If G is triangle-free then range of Even < Range of Degree. Disproved by William Staton. March 88.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed degree, distance quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-112 — HOLD / NO ADDITIONAL WITNESS
+
+> Radius < maximal frequency of the degree sequence. Disproved by Shui- Tain Chen. April 88. James B. Shearer found a bipartite counterexample. May 88. Shui-Tain Chen proved the conjecture for trees, October 88.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed bipartite, degree, radius, tree quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-116 — PROVED_HOLD
+
+> largest eigenvalue < Randic. Proved in [FMS2] . November 88. As it was the case with 63 this conjecture again is a generalization of Turan’s theorem in the triangle-free case. Indeed: Randic is always at most n/2, and for triangle-free graphs, the size s at...
+
+Direct evaluation of the applicable arsenal using the source hypotheses and the listed randic_index, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
+### wow-124 — RETRO-VIOLATION — dense arsenal
+
+> size/2 < the rank of Laplacian. Disproved by s.f.
+
+The primary scan states `size/2 <= rank(L)`, with size meaning `|E|`. `C5[K4]` gives `55 > 19`; indeed `C5[K_m]` violates from `m=2` onward. `K5` already fails the identical reading (`5>4`), so the DB-sanity gate confirms a genuinely false historical statement rather than an OCR artifact. This is only a new carrier witness to a row already marked refuted.
+
+### wow-127 — HOLD / NO ADDITIONAL WITNESS
+
+> minimum degree < n / average distance. (comp. 62) Mekkia Kouider, L. R. I. University de Paris-Sud and Peter Winkler, Bellcore proved that the average distance < 3+ n/(1+ mindeg).
+
+The applicable arsenal satisfies the source-faithful inequality using the listed average_distance, degree, distance quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-128 — PROVED_HOLD
+
+> The second smallest eigenvalues of Laplacian < n/averagedistance. Vance Faber, Los Alamos National Laboratory, deduced from the results of [CF] that for every fixed d = maximum degree there are at most finitely many countereramples to this conjecture and ev...
+
+Direct evaluation of the applicable arsenal using the source hypotheses and the listed degree, diameter, distance, laplacian, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
+### wow-137 — HOLD / NO ADDITIONAL WITNESS
+
+> 2nd largest eigenvalue < harmonic. James B. Shearer October 88. [/FMS2]. November 88.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-138 — PROVED_HOLD
+
+> 2-nd largest eigenvalue < size / clique. [FMS2] proved that this conjec- ture is true for all graphs but Ky .December 89.
+
+Direct evaluation of the applicable arsenal using the source hypotheses and the listed clique_number, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
+### wow-139 — HOLD / NO ADDITIONAL WITNESS
+
+> - (2-nd smallest eigenvalue) < harmonic. James B. Shearer. October 8&8.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-140 — HOLD / NO ADDITIONAL WITNESS
+
+> deviation of eigenvalues < harmonic. FMS. 10.89.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-141 — HOLD / NO ADDITIONAL WITNESS
+
+> range of positive eigenvalues < the matching number. [FMS2]. December 88.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed matching, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-145 — HOLD / NO ADDITIONAL WITNESS
+
+> minimum of derivative of positive eigenvalues < n/average distance. [FMS'2], December 89.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed average_distance, distance, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-146 — PROVED_HOLD
+
+> The sum of positive eigenvalues < size. The equality holds true iff the maximum degree is 1. James B. Shearer, July 88.
+
+Direct evaluation of the applicable arsenal using the source hypotheses and the listed degree, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
+### wow-147 — SKIP_ORDER_DEPENDENT
+
+> The average distance < the number of vertices whose coordinates of Max- ane ts 0. With a right (or really wrong) ordering of vertices in barbell graphs, [FA] , Maxine may select every third vertex in the central path, so the strongest version of the observa...
+
+The source explicitly makes the Maxine output ordering-dependent and explains how a bad ordering refutes the strongest version. No canonical ordering is frozen for the arsenal, so no extra witness is claimed.
+
+### wow-158 — HOLD / NO ADDITIONAL WITNESS
+
+> the independence number of a graph is not more than the number of vertices - minimum degree. Tony Brewster, Los Alamos National Laboratory, proved that the equal- ity holds true iff the complement of the graph has a component that is clique, and every other...
+
+The applicable arsenal satisfies the source-faithful inequality using the listed alpha, clique_number, degree quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-160 — PROVED_HOLD
+
+> - smallest eigenvalue < size/2. Odile Favaron, Maryvonne Maho and Jean-Francois Sacle notice that largest eigenvalue-smallest eigenvalue < size/2 and the equality holds true iff G is a a union of a complete bipartite graph and isolated vertices. December 88.
+
+Direct evaluation of the applicable arsenal using the source hypotheses and the listed bipartite, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
+### wow-165 — HOLD / NO ADDITIONAL WITNESS
+
+> mode of eigenvalues of Laplacian < size / average distance.Tony L. Brewster, Michael Dinneen and Vance Faber, see 107 and 158.10. 90.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed average_distance, distance, laplacian, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-166 — RETRO-VIOLATION — dense arsenal
+
+> size/2 < the number of nonpositive eigenvalues of the distance matriz, Tony L. Brewster, Michael Dinneen and Vance Faber, see 107. 7.91.
+
+The primary reading is `|E|/2 <= p_-(D)+p_0(D)`. `C5[K4]` gives `55 > 17`; `K5` already gives `5>4`, so the same reading fails the DB-sanity gate in the expected direction. This is an additional witness to an already-refuted conjecture, independently confirmed from the distance spectrum.
+
+### wow-167 — PROVED_HOLD
+
+> The sum of reciprocals of eigenvalues of Laplacian < the mean transmis- sion of the distance matrix. proved in ”Average distance in graphs and Eigenvalues” by Sivaramakrish- nan Sivasubramanian School of Technology and Computer Science Tata Institute of Fun...
+
+Direct evaluation of the applicable arsenal using the source hypotheses and the listed average_distance, distance, laplacian, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
+### wow-178 — HOLD / NO ADDITIONAL WITNESS
+
+> - 2-nd smallest eigenvalue < the matching number. James B. Shearer, October 88.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed matching, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-179 — CORRUPT_ENTRY
+
+> Inverse transmission of Gravity average transmission of Distance. Tony L. Brewster, Michael Dinneen and Vance Faber (comp. 107),
+
+The primary transcription has no comparison operator: `Inverse transmission of Gravity average transmission of Distance`. The source commentary says `K2` was the only counterexample found and may reflect a bug, but the mathematical assertion cannot be reconstructed without guessing.
+
+### wow-186 — HOLD / NO ADDITIONAL WITNESS
+
+> size/independence < the sum of absolute values of eigenvalues. Odile Favaron, Maryvonne Maheo and Jean-Francois Sale. December 89.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed alpha, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-187 — HOLD / NO ADDITIONAL WITNESS
+
+> The mode of eigenvalues of Laplacian < n - the independence num- ber. Tony L. Brewster, Michael Dinneen and Vance Faber (comp. 107), 10. 90.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed alpha, laplacian, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-188 — RETRO-VIOLATION — T(7)
+
+> The mode of eigenvalues of Laplacian < n - the matching number. Michael J. Dinneen, Los Alamos National Laboratory and University of Victoria, Victoria, B.C (comp. 107.) August 91.
+
+The inherited source condition `sum D <= sum E` selects `T(7)`. Its Laplacian spectrum is `0^1, 7^6, 12^14`, hence the modal Laplacian eigenvalue is 12, while `n-mu=21-10=11`. Thus `12>11`. The result survives both the modal-value and modal-frequency readings (14 also exceeds 11), and exact formulas agree with a separate numerical eigensolver. It is a witness to an already-refuted row.
+
+### wow-189 — HOLD / NO ADDITIONAL WITNESS
+
+> The mode of eigenvalues of Laplacian < number of nonpositive eigenval- ues. Tony L. Brewster, Michael Dinneen and Vance Faber (comp. 107), 10. 90.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed laplacian, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-190 — PROVED_HOLD
+
+> deviation of eigenvalues of Laplacian < mean of E. Odile Favaron, Maryvonne Maheo and Jean-Francois Sacle. December 89.
+
+Direct evaluation of the applicable arsenal using the source hypotheses and the listed laplacian, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
+### wow-190(2) — PROVED_HOLD
+
+> The deviation of eigenvalues of Laplacian < mean of E. Odile Favaron, Maryvonne Maheo and Jean-Francois Sale. December 89.
+
+Direct evaluation of the applicable arsenal using the source hypotheses and the listed laplacian, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
+### wow-194 — HOLD / NO ADDITIONAL WITNESS
+
+> The mazimum eigenvalue < size / average distance. Odile Favaron, Maryvonne Maheo and Jean-Francois Sacle. December 89.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed average_distance, distance, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-196 — PROVED_HOLD
+
+> 2-nd largest eigenvalue < mean of E. [FMS2]. November 88.
+
+Direct evaluation of the applicable arsenal using the source hypotheses and the listed spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
+### wow-197 — SKIP_GRAVITY_CONVENTION
+
+> - 2-nd smallest eigenvalue < range of eigenvalues of the gravity matrix.
+
+The gravity-matrix eigenvalue-range statement needs the exact derivative/order convention from the source database. The row is already marked refuted in 2024; no alternate convention is guessed for an arsenal witness.
+
+### wow-199 — PROVED_HOLD
+
+> - smallest eigenvalue < mean of E. [FMS2]. November 88.
+
+Direct evaluation of the applicable arsenal using the source hypotheses and the listed spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
+### wow-200 — PROVED_HOLD
+
+> The minimum positive eigenvalue < the Randic index. Odile Favaron, Maryvonne Maheo and Jean-Francois Sacle , proved that the conjecture is correct for all but certain for complete p-partite graphs. January 89.
+
+Direct evaluation of the applicable arsenal using the source hypotheses and the listed randic_index, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
+### wow-201 — HOLD / NO ADDITIONAL WITNESS
+
+> The minimum of derivative of positive eigenvalues < size/clique. [FMS2], November 88.
+
+Using the source definition of derivative as consecutive gaps in the sorted positive adjacency spectrum, all applicable arsenal members satisfy the bound. No gap lies within the `1e-6` guard; the historical refutation remains external.
+
+### wow-206 — HOLD / NO ADDITIONAL WITNESS
+
+> 2-nd largest eigenvalue < the matching number. James B. Shearer, October 88.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed matching, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-207 — CORPUS-STATUS CONFLICT / HOLD
+
+> - smallest eigenvalue < the matching number. [FMS2]. October 88. James B. Shearer, October 88.
+
+The literal source text `-lambda_min(A) <= matching` duplicates proved WoW #43 and holds throughout the arsenal (`C5[K4]`: `3.472135...<=10`; complement: `6.472135...<=10`). The row's Aouchiche-Hansen-derived `refuted` label therefore cannot describe this literal transcription; it likely lost an ordinal such as `2-nd`. I do not claim a theorem contradiction.
+
+### wow-208 — PROVED_HOLD
+
+> - smallest eigenvalue < harmonic. James B. Shearer, October 88.
+
+Direct evaluation of the applicable arsenal using the source hypotheses and the listed spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
+### wow-209 — HOLD / NO ADDITIONAL WITNESS
+
+> The sum of positive eigenvalues < the mean of the transmission of the distance matriz. James B. Shearer, 88.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed distance, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-211 — PROVED_HOLD
+
+> n / average distance < the sum of absolute values of S. F. 2, 90. Conjectures for triangle-free graphs (212:220)
+
+Direct evaluation of the applicable arsenal using the source hypotheses and the listed average_distance, distance quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
+### wow-215 — HOLD WHERE APPLICABLE
+
+> size / independence < scope of the eigenvalues. Counterexamples are graphs obtained by removal of edges from triangles in random graphs in which n >> average degree >> 1.They are discussed in [SH1]. These graphs can be used to obtain counterexamples of arbi...
+
+The inherited triangle-free section excludes all clique blow-ups and triangular graphs. The only main-arsenal member selected is `complement(C5[K4])`, where `|E|/alpha=10 <= scope(A)=14.472135...`. Named triangle-free calibration graphs do not produce an extra witness.
+
+### wow-218 — HOLD WHERE APPLICABLE
+
+> maximum eigenvalue < size1/2. FMS pointed to me that this is a result of Nosal, [CDS], p. 89. Proved independently by James B. Shearer. October 88.
+
+The inherited triangle-free hypothesis is essential to Nosal's bound. `complement(C5[K4])` gives `lambda_1=8 <= sqrt(80)`. Apparent failures on dense `C5[K_m]` are inapplicable, not contradictions to the proved result.
+
+### wow-227 — HOLD / NO ADDITIONAL WITNESS
+
+> diameter < matching. [FMS1] constructed cubic graphs in which di- ameter is approximately 3n/4 and matching is approximately n/2, this is probably the worst possible case. September, 88. Also disproved independently by James B. Shearer, October 88.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed diameter, matching quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-241 — HOLD WHERE APPLICABLE
+
+> size / independence < scope of eigenvalues. Disproved by James B. Shearer, see his solution of 215. October 88.
+
+The primary scan places this in `Conjectures for K4-free graphs (240:245)`. Dense cycle blow-ups and `T(q)` are inapplicable. `complement(C5[K4])` is K4-free and gives `|E|/alpha=10 <= scope(A)=14.472135...`; named K4-free calibrators also hold.
+
+### wow-243 — HOLD WHERE APPLICABLE
+
+> size / independence < maximum eigenvalue of Laplacian. Disproved by James B. Shearer, see his solution of 215. October 88.
+
+The primary scan places this in the K4-free section. `complement(C5[K4])` gives `|E|/alpha=10 <= lambda_max(L)=14.472135...`; the dense graphs that would fail are excluded by the inherited hypothesis. No additional historical witness arises.
+
+### wow-244 — HOLD / NO ADDITIONAL WITNESS
+
+> deviation of eigenvalues of Laplacian < n/2. FMS 12.88.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed laplacian, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-247 — SKIP_RAINBOW
+
+> Radius is not more than sum of reciprocals of rainbow. The strongest interpretation of this conjecture was disproved by Ermelinda DeLaVina. /. 91.
+
+The row itself distinguishes multiple interpretations of the coloring-dependent rainbow vector and says only the strongest was disproved. Without a fixed coloring/optimization quantifier, an arsenal evaluation would be non-reproducible.
+
+### wow-249 — SKIP_RAINBOW
+
+> Range of rainbow is not more than the chromatic number of the comple- ment of G. The strongest interpretation of this conjecture is false but we do not know an example of a graph in which every coloration would be a counter-example. (Er- melinda DeLaVina an...
+
+The source says the strongest interpretation is false but leaves the coloration quantifier unresolved. No canonical coloration is specified, so the arsenal cannot supply a defensible additional witness.
+
+### wow-250 — SKIP_RAINBOW
+
+> The minimum of rainbow of the complement of G < the matching number. Disproved by Ermelinda Delavina, University of Houston. /. 91.
+
+The minimum-rainbow invariant requires the original coloration optimization protocol, which is absent from the corpus row. The historical refutation is retained without inventing a replacement definition.
+
+### wow-253 — PROVED_HOLD
+
+> The deviation of eigenvalues of Laplacian < the maximum of the dual de- gree. Odile Favaron, Maryvonne Maheo and Jean-Francois Sale. December 89.
+
+Direct evaluation of the applicable arsenal using the source hypotheses and the listed laplacian, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
+### wow-256 — PROVED_HOLD
+
+> Maximum eigenvalue of a graph is not more than its maximum dual degree. The dual degree of a vertex is the mean of the degrees of its neighbors. This conjecture was proved by Shearer. Here is his elegant argument. Let D be the diagonal matriz with degree of...
+
+Direct evaluation of the applicable arsenal using the source hypotheses and the listed degree, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
+### wow-258 — PROVED_HOLD
+
+> The number of positive eigenvalues < the matching number + the match- ing number of the complement. [FMS2] . November 88.
+
+Direct evaluation of the applicable arsenal using the source hypotheses and the listed matching, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
+### wow-264 — HOLD / NO ADDITIONAL WITNESS
+
+> 2 + range of positive eigenvalues < bichromatic number. Michael J. Dinneen, Los Alamos National Laboratory and University of Victoria, Victoria, B.C (comp. 107.) August 91.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed chromatic_number, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-265 — HOLD / NO ADDITIONAL WITNESS
+
+> 2- smallest eigenvalue < bichromatic number. Odile Favaron, Maryvonne Maho and Jean-Francois Scle. December, 89. SLZE
+
+The applicable arsenal satisfies the source-faithful inequality using the listed chromatic_number, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-281 — HOLD WHERE APPLICABLE
+
+> maz (matching, mismatching) number of negative eigenvalues of Dis- tance. Michael J. Dinneen, Los Alamos National Laboratory and University of Victoria, Victoria, B.C (comp. 107.) August 91.
+
+The primary scan places this in the inherited girth-at-least-5 block. `T(q)` and the complement carrier (girth 3 and 4) are inapplicable. Cycles `C5` through `C9` and the named girth calibration graphs satisfy the distance-inertia bound; no additional witness arises.
+
+### wow-289 — HOLD WHERE APPLICABLE
+
+> If girth is > 5 then the second largest eigenvalue < the mean dual degree. James B. Shearer, October 88.
+
+The girth-at-least-5 hypothesis excludes the main dense arsenal. Direct checks on `C5`-`C9`, Petersen, and Heawood satisfy `lambda_2 <= mean dual degree`; no additional witness to the already-refuted row appears.
+
+### wow-293 — HOLD / NO ADDITIONAL WITNESS
+
+> If girth 1s > 5 then the minimum of derivative of positive eigenvalues < Size Tony L. Brewster, Michael J. Dinneen and Vance Faber, (comp 107) independence. They found eight counterexamples all of which were trees. February 91.
+
+The source notes eight tree counterexamples. The named tree calibrators and paths/stars used by this campaign do not add a smaller witness under the source derivative convention; the dense arsenal is inapplicable.
+
+### wow-297 — PROVED_HOLD WHERE APPLICABLE
+
+> If G is a tree then the second smallest eigenvalue of Laplacian < n independence. Odile Favaron, Maryvonne Maheo and Jean-Francois Sale. 2. 90.
+
+The hypothesis requires a tree. Paths and stars in the named gate satisfy algebraic connectivity `a <= n/alpha`; the dense arsenal is inapplicable. No contradiction to the proved row appears.
+
+### wow-301 — HOLD / NO ADDITIONAL WITNESS
+
+> If G is a tree then the scope of positive eigenvalues < harmonic. James B. Shearer, October 88.
+
+Only trees apply. The named paths and stars do not supply an additional failure of `scope(positive adjacency spectrum) <= harmonic`; the historical refutation remains external.
+
+### wow-302 — HOLD / NO ADDITIONAL WITNESS
+
+> If G is a tree then the scope of positive eigenvalues < the mean dual degree. James B. Shearer, October 88. August 26, 88.
+
+Only trees apply. Named path/star calibration graphs do not add a failure under the mean-dual-degree reading; the historical refutation remains external.
+
+### wow-305 — HOLD WHERE APPLICABLE
+
+> If the distance rank is strictly less than the rank then the sum of inverses of dual degrees < the number of nonnegative eigenvalues. Tony L. Brewster, Michael J. Dinneen and Vance Faber, (see107) 12. 90.
+
+The rank hypothesis selects `T(q)`: `rank(D)=q < q(q-1)/2=rank(A)`. For `T(7)`, `sum 1/d*=21/10 <= p_++p_0=7`; `T(8),T(9)` have still larger margins. No additional witness arises.
+
+### wow-306 — HOLD WHERE APPLICABLE
+
+> If the distance rank is strictly less than the rank then the sum of inverses of dual degrees < number of nonpositive eigenvalues. Tony L. Brewster, Michael J. Dinneen and Vance Faber, (see107) 12. 90.
+
+The rank hypothesis selects `T(q)`. For `T(7)`, `sum 1/d*=21/10 <= p_-+p_0=14`; the larger triangular graphs also hold. No additional witness arises.
+
+### wow-321 — HOLD WHERE APPLICABLE
+
+> If G is a triangle-free graph then the maximum eigenvalue < mean of Even. James B. Shearer, October 88.
+
+The triangle-free hypothesis selects `complement(C5[K4])`, where `lambda_1=8 <= mean Even=12`. Named triangle-free calibration graphs also hold, so this arsenal adds no witness to the historical refutation.
+
+### wow-345 — SKIP_SPECIAL_CLASS
+
+> Cvetkovic deduced from Cauchy’s Interlacing Theorem that for every graph the independence number is smaller or equal to the number of nonnegative eigenvalues as well as the number of nonpositive eigenvalues. He also noticed that there are graphs for which w...
+
+The claimed inequality is embedded in prose defining heliotropic/geotropic `plants`; membership depends on equality in an inertia bound and subsequent truncated conditions. No arsenal member is asserted applicable without reconstructing the full special-class definition.
+
+### wow-362 — SKIP_SPECIAL_CLASS
+
+> If G is a geotropic plant then 1/2 (average distance) (the average degree) < independence number. This conjecture was refuted by AutoGraphiX with a counter-example with 17 vertices. First AGX explored systematically graphs with up to 14 vertices then ex- tr...
+
+The geotropic-plant hypothesis is not recoverable in full from this truncated row. The historical AutoGraphiX counterexample is recorded, but applying the inequality to arbitrary arsenal graphs would discard its defining hypothesis.
+
+### wow-400 — SKIP_BUNDLED_OCR
+
+> range of positive eigenvalues < maximum of Dual Degree. A01. minimum of derivative of positive eigenvalues < mean Gravity. Disproved by Tony L. Brewster, Michael J. Dinneen and Vance Faber 12. 90.
+
+The row fuses #400 and #401 and assigns conflicting status prose. The legible #400 clause `range positive <= maximum dual degree` holds throughout the arsenal, but the derivative/gravity clause is not safely attributable; no combined verdict is claimed.
+
+### wow-403 — HOLD WHERE APPLICABLE
+
+> n / mean distance < scope of eigenvalues. Disproved by Favaron, Ma- heo and Sacle. 12. 89.
+
+The primary scan places #403 in the independence-at-most-2 section. `C5[K4]` gives `n/mean distance=380/27=14.074074... <= scope(A)=14.472135...`; the family remains on the holding side. `T(q)` failures are inapplicable because their independence exceeds 2.
+
+### wow-405 — HOLD / BUNDLED SOURCE
+
+> - smallest eigenvalue of Distance < matching of G+ the matching num- ber of the complement of G. Disproved by Michael J. Dinneen, Los Alamos National Laboratory and University of Victoria, Victoria, B.C. August 91. A406. maximum of Even < chromatic number. ...
+
+The row fuses #405-#407. Under the inherited `alpha<=2` heading, `C5[K_m]` satisfies the legible #405 distance-eigenvalue bound and the #406/#407 clauses; the complement and triangular graphs are inapplicable. No additional witness is claimed from the truncated bundle.
+
+### wow-422 — HOLD / NO ADDITIONAL WITNESS
+
+> If G is a regular graph then n - sum of positive eigenvalues < independence. October
+
+The applicable arsenal satisfies the source-faithful inequality using the listed alpha, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
 ## Completion audit
 
 Coverage was regenerated independently from the frozen JSON after the final
@@ -105,669 +771,3 @@ No proved statement is contradicted.  One metadata defect is exposed:
 `refuted` label cannot apply to the text as stored.  Primary-scan section
 headings were used to prevent false claims for the triangle-free, K4-free,
 girth, parity-sum, and independence-at-most-two blocks.  No ILP was needed.
-
-### wow-422 — HOLD / NO ADDITIONAL WITNESS
-
-> If G is a regular graph then n - sum of positive eigenvalues < independence. October
-
-The applicable arsenal satisfies the source-faithful inequality using the listed alpha, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-405 — HOLD / BUNDLED SOURCE
-
-> - smallest eigenvalue of Distance < matching of G+ the matching num- ber of the complement of G. Disproved by Michael J. Dinneen, Los Alamos National Laboratory and University of Victoria, Victoria, B.C. August 91. A406. maximum of Even < chromatic number. ...
-
-The row fuses #405-#407. Under the inherited `alpha<=2` heading, `C5[K_m]` satisfies the legible #405 distance-eigenvalue bound and the #406/#407 clauses; the complement and triangular graphs are inapplicable. No additional witness is claimed from the truncated bundle.
-
-### wow-403 — HOLD WHERE APPLICABLE
-
-> n / mean distance < scope of eigenvalues. Disproved by Favaron, Ma- heo and Sacle. 12. 89.
-
-The primary scan places #403 in the independence-at-most-2 section. `C5[K4]` gives `n/mean distance=380/27=14.074074... <= scope(A)=14.472135...`; the family remains on the holding side. `T(q)` failures are inapplicable because their independence exceeds 2.
-
-### wow-400 — SKIP_BUNDLED_OCR
-
-> range of positive eigenvalues < maximum of Dual Degree. A01. minimum of derivative of positive eigenvalues < mean Gravity. Disproved by Tony L. Brewster, Michael J. Dinneen and Vance Faber 12. 90.
-
-The row fuses #400 and #401 and assigns conflicting status prose. The legible #400 clause `range positive <= maximum dual degree` holds throughout the arsenal, but the derivative/gravity clause is not safely attributable; no combined verdict is claimed.
-
-### wow-362 — SKIP_SPECIAL_CLASS
-
-> If G is a geotropic plant then 1/2 (average distance) (the average degree) < independence number. This conjecture was refuted by AutoGraphiX with a counter-example with 17 vertices. First AGX explored systematically graphs with up to 14 vertices then ex- tr...
-
-The geotropic-plant hypothesis is not recoverable in full from this truncated row. The historical AutoGraphiX counterexample is recorded, but applying the inequality to arbitrary arsenal graphs would discard its defining hypothesis.
-
-### wow-345 — SKIP_SPECIAL_CLASS
-
-> Cvetkovic deduced from Cauchy’s Interlacing Theorem that for every graph the independence number is smaller or equal to the number of nonnegative eigenvalues as well as the number of nonpositive eigenvalues. He also noticed that there are graphs for which w...
-
-The claimed inequality is embedded in prose defining heliotropic/geotropic `plants`; membership depends on equality in an inertia bound and subsequent truncated conditions. No arsenal member is asserted applicable without reconstructing the full special-class definition.
-
-### wow-321 — HOLD WHERE APPLICABLE
-
-> If G is a triangle-free graph then the maximum eigenvalue < mean of Even. James B. Shearer, October 88.
-
-The triangle-free hypothesis selects `complement(C5[K4])`, where `lambda_1=8 <= mean Even=12`. Named triangle-free calibration graphs also hold, so this arsenal adds no witness to the historical refutation.
-
-### wow-306 — HOLD WHERE APPLICABLE
-
-> If the distance rank is strictly less than the rank then the sum of inverses of dual degrees < number of nonpositive eigenvalues. Tony L. Brewster, Michael J. Dinneen and Vance Faber, (see107) 12. 90.
-
-The rank hypothesis selects `T(q)`. For `T(7)`, `sum 1/d*=21/10 <= p_-+p_0=14`; the larger triangular graphs also hold. No additional witness arises.
-
-### wow-305 — HOLD WHERE APPLICABLE
-
-> If the distance rank is strictly less than the rank then the sum of inverses of dual degrees < the number of nonnegative eigenvalues. Tony L. Brewster, Michael J. Dinneen and Vance Faber, (see107) 12. 90.
-
-The rank hypothesis selects `T(q)`: `rank(D)=q < q(q-1)/2=rank(A)`. For `T(7)`, `sum 1/d*=21/10 <= p_++p_0=7`; `T(8),T(9)` have still larger margins. No additional witness arises.
-
-### wow-302 — HOLD / NO ADDITIONAL WITNESS
-
-> If G is a tree then the scope of positive eigenvalues < the mean dual degree. James B. Shearer, October 88. August 26, 88.
-
-Only trees apply. Named path/star calibration graphs do not add a failure under the mean-dual-degree reading; the historical refutation remains external.
-
-### wow-301 — HOLD / NO ADDITIONAL WITNESS
-
-> If G is a tree then the scope of positive eigenvalues < harmonic. James B. Shearer, October 88.
-
-Only trees apply. The named paths and stars do not supply an additional failure of `scope(positive adjacency spectrum) <= harmonic`; the historical refutation remains external.
-
-### wow-297 — PROVED_HOLD WHERE APPLICABLE
-
-> If G is a tree then the second smallest eigenvalue of Laplacian < n independence. Odile Favaron, Maryvonne Maheo and Jean-Francois Sale. 2. 90.
-
-The hypothesis requires a tree. Paths and stars in the named gate satisfy algebraic connectivity `a <= n/alpha`; the dense arsenal is inapplicable. No contradiction to the proved row appears.
-
-### wow-293 — HOLD / NO ADDITIONAL WITNESS
-
-> If girth 1s > 5 then the minimum of derivative of positive eigenvalues < Size Tony L. Brewster, Michael J. Dinneen and Vance Faber, (comp 107) independence. They found eight counterexamples all of which were trees. February 91.
-
-The source notes eight tree counterexamples. The named tree calibrators and paths/stars used by this campaign do not add a smaller witness under the source derivative convention; the dense arsenal is inapplicable.
-
-### wow-289 — HOLD WHERE APPLICABLE
-
-> If girth is > 5 then the second largest eigenvalue < the mean dual degree. James B. Shearer, October 88.
-
-The girth-at-least-5 hypothesis excludes the main dense arsenal. Direct checks on `C5`-`C9`, Petersen, and Heawood satisfy `lambda_2 <= mean dual degree`; no additional witness to the already-refuted row appears.
-
-### wow-281 — HOLD WHERE APPLICABLE
-
-> maz (matching, mismatching) number of negative eigenvalues of Dis- tance. Michael J. Dinneen, Los Alamos National Laboratory and University of Victoria, Victoria, B.C (comp. 107.) August 91.
-
-The primary scan places this in the inherited girth-at-least-5 block. `T(q)` and the complement carrier (girth 3 and 4) are inapplicable. Cycles `C5` through `C9` and the named girth calibration graphs satisfy the distance-inertia bound; no additional witness arises.
-
-### wow-265 — HOLD / NO ADDITIONAL WITNESS
-
-> 2- smallest eigenvalue < bichromatic number. Odile Favaron, Maryvonne Maho and Jean-Francois Scle. December, 89. SLZE
-
-The applicable arsenal satisfies the source-faithful inequality using the listed chromatic_number, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-264 — HOLD / NO ADDITIONAL WITNESS
-
-> 2 + range of positive eigenvalues < bichromatic number. Michael J. Dinneen, Los Alamos National Laboratory and University of Victoria, Victoria, B.C (comp. 107.) August 91.
-
-The applicable arsenal satisfies the source-faithful inequality using the listed chromatic_number, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-258 — PROVED_HOLD
-
-> The number of positive eigenvalues < the matching number + the match- ing number of the complement. [FMS2] . November 88.
-
-Direct evaluation of the applicable arsenal using the source hypotheses and the listed matching, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
-
-### wow-256 — PROVED_HOLD
-
-> Maximum eigenvalue of a graph is not more than its maximum dual degree. The dual degree of a vertex is the mean of the degrees of its neighbors. This conjecture was proved by Shearer. Here is his elegant argument. Let D be the diagonal matriz with degree of...
-
-Direct evaluation of the applicable arsenal using the source hypotheses and the listed degree, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
-
-### wow-253 — PROVED_HOLD
-
-> The deviation of eigenvalues of Laplacian < the maximum of the dual de- gree. Odile Favaron, Maryvonne Maheo and Jean-Francois Sale. December 89.
-
-Direct evaluation of the applicable arsenal using the source hypotheses and the listed laplacian, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
-
-### wow-250 — SKIP_RAINBOW
-
-> The minimum of rainbow of the complement of G < the matching number. Disproved by Ermelinda Delavina, University of Houston. /. 91.
-
-The minimum-rainbow invariant requires the original coloration optimization protocol, which is absent from the corpus row. The historical refutation is retained without inventing a replacement definition.
-
-### wow-249 — SKIP_RAINBOW
-
-> Range of rainbow is not more than the chromatic number of the comple- ment of G. The strongest interpretation of this conjecture is false but we do not know an example of a graph in which every coloration would be a counter-example. (Er- melinda DeLaVina an...
-
-The source says the strongest interpretation is false but leaves the coloration quantifier unresolved. No canonical coloration is specified, so the arsenal cannot supply a defensible additional witness.
-
-### wow-247 — SKIP_RAINBOW
-
-> Radius is not more than sum of reciprocals of rainbow. The strongest interpretation of this conjecture was disproved by Ermelinda DeLaVina. /. 91.
-
-The row itself distinguishes multiple interpretations of the coloring-dependent rainbow vector and says only the strongest was disproved. Without a fixed coloring/optimization quantifier, an arsenal evaluation would be non-reproducible.
-
-### wow-244 — HOLD / NO ADDITIONAL WITNESS
-
-> deviation of eigenvalues of Laplacian < n/2. FMS 12.88.
-
-The applicable arsenal satisfies the source-faithful inequality using the listed laplacian, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-243 — HOLD WHERE APPLICABLE
-
-> size / independence < maximum eigenvalue of Laplacian. Disproved by James B. Shearer, see his solution of 215. October 88.
-
-The primary scan places this in the K4-free section. `complement(C5[K4])` gives `|E|/alpha=10 <= lambda_max(L)=14.472135...`; the dense graphs that would fail are excluded by the inherited hypothesis. No additional historical witness arises.
-
-### wow-241 — HOLD WHERE APPLICABLE
-
-> size / independence < scope of eigenvalues. Disproved by James B. Shearer, see his solution of 215. October 88.
-
-The primary scan places this in `Conjectures for K4-free graphs (240:245)`. Dense cycle blow-ups and `T(q)` are inapplicable. `complement(C5[K4])` is K4-free and gives `|E|/alpha=10 <= scope(A)=14.472135...`; named K4-free calibrators also hold.
-
-### wow-227 — HOLD / NO ADDITIONAL WITNESS
-
-> diameter < matching. [FMS1] constructed cubic graphs in which di- ameter is approximately 3n/4 and matching is approximately n/2, this is probably the worst possible case. September, 88. Also disproved independently by James B. Shearer, October 88.
-
-The applicable arsenal satisfies the source-faithful inequality using the listed diameter, matching quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-218 — HOLD WHERE APPLICABLE
-
-> maximum eigenvalue < size1/2. FMS pointed to me that this is a result of Nosal, [CDS], p. 89. Proved independently by James B. Shearer. October 88.
-
-The inherited triangle-free hypothesis is essential to Nosal's bound. `complement(C5[K4])` gives `lambda_1=8 <= sqrt(80)`. Apparent failures on dense `C5[K_m]` are inapplicable, not contradictions to the proved result.
-
-### wow-215 — HOLD WHERE APPLICABLE
-
-> size / independence < scope of the eigenvalues. Counterexamples are graphs obtained by removal of edges from triangles in random graphs in which n >> average degree >> 1.They are discussed in [SH1]. These graphs can be used to obtain counterexamples of arbi...
-
-The inherited triangle-free section excludes all clique blow-ups and triangular graphs. The only main-arsenal member selected is `complement(C5[K4])`, where `|E|/alpha=10 <= scope(A)=14.472135...`. Named triangle-free calibration graphs do not produce an extra witness.
-
-### wow-211 — PROVED_HOLD
-
-> n / average distance < the sum of absolute values of S. F. 2, 90. Conjectures for triangle-free graphs (212:220)
-
-Direct evaluation of the applicable arsenal using the source hypotheses and the listed average_distance, distance quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
-
-### wow-209 — HOLD / NO ADDITIONAL WITNESS
-
-> The sum of positive eigenvalues < the mean of the transmission of the distance matriz. James B. Shearer, 88.
-
-The applicable arsenal satisfies the source-faithful inequality using the listed distance, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-208 — PROVED_HOLD
-
-> - smallest eigenvalue < harmonic. James B. Shearer, October 88.
-
-Direct evaluation of the applicable arsenal using the source hypotheses and the listed spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
-
-### wow-207 — CORPUS-STATUS CONFLICT / HOLD
-
-> - smallest eigenvalue < the matching number. [FMS2]. October 88. James B. Shearer, October 88.
-
-The literal source text `-lambda_min(A) <= matching` duplicates proved WoW #43 and holds throughout the arsenal (`C5[K4]`: `3.472135...<=10`; complement: `6.472135...<=10`). The row's Aouchiche-Hansen-derived `refuted` label therefore cannot describe this literal transcription; it likely lost an ordinal such as `2-nd`. I do not claim a theorem contradiction.
-
-### wow-206 — HOLD / NO ADDITIONAL WITNESS
-
-> 2-nd largest eigenvalue < the matching number. James B. Shearer, October 88.
-
-The applicable arsenal satisfies the source-faithful inequality using the listed matching, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-201 — HOLD / NO ADDITIONAL WITNESS
-
-> The minimum of derivative of positive eigenvalues < size/clique. [FMS2], November 88.
-
-Using the source definition of derivative as consecutive gaps in the sorted positive adjacency spectrum, all applicable arsenal members satisfy the bound. No gap lies within the `1e-6` guard; the historical refutation remains external.
-
-### wow-200 — PROVED_HOLD
-
-> The minimum positive eigenvalue < the Randic index. Odile Favaron, Maryvonne Maheo and Jean-Francois Sacle , proved that the conjecture is correct for all but certain for complete p-partite graphs. January 89.
-
-Direct evaluation of the applicable arsenal using the source hypotheses and the listed randic_index, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
-
-### wow-199 — PROVED_HOLD
-
-> - smallest eigenvalue < mean of E. [FMS2]. November 88.
-
-Direct evaluation of the applicable arsenal using the source hypotheses and the listed spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
-
-### wow-197 — SKIP_GRAVITY_CONVENTION
-
-> - 2-nd smallest eigenvalue < range of eigenvalues of the gravity matrix.
-
-The gravity-matrix eigenvalue-range statement needs the exact derivative/order convention from the source database. The row is already marked refuted in 2024; no alternate convention is guessed for an arsenal witness.
-
-### wow-196 — PROVED_HOLD
-
-> 2-nd largest eigenvalue < mean of E. [FMS2]. November 88.
-
-Direct evaluation of the applicable arsenal using the source hypotheses and the listed spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
-
-### wow-194 — HOLD / NO ADDITIONAL WITNESS
-
-> The mazimum eigenvalue < size / average distance. Odile Favaron, Maryvonne Maheo and Jean-Francois Sacle. December 89.
-
-The applicable arsenal satisfies the source-faithful inequality using the listed average_distance, distance, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-190(2) — PROVED_HOLD
-
-> The deviation of eigenvalues of Laplacian < mean of E. Odile Favaron, Maryvonne Maheo and Jean-Francois Sale. December 89.
-
-Direct evaluation of the applicable arsenal using the source hypotheses and the listed laplacian, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
-
-### wow-190 — PROVED_HOLD
-
-> deviation of eigenvalues of Laplacian < mean of E. Odile Favaron, Maryvonne Maheo and Jean-Francois Sacle. December 89.
-
-Direct evaluation of the applicable arsenal using the source hypotheses and the listed laplacian, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
-
-### wow-189 — HOLD / NO ADDITIONAL WITNESS
-
-> The mode of eigenvalues of Laplacian < number of nonpositive eigenval- ues. Tony L. Brewster, Michael Dinneen and Vance Faber (comp. 107), 10. 90.
-
-The applicable arsenal satisfies the source-faithful inequality using the listed laplacian, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-188 — RETRO-VIOLATION — T(7)
-
-> The mode of eigenvalues of Laplacian < n - the matching number. Michael J. Dinneen, Los Alamos National Laboratory and University of Victoria, Victoria, B.C (comp. 107.) August 91.
-
-The inherited source condition `sum D <= sum E` selects `T(7)`. Its Laplacian spectrum is `0^1, 7^6, 12^14`, hence the modal Laplacian eigenvalue is 12, while `n-mu=21-10=11`. Thus `12>11`. The result survives both the modal-value and modal-frequency readings (14 also exceeds 11), and exact formulas agree with a separate numerical eigensolver. It is a witness to an already-refuted row.
-
-### wow-187 — HOLD / NO ADDITIONAL WITNESS
-
-> The mode of eigenvalues of Laplacian < n - the independence num- ber. Tony L. Brewster, Michael Dinneen and Vance Faber (comp. 107), 10. 90.
-
-The applicable arsenal satisfies the source-faithful inequality using the listed alpha, laplacian, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-186 — HOLD / NO ADDITIONAL WITNESS
-
-> size/independence < the sum of absolute values of eigenvalues. Odile Favaron, Maryvonne Maheo and Jean-Francois Sale. December 89.
-
-The applicable arsenal satisfies the source-faithful inequality using the listed alpha, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-179 — CORRUPT_ENTRY
-
-> Inverse transmission of Gravity average transmission of Distance. Tony L. Brewster, Michael Dinneen and Vance Faber (comp. 107),
-
-The primary transcription has no comparison operator: `Inverse transmission of Gravity average transmission of Distance`. The source commentary says `K2` was the only counterexample found and may reflect a bug, but the mathematical assertion cannot be reconstructed without guessing.
-
-### wow-178 — HOLD / NO ADDITIONAL WITNESS
-
-> - 2-nd smallest eigenvalue < the matching number. James B. Shearer, October 88.
-
-The applicable arsenal satisfies the source-faithful inequality using the listed matching, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-167 — PROVED_HOLD
-
-> The sum of reciprocals of eigenvalues of Laplacian < the mean transmis- sion of the distance matrix. proved in ”Average distance in graphs and Eigenvalues” by Sivaramakrish- nan Sivasubramanian School of Technology and Computer Science Tata Institute of Fun...
-
-Direct evaluation of the applicable arsenal using the source hypotheses and the listed average_distance, distance, laplacian, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
-
-### wow-166 — RETRO-VIOLATION — dense arsenal
-
-> size/2 < the number of nonpositive eigenvalues of the distance matriz, Tony L. Brewster, Michael Dinneen and Vance Faber, see 107. 7.91.
-
-The primary reading is `|E|/2 <= p_-(D)+p_0(D)`. `C5[K4]` gives `55 > 17`; `K5` already gives `5>4`, so the same reading fails the DB-sanity gate in the expected direction. This is an additional witness to an already-refuted conjecture, independently confirmed from the distance spectrum.
-
-### wow-165 — HOLD / NO ADDITIONAL WITNESS
-
-> mode of eigenvalues of Laplacian < size / average distance.Tony L. Brewster, Michael Dinneen and Vance Faber, see 107 and 158.10. 90.
-
-The applicable arsenal satisfies the source-faithful inequality using the listed average_distance, distance, laplacian, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-160 — PROVED_HOLD
-
-> - smallest eigenvalue < size/2. Odile Favaron, Maryvonne Maho and Jean-Francois Sacle notice that largest eigenvalue-smallest eigenvalue < size/2 and the equality holds true iff G is a a union of a complete bipartite graph and isolated vertices. December 88.
-
-Direct evaluation of the applicable arsenal using the source hypotheses and the listed bipartite, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
-
-### wow-158 — HOLD / NO ADDITIONAL WITNESS
-
-> the independence number of a graph is not more than the number of vertices - minimum degree. Tony Brewster, Los Alamos National Laboratory, proved that the equal- ity holds true iff the complement of the graph has a component that is clique, and every other...
-
-The applicable arsenal satisfies the source-faithful inequality using the listed alpha, clique_number, degree quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-147 — SKIP_ORDER_DEPENDENT
-
-> The average distance < the number of vertices whose coordinates of Max- ane ts 0. With a right (or really wrong) ordering of vertices in barbell graphs, [FA] , Maxine may select every third vertex in the central path, so the strongest version of the observa...
-
-The source explicitly makes the Maxine output ordering-dependent and explains how a bad ordering refutes the strongest version. No canonical ordering is frozen for the arsenal, so no extra witness is claimed.
-
-### wow-146 — PROVED_HOLD
-
-> The sum of positive eigenvalues < size. The equality holds true iff the maximum degree is 1. James B. Shearer, July 88.
-
-Direct evaluation of the applicable arsenal using the source hypotheses and the listed degree, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
-
-### wow-145 — HOLD / NO ADDITIONAL WITNESS
-
-> minimum of derivative of positive eigenvalues < n/average distance. [FMS'2], December 89.
-
-The applicable arsenal satisfies the source-faithful inequality using the listed average_distance, distance, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-141 — HOLD / NO ADDITIONAL WITNESS
-
-> range of positive eigenvalues < the matching number. [FMS2]. December 88.
-
-The applicable arsenal satisfies the source-faithful inequality using the listed matching, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-140 — HOLD / NO ADDITIONAL WITNESS
-
-> deviation of eigenvalues < harmonic. FMS. 10.89.
-
-The applicable arsenal satisfies the source-faithful inequality using the listed spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-139 — HOLD / NO ADDITIONAL WITNESS
-
-> - (2-nd smallest eigenvalue) < harmonic. James B. Shearer. October 8&8.
-
-The applicable arsenal satisfies the source-faithful inequality using the listed spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-138 — PROVED_HOLD
-
-> 2-nd largest eigenvalue < size / clique. [FMS2] proved that this conjec- ture is true for all graphs but Ky .December 89.
-
-Direct evaluation of the applicable arsenal using the source hypotheses and the listed clique_number, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
-
-### wow-137 — HOLD / NO ADDITIONAL WITNESS
-
-> 2nd largest eigenvalue < harmonic. James B. Shearer October 88. [/FMS2]. November 88.
-
-The applicable arsenal satisfies the source-faithful inequality using the listed spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-128 — PROVED_HOLD
-
-> The second smallest eigenvalues of Laplacian < n/averagedistance. Vance Faber, Los Alamos National Laboratory, deduced from the results of [CF] that for every fixed d = maximum degree there are at most finitely many countereramples to this conjecture and ev...
-
-Direct evaluation of the applicable arsenal using the source hypotheses and the listed degree, diameter, distance, laplacian, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
-
-### wow-127 — HOLD / NO ADDITIONAL WITNESS
-
-> minimum degree < n / average distance. (comp. 62) Mekkia Kouider, L. R. I. University de Paris-Sud and Peter Winkler, Bellcore proved that the average distance < 3+ n/(1+ mindeg).
-
-The applicable arsenal satisfies the source-faithful inequality using the listed average_distance, degree, distance quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-124 — RETRO-VIOLATION — dense arsenal
-
-> size/2 < the rank of Laplacian. Disproved by s.f.
-
-The primary scan states `size/2 <= rank(L)`, with size meaning `|E|`. `C5[K4]` gives `55 > 19`; indeed `C5[K_m]` violates from `m=2` onward. `K5` already fails the identical reading (`5>4`), so the DB-sanity gate confirms a genuinely false historical statement rather than an OCR artifact. This is only a new carrier witness to a row already marked refuted.
-
-### wow-116 — PROVED_HOLD
-
-> largest eigenvalue < Randic. Proved in [FMS2] . November 88. As it was the case with 63 this conjecture again is a generalization of Turan’s theorem in the triangle-free case. Indeed: Randic is always at most n/2, and for triangle-free graphs, the size s at...
-
-Direct evaluation of the applicable arsenal using the source hypotheses and the listed randic_index, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
-
-### wow-112 — HOLD / NO ADDITIONAL WITNESS
-
-> Radius < maximal frequency of the degree sequence. Disproved by Shui- Tain Chen. April 88. James B. Shearer found a bipartite counterexample. May 88. Shui-Tain Chen proved the conjecture for trees, October 88.
-
-The applicable arsenal satisfies the source-faithful inequality using the listed bipartite, degree, radius, tree quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-110 — HOLD / NO ADDITIONAL WITNESS
-
-> Even(v) is the number of vertices at even distance from v. Conjecture: If G is triangle-free then range of Even < Range of Degree. Disproved by William Staton. March 88.
-
-The applicable arsenal satisfies the source-faithful inequality using the listed degree, distance quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-107 — HOLD / NO ADDITIONAL WITNESS
-
-> A graph G is even-regular if the vector E defined in conjecture 96 is constant. If G is even-regular then the mode of the distance matrix < radius. Vance Faber, Los Alamos National Laboratory used LANL Cray com- puter and Reed’s program listing all at most ...
-
-The row depends on the even-regular/modal convention. Under the source-faithful convention used in the existing campaign profiles, every applicable arsenal graph holds; no alternate convention is introduced and no additional historical witness is claimed.
-
-### wow-101 — HOLD / NO ADDITIONAL WITNESS
-
-> The variance of the degree sequence is < than the independence number. Disproved independently by James B. Shearer and William Staton. Febru- ary 88.
-
-The applicable arsenal satisfies the source-faithful inequality using the listed alpha, degree quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-95 — HOLD / NO ADDITIONAL WITNESS
-
-> The mode of the distance < the residue. Cy is a counterexample with the interpretation of the mode as the largest of modes. Odile Favaron , Maryvonne Maheo and Jean-Francois Sacle, July 88.
-
-The row depends on the modal tie plus residue convention. Under the source-faithful convention used in the existing campaign profiles, every applicable arsenal graph holds; no alternate convention is introduced and no additional historical witness is claimed.
-
-### wow-81 — SKIP_ORDER_DEPENDENT
-
-> variance of coordinates of a maximal independent set < maximal frequency of Even. Disproved by William Staton. March 88.
-
-The coordinate vector depends on the selected maximal independent set and ordering conventions not frozen in the corpus. The row is already refuted; guessing an ordering would not yield a defensible additional witness.
-
-### wow-79 — HOLD — HISTORICALLY PROVED
-
-> mean of coordinates of a maximal independent set < matching. Proved by William Staton for all independent sets. The equality holds true iff the graph has no edges, but there are graphs like stars in which the two invariants can be arbitrarily close. January...
-
-The row records Staton's proof for all independent sets. The arsenal has positive matching number and no source-faithful contradiction; ordering-dependent coordinate variants are not substituted for the proved statement.
-
-### wow-69 — HOLD / NO ADDITIONAL WITNESS
-
-> Residue 1s not more than the independence number. This is really a joint conjecture of Graffiti and myself, because I began to an- ticipate this conjecture writing the code for residue.
-
-The row depends on the residue algorithm already covered by its proof. Under the source-faithful convention used in the existing campaign profiles, every applicable arsenal graph holds; no alternate convention is introduced and no additional historical witness is claimed.
-
-### wow-68 — HOLD / NO ADDITIONAL WITNESS
-
-> If G is triangle-free then the matching number < then the maximal fre- quency of the degree sequence. Disproved by Thomas Spencer, Rensselaer Poly- technic Institute February 87. November 26. 87.
-
-The applicable arsenal satisfies the source-faithful inequality using the listed degree, matching quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-67 — HOLD / NO ADDITIONAL WITNESS
-
-> chromatic number of a triangle-free graph is not more than the maximum frequency of its degree sequence (mfd.). Disproved by William Staton, U. of Mississippi, July 87. Staton skillfully modified Myctelski’s construction of triangle-free graphs with high ch...
-
-The applicable arsenal satisfies the source-faithful inequality using the listed chromatic_number, degree quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-66 — HOLD / NO ADDITIONAL WITNESS
-
-> If G is triangle-free then radius < the sum of reciprocal of degrees. Disproved by Thomas Spencer, Rensselaer Polytechnic Institute Febru- ary 87. I wrote in [FA2] that it was the first counterexample with over 100 vertices but that was incorrect. The first...
-
-The applicable arsenal satisfies the source-faithful inequality using the listed average_distance, degree, distance, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-65 — HOLD / NO ADDITIONAL WITNESS
-
-> If G is triangle-free then the mode of Degree < the matching number. Disproved by Thomas Spencer, Rensselaer Polytechnic Institute February 8&7.
-
-The applicable arsenal satisfies the source-faithful inequality using the listed degree, matching quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-64 — HOLD / NO ADDITIONAL WITNESS
-
-> If G is triangle-free then the mode of Degree < then the Randic Index. Disproved by James B. Shearer. July 87.
-
-The applicable arsenal satisfies the source-faithful inequality using the listed degree, randic_index quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-62 — HOLD / NO ADDITIONAL WITNESS
-
-> If G is a regular graph of degree d then the average distance is not more than n/d, comp 127. Peter Puget proved the conjecture for graphs of diameter < 3 and constructed an infinite family of graphs of diameter 4 and even F such that average distance = 2+ ...
-
-The applicable arsenal satisfies the source-faithful inequality using the listed average_distance, degree, diameter, distance, path, tree quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-61 — HOLD / NO ADDITIONAL WITNESS
-
-> mode of distance is not more than the matching number. Disproved by Alon, Saks, Seymour and Winkler,who also proved that the conjecture is true for regular graphs of high degree, > 10 is enough.
-
-The applicable arsenal satisfies the source-faithful inequality using the listed degree, distance, matching quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-60 — HOLD / NO ADDITIONAL WITNESS
-
-> mode of distance is not more than the independence number. Disproved by Alon, Saks, Seymour and Winkler.
-
-The applicable arsenal satisfies the source-faithful inequality using the listed alpha, distance quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-59 — HOLD / NO ADDITIONAL WITNESS
-
-> Diameter is not more than the sum of positive eigenvalues. Disproved by Peter Puget
-
-The applicable arsenal satisfies the source-faithful inequality using the listed diameter, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-58 — HOLD / NO ADDITIONAL WITNESS
-
-> - largest negative eigenvalue is not more than the number of centers. Disproved by Peter Puget
-
-The applicable arsenal satisfies the source-faithful inequality using the listed spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-56 — HOLD / NO ADDITIONAL WITNESS
-
-> The second largest eigenvalue is not more than the number of centers. Disproved by Halina Bielak, U. of Marie Curie-Skladowska, Lublin, Poland. It seems that I lost 57. Perhaps someone has an original version.
-
-The applicable arsenal satisfies the source-faithful inequality using the listed spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-55 — RETRO-VIOLATION — dense arsenal
-
-> The second largest eigenvalue is not more than the minimode of distance. Disproved by Peter Puget 11. 88, and later independently by Favaron, Maheo and Sacle. 1.91
-
-On the source-faithful minimode-as-smallest-modal-distance reading, `C5[K4]` has `lambda_2=(sqrt(5)-1)4/2-1=5.472135... > 1`, its unique modal distance. `T(7)` likewise gives `3>2`. Both are additional witnesses to the already-refuted statement; values are beyond the `1e-6` guard and independently recomputed.
-
-### wow-53 — HOLD / NO ADDITIONAL WITNESS
-
-> average temperature < minimal frequency of the distance matrix. Proved by Shui-Tain Chen, U. of Houston. April 87.
-
-The row depends on the minimum-frequency convention. Under the source-faithful convention used in the existing campaign profiles, every applicable arsenal graph holds; no alternate convention is introduced and no additional historical witness is claimed.
-
-### wow-52 — HOLD / NO ADDITIONAL WITNESS
-
-> The number of zero eigenvalues < the number of vertices in the boundary of the graph. s.f.
-
-The row depends on the boundary/periphery terminology. Under the source-faithful convention used in the existing campaign profiles, every applicable arsenal graph holds; no alternate convention is introduced and no additional historical witness is claimed.
-
-### wow-51 — PROVED_HOLD
-
-> The number of zero eigenvalues < the number of vertices in the center of the graph. s.f. April 87.
-
-Direct evaluation of the applicable arsenal using the source hypotheses and the listed spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
-
-### wow-50 — HOLD / NO ADDITIONAL WITNESS
-
-> The number of zero eigenvalues < smallest mode of the distance matriz. s.f. April 87.
-
-The row depends on the distance minimode convention. Under the source-faithful convention used in the existing campaign profiles, every applicable arsenal graph holds; no alternate convention is introduced and no additional historical witness is claimed.
-
-### wow-48 — PROVED_HOLD
-
-> The sum of positive eigenvalues < largest eigenvalue of the distance matrix. Peter Puget, The University of Puget Sound. September 88. A9. -largest negative eigenvalue < minimal frequency of the distance matrix.
-
-Direct evaluation of the applicable arsenal using the source hypotheses and the listed distance, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
-
-### wow-46 — HOLD / BUNDLED SOURCE
-
-> The smallest positive eigenvalue < number of vertices of the center of a graph. Disproved by James B. Shearer. May 88. See also 58. AT. The smallest positive eigenvalue < number of vertices on the boundary. Disproved by Peter Puget, The University of Puget ...
-
-The row bundles #46 and #47. On every arsenal graph, the smallest positive adjacency eigenvalue is at most both the center size and periphery size (both equal `n` for the regular vertex-transitive members). No additional witness arises, but the two historical refutations remain external.
-
-### wow-45 — PROVED_HOLD
-
-> The second largest eigenvalue is not more than the matching number. Proved by Noga Alon, 5.88.
-
-Direct evaluation of the applicable arsenal using the source hypotheses and the listed matching, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
-
-### wow-43 — PROVED_HOLD
-
-> Let s be the smallest eigenvalue of G, and m its matching number. Then - s 1s smaller or equal to m. Proved by Favaron, Maheo and Sacle, University of Paris-Sud, /FMS2/. 4A, The second largest eigenvalue is not more than the independence number. Noga Alon f...
-
-Direct evaluation of the applicable arsenal using the source hypotheses and the listed alpha, connectivity, matching, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
-
-### wow-39 — SKIP_BUNDLED_OCR
-
-> The deviation of the distance matrix is not more than the number of positive eigenvalues. AO. The deviation of the distance matrix is not more than the number of negative eigenvalues. Al. chromatic number + radius 1s not more than the maximum degree + the f...
-
-This row merges at least four numbered statements (`39`, `40`, `41`, `42`) and truncates the last one. Assigning its single status to a particular inequality would be unsafe; no verdict is inferred from the bundled OCR.
-
-### wow-38 — HOLD / NO ADDITIONAL WITNESS
-
-> The variance of the distance matrix is not more than the negative of the smallest eigenvalue.
-
-The row depends on the distance-matrix variance convention. Under the source-faithful convention used in the existing campaign profiles, every applicable arsenal graph holds; no alternate convention is introduced and no additional historical witness is claimed.
-
-### wow-37 — PROVED_HOLD
-
-> Radius is not more than the sum of positive eigenvalues. Proved in [FA2]. Also partially proved by Zang Shu, Beijing Institute of Technology.
-
-Direct evaluation of the applicable arsenal using the source hypotheses and the listed radius, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
-
-### wow-36 — PROVED_HOLD
-
-> The diameter of a graph is not more than the number of negative eigen- values of the distance matrix. James B. Shearer, see 35.
-
-Direct evaluation of the applicable arsenal using the source hypotheses and the listed diameter, distance quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
-
-### wow-35 — PROVED_HOLD
-
-> The diameter of a graph is not more than the negative of the largest negative distance eigenvalue. This and the next conjecture follows from interlacing theorem. James B. Shearer, 7.88
-
-Direct evaluation of the applicable arsenal using the source hypotheses and the listed diameter, distance, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
-
-### wow-34 — HOLD / NO ADDITIONAL WITNESS
-
-> n - rank of the distance matrix is not more than the maximum frequency of the distance. Disproved by James B. Shearer, comp 23.
-
-The applicable arsenal satisfies the source-faithful inequality using the listed distance, rank quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-33 — HOLD / NO ADDITIONAL WITNESS
-
-> The negative of the largest negative distance eigenvalue is not more than the chromatic number. Disproved by Alon, Saks, Seymour, Shearer and Winkler. comp 28.
-
-The applicable arsenal satisfies the source-faithful inequality using the listed chromatic_number, distance, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-31 — HOLD / NO ADDITIONAL WITNESS
-
-> The negative of the largest negative distance eigenvalue is not more than the independence number. A counterexample is D2(B4). James B. Shearer, 7.88.
-
-The applicable arsenal satisfies the source-faithful inequality using the listed alpha, distance, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-30 — HOLD / NO ADDITIONAL WITNESS
-
-> The number of positive distance eigenvalues is not more than sum of temperatures of vertices. A counterexample is D6(B6). James. B. Shearer, July 88.
-
-The applicable arsenal satisfies the source-faithful inequality using the listed distance, spectrum, temperature quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-29 — RETRO-VIOLATION — T(q), q≥7
-
-> The Randic index is not more than the number of negative distance eigen- values. Disproved by Alon, Saks, Seymour, Shearer and Winkler. July 88.
-
-For `T(q)`, regularity gives `R=n/2=q(q-1)/4`, while the distance spectrum has exactly `q-1` negative eigenvalues. Thus `T(7)` gives `10.5 > 6`, and every `q>=7` violates. This supplements the row's historical refutation; it is not a new conjecture kill. Exact spectral multiplicities and a separate eigensolver agree.
-
-### wow-28 — HOLD / NO ADDITIONAL WITNESS
-
-> Randic index is not more than the sum of positive eigenvalues. This conjecture is false, but working on a counterexample I formed a conjecture that for trees the value of Randic index is close, and seem to be correlated with the sum of the positive eigenval...
-
-The applicable arsenal satisfies the source-faithful inequality using the listed randic_index, spectrum, tree quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-26 — HOLD / NO ADDITIONAL WITNESS
-
-> Sum of reciprocals of degrees is not more than the rank of the distance matriz. (1.) This was disproved by Alon, Saks, Seymour, Shearer and Winkler.
-
-The applicable arsenal satisfies the source-faithful inequality using the listed degree, distance, rank quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-25 — PROVED_HOLD
-
-> average temperature is not more than the number of negative eigenvalues of the distance matrix. (-1.) see 24.
-
-Direct evaluation of the applicable arsenal using the source hypotheses and the listed distance, spectrum, temperature quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
-
-### wow-24 — PROVED_HOLD
-
-> average temperature is not more than the number of negative eigenvalues. This and the next conjecture were proved by Shearer.
-
-Direct evaluation of the applicable arsenal using the source hypotheses and the listed spectrum, temperature quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
-
-### wow-23 — RETRO-VIOLATION — T(q), q≥7
-
-> rank of the adjacency matrix is not more than the rank of the distance Matrie. Even cycles Cy, n > 6 or more are counterecamples. James B. Shearer, Thomas J. Watson Research Center, Yorktown Heights, May 88. The counterexample is Ce (and all bigger even cyc...
-
-`T(7)=L(K7)` has adjacency rank 21 but distance-matrix rank 7, so it violates `rank(A) <= rank(D)`; generally `T(q)` has full adjacency rank `q(q-1)/2` while its distance matrix has rank `q`. This is a new witness to an already-refuted conjecture, not new mathematics. The closed-form spectra and an independent numerical rank computation agree.
-
-### wow-22 — HOLD / NO ADDITIONAL WITNESS
-
-> Let e be the largest negative eigenvalue of a graph. Then -e is smaller or equal to the independence number. The Paley graph with 101 vertices 1s a counter-example. Noga Alon, Tel Aviv University and Bellcore. June 88. Alon and myself noticed that the conje...
-
-The applicable arsenal satisfies the source-faithful inequality using the listed alpha, degree, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
-
-### wow-19 — PROVED_HOLD
-
-> Let a be the smallest eigenvalue of a graph G. Then - a is < Randic index of G. (3.) This conjecture was proved by Favaron, Maheo and Sacle, University of Paris-Sud. comp also conj’s 20, 21, 27 and 28. [FMS2] O. Favaron, M. Maheo and J-P. Sacle, Some Result...
-
-Direct evaluation of the applicable arsenal using the source hypotheses and the listed randic_index, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
-
-### wow-18 — HOLD / NO ADDITIONAL WITNESS
-
-> radius is not more than the number of vertices of maximum degree + the maximum frequency of the degree sequence. Disproved by Shui-Tain Chen, University of Houston, March 88. February 19. 87.
-
-The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
