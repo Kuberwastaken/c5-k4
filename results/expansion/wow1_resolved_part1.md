@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-218 — HOLD WHERE APPLICABLE
+
+> maximum eigenvalue < size1/2. FMS pointed to me that this is a result of Nosal, [CDS], p. 89. Proved independently by James B. Shearer. October 88.
+
+The inherited triangle-free hypothesis is essential to Nosal's bound. `complement(C5[K4])` gives `lambda_1=8 <= sqrt(80)`. Apparent failures on dense `C5[K_m]` are inapplicable, not contradictions to the proved result.
+
 ### wow-215 — HOLD WHERE APPLICABLE
 
 > size / independence < scope of the eigenvalues. Counterexamples are graphs obtained by removal of edges from triangles in random graphs in which n >> average degree >> 1.They are discussed in [SH1]. These graphs can be used to obtain counterexamples of arbi...
