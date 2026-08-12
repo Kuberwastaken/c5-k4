@@ -77,8 +77,8 @@ Before construction work:
 
 1. Record the upstream repository commit, file, declaration, source URL, and
    current `category`.
-2. Confirm no existing issue, PR, formal proof, or accepted resolution already
-   covers the target.
+2. Confirm no existing issue, PR, formal proof, accepted resolution, project
+   commit, tag, or release already covers the target.
 3. Recover the historical statement when the formalization is not itself the
    sole target.
 4. Enumerate every plausible reading before evaluating any preferred witness.
@@ -248,24 +248,26 @@ by an edge-partition lemma valid for every vertex subset, and the stronger
 theorem was then proved in Lean. The output is a theorem, not a negative-search
 statistic.
 
-### Phase 8 — Formal certification and upstream submission
+### Phase 8 — Formal certification and project release
 
-All public writes follow [`UPSTREAM_PROTOCOL.md`](UPSTREAM_PROTOCOL.md), whose
-canonical exemplars are WOWII 172/176. The protocol is a hard gate: do not
-open an issue, push a publication branch, or open/edit a PR until its committed
-preflight checklist passes.
+All public writes follow [`UPSTREAM_PROTOCOL.md`](UPSTREAM_PROTOCOL.md). Despite
+the historical filename, it now governs releases in this repository: do not
+create a tag or release until its committed preflight and release-lock records
+pass. New `formal-conjectures` issues and PRs are out of scope; that repository
+is read-only for selection and duplicate checks. Existing campaign PRs may be
+repaired only in response to CI or review.
 
 For each gate-surviving new disproof:
 
 1. Commit the source audit and exact verifier to this repository.
 2. Write a no-`sorry` Lean certificate here and compile with warnings as errors.
 3. Audit `#print axioms`; reject `sorryAx` and project-specific axioms.
-4. Open one upstream issue describing the exact statement, witness, reading,
-   and immutable certificate links.
-5. Create one branch and one focused PR in `formal-conjectures`, following its
-   current `AGENTS.md`, contributor format, and one-problem-per-file rule.
-6. Keep reviewer caveats and AI-assistance disclosure in the PR body.
-7. Run the target module build locally; monitor the full upstream CI separately.
+4. Commit a release checklist recording novelty searches, full artifact SHAs,
+   verifier/build results, trust assumptions, and the proposed tag/title.
+5. Lock an annotated tag to the audited preflight snapshot and publish one
+   non-draft project release for one problem, without generated binary assets.
+6. Read back the tag, release body, target, and every immutable link.
+7. Keep priority caveats and AI-assistance disclosure in the release body.
 8. Never describe a formalized-reading disproof as settling ambiguous
    historical intent.
 
@@ -356,6 +358,18 @@ No target already inspected, discussed, ranked, or searched in this repository
 will be counted as held out.
 
 ## Method changelog
+
+### v0.4 — 2026-08-12
+
+- Replaced new upstream issues/PRs with one-problem versioned releases in
+  `Kuberwastaken/c5-k4`.
+- Expanded duplicate detection to this project's own commits, tags, and
+  releases after WOWII 64 exposed that an upstream-filename-only check can
+  duplicate already completed campaign work.
+- Required annotated tags locked to audited commits, GitHub readback, and
+  HTTP-200 verification of every immutable artifact link.
+- Existing upstream PRs are maintenance-only; `formal-conjectures` remains the
+  read-only development corpus.
 
 ### v0.3 — 2026-08-12
 
