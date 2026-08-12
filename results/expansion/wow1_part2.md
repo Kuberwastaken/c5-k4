@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 98 / 208.
+Progress: 99 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -625,5 +625,11 @@ All arsenal members are 2-connected, so `C=V` induces one component. Since `alph
 > "smallest expanding coefficient is not more than 1 + the number of red edges."
 
 Under the standard vertex-expansion reading, taking the full allowed vertex set yields coefficient at most 1 (and common proper-subset readings are also nonnegative minima), while the right side is at least 1. Every coloring reading holds; no apparent violation.
+
+### wow-760 — HOLD
+
+> "smallest expanding coefficient ... not more than min d(v) ... over all blue vertices."
+
+For a maximum-cut minimizing monochromatic edges, each blue vertex has at least one red neighbor unless its recoloring would improve the cut. Thus the right side is at least 1, while the same expansion minimum is at most 1. Degenerate empty-color-class readings are excluded by the stated two-color optimization.
 
 
