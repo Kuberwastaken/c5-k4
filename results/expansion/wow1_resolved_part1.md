@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-306 — HOLD WHERE APPLICABLE
+
+> If the distance rank is strictly less than the rank then the sum of inverses of dual degrees < number of nonpositive eigenvalues. Tony L. Brewster, Michael J. Dinneen and Vance Faber, (see107) 12. 90.
+
+The rank hypothesis selects `T(q)`. For `T(7)`, `sum 1/d*=21/10 <= p_-+p_0=14`; the larger triangular graphs also hold. No additional witness arises.
+
 ### wow-305 — HOLD WHERE APPLICABLE
 
 > If the distance rank is strictly less than the rank then the sum of inverses of dual degrees < the number of nonnegative eigenvalues. Tony L. Brewster, Michael J. Dinneen and Vance Faber, (see107) 12. 90.
