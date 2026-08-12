@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 29 / 208.
+Progress: 30 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -211,5 +211,11 @@ The literal standard reading appears false on the carrier (`C5[K4]`: `chi(bar G)
 > "radius < maximal frequency of Even."
 
 `Even` is an undefined coordinate sequence in the surviving text; its maximal frequency cannot be computed without guessing the missing definition.
+
++### wow-598 — SKIP_OCR
+
+> "range of coordinates of matching < quoragedistance."
+
+The right-hand token `quoragedistance` is OCR garble and no unique standard invariant follows from it.
 
 
