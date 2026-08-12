@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-264 — HOLD / NO ADDITIONAL WITNESS
+
+> 2 + range of positive eigenvalues < bichromatic number. Michael J. Dinneen, Los Alamos National Laboratory and University of Victoria, Victoria, B.C (comp. 107.) August 91.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed chromatic_number, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
 ### wow-258 — PROVED_HOLD
 
 > The number of positive eigenvalues < the matching number + the match- ing number of the complement. [FMS2] . November 88.
