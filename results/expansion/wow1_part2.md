@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 82 / 208.
+Progress: 83 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -529,5 +529,11 @@ This requires a polygon and its derived interval graph, neither supplied by the 
 > "The sum of reciprocals of nonzero degrees of the colinearity graph of a polygon is not more than the chromatic number of its visibility graph."
 
 The geometric construction is absent from every arsenal member.
+
+### wow-735 — N/A_ARSENAL
+
+> "The sum of reciprocals of nonzero degrees of colinearity graph is not more than the number of distinct eigenvalues of its distance matriz."
+
+This is restricted to a colinearity graph derived from a planar configuration. The abstract carrier graphs are not instances.
 
 
