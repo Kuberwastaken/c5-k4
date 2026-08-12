@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 79 / 208.
+Progress: 80 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -511,5 +511,11 @@ The matrix is Euclidean distances among planar points, not a graph distance matr
 > "If P is a polygon without multiple points then its minimum angle is not more than than the mean degree of its visibility graph."
 
 No campaign object is a polygon with a specified embedding, so the geometric hypothesis cannot be met.
+
+### wow-731 — N/A_ARSENAL
+
+> "Minimum angle of a polygon without multiple vertices is not more than the minimum degree of the complement of its colinearity graph."
+
+The arsenal contains abstract graphs without polygonal point configurations. No admissible instance.
 
 
