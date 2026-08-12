@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-301 — HOLD / NO ADDITIONAL WITNESS
+
+> If G is a tree then the scope of positive eigenvalues < harmonic. James B. Shearer, October 88.
+
+Only trees apply. The named paths and stars do not supply an additional failure of `scope(positive adjacency spectrum) <= harmonic`; the historical refutation remains external.
+
 ### wow-297 — PROVED_HOLD WHERE APPLICABLE
 
 > If G is a tree then the second smallest eigenvalue of Laplacian < n independence. Odile Favaron, Maryvonne Maheo and Jean-Francois Sale. 2. 90.
