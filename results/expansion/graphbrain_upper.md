@@ -96,6 +96,13 @@ false right side `4/3`.  The carrier family remains useful independent
 evidence, but the simple witness makes this a conservative stale/trivial
 retro-kill rather than a novelty claim.
 
+### graphbrain-alpha-upper-134 — RETRO_KILL_AUTHOR_SOURCE
+
+> `independence_number(x) <= residue(x)^2/density(x)`
+
+The author project's current graph-object source explicitly supplies a counterexample to this exact formula.  The still-open issue entry is stale; this is a retro-kill and no novelty is claimed.
+
+
 ### graphbrain-alpha-upper-133 — HOLD_ARSENAL
 
 > `independence_number(x) <= e^(e^card_center(x)) + radius_pendants_thm_invariant(x)`
