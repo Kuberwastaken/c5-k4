@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 202 / 208.
+Progress: 203 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -1251,5 +1251,11 @@ The conclusion uses undefined `m` after defining only `a`. No substitution is gu
 Take `G=bar(C5[K4])`, five independent 4-vertex blobs joined according to the complementary 5-cycle. It is connected, 8-regular, triangle-free, and diameter 2. Hence every vertex has exactly its 8 neighbors at odd distance, so `w=8`. By #822, for triangle-free `P`, blue pairs are nonedges whose addition remains triangle-free, equivalently pairs at distance at least 3 (or in different components). Diameter 2 makes the blue graph empty, whose clique number is 1. The conjecture requires a blue clique of size `w/4=2`: exact violation `1<2`.
 
 Mandatory gate: all seven connected regular triangle-free atlas graphs through order 7 including `K1` (six nontrivial: `K2,C4,C5,C6,K3,3,C7`) have zero violations. Named Petersen, `K3,3`, cube, and Heawood also hold. Independent recomputation used (1) explicit all-pairs distances plus maximum-clique search and (2) the blob proof: each vertex has 8 neighbors, no triangles, and every nonedge pair has a common neighbor, hence diameter 2 and no blue edges. The scanned primary wording on p.213 and #822 definition agree exactly. Novelty searches for the number and statement found no prior refutation or claim. This is a new campaign kill candidate.
+
+### wow-890 — HOLD / TIGHT
+
+> "If G is regular ... triangle-free, and r the residue of complement of blue graph then blue clique number is at least r."
+
+For `bar(C5[K4])`, blue is empty, so complement-blue is `K20` with residue 1, equal to blue clique number 1.
 
 
