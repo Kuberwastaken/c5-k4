@@ -433,4 +433,8 @@ Because Even is constant, `sum 1/Even=n/E <= n/average_distance` throughout.
 
 Garble: `mean of autocoordinates of Maxine of D2`. The construction is undefined/order-dependent.
 
+### wow-176 — HOLD
+
+Exact `n/alpha` is at most the sum of all temperatures throughout.
+
 <!-- NEXT -->
