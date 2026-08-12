@@ -653,4 +653,8 @@ Even-parity scope is 0 on every vertex-transitive arsenal graph, so matching is 
 
 Maxine-coordinate range is algorithm/order-dependent.
 
+### wow-266 — SKIP_OCR
+
+Garble: `mean of coordinates of Maxine < Nav dist’`; RHS is unusable.
+
 <!-- NEXT -->
