@@ -185,3 +185,10 @@ object, so graph substitution would change the statement.
 is the standard nonnegative-matrix row-sum bound. Its objects are planar point
 configurations and their Euclidean distance matrices. No arsenal graph is an
 admissible instance; the metadata tension is recorded without inventing one.
+
+## wow-732 — NOT_APPLICABLE
+
+**Status:** refuted (WoW annotation). The antecedent requires the visibility
+graph of a polygon together with the polygon's Euclidean distance matrix.
+Arsenal graphs have no supplied polygon realization, and the eigenvector
+component count is explicitly a nonunique try-out.
