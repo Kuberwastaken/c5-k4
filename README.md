@@ -355,12 +355,13 @@ vertex-transitive diameter-2 graph past n ≈ 15 — but it is nearly
 useless against human conjectures, because humans sanity-check dense
 regular graphs instinctively. Ranked targets:
 
-1. **WOWII — now dry** (this repo, as of 2026-08-12): every lane has
-   reported. Open sweep (223 incl. 3 recovered), refuted sweep (139),
-   proved QA (163), both family sweeps (30+ members, near-misses at
-   slack ≤ 2), transcription audit, adversarial verification. Final
-   score: 4 direct kills + 1 spawned kill (181, via T(n)) + 8
-   retro-kills; the family provably cannot cross the remaining walls —
+1. **WOWII — full carrier sweep complete; structural follow-up active** (this
+   repo, as of 2026-08-12): open sweep (223 incl. 3 recovered), refuted sweep
+   (139), proved QA (163), both family sweeps (30+ members), transcription
+   audit, and adversarial verification all reported. The original carrier
+   score is 4 direct kills + spawned 181 + 8 retro-kills. Follow-up navigation
+   of its tightness walls has now additionally disproved 172, 176, and 430a
+   with purpose-built families. The carrier family itself cannot cross the remaining walls —
    it sits at exact equality on them (window-argument proofs in
    [`results/family_domination.md`](results/family_domination.md)).
    For the diameter-two `L_s+b` cluster 176/182--185, that equality is now
