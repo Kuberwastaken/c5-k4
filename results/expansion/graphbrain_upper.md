@@ -45,5 +45,5 @@ the maximum, over vertices, of the number of even-distance vertices minus the
 number of edges they induce, with an initial maximum of zero.  The exact
 author reading holds on all 996 connected nonempty Graph Atlas graphs through
 order 7 and on the named and campaign-family controls.  In particular the
-carrier has `alpha=2`, `max_even_minus_even_horizontal=2`, and `Delta=11`, so
+carrier has `alpha=2`, `max_even_minus_even_horizontal=0`, and `Delta=11`, so
 the right side is `exp(11/2)`, far above 2.  No numerical boundary is close.
