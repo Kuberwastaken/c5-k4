@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-48 — PROVED_HOLD
+
+> The sum of positive eigenvalues < largest eigenvalue of the distance matrix. Peter Puget, The University of Puget Sound. September 88. A9. -largest negative eigenvalue < minimal frequency of the distance matrix.
+
+Direct evaluation of the applicable arsenal using the source hypotheses and the listed distance, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
 ### wow-46 — HOLD / BUNDLED SOURCE
 
 > The smallest positive eigenvalue < number of vertices of the center of a graph. Disproved by James B. Shearer. May 88. See also 58. AT. The smallest positive eigenvalue < number of vertices on the boundary. Disproved by Peter Puget, The University of Puget ...
