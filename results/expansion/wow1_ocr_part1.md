@@ -153,3 +153,12 @@ faithful test.
 Printed p.71 recovers the full statement under connected `sum(E) <= sum(D)`.
 Autocoordinates are absent from the source glossary, so the left-hand vector and
 therefore its length cannot be evaluated faithfully.
+
+### wow-212 — RETRO_REFUTED
+
+> Inverse coordinates of Maxine <= n/2.
+
+Printed p.72 confirms the inequality and the inherited triangle-free hypothesis.
+The row itself gives `P5` as a counterexample for a suitable vertex order and asks
+for a representation-independent example.  This is a historically recorded
+refutation, not a new target; Maxine's order dependence is explicit.
