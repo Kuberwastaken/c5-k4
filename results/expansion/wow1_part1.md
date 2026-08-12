@@ -185,4 +185,8 @@ A distance-to-clique coordinate vector supported in `[0,diam]` has variance at m
 
 The same variance is at most 4, while the smallest adjacency rank in the arsenal is 5.
 
+### wow-86 — SKIP_OCR
+
+Garble: `variance of coordinates of a maximal clique maximum of Even.` The comparison operator is absent. Supplying one would be guessing; if intended `<=`, the arsenal holds.
+
 <!-- NEXT -->
