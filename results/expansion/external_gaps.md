@@ -202,3 +202,16 @@ graphs and complete balanced bipartite controls meet the hypothesis and have
 explicit Hamilton cycles (for the nontrivial balanced cases).  The carrier
 contains an induced `C5` and is not perfect.  No applicable arsenal graph
 violated the statement.
+
+#### Hamiltonicity 12 — `NOT_APPLICABLE_ARSENAL`
+
+Every semi-symmetric graph is conjectured Hamiltonian.  Semi-symmetric here
+means regular and edge-transitive but not vertex-transitive; the campaign's
+vertex-transitive carrier families are therefore outside the hypothesis.  No
+applicable graph was present in the bounded named arsenal, so no conclusion
+beyond source recovery is claimed.
+
+Hamiltonicity-set coverage: **6/6** explicit statements classified — four
+open-as-published holds on applicable controls, one resolved in its own source,
+and one with no applicable bounded-arsenal witness.  No new kill arose from
+this set.
