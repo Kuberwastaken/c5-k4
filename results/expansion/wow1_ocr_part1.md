@@ -333,3 +333,12 @@ Printed p.82 confirms the source.  Rainbow is defined from the coloration
 produced by a greedy coloring algorithm; its value is vertex-order dependent and
 this row gives no ordering or quantifier.  The exact statement is recovered but
 remains algorithmically ambiguous.
+
+### wow-319 — SKIP_ALGORITHM
+
+> If G is a triangle-free graph then the maximum of derivative of
+> eigenvalues of Laplacian <= Inverse Rainbow.
+
+Printed p.82 confirms the full statement.  `Inverse Rainbow` inherits the
+unspecified greedy-coloring order from Rainbow, so no representation-independent
+right-hand value is recoverable.
