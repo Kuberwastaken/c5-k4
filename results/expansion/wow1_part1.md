@@ -321,4 +321,8 @@ Garble: `Sum of reciprocals of components of twister < harmonic.` The invariant 
 
 The Randić index is at most gravity-matrix rank throughout; even the largest arsenal value is `20 <= 40`.
 
+### wow-135 — SKIP_OCR
+
+Garble: `chromatic number / clique < independence of D2.` The historical `D2` construction and its independence invariant are not defined.
+
 <!-- NEXT -->
