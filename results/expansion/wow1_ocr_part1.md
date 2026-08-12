@@ -342,3 +342,13 @@ remains algorithmically ambiguous.
 Printed p.82 confirms the full statement.  `Inverse Rainbow` inherits the
 unspecified greedy-coloring order from Rainbow, so no representation-independent
 right-hand value is recoverable.
+
+### wow-323 — SKIP_ALGORITHM
+
+> If G is a triangle-free graph then the scope of positive eigenvalues <=
+> mismatching.
+
+Printed p.82 confirms the statement.  The source says matchings in this section
+are computed by greedy algorithms, but does not specify the vertex/edge ordering
+or quantifier defining “mismatching”.  The right side is therefore not a stable
+graph invariant.
