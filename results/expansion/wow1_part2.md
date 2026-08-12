@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 89 / 208.
+Progress: 90 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -571,5 +571,11 @@ This needs a Euclidean triangle and named centers; the arsenal is inapplicable.
 > "The distance from center of the triangle to the largest vertex is not more than the distance from Erdos-Mordell point to the largest vertex."
 
 This is not an assertion over abstract connected graphs, so the carrier cannot test it.
+
+### wow-744a — N/A_ARSENAL
+
+> "For every two points p and q inside of a triangle, the distance from p to sides is not more than the distance from q to vertices."
+
+The quantified objects are Euclidean points in a triangle. No arsenal member supplies them.
 
 
