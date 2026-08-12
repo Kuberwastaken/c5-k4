@@ -279,3 +279,12 @@ The mandatory DB gate rejects it, however: 15 connected Atlas graphs of order 7
 already fail.  Atlas graph 1248 gives `6.841783... > 6`; root independently found
 the same set (including graph6 `Fbn]w`, `6.077108... > 6`).  Thus this is a
 source/database inconsistency, not a new kill.
+
+### wow-268 — HOLD
+
+> (average distance)(maximum degree) <= n.
+
+Printed p.78 recovers the product and operator.  Exact average-distance
+arithmetic verifies the inequality on the full arsenal.  The carrier gives
+`(27/19)*11 = 297/19 < 20`; its complement gives `(4/3)*8 = 32/3 < 20`.
+No candidate triggers the DB gate.
