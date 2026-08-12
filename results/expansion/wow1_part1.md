@@ -849,4 +849,8 @@ Carrier complement has gravity mean `216/95 <= 8`, the Maxine survivor-coordinat
 
 Plant means equality in Cvetkovic's inertia bound from #345; no arsenal graph is a plant.
 
+### wow-347 — N/A_ARSENAL
+
+No arsenal graph satisfies the inherited plant hypothesis.
+
 <!-- NEXT -->
