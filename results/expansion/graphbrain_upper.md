@@ -47,3 +47,48 @@ author reading holds on all 996 connected nonempty Graph Atlas graphs through
 order 7 and on the named and campaign-family controls.  In particular the
 carrier has `alpha=2`, `max_even_minus_even_horizontal=0`, and `Delta=11`, so
 the right side is `exp(11/2)`, far above 2.  No numerical boundary is close.
+
+### graphbrain-alpha-upper-066 — CANDIDATE_KILL
+
+> `independence_number(x) <= e^cosh(average_distance(x)) - tan(sigma_2(x))`
+
+On `C5[K10]`, every vertex has degree 29 and `sigma_2=58`.  Of the
+`C(50,2)=1225` unordered pairs, 725 are adjacent and 500 have distance two,
+so average distance is `69/49`.  In radians the right side is
+`exp(cosh(69/49))-tan(58)=0.396963134787592... < alpha=2`.
+
+The identical expression has no violation among all 996 connected nonempty
+Graph Atlas graphs through order 7 on which it is defined, nor on Petersen,
+`K3,3`, the cube, or Heawood.  (The author code gives `sigma_2=Infinity` on a
+complete graph, so those domain-error cases are not evaluated.)  A second
+formula-only implementation reproduces the counts and margin `1.603036865...`,
+far from the `1e-6` guard.  Searches of the author repository, issue history,
+and exact formula found the posting but no pre-existing counterexample.  This
+is a candidate new disproof; an executable certificate is prepared separately.
+
+### graphbrain-alpha-upper-069 — RETRO_KILL
+
+> `independence_number(x) <= (10^different_degrees(x) - min_common_neighbors(x))^2`
+
+`C5[K9]` has one distinct degree and minimum common-neighbor count 9, so
+the right side is `1 < alpha=2`.  This is not a novelty candidate: the simpler
+`K12` has `alpha=1`, one distinct degree, and minimum common-neighbor count 10,
+giving right side zero.  Exact integer recomputation agrees.
+
+### graphbrain-alpha-upper-081 — CANDIDATE_KILL
+
+> `independence_number(x) <= 2*diameter(x)/(edge_con(x) - vertex_con(x))`
+
+For `C5[K_m]`, `alpha=2`, diameter is 2, edge connectivity is its degree
+`3m-1`, and vertex connectivity is `2m`.  The right side is therefore
+`4/(m-1)`: equality at `m=3`, but `4/3 < 2` at `C5[K4]`, with violations for
+every `m>=4`.
+
+The identical author reading has no violation among all 996 connected
+nonempty Graph Atlas graphs through order 7 for which its denominator is
+nonzero, nor on the named controls.  NetworkX connectivity algorithms and a
+separate structural calculation independently give
+`(alpha,diameter,edge_con,vertex_con)=(2,2,11,8)` and exact margin `2/3`.
+Author-repository, issue-history, exact-formula, and broader invariant searches
+found no pre-existing counterexample.  This is a candidate new disproof; an
+executable certificate is prepared separately.
