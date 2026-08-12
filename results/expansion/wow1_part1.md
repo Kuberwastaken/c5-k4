@@ -145,4 +145,8 @@ All arsenal graphs are regular; direct temperature/depth evaluation holds (carri
 
 Every arsenal graph has no cut vertices, so the cut-vertex coordinate vector is empty/zero and its maximum is 0, at most `alpha`.
 
+### wow-74 — HOLD
+
+Every arsenal graph has no cut vertices, hence the relevant maximum coordinate is 0, at most the positive matching number.
+
 <!-- NEXT -->
