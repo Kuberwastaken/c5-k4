@@ -757,4 +757,8 @@ Tree hypothesis excludes every arsenal graph.
 
 Tree hypothesis excludes every arsenal graph; row records a stronger FMS result.
 
+### wow-300 — N/A_ARSENAL
+
+Tree hypothesis excludes every arsenal graph.
+
 <!-- NEXT -->
