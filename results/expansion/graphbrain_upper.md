@@ -48,7 +48,7 @@ order 7 and on the named and campaign-family controls.  In particular the
 carrier has `alpha=2`, `max_even_minus_even_horizontal=0`, and `Delta=11`, so
 the right side is `exp(11/2)`, far above 2.  No numerical boundary is close.
 
-### graphbrain-alpha-upper-066 — CANDIDATE_KILL
+### graphbrain-alpha-upper-066 — RETRO_KILL
 
 > `independence_number(x) <= e^cosh(average_distance(x)) - tan(sigma_2(x))`
 
@@ -62,9 +62,10 @@ Graph Atlas graphs through order 7 on which it is defined, nor on Petersen,
 `K3,3`, the cube, or Heawood.  (The author code gives `sigma_2=Infinity` on a
 complete graph, so those domain-error cases are not evaluated.)  A second
 formula-only implementation reproduces the counts and margin `1.603036865...`,
-far from the `1e-6` guard.  Searches of the author repository, issue history,
-and exact formula found the posting but no pre-existing counterexample.  This
-is a candidate new disproof; an executable certificate is prepared separately.
+far from the `1e-6` guard.  More decisively, `K9` with one edge deleted has
+`alpha=2`, average distance `37/36`, and `sigma_2=14`, giving right side
+`-2.407...`; `K7,7` also fails.  The carrier remains an independent arsenal
+witness, but this is a simple stale/trivial retro-kill, not a novelty claim.
 
 ### graphbrain-alpha-upper-069 — RETRO_KILL
 
@@ -75,7 +76,7 @@ the right side is `1 < alpha=2`.  This is not a novelty candidate: the simpler
 `K12` has `alpha=1`, one distinct degree, and minimum common-neighbor count 10,
 giving right side zero.  Exact integer recomputation agrees.
 
-### graphbrain-alpha-upper-081 — CANDIDATE_KILL
+### graphbrain-alpha-upper-081 — RETRO_KILL
 
 > `independence_number(x) <= 2*diameter(x)/(edge_con(x) - vertex_con(x))`
 
@@ -89,9 +90,11 @@ nonempty Graph Atlas graphs through order 7 for which its denominator is
 nonzero, nor on the named controls.  NetworkX connectivity algorithms and a
 separate structural calculation independently give
 `(alpha,diameter,edge_con,vertex_con)=(2,2,11,8)` and exact margin `2/3`.
-Author-repository, issue-history, exact-formula, and broader invariant searches
-found no pre-existing counterexample.  This is a candidate new disproof; an
-executable certificate is prepared separately.
+The smaller graph made from two `K5`s sharing one cut vertex (graph6
+`H~}CKMF`) has `(alpha,diameter,edge_con,vertex_con)=(2,2,4,1)` and the same
+false right side `4/3`.  The carrier family remains useful independent
+evidence, but the simple witness makes this a conservative stale/trivial
+retro-kill rather than a novelty claim.
 
 ### graphbrain-alpha-upper-105 — HOLD_ARSENAL
 
