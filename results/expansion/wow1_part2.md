@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 152 / 208.
+Progress: 153 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -949,5 +949,11 @@ On regular arsenal graphs, mean dual degree equals the common degree; exact chro
 > "maximal frequency of c defined in 822 ... components of B(G)."
 
 The property `P`, coloring coordinate `c`, and hence blue graph `B_P(G)` are absent. No derived object can be formed faithfully.
+
+### wow-830 — N/A_ARSENAL (missing P)
+
+> "residue of the blue graph ... Laplacian of G."
+
+Without the Ramseyan class/property `P`, the blue graph is undefined for an arsenal member.
 
 
