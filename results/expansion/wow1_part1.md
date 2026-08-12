@@ -325,4 +325,8 @@ The Randić index is at most gravity-matrix rank throughout; even the largest ar
 
 Garble: `chromatic number / clique < independence of D2.` The historical `D2` construction and its independence invariant are not defined.
 
+### wow-136 — HOLD
+
+All arsenal graphs are regular, hence temperature deviation is 0 and the Randić RHS is positive.
+
 <!-- NEXT -->
