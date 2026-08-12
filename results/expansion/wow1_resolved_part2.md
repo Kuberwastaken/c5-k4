@@ -319,3 +319,11 @@ complement spectra verify it throughout the arsenal; the carrier gives
 an arbitrary graph property and states a class-level Ramseyan prediction. It
 does not specify one fixed property and one universal numerical inequality
 that a single arsenal graph could refute.
+
+## wow-823 — NOT_APPLICABLE
+
+**Status:** refuted (WoW annotation). The primary-page context says the red and
+blue graphs here are taken with respect to a fixed chromatic number. The corpus
+does not preserve that parameter, and substituting the later triangle-free
+distance-two coloring makes C5 itself fail the database gate. No such
+context-changing reading is claimed.
