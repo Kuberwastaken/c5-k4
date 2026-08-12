@@ -773,4 +773,8 @@ On applicable `T(7..9)`, greedy Maxine corresponds to a maximal matching of `K_n
 
 Garble: RHS `largesteigenvalue’ LOny L` is unusable.
 
+### wow-308 — HOLD where applicable
+
+Rank condition selects `T(7..9)`: average distances `3/2,14/9,8/5` are at most residues `2,3,3`.
+
 <!-- NEXT -->
