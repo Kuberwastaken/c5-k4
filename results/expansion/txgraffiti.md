@@ -1,5 +1,15 @@
 # TxGraffiti / Optimist corpus vs. counterexample arsenal
 
+> **Status correction (2026-08-12):** C-D / `txg-2507.17780-Conjecture4`
+> is not open. Bıyıkoğlu refuted it in MATCH 96 (2026), received
+> 2025-10-29, and Gupta subsequently proved that the friendship graph `F4`
+> is a smallest counterexample: `mu*(F4)=4 > 18/5=H(F4)`. The arsenal result
+> below (`9<10` on `C5[K4]`, and no arsenal violation) remains correct, but
+> its novelty/status search was stale. See
+> [`txgraffiti_status_followup.md`](txgraffiti_status_followup.md) for the
+> primary sources, exact family mechanism, database gate, and independent
+> verifier.
+
 Date: 2026-08-12. Corpus: `wowii309/corpora/txgraffiti.json` (26 entries; the 13 open + 3 generated evaluated here; the 10 `status=proved` theorem stubs have empty statements and are not evaluable).
 Statements were re-derived from the source papers' arXiv HTML (latexml alttext), since the corpus `statement_text` fields are garbled transcriptions:
 arXiv 2507.17780 (Ten Years), 2409.19379 (Automated Conjecturing), 2306.12917 (Framework), 2411.09158 (Optimist).
@@ -83,7 +93,7 @@ Cross-checks against the pre-existing C5[K4] profile (`wowii309/profile.json`): 
 | txg-2507.17780-Conjecture1 | C-A | HOLDS (25/25 applicable) | tight on K4: α=1=(2+1)/3 |
 | txg-2507.17780-Conjecture2 | C-B | HOLDS (14/14 Δ≤3, K4 excluded) | tight: Petersen 5=4+1, K3,3 4=3+1, prism C3 3=2+1; N/A on all dense members (Δ>3) |
 | txg-2507.17780-Conjecture3 | C-C | HOLDS (25/25, all regular) | tight: comp(C5[K4]) i=8=μ*, Petersen 3=3, K3,3 3=3, prisms C3/C5/C6/C9 |
-| txg-2507.17780-Conjecture4 | C-D | HOLDS (25/25) | strict on C5[K4]: 9<10 — see tightness section; tight on K4 2=2, K3,3 3=3; gap 0.5 on C5[K3], C5[K5] |
+| txg-2507.17780-Conjecture4 | C-D | **RESOLVED EXTERNALLY FALSE**; holds on arsenal (25/25) | Bıyıkoğlu 2026; smallest witness F4 has 4>18/5 (Gupta 2026). Strict on C5[K4]: 9<10 — see follow-up and tightness sections |
 | txg-2409.19379-Conjecture1 | C-A (dup) | HOLDS | same as above |
 | txg-2409.19379-Conjecture2 | C-E | HOLDS (15/15 Δ≤3) | not actually open: proved in the same paper (Thm 1 + Cor 1); tight on K3,3, prisms C3/C6/C9/C12 (2/3·(n/2)=γ_t) |
 | txg-2409.19379-Conjecture3 | C-F | HOLDS (all pairs tested) | see products appendix; several tight pairs |
@@ -114,7 +124,12 @@ Cross-checks against the pre-existing C5[K4] profile (`wowii309/profile.json`): 
 - Gate: fails on 964 of 1009 connected atlas graphs; smallest counterexamples at n=4 (e.g. P4: α=2, n−δ=3); holds for all n≤3.
 - Novelty: none. This is a raw Optimist session output (arXiv:2411.09158 presents such equalities as unfiltered session artifacts fitted to a small sample, "mostly rediscoveries/unevaluated"); it was never a curated conjecture. Recorded for completeness because the corpus asked for evaluation of generated entries.
 
-No other entry is violated: the flagship open conjectures C-A, C-B, C-C, C-D, C-F all survive the full arsenal, including the claw-free carrier C5[K4] (whose claw-freeness makes C-I applicable — it holds, Z=17 ≤ β=18, and is not close on C-A/C-C/C-D margins except as noted below).
+No other entry is violated by the arsenal: C-A, C-B, C-C, C-D, and C-F all
+survive these graphs, including the claw-free carrier C5[K4] (whose
+claw-freeness makes C-I applicable — it holds, Z=17 ≤ β=18, and is not close
+on C-A/C-C/C-D margins except as noted below). This is an arsenal verdict, not
+a current-status claim: C-D is externally refuted as recorded in the status
+correction above.
 
 ## Tightness cases (explicitly recorded)
 
@@ -166,4 +181,6 @@ PENDING — full pair table inserted after the sweep completes.
 
 - Corpus: `.../scratchpad/wowii309/corpora/txgraffiti.json`; profile: `.../scratchpad/wowii309/profile.json`.
 - Scripts + JSON outputs: `.../scratchpad/wowii309/txg/{inv,graphs,run_table,run_z,run_products,run_gate}.py`, `arsenal_table.json`, `z_table.json`, `products.json`, `gate.json`.
-- Sources: arXiv 2507.17780, 2409.19379, 2306.12917, 2411.09158; Davila–Henning, Appl. Math. Comput. 354 (2019) 385–395.
+- Sources: arXiv 2507.17780, 2409.19379, 2306.12917, 2411.09158, 2606.15761;
+  Bıyıkoğlu, MATCH 96 (2026), doi:10.46793/match.96-3.28425;
+  Davila–Henning, Appl. Math. Comput. 354 (2019) 385–395.

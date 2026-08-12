@@ -23,9 +23,11 @@ I then turned the same arsenal outward. On 2026-08-12 I completed durable,
 entry-by-entry sweeps of **409 open Written on the Wall I conjectures**, **71
 AutoGraphiX targets**, and the **16 evaluable open/generated TxGraffiti
 records**. That expansion found two additional gate-surviving disproofs in
-WoW I: #191 and #889. AutoGraphiX produced no claimable kill, and
-TxGraffiti's sole curated apparent violation is a printed-statement erratum,
-not new mathematics.
+WoW I: #191 and #889. AutoGraphiX produced no claimable kill. The TxGraffiti
+arsenal sweep produced no new kill, but a follow-up status audit found that its
+harmonic-index conjecture had already been refuted externally; the sweep's
+other curated apparent violation is a printed-statement erratum, not new
+mathematics.
 
 A further sweep covered all **228 independence-number bounds** still listed
 as open in Graph Brain issue #421, all **178 resolved/annotated WoW I rows**,
@@ -349,11 +351,13 @@ regular graphs instinctively. Ranked targets:
    the small-graph gate. Full audit:
    [`results/expansion/agx.md`](results/expansion/agx.md).
 4. **TxGraffiti / Optimist — swept**: all 16 evaluable open/generated
-   records were checked. The curated open conjectures survive; the printed
-   `Z`/γ_t cubic statement is an erratum that K₃,₃ itself exposes, and the
-   raw Optimist equality is trivially false. The μ*/H lead is strict on
-   C₅[K₄] (`9 < 10`), not tight. Full audit:
-   [`results/expansion/txgraffiti.md`](results/expansion/txgraffiti.md).
+   records were checked. The arsenal itself yields no new kill; the printed
+   `Z`/γ_t cubic statement is an erratum that K₃,₃ exposes, and the raw
+   Optimist equality is trivially false. The μ*/H inequality is strict on
+   C₅[K₄] (`9 < 10`), but is already externally false: the friendship graph
+   `F4` has `μ*=4 > 18/5=H`. Full audit and status correction:
+   [`txgraffiti.md`](results/expansion/txgraffiti.md),
+   [`txgraffiti_status_followup.md`](results/expansion/txgraffiti_status_followup.md).
 5. **Graph Brain / CONJECTURING — swept**: all 228 open-as-posted alpha
    bounds now have exact ledgers. Upper-081 is the one apparently unrecorded
    source-faithful kill; eight more are conservatively recorded as retro-kills,
