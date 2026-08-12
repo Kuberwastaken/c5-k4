@@ -102,9 +102,10 @@ number of still-open WOWII bounds — it is an extremal witness for:
 
 It is just as tight against the **proved** part of the corpus — a
 zero-slack witness of theorems 4, 7, 15, 16, 18, 37, 57, 68, 89, 94, 99,
-and 173 (e.g. L_s = 17 = min|N(ē)| − 1; b = 4 = 2·rad = 2α;
-α = 2 = b − λ_min), and of already-refuted bounds 219, 289 (γ_t = p +
-⌈b/2⌉ = 3), 424, and 430b. Two curios from the sweep: for refuted
+173, 382a, 409a, 411, 420a, 451, 452, and 458 (e.g. L_s = 17 =
+min|N(ē)| − 1; b = 4 = 2·rad = 2α; α = 2 = b − λ_min; and α₂ = 4 = 2α
+pinned simultaneously by three different theorems), and of already-refuted
+bounds 219, 289 (γ_t = p + ⌈b/2⌉ = 3), 424, and 430b. Two curios from the sweep: for refuted
 traceability conjectures the graph can never be a witness (it is
 Hamiltonian, so their conclusions hold), and the literal transcription of
 **proved theorem 97** (α ≤ λ_max **−** δ(Ḡ)) is falsified by C₅[K₄] — and
