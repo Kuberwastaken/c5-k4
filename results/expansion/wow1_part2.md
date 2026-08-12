@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 122 / 208.
+Progress: 123 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -769,5 +769,11 @@ The assertion is restricted to critical Ramsey graphs, a class not instantiated 
 > "A span of a vertex of critical Ramsey graph ..."
 
 No campaign graph is certified critical Ramsey.
+
+### wow-793 — HOLD
+
+> "largest independent set ... not more than 1 + global minimum degree of the complement of G."
+
+Exact independence and complement degeneracy/core numbers satisfy `alpha<=1+gmin(bar G)` for every arsenal member. This also follows from the chromatic-number explanation in the source.
 
 
