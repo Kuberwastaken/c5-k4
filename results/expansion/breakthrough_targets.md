@@ -52,3 +52,21 @@ source's July 2026 audit marks it resolved.
 
 ## Evaluations
 
+### 1. Dean cycle divisibility — HOLD
+
+Source-lock statement: every graph of minimum degree at least `k >= 3` has a
+cycle whose length is divisible by `k`; the discovery source records `k=5` as
+the only open case on 2026-07-25. Every arsenal graph with minimum degree at
+least five has an explicit 5-cycle. This includes all `C5[K_m]` members,
+`C7[K3]`, `C9[K3]`, `T(7..9)`, and `comp(C5[K4])`. Representative vertex
+cycles in the campaign's integer labelling are:
+
+- `C5[K4]`: `(0,19,18,17,16)`;
+- `T(7)`: `(0,18,20,16,17)` in NetworkX's deterministic relabelling;
+- `comp(C5[K4])`: `(0,15,7,19,11)`.
+
+A bounded simple-path DFS found each cycle and a separate edge-by-edge replay
+checked distinct vertices, closure, and all five edges. The carrier therefore
+does not disprove Dean's conjecture. No optimization or floating-point
+comparison is involved.
+
