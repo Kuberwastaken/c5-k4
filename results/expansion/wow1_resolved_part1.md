@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-244 — HOLD / NO ADDITIONAL WITNESS
+
+> deviation of eigenvalues of Laplacian < n/2. FMS 12.88.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed laplacian, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
 ### wow-243 — HOLD WHERE APPLICABLE
 
 > size / independence < maximum eigenvalue of Laplacian. Disproved by James B. Shearer, see his solution of 215. October 88.
