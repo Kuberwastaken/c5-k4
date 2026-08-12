@@ -97,3 +97,10 @@ are `10` and `13+4sqrt(5)`; for its complement they are `10` and
 so vertex deficiency is constant and its range is zero. The adjacency spectral
 range is strictly positive on every member, hence the bound holds under both
 range conventions. No candidate gate is triggered.
+
+## wow-713 — HOLD
+
+**Status:** proved (Aouchiche--Hansen survey). Direct guarded spectra give a
+nonpositive-eigenvalue mean whose negation is well below the Randić index on
+every arsenal member. Independently, regularity gives `R=|E|/d=n/2` exactly;
+the spectral side never approaches that value within `1e-6`.
