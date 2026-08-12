@@ -473,4 +473,8 @@ The inherited condition `sum Odd < sum Even` selects `T(n)=L(K_n)` and the carri
 
 Literal `mean Even <= n-mu` fails 50 applicable connected Atlas graphs through order 7 and also `T(9)` and the carrier complement. It is not a valid kill.
 
+### wow-193 — HOLD where applicable
+
+Under inherited `sum Odd < sum Even`, `mean Odd <= n-mu` holds: `T7` gives `10<=11`, `T8` `12<=14`, `T9` `14<=18`, complement `8<=10`.
+
 <!-- NEXT -->
