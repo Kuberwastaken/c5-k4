@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-101 — HOLD / NO ADDITIONAL WITNESS
+
+> The variance of the degree sequence is < than the independence number. Disproved independently by James B. Shearer and William Staton. Febru- ary 88.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed alpha, degree quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
 ### wow-95 — HOLD / NO ADDITIONAL WITNESS
 
 > The mode of the distance < the residue. Cy is a counterexample with the interpretation of the mode as the largest of modes. Odile Favaron , Maryvonne Maheo and Jean-Francois Sacle, July 88.
