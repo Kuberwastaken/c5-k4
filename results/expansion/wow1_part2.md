@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 99 / 208.
+Progress: 100 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -631,5 +631,11 @@ Under the standard vertex-expansion reading, taking the full allowed vertex set 
 > "smallest expanding coefficient ... not more than min d(v) ... over all blue vertices."
 
 For a maximum-cut minimizing monochromatic edges, each blue vertex has at least one red neighbor unless its recoloring would improve the cut. Thus the right side is at least 1, while the same expansion minimum is at most 1. Degenerate empty-color-class readings are excluded by the stated two-color optimization.
+
+### wow-761 — SKIP_OCR
+
+> "The smallest expanding coefficient ... not more than 1 + spectral measure of a lar"
+
+The record truncates mid-noun and loses the set whose spectral measure forms the bound. No completion is guessed.
 
 
