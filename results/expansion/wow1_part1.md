@@ -833,4 +833,8 @@ Triangle-free carrier complement has `Inverse Even=sum 1/12=5/3`, below distance
 
 `mismatching` is an order-dependent greedy try-out whose definition/output convention is unrecoverable.
 
+### wow-324 — HOLD under plausible readings
+
+Carrier complement has mean Odd 8; tested first-fit and standard 3-color Rainbow readings give inverse Rainbow 14. Ordering ambiguity is noted.
+
 <!-- NEXT -->
