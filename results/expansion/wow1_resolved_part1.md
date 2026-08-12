@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-46 — HOLD / BUNDLED SOURCE
+
+> The smallest positive eigenvalue < number of vertices of the center of a graph. Disproved by James B. Shearer. May 88. See also 58. AT. The smallest positive eigenvalue < number of vertices on the boundary. Disproved by Peter Puget, The University of Puget ...
+
+The row bundles #46 and #47. On every arsenal graph, the smallest positive adjacency eigenvalue is at most both the center size and periphery size (both equal `n` for the regular vertex-transitive members). No additional witness arises, but the two historical refutations remain external.
+
 ### wow-45 — PROVED_HOLD
 
 > The second largest eigenvalue is not more than the matching number. Proved by Noga Alon, 5.88.
