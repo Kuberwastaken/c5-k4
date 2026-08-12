@@ -9,9 +9,13 @@
 - **OCR discipline:** an expression that cannot be recovered faithfully from the corpus is recorded as `SKIP_OCR` with the surviving garble quoted; no intended formula is guessed.
 - **ILP discipline:** no solver call may exceed 60 seconds. (This lane currently needs no ILP.)
 
-Progress: **62/71** entries evaluated (70 strict-open + 1 open-in-full).
+Progress: **63/71** entries evaluated (70 strict-open + 1 open-in-full).
 
 ## Verdicts
+
+### `agx-survey-C17` — HOLD
+
+The fully numeric clause `lambda1+lambda2 <= 8n/7-2` holds across the arsenal by direct spectra and the independent closed forms. The sharper comparison with `G(n,p,q)` also holds after constructing its residue-class parameters; all gaps exceed 1e-6. No candidate violation appears, so the database and novelty gates are not triggered.
 
 ### `agx-survey-C15` — HOLD
 
