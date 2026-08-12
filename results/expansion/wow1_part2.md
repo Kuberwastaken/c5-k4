@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 144 / 208.
+Progress: 145 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -901,5 +901,11 @@ No arsenal member is one of the recursively amalgamated-triangle graphs, and no 
 > "Solve the lower interpolation problem for generalized Petersen graphs ..."
 
 This is an open-ended invariant-design problem, not an assertion falsifiable by the arsenal.
+
+### wow-817 — N/A_ARSENAL
+
+> "Solve ... interpolation problem for Cayley graphs over cyclic groups ..."
+
+No concrete inequality is stated and no arsenal construction is certified.
 
 
