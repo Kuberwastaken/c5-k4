@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-400 — SKIP_BUNDLED_OCR
+
+> range of positive eigenvalues < maximum of Dual Degree. A01. minimum of derivative of positive eigenvalues < mean Gravity. Disproved by Tony L. Brewster, Michael J. Dinneen and Vance Faber 12. 90.
+
+The row fuses #400 and #401 and assigns conflicting status prose. The legible #400 clause `range positive <= maximum dual degree` holds throughout the arsenal, but the derivative/gravity clause is not safely attributable; no combined verdict is claimed.
+
 ### wow-362 — SKIP_SPECIAL_CLASS
 
 > If G is a geotropic plant then 1/2 (average distance) (the average degree) < independence number. This conjecture was refuted by AutoGraphiX with a counter-example with 17 vertices. First AGX explored systematically graphs with up to 14 vertices then ex- tr...
