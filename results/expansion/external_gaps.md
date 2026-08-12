@@ -68,3 +68,10 @@ is the nine compact lower bounds displayed in Figure 14 plus the paper's second
 worked conjecture, the average-distance upper bound.  This avoids pretending
 that all 228 syntactically generated expressions have already been audited.
 
+#### Figure 14 / lower-001 — `HOLD_ARSENAL`
+
+`alpha >= min(girth, floor(theta))`.  On `C5[K4]`, `alpha=2`, `girth=3`,
+and Lovasz theta is `sqrt(5)=2.236067977...`, so the right side is `2`:
+equality.  The primary paper reports exhaustive verification on every
+connected graph through order 10 and random testing through order 100.  No
+violation appeared on the campaign's named arsenal.
