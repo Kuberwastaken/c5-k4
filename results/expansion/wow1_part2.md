@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 113 / 208.
+Progress: 114 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -715,5 +715,11 @@ No arsenal member meets the degree-3 hypothesis; chip-firing initialization is a
 > "counter-independence number of G is greater or equal to half of the radius."
 
 Exact counter-independence values are at least 2 and every arsenal radius is at most 4, so all hold (including equality cases). Independent clique computations on the corresponding relation graphs agree.
+
+### wow-780 — HOLD
+
+> "The jet number of any connected graph is greater or equal to half of the radius."
+
+Exact jet values are `2,2,2,2,2,2,3,4,3,3,4,2` in arsenal order and dominate `radius/2`. The source explicitly corrects an earlier reversed listing.
 
 
