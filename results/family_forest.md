@@ -278,6 +278,11 @@ T(n) is the dense diam-2 family whose alpha grows while b - gamma_c stays pinned
 - 182-185: slack 0 on 11 members each (all diam-2 uniform blow-ups); T(n) also exactly tight.
 - 186: min slack 1 (C5[K2] and T(7): b vs gamma_c).
 
+Follow-up for 183: its square correction over proved baseline 173 is at most
+one. A large targeted search found no critical equality case, reducing the
+remaining question to a narrow theorem-like lemma but not proving it. See
+[`wowii_183_theorem_signal.md`](expansion/wowii_183_theorem_signal.md).
+
 ## Files
 - inv.py / evaluate.py — invariant library + readings (count-vector fast paths cross-validated
   against all-subset brute force on 6 small members; carrier C5[K4] profile reproduced exactly)
