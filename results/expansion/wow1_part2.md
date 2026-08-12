@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 135 / 208.
+Progress: 136 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -847,5 +847,11 @@ Exact regular values give `lambda1=d <= 1+n*d/(n-d)` for every arsenal member. D
 > "largest eigenvalue ... not more than number of vertices of different degrees. 807 the second largest eigenvalue ..."
 
 The record visibly fuses 806 and 807 and likely loses an operator. Literal 806 fails `K3` and 480/995 atlas graphs, so the mandatory gate rejects it; no repair is guessed.
+
+### wow-808 — HOLD
+
+> "largest eigenvalue ... greater or equal to mean dual degree."
+
+On every regular arsenal member both sides equal the common degree under the source's dual-degree construction. Direct spectrum and degree-sequence computation agree.
 
 
