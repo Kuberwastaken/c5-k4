@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-107 — HOLD / NO ADDITIONAL WITNESS
+
+> A graph G is even-regular if the vector E defined in conjecture 96 is constant. If G is even-regular then the mode of the distance matrix < radius. Vance Faber, Los Alamos National Laboratory used LANL Cray com- puter and Reed’s program listing all at most ...
+
+The row depends on the even-regular/modal convention. Under the source-faithful convention used in the existing campaign profiles, every applicable arsenal graph holds; no alternate convention is introduced and no additional historical witness is claimed.
+
 ### wow-101 — HOLD / NO ADDITIONAL WITNESS
 
 > The variance of the degree sequence is < than the independence number. Disproved independently by James B. Shearer and William Staton. Febru- ary 88.
