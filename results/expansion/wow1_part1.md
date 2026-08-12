@@ -885,4 +885,29 @@ Primary scan p.84 gives inherited connected `alpha<=2`; p.85 confirms both `<=` 
 
 The hypothesis specifies a number-theoretic graph on integers `2..n`, not an arsenal family. The first lower bound is explicitly proved in the row; the later asymptotic is number-theoretic.
 
-<!-- NEXT -->
+## Coverage audit and outcome
+
+The corpus manifest and report headings were compared programmatically after
+the final entry: **201 eligible rows, 201 unique verdict headings, zero missing,
+zero extra, zero duplicates**.  Primary verdict counts are 124 `HOLD`, 36
+`SKIP_OCR`, 35 `N/A_ARSENAL`, 2 historically known retro-violations, 2 literal
+readings rejected by DB sanity, 1 new violation, and 1 mixed row whose prime
+clause is a new violation (total 201).
+
+Two candidates survive the complete protocol:
+
+- **wow-191:** `T(n)=L(K_n)`, every `n>=7`, refutes
+  `minimum deficiency <= |E|/omega` under the inherited
+  `sum Odd < sum Even` hypothesis.  The first witness is `T(7)`:
+  `20 > 105/6`.  The primary scan confirms the statement, the complete DB gate
+  has no failure, and an independent closed-form derivation confirms the family.
+- **wow-404':** `C5[K8]` refutes
+  `lambda_2(D) <= n/mean(Gravity)` under the primary scan's connected
+  `alpha<=2` heading: `3.944271910 > 62400/16399`.  Exact gravity arithmetic,
+  an independent spectral computation, the `1e-6` guard, and all 159 applicable
+  connected Atlas graphs plus applicable named calibrators confirm the result.
+
+Targeted web searches by number, statement, and invariant combination found no
+prior refutation of either candidate.  Aouchiche–Hansen's 2014 distance-spectrum
+survey reproduces the ordinary wow-404 triangles clause but not the prime
+gravity clause.  No ILP/CBC solve was needed in this lane.
