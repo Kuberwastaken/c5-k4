@@ -86,3 +86,11 @@ carrier gives `2 <= 11`; `C9[K3]`, the largest-radius arsenal member, gives
 All arsenal graphs satisfy the standard reading.  For `C5[K4]`,
 `2 <= 27/19+10`; for `C9[K3]`, `4 <= 31/13+27/2`.  Distance terms were
 computed as exact rationals.
+
+### wow-20 — HOLD
+
+> The number of positive eigenvalues of a graph is not more than their sum.
+
+Adjacency eigenvalues were counted with the `1e-6` zero guard.  Every arsenal
+graph holds.  The carrier has 3 positive eigenvalues and positive-eigenvalue sum
+approximately `21.944272`; no comparison lies within the guard band.
