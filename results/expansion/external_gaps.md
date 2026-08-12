@@ -173,3 +173,9 @@ Every connected bipartite distance-regular graph is conjectured Hamiltonian.
 Applicable named controls such as `K3,3`, cubes, and the Heawood graph have
 Hamilton cycles.  `C5[K4]` and its complement do not satisfy the full
 hypothesis.  No counterexample was found.
+
+#### Hamiltonicity 8 — `RESOLVED_IN_SOURCE`
+
+The paper first lists planar plus vertex-transitive as a conjectured sufficient
+condition, then proves exactly that claim as Theorem 20.  It is not an open
+target and was not counted as a kill opportunity.
