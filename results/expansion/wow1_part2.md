@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 126 / 208.
+Progress: 127 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -793,5 +793,11 @@ With the source's integral quotient convention and Caro-Wei/Turán bound, direct
 > "upper quotient ... not more than the Turan bound."
 
 The stated dual deletion on constant regular degree sequences was simulated exactly; all arsenal graphs hold under the source's rounded/integral Turán convention.
+
+### wow-797 — HOLD
+
+> "Turan bound = 1 + the average temperature of the complement of G."
+
+For a `d`-regular order-`n` graph, complement temperature is `(n-1-d)/(d+1)`, so the right side is exactly `n/(d+1)`, the Caro-Wei/Turán bound. All arsenal graphs are regular.
 
 
