@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-43 — PROVED_HOLD
+
+> Let s be the smallest eigenvalue of G, and m its matching number. Then - s 1s smaller or equal to m. Proved by Favaron, Maheo and Sacle, University of Paris-Sud, /FMS2/. 4A, The second largest eigenvalue is not more than the independence number. Noga Alon f...
+
+Direct evaluation of the applicable arsenal using the source hypotheses and the listed alpha, connectivity, matching, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
 ### wow-39 — SKIP_BUNDLED_OCR
 
 > The deviation of the distance matrix is not more than the number of positive eigenvalues. AO. The deviation of the distance matrix is not more than the number of negative eigenvalues. Al. chromatic number + radius 1s not more than the maximum degree + the f...
