@@ -761,4 +761,8 @@ Tree hypothesis excludes every arsenal graph; row records a stronger FMS result.
 
 Tree hypothesis excludes every arsenal graph.
 
+### wow-303 — HOLD where applicable
+
+Rank condition `rank(D)<rank(A)` selects `T(7..9)`; radius 2 is below harmonic indices `10.5,14,18`.
+
 <!-- NEXT -->
