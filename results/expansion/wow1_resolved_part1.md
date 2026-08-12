@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-297 — PROVED_HOLD WHERE APPLICABLE
+
+> If G is a tree then the second smallest eigenvalue of Laplacian < n independence. Odile Favaron, Maryvonne Maheo and Jean-Francois Sale. 2. 90.
+
+The hypothesis requires a tree. Paths and stars in the named gate satisfy algebraic connectivity `a <= n/alpha`; the dense arsenal is inapplicable. No contradiction to the proved row appears.
+
 ### wow-293 — HOLD / NO ADDITIONAL WITNESS
 
 > If girth 1s > 5 then the minimum of derivative of positive eigenvalues < Size Tony L. Brewster, Michael J. Dinneen and Vance Faber, (comp 107) independence. They found eight counterexamples all of which were trees. February 91.
