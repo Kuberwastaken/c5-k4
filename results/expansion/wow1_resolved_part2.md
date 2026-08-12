@@ -83,3 +83,10 @@ is not a disproof.
 prediction, now comparing `chi(bar G)/alpha` to the range of positive
 eigenvalues. Failure of an individual arsenal graph to witness existence cannot
 refute it, and no new mathematical verdict is assigned.
+
+## wow-706 — HOLD
+
+**Status:** proved (Aouchiche--Hansen survey). Every arsenal member satisfies
+`matching <= sum(positive adjacency eigenvalues)`. For the carrier the values
+are `10` and `13+4sqrt(5)`; for its complement they are `10` and
+`10+2sqrt(5)`. Direct maximum matchings and guarded diagonalization agree.
