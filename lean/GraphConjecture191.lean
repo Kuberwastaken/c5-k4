@@ -15,6 +15,7 @@ limitations under the License.
 -/
 
 import FormalConjecturesUtil
+import Mathlib.Combinatorics.SimpleGraph.Connectivity.WalkCounting
 
 /-!
 # Written on the Wall I - Conjecture 191
@@ -42,17 +43,83 @@ open SimpleGraph
 variable {V : Type*} [Fintype V] [DecidableEq V]
 
 /-- The deficiency of $v$: the number of nonedges induced by its neighborhood. -/
-noncomputable def vertexDeficiency (G : SimpleGraph V) [DecidableRel G.Adj] (v : V) : ℕ :=
-  (Gᶜ.edgeFinset.filter fun e => e.toFinset ⊆ G.neighborFinset v).card
+def vertexDeficiency (G : SimpleGraph V) [DecidableRel G.Adj] (v : V) : ℕ :=
+  ((Finset.univ.filter fun p : V × V =>
+    p.1 ≠ p.2 ∧ G.Adj v p.1 ∧ G.Adj v p.2 ∧ ¬G.Adj p.1 p.2).card) / 2
 
 /-- The number of vertices at odd graph distance from $v$. -/
 noncomputable def distOdd (G : SimpleGraph V) (v : V) : ℕ :=
   (Finset.univ.filter fun w => Odd (G.dist v w)).card
 
 /-- The minimum vertex deficiency of a nonempty finite graph. -/
-noncomputable def minVertexDeficiency (G : SimpleGraph V) [DecidableRel G.Adj]
+def minVertexDeficiency (G : SimpleGraph V) [DecidableRel G.Adj]
     [Nonempty V] : ℕ :=
   (Finset.univ.image (vertexDeficiency G)).min' (by simp)
+
+/-- The complete graph on seven vertices. -/
+abbrev K7 : SimpleGraph (Fin 7) := completeGraph (Fin 7)
+
+/-- The 21 edges of `K₇`, used as the vertex type of its line graph. -/
+abbrev K7Edge : Type := {e : Sym2 (Fin 7) // e ∈ K7.edgeSet}
+
+/-- The triangular graph `T(7)`, realized source-faithfully as the line graph of `K₇`. -/
+abbrev T7 : SimpleGraph K7Edge := K7.lineGraph
+
+instance : DecidableRel T7.Adj := fun e₁ e₂ =>
+  decidable_of_iff
+    (e₁ ≠ e₂ ∧ ∃ v : Fin 7, v ∈ (e₁ : Sym2 (Fin 7)) ∧ v ∈ (e₂ : Sym2 (Fin 7)))
+    lineGraph_adj_iff_exists.symm
+
+instance : Nonempty K7Edge :=
+  ⟨⟨s(0, 1), by simp⟩⟩
+
+/-- A computable version of the odd-distance count, for use by the certificate. -/
+def computableDistOdd (G : SimpleGraph V) [DecidableRel G.Adj] (v : V) : ℕ :=
+  (Finset.univ.filter fun w => Odd (G.computable_dist v w)).card
+
+/-- A computable version of the even-distance count, for use by the certificate. -/
+def computableDistEven (G : SimpleGraph V) [DecidableRel G.Adj] (v : V) : ℕ :=
+  (Finset.univ.filter fun w => Even (G.computable_dist v w)).card
+
+lemma distOdd_eq_computable (G : SimpleGraph V) [DecidableRel G.Adj] (v : V) :
+    distOdd G v = computableDistOdd G v := by
+  simp only [distOdd, computableDistOdd, G.dist_eq_computable]
+
+lemma distEven_eq_computable (G : SimpleGraph V) [DecidableRel G.Adj] (v : V) :
+    G.distEven v = computableDistEven G v := by
+  simp only [SimpleGraph.distEven, computableDistEven, G.dist_eq_computable]
+
+lemma T7_connected : T7.Connected := by native_decide
+
+lemma T7_parity : (∑ v, distOdd T7 v) ≤ ∑ v, T7.distEven v := by
+  simp_rw [distOdd_eq_computable, distEven_eq_computable]
+  native_decide
+
+lemma T7_minVertexDeficiency : minVertexDeficiency T7 = 20 := by native_decide
+
+lemma T7_edgeFinset_card : T7.edgeFinset.card = 105 := by
+  have h := T7.two_mul_card_edgeFinset
+  have hpairs :
+      (Finset.univ.filter fun (x : K7Edge × K7Edge) => T7.Adj x.1 x.2).card = 210 := by
+    native_decide
+  rw [hpairs] at h
+  omega
+
+lemma T7_cliqueNum : T7.cliqueNum = 6 := by
+  have hfree : T7.CliqueFree 7 := by
+    rw [← cliqueFinset_eq_empty_iff]
+    native_decide
+  have hnotfree : ¬T7.CliqueFree 6 := by
+    rw [← cliqueFinset_eq_empty_iff]
+    native_decide
+  simp only [CliqueFree, not_forall, Classical.not_not] at hnotfree
+  obtain ⟨s, hs⟩ := hnotfree
+  apply le_antisymm
+  · by_contra h
+    have hseven : 7 ≤ T7.cliqueNum := by omega
+    obtain ⟨t, ht⟩ := T7.exists_isNClique_cliqueNum
+    exact hfree.mono hseven t ht
+  · simpa [hs.card_eq] using hs.isClique.card_le_cliqueNum
 
 /--
 Written on the Wall I, Conjecture 191, asked whether every nonempty finite
@@ -63,11 +130,19 @@ witnessed by $T(7)=L(K_7)$ and every larger triangular graph.
 -/
 @[category research solved, AMS 5]
 theorem conjecture191 : answer(False) ↔
-    ∀ (V : Type*) [Fintype V] [DecidableEq V] [Nonempty V]
+    ∀ (V : Type) [Fintype V] [DecidableEq V] [Nonempty V]
       (G : SimpleGraph V) [DecidableRel G.Adj], G.Connected →
       (∑ v, distOdd G v) ≤ ∑ v, G.distEven v →
       (minVertexDeficiency G : ℝ) ≤
         (G.edgeFinset.card : ℝ) / (G.cliqueNum : ℝ) := by
-  sorry
+  constructor
+  · intro h
+    exact h.elim
+  · intro h
+    have hT7 := h K7Edge T7 T7_connected T7_parity
+    rw [T7_minVertexDeficiency, T7_edgeFinset_card, T7_cliqueNum] at hT7
+    norm_num at hT7
+
+#print axioms conjecture191
 
 end WrittenOnTheWallI.GraphConjecture191
