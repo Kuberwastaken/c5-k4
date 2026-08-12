@@ -407,3 +407,9 @@ gives at most two, so `4 >= 1+2`.
 Petersen graph, all ten vertices are connectors (non-cut vertices), while
 `alpha=4 <= 10/2=5`. Independent articulation-point and maximum-independent-
 set computations agree.
+
+## wow-881 — HOLD
+
+**Status:** refuted (WoW annotation). On Petersen, the applicable cubic
+triangle-free calibration graph, `alpha=4 >= diameter=2`. Exact BFS
+eccentricities and a separate clique search in the complement agree.
