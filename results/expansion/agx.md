@@ -9,7 +9,7 @@
 - **OCR discipline:** an expression that cannot be recovered faithfully from the corpus is recorded as `SKIP_OCR` with the surviving garble quoted; no intended formula is guessed.
 - **ILP discipline:** no solver call may exceed 60 seconds. (This lane currently needs no ILP.)
 
-Progress: **1/71** entries evaluated (70 strict-open + 1 open-in-full).
+Progress: **2/71** entries evaluated (70 strict-open + 1 open-in-full).
 
 ## Verdicts
 
@@ -21,4 +21,8 @@ Recovered reading (the four displayed comparisons): with adjacency index `lambda
 `lambda1/nu <= n-2+t`, and `lambda1/kappa <= n-2+t`.
 
 All four inequalities hold on every arsenal graph. The closest arsenal comparison is still far from the boundary: on `C5[K2]`, the minimum slack is `6.014037288...` (the first inequality; `n=10`, `lambda1=5`, `nu=4`, `kappa=5`, `t=0.014037288...`). For the carrier the four slacks are respectively `14.002931619`, `17.002931619`, `16.627931619`, and `17.002931619`; its closed-form regular spectrum gives `lambda1=11` exactly. No apparent violation, so the database-sanity and novelty gates are not triggered.
+
+### `agx-survey-C23` — NOT_APPLICABLE (and subsequently proved)
+
+Statement: among **unicyclic** graphs of order `n`, specified cycles maximize adjacency energy for `n <= 7` and `n in {9,10,11,13,15}`, while the lollipop `Lol(n,6)` does so for every other order. None of the campaign arsenal graphs is unicyclic: each has an edge surplus larger than one, including the smallest `C5[K2]` (`n=10`, `m=25`). Thus the hypothesis excludes the entire arsenal and there is no carrier verdict to test. This is the one corpus entry counted separately from the 70 strict-open entries; its metadata also records that Andriantiana and Wagner proved the full conjecture in 2011.
 
