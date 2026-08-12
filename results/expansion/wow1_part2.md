@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 175 / 208.
+Progress: 176 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -1087,5 +1087,11 @@ The record sits inside the fullerene block and compares 846, so the arsenal is i
 > "Eigenvectors of 0 of a cubic graph ... Conjecture: m < t."
 
 The operative construction is cubic and the OCR-obscure `largest side of a largest triangle` is not defined. No arsenal member is cubic.
+
+### wow-858 — N/A_ARSENAL
+
+> "number of centers of a fullerene ..."
+
+The fullerene hypothesis fails throughout the arsenal.
 
 
