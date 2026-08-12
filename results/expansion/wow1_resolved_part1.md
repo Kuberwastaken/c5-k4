@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-65 — HOLD / NO ADDITIONAL WITNESS
+
+> If G is triangle-free then the mode of Degree < the matching number. Disproved by Thomas Spencer, Rensselaer Polytechnic Institute February 8&7.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed degree, matching quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
 ### wow-64 — HOLD / NO ADDITIONAL WITNESS
 
 > If G is triangle-free then the mode of Degree < then the Randic Index. Disproved by James B. Shearer. July 87.
