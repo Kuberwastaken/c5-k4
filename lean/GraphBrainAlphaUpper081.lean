@@ -77,7 +77,7 @@ def upper081Bound (G : SimpleGraph V) : Prop :=
 
 /-- The universal connected-graph statement posted as Graph Brain upper-081. -/
 def upper081Statement : Prop :=
-  ∀ (V : Type*) [Fintype V] [DecidableEq V] [Nontrivial V]
+  ∀ (V : Type) [Fintype V] [DecidableEq V] [Nontrivial V]
     (G : SimpleGraph V), G.Connected → upper081Bound G
 
 /-- Exact arithmetic core of the order-nine counterexample certificate.
@@ -88,9 +88,9 @@ invariant tuple `(2, 2, 4, 1)` refutes the posted bound. -/
 theorem invariantTuple_2_2_4_1_refutes
     (G : SimpleGraph V)
     (hα : G.indepNum = 2) (hD : G.diam = 2)
-    (hλ : edgeConnectivity G = 4) (hκ : vertexConnectivity G = 1) :
+    (hEdge : edgeConnectivity G = 4) (hVertex : vertexConnectivity G = 1) :
     ¬upper081Bound G := by
-  simp [upper081Bound, hα, hD, hλ, hκ]
+  simp [upper081Bound, hα, hD, hEdge, hVertex]
   norm_num
 
 /-- A certified realization of the windmill invariant tuple disproves the
@@ -100,9 +100,9 @@ finite-graph equalities still to be discharged by a future connectivity API. -/
 theorem upper081Statement_false_of_windmill_certificate
     (W : SimpleGraph (Fin 9)) (hW : W.Connected)
     (hα : W.indepNum = 2) (hD : W.diam = 2)
-    (hλ : edgeConnectivity W = 4) (hκ : vertexConnectivity W = 1) :
+    (hEdge : edgeConnectivity W = 4) (hVertex : vertexConnectivity W = 1) :
     ¬upper081Statement := by
   intro h
-  exact invariantTuple_2_2_4_1_refutes W hα hD hλ hκ (h (Fin 9) W hW)
+  exact invariantTuple_2_2_4_1_refutes W hα hD hEdge hVertex (h (Fin 9) W hW)
 
 end GraphBrain.AlphaUpper081
