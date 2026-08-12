@@ -370,3 +370,11 @@ Printed p.78 recovers the missing fraction exactly.  No mandated arsenal graph
 has girth at least 5: the blow-ups and triangular graphs contain triangles, and
 the carrier complement contains 4-cycles.  Thus the inherited hypothesis makes
 this lane inapplicable; Maxine's order ambiguity would also remain.
+
+### wow-292 — N/A_ARSENAL
+
+> If girth is >= 5 then the minimum positive eigenvalue <= n / mean
+> gravity.
+
+Printed p.80 recovers the full spectral inequality.  No arsenal member satisfies
+the girth hypothesis, so no evaluation or candidate gate is available.
