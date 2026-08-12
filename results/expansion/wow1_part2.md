@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 136 / 208.
+Progress: 137 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -853,5 +853,11 @@ The record visibly fuses 806 and 807 and likely loses an operator. Literal 806 f
 > "largest eigenvalue ... greater or equal to mean dual degree."
 
 On every regular arsenal member both sides equal the common degree under the source's dual-degree construction. Direct spectrum and degree-sequence computation agree.
+
+### wow-809 — N/A_ARSENAL / DB_REJECTED
+
+> "number of positive eigenvalues ... not more than -1 + residue."
+
+In the surrounding PR/RP block the arsenal is inapplicable. Literal universal reading fails 767/995 connected nontrivial atlas graphs (including tiny calibration graphs), so apparent carrier failures are discarded.
 
 
