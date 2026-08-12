@@ -221,3 +221,10 @@ arsenal graph, the odd-distance count is its degree while horizontal edges
 within the distance layers make `max d(v)-min h(v)` no larger than `alpha`.
 For the carrier, `d=11` and `h=67`, so the proposed lower bound is negative.
 Direct layer construction agrees.
+
+## wow-751 — HOLD
+
+**Status:** annotated refuted despite the accompanying text giving a proof.
+Every regular arsenal graph has zero cut vertices, reducing the inequality to
+`alpha <= n`. NetworkX articulation points and the explicit connectivity of
+each family independently give `c=0`.
