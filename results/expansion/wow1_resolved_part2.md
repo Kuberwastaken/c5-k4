@@ -249,3 +249,10 @@ nonunique, as the source itself notes, and the OCR alternates `m(v)` and
 carrier-family graph is cubic; the named Petersen calibration graph is, and
 gives `alpha=4 = n_nonnegative-diameter=6-2`. A guarded eigenspectrum and
 exact independent-set search agree.
+
+## wow-774 — HOLD
+
+**Status:** proved (Aouchiche--Hansen survey). For the applicable cubic named
+graph Petersen, only its eigenvalue `3` is strictly greater than one, while
+`alpha=4`. No primary arsenal family member is cubic, and the calibration
+case holds with wide slack.
