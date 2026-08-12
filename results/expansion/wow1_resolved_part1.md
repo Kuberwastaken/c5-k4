@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-166 — RETRO-VIOLATION — dense arsenal
+
+> size/2 < the number of nonpositive eigenvalues of the distance matriz, Tony L. Brewster, Michael Dinneen and Vance Faber, see 107. 7.91.
+
+The primary reading is `|E|/2 <= p_-(D)+p_0(D)`. `C5[K4]` gives `55 > 17`; `K5` already gives `5>4`, so the same reading fails the DB-sanity gate in the expected direction. This is an additional witness to an already-refuted conjecture, independently confirmed from the distance spectrum.
+
 ### wow-165 — HOLD / NO ADDITIONAL WITNESS
 
 > mode of eigenvalues of Laplacian < size / average distance.Tony L. Brewster, Michael Dinneen and Vance Faber, see 107 and 158.10. 90.
