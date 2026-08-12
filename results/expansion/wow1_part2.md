@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 180 / 208.
+Progress: 181 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -1117,5 +1117,11 @@ The IP-isomer class excludes the arsenal.
 > "independence number of an IP isomer ..."
 
 No arsenal member satisfies the IP-fullerene hypothesis.
+
+### wow-863 — N/A_ARSENAL
+
+> "Let G be a cubic connected graph of girth 5 with 16 vertices."
+
+No arsenal graph is cubic of order 16 and girth 5.
 
 
