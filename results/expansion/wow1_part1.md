@@ -685,4 +685,8 @@ Inherited `girth>5` hypothesis excludes every arsenal graph.
 
 Inherited `girth>5` hypothesis excludes every arsenal graph.
 
+### wow-277 — N/A_ARSENAL / SKIP_OCR
+
+Inherited `girth>5` excludes the arsenal; formula is also garbled.
+
 <!-- NEXT -->
