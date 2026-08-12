@@ -93,6 +93,13 @@ Author-repository, issue-history, exact-formula, and broader invariant searches
 found no pre-existing counterexample.  This is a candidate new disproof; an
 executable certificate is prepared separately.
 
+### graphbrain-alpha-upper-016 — DB_REJECTED
+
+> `independence_number(x) <= maximum(max_common_neighbors(x), 10^(order(x) - sigma_2(x)))`
+
+The identical author-project reading already fails the mandatory small-graph gate on connected Graph Atlas graph `atlas:@`: `alpha=1` while the right side is `0`.  It is therefore a database-inconsistent/as-posted falsehood, not a new campaign counterexample.  The result was recomputed from the author invariant definitions; any undefined domain cases were excluded rather than coerced.
+
+
 ### graphbrain-alpha-upper-015 — HOLD_ARSENAL
 
 > `independence_number(x) <= 10^sigma_2(x) - card_periphery(x)`
