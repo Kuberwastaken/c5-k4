@@ -9,9 +9,13 @@
 - **OCR discipline:** an expression that cannot be recovered faithfully from the corpus is recorded as `SKIP_OCR` with the surviving garble quoted; no intended formula is guessed.
 - **ILP discipline:** no solver call may exceed 60 seconds. (This lane currently needs no ILP.)
 
-Progress: **32/71** entries evaluated (70 strict-open + 1 open-in-full).
+Progress: **33/71** entries evaluated (70 strict-open + 1 open-in-full).
 
 ## Verdicts
+
+### `agx-form1-T45-r143-lower` — SKIP_OCR
+
+Unusable normalized row: `AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Ki  n   a/χ 1`. The numerical bound and/or the defining parameters of its claimed extremal graph have been lost in column wrapping. Without those data there is no well-defined predicate to test on the arsenal. Per protocol, this records the garble and does not guess an intended statement.
 
 ### `agx-form1-T45-r141-upper` — SKIP_OCR
 
