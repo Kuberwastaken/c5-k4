@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 24 / 208.
+Progress: 25 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -181,5 +181,11 @@ As in wow-552, the operative derived-sequence definition is unavailable in a suf
 > "IfG is a connected graph then the number of positive eigenvalues - number Size independence. of negative eigenvalues <"
 
 The inequality is scrambled: `size independence` occurs inside the spectral expression and the right-hand side is absent. No plausible reading is privileged.
+
++### wow-574 — SKIP_OCR
+
+> "If G is a connected graph then the BromaticnumberofcomplementofG < mode independence of Even."
+
+The fused text does not determine whether the right side is a mode of an `Even` coordinate sequence or an independence expression; the invariant and grouping are unrecoverable.
 
 
