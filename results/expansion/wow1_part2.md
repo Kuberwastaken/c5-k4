@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 197 / 208.
+Progress: 198 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -1219,5 +1219,11 @@ The applicable graph gives `2<=20/8=5/2`.
 > "that the red independence number is at least as large as the blue clique numoer. and"
 
 This is a dangling continuation with its hypothesis and preceding connective missing. No standalone claim is inferred.
+
+### wow-885b — SKIP_OCR
+
+> "Jf G is regular of degree d then the blue clique number is at most DeLaVina noticed ... lower bound n/(1+d?)."
+
+The entire upper-bound right side is lost. The commentary's separate lower bound cannot restore it.
 
 
