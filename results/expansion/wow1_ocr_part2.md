@@ -16,7 +16,7 @@ where possible; spectral gaps at most `1e-6` are ties, and any ILP solve is
 capped at 60 seconds. A source statement that is recovered but restricted to an
 inapplicable construction is recorded as `N/A_ARSENAL`.
 
-Progress: 47 / 54.
+Progress: 48 / 54.
 ### wow-456 — N/A_ARSENAL
 
 PDF p.95: `The residue of the graph RP[2..n] is not more than pi(n).` The source cleanly restores `pi(n)` and identifies RP/residue definitions, but this is restricted to the number-theoretic RP construction; no arsenal graph is admissible.
@@ -158,4 +158,7 @@ PDF p.124: the smallest expanding coefficient is at most `1 + spectral measure o
 ### wow-765(2) — NOT_A_CONJECTURE
 
 The canonical source shows this corpus suffix is only the continuation of commentary after proved conjecture 765 and the Bollobas bibliography line on pp.125--126. It contains no second mathematical assertion to evaluate.
+### wow-784 — N/A_ARSENAL
+
+PDF pp.136--137 confirms this record is exposition defining number-theoretic sequences `p(n),q(n)` for twin-prime conjectures, not a graph assertion. The later example concerns counts of twin primes; no arsenal graph is admissible.
 
