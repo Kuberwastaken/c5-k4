@@ -297,4 +297,8 @@ Matching number is at most the full gravity-matrix ranks found throughout the ar
 
 Radius is at most the number of negative gravity eigenvalues throughout; the carrier gives `2 <= 17`.
 
+### wow-129 — HOLD
+
+With standard normalized Laplacian spectral deviation, all regular arsenal members hold against Randić. An unnormalized sum reading fails basic graphs and is rejected.
+
 <!-- NEXT -->
