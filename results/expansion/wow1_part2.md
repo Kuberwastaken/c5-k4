@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 21 / 208.
+Progress: 22 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -163,5 +163,11 @@ The corpus does not preserve the mid-Degree sequence definition with enough prec
 > "independence < n- mean of mid-Degree."
 
 The `mid-Degree` derived sequence is not recoverable faithfully from this isolated OCR record, so its mean cannot be certified.
+
++### wow-553 — SKIP_OCR
+
+> "mean of mid-Degree < size independence."
+
+As in wow-552, the operative derived-sequence definition is unavailable in a sufficiently reliable form. No guessed Havel-Hakimi variant is used.
 
 
