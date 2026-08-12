@@ -228,3 +228,10 @@ Direct layer construction agrees.
 Every regular arsenal graph has zero cut vertices, reducing the inequality to
 `alpha <= n`. NetworkX articulation points and the explicit connectivity of
 each family independently give `c=0`.
+
+## wow-758 — SKIP_OCR
+
+**Status:** refuted (WoW annotation). The record defines a slowest expanding
+sequence and expansion coefficients but truncates immediately after
+`Conjecture: the smallest expanding coefficient of a connected graph`.
+Neither comparison nor right-hand side survives, so no predicate is guessed.
