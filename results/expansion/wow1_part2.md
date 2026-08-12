@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 85 / 208.
+Progress: 86 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -547,5 +547,11 @@ No polygon/visibility representation is part of the arsenal; the graph inequalit
 > "The three triangles obtained by joining the center to vertices of a triangle have the same area."
 
 This is elementary Euclidean geometry and has no graph-arsenal instance.
+
+### wow-738 — N/A_ARSENAL
+
+> "Let a and s be lengths of angle and side bisectors drawn from the same vertex of a triangle. Then a < s."
+
+The statement concerns Euclidean triangle lengths, outside the graph arsenal.
 
 
