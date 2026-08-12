@@ -1,0 +1,24 @@
+{
+  "source_id": "graphbrain-alpha-lower-082",
+  "statement": "independence_number(x) >= floor(log(tan(order(x))^2)/log(10))",
+  "angle_convention": "radians (Sage/Python real tan convention)",
+  "guard": 1e-06,
+  "witnesses": [
+    {
+      "graph": "K11",
+      "order": 11,
+      "independence_number": 1,
+      "raw_rhs": 4.708027945237495,
+      "rhs": 4,
+      "distance_to_nearest_integer": 0.2919720547625051
+    },
+    {
+      "graph": "C5[K11]",
+      "order": 55,
+      "independence_number": 2,
+      "raw_rhs": 3.3099518164565738,
+      "rhs": 3,
+      "distance_to_nearest_integer": 0.30995181645657377
+    }
+  ]
+}
