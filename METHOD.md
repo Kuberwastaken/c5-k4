@@ -1,4 +1,4 @@
-# Invariant-Wall Navigation: Development Method v0.2
+# Invariant-Wall Navigation: Development Method v0.3
 
 **Status:** committed development protocol, 2026-08-12
 
@@ -69,7 +69,7 @@ For a candidate family `F(theta)`, the working record must contain:
 
 This turns "tightness" into a concrete object rather than a visual analogy.
 
-## Method v0.2
+## Method v0.3
 
 ### Phase 0 — Freeze the target and its provenance
 
@@ -224,6 +224,30 @@ No apparent crossing is a result until it passes all gates:
 8. **Status:** distinguish new, retro, erratum, metadata defect, ambiguous, and
    already resolved.
 
+### Phase 7A — Proof extraction after a bounded hold
+
+A bounded hold becomes a theorem lane only when the completed trial isolates a
+precise statement strictly narrower than the original conjecture. Before any
+new computation, write a **lemma ladder**:
+
+1. the already-proved baseline;
+2. the exact residual identity;
+3. the smallest remaining structural proposition;
+4. the source hypotheses actually used;
+5. a proof route and the first step at which it can fail.
+
+The lane then alternates paper proof and countermodel checks against each
+lemma, not against the original conjecture wholesale. A failed lemma is saved
+with its smallest exact counterexample and replaced explicitly. A surviving
+lemma receives a bounded independent audit only after its proof idea is
+written. No search bound may be enlarged merely because a proof attempt is
+hard.
+
+The 438b result is the model: a proposed low-degree-layer crossing was replaced
+by an edge-partition lemma valid for every vertex subset, and the stronger
+theorem was then proved in Lean. The output is a theorem, not a negative-search
+statistic.
+
 ### Phase 8 — Formal certification and upstream submission
 
 For each gate-surviving new disproof:
@@ -260,6 +284,8 @@ Every attempted target receives exactly one primary outcome:
 | `CORRUPT_OR_ERRATUM` | source/database gate rejects the printed statement |
 | `AMBIGUOUS` | readings produce materially different status |
 | `NOT_APPLICABLE` | the fixed family does not satisfy the hypotheses |
+| `NEW_PROOF` | the source conjecture is proved, with a checkable argument |
+| `STRONGER_THEOREM` | a proved statement strictly subsumes the source conjecture |
 
 Counts in public summaries are separated into direct carrier kills, spawned
 families, retro-witnesses, theorem shadows/signals, and interpretation-dependent
@@ -273,7 +299,7 @@ inside already-published statements from collections already represented in
 `formal-conjectures`. Source recovery does not by itself make an unrelated
 corpus eligible. WoW I and Graph Brain results remain internal to `c5-k4` and
 must not be submitted upstream. This keeps the public research trail legible
-while Method v0.2 is refined.
+while Method v0.3 is refined.
 
 ### Wave A — known tight walls
 
@@ -325,6 +351,19 @@ No target already inspected, discussed, ranked, or searched in this repository
 will be counted as held out.
 
 ## Method changelog
+
+### v0.3 — 2026-08-12
+
+- Added a proof-extraction phase after bounded holds. A theorem signal must now
+  be converted into a precise lemma ladder before further computation.
+- Required proof lanes to seek countermodels to each proposed intermediate
+  lemma, preventing a plausible but false reduction from becoming narrative.
+- Added `NEW_PROOF` and `STRONGER_THEOREM` outcomes after WOWII 438b was proved
+  by an arbitrary-subset inequality stronger than the source statement.
+- Prohibited silent search-bound expansion in theorem lanes; proof failure is
+  recorded at the first broken step.
+- Retained the scope correction: only collections already represented in
+  `formal-conjectures` are eligible for upstream work.
 
 ### v0.2 — 2026-08-12
 
