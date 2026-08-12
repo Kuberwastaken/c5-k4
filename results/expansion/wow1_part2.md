@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 97 / 208.
+Progress: 98 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -619,5 +619,11 @@ Reading the prose's non-strict intent, Hamiltonicity gives path length `n-1`, at
 > "Let C be the set of non cut vertices ... independence ... greater or equal than [number of components of C]."
 
 All arsenal members are 2-connected, so `C=V` induces one component. Since `alpha>=2`, all hold.
+
+### wow-759 — HOLD
+
+> "smallest expanding coefficient is not more than 1 + the number of red edges."
+
+Under the standard vertex-expansion reading, taking the full allowed vertex set yields coefficient at most 1 (and common proper-subset readings are also nonnegative minima), while the right side is at least 1. Every coloring reading holds; no apparent violation.
 
 
