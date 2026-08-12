@@ -46,3 +46,10 @@ still absent. No reading is invented and no arsenal verdict is claimed.
 hypothesis leaves only `complement(C5[K4])` in the arsenal. It has
 `n-alpha=12`, while `chi(G)+chi(bar G)=3+10=13`, so the source bound
 holds. Exact colorings supply the two values independently; no retro-kill.
+
+## wow-601 — HOLD
+
+**Status:** refuted (WoW annotation). Under the same triangle-free section
+hypothesis, `complement(C5[K4])` gives `chi=3` and average distance `30/19`,
+so `3 <= 20/(30/19)=38/3`. Exact distance counts and an independent shortest-
+path calculation agree. No candidate reaches a gate.
