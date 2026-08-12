@@ -90,3 +90,10 @@ refute it, and no new mathematical verdict is assigned.
 `matching <= sum(positive adjacency eigenvalues)`. For the carrier the values
 are `10` and `13+4sqrt(5)`; for its complement they are `10` and
 `10+2sqrt(5)`. Direct maximum matchings and guarded diagonalization agree.
+
+## wow-711 — HOLD
+
+**Status:** refuted (Aouchiche--Hansen survey). Every arsenal graph is regular,
+so vertex deficiency is constant and its range is zero. The adjacency spectral
+range is strictly positive on every member, hence the bound holds under both
+range conventions. No candidate gate is triggered.
