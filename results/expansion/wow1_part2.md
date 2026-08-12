@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 53 / 208.
+Progress: 54 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -355,5 +355,11 @@ This remains in the explicitly restricted 634--654 block, whose equality hypothe
 > "——“+ < sum of coordinates of a maximum clique. independence . Size"
 
 The left expression is destroyed and the remaining words do not determine an operand or grouping. No repair is attempted.
+
+### wow-657 — SKIP_OCR
+
+> "mean Rainbow < independence."
+
+`Rainbow` is not defined in the surviving source record, so its mean cannot be evaluated.
 
 
