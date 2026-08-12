@@ -377,3 +377,10 @@ hypothesis; applying it to a nonplanar carrier would be invalid.
 **Status:** refuted (WoW annotation). The positive-energy/bipartite-order bound
 is explicitly restricted to fullerenes. The arsenal contains none, so it
 cannot provide an additional refutation.
+
+## wow-873 — HOLD
+
+**Status:** proved (WoW annotation). The hypothesis is cubic, connected,
+triangle-free, and girth five. The named Petersen graph is applicable and has
+diameter two, satisfying the first disjunct directly. No primary carrier-family
+member is cubic.
