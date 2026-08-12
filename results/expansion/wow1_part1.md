@@ -385,4 +385,8 @@ Radius is at most the smaller of minimum Odd and minimum Even counts throughout 
 
 Under edge-count `size`, `|E|/omega <= sum Even` throughout; the order reading also holds.
 
+### wow-161 — SKIP_OCR
+
+Garble: `maximum of autocoordinates of Maxine of the complement`. This representation-dependent historical construction is undefined.
+
 <!-- NEXT -->
