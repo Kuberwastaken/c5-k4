@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-69 — HOLD / NO ADDITIONAL WITNESS
+
+> Residue 1s not more than the independence number. This is really a joint conjecture of Graffiti and myself, because I began to an- ticipate this conjecture writing the code for residue.
+
+The row depends on the residue algorithm already covered by its proof. Under the source-faithful convention used in the existing campaign profiles, every applicable arsenal graph holds; no alternate convention is introduced and no additional historical witness is claimed.
+
 ### wow-68 — HOLD / NO ADDITIONAL WITNESS
 
 > If G is triangle-free then the matching number < then the maximal fre- quency of the degree sequence. Disproved by Thomas Spencer, Rensselaer Poly- technic Institute February 87. November 26. 87.
