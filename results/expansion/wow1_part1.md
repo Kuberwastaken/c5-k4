@@ -873,4 +873,8 @@ No arsenal graph is a geotropic plant.
 
 Primary scan p.84 supplies inherited connected `alpha<=2` hypothesis. Eligible cycle blow-ups have positive adjacency-eigenvalue range about 2.764 through 11.056, below matchings 5 through 20.
 
+### wow-402 — HOLD where applicable
+
+Under inherited connected `alpha<=2`, `n/average_distance <= lambda_max(L)`; closest arsenal case `C5[K2]` gives about `6.9231 <= 7.2361`.
+
 <!-- NEXT -->
