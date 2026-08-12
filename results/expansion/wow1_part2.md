@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 131 / 208.
+Progress: 132 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -823,5 +823,11 @@ Primary context restricts this to graphs satisfying the special neighborhood-int
 > "independence ... not more than the Turan bound + largest eigenvalue - second largest eigenvalue."
 
 Context says "for these graphs" and discusses `PR[2..n]`, which the arsenal does not instantiate. The isolated universal reading apparently fails on `bar(C5[K4])`: `8 > 20/9+8-(2sqrt(5)-2) ~=7.750086`; however it also fails 118/995 connected nontrivial atlas graphs and named `P7,C8,C9` and large stars. The mandatory gate discards that alternate, so this is not a kill.
+
+### wow-803 — N/A_ARSENAL (universal alternate DB_REJECTED)
+
+> "independence ... not more than residue of complement + minimum phi function."
+
+The construction is a PR[S] try-out depending on a chosen maximum independent set, not a general invariant. Universal reading fails on `bar(C5[K4])` by `8>2+0`, but also on `K1,3` and 182/995 atlas graphs under every-MIS semantics (310 under any-MIS). Gate rejected; no kill.
 
 
