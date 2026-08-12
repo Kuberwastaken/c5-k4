@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 133 / 208.
+Progress: 134 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -835,5 +835,11 @@ The construction is a PR[S] try-out depending on a chosen maximum independent se
 > "independence ... greater or equal to upper quotient ... + number of eigenvalues greater or equal to 1."
 
 This remains in the PR/RP context and no arsenal member instantiates it. A universal reading fails 490/995 connected nontrivial atlas graphs, including small calibration graphs, so it cannot support a carrier claim.
+
+### wow-805 — HOLD
+
+> "largest eigenvalue ... not more than 1 + sum temperatures."
+
+Exact regular values give `lambda1=d <= 1+n*d/(n-d)` for every arsenal member. Dense spectra independently confirm `lambda1` beyond the guard.
 
 
