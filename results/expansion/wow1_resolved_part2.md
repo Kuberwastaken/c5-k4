@@ -428,3 +428,23 @@ the red graph is `C5[K4]`, so its red independence number is two; diameter two
 makes the blue graph edgeless, with clique number one. Thus
 `alpha(red)=2=2*omega(blue)`. This exact tie is the immediate precursor to
 the #889 failure found in the open lane.
+
+## Completion audit
+
+- **Coverage:** 56 expected rows, 56 verdict headings, 56 unique identifiers;
+  no missing, extra, or duplicate ids.
+- **Verdicts:** 24 `HOLD`, 22 `NOT_APPLICABLE`, 6 `SKIP_OCR`, 2 `TIGHT`,
+  1 `DB_REJECTED`, and 1 `RETRO_KILL`.
+- **New reach:** #724 is already historically refuted, but the complement
+  family `H_m=complement(C5[K_m])`, `m>=3`, is a connected infinite
+  counterexample family apparently absent from the historical report. Its
+  executable certificate independently passes 996 connected Atlas graphs,
+  21 named calibration graphs, closed-form checks through `m=8`, and three
+  regression tests.
+- **Source discipline:** pdf-inspector's full extraction correctly flagged
+  all 216 primary-PDF pages as needing OCR because of broken font encoding;
+  relevant statements were instead checked on rasterized primary pages. No
+  unreadable row was repaired by conjecture.
+- **Numerics and optimization:** every spectral comparison used the `1e-6`
+  guard. This lane required no ILP solve, so the 60-second cap was never
+  approached.
