@@ -334,3 +334,9 @@ context-changing reading is claimed.
 chromatic-number parameter governing `R(G)` in the primary-page heading.
 Without it, the number of isolated red vertices is not defined. No carrier
 verdict is possible.
+
+## wow-826 — NOT_APPLICABLE
+
+**Status:** refuted (WoW annotation). Both `c(v)` and the red graph inherit
+the fixed-chromatic-number setup of #822--#825, whose parameter is absent from
+the normalized row. The candidate predicate cannot be instantiated faithfully.
