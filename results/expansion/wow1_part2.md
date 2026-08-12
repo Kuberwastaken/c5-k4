@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 203 / 208.
+Progress: 204 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -1257,5 +1257,11 @@ Mandatory gate: all seven connected regular triangle-free atlas graphs through o
 > "If G is regular ... triangle-free, and r the residue of complement of blue graph then blue clique number is at least r."
 
 For `bar(C5[K4])`, blue is empty, so complement-blue is `K20` with residue 1, equal to blue clique number 1.
+
+### wow-891 — HOLD
+
+> "blue clique number ... at least number of elements of a minimum spanning set minus residue."
+
+The applicable graph has blue clique 1, minimum open-neighborhood spanning set size 3, and residue 3, giving `1>=0`.
 
 
