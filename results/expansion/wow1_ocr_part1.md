@@ -324,3 +324,12 @@ has `|E|/alpha=80/8=10` and, being 8-regular on 20 vertices, harmonic index
 Printed p.82 supplies the missing fraction and operator.  The Maxine-coordinate
 range still depends on unspecified maximum-degree tie order, with no quantifier
 over runs, so the statement is not a well-defined graph invariant to evaluate.
+
+### wow-315 — SKIP_ALGORITHM
+
+> If G is a triangle-free graph then minimum of Rainbow <= radius.
+
+Printed p.82 confirms the source.  Rainbow is defined from the coloration
+produced by a greedy coloring algorithm; its value is vertex-order dependent and
+this row gives no ordering or quantifier.  The exact statement is recovered but
+remains algorithmically ambiguous.
