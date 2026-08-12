@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-194 — HOLD / NO ADDITIONAL WITNESS
+
+> The mazimum eigenvalue < size / average distance. Odile Favaron, Maryvonne Maheo and Jean-Francois Sacle. December 89.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed average_distance, distance, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
 ### wow-190(2) — PROVED_HOLD
 
 > The deviation of eigenvalues of Laplacian < mean of E. Odile Favaron, Maryvonne Maheo and Jean-Francois Sale. December 89.
