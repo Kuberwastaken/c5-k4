@@ -288,3 +288,12 @@ Printed p.78 recovers the product and operator.  Exact average-distance
 arithmetic verifies the inequality on the full arsenal.  The carrier gives
 `(27/19)*11 = 297/19 < 20`; its complement gives `(4/3)*8 = 32/3 < 20`.
 No candidate triggers the DB gate.
+
+### wow-269 — HOLD
+
+> (average distance)(sum of temperatures) / 2 <= n.
+
+Printed p.78 recovers the complete fraction.  All arsenal graphs are regular,
+so `sum temperature = nd/(n-d)`.  Exact arithmetic verifies the bound
+throughout; the carrier gives `(27/19)*(220/9)/2 = 330/19 < 20`.
+No candidate violation arises.
