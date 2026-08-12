@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-45 — PROVED_HOLD
+
+> The second largest eigenvalue is not more than the matching number. Proved by Noga Alon, 5.88.
+
+Direct evaluation of the applicable arsenal using the source hypotheses and the listed matching, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
 ### wow-43 — PROVED_HOLD
 
 > Let s be the smallest eigenvalue of G, and m its matching number. Then - s 1s smaller or equal to m. Proved by Favaron, Maheo and Sacle, University of Paris-Sud, /FMS2/. 4A, The second largest eigenvalue is not more than the independence number. Noga Alon f...
