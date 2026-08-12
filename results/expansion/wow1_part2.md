@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 6 / 208.
+Progress: 7 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -68,5 +68,11 @@ Two assertions are fused, `S` is undefined, and the first inequality has no reco
 > "frequency of minimum of rainbow < a(n)."
 
 Neither `rainbow` nor `a(n)` is defined in this record, and OCR has lost the surrounding construction. There is no determinate numerical assertion to test.
+
++### wow-504 — N/A_ARSENAL
+
+> "the number of square-free integers not exceeding n and being products of even number of primes [inequality lost] sum of reciprocals of coordinates of Maxine."
+
+The comparison sign is lost and the left side is number-theoretic. None of the arsenal graphs supplies the required integer construction; no repair is guessed.
 
 
