@@ -561,4 +561,8 @@ Inherited `girth>5` section hypothesis excludes every arsenal graph.
 
 `coordinates of resolution of Maxine` is undefined/order-dependent.
 
+### wow-230 — SKIP_OCR
+
+`autocoordinates of resolution of Maxine` is undefined/order-dependent.
+
 <!-- NEXT -->
