@@ -20,3 +20,8 @@ Verdict labels distinguish `HOLD`, `TIGHT`, `RETRO_KILL`, `NOT_APPLICABLE`,
 `SKIP_OCR`, and `DB_REJECTED` (a literal reading already fails Graffiti-era
 sanity graphs and therefore cannot support a mathematical claim).
 
+## wow-577 — NOT_APPLICABLE
+
+**Status:** proved (WoW annotation). The primary statement is restricted to
+trees. No campaign-arsenal member is a tree, so this lane supplies no
+admissible witness. The OCR phrase `inverse Dual Degree` is not guessed at.
