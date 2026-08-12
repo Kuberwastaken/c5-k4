@@ -61,3 +61,10 @@ hypothesis is `chi(bar G)=n-matching`. The complement carrier satisfies it:
 `chi(C5[K4])=10=20-10`. Its `|E|/alpha=80/8=10`, below
 `lambda_max(L)=10+2sqrt(5)=14.47213595...`; the guarded numerical spectrum
 and complement closed form agree.
+
+## wow-637 — HOLD
+
+**Status:** refuted (WoW annotation). On the only arsenal member meeting the
+634--654 hypothesis, `complement(C5[K4])`, `|E|/alpha=10`, while the sum of
+positive adjacency eigenvalues is `8+2(sqrt(5)-1)=10+2sqrt(5)`.
+Direct diagonalization agrees beyond the `1e-6` guard. It is not a retro-witness.
