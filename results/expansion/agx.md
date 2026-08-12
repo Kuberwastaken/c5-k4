@@ -9,9 +9,13 @@
 - **OCR discipline:** an expression that cannot be recovered faithfully from the corpus is recorded as `SKIP_OCR` with the surviving garble quoted; no intended formula is guessed.
 - **ILP discipline:** no solver call may exceed 60 seconds. (This lane currently needs no ILP.)
 
-Progress: **63/71** entries evaluated (70 strict-open + 1 open-in-full).
+Progress: **64/71** entries evaluated (70 strict-open + 1 open-in-full).
 
 ## Verdicts
+
+### `agx-survey-C29` — HOLD
+
+Both same-order claims hold: `a+average_distance` stays above the `Ki(n,n-2)` value, and `a*average_distance` stays above the value for two triangles joined by a path. Exact distances and two independent spectral paths agree. No candidate violation appears, so the database and novelty gates are not triggered.
 
 ### `agx-survey-C17` — HOLD
 
