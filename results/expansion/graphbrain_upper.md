@@ -93,6 +93,13 @@ Author-repository, issue-history, exact-formula, and broader invariant searches
 found no pre-existing counterexample.  This is a candidate new disproof; an
 executable certificate is prepared separately.
 
+### graphbrain-alpha-upper-055 — HOLD_ARSENAL
+
+> `independence_number(x) <= 10^ceil(average_distance(x))/radius(x)^2`
+
+No violation occurs on all 996 connected nonempty Graph Atlas graphs through order 7 where the exact author expression is defined, the named controls, or the campaign families and threshold complete graphs.  The `1e-6` guard applies to real comparisons.  This is an arsenal hold, not a proof.
+
+
 ### graphbrain-alpha-upper-054 — DB_REJECTED
 
 > `independence_number(x) <= maximum(floor(average_degree(x)), order_automorphism_group(x)/min_common_neighbors(x))`
