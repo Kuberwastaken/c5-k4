@@ -42,7 +42,16 @@ The two conjectures killed by Jonas J. Gebendorfer both explicitly ride
 this carrier: his 309 note calls it "a new application of the carrier"
 from my 63/85 disproof, and his 64 note states "the earlier certificate
 has priority for this graph." I found one graph, once — and it is now four
-dead conjectures across two independent research efforts. **Conjectures 64 and 309 are still
+dead conjectures across two independent research efforts.
+
+The #64 kill is verified to an unusual standard: the parse is pinned by
+the page's own `printDefinitions` links (def 32 = "n mod Δ"), the claimed
+reading has **zero violations across all 995 connected graphs on ≤ 7
+vertices** plus paths, cycles, complete multipartite graphs, Petersen,
+hypercubes, Kneser graphs and C₅[K₂]/C₅[K₃] — and it is exactly tight on
+DeLaViña's own K₃+3×K₁₂ refutation graph from the same page section. It
+fails only on the C₅[K_m ≥ 4] cliff. That is the signature of a faithful
+machine conjecture meeting the one graph its database never contained. **Conjectures 64 and 309 are still
 unclaimed in formal-conjectures** (no files, PRs, or issues as of
 2026-08-12) — Lean formulations in the house style are drafted in
 [`lean/`](lean/).
