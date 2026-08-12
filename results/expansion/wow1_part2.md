@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 67 / 208.
+Progress: 68 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -439,5 +439,11 @@ The sign and grouping are absent, with duplicated `range` and unrecovered `m4`. 
 > "The radius < number of positive components of the smallest eigenvector."
 
 Arsenal graphs have repeated smallest eigenvalues, so sign support varies by chosen vector. The source gives no quantifier/normalization making it invariant.
+
+### wow-708 — SKIP_OCR
+
+> "let V be the vector of positive components of the smallest eigenvector ... average distance < [its squared norm]."
+
+The smallest eigenspace is multidimensional and scaling/orientation changes the right side. No invariant reading survives.
 
 
