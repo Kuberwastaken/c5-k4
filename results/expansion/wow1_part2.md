@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 155 / 208.
+Progress: 156 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -967,5 +967,11 @@ Both red and blue graphs require missing parameter `P`; no evaluation is possibl
 > "average distance ... minimum degree of B(G) ..."
 
 The blue graph depends on unspecified `P`, so its minimum degree is not an arsenal invariant.
+
+### wow-833 — N/A_ARSENAL (missing P)
+
+> "residue of B(G) ... residue of complement of G."
+
+The left graph cannot be constructed without the missing Ramseyan property parameter.
 
 
