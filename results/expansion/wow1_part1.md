@@ -30,3 +30,17 @@ CBC/ILP invocation in this lane uses `timeLimit=60`.
 Progress below is append-only at conjecture granularity.  Each completed row is
 committed and pushed before the next row is recorded.
 
+### wow-5 — HOLD
+
+> average distance is not more than mode of distance + sum of reciprocals of degrees.
+
+Reading `mode of distance` as the modal value among unordered-pair distances
+(including diagonal zeroes is the only plausible alternative, and only increases
+the right side when zero wins), every arsenal graph satisfies the bound.  The
+regular diameter-two members have pair-distance mode 1 or 2 and
+`sum_v 1/deg(v)=n/d`; for the carrier this gives
+`27/19 <= 1 + 20/11` (and also `<= 2 + 20/11` under the other modal tie rule).
+The other required blow-ups and triangular graphs have still larger margins.
+All distance averages and reciprocal sums were evaluated exactly as rational
+numbers.  No candidate violation arose, so the DB-sanity and novelty gates were
+not triggered.
