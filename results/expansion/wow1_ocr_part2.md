@@ -16,7 +16,7 @@ where possible; spectral gaps at most `1e-6` are ties, and any ILP solve is
 capped at 60 seconds. A source statement that is recovered but restricted to an
 inapplicable construction is recorded as `N/A_ARSENAL`.
 
-Progress: 16 / 54.
+Progress: 17 / 54.
 ### wow-456 — N/A_ARSENAL
 
 PDF p.95: `The residue of the graph RP[2..n] is not more than pi(n).` The source cleanly restores `pi(n)` and identifies RP/residue definitions, but this is restricted to the number-theoretic RP construction; no arsenal graph is admissible.
@@ -65,4 +65,7 @@ PDF p.99: `chi(complement G)/independence <= mode(Even)`. On each regular diamet
 ### wow-597 — HOLD
 
 PDF p.100, within `Conjectures 595--605 are about triangle-free graphs`: `radius <= maximal frequency of Even`. The complement carrier is the applicable arsenal member; its Even vector is constant 12, so `2 <= 20`. Named triangle-free calibrators also hold.
+### wow-598 — HOLD
+
+PDF p.100 restores `range of coordinates of matching <= n/average distance`, under the triangle-free heading. The applicable complement carrier has a perfect matching, so the endpoint set is all vertices and its coordinate vector is the constant degree vector; range `0 <= 20/(30/19)`. Any maximum matching gives the same endpoint set.
 
