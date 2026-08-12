@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 62 / 208.
+Progress: 63 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -409,5 +409,11 @@ Reading length as Euclidean norm of the negative adjacency eigenvalue vector, al
 > "average distance < sum of reciprocals of square roots of degrees."
 
 For each regular arsenal graph the right side is `n/sqrt(d)`; exact average pair distance is smaller. Independent all-pairs totals and distance histograms agree.
+
+### wow-700 — HOLD
+
+> "deviation of distance < residue."
+
+Taking standard deviation of unordered-pair distances, exact histograms give values below Havel-Hakimi residue for every arsenal graph, beyond `1e-6`. Ordered pairs excluding the diagonal give the same verdict.
 
 
