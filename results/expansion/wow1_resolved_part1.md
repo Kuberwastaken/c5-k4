@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-128 — PROVED_HOLD
+
+> The second smallest eigenvalues of Laplacian < n/averagedistance. Vance Faber, Los Alamos National Laboratory, deduced from the results of [CF] that for every fixed d = maximum degree there are at most finitely many countereramples to this conjecture and ev...
+
+Direct evaluation of the applicable arsenal using the source hypotheses and the listed degree, diameter, distance, laplacian, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
 ### wow-127 — HOLD / NO ADDITIONAL WITNESS
 
 > minimum degree < n / average distance. (comp. 62) Mekkia Kouider, L. R. I. University de Paris-Sud and Peter Winkler, Bellcore proved that the average distance < 3+ n/(1+ mindeg).
