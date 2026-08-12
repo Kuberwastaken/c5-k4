@@ -121,4 +121,8 @@ all arsenal graphs (left side 1 on the cycle blow-ups). Reading “largest” as
 largest magnitude instead fails on `C7[K3]` and `C9[K3]`, but contradicts the
 survey's explicit formula and is not a faithful reading.
 
+### wow-54 — HOLD — historically proved
+
+Regular-graph bound `n/d <= rank(A)` holds throughout: `C5[K4]` gives `20/11 <= 20`, and its rank-5 complement gives `5/2 <= 5`. The row explicitly records independent proofs.
+
 <!-- NEXT -->
