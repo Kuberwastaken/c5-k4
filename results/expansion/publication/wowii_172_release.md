@@ -44,5 +44,7 @@ Date: **2026-08-12 UTC**
 
 ## Release lock
 
-Pending a follow-up lock commit. No release may be created while this line is
-pending.
+Resolved target commit from `git rev-parse`:
+`64abb3ce00e6ac34ac8358baa9798511d0ca8ec0`. The tag must resolve to exactly
+that commit; this follow-up record is intentionally not included in the tagged
+snapshot so the target can be recorded without a self-referential hash.
