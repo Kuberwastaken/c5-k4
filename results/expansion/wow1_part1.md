@@ -637,4 +637,8 @@ Sum of Maxine coordinates is algorithm/order-dependent and undefined here.
 
 `Dy` and Maxine autocoordinates are materially undefined/garbled.
 
+### wow-260 — HOLD — historically proved
+
+Even-parity scope is 0 on every vertex-transitive arsenal graph, so matching is at most edge-size. Row records a stronger proof.
+
 <!-- NEXT -->
