@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 88 / 208.
+Progress: 89 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -565,5 +565,11 @@ No geometric triangle is represented by an arsenal graph.
 > "The distance from center of the triangle to the smallest vertex is not more than the maximum distance from Erdos-Mordell point to vertices."
 
 This needs a Euclidean triangle and named centers; the arsenal is inapplicable.
+
+### wow-743 — N/A_ARSENAL
+
+> "The distance from center of the triangle to the largest vertex is not more than the distance from Erdos-Mordell point to the largest vertex."
+
+This is not an assertion over abstract connected graphs, so the carrier cannot test it.
 
 
