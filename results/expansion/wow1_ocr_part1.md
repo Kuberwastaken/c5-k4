@@ -387,3 +387,24 @@ the girth hypothesis, so no evaluation or candidate gate is available.
 Printed p.80 recovers the complete statement.  The girth-at-least-five
 hypothesis excludes every arsenal graph, so this is inapplicable rather than an
 OCR skip.
+
+## Completion audit
+
+The baseline report contains **40 headings with a `SKIP_OCR` component** (34
+plain `SKIP_OCR` plus six mixed-status headings).  This report contains exactly
+40 distinct matching ids: no omissions, extras, or duplicates.
+
+Source recovery yields 4 `HOLD`, 2 `HOLD_WHERE_APPLICABLE`, 1 `HOLD_PROVED`, 3
+`N/A_ARSENAL`, 4 `DB_REJECTED`, 2 `RETRO_REFUTED`, 14 `SKIP_DEFINITION`, 8
+`SKIP_ALGORITHM`, 1 `SKIP_SOURCE`, and 1 parser-created `NOT_AN_ENTRY`.
+
+The sweep finds **no new gate-surviving violation**.  The only new apparent
+carrier violation is #267, rejected independently by the mandatory database
+gate on 15 connected seven-vertex Atlas graphs.  Source recovery also exposes
+an exact new tightness witness: the triangle-free carrier complement attains
+equality in #310, `|E|/alpha = harmonic = 10`.
+
+All relevant pages were inspected as rasterizations of the primary scan after
+the PDF classification gate.  No ILP solve was needed; all spectral comparisons
+used margins well beyond `1e-6`.  Because no candidate survived DB sanity, the
+novelty-claim stage was not triggered.
