@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 147 / 208.
+Progress: 148 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -919,5 +919,11 @@ This asks for an invariant rather than stating a bound; the WoW-I arsenal also c
 > "Let G_n be the cycle ... J the join ... Solve the upper interpolation problem for J_n."
 
 No arsenal member is the specified join construction and no fixed conjectural inequality exists to test.
+
+### wow-820 — N/A_ARSENAL
+
+> "Solve the upper interpolation problem for complements of generalized Petersen graphs ..."
+
+This is an open-ended construction problem, not a carrier wall.
 
 
