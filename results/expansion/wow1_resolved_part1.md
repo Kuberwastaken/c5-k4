@@ -37,3 +37,9 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 > In every connected graph the average distance is not more than the indepen- dence number. W. Waller, UH and myself proved that the average distance is not more than 1 + the independence number, [FW]. The conjecture was proved by Fan Chung, Bell Communicatio...
 
 Direct evaluation of the applicable arsenal using the source hypotheses and the listed alpha, average_distance, distance quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
+### wow-3 — HOLD / NO ADDITIONAL WITNESS
+
+> The weight of an edge with endpoints of degree x and y is the reciprocal of the square root of xy. The Randic index of a graph is the sum of weights of its edges. Conjecture: If G is a connected graph then the average distance between its distinct vertices ...
+
+The applicable arsenal satisfies the source-faithful inequality using the listed average_distance, degree, distance, randic_index, tree quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
