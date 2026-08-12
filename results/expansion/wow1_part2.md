@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 172 / 208.
+Progress: 173 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -1069,5 +1069,11 @@ No campaign graph is a fullerene.
 > "average distance of a fullerene ..."
 
 The explicit fullerene hypothesis is not met.
+
+### wow-855 — N/A_ARSENAL
+
+> "number of positive eigenvalues of a fullerene ..."
+
+No arsenal member is cubic planar/fullerenic.
 
 
