@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-293 — HOLD / NO ADDITIONAL WITNESS
+
+> If girth 1s > 5 then the minimum of derivative of positive eigenvalues < Size Tony L. Brewster, Michael J. Dinneen and Vance Faber, (comp 107) independence. They found eight counterexamples all of which were trees. February 91.
+
+The source notes eight tree counterexamples. The named tree calibrators and paths/stars used by this campaign do not add a smaller witness under the source derivative convention; the dense arsenal is inapplicable.
+
 ### wow-289 — HOLD WHERE APPLICABLE
 
 > If girth is > 5 then the second largest eigenvalue < the mean dual degree. James B. Shearer, October 88.
