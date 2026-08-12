@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 31 / 208.
+Progress: 32 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -223,5 +223,11 @@ The right-hand token `quoragedistance` is OCR garble and no unique standard inva
 > "mean of rainbow < inverse Odd."
 
 Both `rainbow` and `Odd` refer to lost coordinate-sequence definitions. No faithful numerical reading survives.
+
++### wow-602 — SKIP_OCR
+
+> "n / independence < range of coordinates of Maxine."
+
+Although the left side is clear, `coordinates of Maxine` depends on an unspecified run/tie-breaking and normalization absent from this record. No guessed algorithm is used.
 
 
