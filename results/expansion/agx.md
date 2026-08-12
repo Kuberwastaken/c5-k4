@@ -9,9 +9,13 @@
 - **OCR discipline:** an expression that cannot be recovered faithfully from the corpus is recorded as `SKIP_OCR` with the surviving garble quoted; no intended formula is guessed.
 - **ILP discipline:** no solver call may exceed 60 seconds. (This lane currently needs no ILP.)
 
-Progress: **51/71** entries evaluated (70 strict-open + 1 open-in-full).
+Progress: **52/71** entries evaluated (70 strict-open + 1 open-in-full).
 
 ## Verdicts
+
+### `agx-form1-T45-r127-lower` — HOLD
+
+Recovered bound: a/kappa >= 2-2cos(pi/n). HOLD; guarded Laplacian spectra and exact edge connectivity were recomputed. Every spectral comparison uses the 1e-6 guard; no candidate violation appears, so the database and novelty gates are not triggered.
 
 ### `agx-form1-T45-r123-lower` — HOLD
 
