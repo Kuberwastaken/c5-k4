@@ -195,3 +195,88 @@ gamma_c via bitmask brute; alpha/lambda exact B&B). Diam-2 kill conditions in cl
 | T(9)=L(K9) | 36 | 4 | 8 | 7 (brute-confirmed) | 29 | 2 | 2 | 37 | 39 | -2 KILL |
 | T(10)=L(K10) | 45 | 5 | 10 | 8 (proof) | 37 | 2 | 2 | 47 | 49 | -2 KILL |
 | T(11)=L(K11) | 55 | 5 | 10 | 9 (proof) | 46 | 2 | 2 | 56 | 59 | -3 KILL |
+
+## NEW KILLS
+
+### Conjecture 181 (open): L_s(G) + b(G) >= alpha(G) + deg_avg(B(G^2)) — KILLED (reading-dependent)
+
+**Witness: T(7) = L(K_7)** (triangular graph / Johnson J(7,2), SRG(21,10,5,4)), and the whole
+family T(n) = L(K_n) for n >= 7.
+
+Reading under which it dies: `deg_avg(B(G^2))` = average degree, measured in G^2, of the periphery
+of G^2 (the all-G^2-side reading). This reading SURVIVES the DB-sanity gate (all 1000 gate graphs:
+connected atlas n<=7, Petersen, C5, C7, P7, K33 satisfy it) and it is the reading that is exactly
+TIGHT on the carrier C5[K4] (slack 0) and on every uniform C5/C7/C9 blow-up, on Paley13/17, on
+T(5)=co-Petersen and T(6) — i.e. it is the reading Graffiti.pc's tightness discipline points to.
+The alternative reading (degrees measured in G) also survives the gate but has slack 8-9 on the
+carrier and slack 9 on T(7): NOT killed under that reading. Flagged accordingly.
+
+T(7) numbers (every quantity proved by exhaustive enumeration, from-scratch script
+verify_181_T7.py, no ILP in the verification path):
+- n = 21, 10-regular, diam = 2 (so G^2 = K_21, B(G^2) = V, deg_avg(B(G^2)) in G^2 = 20 exactly)
+- alpha = 3 (all C(21,4) 4-subsets checked non-independent; witness {01,23,45})
+- b = 6 (all C(21,7) = 116280 7-subsets checked non-bipartite; witness {01,02,13,23,45,46})
+- gamma_c = 5 (all subsets of size <= 4 fail; witness star {01,02,03,04,05}); L_s = n - gamma_c = 16
+- lambda(v) = 2 for every v (exhaustive per-vertex)
+- LHS = L_s + b = 16 + 6 = 22 < 23 = 3 + 20 = alpha + deg_avg(B(G^2)) = RHS. **Violated by 1.**
+
+Same T(7) is exactly TIGHT (slack 0) on 174, 176, 182, 183, 184, 185 and holds 186 by 1 —
+it sits precisely on the frontier of the whole L_s+b group and dips below only for 181,
+because alpha(T(7)) = 3 > lambda_max = 2 (the alpha/lambda gap is the lever; all blow-up family
+members have alpha approximately = lambda_max + cycle-slack, which is why they could not kill it).
+
+Infinite family + closed forms (L(K_n), n >= 7; brute/ILP-confirmed through T(11)):
+- alpha(T(n)) = floor(n/2) (max matching of K_n)
+- b(T(n)) = n for n even, n-1 for n odd (induced bipartite in L(K_n) <=> disjoint paths + even
+  cycles in K_n; max edge count = n via spanning even cycle when n even, else n-1)
+- gamma_c(T(n)) = n-2 (D dominates L(K_n) iff V(D) is a vertex cover of K_n, so |V(D)| >= n-1;
+  a connected edge set spanning n-1 vertices needs >= n-2 edges; star of n-2 edges achieves it)
+- lambda_max = 2, diam = 2
+- margin(181) = b + 3 - n - floor(n/2) = 3 - n/2 (n even), (5-n)/2 (n odd):
+  T(7): -1, T(8): -1, T(9): -2, T(10): -2, T(11): -3, ... unbounded violation.
+
+Discovery path (why this counts as a family-targeted bespoke member): the blow-up matrix showed
+every diam-2 member reduces 181 to b >= alpha + gamma_c - 1 with the family pinned at gamma_c = 3
+and exactly tight; the wave-2/3 sweep (Paley 13/17/25/29/37/41, Clebsch, Shrikhande, Rook, GQ(2,4),
+Schlafli) walked the b - alpha - gamma_c functional down to 0 (Schlafli tight, Paley29/37 at +1);
+T(n) is the dense diam-2 family whose alpha grows while b - gamma_c stays pinned at <= 2.
+
+### Second independent witness for 59 (already disproved by others — deprioritized): none sought.
+
+## NO-KILL summary for the remaining targets (closest misses, exact numbers)
+
+- 19: slack 0 (both readings) on ALL 17 complete-blob members (b = 4 = floor(2+2) on every C5
+  blow-up; b = lambda_max+2 exactly on mixed members M(2i,4,4,4,4) b=5, M(4i,4,4i,4,4) b=10).
+  Structural obstruction: b >= lambda(v) + 1 + alpha(G - N[v]) and avg_ecc >= 3 forces
+  alpha(G - N[v]) <= 1 at every lambda_max-achiever => all ecc <= 3 with ecc(v)=2 => avg_ecc < 3.
+- 40: min slack 1 (C5[K2]); p = 1 on every member (all cycle blow-ups traceable, DP-verified).
+- 59: min slack 1 (C5[K2]: f=4 vs ceil(sqrt(2*4))=3). res <= alpha kills the growth.
+- 61: min slack 1 (C5[K2]: 4 vs 2+1).
+- 65: min slack 2 (C5[K2]); dist_max readings are gate-dead (P7), dist_min caps RHS at 2-3 here.
+- 66: slack 0 on B(4,1,4,1,4) (f=4 = 2*ceil(8/(38/7)) = 4). Proof that no complete-blob C5 blow-up
+  can go negative: codeg_i = m_{i+2}+m_{i+3}, sum m_i*codeg_i = 2*sum_{C5-nonadj} m_i m_j <= n^2/2.
+- 72: min slack 1 (C5[K2], reading ceil(avg_ecc + lmax/3): 4 vs 3); outer-ceil reading slack 2.
+- 103: min slack 1 (C5[K2]: floor(4 - ln 2) = 3 vs alpha = 2). Obstruction: b >= alpha + 2 for all
+  non-complete graphs, and b = alpha+1 forces V minus every max-independent-set to be a clique,
+  capping avg_ecc < e. Floor-cliff unreachable in this landscape.
+- 133: min slack 1 (C5[K2]: path=4 vs rad+1=3). chi_C4=0 branch provably safe (path >= diam+1).
+  C4-free zoo (chi=1): Petersen 5>=5 tight-ish, McGee/Pappus/Desargues/Dodecahedron/O4/HoSi all
+  HOLD (induced paths of the required length found; HoSi needs P9, found).
+- 141: min slack 1 (co-C5[K3]: tree=8 vs 4/2-1+2*3=7). Obstruction: tree >= lambda_max + 1 (star).
+- 142: min slack 2 (C5[K2]: tree=4 vs 2+0; def-52 ecc(B)=0 on all vertex-transitive members).
+- 144: min slack 2 (C5[K2]: 4 vs 3-1+0).
+- 146: min slack 4 (C5[K2]: 4 vs 0).
+- 174: slack 0 on 23 of 30 family members + Paley13/17 + T(n) all n. b >= gamma_c + lambda_max - 1
+  held everywhere tested; mixed blobs move lambda_max and b in lockstep (b >= lmax+2 = lmax+gc-1).
+- 176: slack 0 on 16 members (both dist readings agree on regular members).
+- 182-185: slack 0 on 11 members each (all diam-2 uniform blow-ups); T(n) also exactly tight.
+- 186: min slack 1 (C5[K2] and T(7): b vs gamma_c).
+
+## Files
+- inv.py / evaluate.py — invariant library + readings (count-vector fast paths cross-validated
+  against all-subset brute force on 6 small members; carrier C5[K4] profile reproduced exactly)
+- gate.py / gate_result.pkl — 1000-graph DB-sanity gate
+- run_family.py / family_result.pkl — 30-member family matrix
+- wave2.py / wave3.py — bespoke sweeps (SRGs, Paley, C4-free zoo)
+- verify_181_T7.py — self-contained exhaustive verification of the T(7) kill
+- verify_T_family.py — T(6)..T(11) confirmation (ILP b capped at 60s; structural fallbacks)

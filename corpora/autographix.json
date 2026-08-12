@@ -1,0 +1,3138 @@
+[
+ {
+  "id": "agx-survey-C7",
+  "statement_text": "Let G be a connected graph on n ⩾ 3 vertices with index λ1 and matching number μ. Then λ1 − μ ⩽ n − 1 − \u0005n/2\u0006 ,",
+  "invariants": [
+   "lambda1",
+   "matching"
+  ],
+  "hypotheses": "Let G be a connected graph on n ⩾ 3 vertices with index λ1 and matching number μ",
+  "status": "partially refuted",
+  "status_detail": "The part lambda1+mu >= sqrt(n-1)+1 was refuted by Wagner 2021 (arXiv:2104.14516); reproduced faster by Roucairol-Cazenave 2022 (arXiv:2207.03343) and Vito-Stefanus 2023 (arXiv:2306.07956). Other parts' status unchanged.",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "agx-survey-C8",
+  "statement_text": "Let G be a connected graph on n ⩾ 3 vertices with index λ1 , vertex connectivity ν and edge connectivity κ. Then λ1 λ1 λ1 − ν ⩽ n − 3 + t ; λ1 − κ ⩽ n − 3 + t ; ⩽ n − 2 + t ; and ⩽ n − 2 + t, ν ν where t is such that 0 < t < 1 and t 3 + (2n − 3)t 2 + (n2 − 3n + 1)t − 1 = 0. Equalities hold if and only if G is the kite Kin,n−1 .",
+  "invariants": [
+   "edge_connectivity",
+   "lambda1",
+   "vertex_connectivity"
+  ],
+  "hypotheses": "Let G be a connected graph on n ⩾ 3 vertices with index λ1 , vertex connectivity ν and edge connectivity κ",
+  "status": "open (stated as conjecture in 2010 survey)",
+  "status_detail": "",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "agx-survey-C11",
+  "statement_text": "For any connected graph on n ⩾ 5 vertices we have ⎧ 4 5 ⎨f1 (n) if n mod(3) = 1, λ1 (G) + λ1 (G) ⩽ n − − ⎩0 if n mod(3) = 2, 3 3 f2 (n) if n mod(3) = 0, √ √ where f1 (n) = 3n−2− 9n2 −12n+12 and f2 (n) = 3n−1− 9n 2 −6n+9 6 \u0005 \u0006 6 . The equality holds if and only if G the complete split graph with an independent set on 3n vertices, and also on 3n vertices if n mod(3) = 2.",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "For any connected graph on n ⩾ 5 vertices we have ⎧ 4 5 ⎨f1 (n) if n mod(3) = 1",
+  "status": "open (stated as conjecture in 2010 survey)",
+  "status_detail": "",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-survey-C15",
+  "statement_text": "Let G be a connected graph on n vertices with clique number ω and second largest eigen- value λ2 . Then • if n is odd, |λ2 | · ω ⩽ m − 2 with equality if and only if G is composed of K n+1 and K n−1 linked by 2 2 an edge or of K n−1 and K n−1 linked by a path; 2 2 • if n is even, |λ2 | · ω − m is maximum if and only if G is composed of two copies of K 2n linked by an edge.",
+  "invariants": [
+   "clique_number",
+   "lambda2"
+  ],
+  "hypotheses": "Let G be a connected graph on n vertices with clique number ω and second largest eigen- value λ2",
+  "status": "open (stated as conjecture in 2010 survey)",
+  "status_detail": "",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "agx-survey-C16",
+  "statement_text": "If G is a graph of order n and λ1 and λ2 are the two largest eigenvalues of G, then λ1 + λ2 ⩽ n.",
+  "invariants": [
+   "lambda1",
+   "lambda2",
+   "spectrum"
+  ],
+  "hypotheses": "If G is a graph of order n and λ1 and λ2 are the two largest eigenvalues of G",
+  "status": "refuted",
+  "status_detail": "Refuted by Nikiforov [Linear Algebra Appl.; see survey text] before 2009",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "agx-survey-C17",
+  "statement_text": "Let G = (V , E ) be a connected graph on n ⩾ 5 vertices with largest and second largest eigenvalues λ1 and λ2 respectively. Then λ1 + λ2 ⩽ λ1 (G(n, p, q)) + λ2 (G(n, p, q)) where ⎧ \u0005n\u0006 ⎧ \u0005n\u0006 ⎪ ⎪ 2 if n = 0, 1 mod(7), ⎪ ⎪ 2 if n = 0, 1, 2 mod(7), ⎪ 7 ⎪ ⎪ 7 ⎪ ⎨ \u0005 \u0006 ⎨ \u0005 \u0006 p = 2 7n + 1 if n = 2, 3, 4 mod(7), and q = 2 7n + 1 if n = 3, 4, 5 mod(7), ⎪ ⎪ ⎪ ⎪ ⎪ \u0005 \u0006 ⎪ ⎪ \u0005 \u0006 ⎪ ⎩ n ⎩ n 2 7 +2 if n = 5, 6 mod(7) 2 7 +2 if n = 6 mod(7). Moreover λ1 (G(n, p, q)) + λ2 (G(n, p, q)) ⩽ 8n/7 − 2 with equality if and only if n = 0 mod(7). The part n = 0 mod(7) of the above conjecture was also conjectured by the authors of [47]. They did not consider the case n = / 0 mod(7) in their conjecture.",
+  "invariants": [
+   "lambda1",
+   "lambda2",
+   "spectrum"
+  ],
+  "hypotheses": "",
+  "status": "open (stated as conjecture in 2010 survey)",
+  "status_detail": "",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-survey-C23",
+  "statement_text": "Among unicyclic graphs on n vertices the cycle Cn has maximal energy if n ⩽ 7 and n = 9, 10, 11, 13 and 15. For all other values of n the unicyclic graph with maximum energy is the lollipop Loln,6 .",
+  "invariants": [
+   "energy"
+  ],
+  "hypotheses": "",
+  "status": "proved (weaker form) / open in full",
+  "status_detail": "Weaker form proved by Huo, Ji, Li [75] per survey; full conjecture later proved by Andriantiana & Wagner (2011)",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "agx-survey-C26",
+  "statement_text": "The connected graphs G \u0002 Kn with minimum algebraic connectivity are path-complete graphs.",
+  "invariants": [
+   "algebraic_connectivity"
+  ],
+  "hypotheses": "",
+  "status": "proved",
+  "status_detail": "Algebraic connectivity minimizers = path-complete graphs; proved by Fallat-Kirkland for fixed girth cases; general form settled in literature (Fallat, Kirkland, Pati)",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "agx-survey-C29",
+  "statement_text": "Let G be a connected graph on n ⩾ 5 vertices with algebraic connectivity a and average distance l̄. Then • a + l̄ is minimum for the kite Kin,n−2 ; • a · l̄ is minimum for the graph composed of 2 triangles linked by a path (see Fig. 13 for an example of such a graph).",
+  "invariants": [
+   "algebraic_connectivity",
+   "average_distance"
+  ],
+  "hypotheses": "Let G be a connected graph on n ⩾ 5 vertices with algebraic connectivity a and average distance l̄",
+  "status": "open (stated as conjecture in 2010 survey)",
+  "status_detail": "",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "agx-survey-C30",
+  "statement_text": "Let G be a connected graph on n vertices with proximity π and algebraic connectivity a. Then ⎧ \u0002 \u0003 ⎨ 3n+1 n−1 1 − cos π if n is odd, 2 \u0002n \u0003 π · a ⩾ ⎩ 3n−2 π n 1 − cos 2 n if n is even, with equality if and only if G is the path Pn . The girth g = g (G) of a graph G on n vertices with at least n edges is the length of the smallest cycle in G.",
+  "invariants": [
+   "algebraic_connectivity",
+   "girth",
+   "proximity"
+  ],
+  "hypotheses": "Let G be a connected graph on n vertices with proximity π and algebraic connectivity a",
+  "status": "open (stated as conjecture in 2010 survey)",
+  "status_detail": "",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-survey-C31",
+  "statement_text": "Let G be a connected graph on n vertices with girth g and algebraic connectivity a. Then • a + g and a · g are minimum for the kite Kin,3 ; • a/g is minimum for the lollipop Loln,\u0005n/2\u0006 .",
+  "invariants": [
+   "algebraic_connectivity",
+   "girth"
+  ],
+  "hypotheses": "Let G be a connected graph on n vertices with girth g and algebraic connectivity a",
+  "status": "open (stated as conjecture in 2010 survey)",
+  "status_detail": "",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "agx-survey-C32",
+  "statement_text": "Let G be a connected graph on n vertices with matching number μ and algebraic connec- tivity a. Then a · μ ⩾ 1 with equality if and only if G is the star Sn .",
+  "invariants": [
+   "matching"
+  ],
+  "hypotheses": "Let G be a connected graph on n vertices with matching number μ and algebraic connec- tivity a",
+  "status": "open (stated as conjecture in 2010 survey)",
+  "status_detail": "",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "agx-survey-C33",
+  "statement_text": "Let G be a connected graph on n vertices with index λ1 and algebraic connectivity a. Then • a − λ1 ⩾ 3 − n − t, where 0 < t < 1 and t 3 + (2n − 3)t 2 + (n2 − 3n + 1)t − 1 = 0, with equality if and only if G is the kite Kin,n−1 ; • a/λ1 is minimum for the kite Kin,\u0005 n \u0006 . 2",
+  "invariants": [
+   "algebraic_connectivity",
+   "lambda1"
+  ],
+  "hypotheses": "Let G be a connected graph on n vertices with index λ1 and algebraic connectivity a",
+  "status": "open (stated as conjecture in 2010 survey)",
+  "status_detail": "",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "agx-survey-C36",
+  "statement_text": "If G is a connected graph on n ⩾ 4 vertices with largest signless Laplacian eigenvalue q1 , largest Laplacian eigenvalue μ1 , index λ1 and average degree d̄, then • q1 − 2d̄ ⩽ n − 4 + 4/n with equality if and only if G is Sn ; • q1 − d̄ ⩽ n − 1 with equality if and √ only if G is Kn ; • q1 − λ1 − d̄ ⩽ n \u0015 − 2 + 2/n − n − 1 with equality if and only if G is Sn ; \u0005 \u0006 • μ1 + λ1 − q1 ⩽ 2n 2n with equality if and only if G is K\u0005 n \u0006, n ; 2 2 • q1 − μ1 ⩽ n − 2 with √ equality if and only if G is Kn ; • q1 − 2λ1 ⩽ n − 2 n − 1 with equality if and only if G is Sn . The second largest signless Laplacian eigenvalue q2 was also considered in the same study [34]. Almost all AGX conjectures about q2 remain open. Examples are gathered below. Note that there are some border effects, for instance in the case of the upper bound on q2 − δ we need to have n ⩾ 7.",
+  "invariants": [
+   "average_degree",
+   "lambda1",
+   "laplacian",
+   "signless_laplacian",
+   "spectrum"
+  ],
+  "hypotheses": "If G is a connected graph on n ⩾ 4 vertices with largest signless Laplacian eigenvalue q1",
+  "status": "open (stated as conjecture in 2010 survey)",
+  "status_detail": "",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-survey-C37",
+  "statement_text": "If G is a connected graph n ⩾ 4 vertices with second largest signless Laplacian eigenvalue q2 , index λ1 , algebraic connectivity a, and minimum, average and maximum degree δ , d̄ and Δ respectively, then • q2 − d̄ ⩾ −1 with equality if and only if G is Kn ; • q2 − d̄ ⩽ n − 6 + 8/n with equality if and only if G is the complete bipartite graph Kn−2,2 ; • q2 − δ ⩾ −1 with equality if and only if G is Kn ; • q2 − δ ⩽ n − 3 with equality if and only if G is the kite Kin,n−1 ; • Δ − q2 ⩽ n − 2√with equality if and only if G is Sn ; • q2 − λ 1 ⩾ 1 − n − √1 with equality if and only if G is Sn ; • q2 − λ1 ⩽ n − 2 − 2n − 4 with equality if and only if G is Kn−2,2 ; • q2 − a ⩾ −2 with equality if and only if G is Kn ; • if G is not isomorphic to Kn , then q2 − a ⩾ 0. The smallest signless Laplacian eigenvalue qn was also considered, but only three conjectures were obtained, one of which is proved and two remain open. All three are given below, but ﬁrst we need to recall a deﬁnition. A complete split graph SKn,α is the graph obtain from a clique on n − α vertices and α isolated vertices by adding all possible edges from each of the isolated vertices to all vertices of the clique (see Fig. 1",
+  "invariants": [
+   "algebraic_connectivity",
+   "lambda1",
+   "laplacian",
+   "max_degree",
+   "signless_laplacian",
+   "spectrum"
+  ],
+  "hypotheses": "If G is a connected graph n ⩾ 4 vertices with second largest signless Laplacian eigenvalue q2",
+  "status": "open (stated as conjecture in 2010 survey)",
+  "status_detail": "",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-survey-C39",
+  "statement_text": "Over all connected graphs on n ⩾ 6 vertices, q1 − qn is minimum for the path Pn and for the odd cycle Cn , and is maximum for the kite Kin,n−1 .",
+  "invariants": [],
+  "hypotheses": "",
+  "status": "open (stated as conjecture in 2010 survey)",
+  "status_detail": "",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "agx-survey-C40",
+  "statement_text": "For any connected graph G on n ⩾ 4 vertices with independence number α , q1 + qn + 2α ⩽ 3n − 2 with equality if and only if G is the complete split graph SKn,α .",
+  "invariants": [
+   "alpha"
+  ],
+  "hypotheses": "For any connected graph G on n ⩾ 4 vertices with independence number α",
+  "status": "open (stated as conjecture in 2010 survey)",
+  "status_detail": "",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "agx-survey-C42",
+  "statement_text": "Let G be a triangle-free graph on n vertices with m edges, independence number α. If p− (D) denotes the number of negative distance eigenvalues of G then m/α ⩽ p− (D) and m/α ⩽ n − p− (D). As far as we know this conjecture is open. Appendix",
+  "invariants": [
+   "alpha",
+   "spectrum"
+  ],
+  "hypotheses": "Let G be a triangle-free graph on n vertices with m edges, independence number α",
+  "status": "open (as of survey, 2009)",
+  "status_detail": "",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "agx-form1-T45-r1-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Sn n−1−n+1 λ1 − Δ 0 Regular K",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r1-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Sn n−1−n+1 λ1 − Δ 0 Regular K",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "known before (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=K; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r2-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 2 + 2 cos n+ λ1 + Δ 2n − 2 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: λ1 + Δ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r2-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Pn 2 + 2 cos n+ λ1 + Δ 2n − 2 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: λ1 + Δ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r3-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Sn n − 1/(n + 1) λ 1 /Δ 1 Regular K",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: λ 1 /Δ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r3-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Sn n − 1/(n + 1) λ 1 /Δ 1 Regular K",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "known before (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=K; expression: λ 1 /Δ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r4-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 4 cos n+ 1",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r5-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Regular 0 λ1 − d̄ Pineapples O",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "known before (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=K; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r5-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Regular 0 λ1 − d̄ Pineapples O",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r6-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 2 − 2n + 2 cos n+ λ1 + d̄ 2n − 2 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: λ1 + d̄",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r6-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Pn 2 − 2n + 2 cos n+ λ1 + d̄ 2n − 2 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: λ1 + d̄",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r7-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Regular 1 λ1 /d̄ n/(2 n − 1) Sn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "known before (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=K; expression: λ1 /d̄",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r7-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Regular 1 λ1 /d̄ n/(2 n − 1) Sn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: λ1 /d̄",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r8-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 4 − 4n · cos n+ 1",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r9-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Regular 0 λ1 − δ n − 3 + ta Kin,n−1 P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "known before (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=K; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r9-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Regular 0 λ1 − δ n − 3 + ta Kin,n−1 P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r10-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 1 + 2 cos n+ 1",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r11-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Regular 1 λ1 /δ n − 2 + ta Kin,n−1 P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "known before (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=K; expression: λ1 /δ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r11-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Regular 1 λ1 /δ n − 2 + ta Kin,n−1 P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: λ1 /δ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r12-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 2 cos n+ 1",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r13-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 2 cos n+ 1",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r14-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 6",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r15-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: λ1 · l̄ 2",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "no result (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=N; expression: λ1 · l̄",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r16-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 2 cos n+ −n+1 λ1 − D n−2 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r16-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Pn 2 cos n+ −n+1 λ1 − D n−2 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r17-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Sn 2+ n−1 λ1 + D n − 1 + 2 cos n+ 1",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "refuted (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=R; expression: λ1 + D",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r18-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 2",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r19-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Sn 2 n−1 λ1 · D Bugp,q1 ,q2 b O",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "refuted (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=R; expression: λ1 · D",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r19-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Sn 2 n−1 λ1 · D Bugp,q1 ,q2 b O",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: λ1 · D",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r20-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 2 cos n+ 1",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r21-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: λ1 + r n Kn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "no result (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=N; expression: λ1 + r",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r21-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: λ1 + r n Kn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: λ1 + r",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r22-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 1",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r23-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Sn n−1 λ1 · r Bagp,q c O",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "refuted (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=R; expression: λ1 · r",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r23-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Sn n−1 λ1 · r Bagp,q c O",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: λ1 · r",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r24-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Cn 2−n λ1 − g n−4 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r24-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Cn 2−n λ1 − g n−4 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r25-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Kn,3 λ1 + g n+2 Cn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: λ1 + g",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r25-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Kn,3 λ1 + g n+2 Cn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: λ1 + g",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r26-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Cn 2",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r27-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Kin,3 λ1 · g 3(n − 1) Kn R",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: λ1 · g",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r27-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Kin,3 λ1 · g 3(n − 1) Kn R",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "refuted (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=R; expression: λ1 · g",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r28-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn \u0002 n+1 \u0003 λ1 − ecc n−2 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r28-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Pn \u0002 n+1 \u0003 λ1 − ecc n−2 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r29-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Sn n − 1 + 2 − 1n λ1 + ecc Kn − E d O",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: λ1 + ecc",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r29-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Sn n − 1 + 2 − 1n λ1 + ecc Kn − E d O",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: λ1 + ecc",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r30-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn (3n+\u00021)(n−\u0003 1) λ1 /ecc n−1 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: λ1 /ecc",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r30-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Pn (3n+\u00021)(n−\u0003 1) λ1 /ecc n−1 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: λ1 /ecc",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r31-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Sn n − 1 · 2 − 1n λ1 · ecc PKn,m e O",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: λ1 · ecc",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r31-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Sn n − 1 · 2 − 1n λ1 · ecc PKn,m e O",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: λ1 · ecc",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r32-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn π",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r33-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: λ1 + π n Kn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "no result (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=N; expression: λ1 + π",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r33-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: λ1 + π n Kn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: λ1 + π",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r34-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn π",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r35-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Sn n−1 λ1 · π n−1 Kn O",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: λ1 · π",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r35-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Sn n−1 λ1 · π n−1 Kn O",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: λ1 · π",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r36-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 2 cos n+1",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r37-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: λ1 + ρ n Kn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "no result (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=N; expression: λ1 + ρ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r37-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: λ1 + ρ n Kn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: λ1 + ρ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r38-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn n",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r39-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: 4−n",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r40-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Sn 2 n−1 λ1 + Ra 2",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: λ1 + Ra",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r41-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: n−3+2 2 λ1 /Ra n",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: λ1 /Ra",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r42-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Sn n−1 λ1 · Ra 2",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: λ1 · Ra",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r43-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Kn −1 λ1 − a n − 3 + ta Kin,n−1 O",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r43-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Kn −1 λ1 − a n − 3 + ta Kin,n−1 O",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r44-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 2 − 2 cos πn + 2 cos n+",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r45-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Kn λ1 /a Kin,\u0005 n \u0006 O",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: λ1 /a",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r45-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Kn λ1 /a Kin,\u0005 n \u0006 O",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: λ1 /a",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r46-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 4 1 − cos πn π",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r47-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Kn , Cn 0 \u0002 \u0003 λ1 − ν n − 3 + ta Kin,n−1 O",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r47-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Kn , Cn 0 \u0002 \u0003 λ1 − ν n − 3 + ta Kin,n−1 O",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r48-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 1 + 2 cos n+1",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r49-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Kn , Cn 1 \u0002 \u0003 λ1 /ν n − 2 + ta Kin,n−1 O",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: λ1 /ν",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r49-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Kn , Cn 1 \u0002 \u0003 λ1 /ν n − 2 + ta Kin,n−1 O",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: λ1 /ν",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r50-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 2 cos n+1",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r51-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Kn , Cn 0 \u0002 \u0003 λ1 − κ n − 3 + ta Kin,n−1 O",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r51-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Kn , Cn 0 \u0002 \u0003 λ1 − κ n − 3 + ta Kin,n−1 O",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r52-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 1 + 2 cos n+1",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r53-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Kn , Cn 1 \u0002 \u0003 λ1 /κ n − 2 + ta Kin,n−1 O",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: λ1 /κ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r53-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Kn , Cn 1 \u0002 \u0003 λ1 /κ n − 2 + ta Kin,n−1 O",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: λ1 /κ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r54-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 2 cos n+1",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r55-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Sn n−1−n+1 λ1 − α n−2 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r55-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Sn n−1−n+1 λ1 − α n−2 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r56-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: λ1 + α √2 + SKn,s f P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "no result (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=N; expression: λ1 + α",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r56-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: λ1 + α √2 + SKn,s f P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: λ1 + α",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r57-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: λ1 /α n−1 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "no result (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=N; expression: λ1 /α",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r57-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: λ1 /α n−1 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: λ1 /α",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r58-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: T ∗g cos n2+π1 + 1 + cos2 n2+π1 − 2n λ1 − β n−2 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r58-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: T ∗g cos n2+π1 + 1 + cos2 n2+π1 − 2n λ1 − β n−2 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r59-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: T ∗g λ1 /β n−1 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: λ1 /β",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r59-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: T ∗g λ1 /β n−1 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: λ1 /β",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r60-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Sn n−1 λ1 · β \u0005√ \u0006",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "refuted (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=R; expression: λ1 · β",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r61-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Kn −1 λ1 − ω n -partite O",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r61-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Kn −1 λ1 − ω n -partite O",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r62-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 2 + 2 cos n+ λ1 + ω 2n − 1 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: λ1 + ω",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r62-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Pn 2 + 2 cos n+ λ1 + ω 2n − 1 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: λ1 + ω",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r63-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Kin,3 λ1 /ω 1",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: λ1 /ω",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r64-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 4 cos n+ 1",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r65-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Kn −1 λ1 − χ n -partite O",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "known before (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=K; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r65-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Kn −1 λ1 − χ n -partite O",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r66-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 2 + 2 cos n+ λ1 + χ 2n − 1 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: λ1 + χ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r66-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Pn 2 + 2 cos n+ λ1 + χ 2n − 1 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: λ1 + χ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r67-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Kin,3 λ1 /χ 1",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: λ1 /χ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r68-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 4 cos n+",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r69-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 2 cos n+ − 2n λ1 − μ n − 1 − 2n Kn O",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r69-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Pn 2 cos n+ − 2n λ1 − μ n − 1 − 2n Kn O",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r70-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Sn n−1+1 λ1 + μ n − 1 + 2n Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: λ1 + μ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r70-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Sn n−1+1 λ1 + μ n − 1 + 2n Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: λ1 + μ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r71-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn λ1 /μ n−1 Sn O",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: λ1 /μ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r71-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Pn λ1 /μ n−1 Sn O",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: λ1 /μ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r72-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Sn n−1 λ1 · μ ( n − 1) n",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: λ1 · μ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r73-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Sn 2−n a−Δ 1 Kn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r73-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Sn 2−n a−Δ 1 Kn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r74-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 4 − 2 cos πn a+Δ 2n − 1 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: a+Δ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r74-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Pn 4 − 2 cos πn a+Δ 2n − 1 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: a+Δ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r75-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Comet a /Δ n",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: a /Δ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r76-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 4 − 4 cos πn a·Δ n(n − 1) Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: a·Δ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r76-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Pn 4 − 4 cos πn a·Δ n(n − 1) Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: a·Δ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r77-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Kin,n−1 4 − n − 4n a − d̄ 1 Kn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r77-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Kin,n−1 4 − n − 4n a − d̄ 1 Kn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r78-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 4 − 2n − 2 cos πn a + d̄ 2n − 1 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: a + d̄",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r78-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Pn 4 − 2n − 2 cos πn a + d̄ 2n − 1 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: a + d̄",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r79-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Kite a/d̄ n",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: a/d̄",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r80-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 4 − 4n 1 − cos πn a · d̄ n(n − 1) Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: a · d̄",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r80-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Pn 4 − 4n 1 − cos πn a · d̄ n(n − 1) Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: a · d̄",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r81-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: K 2n , 2n a a−δ 1 Kn K",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r81-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: K 2n , 2n a a−δ 1 Kn K",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "known before (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=K; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r82-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 3 − 2 cos πn a+δ 2n − 1 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: a+δ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r82-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Pn 3 − 2 cos πn a+δ 2n − 1 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: a+δ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r83-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: TPT b a/δ n",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: a/δ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r84-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 2 − 2 cos πn a·δ n(n − 1) Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: a·δ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r84-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Pn 2 − 2 cos πn a·δ n(n − 1) Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: a·δ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r85-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 2 − 2 cos πn − n+",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r86-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Kin,n−2 a + l̄ n+1 Kn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: a + l̄",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r86-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Kin,n−2 a + l̄ n+1 Kn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: a + l̄",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r87-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 6 n+1",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r88-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: TPT b a · l̄ n Kn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: a · l̄",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r88-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: TPT b a · l̄ n Kn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: a · l̄",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r89-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 3 − n − 2 cos πn a−D n−1 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r89-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Pn 3 − n − 2 cos πn a−D n−1 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r90-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Sn 3 \u0002 \u0003 a+D n+1 Kn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: a+D",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r90-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Sn 3 \u0002 \u0003 a+D n+1 Kn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: a+D",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r91-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 2",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r92-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: DCn,Δ,Δ c \u0002 \u0002 \u0003\u0003 \u0005 \u0006 a·D 2n − 4 Ed P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: a·D",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r92-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: DCn,Δ,Δ c \u0002 \u0002 \u0003\u0003 \u0005 \u0006 a·D 2n − 4 Ed P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: a·D",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r93-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 2 1 − cos πn − n",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r94-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Sn 2 a+r n+1 Kn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: a+r",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r94-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Sn 2 a+r n+1 Kn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: a+r",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r95-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn a/ r n Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: a/ r",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r95-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Pn a/ r n Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: a/ r",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r96-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: a·r 4 n",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "no result (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=N; expression: a·r",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r97-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Cn 2 1 − cos 2nπ − n a−g n−3 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r97-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Cn 2 1 − cos 2nπ − n a−g n−3 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r98-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Kin,3 a+g n+3 Kn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: a+g",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r98-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Kin,3 a+g n+3 Kn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: a+g",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r99-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Loln,\u0005 n \u0006 a/ g n",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: a/ g",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r100-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Kin,3 a·g 3n Kn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: a·g",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r100-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Kin,3 a·g 3n Kn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: a·g",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r101-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn . n a − ecc n−1 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r101-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Pn . n a − ecc n−1 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r102-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Sn 3 − 1n a + ecc n+1 Kn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: a + ecc",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r102-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Sn 3 − 1n a + ecc n+1 Kn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: a + ecc",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r103-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 3n−2 a/ecc n Kn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: a/ecc",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r103-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Pn 3n−2 a/ecc n Kn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: a/ecc",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r104-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Double comet a · ecc Mf P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: a · ecc",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r104-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Double comet a · ecc Mf P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: a · ecc",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r105-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn n a−π n−1 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r105-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Pn n a−π n−1 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r106-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: a+π n+1 Kn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "no result (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=N; expression: a+π",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r106-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: a+π n+1 Kn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: a+π",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r107-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 8(1−cos πn )",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r108-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 2 \u0002n \u0003 n a·π n Kn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: a·π",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r108-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Pn 2 \u0002n \u0003 n a·π n Kn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: a·π",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r109-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 2 − 2 cos πn − 2n a−ρ n−1 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r109-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Pn 2 − 2 cos πn − 2n a−ρ n−1 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r110-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: K ( 2n , 2n )a a+ρ n+1 Kn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: a+ρ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r110-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: K ( 2n , 2n )a a+ρ n+1 Kn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: a+ρ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r111-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn n",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r112-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: KPKn,p,q g a·ρ n Kn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: a·ρ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r112-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: KPKn,p,q g a·ρ n Kn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: a·ρ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r113-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: a − Ra n",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "no result (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=N; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r114-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Comet a + Ra 3n",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "no result (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=N; expression: a + Ra",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r115-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn √ a/Ra 2 Kn O",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: a/Ra",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r115-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Pn √ a/Ra 2 Kn O",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: a/Ra",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r116-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Double comet a · Ra 2",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: a · Ra",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r117-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Kin,n−1 3 − n − tj a − λ1 1 Kn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r117-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Kin,n−1 3 − n − tj a − λ1 1 Kn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r118-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 2 − 2 cos πn + 2 cos n+",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r119-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Kin,\u0005 n \u0006 a/λ1 n−1",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: a/λ1",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r120-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 2 − 2 cos πn π",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r121-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: a−ν 1 Kn K",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "no result (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=N; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r121-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: a−ν 1 Kn K",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "known before (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=K; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r122-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 3 − 2 cos πn a+ν 2n − 1 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: a+ν",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r122-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Pn 3 − 2 cos πn a+ν 2n − 1 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: a+ν",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r123-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 2 − 2 cos πn a/ν n",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: a/ν",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r124-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 2 − 2 cos πn a·ν n( n − 1 ) Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: a·ν",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r124-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Pn 2 − 2 cos πn a·ν n( n − 1 ) Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: a·ν",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r125-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: a−κ 1 Kn K",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "no result (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=N; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r125-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: a−κ 1 Kn K",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "known before (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=K; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r126-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 3 − 2 cos πn a+κ 2n − 1 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: a+κ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r126-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Pn 3 − 2 cos πn a+κ 2n − 1 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: a+κ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r127-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 2 − 2 cos πn a/κ n",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: a/κ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r128-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 2 − 2 cos πn a·κ n( n − 1 ) Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: a·κ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r128-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Pn 2 − 2 cos πn a·κ n( n − 1 ) Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: a·κ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r129-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Sn 2−n a−α n−1 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r129-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Sn 2−n a−α n−1 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r130-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: KeKp,n−p h a+α n+1 Kn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: a+α",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r130-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: KeKp,n−p h a+α n+1 Kn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: a+α",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r131-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Double comet a/α n Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: a/α",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r131-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Double comet a/α n Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: a/α",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r132-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: KPKn,p,q a·α n",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: a·α",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r133-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: a−β n−1 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "no result (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=N; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r133-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: a−β n−1 Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r134-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Sn 2 a+β n+1 Kn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: a+β",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r134-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Sn 2 a+β n+1 Kn P",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: a+β",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r135-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: a/β n Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "no result (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=N; expression: a/β",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r135-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: a/β n Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: a/β",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r136-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Sn 1 a·β 4 n",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: a·β",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r137-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Kin,n−1",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r138-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 4 − 2 cos πn a+ω 2n Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: a+ω",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r138-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Pn 4 − 2 cos πn a+ω 2n Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: a+ω",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r139-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Ki\u0005 n \u0006 a/ω 1 n",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: a/ω",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r140-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 4 − 4 cos πn a·ω n2",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: a·ω",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r141-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: 2−n Kin,n−1 a−χ n− √n − n n-partite O",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r141-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: 2−n Kin,n−1 a−χ n− √n − n n-partite O",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r142-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 4 − 2 cos πn a+χ 2n Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: a+χ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r142-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Pn 4 − 2 cos πn a+χ 2n Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: a+χ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r143-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Ki\u0005 n \u0006 a/χ 1",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "open (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=O; expression: a/χ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r144-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 4 − 2 cos πn a+χ 2n Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: a+χ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r144-upper",
+  "statement_text": "AGX Form-1 bound (upper bound over connected graphs on n vertices): row: Pn 4 − 2 cos πn a+χ 2n Kn T",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: a+χ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r145-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn 2 − 2 cos πn − n",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r146-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Sn 2 a+μ n+ n",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: a+μ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r147-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Pn a/μ n",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "trivial (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=T; expression: a/μ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-form1-T45-r148-lower",
+  "statement_text": "AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Sn 1 a·μ n· n",
+  "invariants": [
+   "lambda1"
+  ],
+  "hypotheses": "G connected graph on n vertices",
+  "status": "proved (status letter in survey Tables 4-5, 2009)",
+  "status_detail": "S=P; expression: a·μ",
+  "source_url": "https://doi.org/10.1016/j.laa.2009.06.015 (Tables 4-5, summarizing Aouchiche PhD thesis 2006 / VNS-20 paper)",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "agx-amcs-C1",
+  "statement_text": "Let G be a connected graph on n >= 3 vertices. Then lambda1(G) + mu(G) >= sqrt(n-1) + 1 (index plus matching number).",
+  "invariants": [
+   "lambda1",
+   "matching"
+  ],
+  "hypotheses": "G connected, n >= 3",
+  "status": "refuted",
+  "status_detail": "AutoGraphiX conjecture (A&H 2010 survey); refuted by Wagner 2021 (deep cross-entropy), Roucairol-Cazenave 2022, Vito-Stefanus 2023",
+  "source_url": "https://arxiv.org/abs/2306.07956",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "agx-ah2016-dist",
+  "statement_text": "Let G be a connected graph on n >= 4 vertices with distance spectrum d1 >= ... >= dn. Then proximity pi(G) + d_floor(2D/3)(G) > 0.",
+  "invariants": [
+   "proximity",
+   "distance_spectrum",
+   "diameter"
+  ],
+  "hypotheses": "G connected, n >= 4",
+  "status": "refuted",
+  "status_detail": "Aouchiche-Hansen 2016 (distance spectra survey) conjecture; refuted (second part) by Wagner 2021 and Roucairol-Cazenave 2022 (n=18 cex), fully by Vito-Stefanus 2023 (n=203 cex)",
+  "source_url": "https://arxiv.org/abs/2306.07956",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "agx-thesis-lambda1-proximity",
+  "statement_text": "Let G be a connected graph on n >= 3 vertices. Then lambda1(G) * pi(G) <= n - 1 (index times proximity).",
+  "invariants": [
+   "lambda1",
+   "proximity"
+  ],
+  "hypotheses": "G connected, n >= 3",
+  "status": "refuted",
+  "status_detail": "Aouchiche thesis (2006) open conjecture; refuted by AMCS, Vito-Stefanus 2023",
+  "source_url": "https://arxiv.org/abs/2306.07956",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "agx-thesis-a-proximity",
+  "statement_text": "Let G be a connected graph on n >= 3 vertices with algebraic connectivity a. Then a(G) * pi(G) >= n^2/(2(n-1)) * (1-cos(pi/n)) if n even, (n+1)/2 * (1-cos(pi/n)) otherwise.",
+  "invariants": [
+   "algebraic_connectivity",
+   "proximity"
+  ],
+  "hypotheses": "G connected, n >= 3",
+  "status": "refuted",
+  "status_detail": "Aouchiche thesis (2006) open conjecture (= survey Conjecture 30 variant); refuted by AMCS, Vito-Stefanus 2023",
+  "source_url": "https://arxiv.org/abs/2306.07956",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "agx-thesis-lambda1-alpha",
+  "statement_text": "Let G be a connected graph on n >= 3 vertices. Then lambda1(G) - alpha(G) >= sqrt(n-1) - n + 1 (index minus independence number).",
+  "invariants": [
+   "lambda1",
+   "alpha"
+  ],
+  "hypotheses": "G connected, n >= 3",
+  "status": "refuted",
+  "status_detail": "Aouchiche thesis (2006) open conjecture; refuted by AMCS with counterexample family, Vito-Stefanus 2023",
+  "source_url": "https://arxiv.org/abs/2306.07956",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "agx-thesis-randic-alpha",
+  "statement_text": "Let G be a connected graph on n >= 3 vertices. Then R(G) + alpha(G) <= n - 1 + sqrt(n-1) (Randic index plus independence number).",
+  "invariants": [
+   "randic_index",
+   "alpha"
+  ],
+  "hypotheses": "G connected, n >= 3",
+  "status": "refuted",
+  "status_detail": "Aouchiche thesis (2006) open conjecture; refuted by AMCS with counterexample family, Vito-Stefanus 2023",
+  "source_url": "https://arxiv.org/abs/2306.07956",
+  "transcription_confidence": "high"
+ }
+]
