@@ -206,3 +206,10 @@ of a largest induced bipartite subgraph, the bound is
 `average_distance <= b/2`. The carrier gives `27/19 <= 4/2`, using the
 certified value `b=4`; exact unordered distance counts independently agree.
 The remainder of the arsenal also holds.
+
+## wow-748 — HOLD
+
+**Status:** proved (WoW annotation). Every campaign graph is Hamiltonian, so
+the minimum, over starting vertices, of longest-path length is `n-1`.
+Consequently `chi(G) <= 1+p=n` holds immediately. Explicit Hamiltonian cycles
+and exact colorings provide independent checks.
