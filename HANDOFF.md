@@ -145,9 +145,11 @@ add Claude/Anthropic co-author trailers.
 2. If any new kill survives all four protocol steps, tell Kuber
    explicitly and prepare (a) a certificate repo in the style of
    `github.com/Kuberwastaken/wowii-63-85-counterexample` and (b) a
-   formal-conjectures PR in the house style — a draft for conjecture 181
-   already exists at `lean/GraphConjecture181.lean`? (no — drafts exist
-   for 64 and 309 in `lean/`; write 181 fresh if staking it).
+   formal-conjectures PR in the house style. `lean/` currently holds
+   `GraphConjecture63.lean` and `GraphConjecture85.lean` (final, building
+   in PR #4592) plus draft formulations `GraphConjecture64.lean` and
+   `GraphConjecture309.lean` (not yet built against the repo). A 181 file
+   would need to be written fresh.
 3. Open question worth an hour if lanes come back dry: recover
    DeLaViña's original wording for **401b, 412f, 448b** from Wayback
    snapshots of `cms.dt.uh.edu/faculty/delavinae/research/wowII/` — if the
