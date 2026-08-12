@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-160 — PROVED_HOLD
+
+> - smallest eigenvalue < size/2. Odile Favaron, Maryvonne Maho and Jean-Francois Sacle notice that largest eigenvalue-smallest eigenvalue < size/2 and the equality holds true iff G is a a union of a complete bipartite graph and isolated vertices. December 88.
+
+Direct evaluation of the applicable arsenal using the source hypotheses and the listed bipartite, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
 ### wow-158 — HOLD / NO ADDITIONAL WITNESS
 
 > the independence number of a graph is not more than the number of vertices - minimum degree. Tony Brewster, Los Alamos National Laboratory, proved that the equal- ity holds true iff the complement of the graph has a component that is clique, and every other...
