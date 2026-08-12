@@ -813,4 +813,8 @@ Carrier complement gives `chi=3 <= Laplacian range=10+2sqrt(5)`.
 
 Carrier complement degree mode 8 is at most minimum Even 12.
 
+### wow-318 — HOLD where applicable
+
+Carrier complement maximum degree 8 is at most mode Even 12.
+
 <!-- NEXT -->
