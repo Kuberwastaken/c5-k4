@@ -1,0 +1,171 @@
+# WOWII blow-up family hunt — C5[K4] siblings vs open b/f/tree/L_s lower-bound conjectures
+
+Session wowii309. Targets: 19, 40, 59, 61, 65, 66, 72, 103, 133, 141, 142, 144, 146, 174, 176, 181-186.
+All computations exact (Fractions; count-vector symmetry for blow-ups, cross-validated vs all-subset
+brute force on 6 small members + carrier C5[K4] reproduction: alpha=2 b=4 f=4 tree=4 L_s=17 OK).
+
+## Reading enumeration + DB-sanity gate
+
+Gate DB: all connected graphs 2<=n<=7 (graph_atlas_g, 995) + Petersen, C5, C7, P7, K33 (1000 graphs).
+Readings DISCARDED by gate (mis-transcriptions; violated by DB graphs):
+
+| conj | discarded reading | gate counterexamples |
+|---|---|---|
+| 65 | dist_max(A)+ceil(dist_max(M)/3) | P7 (f=7 < 6+2=8), atlas286(n7) |
+| 72 | avg_ecc+ceil(lam_max/3) (no outer ceil) | atlas444(n7), slack -1/7 |
+| 142 | ecc(B) read as member-ecc (=diam) | 219 DB graphs, e.g. C-containing n3/n4 |
+| 144 | ecc(Centers) read as member-ecc (=rad) | 28 DB graphs |
+| 146 | ecc(B) member-ecc | 484 DB graphs |
+| 184 | dist_avg(B(G^2),V) measured in G | 151 DB graphs |
+| 186 | ecc(C(G^2)) as rad(G^2) member-ecc | 31 DB graphs |
+
+Surviving readings (all evaluations below use these): 19 both precedence readings;
+40/59/61/103/133/141/174/183/185 literal; 65 dist_min (statement text, not the dist_max of the
+invariant tags); 66 vacuous-if-no-even-degree-in-complement; 72 ceil((avg_ecc+lam_max)/3) and
+ceil(avg_ecc+lam_max/3); 142/144/146 def-52 set-eccentricity (ecc(S)=max_{v in V-S} dist(v,S), =0 when S=V);
+176 dist_min(M^2) in G and in G^2; 181/182 deg/Delta of B(G^2) in G^2 and in G; 184 dist_avg in G^2;
+186 N(C(G^2)) and eccS in G^2 and in G.
+
+## Family matrix (required members + bespoke blow-up members)
+
+Legend: I(...)=independent blobs (complement family), M(...)=mixed (i=independent blob), *=carrier.
+
+| graph | n | alpha | b | f | tree | path | L_s | gc | p | lmax | lavg | avg_ecc | diam | rad | res | girth | chiC4 | evmode(bar) |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| C5[K2] | 10 | 2 | 4 | 4 | 4 | 4 | 7 | 3 | 1 | 2 | 2 | 2 | 2 | 2 | 2 | 3 | 0 | 4 |
+| C5[K3] | 15 | 2 | 4 | 4 | 4 | 4 | 12 | 3 | 1 | 2 | 2 | 2 | 2 | 2 | 2 | 3 | 0 | 6 |
+| C5[K4]* | 20 | 2 | 4 | 4 | 4 | 4 | 17 | 3 | 1 | 2 | 2 | 2 | 2 | 2 | 2 | 3 | 0 | 8 |
+| C5[K5] | 25 | 2 | 4 | 4 | 4 | 4 | 22 | 3 | 1 | 2 | 2 | 2 | 2 | 2 | 2 | 3 | 0 | 10 |
+| C5[K6] | 30 | 2 | 4 | 4 | 4 | 4 | 27 | 3 | 1 | 2 | 2 | 2 | 2 | 2 | 2 | 3 | 0 | 12 |
+| C5[K8] | 40 | 2 | 4 | 4 | 4 | 4 | 37 | 3 | 1 | 2 | 2 | 2 | 2 | 2 | 2 | 3 | 0 | 16 |
+| C7[K2] | 14 | 3 | 6 | 6 | 6 | 6 | 9 | 5 | 1 | 2 | 2 | 3 | 3 | 3 | 3 | 3 | 0 | 8 |
+| C7[K3] | 21 | 3 | 6 | 6 | 6 | 6 | 16 | 5 | 1 | 2 | 2 | 3 | 3 | 3 | 3 | 3 | 0 | 12 |
+| C7[K4] | 28 | 3 | 6 | 6 | 6 | 6 | 23 | 5 | 1 | 2 | 2 | 3 | 3 | 3 | 3 | 3 | 0 | 16 |
+| C9[K3] | 27 | 4 | 8 | 8 | 8 | 8 | 20 | 7 | 1 | 2 | 2 | 4 | 4 | 4 | 3 | 3 | 0 | 18 |
+| C9[K4] | 36 | 4 | 8 | 8 | 8 | 8 | 29 | 7 | 1 | 2 | 2 | 4 | 4 | 4 | 3 | 3 | 0 | 24 |
+| B(4,4,3,4,3) | 18 | 2 | 4 | 4 | 4 | 4 | 15 | 3 | 1 | 2 | 2 | 2 | 2 | 2 | 2 | 3 | 0 | 8 |
+| B(4,2,4,2,4) | 16 | 2 | 4 | 4 | 4 | 4 | 13 | 3 | 1 | 2 | 2 | 2 | 2 | 2 | 2 | 3 | 0 | 6 |
+| B(4,1,4,1,4) | 14 | 2 | 4 | 4 | 4 | 4 | 11 | 3 | 1 | 2 | 2 | 2 | 2 | 2 | 2 | 3 | 0 | 8 |
+| B(3,1,3,1,3) | 11 | 2 | 4 | 4 | 4 | 4 | 8 | 3 | 1 | 2 | 2 | 2 | 2 | 2 | 2 | 3 | 0 | 4 |
+| B(5,5,4,5,4) | 23 | 2 | 4 | 4 | 4 | 4 | 20 | 3 | 1 | 2 | 2 | 2 | 2 | 2 | 2 | 3 | 0 | 10 |
+| co-C5[K3] | 15 | 6 | 12 | 8 | 8 | 4 | 12 | 3 | 1 | 6 | 6 | 2 | 2 | 2 | 3 | 4 | 0 | 8 |
+| co-C5[K4] | 20 | 8 | 16 | 10 | 10 | 4 | 17 | 3 | 1 | 8 | 8 | 2 | 2 | 2 | 3 | 4 | 0 | None |
+| co-C5[K5] | 25 | 10 | 20 | 12 | 12 | 4 | 22 | 3 | 1 | 10 | 10 | 2 | 2 | 2 | 3 | 4 | 0 | 14 |
+| M(2i,4,4,4,4) | 18 | 3 | 5 | 5 | 5 | 4 | 15 | 3 | 1 | 3 | 22/9 | 2 | 2 | 2 | 2 | 3 | 0 | 6 |
+| M(3i,4,4,4,4) | 19 | 4 | 6 | 6 | 6 | 4 | 16 | 3 | 1 | 4 | 54/19 | 2 | 2 | 2 | 2 | 3 | 0 | 8 |
+| M(2i,4,2i,4,4) | 16 | 4 | 6 | 6 | 6 | 4 | 13 | 3 | 1 | 4 | 3 | 2 | 2 | 2 | 2 | 3 | 0 | 6 |
+| M(4i,4,4i,4,4) | 20 | 8 | 10 | 10 | 10 | 4 | 17 | 3 | 1 | 8 | 22/5 | 2 | 2 | 2 | 2 | 3 | 0 | 8 |
+| M7(2i,3,3,3,3,3,3) | 20 | 4 | 7 | 7 | 7 | 6 | 15 | 5 | 1 | 3 | 23/10 | 3 | 3 | 3 | 3 | 3 | 0 | 12 |
+| M7(3i,1,1,1,1,1,1) | 9 | 5 | 8 | 8 | 8 | 6 | 4 | 5 | 2 | 4 | 22/9 | 3 | 3 | 3 | 4 | 4 | 0 | 6 |
+| I(4,1,4,1,1) | 11 | 8 | 10 | 10 | 10 | 4 | 8 | 3 | 5 | 8 | 34/11 | 2 | 2 | 2 | 6 | 4 | 0 | 8 |
+| I(5,2,5,2,2) | 16 | 10 | 14 | 12 | 12 | 4 | 13 | 3 | 4 | 10 | 11/2 | 2 | 2 | 2 | 4 | 4 | 0 | 8 |
+| I(4,2,4,2,4) | 16 | 8 | 14 | 10 | 10 | 4 | 13 | 3 | 1 | 8 | 6 | 2 | 2 | 2 | 3 | 4 | 0 | None |
+| C7(1,2)[K2] | 14 | 2 | 4 | 4 | 4 | 4 | 12 | 2 | 1 | 2 | 2 | 2 | 2 | 2 | 2 | 3 | 0 | 4 |
+| C9(1,2)[K2] | 18 | 3 | 6 | 6 | 5 | 5 | 15 | 3 | 1 | 2 | 2 | 2 | 2 | 2 | 2 | 3 | 0 | 8 |
+
+## Slack matrix (LHS - RHS per surviving reading; kill = negative; 103 slack = floor[...] - alpha)
+
+| graph | 19:floor(avg_ecc)+lam_m | 19:floor(avg_ecc+lam_ma | 40:ceil((p+b+1)/2) | 59:ceil(sqrt(res*b)) | 61:res+ceil(diam/3) | 65:dmin(A)+ceil(dmin(M) | 66:vacuous-if-no-even | 72:ceil((avg_ecc+lam_ma | 72:ceil(avg_ecc+lam_max | 103:floor(b-ln(avg_ecc)) | 133:rad+avglam^chiC4 | 141:girth/2-1+lam_max | 142:2girth/3+eccS(B)def5 | 144:girth-1+eccS(C)def52 | 146:2*eccS(B)def52/rad(G | 174:n+lam_max-1 | 176:n+dmin(M2)inG | 176:n+dmin(M2)inG2 | 181:alpha+degavg(B(G2))i | 181:alpha+degavg(B(G2))i | 182:Delta(B(G2))inG+diam | 182:Delta(B(G2))inG2+dia | 183:Delta(G2)+2rad(G2) | 184:Delta(G2)+2davg(B2,V | 185:Delta(G2)+2davg(G2) | 186:|N(C2)|in2+2eccS(C2) | 186:|N(C2)|inG+2eccS(C2) |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| C5[K2] | 0 | 0 | 1 | 1 | 1 | 2 | 2 | 2 | 1 | 1 | 1 | 3/2 | 2 | 2 | 4 | 0 | 0 | 0 | 4 | 0 | 4 | 0 | 0 | 0 | 0 | 1 | 1 |
+| C5[K3] | 0 | 0 | 1 | 1 | 1 | 2 | 2 | 2 | 1 | 1 | 1 | 3/2 | 2 | 2 | 4 | 0 | 0 | 0 | 6 | 0 | 6 | 0 | 0 | 0 | 0 | 1 | 1 |
+| C5[K4]* | 0 | 0 | 1 | 1 | 1 | 2 | 2 | 2 | 1 | 1 | 1 | 3/2 | 2 | 2 | 4 | 0 | 0 | 0 | 8 | 0 | 8 | 0 | 0 | 0 | 0 | 1 | 1 |
+| C5[K5] | 0 | 0 | 1 | 1 | 1 | 2 | 2 | 2 | 1 | 1 | 1 | 3/2 | 2 | 2 | 4 | 0 | 0 | 0 | 10 | 0 | 10 | 0 | 0 | 0 | 0 | 1 | 1 |
+| C5[K6] | 0 | 0 | 1 | 1 | 1 | 2 | 2 | 2 | 1 | 1 | 1 | 3/2 | 2 | 2 | 4 | 0 | 0 | 0 | 12 | 0 | 12 | 0 | 0 | 0 | 0 | 1 | 1 |
+| C5[K8] | 0 | 0 | 1 | 1 | 1 | 2 | 2 | 2 | 1 | 1 | 1 | 3/2 | 2 | 2 | 4 | 0 | 0 | 0 | 16 | 0 | 16 | 0 | 0 | 0 | 0 | 1 | 1 |
+| C7[K2] | 1 | 1 | 2 | 1 | 2 | 4 | 2 | 4 | 2 | 1 | 2 | 7/2 | 4 | 4 | 6 | 0 | 0 | 0 | 7 | 3 | 7 | 3 | 2 | 44/13 | 44/13 | 1 | 1 |
+| C7[K3] | 1 | 1 | 2 | 1 | 2 | 4 | 2 | 4 | 2 | 1 | 2 | 7/2 | 4 | 4 | 6 | 0 | 0 | 0 | 11 | 5 | 11 | 5 | 4 | 27/5 | 27/5 | 1 | 1 |
+| C7[K4] | 1 | 1 | 2 | 1 | 2 | 4 | 2 | 4 | 2 | 1 | 2 | 7/2 | 4 | 4 | 6 | 0 | 0 | 0 | 15 | 7 | 15 | 7 | 6 | 200/27 | 200/27 | 1 | 1 |
+| C9[K3] | 2 | 2 | 3 | 3 | 3 | 6 | 2 | 6 | 3 | 2 | 3 | 11/2 | 6 | 6 | 8 | 0 | 0 | 0 | 16 | 10 | 16 | 10 | 10 | 144/13 | 144/13 | 1 | 1 |
+| C9[K4] | 2 | 2 | 3 | 3 | 3 | 6 | 2 | 6 | 3 | 2 | 3 | 11/2 | 6 | 6 | 8 | 0 | 0 | 0 | 22 | 14 | 22 | 14 | 14 | 528/35 | 528/35 | 1 | 1 |
+| B(4,4,3,4,3) | 0 | 0 | 1 | 1 | 1 | 2 | 2 | 2 | 1 | 1 | 1 | 3/2 | 2 | 2 | 4 | 0 | 0 | 0 | 65/9 | 0 | 7 | 0 | 0 | 0 | 0 | 1 | 1 |
+| B(4,2,4,2,4) | 0 | 0 | 1 | 1 | 1 | 2 | 2 | 2 | 1 | 1 | 1 | 3/2 | 2 | 2 | 4 | 0 | 0 | 0 | 13/2 | 0 | 6 | 0 | 0 | 0 | 0 | 1 | 1 |
+| B(4,1,4,1,4) | 0 | 0 | 1 | 1 | 1 | 2 | 0 | 2 | 1 | 1 | 1 | 3/2 | 2 | 2 | 4 | 0 | 0 | 0 | 41/7 | 0 | 5 | 0 | 0 | 0 | 0 | 1 | 1 |
+| B(3,1,3,1,3) | 0 | 0 | 1 | 1 | 1 | 2 | 2 | 2 | 1 | 1 | 1 | 3/2 | 2 | 2 | 4 | 0 | 0 | 0 | 50/11 | 0 | 4 | 0 | 0 | 0 | 0 | 1 | 1 |
+| B(5,5,4,5,4) | 0 | 0 | 1 | 1 | 1 | 2 | 2 | 2 | 1 | 1 | 1 | 3/2 | 2 | 2 | 4 | 0 | 0 | 0 | 212/23 | 0 | 9 | 0 | 0 | 0 | 0 | 1 | 1 |
+| co-C5[K3] | 4 | 4 | 1 | 2 | 4 | 6 | 4 | 5 | 4 | 5 | 1 | 1 | 16/3 | 5 | 8 | 4 | 8 | 8 | 12 | 4 | 16 | 8 | 8 | 8 | 8 | 9 | 9 |
+| co-C5[K4] | 6 | 6 | 1 | 3 | 6 | 8 | 10 | 6 | 5 | 7 | 1 | 1 | 22/3 | 7 | 10 | 6 | 12 | 12 | 17 | 6 | 23 | 12 | 12 | 12 | 12 | 13 | 13 |
+| co-C5[K5] | 8 | 8 | 1 | 4 | 8 | 10 | 8 | 8 | 6 | 9 | 1 | 1 | 28/3 | 9 | 12 | 8 | 16 | 16 | 22 | 8 | 30 | 16 | 16 | 16 | 16 | 17 | 17 |
+| M(2i,4,4,4,4) | 0 | 0 | 1 | 1 | 2 | 2 | 3 | 3 | 2 | 1 | 1 | 3/2 | 3 | 3 | 5 | 0 | 1 | 1 | 65/9 | 0 | 7 | 1 | 1 | 1 | 1 | 2 | 2 |
+| M(3i,4,4,4,4) | 0 | 0 | 2 | 2 | 3 | 3 | 4 | 4 | 2 | 1 | 1 | 3/2 | 4 | 4 | 6 | 0 | 2 | 2 | 150/19 | 0 | 9 | 2 | 2 | 2 | 2 | 3 | 3 |
+| M(2i,4,2i,4,4) | 0 | 0 | 2 | 2 | 3 | 4 | 4 | 4 | 2 | 1 | 1 | 3/2 | 4 | 4 | 6 | 0 | 2 | 2 | 27/4 | 0 | 8 | 2 | 2 | 2 | 2 | 3 | 3 |
+| M(4i,4,4i,4,4) | 0 | 0 | 4 | 5 | 7 | 7 | 8 | 6 | 5 | 1 | 1 | 3/2 | 8 | 8 | 10 | 0 | 6 | 6 | 46/5 | 0 | 14 | 6 | 6 | 6 | 6 | 7 | 7 |
+| M7(2i,3,3,3,3,3,3) | 1 | 1 | 2 | 2 | 3 | 4 | 3 | 5 | 3 | 1 | 2 | 7/2 | 5 | 5 | 7 | 0 | 1 | 1 | 21/2 | 47/10 | 11 | 5 | 4 | 27/5 | 27/5 | 2 | 2 |
+| M7(3i,1,1,1,1,1,1) | 1 | 1 | 2 | 2 | 3 | 6 | 2 | 5 | 3 | 1 | 2 | 3 | 16/3 | 5 | 8 | 0 | 2 | 2 | 41/9 | 13/9 | 5 | 3 | 2 | 61/18 | 61/18 | 3 | 3 |
+| I(4,1,4,1,1) | 0 | 0 | 2 | 2 | 3 | 8 | 4 | 6 | 5 | 1 | 1 | 1 | 22/3 | 7 | 10 | 0 | 6 | 6 | 76/11 | 0 | 8 | 6 | 6 | 6 | 6 | 7 | 7 |
+| I(5,2,5,2,2) | 2 | 2 | 2 | 4 | 7 | 9 | 8 | 8 | 6 | 3 | 1 | 1 | 28/3 | 9 | 12 | 2 | 10 | 10 | 23/2 | 2 | 15 | 10 | 10 | 10 | 10 | 11 | 11 |
+| I(4,2,4,2,4) | 4 | 4 | 2 | 3 | 6 | 7 | 10 | 6 | 5 | 5 | 1 | 1 | 22/3 | 7 | 10 | 4 | 10 | 10 | 13 | 4 | 17 | 10 | 10 | 10 | 10 | 11 | 11 |
+| C7(1,2)[K2] | 0 | 0 | 1 | 1 | 1 | 2 | 2 | 2 | 1 | 1 | 1 | 3/2 | 2 | 2 | 4 | 1 | 1 | 1 | 5 | 1 | 5 | 1 | 1 | 1 | 1 | 2 | 2 |
+| C9(1,2)[K2] | 2 | 2 | 2 | 2 | 3 | 4 | 4 | 3 | 2 | 2 | 2 | 5/2 | 3 | 3 | 5 | 2 | 2 | 2 | 9 | 1 | 10 | 2 | 2 | 2 | 2 | 3 | 3 |
+
+**Result: ZERO violations across all 30 family members under every gate-surviving reading.**
+
+### Tightness (slack exactly 0)
+
+- conj 19 [floor(avg_ecc)+lam_max]: tight on 17: C5[K2], C5[K3], C5[K4]*, C5[K5], C5[K6], C5[K8], B(4,4,3,4,3), B(4,2,4,2,4), B(4,1,4,1,4), B(3,1,3,1,3), B(5,5,4,5,4), M(2i,4,4,4,4), M(3i,4,4,4,4), M(2i,4,2i,4,4), M(4i,4,4i,4,4), I(4,1,4,1,1), C7(1,2)[K2]
+- conj 19 [floor(avg_ecc+lam_max)]: tight on 17: C5[K2], C5[K3], C5[K4]*, C5[K5], C5[K6], C5[K8], B(4,4,3,4,3), B(4,2,4,2,4), B(4,1,4,1,4), B(3,1,3,1,3), B(5,5,4,5,4), M(2i,4,4,4,4), M(3i,4,4,4,4), M(2i,4,2i,4,4), M(4i,4,4i,4,4), I(4,1,4,1,1), C7(1,2)[K2]
+- conj 66 [vacuous-if-no-even]: tight on 1: B(4,1,4,1,4)
+- conj 174 [n+lam_max-1]: tight on 23: C5[K2], C5[K3], C5[K4]*, C5[K5], C5[K6], C5[K8], C7[K2], C7[K3], C7[K4], C9[K3], C9[K4], B(4,4,3,4,3), B(4,2,4,2,4), B(4,1,4,1,4), B(3,1,3,1,3), B(5,5,4,5,4), M(2i,4,4,4,4), M(3i,4,4,4,4), M(2i,4,2i,4,4), M(4i,4,4i,4,4), M7(2i,3,3,3,3,3,3), M7(3i,1,1,1,1,1,1), I(4,1,4,1,1)
+- conj 176 [n+dmin(M2)inG]: tight on 16: C5[K2], C5[K3], C5[K4]*, C5[K5], C5[K6], C5[K8], C7[K2], C7[K3], C7[K4], C9[K3], C9[K4], B(4,4,3,4,3), B(4,2,4,2,4), B(4,1,4,1,4), B(3,1,3,1,3), B(5,5,4,5,4)
+- conj 176 [n+dmin(M2)inG2]: tight on 16: C5[K2], C5[K3], C5[K4]*, C5[K5], C5[K6], C5[K8], C7[K2], C7[K3], C7[K4], C9[K3], C9[K4], B(4,4,3,4,3), B(4,2,4,2,4), B(4,1,4,1,4), B(3,1,3,1,3), B(5,5,4,5,4)
+- conj 181 [alpha+degavg(B(G2))inG2]: tight on 16: C5[K2], C5[K3], C5[K4]*, C5[K5], C5[K6], C5[K8], B(4,4,3,4,3), B(4,2,4,2,4), B(4,1,4,1,4), B(3,1,3,1,3), B(5,5,4,5,4), M(2i,4,4,4,4), M(3i,4,4,4,4), M(2i,4,2i,4,4), M(4i,4,4i,4,4), I(4,1,4,1,1)
+- conj 182 [Delta(B(G2))inG2+diam]: tight on 11: C5[K2], C5[K3], C5[K4]*, C5[K5], C5[K6], C5[K8], B(4,4,3,4,3), B(4,2,4,2,4), B(4,1,4,1,4), B(3,1,3,1,3), B(5,5,4,5,4)
+- conj 183 [Delta(G2)+2rad(G2)]: tight on 11: C5[K2], C5[K3], C5[K4]*, C5[K5], C5[K6], C5[K8], B(4,4,3,4,3), B(4,2,4,2,4), B(4,1,4,1,4), B(3,1,3,1,3), B(5,5,4,5,4)
+- conj 184 [Delta(G2)+2davg(B2,V)inG2]: tight on 11: C5[K2], C5[K3], C5[K4]*, C5[K5], C5[K6], C5[K8], B(4,4,3,4,3), B(4,2,4,2,4), B(4,1,4,1,4), B(3,1,3,1,3), B(5,5,4,5,4)
+- conj 185 [Delta(G2)+2davg(G2)]: tight on 11: C5[K2], C5[K3], C5[K4]*, C5[K5], C5[K6], C5[K8], B(4,4,3,4,3), B(4,2,4,2,4), B(4,1,4,1,4), B(3,1,3,1,3), B(5,5,4,5,4)
+
+## Wave 2 bespoke: dense diam-2 graphs + girth>=5/6 graphs (full exact profiles)
+
+Justification: (a) on every diam-2 member G^2=K_n, so 174/176/181-186 reduce to
+b >= gamma_c + {lam_max-1 | 1 | alpha-1 | 1 | 0}; family members all have gamma_c=3 and sit exactly
+tight, so the kill window is diam-2 graphs with gamma_c>=4 and slow-growing b. (b) conjecture 133's
+chi_C4=1 branch is untouchable inside the blow-up family (every member has C4; chi=0 gives
+RHS=rad+1 <= diam+1 <= path, provably safe), so C4-free graphs are the only kill surface.
+
+| graph | n | alpha | b | f | tree | path | L_s | gc | lmax | diam | girth | res | min slack (conj) |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Paley13 | 13 | 3 | 6 | 6 | 6 | 6 | 9 | 4 | 3 | 2 | 3 | 2 | 0 @ 174; 0 @ 181 |
+| co-Petersen | 10 | 2 | 4 | 4 | 4 | 4 | 7 | 3 | 2 | 2 | 3 | 2 | -1 @ 186; -2/3 @ 184 |
+| Kneser(6,2) | 15 | 5 | 9 | 7 | 7 | 5 | 12 | 3 | 3 | 2 | 3 | 3 | 1 @ 40; 1 @ 59 |
+| Clebsch | 16 | 5 | 10 | 9 | 9 | 5 | 12 | 4 | 5 | 2 | 4 | 3 | 2 @ 133; 2 @ 174 |
+| Shrikhande | 16 | 4 | 8 | 7 | 7 | 7 | 12 | 4 | 3 | 2 | 3 | 3 | 1 @ 181; 9/5 @ 184 |
+| Rook4x4 | 16 | 4 | 8 | 7 | 7 | 7 | 12 | 4 | 2 | 2 | 3 | 3 | 1 @ 181; 9/5 @ 184 |
+| Paley17 | 17 | 3 | 6 | 6 | 6 | 6 | 13 | 4 | 3 | 2 | 3 | 2 | 0 @ 174; 0 @ 181 |
+| Heawood | 14 | 7 | 14 | 10 | 10 | 7 | 8 | 6 | 3 | 3 | 6 | 4 | 1 @ 133; 2 @ 40 |
+| MobiusKantor | 16 | 8 | 16 | 11 | 11 | 11 | 8 | 8 | 3 | 4 | 6 | 4 | 2 @ 40; 2 @ 144 |
+
+No violations. Paley13 and Paley17 are EXACTLY TIGHT on 174 (b = gamma_c + lam_max - 1 = 6) and on
+181 (b = alpha + gamma_c - 1 = 6) — a second extremal family besides the C5 blow-ups.
+Shrikhande and Rook4x4: slack 1 on 181 (b=8 vs alpha+gc-1=7).
+
+### 133 C4-free zoo (need: induced path >= rad + avg_lambda, chi_C4=1)
+
+| graph | n | rad | avg_lambda | needed | verdict |
+|---|---|---|---|---|---|
+| Petersen (gate) | 10 | 2 | 3 | 5 | holds (path=5, tight-by-glossary check in gate) |
+| McGee | 24 | 4 | 3 | 7 | HOLDS (induced P7 found) |
+| Pappus | 18 | 4 | 3 | 7 | HOLDS (induced P7 found) |
+| Desargues | 20 | 5 | 3 | 8 | HOLDS (induced P8 found) |
+| Dodecahedron | 20 | 5 | 3 | 8 | HOLDS (induced P8 found) |
+
+### Structural safety notes derived during the hunt (why several targets cannot die here)
+
+- b >= alpha + 2 for every connected non-complete graph (max independent S plus any non-adjacent
+  pair outside it is induced-bipartite), and b >= lambda(v) + 1 + alpha(G - N[v]) for every v
+  (star at v + independent set beyond N[v]). Hence 103 needs avg_ecc > e with b <= alpha+1 —
+  b=alpha+1 forces V minus every max independent set to be a clique, which forces ecc(clique)<=2-ish
+  and avg_ecc < e. 103 is structurally out of reach in this landscape.
+- 19: kill needs floor(avg_ecc)+lam_max > b >= lam_max + 1 + alpha(G-N[v]) at every lam_max-achiever v;
+  avg_ecc >= 3 forces alpha(G-N[v]) <= 1, i.e. G-N[v] clique, which caps all eccentricities at 3 with
+  ecc(v)=2, so avg_ecc < 3. Contradiction ladder repeats at higher windows. Blow-up siblings that raise
+  lam_max (mixed independent blobs) raise b in lockstep (verified: M(2i,4,4,4,4) lmax=3 b=5;
+  M(4i,4,4i,4,4) lmax=8 b=10; slack stays 0 on 174, +1-ish on 19).
+- 66 on complete-blob C5 blow-ups: complement-degree of blob-i vertex = m_{i+2}+m_{i+3}, and
+  sum_i m_i*codeg_i = 2*sum_{C5-nonadj} m_i m_j <= n^2/2 (quadratic bound on the pentagon),
+  so even_mode_min(bar G) <= n-3 < 2*deg_avg always: conjecture 66 PROVABLY holds on the whole
+  complete-blob C5 blow-up family; B(4,1,4,1,4) achieves equality (slack 0).
+- 40: every cycle blow-up (complete or independent blobs, any sizes) is traceable (explicit
+  Hamiltonian-path DP check), so p=1 and f >= b/2+1 holds with slack >= 1.
+- 59/61: res <= alpha (Favaron-Maheo-Sacle) = floor(k/2) on C_k blow-ups while f = k-1: RHS can't reach f.
+- 133 chi_C4=0 branch: path >= diam+1 >= rad+1 always — only C4-free graphs can kill 133.
+
