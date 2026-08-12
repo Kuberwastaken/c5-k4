@@ -93,6 +93,13 @@ Author-repository, issue-history, exact-formula, and broader invariant searches
 found no pre-existing counterexample.  This is a candidate new disproof; an
 executable certificate is prepared separately.
 
+### graphbrain-alpha-upper-033 — HOLD_ARSENAL
+
+> `independence_number(x) <= card_periphery(x)^different_degrees(x) + max_even_minus_even_horizontal(x)`
+
+The source-faithful expression has no violation on all 996 connected nonempty Graph Atlas graphs through order 7 where defined, the named controls, or the campaign families and threshold complete graphs.  Real-valued comparisons obey the `1e-6` guard.  This is an arsenal hold, not a proof.
+
+
 ### graphbrain-alpha-upper-032 — HOLD_ARSENAL
 
 > `independence_number(x) <= degree_sum(x)/minimum(different_degrees(x), number_of_triangles(x))`
