@@ -263,3 +263,10 @@ case holds with wide slack.
 calibration graph Petersen, the positive adjacency eigenvalue sum is `8`, so
 the bound reads `alpha=4 >= -1+8/2=3`. Exact spectrum and independent maximum
 independent-set enumeration agree.
+
+## wow-777 — SKIP_OCR
+
+**Status:** refuted (WoW annotation). This record preserves definitions of
+counter-independent sets and jets but truncates before a complete conjectured
+comparison. The definitions are useful for #778; they do not themselves form a
+falsifiable row.
