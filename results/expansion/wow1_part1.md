@@ -877,4 +877,8 @@ Primary scan p.84 supplies inherited connected `alpha<=2` hypothesis. Eligible c
 
 Under inherited connected `alpha<=2`, `n/average_distance <= lambda_max(L)`; closest arsenal case `C5[K2]` gives about `6.9231 <= 7.2361`.
 
+### wow-404 — MIXED: ordinary HOLD; prime VIOLATED — NEW CANDIDATE
+
+Primary scan p.84 gives inherited connected `alpha<=2`; p.85 confirms both `<=` statements. Ordinary `lambda_2(D)<=triangles` holds on all applicable arsenal graphs. Prime `lambda_2(D)<=n/mean(Gravity)` fails on `C5[K8]`: `3.944271910 > 62400/16399=3.805110068`, margin `0.139161842`. Mean is over all `n^2` matrix entries. Independent exact arithmetic gives mean Gravity `16399/1560`; an independent eigensolver and closed form `lambda_2=(sqrt(5)-1)m/2-1` agree. The full restricted DB gate tested 159 connected Atlas graphs through order 7 plus 7 applicable named calibrators, with zero violations or guard-band ties. Four novelty searches found no prior discussion/refutation of the prime gravity clause; Aouchiche–Hansen 2014 reproduces only the ordinary triangles clause.
+
 <!-- NEXT -->
