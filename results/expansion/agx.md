@@ -9,9 +9,13 @@
 - **OCR discipline:** an expression that cannot be recovered faithfully from the corpus is recorded as `SKIP_OCR` with the surviving garble quoted; no intended formula is guessed.
 - **ILP discipline:** no solver call may exceed 60 seconds. (This lane currently needs no ILP.)
 
-Progress: **65/71** entries evaluated (70 strict-open + 1 open-in-full).
+Progress: **66/71** entries evaluated (70 strict-open + 1 open-in-full).
 
 ## Verdicts
+
+### `agx-survey-C31` — HOLD
+
+On cyclic arsenal graphs, all three comparisons hold: `a+g` and `a*g` versus `Ki(n,3)`, and `a/g` versus `Lol(n,floor(n/2))`. Exact girths and independently recomputed Laplacian spectra/comparators agree. No candidate violation appears, so the database and novelty gates are not triggered.
 
 ### `agx-survey-C30` — HOLD
 
