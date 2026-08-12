@@ -93,6 +93,13 @@ Author-repository, issue-history, exact-formula, and broader invariant searches
 found no pre-existing counterexample.  This is a candidate new disproof; an
 executable certificate is prepared separately.
 
+### graphbrain-alpha-upper-047 — HOLD_ARSENAL
+
+> `independence_number(x) <= floor(maximum(card_periphery(x), different_degrees(x))/density(x))`
+
+The source-faithful expression has no violation on all 996 connected nonempty Graph Atlas graphs through order 7 where defined, the named controls, or the campaign families and threshold complete graphs.  Real-valued comparisons obey the `1e-6` guard.  This is an arsenal hold, not a proof.
+
+
 ### graphbrain-alpha-upper-046 — HOLD_ARSENAL
 
 > `independence_number(x) <= ceil(order(x)/(min_degree(x) - vertex_con(x)))`
