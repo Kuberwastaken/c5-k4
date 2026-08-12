@@ -19,6 +19,14 @@ it, adversarially re-verified every violation, and cross-checked every
 claim against the current literature and the
 [google-deepmind/formal-conjectures](https://github.com/google-deepmind/formal-conjectures) race.
 
+I then turned the same arsenal outward. On 2026-08-12 I completed durable,
+entry-by-entry sweeps of **409 open Written on the Wall I conjectures**, **71
+AutoGraphiX targets**, and the **16 evaluable open/generated TxGraffiti
+records**. That expansion found three additional gate-surviving disproofs in
+WoW I: #191, #404′, and #889. AutoGraphiX produced no claimable kill, and
+TxGraffiti's sole curated apparent violation is a printed-statement erratum,
+not new mathematics.
+
 ## The kills
 
 Among the 220 WOWII conjectures that were still open in July 2026, C₅[K₄]
@@ -109,6 +117,30 @@ in formal-conjectures and absent from the literature burst.
 One graph killed four conjectures; its tightness frontier then aimed the
 next shot. Full analysis: [`results/family_forest.md`](results/family_forest.md).
 
+### Three more WoW I kills
+
+The expansion into Fajtlowicz and DeLaViña's earlier *Written on the Wall I*
+corpus produced three candidates that survived the same four-step protocol:
+exact statement recovery, a complete applicable small-graph database gate,
+independent recomputation, and a targeted novelty check.
+
+| # | Conjecture | Counterexample | Exact failure |
+|---|---|---|---|
+| **191** | If `sum Odd < sum Even`, minimum deficiency ≤ \|E\|/ω | `T(7) = L(K₇)` | `20 > 105/6`; in fact every `T(n)`, `n ≥ 7`, fails |
+| **404′** | For connected α ≤ 2, `λ₂(D) ≤ n/mean(Gravity)` | `C₅[K₈]` | `3.944271910… > 62400/16399 = 3.805110068…` |
+| **889** | A connected regular triangle-free graph has a blue clique on `w/4` vertices | complement of `C₅[K₄]` | blue clique number `1 < 8/4 = 2` |
+
+The first is another T(n) lever: for `T(n)`, minimum deficiency is
+`(n−2)(n−3)` while `|E|/ω = n(n−2)/2`. The second uses exact Gravity
+mean `16399/1560` and the distance-eigenvalue formula
+`λ₂(D) = (√5−1)m/2−1` at `m=8`. The third uses the complement of the
+carrier, which is connected, 8-regular, triangle-free, and diameter 2; every
+vertex therefore has `w=8`, while the #822 blue graph has no edges.
+
+The complete per-entry audits are
+[`results/expansion/wow1_part1.md`](results/expansion/wow1_part1.md) and
+[`results/expansion/wow1_part2.md`](results/expansion/wow1_part2.md).
+
 ### It would have killed eight more
 
 Sweeping the 139 WOWII conjectures that were *already refuted* by others:
@@ -194,8 +226,10 @@ The sweep's whole point is knowing where the graph's reach ends:
   198a; refuted: 103, 174, 200, 209, 291, 300, and 391) — the WOWII race
   is that fast right now.
 
-Everything else among the 220 open conjectures: holds, with margins
-recorded per-conjecture in the sweep data.
+Everything else among the 220 open WOWII conjectures: holds, with margins
+recorded per-conjecture in the sweep data. The later expansion reports keep
+`SKIP_OCR`, non-applicable, and database-rejected readings explicit rather
+than silently turning damaged statements into claims.
 
 ## Where this weapon points next
 
@@ -227,18 +261,25 @@ regular graphs instinctively. Ranked targets:
    Three more entries (401b, 412f, 448b) are corrupt as published
    (violated by stars/K₄/C₄ inside Graffiti.pc's own database) and can
    only be hunted from DeLaViña's original wording.
-2. **Fajtlowicz's original Graffiti** (WoW I, 1980s–90s, an even smaller
-   database): any unresolved lower bound on α exceeding 2 here dies on
-   contact; residue = 2 = α sits exactly at the classic tight bound.
-3. **Modern corpora — TxGraffiti / Graph Brain / CONJECTURING**: same
+2. **Written on the Wall I — swept**: all 409 eligible open/unannotated
+   records now have durable verdicts. I found #191, #404′, and #889; 90
+   statements remain `SKIP_OCR` rather than guessed. The two lane reports
+   contain zero missing, extra, or duplicate IDs.
+3. **AutoGraphiX — swept**: all 71 targets now have verdicts. Forty-five
+   hold on the arsenal, 24 remain unreadable/missing-definition, one is
+   inapplicable and already proved, and the only apparent violation fails
+   the small-graph gate. Full audit:
+   [`results/expansion/agx.md`](results/expansion/agx.md).
+4. **TxGraffiti / Optimist — swept**: all 16 evaluable open/generated
+   records were checked. The curated open conjectures survive; the printed
+   `Z`/γ_t cubic statement is an erratum that K₃,₃ itself exposes, and the
+   raw Optimist equality is trivially false. The μ*/H lead is strict on
+   C₅[K₄] (`9 < 10`), not tight. Full audit:
+   [`results/expansion/txgraffiti.md`](results/expansion/txgraffiti.md).
+5. **Modern corpora — Graph Brain / CONJECTURING**: same
    domination/independence vocabulary, databases of connected graphs to
    n ≈ 10.
-4. **AutoGraphiX open conjectures** (spectral/distance): C₅[K_m] has a
-   closed-form spectrum ({3m−1, twice each of the two golden-ratio
-   branches m·2cos(2πj/5)+m−1, and −1 with multiplicity 5(m−1)}), so
-   index/energy/proximity bounds evaluate symbolically for the whole
-   family at once.
-5. **google-deepmind/formal-conjectures beyond WOWII**: any
+6. **google-deepmind/formal-conjectures beyond WOWII**: any
    `research open` statement quantified over all finite simple graphs.
 
 Where it is useless, equally worth knowing: asymptotic/extremal
