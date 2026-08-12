@@ -133,3 +133,25 @@ assignments attain it. Thus the original carrier is exactly sharp
 separately replayed across all edges. There is no numerical or optimization
 ambiguity and no violation to promote through the novelty gate.
 
+### 5. Total Coloring Conjecture — HOLD where solved; four capped UNKNOWN
+
+The exact predicate is a proper colouring of the total graph (original
+vertices and edges, with incidence and adjacency conflicts) using at most
+`Delta+2` colours. A binary feasibility model fixed the `Delta+1`-vertex
+incidence clique at vertex zero to canonical colours, used one thread, and
+capped every CBC call at 60 seconds. Returned assignments were replayed
+directly against every conflict edge.
+
+| verdict | arsenal members |
+|---|---|
+| certificate found | `K4`, `K3,3`, Petersen, `C5[K2]`, `C5[K3]`, `C5[K4]`, `C7[K3]`, `C9[K3]`, `T(7)`, `comp(C5[K4])` |
+| 60-second UNKNOWN | `C5[K5]`, `C5[K6]`, `T(8)`, `T(9)` |
+| process cap before verdict | `C5[K8]` |
+
+For the carrier itself the replayed 13-colouring has class sizes
+`10,10,10,10,10,9,11,10,10,10,10,10,10`; its total graph has 130 vertices.
+The complement carrier has a replayed 10-colouring of its 100-vertex total
+graph. The UNKNOWN rows are neither positive nor negative evidence. Thus the
+main carrier does not disprove Total Coloring, and this bounded pass exposes no
+candidate counterexample.
+
