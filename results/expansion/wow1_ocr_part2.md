@@ -16,7 +16,7 @@ where possible; spectral gaps at most `1e-6` are ties, and any ILP solve is
 capped at 60 seconds. A source statement that is recovered but restricted to an
 inapplicable construction is recorded as `N/A_ARSENAL`.
 
-Progress: 50 / 54.
+Progress: 51 / 54.
 ### wow-456 — N/A_ARSENAL
 
 PDF p.95: `The residue of the graph RP[2..n] is not more than pi(n).` The source cleanly restores `pi(n)` and identifies RP/residue definitions, but this is restricted to the number-theoretic RP construction; no arsenal graph is admissible.
@@ -167,4 +167,7 @@ PDF pp.138--140 restores the statement `a2 >= a3`, where `ak` counts vertices ha
 ### wow-806 — N/A_ARSENAL / DB_REJECTED_LITERAL
 
 PDF pp.148--150 states that conjectures 800--813 concern the number-theoretic graphs `PR[S]`; #806 is `largest eigenvalue <= number of vertices of different degrees`. No arsenal graph is PR[S]. Dropping the inherited hypothesis is immediately false on K3 and every nontrivial regular calibration graph, so the literal all-graphs reading fails the DB gate.
+### wow-885a — KNOWN_FALSE_HOLD
+
+PDF p.212 explicitly labels this a `false conjecture`: `red independence number >= blue clique number`. On the applicable complement carrier (diameter two), the red graph is C5[K4] and the blue graph is empty, giving `2 >= 1`. Thus the carrier also does not refute this already-known-false statement.
 
