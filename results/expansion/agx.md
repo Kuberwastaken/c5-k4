@@ -9,9 +9,13 @@
 - **OCR discipline:** an expression that cannot be recovered faithfully from the corpus is recorded as `SKIP_OCR` with the surviving garble quoted; no intended formula is guessed.
 - **ILP discipline:** no solver call may exceed 60 seconds. (This lane currently needs no ILP.)
 
-Progress: **61/71** entries evaluated (70 strict-open + 1 open-in-full).
+Progress: **62/71** entries evaluated (70 strict-open + 1 open-in-full).
 
 ## Verdicts
+
+### `agx-survey-C15` — HOLD
+
+For odd n, `abs(lambda2)*omega <= m-2`; for even n, `abs(lambda2)*omega-m` does not exceed the value for two `K_(n/2)` joined by an edge. Exact clique numbers and direct spectra, checked independently against constructed comparators, find no arsenal violation. No candidate violation appears, so the database and novelty gates are not triggered.
 
 ### `agx-survey-C11` — HOLD
 
