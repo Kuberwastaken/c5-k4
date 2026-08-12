@@ -285,4 +285,8 @@ Inherited triangle-free reading selects the carrier complement: `2m=160 <= sum E
 
 Both binary Maxine-coordinate readings give a very loose RHS `n/mean = n^2/|I|`; all arsenal graphs hold.
 
+### wow-123 — SKIP_OCR
+
+Garble/ambiguity: `size/2 < the rank of the gravity matrix.` Literal edge-count reading already fails `K7`, so the intended formula cannot be recovered safely.
+
 <!-- NEXT -->
