@@ -93,6 +93,13 @@ Author-repository, issue-history, exact-formula, and broader invariant searches
 found no pre-existing counterexample.  This is a candidate new disproof; an
 executable certificate is prepared separately.
 
+### graphbrain-alpha-upper-031 — DB_REJECTED
+
+> `independence_number(x) <= order(x)^order_automorphism_group(x) - ceil(average_degree(x))`
+
+The identical author-project reading already fails the mandatory small-graph gate on connected Graph Atlas graph `atlas:FjtWO`: `alpha=4` while the right side is `3`.  It is therefore a database-inconsistent/as-posted falsehood, not a new campaign counterexample.  The result was independently recomputed from the author invariant definitions; undefined domain cases were excluded.
+
+
 ### graphbrain-alpha-upper-030 — DB_REJECTED
 
 > `independence_number(x) <= cosh(-number_of_triangles(x) + order(x))*max_degree(x)`
