@@ -293,4 +293,8 @@ Garble/ambiguity: `size/2 < the rank of the gravity matrix.` Literal edge-count 
 
 Matching number is at most the full gravity-matrix ranks found throughout the arsenal.
 
+### wow-126 — HOLD
+
+Radius is at most the number of negative gravity eigenvalues throughout; the carrier gives `2 <= 17`.
+
 <!-- NEXT -->
