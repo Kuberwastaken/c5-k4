@@ -164,12 +164,18 @@ graph. Thus `L_s+b=L+7<2L+3=n+dist_min(M^2)` for every `L>=5`.
 For `L>=7` it also violates the alternative reading that measures the distance
 inside `G^2`, so this is not dependent on the notation ambiguity. The complete
 source audit, structural derivation, database gate, and exact verifier are in
-[`wowii_176_disproof.md`](results/expansion/wowii_176_disproof.md).
+[`wowii_176_disproof.md`](results/expansion/wowii_176_disproof.md). The
+no-`sorry` Lean certificate is [`GraphConjecture176.lean`](lean/GraphConjecture176.lean);
+the upstream submission is [issue #4910](https://github.com/google-deepmind/formal-conjectures/issues/4910)
+and [PR #4911](https://github.com/google-deepmind/formal-conjectures/pull/4911).
 
 The same family also closes nearby WOWII 172: its periphery vertices have
 degree 2, so 172 reduces to the false requirement `4>=L-1`. It fails under the
 published reading for `L>=6` and under both readings for `L>=9`; details are in
-[`wowii_172_disproof.md`](results/expansion/wowii_172_disproof.md).
+[`wowii_172_disproof.md`](results/expansion/wowii_172_disproof.md). Its
+no-`sorry` Lean certificate is [`GraphConjecture172.lean`](lean/GraphConjecture172.lean);
+the upstream submission is [issue #4908](https://github.com/google-deepmind/formal-conjectures/issues/4908)
+and [PR #4909](https://github.com/google-deepmind/formal-conjectures/pull/4909).
 
 ### Crossing a different wall: WOWII 430a
 
@@ -181,7 +187,10 @@ an infinite family. This is the clean second example of
 `tight wall -> identify obstruction -> separate the controlling invariant ->
 cross`: eccentricity asymmetry shrinks the center term while dense cliques pin
 the Caro--Wei correction below its integer cliff. Full audit:
-[`wowii_430a_disproof.md`](results/expansion/wowii_430a_disproof.md).
+[`wowii_430a_disproof.md`](results/expansion/wowii_430a_disproof.md). The
+no-`sorry` Lean certificate is [`GraphConjecture430a.lean`](lean/GraphConjecture430a.lean);
+the upstream submission is [issue #4912](https://github.com/google-deepmind/formal-conjectures/issues/4912)
+and [PR #4913](https://github.com/google-deepmind/formal-conjectures/pull/4913).
 
 ### A Graph Brain kill — and an order-9 witness
 
