@@ -216,8 +216,17 @@ vertex-transitive diameter-2 graph past n ≈ 15 — but it is nearly
 useless against human conjectures, because humans sanity-check dense
 regular graphs instinctively. Ranked targets:
 
-1. **WOWII, until dry** (this repo): family sweeps over near-misses with
-   C₅[K_m], C₇/C₉ blowups, non-uniform blobs, complement carriers.
+1. **WOWII — now dry** (this repo, as of 2026-08-12): every lane has
+   reported. Open sweep (223 incl. 3 recovered), refuted sweep (139),
+   proved QA (163), both family sweeps (30+ members, near-misses at
+   slack ≤ 2), transcription audit, adversarial verification. Final
+   score: 4 direct kills + 1 spawned kill (181, via T(n)) + 8
+   retro-kills; the family provably cannot cross the remaining walls —
+   it sits at exact equality on them (window-argument proofs in
+   [`results/family_domination.md`](results/family_domination.md)).
+   Three more entries (401b, 412f, 448b) are corrupt as published
+   (violated by stars/K₄/C₄ inside Graffiti.pc's own database) and can
+   only be hunted from DeLaViña's original wording.
 2. **Fajtlowicz's original Graffiti** (WoW I, 1980s–90s, an even smaller
    database): any unresolved lower bound on α exceeding 2 here dies on
    contact; residue = 2 = α sits exactly at the classic tight bound.

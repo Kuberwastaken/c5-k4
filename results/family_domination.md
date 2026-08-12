@@ -54,3 +54,40 @@
 
 > **comp(C5[K4])** (0.4s): violations: **VIOLATION 401b [R1 literal: freq[T_max] (triangles)] lhs=5.0 rhs=4.0**; **VIOLATION 401b [R2: freq[Tdist_max]] lhs=5.0 rhs=4.0**. closest holds: 422b[single] slack=0.000; 255[Ne excl endpoints] slack=0.143; 256[Ne excl endpoints] slack=0.143; 255[Ne incl endpoints] slack=0.500; 256[Ne incl endpoints] slack=0.500
 
+
+---
+## FINAL VERDICT (2026-08-12)
+
+**NEW KILLS: none.** Under every DB-sanity-viable reading, all 18 target conjectures hold on
+all 13 family graphs (C5[K2,3,4,5,6], C7[K2,3,4], C9[K3], B(4,4,3,4,3), B(4,2,4,2,4),
+B(4,1,4,1,4), comp(C5[K4])). All CBC solves Optimal (none hit the 60s cap); every NP invariant
+independently confirmed by exact blob-count-vector enumeration (0 mismatches); proved canary
+382a: 0 violations on 1000 gate graphs and slack-0-tight on C5[K2] (4 = 2*2-0).
+
+**Gate-refuted transcription artifact (documented, NOT a kill): conjecture 401b**
+`gamma_2 <= floor[3*Tdist_max / freq[T_max(v)]]` as transcribed is violated by
+K1,5 (gamma_2=5 > floor(3*9/6)=4) and K1,6 (gamma_2=6 > floor(3*11/7)=4) — stars inside
+Graffiti.pc's own trivial range, so the recorded formula cannot be what the program conjectured.
+Both readings (freq of triangle-max; freq of transmission-max) fail the gate. The family
+"violations" it produced — C5[K2]: gamma_2=4 > floor(39/10)=3; comp(C5[K4]): gamma_2=5 >
+floor(90/20)=4 (both gamma_2 values double-confirmed by BnB/blob-vector) — are therefore
+discarded per protocol. 401b is unattackable from this transcription; needs the original page.
+
+Likewise discarded: 255/256 under the excl-endpoints N(e) reading (fails gate on C7 itself);
+locked incl-endpoints reading holds family-wide (min slack 0.5).
+
+**Closest misses (viable readings), slack = lhs-rhs / rhs-lhs:**
+| conj | tightest family witness | lhs vs rhs |
+|---|---|---|
+| 382e | all C5[K_m], B(4,4,3,4,3), B(4,2,4,2,4): gamma_2 = maxine+gamma | 4 = 2+2, slack 0 |
+| 422b | comp(C5[K4]): i = alpha(G[M])+gamma(G[V-M])^2 | 8 = 8+0, slack 0 (also C5/C7 uniform: 2=2, 3=3) |
+| 430a | B(4,1,4,1,4) & all C5-blowups: i = alpha(G[N(C)])+2*floor(CW-1) | 2 = 2+0, slack 0 |
+| 438b | B(4,1,4,1,4), C5[K_m] (4=2*2), C7[K2/K3] (6=6), C9[K3] (8=8) | slack 0 |
+| 255/256 | comp(C5[K4]), C7[K2] | 3 vs 2.5; 4 vs 3.5 — slack 0.5 |
+| 247/268/271 | comp(C5[K4]) | 3 vs 2 — slack 1 |
+| 402 | comp(C5[K4]): gamma_2=5 vs 2*(0+0+3)=6 | slack 1 |
+
+Slack-0 walls: 382e/422b/430a/438b are *exactly tight* on multiple family members —
+the blown-up-C5 geometry saturates them but cannot cross; a kill needs a mechanism that
+raises gamma_2 (resp. i, alpha_2) while pinning maxine+gamma (resp. the RHS sets), which
+uniform/non-uniform cycle blowups cannot do (window arguments cap the LHS at exactly the RHS).

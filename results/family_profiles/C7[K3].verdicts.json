@@ -1,0 +1,295 @@
+[
+ {
+  "conj": "232",
+  "reading": "eccB=set(def52,empty->0)",
+  "applicable": true,
+  "lhs": 4.0,
+  "rhs": 1.5,
+  "holds": true,
+  "slack": 2.5
+ },
+ {
+  "conj": "233",
+  "reading": "eccB=set(def52,empty->0)",
+  "applicable": true,
+  "lhs": 4.0,
+  "rhs": 0.6666666666666666,
+  "holds": true,
+  "slack": 3.3333333333333335
+ },
+ {
+  "conj": "232",
+  "reading": "eccB=member(=diam)",
+  "applicable": true,
+  "lhs": 4.0,
+  "rhs": 3.0,
+  "holds": true,
+  "slack": 1.0
+ },
+ {
+  "conj": "233",
+  "reading": "eccB=member(=diam)",
+  "applicable": true,
+  "lhs": 4.0,
+  "rhs": 2.6666666666666665,
+  "holds": true,
+  "slack": 1.3333333333333333
+ },
+ {
+  "conj": "247",
+  "reading": "p exact",
+  "applicable": true,
+  "lhs": 4.0,
+  "rhs": 2.0,
+  "holds": true,
+  "slack": 2.0
+ },
+ {
+  "conj": "255",
+  "reading": "Ne incl endpoints",
+  "applicable": true,
+  "lhs": 4.0,
+  "rhs": 3.5,
+  "holds": true,
+  "slack": 0.5
+ },
+ {
+  "conj": "256",
+  "reading": "Ne incl endpoints",
+  "applicable": true,
+  "lhs": 4.0,
+  "rhs": 3.5,
+  "holds": true,
+  "slack": 0.5
+ },
+ {
+  "conj": "255",
+  "reading": "Ne excl endpoints",
+  "applicable": true,
+  "lhs": 4.0,
+  "rhs": 4.2,
+  "holds": false,
+  "slack": -0.2
+ },
+ {
+  "conj": "256",
+  "reading": "Ne excl endpoints",
+  "applicable": true,
+  "lhs": 4.0,
+  "rhs": 4.2,
+  "holds": false,
+  "slack": -0.2
+ },
+ {
+  "conj": "258",
+  "reading": "exact-squared",
+  "applicable": true,
+  "lhs": 4.0,
+  "rhs": 0.3818813079129867,
+  "holds": true,
+  "slack": 3.6181186920870134
+ },
+ {
+  "conj": "268",
+  "reading": "dist_avg(C)=pairwise-within(empty->0)",
+  "applicable": true,
+  "lhs": 4.0,
+  "rhs": 2.0,
+  "holds": true,
+  "slack": 2.0
+ },
+ {
+  "conj": "268",
+  "reading": "dist_avg(C)=def95 set->V nonzero",
+  "applicable": true,
+  "lhs": 4.0,
+  "rhs": 1.0,
+  "holds": true,
+  "slack": 3.0
+ },
+ {
+  "conj": "271",
+  "reading": "single",
+  "applicable": true,
+  "lhs": 4.0,
+  "rhs": 3.0,
+  "holds": true,
+  "slack": 1.0
+ },
+ {
+  "conj": "305",
+  "reading": "NbarA incl (locked)",
+  "applicable": true,
+  "lhs": 4.0,
+  "rhs": 14.0,
+  "holds": true,
+  "slack": 10.0
+ },
+ {
+  "conj": "308",
+  "reading": "NbarA incl (locked)|maxine_best",
+  "applicable": true,
+  "lhs": 4.0,
+  "rhs": 10.5,
+  "holds": true,
+  "slack": 6.5
+ },
+ {
+  "conj": "308",
+  "reading": "NbarA incl (locked)|maxine_det",
+  "applicable": true,
+  "lhs": 4.0,
+  "rhs": 10.5,
+  "holds": true,
+  "slack": 6.5
+ },
+ {
+  "conj": "305",
+  "reading": "NbarA excl",
+  "applicable": true,
+  "lhs": 4.0,
+  "rhs": 13.0,
+  "holds": true,
+  "slack": 9.0
+ },
+ {
+  "conj": "308",
+  "reading": "NbarA excl|maxine_best",
+  "applicable": true,
+  "lhs": 4.0,
+  "rhs": 9.5,
+  "holds": true,
+  "slack": 5.5
+ },
+ {
+  "conj": "308",
+  "reading": "NbarA excl|maxine_det",
+  "applicable": true,
+  "lhs": 4.0,
+  "rhs": 9.5,
+  "holds": true,
+  "slack": 5.5
+ },
+ {
+  "conj": "305",
+  "reading": "NbarB (e in G, N in bar)",
+  "applicable": true,
+  "lhs": 4.0,
+  "rhs": 10.0,
+  "holds": true,
+  "slack": 6.0
+ },
+ {
+  "conj": "308",
+  "reading": "NbarB (e in G, N in bar)|maxine_best",
+  "applicable": true,
+  "lhs": 4.0,
+  "rhs": 7.5,
+  "holds": true,
+  "slack": 3.5
+ },
+ {
+  "conj": "308",
+  "reading": "NbarB (e in G, N in bar)|maxine_det",
+  "applicable": true,
+  "lhs": 4.0,
+  "rhs": 7.5,
+  "holds": true,
+  "slack": 3.5
+ },
+ {
+  "conj": "310",
+  "reading": "single",
+  "applicable": true,
+  "lhs": 4.0,
+  "rhs": 14.0,
+  "holds": true,
+  "slack": 10.0
+ },
+ {
+  "conj": "382e",
+  "reading": "maxine_best",
+  "applicable": true,
+  "lhs": 5.0,
+  "rhs": 6.0,
+  "holds": true,
+  "slack": 1.0
+ },
+ {
+  "conj": "382e",
+  "reading": "maxine_det",
+  "applicable": true,
+  "lhs": 5.0,
+  "rhs": 6.0,
+  "holds": true,
+  "slack": 1.0
+ },
+ {
+  "conj": "401b",
+  "reading": "R1 literal: freq[T_max] (triangles)",
+  "applicable": true,
+  "lhs": 5.0,
+  "rhs": 5.0,
+  "holds": true,
+  "slack": 0.0
+ },
+ {
+  "conj": "401b",
+  "reading": "R2: freq[Tdist_max]",
+  "applicable": true,
+  "lhs": 5.0,
+  "rhs": 5.0,
+  "holds": true,
+  "slack": 0.0
+ },
+ {
+  "conj": "402",
+  "reading": "single",
+  "applicable": true,
+  "lhs": 5.0,
+  "rhs": 8.0,
+  "holds": true,
+  "slack": 3.0
+ },
+ {
+  "conj": "416",
+  "reading": "diam>2",
+  "applicable": false
+ },
+ {
+  "conj": "422b",
+  "reading": "single",
+  "applicable": true,
+  "lhs": 3.0,
+  "rhs": 3.0,
+  "holds": true,
+  "slack": 0.0
+ },
+ {
+  "conj": "430a",
+  "reading": "N(C) open",
+  "applicable": true,
+  "lhs": 3.0,
+  "rhs": 5.0,
+  "holds": true,
+  "slack": 2.0
+ },
+ {
+  "conj": "430a",
+  "reading": "N[C] closed",
+  "applicable": true,
+  "lhs": 3.0,
+  "rhs": 5.0,
+  "holds": true,
+  "slack": 2.0
+ },
+ {
+  "conj": "438b",
+  "reading": "single",
+  "applicable": true,
+  "lhs": 6.0,
+  "rhs": 6.0,
+  "holds": true,
+  "slack": 0.0
+ }
+]

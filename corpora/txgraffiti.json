@@ -1,0 +1,309 @@
+[
+ {
+  "id": "txg-2507.17780-Conjecture1",
+  "statement_text": "If G G is a nontrivial connected graph, then α ⁡ ( G ) ≥ a ⁡ ( G ) + R ⁡ ( G ) Δ ⁡ ( G ) (G) , and this bound is sharp.",
+  "invariants": [
+   "alpha",
+   "max_degree",
+   "min_degree"
+  ],
+  "hypotheses": "G G is a nontrivial connected graph",
+  "status": "open (TxGraffiti – Open Since 2016)",
+  "status_detail": " TxGraffiti – Open Since 2016 ",
+  "source_url": "https://arxiv.org/abs/2507.17780 (Ten Years of Mathematical Discovery with a Machine Collaborator, Davila 2025)",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "txg-2507.17780-Conjecture2",
+  "statement_text": "If G ≇ K 4 G K_{4} is a connected graph with Δ ⁡ ( G ) ≤ 3 (G) 3 , then Z ⁡ ( G ) ≤ α ⁡ ( G ) + 1 Z(G)(G)+1 , and this bound is sharp.",
+  "invariants": [
+   "alpha",
+   "max_degree",
+   "min_degree"
+  ],
+  "hypotheses": "G ≇ K 4 G K_{4} is a connected graph with Δ ⁡ ( G ) ≤ 3 (G) 3 ",
+  "status": "open (TxGraffiti – Open Since 2017)",
+  "status_detail": " TxGraffiti – Open Since 2017 ",
+  "source_url": "https://arxiv.org/abs/2507.17780 (Ten Years of Mathematical Discovery with a Machine Collaborator, Davila 2025)",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "txg-2507.17780-Conjecture3",
+  "statement_text": "If G G is an r r -regular graph G G with r > 0 r>0 , then i ⁡ ( G ) ≤ μ ∗ ​ ( G ) i(G)^{*}(G) , and this bound is sharp.",
+  "invariants": [],
+  "hypotheses": "G G is an r r -regular graph G G with r > 0 r>0 ",
+  "status": "open (TxGraffiti – Open Since 2020)",
+  "status_detail": " TxGraffiti – Open Since 2020 ",
+  "source_url": "https://arxiv.org/abs/2507.17780 (Ten Years of Mathematical Discovery with a Machine Collaborator, Davila 2025)",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "txg-2507.17780-Conjecture4",
+  "statement_text": "If G G is a nontrivial connected graph, then μ ∗ ​ ( G ) ≤ H ⁡ ( G ) ^{*}(G) H(G) , and this bound is sharp.",
+  "invariants": [],
+  "hypotheses": "G G is a nontrivial connected graph",
+  "status": "open (TxGraffiti – Open Since 2023)",
+  "status_detail": " TxGraffiti – Open Since 2023 ",
+  "source_url": "https://arxiv.org/abs/2507.17780 (Ten Years of Mathematical Discovery with a Machine Collaborator, Davila 2025)",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "txg-2409.19379-Conjecture1",
+  "statement_text": "If G G is a connected graph with order n ⁡ ( G ) ≥ 3 n(G) 3 , then α ⁡ ( G ) ≥ a ⁡ ( G ) + res ⁡ ( G ) Δ ⁡ ( G ) . (G)(G)}{(G)}. Here, α ⁡ ( G ) (G) is the independence number, a ⁡ ( G ) a(G) is the annihilation number 82 , res ⁡ ( G ) (G) is the Havel-Hakimi residue 48 , and Δ ⁡ ( G ) (G) is the maximum degree.",
+  "invariants": [
+   "alpha",
+   "annihilation_number",
+   "max_degree",
+   "min_degree",
+   "order",
+   "residue"
+  ],
+  "hypotheses": "G G is a connected graph with order n ⁡ ( G ) ≥ 3 n(G) 3 ",
+  "status": "open (stated as open in paper)",
+  "status_detail": " TxGraffiti ",
+  "source_url": "https://arxiv.org/abs/2409.19379 (Automated Conjecturing with TxGraffiti, Davila 2024)",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "txg-2409.19379-Conjecture2",
+  "statement_text": "If G G is a connected graph of order n ⁡ ( G ) ≥ 2 n(G) 2 with Δ ⁡ ( G ) ≤ 3 (G) 3 , then γ t ​ ( G ) ≥ 2 3 ​ R ​ ( G ) . _{t}(G)\\ \\ \\,R(G).",
+  "invariants": [
+   "max_degree",
+   "min_degree",
+   "order"
+  ],
+  "hypotheses": "G G is a connected graph of order n ⁡ ( G ) ≥ 2 n(G) 2 with Δ ⁡ ( G ) ≤ 3 (G) 3 ",
+  "status": "open (stated as open in paper)",
+  "status_detail": " TxGraffiti ",
+  "source_url": "https://arxiv.org/abs/2409.19379 (Automated Conjecturing with TxGraffiti, Davila 2024)",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "txg-2409.19379-Conjecture3",
+  "statement_text": "If G G and H H are connected graphs with n ⁡ ( G ) , n ⁡ ( H ) ≥ 2 n(G),n(H) 2 , then γ t ​ ( G ​ □ ​ H ) ≥ γ ⁡ ( G × H ) . _{t}(G\\>\\>H)\\ \\ (G H).",
+  "invariants": [],
+  "hypotheses": "G G and H H are connected graphs with n ⁡ ( G ) ",
+  "status": "open (stated as open in paper)",
+  "status_detail": " TxGraffiti ",
+  "source_url": "https://arxiv.org/abs/2409.19379 (Automated Conjecturing with TxGraffiti, Davila 2024)",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "txg-2409.19379-Conjecture4",
+  "statement_text": "If G ≠ K 4 G K_{4} is a connected graph with Δ ⁡ ( G ) ≤ 3 (G) 3 , then Z ⁡ ( G ) ≤ α ⁡ ( G ) + 1 . Z(G)(G)+1.",
+  "invariants": [
+   "alpha",
+   "max_degree",
+   "min_degree"
+  ],
+  "hypotheses": "G ≠ K 4 G K_{4} is a connected graph with Δ ⁡ ( G ) ≤ 3 (G) 3 ",
+  "status": "open (stated as open in paper)",
+  "status_detail": " TxGraffiti ",
+  "source_url": "https://arxiv.org/abs/2409.19379 (Automated Conjecturing with TxGraffiti, Davila 2024)",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "txg-2306.12917-Conjecture1",
+  "statement_text": "If G G is a connected r r -regular graph with r > 0 r>0 , independence number α ⁡ ( G ) (G) , and matching number μ ⁡ ( G ) (G) , then α ⁡ ( G ) ≤ μ ⁡ ( G ) , (G)(G), and this bound is sharp.",
+  "invariants": [
+   "alpha",
+   "matching"
+  ],
+  "hypotheses": "G G is a connected r r -regular graph with r > 0 r>0 ",
+  "status": "open (stated as open in paper)",
+  "status_detail": "TxGraffiti - Confirmed - Caro, Davila, and Pepper [ 7 ] ",
+  "source_url": "https://arxiv.org/abs/2306.12917 (A Framework for Conjecturing, Davila 2023)",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "txg-2306.12917-Conjecture2",
+  "statement_text": "If G G is a connected r r -regular graph with r > 0 r>0 , i ⁡ ( G ) i(G) denotes the cardinality of a minimum maximal independent set in G G , and μ ∗ ​ ( G ) ^{*}(G) denotes the cardinality of a minimum maximal matching in G G , then i ⁡ ( G ) ≤ μ ∗ ​ ( G ) , i(G)^{*}(G), and this bound is sharp.",
+  "invariants": [],
+  "hypotheses": "G G is a connected r r -regular graph with r > 0 r>0 ",
+  "status": "open (stated as open in paper)",
+  "status_detail": "TxGraffiti - Open",
+  "source_url": "https://arxiv.org/abs/2306.12917 (A Framework for Conjecturing, Davila 2023)",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "txg-2306.12917-Conjecture3",
+  "statement_text": "If G ≠ K 4 G K_{4} is a connected and cubic graph with zero forcing number Z ⁡ ( G ) Z(G) and total domination number γ t ​ ( G ) _{t}(G) , then Z ⁡ ( G ) ≤ 3 2 ​ γ t ​ ( G ) , Z(G)_{t}(G), and this bound is sharp.",
+  "invariants": [
+   "domination",
+   "total_domination",
+   "zero_forcing"
+  ],
+  "hypotheses": "G ≠ K 4 G K_{4} is a connected and cubic graph with zero forcing number Z ⁡ ( G ) Z(G) and total domination number γ t ​ ( G ) _{t}(G) ",
+  "status": "open (stated as open in paper)",
+  "status_detail": "TxGraffiti - Confirmed - Davila and Henning [ 17 ] ",
+  "source_url": "https://arxiv.org/abs/2306.12917 (A Framework for Conjecturing, Davila 2023)",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "txg-2306.12917-Conjecture5",
+  "statement_text": "If G ≠ K 4 G K_{4} is a connected graph with maximum degree Δ ⁡ ( G ) ≤ 3 (G) 3 , zero forcing number Z ⁡ ( G ) Z(G) and independence number α ⁡ ( G ) (G) , then Z ⁡ ( G ) ≤ α ⁡ ( G ) + 1 , Z(G)(G)+1, and this bound is sharp.",
+  "invariants": [
+   "alpha",
+   "max_degree",
+   "min_degree",
+   "zero_forcing"
+  ],
+  "hypotheses": "G ≠ K 4 G K_{4} is a connected graph with maximum degree Δ ⁡ ( G ) ≤ 3 (G) 3 ",
+  "status": "open (stated as open in paper)",
+  "status_detail": "TxGraffiti - Open",
+  "source_url": "https://arxiv.org/abs/2306.12917 (A Framework for Conjecturing, Davila 2023)",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "txg-2306.12917-Conjecture7",
+  "statement_text": "If G G is a claw-free graph with forcing number Z ⁡ ( G ) Z(G) and vertex cover number β ⁡ ( G ) (G) , then Z ⁡ ( G ) ≤ β ⁡ ( G ) , Z(G)(G), and this bound is sharp.",
+  "invariants": [
+   "vertex_cover"
+  ],
+  "hypotheses": "G G is a claw-free graph with forcing number Z ⁡ ( G ) Z(G) and vertex cover number β ⁡ ( G ) (G) ",
+  "status": "open (stated as open in paper)",
+  "status_detail": "TxGraffiti - Confirmed - Brimkov et al. [ 4 ] ",
+  "source_url": "https://arxiv.org/abs/2306.12917 (A Framework for Conjecturing, Davila 2023)",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "txg-2409.19379-Theorem1",
+  "statement_text": "",
+  "invariants": [],
+  "hypotheses": "",
+  "status": "proved",
+  "status_detail": "presented as theorem in paper; attribution: ",
+  "source_url": "https://arxiv.org/abs/2409.19379 (Automated Conjecturing with TxGraffiti, Davila 2024)",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "txg-2409.19379-Theorem2",
+  "statement_text": "",
+  "invariants": [],
+  "hypotheses": "",
+  "status": "proved",
+  "status_detail": "presented as theorem in paper; attribution:  TxGraffiti ; proved in 12 ",
+  "source_url": "https://arxiv.org/abs/2409.19379 (Automated Conjecturing with TxGraffiti, Davila 2024)",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "txg-2409.19379-Theorem3",
+  "statement_text": "",
+  "invariants": [],
+  "hypotheses": "",
+  "status": "proved",
+  "status_detail": "presented as theorem in paper; attribution:  12 ",
+  "source_url": "https://arxiv.org/abs/2409.19379 (Automated Conjecturing with TxGraffiti, Davila 2024)",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "txg-2409.19379-Theorem4",
+  "statement_text": "",
+  "invariants": [],
+  "hypotheses": "",
+  "status": "proved",
+  "status_detail": "presented as theorem in paper; attribution:  TxGraffiti ; proved in 9 ",
+  "source_url": "https://arxiv.org/abs/2409.19379 (Automated Conjecturing with TxGraffiti, Davila 2024)",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "txg-2409.19379-Theorem5",
+  "statement_text": "",
+  "invariants": [],
+  "hypotheses": "",
+  "status": "proved",
+  "status_detail": "presented as theorem in paper; attribution:  TxGraffiti ; proved in 26 ",
+  "source_url": "https://arxiv.org/abs/2409.19379 (Automated Conjecturing with TxGraffiti, Davila 2024)",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "txg-2409.19379-Theorem6",
+  "statement_text": "",
+  "invariants": [],
+  "hypotheses": "",
+  "status": "proved",
+  "status_detail": "presented as theorem in paper; attribution:  TxGraffiti ; proved in 24 ",
+  "source_url": "https://arxiv.org/abs/2409.19379 (Automated Conjecturing with TxGraffiti, Davila 2024)",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "txg-2409.19379-Theorem7",
+  "statement_text": "",
+  "invariants": [],
+  "hypotheses": "",
+  "status": "proved",
+  "status_detail": "presented as theorem in paper; attribution:  TxGraffiti ; proved in 29 ",
+  "source_url": "https://arxiv.org/abs/2409.19379 (Automated Conjecturing with TxGraffiti, Davila 2024)",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "txg-2409.19379-Theorem8",
+  "statement_text": "",
+  "invariants": [],
+  "hypotheses": "",
+  "status": "proved",
+  "status_detail": "presented as theorem in paper; attribution:  TxGraffiti ; proved in 27 ",
+  "source_url": "https://arxiv.org/abs/2409.19379 (Automated Conjecturing with TxGraffiti, Davila 2024)",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "txg-2306.12917-Theorem6",
+  "statement_text": "",
+  "invariants": [],
+  "hypotheses": "",
+  "status": "proved",
+  "status_detail": "presented as theorem in paper; attribution: Davila and Henning [ 18 ] ",
+  "source_url": "https://arxiv.org/abs/2306.12917 (A Framework for Conjecturing, Davila 2023)",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "txg-2306.12917-Theorem8",
+  "statement_text": "",
+  "invariants": [],
+  "hypotheses": "",
+  "status": "proved",
+  "status_detail": "presented as theorem in paper; attribution: Brimkov et al. [ 4 ] ",
+  "source_url": "https://arxiv.org/abs/2306.12917 (A Framework for Conjecturing, Davila 2023)",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "txg-optimist-gen-1",
+  "statement_text": "If G is a connected graph, then independence_number = order - minimum_degree",
+  "invariants": [
+   "alpha",
+   "min_degree",
+   "order"
+  ],
+  "hypotheses": "G is a connected graph",
+  "status": "generated (Optimist session output in paper; mostly rediscoveries/unevaluated)",
+  "status_detail": "",
+  "source_url": "https://arxiv.org/abs/2411.09158 (The Optimist, Davila 2024)",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "txg-optimist-gen-2",
+  "statement_text": "If G is a tree, then independence_number = n - matching_number. This bound holds with equality on 3 graphs.",
+  "invariants": [
+   "alpha",
+   "matching"
+  ],
+  "hypotheses": "G is a tree",
+  "status": "generated (Optimist session output in paper; mostly rediscoveries/unevaluated)",
+  "status_detail": "",
+  "source_url": "https://arxiv.org/abs/2411.09158 (The Optimist, Davila 2024)",
+  "transcription_confidence": "high"
+ },
+ {
+  "id": "txg-optimist-gen-3",
+  "statement_text": "If G is a connected and bipartite graph, then independence_number = n - matching_number. This bound holds with equality on 5 graphs.",
+  "invariants": [
+   "alpha",
+   "matching"
+  ],
+  "hypotheses": "G is a connected and bipartite graph",
+  "status": "generated (Optimist session output in paper; mostly rediscoveries/unevaluated)",
+  "status_detail": "",
+  "source_url": "https://arxiv.org/abs/2411.09158 (The Optimist, Davila 2024)",
+  "transcription_confidence": "high"
+ }
+]
