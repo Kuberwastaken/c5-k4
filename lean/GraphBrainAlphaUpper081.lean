@@ -20,7 +20,7 @@ import FormalConjecturesUtil
 # Graph Brain independence-number upper bound 081
 
 *Reference:*
-[Graph Brain, open independence-number conjectures, upper bound 081](https://github.com/AutoGraphiX/GraphBrainProject/issues/421)
+[Graph Brain, open independence-number conjectures, upper bound 081](https://github.com/math1um/objects-invariants-properties/issues/421)
 
 The author-posted expression is
 
