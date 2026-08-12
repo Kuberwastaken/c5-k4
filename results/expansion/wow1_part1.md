@@ -437,4 +437,8 @@ Garble: `mean of autocoordinates of Maxine of D2`. The construction is undefined
 
 Exact `n/alpha` is at most the sum of all temperatures throughout.
 
+### wow-177 — HOLD
+
+Even-parity range is 0 on all vertex-transitive arsenal members.
+
 <!-- NEXT -->
