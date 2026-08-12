@@ -213,3 +213,11 @@ or radical was lost; the source itself is inconsistent with the test database.
 Printed p.75 confirms the complete regular-graph statement.  Autocoordinates
 and resolution of Maxine are not defined by the source, leaving no faithful
 left-hand quantity.
+
+### wow-246 — RETRO_REFUTED
+
+> The radius <= number of zero coordinates of Maxine.
+
+Printed p.76 confirms the statement.  The source itself records that on cycles
+of order `6k`, Maxine may return only `2k` vertices, producing a counterexample
+(to this and 147).  This is an explicit historical refutation, not a new kill.
