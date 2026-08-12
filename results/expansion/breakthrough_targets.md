@@ -95,3 +95,19 @@ the denser family members were not mislabeled as tested. This admissible
 bounded screen finds no disproof and supplies no candidate requiring the
 database or novelty gates.
 
+### 3. Erdos--Gyarfas power-of-two cycles — HOLD
+
+The source-lock statement requires every finite simple graph of minimum degree
+at least three to contain a simple cycle of length `2^j` for some `j >= 2`.
+Every applicable arsenal member has such a cycle. All carrier-family,
+triangular, complement-carrier, `K4`, and `K3,3` instances already contain a
+4-cycle. Petersen, the only arsenal graph without one, contains the explicit
+8-cycle `(0,5,8,6,9,7,2,1)`.
+
+The same bounded path enumerator used for the Dean check searched lengths
+`4,8,16,32` in increasing order; a separate replay checked vertex uniqueness,
+edge incidence, closure, and the power-of-two length. The source inventory's
+2026 frontier starts beyond 17 vertices generally and beyond 29 for cubic
+graphs, but the 20--40 vertex carrier objects are not near misses: all except
+Petersen fail immediately at length four. No disproof is present.
+
