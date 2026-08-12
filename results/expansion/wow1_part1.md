@@ -129,4 +129,8 @@ Regular-graph bound `n/d <= rank(A)` holds throughout: `C5[K4]` gives `20/11 <= 
 
 The inherited triangle-free hypothesis selects only `complement(C5[K4])`; its average degree is 8 and its Randić index is 10. All other arsenal members contain triangles.
 
+### wow-70 — RETRO-VIOLATION — already refuted
+
+On the natural clique-coordinate reading, `C5[K4]` has `chi=10 > 8=max frequency`; the cycle blow-ups similarly fail. The same row explicitly records Staton's counterexample and Rödl's arbitrarily large gaps, so this is only a retro-witness.
+
 <!-- NEXT -->
