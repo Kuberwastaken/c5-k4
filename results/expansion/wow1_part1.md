@@ -112,4 +112,13 @@ Every arsenal member is regular, so its degree standard deviation is exactly
 zero and the bound holds.  The row's truncated commentary records supporting
 proof results; it is not treated as a new open claim.
 
+### wow-32 — HOLD; alternate reading rejected
+
+> The negative of the largest negative distance eigenvalue is not more than the matching number.
+
+The Aouchiche–Hansen spectral-order reading, `-max{lambda<0} <= mu`, holds on
+all arsenal graphs (left side 1 on the cycle blow-ups). Reading “largest” as
+largest magnitude instead fails on `C7[K3]` and `C9[K3]`, but contradicts the
+survey's explicit formula and is not a faithful reading.
+
 <!-- NEXT -->
