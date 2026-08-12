@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 124 / 208.
+Progress: 125 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -781,5 +781,11 @@ Exact independence and complement degeneracy/core numbers satisfy `alpha<=1+gmin
 > "lower quotient of the degree sequence ... not more than its independence number."
 
 Applying the stated iterative deletion to each regular degree sequence gives a lower quotient at most exact alpha throughout. Direct simulation and its closed form for constant sequences agree.
+
+### wow-795 — HOLD
+
+> "lower quotient ... not less than the Turan bound."
+
+With the source's integral quotient convention and Caro-Wei/Turán bound, direct constant-degree simulations satisfy the bound for all regular arsenal members. Rounding the nonintegral bound upward yields the same integral comparison.
 
 
