@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-95 — HOLD / NO ADDITIONAL WITNESS
+
+> The mode of the distance < the residue. Cy is a counterexample with the interpretation of the mode as the largest of modes. Odile Favaron , Maryvonne Maheo and Jean-Francois Sacle, July 88.
+
+The row depends on the modal tie plus residue convention. Under the source-faithful convention used in the existing campaign profiles, every applicable arsenal graph holds; no alternate convention is introduced and no additional historical witness is claimed.
+
 ### wow-81 — SKIP_ORDER_DEPENDENT
 
 > variance of coordinates of a maximal independent set < maximal frequency of Even. Disproved by William Staton. March 88.
