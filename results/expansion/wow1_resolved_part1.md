@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-52 — HOLD / NO ADDITIONAL WITNESS
+
+> The number of zero eigenvalues < the number of vertices in the boundary of the graph. s.f.
+
+The row depends on the boundary/periphery terminology. Under the source-faithful convention used in the existing campaign profiles, every applicable arsenal graph holds; no alternate convention is introduced and no additional historical witness is claimed.
+
 ### wow-51 — PROVED_HOLD
 
 > The number of zero eigenvalues < the number of vertices in the center of the graph. s.f. April 87.
