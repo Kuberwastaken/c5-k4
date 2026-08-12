@@ -677,4 +677,8 @@ OCR destroyed the exponent/formula; the row says the intended result is known fr
 
 Under the printed gravity definition, `mean(Gravity)*average_distance <= sum degrees` throughout the arsenal.
 
+### wow-275 — N/A_ARSENAL
+
+Inherited `girth>5` hypothesis excludes every arsenal graph.
+
 <!-- NEXT -->
