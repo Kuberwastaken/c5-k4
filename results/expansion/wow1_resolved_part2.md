@@ -413,3 +413,10 @@ set computations agree.
 **Status:** refuted (WoW annotation). On Petersen, the applicable cubic
 triangle-free calibration graph, `alpha=4 >= diameter=2`. Exact BFS
 eccentricities and a separate clique search in the complement agree.
+
+## wow-882 — HOLD
+
+**Status:** refuted (WoW annotation). For the regular triangle-free complement
+carrier, the red graph is `C5[K4]`: `alpha(G)=8 > alpha(R)=2`. Petersen gives
+`4>2`. Direct distance-two construction and independent complement-clique
+search agree.
