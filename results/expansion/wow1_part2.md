@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 101 / 208.
+Progress: 102 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -643,5 +643,11 @@ The record truncates mid-noun and loses the set whose spectral measure forms the
 > "independence of G is not less than the maximum of [reciprocal degree] r(v)."
 
 For a `d`-regular graph, each `r(v)=sum_{u in N(v)}1/d(u)=1`. All arsenal members have `alpha>=2`, so the bound holds exactly computed.
+
+### wow-763 — HOLD
+
+> "The mean reciprocal degree = 1."
+
+For any graph without isolates, averaging `r(v)=sum_{u in N(v)}1/d(u)` gives `(1/n)sum_u d(u)/d(u)=1`. All connected arsenal members satisfy it.
 
 
