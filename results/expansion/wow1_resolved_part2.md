@@ -270,3 +270,11 @@ independent-set enumeration agree.
 counter-independent sets and jets but truncates before a complete conjectured
 comparison. The definitions are useful for #778; they do not themselves form a
 falsifiable row.
+
+## wow-778 — HOLD
+
+**Status:** proved (WoW annotation). Exhaustive subset search gives jet number
+`2` on every `C5[K_m]` and on the complement carrier, versus respectively
+three positive eigenvalues. It gives jet numbers `3,3,4` on `T(7),T(8),T(9)`
+versus `7,8,9`. A separate neighborhood-complement predicate reproduces each
+jet, so `jet <= n_positive` holds throughout.
