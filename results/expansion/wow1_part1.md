@@ -581,4 +581,8 @@ Maximum consecutive Laplacian gap is below exact `n/average_distance`; `C5[K8]` 
 
 `n-rank(A) <= |E|/average_distance`; only the carrier complement has nonzero LHS of note: `15 <= 152/3`.
 
+### wow-235 — HOLD
+
+Exact average distance is at most minimum Odd count; carrier `27/19 <= 11`.
+
 <!-- NEXT -->
