@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 185 / 208.
+Progress: 186 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -1147,5 +1147,11 @@ For `bar(C5[K4])`, red graph `C5[K4]` is connected, so `1<=2*1`.
 > "red clique number is at least as large as maximum degree."
 
 For the applicable triangle-free graph `bar(C5[K4])`, red graph is `C5[K4]`, with clique number 8 exactly equal to `Delta(G)=8`.
+
+### wow-868 — HOLD
+
+> "independence number of the blue graph ... minimum span of two nonadjacent vertices."
+
+For `bar(C5[K4])`, blue graph is empty so alpha is 20, while exhaustive pair neighborhoods give minimum span 8. Thus `20>=8`.
 
 
