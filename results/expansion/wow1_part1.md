@@ -673,4 +673,8 @@ Garble: `laveragedistance (sumo fremper atures) <n.`
 
 OCR destroyed the exponent/formula; the row says the intended result is known from Fink.
 
+### wow-271 — HOLD
+
+Under the printed gravity definition, `mean(Gravity)*average_distance <= sum degrees` throughout the arsenal.
+
 <!-- NEXT -->
