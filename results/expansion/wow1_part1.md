@@ -805,4 +805,8 @@ Reading `|E|/alpha <= mode Even`, carrier complement gives `10 <= 12`.
 
 Rainbow depends on unspecified greedy coloration/order.
 
+### wow-316 — HOLD where applicable
+
+Carrier complement gives `chi=3 <= Laplacian range=10+2sqrt(5)`.
+
 <!-- NEXT -->
