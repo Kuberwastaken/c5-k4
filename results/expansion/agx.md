@@ -310,6 +310,15 @@ Recovered reading (the four displayed comparisons): with adjacency index `lambda
 
 All four inequalities hold on every arsenal graph. The closest arsenal comparison is still far from the boundary: on `C5[K2]`, the minimum slack is `6.014037288...` (the first inequality; `n=10`, `lambda1=5`, `nu=4`, `kappa=5`, `t=0.014037288...`). For the carrier the four slacks are respectively `14.002931619`, `17.002931619`, `16.627931619`, and `17.002931619`; its closed-form regular spectrum gives `lambda1=11` exactly. No apparent violation, so the database-sanity and novelty gates are not triggered.
 
+## Completion audit
+
+- **Corpus coverage:** 71/71 unique targets are present: all 70 strict-open records plus the single open-in-full record `agx-survey-C23`. A machine comparison of corpus IDs against level-three verdict headings reports no missing or extra IDs.
+- **Final dispositions (corrections applied):** 45 `HOLD`; 24 `SKIP_OCR`/missing-definition rows; 1 `NOT_APPLICABLE` (`C23`, unicyclic hypothesis, subsequently proved); 1 `DB_REJECTED` (`C42`). Five initially conservative skips were later reconstructed cross-row and corrected to `HOLD`; their correction notes are authoritative.
+- **Candidate audit:** the only apparent arsenal violation was literal `C42` on `comp(C5[K4])`, with `10 > 3`. It failed the mandatory database gate on `P4` and on 43 of the 90 connected triangle-free Atlas graphs through order 7, and was independently reproduced from the distance spectrum. It is an incomplete/corrupt reading, not a campaign kill.
+- **Arsenal audit:** every evaluable universal bound was checked on all required blow-ups, triangular graphs, the complement carrier, Petersen, and Paley(13/17/29). Spectral comparisons used a `1e-6` guard and a distinct closed-form/regular-spectrum recomputation; distance and degree values were exact. No ILP/CBC call was made.
+- **Novelty audit:** no gate-surviving new counterexample exists, hence nothing is claimable. Known refutations by Wagner and Vito--Stefanus were explicitly distinguished where the arsenal merely holds. The archived primary survey PDF cited by `ACQUISITION.md` was absent from this checkout and temporarily rate-limited, so irrecoverable column-wrap rows remain quoted `SKIP_OCR` rather than guessed.
+
+
 ### `agx-survey-C23` — NOT_APPLICABLE (and subsequently proved)
 
 Statement: among **unicyclic** graphs of order `n`, specified cycles maximize adjacency energy for `n <= 7` and `n in {9,10,11,13,15}`, while the lollipop `Lol(n,6)` does so for every other order. None of the campaign arsenal graphs is unicyclic: each has an edge surplus larger than one, including the smallest `C5[K2]` (`n=10`, `m=25`). Thus the hypothesis excludes the entire arsenal and there is no carrier verdict to test. This is the one corpus entry counted separately from the 70 strict-open entries; its metadata also records that Andriantiana and Wagner proved the full conjecture in 2011.
