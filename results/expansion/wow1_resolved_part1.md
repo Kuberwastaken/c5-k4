@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-141 — HOLD / NO ADDITIONAL WITNESS
+
+> range of positive eigenvalues < the matching number. [FMS2]. December 88.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed matching, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
 ### wow-140 — HOLD / NO ADDITIONAL WITNESS
 
 > deviation of eigenvalues < harmonic. FMS. 10.89.
