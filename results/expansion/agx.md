@@ -9,9 +9,13 @@
 - **OCR discipline:** an expression that cannot be recovered faithfully from the corpus is recorded as `SKIP_OCR` with the surviving garble quoted; no intended formula is guessed.
 - **ILP discipline:** no solver call may exceed 60 seconds. (This lane currently needs no ILP.)
 
-Progress: **64/71** entries evaluated (70 strict-open + 1 open-in-full).
+Progress: **65/71** entries evaluated (70 strict-open + 1 open-in-full).
 
 ## Verdicts
+
+### `agx-survey-C30` — HOLD
+
+The parity-dependent lower bound on `a*proximity` (odd `(n+1)/2*(1-cos(pi/n))`; even `n^2/(2(n-1))*(1-cos(pi/n))`) holds throughout. Transmissions are exact and Laplacian spectra use the guard and a closed-form cross-check. No candidate violation appears, so the database and novelty gates are not triggered.
 
 ### `agx-survey-C29` — HOLD
 
