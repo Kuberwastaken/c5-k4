@@ -67,3 +67,9 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 > radius is not more than the average distance + sum of reciprocals of degrees. (3.) Disproved by James B. Shearer, IBM, Yorktown Heights, 10. 89.
 
 The applicable arsenal satisfies the source-faithful inequality using the listed average_distance, degree, distance, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-15 — HOLD / NO ADDITIONAL WITNESS
+
+> radius is not more than the variance of the degree sequence + Randic Index. (8, 4.) Gilles Caporossi and Pierre Hansen, University of Montreal noticed that even paths with > 22 vertices are counterexamples to this conjecture and for n > 26 even paths are co...
+
+The applicable arsenal satisfies the source-faithful inequality using the listed degree, path, radius, randic_index quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
