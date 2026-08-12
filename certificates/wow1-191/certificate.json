@@ -1,0 +1,34 @@
+{
+  "certificate": "WoW-I #191 is false",
+  "closed_form_family": {
+    "hypothesis": "sum Odd < sum Even",
+    "minimum_deficiency": "(q-2)(q-3)",
+    "range": "every integer q >= 7",
+    "size_over_clique_number": "q(q-2)/2"
+  },
+  "constructed_family_checked": {
+    "first_q": 3,
+    "last_q": 12
+  },
+  "counterexample": "T(7) = L(K_7)",
+  "witness": {
+    "clique_number": 6,
+    "clique_witness": [[0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [0, 6]],
+    "conjecture_holds": false,
+    "conjectured_upper_bound": {
+      "denominator": 2,
+      "numerator": 35
+    },
+    "degree": 10,
+    "even_coordinate": 11,
+    "hypothesis_sum_odd_lt_sum_even": true,
+    "minimum_deficiency": 20,
+    "odd_coordinate": 10,
+    "order": 21,
+    "q": 7,
+    "size": 105,
+    "sum_even": 231,
+    "sum_odd": 210,
+    "violation_numerator_after_multiplying_by_omega": 15
+  }
+}
