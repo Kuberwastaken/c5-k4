@@ -125,3 +125,10 @@ versus `18`; triangular graphs also fail.
 **Status:** refuted (WoW annotation). The antecedent is that `G` is a perfect
 plant, as defined in the preceding discussion. No arsenal member satisfies that
 special equality condition, so the campaign cannot supply a retro-counterexample.
+
+## wow-722 — SKIP_OCR
+
+**Status:** refuted (Aouchiche--Hansen survey). The row depends on the
+`frequency of mode` of a largest-eigenvalue eigenvector, with normalization,
+choice, and tie behavior absent from the isolated record. It is a Graffiti
+try-out rather than a well-defined invariant; no reading is guessed.
