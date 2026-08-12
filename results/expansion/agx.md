@@ -9,9 +9,13 @@
 - **OCR discipline:** an expression that cannot be recovered faithfully from the corpus is recorded as `SKIP_OCR` with the surviving garble quoted; no intended formula is guessed.
 - **ILP discipline:** no solver call may exceed 60 seconds. (This lane currently needs no ILP.)
 
-Progress: **53/71** entries evaluated (70 strict-open + 1 open-in-full).
+Progress: **54/71** entries evaluated (70 strict-open + 1 open-in-full).
 
 ## Verdicts
+
+### `agx-form1-T45-r86-lower` — HOLD
+
+Recovered same-order extremal comparison: `a+average_distance` is minimized by `Ki(n,n-2)`. This duplicates C29's first comparison; exact arsenal distances and direct comparator spectra give no violation. Direct dense spectra use the 1e-6 guard and the independent check uses the applicable closed form; no candidate gate is triggered.
 
 ### `agx-form1-T45-r45-upper` — HOLD
 
