@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 19 / 208.
+Progress: 20 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -151,5 +151,11 @@ withdrawn before the DB gate because exact recomputation showed no violation.
 > "independence < n — modeofmid — Degree."
 
 The OCR leaves two subtraction marks around a fused `modeofmid-Degree` token; the intended grouping and invariant are not reliably recoverable.
+
++### wow-548 — SKIP_OCR
+
+> "mode of mid-Degree < size independence."
+
+The corpus does not preserve the mid-Degree sequence definition with enough precision to reproduce its mode for this sweep. No substitute invariant is guessed.
 
 
