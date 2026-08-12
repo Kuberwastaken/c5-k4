@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 66 / 208.
+Progress: 67 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -433,5 +433,11 @@ Temperature is defined, but `rainbow` is not, so the inequality cannot be evalua
 > "The range range of rainbow n — m4"
 
 The sign and grouping are absent, with duplicated `range` and unrecovered `m4`. This is unusable OCR.
+
+### wow-707 — SKIP_OCR
+
+> "The radius < number of positive components of the smallest eigenvector."
+
+Arsenal graphs have repeated smallest eigenvalues, so sign support varies by chosen vector. The source gives no quantifier/normalization making it invariant.
 
 
