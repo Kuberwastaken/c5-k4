@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 141 / 208.
+Progress: 142 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -883,5 +883,11 @@ The PR/RP context and OCR-damaged `l` make the arsenal inapplicable. Literal rea
 > "largest eigenvalue - second largest ... not more [than] deviation ... + mean temperature."
 
 A universal literal reading fails 710/995 atlas graphs, including small database members. Context does not establish an arsenal instance, hence no kill.
+
+### wow-814 — N/A_ARSENAL
+
+> "Invariant Interpolation problems ... [for] RP[n]"
+
+This is a problem asking for a new invariant tailored to `RP[n]`, not a fixed universal inequality for testing.
 
 
