@@ -384,3 +384,11 @@ cannot provide an additional refutation.
 triangle-free, and girth five. The named Petersen graph is applicable and has
 diameter two, satisfying the first disjunct directly. No primary carrier-family
 member is cubic.
+
+## wow-876 — TIGHT
+
+**Status:** refuted (WoW annotation). The complement carrier is connected,
+regular, triangle-free, and diameter two. Each vertex has eight odd-distance
+vertices and no horizontal edge in its odd layer (triangle-freeness), so
+`w(v)=8=d`: exact equality in `d <= min w(v)`. Petersen likewise ties
+`3=3`. Direct BFS layers independently confirm both values.
