@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-147 — SKIP_ORDER_DEPENDENT
+
+> The average distance < the number of vertices whose coordinates of Max- ane ts 0. With a right (or really wrong) ordering of vertices in barbell graphs, [FA] , Maxine may select every third vertex in the central path, so the strongest version of the observa...
+
+The source explicitly makes the Maxine output ordering-dependent and explains how a bad ordering refutes the strongest version. No canonical ordering is frozen for the arsenal, so no extra witness is claimed.
+
 ### wow-146 — PROVED_HOLD
 
 > The sum of positive eigenvalues < size. The equality holds true iff the maximum degree is 1. James B. Shearer, July 88.
