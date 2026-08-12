@@ -777,4 +777,8 @@ Garble: RHS `largesteigenvalue’ LOny L` is unusable.
 
 Rank condition selects `T(7..9)`: average distances `3/2,14/9,8/5` are at most residues `2,3,3`.
 
+### wow-309 — HOLD where applicable
+
+On `T(7..9)`, `sum 1/Odd` equals `21/10,7/3,18/7`, below matchings `10,14,18`.
+
 <!-- NEXT -->
