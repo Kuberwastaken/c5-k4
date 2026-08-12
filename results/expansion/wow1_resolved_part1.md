@@ -25,3 +25,9 @@ is committed and pushed before the next row is recorded.
 > For every connected graph the radius is not more than its independence number. This conjecture was proved in [FW], [FMS1] and later in [F]. At about the same time slightly stronger result appeared in [ESS]. Radius is of course not a very good bound for the ...
 
 Direct evaluation of the applicable arsenal using the source hypotheses and the listed alpha, distance, radius quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
+### wow-1 — HOLD / NO ADDITIONAL WITNESS
+
+> Chromatic number of a graph is not more than its rank +1. The rank of a graph is the rank of its adjacency matrix. Francois Jeager told me (about a year) later that a somewhat stronger conjecture was made earlier by Cyriel Van Neufallen, [CDS].
+
+The applicable arsenal satisfies the source-faithful inequality using the listed chromatic_number, rank quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
