@@ -19,3 +19,9 @@ use a `1e-6` guard.  Any ILP is capped at 60 seconds.
 
 Progress below is append-only at conjecture granularity.  Every completed row
 is committed and pushed before the next row is recorded.
+
+### wow-0 — PROVED_HOLD
+
+> For every connected graph the radius is not more than its independence number. This conjecture was proved in [FW], [FMS1] and later in [F]. At about the same time slightly stronger result appeared in [ESS]. Radius is of course not a very good bound for the ...
+
+Direct evaluation of the applicable arsenal using the source hypotheses and the listed alpha, distance, radius quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
