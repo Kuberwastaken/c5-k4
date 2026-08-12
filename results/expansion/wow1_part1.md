@@ -509,4 +509,8 @@ Average distance is at most the number of negative gravity eigenvalues throughou
 
 Garble: `Inverse coordinates of Maxine < n/2.` Maxine is representation-dependent, and the row explicitly gives `P5` as a counterexample.
 
+### wow-213 — DB_SANITY_FAIL / SKIP_OCR
+
+Literal `size/2 <= Randic` fails `K3,3` and the carrier complement, implying a lost radical or different size convention. The intended formula cannot be recovered.
+
 <!-- NEXT -->
