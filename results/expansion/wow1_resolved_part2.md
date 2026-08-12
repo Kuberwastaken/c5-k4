@@ -192,3 +192,9 @@ admissible instance; the metadata tension is recorded without inventing one.
 graph of a polygon together with the polygon's Euclidean distance matrix.
 Arsenal graphs have no supplied polygon realization, and the eigenvector
 component count is explicitly a nonunique try-out.
+
+## wow-739 — NOT_APPLICABLE
+
+**Status:** proved (WoW annotation). This is a Euclidean triangle area identity,
+not a graph conjecture. No campaign object supplies the required angle
+bisectors, side distances, or perimeter.
