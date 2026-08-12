@@ -41,18 +41,766 @@
   "transcription_confidence": "medium"
  },
  {
-  "id": "wow-69",
-  "statement_text": "8. 97. [C] Fan Chung, The Average Distance is not more than the Independence Num- ber, JGT, (88) [D] P. Dankelmann, Average Distance and the Independence Number, Discrete Applied Mathematics, 51, 1994 73 - 838. [FW] S. Fajtlowicz and W. Waller, On Two Conjectures of Graffiti, Congressus Numerantium, 55(86), p. 51 - 56. [FH] P. Firby and J.Haviland, Independence and average distance in graphs, Discrete Applied Mathematics, 75(1997), p. 27-37. [W] W. Waller, PhD Dissertation, UH. 3. The weight of an edge with endpoints of degree x and y is the reciprocal of the square root of xy. The Randic index of a graph is the sum of weights of its edges. Conjecture: If G is a connected graph then the aver",
+  "id": "wow-3",
+  "statement_text": "The weight of an edge with endpoints of degree x and y is the reciprocal of the square root of xy. The Randic index of a graph is the sum of weights of its edges. Conjecture: If G is a connected graph then the average distance between its distinct vertices 1s not more than its Randic index. The Randic index was proposed as a measure of “branching” of a tree and it is used by some chemists to predict the boiling point of certain hydrocarbons[KH]. In view of this conjecture it 1s interesting to remark that Wiener proposed for the same purpose an index which for simple graphs is the sum of all of its distances [KH], p.2o6. comp conj’s 12, 19, 20, 21, 27 and 28. Gilles Caporossi and Pierre Hanse",
   "invariants": [
-   "alpha",
    "average_distance",
    "degree",
+   "distance",
+   "randic_index",
+   "tree"
+  ],
+  "hypotheses": "",
+  "status": "refuted (per WoW annotation)",
+  "status_detail": "An earlier conjecture that the average distance is not more than the sum of reciprocals of degrees was disproved by Paul Erdos, Janos Pach and Joel Spencer, [EPS].",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-5",
+  "statement_text": "average distance is not more than mode of distance + sum of reciprocals of degrees.",
+  "invariants": [
+   "average_distance",
+   "degree",
+   "distance"
+  ],
+  "hypotheses": "",
+  "status": "unannotated (no status note in WoW text)",
+  "status_detail": "",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-6",
+  "statement_text": "average distance is not more than the variance of the degree sequence + maximal frequency of the degree sequence, (4.) The conjecture was refuted by James B. Shearer, IBM Research Center at Yorktown Heights. 10.89.",
+  "invariants": [
+   "average_distance",
+   "degree",
+   "distance"
+  ],
+  "hypotheses": "",
+  "status": "refuted (per WoW annotation)",
+  "status_detail": "average distance is not more than the variance of the degree sequence + maximal frequency of the degree sequence, (4.) The conjecture was refuted by James B.",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-7",
+  "statement_text": "mode of distance is not more than radius + Randic index. (3, 9.)",
+  "invariants": [
+   "distance",
+   "radius",
+   "randic_index"
+  ],
+  "hypotheses": "",
+  "status": "unannotated (no status note in WoW text)",
+  "status_detail": "",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-8",
+  "statement_text": "mode of distance is not more than average distance + Randic index. (3, 9.)",
+  "invariants": [
+   "average_distance",
+   "distance",
+   "randic_index"
+  ],
+  "hypotheses": "",
+  "status": "unannotated (no status note in WoW text)",
+  "status_detail": "",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-9",
+  "statement_text": "Let m be the mode of distance of connected graph, 1.e the distance which occurs most often. Conjecture: m is not more than the average distance + the matching number. This conjecture was refuted by Hi Dong Qi, Dept. of Applied Mathemat- ics, Beijing Institute of Technology, /HE/. 3.90.",
+  "invariants": [
+   "average_distance",
+   "distance",
+   "matching"
+  ],
+  "hypotheses": "Let m be the mode of distance of connected graph",
+  "status": "refuted (per WoW annotation)",
+  "status_detail": "This conjecture was refuted by Hi Dong Qi, Dept.",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-10",
+  "statement_text": "average temperature is not more than rank. (-1, 1.) This conjecture is correct. s.f 1.88.",
+  "invariants": [
+   "rank",
+   "temperature"
+  ],
+  "hypotheses": "",
+  "status": "unannotated (no status note in WoW text)",
+  "status_detail": "",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-11",
+  "statement_text": "average temperature is not more than the variance of the degree sequence + maximum frequency of the degree sequence. (-1, 4.) Disproved by William Staton, OleMiss 6. 88.",
+  "invariants": [
+   "degree",
+   "temperature"
+  ],
+  "hypotheses": "",
+  "status": "refuted (per WoW annotation)",
+  "status_detail": "(-1, 4.) Disproved by William Staton, OleMiss 6.",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-12",
+  "statement_text": "radius is not more than 1 + Randic index. (3.) Gilles Caporossi and Pierre Hansen conjecture on the basis of performance of AutoGraphiX that for graphs which are not even paths the Randic index is more than the radius and they prove their conjecture for trees. 6. 97.",
+  "invariants": [
+   "path",
+   "radius",
+   "randic_index",
+   "tree"
+  ],
+  "hypotheses": "",
+  "status": "unannotated (no status note in WoW text)",
+  "status_detail": "",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-13",
+  "statement_text": "radius is not more than the average distance + sum of reciprocals of degrees. (3.) Disproved by James B. Shearer, IBM, Yorktown Heights, 10. 89.",
+  "invariants": [
+   "average_distance",
+   "degree",
+   "distance",
+   "radius"
+  ],
+  "hypotheses": "",
+  "status": "refuted (per WoW annotation)",
+  "status_detail": "(3.) Disproved by James B.",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-14",
+  "statement_text": "radius is not more than average distance + Randic Index. (3.)",
+  "invariants": [
+   "average_distance",
+   "distance",
+   "radius",
+   "randic_index"
+  ],
+  "hypotheses": "",
+  "status": "unannotated (no status note in WoW text)",
+  "status_detail": "",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-15",
+  "statement_text": "radius is not more than the variance of the degree sequence + Randic Index. (8, 4.) Gilles Caporossi and Pierre Hansen, University of Montreal noticed that even paths with > 22 vertices are counterexamples to this conjecture and for n > 26 even paths are counterexamples to the next conjecture.",
+  "invariants": [
+   "degree",
+   "path",
+   "radius",
+   "randic_index"
+  ],
+  "hypotheses": "",
+  "status": "refuted (per WoW annotation)",
+  "status_detail": "This conjecture was refuted with aid of AutoGraphiX, comp conj.",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-16",
+  "statement_text": "radius is not more than the average temperature + Randic index. (-1, 3.) Disproved by Gilles Caporossi and Pierre Hansen, University of Mon- treal. See conj. 3 and 15.",
+  "invariants": [
+   "radius",
+   "randic_index",
+   "temperature"
+  ],
+  "hypotheses": "",
+  "status": "refuted (per WoW annotation)",
+  "status_detail": "(-1, 3.) Disproved by Gilles Caporossi and Pierre Hansen, University of Mon- treal.",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-17",
+  "statement_text": "radius is not more than the variance of the degree sequence + maximal frequency of the degree sequence. (4.) Disproved by James B. Shearer, IBM, Yorktown Heights, 10. 89.",
+  "invariants": [
+   "degree",
+   "radius"
+  ],
+  "hypotheses": "",
+  "status": "refuted (per WoW annotation)",
+  "status_detail": "(4.) Disproved by James B.",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-18",
+  "statement_text": "radius is not more than the number of vertices of maximum degree + the maximum frequency of the degree sequence. Disproved by Shui-Tain Chen, University of Houston, March 88. February 19. 87.",
+  "invariants": [
+   "degree",
+   "radius"
+  ],
+  "hypotheses": "",
+  "status": "refuted (per WoW annotation)",
+  "status_detail": "Disproved by Shui-Tain Chen, University of Houston, March 88.",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-19",
+  "statement_text": "Let a be the smallest eigenvalue of a graph G. Then - a is < Randic index of G. (3.) This conjecture was proved by Favaron, Maheo and Sacle, University of Paris-Sud. comp also conj’s 20, 21, 27 and 28. [FMS2] O. Favaron, M. Maheo and J-P. Sacle, Some Results on Conjectures of Graffiti - Part IT.",
+  "invariants": [
+   "randic_index",
+   "spectrum"
+  ],
+  "hypotheses": "Let a be the smallest eigenvalue of a graph G",
+  "status": "proved (per WoW annotation)",
+  "status_detail": "(3.) This conjecture was proved by Favaron, Maheo and Sacle, University of Paris-Sud. | A&H 2010 survey Table 6: −λn ⩽ Ra -> proved",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-20",
+  "statement_text": "The number of positive eigenvalues of a graph is not more than their sum. The sum of absolute values of eigenvalues of an integer valued matrix is greater or equal to its rank i.e the number of nonzero eigenvalues, [F2]. This is also a partial solution to conjecture 21. [F2] S. Fajtlowicz, On Conjectures of Graffiti, II. Congressus Numerantium 60 (87), p. 189-197.",
+  "invariants": [
+   "rank",
+   "spectrum"
+  ],
+  "hypotheses": "",
+  "status": "open (per Aouchiche-Hansen 2010 survey)",
+  "status_detail": "A&H 2010 survey Table 6: p+ ⩽ λi >0 λi -> open",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-21",
+  "statement_text": "The number of negative eigenvalues of a graph is not more than the sum of its positive eigenvalues. comp. con) 20.",
+  "invariants": [
+   "spectrum"
+  ],
+  "hypotheses": "",
+  "status": "open (per Aouchiche-Hansen 2010 survey)",
+  "status_detail": "A&H 2010 survey Table 6: p− ⩽ λi >0 λi -> open",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-22",
+  "statement_text": "Let e be the largest negative eigenvalue of a graph. Then -e is smaller or equal to the independence number. The Paley graph with 101 vertices 1s a counter-example. Noga Alon, Tel Aviv University and Bellcore. June 88. Alon and myself noticed that the conjecture is true for triangle-free graphs. In- deed for these graphs the independence number > maximum degree > largest eigen- value > absolute value of any eigenvalue. It seems of interest to characterize all exceptions to this conjecture. Noga Alon suggests that they should have few distinct eigenvalues.",
+  "invariants": [
+   "alpha",
+   "degree",
+   "spectrum"
+  ],
+  "hypotheses": "Let e be the largest negative eigenvalue of a graph",
+  "status": "refuted (per WoW annotation)",
+  "status_detail": "The Paley graph with 101 vertices 1s a counter-example. | A&H 2010 survey Table 6: − max(Λ− ) ⩽ α -> refuted",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-23",
+  "statement_text": "rank of the adjacency matrix is not more than the rank of the distance Matrie. Even cycles Cy, n > 6 or more are counterecamples. James B. Shearer, Thomas J. Watson Research Center, Yorktown Heights, May 88. The counterexample is Ce (and all bigger even cycles) but in spite of their simplicity, I think that counterexamples are rather rare graphs and they must have a highly regular structure. Perhaps it will be even possible to describe all other counter-eramples if there are any. James B. Shearer noticed that k-dimensional cubes Q; are also counterexamples to the conjecture. For large k, Q, are also counterexamples to 26, 29 and 32. Shearer also remarks that by attaching various small graphs",
+  "invariants": [
+   "cycle",
+   "distance",
+   "rank"
+  ],
+  "hypotheses": "",
+  "status": "refuted (per WoW annotation)",
+  "status_detail": "The counterexample is Ce (and all bigger even cycles) but in spite of their simplicity, I think that counterexamples are rather rare graphs and they must have a highly regular structure.",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-24",
+  "statement_text": "average temperature is not more than the number of negative eigenvalues. This and the next conjecture were proved by Shearer.",
+  "invariants": [
+   "spectrum",
+   "temperature"
+  ],
+  "hypotheses": "",
+  "status": "proved (per WoW annotation)",
+  "status_detail": "This and the next conjecture were proved by Shearer. | A&H 2010 survey Table 6: Mn(Tp) ⩽ p− -> proved",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-25",
+  "statement_text": "average temperature is not more than the number of negative eigenvalues of the distance matrix. (-1.) see 24.",
+  "invariants": [
+   "distance",
+   "spectrum",
+   "temperature"
+  ],
+  "hypotheses": "",
+  "status": "proved (per Aouchiche-Hansen 2010 survey)",
+  "status_detail": "A&H 2010 survey Table 6: Mn(Tp) ⩽ p− (D ) -> proved",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-26",
+  "statement_text": "Sum of reciprocals of degrees is not more than the rank of the distance matriz. (1.) This was disproved by Alon, Saks, Seymour, Shearer and Winkler.",
+  "invariants": [
+   "degree",
+   "distance",
+   "rank"
+  ],
+  "hypotheses": "",
+  "status": "refuted (per WoW annotation)",
+  "status_detail": "(1.) This was disproved by Alon, Saks, Seymour, Shearer and Winkler.",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-27",
+  "statement_text": "The standard deviation of the degree sequence < Randic. (38,4.) James Shearer, IBM Research Center in Yorktown Heights, proved that if G has no isolated vertices then the Randic index of G is greater or equal to vO It is the first proof that Randic index goes to infinity together with n. The bound is not far off from the best possible since in stars it is equal to \\/n. February 88. Noga Alon, Tel-Aviv University, proved that if G has no isolated vertices then its Randic index is greater or equal to \\/n— 8. July 88. Odile Favaron, Maryvonne Maheo and Jean-Paul Sacle, University of Paris-Sud deduced from their solution of conjecture 19, a positive answer to this conjecture assuming that G is t",
+  "invariants": [
+   "degree",
+   "randic_index"
+  ],
+  "hypotheses": "",
+  "status": "unannotated (no status note in WoW text)",
+  "status_detail": "",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-28",
+  "statement_text": "Randic index is not more than the sum of positive eigenvalues. This conjecture is false, but working on a counterexample I formed a conjecture that for trees the value of Randic index is close, and seem to be correlated with the sum of the positive eigenvalues. Since eigenvalues of the adjacency matrix of graphs of hydrocarbons are approximation of the solutions of their Schrodinger equation, I would conjecture that the boiling point of single-bonded, acyclic hydrocarbons depends only on the sum of positive solutions of the Schrodinger equation. I discussed my question with Professor Matcha from UH Chemistry Department, who told me that it is very sensible and plausible for this class hydroc",
+  "invariants": [
+   "randic_index",
+   "spectrum",
+   "tree"
+  ],
+  "hypotheses": "",
+  "status": "refuted (per WoW annotation)",
+  "status_detail": "This conjecture is false, but working on a counterexample I formed a conjecture that for trees the value of Randic index is close, and seem to be correlated with the sum of the positive eigenvalues. | A&H 2010 survey Table 6: Ra ⩽ λi >0 λi -> refuted",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-29",
+  "statement_text": "The Randic index is not more than the number of negative distance eigen- values. Disproved by Alon, Saks, Seymour, Shearer and Winkler. July 88.",
+  "invariants": [
    "distance",
    "randic_index"
   ],
   "hypotheses": "",
   "status": "refuted (per WoW annotation)",
-  "status_detail": "An earlier conjecture that the average distance is not more than the sum of reciprocals of degrees was disproved by Paul Erdos, Janos Pach and Joel Spencer, [EPS].",
+  "status_detail": "Disproved by Alon, Saks, Seymour, Shearer and Winkler. | A&H 2010 survey Table 6: Ra ⩽ p− (D ) -> refuted",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-30",
+  "statement_text": "The number of positive distance eigenvalues is not more than sum of temperatures of vertices. A counterexample is D6(B6). James. B. Shearer, July 88.",
+  "invariants": [
+   "distance",
+   "spectrum",
+   "temperature"
+  ],
+  "hypotheses": "",
+  "status": "refuted (per WoW annotation)",
+  "status_detail": "A counterexample is D6(B6). | A&H 2010 survey Table 6: p (D ) ⩽ v∈V Tp(v) -> refuted",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-31",
+  "statement_text": "The negative of the largest negative distance eigenvalue is not more than the independence number. A counterexample is D2(B4). James B. Shearer, 7.88.",
+  "invariants": [
+   "alpha",
+   "distance",
+   "spectrum"
+  ],
+  "hypotheses": "",
+  "status": "refuted (per WoW annotation)",
+  "status_detail": "A counterexample is D2(B4). | A&H 2010 survey Table 6: − max(Λ− (D)) ⩽ α -> refuted",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-32",
+  "statement_text": "The negative of the largest negative distance eigenvalue is not more than the matching number.",
+  "invariants": [
+   "distance",
+   "matching",
+   "spectrum"
+  ],
+  "hypotheses": "",
+  "status": "open (per Aouchiche-Hansen 2010 survey)",
+  "status_detail": "A&H 2010 survey Table 6: − max(Λ− (D)) ⩽ μ -> open",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-33",
+  "statement_text": "The negative of the largest negative distance eigenvalue is not more than the chromatic number. Disproved by Alon, Saks, Seymour, Shearer and Winkler. comp 28.",
+  "invariants": [
+   "chromatic_number",
+   "distance",
+   "spectrum"
+  ],
+  "hypotheses": "",
+  "status": "refuted (per WoW annotation)",
+  "status_detail": "Disproved by Alon, Saks, Seymour, Shearer and Winkler. | A&H 2010 survey Table 6: − max(Λ− (D)) ⩽ χ -> refuted",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-34",
+  "statement_text": "n - rank of the distance matrix is not more than the maximum frequency of the distance. Disproved by James B. Shearer, comp 23.",
+  "invariants": [
+   "distance",
+   "rank"
+  ],
+  "hypotheses": "",
+  "status": "refuted (per WoW annotation)",
+  "status_detail": "Disproved by James B.",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-35",
+  "statement_text": "The diameter of a graph is not more than the negative of the largest negative distance eigenvalue. This and the next conjecture follows from interlacing theorem. James B. Shearer, 7.88",
+  "invariants": [
+   "diameter",
+   "distance",
+   "spectrum"
+  ],
+  "hypotheses": "",
+  "status": "proved (per Aouchiche-Hansen 2010 survey)",
+  "status_detail": "A&H 2010 survey Table 6: D ⩽ − max(Λ− (D )) -> proved",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-36",
+  "statement_text": "The diameter of a graph is not more than the number of negative eigen- values of the distance matrix. James B. Shearer, see 35.",
+  "invariants": [
+   "diameter",
+   "distance"
+  ],
+  "hypotheses": "",
+  "status": "proved (per Aouchiche-Hansen 2010 survey)",
+  "status_detail": "A&H 2010 survey Table 6: D ⩽ p− ( D ) -> proved",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-37",
+  "statement_text": "Radius is not more than the sum of positive eigenvalues. Proved in [FA2]. Also partially proved by Zang Shu, Beijing Institute of Technology.",
+  "invariants": [
+   "radius",
+   "spectrum"
+  ],
+  "hypotheses": "",
+  "status": "proved (per WoW annotation)",
+  "status_detail": "Proved in [FA2]. | A&H 2010 survey Table 6: r ⩽ λi >0 λi -> proved",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-38",
+  "statement_text": "The variance of the distance matrix is not more than the negative of the smallest eigenvalue.",
+  "invariants": [
+   "distance",
+   "spectrum"
+  ],
+  "hypotheses": "",
+  "status": "proved (per Aouchiche-Hansen 2010 survey)",
+  "status_detail": "A&H 2010 survey Table 6: var (D ) ⩽ −λn -> proved",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-39",
+  "statement_text": "The deviation of the distance matrix is not more than the number of positive eigenvalues. AO. The deviation of the distance matrix is not more than the number of negative eigenvalues. Al. chromatic number + radius 1s not more than the maximum degree + the frequency of maximum degree. Disproved by Shui-Tain Chen, UH 1/1. 87. A2. chromatic number + the average distance 1s not more than the maximum degree +the frequency of maximum degree. Disproved by Shui-Tain Chen, UH,",
+  "invariants": [
+   "average_distance",
+   "chromatic_number",
+   "degree",
+   "distance",
+   "radius",
+   "spectrum"
+  ],
+  "hypotheses": "",
+  "status": "refuted (per WoW annotation)",
+  "status_detail": "Disproved by Shui-Tain Chen, UH 1/1. | A&H 2010 survey Table 6: dev(D ) ⩽ p+ -> open",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-43",
+  "statement_text": "Let s be the smallest eigenvalue of G, and m its matching number. Then - s 1s smaller or equal to m. Proved by Favaron, Maheo and Sacle, University of Paris-Sud, /FMS2/. 4A, The second largest eigenvalue is not more than the independence number. Noga Alon found countereramples of arbitrary high connectivity. Not connected countereramples are easy, because the second eigenvalue may be equal to the largest one.",
+  "invariants": [
+   "alpha",
+   "connectivity",
+   "matching",
+   "spectrum"
+  ],
+  "hypotheses": "Let s be the smallest eigenvalue of G",
+  "status": "proved (per WoW annotation)",
+  "status_detail": "Proved by Favaron, Maheo and Sacle, University of Paris-Sud, /FMS2/. | A&H 2010 survey Table 6: −λn ⩽ μ -> proved",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-45",
+  "statement_text": "The second largest eigenvalue is not more than the matching number. Proved by Noga Alon, 5.88.",
+  "invariants": [
+   "matching",
+   "spectrum"
+  ],
+  "hypotheses": "",
+  "status": "proved (per WoW annotation)",
+  "status_detail": "Proved by Noga Alon, 5.88. | A&H 2010 survey Table 6: λ2 ⩽ μ -> proved",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-46",
+  "statement_text": "The smallest positive eigenvalue < number of vertices of the center of a graph. Disproved by James B. Shearer. May 88. See also 58. AT. The smallest positive eigenvalue < number of vertices on the boundary. Disproved by Peter Puget, The University of Puget Sound. November 88. The counter-example has 18 vertices but it is rather complicated.",
+  "invariants": [
+   "boundary",
+   "spectrum"
+  ],
+  "hypotheses": "",
+  "status": "refuted (per WoW annotation)",
+  "status_detail": "Disproved by James B. | A&H 2010 survey Table 6: min{λi : λi > 0} ⩽ |Center| -> refuted",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-48",
+  "statement_text": "The sum of positive eigenvalues < largest eigenvalue of the distance matrix. Peter Puget, The University of Puget Sound. September 88. A9. -largest negative eigenvalue < minimal frequency of the distance matrix.",
+  "invariants": [
+   "distance",
+   "spectrum"
+  ],
+  "hypotheses": "",
+  "status": "proved (per Aouchiche-Hansen 2010 survey)",
+  "status_detail": "A&H 2010 survey Table 6: λi >0 λi ⩽ λ1 (D ) -> proved",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-50",
+  "statement_text": "The number of zero eigenvalues < smallest mode of the distance matriz. s.f. April 87.",
+  "invariants": [
+   "distance",
+   "spectrum"
+  ],
+  "hypotheses": "",
+  "status": "proved (per Aouchiche-Hansen 2010 survey)",
+  "status_detail": "A&H 2010 survey Table 6: p0 ⩽ min Md(D ) -> proved",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-51",
+  "statement_text": "The number of zero eigenvalues < the number of vertices in the center of the graph. s.f. April 87.",
+  "invariants": [
+   "spectrum"
+  ],
+  "hypotheses": "",
+  "status": "proved (per Aouchiche-Hansen 2010 survey)",
+  "status_detail": "A&H 2010 survey Table 6: p0 ⩽ |Center| -> proved",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-52",
+  "statement_text": "The number of zero eigenvalues < the number of vertices in the boundary of the graph. s.f.",
+  "invariants": [
+   "boundary",
+   "spectrum"
+  ],
+  "hypotheses": "",
+  "status": "proved (per Aouchiche-Hansen 2010 survey)",
+  "status_detail": "A&H 2010 survey Table 6: p0 ⩽ |Boundary| -> proved",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-53",
+  "statement_text": "average temperature < minimal frequency of the distance matrix. Proved by Shui-Tain Chen, U. of Houston. April 87.",
+  "invariants": [
+   "distance",
+   "temperature"
+  ],
+  "hypotheses": "",
+  "status": "proved (per WoW annotation)",
+  "status_detail": "Proved by Shui-Tain Chen, U.",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-54",
+  "statement_text": "If G is a regular graph of degree d with n vertices then n/d is not more than the rank of G. Proved independently by Noga Alon and myself, [F4].",
+  "invariants": [
+   "degree",
+   "rank"
+  ],
+  "hypotheses": "If G is a regular graph of degree d with n vertices then n/d is not more than the rank of G",
+  "status": "unannotated (no status note in WoW text)",
+  "status_detail": "",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-55",
+  "statement_text": "The second largest eigenvalue is not more than the minimode of distance. Disproved by Peter Puget 11. 88, and later independently by Favaron, Maheo and Sacle. 1.91",
+  "invariants": [
+   "distance",
+   "spectrum"
+  ],
+  "hypotheses": "",
+  "status": "refuted (per WoW annotation)",
+  "status_detail": "Disproved by Peter Puget 11. | A&H 2010 survey Table 6: λ2 ⩽ min Md(D) -> refuted",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-56",
+  "statement_text": "The second largest eigenvalue is not more than the number of centers. Disproved by Halina Bielak, U. of Marie Curie-Skladowska, Lublin, Poland. It seems that I lost 57. Perhaps someone has an original version.",
+  "invariants": [
+   "spectrum"
+  ],
+  "hypotheses": "",
+  "status": "refuted (per WoW annotation)",
+  "status_detail": "Disproved by Halina Bielak, U. | A&H 2010 survey Table 6: λ2 ⩽ |Center| -> refuted",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-58",
+  "statement_text": "- largest negative eigenvalue is not more than the number of centers. Disproved by Peter Puget",
+  "invariants": [
+   "spectrum"
+  ],
+  "hypotheses": "",
+  "status": "refuted (per WoW annotation)",
+  "status_detail": "Disproved by Peter Puget | A&H 2010 survey Table 6: − max{λi : λi < 0} ⩽ |Center| -> refuted",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-59",
+  "statement_text": "Diameter is not more than the sum of positive eigenvalues. Disproved by Peter Puget",
+  "invariants": [
+   "diameter",
+   "spectrum"
+  ],
+  "hypotheses": "",
+  "status": "refuted (per WoW annotation)",
+  "status_detail": "Disproved by Peter Puget | A&H 2010 survey Table 6: D ⩽ λi >0 λi -> refuted",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-60",
+  "statement_text": "mode of distance is not more than the independence number. Disproved by Alon, Saks, Seymour and Winkler.",
+  "invariants": [
+   "alpha",
+   "distance"
+  ],
+  "hypotheses": "",
+  "status": "refuted (per WoW annotation)",
+  "status_detail": "Disproved by Alon, Saks, Seymour and Winkler.",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-61",
+  "statement_text": "mode of distance is not more than the matching number. Disproved by Alon, Saks, Seymour and Winkler,who also proved that the conjecture is true for regular graphs of high degree, > 10 is enough.",
+  "invariants": [
+   "degree",
+   "distance",
+   "matching"
+  ],
+  "hypotheses": "",
+  "status": "refuted (per WoW annotation)",
+  "status_detail": "Disproved by Alon, Saks, Seymour and Winkler,who also proved that the conjecture is true for regular graphs of high degree, > 10 is enough.",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-62",
+  "statement_text": "If G is a regular graph of degree d then the average distance is not more than n/d, comp 127. Peter Puget proved the conjecture for graphs of diameter < 3 and constructed an infinite family of graphs of diameter 4 and even F such that average distance = 2+ (3d+4)/(4d? +10d+6) and n/d = 2 + (3/d). January 89. Puget thinks that if there is a countererample then d is close to n/2, even though the difference in this case will not be too large. I thought that the best bet is d which is rather small compared to n. Here is my reason: Let Hy (di, .., dn) be a sequence of trees defined recursively as follows: Hyj+41 18s constructed by taking two copies of Hy, and joining their centers by the path of ",
+  "invariants": [
+   "average_distance",
+   "degree",
+   "diameter",
+   "distance",
+   "path",
+   "tree"
+  ],
+  "hypotheses": "If G is a regular graph of degree d then the average distance is not more than n/d",
+  "status": "refuted (per WoW annotation)",
+  "status_detail": "The paper also describe the methods ( involving computers, catalogs of graphs and the program Reduce) used to disprove several conjectures of Graffiti about eigenvalues of regular graphs .",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-63",
+  "statement_text": "The average degree of a triangle-free graph is not more than its Randic Index. Replacing in the definition of Randic the definition of the weight of an edge by 2/(p+q ) we get an invariant which will be called here harmonic. Many (though not all, see for example related 27) conjectures involving Randic on the right side of the inequality remain true (as conjectures) if Randic is replaced by harmonic and as a matter fact Shearer proved that if graph is triangle-free then the average degree is not more than the harmonic. Turan’s Theorem for triangle-free graphs is equivalent to the statement that the average degree is not more than n/2. It is easy to see that harmonic < Randic < n/2. Thus Shea",
+  "invariants": [
+   "degree",
+   "randic_index"
+  ],
+  "hypotheses": "",
+  "status": "open (per WoW annotation)",
+  "status_detail": "This sometimes produces a better test but I do not know if it can be performed in the 2.",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-64",
+  "statement_text": "If G is triangle-free then the mode of Degree < then the Randic Index. Disproved by James B. Shearer. July 87.",
+  "invariants": [
+   "degree",
+   "randic_index"
+  ],
+  "hypotheses": "If G is triangle-free then the mode of Degree < then the Randic Index",
+  "status": "refuted (per WoW annotation)",
+  "status_detail": "Disproved by James B.",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-65",
+  "statement_text": "If G is triangle-free then the mode of Degree < the matching number. Disproved by Thomas Spencer, Rensselaer Polytechnic Institute February 8&7.",
+  "invariants": [
+   "degree",
+   "matching"
+  ],
+  "hypotheses": "If G is triangle-free then the mode of Degree < the matching number",
+  "status": "refuted (per WoW annotation)",
+  "status_detail": "Disproved by Thomas Spencer, Rensselaer Polytechnic Institute February 8&7.",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-66",
+  "statement_text": "If G is triangle-free then radius < the sum of reciprocal of degrees. Disproved by Thomas Spencer, Rensselaer Polytechnic Institute Febru- ary 87. I wrote in [FA2] that it was the first counterexample with over 100 vertices but that was incorrect. The first large counterexamples were found in [EPS]. Any- way Thomas Spencer found later a counterecample with 20 vertices. [EPS] dealt with the conjecture average distance < sum of reciprocal of degrees, and essentially the problem of asymptotic bounds is settled there.",
+  "invariants": [
+   "average_distance",
+   "degree",
+   "distance",
+   "radius"
+  ],
+  "hypotheses": "If G is triangle-free then radius < the sum of reciprocal of degrees",
+  "status": "refuted (per WoW annotation)",
+  "status_detail": "Disproved by Thomas Spencer, Rensselaer Polytechnic Institute Febru- ary 87.",
   "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
   "transcription_confidence": "medium"
  },
@@ -70,12 +818,322 @@
   "transcription_confidence": "medium"
  },
  {
-  "id": "wow-94",
-  "statement_text": "The first two formulas were proved independently Paul Erdos and Yoshi- haru Kohayakawa, IME, Cidade Universitaria, Sao Paolo, Brasil ’94.",
-  "invariants": [],
+  "id": "wow-68",
+  "statement_text": "If G is triangle-free then the matching number < then the maximal fre- quency of the degree sequence. Disproved by Thomas Spencer, Rensselaer Poly- technic Institute February 87. November 26. 87.",
+  "invariants": [
+   "degree",
+   "matching"
+  ],
+  "hypotheses": "If G is triangle-free then the matching number < then the maximal fre- quency of the degree sequence",
+  "status": "refuted (per WoW annotation)",
+  "status_detail": "Disproved by Thomas Spencer, Rensselaer Poly- technic Institute February 87.",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-69",
+  "statement_text": "Residue 1s not more than the independence number. This is really a joint conjecture of Graffiti and myself, because I began to an- ticipate this conjecture writing the code for residue.",
+  "invariants": [
+   "alpha",
+   "residue"
+  ],
+  "hypotheses": "",
+  "status": "proved (per WoW annotation)",
+  "status_detail": "Erdos and Staton proved in 448 that it is at least cn/logn, where c a constant close to 2/3.",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-70",
+  "statement_text": "chromatic number < maximal frequency of coordinates of a maximal clique. comp. 640. William Staton, University of Mississippi, found an example of a graph with chromatic number 8 , in which the maximal frequency of coordinates of every maximum clique is 7. December 87. So far we do not know any examples in which the difference would be greater than 1. AQ Using probabilistic methods Vojta Rodl, Charles University, Prague and Emory University, showed that there are graphs in which the difference between the chromatic number and the maximal frequency of coordinates of every maximal clique is arbitrarily large. February 88. William Staton found explicit examples of graphs in which the difference",
+  "invariants": [
+   "chromatic_number",
+   "clique_number",
+   "coordinates"
+  ],
+  "hypotheses": "",
+  "status": "unannotated (no status note in WoW text)",
+  "status_detail": "",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-71",
+  "statement_text": "number of cut-edges < sum of reciprocals of temperatures. Proved independently by James B. Shearer and William Staton. July 88.",
+  "invariants": [
+   "temperature"
+  ],
+  "hypotheses": "",
+  "status": "unannotated (no status note in WoW text)",
+  "status_detail": "",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-72",
+  "statement_text": "average temperature < depth and the equality holds true iff the graph is a join of a discrete and complete graphs. February 88. Proved independently by Odile Favaron, Maryvonne Maheo and Jean-Francois Sacle. June 88.",
+  "invariants": [
+   "temperature"
+  ],
+  "hypotheses": "",
+  "status": "unannotated (no status note in WoW text)",
+  "status_detail": "",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-73",
+  "statement_text": "The maximum of coordinates of the set of cut-vertices < the independence number.William Staton. December 87.",
+  "invariants": [
+   "alpha",
+   "coordinates"
+  ],
+  "hypotheses": "",
+  "status": "unannotated (no status note in WoW text)",
+  "status_detail": "",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-74",
+  "statement_text": "The maximum of coordinates of the set of cut-vertices < the matching number. William Staton. December 87.",
+  "invariants": [
+   "coordinates",
+   "matching"
+  ],
+  "hypotheses": "",
+  "status": "unannotated (no status note in WoW text)",
+  "status_detail": "",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-75",
+  "statement_text": "The variance of coordinates of the set of cut-vertices < the independence number.William Staton. February 88.",
+  "invariants": [
+   "alpha",
+   "coordinates"
+  ],
+  "hypotheses": "",
+  "status": "unannotated (no status note in WoW text)",
+  "status_detail": "",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-76",
+  "statement_text": "The mode of coordinates of the set of cut-vertices < the matching num- ber.William Staton and s.f. February 88.",
+  "invariants": [
+   "coordinates",
+   "matching"
+  ],
+  "hypotheses": "",
+  "status": "unannotated (no status note in WoW text)",
+  "status_detail": "",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-77",
+  "statement_text": "The mode of coordinates of a maximal independent set < n - residue. William Staton and Siemion Fajtlowicz. February 88.",
+  "invariants": [
+   "alpha",
+   "coordinates",
+   "residue"
+  ],
+  "hypotheses": "",
+  "status": "unannotated (no status note in WoW text)",
+  "status_detail": "",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-78",
+  "statement_text": "The mode of coordinates of a maximal independent set < Randic. James B. Shearer, August 88.",
+  "invariants": [
+   "alpha",
+   "coordinates",
+   "randic_index"
+  ],
+  "hypotheses": "",
+  "status": "unannotated (no status note in WoW text)",
+  "status_detail": "",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-79",
+  "statement_text": "mean of coordinates of a maximal independent set < matching. Proved by William Staton for all independent sets. The equality holds true iff the graph has no edges, but there are graphs like stars in which the two invariants can be arbitrarily close. January 88.",
+  "invariants": [
+   "alpha",
+   "coordinates",
+   "matching"
+  ],
+  "hypotheses": "",
+  "status": "proved (per WoW annotation)",
+  "status_detail": "Proved by William Staton for all independent sets.",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-80",
+  "statement_text": "mean of coordinates of a maximal independent set < n -residue. This follows from 79 and 98, and it was also proved without use of 79 in [FMS]. The equality holds true iff G has no edges.",
+  "invariants": [
+   "alpha",
+   "coordinates",
+   "residue"
+  ],
+  "hypotheses": "",
+  "status": "unannotated (no status note in WoW text)",
+  "status_detail": "",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-81",
+  "statement_text": "variance of coordinates of a maximal independent set < maximal frequency of Even. Disproved by William Staton. March 88.",
+  "invariants": [
+   "alpha",
+   "coordinates"
+  ],
   "hypotheses": "",
   "status": "refuted (per WoW annotation)",
-  "status_detail": "Prove or disprove that f(n,c) > en?.",
+  "status_detail": "Disproved by William Staton.",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-82",
+  "statement_text": "range of coordinates of a maximal clique < maximum of Even. The conjecture is valid for all maximal cliques. The equality holds true in cliques but there are also other such graphs. William Staton. March 88.",
+  "invariants": [
+   "clique_number",
+   "coordinates"
+  ],
+  "hypotheses": "",
+  "status": "unannotated (no status note in WoW text)",
+  "status_detail": "",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-83",
+  "statement_text": "scope of coordinates of a maximal clique < maximum of Even. William Staton found a countererample to the strongest version of this con- jecture. However if the clique in question dominates the graph then 83 is true with respect to this clique. March 88.",
+  "invariants": [
+   "clique_number",
+   "coordinates"
+  ],
+  "hypotheses": "",
+  "status": "unannotated (no status note in WoW text)",
+  "status_detail": "",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-84",
+  "statement_text": "The variance of coordinates of a maximal clique < n - residue. William Staton March 88.",
+  "invariants": [
+   "clique_number",
+   "coordinates",
+   "residue"
+  ],
+  "hypotheses": "",
+  "status": "unannotated (no status note in WoW text)",
+  "status_detail": "",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-85",
+  "statement_text": "The variance of coordinates of a maximal clique < rank. William Staton. March 88.",
+  "invariants": [
+   "clique_number",
+   "coordinates",
+   "rank"
+  ],
+  "hypotheses": "",
+  "status": "unannotated (no status note in WoW text)",
+  "status_detail": "",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-86",
+  "statement_text": "variance of coordinates of a maximal clique maximum of Even. William Staton. March 88.",
+  "invariants": [
+   "clique_number",
+   "coordinates"
+  ],
+  "hypotheses": "",
+  "status": "unannotated (no status note in WoW text)",
+  "status_detail": "",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-87",
+  "statement_text": "The variance of the distance matrix < sum of reciprocals of temperatures.",
+  "invariants": [
+   "distance",
+   "temperature"
+  ],
+  "hypotheses": "",
+  "status": "unannotated (no status note in WoW text)",
+  "status_detail": "",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-88",
+  "statement_text": "mode of the distance matrix < inverse temperature. James B. Shearer, August 88.",
+  "invariants": [
+   "distance",
+   "temperature"
+  ],
+  "hypotheses": "",
+  "status": "unannotated (no status note in WoW text)",
+  "status_detail": "",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-89",
+  "statement_text": "The average distance < inverse temperature. James B. Shearer. May 88.",
+  "invariants": [
+   "average_distance",
+   "distance",
+   "temperature"
+  ],
+  "hypotheses": "",
+  "status": "unannotated (no status note in WoW text)",
+  "status_detail": "",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-90",
+  "statement_text": "average distance < maximal frequency of coordinates of a maximal inde- pendent set. From Chung’s Theorem (see conjecture 2) it follows that the conjecture is true for every maximum independent set; independence equals to the frequency of 0. It still would be interesting to know if 90 is true for all maximal independent sets. Stars show that the average distance is not necessarily less than the size of every maximal independent set.",
+  "invariants": [
+   "alpha",
+   "average_distance",
+   "coordinates",
+   "distance"
+  ],
+  "hypotheses": "",
+  "status": "unannotated (no status note in WoW text)",
+  "status_detail": "",
+  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
+  "transcription_confidence": "medium"
+ },
+ {
+  "id": "wow-91",
+  "statement_text": "The variance of the distance matrix < the matching number. bf James B. Shearer. February 88.",
+  "invariants": [
+   "distance",
+   "matching"
+  ],
+  "hypotheses": "",
+  "status": "unannotated (no status note in WoW text)",
+  "status_detail": "",
   "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
   "transcription_confidence": "medium"
  },
@@ -109,7 +1167,7 @@
   "transcription_confidence": "medium"
  },
  {
-  "id": "wow-94(2)",
+  "id": "wow-94",
   "statement_text": "The variance of the distance matrix < the independence number. James B. Shearer. February 88.",
   "invariants": [
    "alpha",
@@ -136,24 +1194,13 @@
  },
  {
   "id": "wow-96",
-  "statement_text": "Let E (D) be the vector whose ith component is the number of vertices at even (odd) distance from the ith vertex. Conjecture: The number of distinct components of E is < residue. [FMS1]. October 88. Conjectures for triangle-free graphs (97:104)",
+  "statement_text": "Let E (D) be the vector whose ith component is the number of vertices at even (odd) distance from the ith vertex. Conjecture: The number of distinct components of E is < residue. [FMS1]. October 88. Conjectures for triangle-free graphs (97:104) 97. The matching number < maximal frequency of the vector E from conjecture",
   "invariants": [
    "distance",
+   "matching",
    "residue"
   ],
   "hypotheses": "Let E (D) be the vector whose ith component is the number of vertices at even (odd) distance from the ith vertex",
-  "status": "unannotated (no status note in WoW text)",
-  "status_detail": "",
-  "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
-  "transcription_confidence": "medium"
- },
- {
-  "id": "wow-97",
-  "statement_text": "The matching number < maximal frequency of the vector E from conjecture",
-  "invariants": [
-   "matching"
-  ],
-  "hypotheses": "",
   "status": "unannotated (no status note in WoW text)",
   "status_detail": "",
   "source_url": "Written on the Wall, S. Fajtlowicz, July 2004 version (wow-july2004.ps from math.uh.edu/~clarson/, mirrored at github.com/RoucairolMilo/refutation-COCOON2022/wow-july2004.pdf); OCR transcription",
