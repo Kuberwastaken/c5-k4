@@ -345,4 +345,8 @@ Variance of positive adjacency eigenvalues is at most `|E|-mu` throughout; spect
 
 Exact average distance is at most the harmonic index throughout the regular arsenal.
 
+### wow-149 — HOLD
+
+Under both mean-entry conventions for the printed gravity matrix, mean gravity is at most `sum Odd` throughout.
+
 <!-- NEXT -->
