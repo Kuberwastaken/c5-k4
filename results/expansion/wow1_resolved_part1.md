@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-53 — HOLD / NO ADDITIONAL WITNESS
+
+> average temperature < minimal frequency of the distance matrix. Proved by Shui-Tain Chen, U. of Houston. April 87.
+
+The row depends on the minimum-frequency convention. Under the source-faithful convention used in the existing campaign profiles, every applicable arsenal graph holds; no alternate convention is introduced and no additional historical witness is claimed.
+
 ### wow-52 — HOLD / NO ADDITIONAL WITNESS
 
 > The number of zero eigenvalues < the number of vertices in the boundary of the graph. s.f.
