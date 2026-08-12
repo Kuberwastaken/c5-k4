@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-227 — HOLD / NO ADDITIONAL WITNESS
+
+> diameter < matching. [FMS1] constructed cubic graphs in which di- ameter is approximately 3n/4 and matching is approximately n/2, this is probably the worst possible case. September, 88. Also disproved independently by James B. Shearer, October 88.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed diameter, matching quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
 ### wow-218 — HOLD WHERE APPLICABLE
 
 > maximum eigenvalue < size1/2. FMS pointed to me that this is a result of Nosal, [CDS], p. 89. Proved independently by James B. Shearer. October 88.
