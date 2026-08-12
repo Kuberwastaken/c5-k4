@@ -78,3 +78,11 @@ holds.  The low-rank complement of `C5[K4]` gives `2/3 <= 5`; the carrier gives
 Using `R=sum_{uv in E}1/sqrt(deg(u)deg(v))`, all arsenal graphs hold.  The
 carrier gives `2 <= 11`; `C9[K3]`, the largest-radius arsenal member, gives
 `4 <= 29/2`.  No candidate violation arose.
+
+### wow-14 — HOLD
+
+> radius is not more than average distance + Randic Index.
+
+All arsenal graphs satisfy the standard reading.  For `C5[K4]`,
+`2 <= 27/19+10`; for `C9[K3]`, `4 <= 31/13+27/2`.  Distance terms were
+computed as exact rationals.
