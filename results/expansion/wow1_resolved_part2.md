@@ -111,3 +111,11 @@ the spectral side never approaches that value within `1e-6`.
 range, all arsenal members satisfy the comparison. On the carrier the
 nonpositive range is below mean high degree `11`; on the complement it is
 `2sqrt(5)+2 < 8`. Guarded eigenspectra reproduce the closed-form checks.
+
+## wow-720 — NOT_APPLICABLE
+
+**Status:** proved (Aouchiche--Hansen survey). The statement is restricted to
+heliotropic plants (equality in Cvetkovic's nonnegative-eigenvalue independence
+bound). None of the arsenal graphs meets that equality: the carrier has
+`alpha=2` versus three nonnegative eigenvalues, and the complement has `8`
+versus `18`; triangular graphs also fail.
