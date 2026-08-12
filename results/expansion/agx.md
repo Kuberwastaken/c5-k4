@@ -9,9 +9,13 @@
 - **OCR discipline:** an expression that cannot be recovered faithfully from the corpus is recorded as `SKIP_OCR` with the surviving garble quoted; no intended formula is guessed.
 - **ILP discipline:** no solver call may exceed 60 seconds. (This lane currently needs no ILP.)
 
-Progress: **69/71** entries evaluated (70 strict-open + 1 open-in-full).
+Progress: **70/71** entries evaluated (70 strict-open + 1 open-in-full).
 
 ## Verdicts
+
+### `agx-survey-C39` — HOLD
+
+For every arsenal order n>=6, `q1-qn` lies between the claimed path/odd-cycle minimum and kite maximum. Direct signless-Laplacian spectra and separately constructed same-order comparators agree. No candidate violation appears, so the database and novelty gates are not triggered.
 
 ### `agx-survey-C37` — HOLD
 
