@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 129 / 208.
+Progress: 130 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -811,5 +811,11 @@ This is a number-theoretic sequence assertion, not a universal graph bound. The 
 > "independence number ... greater or equal to the number of elements of a maximum principal filter of [the] quasi-ordering."
 
 For the regular vertex-transitive arsenal, equal-size open neighborhoods cannot properly contain one another; after quotienting twins, the poset is an antichain and a maximum principal filter has size 1. Thus `alpha>=1` throughout.
+
+### wow-801 — N/A_ARSENAL
+
+> "Every performance of Maxine and MIN produces a maximum independent set in G."
+
+Primary context restricts this to graphs satisfying the special neighborhood-intersection/PR-domain construction described in the same record. No arsenal member is established in that domain; the universal isolated reading is not faithful.
 
 
