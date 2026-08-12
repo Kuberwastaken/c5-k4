@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-124 — RETRO-VIOLATION — dense arsenal
+
+> size/2 < the rank of Laplacian. Disproved by s.f.
+
+The primary scan states `size/2 <= rank(L)`, with size meaning `|E|`. `C5[K4]` gives `55 > 19`; indeed `C5[K_m]` violates from `m=2` onward. `K5` already fails the identical reading (`5>4`), so the DB-sanity gate confirms a genuinely false historical statement rather than an OCR artifact. This is only a new carrier witness to a row already marked refuted.
+
 ### wow-116 — PROVED_HOLD
 
 > largest eigenvalue < Randic. Proved in [FMS2] . November 88. As it was the case with 63 this conjecture again is a generalization of Turan’s theorem in the triangle-free case. Indeed: Randic is always at most n/2, and for triangle-free graphs, the size s at...
