@@ -633,4 +633,8 @@ Minimum Laplacian derivative is 0, below positive `sum 1/Odd`.
 
 Sum of Maxine coordinates is algorithm/order-dependent and undefined here.
 
+### wow-259 — SKIP_OCR
+
+`Dy` and Maxine autocoordinates are materially undefined/garbled.
+
 <!-- NEXT -->
