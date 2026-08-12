@@ -265,3 +265,17 @@ Printed p.78 cleanly recovers the fraction destroyed by OCR.  The formula is
 legible, but the unquantified Maxine performance remains tie-order dependent;
 no canonical execution is specified, so a faithful graph-invariant test is not
 possible.
+
+### wow-267 — DB_REJECTED
+
+> length of Dual Degree / 2 <= bichromatic number.
+
+Printed p.78 cleanly recovers the formula.  Taking `length` as Euclidean norm,
+Dual Degree as the vector of mean neighbor degrees (defined on p.75), and
+bichromatic number as `chi(G)+chi(complement(G))`, the carrier is an apparent
+violation: `11sqrt(20)/2 = 24.596747... > 13`.  A second implementation using
+exact rational squared norm and independent branch-and-bound colorings agrees.
+The mandatory DB gate rejects it, however: 15 connected Atlas graphs of order 7
+already fail.  Atlas graph 1248 gives `6.841783... > 6`; root independently found
+the same set (including graph6 `Fbn]w`, `6.077108... > 6`).  Thus this is a
+source/database inconsistency, not a new kill.
