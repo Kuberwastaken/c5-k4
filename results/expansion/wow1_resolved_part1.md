@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-138 — PROVED_HOLD
+
+> 2-nd largest eigenvalue < size / clique. [FMS2] proved that this conjec- ture is true for all graphs but Ky .December 89.
+
+Direct evaluation of the applicable arsenal using the source hypotheses and the listed clique_number, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
 ### wow-137 — HOLD / NO ADDITIONAL WITNESS
 
 > 2nd largest eigenvalue < harmonic. James B. Shearer October 88. [/FMS2]. November 88.
