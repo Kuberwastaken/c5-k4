@@ -597,4 +597,8 @@ On each regular arsenal graph, `sum 1/Odd=n/r <= n/average_distance`.
 
 Complement-Maxine resolution autocoordinates are undefined/order-dependent.
 
+### wow-239 — HOLD
+
+Even is constant on every vertex-transitive arsenal graph, so `maxfreq(Even)=n >= n/2`.
+
 <!-- NEXT -->
