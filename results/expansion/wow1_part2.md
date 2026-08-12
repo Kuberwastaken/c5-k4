@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 96 / 208.
+Progress: 97 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -613,5 +613,11 @@ Every arsenal member is Hamiltonian, so longest-path length in edges is `h=n-1`;
 > "The length of the longest path is > than the global minimum degree."
 
 Reading the prose's non-strict intent, Hamiltonicity gives path length `n-1`, at least the degeneracy/global minimum degree for every arsenal graph. Exact core numbers and Hamilton cycles independently certify this.
+
+### wow-757 — HOLD
+
+> "Let C be the set of non cut vertices ... independence ... greater or equal than [number of components of C]."
+
+All arsenal members are 2-connected, so `C=V` induces one component. Since `alpha>=2`, all hold.
 
 
