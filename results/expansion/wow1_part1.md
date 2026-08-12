@@ -857,4 +857,8 @@ No arsenal graph satisfies the inherited plant hypothesis.
 
 No arsenal graph satisfies the plant hypothesis; the row's gravity definition was nevertheless used for later statements.
 
+### wow-351 — N/A_ARSENAL
+
+`hehotropic` is OCR for heliotropic plant; no arsenal graph qualifies.
+
 <!-- NEXT -->
