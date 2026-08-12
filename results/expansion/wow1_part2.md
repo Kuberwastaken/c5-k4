@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 16 / 208.
+Progress: 17 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -128,5 +128,11 @@ This is explicitly restricted to Paley graphs. None occurs in this WoW-I arsenal
 > "If G is a connected Cayley graph of cyclic groups with at least two vertices then chromatic number < rank."
 
 No arsenal graph is supplied with a cyclic Cayley representation satisfying the stated hypothesis. The lane therefore has no admissible instance.
+
++### wow-538 — N/A_ARSENAL
+
+> "If G is a connected Cayley graph of cyclic groups ... maximum of the rainbow ... < number of negative eigenvalues."
+
+The cyclic-Cayley hypothesis is not established for any arsenal member, and `rainbow` is not recoverable as an invariant from the record. No carrier test is admissible.
 
 
