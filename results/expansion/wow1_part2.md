@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 194 / 208.
+Progress: 195 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -1201,5 +1201,11 @@ The cubic hypothesis excludes the arsenal.
 > "If G is a cubic, triangle-free graph ..."
 
 No arsenal member is cubic.
+
+### wow-883 — HOLD
+
+> "If G is regular triangle-free of diameter d, red independence ... at least (1+d)/2."
+
+For `bar(C5[K4])`, red independence is 2 and diameter 2, so `2>=3/2`.
 
 
