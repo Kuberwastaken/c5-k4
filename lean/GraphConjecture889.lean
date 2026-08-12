@@ -72,7 +72,7 @@ theorem conjecture889 : answer(False) ↔
     ∀ (V : Type*) [Fintype V] [DecidableEq V] [Nonempty V]
       (G : SimpleGraph V) [DecidableRel G.Adj], G.Connected →
       (∃ d, G.IsRegularOfDegree d) → G.CliqueFree 3 →
-      maxDistOdd G / 4 ≤ (blueGraph G).cliqueNum := by
+      (maxDistOdd G : ℝ) / 4 ≤ ((blueGraph G).cliqueNum : ℝ) := by
   sorry
 
 end WrittenOnTheWallI.GraphConjecture889

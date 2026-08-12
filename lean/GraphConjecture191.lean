@@ -23,7 +23,7 @@ import FormalConjecturesUtil
 [S. Fajtlowicz, *Written on the Wall*, July 2004 version](https://web.archive.org/web/20240000000000id_/http://www.math.uh.edu/~clarson/wow-july2004.ps)
 
 The section heading restricts the conjecture to connected graphs for which the
-sum of the odd-distance counts is smaller than the sum of the even-distance
+sum of the odd-distance counts is at most the sum of the even-distance
 counts. In the source, the deficiency of a vertex is the number of nonedges
 among its neighbors and `size` means the number of edges.
 
@@ -57,7 +57,7 @@ noncomputable def minVertexDeficiency (G : SimpleGraph V) [DecidableRel G.Adj]
 /--
 Written on the Wall I, Conjecture 191, asked whether every nonempty finite
 simple connected graph $G$ satisfying
-$\sum_v \operatorname{Odd}(v)<\sum_v \operatorname{Even}(v)$ also satisfies
+$\sum_v \operatorname{Odd}(v)\leq\sum_v \operatorname{Even}(v)$ also satisfies
 $\min_v\operatorname{def}(v)\leq |E(G)|/\omega(G)$. The answer is no, as
 witnessed by $T(7)=L(K_7)$ and every larger triangular graph.
 -/
@@ -65,7 +65,7 @@ witnessed by $T(7)=L(K_7)$ and every larger triangular graph.
 theorem conjecture191 : answer(False) ↔
     ∀ (V : Type*) [Fintype V] [DecidableEq V] [Nonempty V]
       (G : SimpleGraph V) [DecidableRel G.Adj], G.Connected →
-      (∑ v, distOdd G v) < ∑ v, G.distEven v →
+      (∑ v, distOdd G v) ≤ ∑ v, G.distEven v →
       (minVertexDeficiency G : ℝ) ≤
         (G.edgeFinset.card : ℝ) / (G.cliqueNum : ℝ) := by
   sorry
