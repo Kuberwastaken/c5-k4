@@ -139,3 +139,22 @@ At order 11, however, `K11` has `alpha=1` but right side
 outside the `1e-6` integer-boundary guard and independently reproduce.  This
 is a stale retro-kill of a still-open-as-posted line, not a novelty claim; see
 the executable certificate.
+
+#### Paper worked conjecture 2 — `HOLD_ARSENAL`
+
+The paper separately states `alpha <= average_distance^degree_sum`, defining
+degree sum as the sum of all vertex degrees.  For `C5[K4]`, average distance
+over unordered distinct pairs is exactly `(110 + 2*80)/190 = 27/19`, and the
+degree sum is `20*11=220`.  Thus the right side is `(27/19)^220`, vastly above
+`alpha=2`.  Computing in the logarithmic domain independently confirms the
+comparison.  No named-arsenal violation was found.
+
+### Bounded-set summary
+
+All **9/9** compact conjectures printed in Figure 14 and the paper's second
+worked conjecture have now been evaluated: **7 `HOLD_ARSENAL`, 2
+`RETRO_KILL`**, and the worked upper bound `HOLD_ARSENAL` (10 explicit
+statements total).  The two kills are lower-071 and lower-082 above.  The
+remaining 219 exact issue lines are retained in the corpus for subsequent
+mechanical evaluation; missing or nonstandard invariant semantics must be
+reported as `SKIP_UNDEFINED`, not guessed.
