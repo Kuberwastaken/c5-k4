@@ -46,3 +46,13 @@ fails the mandatory database gate already on `K7`: `|E|/2 = 21/2 > 7`, while
 the gravity matrix has rank 7.  The carrier similarly gives `55 > 20`.
 Consequently this is a bad-as-printed/database-inconsistent entry, not a new
 counterexample.
+
+### wow-133 — HOLD
+
+> Sum of reciprocals of components of twister <= harmonic.
+
+Printed p.51 defines the twister component of a vertex lying on a cycle as the
+length of its shortest containing cycle; printed p.65 confirms the operator.
+Every arsenal graph is vertex-transitive and every vertex lies on a triangle,
+so the left side is `n/3`.  For a regular graph the harmonic index is
+`|E|/d = n/2`; hence `n/3 <= n/2` throughout.  No candidate violation arises.
