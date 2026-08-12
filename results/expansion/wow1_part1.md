@@ -861,4 +861,8 @@ No arsenal graph satisfies the plant hypothesis; the row's gravity definition wa
 
 `hehotropic` is OCR for heliotropic plant; no arsenal graph qualifies.
 
+### wow-352 — N/A_ARSENAL
+
+No arsenal graph is a heliotropic plant.
+
 <!-- NEXT -->
