@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 1 / 208.
+Progress: 2 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -29,3 +29,12 @@ The assertion is restricted to the specifically constructed `RG(n)` graph; none
 of the campaign graphs is asserted or evidenced to be an `RG(n)` instance.
 Accordingly this carrier arsenal cannot test the equality. The text is readable
 enough to preserve the hypothesis, so this is `N/A_ARSENAL`, not `SKIP_OCR`.
+
+### wow-454 — N/A_ARSENAL
+
+> "The number of primes not more than n is not more than the number of distinct
+> eigenvalues of RP[2..n] (defined in 434)."
+
+This is a statement about the number-theoretic graph `RP[2..n]`, not an arbitrary
+connected graph. No arsenal member has that construction, so the carrier sweep
+does not furnish an instance. `N/A_ARSENAL`.
