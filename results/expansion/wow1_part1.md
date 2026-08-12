@@ -797,4 +797,8 @@ Triangle-free carrier complement gives `|E|/alpha=10 <= number nonnegative adjac
 
 Triangle-free carrier complement gives `|E|/alpha=10 <= number negative distance eigenvalues=17`.
 
+### wow-314 — HOLD where applicable
+
+Reading `|E|/alpha <= mode Even`, carrier complement gives `10 <= 12`.
+
 <!-- NEXT -->
