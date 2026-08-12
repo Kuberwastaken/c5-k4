@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 181 / 208.
+Progress: 182 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -1123,5 +1123,11 @@ No arsenal member satisfies the IP-fullerene hypothesis.
 > "Let G be a cubic connected graph of girth 5 with 16 vertices."
 
 No arsenal graph is cubic of order 16 and girth 5.
+
+### wow-864 — DB_REJECTED / TERMINOLOGY MISMATCH
+
+> "Let G be triangle-free. Then the red counter-independence number is < the blue clique number."
+
+For `G=bar(C5[K4])`, the natural #822 distance coloring gives red graph `C5[K4]` and empty blue graph, apparently `2<=1`. But the same reading fails 11/89 applicable connected triangle-free nontrivial atlas graphs, including `C4,C5`, and named Petersen and `K3,3`. The printed follow-up about maximal blue cliques is incompatible with this parse on `C5`, confirming a terminology mismatch. Gate rejected; not a kill.
 
 
