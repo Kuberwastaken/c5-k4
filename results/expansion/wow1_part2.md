@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 187 / 208.
+Progress: 188 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -1159,5 +1159,11 @@ For `bar(C5[K4])`, blue graph is empty so alpha is 20, while exhaustive pair nei
 > "independence number of the blue graph ... sum of temperatures."
 
 The applicable graph has blue independence 20 and temperature sum `20*(8/12)=40/3`; hence it holds exactly rationally.
+
+### wow-870 — HOLD
+
+> "jet number of complement of the red graph ... [number of primes <=n]."
+
+Under the obvious OCR reading `a(n)=pi(n)`, complement of red is `bar(C5[K4])` with jet 2, while `pi(20)=8`. It holds.
 
 
