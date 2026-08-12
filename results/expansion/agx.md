@@ -9,9 +9,13 @@
 - **OCR discipline:** an expression that cannot be recovered faithfully from the corpus is recorded as `SKIP_OCR` with the surviving garble quoted; no intended formula is guessed.
 - **ILP discipline:** no solver call may exceed 60 seconds. (This lane currently needs no ILP.)
 
-Progress: **39/71** entries evaluated (70 strict-open + 1 open-in-full).
+Progress: **40/71** entries evaluated (70 strict-open + 1 open-in-full).
 
 ## Verdicts
+
+### `agx-form1-T45-r55-lower` — HOLD
+
+Recovered bound: lambda1-alpha >= sqrt(n-1)-n+1. HOLD on the arsenal; exact independence numbers and guarded indices were checked independently. Later literature refutes the universal conjecture with other graphs. Every spectral comparison uses the 1e-6 guard; no candidate violation appears, so the database and novelty gates are not triggered.
 
 ### `agx-form1-T45-r53-upper` — HOLD
 
