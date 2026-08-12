@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 149 / 208.
+Progress: 150 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -931,5 +931,11 @@ This is an open-ended construction problem, not a carrier wall.
 > "Solve the upper interpolation problem for complements of buckyballs ..."
 
 The campaign arsenal contains no such planar cubic construction; no inequality is stated.
+
+### wow-825 — N/A_ARSENAL (missing P)
+
+> "chromatic number ... non-positive eigenvalues of the complement of the blue graph."
+
+The red/blue graphs depend on a Ramseyan property `P` introduced at 822, but this extracted record does not specify `P`. The arsenal cannot instantiate the derived graph without guessing.
 
 
