@@ -1,0 +1,1 @@
+PASS: 250 explicit expansions agree on gamma, gamma_2, and both Maxine readings

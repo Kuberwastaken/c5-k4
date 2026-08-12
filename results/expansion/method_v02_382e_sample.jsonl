@@ -1,0 +1,1 @@
+{"crossings": [], "exact_checked_after_prune": 927, "max_order": 60, "minimum_residual_after_prune": {"best": 0, "det": 0}, "path": "/tmp/method-v02-382e-all.g6", "quotients": 12111, "seconds": 22.054340269998647, "seed": 382, "solve_cap": 60.0, "stage": "sample_substitutions", "theorem_pruned": 19073, "timeouts": [], "trials": 20000}
