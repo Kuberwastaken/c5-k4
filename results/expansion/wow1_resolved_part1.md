@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-186 — HOLD / NO ADDITIONAL WITNESS
+
+> size/independence < the sum of absolute values of eigenvalues. Odile Favaron, Maryvonne Maheo and Jean-Francois Sale. December 89.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed alpha, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
 ### wow-179 — CORRUPT_ENTRY
 
 > Inverse transmission of Gravity average transmission of Distance. Tony L. Brewster, Michael Dinneen and Vance Faber (comp. 107),
