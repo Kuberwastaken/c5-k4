@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-38 — HOLD / NO ADDITIONAL WITNESS
+
+> The variance of the distance matrix is not more than the negative of the smallest eigenvalue.
+
+The row depends on the distance-matrix variance convention. Under the source-faithful convention used in the existing campaign profiles, every applicable arsenal graph holds; no alternate convention is introduced and no additional historical witness is claimed.
+
 ### wow-37 — PROVED_HOLD
 
 > Radius is not more than the sum of positive eigenvalues. Proved in [FA2]. Also partially proved by Zang Shu, Beijing Institute of Technology.
