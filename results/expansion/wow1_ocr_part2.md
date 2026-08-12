@@ -16,7 +16,7 @@ where possible; spectral gaps at most `1e-6` are ties, and any ILP solve is
 capped at 60 seconds. A source statement that is recovered but restricted to an
 inapplicable construction is recorded as `N/A_ARSENAL`.
 
-Progress: 20 / 54.
+Progress: 21 / 54.
 ### wow-456 — N/A_ARSENAL
 
 PDF p.95: `The residue of the graph RP[2..n] is not more than pi(n).` The source cleanly restores `pi(n)` and identifies RP/residue definitions, but this is restricted to the number-theoretic RP construction; no arsenal graph is admissible.
@@ -77,4 +77,7 @@ PDF p.101: `n/independence <= range of coordinates of Maxine`, under the triangl
 ### wow-603 — HOLD
 
 PDF p.101: `mean(dual degree) <= mean(Even)`, under the triangle-free heading. The complement carrier is 8-regular and has constant Even value 12, giving `8 <= 12`.
+### wow-604 — HOLD
+
+PDF p.101: `mean(Even) <= chi(G)+chi(complement G)`. For the complement carrier, exact structured colorings give `12 <= 3+10=13`.
 
