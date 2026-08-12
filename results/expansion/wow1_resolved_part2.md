@@ -140,3 +140,27 @@ try-out rather than a well-defined invariant; no reading is guessed.
 fail on `T(7)` and the complement carrier, but also fails on 27 nontrivial
 connected Atlas graphs through order 7. An independent eigensolver reproduces
 those failures, so this reading cannot yield a campaign retro-kill.
+
+## wow-724 — RETRO_KILL (new connected infinite family)
+
+**Status:** already refuted (WoW annotation). The primary scan, p.109, gives
+
+`n_nonnegative(A) - lambda_max(A) + smallest_nonnegative(A) <= alpha`.
+
+It says Brewster, Dinneen, and Faber found only the disconnected graph `2C5`
+in their search. Let `H_m = complement(C5[K_m])`. For every `m >= 1`,
+
+* `alpha(H_m)=2m` and `lambda_max(H_m)=2m`;
+* the spectrum has three positive eigenvalues, `5m-5` zero eigenvalues, and
+  two negative eigenvalues, hence `n_nonnegative=5m-2`;
+* the smallest nonnegative eigenvalue is zero.
+
+Thus the left side is `3m-2`, exceeding `2m` exactly when `m >= 3`. In
+particular the connected, regular, triangle-free carrier complement `H_4`
+gives `18-8+0=10 > 8`. Direct NumPy diagonalization independently reproduces
+the spectrum and value. The mandatory gate found zero violations of the
+non-strict statement among all connected Atlas graphs through order 7 and all
+named calibration graphs (complete graphs and Petersen are ties). Targeted
+searches recovered the historical `2C5` note but no publication of this
+connected infinite family. This is a provisionally novel retro-family, not a
+new disproof of an open conjecture.
