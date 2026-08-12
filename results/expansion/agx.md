@@ -9,9 +9,13 @@
 - **OCR discipline:** an expression that cannot be recovered faithfully from the corpus is recorded as `SKIP_OCR` with the surviving garble quoted; no intended formula is guessed.
 - **ILP discipline:** no solver call may exceed 60 seconds. (This lane currently needs no ILP.)
 
-Progress: **58/71** entries evaluated (70 strict-open + 1 open-in-full).
+Progress: **59/71** entries evaluated (70 strict-open + 1 open-in-full).
 
 ## Verdicts
+
+### `agx-form1-T45-r110-lower` — HOLD
+
+Recovered same-order extremal comparison: `a+remoteness` is minimized by the balanced complete bipartite graph. Exact transmissions and guarded Laplacian spectra for the arsenal and a separately constructed balanced bipartite comparator give no violation. Direct dense spectra use the 1e-6 guard and the independent check uses the applicable closed form; no candidate gate is triggered.
 
 ### `agx-form1-T45-r100-lower` — HOLD
 
