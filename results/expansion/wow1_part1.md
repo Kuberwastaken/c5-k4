@@ -837,4 +837,8 @@ Triangle-free carrier complement has `Inverse Even=sum 1/12=5/3`, below distance
 
 Carrier complement has mean Odd 8; tested first-fit and standard 3-color Rainbow readings give inverse Rainbow 14. Ordering ambiguity is noted.
 
+### wow-325 — HOLD — historically proved
+
+Carrier complement gives mean Odd `8 <= matching(C5[K4])=10`; row cites `[FMS1]`.
+
 <!-- NEXT -->
