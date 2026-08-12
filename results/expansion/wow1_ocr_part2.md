@@ -180,3 +180,17 @@ PDF p.213 introduces `a` as average distance but prints `m-1` in the conclusion,
 
 PDF p.215: if `s` is the cardinality of a minimum spanning set (open neighborhoods cover all vertices), then `omega(blue) >= -1+s/2`. Exhaustive subset search gives `s=3` for the complement carrier; its blue graph is empty on 20 vertices and has clique number 1, so `1 >= 1/2`.
 
+## Completion audit
+
+- Original `SKIP_OCR` identifiers: 54.
+- Recovered report identifiers: 54 unique; no missing, extra, or duplicate IDs.
+- Outcomes: 31 `HOLD`, 2 `HOLD_TIGHT`, 1 `HOLD_READINGS`, 1
+  `HOLD_PLAUSIBLE_READING`, 10 `N/A_ARSENAL`, 3 `N/A_TRYOUT`, 2
+  `SOURCE_UNRECOVERABLE`, 1 `NOT_A_CONJECTURE`, 1 `KNOWN_FALSE_HOLD`, 1
+  `DB_REJECTED`, and 1 combined `N/A_ARSENAL / DB_REJECTED_LITERAL`.
+- New gate-surviving disproofs: **none**.
+- Additional carrier violation: #695, rejected because two connected
+  seven-vertex database graphs violate the identical source reading.
+- Every formula cited above was read from a rasterized primary-source page.
+  `pdf-inspector` extraction was not used for formula content because full page
+  extraction flagged all 216 pages for OCR and warned of font-encoding issues.
