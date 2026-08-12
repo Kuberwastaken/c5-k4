@@ -397,4 +397,8 @@ Garble: `maximum of autocoordinates of Maxine of the complement`. This represent
 
 `chi/omega <= min Even` holds with wide margin throughout.
 
+### wow-164 — HOLD
+
+Degree mode is at most `|E|/average_distance` throughout; the alternative order reading also holds.
+
 <!-- NEXT -->
