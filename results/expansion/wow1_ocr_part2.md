@@ -16,7 +16,7 @@ where possible; spectral gaps at most `1e-6` are ties, and any ILP solve is
 capped at 60 seconds. A source statement that is recovered but restricted to an
 inapplicable construction is recorded as `N/A_ARSENAL`.
 
-Progress: 36 / 54.
+Progress: 37 / 54.
 ### wow-456 — N/A_ARSENAL
 
 PDF p.95: `The residue of the graph RP[2..n] is not more than pi(n).` The source cleanly restores `pi(n)` and identifies RP/residue definitions, but this is restricted to the number-theoretic RP construction; no arsenal graph is admissible.
@@ -125,4 +125,7 @@ PDF p.104: `range of the largest eigenvector <= n-m1`. Connected regular arsenal
 ### wow-701 — HOLD
 
 PDF p.105: `average distance <= inverse Rainbow`. For any coloration, each positive Rainbow component is at most degree, so inverse Rainbow is at least `n/d` on these regular graphs. Exact distance sums verify `average distance <= n/d` throughout the arsenal.
+### wow-702 — HOLD
+
+PDF p.105: `mean temperature <= mean Rainbow`. The historical temperature is `d(v)/(n-d(v))`; on each regular arsenal graph its mean is `d/(n-d)`. Direct coloration evaluation and the lower bound Rainbow>=1 verify every member (the maximum temperature here is below the observed Rainbow mean).
 
