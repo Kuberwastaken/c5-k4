@@ -256,3 +256,10 @@ exact independent-set search agree.
 graph Petersen, only its eigenvalue `3` is strictly greater than one, while
 `alpha=4`. No primary arsenal family member is cubic, and the calibration
 case holds with wide slack.
+
+## wow-776 — HOLD
+
+**Status:** refuted (Aouchiche--Hansen survey). On the applicable cubic
+calibration graph Petersen, the positive adjacency eigenvalue sum is `8`, so
+the bound reads `alpha=4 >= -1+8/2=3`. Exact spectrum and independent maximum
+independent-set enumeration agree.
