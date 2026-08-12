@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-249 — SKIP_RAINBOW
+
+> Range of rainbow is not more than the chromatic number of the comple- ment of G. The strongest interpretation of this conjecture is false but we do not know an example of a graph in which every coloration would be a counter-example. (Er- melinda DeLaVina an...
+
+The source says the strongest interpretation is false but leaves the coloration quantifier unresolved. No canonical coloration is specified, so the arsenal cannot supply a defensible additional witness.
+
 ### wow-247 — SKIP_RAINBOW
 
 > Radius is not more than sum of reciprocals of rainbow. The strongest interpretation of this conjecture was disproved by Ermelinda DeLaVina. /. 91.
