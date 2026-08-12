@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 44 / 208.
+Progress: 45 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -301,5 +301,11 @@ The section restriction `chi(bar G)=n-nu(G)` excludes the arsenal instances chec
 > "scope of Dual Degree < number of components of mid-degree."
 
 No arsenal member is certified under the section hypothesis, and both derived sequences lack faithful definitions.
+
++### wow-644 — SKIP_OCR
+
+> "minimum of Dual Degree mean of Odd."
+
+The comparison sign is missing and neither named coordinate sequence is defined. No inequality can be reconstructed.
 
 
