@@ -86,6 +86,26 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+## Completion audit
+
+Coverage was regenerated independently from the frozen JSON after the final
+entry: **122 expected, 122 headings, 122 unique ids, zero missing, zero extra,
+zero duplicates**.  The source-status split is 36 proved and 86 refuted.
+
+The sweep adds six arsenal witnesses to conjectures already refuted elsewhere:
+`wow-23`, `wow-29`, `wow-55`, `wow-124`, `wow-166`, and `wow-188`.  These are
+retro-witnesses, not new conjecture kills.  Closed-form calculations were
+checked by a separately constructed numerical path.  The identical-reading
+connected-Atlas gate finds failures for the first five readings respectively
+on 76, 1, 413, 259, and 423 graphs; `wow-188` is instead certified on the
+source-applicable `T(7)` by its exact Laplacian spectrum.
+
+No proved statement is contradicted.  One metadata defect is exposed:
+`wow-207`'s literal transcription duplicates proved `wow-43`, so its imported
+`refuted` label cannot apply to the text as stored.  Primary-scan section
+headings were used to prevent false claims for the triangle-free, K4-free,
+girth, parity-sum, and independence-at-most-two blocks.  No ILP was needed.
+
 ### wow-422 — HOLD / NO ADDITIONAL WITNESS
 
 > If G is a regular graph then n - sum of positive eigenvalues < independence. October
