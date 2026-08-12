@@ -132,3 +132,11 @@ special equality condition, so the campaign cannot supply a retro-counterexample
 `frequency of mode` of a largest-eigenvalue eigenvector, with normalization,
 choice, and tie behavior absent from the isolated record. It is a Graffiti
 try-out rather than a well-defined invariant; no reading is guessed.
+
+## wow-723 — DB_REJECTED
+
+**Status:** refuted (Aouchiche--Hansen survey). The literal reading is
+`n_nonnegative(A) - sum_{lambda_i(L)>0} 1/lambda_i(L) <= alpha`. It appears to
+fail on `T(7)` and the complement carrier, but also fails on 27 nontrivial
+connected Atlas graphs through order 7. An independent eigensolver reproduces
+those failures, so this reading cannot yield a campaign retro-kill.
