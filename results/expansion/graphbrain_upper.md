@@ -93,6 +93,13 @@ Author-repository, issue-history, exact-formula, and broader invariant searches
 found no pre-existing counterexample.  This is a candidate new disproof; an
 executable certificate is prepared separately.
 
+### graphbrain-alpha-upper-090 — HOLD_ARSENAL
+
+> `independence_number(x) <= maximum(average_degree(x)^2, -number_of_triangles(x) + order(x))`
+
+The exact author expression has no violation on all 996 connected nonempty Graph Atlas graphs through order 7 where defined, the named controls, or campaign/threshold families.  Real comparisons use the `1e-6` guard.  This is an arsenal hold, not a proof.
+
+
 ### graphbrain-alpha-upper-089 — DB_REJECTED
 
 > `independence_number(x) <= maximum(max_even_minus_even_horizontal(x), average_distance(x)^(1/2*order(x)))`
