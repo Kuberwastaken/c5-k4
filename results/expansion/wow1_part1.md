@@ -409,4 +409,8 @@ Minimum consecutive Laplacian-eigenvalue gap is 0 from multiplicities, below `n/
 
 Randić index is at most Laplacian rank `n-1` for every connected arsenal graph.
 
+### wow-170 — HOLD
+
+Temperature deviation is 0 on every regular arsenal graph.
+
 <!-- NEXT -->
