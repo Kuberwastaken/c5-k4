@@ -745,4 +745,8 @@ Inherited `girth>5` excludes the arsenal; OCR also omitted the RHS.
 
 Inherited `girth>5` excludes every arsenal graph; A&H supplies the spectral reading.
 
+### wow-295 — N/A_ARSENAL / SKIP_OCR
+
+Inherited `girth>5` excludes the arsenal and the formula is garbled.
+
 <!-- NEXT -->
