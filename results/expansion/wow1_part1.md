@@ -529,4 +529,8 @@ Temperature deviation is 0 on every regular arsenal graph.
 
 The second-largest gravity eigenvalue is far below the number of nonedges throughout (carrier representative about `2.48 <= 80`).
 
+### wow-220 — HOLD where applicable
+
+Under the following girth-section boundary, the statement's triangle-free reading selects the carrier complement, where `max Odd=8 <= mu=10`.
+
 <!-- NEXT -->
