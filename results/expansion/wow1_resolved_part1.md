@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-179 — CORRUPT_ENTRY
+
+> Inverse transmission of Gravity average transmission of Distance. Tony L. Brewster, Michael Dinneen and Vance Faber (comp. 107),
+
+The primary transcription has no comparison operator: `Inverse transmission of Gravity average transmission of Distance`. The source commentary says `K2` was the only counterexample found and may reflect a bug, but the mathematical assertion cannot be reconstructed without guessing.
+
 ### wow-178 — HOLD / NO ADDITIONAL WITNESS
 
 > - 2-nd smallest eigenvalue < the matching number. James B. Shearer, October 88.
