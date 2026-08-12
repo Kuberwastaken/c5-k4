@@ -585,4 +585,8 @@ Maximum consecutive Laplacian gap is below exact `n/average_distance`; `C5[K8]` 
 
 Exact average distance is at most minimum Odd count; carrier `27/19 <= 11`.
 
+### wow-236 — HOLD
+
+Exact average distance is at most minimum Even count; carrier `27/19 <= 9`.
+
 <!-- NEXT -->
