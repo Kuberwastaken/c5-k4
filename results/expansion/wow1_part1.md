@@ -273,4 +273,8 @@ Under ordered distance-matrix coordinates, `C5[K4]` gives frequency 220 versus `
 
 The even-distance vector has one distinct value; `sum_v 1/Even(v)=n/E` exceeds 1 throughout (minimum `40/17`).
 
+### wow-120 — HOLD — historically proved
+
+All arsenal graphs satisfy `alpha <= n-radius`; the carrier gives `2 <= 18` and its complement `8 <= 18`. The row says this follows from a theorem.
+
 <!-- NEXT -->
