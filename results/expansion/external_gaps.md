@@ -114,3 +114,15 @@ named-arsenal violation was found.
 `alpha >= ceil(theta)-girth`.  On `C5[K4]`, the right side is
 `ceil(sqrt(5))-3=0`, so the inequality has slack `2`.  No named-arsenal
 violation was found.
+
+#### Figure 14 / lower-071 — `RETRO_KILL`
+
+`alpha >= floor(2*tan(matching_number)-2)`, with real-radian `tan`.
+Every graph of order at most 10 has matching number at most 5; direct evaluation
+for the six integer inputs `0,...,5` gives a right side at most `1`, so the
+entire stated small-graph database passes.  `K28` has `alpha=1`, `mu=14`, while
+`floor(2*tan(14)-2)=floor(12.489213...)=12`.  The arsenal witness `C7[K4]`
+also has `mu=14` (pair within every `K4` fiber) and `alpha=3<12`.  Both are far
+outside the `1e-6` guard.  Independent library evaluation and structural
+matching/independence proofs agree; see the executable certificate.  This is a
+stale retro-kill of a still-open-as-posted line, not a novelty claim.
