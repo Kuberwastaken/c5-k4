@@ -93,6 +93,13 @@ Author-repository, issue-history, exact-formula, and broader invariant searches
 found no pre-existing counterexample.  This is a candidate new disproof; an
 executable certificate is prepared separately.
 
+### graphbrain-alpha-upper-064 — HOLD_ARSENAL
+
+> `independence_number(x) <= sinh(maximum(max_degree(x), matching_number(x)))/number_of_triangles(x)`
+
+No violation occurs on all 996 connected nonempty Graph Atlas graphs through order 7 where the exact author expression is defined, the named controls, or the campaign families and threshold complete graphs.  The `1e-6` guard applies to real comparisons.  This is an arsenal hold, not a proof.
+
+
 ### graphbrain-alpha-upper-063 — HOLD_ARSENAL
 
 > `independence_number(x) <= max_even_minus_even_horizontal(x) + maximum(max_degree(x), card_periphery(x)) + 1`
