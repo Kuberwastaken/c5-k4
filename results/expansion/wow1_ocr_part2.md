@@ -16,7 +16,7 @@ where possible; spectral gaps at most `1e-6` are ties, and any ILP solve is
 capped at 60 seconds. A source statement that is recovered but restricted to an
 inapplicable construction is recorded as `N/A_ARSENAL`.
 
-Progress: 41 / 54.
+Progress: 42 / 54.
 ### wow-456 — N/A_ARSENAL
 
 PDF p.95: `The residue of the graph RP[2..n] is not more than pi(n).` The source cleanly restores `pi(n)` and identifies RP/residue definitions, but this is restricted to the number-theoretic RP construction; no arsenal graph is admissible.
@@ -140,4 +140,7 @@ PDF p.105 defines `V` as the positive-component vector of a smallest eigenvector
 ### wow-710 — HOLD
 
 PDF p.105: `m0 <= n-residue`, with GF(2) nullity `m0`. Exact binary elimination and independent Havel--Hakimi residue computation agree. The closest arsenal case is the complement carrier: `16 <= 20-3=17`; all others hold.
+### wow-717 — HOLD
+
+PDF p.106 restores `mean degree <= mean dual degree` and records it as proved. Every arsenal graph is regular, so neighbor-average degree equals degree at every vertex and equality holds exactly.
 
