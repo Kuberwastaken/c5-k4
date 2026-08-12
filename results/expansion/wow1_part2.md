@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 174 / 208.
+Progress: 175 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -1081,5 +1081,11 @@ No arsenal member is cubic planar/fullerenic.
 > "sum of positive eigenvalues ... > 1 + number of eigenvalues greater or equal to -1."
 
 The record sits inside the fullerene block and compares 846, so the arsenal is inapplicable. Isolated universal reading would fail on `bar(C5[K4])`: `4+4sqrt(5)~=12.9443 < 19`; but it also fails 879/995 nontrivial connected atlas graphs, including `K2,K3,C5--C9,P7,K3,3,K7` and stars. The gate decisively rejects that reading.
+
+### wow-857 — N/A_ARSENAL
+
+> "Eigenvectors of 0 of a cubic graph ... Conjecture: m < t."
+
+The operative construction is cubic and the OCR-obscure `largest side of a largest triangle` is not defined. No arsenal member is cubic.
 
 
