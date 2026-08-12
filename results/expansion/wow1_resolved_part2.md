@@ -198,3 +198,11 @@ component count is explicitly a nonunique try-out.
 **Status:** proved (WoW annotation). This is a Euclidean triangle area identity,
 not a graph conjecture. No campaign object supplies the required angle
 bisectors, side distances, or perimeter.
+
+## wow-747 — HOLD
+
+**Status:** proved (WoW annotation). Reading the source glyph as the order `b`
+of a largest induced bipartite subgraph, the bound is
+`average_distance <= b/2`. The carrier gives `27/19 <= 4/2`, using the
+certified value `b=4`; exact unordered distance counts independently agree.
+The remainder of the arsenal also holds.
