@@ -753,4 +753,8 @@ Inherited `girth>5` excludes the arsenal and the formula is garbled.
 
 Tree hypothesis excludes every arsenal graph.
 
+### wow-298 — N/A_ARSENAL — historically proved
+
+Tree hypothesis excludes every arsenal graph; row records a stronger FMS result.
+
 <!-- NEXT -->
