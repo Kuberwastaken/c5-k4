@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-241 — HOLD WHERE APPLICABLE
+
+> size / independence < scope of eigenvalues. Disproved by James B. Shearer, see his solution of 215. October 88.
+
+The primary scan places this in `Conjectures for K4-free graphs (240:245)`. Dense cycle blow-ups and `T(q)` are inapplicable. `complement(C5[K4])` is K4-free and gives `|E|/alpha=10 <= scope(A)=14.472135...`; named K4-free calibrators also hold.
+
 ### wow-227 — HOLD / NO ADDITIONAL WITNESS
 
 > diameter < matching. [FMS1] constructed cubic graphs in which di- ameter is approximately 3n/4 and matching is approximately n/2, this is probably the worst possible case. September, 88. Also disproved independently by James B. Shearer, October 88.
