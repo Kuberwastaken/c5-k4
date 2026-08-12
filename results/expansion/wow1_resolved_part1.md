@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-158 — HOLD / NO ADDITIONAL WITNESS
+
+> the independence number of a graph is not more than the number of vertices - minimum degree. Tony Brewster, Los Alamos National Laboratory, proved that the equal- ity holds true iff the complement of the graph has a component that is clique, and every other...
+
+The applicable arsenal satisfies the source-faithful inequality using the listed alpha, clique_number, degree quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
 ### wow-147 — SKIP_ORDER_DEPENDENT
 
 > The average distance < the number of vertices whose coordinates of Max- ane ts 0. With a right (or really wrong) ordering of vertices in barbell graphs, [FA] , Maxine may select every third vertex in the central path, so the strongest version of the observa...
