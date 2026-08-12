@@ -93,6 +93,13 @@ Author-repository, issue-history, exact-formula, and broader invariant searches
 found no pre-existing counterexample.  This is a candidate new disproof; an
 executable certificate is prepared separately.
 
+### graphbrain-alpha-upper-041 — HOLD_ARSENAL
+
+> `independence_number(x) <= (girth(x)^sigma_2(x) - card_periphery(x))^2`
+
+The source-faithful expression has no violation on all 996 connected nonempty Graph Atlas graphs through order 7 where defined, the named controls, or the campaign families and threshold complete graphs.  Real-valued comparisons obey the `1e-6` guard.  This is an arsenal hold, not a proof.
+
+
 ### graphbrain-alpha-upper-040 — DB_REJECTED
 
 > `independence_number(x) <= ceil(sqrt(average_distance(x))^order(x))`
