@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 71 / 208.
+Progress: 72 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -463,5 +463,11 @@ With source normalization `sum |x_i|=n`, connected regular arsenal graphs have P
 > "The minimum temperature < number of nonpositive eigenvalues."
 
 For regular arsenal graphs temperature is exact `d/(n-d)`; guarded inertia counts are safely larger for every member.
+
+### wow-714 — HOLD
+
+> "- mean of nonpositive eigenvalues < sum of reciprocals of all temperatures."
+
+For regular graphs the right side is exact `n(n-d)/d`; direct spectral means are much smaller throughout. Closed-form and dense spectra agree.
 
 
