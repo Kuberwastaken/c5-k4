@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 103 / 208.
+Progress: 104 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -655,5 +655,11 @@ For any graph without isolates, averaging `r(v)=sum_{u in N(v)}1/d(u)` gives `(1
 > "the length of the longest path is greater or equal to the average degree."
 
 Hamiltonicity gives path edge-length `n-1`; every simple arsenal graph has average degree at most `n-1`. Direct degrees verify the bound.
+
+### wow-765(2) — SKIP_OCR
+
+> "Nov. 98. [B] Bela Bollobas, Extremal Graph Theory,"
+
+This suffix record is only a bibliographic fragment and contains no mathematical assertion.
 
 
