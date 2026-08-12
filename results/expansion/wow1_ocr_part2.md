@@ -16,7 +16,7 @@ where possible; spectral gaps at most `1e-6` are ties, and any ILP solve is
 capped at 60 seconds. A source statement that is recovered but restricted to an
 inapplicable construction is recorded as `N/A_ARSENAL`.
 
-Progress: 3 / 54.
+Progress: 4 / 54.
 ### wow-456 — N/A_ARSENAL
 
 PDF p.95: `The residue of the graph RP[2..n] is not more than pi(n).` The source cleanly restores `pi(n)` and identifies RP/residue definitions, but this is restricted to the number-theoretic RP construction; no arsenal graph is admissible.
@@ -26,4 +26,7 @@ PDF p.96: with `e(v)` the number of vertices at even distance from `v` in `RP[2.
 ### wow-496 — N/A_ARSENAL
 
 PDF p.97, under the explicit heading `Conjectures 494--536 are about Paley graphs`: `sum of coordinates of Maxine <= length of S`, where `S` is the quadratic-residue vector. No WoW-I arsenal member is a Paley graph.
+### wow-503 — N/A_ARSENAL
+
+PDF p.97: `frequency of minimum of rainbow <= pi(n)`, still under the Paley-graph heading. The source restores the right side but the inherited graph class excludes the arsenal.
 
