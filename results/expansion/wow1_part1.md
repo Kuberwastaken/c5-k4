@@ -485,4 +485,8 @@ Restoring inherited `sum Odd < sum Even` is essential: applicable `T(7..9)` and 
 
 Minimum adjacency eigengap is 0 from multiplicities, at most `n/mean gravity` on all graphs satisfying the inherited section condition.
 
+### wow-202 — HOLD where applicable
+
+Every applicable arsenal graph is regular, so maximum degree frequency is `n`, above average distance.
+
 <!-- NEXT -->
