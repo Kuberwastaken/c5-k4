@@ -93,6 +93,13 @@ Author-repository, issue-history, exact-formula, and broader invariant searches
 found no pre-existing counterexample.  This is a candidate new disproof; an
 executable certificate is prepared separately.
 
+### graphbrain-alpha-upper-085 — DB_REJECTED
+
+> `independence_number(x) <= maximum(1/number_of_triangles(x), -card_cut_vertices(x) + order(x))`
+
+The exact author reading fails the mandatory small-graph gate on connected Graph Atlas graph `atlas:Fg?hg`: `alpha=4` and right side `3`.  This is database-inconsistent as posted, not a new campaign counterexample.  Undefined-domain cases were excluded.
+
+
 ### graphbrain-alpha-upper-084 — DB_REJECTED
 
 > `independence_number(x) <= matching_number(x)^different_degrees(x) + max_even_minus_even_horizontal(x) - 1`
