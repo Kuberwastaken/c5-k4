@@ -317,4 +317,8 @@ Direct evaluation gives mean deficiency at most `|E|-mu`; the row cites `[FMS1]`
 
 Garble: `Sum of reciprocals of components of twister < harmonic.` The invariant `twister` is undefined in the recovered material.
 
+### wow-134 — HOLD
+
+The Randić index is at most gravity-matrix rank throughout; even the largest arsenal value is `20 <= 40`.
+
 <!-- NEXT -->
