@@ -801,4 +801,8 @@ Triangle-free carrier complement gives `|E|/alpha=10 <= number negative distance
 
 Reading `|E|/alpha <= mode Even`, carrier complement gives `10 <= 12`.
 
+### wow-315 — SKIP_OCR
+
+Rainbow depends on unspecified greedy coloration/order.
+
 <!-- NEXT -->
