@@ -359,3 +359,9 @@ and regular-degree formulas agree, and every arsenal member holds.
 **Status:** refuted (WoW annotation). This record is introductory prose defining
 fullerenes and isolated-pentagon isomers; it does not preserve a standalone
 inequality. No arsenal graph is a fullerene in any event.
+
+## wow-841 — NOT_APPLICABLE
+
+**Status:** refuted (Aouchiche--Hansen survey). The statement is restricted to
+fullerenes. No arsenal graph is simultaneously cubic, planar, and a
+pentagon/hexagon-faced fullerene, so the antecedent excludes the lane.
