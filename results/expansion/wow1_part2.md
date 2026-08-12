@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 94 / 208.
+Progress: 95 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -601,5 +601,11 @@ Direct BFS-layer edge counts give minimum horizontal-edge values `12,34,67,111,1
 > "The chip-firing game ... if the game terminates th"
 
 The record truncates before any conjectural assertion. Definitions alone cannot be tested, and no continuation is guessed.
+
+### wow-755 — HOLD
+
+> "a-m+h is not more than n."
+
+Every arsenal member is Hamiltonian, so longest-path length in edges is `h=n-1`; exact independence and maximum matching give `alpha-nu+h<=n` throughout. The alternative vertex-count convention adds one but the displayed commentary explicitly uses edge-length; under a vertex-count reading the gate would reject familiar Hamiltonian graphs, so it is discarded.
 
 
