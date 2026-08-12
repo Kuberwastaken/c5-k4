@@ -102,3 +102,9 @@ arsenal produced no violation.
 `alpha >= floor(arccosh(theta))^2`.  On `C5[K4]` the right side is
 `floor(1.4436...)^2=1`, below `alpha=2`.  This is also outside the numerical
 guard band.  No named-arsenal violation was found.
+
+#### Figure 14 / lower-013 — `HOLD_ARSENAL`
+
+`alpha >= ceil(theta)-radius`.  On `C5[K4]`, this is
+`2 >= ceil(sqrt(5))-2 = 1`.  The closed form avoids spectral rounding, and no
+named-arsenal violation was found.
