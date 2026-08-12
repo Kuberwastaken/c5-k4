@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-19 — PROVED_HOLD
+
+> Let a be the smallest eigenvalue of a graph G. Then - a is < Randic index of G. (3.) This conjecture was proved by Favaron, Maheo and Sacle, University of Paris-Sud. comp also conj’s 20, 21, 27 and 28. [FMS2] O. Favaron, M. Maheo and J-P. Sacle, Some Result...
+
+Direct evaluation of the applicable arsenal using the source hypotheses and the listed randic_index, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
 ### wow-18 — HOLD / NO ADDITIONAL WITNESS
 
 > radius is not more than the number of vertices of maximum degree + the maximum frequency of the degree sequence. Disproved by Shui-Tain Chen, University of Houston, March 88. February 19. 87.
