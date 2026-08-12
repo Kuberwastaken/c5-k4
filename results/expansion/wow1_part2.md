@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 65 / 208.
+Progress: 66 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -427,5 +427,11 @@ Taking standard deviation of unordered-pair distances, exact histograms give val
 > "The mean temperature < the mean rainbow."
 
 Temperature is defined, but `rainbow` is not, so the inequality cannot be evaluated faithfully.
+
+### wow-704 — SKIP_OCR
+
+> "The range range of rainbow n — m4"
+
+The sign and grouping are absent, with duplicated `range` and unrecovered `m4`. This is unusable OCR.
 
 
