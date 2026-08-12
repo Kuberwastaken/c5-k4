@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 160 / 208.
+Progress: 161 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -997,5 +997,11 @@ The derived red graph is unspecified because `P` is missing. The source addition
 > "red clique number < blue residue + maximum deficiency."
 
 The red/blue construction is parameterized by an absent property `P`. No guessing is permitted.
+
+### wow-839 — N/A_ARSENAL (missing P)
+
+> "red clique number < number of blue isolated vertices + maximum of odd vertices."
+
+Both colored graphs and the `odd vertices` coordinate depend on missing surrounding definitions. No arsenal test is defined.
 
 
