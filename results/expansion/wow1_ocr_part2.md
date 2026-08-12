@@ -16,7 +16,7 @@ where possible; spectral gaps at most `1e-6` are ties, and any ILP solve is
 capped at 60 seconds. A source statement that is recovered but restricted to an
 inapplicable construction is recorded as `N/A_ARSENAL`.
 
-Progress: 33 / 54.
+Progress: 34 / 54.
 ### wow-456 — N/A_ARSENAL
 
 PDF p.95: `The residue of the graph RP[2..n] is not more than pi(n).` The source cleanly restores `pi(n)` and identifies RP/residue definitions, but this is restricted to the number-theoretic RP construction; no arsenal graph is admissible.
@@ -116,4 +116,7 @@ PDF p.104 defines `m1` as the multiplicity of 1 as an adjacency eigenvalue over 
 ### wow-694 — N/A_TRYOUT
 
 PDF p.104: for an eigenvector `E` of the smallest adjacency eigenvalue, `frequency(max E) <= independence`. The source immediately warns eigenvectors are try-outs and suggests uniqueness as an additional hypothesis. Every arsenal member has a multiple smallest eigenvalue, so none meets that reading; the all-eigenvectors reading already fails on K3 and is DB-rejected.
+### wow-695 — DB_REJECTED
+
+PDF p.104: `range(nonpositive real adjacency eigenvalues) <= 1+n-m0`, with `m0` the GF(2) nullity of adjacency. The complement carrier violates: `2+2sqrt(5)=6.472135955 > 5` (`m0=16`). However two connected 7-vertex atlas graphs also violate (`F]rE?`: `sqrt(10)>3`; `FreRW`: `2sqrt(3)>3`, each `m0=5`). Mandatory gate therefore rejects this as a historical/source-level false entry, not a new kill.
 
