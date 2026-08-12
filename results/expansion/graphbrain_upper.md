@@ -93,6 +93,13 @@ Author-repository, issue-history, exact-formula, and broader invariant searches
 found no pre-existing counterexample.  This is a candidate new disproof; an
 executable certificate is prepared separately.
 
+### graphbrain-alpha-upper-098 — DB_REJECTED
+
+> `independence_number(x) <= maximum(average_distance(x), number_of_triangles(x))^e^order_automorphism_group(x)`
+
+The exact author reading fails the mandatory small-graph gate on connected Graph Atlas graph `atlas:@`: `alpha=1` and right side `0`.  This is database-inconsistent as posted, not a new campaign counterexample.  Undefined-domain cases were excluded.
+
+
 ### graphbrain-alpha-upper-097 — HOLD_ARSENAL
 
 > `independence_number(x) <= max_even_minus_even_horizontal(x)^different_degrees(x) + 1/card_cut_vertices(x)`
