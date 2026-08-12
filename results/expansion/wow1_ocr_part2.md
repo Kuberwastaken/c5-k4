@@ -16,7 +16,7 @@ where possible; spectral gaps at most `1e-6` are ties, and any ILP solve is
 capped at 60 seconds. A source statement that is recovered but restricted to an
 inapplicable construction is recorded as `N/A_ARSENAL`.
 
-Progress: 37 / 54.
+Progress: 38 / 54.
 ### wow-456 — N/A_ARSENAL
 
 PDF p.95: `The residue of the graph RP[2..n] is not more than pi(n).` The source cleanly restores `pi(n)` and identifies RP/residue definitions, but this is restricted to the number-theoretic RP construction; no arsenal graph is admissible.
@@ -128,4 +128,7 @@ PDF p.105: `average distance <= inverse Rainbow`. For any coloration, each posit
 ### wow-702 — HOLD
 
 PDF p.105: `mean temperature <= mean Rainbow`. The historical temperature is `d(v)/(n-d(v))`; on each regular arsenal graph its mean is `d/(n-d)`. Direct coloration evaluation and the lower bound Rainbow>=1 verify every member (the maximum temperature here is below the observed Rainbow mean).
+### wow-704 — SOURCE_UNRECOVERABLE
+
+The primary page itself prints `The range range of rainbow n - m1` without a relation symbol. This is not repairable from OCR: no inequality survives in the canonical source.
 
