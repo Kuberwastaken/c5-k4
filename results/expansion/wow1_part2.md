@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 43 / 208.
+Progress: 44 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -295,5 +295,11 @@ The section's 634--654 hypothesis fails throughout the usable arsenal, and `Rain
 > "scope of Dual Degree < independence."
 
 The section restriction `chi(bar G)=n-nu(G)` excludes the arsenal instances checked; moreover the Dual Degree sequence is unavailable.
+
++### wow-643 — N/A_ARSENAL
+
+> "scope of Dual Degree < number of components of mid-degree."
+
+No arsenal member is certified under the section hypothesis, and both derived sequences lack faithful definitions.
 
 
