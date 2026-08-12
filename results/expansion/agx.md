@@ -9,9 +9,13 @@
 - **OCR discipline:** an expression that cannot be recovered faithfully from the corpus is recorded as `SKIP_OCR` with the surviving garble quoted; no intended formula is guessed.
 - **ILP discipline:** no solver call may exceed 60 seconds. (This lane currently needs no ILP.)
 
-Progress: **60/71** entries evaluated (70 strict-open + 1 open-in-full).
+Progress: **61/71** entries evaluated (70 strict-open + 1 open-in-full).
 
 ## Verdicts
+
+### `agx-survey-C11` — HOLD
+
+Recovered `lambda1(G)+lambda1(comp(G)) <= 4n/3-5/3-c(n)`, with the survey's residue-class radical correction. Direct spectra of each graph and its complement, independently checked by the C5 blow-up and Paley closed forms, satisfy the guarded bound. No candidate violation appears, so the database and novelty gates are not triggered.
 
 ### `agx-form1-T45-r119-lower` — HOLD
 
