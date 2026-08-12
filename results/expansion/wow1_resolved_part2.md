@@ -285,3 +285,9 @@ jet, so `jet <= n_positive` holds throughout.
 graphs on intervals of primes. None of the campaign graphs is supplied with
 the required prime labeling, and testing an arbitrary isomorphic graph would
 erase the number-theoretic hypothesis.
+
+## wow-785 — NOT_APPLICABLE
+
+**Status:** refuted (WoW annotation). The graph is specifically `AP[10,n]`
+from #783; no arsenal member has that construction. The OCR also collapses the
+Laplacian symbol and right side to `d <= -1+1`, so it is unusable independently.
