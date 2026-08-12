@@ -353,4 +353,8 @@ Under both mean-entry conventions for the printed gravity matrix, mean gravity i
 
 The minimum consecutive gravity-eigenvalue gap is 0 because of multiplicities. A distinct-values-only parse is nonstandard and rejected.
 
+### wow-151 — HOLD
+
+Positive gravity inertia is at most matching number: cycle blow-ups have 3 positives; `T(n)` has `n`, still below its matching number.
+
 <!-- NEXT -->
