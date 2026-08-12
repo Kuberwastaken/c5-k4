@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 38 / 208.
+Progress: 39 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -265,5 +265,11 @@ The phrase does not specify whether `inverse` means reciprocal sum, reversed vec
 > "size/independence < chromatic number of G + chromatic number of the complement of G."
 
 The surrounding text explicitly restricts conjectures 634--654 to graphs satisfying `chi(bar G)=n-nu(G)`. None of the non-triangle-free blow-ups or triangular graphs is certified in that class; the triangle-free complement of `C5[K4]` also fails it (`chi(C5[K4])=4`, while `20-nu=10`). No admissible arsenal instance.
+
++### wow-638 — SKIP_OCR
+
+> "maximum of Rainbow < n /2."
+
+The `Rainbow` coordinate sequence is undefined in the extracted source, preventing faithful evaluation.
 
 
