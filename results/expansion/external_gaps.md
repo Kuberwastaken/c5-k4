@@ -179,3 +179,11 @@ hypothesis.  No counterexample was found.
 The paper first lists planar plus vertex-transitive as a conjectured sufficient
 condition, then proves exactly that claim as Theorem 20.  It is not an open
 target and was not counted as a kill opportunity.
+
+#### Hamiltonicity 9 — `HOLD_ARSENAL`
+
+Every Eulerian vertex-transitive graph is conjectured Hamiltonian.  The
+complement of `C5[K4]` is an applicable control: it is connected,
+vertex-transitive, 8-regular (hence Eulerian), and has an explicit Hamilton
+cycle under the existing independent verifier.  The original `C5[K4]` is
+11-regular and therefore not Eulerian.  No violation was found.
