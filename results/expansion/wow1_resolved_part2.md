@@ -291,3 +291,10 @@ erase the number-theoretic hypothesis.
 **Status:** refuted (WoW annotation). The graph is specifically `AP[10,n]`
 from #783; no arsenal member has that construction. The OCR also collapses the
 Laplacian symbol and right side to `d <= -1+1`, so it is unusable independently.
+
+## wow-790 — NOT_APPLICABLE
+
+**Status:** refuted (WoW annotation). The claim is restricted to critical
+Ramsey triangle-free graphs `R(3,a+1)`. Although the complement carrier is
+regular and triangle-free, it is not certified as a largest critical Ramsey
+graph of its independence order; no arsenal member meets the antecedent.
