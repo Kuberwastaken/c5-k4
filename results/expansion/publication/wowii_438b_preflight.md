@@ -82,3 +82,24 @@ Remediation required after this commit:
 4. explicitly include the 2022 priority qualification;
 5. rerun the target `lake --wfail build`;
 6. read back issue/PR/files/base/head and recheck every link.
+
+## Remediation completion
+
+Completed on **2026-08-12 UTC**:
+
+- Upstream problem file was reduced to the canonical benchmark declaration
+  with repository-standard `by sorry`; the executable certificate remains in
+  `c5-k4` at the immutable link above.
+- Issue #4915 and PR #4916 were rewritten in the canonical section order and
+  read back through the GitHub API.
+- The PR has exactly one file,
+  `FormalConjectures/WrittenOnTheWallII/GraphConjecture438b.lean`, base `main`,
+  and head `Kuberwastaken:prove-wowii-438b` at
+  `9a1636c4030039f70cf78b866c216d8b6c5f35b0`.
+- `lake --wfail build
+  FormalConjectures.WrittenOnTheWallII.GraphConjecture438b` passes locally.
+- The complete-proof and audit links were rechecked at HTTP 200 and opened to
+  confirm their contents.
+- Copyright, source-scan, script, CLA, and security checks pass. The full
+  project build is still running at the time of this checkpoint; its pending
+  state is recorded as CI state, not as a mathematical or Lean failure.
