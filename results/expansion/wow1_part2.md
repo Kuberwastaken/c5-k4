@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 110 / 208.
+Progress: 111 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -697,5 +697,11 @@ No degree-3 arsenal member exists.
 > "If G is a cubic graph ..."
 
 The graph class excludes the arsenal, and the commentary already reports a 20-vertex counterexample.
+
+### wow-773 — N/A_ARSENAL
+
+> "The radius of a cubic connected graph ..."
+
+No arsenal member is cubic.
 
 
