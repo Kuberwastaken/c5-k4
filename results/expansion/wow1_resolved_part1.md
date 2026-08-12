@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-215 — HOLD WHERE APPLICABLE
+
+> size / independence < scope of the eigenvalues. Counterexamples are graphs obtained by removal of edges from triangles in random graphs in which n >> average degree >> 1.They are discussed in [SH1]. These graphs can be used to obtain counterexamples of arbi...
+
+The inherited triangle-free section excludes all clique blow-ups and triangular graphs. The only main-arsenal member selected is `complement(C5[K4])`, where `|E|/alpha=10 <= scope(A)=14.472135...`. Named triangle-free calibration graphs do not produce an extra witness.
+
 ### wow-211 — PROVED_HOLD
 
 > n / average distance < the sum of absolute values of S. F. 2, 90. Conjectures for triangle-free graphs (212:220)
