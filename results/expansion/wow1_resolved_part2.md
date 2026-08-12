@@ -89,7 +89,7 @@ refute it, and no new mathematical verdict is assigned.
 **Status:** proved (Aouchiche--Hansen survey). Every arsenal member satisfies
 `matching <= sum(positive adjacency eigenvalues)`. For the carrier the values
 are `10` and `13+4sqrt(5)`; for its complement they are `10` and
-`10+2sqrt(5)`. Direct maximum matchings and guarded diagonalization agree.
+`4+4sqrt(5)`. Direct maximum matchings and guarded diagonalization agree.
 
 ## wow-711 — HOLD
 
