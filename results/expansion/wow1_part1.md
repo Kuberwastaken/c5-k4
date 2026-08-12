@@ -149,4 +149,8 @@ Every arsenal graph has no cut vertices, so the cut-vertex coordinate vector is 
 
 Every arsenal graph has no cut vertices, hence the relevant maximum coordinate is 0, at most the positive matching number.
 
+### wow-75 — HOLD
+
+Every arsenal graph has no cut vertices, hence the cut-vertex-coordinate variance is 0, at most `alpha`.
+
 <!-- NEXT -->
