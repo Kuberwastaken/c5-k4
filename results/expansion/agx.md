@@ -9,9 +9,13 @@
 - **OCR discipline:** an expression that cannot be recovered faithfully from the corpus is recorded as `SKIP_OCR` with the surviving garble quoted; no intended formula is guessed.
 - **ILP discipline:** no solver call may exceed 60 seconds. (This lane currently needs no ILP.)
 
-Progress: **33/71** entries evaluated (70 strict-open + 1 open-in-full).
+Progress: **34/71** entries evaluated (70 strict-open + 1 open-in-full).
 
 ## Verdicts
+
+### `agx-form1-T45-r42-lower` — HOLD
+
+Recovered bound: lambda1*R >= n-1. HOLD; direct edge-sum Randic computation plus dense spectral diagonalization agrees with the independent regular-graph identity R=n/2. Every spectral comparison uses the 1e-6 guard; no candidate violation appears, so the database and novelty gates are not triggered.
 
 #### Correction to `agx-form1-T45-r40-lower` — HOLD
 
