@@ -389,4 +389,8 @@ Under edge-count `size`, `|E|/omega <= sum Even` throughout; the order reading a
 
 Garble: `maximum of autocoordinates of Maxine of the complement`. This representation-dependent historical construction is undefined.
 
+### wow-162 — HOLD
+
+`chi/omega` is at most the range of positive adjacency eigenvalues throughout; `1e-6` guard applied.
+
 <!-- NEXT -->
