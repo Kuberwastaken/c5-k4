@@ -821,4 +821,8 @@ Carrier complement maximum degree 8 is at most mode Even 12.
 
 Inverse Rainbow is greedy-coloration/order dependent; no robust reading.
 
+### wow-320 — HOLD where applicable
+
+Carrier complement gives `n-residue=17 <= mu(G)+mu(complement G)=20`.
+
 <!-- NEXT -->
