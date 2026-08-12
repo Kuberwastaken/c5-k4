@@ -537,4 +537,8 @@ Under the following girth-section boundary, the statement's triangle-free readin
 
 Inherited `girth>5` section hypothesis excludes every arsenal graph (all have girth 3 or 4).
 
+### wow-222 — N/A_ARSENAL
+
+Inherited `girth>5` section hypothesis excludes every arsenal graph.
+
 <!-- NEXT -->
