@@ -28,3 +28,10 @@ is absent in the source itself, between “clique” and “maximum”.  This is
 OCR loss: the July 2004 document preserves a damaged original entry.  Supplying
 `<=` would be editorial conjecture rather than source recovery.  The row remains
 unevaluable.
+
+### wow-96(2) — NOT_AN_ENTRY
+
+The scan (printed p.45) shows `William Staton. April 88.` is the attribution and
+date completing conjecture 97, which begins immediately above it on the same
+page.  The OCR parser incorrectly created a second row numbered 96.  There is no
+statement to evaluate.
