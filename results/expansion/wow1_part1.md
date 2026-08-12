@@ -553,4 +553,8 @@ Inherited `girth>5` section hypothesis excludes every arsenal graph.
 
 Inherited `girth>5` section hypothesis excludes every arsenal graph.
 
+### wow-228 — SKIP_OCR
+
+`resolution of Maxine` is historical, order-dependent, and undefined in the recovered material.
+
 <!-- NEXT -->
