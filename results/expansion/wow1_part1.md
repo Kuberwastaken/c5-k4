@@ -601,4 +601,8 @@ Complement-Maxine resolution autocoordinates are undefined/order-dependent.
 
 Even is constant on every vertex-transitive arsenal graph, so `maxfreq(Even)=n >= n/2`.
 
+### wow-240 — HOLD where applicable
+
+Inherited `K4`-free hypothesis selects the carrier complement: `|E|-n=60 <= sum deficiency=560`.
+
 <!-- NEXT -->
