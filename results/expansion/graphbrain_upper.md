@@ -93,6 +93,13 @@ Author-repository, issue-history, exact-formula, and broader invariant searches
 found no pre-existing counterexample.  This is a candidate new disproof; an
 executable certificate is prepared separately.
 
+### graphbrain-alpha-upper-082 — HOLD_ARSENAL
+
+> `independence_number(x) <= maximum(vertex_con(x), e^max_even_minus_even_horizontal(x)/min_common_neighbors(x))`
+
+The exact author expression has no violation on all 996 connected nonempty Graph Atlas graphs through order 7 where defined, the named controls, or campaign/threshold families.  Real comparisons use the `1e-6` guard.  This is an arsenal hold, not a proof.
+
+
 ### graphbrain-alpha-upper-080 — HOLD_ARSENAL
 
 > `independence_number(x) <= maximum(radius(x), max_degree(x))^2 + 1`
