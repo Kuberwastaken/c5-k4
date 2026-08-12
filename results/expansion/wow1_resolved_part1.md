@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-29 — RETRO-VIOLATION — T(q), q≥7
+
+> The Randic index is not more than the number of negative distance eigen- values. Disproved by Alon, Saks, Seymour, Shearer and Winkler. July 88.
+
+For `T(q)`, regularity gives `R=n/2=q(q-1)/4`, while the distance spectrum has exactly `q-1` negative eigenvalues. Thus `T(7)` gives `10.5 > 6`, and every `q>=7` violates. This supplements the row's historical refutation; it is not a new conjecture kill. Exact spectral multiplicities and a separate eigensolver agree.
+
 ### wow-28 — HOLD / NO ADDITIONAL WITNESS
 
 > Randic index is not more than the sum of positive eigenvalues. This conjecture is false, but working on a counterexample I formed a conjecture that for trees the value of Randic index is close, and seem to be correlated with the sum of the positive eigenval...
