@@ -68,3 +68,13 @@ distance-two graph and has independence number 12, whereas `chi/omega=10/8`.
 For each diameter-two triangular graph `T(q)`, `D2` is its complement and the
 left side is at most the obvious clique-sized independent set.  No violation
 approaches a numerical guard.
+
+### wow-155 — SKIP_DEFINITION
+
+> mean of autocoordinates of Maxine of D2 <= the matching number.
+
+The scan (printed p.67) confirms the exact statement and operator, and p.51
+defines both Maxine and `D2`.  It never defines **autocoordinates**, however;
+neither the document nor targeted searches recover a mathematical definition.
+Moreover Maxine explicitly depends on vertex tie-breaking.  Evaluating a guessed
+coordinate convention would violate the all-readings rule, so this stays skipped.
