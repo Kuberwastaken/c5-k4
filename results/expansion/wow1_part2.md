@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 114 / 208.
+Progress: 115 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -721,5 +721,11 @@ Exact counter-independence values are at least 2 and every arsenal radius is at 
 > "The jet number of any connected graph is greater or equal to half of the radius."
 
 Exact jet values are `2,2,2,2,2,2,3,4,3,3,4,2` in arsenal order and dominate `radius/2`. The source explicitly corrects an earlier reversed listing.
+
+### wow-781 — HOLD
+
+> "jet number of G is not more than 1 + g/2"
+
+With `g` the global minimum degree/degeneracy of the complement as stated, exact jet and core-number computations satisfy the bound for every arsenal graph. No violation.
 
 
