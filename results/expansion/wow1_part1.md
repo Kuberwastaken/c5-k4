@@ -137,4 +137,8 @@ On the natural clique-coordinate reading, `C5[K4]` has `chi=10 > 8=max frequency
 
 Every arsenal graph is bridgeless, so the cut-edge count is zero. The row explicitly records proofs by Shearer and Staton.
 
+### wow-72 — HOLD — historically proved
+
+All arsenal graphs are regular; direct temperature/depth evaluation holds (carrier `11/9 <= 18`). The row records independent proofs.
+
 <!-- NEXT -->
