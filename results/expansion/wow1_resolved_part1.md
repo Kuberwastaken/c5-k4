@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-201 — HOLD / NO ADDITIONAL WITNESS
+
+> The minimum of derivative of positive eigenvalues < size/clique. [FMS2], November 88.
+
+Using the source definition of derivative as consecutive gaps in the sorted positive adjacency spectrum, all applicable arsenal members satisfy the bound. No gap lies within the `1e-6` guard; the historical refutation remains external.
+
 ### wow-200 — PROVED_HOLD
 
 > The minimum positive eigenvalue < the Randic index. Odile Favaron, Maryvonne Maheo and Jean-Francois Sacle , proved that the conjecture is correct for all but certain for complete p-partite graphs. January 89.
