@@ -191,3 +191,24 @@ counts `(24,15,21,20)` across its 80 edges. Petersen also holds, with counts
 `(3,4,4,4)`. These are positive flow certificates, so none of the objects can
 disprove Tutte's conjecture.
 
+### 8. Lovasz vertex-transitive Hamilton paths — HOLD
+
+Every main arsenal member is vertex-transitive by construction: cyclic blob
+rotations and within-blob permutations cover the blow-ups, permutations of
+`K_n` act transitively on the vertices of `T(n)=L(K_n)`, and the named controls
+are standard vertex-transitive graphs. Each is connected. A deterministic
+backtracking search produced a spanning path for all 15 graphs, followed by a
+separate check of vertex coverage, uniqueness, and every consecutive edge.
+
+Representative certificates are:
+
+- `C5[K4]`:
+  `(0,2,17,16,19,1,18,3,4,5,6,7,9,8,10,11,14,12,13,15)`;
+- `comp(C5[K4])`:
+  `(0,12,3,8,2,11,1,15,4,14,7,13,5,17,10,19,9,16,6,18)`;
+- Petersen: `(0,4,3,2,1,6,9,7,5,8)`.
+
+These positive certificates rule out every arsenal object as a counterexample
+to the Hamilton-path conjecture. (They do not address the false Hamilton-cycle
+strengthening catalogued in the source.)
+
