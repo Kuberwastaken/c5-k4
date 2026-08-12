@@ -365,3 +365,9 @@ inequality. No arsenal graph is a fullerene in any event.
 **Status:** refuted (Aouchiche--Hansen survey). The statement is restricted to
 fullerenes. No arsenal graph is simultaneously cubic, planar, and a
 pentagon/hexagon-faced fullerene, so the antecedent excludes the lane.
+
+## wow-843 — NOT_APPLICABLE
+
+**Status:** refuted (WoW annotation). The lower bound `alpha >= n/2-8` is
+explicitly for fullerenes. No campaign graph satisfies that structural
+hypothesis; applying it to a nonplanar carrier would be invalid.
