@@ -378,3 +378,12 @@ this lane inapplicable; Maxine's order ambiguity would also remain.
 
 Printed p.80 recovers the full spectral inequality.  No arsenal member satisfies
 the girth hypothesis, so no evaluation or candidate gate is available.
+
+### wow-295 — N/A_ARSENAL
+
+> If girth is >= 5 then the number of positive eigenvalues of the distance
+> matrix <= n / mean gravity.
+
+Printed p.80 recovers the complete statement.  The girth-at-least-five
+hypothesis excludes every arsenal graph, so this is inapplicable rather than an
+OCR skip.
