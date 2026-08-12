@@ -9,9 +9,13 @@
 - **OCR discipline:** an expression that cannot be recovered faithfully from the corpus is recorded as `SKIP_OCR` with the surviving garble quoted; no intended formula is guessed.
 - **ILP discipline:** no solver call may exceed 60 seconds. (This lane currently needs no ILP.)
 
-Progress: **34/71** entries evaluated (70 strict-open + 1 open-in-full).
+Progress: **35/71** entries evaluated (70 strict-open + 1 open-in-full).
 
 ## Verdicts
+
+### `agx-form1-T45-r43-upper` — HOLD
+
+Recovered bound: lambda1-a <= n-3+t, with t the C8 cubic root. HOLD; direct adjacency/Laplacian spectra and independent closed-form family spectra agree. Every spectral comparison uses the 1e-6 guard; no candidate violation appears, so the database and novelty gates are not triggered.
 
 ### `agx-form1-T45-r42-lower` — HOLD
 
