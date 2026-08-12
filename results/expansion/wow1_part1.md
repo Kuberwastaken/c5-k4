@@ -329,4 +329,8 @@ Garble: `chromatic number / clique < independence of D2.` The historical `D2` co
 
 All arsenal graphs are regular, hence temperature deviation is 0 and the Randić RHS is positive.
 
+### wow-142 — HOLD
+
+The minimum positive adjacency eigenvalue is below exact `n/average_distance` throughout, outside the `1e-6` guard.
+
 <!-- NEXT -->
