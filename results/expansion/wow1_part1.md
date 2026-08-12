@@ -589,4 +589,8 @@ Exact average distance is at most minimum Odd count; carrier `27/19 <= 11`.
 
 Exact average distance is at most minimum Even count; carrier `27/19 <= 9`.
 
+### wow-237 — HOLD
+
+On each regular arsenal graph, `sum 1/Odd=n/r <= n/average_distance`.
+
 <!-- NEXT -->
