@@ -327,3 +327,10 @@ blue graphs here are taken with respect to a fixed chromatic number. The corpus
 does not preserve that parameter, and substituting the later triangle-free
 distance-two coloring makes C5 itself fail the database gate. No such
 context-changing reading is claimed.
+
+## wow-824 — NOT_APPLICABLE
+
+**Status:** refuted (WoW annotation). The isolated row omits the fixed
+chromatic-number parameter governing `R(G)` in the primary-page heading.
+Without it, the number of isolated red vertices is not defined. No carrier
+verdict is possible.
