@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-243 — HOLD WHERE APPLICABLE
+
+> size / independence < maximum eigenvalue of Laplacian. Disproved by James B. Shearer, see his solution of 215. October 88.
+
+The primary scan places this in the K4-free section. `complement(C5[K4])` gives `|E|/alpha=10 <= lambda_max(L)=14.472135...`; the dense graphs that would fail are excluded by the inherited hypothesis. No additional historical witness arises.
+
 ### wow-241 — HOLD WHERE APPLICABLE
 
 > size / independence < scope of eigenvalues. Disproved by James B. Shearer, see his solution of 215. October 88.
