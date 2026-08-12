@@ -769,4 +769,8 @@ Rank condition `rank(D)<rank(A)` selects `T(7..9)`; radius 2 is below harmonic i
 
 On applicable `T(7..9)`, greedy Maxine corresponds to a maximal matching of `K_n`; direct coordinate means are below radius 2.
 
+### wow-307 — SKIP_OCR
+
+Garble: RHS `largesteigenvalue’ LOny L` is unusable.
+
 <!-- NEXT -->
