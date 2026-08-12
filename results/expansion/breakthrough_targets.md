@@ -111,3 +111,25 @@ edge incidence, closure, and the power-of-two length. The source inventory's
 graphs, but the 20--40 vertex carrier objects are not near misses: all except
 Petersen fail immediately at length four. No disproof is present.
 
+### 4. Reed's chromatic bound — HOLD (carrier family is sharp)
+
+The target is `chi(G) <= ceil((Delta(G)+1+omega(G))/2)`. Exact maximum-clique
+enumeration and replayed proper-colouring certificates establish the bound on
+the entire arsenal. The informative cases are the clique blow-ups:
+
+| family | certified colouring | Reed RHS | verdict |
+|---|---:|---:|---|
+| `C5[K_m]`, `m=2,3,4,5,6,8` | `ceil(5m/2)` | `ceil(5m/2)` | equality |
+| `C7[K3]` | 7 | 8 | strict |
+| `C9[K3]` | 7 | 8 | strict |
+| `T(7),T(8),T(9)` | at most 8, 7, 10 | 9, 10, 12 | strict |
+| `comp(C5[K4])` | 3 | 6 | strict |
+| Petersen, `K3,3`, `K4` | 3, 2, 4 | 3, 3, 4 | hold |
+
+For `C5[K_m]`, each colour class meets at most two nonadjacent blobs, proving
+the matching lower bound `chi >= ceil(5m/2)`; explicit cyclic colour-set
+assignments attain it. Thus the original carrier is exactly sharp
+(`chi=10`, RHS `10`) rather than a counterexample. Every stored colouring was
+separately replayed across all edges. There is no numerical or optimization
+ambiguity and no violation to promote through the novelty gate.
+
