@@ -307,3 +307,11 @@ Printed p.81 recovers the full condition and denominator.  The rank hypothesis
 selects `T(7),T(8),T(9)` from the arsenal.  Their exact average distances are
 `3/2,14/9,8/5`, while `n/lambda_max` is respectively
 `21/10,28/12,36/14`; all hold with clear margin.
+
+### wow-310 — HOLD_WHERE_APPLICABLE
+
+> If G is a triangle-free graph then size / independence <= harmonic.
+
+Printed p.81 repairs the OCR completely.  The triangle-free carrier complement
+has `|E|/alpha=80/8=10` and, being 8-regular on 20 vertices, harmonic index
+`|E|/8=10`: exact equality.  This is a recovered tightness witness, not a kill.
