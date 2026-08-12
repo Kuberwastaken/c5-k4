@@ -53,3 +53,11 @@ holds. Exact colorings supply the two values independently; no retro-kill.
 hypothesis, `complement(C5[K4])` gives `chi=3` and average distance `30/19`,
 so `3 <= 20/(30/19)=38/3`. Exact distance counts and an independent shortest-
 path calculation agree. No candidate reaches a gate.
+
+## wow-636 — HOLD
+
+**Status:** proved (Aouchiche--Hansen survey). In the 634--654 section the
+hypothesis is `chi(bar G)=n-matching`. The complement carrier satisfies it:
+`chi(C5[K4])=10=20-10`. Its `|E|/alpha=80/8=10`, below
+`lambda_max(L)=10+2sqrt(5)=14.47213595...`; the guarded numerical spectrum
+and complement closed form agree.
