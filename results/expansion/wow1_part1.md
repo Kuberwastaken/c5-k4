@@ -413,4 +413,8 @@ Randić index is at most Laplacian rank `n-1` for every connected arsenal graph.
 
 Temperature deviation is 0 on every regular arsenal graph.
 
+### wow-171 — HOLD
+
+Temperature deviation is 0 on every regular arsenal graph.
+
 <!-- NEXT -->
