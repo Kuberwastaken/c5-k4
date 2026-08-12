@@ -493,4 +493,8 @@ Every applicable arsenal graph is regular, so maximum degree frequency is `n`, a
 
 Exact average distance is at most `sum 1/degree` on applicable `T(7..9)` and the carrier complement.
 
+### wow-204 — SKIP_OCR
+
+Garble: `length of autocoordinates of Maxine of D2`. The construction is undefined/order-dependent.
+
 <!-- NEXT -->
