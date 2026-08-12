@@ -609,4 +609,8 @@ Inherited `K4`-free hypothesis selects the carrier complement: `|E|-n=60 <= sum 
 
 On the `K4`-free carrier complement, `|E|=80 <= sum Even=240`; row cites proof.
 
+### wow-246 — SKIP_OCR
+
+Number of zero Maxine coordinates depends on unspecified algorithm/order; no robust invariant reading.
+
 <!-- NEXT -->
