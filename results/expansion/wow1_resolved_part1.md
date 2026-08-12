@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-208 — PROVED_HOLD
+
+> - smallest eigenvalue < harmonic. James B. Shearer, October 88.
+
+Direct evaluation of the applicable arsenal using the source hypotheses and the listed spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
 ### wow-207 — CORPUS-STATUS CONFLICT / HOLD
 
 > - smallest eigenvalue < the matching number. [FMS2]. October 88. James B. Shearer, October 88.
