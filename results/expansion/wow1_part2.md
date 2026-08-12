@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 176 / 208.
+Progress: 177 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -1093,5 +1093,11 @@ The operative construction is cubic and the OCR-obscure `largest side of a large
 > "number of centers of a fullerene ..."
 
 The fullerene hypothesis fails throughout the arsenal.
+
+### wow-859 — N/A_ARSENAL
+
+> "If G is a fullerene ..."
+
+No arsenal graph is a fullerene.
 
 
