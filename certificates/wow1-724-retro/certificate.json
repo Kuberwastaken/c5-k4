@@ -1,0 +1,39 @@
+{
+  "conjecture": "WoW I #724",
+  "status": "already refuted",
+  "classification": "new connected infinite retro-counterexample family",
+  "statement": "n_nonnegative(A) - lambda_max(A) + smallest_nonnegative(A) <= alpha(G)",
+  "zero_is_nonnegative": true,
+  "historical_witness": "disjoint union of two C5",
+  "family": {
+    "name": "H_m",
+    "definition": "complement(C5[K_m])",
+    "range": "m >= 3",
+    "order": "5m",
+    "degree": "2m",
+    "independence_number": "2m",
+    "nonnegative_eigenvalue_count": "5m-2",
+    "largest_eigenvalue": "2m",
+    "smallest_nonnegative_eigenvalue": "0",
+    "lhs": "3m-2",
+    "margin": "m-2"
+  },
+  "carrier_case": {
+    "m": 4,
+    "order": 20,
+    "nonnegative_eigenvalue_count": 18,
+    "lhs": 10,
+    "alpha": 8,
+    "margin": 2
+  },
+  "verification": {
+    "family_members_checked": [1, 2, 3, 4, 5, 6, 7, 8],
+    "connected_atlas_graphs": 996,
+    "named_graphs": 21,
+    "gate_violations": 0,
+    "spectral_guard": 1e-6,
+    "tests": 3
+  },
+  "novelty": "provisional; targeted searches found no prior connected-family report",
+  "date": "2026-08-12"
+}
