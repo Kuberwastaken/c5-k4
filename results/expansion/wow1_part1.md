@@ -125,4 +125,8 @@ survey's explicit formula and is not a faithful reading.
 
 Regular-graph bound `n/d <= rank(A)` holds throughout: `C5[K4]` gives `20/11 <= 20`, and its rank-5 complement gives `5/2 <= 5`. The row explicitly records independent proofs.
 
+### wow-63 — HOLD where applicable
+
+The inherited triangle-free hypothesis selects only `complement(C5[K4])`; its average degree is 8 and its Randić index is 10. All other arsenal members contain triangles.
+
 <!-- NEXT -->
