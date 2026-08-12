@@ -629,4 +629,8 @@ Minimum full-spectrum Laplacian derivative is 0 from multiplicities, below posit
 
 Minimum Laplacian derivative is 0, below positive `sum 1/Odd`.
 
+### wow-255 — SKIP_OCR
+
+Sum of Maxine coordinates is algorithm/order-dependent and undefined here.
+
 <!-- NEXT -->
