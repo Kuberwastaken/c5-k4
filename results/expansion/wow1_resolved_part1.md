@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-67 — HOLD / NO ADDITIONAL WITNESS
+
+> chromatic number of a triangle-free graph is not more than the maximum frequency of its degree sequence (mfd.). Disproved by William Staton, U. of Mississippi, July 87. Staton skillfully modified Myctelski’s construction of triangle-free graphs with high ch...
+
+The applicable arsenal satisfies the source-faithful inequality using the listed chromatic_number, degree quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
 ### wow-66 — HOLD / NO ADDITIONAL WITNESS
 
 > If G is triangle-free then radius < the sum of reciprocal of degrees. Disproved by Thomas Spencer, Rensselaer Polytechnic Institute Febru- ary 87. I wrote in [FA2] that it was the first counterexample with over 100 vertices but that was incorrect. The first...
