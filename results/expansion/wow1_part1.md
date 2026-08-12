@@ -301,4 +301,8 @@ Radius is at most the number of negative gravity eigenvalues throughout; the car
 
 With standard normalized Laplacian spectral deviation, all regular arsenal members hold against Randić. An unnormalized sum reading fails basic graphs and is rejected.
 
+### wow-130 — HOLD
+
+Vertex deficiency is constant on every regular vertex-transitive arsenal graph, so its range is 0.
+
 <!-- NEXT -->
