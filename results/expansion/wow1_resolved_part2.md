@@ -235,3 +235,10 @@ each family independently give `c=0`.
 sequence and expansion coefficients but truncates immediately after
 `Conjecture: the smallest expanding coefficient of a connected graph`.
 Neither comparison nor right-hand side survives, so no predicate is guessed.
+
+## wow-764 — SKIP_OCR
+
+**Status:** refuted (WoW annotation). The claim depends on zeros at a vertex
+across a chosen complete eigenbasis. Repeated eigenspaces make that basis
+nonunique, as the source itself notes, and the OCR alternates `m(v)` and
+`p(v)`. No invariant reading survives.
