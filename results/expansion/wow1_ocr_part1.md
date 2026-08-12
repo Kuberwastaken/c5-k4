@@ -195,3 +195,12 @@ without inventing a historical program convention.
 
 Printed p.74 recovers the full regular-graph statement.  Both autocoordinates and
 resolution of Maxine lack source definitions, so no faithful reading survives.
+
+### wow-232 — DB_REJECTED
+
+> size/2 <= n - independence.
+
+Printed p.74 confirms the exact regular-graph statement.  Under the established
+edge-count meaning of size, it fails the database gate on `K7`:
+`|E|/2=21/2 > 6=n-alpha`.  The carrier also fails `55 > 18`.  No exponent
+or radical was lost; the source itself is inconsistent with the test database.
