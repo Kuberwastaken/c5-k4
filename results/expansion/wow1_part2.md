@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 178 / 208.
+Progress: 179 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -1105,5 +1105,11 @@ No arsenal graph is a fullerene.
 > "sum of positive eigenvalues of an IP isomer G ..."
 
 No arsenal member is an isolated-pentagon fullerene isomer.
+
+### wow-861 — N/A_ARSENAL
+
+> "sum of positive eigenvalues of an IP isomer ..."
+
+The IP-isomer class excludes the arsenal.
 
 
