@@ -489,4 +489,8 @@ Minimum adjacency eigengap is 0 from multiplicities, at most `n/mean gravity` on
 
 Every applicable arsenal graph is regular, so maximum degree frequency is `n`, above average distance.
 
+### wow-203 — HOLD where applicable
+
+Exact average distance is at most `sum 1/degree` on applicable `T(7..9)` and the carrier complement.
+
 <!-- NEXT -->
