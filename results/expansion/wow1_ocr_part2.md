@@ -16,7 +16,7 @@ where possible; spectral gaps at most `1e-6` are ties, and any ILP solve is
 capped at 60 seconds. A source statement that is recovered but restricted to an
 inapplicable construction is recorded as `N/A_ARSENAL`.
 
-Progress: 27 / 54.
+Progress: 28 / 54.
 ### wow-456 — N/A_ARSENAL
 
 PDF p.95: `The residue of the graph RP[2..n] is not more than pi(n).` The source cleanly restores `pi(n)` and identifies RP/residue definitions, but this is restricted to the number-theoretic RP construction; no arsenal graph is admissible.
@@ -98,4 +98,7 @@ PDF p.102: `mean(Rainbow) <= Randic`, under the same hypothesis. On the 8-regula
 ### wow-644 — SOURCE_UNRECOVERABLE
 
 The primary image on PDF p.102 itself reads `minimum of Dual Degree  mean of Odd` with no relation symbol. This is not an OCR loss: the printed source lacks the operator, so no mathematical assertion can be selected.
+### wow-652 — HOLD
+
+PDF p.103 separates the merged lines and gives `average distance <= inverse dual degree`. On the applicable complement carrier, dual degree is constantly 8, hence inverse dual degree is `20/8=5/2`, while average distance is `30/19`.
 
