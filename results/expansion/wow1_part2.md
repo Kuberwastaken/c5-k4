@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 100 / 208.
+Progress: 101 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -637,5 +637,11 @@ For a maximum-cut minimizing monochromatic edges, each blue vertex has at least 
 > "The smallest expanding coefficient ... not more than 1 + spectral measure of a lar"
 
 The record truncates mid-noun and loses the set whose spectral measure forms the bound. No completion is guessed.
+
+### wow-762 — HOLD
+
+> "independence of G is not less than the maximum of [reciprocal degree] r(v)."
+
+For a `d`-regular graph, each `r(v)=sum_{u in N(v)}1/d(u)=1`. All arsenal members have `alpha>=2`, so the bound holds exactly computed.
 
 
