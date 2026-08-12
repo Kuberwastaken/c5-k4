@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 163 / 208.
+Progress: 164 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -1015,5 +1015,11 @@ Every arsenal graph fails the fullerene hypothesis (a fullerene is planar cubic 
 > "The independence number in fullerenes ..."
 
 No arsenal member is a fullerene.
+
+### wow-846 — N/A_ARSENAL
+
+> "The sum of positive eigenvalues [of a fullerene] ..."
+
+This is explicitly in the fullerene block and names a fullerene; the arsenal has none.
 
 
