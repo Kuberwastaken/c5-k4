@@ -9,9 +9,13 @@
 - **OCR discipline:** an expression that cannot be recovered faithfully from the corpus is recorded as `SKIP_OCR` with the surviving garble quoted; no intended formula is guessed.
 - **ILP discipline:** no solver call may exceed 60 seconds. (This lane currently needs no ILP.)
 
-Progress: **12/71** entries evaluated (70 strict-open + 1 open-in-full).
+Progress: **13/71** entries evaluated (70 strict-open + 1 open-in-full).
 
 ## Verdicts
+
+### `agx-form1-T45-r35-upper` — SKIP_OCR
+
+The normalized table preserves only the column-wrapped fragment `S_n sqrt(n-1) lambda1*pi n-1 K_n O`. It does not unambiguously associate both the numerical bound and extremal graph with this lower/upper row. The cited primary PDF is absent from this checkout and its archived copy was unavailable during this pass. Per the no-guessing rule, no inequality is inferred and no arsenal verdict is claimed.
 
 ### `agx-form1-T45-r35-lower` — SKIP_OCR
 
