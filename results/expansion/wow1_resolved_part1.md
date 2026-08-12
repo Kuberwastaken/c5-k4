@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-36 — PROVED_HOLD
+
+> The diameter of a graph is not more than the number of negative eigen- values of the distance matrix. James B. Shearer, see 35.
+
+Direct evaluation of the applicable arsenal using the source hypotheses and the listed diameter, distance quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
 ### wow-35 — PROVED_HOLD
 
 > The diameter of a graph is not more than the negative of the largest negative distance eigenvalue. This and the next conjecture follows from interlacing theorem. James B. Shearer, 7.88
