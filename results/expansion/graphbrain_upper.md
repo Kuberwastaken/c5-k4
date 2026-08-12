@@ -93,6 +93,13 @@ Author-repository, issue-history, exact-formula, and broader invariant searches
 found no pre-existing counterexample.  This is a candidate new disproof; an
 executable certificate is prepared separately.
 
+### graphbrain-alpha-upper-072 — DB_REJECTED
+
+> `independence_number(x) <= (max_degree(x)^card_center(x))^floor(average_distance(x))`
+
+The identical author-project reading already fails the mandatory small-graph gate on connected Graph Atlas graph `atlas:FXAGg`: `alpha=4` while the right side is `3`.  It is database-inconsistent as posted and supplies no new campaign counterexample.  Independent recomputation used the author definitions and excluded undefined-domain cases.
+
+
 ### graphbrain-alpha-upper-071 — HOLD_ARSENAL
 
 > `independence_number(x) <= maximum(girth(x) - 1, -sigma_2(x) + size(x))`
