@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-422 — HOLD / NO ADDITIONAL WITNESS
+
+> If G is a regular graph then n - sum of positive eigenvalues < independence. October
+
+The applicable arsenal satisfies the source-faithful inequality using the listed alpha, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
 ### wow-405 — HOLD / BUNDLED SOURCE
 
 > - smallest eigenvalue of Distance < matching of G+ the matching num- ber of the complement of G. Disproved by Michael J. Dinneen, Los Alamos National Laboratory and University of Victoria, Victoria, B.C. August 91. A406. maximum of Even < chromatic number. ...
