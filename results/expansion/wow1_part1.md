@@ -225,4 +225,8 @@ Distance-matrix variance is at most `1070/729`, while every arsenal graph has in
 
 The even-distance vector is constant on every vertex-transitive arsenal graph, so it has one distinct component value, at most residue 2 or 3. The row cites `[FMS1]`.
 
+### wow-96(2) — SKIP_OCR
+
+Garble: `William Staton. April 88.` This parser row is orphan commentary with no mathematical statement.
+
 <!-- NEXT -->
