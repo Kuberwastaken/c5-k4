@@ -245,4 +245,8 @@ The even-distance vector is constant on every arsenal graph, so the maximum freq
 
 For visible #102, degree variance is zero on every regular arsenal graph, below mean Even. OCR-appended #103/#104 also hold because these graphs have no cut vertices.
 
+### wow-105 — N/A_ARSENAL
+
+The tree hypothesis excludes every mandated arsenal graph.
+
 <!-- NEXT -->
