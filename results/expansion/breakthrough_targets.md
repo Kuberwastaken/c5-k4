@@ -43,6 +43,7 @@ are excluded rather than double-counted.
 | 7 | Tutte's nowhere-zero 5-flow conjecture | applies to bridgeless arsenal graphs and has an exact modular-flow predicate | queued |
 | 8 | Lovász vertex-transitive Hamilton-path conjecture | every main arsenal member is vertex-transitive; Hamilton paths are direct certificates | queued |
 | 9 | Hadwiger's clique-minor conjecture | carrier chromatic numbers exceed the proved small-colour cases, while explicit branch-set certificates are finite | queued |
+| 10 | Fan--Raspaud three-perfect-matching conjecture | exactly three named arsenal controls are bridgeless cubic graphs | queued |
 
 Other ranked source targets are not admissible for these fixed objects
 (trees, digraphs, planar cubic graphs, polytopes, hypergraphs, Latin squares,
@@ -238,4 +239,23 @@ The remaining nontrivial certificates include:
 replayed clique-minor certificates of the required order. Thus even the
 arsenal's above-theorem chromatic cases satisfy Hadwiger; there is no new
 disproof.
+
+### 10. Fan--Raspaud perfect matchings — HOLD on all applicable controls
+
+The conjecture asks every bridgeless cubic graph to have three perfect
+matchings with empty common intersection. Exactly three arsenal members meet
+the cubic hypothesis: `K4`, `K3,3`, and Petersen. Exhaustive recursive matching
+enumeration finds respectively 3, 6, and 6 perfect matchings. Each graph has a
+certified triple with empty intersection.
+
+For Petersen, one such triple is
+
+1. `{12,34,68,79,05}`;
+2. `{04,58,23,79,16}`;
+3. `{38,27,49,05,16}`,
+
+where `uv` denotes edge `{u,v}`. An independent replay checks that each row
+covers every vertex exactly once, contains only graph edges, and that no edge
+appears in all three rows. The dense carrier family is not cubic and is
+correctly marked not applicable; every applicable control holds.
 
