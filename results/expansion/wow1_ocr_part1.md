@@ -231,3 +231,12 @@ Printed p.76 confirms the statement and notes the maximum-independent-set repair
 is obvious.  For Maxine itself the output changes with unresolved tie ordering;
 the scan gives no quantifier over performances, so the all-readings rule leaves
 this algorithm-dependent row unclassified.
+
+### wow-255 — SKIP_ALGORITHM
+
+> The Randic index <= sum of coordinates of Maxine.
+
+Printed p.77 confirms the exact statement.  Maxine is defined, but its output
+and coordinate vector vary with vertex tie order, while this row supplies no
+universal/existential convention.  A single chosen run would not be a faithful
+invariant reading.
