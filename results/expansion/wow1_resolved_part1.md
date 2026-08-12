@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-81 — SKIP_ORDER_DEPENDENT
+
+> variance of coordinates of a maximal independent set < maximal frequency of Even. Disproved by William Staton. March 88.
+
+The coordinate vector depends on the selected maximal independent set and ordering conventions not frozen in the corpus. The row is already refuted; guessing an ordering would not yield a defensible additional witness.
+
 ### wow-79 — HOLD — HISTORICALLY PROVED
 
 > mean of coordinates of a maximal independent set < matching. Proved by William Staton for all independent sets. The equality holds true iff the graph has no edges, but there are graphs like stars in which the two invariants can be arbitrarily close. January...
