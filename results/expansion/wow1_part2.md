@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 204 / 208.
+Progress: 205 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -1263,5 +1263,11 @@ For `bar(C5[K4])`, blue is empty, so complement-blue is `K20` with residue 1, eq
 > "blue clique number ... at least number of elements of a minimum spanning set minus residue."
 
 The applicable graph has blue clique 1, minimum open-neighborhood spanning set size 3, and residue 3, giving `1>=0`.
+
+### wow-891a — HOLD / TIGHT
+
+> "blue clique number ... at least residue of complement of blue graph."
+
+For the applicable graph both sides equal 1.
 
 
