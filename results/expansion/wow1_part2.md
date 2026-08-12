@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 61 / 208.
+Progress: 62 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -403,5 +403,11 @@ The unknown `my` symbol and unspecified Perron-vector normalization prevent a de
 > "lenght of negative eigenvalues < the Randic Index."
 
 Reading length as Euclidean norm of the negative adjacency eigenvalue vector, all regular arsenal graphs hold: Randić is exactly `n/2`, while the negative spectral norm is smaller. Closed-form and dense spectra agree beyond `1e-6`.
+
+### wow-699 — HOLD
+
+> "average distance < sum of reciprocals of square roots of degrees."
+
+For each regular arsenal graph the right side is `n/sqrt(d)`; exact average pair distance is smaller. Independent all-pairs totals and distance histograms agree.
 
 
