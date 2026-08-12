@@ -86,6 +86,21 @@ the residual-wall workflow, theorem-shadow taxonomy, transformation catalogue,
 verification gates, outcome ledger, and the boundary between the current
 `formal-conjectures` development set and a future genuinely held-out test.
 
+### Versioned project releases
+
+New apparently-unclaimed results are now published as one-problem releases in
+this repository, after committed novelty, verifier, Lean, trust, immutable-link,
+and tag-target gates. No new `formal-conjectures` issue or PR is opened by this
+workflow.
+
+- [WOWII 172: barbell-family counterexample and formal certificate](https://github.com/Kuberwastaken/c5-k4/releases/tag/wowii-172-v1)
+- [WOWII 176: barbell-family counterexample and formal certificate](https://github.com/Kuberwastaken/c5-k4/releases/tag/wowii-176-v1)
+- [WOWII 430a: nonuniform path-blow-up counterexample and formal certificate](https://github.com/Kuberwastaken/c5-k4/releases/tag/wowii-430a-v1)
+
+Known externally claimed results such as WOWII 64 and 309 remain fully
+formalized and credited in the repository, but are not republished as
+apparently-unclaimed releases.
+
 ## The kills
 
 Among the 220 WOWII conjectures that were still open in July 2026, C₅[K₄]
@@ -118,10 +133,9 @@ vertices** plus paths, cycles, complete multipartite graphs, Petersen,
 hypercubes, Kneser graphs and C₅[K₂]/C₅[K₃] — and it is exactly tight on
 DeLaViña's own K₃+3×K₁₂ refutation graph from the same page section. It
 fails only on the C₅[K_m ≥ 4] cliff. That is the signature of a faithful
-machine conjecture meeting the one graph its database never contained. **Conjectures 64 and 309 are still
-unclaimed in formal-conjectures** (no files, PRs, or issues as of
-2026-08-12) — Lean formulations in the house style are drafted in
-[`lean/`](lean/).
+machine conjecture meeting the one graph its database never contained.
+Complete no-`sorry` Lean certificates for both 64 and 309 are committed in
+[`lean/`](lean/), with Gebendorfer's prior disproofs credited explicitly.
 
 ### Why it kills them: the discretization cliff
 
