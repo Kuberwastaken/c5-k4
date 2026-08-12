@@ -1,0 +1,8 @@
+{
+  "source_id": "graphbrain-alpha-upper-081",
+  "simple_witness": {"graph": "two K5s sharing a cut vertex", "graph6": "H~}CKMF", "order": 9, "alpha": 2, "diameter": 2, "edge_connectivity": 4, "vertex_connectivity": 1, "rhs": "4/3", "margin": "2/3"},
+  "campaign_witness": {"m": 4, "order": 20, "alpha": 2, "diameter": 2, "edge_connectivity": 11, "vertex_connectivity": 8, "rhs": "4/3", "margin": "2/3"},
+  "windmill_family_example": {"s": 5, "t": 2, "order": 9, "alpha": 2, "diameter": 2, "edge_connectivity": 4, "vertex_connectivity": 1, "rhs": "4/3", "margin": "2/3"},
+  "division_by_zero_semantics": "author Sage evaluator maps to +Infinity (vacuous hold)",
+  "gate": {"connected_atlas_orders": "2..7", "applicable_nonzero_denominator": 58, "violations": 0, "named_violations": 0}
+}

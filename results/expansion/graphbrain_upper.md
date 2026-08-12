@@ -76,7 +76,7 @@ the right side is `1 < alpha=2`.  This is not a novelty candidate: the simpler
 `K12` has `alpha=1`, one distinct degree, and minimum common-neighbor count 10,
 giving right side zero.  Exact integer recomputation agrees.
 
-### graphbrain-alpha-upper-081 — RETRO_KILL
+### graphbrain-alpha-upper-081 — NEW_OPEN_AS_POSTED_KILL
 
 > `independence_number(x) <= 2*diameter(x)/(edge_con(x) - vertex_con(x))`
 
@@ -86,15 +86,36 @@ For `C5[K_m]`, `alpha=2`, diameter is 2, edge connectivity is its degree
 every `m>=4`.
 
 The identical author reading has no violation among all 996 connected
-nonempty Graph Atlas graphs through order 7 for which its denominator is
-nonzero, nor on the named controls.  NetworkX connectivity algorithms and a
+nonempty Graph Atlas graphs through order 7: 58 have nonzero denominator and
+the author Sage evaluator maps zero denominator to `+Infinity`, a vacuous
+hold.  The named controls also hold.  NetworkX connectivity algorithms and a
 separate structural calculation independently give
 `(alpha,diameter,edge_con,vertex_con)=(2,2,11,8)` and exact margin `2/3`.
 The smaller graph made from two `K5`s sharing one cut vertex (graph6
 `H~}CKMF`) has `(alpha,diameter,edge_con,vertex_con)=(2,2,4,1)` and the same
-false right side `4/3`.  The carrier family remains useful independent
-evidence, but the simple witness makes this a conservative stale/trivial
-retro-kill rather than a novelty claim.
+false right side `4/3`.  More generally the windmill `W_{s,t}` made from `t`
+copies of `K_s` sharing one hub has alpha `t`, diameter 2, edge connectivity
+`s-1`, and vertex connectivity 1, so the right side is `4/(s-2)` and the
+family fails whenever `t > 4/(s-2)`.  The line remains open as posted, the exact source and status
+search found no recorded disproof, and it survives the stated gate.  I record
+this cautiously as an apparently unrecorded open-as-posted kill, without a
+broader priority claim.
+
+## Completion audit
+
+The ledger contains **139/139** unique manifest IDs, with no missing, extra,
+or duplicate headings.  Final counts are **69 `HOLD_ARSENAL`**, **48
+`DB_REJECTED`**, **19 `RETRO_KILL_AUTHOR_SOURCE`**, **2 `RETRO_KILL`**
+(upper-066 and upper-069), and **1 `NEW_OPEN_AS_POSTED_KILL`** (upper-081).
+
+Upper-081 is the only apparently unrecorded gate-surviving result in this
+lane.  Its executable evidence includes the order-nine windmill witness,
+the `C5[K_m]` family, exact rational margins, the author evaluator's
+division-by-zero convention, and the connected-through-7/named gate summary.
+Upper-066 has executable simple and campaign witnesses but is conservatively
+classified as a stale/trivial retro-kill.  All source expressions use the
+author-project invariant definitions; radians, the `1e-6` guard, and the
+60-second LP/ILP cap were enforced throughout.
 
 ### graphbrain-alpha-upper-139 — RETRO_KILL_AUTHOR_SOURCE
 

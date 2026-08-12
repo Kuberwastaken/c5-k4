@@ -1,13 +1,21 @@
 from fractions import Fraction
-from verify import verify
+import unittest
+from verify import verify, simple_witness, windmill
 
 
-def test_carrier():
-    result=verify(4)
-    assert result['order']==20
-    assert result['rhs']==str(Fraction(4,3))
-    assert result['margin']==str(Fraction(2,3))
+class TestCertificate(unittest.TestCase):
+    def test_carrier(self):
+        result=verify(4); self.assertEqual(result['order'],20)
+        self.assertEqual(result['rhs'],str(Fraction(4,3)))
+        self.assertEqual(result['margin'],str(Fraction(2,3)))
+    def test_family_threshold(self):
+        for m in range(4,20): verify(m)
+    def test_simple_witness(self):
+        result=simple_witness(); self.assertEqual(result['graph6'],'H~}CKMF')
+        self.assertEqual(result['margin'],str(Fraction(2,3)))
+    def test_windmill_family(self):
+        for s in range(4,12):
+            for t in range(2,8):
+                if Fraction(t)>Fraction(4,s-2): windmill(s,t)
 
-
-def test_family_threshold():
-    for m in range(4,20): verify(m)
+if __name__=='__main__': unittest.main()

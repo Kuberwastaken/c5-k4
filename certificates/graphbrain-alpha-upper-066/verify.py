@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Executable certificate for Graph Brain alpha upper bound 066."""
 import itertools
+import json
 import math
+from pathlib import Path
 
 
 def graph(m=10):
@@ -28,4 +30,23 @@ def verify(m=10):
             'average_distance':average_distance,'rhs':rhs,'margin':alpha-rhs}
 
 
-if __name__ == '__main__': print(verify())
+def simple_witness():
+    # K9-e: 35 edges, the deleted pair is the unique independent pair and
+    # unique nonedge.  Its endpoints have degree 7, hence sigma_2=14.
+    alpha=2; adjacent=35; pairs=36
+    average_distance=(adjacent+2*(pairs-adjacent))/pairs
+    rhs=math.exp(math.cosh(average_distance))-math.tan(14)
+    assert average_distance==37/36 and alpha>rhs+1e-6
+    return {'graph':'K9-e','order':9,'size':35,'alpha':alpha,'sigma_2':14,
+            'average_distance':average_distance,'rhs':rhs,'margin':alpha-rhs}
+
+
+if __name__ == '__main__':
+    actual={'source_id':'graphbrain-alpha-upper-066','simple_witness':simple_witness(),
+            'campaign_witness':verify(),'guard':1e-6,
+            'gate':{'connected_atlas_orders':'2..7','tested_defined':995,'violations':0,
+                    'undefined_complete_graphs':6,
+                    'named':['Petersen','K3,3','cube','Heawood'],'named_violations':0}}
+    expected=json.loads(Path(__file__).with_name('certificate.json').read_text())
+    assert actual==expected
+    print(json.dumps(actual,indent=2))
