@@ -157,3 +157,15 @@ arsenal members satisfy the bound: `comp(C5[K4])` is diameter-2-critical with
 recomputing all-pairs distances; a separate structural check uses that each
 edge is the unique length-one route for its endpoints and has no common
 neighbor in these triangle-free diameter-two graphs.
+
+### Previously completed WoW-II declarations — no additional kill
+
+The 14 upstream WoW-II declarations in this manifest were already evaluated
+source-faithfully in the campaign's complete 522-entry sweep. The present
+arsenal verdicts are: HOLD for 19, 40, 59, 61, 100, 133, 141, 145, 146,
+160, 198a, and 291; NOT APPLICABLE for 200; and vacuous HOLD for 314 because
+the carrier is not triangle-free (the complement is triangle-free but has a
+larger induced path and is not well-totally-dominated candidate under the
+conjunction). The broader family sweep had already exposed only WoW-II 181,
+which upstream has not formalized. No declaration in the current upstream
+WoW-II subset is newly disproved here.
