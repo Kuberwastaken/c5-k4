@@ -765,4 +765,8 @@ Tree hypothesis excludes every arsenal graph.
 
 Rank condition `rank(D)<rank(A)` selects `T(7..9)`; radius 2 is below harmonic indices `10.5,14,18`.
 
+### wow-304 — HOLD where applicable
+
+On applicable `T(7..9)`, greedy Maxine corresponds to a maximal matching of `K_n`; direct coordinate means are below radius 2.
+
 <!-- NEXT -->
