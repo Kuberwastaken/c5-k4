@@ -269,4 +269,8 @@ Every arsenal graph is regular, so maximal frequency in its degree sequence is `
 
 Under ordered distance-matrix coordinates, `C5[K4]` gives frequency 220 versus `sum Even=180`; `C5[K_m]`, `m>=3`, also fail. The row itself describes asymptotically unbounded counterexamples.
 
+### wow-115 — HOLD
+
+The even-distance vector has one distinct value; `sum_v 1/Even(v)=n/E` exceeds 1 throughout (minimum `40/17`).
+
 <!-- NEXT -->
