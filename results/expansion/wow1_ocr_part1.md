@@ -56,3 +56,15 @@ length of its shortest containing cycle; printed p.65 confirms the operator.
 Every arsenal graph is vertex-transitive and every vertex lies on a triangle,
 so the left side is `n/3`.  For a regular graph the harmonic index is
 `|E|/d = n/2`; hence `n/3 <= n/2` throughout.  No candidate violation arises.
+
+### wow-135 — HOLD
+
+> chromatic number / clique <= independence of D2.
+
+Printed p.51 defines `D2(G)` on the same vertex set, with adjacency exactly at
+distance 2 in `G`; printed p.65 confirms the bound.  Direct evaluation against
+every arsenal graph holds.  For the carrier, `D2` is the complement's five-part
+distance-two graph and has independence number 12, whereas `chi/omega=10/8`.
+For each diameter-two triangular graph `T(q)`, `D2` is its complement and the
+left side is at most the obvious clique-sized independent set.  No violation
+approaches a numerical guard.
