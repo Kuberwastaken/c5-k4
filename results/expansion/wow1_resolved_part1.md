@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-50 — HOLD / NO ADDITIONAL WITNESS
+
+> The number of zero eigenvalues < smallest mode of the distance matriz. s.f. April 87.
+
+The row depends on the distance minimode convention. Under the source-faithful convention used in the existing campaign profiles, every applicable arsenal graph holds; no alternate convention is introduced and no additional historical witness is claimed.
+
 ### wow-48 — PROVED_HOLD
 
 > The sum of positive eigenvalues < largest eigenvalue of the distance matrix. Peter Puget, The University of Puget Sound. September 88. A9. -largest negative eigenvalue < minimal frequency of the distance matrix.
