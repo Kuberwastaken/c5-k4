@@ -361,4 +361,8 @@ Positive gravity inertia is at most matching number: cycle blow-ups have 3 posit
 
 Even- and odd-parity vectors are constant on every vertex-transitive arsenal graph, so both ranges are 0.
 
+### wow-153 — HOLD
+
+The odd-parity vector range is 0, at most the positive matching number.
+
 <!-- NEXT -->
