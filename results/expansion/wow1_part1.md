@@ -481,4 +481,8 @@ Under inherited `sum Odd < sum Even`, `mean Odd <= n-mu` holds: `T7` gives `10<=
 
 Restoring inherited `sum Odd < sum Even` is essential: applicable `T(7..9)` and the carrier complement satisfy `lambda_max(A)<=max Even`. Cycle blow-ups and `K3` are inapplicable.
 
+### wow-198 — HOLD where applicable
+
+Minimum adjacency eigengap is 0 from multiplicities, at most `n/mean gravity` on all graphs satisfying the inherited section condition.
+
 <!-- NEXT -->
