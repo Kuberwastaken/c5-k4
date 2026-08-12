@@ -420,3 +420,11 @@ eccentricities and a separate clique search in the complement agree.
 carrier, the red graph is `C5[K4]`: `alpha(G)=8 > alpha(R)=2`. Petersen gives
 `4>2`. Direct distance-two construction and independent complement-clique
 search agree.
+
+## wow-885 — TIGHT
+
+**Status:** refuted (WoW annotation). For the triangle-free complement carrier,
+the red graph is `C5[K4]`, so its red independence number is two; diameter two
+makes the blue graph edgeless, with clique number one. Thus
+`alpha(red)=2=2*omega(blue)`. This exact tie is the immediate precursor to
+the #889 failure found in the open lane.
