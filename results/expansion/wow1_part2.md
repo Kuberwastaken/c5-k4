@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 125 / 208.
+Progress: 126 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -787,5 +787,11 @@ Applying the stated iterative deletion to each regular degree sequence gives a l
 > "lower quotient ... not less than the Turan bound."
 
 With the source's integral quotient convention and Caro-Wei/Turán bound, direct constant-degree simulations satisfy the bound for all regular arsenal members. Rounding the nonintegral bound upward yields the same integral comparison.
+
+### wow-796 — HOLD
+
+> "upper quotient ... not more than the Turan bound."
+
+The stated dual deletion on constant regular degree sequences was simulated exactly; all arsenal graphs hold under the source's rounded/integral Turán convention.
 
 
