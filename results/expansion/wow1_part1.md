@@ -461,4 +461,8 @@ Garble: `length of autocoordinates of Maxine of the complement`. The constructio
 
 Garble: `maximum of autocoordinates of Maxine of the complement`. The construction is undefined.
 
+### wow-185 — HOLD where applicable
+
+Inherited section condition `sum Odd < sum Even` selects `T(7..9)` and the carrier complement; all satisfy `|E|/alpha <= ||degree sequence||`.
+
 <!-- NEXT -->
