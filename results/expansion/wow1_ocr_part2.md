@@ -16,7 +16,7 @@ where possible; spectral gaps at most `1e-6` are ties, and any ILP solve is
 capped at 60 seconds. A source statement that is recovered but restricted to an
 inapplicable construction is recorded as `N/A_ARSENAL`.
 
-Progress: 15 / 54.
+Progress: 16 / 54.
 ### wow-456 — N/A_ARSENAL
 
 PDF p.95: `The residue of the graph RP[2..n] is not more than pi(n).` The source cleanly restores `pi(n)` and identifies RP/residue definitions, but this is restricted to the number-theoretic RP construction; no arsenal graph is admissible.
@@ -62,4 +62,7 @@ PDF p.99: `number of positive eigenvalues - number of negative eigenvalues <= si
 ### wow-574 — HOLD
 
 PDF p.99: `chi(complement G)/independence <= mode(Even)`. On each regular diameter-two arsenal graph, Even is constant `n-d` (including the vertex at distance zero), so its mode is `n-d`; exact colorings leave positive slack throughout.
+### wow-597 — HOLD
+
+PDF p.100, within `Conjectures 595--605 are about triangle-free graphs`: `radius <= maximal frequency of Even`. The complement carrier is the applicable arsenal member; its Even vector is constant 12, so `2 <= 20`. Named triangle-free calibrators also hold.
 
