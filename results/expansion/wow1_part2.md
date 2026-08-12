@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 189 / 208.
+Progress: 190 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -1171,5 +1171,11 @@ Under the obvious OCR reading `a(n)=pi(n)`, complement of red is `bar(C5[K4])` w
 > "If G is a cubic connected triangle-free graph ..."
 
 No arsenal graph is cubic.
+
+### wow-872 — HOLD / TIGHT
+
+> "If G is d-regular, connected triangle-free ... mean global minimum equals d/2."
+
+For `bar(C5[K4])`, the deletion-degree sum equals its 80 edges, so mean over 20 deletions is exactly 4, equal to `d/2=4`. This is also the source's double-counting proof.
 
 
