@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 45 / 208.
+Progress: 46 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -307,5 +307,11 @@ No arsenal member is certified under the section hypothesis, and both derived se
 > "minimum of Dual Degree mean of Odd."
 
 The comparison sign is missing and neither named coordinate sequence is defined. No inequality can be reconstructed.
+
++### wow-645 — N/A_ARSENAL
+
+> "mean of Dual Degree < chromatic number + chromatic number of complement of G."
+
+The inherited 634--654 hypothesis is not met by the arsenal; the Dual Degree mean is also unavailable.
 
 
