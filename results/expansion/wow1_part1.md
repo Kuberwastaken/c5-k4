@@ -201,4 +201,8 @@ Every plausible distance-matrix mode lies between 0 and 4; the smallest inverse-
 
 Exact average distance is at most `31/13`, while the smallest inverse-temperature sum is 10.
 
+### wow-90 — HOLD on settled reading
+
+For maximum independent sets the row invokes Chung's theorem; direct arsenal checks hold. The source distinguishes an all-maximal-set question and notes star failures of a stronger size reading.
+
 <!-- NEXT -->
