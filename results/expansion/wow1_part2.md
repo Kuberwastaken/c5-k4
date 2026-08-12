@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 69 / 208.
+Progress: 70 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -451,5 +451,11 @@ The smallest eigenspace is multidimensional and scaling/orientation changes the 
 > "the maximum of the largest eigenvector < the residue."
 
 With source normalization `sum |x_i|=n`, connected regular arsenal graphs have Perron vector all ones, maximum 1. Residues are at least 2, so all hold. Symmetry and normalized numerical eigenvectors agree.
+
+### wow-710 — SKIP_OCR
+
+> "mo < n— the residue."
+
+`mo` is not pinned to ordinary versus GF(2) nullity. No value is guessed.
 
 
