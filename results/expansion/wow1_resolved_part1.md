@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-253 — PROVED_HOLD
+
+> The deviation of eigenvalues of Laplacian < the maximum of the dual de- gree. Odile Favaron, Maryvonne Maheo and Jean-Francois Sale. December 89.
+
+Direct evaluation of the applicable arsenal using the source hypotheses and the listed laplacian, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
 ### wow-250 — SKIP_RAINBOW
 
 > The minimum of rainbow of the complement of G < the matching number. Disproved by Ermelinda Delavina, University of Houston. /. 91.
