@@ -417,4 +417,8 @@ Temperature deviation is 0 on every regular arsenal graph.
 
 Temperature deviation is 0 on every regular arsenal graph.
 
+### wow-172 — HOLD
+
+Minimum consecutive adjacency-eigenvalue gap is 0 from multiplicities, below `n/alpha`.
+
 <!-- NEXT -->
