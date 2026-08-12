@@ -62,3 +62,11 @@ Both plausible modal-distance conventions hold throughout the arsenal.  On
 `C5[K4]`, the left side is 1 (with a possible zero/one tie if diagonal entries
 are included) and the exact right side is `27/19+10=217/19`.  No candidate
 violation arose.
+
+### wow-10 — HOLD — source says proved
+
+> average temperature is not more than rank. … This conjecture is correct.
+
+With `temp(v)=deg(v)/(n-deg(v))` and adjacency-matrix rank, every arsenal graph
+holds.  The low-rank complement of `C5[K4]` gives `2/3 <= 5`; the carrier gives
+`11/9 <= 20`.  The historical row itself says the result is correct.
