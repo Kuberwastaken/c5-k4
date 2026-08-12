@@ -36,3 +36,14 @@ corpus selection `id.startswith("graphbrain-alpha-upper-")`.
 
 ## Incremental verdict ledger
 
+### graphbrain-alpha-upper-001 — HOLD_ARSENAL
+
+> `independence_number(x) <= e^(maximum(max_even_minus_even_horizontal(x), 1/2*max_degree(x)))`
+
+The author-project implementation defines `max_even_minus_even_horizontal` as
+the maximum, over vertices, of the number of even-distance vertices minus the
+number of edges they induce, with an initial maximum of zero.  The exact
+author reading holds on all 996 connected nonempty Graph Atlas graphs through
+order 7 and on the named and campaign-family controls.  In particular the
+carrier has `alpha=2`, `max_even_minus_even_horizontal=2`, and `Delta=11`, so
+the right side is `exp(11/2)`, far above 2.  No numerical boundary is close.
