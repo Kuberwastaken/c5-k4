@@ -116,3 +116,31 @@ Printed p.69 confirms this is inside the connected-graph section with
 “resolution”; it is also explicitly tie-order dependent.  The section condition
 does select `T(7..9)` and the carrier complement, but no recoverable left-hand
 quantity exists to test on them.
+
+### wow-182 — SKIP_DEFINITION
+
+> The mean of autocoordinates of Maxine of the complement of G <=
+> size / average distance.
+
+Printed p.69 confirms the complete inequality and inherited connected
+`sum(D) <= sum(E)` condition.  The source does not define autocoordinates; no
+faithful value can be assigned to the left side, so it remains skipped.
+
+### wow-183 — SKIP_DEFINITION
+
+> The length of autocoordinates of Maxine of the complement of G <= the
+> mean transmission of the distance matrix.
+
+Printed p.69 confirms the complete statement and inherited connected
+`sum(D) <= sum(E)` condition.  Autocoordinates are never defined in the source;
+“length” cannot repair that missing base object, so no evaluation is possible.
+
+### wow-184 — SKIP_DEFINITION
+
+> The maximum of autocoordinates of Maxine of the complement of G <=
+> n - the matching number.
+
+Printed p.69 confirms the full statement under connected `sum(D) <= sum(E)`.
+The historical program invariant autocoordinates is absent from the glossary
+and Maxine is tie-order dependent, so the source is still insufficient for a
+faithful test.
