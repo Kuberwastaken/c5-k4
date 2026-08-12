@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 14 / 208.
+Progress: 15 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -116,5 +116,11 @@ This belongs to the number-theoretic graph sequence in the surrounding section. 
 > "deviation of S < number of cubic residues less than n."
 
 `S` is missing from the extracted statement and the number-theoretic construction is not recoverable from this record. No guessed vector is evaluated.
+
++### wow-536 — N/A_ARSENAL
+
+> "The number of cubic nonresidues < n / average distance of Paley graph with n vertices."
+
+This is explicitly restricted to Paley graphs. None occurs in this WoW-I arsenal, hence no campaign graph can witness or refute it.
 
 
