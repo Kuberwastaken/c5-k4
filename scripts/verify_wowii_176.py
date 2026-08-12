@@ -58,10 +58,27 @@ def check_conjecture(graph: nx.Graph, square_reading: bool = False) -> bool:
     return leaves + b >= n + (in_square if square_reading else in_graph)
 
 
+def periphery(graph: nx.Graph) -> set[int]:
+    eccentricities = nx.eccentricity(graph)
+    diameter = max(eccentricities.values())
+    return {v for v, eccentricity in eccentricities.items() if eccentricity == diameter}
+
+
+def check_conjecture172(graph: nx.Graph, square_reading: bool = False) -> bool:
+    leaves = graph.number_of_nodes() - connected_domination_number(graph)
+    boundary = periphery(graph)
+    boundary_max_degree = max(graph.degree(v) for v in boundary)
+    _, in_graph, in_square = square_max_set_and_distances(graph)
+    rhs = -1 + boundary_max_degree + (in_square if square_reading else in_graph)
+    return leaves >= rhs
+
+
 def main() -> None:
     atlas = [g for g in nx.graph_atlas_g() if 2 <= len(g) <= 7 and nx.is_connected(g)]
     assert all(check_conjecture(g) for g in atlas)
     assert all(check_conjecture(g, square_reading=True) for g in atlas)
+    assert all(check_conjecture172(g) and check_conjecture172(g, square_reading=True)
+               for g in atlas)
 
     for length in range(5, 13):
         graph = dumbbell(length)
@@ -76,10 +93,13 @@ def main() -> None:
         assert distance_square == (length - 1) // 2
         assert leaves + b < n + distance_g
         assert (leaves + b < n + distance_square) == (length >= 7)
+        assert (not check_conjecture172(graph)) == (length >= 6)
+        assert (not check_conjecture172(graph, square_reading=True)) == (length >= 9)
 
     print(f"atlas gate: {len(atlas)} connected graphs on 2..7 vertices, both readings hold")
     print("D_L, L=5..12: exact subset computations match closed forms")
     print("published in-G reading fails for every L>=5; all-in-G^2 reading fails for L>=7")
+    print("the same family kills 172 for L>=6 (published) and L>=9 (all-in-G^2)")
     print(f"smallest ambiguity-free witness D_7: {nx.to_graph6_bytes(dumbbell(7), header=False).decode().strip()}")
 
 

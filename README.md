@@ -166,6 +166,11 @@ inside `G^2`, so this is not dependent on the notation ambiguity. The complete
 source audit, structural derivation, database gate, and exact verifier are in
 [`wowii_176_disproof.md`](results/expansion/wowii_176_disproof.md).
 
+The same family also closes nearby WOWII 172: its periphery vertices have
+degree 2, so 172 reduces to the false requirement `4>=L-1`. It fails under the
+published reading for `L>=6` and under both readings for `L>=9`; details are in
+[`wowii_172_disproof.md`](results/expansion/wowii_172_disproof.md).
+
 ### Crossing a different wall: WOWII 430a
 
 The same procedure succeeds in a substantially different independent-
