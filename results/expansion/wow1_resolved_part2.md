@@ -104,3 +104,10 @@ range conventions. No candidate gate is triggered.
 nonpositive-eigenvalue mean whose negation is well below the Randić index on
 every arsenal member. Independently, regularity gives `R=|E|/d=n/2` exactly;
 the spectral side never approaches that value within `1e-6`.
+
+## wow-715 — HOLD
+
+**Status:** refuted (Aouchiche--Hansen survey). Reading `scope` as spectral
+range, all arsenal members satisfy the comparison. On the carrier the
+nonpositive range is below mean high degree `11`; on the complement it is
+`2sqrt(5)+2 < 8`. Guarded eigenspectra reproduce the closed-form checks.
