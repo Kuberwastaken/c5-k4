@@ -221,4 +221,8 @@ Exact average distances are at most their residues: `C9[K3]` gives `31/13 <= 3`,
 
 Distance-matrix variance is at most `1070/729`, while every arsenal graph has independence number at least 2.
 
+### wow-96 — HOLD — historically proved
+
+The even-distance vector is constant on every vertex-transitive arsenal graph, so it has one distinct component value, at most residue 2 or 3. The row cites `[FMS1]`.
+
 <!-- NEXT -->
