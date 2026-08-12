@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 49 / 208.
+Progress: 50 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -331,5 +331,11 @@ This is an existential assertion, not a universal wall that an arsenal graph can
 > "maximum eigenvalue < chromatic number of G + chromatic number of the complement of G."
 
 Under non-strict bound convention, every arsenal graph holds. Closest is `T(8)`: `lambda1=12` and `chi(T(8))+chi(bar(T(8)))=7+6=13`, slack 1. For `C5[K_m]`, exact values are `lambda1=3m-1`, `chi=3m`, and `chi(complement)=3`, slack 4. Structured colorings and dense eigensolutions agree; gaps exceed `1e-6`.
+
+### wow-651 — HOLD
+
+> "average distance < maximal frequency of Degree."
+
+Reading Degree as the degree-sequence mode frequency, every regular arsenal graph has right side `n`, whereas its exact average pair distance is below its diameter (at most 4 here). All hold with large slack.
 
 
