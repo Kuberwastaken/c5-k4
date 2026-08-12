@@ -617,4 +617,8 @@ Number of zero Maxine coordinates depends on unspecified algorithm/order; no rob
 
 Maxine zero-coordinate count is order-dependent; row calls the maximum-independent-set repair obvious.
 
+### wow-251 — HOLD
+
+Regular graphs have dual degree `r`; exact `r <= n/average_distance` holds throughout.
+
 <!-- NEXT -->
