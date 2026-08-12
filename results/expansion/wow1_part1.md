@@ -521,4 +521,8 @@ Inherited triangle-free hypothesis selects the carrier complement: edge-size rea
 
 On the triangle-free carrier complement, `|E|/alpha=10 <= mean Even=12`; order reading also holds.
 
+### wow-217 — HOLD
+
+Temperature deviation is 0 on every regular arsenal graph.
+
 <!-- NEXT -->
