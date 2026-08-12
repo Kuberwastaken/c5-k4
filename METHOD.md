@@ -250,6 +250,11 @@ statistic.
 
 ### Phase 8 — Formal certification and upstream submission
 
+All public writes follow [`UPSTREAM_PROTOCOL.md`](UPSTREAM_PROTOCOL.md), whose
+canonical exemplars are WOWII 172/176. The protocol is a hard gate: do not
+open an issue, push a publication branch, or open/edit a PR until its committed
+preflight checklist passes.
+
 For each gate-surviving new disproof:
 
 1. Commit the source audit and exact verifier to this repository.
