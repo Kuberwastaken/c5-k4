@@ -240,3 +240,11 @@ Printed p.77 confirms the exact statement.  Maxine is defined, but its output
 and coordinate vector vary with vertex tie order, while this row supplies no
 universal/existential convention.  A single chosen run would not be a faithful
 invariant reading.
+
+### wow-259 — SKIP_DEFINITION
+
+> The mean of autocoordinates of Maxine of D2 <= the matching number of
+> the complement.
+
+Printed p.77 corrects OCR `Dy` to `D2` and confirms the bound.  Nevertheless the
+source never defines autocoordinates, so source recovery cannot evaluate it.
