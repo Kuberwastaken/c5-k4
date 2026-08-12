@@ -877,9 +877,23 @@ Primary scan p.84 supplies inherited connected `alpha<=2` hypothesis. Eligible c
 
 Under inherited connected `alpha<=2`, `n/average_distance <= lambda_max(L)`; closest arsenal case `C5[K2]` gives about `6.9231 <= 7.2361`.
 
-### wow-404 — MIXED: ordinary HOLD; prime VIOLATED — NEW CANDIDATE
+### wow-404 — HOLD (ordinary and prime)
 
-Primary scan p.84 gives inherited connected `alpha<=2`; p.85 confirms both `<=` statements. Ordinary `lambda_2(D)<=triangles` holds on all applicable arsenal graphs. Prime `lambda_2(D)<=n/mean(Gravity)` fails on `C5[K8]`: `3.944271910 > 62400/16399=3.805110068`, margin `0.139161842`. Mean is over all `n^2` matrix entries. Independent exact arithmetic gives mean Gravity `16399/1560`; an independent eigensolver and closed form `lambda_2=(sqrt(5)-1)m/2-1` agree. The full restricted DB gate tested 159 connected Atlas graphs through order 7 plus 7 applicable named calibrators, with zero violations or guard-band ties. Four novelty searches found no prior discussion/refutation of the prime gravity clause; Aouchiche–Hansen 2014 reproduces only the ordinary triangles clause.
+Primary scan p.84 gives the inherited connected `alpha<=2` hypothesis; p.85
+confirms both `<=` statements. The ordinary clause
+`lambda_2(D)<=triangles` holds on every applicable arsenal graph. The prime
+clause is `lambda_2(D)<=size/mean(Gravity)`, where WoW I's `size` is the
+number of edges, not the order: the invariant glossary defines half the degree
+sum as the size of a graph, and #146's equality characterization for matchings
+independently pins the same convention. For `C5[K8]`, `size=460` and the exact
+mean Gravity is `16399/1560`, so the correct right side is
+`717600/16399 = 31200/713 = 43.758765778...`, comfortably above
+`lambda_2(D)=(sqrt(5)-1)8/2-1=3.944271910...`. The earlier provisional
+candidate used `n=40` in place of `size=460`; an independent certificate audit
+caught the substitution before publication. A corrected rerun over all 159
+applicable connected Atlas graphs and the seven applicable named graphs found
+zero violations and zero `1e-6` ties (minimum slack `3`). Both clauses therefore
+hold and no novelty claim is made.
 
 ### wow-448 — N/A_ARSENAL / historical
 
@@ -889,25 +903,16 @@ The hypothesis specifies a number-theoretic graph on integers `2..n`, not an ars
 
 The corpus manifest and report headings were compared programmatically after
 the final entry: **201 eligible rows, 201 unique verdict headings, zero missing,
-zero extra, zero duplicates**.  Primary verdict counts are 124 `HOLD`, 36
+zero extra, zero duplicates**.  Primary verdict counts are 125 `HOLD`, 36
 `SKIP_OCR`, 35 `N/A_ARSENAL`, 2 historically known retro-violations, 2 literal
-readings rejected by DB sanity, 1 new violation, and 1 mixed row whose prime
-clause is a new violation (total 201).
+readings rejected by DB sanity, and 1 new violation (total 201).
 
-Two candidates survive the complete protocol:
+One candidate survives the complete protocol:
 
 - **wow-191:** `T(n)=L(K_n)`, every `n>=7`, refutes
   `minimum deficiency <= |E|/omega` under the inherited
   `sum Odd < sum Even` hypothesis.  The first witness is `T(7)`:
   `20 > 105/6`.  The primary scan confirms the statement, the complete DB gate
   has no failure, and an independent closed-form derivation confirms the family.
-- **wow-404':** `C5[K8]` refutes
-  `lambda_2(D) <= n/mean(Gravity)` under the primary scan's connected
-  `alpha<=2` heading: `3.944271910 > 62400/16399`.  Exact gravity arithmetic,
-  an independent spectral computation, the `1e-6` guard, and all 159 applicable
-  connected Atlas graphs plus applicable named calibrators confirm the result.
-
 Targeted web searches by number, statement, and invariant combination found no
-prior refutation of either candidate.  Aouchiche–Hansen's 2014 distance-spectrum
-survey reproduces the ordinary wow-404 triangles clause but not the prime
-gravity clause.  No ILP/CBC solve was needed in this lane.
+prior refutation of wow-191. No ILP/CBC solve was needed in this lane.

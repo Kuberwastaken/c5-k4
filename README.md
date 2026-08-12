@@ -22,8 +22,8 @@ claim against the current literature and the
 I then turned the same arsenal outward. On 2026-08-12 I completed durable,
 entry-by-entry sweeps of **409 open Written on the Wall I conjectures**, **71
 AutoGraphiX targets**, and the **16 evaluable open/generated TxGraffiti
-records**. That expansion found three additional gate-surviving disproofs in
-WoW I: #191, #404′, and #889. AutoGraphiX produced no claimable kill, and
+records**. That expansion found two additional gate-surviving disproofs in
+WoW I: #191 and #889. AutoGraphiX produced no claimable kill, and
 TxGraffiti's sole curated apparent violation is a printed-statement erratum,
 not new mathematics.
 
@@ -117,23 +117,20 @@ in formal-conjectures and absent from the literature burst.
 One graph killed four conjectures; its tightness frontier then aimed the
 next shot. Full analysis: [`results/family_forest.md`](results/family_forest.md).
 
-### Three more WoW I kills
+### Two more WoW I kills
 
 The expansion into Fajtlowicz and DeLaViña's earlier *Written on the Wall I*
-corpus produced three candidates that survived the same four-step protocol:
+corpus produced two candidates that survived the same four-step protocol:
 exact statement recovery, a complete applicable small-graph database gate,
 independent recomputation, and a targeted novelty check.
 
 | # | Conjecture | Counterexample | Exact failure |
 |---|---|---|---|
 | **191** | If `sum Odd < sum Even`, minimum deficiency ≤ \|E\|/ω | `T(7) = L(K₇)` | `20 > 105/6`; in fact every `T(n)`, `n ≥ 7`, fails |
-| **404′** | For connected α ≤ 2, `λ₂(D) ≤ n/mean(Gravity)` | `C₅[K₈]` | `3.944271910… > 62400/16399 = 3.805110068…` |
 | **889** | A connected regular triangle-free graph has a blue clique on `w/4` vertices | complement of `C₅[K₄]` | blue clique number `1 < 8/4 = 2` |
 
 The first is another T(n) lever: for `T(n)`, minimum deficiency is
-`(n−2)(n−3)` while `|E|/ω = n(n−2)/2`. The second uses exact Gravity
-mean `16399/1560` and the distance-eigenvalue formula
-`λ₂(D) = (√5−1)m/2−1` at `m=8`. The third uses the complement of the
+`(n−2)(n−3)` while `|E|/ω = n(n−2)/2`. The second uses the complement of the
 carrier, which is connected, 8-regular, triangle-free, and diameter 2; every
 vertex therefore has `w=8`, while the #822 blue graph has no edges.
 
@@ -262,7 +259,7 @@ regular graphs instinctively. Ranked targets:
    (violated by stars/K₄/C₄ inside Graffiti.pc's own database) and can
    only be hunted from DeLaViña's original wording.
 2. **Written on the Wall I — swept**: all 409 eligible open/unannotated
-   records now have durable verdicts. I found #191, #404′, and #889; 90
+   records now have durable verdicts. I found #191 and #889; 90
    statements remain `SKIP_OCR` rather than guessed. The two lane reports
    contain zero missing, extra, or duplicate IDs.
 3. **AutoGraphiX — swept**: all 71 targets now have verdicts. Forty-five
