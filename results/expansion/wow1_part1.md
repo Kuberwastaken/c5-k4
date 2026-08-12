@@ -569,4 +569,8 @@ Inherited `girth>5` section hypothesis excludes every arsenal graph.
 
 Inherited regular hypothesis applies to all arsenal graphs. Exact evaluation of `chi <= n/average_distance` holds; e.g. `C5[K8]` gives `20 <= 312/11`.
 
+### wow-232 — SKIP_OCR
+
+Literal `size/2 <= n-alpha` is implausible on basic graphs; a radical or exponent was lost, so no reading is guessed.
+
 <!-- NEXT -->
