@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-405 — HOLD / BUNDLED SOURCE
+
+> - smallest eigenvalue of Distance < matching of G+ the matching num- ber of the complement of G. Disproved by Michael J. Dinneen, Los Alamos National Laboratory and University of Victoria, Victoria, B.C. August 91. A406. maximum of Even < chromatic number. ...
+
+The row fuses #405-#407. Under the inherited `alpha<=2` heading, `C5[K_m]` satisfies the legible #405 distance-eigenvalue bound and the #406/#407 clauses; the complement and triangular graphs are inapplicable. No additional witness is claimed from the truncated bundle.
+
 ### wow-403 — HOLD WHERE APPLICABLE
 
 > n / mean distance < scope of eigenvalues. Disproved by Favaron, Ma- heo and Sacle. 12. 89.
