@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-178 — HOLD / NO ADDITIONAL WITNESS
+
+> - 2-nd smallest eigenvalue < the matching number. James B. Shearer, October 88.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed matching, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
 ### wow-167 — PROVED_HOLD
 
 > The sum of reciprocals of eigenvalues of Laplacian < the mean transmis- sion of the distance matrix. proved in ”Average distance in graphs and Eigenvalues” by Sivaramakrish- nan Sivasubramanian School of Technology and Computer Science Tata Institute of Fun...
