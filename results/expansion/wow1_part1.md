@@ -645,4 +645,8 @@ Even-parity scope is 0 on every vertex-transitive arsenal graph, so matching is 
 
 `mu <= |E|-sum 1/Even` with large margins; carrier `10 <= 110-20/9`. Row cites `[FMS1]`.
 
+### wow-262 — HOLD
+
+`-lambda_min(A) <= max Even`; carrier `2sqrt(5)-1 <= 9`, all others hold outside guard.
+
 <!-- NEXT -->
