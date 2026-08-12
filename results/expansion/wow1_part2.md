@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 39 / 208.
+Progress: 40 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -271,5 +271,11 @@ The surrounding text explicitly restricts conjectures 634--654 to graphs satisfy
 > "maximum of Rainbow < n /2."
 
 The `Rainbow` coordinate sequence is undefined in the extracted source, preventing faithful evaluation.
+
++### wow-639 — SKIP_OCR
+
+> "mean Rainbow < Randic."
+
+The Randić index is standard, but the left coordinate sequence is not defined in this record. A one-sided computation cannot establish the verdict.
 
 
