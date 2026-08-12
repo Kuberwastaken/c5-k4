@@ -789,4 +789,8 @@ Garble: `If G is a triangle-free graph then the mdepotoncez harmonic.`
 
 Missing operator plus order-dependent Maxine coordinate range.
 
+### wow-312 — HOLD where applicable
+
+Triangle-free carrier complement gives `|E|/alpha=10 <= number nonnegative adjacency eigenvalues=18`.
+
 <!-- NEXT -->
