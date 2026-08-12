@@ -166,6 +166,18 @@ inside `G^2`, so this is not dependent on the notation ambiguity. The complete
 source audit, structural derivation, database gate, and exact verifier are in
 [`wowii_176_disproof.md`](results/expansion/wowii_176_disproof.md).
 
+### Crossing a different wall: WOWII 430a
+
+The same procedure succeeds in a substantially different independent-
+domination cluster. A nonuniform `P7` clique blow-up with blob orders
+`(1,4,12,19,12,4,1)` has `i=3`, center-neighborhood independence 2, and
+`CW=51123/25585<2`; hence 430a falsely asserts `3<=2`. Uniform scaling gives
+an infinite family. This is the clean second example of
+`tight wall -> identify obstruction -> separate the controlling invariant ->
+cross`: eccentricity asymmetry shrinks the center term while dense cliques pin
+the Caro--Wei correction below its integer cliff. Full audit:
+[`wowii_430a_disproof.md`](results/expansion/wowii_430a_disproof.md).
+
 ### A Graph Brain kill — and an order-9 witness
 
 The complete 228-entry Graph Brain sweep found one source-faithful result
