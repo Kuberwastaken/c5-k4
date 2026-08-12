@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 84 / 208.
+Progress: 85 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -541,5 +541,11 @@ This is restricted to a colinearity graph derived from a planar configuration. T
 > "For every polygon the minimum degree of its visibility graph is not more than the chromatic number of its visibility graph."
 
 No polygon/visibility representation is part of the arsenal; the graph inequality `delta<=chi` alone is not the stated claim.
+
+### wow-737 — N/A_ARSENAL
+
+> "The three triangles obtained by joining the center to vertices of a triangle have the same area."
+
+This is elementary Euclidean geometry and has no graph-arsenal instance.
 
 
