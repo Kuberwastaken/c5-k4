@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 50 / 208.
+Progress: 51 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -337,5 +337,11 @@ Under non-strict bound convention, every arsenal graph holds. Closest is `T(8)`:
 > "average distance < maximal frequency of Degree."
 
 Reading Degree as the degree-sequence mode frequency, every regular arsenal graph has right side `n`, whereas its exact average pair distance is below its diameter (at most 4 here). All hold with large slack.
+
+### wow-652 — SKIP_OCR
+
+> "average distance < inverse dual degree ... (co 653. average distance frequency of mode of 1-Residue."
+
+At least two conjectures are merged, `inverse dual degree` has no surviving definition, and embedded 653 has no comparison sign. No reading is selected.
 
 
