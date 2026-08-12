@@ -737,4 +737,8 @@ Inherited `girth>5` excludes every arsenal graph.
 
 Inherited `girth>5` excludes every arsenal graph.
 
+### wow-292 — N/A_ARSENAL / SKIP_OCR
+
+Inherited `girth>5` excludes the arsenal; OCR also omitted the RHS.
+
 <!-- NEXT -->
