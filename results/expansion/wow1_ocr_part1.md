@@ -179,3 +179,11 @@ including `K3,3`: `|E|/2=9/2 > R=3`.  The carrier complement also fails
 Printed p.74 confirms the exact statement under the regular-graph hypothesis.
 The source does not define “resolution of Maxine”, and Maxine's tie choices are
 representation dependent.  Recovery does not supply an evaluable invariant.
+
+### wow-229 — SKIP_DEFINITION
+
+> maximum of coordinates of resolution of Maxine <= the matching number.
+
+Printed p.74 confirms the exact regular-graph statement.  “Resolution of Maxine”
+remains undefined in the source, so its coordinate maximum cannot be tested
+without inventing a historical program convention.
