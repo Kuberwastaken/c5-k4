@@ -1,0 +1,26 @@
+{
+  "source_id": "graphbrain-alpha-lower-071",
+  "statement": "independence_number(x) >= floor(2*tan(matching_number(x)) - 2)",
+  "angle_convention": "radians (Sage/Python real tan convention)",
+  "guard": 1e-06,
+  "witnesses": [
+    {
+      "graph": "K28",
+      "order": 28,
+      "matching_number": 14,
+      "independence_number": 1,
+      "raw_rhs": 12.489213232189611,
+      "rhs": 12,
+      "distance_to_nearest_integer": 0.489213232189611
+    },
+    {
+      "graph": "C7[K4]",
+      "order": 28,
+      "matching_number": 14,
+      "independence_number": 3,
+      "raw_rhs": 12.489213232189611,
+      "rhs": 12,
+      "distance_to_nearest_integer": 0.489213232189611
+    }
+  ]
+}
