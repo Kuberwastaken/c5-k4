@@ -841,4 +841,8 @@ Carrier complement has mean Odd 8; tested first-fit and standard 3-color Rainbow
 
 Carrier complement gives mean Odd `8 <= matching(C5[K4])=10`; row cites `[FMS1]`.
 
+### wow-326 — HOLD under plausible readings
+
+Carrier complement has gravity mean `216/95 <= 8`, the Maxine survivor-coordinate sum; off-diagonal mean convention also holds.
+
 <!-- NEXT -->
