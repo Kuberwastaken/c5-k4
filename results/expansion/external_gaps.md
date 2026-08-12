@@ -89,3 +89,10 @@ original database.
 constant degree sequence `(11^20)`, while `theta/2=sqrt(5)/2`; the right side
 is therefore `2=alpha(C5[K4])`.  Independent degree-sequence reduction and the
 closed-form theta value agree.  No named-arsenal violation was found.
+
+#### Figure 14 / lower-008 — `HOLD_ARSENAL`
+
+`alpha >= 2*floor(arccosh(theta))`, with real `arccosh`.  For
+`theta(C5[K4])=sqrt(5)`, the right side is `2*floor(1.4436...)=2`, again
+equality.  The value is far outside the `1e-6` boundary guard, and the named
+arsenal produced no violation.
