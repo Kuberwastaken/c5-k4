@@ -793,4 +793,8 @@ Missing operator plus order-dependent Maxine coordinate range.
 
 Triangle-free carrier complement gives `|E|/alpha=10 <= number nonnegative adjacency eigenvalues=18`.
 
+### wow-313 — HOLD where applicable
+
+Triangle-free carrier complement gives `|E|/alpha=10 <= number negative distance eigenvalues=17`.
+
 <!-- NEXT -->
