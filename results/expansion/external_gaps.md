@@ -75,3 +75,10 @@ and Lovasz theta is `sqrt(5)=2.236067977...`, so the right side is `2`:
 equality.  The primary paper reports exhaustive verification on every
 connected graph through order 10 and random testing through order 100.  No
 violation appeared on the campaign's named arsenal.
+
+#### Figure 14 / lower-003 — `HOLD_ARSENAL`
+
+`alpha >= min(diameter, theta)`.  On `C5[K4]`, `diameter=2` and
+`theta=sqrt(5)`, hence the right side is `2=alpha`.  The named arsenal yielded
+no violation; the paper's connected-order-at-most-10 verification covers its
+original database.
