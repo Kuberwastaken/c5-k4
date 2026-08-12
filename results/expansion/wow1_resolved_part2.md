@@ -25,3 +25,10 @@ sanity graphs and therefore cannot support a mathematical claim).
 **Status:** proved (WoW annotation). The primary statement is restricted to
 trees. No campaign-arsenal member is a tree, so this lane supplies no
 admissible witness. The OCR phrase `inverse Dual Degree` is not guessed at.
+
+## wow-584 — NOT_APPLICABLE
+
+**Status:** proved (Aouchiche--Hansen survey). The recovered statement,
+`lambda_max(L) <= 2 + alpha`, is explicitly for trees. Every arsenal graph
+contains cycles, so none is applicable. (The OCR `<` represents the source's
+non-strict comparison convention.)
