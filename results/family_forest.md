@@ -184,3 +184,14 @@ gamma_c via bitmask brute; alpha/lambda exact B&B). Diam-2 kill conditions in cl
 | Schlafli | 27 | 2 | 6 | 3 | 2 | 4 | 23 | 174:1 181:0 176/182-185:1 186:2 |
 | 133-zoo Kneser(7,3)=O4 | 35 | rad=3 avglam=4 need>=7 | HOLDS (induced P7 found) | | | | | |
 | 133-zoo HoffmanSingleton | 50 | rad=2 avglam=7 need>=9 | HOLDS (induced P9 found) | | | | | |
+
+## Triangular graphs T(n) = L(K_n) — the 181 kill family
+
+| graph | n(G) | alpha | b | gamma_c | L_s | lmax | diam | LHS=L_s+b | RHS=alpha+(n-1) | margin |
+|---|---|---|---|---|---|---|---|---|---|---|
+| T(6)=L(K6) | 15 | 3 | 6 | 4 (brute-confirmed) | 11 | 2 | 2 | 17 | 17 | 0 TIGHT |
+| T(7)=L(K7) | 21 | 3 | 6 | 5 (brute-confirmed) | 16 | 2 | 2 | 22 | 23 | -1 KILL |
+| T(8)=L(K8) | 28 | 4 | 8 | 6 (brute-confirmed) | 22 | 2 | 2 | 30 | 31 | -1 KILL |
+| T(9)=L(K9) | 36 | 4 | 8 | 7 (brute-confirmed) | 29 | 2 | 2 | 37 | 39 | -2 KILL |
+| T(10)=L(K10) | 45 | 5 | 10 | 8 (proof) | 37 | 2 | 2 | 47 | 49 | -2 KILL |
+| T(11)=L(K11) | 55 | 5 | 10 | 9 (proof) | 46 | 2 | 2 | 56 | 59 | -3 KILL |
