@@ -177,4 +177,8 @@ Coordinate range for any maximal clique is at most `diameter+1<=5`, and `max Eve
 
 The row says the unrestricted strongest version was refuted and retains dominating cliques. For a dominating clique its coordinate scope is at most 4, while `max Even>=5`.
 
+### wow-84 — HOLD
+
+A distance-to-clique coordinate vector supported in `[0,diam]` has variance at most `diam^2/4<=4`; every arsenal graph has `n-residue>=8`.
+
 <!-- NEXT -->
