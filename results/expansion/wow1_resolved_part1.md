@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-79 — HOLD — HISTORICALLY PROVED
+
+> mean of coordinates of a maximal independent set < matching. Proved by William Staton for all independent sets. The equality holds true iff the graph has no edges, but there are graphs like stars in which the two invariants can be arbitrarily close. January...
+
+The row records Staton's proof for all independent sets. The arsenal has positive matching number and no source-faithful contradiction; ordering-dependent coordinate variants are not substituted for the proved statement.
+
 ### wow-69 — HOLD / NO ADDITIONAL WITNESS
 
 > Residue 1s not more than the independence number. This is really a joint conjecture of Graffiti and myself, because I began to an- ticipate this conjecture writing the code for residue.
