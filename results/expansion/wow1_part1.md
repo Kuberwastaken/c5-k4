@@ -853,4 +853,8 @@ Plant means equality in Cvetkovic's inertia bound from #345; no arsenal graph is
 
 No arsenal graph satisfies the inherited plant hypothesis.
 
+### wow-348 — N/A_ARSENAL
+
+No arsenal graph satisfies the plant hypothesis; the row's gravity definition was nevertheless used for later statements.
+
 <!-- NEXT -->
