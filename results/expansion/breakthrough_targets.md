@@ -44,6 +44,7 @@ are excluded rather than double-counted.
 | 8 | Lovász vertex-transitive Hamilton-path conjecture | every main arsenal member is vertex-transitive; Hamilton paths are direct certificates | queued |
 | 9 | Hadwiger's clique-minor conjecture | carrier chromatic numbers exceed the proved small-colour cases, while explicit branch-set certificates are finite | queued |
 | 10 | Fan--Raspaud three-perfect-matching conjecture | exactly three named arsenal controls are bridgeless cubic graphs | queued |
+| 11 | Petersen-colouring conjecture | same three bridgeless cubic controls; edge-map certificates are finite | queued |
 
 Other ranked source targets are not admissible for these fixed objects
 (trees, digraphs, planar cubic graphs, polytopes, hypergraphs, Latin squares,
@@ -258,4 +259,19 @@ where `uv` denotes edge `{u,v}`. An independent replay checks that each row
 covers every vertex exactly once, contains only graph edges, and that no edge
 appears in all three rows. The dense carrier family is not cubic and is
 correctly marked not applicable; every applicable control holds.
+
+### 11. Petersen colouring — HOLD on all applicable controls
+
+Under the source convention, a Petersen colouring maps each edge of a
+bridgeless cubic graph to an edge of Petersen so that the three incident edges
+at every source vertex map to the three incident edges at some Petersen
+vertex. Petersen itself has the identity map. Both `K4` and `K3,3` have
+replayed proper 3-edge-colourings; map their three colour classes bijectively
+to the three edges incident at any fixed Petersen vertex. Every source vertex
+sees all three colours, so this is immediately a valid Petersen edge map.
+
+These are the only cubic arsenal members. Direct replay checks cubicity,
+bridgelessness, the proper three-edge-colour partitions, and the local
+incident-edge condition. All applicable controls hold; the higher-degree
+carrier graphs cannot test this conjecture.
 
