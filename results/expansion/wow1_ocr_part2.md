@@ -16,7 +16,7 @@ where possible; spectral gaps at most `1e-6` are ties, and any ILP solve is
 capped at 60 seconds. A source statement that is recovered but restricted to an
 inapplicable construction is recorded as `N/A_ARSENAL`.
 
-Progress: 7 / 54.
+Progress: 8 / 54.
 ### wow-456 — N/A_ARSENAL
 
 PDF p.95: `The residue of the graph RP[2..n] is not more than pi(n).` The source cleanly restores `pi(n)` and identifies RP/residue definitions, but this is restricted to the number-theoretic RP construction; no arsenal graph is admissible.
@@ -38,4 +38,7 @@ PDF p.98 restores the relation: `pi(n) <= sum of reciprocals of coordinates of a
 ### wow-516 — N/A_ARSENAL
 
 PDF p.98: `deviation of S <= frequency of mode of eigenvalues of Laplacian.` Here `S` is the quadratic-residue vector introduced under the Paley heading. No arsenal instance.
+### wow-529 — N/A_ARSENAL
+
+PDF p.98: `deviation of S <= number of cubic residues less than n.` This is a number-theoretic/Paley statement, not a carrier-graph inequality.
 
