@@ -217,4 +217,8 @@ All plausible arsenal evaluations hold. The row itself reports that odd cycles a
 
 Exact average distances are at most their residues: `C9[K3]` gives `31/13 <= 3`, and `C5[K4]` gives `27/19 <= 2`.
 
+### wow-94 — HOLD
+
+Distance-matrix variance is at most `1070/729`, while every arsenal graph has independence number at least 2.
+
 <!-- NEXT -->
