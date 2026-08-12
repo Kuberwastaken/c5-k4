@@ -9,9 +9,13 @@
 - **OCR discipline:** an expression that cannot be recovered faithfully from the corpus is recorded as `SKIP_OCR` with the surviving garble quoted; no intended formula is guessed.
 - **ILP discipline:** no solver call may exceed 60 seconds. (This lane currently needs no ILP.)
 
-Progress: **70/71** entries evaluated (70 strict-open + 1 open-in-full).
+Progress: **71/71** entries evaluated (70 strict-open + 1 open-in-full).
 
 ## Verdicts
+
+### `agx-survey-C40` — HOLD
+
+The bound `q1+qn+2alpha <= 3n-2` holds throughout. Exact independence numbers plus direct Q spectra were independently checked using `Q=dI+A` on regular arsenal graphs. No candidate violation appears, so the database and novelty gates are not triggered.
 
 ### `agx-survey-C39` — HOLD
 
