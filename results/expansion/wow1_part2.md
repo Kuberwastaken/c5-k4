@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 22 / 208.
+Progress: 23 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -169,5 +169,11 @@ The `mid-Degree` derived sequence is not recoverable faithfully from this isolat
 > "mean of mid-Degree < size independence."
 
 As in wow-552, the operative derived-sequence definition is unavailable in a sufficiently reliable form. No guessed Havel-Hakimi variant is used.
+
++### wow-561 — SKIP_OCR
+
+> "If G is a connected graph then the mean of Rainbow < size independence."
+
+`Rainbow` is an undocumented coordinate try-out here. Its mean is not a standard invariant and cannot be reconstructed from the OCR text.
 
 
