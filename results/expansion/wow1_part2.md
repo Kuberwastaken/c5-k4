@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 42 / 208.
+Progress: 43 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -289,5 +289,11 @@ This lies under the explicit 634--654 hypothesis `chi(bar G)=n-nu(G)`, which no 
 > "chromatic number < frequency of maximum of Rainbow."
 
 The section's 634--654 hypothesis fails throughout the usable arsenal, and `Rainbow` is not recoverably defined.
+
++### wow-642 — N/A_ARSENAL
+
+> "scope of Dual Degree < independence."
+
+The section restriction `chi(bar G)=n-nu(G)` excludes the arsenal instances checked; moreover the Dual Degree sequence is unavailable.
 
 
