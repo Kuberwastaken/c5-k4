@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-30 — HOLD / NO ADDITIONAL WITNESS
+
+> The number of positive distance eigenvalues is not more than sum of temperatures of vertices. A counterexample is D6(B6). James. B. Shearer, July 88.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed distance, spectrum, temperature quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
 ### wow-29 — RETRO-VIOLATION — T(q), q≥7
 
 > The Randic index is not more than the number of negative distance eigen- values. Disproved by Alon, Saks, Seymour, Shearer and Winkler. July 88.
