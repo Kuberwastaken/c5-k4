@@ -93,6 +93,13 @@ Author-repository, issue-history, exact-formula, and broader invariant searches
 found no pre-existing counterexample.  This is a candidate new disproof; an
 executable certificate is prepared separately.
 
+### graphbrain-alpha-upper-007 — RETRO_KILL_AUTHOR_SOURCE
+
+> `independence_number(x) <= (2*girth(x))^card_periphery(x)`
+
+The author project's own current graph-object source contains a graph explicitly labeled as a counterexample to this exact formula.  This independently establishes that the still-open issue line is stale.  The campaign therefore records a retro-kill, not a novelty claim; the author-source status takes precedence over arsenal behavior.
+
+
 ### graphbrain-alpha-upper-006 — HOLD_ARSENAL
 
 > `independence_number(x) <= (card_periphery(x) + diameter(x))^(max_even_minus_even_horizontal(x) + 1)`
