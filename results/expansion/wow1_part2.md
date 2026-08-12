@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 108 / 208.
+Progress: 109 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -685,5 +685,11 @@ No campaign graph is cubic.
 > "If G is a cubic graph ..."
 
 The cubic hypothesis fails throughout the arsenal; the record also says an 18-vertex counterexample was already known.
+
+### wow-770 — N/A_ARSENAL
+
+> "If G is cubic ..."
+
+No degree-3 arsenal member exists.
 
 
