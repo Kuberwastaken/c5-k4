@@ -119,3 +119,9 @@ heliotropic plants (equality in Cvetkovic's nonnegative-eigenvalue independence
 bound). None of the arsenal graphs meets that equality: the carrier has
 `alpha=2` versus three nonnegative eigenvalues, and the complement has `8`
 versus `18`; triangular graphs also fail.
+
+## wow-721 — NOT_APPLICABLE
+
+**Status:** refuted (WoW annotation). The antecedent is that `G` is a perfect
+plant, as defined in the preceding discussion. No arsenal member satisfies that
+special equality condition, so the campaign cannot supply a retro-counterexample.
