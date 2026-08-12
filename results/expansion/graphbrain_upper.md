@@ -96,6 +96,13 @@ false right side `4/3`.  The carrier family remains useful independent
 evidence, but the simple witness makes this a conservative stale/trivial
 retro-kill rather than a novelty claim.
 
+### graphbrain-alpha-upper-117 — HOLD_ARSENAL
+
+> `independence_number(x) <= cosh(degree_sum(x) - order_automorphism_group(x)) + girth(x)`
+
+No violation was found on all 996 connected nonempty Graph Atlas graphs through order 7 where the exact author expression is defined, the named controls, or campaign and threshold families.  Real comparisons use the `1e-6` guard and ILP/LP runs stay within 60 seconds.  This is an arsenal hold, not a proof.
+
+
 ### graphbrain-alpha-upper-116 — DB_REJECTED
 
 > `independence_number(x) <= size(x) + tan(number_of_triangles(x)/card_center(x))`
