@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 80 / 208.
+Progress: 81 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -517,5 +517,11 @@ No campaign object is a polygon with a specified embedding, so the geometric hyp
 > "Minimum angle of a polygon without multiple vertices is not more than the minimum degree of the complement of its colinearity graph."
 
 The arsenal contains abstract graphs without polygonal point configurations. No admissible instance.
+
+### wow-733 — N/A_ARSENAL
+
+> "The number of distinct degrees of the interval graph of a polygon is not more than the number of vertices of the convex hull of the polygon."
+
+This requires a polygon and its derived interval graph, neither supplied by the campaign arsenal.
 
 
