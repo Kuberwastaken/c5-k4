@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-403 — HOLD WHERE APPLICABLE
+
+> n / mean distance < scope of eigenvalues. Disproved by Favaron, Ma- heo and Sacle. 12. 89.
+
+The primary scan places #403 in the independence-at-most-2 section. `C5[K4]` gives `n/mean distance=380/27=14.074074... <= scope(A)=14.472135...`; the family remains on the holding side. `T(q)` failures are inapplicable because their independence exceeds 2.
+
 ### wow-400 — SKIP_BUNDLED_OCR
 
 > range of positive eigenvalues < maximum of Dual Degree. A01. minimum of derivative of positive eigenvalues < mean Gravity. Disproved by Tony L. Brewster, Michael J. Dinneen and Vance Faber 12. 90.
