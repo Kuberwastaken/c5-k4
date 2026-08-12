@@ -9,5 +9,16 @@
 - **OCR discipline:** an expression that cannot be recovered faithfully from the corpus is recorded as `SKIP_OCR` with the surviving garble quoted; no intended formula is guessed.
 - **ILP discipline:** no solver call may exceed 60 seconds. (This lane currently needs no ILP.)
 
-Progress: **0/71** entries evaluated (70 strict-open + 1 open-in-full).
+Progress: **1/71** entries evaluated (70 strict-open + 1 open-in-full).
+
+## Verdicts
+
+### `agx-survey-C8` — HOLD
+
+Recovered reading (the four displayed comparisons): with adjacency index `lambda1`, vertex connectivity `nu`, edge connectivity `kappa`, and the unique root `t in (0,1)` of
+`t^3 + (2n-3)t^2 + (n^2-3n+1)t - 1 = 0`,
+`lambda1-nu <= n-3+t`, `lambda1-kappa <= n-3+t`,
+`lambda1/nu <= n-2+t`, and `lambda1/kappa <= n-2+t`.
+
+All four inequalities hold on every arsenal graph. The closest arsenal comparison is still far from the boundary: on `C5[K2]`, the minimum slack is `6.014037288...` (the first inequality; `n=10`, `lambda1=5`, `nu=4`, `kappa=5`, `t=0.014037288...`). For the carrier the four slacks are respectively `14.002931619`, `17.002931619`, `16.627931619`, and `17.002931619`; its closed-form regular spectrum gives `lambda1=11` exactly. No apparent violation, so the database-sanity and novelty gates are not triggered.
 
