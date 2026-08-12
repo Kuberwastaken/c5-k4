@@ -57,8 +57,8 @@ On `C5[K10]`, every vertex has degree 29 and `sigma_2=58`.  Of the
 so average distance is `69/49`.  In radians the right side is
 `exp(cosh(69/49))-tan(58)=0.396963134787592... < alpha=2`.
 
-The identical expression has no violation among all 996 connected nonempty
-Graph Atlas graphs through order 7 on which it is defined, nor on Petersen,
+The identical expression has no violation among all 989 applicable noncomplete
+connected Graph Atlas graphs of orders 2 through 7, nor on Petersen,
 `K3,3`, the cube, or Heawood.  (The author code gives `sigma_2=Infinity` on a
 complete graph, so those domain-error cases are not evaluated.)  A second
 formula-only implementation reproduces the counts and margin `1.603036865...`,

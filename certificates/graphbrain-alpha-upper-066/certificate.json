@@ -3,5 +3,5 @@
   "simple_witness": {"graph": "K9-e", "order": 9, "size": 35, "alpha": 2, "sigma_2": 14, "average_distance": 1.0277777777777777, "rhs": -2.4074616033512655, "margin": 4.4074616033512655},
   "campaign_witness": {"order": 50, "size": 725, "alpha": 2, "sigma_2": 58, "average_distance": 1.4081632653061225, "rhs": 0.39696313478759215, "margin": 1.6030368652124078},
   "guard": 1e-06,
-  "gate": {"connected_atlas_orders": "2..7", "tested_defined": 995, "violations": 0, "undefined_complete_graphs": 6, "named": ["Petersen", "K3,3", "cube", "Heawood"], "named_violations": 0}
+  "gate": {"connected_atlas_orders": "2..7", "tested_defined": 989, "violations": 0, "undefined_complete_graphs": 6, "named": ["Petersen", "K3,3", "cube", "Heawood"], "named_violations": 0}
 }

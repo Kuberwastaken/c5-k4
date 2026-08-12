@@ -1,6 +1,6 @@
 import math
 import unittest
-from verify import verify, simple_witness
+from verify import database_gate, verify, simple_witness
 
 
 class TestCertificate(unittest.TestCase):
@@ -17,5 +17,10 @@ class TestCertificate(unittest.TestCase):
         for alpha,avg,sigma in [(4,5/3,6),(3,7/5,6),(4,12/7,6),(7,25/13,6)]:
             rhs=math.exp(math.cosh(avg))-math.tan(sigma)
             self.assertLessEqual(alpha,rhs+1e-6)
+    def test_database_gate(self):
+        gate=database_gate()
+        self.assertEqual(gate['tested_defined'],989)
+        self.assertEqual(gate['undefined_complete_graphs'],6)
+        self.assertEqual(gate['violations'],0)
 
 if __name__=='__main__': unittest.main()
