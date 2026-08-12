@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 54 / 208.
+Progress: 55 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -361,5 +361,11 @@ The left expression is destroyed and the remaining words do not determine an ope
 > "mean Rainbow < independence."
 
 `Rainbow` is not defined in the surviving source record, so its mean cannot be evaluated.
+
+### wow-662 — SKIP_OCR
+
+> "deviation of eigenvalues < n - independence. mo and m, denote respectively the multiplicity of 0 and 1 as the eigenvalues over the 2-element field."
+
+The statement does not identify the spectrum or normalization for `deviation`; the GF(2) prose creates a materially different reading. None is guessed.
 
 
