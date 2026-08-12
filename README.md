@@ -414,9 +414,9 @@ and DeLaViña's verbatim invariant definitions (recovered from her
 
 ## Provenance
 
-I ran the 2026-08-12 exhaustive sweep (all 522 conjectures × this one
-graph) as a parallel agentic pipeline (Claude Code): 10 evaluation agents
-over the open/refuted/proved partitions, every VIOLATED verdict
+I ran the 2026-08-12 exhaustive campaign as a parallel agentic pipeline
+across Claude Code and Codex: evaluation agents covered the original 522
+WOWII records and every expansion lane, every VIOLATED verdict was
 independently re-derived by an adversarial verifier instructed to *save*
 the conjecture, plus literature and repo-race sweeps. Transcriptions of
 DeLaViña's statements are inherently lossy; every kill claimed above
