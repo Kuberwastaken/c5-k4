@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 36 / 208.
+Progress: 37 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -253,5 +253,11 @@ The chromatic side is clear but `Even` is undefined here; no distance-parity inv
 > "mean Rainbow < md Tene."
 
 The right side is irrecoverable OCR garble and `Rainbow` is likewise undefined. The following prose only introduces the hypotheses for conjectures 634--654.
+
++### wow-634 — SKIP_OCR
+
+> "inverse of coordinates of Maxine < n /2."
+
+The phrase does not specify whether `inverse` means reciprocal sum, reversed vector, or another defined try-out, and Maxine coordinates depend on missing conventions.
 
 
