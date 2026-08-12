@@ -392,3 +392,11 @@ regular, triangle-free, and diameter two. Each vertex has eight odd-distance
 vertices and no horizontal edge in its odd layer (triangle-freeness), so
 `w(v)=8=d`: exact equality in `d <= min w(v)`. Petersen likewise ties
 `3=3`. Direct BFS layers independently confirm both values.
+
+## wow-878 — HOLD
+
+**Status:** refuted (WoW annotation). The hypothesis is cubic and triangle-free;
+the named Petersen calibration graph is the only applicable campaign object.
+Constructing red pairs as distance-two nonedges gives red clique number four,
+while exhaustive counter-independent-set search in the complementary red graph
+gives at most two, so `4 >= 1+2`.
