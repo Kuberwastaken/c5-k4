@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 140 / 208.
+Progress: 141 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -877,5 +877,11 @@ Literal universal reading fails 829/995 nontrivial connected atlas graphs and sm
 > "largest eigenvalue - second largest ... not more [than] deviation of degree sequence + k/l"
 
 The PR/RP context and OCR-damaged `l` make the arsenal inapplicable. Literal reading fails 528/995 atlas graphs, so the gate rejects every apparent carrier violation.
+
+### wow-813 — N/A_ARSENAL / DB_REJECTED
+
+> "largest eigenvalue - second largest ... not more [than] deviation ... + mean temperature."
+
+A universal literal reading fails 710/995 atlas graphs, including small database members. Context does not establish an arsenal instance, hence no kill.
 
 
