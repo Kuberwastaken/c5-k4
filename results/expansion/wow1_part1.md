@@ -157,4 +157,8 @@ Every arsenal graph has no cut vertices, hence the cut-vertex-coordinate varianc
 
 Every arsenal graph has no cut vertices; under the zero-vector convention its mode is 0, at most the matching number.
 
+### wow-77 — HOLD
+
+For all maximal/maximum-independent-set coordinate readings, the modal coordinate is at most the diameter (at most 4), whereas `n-residue` is at least 8 in the arsenal.
+
 <!-- NEXT -->
