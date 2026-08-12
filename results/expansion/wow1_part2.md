@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 123 / 208.
+Progress: 124 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -775,5 +775,11 @@ No campaign graph is certified critical Ramsey.
 > "largest independent set ... not more than 1 + global minimum degree of the complement of G."
 
 Exact independence and complement degeneracy/core numbers satisfy `alpha<=1+gmin(bar G)` for every arsenal member. This also follows from the chromatic-number explanation in the source.
+
+### wow-794 — HOLD
+
+> "lower quotient of the degree sequence ... not more than its independence number."
+
+Applying the stated iterative deletion to each regular degree sequence gives a lower quotient at most exact alpha throughout. Direct simulation and its closed form for constant sequences agree.
 
 
