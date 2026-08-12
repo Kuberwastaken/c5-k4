@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-321 — HOLD WHERE APPLICABLE
+
+> If G is a triangle-free graph then the maximum eigenvalue < mean of Even. James B. Shearer, October 88.
+
+The triangle-free hypothesis selects `complement(C5[K4])`, where `lambda_1=8 <= mean Even=12`. Named triangle-free calibration graphs also hold, so this arsenal adds no witness to the historical refutation.
+
 ### wow-306 — HOLD WHERE APPLICABLE
 
 > If the distance rank is strictly less than the rank then the sum of inverses of dual degrees < number of nonpositive eigenvalues. Tony L. Brewster, Michael J. Dinneen and Vance Faber, (see107) 12. 90.
