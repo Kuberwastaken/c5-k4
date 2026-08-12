@@ -79,3 +79,9 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 > radius is not more than the average temperature + Randic index. (-1, 3.) Disproved by Gilles Caporossi and Pierre Hansen, University of Mon- treal. See conj. 3 and 15.
 
 The applicable arsenal satisfies the source-faithful inequality using the listed radius, randic_index, temperature quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
+### wow-17 — HOLD / NO ADDITIONAL WITNESS
+
+> radius is not more than the variance of the degree sequence + maximal frequency of the degree sequence. (4.) Disproved by James B. Shearer, IBM, Yorktown Heights, 10. 89.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
