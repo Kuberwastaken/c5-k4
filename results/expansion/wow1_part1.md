@@ -465,4 +465,8 @@ Garble: `maximum of autocoordinates of Maxine of the complement`. The constructi
 
 Inherited section condition `sum Odd < sum Even` selects `T(7..9)` and the carrier complement; all satisfy `|E|/alpha <= ||degree sequence||`.
 
+### wow-191 — VIOLATED — NEW CANDIDATE
+
+The inherited condition `sum Odd < sum Even` selects `T(n)=L(K_n)` and the carrier complement, not the cycle blow-ups. `T(7)` gives `min deficiency=20 > |E|/omega=105/6`; `T(8),T(9)` also fail, while the complement holds. The primary scan p.70 confirms `<=`. Independent exhaustive testing found zero failures on all 996 connected nonempty Atlas graphs through order 7 and all named calibration graphs. Independently, `def_min(T(n))=(n-2)(n-3)` and `|E|/omega=n(n-2)/2`, so every `n>=7` fails. Four novelty searches found no prior refutation of WoW #191 or this statement.
+
 <!-- NEXT -->
