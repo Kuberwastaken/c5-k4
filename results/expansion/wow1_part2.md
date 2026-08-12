@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 145 / 208.
+Progress: 146 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -907,5 +907,11 @@ This is an open-ended invariant-design problem, not an assertion falsifiable by 
 > "Solve ... interpolation problem for Cayley graphs over cyclic groups ..."
 
 No concrete inequality is stated and no arsenal construction is certified.
+
+### wow-818 — N/A_ARSENAL
+
+> "Solve ... interpolation problem for Paley graphs."
+
+This asks for an invariant rather than stating a bound; the WoW-I arsenal also contains no Paley instance.
 
 
