@@ -169,3 +169,18 @@ Shrikhande and Rook4x4: slack 1 on 181 (b=8 vs alpha+gc-1=7).
 - 59/61: res <= alpha (Favaron-Maheo-Sacle) = floor(k/2) on C_k blow-ups while f = k-1: RHS can't reach f.
 - 133 chi_C4=0 branch: path >= diam+1 >= rad+1 always — only C4-free graphs can kill 133.
 
+
+## Wave 3: larger dense diam-2 graphs (b via CBC ILP validated vs brute on Paley13/Petersen;
+gamma_c via bitmask brute; alpha/lambda exact B&B). Diam-2 kill conditions in closed form:
+174: b<gc+lmax-1, 181: b<alpha+gc-1, 176/182/183/184/185: b<gc+1, 186: b<gc.
+
+| graph | n | diam | b | alpha | lmax | gamma_c | L_s | slacks |
+|---|---|---|---|---|---|---|---|---|
+| Paley25 | 25 | 2 | 10 | 5 | 3 | 4 | 21 | 174:4 181:2 176/182-185:5 186:6 |
+| Paley29 | 29 | 2 | 8 | 4 | 4 | 4 | 25 | 174:1 181:1 176/182-185:3 186:4 |
+| Paley37 | 37 | 2 | 8 | 4 | 4 | 4 | 33 | 174:1 181:1 176/182-185:3 186:4 |
+| Paley41 | 41 | 2 | 10 | 5 | 4 | 4 | 37 | 174:3 181:2 176/182-185:5 186:6 |
+| GQ(2,4) | 27 | 2 | 12 | 6 | 5 | 3 | 24 | 174:5 181:4 176/182-185:8 186:9 |
+| Schlafli | 27 | 2 | 6 | 3 | 2 | 4 | 23 | 174:1 181:0 176/182-185:1 186:2 |
+| 133-zoo Kneser(7,3)=O4 | 35 | rad=3 avglam=4 need>=7 | HOLDS (induced P7 found) | | | | | |
+| 133-zoo HoffmanSingleton | 50 | rad=2 avglam=7 need>=9 | HOLDS (induced P9 found) | | | | | |
