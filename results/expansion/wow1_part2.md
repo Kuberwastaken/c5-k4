@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 81 / 208.
+Progress: 82 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -523,5 +523,11 @@ The arsenal contains abstract graphs without polygonal point configurations. No 
 > "The number of distinct degrees of the interval graph of a polygon is not more than the number of vertices of the convex hull of the polygon."
 
 This requires a polygon and its derived interval graph, neither supplied by the campaign arsenal.
+
+### wow-734 — N/A_ARSENAL
+
+> "The sum of reciprocals of nonzero degrees of the colinearity graph of a polygon is not more than the chromatic number of its visibility graph."
+
+The geometric construction is absent from every arsenal member.
 
 
