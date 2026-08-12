@@ -845,4 +845,8 @@ Carrier complement gives mean Odd `8 <= matching(C5[K4])=10`; row cites `[FMS1]`
 
 Carrier complement has gravity mean `216/95 <= 8`, the Maxine survivor-coordinate sum; off-diagonal mean convention also holds.
 
+### wow-346 — N/A_ARSENAL
+
+Plant means equality in Cvetkovic's inertia bound from #345; no arsenal graph is a plant.
+
 <!-- NEXT -->
