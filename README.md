@@ -148,9 +148,14 @@ The sweep's whole point is knowing where the graph's reach ends:
   Kₙ (448b) — graphs certainly in Graffiti.pc's database, which the
   program checked before emitting conjectures. The published wording is
   therefore presumed corrupted between Graffiti.pc's output and the page;
-  a "kill" of a page typo is empty, so these are **not** claimed.
-  (Verbatim page quotes and analysis in
-  [`results/transcription_audit.md`](results/transcription_audit.md).)
+  a "kill" of a page typo is empty, so these are **not** claimed. The
+  adversarial verification went further: as published, 412f is violated
+  by 62% of all connected graphs on ≤ 7 vertices (K₃ included) and 448b
+  by C₄ itself, while every sane repair of either statement is satisfied
+  by C₅[K₄]. (Verbatim page quotes in
+  [`results/transcription_audit.md`](results/transcription_audit.md),
+  full adversarial analysis in
+  [`results/verification.md`](results/verification.md).)
 - **Transcription-audit bonus**: the July community parse of the page
   missed three open conjectures entirely (136, 137, 138 — the path(G)
   sub-list, hidden by split HTML id cells). I recovered and evaluated
