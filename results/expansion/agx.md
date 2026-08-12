@@ -13,6 +13,10 @@ Progress: **33/71** entries evaluated (70 strict-open + 1 open-in-full).
 
 ## Verdicts
 
+#### Correction to `agx-form1-T45-r40-lower` — HOLD
+
+The row is `lambda1+R >= 2sqrt(n-1)` (star equality). Direct edge-sum Randić values and adjacency diagonalization, independently checked by the regular-graph identity `R=n/2`, give HOLD across the arsenal. This supersedes the conservative SKIP_OCR note below after cross-row reconstruction of the table columns.
+
 #### Correction to `agx-form1-T45-r35-upper` — HOLD
 
 The upper row is `lambda1*pi <= n-1` (complete-graph equality). Every arsenal graph holds under exact proximity and guarded index evaluation, independently checked from the family formulas. The literature later refuted the universal thesis conjecture, but none of this campaign's graphs is a counterexample. This supersedes the conservative SKIP_OCR note below after cross-row reconstruction of the table columns.
