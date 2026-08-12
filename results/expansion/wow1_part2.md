@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 117 / 208.
+Progress: 118 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -739,5 +739,11 @@ Enumerating each `k<jet(G)` and the minimum span size `s(k)` verifies all readin
 > "I decided to try to obtain conjectures related to the twin prime conjecture ... q(3) is 8"
 
 This is truncated number-theory setup; no complete conjectural assertion survives.
+
+### wow-786 — N/A_ARSENAL
+
+> "If G is a critical Ramsey graph r(3,a) ..."
+
+No arsenal member is supplied as a critical Ramsey graph of the required order/class.
 
 
