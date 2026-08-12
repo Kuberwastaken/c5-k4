@@ -241,4 +241,8 @@ Distance-matrix variance is below 1.5, while `n-residue>=8` throughout the arsen
 
 The even-distance vector is constant on every arsenal graph, so the maximum frequency is `n`, trivially at least `chi`.
 
+### wow-102 — HOLD
+
+For visible #102, degree variance is zero on every regular arsenal graph, below mean Even. OCR-appended #103/#104 also hold because these graphs have no cut vertices.
+
 <!-- NEXT -->
