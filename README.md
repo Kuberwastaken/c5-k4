@@ -169,6 +169,46 @@ The sweep's whole point is knowing where the graph's reach ends:
 Everything else among the 220 open conjectures: holds, with margins
 recorded per-conjecture in the sweep data.
 
+## Where this weapon points next
+
+The kill signature, stated precisely: on C₅-blowups the **hereditary
+induced invariants are pinned at tiny constants** (α = 2, f = b = tree =
+induced path = 4, λ(v) = 2, γ_t = 3 — growing the blobs adds zero
+independent structure) **while density and distance terms grow freely**
+(Δ = 3m−1, dist_even = 2m+1, n mod Δ = 2m+1), and vertex-transitivity +
+regularity + diameter 2 **collapse the set machinery** (center =
+periphery = M = A = V, G² = Kₙ, H = ∅, maxine = α). Any conjecture that
+lower-bounds a pinned invariant by a growing term, or feeds a collapsed
+set into a correction term, is in the kill zone.
+
+The corollary that guides targeting: this graph murders
+**machine-generated conjectures with finite verification databases** —
+no automated conjecturer's database ever contained a dense
+vertex-transitive diameter-2 graph past n ≈ 15 — but it is nearly
+useless against human conjectures, because humans sanity-check dense
+regular graphs instinctively. Ranked targets:
+
+1. **WOWII, until dry** (this repo): family sweeps over near-misses with
+   C₅[K_m], C₇/C₉ blowups, non-uniform blobs, complement carriers.
+2. **Fajtlowicz's original Graffiti** (WoW I, 1980s–90s, an even smaller
+   database): any unresolved lower bound on α exceeding 2 here dies on
+   contact; residue = 2 = α sits exactly at the classic tight bound.
+3. **Modern corpora — TxGraffiti / Graph Brain / CONJECTURING**: same
+   domination/independence vocabulary, databases of connected graphs to
+   n ≈ 10.
+4. **AutoGraphiX open conjectures** (spectral/distance): C₅[K_m] has a
+   closed-form spectrum ({3m−1, twice each of the two golden-ratio
+   branches m·2cos(2πj/5)+m−1, and −1 with multiplicity 5(m−1)}), so
+   index/energy/proximity bounds evaluate symbolically for the whole
+   family at once.
+5. **google-deepmind/formal-conjectures beyond WOWII**: any
+   `research open` statement quantified over all finite simple graphs.
+
+Where it is useless, equally worth knowing: asymptotic/extremal
+statements, anything with tree/bipartite/triangle-free/planar/sparse
+hypotheses (the graph is none of these), and human structural
+conjectures.
+
 ## The graph, in numbers
 
 All values exact, computed by [`scripts/profile_c5k4.py`](scripts/profile_c5k4.py)
