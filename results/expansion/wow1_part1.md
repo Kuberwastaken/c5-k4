@@ -865,4 +865,8 @@ No arsenal graph satisfies the plant hypothesis; the row's gravity definition wa
 
 No arsenal graph is a heliotropic plant.
 
+### wow-356 — N/A_ARSENAL
+
+No arsenal graph is a geotropic plant.
+
 <!-- NEXT -->
