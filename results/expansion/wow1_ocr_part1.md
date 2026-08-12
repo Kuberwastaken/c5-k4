@@ -78,3 +78,12 @@ defines both Maxine and `D2`.  It never defines **autocoordinates**, however;
 neither the document nor targeted searches recover a mathematical definition.
 Moreover Maxine explicitly depends on vertex tie-breaking.  Evaluating a guessed
 coordinate convention would violate the all-readings rule, so this stays skipped.
+
+### wow-156 — SKIP_DEFINITION
+
+> mean of autocoordinates of Maxine of D2 <= the chromatic number.
+
+Printed p.67 confirms this companion to 155.  The source defines Maxine and
+`D2` but not autocoordinates, so the same representation-dependent definition
+gap prevents a faithful evaluation.  The OCR's trailing `x * x` is not present
+in the source and was only page ornament/noise.
