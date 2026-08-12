@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 4 / 208.
+Progress: 5 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -58,3 +58,9 @@ arsenal. No intended notation is guessed.
 The unknown `n(n)` right-hand side and the merge into a different `PR[S]`
 conjecture make this unusable. Both surviving clauses concern constructed
 number-theoretic graphs rather than the arsenal. No repair is inferred.
++### wow-496 — SKIP_OCR
+
+> "sum of coordinates of Maxine < length of S. A97. size - order < the number of triangles."
+
+Two assertions are fused, `S` is undefined, and the first inequality has no recoverable graph object. No interpretation is guessed.
+
