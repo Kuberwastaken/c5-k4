@@ -533,4 +533,8 @@ The second-largest gravity eigenvalue is far below the number of nonedges throug
 
 Under the following girth-section boundary, the statement's triangle-free reading selects the carrier complement, where `max Odd=8 <= mu=10`.
 
+### wow-221 — N/A_ARSENAL
+
+Inherited `girth>5` section hypothesis excludes every arsenal graph (all have girth 3 or 4).
+
 <!-- NEXT -->
