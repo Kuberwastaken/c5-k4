@@ -265,4 +265,8 @@ The triangle-free hypothesis selects the carrier complement, where `floor(n/2)=1
 
 Every arsenal graph is regular, so maximal frequency in its degree sequence is `n`, far above average distance.
 
+### wow-114 — RETRO-VIOLATION — already refuted
+
+Under ordered distance-matrix coordinates, `C5[K4]` gives frequency 220 versus `sum Even=180`; `C5[K_m]`, `m>=3`, also fail. The row itself describes asymptotically unbounded counterexamples.
+
 <!-- NEXT -->
