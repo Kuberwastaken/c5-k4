@@ -593,4 +593,8 @@ Exact average distance is at most minimum Even count; carrier `27/19 <= 9`.
 
 On each regular arsenal graph, `sum 1/Odd=n/r <= n/average_distance`.
 
+### wow-238 — SKIP_OCR
+
+Complement-Maxine resolution autocoordinates are undefined/order-dependent.
+
 <!-- NEXT -->
