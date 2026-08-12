@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 35 / 208.
+Progress: 36 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -247,5 +247,11 @@ The chromatic side is clear but `Even` is undefined here; no distance-parity inv
 > "maximum of Odd < chromatic number + chromatic number of the complement of G."
 
 `Odd` lacks a recoverable definition in the record, so the left side cannot be certified.
+
++### wow-607 — SKIP_OCR
+
+> "mean Rainbow < md Tene."
+
+The right side is irrecoverable OCR garble and `Rainbow` is likewise undefined. The following prose only introduces the hypotheses for conjectures 634--654.
 
 
