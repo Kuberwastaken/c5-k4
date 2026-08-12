@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 23 / 208.
+Progress: 24 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -175,5 +175,11 @@ As in wow-552, the operative derived-sequence definition is unavailable in a suf
 > "If G is a connected graph then the mean of Rainbow < size independence."
 
 `Rainbow` is an undocumented coordinate try-out here. Its mean is not a standard invariant and cannot be reconstructed from the OCR text.
+
++### wow-568 — SKIP_OCR
+
+> "IfG is a connected graph then the number of positive eigenvalues - number Size independence. of negative eigenvalues <"
+
+The inequality is scrambled: `size independence` occurs inside the spectral expression and the right-hand side is absent. No plausible reading is privileged.
 
 
