@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 150 / 208.
+Progress: 151 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -937,5 +937,11 @@ The campaign arsenal contains no such planar cubic construction; no inequality i
 > "chromatic number ... non-positive eigenvalues of the complement of the blue graph."
 
 The red/blue graphs depend on a Ramseyan property `P` introduced at 822, but this extracted record does not specify `P`. The arsenal cannot instantiate the derived graph without guessing.
+
+### wow-827 — HOLD
+
+> "Chromatic number of G is not more than its average dual degree plus the number of positive eigenvalues."
+
+On regular arsenal graphs, mean dual degree equals the common degree; exact chromatic numbers are at most `d+n_+(A)`. Guarded inertia and structured coloring independently agree.
 
 
