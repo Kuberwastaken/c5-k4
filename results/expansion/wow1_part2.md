@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 86 / 208.
+Progress: 87 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -553,5 +553,11 @@ This is elementary Euclidean geometry and has no graph-arsenal instance.
 > "Let a and s be lengths of angle and side bisectors drawn from the same vertex of a triangle. Then a < s."
 
 The statement concerns Euclidean triangle lengths, outside the graph arsenal.
+
+### wow-741 — N/A_ARSENAL
+
+> "The distance from Erdos-Mordell point to the smallest vertex is not more than the sum of distances from the orthocenter of a triangle to its sides."
+
+No geometric triangle is represented by an arsenal graph.
 
 
