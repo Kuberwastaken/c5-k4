@@ -513,4 +513,8 @@ Garble: `Inverse coordinates of Maxine < n/2.` Maxine is representation-dependen
 
 Literal `size/2 <= Randic` fails `K3,3` and the carrier complement, implying a lost radical or different size convention. The intended formula cannot be recovered.
 
+### wow-214 — HOLD where applicable
+
+Inherited triangle-free hypothesis selects the carrier complement: edge-size reading gives `80/8=10 <= 20-8=12`; order reading also holds.
+
 <!-- NEXT -->
