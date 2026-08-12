@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-247 — SKIP_RAINBOW
+
+> Radius is not more than sum of reciprocals of rainbow. The strongest interpretation of this conjecture was disproved by Ermelinda DeLaVina. /. 91.
+
+The row itself distinguishes multiple interpretations of the coloring-dependent rainbow vector and says only the strongest was disproved. Without a fixed coloring/optimization quantifier, an arsenal evaluation would be non-reproducible.
+
 ### wow-244 — HOLD / NO ADDITIONAL WITNESS
 
 > deviation of eigenvalues of Laplacian < n/2. FMS 12.88.
