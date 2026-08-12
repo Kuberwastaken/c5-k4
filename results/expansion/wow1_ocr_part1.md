@@ -106,3 +106,13 @@ connected graphs begins only at 176, so 175 has the previous unrestricted
 context.  Autocoordinates remain undefined in the primary document and Maxine
 is tie-order dependent; the recovered formula therefore cannot be evaluated
 without inventing the left-hand invariant.
+
+### wow-181 — SKIP_DEFINITION
+
+> The range of resolution of Maxine <= maximum of E.
+
+Printed p.69 confirms this is inside the connected-graph section with
+`sum(D) <= sum(E)`.  The source defines Maxine but nowhere defines its
+“resolution”; it is also explicitly tie-order dependent.  The section condition
+does select `T(7..9)` and the carrier complement, but no recoverable left-hand
+quantity exists to test on them.
