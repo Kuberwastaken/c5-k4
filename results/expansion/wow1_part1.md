@@ -641,4 +641,8 @@ Sum of Maxine coordinates is algorithm/order-dependent and undefined here.
 
 Even-parity scope is 0 on every vertex-transitive arsenal graph, so matching is at most edge-size. Row records a stronger proof.
 
+### wow-261 — HOLD — historically proved
+
+`mu <= |E|-sum 1/Even` with large margins; carrier `10 <= 110-20/9`. Row cites `[FMS1]`.
+
 <!-- NEXT -->
