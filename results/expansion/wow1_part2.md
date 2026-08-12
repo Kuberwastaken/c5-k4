@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 32 / 208.
+Progress: 33 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -229,5 +229,11 @@ Both `rainbow` and `Odd` refer to lost coordinate-sequence definitions. No faith
 > "n / independence < range of coordinates of Maxine."
 
 Although the left side is clear, `coordinates of Maxine` depends on an unspecified run/tie-breaking and normalization absent from this record. No guessed algorithm is used.
+
++### wow-603 — SKIP_OCR
+
+> "mean of dual degree < mean of Even."
+
+The OCR corpus does not preserve definitions of either derived coordinate sequence sufficiently to evaluate the comparison.
 
 
