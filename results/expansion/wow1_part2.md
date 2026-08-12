@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 13 / 208.
+Progress: 14 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -110,5 +110,11 @@ The right side is tied to the preceding number-theoretic construction rather tha
 > "the number of square-free integers not exceeding n and being products of odd number of primes < 2(chromatic number)."
 
 This belongs to the number-theoretic graph sequence in the surrounding section. The carrier arsenal is not that sequence, so it provides no admissible test.
+
++### wow-529 — SKIP_OCR
+
+> "deviation of S < number of cubic residues less than n."
+
+`S` is missing from the extracted statement and the number-theoretic construction is not recoverable from this record. No guessed vector is evaluated.
 
 
