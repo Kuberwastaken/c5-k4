@@ -144,3 +144,12 @@ Printed p.69 confirms the full statement under connected `sum(D) <= sum(E)`.
 The historical program invariant autocoordinates is absent from the glossary
 and Maxine is tie-order dependent, so the source is still insufficient for a
 faithful test.
+
+### wow-204 — SKIP_DEFINITION
+
+> The length of autocoordinates of Maxine of D2 <= the mean transmission
+> of the distance matrix.
+
+Printed p.71 recovers the full statement under connected `sum(E) <= sum(D)`.
+Autocoordinates are absent from the source glossary, so the left-hand vector and
+therefore its length cannot be evaluated faithfully.
