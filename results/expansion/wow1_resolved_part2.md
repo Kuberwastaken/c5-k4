@@ -76,3 +76,10 @@ in the 634--654 class with `chi(bar G)/alpha >= average_distance`, rather than
 a universal bound that an arsenal graph could falsify. The eligible complement
 carrier is not a witness to the existential claim (`10/8 < 30/19`); that fact
 is not a disproof.
+
+## wow-649 — NOT_APPLICABLE
+
+**Status:** refuted (Aouchiche--Hansen survey). This is likewise an existential
+prediction, now comparing `chi(bar G)/alpha` to the range of positive
+eigenvalues. Failure of an individual arsenal graph to witness existence cannot
+refute it, and no new mathematical verdict is assigned.
