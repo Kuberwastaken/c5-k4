@@ -373,4 +373,8 @@ Standard normalized adjacency spectral deviation is at most exact `n/average_dis
 
 Garble: `mean of autocoordinates of Maxine of D2 < the matching number.` The construction is undefined/order-dependent.
 
+### wow-156 — SKIP_OCR
+
+Garble: `mean of autocoordinates of Maxine of D2 < the chromatic number.` The construction is undefined/order-dependent.
+
 <!-- NEXT -->
