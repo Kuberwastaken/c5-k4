@@ -453,4 +453,8 @@ Garble: `range of resolution of Maxine < maximum of E.` Resolution of Maxine is 
 
 Garble: `mean of autocoordinates of Maxine of the complement`. The construction is undefined.
 
+### wow-183 — SKIP_OCR
+
+Garble: `length of autocoordinates of Maxine of the complement`. The construction is undefined.
+
 <!-- NEXT -->
