@@ -93,6 +93,13 @@ Author-repository, issue-history, exact-formula, and broader invariant searches
 found no pre-existing counterexample.  This is a candidate new disproof; an
 executable certificate is prepared separately.
 
+### graphbrain-alpha-upper-062 — DB_REJECTED
+
+> `independence_number(x) <= order(x) + tan(density(x) - min_common_neighbors(x))`
+
+The identical author-project reading already fails the mandatory small-graph gate on connected Graph Atlas graph `atlas:@`: `alpha=1` while the right side is `-0.5574077246549023`.  It is database-inconsistent as posted and supplies no new campaign counterexample.  Independent recomputation used the author definitions and excluded undefined-domain cases.
+
+
 ### graphbrain-alpha-upper-061 — RETRO_KILL_AUTHOR_SOURCE
 
 > `independence_number(x) <= maximum(e^average_distance(x), max_degree(x)^2)`
