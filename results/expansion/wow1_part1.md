@@ -501,4 +501,8 @@ Garble: `length of autocoordinates of Maxine of D2`. The construction is undefin
 
 All arsenal graphs satisfy `n/2 <= n-residue`.
 
+### wow-210 — HOLD
+
+Average distance is at most the number of negative gravity eigenvalues throughout.
+
 <!-- NEXT -->
