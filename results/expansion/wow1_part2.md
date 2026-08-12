@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 167 / 208.
+Progress: 168 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -1039,5 +1039,11 @@ No arsenal member satisfies the cubic planar fullerene hypothesis.
 > "If G is a fullerene ..."
 
 The graph class excludes the arsenal.
+
+### wow-850 — N/A_ARSENAL
+
+> "If G is a cubic graph of girth 5 ..."
+
+No arsenal member is cubic.
 
 
