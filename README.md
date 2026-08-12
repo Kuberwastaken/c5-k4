@@ -9,14 +9,14 @@ blow every vertex of a pentagon into a K₄ clique and join adjacent blobs
 completely. It has 20 vertices, 110 edges, and it is 11-regular,
 vertex-transitive, and diameter 2.
 
-It was found on **2026-07-23** during a systematic hunt through E. DeLaViña's
-*Written on the Wall II* (WOWII / Graffiti.pc) conjecture list, as a
-counterexample to Conjecture 85 — and it turned out to be a much bigger deal
-than that. This repository maps, exhaustively, **everything in the WOWII
-universe that this single graph closes**: all 522 transcribed conjectures
-(220 open, 139 refuted, 163 proved/other) were evaluated against it, every
-violation adversarially re-verified, and every claim cross-checked against
-the current literature and the
+I found it on **2026-07-23** while systematically hunting through
+E. DeLaViña's *Written on the Wall II* (WOWII / Graffiti.pc) conjecture
+list, as a counterexample to Conjecture 85 — and it turned out to be a much
+bigger deal than that. This repository maps, exhaustively, **everything in
+the WOWII universe that this single graph closes**: I evaluated all 522
+transcribed conjectures (220 open, 139 refuted, 163 proved/other) against
+it, adversarially re-verified every violation, and cross-checked every
+claim against the current literature and the
 [google-deepmind/formal-conjectures](https://github.com/google-deepmind/formal-conjectures) race.
 
 ## The kills
@@ -26,10 +26,10 @@ refutes **four**:
 
 | # | Conjecture (DeLaViña's statement) | On C₅[K₄] | First refuted |
 |---|---|---|---|
-| **63** | f(G) ≥ ⌈(min dist_even(v) + b(G) + 1)/3⌉ | f = 4 < 5 = ⌈(9+4+1)/3⌉ | [Kuberwastaken, 2026-07-23](https://github.com/google-deepmind/formal-conjectures/pull/4592) — this graph |
-| **85** | tree(G) ≥ ⌈√(1 + 2·min dist_even(v))⌉ | tree = 4 < 5 = ⌈√19⌉ | [Kuberwastaken, 2026-07-23](https://github.com/google-deepmind/formal-conjectures/pull/4592) — this graph |
-| **64** | f(G) ≥ ⌈√(α(G)·(1 + n mod Δ))⌉ | f = 4 < 5 = ⌈√(2·(1+9))⌉ | [Gebendorfer, 2026-07-26](https://doi.org/10.5281/zenodo.21595503) — **this graph** (with credit to the 63/85 certificate), + an 18-vertex minimum |
-| **309** | γ_t(G) ≤ ½[max_v{dist_even(v) − even_horizontal(v)} + min_{e∈E(Ḡ)}\|N_Ḡ(e)\|] | γ_t = 3 > −3/2 = ½(−19 + 16) | [Gebendorfer, 2026-07-25](https://doi.org/10.5281/zenodo.21553295) — **this graph's family** C₅[K_k], k ≥ 3 (with credit to the carrier) |
+| **63** | f(G) ≥ ⌈(min dist_even(v) + b(G) + 1)/3⌉ | f = 4 < 5 = ⌈(9+4+1)/3⌉ | [me, 2026-07-23](https://github.com/google-deepmind/formal-conjectures/pull/4592) — this graph |
+| **85** | tree(G) ≥ ⌈√(1 + 2·min dist_even(v))⌉ | tree = 4 < 5 = ⌈√19⌉ | [me, 2026-07-23](https://github.com/google-deepmind/formal-conjectures/pull/4592) — this graph |
+| **64** | f(G) ≥ ⌈√(α(G)·(1 + n mod Δ))⌉ | f = 4 < 5 = ⌈√(2·(1+9))⌉ | [Gebendorfer, 2026-07-26](https://doi.org/10.5281/zenodo.21595503) — **this graph** (crediting my 63/85 certificate), + an 18-vertex minimum |
+| **309** | γ_t(G) ≤ ½[max_v{dist_even(v) − even_horizontal(v)} + min_{e∈E(Ḡ)}\|N_Ḡ(e)\|] | γ_t = 3 > −3/2 = ½(−19 + 16) | [Gebendorfer, 2026-07-25](https://doi.org/10.5281/zenodo.21553295) — **this graph's family** C₅[K_k], k ≥ 3 (crediting the carrier) |
 
 Here f, b, tree are the largest induced forest / bipartite subgraph / tree
 (all equal **4** on C₅[K₄] — certified exhaustively over all 15,504
@@ -39,10 +39,10 @@ far blobs induce a K₈); γ_t = 3; and every complement edge has
 |N_Ḡ(e)| = 16.
 
 The two conjectures killed by Jonas J. Gebendorfer both explicitly ride
-this carrier: the 309 note calls it "a new application of the carrier"
-from the 63/85 disproof, and the 64 note states "the earlier certificate
-has priority for this graph." One graph, found once, now four dead
-conjectures across two research groups. **Conjectures 64 and 309 are still
+this carrier: his 309 note calls it "a new application of the carrier"
+from my 63/85 disproof, and his 64 note states "the earlier certificate
+has priority for this graph." I found one graph, once — and it is now four
+dead conjectures across two independent research efforts. **Conjectures 64 and 309 are still
 unclaimed in formal-conjectures** (no files, PRs, or issues as of
 2026-08-12) — Lean formulations in the house style are drafted in
 [`lean/`](lean/).
@@ -180,8 +180,8 @@ and DeLaViña's verbatim invariant definitions (recovered from her
 ## References
 
 - E. DeLaViña, [*Written on the Wall II — Conjectures of Graffiti.pc*](http://cms.dt.uh.edu/faculty/delavinae/research/wowII/)
-- **Conjectures 63 & 85** — [Kuberwastaken/wowii-63-85-counterexample](https://github.com/Kuberwastaken/wowii-63-85-counterexample):
-  complete Lean 4 proofs (no `sorry`, no custom axioms), independent
+- **Conjectures 63 & 85 (mine)** — [wowii-63-85-counterexample](https://github.com/Kuberwastaken/wowii-63-85-counterexample):
+  my complete Lean 4 proofs (no `sorry`, no custom axioms), independent
   verifiers, and the counterexample certificates.
   Upstream: [formal-conjectures PR #4592](https://github.com/google-deepmind/formal-conjectures/pull/4592),
   [issue #4590](https://github.com/google-deepmind/formal-conjectures/issues/4590).
@@ -191,17 +191,17 @@ and DeLaViña's verbatim invariant definitions (recovered from her
 - **Conjecture 64** — J. J. Gebendorfer, *Clique Blow-ups of the 5-Cycle and
   WOWII Conjecture 64*, Zenodo, 2026-07-26.
   [doi:10.5281/zenodo.21595503](https://doi.org/10.5281/zenodo.21595503)
-- Discovery pipeline — [Kuberwastaken/breakthroughmaxxing](https://github.com/Kuberwastaken/breakthroughmaxxing)
-  (`04-wowii/`): the ranked open-target list whose construction surfaced
+- Discovery pipeline — [breakthroughmaxxing](https://github.com/Kuberwastaken/breakthroughmaxxing)
+  (`04-wowii/`): my ranked open-target list whose construction surfaced
   this graph, plus hunt engines and calibration.
 
 ## Provenance
 
-The 2026-08-12 exhaustive sweep (all 522 conjectures × this one graph) was
-run as a parallel agentic pipeline (Claude Code): 10 evaluation agents over
-the open/refuted/proved partitions, every VIOLATED verdict independently
-re-derived by an adversarial verifier instructed to *save* the conjecture,
-plus literature and repo-race sweeps. Transcriptions of DeLaViña's
-statements are inherently lossy; every kill claimed above survives all
-plausible readings, and every reading-sensitive case is documented in the
-sweep data rather than claimed.
+I ran the 2026-08-12 exhaustive sweep (all 522 conjectures × this one
+graph) as a parallel agentic pipeline (Claude Code): 10 evaluation agents
+over the open/refuted/proved partitions, every VIOLATED verdict
+independently re-derived by an adversarial verifier instructed to *save*
+the conjecture, plus literature and repo-race sweeps. Transcriptions of
+DeLaViña's statements are inherently lossy; every kill claimed above
+survives all plausible readings, and every reading-sensitive case is
+documented in the sweep data rather than claimed.
