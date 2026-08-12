@@ -213,3 +213,11 @@ The remainder of the arsenal also holds.
 the minimum, over starting vertices, of longest-path length is `n-1`.
 Consequently `chi(G) <= 1+p=n` holds immediately. Explicit Hamiltonian cycles
 and exact colorings provide independent checks.
+
+## wow-750 — HOLD
+
+**Status:** refuted (WoW annotation). On each vertex-transitive diameter-two
+arsenal graph, the odd-distance count is its degree while horizontal edges
+within the distance layers make `max d(v)-min h(v)` no larger than `alpha`.
+For the carrier, `d=11` and `h=67`, so the proposed lower bound is negative.
+Direct layer construction agrees.
