@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 128 / 208.
+Progress: 129 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -805,5 +805,11 @@ For a `d`-regular order-`n` graph, complement temperature is `(n-1-d)/(d+1)`, so
 > "Let p=4k+4+1 be a prime ... [quadratic-residue word sequence]"
 
 This is a number-theoretic sequence assertion, not a universal graph bound. The commentary also records Odlyzko's proof.
+
+### wow-799 — HOLD
+
+> "independence number ... greater or equal to the number of elements of a maximum principal filter of [the] quasi-ordering."
+
+For the regular vertex-transitive arsenal, equal-size open neighborhoods cannot properly contain one another; after quotienting twins, the poset is an antichain and a maximum principal filter has size 1. Thus `alpha>=1` throughout.
 
 
