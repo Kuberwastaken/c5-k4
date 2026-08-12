@@ -70,3 +70,11 @@ violation arose.
 With `temp(v)=deg(v)/(n-deg(v))` and adjacency-matrix rank, every arsenal graph
 holds.  The low-rank complement of `C5[K4]` gives `2/3 <= 5`; the carrier gives
 `11/9 <= 20`.  The historical row itself says the result is correct.
+
+### wow-12 — HOLD
+
+> radius is not more than 1 + Randic index.
+
+Using `R=sum_{uv in E}1/sqrt(deg(u)deg(v))`, all arsenal graphs hold.  The
+carrier gives `2 <= 11`; `C9[K3]`, the largest-radius arsenal member, gives
+`4 <= 29/2`.  No candidate violation arose.
