@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 9 / 208.
+Progress: 10 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -86,5 +86,11 @@ The comparison sign is lost and the left side is number-theoretic. None of the a
 > "chromatic number of a Paley graph with n vertices is not more than the number of primes not more than n."
 
 The hypothesis is specifically a Paley graph. The WoW-I handoff arsenal contains no Paley graph (Paley additions belong only to the AGX lane), so this lane has no admissible instance.
+
++### wow-515 — SKIP_OCR
+
+> "pi(n) sum of reciprocals of coordinates of a maximum clique."
+
+The relation symbol between the two quantities is absent. Consequently no inequality or equality survives to evaluate.
 
 
