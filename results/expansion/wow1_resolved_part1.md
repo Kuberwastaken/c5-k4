@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-28 — HOLD / NO ADDITIONAL WITNESS
+
+> Randic index is not more than the sum of positive eigenvalues. This conjecture is false, but working on a counterexample I formed a conjecture that for trees the value of Randic index is close, and seem to be correlated with the sum of the positive eigenval...
+
+The applicable arsenal satisfies the source-faithful inequality using the listed randic_index, spectrum, tree quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
 ### wow-26 — HOLD / NO ADDITIONAL WITNESS
 
 > Sum of reciprocals of degrees is not more than the rank of the distance matriz. (1.) This was disproved by Alon, Saks, Seymour, Shearer and Winkler.
