@@ -3,7 +3,7 @@
 **Target:** Written on the Wall II 422b
 **Trial class:** development set; not held out
 **Started:** 2026-08-12 UTC
-**Primary outcome:** pending bounded search
+**Primary outcome:** `HOLD_BOUNDED`
 
 ## Phase 0 — frozen target and provenance
 
@@ -54,7 +54,9 @@ scratch on:
 - stars `K1,r` for `2 <= r <= 7`;
 - complete bipartite `K(a,b)` for `2 <= a <= 4` and `a <= b <= 5`.
 
-All four quantities are computed exactly by subset enumeration. Gate output is
+All four quantities are computed exactly by subset enumeration. The fresh gate
+checked 992 applicable connected Atlas graphs and 24 named controls, with zero
+violations. Twenty-three Atlas controls attained equality. Gate output is
 written incrementally to `method_v01_422b_search.jsonl` by
 `scripts/search_wowii_422b_blowups.py`.
 
@@ -144,9 +146,69 @@ The complete capped run below is the auditable result.
 
 ## Search result
 
-Pending.
+The complete run finished in 26.07 wall-clock seconds, below the declared
+60-second cap:
+
+```text
+connected quotients exhausted, orders 4..9: 273,189
+order-9 quotients:                         261,080
+quotients with i(Q) > 2:                    51,791
+maximum i(Q) observed:                           5
+negative quotient residual partitions:           0
+integer max-set realization calls:                0
+witnesses:                                         0
+```
+
+All 64 order-nine `geng` shards completed and their counts sum to 261,080.
+Together with the complete lower orders, this equals the known connected
+unlabelled graph count through order nine. The final JSONL summary records
+`complete: true`, 69 of 69 tasks, and zero witnesses.
+
+This is stronger than failure to find weights of expanded order at most 100.
+For every connected quotient `Q` on at most nine vertices and every nonempty
+proper subset `M`, the exact quotient residual is nonnegative. Therefore no
+positive clique blow-up of any expanded order can violate 422b when its
+quotient has at most nine vertices. The weight optimizer was never invoked.
+
+The optimized negative-partition enumerator was independently compared with a
+brute-force all-partitions implementation on all 992 connected Atlas graphs;
+the outputs agreed exactly. Separately, 40 random positive clique blow-ups of
+Atlas quotients were explicitly expanded, and direct expanded-graph
+recomputation agreed with all three quotient identities (`i`, `alpha` on `M`,
+and `gamma` off `M`). The JSONL was also checked for all 64 distinct order-nine
+shards, the expected totals, and a complete summary.
+
+No candidate exists inside the declared family and bounds. There is no graph6
+or adjacency witness to save and no novelty claim to make.
 
 ## Method changelog entry
 
-Pending final bounded outcome. No change to Method v0.1 has yet been inferred
-from this target.
+**Prediction:** nonuniform clique weights might select a proper, low-alpha
+maximum-degree set while leaving its complement dominated by one vertex, thus
+crossing the regular `alpha-i` wall.
+
+**Outcome:** `HOLD_BOUNDED`; the proposed separation never reached even a
+negative quotient residual on any connected quotient through order nine.
+
+**Failed assumption:** degree-set asymmetry was not the only obstruction. In
+this bounded universe the base invariants themselves obey
+
+```text
+i(Q) <= alpha(Q[M]) + gamma(Q[V-M])^2
+```
+
+for every set `M`, whether or not weights can realize it as a maximum-degree
+set. Max-set feasibility and the order-100 integer bound were therefore
+irrelevant.
+
+**Transformation-table update:** positive clique blow-up is strongly negative
+for this target: it preserves all residual terms at quotient level and cannot
+manufacture a crossing from a quotient/set pair that already satisfies the
+inequality. Future work on 422b should first pursue a theorem explaining the
+all-partitions bounded hold or use a transformation that changes independent
+domination relative to the quotient. Merely enlarging blow-up weights is
+mathematically pruned.
+
+This inference was learned only after the complete search and belongs to the
+development method; it cannot be silently imported into a future held-out
+protocol.
