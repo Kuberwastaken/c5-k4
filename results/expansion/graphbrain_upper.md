@@ -96,6 +96,13 @@ false right side `4/3`.  The carrier family remains useful independent
 evidence, but the simple witness makes this a conservative stale/trivial
 retro-kill rather than a novelty claim.
 
+### graphbrain-alpha-upper-110 — HOLD_ARSENAL
+
+> `independence_number(x) <= sinh(max_degree(x))/number_of_triangles(x) + max_even_minus_even_horizontal(x)`
+
+No violation was found on all 996 connected nonempty Graph Atlas graphs through order 7 where the exact author expression is defined, the named controls, or campaign and threshold families.  Real comparisons use the `1e-6` guard and ILP/LP runs stay within 60 seconds.  This is an arsenal hold, not a proof.
+
+
 ### graphbrain-alpha-upper-109 — HOLD_ARSENAL
 
 > `independence_number(x) <= maximum(max_degree(x), order(x) - tan(size(x)))`
