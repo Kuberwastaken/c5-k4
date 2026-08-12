@@ -16,7 +16,7 @@ where possible; spectral gaps at most `1e-6` are ties, and any ILP solve is
 capped at 60 seconds. A source statement that is recovered but restricted to an
 inapplicable construction is recorded as `N/A_ARSENAL`.
 
-Progress: 10 / 54.
+Progress: 11 / 54.
 ### wow-456 — N/A_ARSENAL
 
 PDF p.95: `The residue of the graph RP[2..n] is not more than pi(n).` The source cleanly restores `pi(n)` and identifies RP/residue definitions, but this is restricted to the number-theoretic RP construction; no arsenal graph is admissible.
@@ -47,4 +47,7 @@ PDF pp.98--99 defines mid-Degree by applying `ceil(depth/2)` Havel--Hakimi reduc
 ### wow-548 — HOLD
 
 PDF p.99: `mode(mid-Degree) <= size / independence`. Exact Havel--Hakimi sequence recomputation gives, for example, `5 <= 110/2=55` on C5[K4] and `3 <= 80/8=10` on its complement; every arsenal member holds.
+### wow-552 — HOLD
+
+PDF p.99: `independence <= n - mean(mid-Degree)`. Exact rational means from the restored definition were checked for all arsenal graphs; C5[K4] gives `2 <= 20-24/5`, and its complement gives `8 <= 20-16/5`. All hold.
 
