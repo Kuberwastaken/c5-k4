@@ -449,4 +449,8 @@ Even-parity range is 0 on all vertex-transitive arsenal members.
 
 Garble: `range of resolution of Maxine < maximum of E.` Resolution of Maxine is undefined/order-dependent.
 
+### wow-182 — SKIP_OCR
+
+Garble: `mean of autocoordinates of Maxine of the complement`. The construction is undefined.
+
 <!-- NEXT -->
