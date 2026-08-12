@@ -6,19 +6,23 @@ Graph Atlas graphs of orders 2 through 7.  With ``--graph6`` it reads the
 already-frozen connected order-8 catalogue used by
 ``verify_wowii_183_extremal.py``.
 
-The checks distinguish failed proof devices from the remaining proposition:
+The checker reports two scopes separately:
 
-* endpoint_avoidance: for each extremal centre x and its unique distance-three
+* ``full_core`` is exactly the frozen core: some vertex has one vertex at
+  distance three and no farther vertex;
+* ``square_critical`` is the narrower pre-pruning equality profile
+  ``q = 2*rad(G^2)-3``, at maximum-degree vertices of ``G^2``.
+
+It checks the target inequality and three failed proof devices:
+
+* endpoint_avoidance: for each qualifying vertex x and its unique distance-three
   vertex z, some minimum connected dominating set avoids both x and z;
 * cds_plus_two: some minimum connected dominating set can be enlarged by two
   outside vertices to an induced bipartite set;
 * gamma_at_most_four: the claw-free core always has connected domination
-  number at most four;
-* sharpened_dichotomy: in the claw-free core, either gamma_c <= 4 or deletion
-  of one vertex makes the graph bipartite.
+  number at most four.
 
-The first three are deliberately expected to fail.  The last check is only a
-bounded audit and is not asserted as a theorem.
+All results are bounded catalogue audits, not proofs.
 """
 
 from __future__ import annotations
@@ -87,24 +91,25 @@ def bipartite_number(graph: nx.Graph) -> int:
     raise AssertionError("nonempty graph has no induced bipartite subgraph")
 
 
-def odd_cycle_transversal_at_most_one(graph: nx.Graph) -> bool:
-    return any(
-        nx.is_bipartite(graph.subgraph(set(graph) - {vertex}))
-        for vertex in graph
-    )
-
-
-def extremal_centres(graph: nx.Graph, square: nx.Graph) -> list[tuple[int, int]]:
-    maximum_degree = max(dict(square.degree()).values())
+def core_centres(graph: nx.Graph) -> list[tuple[int, int]]:
     answers = []
-    for centre, degree in square.degree():
-        if degree != maximum_degree:
-            continue
+    for centre in graph:
         distances = nx.single_source_shortest_path_length(graph, centre)
         far = [vertex for vertex, distance in distances.items() if distance == 3]
         if max(distances.values()) == 3 and len(far) == 1:
             answers.append((centre, far[0]))
     return answers
+
+
+def square_critical_centres(
+    graph: nx.Graph, square: nx.Graph, centres: list[tuple[int, int]]
+) -> list[tuple[int, int]]:
+    radius = nx.radius(square)
+    maximum_degree = max(dict(square.degree()).values())
+    q = graph.number_of_nodes() - 1 - maximum_degree
+    if q != 2 * radius - 3:
+        return []
+    return [pair for pair in centres if square.degree(pair[0]) == maximum_degree]
 
 
 def graph_record(
@@ -142,91 +147,132 @@ def read_graph6(path: str) -> Iterable[nx.Graph]:
             stream.close()
 
 
-def audit(graphs: Iterable[nx.Graph], source: str) -> dict:
-    counts = {
-        "connected": 0,
-        "critical_nonbipartite": 0,
-        "mu_3": 0,
-        "claw_free": 0,
+def empty_scope() -> dict:
+    return {
+        "counts": {
+            "nonbipartite_graphs": 0,
+            "theorem_5_closed_mu_ge_3": 0,
+            "live_claw_free_mu_le_2": 0,
+        },
+        "failures": {
+            "target_b_ge_gamma_c_plus_2": [],
+            "endpoint_avoidance_pairs": [],
+            "cds_plus_two_graphs": [],
+            "gamma_at_most_four_graphs": [],
+        },
     }
-    failures: dict[str, list[dict]] = {
-        "endpoint_avoidance": [],
-        "cds_plus_two": [],
-        "gamma_at_most_four": [],
-        "sharpened_dichotomy": [],
-    }
 
-    for graph in graphs:
-        if not nx.is_connected(graph):
-            continue
-        counts["connected"] += 1
-        square = graph_square(graph)
-        radius = nx.radius(square)
-        q = graph.number_of_nodes() - 1 - max(dict(square.degree()).values())
-        if q != 2 * radius - 3 or nx.is_bipartite(graph):
-            continue
-        centres = extremal_centres(graph, square)
-        assert centres
-        counts["critical_nonbipartite"] += 1
 
-        mu = local_independence(graph)
-        minimum_sets = connected_dominating_sets(graph)
-        gamma_c = len(minimum_sets[0])
-        b = bipartite_number(graph)
-        assert b >= gamma_c + 2
-        base = dict(source=source, gamma_c=gamma_c, b=b, mu=mu)
+def record_scope(
+    scope: dict,
+    graph: nx.Graph,
+    centres: list[tuple[int, int]],
+    source: str,
+    mu: int,
+    minimum_sets: list[frozenset[int]],
+    b: int,
+) -> None:
+    counts = scope["counts"]
+    failures = scope["failures"]
+    counts["nonbipartite_graphs"] += 1
+    if mu >= 3:
+        counts["theorem_5_closed_mu_ge_3"] += 1
+    else:
+        assert mu <= 2
+        counts["live_claw_free_mu_le_2"] += 1
 
-        for centre, far in centres:
-            if not any(centre not in chosen and far not in chosen for chosen in minimum_sets):
-                failures["endpoint_avoidance"].append(
-                    graph_record(
-                        graph,
-                        **base,
-                        extra={
-                            "centre": centre,
-                            "far": far,
-                            "minimum_cds": [sorted(chosen) for chosen in minimum_sets],
-                        },
-                    )
-                )
+    gamma_c = len(minimum_sets[0])
+    base = dict(source=source, gamma_c=gamma_c, b=b, mu=mu)
+    if b < gamma_c + 2:
+        failures["target_b_ge_gamma_c_plus_2"].append(graph_record(graph, **base))
 
-        extendable = False
-        for chosen in minimum_sets:
-            outside = set(graph) - chosen
-            if any(
-                nx.is_bipartite(graph.subgraph(chosen | set(pair)))
-                for pair in combinations(outside, 2)
-            ):
-                extendable = True
-                break
-        if not extendable:
-            failures["cds_plus_two"].append(
+    for centre, far in centres:
+        if not any(centre not in chosen and far not in chosen for chosen in minimum_sets):
+            failures["endpoint_avoidance_pairs"].append(
                 graph_record(
                     graph,
                     **base,
-                    extra={"minimum_cds": [sorted(chosen) for chosen in minimum_sets]},
+                    extra={
+                        "centre": centre,
+                        "far": far,
+                        "minimum_cds": [sorted(chosen) for chosen in minimum_sets],
+                    },
                 )
             )
 
-        if mu == 3:
-            counts["mu_3"] += 1
-            continue
-        assert mu <= 2
-        counts["claw_free"] += 1
-        if gamma_c > 4:
-            failures["gamma_at_most_four"].append(graph_record(graph, **base))
-            if not odd_cycle_transversal_at_most_one(graph):
-                failures["sharpened_dichotomy"].append(graph_record(graph, **base))
+    extendable = False
+    for chosen in minimum_sets:
+        outside = set(graph) - chosen
+        if any(
+            nx.is_bipartite(graph.subgraph(chosen | set(pair)))
+            for pair in combinations(outside, 2)
+        ):
+            extendable = True
+            break
+    if not extendable:
+        failures["cds_plus_two_graphs"].append(
+            graph_record(
+                graph,
+                **base,
+                extra={"minimum_cds": [sorted(chosen) for chosen in minimum_sets]},
+            )
+        )
 
+    if mu <= 2 and gamma_c > 4:
+        failures["gamma_at_most_four_graphs"].append(graph_record(graph, **base))
+
+
+def finish_scope(scope: dict) -> dict:
+    failures = scope.pop("failures")
     smallest = {}
     for name, records in failures.items():
         records.sort(key=lambda item: (item["n"], item["m"], item["graph6"]))
         smallest[name] = records[0] if records else None
+    scope["failure_counts"] = {name: len(records) for name, records in failures.items()}
+    scope["smallest_countermodels"] = smallest
+    return scope
+
+
+def audit(graphs: Iterable[nx.Graph], source: str) -> dict:
+    connected_count = 0
+    full_core = empty_scope()
+    square_critical = empty_scope()
+
+    for graph in graphs:
+        if not nx.is_connected(graph):
+            continue
+        connected_count += 1
+        centres = core_centres(graph)
+        if not centres or nx.is_bipartite(graph):
+            continue
+
+        mu = local_independence(graph)
+        minimum_sets = connected_dominating_sets(graph)
+        b = bipartite_number(graph)
+        record_scope(full_core, graph, centres, source, mu, minimum_sets, b)
+
+        square = graph_square(graph)
+        critical_centres = square_critical_centres(graph, square, centres)
+        if critical_centres:
+            record_scope(
+                square_critical,
+                graph,
+                critical_centres,
+                source,
+                mu,
+                minimum_sets,
+                b,
+            )
+
     return {
         "catalogue": source,
-        "counts": counts,
-        "failure_counts": {name: len(records) for name, records in failures.items()},
-        "smallest_countermodels": smallest,
+        "connected_graphs": connected_count,
+        "scope_definitions": {
+            "full_core": "some x has exactly one vertex at distance 3 and none farther",
+            "square_critical": "q = 2*rad(G^2)-3; centres restricted to maximum-degree vertices of G^2",
+        },
+        "full_core": finish_scope(full_core),
+        "square_critical": finish_scope(square_critical),
     }
 
 
