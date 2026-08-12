@@ -517,4 +517,8 @@ Literal `size/2 <= Randic` fails `K3,3` and the carrier complement, implying a l
 
 Inherited triangle-free hypothesis selects the carrier complement: edge-size reading gives `80/8=10 <= 20-8=12`; order reading also holds.
 
+### wow-216 — HOLD where applicable
+
+On the triangle-free carrier complement, `|E|/alpha=10 <= mean Even=12`; order reading also holds.
+
 <!-- NEXT -->
