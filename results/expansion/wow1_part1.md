@@ -681,4 +681,8 @@ Under the printed gravity definition, `mean(Gravity)*average_distance <= sum deg
 
 Inherited `girth>5` hypothesis excludes every arsenal graph.
 
+### wow-276 — N/A_ARSENAL
+
+Inherited `girth>5` hypothesis excludes every arsenal graph.
+
 <!-- NEXT -->
