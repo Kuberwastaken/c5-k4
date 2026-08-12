@@ -477,4 +477,8 @@ Literal `mean Even <= n-mu` fails 50 applicable connected Atlas graphs through o
 
 Under inherited `sum Odd < sum Even`, `mean Odd <= n-mu` holds: `T7` gives `10<=11`, `T8` `12<=14`, `T9` `14<=18`, complement `8<=10`.
 
+### wow-195 — HOLD where applicable
+
+Restoring inherited `sum Odd < sum Even` is essential: applicable `T(7..9)` and the carrier complement satisfy `lambda_max(A)<=max Even`. Cycle blow-ups and `K3` are inapplicable.
+
 <!-- NEXT -->
