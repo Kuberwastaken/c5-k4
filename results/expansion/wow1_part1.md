@@ -233,4 +233,8 @@ Garble: `William Staton. April 88.` This parser row is orphan commentary with no
 
 All arsenal graphs satisfy `mu <= n-residue`; the closest small member gives `5 <= 8`. The row explicitly says the result is true for all graphs.
 
+### wow-99 — HOLD
+
+Distance-matrix variance is below 1.5, while `n-residue>=8` throughout the arsenal.
+
 <!-- NEXT -->
