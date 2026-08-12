@@ -209,4 +209,8 @@ For maximum independent sets the row invokes Chung's theorem; direct arsenal che
 
 Ordered distance-matrix variance is at most `1070/729`, below the smallest arsenal matching number 5.
 
+### wow-92 — HOLD; strongest reading historically refuted
+
+All plausible arsenal evaluations hold. The row itself reports that odd cycles above order 10 refute the strongest maximum-mode/maximum-set interpretation.
+
 <!-- NEXT -->
