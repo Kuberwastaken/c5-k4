@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-345 — SKIP_SPECIAL_CLASS
+
+> Cvetkovic deduced from Cauchy’s Interlacing Theorem that for every graph the independence number is smaller or equal to the number of nonnegative eigenvalues as well as the number of nonpositive eigenvalues. He also noticed that there are graphs for which w...
+
+The claimed inequality is embedded in prose defining heliotropic/geotropic `plants`; membership depends on equality in an inertia bound and subsequent truncated conditions. No arsenal member is asserted applicable without reconstructing the full special-class definition.
+
 ### wow-321 — HOLD WHERE APPLICABLE
 
 > If G is a triangle-free graph then the maximum eigenvalue < mean of Even. James B. Shearer, October 88.
