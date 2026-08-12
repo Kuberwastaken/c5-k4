@@ -312,3 +312,10 @@ spectra agree beyond the `1e-6` guard.
 is valid for all graphs: `alpha(G) <= 1+n_nonpositive(bar G)`. Guarded
 complement spectra verify it throughout the arsenal; the carrier gives
 `2 <= 18`, and its complement gives `8 <= 18`.
+
+## wow-822 — NOT_APPLICABLE
+
+**Status:** refuted (WoW annotation). This row introduces red/blue graphs for
+an arbitrary graph property and states a class-level Ramseyan prediction. It
+does not specify one fixed property and one universal numerical inequality
+that a single arsenal graph could refute.
