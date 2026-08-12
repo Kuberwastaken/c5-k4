@@ -39,3 +39,10 @@ non-strict comparison convention.)
 comparison sign: `radius maximal frequency of mid-Degree`. The surrounding
 definition describes a derived Havel--Hakimi sequence, but the predicate is
 still absent. No reading is invented and no arsenal verdict is claimed.
+
+## wow-599 — HOLD
+
+**Status:** refuted (WoW annotation). The inherited 595--605 triangle-free
+hypothesis leaves only `complement(C5[K4])` in the arsenal. It has
+`n-alpha=12`, while `chi(G)+chi(bar G)=3+10=13`, so the source bound
+holds. Exact colorings supply the two values independently; no retro-kill.
