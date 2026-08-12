@@ -289,4 +289,8 @@ Both binary Maxine-coordinate readings give a very loose RHS `n/mean = n^2/|I|`;
 
 Garble/ambiguity: `size/2 < the rank of the gravity matrix.` Literal edge-count reading already fails `K7`, so the intended formula cannot be recovered safely.
 
+### wow-125 — HOLD
+
+Matching number is at most the full gravity-matrix ranks found throughout the arsenal.
+
 <!-- NEXT -->
