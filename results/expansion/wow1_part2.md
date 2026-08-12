@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 5 / 208.
+Progress: 6 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -63,4 +63,10 @@ number-theoretic graphs rather than the arsenal. No repair is inferred.
 > "sum of coordinates of Maxine < length of S. A97. size - order < the number of triangles."
 
 Two assertions are fused, `S` is undefined, and the first inequality has no recoverable graph object. No interpretation is guessed.
++### wow-503 — SKIP_OCR
+
+> "frequency of minimum of rainbow < a(n)."
+
+Neither `rainbow` nor `a(n)` is defined in this record, and OCR has lost the surrounding construction. There is no determinate numerical assertion to test.
+
 
