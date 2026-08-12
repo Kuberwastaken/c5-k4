@@ -9,9 +9,13 @@
 - **OCR discipline:** an expression that cannot be recovered faithfully from the corpus is recorded as `SKIP_OCR` with the surviving garble quoted; no intended formula is guessed.
 - **ILP discipline:** no solver call may exceed 60 seconds. (This lane currently needs no ILP.)
 
-Progress: **52/71** entries evaluated (70 strict-open + 1 open-in-full).
+Progress: **53/71** entries evaluated (70 strict-open + 1 open-in-full).
 
 ## Verdicts
+
+### `agx-form1-T45-r45-upper` — HOLD
+
+Recovered same-order extremal comparison: `lambda1/a` is maximized by `Ki(n,floor(n/2))`. Direct same-order construction of the stated kite and independent matrix spectra leave every arsenal ratio below the comparator. Direct dense spectra use the 1e-6 guard and the independent check uses the applicable closed form; no candidate gate is triggered.
 
 ### `agx-form1-T45-r127-lower` — HOLD
 
