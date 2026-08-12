@@ -1,6 +1,6 @@
 from fractions import Fraction
 import unittest
-from verify import verify, simple_witness, windmill
+from verify import database_gate, verify, simple_witness, windmill
 
 
 class TestCertificate(unittest.TestCase):
@@ -17,5 +17,11 @@ class TestCertificate(unittest.TestCase):
         for s in range(4,12):
             for t in range(2,8):
                 if Fraction(t)>Fraction(4,s-2): windmill(s,t)
+    def test_database_gate(self):
+        gate=database_gate()
+        self.assertEqual(gate['connected_atlas_total'],995)
+        self.assertEqual(gate['applicable_nonzero_denominator'],58)
+        self.assertEqual(gate['zero_denominator_vacuous_holds'],937)
+        self.assertEqual(gate['violations'],0)
 
 if __name__=='__main__': unittest.main()
