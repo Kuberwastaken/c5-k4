@@ -371,3 +371,9 @@ pentagon/hexagon-faced fullerene, so the antecedent excludes the lane.
 **Status:** refuted (WoW annotation). The lower bound `alpha >= n/2-8` is
 explicitly for fullerenes. No campaign graph satisfies that structural
 hypothesis; applying it to a nonplanar carrier would be invalid.
+
+## wow-845 — NOT_APPLICABLE
+
+**Status:** refuted (WoW annotation). The positive-energy/bipartite-order bound
+is explicitly restricted to fullerenes. The arsenal contains none, so it
+cannot provide an additional refutation.
