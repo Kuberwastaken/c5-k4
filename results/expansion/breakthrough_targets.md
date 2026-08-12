@@ -175,3 +175,19 @@ In particular `C5[K4]` has only 110 edges against a bound of 146, while its
 complement has 80 edges against a bound of exactly 80. All cases hold with
 large or elementary margins; no 60-second optimization was needed.
 
+### 7. Tutte nowhere-zero 5-flow — HOLD
+
+Every arsenal member is bridgeless, so every one meets the conjecture's exact
+hypothesis. Orienting each edge from its lower to higher integer endpoint, a
+spanning-tree construction assigned nonzero values in `Z/5Z` to the chords
+and solved the tree-edge values by leaf elimination. A distinct replay then
+checked that every edge value lies in `{1,2,3,4}` and that signed incident
+values sum to zero modulo five at every vertex.
+
+All 15 arsenal graphs received exact witnesses, from 6 assigned values on
+`K4` through 460 on `C5[K8]`. For `C5[K4]`, the value multiplicities
+`(1,2,3,4) = (32,28,21,29)` cover all 110 edges; the complement carrier has
+counts `(24,15,21,20)` across its 80 edges. Petersen also holds, with counts
+`(3,4,4,4)`. These are positive flow certificates, so none of the objects can
+disprove Tutte's conjecture.
+
