@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 11 / 208.
+Progress: 12 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -98,5 +98,11 @@ The relation symbol between the two quantities is absent. Consequently no inequa
 > "deviation of S < frequency of mode of eigenvalues of Laplacian."
 
 The set/vector `S` is undefined in the surviving record. Testing a guessed spectral sequence would violate the no-guess OCR rule.
+
++### wow-523 — N/A_ARSENAL
+
+> "mode of eigenvalues of Laplacian < number of square-free integers not greater than n."
+
+The right side is tied to the preceding number-theoretic construction rather than a graph invariant supplied for arbitrary arsenal graphs. No arsenal instance is established.
 
 
