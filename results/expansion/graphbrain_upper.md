@@ -93,6 +93,13 @@ Author-repository, issue-history, exact-formula, and broader invariant searches
 found no pre-existing counterexample.  This is a candidate new disproof; an
 executable certificate is prepared separately.
 
+### graphbrain-alpha-upper-087 — HOLD_ARSENAL
+
+> `independence_number(x) <= order(x)^vertex_con(x) - sigma_2(x) + 1`
+
+The exact author expression has no violation on all 996 connected nonempty Graph Atlas graphs through order 7 where defined, the named controls, or campaign/threshold families.  Real comparisons use the `1e-6` guard.  This is an arsenal hold, not a proof.
+
+
 ### graphbrain-alpha-upper-086 — HOLD_ARSENAL
 
 > `independence_number(x) <= 2*maximum(girth(x), order(x) - sigma_2(x))`
