@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-60 — HOLD / NO ADDITIONAL WITNESS
+
+> mode of distance is not more than the independence number. Disproved by Alon, Saks, Seymour and Winkler.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed alpha, distance quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
 ### wow-59 — HOLD / NO ADDITIONAL WITNESS
 
 > Diameter is not more than the sum of positive eigenvalues. Disproved by Peter Puget
