@@ -165,4 +165,8 @@ For all maximal/maximum-independent-set coordinate readings, the modal coordinat
 
 The maximal-independent-set coordinate mode is at most 4, while the smallest arsenal Randić index is 5.
 
+### wow-80 — HOLD — historically proved
+
+The coordinate mean is at most the diameter (at most 4), while `n-residue>=8`; the row also cites its proof from #79 and #98.
+
 <!-- NEXT -->
