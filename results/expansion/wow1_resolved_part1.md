@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-211 — PROVED_HOLD
+
+> n / average distance < the sum of absolute values of S. F. 2, 90. Conjectures for triangle-free graphs (212:220)
+
+Direct evaluation of the applicable arsenal using the source hypotheses and the listed average_distance, distance quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
 ### wow-209 — HOLD / NO ADDITIONAL WITNESS
 
 > The sum of positive eigenvalues < the mean of the transmission of the distance matriz. James B. Shearer, 88.
