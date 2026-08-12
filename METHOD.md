@@ -2,10 +2,12 @@
 
 **Status:** committed development protocol, 2026-08-12
 
-**Scope:** existing published finite-graph conjectures already represented in
-[`google-deepmind/formal-conjectures`](https://github.com/google-deepmind/formal-conjectures),
-or source-recovered WoW/Graph Brain statements suitable for one-file upstream
-formalization. This does not include generating new conjectures.
+**Scope:** existing published finite-graph conjectures from collections already
+represented in
+[`google-deepmind/formal-conjectures`](https://github.com/google-deepmind/formal-conjectures).
+For this campaign that includes Written on the Wall II, but **not** Written on
+the Wall I or Graph Brain. This does not include generating new conjectures or
+introducing a new upstream corpus.
 
 **Not yet:** a preregistered held-out evaluation or a general-purpose discovery engine
 
@@ -267,10 +269,11 @@ trial with multiple consequences.
 ## Development-set program: formal-conjectures only
 
 Until a future protocol is frozen and tagged for a held-out corpus, work stays
-inside already-published statements that are either present in
-`formal-conjectures` or can be submitted there with a recovered primary source.
-This keeps the public research trail legible and produces independently
-reviewable Lean artifacts while Method v0.2 is refined.
+inside already-published statements from collections already represented in
+`formal-conjectures`. Source recovery does not by itself make an unrelated
+corpus eligible. WoW I and Graph Brain results remain internal to `c5-k4` and
+must not be submitted upstream. This keeps the public research trail legible
+while Method v0.2 is refined.
 
 ### Wave A — known tight walls
 
@@ -335,8 +338,10 @@ will be counted as held out.
   precise diameter-three core with local independence at most three.
 - Recorded pinning coordinates for failed local surgery. The barbell cluster
   can reach equality but needs a quotient-level change to cross.
-- Broadened the submission scope only to source-recovered existing statements
-  suitable for `formal-conjectures`; no new conjecture generation is admitted.
+- Scope correction: upstream submissions are limited to collections already
+  represented in `formal-conjectures`. WoW I and Graph Brain are explicitly
+  excluded even when source-recovered and formally certified. No new
+  conjecture generation or new upstream corpus is admitted.
 
 ### v0.1 — 2026-08-12
 

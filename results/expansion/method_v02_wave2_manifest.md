@@ -100,11 +100,12 @@ The selection report must be committed before either selected construction is
 evaluated. Dean's `k=5` cluster remains low priority because it has no numerical
 wall and the existing arsenal readily supplies 5-cycles.
 
-## Publication queue (not a method trial)
+## Internal certificate queue (not an upstream queue or method trial)
 
 The already-certified WoW I 191 and 889 disproofs, plus Graph Brain upper-081,
-are publication debt rather than Wave 2 discovery evidence. Audit each against
-current GitHub issues/PRs and upstream conventions. Submit only complete,
-source-faithful, no-`sorry` modules; if a certificate proves merely an
-arithmetic implication from externally supplied invariant values, record it as
-not submission-ready instead of overstating formal coverage.
+are internal `c5-k4` certificate work rather than Wave 2 discovery evidence.
+They are outside the collections represented by `formal-conjectures` and must
+not be submitted there. Audit source fidelity and logical completeness for the
+local record only; if a certificate proves merely an arithmetic implication
+from externally supplied invariant values, record that limitation instead of
+overstating formal coverage.

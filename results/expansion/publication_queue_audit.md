@@ -1,6 +1,17 @@
-# Publication queue audit: WoW I 191, WoW I 889, and Graph Brain upper-081
+# Scope audit: WoW I 191, WoW I 889, and Graph Brain upper-081
 
 Date: 2026-08-12
+
+## Scope correction
+
+These three items are **not** an upstream `formal-conjectures` publication
+queue. That repository's campaign collection is Written on the Wall II; it
+does not cover Written on the Wall I or Graph Brain. Complete local Lean
+certificates remain useful `c5-k4` artifacts, but source recovery and technical
+formalizability do not authorize introducing a new upstream corpus.
+
+An upstream WoW I 191 issue was opened in error as #4914, then immediately
+closed with this correction. No PR was opened, and the fork branch was deleted.
 
 This is a publication-readiness audit, not a discovery trial. It checks the
 three items frozen in the Method v0.2 Wave 2 publication queue against the
@@ -48,9 +59,9 @@ local Lean files.
 
 | Item | Local Lean coverage | Source/status | Duplicate audit | Decision |
 |---|---|---|---|---|
-| WoW I 191 | Complete, witness-bearing formal disproof | Source-faithful after visual correction of OCR `<` to printed `<=`; unannotated in the 2004 register | No exact upstream or c5 issue/PR match | Ready to package |
-| WoW I 889 | Complete, witness-bearing formal disproof | Source-faithful reading using #822's blue-edge definition; unannotated in the 2004 register | No exact upstream or c5 issue/PR match | Ready to package |
-| Graph Brain upper-081 | Conditional arithmetic reduction only | Exact expression remains in an open author-project issue; division-by-zero behavior is a formalization choice | No exact upstream or c5 issue/PR match | Not ready for a formal-proof claim |
+| WoW I 191 | Complete, witness-bearing formal disproof | Source-faithful after visual correction of OCR `<` to printed `<=`; unannotated in the 2004 register | No duplicate local submission | Keep in `c5-k4`; out of upstream scope |
+| WoW I 889 | Complete, witness-bearing formal disproof | Source-faithful reading using #822's blue-edge definition; unannotated in the 2004 register | No duplicate local submission | Keep in `c5-k4`; out of upstream scope |
+| Graph Brain upper-081 | Conditional arithmetic reduction only | Exact expression remains in an open author-project issue; division-by-zero behavior is a formalization choice | No duplicate local submission | Complete locally if useful; out of upstream scope |
 
 ## WoW I Conjecture 191
 
@@ -88,24 +99,12 @@ and the searches above found no later GitHub resolution. It should therefore
 be described as an unannotated, provisionally novel disproof rather than as
 independently proven to have remained open continuously since 2004.
 
-### Proposed upstream package
+### Local artifact disposition
 
-- Exact path:
-  `FormalConjectures/WrittenOnTheWallI/GraphConjecture191.lean`.
-- Add `FormalConjectures/WrittenOnTheWallI/README.md` in the first WoW I PR,
-  explaining that this is Fajtlowicz's *Written on the Wall*, distinct from
-  the existing `WrittenOnTheWallII/` collection.
-- The upstream benchmark file should contain the source-faithful definitions
-  and statement, use `answer(False)`, `@[category research solved, AMS 5]`,
-  and attach `formal_proof using lean4` to the immutable link above. In keeping
-  with repository policy, its benchmark theorem body may be `by sorry`; the
-  large witness proof stays in `c5-k4`.
-- Import only `FormalConjecturesUtil` in the benchmark file. The local proof's
-  additional `WalkCounting` import is needed for the external `T(7)`
-  certificate, not for stating the benchmark.
-
-The warning-as-error build is complete. The issue/PR text must call out the
-primary-scan correction and inherited section hypothesis prominently.
+Keep the complete certificate at `lean/GraphConjecture191.lean`. It is outside
+the DeepMind repository's WoW II collection and must not receive an upstream
+issue or PR. Any independent publication should preserve the primary-scan
+correction and inherited section hypothesis prominently.
 
 ## WoW I Conjecture 889
 
@@ -140,22 +139,12 @@ rounding ambiguity. The entry is unannotated in the source and no exact later
 resolution was found, so the same provisionally-novel wording as for #191 is
 appropriate.
 
-### Proposed upstream package
+### Local artifact disposition
 
-- Exact path:
-  `FormalConjectures/WrittenOnTheWallI/GraphConjecture889.lean`.
-- Reuse the WoW I README introduced with #191; if #889 lands first, it must
-  introduce that README itself.
-- The benchmark statement should use `answer(False)`,
-  `@[category research solved, AMS 5]`, and `formal_proof using lean4` at the
-  immutable link above. The external proof stays in `c5-k4`; the upstream
-  theorem body may be the repository-standard `by sorry`.
-- The PR description should explicitly state that `blueGraph` is not an
-  arbitrary distance coloring but the specialization of source conjecture
-  #822 to the triangle-free class.
-
-The warning-as-error build is complete. Normal maintainer review should confirm
-the #822 cross-reference and the real-valued rendering of `w/4`.
+Keep the complete certificate at `lean/GraphConjecture889.lean`. It is outside
+the DeepMind repository's WoW II collection and must not receive an upstream
+issue or PR. Any independent publication should preserve the #822
+cross-reference and explain the real-valued rendering of `w/4`.
 
 ## Graph Brain alpha upper bound 081
 
@@ -180,16 +169,11 @@ issue. Use the exact comment anchor, not the issue top:
 
 <https://github.com/math1um/objects-invariants-properties/issues/421#issuecomment-327846086>
 
-### Proposed upstream package after completion
+### Local artifact disposition after completion
 
-- Exact path:
-  `FormalConjectures/Other/GraphBrainAlphaUpper081.lean`.
-- A dedicated `GraphBrain/` directory is premature for one accepted item; move
-  to `FormalConjectures/GraphBrain/AlphaUpper081.lean` only if maintainers ask
-  for a collection or several Graph Brain problems are submitted together.
-- The eventual benchmark should state `answer(False) ↔ upper081Statement`, use
-  `@[category research solved, AMS 5]`, and add an immutable external
-  `formal_proof` link only after the complete Lean witness theorem exists.
+Complete the local `c5-k4` certificate only if it remains useful to this
+project. Graph Brain is outside the DeepMind campaign scope and must not
+receive an upstream issue or PR.
 
 ### Blocking work
 
@@ -207,17 +191,11 @@ issue. Use the exact comment anchor, not the issue top:
 6. The fresh warning-as-error build now passes; retain it as a regression gate
    while completing the concrete witness.
 
-Until those steps are complete, upper-081 is publication-ready as an exact
-computational counterexample report, but not as a formal-conjectures PR that
-claims an external Lean proof.
+Until those steps are complete, upper-081 remains an exact computational
+counterexample report rather than a complete local Lean disproof.
 
-## Recommended submission order
+## Upstream disposition
 
-1. Submit WoW I 191 first, introducing the new WoW I directory and README.
-2. Submit WoW I 889 as a separate issue and PR, reusing that collection.
-3. Keep Graph Brain upper-081 out of the Lean publication queue until its
-   concrete windmill equalities are proved.
-
-Each issue and PR should remain individual, should link its immutable
-`c5-k4` proof commit, and should report the source-status caveat rather than
-folding these results into an undifferentiated kill count.
+No WoW I or Graph Brain issue or PR should be opened in
+`google-deepmind/formal-conjectures`. The active upstream queue is restricted
+to WoW II and other collections already present there.
