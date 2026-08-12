@@ -13,6 +13,10 @@ Progress: **33/71** entries evaluated (70 strict-open + 1 open-in-full).
 
 ## Verdicts
 
+#### Correction to `agx-form1-T45-r29-lower` — HOLD
+
+The row is recoverable as `lambda1+ecc_avg >= sqrt(n-1)+2-1/n` (star equality). Direct evaluation across the full arsenal and an independent use of the regular/blow-up spectra give HOLD; no gap is within `1e-6`. This supersedes the conservative SKIP_OCR note below after cross-row reconstruction of the table columns.
+
 ### `agx-form1-T45-r143-lower` — SKIP_OCR
 
 Unusable normalized row: `AGX Form-1 bound (lower bound over connected graphs on n vertices): row: Ki  n   a/χ 1`. The numerical bound and/or the defining parameters of its claimed extremal graph have been lost in column wrapping. Without those data there is no well-defined predicate to test on the arsenal. Per protocol, this records the garble and does not guess an intended statement.
