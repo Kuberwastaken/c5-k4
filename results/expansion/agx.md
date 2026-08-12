@@ -9,9 +9,13 @@
 - **OCR discipline:** an expression that cannot be recovered faithfully from the corpus is recorded as `SKIP_OCR` with the surviving garble quoted; no intended formula is guessed.
 - **ILP discipline:** no solver call may exceed 60 seconds. (This lane currently needs no ILP.)
 
-Progress: **4/71** entries evaluated (70 strict-open + 1 open-in-full).
+Progress: **5/71** entries evaluated (70 strict-open + 1 open-in-full).
 
 ## Verdicts
+
+### `agx-form1-T45-r5-upper` — SKIP_OCR
+
+The normalized table preserves only the column-wrapped fragment `Regular 0 lambda1 - d_avg Pineapples O`. It does not unambiguously associate both the numerical bound and extremal graph with this lower/upper row. The cited primary PDF is absent from this checkout and its archived copy was unavailable during this pass. Per the no-guessing rule, no inequality is inferred and no arsenal verdict is claimed.
 
 ### `agx-survey-C8` — HOLD
 
@@ -36,4 +40,3 @@ Literal corpus statement: for a triangle-free graph with `m` edges and independe
 `{30, (2sqrt(5))^2, (-2sqrt(5))^2, (-2)^15}`. Hence `p^-(D)=17` and `m/alpha=10`: the first comparison holds (`10<=17`) but the second fails (`10<=3`).
 
 **Database-sanity gate: failed.** Under the identical reading, `P4` already has `m/alpha=3/2`, distance inertia `(1 positive, 3 negative)`, and so falsely requires `3/2<=1`. Exhaustive re-evaluation of all 90 connected triangle-free Graph Atlas graphs through order 7 (including `K1`) finds 43 failures of the second comparison. An independent path uses direct dense symmetric diagonalization of the distance matrix and exact brute-force independence numbers; its `P4` distance eigenvalues are approximately `5.162278,-0.585786,-1.162278,-3.414214`, again giving three negatives. Therefore the literal wording cannot be the database-tested conjecture: a qualification, sign, or column has been lost. This is not a C5[K4]-campaign counterexample and no novelty claim is made.
-
