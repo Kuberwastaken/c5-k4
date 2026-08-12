@@ -44,3 +44,12 @@ The other required blow-ups and triangular graphs have still larger margins.
 All distance averages and reciprocal sums were evaluated exactly as rational
 numbers.  No candidate violation arose, so the DB-sanity and novelty gates were
 not triggered.
+
+### wow-7 — HOLD
+
+> mode of distance is not more than radius + Randic index.
+
+Under both pair-distance conventions (unordered off-diagonal, or all
+distance-matrix coordinates), direct evaluation gives the claimed bound
+throughout the arsenal.  For `C5[K4]`, the pair mode is 1 (or 0/1 under matrix
+counting), while `rad+R=2+10=12`.  No candidate violation arose.
