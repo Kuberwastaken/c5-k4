@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-22 — HOLD / NO ADDITIONAL WITNESS
+
+> Let e be the largest negative eigenvalue of a graph. Then -e is smaller or equal to the independence number. The Paley graph with 101 vertices 1s a counter-example. Noga Alon, Tel Aviv University and Bellcore. June 88. Alon and myself noticed that the conje...
+
+The applicable arsenal satisfies the source-faithful inequality using the listed alpha, degree, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
 ### wow-19 — PROVED_HOLD
 
 > Let a be the smallest eigenvalue of a graph G. Then - a is < Randic index of G. (3.) This conjecture was proved by Favaron, Maheo and Sacle, University of Paris-Sud. comp also conj’s 20, 21, 27 and 28. [FMS2] O. Favaron, M. Maheo and J-P. Sacle, Some Result...
