@@ -48,3 +48,12 @@ Resolved target commit from `git rev-parse`:
 `64abb3ce00e6ac34ac8358baa9798511d0ca8ec0`. The tag must resolve to exactly
 that commit; this follow-up record is intentionally not included in the tagged
 snapshot so the target can be recorded without a self-referential hash.
+
+## Publication readback
+
+- Release: <https://github.com/Kuberwastaken/c5-k4/releases/tag/wowii-172-v1>.
+- Annotated tag dereferences to the locked target
+  `64abb3ce00e6ac34ac8358baa9798511d0ca8ec0` locally and on `origin`.
+- GitHub readback confirms a non-draft, non-prerelease release with no binary
+  assets and the intended title/body.
+- Every immutable artifact URL in the rendered body returned HTTP 200.
