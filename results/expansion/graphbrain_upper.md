@@ -96,6 +96,13 @@ false right side `4/3`.  The carrier family remains useful independent
 evidence, but the simple witness makes this a conservative stale/trivial
 retro-kill rather than a novelty claim.
 
+### graphbrain-alpha-upper-114 — DB_REJECTED
+
+> `independence_number(x) <= sigma_2(x)/sin(number_of_triangles(x)) + degree_sum(x)`
+
+The exact author reading fails the mandatory small-graph gate on connected Graph Atlas graph `atlas:E}^G`: `alpha=3` and right side `0.5266027164735654`.  This is database-inconsistent as posted, not a new campaign result.  Undefined-domain cases were excluded.
+
+
 ### graphbrain-alpha-upper-113 — HOLD_ARSENAL
 
 > `independence_number(x) <= maximum(max_degree(x), density(x)^(-average_distance(x)))`
