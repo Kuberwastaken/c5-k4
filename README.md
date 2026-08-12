@@ -174,6 +174,11 @@ independent recomputation, named controls, source/status search, and
 machine-readable certificate are in
 [`results/expansion/graphbrain_upper.md`](results/expansion/graphbrain_upper.md)
 and [`certificates/graphbrain-alpha-upper-081/`](certificates/graphbrain-alpha-upper-081/).
+A no-`sorry` Lean draft formalizes the source semantics and proves the exact
+invariant-tuple reduction in
+[`GraphBrainAlphaUpper081.lean`](lean/GraphBrainAlphaUpper081.lean); proving
+the four concrete windmill equalities awaits a connectivity API absent from
+the current mathlib snapshot.
 The claim here is deliberately narrow: **apparently unrecorded and open as
 posted**, not proof of absolute bibliographic priority.
 
