@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-26 — HOLD / NO ADDITIONAL WITNESS
+
+> Sum of reciprocals of degrees is not more than the rank of the distance matriz. (1.) This was disproved by Alon, Saks, Seymour, Shearer and Winkler.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed degree, distance, rank quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
 ### wow-25 — PROVED_HOLD
 
 > average temperature is not more than the number of negative eigenvalues of the distance matrix. (-1.) see 24.
