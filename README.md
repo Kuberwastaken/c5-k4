@@ -154,6 +154,18 @@ The complete per-entry audits are
 [`results/expansion/wow1_part1.md`](results/expansion/wow1_part1.md) and
 [`results/expansion/wow1_part2.md`](results/expansion/wow1_part2.md).
 
+### A second structural transfer: WOWII 176
+
+The sharpness follow-up also found a new infinite counterexample family to
+WOWII 176. Join distinguished vertices of two triangles by a path of `L`
+edges. The family pins `L_s=4`, has `b=L+3`, and separates the two
+maximum-degree vertices of its square by distance `L-2` back in the original
+graph. Thus `L_s+b=L+7<2L+3=n+dist_min(M^2)` for every `L>=5`.
+For `L>=7` it also violates the alternative reading that measures the distance
+inside `G^2`, so this is not dependent on the notation ambiguity. The complete
+source audit, structural derivation, database gate, and exact verifier are in
+[`wowii_176_disproof.md`](results/expansion/wowii_176_disproof.md).
+
 ### A Graph Brain kill — and an order-9 witness
 
 The complete 228-entry Graph Brain sweep found one source-faithful result
