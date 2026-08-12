@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-116 — PROVED_HOLD
+
+> largest eigenvalue < Randic. Proved in [FMS2] . November 88. As it was the case with 63 this conjecture again is a generalization of Turan’s theorem in the triangle-free case. Indeed: Randic is always at most n/2, and for triangle-free graphs, the size s at...
+
+Direct evaluation of the applicable arsenal using the source hypotheses and the listed randic_index, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
 ### wow-112 — HOLD / NO ADDITIONAL WITNESS
 
 > Radius < maximal frequency of the degree sequence. Disproved by Shui- Tain Chen. April 88. James B. Shearer found a bipartite counterexample. May 88. Shui-Tain Chen proved the conjecture for trees, October 88.
