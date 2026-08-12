@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-110 — HOLD / NO ADDITIONAL WITNESS
+
+> Even(v) is the number of vertices at even distance from v. Conjecture: If G is triangle-free then range of Even < Range of Degree. Disproved by William Staton. March 88.
+
+The applicable arsenal satisfies the source-faithful inequality using the listed degree, distance quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
 ### wow-107 — HOLD / NO ADDITIONAL WITNESS
 
 > A graph G is even-regular if the vector E defined in conjecture 96 is constant. If G is even-regular then the mode of the distance matrix < radius. Vance Faber, Los Alamos National Laboratory used LANL Cray com- puter and Reed’s program listing all at most ...
