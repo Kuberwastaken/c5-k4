@@ -9,7 +9,7 @@
 - **OCR discipline:** an expression that cannot be recovered faithfully from the corpus is recorded as `SKIP_OCR` with the surviving garble quoted; no intended formula is guessed.
 - **ILP discipline:** no solver call may exceed 60 seconds. (This lane currently needs no ILP.)
 
-Progress: **3/71** entries evaluated (70 strict-open + 1 open-in-full).
+Progress: **4/71** entries evaluated (70 strict-open + 1 open-in-full).
 
 ## Verdicts
 
@@ -29,4 +29,11 @@ Statement: among **unicyclic** graphs of order `n`, specified cycles maximize ad
 ### `agx-survey-C32` — HOLD
 
 Statement: for every connected graph, algebraic connectivity `a` times matching number `mu` satisfies `a*mu >= 1`, with equality only for a star. It holds throughout the arsenal. The minimum product is `10` on Petersen (`a=2`, `mu=5`); the carrier gives the exact value `10*(10-2sqrt(5)) = 100-20sqrt(5) = 55.278640450...`. Direct Laplacian diagonalization and NetworkX maximum-cardinality matching agree; for `C5[K_m]`, the independently derived value is `a=m(5-sqrt(5))/2` and `mu=floor(5m/2)`. All margins exceed the `1e-6` guard by orders of magnitude, so no candidate gate is triggered.
+
+### `agx-survey-C42` — DB_REJECTED (incomplete/corrupt reading; not a kill)
+
+Literal corpus statement: for a triangle-free graph with `m` edges and independence number `alpha`, both `m/alpha <= p^-(D)` and `m/alpha <= n-p^-(D)`, where `p^-(D)` counts the negative eigenvalues of the distance matrix. The complement carrier is an apparent violation: it is triangle-free with `n=20`, `m=80`, `alpha=8`, and exact distance spectrum
+`{30, (2sqrt(5))^2, (-2sqrt(5))^2, (-2)^15}`. Hence `p^-(D)=17` and `m/alpha=10`: the first comparison holds (`10<=17`) but the second fails (`10<=3`).
+
+**Database-sanity gate: failed.** Under the identical reading, `P4` already has `m/alpha=3/2`, distance inertia `(1 positive, 3 negative)`, and so falsely requires `3/2<=1`. Exhaustive re-evaluation of all 90 connected triangle-free Graph Atlas graphs through order 7 (including `K1`) finds 43 failures of the second comparison. An independent path uses direct dense symmetric diagonalization of the distance matrix and exact brute-force independence numbers; its `P4` distance eigenvalues are approximately `5.162278,-0.585786,-1.162278,-3.414214`, again giving three negatives. Therefore the literal wording cannot be the database-tested conjecture: a qualification, sign, or column has been lost. This is not a C5[K4]-campaign counterexample and no novelty claim is made.
 
