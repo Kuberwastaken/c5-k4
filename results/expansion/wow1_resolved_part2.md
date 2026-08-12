@@ -66,7 +66,7 @@ and complement closed form agree.
 
 **Status:** refuted (WoW annotation). On the only arsenal member meeting the
 634--654 hypothesis, `complement(C5[K4])`, `|E|/alpha=10`, while the sum of
-positive adjacency eigenvalues is `8+2(sqrt(5)-1)=10+2sqrt(5)`.
+positive adjacency eigenvalues is `8+4(sqrt(5)-1)=4+4sqrt(5)`.
 Direct diagonalization agrees beyond the `1e-6` guard. It is not a retro-witness.
 
 ## wow-648 — NOT_APPLICABLE
