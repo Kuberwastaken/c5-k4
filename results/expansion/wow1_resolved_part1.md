@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-250 — SKIP_RAINBOW
+
+> The minimum of rainbow of the complement of G < the matching number. Disproved by Ermelinda Delavina, University of Houston. /. 91.
+
+The minimum-rainbow invariant requires the original coloration optimization protocol, which is absent from the corpus row. The historical refutation is retained without inventing a replacement definition.
+
 ### wow-249 — SKIP_RAINBOW
 
 > Range of rainbow is not more than the chromatic number of the comple- ment of G. The strongest interpretation of this conjecture is false but we do not know an example of a graph in which every coloration would be a counter-example. (Er- melinda DeLaVina an...
