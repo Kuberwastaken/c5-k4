@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 134 / 208.
+Progress: 135 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -841,5 +841,11 @@ This remains in the PR/RP context and no arsenal member instantiates it. A unive
 > "largest eigenvalue ... not more than 1 + sum temperatures."
 
 Exact regular values give `lambda1=d <= 1+n*d/(n-d)` for every arsenal member. Dense spectra independently confirm `lambda1` beyond the guard.
+
+### wow-806 — SKIP_OCR / DB_REJECTED
+
+> "largest eigenvalue ... not more than number of vertices of different degrees. 807 the second largest eigenvalue ..."
+
+The record visibly fuses 806 and 807 and likely loses an operator. Literal 806 fails `K3` and 480/995 atlas graphs, so the mandatory gate rejects it; no repair is guessed.
 
 
