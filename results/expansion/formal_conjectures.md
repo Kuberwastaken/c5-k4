@@ -89,3 +89,17 @@ Line numbers below refer to upstream commit `c9052e8`.
 Results are appended below one statement (or one inseparable variant family)
 at a time. A statement excluded from fixed-graph evaluation still receives an
 explicit reason in the completion audit.
+
+### `independentDominationEven` and `independentDominationOdd` — HOLD
+
+The hypotheses require only positive minimum degree and select the formula by
+the parity of the maximum degree. I solved the exact minimum independent
+dominating-set ILP for every arsenal graph (binary vertex variables,
+independence constraints on edges, closed-neighborhood domination constraints,
+CBC capped at 60 seconds). All solves were optimal. The closest arsenal member
+was Petersen, with odd-case slack
+`(3^2+3)10 - (3+1)(3+3)3 = 48`; the complement of `C5[K4]` had even-case
+slack `560`. The carrier had odd-case slack `2144`; `T(7)` had even-case
+slack `1752`. All other tested slacks were larger. No candidate violation was
+generated, so the small-graph and independent-recompute gates were not
+triggered.
