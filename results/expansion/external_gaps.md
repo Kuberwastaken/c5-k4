@@ -187,3 +187,10 @@ complement of `C5[K4]` is an applicable control: it is connected,
 vertex-transitive, 8-regular (hence Eulerian), and has an explicit Hamilton
 cycle under the existing independent verifier.  The original `C5[K4]` is
 11-regular and therefore not Eulerian.  No violation was found.
+
+#### Hamiltonicity 10 — `HOLD_ARSENAL`
+
+Every vertex-transitive graph containing an induced `C4` is conjectured
+Hamiltonian.  Applicable controls `K3,3` and the cube are vertex-transitive,
+contain induced 4-cycles, and have directly checked Hamilton cycles.  The
+`C5[K4]` carrier is not an applicable witness.  No violation was found.
