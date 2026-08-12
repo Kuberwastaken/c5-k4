@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 112 / 208.
+Progress: 113 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -709,5 +709,11 @@ No arsenal member is cubic.
 > "If G is cubic then diameter ..."
 
 No arsenal member meets the degree-3 hypothesis; chip-firing initialization is also unspecified.
+
+### wow-779 — HOLD
+
+> "counter-independence number of G is greater or equal to half of the radius."
+
+Exact counter-independence values are at least 2 and every arsenal radius is at most 4, so all hold (including equality cases). Independent clique computations on the corresponding relation graphs agree.
 
 
