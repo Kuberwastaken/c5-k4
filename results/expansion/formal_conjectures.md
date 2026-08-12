@@ -169,3 +169,47 @@ larger induced path and is not well-totally-dominated candidate under the
 conjunction). The broader family sweep had already exposed only WoW-II 181,
 which upstream has not formalized. No declaration in the current upstream
 WoW-II subset is newly disproved here.
+
+## Completion audit and exclusions
+
+All **77/77** declarations in the manifest have now been classified. The
+fixed-graph arsenal concretely evaluates **23 declarations**: the two
+independent-domination bounds, three Reed bounds, Erdős 23/64/128/742, and the
+14 WoW-II declarations. (The two Reed universal formulations are counted
+separately because upstream does.) Their outcome is **20 HOLD**, **2 NOT
+APPLICABLE**, and **1 vacuous HOLD**; there is **no gate-surviving violation**.
+
+The remaining **54 declarations are excluded from single-arsenal-graph
+falsification**, for the following exhaustive reasons:
+
+| exclusion class | declarations | reason |
+|---|---:|---|
+| asymptotic or uniform-over-orders assertions | 13 | 60, 61, 74 (two), 80 (two), 82, 85, 108, 566, 579, and 600 (two) cannot be refuted by finitely many fixed orders |
+| infinite-cardinal graph assertions | 11 | 75, 1068, 1175 (two), 1176, 595, 740, and 918 (four) require infinite graphs/cardinals, outside the finite arsenal |
+| existential or fixed-value questions | 18 | 508, 567 (three), 593 (three), 596 (two), 835 (three), 944 (three), Conway's 99-graph, Ramsey `R(5,5)`, and snake dimension nine ask for existence/values rather than a universal property of a supplied arsenal graph |
+| graph-construction/decomposition universals needing unbounded auxiliary search | 8 | Alon--Tarsi cycle covers, Erdős 184 (two), 628, graceful labeling, Kotzig, Ringel, and graph pebbling are not decided by the existing invariant profile; testing a few positive instances cannot disprove their universal quantification |
+| pattern-as-variable inequality | 1 | Sidorenko quantifies over a bipartite pattern and an arbitrary host; using an arsenal graph in only one slot cannot certify falsity |
+| non-arsenal object encoded through a graph helper | 3 | Latin tableaux and the two diameter-of-finite-simple-groups declarations are about Young diagrams/groups, not the campaign graphs |
+
+The class totals count declarations, not files, and sum to exactly 54.
+
+### Current upstream and novelty status
+
+The manifest was regenerated from GitHub `main` at `c9052e8`, not from the
+local campaign branch. Every declaration evaluated above remains tagged
+`research open` at that commit. The repository itself records active or known
+counterexample/solution work on several WoW-II items (notably 59, 100, 141,
+145, 146, 160, 200, 291, and 314); those are not novel campaign claims. No new
+violation was found, so there is no novelty claim or external action to make.
+
+### Graphify cross-check
+
+The graph-assisted dependency pass independently surfaced the same high-yield
+families: independent domination, Alon--Tarsi cycle cover, C5 blow-up
+bipartization, cycle decomposition, Ramsey-size linearity, and
+Erdős--Hajnal-type assertions. It materially confirmed that the C5 blow-up in
+Erdős 23 is an explicit tightness construction rather than a possible
+counterexample. Only one of three planned semantic chunks ran because the
+shared nine-agent thread limit was full, so graphify was used as a navigation
+cross-check, not as the completeness proof; the deterministic 77-declaration
+manifest is the coverage authority.
