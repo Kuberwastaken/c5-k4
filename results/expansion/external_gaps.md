@@ -82,3 +82,10 @@ violation appeared on the campaign's named arsenal.
 `theta=sqrt(5)`, hence the right side is `2=alpha`.  The named arsenal yielded
 no violation; the paper's connected-order-at-most-10 verification covers its
 original database.
+
+#### Figure 14 / lower-006 — `HOLD_ARSENAL`
+
+`alpha >= max(residue, theta/2)`.  Havel-Hakimi leaves residue `2` for the
+constant degree sequence `(11^20)`, while `theta/2=sqrt(5)/2`; the right side
+is therefore `2=alpha(C5[K4])`.  Independent degree-sequence reduction and the
+closed-form theta value agree.  No named-arsenal violation was found.
