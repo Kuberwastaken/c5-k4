@@ -189,4 +189,8 @@ The same variance is at most 4, while the smallest adjacency rank in the arsenal
 
 Garble: `variance of coordinates of a maximal clique maximum of Even.` The comparison operator is absent. Supplying one would be guessing; if intended `<=`, the arsenal holds.
 
+### wow-87 — HOLD
+
+Direct ordered distance-matrix variance is at most `1070/729` on the arsenal, while the smallest sum of reciprocal temperatures is 10.
+
 <!-- NEXT -->
