@@ -421,4 +421,8 @@ Temperature deviation is 0 on every regular arsenal graph.
 
 Minimum consecutive adjacency-eigenvalue gap is 0 from multiplicities, below `n/alpha`.
 
+### wow-173 — HOLD
+
+Exact `n/average_distance` is at most the Euclidean norm of the Laplacian spectrum throughout.
+
 <!-- NEXT -->
