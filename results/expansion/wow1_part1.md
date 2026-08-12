@@ -197,4 +197,8 @@ Direct ordered distance-matrix variance is at most `1070/729` on the arsenal, wh
 
 Every plausible distance-matrix mode lies between 0 and 4; the smallest inverse-temperature sum is 10.
 
+### wow-89 — HOLD
+
+Exact average distance is at most `31/13`, while the smallest inverse-temperature sum is 10.
+
 <!-- NEXT -->
