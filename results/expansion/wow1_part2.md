@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 2 / 208.
+Progress: 3 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -38,3 +38,14 @@ enough to preserve the hypothesis, so this is `N/A_ARSENAL`, not `SKIP_OCR`.
 This is a statement about the number-theoretic graph `RP[2..n]`, not an arbitrary
 connected graph. No arsenal member has that construction, so the carrier sweep
 does not furnish an instance. `N/A_ARSENAL`.
+
+### wow-456 — SKIP_OCR
+
+> "The residue of the graph RP[2..n] is not more than n(n). RP is defined in
+> 484 ... A457. The number of quadratic residues mod n is not more than the rank
+> of Two vertices in RP are adjacent iff they are relatively prime."
+
+The record has merged at least two numbered assertions, and the right side
+`n(n)` plus the object following "rank of" are missing. There is no faithful
+inequality to evaluate, and the `RP` restriction would in any case exclude the
+arsenal. No intended notation is guessed.
