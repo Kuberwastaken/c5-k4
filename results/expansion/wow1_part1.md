@@ -277,4 +277,8 @@ The even-distance vector has one distinct value; `sum_v 1/Even(v)=n/E` exceeds 1
 
 All arsenal graphs satisfy `alpha <= n-radius`; the carrier gives `2 <= 18` and its complement `8 <= 18`. The row says this follows from a theorem.
 
+### wow-121 — HOLD where applicable
+
+Inherited triangle-free reading selects the carrier complement: `2m=160 <= sum Even=240`.
+
 <!-- NEXT -->
