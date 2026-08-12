@@ -829,4 +829,8 @@ Carrier complement gives `n-residue=17 <= mu(G)+mu(complement G)=20`.
 
 Triangle-free carrier complement has `Inverse Even=sum 1/12=5/3`, below distance spectral range about `34.4721`.
 
+### wow-323 — SKIP_OCR
+
+`mismatching` is an order-dependent greedy try-out whose definition/output convention is unrecoverable.
+
 <!-- NEXT -->
