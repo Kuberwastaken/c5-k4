@@ -257,4 +257,8 @@ The tree hypothesis excludes every arsenal graph; the row cites `[FMS]` and char
 
 The even-distance-vector range is 0 on all vertex-transitive arsenal graphs. The row explicitly reports Puget's counterexample to the general statement.
 
+### wow-111 — HOLD where applicable
+
+The triangle-free hypothesis selects the carrier complement, where `floor(n/2)=10 <= mean Even=12`. The row discusses earlier stronger readings and counterexamples.
+
 <!-- NEXT -->
