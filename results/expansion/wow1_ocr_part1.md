@@ -187,3 +187,11 @@ representation dependent.  Recovery does not supply an evaluable invariant.
 Printed p.74 confirms the exact regular-graph statement.  “Resolution of Maxine”
 remains undefined in the source, so its coordinate maximum cannot be tested
 without inventing a historical program convention.
+
+### wow-230 — SKIP_DEFINITION
+
+> minimum of autocoordinates of resolution of Maxine of the complement
+> of G <= n / independence.
+
+Printed p.74 recovers the full regular-graph statement.  Both autocoordinates and
+resolution of Maxine lack source definitions, so no faithful reading survives.
