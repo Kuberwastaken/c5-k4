@@ -9,9 +9,13 @@
 - **OCR discipline:** an expression that cannot be recovered faithfully from the corpus is recorded as `SKIP_OCR` with the surviving garble quoted; no intended formula is guessed.
 - **ILP discipline:** no solver call may exceed 60 seconds. (This lane currently needs no ILP.)
 
-Progress: **68/71** entries evaluated (70 strict-open + 1 open-in-full).
+Progress: **69/71** entries evaluated (70 strict-open + 1 open-in-full).
 
 ## Verdicts
+
+### `agx-survey-C37` — HOLD
+
+All nine stated q2 bounds hold (including the n>=7 qualification on the upper `q2-delta` clause). Direct A/L/Q spectra and independent regular-spectrum shifts agree with positive guarded slack. No candidate violation appears, so the database and novelty gates are not triggered.
 
 ### `agx-survey-C36` — HOLD
 
