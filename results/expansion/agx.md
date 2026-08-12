@@ -9,9 +9,13 @@
 - **OCR discipline:** an expression that cannot be recovered faithfully from the corpus is recorded as `SKIP_OCR` with the surviving garble quoted; no intended formula is guessed.
 - **ILP discipline:** no solver call may exceed 60 seconds. (This lane currently needs no ILP.)
 
-Progress: **66/71** entries evaluated (70 strict-open + 1 open-in-full).
+Progress: **67/71** entries evaluated (70 strict-open + 1 open-in-full).
 
 ## Verdicts
+
+### `agx-survey-C33` — HOLD
+
+Both `a-lambda1 >= 3-n-t` and the `a/lambda1` kite-minimizer comparison hold. Direct paired adjacency/Laplacian spectra agree with closed forms; no gap falls in the guard band. No candidate violation appears, so the database and novelty gates are not triggered.
 
 ### `agx-survey-C31` — HOLD
 
