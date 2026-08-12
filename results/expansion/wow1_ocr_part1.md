@@ -96,3 +96,13 @@ in the source and was only page ornament/noise.
 The full inequality is clean on printed p.68.  It repairs the truncated OCR but
 not the absent definition of autocoordinates or Maxine's tie-order dependence.
 No faithful numerical reading can be assigned from the source.
+
+### wow-175 — SKIP_DEFINITION
+
+> mean of autocoordinates of Maxine of D2 <= n / average distance.
+
+Printed p.69 supplies the missing right side and confirms that the heading for
+connected graphs begins only at 176, so 175 has the previous unrestricted
+context.  Autocoordinates remain undefined in the primary document and Maxine
+is tie-order dependent; the recovered formula therefore cannot be evaluated
+without inventing the left-hand invariant.
