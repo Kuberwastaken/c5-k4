@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-207 — CORPUS-STATUS CONFLICT / HOLD
+
+> - smallest eigenvalue < the matching number. [FMS2]. October 88. James B. Shearer, October 88.
+
+The literal source text `-lambda_min(A) <= matching` duplicates proved WoW #43 and holds throughout the arsenal (`C5[K4]`: `3.472135...<=10`; complement: `6.472135...<=10`). The row's Aouchiche-Hansen-derived `refuted` label therefore cannot describe this literal transcription; it likely lost an ordinal such as `2-nd`. I do not claim a theorem contradiction.
+
 ### wow-206 — HOLD / NO ADDITIONAL WITNESS
 
 > 2-nd largest eigenvalue < the matching number. James B. Shearer, October 88.
