@@ -81,6 +81,34 @@ forever. **Three conjectures, one family, equality at m = 3 and violation
 at every m ≥ 4.** For 309 the cliff is even steeper: the family kills it
 for every k ≥ 3, with plain C₅ sitting at exact equality (3 ≤ 3).
 
+### The fifth kill — spawned by the carrier, executed by T(7)
+
+The family sweep of the L_s + b lower-bound group (conjectures 174–186)
+found the blow-ups **saturate that frontier without ever crossing it** —
+exactly tight on up to 23 of 30 family members per conjecture. But the
+saturation did two things. First, it **pinned the reading** of Conjecture
+181 (`L_s + b ≥ α + deg_avg(B(G²))`): of its two gate-surviving parses,
+only the deg_avg-measured-in-G² one is exactly tight on this carrier, and
+Graffiti.pc's tightness discipline doesn't emit slack-8 bounds. Second,
+it exposed the lever the blow-ups can't pull: the whole family has
+α = λ_max, and violating 181 needs **α > λ_max**.
+
+Feed that lever to a graph with tiny cliques and big independence — the
+**triangular graph T(7) = L(K₇)**, the strongly regular (21,10,5,4)
+graph — and 181 dies: diameter 2 makes G² = K₂₁ (deg_avg = 20), and
+exhaustive computation (every relevant subset, twice, by independent
+code) gives α = 3, b = 6, γ_c = 5 so L_s = 16. **LHS = 16 + 6 = 22 <
+23 = 3 + 20 = RHS.** The triangular graphs T(n) for n ≥ 7 are an
+infinite family of counterexamples with unboundedly growing margin
+(closed forms: α = ⌊n/2⌋, b = n or n−1, L_s = n(n−1)/2 − n + 2...,
+confirmed exhaustively through T(11)). The violation is
+**reading-dependent** (the in-G parse of deg_avg holds with slack 9) and
+is documented as such. As of 2026-08-12, **conjecture 181 is unclaimed**
+in formal-conjectures and absent from the literature burst.
+
+One graph killed four conjectures; its tightness frontier then aimed the
+next shot. Full analysis: [`results/family_forest.md`](results/family_forest.md).
+
 ### It would have killed eight more
 
 Sweeping the 139 WOWII conjectures that were *already refuted* by others:
