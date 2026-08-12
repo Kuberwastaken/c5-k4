@@ -577,4 +577,8 @@ Literal `size/2 <= n-alpha` is implausible on basic graphs; a radical or exponen
 
 Maximum consecutive Laplacian gap is below exact `n/average_distance`; `C5[K8]` gives about `13.9443 < 312/11`. Guard `1e-6` applied.
 
+### wow-234 — HOLD
+
+`n-rank(A) <= |E|/average_distance`; only the carrier complement has nonzero LHS of note: `15 <= 152/3`.
+
 <!-- NEXT -->
