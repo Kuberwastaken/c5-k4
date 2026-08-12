@@ -369,4 +369,8 @@ The odd-parity vector range is 0, at most the positive matching number.
 
 Standard normalized adjacency spectral deviation is at most exact `n/average_distance`; an unnormalized-sum parse fails DB sanity and is rejected.
 
+### wow-155 — SKIP_OCR
+
+Garble: `mean of autocoordinates of Maxine of D2 < the matching number.` The construction is undefined/order-dependent.
+
 <!-- NEXT -->
