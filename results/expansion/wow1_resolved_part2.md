@@ -164,3 +164,10 @@ named calibration graphs (complete graphs and Petersen are ties). Targeted
 searches recovered the historical `2C5` note but no publication of this
 connected infinite family. This is a provisionally novel retro-family, not a
 new disproof of an open conjecture.
+
+## wow-725 — SKIP_OCR
+
+**Status:** refuted (Aouchiche--Hansen survey). The statement uses reciprocals
+of coordinates of `Maxine`, an eigenvector try-out whose scaling, zero
+coordinates, and basis choice are not specified. No invariant reading can be
+certified from the record.
