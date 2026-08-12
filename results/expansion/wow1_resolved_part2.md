@@ -400,3 +400,10 @@ the named Petersen calibration graph is the only applicable campaign object.
 Constructing red pairs as distance-two nonedges gives red clique number four,
 while exhaustive counter-independent-set search in the complementary red graph
 gives at most two, so `4 >= 1+2`.
+
+## wow-880 — HOLD
+
+**Status:** refuted (WoW annotation). On the applicable cubic triangle-free
+Petersen graph, all ten vertices are connectors (non-cut vertices), while
+`alpha=4 <= 10/2=5`. Independent articulation-point and maximum-independent-
+set computations agree.
