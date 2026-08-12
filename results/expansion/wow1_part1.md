@@ -405,4 +405,8 @@ Degree mode is at most `|E|/average_distance` throughout; the alternative order 
 
 Minimum consecutive Laplacian-eigenvalue gap is 0 from multiplicities, below `n/alpha`.
 
+### wow-169 — HOLD
+
+Randić index is at most Laplacian rank `n-1` for every connected arsenal graph.
+
 <!-- NEXT -->
