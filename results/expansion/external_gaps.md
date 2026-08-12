@@ -158,3 +158,18 @@ statements total).  The two kills are lower-071 and lower-082 above.  The
 remaining 219 exact issue lines are retained in the corpus for subsequent
 mechanical evaluation; missing or nonstandard invariant semantics must be
 reported as `SKIP_UNDEFINED`, not guessed.
+
+## Graph Brain Hamiltonicity paper
+
+The author-hosted primary PDF [*New Conditions for Graph Hamiltonicity*](https://math1um.github.io/Research/r31.pdf)
+has a clean nine-page text layer (no OCR gaps or encoding warnings).  It gives
+Conjectures 7--12 explicitly.  I transcribed the six rows into
+`corpora/graphbrain_hamiltonicity.json`; Conjecture 8 is marked proved because
+the same paper proves it as Theorem 20.
+
+#### Hamiltonicity 7 — `HOLD_ARSENAL`
+
+Every connected bipartite distance-regular graph is conjectured Hamiltonian.
+Applicable named controls such as `K3,3`, cubes, and the Heawood graph have
+Hamilton cycles.  `C5[K4]` and its complement do not satisfy the full
+hypothesis.  No counterexample was found.
