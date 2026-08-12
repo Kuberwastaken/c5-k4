@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-23 — RETRO-VIOLATION — T(q), q≥7
+
+> rank of the adjacency matrix is not more than the rank of the distance Matrie. Even cycles Cy, n > 6 or more are counterecamples. James B. Shearer, Thomas J. Watson Research Center, Yorktown Heights, May 88. The counterexample is Ce (and all bigger even cyc...
+
+`T(7)=L(K7)` has adjacency rank 21 but distance-matrix rank 7, so it violates `rank(A) <= rank(D)`; generally `T(q)` has full adjacency rank `q(q-1)/2` while its distance matrix has rank `q`. This is a new witness to an already-refuted conjecture, not new mathematics. The closed-form spectra and an independent numerical rank computation agree.
+
 ### wow-22 — HOLD / NO ADDITIONAL WITNESS
 
 > Let e be the largest negative eigenvalue of a graph. Then -e is smaller or equal to the independence number. The Paley graph with 101 vertices 1s a counter-example. Noga Alon, Tel Aviv University and Bellcore. June 88. Alon and myself noticed that the conje...
