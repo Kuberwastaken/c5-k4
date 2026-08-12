@@ -22,10 +22,6 @@ import FormalConjecturesUtil
 *Reference:*
 [E. DeLaVina, Written on the Wall II, Conjectures of Graffiti.pc](http://cms.dt.uh.edu/faculty/delavinae/research/wowII/)
 
-Draft formulation in the google-deepmind/formal-conjectures house style.
-Not yet built against the repo; `evenHorizontal` is a proposed ForMathlib
-addition (companion to `SimpleGraph.distEven`, added in PR #4592).
-
 ## Counterexample
 
 The conjecture is false for the blown-up 5-cycles $C_5[K_k]$ for every
@@ -47,10 +43,77 @@ variable {V : Type} [Fintype V] [DecidableEq V]
 /-- `evenHorizontal G v` counts the edges of `G` whose two endpoints lie at
 the same even distance from `v` ("even horizontal edges" in DeLaVina's
 vocabulary). Proposed companion to `SimpleGraph.distEven`. -/
-noncomputable def evenHorizontal (G : SimpleGraph V) (v : V) : ℕ :=
+def evenHorizontal (G : SimpleGraph V) [DecidableRel G.Adj] (v : V) : ℕ :=
   (G.edgeFinset.filter fun e =>
-    Sym2.lift ⟨fun u w => G.dist v u = G.dist v w ∧ Even (G.dist v u),
-      fun u w => by simp [and_comm, eq_comm]⟩ e).card
+    let distances := e.toFinset.image (G.computable_dist v)
+    distances.card = 1 ∧ ∃ d ∈ distances, Even d).card
+
+/-- The maximum correction `dist_even(v) - even_horizontal(v)`. -/
+noncomputable def maxEvenCorrection (G : SimpleGraph V) [Nonempty V]
+    [DecidableRel G.Adj] : ℤ :=
+  (Finset.univ.image
+    (fun v => (G.distEven v : ℤ) - (evenHorizontal G v : ℤ))).max' (by simp)
+
+/-- The minimum complement-edge neighborhood-union order.  This is an option
+because a complete graph has no complement edge. -/
+def minComplementEdgeNeighborhood (G : SimpleGraph V) [DecidableRel G.Adj] : Option ℕ :=
+  ((Gᶜ.edgeFinset).image
+    (fun e => Sym2.lift ⟨fun u w =>
+      ((Gᶜ.neighborFinset u) ∪ (Gᶜ.neighborFinset w)).card,
+      fun u w => by
+        change ((Gᶜ.neighborFinset u) ∪ (Gᶜ.neighborFinset w)).card =
+          ((Gᶜ.neighborFinset w) ∪ (Gᶜ.neighborFinset u)).card
+        rw [Finset.union_comm]⟩ e)).min
+
+/-- The exact finite universal statement printed as WOWII 309. -/
+def conjecture309Statement : Prop :=
+  ∀ (V : Type) [Fintype V] [DecidableEq V] [Nonempty V]
+    (G : SimpleGraph V) [DecidableRel G.Adj], G.Connected → 2 < Fintype.card V →
+    ∀ mt ∈ minComplementEdgeNeighborhood G,
+      (G.totalDominationNumber : ℝ) ≤
+        ((maxEvenCorrection G : ℝ) + (mt : ℝ)) / 2
+
+namespace Counterexample
+
+/-- Vertices of the five four-vertex cliques. -/
+abbrev Vertex := Fin 5 × Fin 4
+
+/-- The carrier `C₅[K₄]`. -/
+def graph : SimpleGraph Vertex where
+  Adj u v := u ≠ v ∧
+    (u.1 = v.1 ∨ (SimpleGraph.cycleGraph 5).Adj u.1 v.1)
+  symm := by
+    rintro u v ⟨hne, h⟩
+    exact ⟨hne.symm, h.elim (fun h => Or.inl h.symm)
+      (fun h => Or.inr ((SimpleGraph.cycleGraph 5).symm h))⟩
+  loopless := by
+    intro v h
+    exact h.1 rfl
+
+instance : DecidableRel graph.Adj := fun u v =>
+  inferInstanceAs (Decidable (u ≠ v ∧
+    (u.1 = v.1 ∨ (SimpleGraph.cycleGraph 5).Adj u.1 v.1)))
+
+/-- Computable even-distance count for the finite certificate. -/
+def computableDistEven (G : SimpleGraph V) [DecidableRel G.Adj] (v : V) : ℕ :=
+  (Finset.univ.filter fun w => Even (G.computable_dist v w)).card
+
+lemma distEven_eq_computable (G : SimpleGraph V) [DecidableRel G.Adj] (v : V) :
+    G.distEven v = computableDistEven G v := by
+  simp only [SimpleGraph.distEven, computableDistEven, G.dist_eq_computable]
+
+lemma connected : graph.Connected := by native_decide
+
+lemma maxEvenCorrection_eq : maxEvenCorrection graph = -19 := by
+  unfold maxEvenCorrection
+  simp_rw [distEven_eq_computable]
+  native_decide
+
+lemma minComplementEdgeNeighborhood_eq :
+    minComplementEdgeNeighborhood graph = some 16 := by
+  native_decide
+
+end Counterexample
 
 /--
 WOWII [Conjecture 309](http://cms.dt.uh.edu/faculty/delavinae/research/wowII/)
@@ -64,17 +127,17 @@ $\bar G$). The answer is no, as witnessed by $C_5[K_3]$ and every larger
 blown-up 5-cycle.
 -/
 @[category research solved, AMS 5]
-theorem conjecture309 : answer(False) ↔
-    ∀ (V : Type) [Fintype V] [DecidableEq V]
-      (G : SimpleGraph V) (_h : G.Connected) (_hn : 2 < Fintype.card V),
-      letI maxTerm := (Finset.univ.image
-        (fun v => (G.distEven v : ℤ) - (evenHorizontal G v : ℤ))).max' (by simp)
-      letI minTerm := ((Gᶜ.edgeFinset).image
-        (fun e => Sym2.lift ⟨fun u w =>
-          ((Gᶜ.neighborFinset u) ∪ (Gᶜ.neighborFinset w)).card,
-          fun u w => by simp [Finset.union_comm]⟩ e)).min
-      ∀ mt ∈ minTerm,
-        (G.totalDominationNumber : ℝ) ≤ ((maxTerm : ℝ) + (mt : ℝ)) / 2 := by
-  sorry
+theorem conjecture309 : answer(False) ↔ conjecture309Statement := by
+  constructor
+  · intro h
+    exact h.elim
+  · intro h
+    have hbad := h Counterexample.Vertex Counterexample.graph
+      Counterexample.connected (by native_decide) 16
+      (by simp [Counterexample.minComplementEdgeNeighborhood_eq])
+    rw [Counterexample.maxEvenCorrection_eq] at hbad
+    have hnonneg : (0 : ℝ) ≤ Counterexample.graph.totalDominationNumber := by positivity
+    norm_num at hbad
+    linarith
 
 end WrittenOnTheWallII.GraphConjecture309
