@@ -13,6 +13,10 @@ Progress: **33/71** entries evaluated (70 strict-open + 1 open-in-full).
 
 ## Verdicts
 
+#### Correction to `agx-form1-T45-r31-lower` — HOLD
+
+The row is recoverable as `lambda1*ecc_avg >= sqrt(n-1)*(2-1/n)` (star equality). Direct distance/eigenvalue computation and the closed-form regular profiles agree that every arsenal graph holds with guarded positive slack. This supersedes the conservative SKIP_OCR note below after cross-row reconstruction of the table columns.
+
 #### Correction to `agx-form1-T45-r29-lower` — HOLD
 
 The row is recoverable as `lambda1+ecc_avg >= sqrt(n-1)+2-1/n` (star equality). Direct evaluation across the full arsenal and an independent use of the regular/blow-up spectra give HOLD; no gap is within `1e-6`. This supersedes the conservative SKIP_OCR note below after cross-row reconstruction of the table columns.
