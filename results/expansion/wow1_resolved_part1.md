@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-281 — HOLD WHERE APPLICABLE
+
+> maz (matching, mismatching) number of negative eigenvalues of Dis- tance. Michael J. Dinneen, Los Alamos National Laboratory and University of Victoria, Victoria, B.C (comp. 107.) August 91.
+
+The primary scan places this in the inherited girth-at-least-5 block. `T(q)` and the complement carrier (girth 3 and 4) are inapplicable. Cycles `C5` through `C9` and the named girth calibration graphs satisfy the distance-inertia bound; no additional witness arises.
+
 ### wow-265 — HOLD / NO ADDITIONAL WITNESS
 
 > 2- smallest eigenvalue < bichromatic number. Odile Favaron, Maryvonne Maho and Jean-Francois Scle. December, 89. SLZE
