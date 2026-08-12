@@ -573,4 +573,8 @@ Inherited regular hypothesis applies to all arsenal graphs. Exact evaluation of 
 
 Literal `size/2 <= n-alpha` is implausible on basic graphs; a radical or exponent was lost, so no reading is guessed.
 
+### wow-233 — HOLD
+
+Maximum consecutive Laplacian gap is below exact `n/average_distance`; `C5[K8]` gives about `13.9443 < 312/11`. Guard `1e-6` applied.
+
 <!-- NEXT -->
