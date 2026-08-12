@@ -93,6 +93,13 @@ Author-repository, issue-history, exact-formula, and broader invariant searches
 found no pre-existing counterexample.  This is a candidate new disproof; an
 executable certificate is prepared separately.
 
+### graphbrain-alpha-upper-009 — DB_REJECTED
+
+> `independence_number(x) <= floor(arctan(girth(x))^size(x))`
+
+The identical author-project reading already fails the mandatory small-graph gate on connected Graph Atlas graph `atlas:E?Fw`: `alpha=4` while the right side is `3`.  It is therefore a database-inconsistent/as-posted falsehood, not a new campaign counterexample.  The result was recomputed from the author invariant definitions; any undefined domain cases were excluded rather than coerced.
+
+
 ### graphbrain-alpha-upper-008 — HOLD_ARSENAL
 
 > `independence_number(x) <= ceil(e^(order(x)/min_degree(x)))`
