@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-59 — HOLD / NO ADDITIONAL WITNESS
+
+> Diameter is not more than the sum of positive eigenvalues. Disproved by Peter Puget
+
+The applicable arsenal satisfies the source-faithful inequality using the listed diameter, spectrum quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
 ### wow-58 — HOLD / NO ADDITIONAL WITNESS
 
 > - largest negative eigenvalue is not more than the number of centers. Disproved by Peter Puget
