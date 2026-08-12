@@ -94,3 +94,12 @@ computed as exact rationals.
 Adjacency eigenvalues were counted with the `1e-6` zero guard.  Every arsenal
 graph holds.  The carrier has 3 positive eigenvalues and positive-eigenvalue sum
 approximately `21.944272`; no comparison lies within the guard band.
+
+### wow-21 — HOLD
+
+> The number of negative eigenvalues of a graph is not more than the sum of its positive eigenvalues.
+
+Adjacency inertia uses the `1e-6` zero guard.  All arsenal graphs hold.  The
+carrier gives `17 <= 21.944272…`; its complement has only 2 genuinely negative
+eigenvalues (15 numerical zeroes are excluded), against positive sum
+`12.944272…`.  No near-boundary case arose.
