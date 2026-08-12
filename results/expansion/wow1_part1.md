@@ -237,4 +237,8 @@ All arsenal graphs satisfy `mu <= n-residue`; the closest small member gives `5 
 
 Distance-matrix variance is below 1.5, while `n-residue>=8` throughout the arsenal.
 
+### wow-100 — HOLD
+
+The even-distance vector is constant on every arsenal graph, so the maximum frequency is `n`, trivially at least `chi`.
+
 <!-- NEXT -->
