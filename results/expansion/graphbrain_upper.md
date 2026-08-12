@@ -93,6 +93,13 @@ Author-repository, issue-history, exact-formula, and broader invariant searches
 found no pre-existing counterexample.  This is a candidate new disproof; an
 executable certificate is prepared separately.
 
+### graphbrain-alpha-upper-061 — RETRO_KILL_AUTHOR_SOURCE
+
+> `independence_number(x) <= maximum(e^average_distance(x), max_degree(x)^2)`
+
+The author project's current graph-object source explicitly labels a graph as a counterexample to this exact formula.  The still-open issue line is stale; this is a retro-kill, not a novelty claim.
+
+
 ### graphbrain-alpha-upper-060 — HOLD_ARSENAL
 
 > `independence_number(x) <= maximum(max_even_minus_even_horizontal(x) + 1, -card_center(x) + size(x))`
