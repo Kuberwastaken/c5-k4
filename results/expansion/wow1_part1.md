@@ -205,4 +205,8 @@ Exact average distance is at most `31/13`, while the smallest inverse-temperatur
 
 For maximum independent sets the row invokes Chung's theorem; direct arsenal checks hold. The source distinguishes an all-maximal-set question and notes star failures of a stronger size reading.
 
+### wow-91 — HOLD
+
+Ordered distance-matrix variance is at most `1070/729`, below the smallest arsenal matching number 5.
+
 <!-- NEXT -->
