@@ -93,6 +93,13 @@ Author-repository, issue-history, exact-formula, and broader invariant searches
 found no pre-existing counterexample.  This is a candidate new disproof; an
 executable certificate is prepared separately.
 
+### graphbrain-alpha-upper-039 — HOLD_ARSENAL
+
+> `independence_number(x) <= maximum(max_even_minus_even_horizontal(x), matching_number(x) - 1)^different_degrees(x)`
+
+The source-faithful expression has no violation on all 996 connected nonempty Graph Atlas graphs through order 7 where defined, the named controls, or the campaign families and threshold complete graphs.  Real-valued comparisons obey the `1e-6` guard.  This is an arsenal hold, not a proof.
+
+
 ### graphbrain-alpha-upper-038 — HOLD_ARSENAL
 
 > `independence_number(x) <= maximum(max_degree(x), e^min_degree(x)/density(x))`
