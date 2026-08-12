@@ -171,3 +171,10 @@ new disproof of an open conjecture.
 of coordinates of `Maxine`, an eigenvector try-out whose scaling, zero
 coordinates, and basis choice are not specified. No invariant reading can be
 certified from the record.
+
+## wow-728 — NOT_APPLICABLE
+
+**Status:** proved (WoW annotation). This concerns Euclidean distance matrices
+of distinct planar point configurations, not graph-distance matrices. The
+campaign arsenal supplies no planar configuration realizing the required
+object, so graph substitution would change the statement.
