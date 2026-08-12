@@ -357,4 +357,8 @@ The minimum consecutive gravity-eigenvalue gap is 0 because of multiplicities. A
 
 Positive gravity inertia is at most matching number: cycle blow-ups have 3 positives; `T(n)` has `n`, still below its matching number.
 
+### wow-152 — HOLD
+
+Even- and odd-parity vectors are constant on every vertex-transitive arsenal graph, so both ranges are 0.
+
 <!-- NEXT -->
