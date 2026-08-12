@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-127 — HOLD / NO ADDITIONAL WITNESS
+
+> minimum degree < n / average distance. (comp. 62) Mekkia Kouider, L. R. I. University de Paris-Sud and Peter Winkler, Bellcore proved that the average distance < 3+ n/(1+ mindeg).
+
+The applicable arsenal satisfies the source-faithful inequality using the listed average_distance, degree, distance quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
+
 ### wow-124 — RETRO-VIOLATION — dense arsenal
 
 > size/2 < the rank of Laplacian. Disproved by s.f.
