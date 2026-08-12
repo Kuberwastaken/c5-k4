@@ -213,4 +213,8 @@ Ordered distance-matrix variance is at most `1070/729`, below the smallest arsen
 
 All plausible arsenal evaluations hold. The row itself reports that odd cycles above order 10 refute the strongest maximum-mode/maximum-set interpretation.
 
+### wow-93 — HOLD
+
+Exact average distances are at most their residues: `C9[K3]` gives `31/13 <= 3`, and `C5[K4]` gives `27/19 <= 2`.
+
 <!-- NEXT -->
