@@ -86,6 +86,12 @@ The applicable arsenal satisfies the source-faithful inequality using the listed
 
 The applicable arsenal satisfies the source-faithful inequality using the listed degree, radius quantities. This does not rehabilitate the conjecture: the row is already historically refuted, and the campaign simply found no additional witness among its carrier, triangular, complement, and named graphs.
 
+### wow-200 — PROVED_HOLD
+
+> The minimum positive eigenvalue < the Randic index. Odile Favaron, Maryvonne Maheo and Jean-Francois Sacle , proved that the conjecture is correct for all but certain for complete p-partite graphs. January 89.
+
+Direct evaluation of the applicable arsenal using the source hypotheses and the listed randic_index, spectrum quantities gives no violation. Exact combinatorial arithmetic is used where possible and spectral values are separated from equality by the `1e-6` guard. The campaign finds no contradiction to the proved status.
+
 ### wow-199 — PROVED_HOLD
 
 > - smallest eigenvalue < mean of E. [FMS2]. November 88.
