@@ -341,4 +341,8 @@ Variance of positive adjacency eigenvalues is at most `|E|/average_distance` thr
 
 Variance of positive adjacency eigenvalues is at most `|E|-mu` throughout; spectral guard applied.
 
+### wow-148 — HOLD
+
+Exact average distance is at most the harmonic index throughout the regular arsenal.
+
 <!-- NEXT -->
