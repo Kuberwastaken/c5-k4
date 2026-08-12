@@ -565,4 +565,8 @@ Inherited `girth>5` section hypothesis excludes every arsenal graph.
 
 `autocoordinates of resolution of Maxine` is undefined/order-dependent.
 
+### wow-231 — HOLD
+
+Inherited regular hypothesis applies to all arsenal graphs. Exact evaluation of `chi <= n/average_distance` holds; e.g. `C5[K8]` gives `20 <= 312/11`.
+
 <!-- NEXT -->
