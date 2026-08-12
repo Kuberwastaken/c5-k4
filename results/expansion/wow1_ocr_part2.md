@@ -16,7 +16,7 @@ where possible; spectral gaps at most `1e-6` are ties, and any ILP solve is
 capped at 60 seconds. A source statement that is recovered but restricted to an
 inapplicable construction is recorded as `N/A_ARSENAL`.
 
-Progress: 5 / 54.
+Progress: 6 / 54.
 ### wow-456 — N/A_ARSENAL
 
 PDF p.95: `The residue of the graph RP[2..n] is not more than pi(n).` The source cleanly restores `pi(n)` and identifies RP/residue definitions, but this is restricted to the number-theoretic RP construction; no arsenal graph is admissible.
@@ -32,4 +32,7 @@ PDF p.97: `frequency of minimum of rainbow <= pi(n)`, still under the Paley-grap
 ### wow-509 — N/A_ARSENAL
 
 PDF p.97: `mean rainbow <= frequency of maximum of eigenvalues of Laplacian`, under the Paley-graph heading. Source recovered; no admissible arsenal instance.
+### wow-515 — N/A_ARSENAL
+
+PDF p.98 restores the relation: `pi(n) <= sum of reciprocals of coordinates of a maximum clique.` It belongs to conjectures 494--536 about Paley graphs, so the arsenal is inapplicable.
 
