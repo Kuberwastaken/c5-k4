@@ -16,7 +16,7 @@ where possible; spectral gaps at most `1e-6` are ties, and any ILP solve is
 capped at 60 seconds. A source statement that is recovered but restricted to an
 inapplicable construction is recorded as `N/A_ARSENAL`.
 
-Progress: 24 / 54.
+Progress: 25 / 54.
 ### wow-456 — N/A_ARSENAL
 
 PDF p.95: `The residue of the graph RP[2..n] is not more than pi(n).` The source cleanly restores `pi(n)` and identifies RP/residue definitions, but this is restricted to the number-theoretic RP construction; no arsenal graph is admissible.
@@ -89,4 +89,7 @@ PDF p.101 restores `mean(Rainbow) <= size/independence`. As for 561, `mean(Rainb
 ### wow-634 — HOLD_READINGS
 
 PDF p.101, under the inherited condition `chi(complement G)=n-matching`: `inverse of coordinates of Maxine <= n/2`. The complement carrier is applicable. Maxine coordinates are eight 0s, eight 4s, and four 8s; the standard reciprocal sum over positive coordinates is `5/2 <= 10`. A literal reciprocal-of-zero reading is undefined, not a violation.
+### wow-638 — HOLD
+
+PDF p.102: `maximum(Rainbow) <= n/2`, under the 634--654 hypothesis. The complement carrier is applicable; its twin-class colorations give Rainbow values at most 2, versus `n/2=10`.
 
