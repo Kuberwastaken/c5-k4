@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 161 / 208.
+Progress: 162 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -1003,5 +1003,11 @@ The red/blue construction is parameterized by an absent property `P`. No guessin
 > "red clique number < number of blue isolated vertices + maximum of odd vertices."
 
 Both colored graphs and the `odd vertices` coordinate depend on missing surrounding definitions. No arsenal test is defined.
+
+### wow-842 — N/A_ARSENAL
+
+> "If G is a fullerene ..."
+
+Every arsenal graph fails the fullerene hypothesis (a fullerene is planar cubic with pentagonal/hexagonal faces). In particular `bar(C5[K4])` is 8-regular and has 80 edges, exceeding the planar bound `3n-6=54`.
 
 
