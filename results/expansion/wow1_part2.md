@@ -19,7 +19,7 @@ an independent second computation, and a novelty search. Exact rational
 arithmetic is used for degree/distance quantities; spectral comparisons have a
 `1e-6` guard. No ILP solve is allowed beyond 60 seconds.
 
-Progress: 47 / 208.
+Progress: 48 / 208.
 
 ### wow-450 — N/A_ARSENAL
 
@@ -319,5 +319,11 @@ The inherited 634--654 hypothesis is not met by the arsenal; the Dual Degree mea
 > "Randic < maximal frequency of coordinates of a maximum clique."
 
 The section hypothesis is not met by any established arsenal instance, and the maximum-clique coordinate convention is missing.
+
++### wow-647 — NON_UNIVERSAL / N/A
+
+> "there are graphs with chromatic number of complement of G / independence > residue of the complement."
+
+This is an existential assertion, not a universal wall that an arsenal graph can disprove. Failure of the displayed inequality on campaign members would not refute existence; no counterexample verdict is meaningful.
 
 
