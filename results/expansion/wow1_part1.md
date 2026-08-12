@@ -613,4 +613,8 @@ On the `K4`-free carrier complement, `|E|=80 <= sum Even=240`; row cites proof.
 
 Number of zero Maxine coordinates depends on unspecified algorithm/order; no robust invariant reading.
 
+### wow-248 — SKIP_OCR
+
+Maxine zero-coordinate count is order-dependent; row calls the maximum-independent-set repair obvious.
+
 <!-- NEXT -->
