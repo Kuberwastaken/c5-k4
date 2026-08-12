@@ -131,12 +131,26 @@ The sweep's whole point is knowing where the graph's reach ends:
   saved only by the graph's 260 triangles.
 - All tree-hypothesis sections (γ_t-of-trees, 34x, 35x–38x, 404–407) and
   bipartite-hypothesis conjectures: not applicable — the graph is neither.
-- **412f and 448b** appear violated under the literal transcription, but the
-  literal transcription is also violated by K₄ (412f, under DeLaViña's own
-  H-convention note) and by every Kₙ (448b) — graphs certainly in
-  Graffiti.pc's database. These are transcription/interpretation artifacts
-  until the original page wording says otherwise; they are **not** claimed
-  as kills. (Verification details in [`results/`](results/).)
+- **412f and 448b** appear violated under the literal statement — and I
+  audited the live page (2026-08-12): the transcription is
+  verbatim-faithful, so the weirdness is on DeLaViña's page itself. But
+  the literal statements are also violated by K₄ (412f, under DeLaViña's
+  own note that |H| = 0 for regular graphs of degree > n/2) and by every
+  Kₙ (448b) — graphs certainly in Graffiti.pc's database, which the
+  program checked before emitting conjectures. The published wording is
+  therefore presumed corrupted between Graffiti.pc's output and the page;
+  a "kill" of a page typo is empty, so these are **not** claimed.
+  (Verbatim page quotes and analysis in
+  [`results/transcription_audit.md`](results/transcription_audit.md).)
+- **Transcription-audit bonus**: the July community parse of the page
+  missed three open conjectures entirely (136, 137, 138 — the path(G)
+  sub-list, hidden by split HTML id cells). I recovered and evaluated
+  them: none violated; **137 is yet another exact tie**
+  (path = 4 = 4/p(Ḡ), the complement being Hamiltonian). The audit also
+  found the page itself moved on 2026-08-06: ten conjectures listed as
+  open in July are now marked resolved by others (proved: 141, 146, 178,
+  198a; refuted: 103, 174, 200, 209, 291, 300, and 391) — the WOWII race
+  is that fast right now.
 
 Everything else among the 220 open conjectures: holds, with margins
 recorded per-conjecture in the sweep data.
