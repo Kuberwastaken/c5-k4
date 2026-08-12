@@ -309,4 +309,8 @@ Vertex deficiency is constant on every regular vertex-transitive arsenal graph, 
 
 Direct exact evaluation gives `min deficiency <= |E|/average_distance` throughout the arsenal.
 
+### wow-132 — HOLD — historically proved
+
+Direct evaluation gives mean deficiency at most `|E|-mu`; the row cites `[FMS1]` and an equality characterization.
+
 <!-- NEXT -->
