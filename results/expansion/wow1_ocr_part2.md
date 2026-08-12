@@ -16,7 +16,7 @@ where possible; spectral gaps at most `1e-6` are ties, and any ILP solve is
 capped at 60 seconds. A source statement that is recovered but restricted to an
 inapplicable construction is recorded as `N/A_ARSENAL`.
 
-Progress: 45 / 54.
+Progress: 46 / 54.
 ### wow-456 — N/A_ARSENAL
 
 PDF p.95: `The residue of the graph RP[2..n] is not more than pi(n).` The source cleanly restores `pi(n)` and identifies RP/residue definitions, but this is restricted to the number-theoretic RP construction; no arsenal graph is admissible.
@@ -152,4 +152,7 @@ PDF p.107: `mean(dual degree)-mean degree <= scope(dual degree)`. Regularity aga
 ### wow-754 — HOLD
 
 PDF pp.120--121 fully defines the terminating chip-firing game (start with `m-1` chips at a center) and conjectures `chi(G)<=2s`, where `s` is the number of silent vertices. Direct legal firing to stabilization gives `s=19` on C5[K4], `s=8` on its complement, and 10/15/21 on T(7/8/9); exact colorings satisfy the bound. Alternative legal queues give the same firing counts, as the cited abelian property predicts.
+### wow-761 — HOLD
+
+PDF p.124: the smallest expanding coefficient is at most `1 + spectral measure of a largest clique`, with the Perron vector normalized to sum `n`. Taking the full vertex set in the restored coefficient definition gives coefficient 1 on every connected arsenal graph, while the right side is at least 1. Holds directly.
 
