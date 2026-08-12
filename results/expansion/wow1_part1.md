@@ -401,4 +401,8 @@ Garble: `maximum of autocoordinates of Maxine of the complement`. This represent
 
 Degree mode is at most `|E|/average_distance` throughout; the alternative order reading also holds.
 
+### wow-168 — HOLD
+
+Minimum consecutive Laplacian-eigenvalue gap is 0 from multiplicities, below `n/alpha`.
+
 <!-- NEXT -->
