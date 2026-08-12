@@ -42,6 +42,7 @@ are excluded rather than double-counted.
 | 6 | Erdős--Nešetřil strong chromatic-index bound | finite coloring predicate on squared line graphs | queued |
 | 7 | Tutte's nowhere-zero 5-flow conjecture | applies to bridgeless arsenal graphs and has an exact modular-flow predicate | queued |
 | 8 | Lovász vertex-transitive Hamilton-path conjecture | every main arsenal member is vertex-transitive; Hamilton paths are direct certificates | queued |
+| 9 | Hadwiger's clique-minor conjecture | carrier chromatic numbers exceed the proved small-colour cases, while explicit branch-set certificates are finite | queued |
 
 Other ranked source targets are not admissible for these fixed objects
 (trees, digraphs, planar cubic graphs, polytopes, hypergraphs, Latin squares,
@@ -211,4 +212,30 @@ Representative certificates are:
 These positive certificates rule out every arsenal object as a counterexample
 to the Hamilton-path conjecture. (They do not address the false Hamilton-cycle
 strengthening catalogued in the source.)
+
+### 9. Hadwiger clique minors — HOLD
+
+Hadwiger requires a `K_chi(G)` minor. Exact proper-colouring values/certificates
+from the Reed evaluation were paired with explicit disjoint connected branch
+sets; a separate verifier checked connectedness of every set and at least one
+cross-edge for every pair.
+
+The carrier family has a uniform, stronger certificate. In `C5[K_m]`, take
+the `m` singleton vertices of blob 4, `m` disjoint edges pairing blobs 2--3,
+and `m` disjoint edges pairing blobs 0--1. These `3m` branch sets are pairwise
+adjacent, hence give a `K_(3m)` minor, while `chi=ceil(5m/2) <= 3m`. For the
+original carrier this is a `K12` minor against `chi=10`.
+
+The remaining nontrivial certificates include:
+
+- `C7[K3]`, `chi=7`: `{0},{1},{2},{3,6},{4,7},{5,8},{9,12,15,18}`;
+- `C9[K3]`, `chi=7`: `{0},{1},{2},{3,6,9,12},{4,7,10,13},`
+  `{5,8,11,14},{15,18,21,24}`;
+- `T(7)`, `chi=7`: `{18,20},{17,19},{15,16},{12,13},{7,10},{6,9},{5,11}`;
+- `T(9)`, `chi=9`: nine replayed two-vertex branch sets.
+
+`T(8)`, the complement carrier, Petersen, `K3,3`, and `K4` likewise have
+replayed clique-minor certificates of the required order. Thus even the
+arsenal's above-theorem chromatic cases satisfy Hadwiger; there is no new
+disproof.
 
