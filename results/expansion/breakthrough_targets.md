@@ -45,6 +45,7 @@ are excluded rather than double-counted.
 | 9 | Hadwiger's clique-minor conjecture | carrier chromatic numbers exceed the proved small-colour cases, while explicit branch-set certificates are finite | queued |
 | 10 | Fan--Raspaud three-perfect-matching conjecture | exactly three named arsenal controls are bridgeless cubic graphs | queued |
 | 11 | Petersen-colouring conjecture | same three bridgeless cubic controls; edge-map certificates are finite | queued |
+| 12 | Dominating Cycle Conjecture | the cubic controls are admissible; a cycle is a direct certificate | queued |
 
 Other ranked source targets are not admissible for these fixed objects
 (trees, digraphs, planar cubic graphs, polytopes, hypergraphs, Latin squares,
@@ -274,4 +275,17 @@ These are the only cubic arsenal members. Direct replay checks cubicity,
 bridgelessness, the proper three-edge-colour partitions, and the local
 incident-edge condition. All applicable controls hold; the higher-degree
 carrier graphs cannot test this conjecture.
+
+### 12. Dominating Cycle Conjecture — HOLD on all applicable controls
+
+The source states that every cyclically 4-edge-connected cubic graph has a
+dominating cycle. `K4` and `K3,3` are Hamiltonian, so their Hamilton cycles
+dominate every edge. Petersen has the 9-cycle
+`(0,5,8,6,9,7,2,3,4)`; its sole outside vertex is `1`, hence the complement of
+the cycle is independent and the cycle is dominating.
+
+A separate replay checks simplicity and closure of each cycle and verifies
+that no edge has both endpoints outside it. Thus all applicable arsenal
+controls hold. The higher-degree carrier graphs do not satisfy the cubic
+hypothesis and cannot disprove this statement.
 
