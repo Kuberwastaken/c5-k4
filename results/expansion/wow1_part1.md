@@ -313,4 +313,8 @@ Direct exact evaluation gives `min deficiency <= |E|/average_distance` throughou
 
 Direct evaluation gives mean deficiency at most `|E|-mu`; the row cites `[FMS1]` and an equality characterization.
 
+### wow-133 — SKIP_OCR
+
+Garble: `Sum of reciprocals of components of twister < harmonic.` The invariant `twister` is undefined in the recovered material.
+
 <!-- NEXT -->
