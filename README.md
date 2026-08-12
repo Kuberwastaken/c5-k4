@@ -71,6 +71,11 @@ navigation of tightness walls into new graph families. Direct carrier kills,
 spawned counterexamples, retro-kills, and interpretation-dependent statements
 remain counted separately below.
 
+The full versioned development protocol is [`METHOD.md`](METHOD.md). It fixes
+the residual-wall workflow, theorem-shadow taxonomy, transformation catalogue,
+verification gates, outcome ledger, and the boundary between the current
+`formal-conjectures` development set and a future genuinely held-out test.
+
 ## The kills
 
 Among the 220 WOWII conjectures that were still open in July 2026, C₅[K₄]
