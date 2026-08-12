@@ -16,7 +16,7 @@ where possible; spectral gaps at most `1e-6` are ties, and any ILP solve is
 capped at 60 seconds. A source statement that is recovered but restricted to an
 inapplicable construction is recorded as `N/A_ARSENAL`.
 
-Progress: 28 / 54.
+Progress: 29 / 54.
 ### wow-456 — N/A_ARSENAL
 
 PDF p.95: `The residue of the graph RP[2..n] is not more than pi(n).` The source cleanly restores `pi(n)` and identifies RP/residue definitions, but this is restricted to the number-theoretic RP construction; no arsenal graph is admissible.
@@ -101,4 +101,7 @@ The primary image on PDF p.102 itself reads `minimum of Dual Degree  mean of Odd
 ### wow-652 — HOLD
 
 PDF p.103 separates the merged lines and gives `average distance <= inverse dual degree`. On the applicable complement carrier, dual degree is constantly 8, hence inverse dual degree is `20/8=5/2`, while average distance is `30/19`.
+### wow-656 — HOLD
+
+PDF p.103, under `sum(Even) <= sum(Odd)`: `size/independence <= sum of coordinates of a maximum clique`. The applicable C5[K_m] graphs have `alpha=2`, clique size `2m`, and degree `3m-1`; exact incidence counting proves the inequality for every `m` tested.
 
