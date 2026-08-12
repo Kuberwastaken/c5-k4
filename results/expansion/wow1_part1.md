@@ -53,3 +53,12 @@ Under both pair-distance conventions (unordered off-diagonal, or all
 distance-matrix coordinates), direct evaluation gives the claimed bound
 throughout the arsenal.  For `C5[K4]`, the pair mode is 1 (or 0/1 under matrix
 counting), while `rad+R=2+10=12`.  No candidate violation arose.
+
+### wow-8 — HOLD
+
+> mode of distance is not more than average distance + Randic index.
+
+Both plausible modal-distance conventions hold throughout the arsenal.  On
+`C5[K4]`, the left side is 1 (with a possible zero/one tie if diagonal entries
+are included) and the exact right side is `27/19+10=217/19`.  No candidate
+violation arose.
