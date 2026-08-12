@@ -16,7 +16,7 @@ where possible; spectral gaps at most `1e-6` are ties, and any ILP solve is
 capped at 60 seconds. A source statement that is recovered but restricted to an
 inapplicable construction is recorded as `N/A_ARSENAL`.
 
-Progress: 52 / 54.
+Progress: 53 / 54.
 ### wow-456 — N/A_ARSENAL
 
 PDF p.95: `The residue of the graph RP[2..n] is not more than pi(n).` The source cleanly restores `pi(n)` and identifies RP/residue definitions, but this is restricted to the number-theoretic RP construction; no arsenal graph is admissible.
@@ -173,4 +173,7 @@ PDF p.212 explicitly labels this a `false conjecture`: `red independence number 
 ### wow-885b — HOLD
 
 PDF p.212: for regular degree `d`, `blue clique number <= n/(d+1)`. The complement carrier has blue clique number 1 and gives `1 <= 20/9`; Petersen and K3,3 calibrations also hold.
+### wow-888 — HOLD_PLAUSIBLE_READING
+
+PDF p.213 introduces `a` as average distance but prints `m-1` in the conclusion, leaving a source-variable typo. Under the only contextual repair, `omega(blue) >= average_distance-1`, the complement carrier gives `1 >= 30/19-1=11/19`. The literal undefined-`m` reading is not an assertion.
 
