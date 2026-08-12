@@ -103,3 +103,17 @@ slack `560`. The carrier had odd-case slack `2144`; `T(7)` had even-case
 slack `1752`. All other tested slacks were larger. No candidate violation was
 generated, so the small-graph and independent-recompute gates were not
 triggered.
+
+### Reed's three open declarations — HOLD / NOT APPLICABLE
+
+For both the unrestricted and finite formulations I evaluated the exact slack
+`omega + Delta + 2 - 2 chi`. For `C5[K_m]`, the closed forms
+`chi = ceil(5m/2)`, `Delta = 3m-1`, and `omega = 2m` give slack `1` for even
+`m` and `0` for odd `m`. Thus the odd members are equality witnesses, not
+counterexamples. The slacks for `C7[K3]`, `C9[K3]`, `T(7)`, `T(8)`, `T(9)`,
+`comp(C5[K4])`, and Petersen are respectively `2, 2, 4, 7, 6, 6, 1`.
+Chromatic numbers were checked both from the standard multicoloring/edge-
+coloring formulas and by an independent exact coloring search on the tractable
+members. None of the arsenal graphs has the special hypotheses
+`Delta = 6` and `omega = 2`, so `reed_conjecture_Delta_6_omega_2` is not
+applicable. There is no violation to pass to the database gate.
