@@ -130,11 +130,21 @@ jobs:
             sleep $((attempt * 10))
           done
 
+      - name: Set up verifier Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12.9'
+
+      - name: Install verifier dependencies
+        shell: bash
+        run: python -m pip install --disable-pip-version-check networkx==3.2.1
+
       - name: Run exact verifier
+        working-directory: campaign
         shell: bash
         run: |
           set -euo pipefail
-          python3 "$GITHUB_WORKSPACE/campaign/$VERIFIER_PATH"
+          python3 "$VERIFIER_PATH"
 
       - name: Compile complete external certificate warning-clean
         working-directory: formal-conjectures
