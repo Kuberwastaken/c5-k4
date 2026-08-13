@@ -64,3 +64,31 @@ prediction, decides whether those three coordinate conditions actually hold.
 No commit, push, release, issue, PR, or other public action is authorized in
 this lane.
 
+## Exact outcome
+
+Only two of the thirteen `R=1` seeds had a vertex-orbit representative passing
+the frozen maximum-forest incidence test.  Their order-12 through order-16
+rays produced ten distinct transformed graphs.  All ten completed exact
+evaluation without a timeout or crossing:
+
+| quantity | outcome |
+|---|---:|
+| exact transformed graphs | 10 |
+| strict crossings | 0 |
+| slack 1 | 10 |
+| residual `R=4` | 10 |
+
+The predicted coordinate separation did not occur.  In every ray the maximum
+induced forest and maximum induced bipartite order grew almost in lockstep;
+the large false-twin class also increased path-cover fragmentation.  Across
+the two rays, the observed coordinate changes have the form
+
+```text
+Delta forest = Delta bipartite,
+Delta path_cover = Delta forest - 3,
+Delta R = +3.
+```
+
+Thus critical false-twin lifting moves away from the conjecture wall just as
+line-graph incidence closure did.  The frozen outcome is `HOLD_BOUNDED`, and
+the novelty/release gate was not triggered.
