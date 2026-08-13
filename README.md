@@ -146,6 +146,21 @@ that the frozen two-call network envelope could identify but not materialize
 locally. The exact receipts are in the
 [v1.3 pre-build failure record](results/benchmark/v1.3-prebuild-failure/README.md).
 
+[Method v1.4](METHOD_V1_4_BENCHMARK.md) fixed that final materialization
+defect and completed the sole preregistered production registry build against
+upstream commit `158727e43d3be335f902ac7ef6b9beb819e38c9d`. The result is a
+calibrating negative: all 728 current open question clusters had semantic or
+unknown exposure in the exact S0 corpus, so every stratum had zero eligible
+clusters. The run therefore terminated
+`NO_ELIGIBLE_BENCHMARK_PRE_C0` with no entropy, selection, C0, evaluation,
+retry, or repin. The complete two-call preflight, 15-source S0, six production
+registry artifacts, row-replayed `0/728` certificate, and F0A/F0T terminal
+attestation are preserved in the
+[v1.4 terminal record](results/benchmark/v1.4-f0a/README.md). This does not
+measure arm efficacy; it establishes that the current locally accumulated
+research corpus cannot serve as an uncontaminated held-out test under the
+frozen exclusion rule.
+
 The development record also publishes its zeroes. Method v0.2 found no
 crossing for #382e after 212,502 wall-directed substitutions, all connected
 order-eight graphs, and 20,000 unrestricted-weight samples; and no crossing
