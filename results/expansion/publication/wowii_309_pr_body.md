@@ -14,7 +14,7 @@ every `k >= 3`. The linked complete Lean certificate uses `C5[K4]`:
 
 The proposed bound is therefore `3 <= (-19 + 16)/2 = -3/2`.
 
-Closes #ISSUE_NUMBER.
+Closes #4931.
 
 ## Prior result and follow-up discovery pattern
 

@@ -78,9 +78,10 @@ Date: **2026-08-13 UTC**
   candidate dependency closure, and completed the full upstream
   warning-as-error corpus build.
 
-## Planned public records
+## Public records
 
-- Issue title: `Formalize the disproof of WOWII Conjecture 309`.
+- Issue: `https://github.com/google-deepmind/formal-conjectures/issues/4931`,
+  titled `Formalize the disproof of WOWII Conjecture 309`.
 - PR title: `WrittenOnTheWallII: disprove conjecture 309`.
 - The issue and PR bodies follow the 172/176 section order and include immutable
   certificate, audit, verifier, source-status, attribution, and AI-assistance
