@@ -1,4 +1,4 @@
-# Invariant-Wall Navigation: Development Method v0.8
+# Invariant-Wall Navigation: Development Method v0.9
 
 Programme-level execution order and maturity criteria are maintained in
 [`OVERARCHING_PLAN.md`](OVERARCHING_PLAN.md). This file is the detailed,
@@ -82,7 +82,12 @@ Before construction work:
 1. Record the upstream repository commit, file, declaration, source URL, and
    current `category`.
 2. Confirm no existing issue, PR, formal proof, accepted resolution, project
-   commit, tag, or release already covers the target.
+   commit, tag, or release already covers the target. This is two separate,
+   recorded audits:
+   - the current upstream repository, live issues/PRs, and primary literature;
+   - the complete local project history and theorem inventory at the exact
+     pre-freeze commit, including theorem statements whose filenames or lane
+     numbers differ from the proposed target.
 3. Recover the historical statement when the formalization is not itself the
    sole target.
 4. Enumerate every plausible reading before evaluating any preferred witness.
@@ -97,6 +102,11 @@ Before construction work:
    A scalar minimum or Boolean flag is insufficient: a premise-false stop must
    carry a replayable subset/vertex/edge witness, its eligibility calculation,
    the induced quantity, and the literal strict comparison.
+7. Record the local project commit, the exact search terms, and every plausible
+   covering theorem inspected. Before freezing a graph operation, instantiate
+   its output class against those theorem hypotheses. A source may remain
+   upstream-open while the entire proposed operation lies in a class already
+   proved locally; that is `KNOWN_PROOF_DOMAIN`, not prospective evidence.
 
 No reading may be changed after a candidate is found without preserving the
 old result and explaining the change in the log.
@@ -331,6 +341,11 @@ Every durable stage receives a sequential commit. Empty commits may retrigger a
 confirmed transient CI failure, but they are never evidence of mathematical
 progress.
 
+A quiet release page is not a reason to relax these gates. Releases are an
+outcome of a fully verified crossing, not a cadence target. Bounded holds,
+theorem shadows, gate failures, and protocol corrections are published as
+ordinary sequential commits; they never receive a counterexample release.
+
 ## Outcome ledger
 
 Every attempted target receives exactly one primary outcome:
@@ -370,7 +385,7 @@ inside already-published statements from collections already represented in
 `formal-conjectures`. Source recovery does not by itself make an unrelated
 corpus eligible. WoW I and Graph Brain results remain internal to `c5-k4` and
 must not be submitted upstream. This keeps the public research trail legible
-while Method v0.8 is refined.
+while Method v0.9 is refined.
 
 ### Wave A — known tight walls
 
@@ -422,6 +437,37 @@ No target already inspected, discussed, ranked, or searched in this repository
 will be counted as held out.
 
 ## Method changelog
+
+### v0.9 — 2026-08-13
+
+- Makes the **local theorem-domain audit** an explicit part of Phase 0. The
+  WOWII 133 Petersen-splice family was numerically evaluated only because its
+  contract missed this repository's earlier `cubicSpecialization` theorem,
+  which covers every connected cubic output. The trial is therefore retained
+  as `PROTOCOL_DEVIATION` with zero scoreable evaluations, despite its correct
+  numerical table. Future contracts record the pre-freeze project commit,
+  search terms, inspected theorem statements, and an explicit hypothesis check
+  against the proposed output class.
+- Records the first current-manifest target-ranking pass: 79 finite-graph open
+  declarations across 57 modules, 26 subtracted as attempted or closed, and
+  53 remaining before suitability filtering. Ranking is a Phase-0 product and
+  does not authorize a development family.
+- Records the Alon--Tarsi short-cycle-cover development cluster. Petersen and
+  a two-Petersen sum are exact `7/5` walls. A complete reverse two-switch trial
+  produced 16 safe and two equality children; a forward trial stopped honestly
+  at the external cap. Independently, twelve fixed-edge subdivisions obeyed
+  `scc=21+t`, yielding an all-parameter theorem shadow rather than a crossing.
+- Records the private-leaf cone closure: 246,854 frozen quotient rows contained
+  zero crossings and 82 equalities, and the square-gap argument proves both
+  parity inequalities on the entire operation class in warning-clean Lean.
+- Treats a failed microfixture as a terminal gate outcome even when a derived
+  residual happens to agree. The WOWII 133 distance-three-fold contract had an
+  incorrect `C4` local-independence value and therefore stopped at `GATE_FAIL`
+  before constructing or profiling a single development graph.
+- States explicitly that release frequency is not an optimization objective.
+  Only a source-faithful, novel, independently replayed, warning-clean Lean
+  disproof may create a counterexample release. Negative trials and theorem
+  closures remain visible through sequential commits instead.
 
 ### v0.8 — 2026-08-13
 
