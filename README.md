@@ -81,24 +81,33 @@ end as bounded holds with sharply stated theorem signals, not inflated truth
 claims. See [`method_v02_382e.md`](results/expansion/method_v02_382e.md) and
 [`method_v02_61.md`](results/expansion/method_v02_61.md).
 
-The workflow now has an explicit **proof-extraction** side as well. For WOWII
-#133, successive warning-clean no-`sorry` Lean bridges now close the corrected
-**cubic C4-free specialization**, including both local-average floor identities
-and the triangle-free/non-triangle-free path split. The noncubic conjecture
-remains open, but the next reduction is also formal: C4-free neighborhoods are
-matchings plus isolates, their independence and edge counts add to the degree,
-and triangle incidence is counted exactly. The remaining Lean bridge is the
-explicit neighborhood-edge/triangle bijection. For WOWII #183, attempts to
-explain a persistent wall have
-produced exact countermodels to tempting auxiliary lemmas and no-`sorry` Lean
-proofs of two replacement tiers: a distance-three pair with `gamma_c>=3`
-forces `b>=5`, while `gamma_c>=4` forces `b>=6`. The proposed two-neighbor
-retention lemma is false, but its failure exposed a stronger universal budget
-theorem `gamma_c(G) <= b(G-N(x))`. The remaining high tier is reduced exactly
-to finding one clean attachment vertex or one parity-compatible pair in a
-small conflict graph. These are partial theorem results, not extra “kills”;
-their failed rungs and surviving obligations are committed alongside the
-proofs.
+The workflow now has an explicit **proof-extraction** side as well. Active
+development is restricted to WOWII declarations present in the current
+`formal-conjectures` corpus; the WoW I, Graph Brain, AutoGraphiX, and
+TxGraffiti sweeps below are retained as completed historical audits, not as
+DeepMind work queues.
+
+The current no-`sorry`, warning-clean Lean ladder includes:
+
+- **#133:** the corrected cubic C4-free specialization, matching-neighborhood
+  identities, an explicit neighborhood-edge/triangle bijection, and the
+  unconditional C4-free identity `l=(2m-3t)/n`; only the remaining noncubic
+  graph inequality is open.
+- **#19:** an explicit induced-bipartite star witness, attainment of the local
+  finite supremum, and the exact non-self-centered eccentricity/floor
+  reduction; the remaining obligation is purely combinatorial.
+- **#40:** the source baseline `B+2<=2f` and the complete `pathCoverNumber=1`
+  branch; the unrestricted residual is `pathCoverNumber-1<=2f-(B+2)`.
+- **#61:** an exact loss-budgeted Havel--Hakimi lifting theorem and a graphical
+  paw/C4 certificate showing why naive successor induction fails.
+- **#183:** attachment-clique and outside-budget transfer lemmas. A subsequent
+  audit proved that the first rooted-trunk interface was inconsistent on
+  singleton components, so that conditional was vacuous; the repository now
+  records the formal diagnosis and a corrected nontrivial-component boundary.
+
+These are theorem-extraction checkpoints, not extra “kills.” Failed rungs,
+countermodels, repaired interfaces, and surviving obligations are committed
+alongside the successful proofs so the research trail remains auditable.
 
 The newest prospective non-metric trial, WOWII #179, also demonstrates the
 stop discipline. Its split-clique family was frozen before evaluation, and a
@@ -463,12 +472,11 @@ periphery = M = A = V, G² = Kₙ, H = ∅, maxine = α). Any conjecture that
 lower-bounds a pinned invariant by a growing term, or feeds a collapsed
 set into a correction term, is in the kill zone.
 
-The corollary that guides targeting: this graph murders
-**machine-generated conjectures with finite verification databases** —
-no automated conjecturer's database ever contained a dense
-vertex-transitive diameter-2 graph past n ≈ 15 — but it is nearly
-useless against human conjectures, because humans sanity-check dense
-regular graphs instinctively. Ranked targets:
+The corollary that guides targeting is narrower: finite verification databases
+can undersample dense, highly symmetric families beyond the orders used during
+conjecture generation. `C₅[K₄]` is therefore productive against several
+machine-generated invariant inequalities, but the completed human-conjecture
+audit below shows no comparable reach. Ranked targets:
 
 1. **WOWII — full carrier sweep complete; structural follow-up active** (this
    repo, as of 2026-08-12): open sweep (223 incl. 3 recovered), refuted sweep
