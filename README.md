@@ -81,6 +81,18 @@ end as bounded holds with sharply stated theorem signals, not inflated truth
 claims. See [`method_v02_382e.md`](results/expansion/method_v02_382e.md) and
 [`method_v02_61.md`](results/expansion/method_v02_61.md).
 
+The latest frozen portfolio round is likewise fully visible. Newly specified
+families for #198a, #145/#146, #291, #314, #160, and #34 produced **zero new
+crossings**. The #145/#146 data instead exposed a strong candidate theorem
+wall, while #314 stopped on prior art. A planned #200 trial was halted before
+its first graph evaluation because the novelty gate found an existing claimed
+counterexample and complete Lean certificate. Those results narrow the next
+prospective round to the live-looking #19, #40, #61, and #133 clusters, using
+newly frozen transformations rather than retuning a failed family. The exact
+contracts, ledgers, stop reasons, and bounded-hold reports are under
+[`results/expansion/`](results/expansion/); the current portfolio and its
+scope limits are summarized in [`OVERARCHING_PLAN.md`](OVERARCHING_PLAN.md).
+
 The workflow now has an explicit **proof-extraction** side as well. Active
 development is restricted to WOWII declarations present in the current
 `formal-conjectures` corpus; the WoW I, Graph Brain, AutoGraphiX, and
@@ -191,18 +203,13 @@ The current no-`sorry`, warning-clean Lean ladder includes:
   eliminates every aggregate multiplicity profile, including the former Latin
   survivor. The sole remaining splice translates failure of a clean handle
   into an internal early-target blocker selection.
-- **#141:** an unconditional proof through girth seven, plus a fully verified
-  two-vertex-tail assembly for girth eight/nine. The exceptional-root forest,
-  distance-three witness, final chord exclusion, and second-leaf packaging are
-  all formal. The exact conjecture is now proved unconditionally for every
-  connected finite graph of girth at most nine. For girth ten/eleven, the exact
-  third-leaf assembly and chordless distance-four prefix are formal. The
-  radius-three BFS certificate is reduced to a cycle-peak property; simple-
-  cycle cutting, canonical last-common-root-path selection, and shortest-path
-  closing-edge exclusion are now formal. Equal-layer adjacent endpoints yield
-  the required bounded simple cycle, and every BFS layer through radius three
-  is therefore independent at girth at least eight. The remaining substantive
-  cycle-peak condition is unique parenthood between consecutive layers.
+- **#141:** the exact conjecture is now proved in warning-clean, no-`sorry`
+  Lean for every connected finite graph of girth at most fifteen. The ladder
+  constructs chordless geodesic prefixes and unique-leaf induced-tree
+  extensions through distance six, with the exact local-independence
+  arithmetic packaged back into the source inequality. This is preserved as
+  reusable theorem extraction, not counted as a new resolution: the
+  historical conjecture was already proved by others.
 - **#183:** corrected attachment selection, connected domination, component
   folding, local-to-global budget accounting, exact singleton branches, and
   bipartite/tree component witness adapters. The old vacuous interface remains
