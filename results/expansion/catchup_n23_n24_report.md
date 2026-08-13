@@ -53,3 +53,35 @@ No counterexample, strategy certificate, Lean disproof, issue, PR, or release
 is authorized. The useful method outcome is operational: semantics-preserving
 state normalization can turn a resource bracket into a scoreable exact row,
 while the unchanged cap still produces an honest unknown at the next order.
+
+## Independent semantics audit
+
+A separate read-only audit reconstructed the reduction from DeepMind's
+`CatchUp.valueAux` recurrence rather than relying on the optimized solver's
+implementation. For every admitted post-opening state, translation invariance
+reduces `(moves, me, me + deficit, false)` to `(mask, deficit)`. A move smaller
+than the deficit preserves the player and subtracts the move; a move at least
+the deficit swaps the players, negates the recursive value, and replaces the
+deficit by the overshoot. The opening move therefore has value
+`-P(full \\ {x}, x)`, exactly as implemented.
+
+The audit also checked the packed key and flat hash table. For `N <= 24`, the
+mask uses at most 24 bits and the deficit is at most 300, so
+`(mask << 9) | deficit` is injective and fits below `2^33`; the `key + 1`
+sentinel cannot wrap. Remaining sums fit in `uint16_t`, and the admitted shifts
+fit in `uint32_t`. A 100,000-key stress test across repeated rehashes returned
+every inserted value.
+
+As an algorithmically independent control, a direct Python translation kept
+the absolute `(me, opponent, firstMove)` Lean state rather than the normalized
+C++ state. It reproduced the source draws through `N=16` and at `N=19`; the
+`N=19` row used 4,827,759 cached states and completed in 23.12 seconds. The C++
+binary was also rebuilt with `-O3 -Wall -Wextra -Werror` and independently
+replayed the frozen calibration subset through `N=20` under the same cap.
+
+The audit verdict is **valid for the frozen `N <= 24` workflow contract**. Its
+only hardening notes are outside the admitted CLI path: constructor validation
+occurs after fixed-input initializers, a theoretical `vector::length_error`
+would be classified as unexpected rather than resource exhaustion, and a
+`bad_alloc` event omits `n` from that individual JSON row. None changes the
+reported `N=23` result or `N=24` bracket.
