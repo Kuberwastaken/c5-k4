@@ -102,6 +102,14 @@ the fixed cap, so the trial is recorded as `TIMEOUT_BRACKET`: the remaining
 controls and the grid are not silently run, and the family identity is not
 promoted into a successful trial outcome.
 
+Method v0.5 applied the same discipline to WOWII #305. Both exact
+implementations completed the 1,079-row gate, but the final audit found that
+the preregistered `C5[K2]` calibration had silently excluded the endpoints of
+a complement edge even though the frozen reading includes them. The observed
+calibration is `M=8, R305=3`, not `M=6, R305=1`. The gate therefore fails and
+the 28 rows mistakenly unlocked before the assertion was added are preserved
+as `EXCLUDED_PROTOCOL_VIOLATION`, not promoted to a bounded hold.
+
 For navigating the full development record, [`GRAPH_REPORT.md`](graphify-out/GRAPH_REPORT.md)
 summarizes a generated project knowledge graph and `graphify-out/graph.html`
 provides its static interactive viewer. This map is an index, not mathematical
