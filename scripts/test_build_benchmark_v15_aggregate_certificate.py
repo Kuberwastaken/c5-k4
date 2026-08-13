@@ -10,6 +10,7 @@ import subprocess
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 
 SCRIPT = Path(__file__).with_name("build_benchmark_v15_aggregate_certificate.py")
@@ -40,8 +41,26 @@ class AggregateCertificateTests(unittest.TestCase):
         self.chronology_path = self.write("chronology.json", self.chronology())
         self.registry_path = self.write("private-registry.json", self.registry())
         self.manifest_path = self.write("components.json", self.manifest())
+        ref = A.relative_ref(self.manifest_path, "fixture")
+        binding = {"p1a": ref, "p1t": ref, "p1a_commit": self.commit, "p1t_commit": self.commit}
+        frozen = {
+            "registry": {key: dict(ref) for key in ("executable", "policy", "schema", "invocation_contract")},
+            "classification": {"policy": dict(ref)}, "grouping": {"policy": dict(ref)},
+            "syntax_pool": {"executable": dict(ref)},
+            "provenance": {key: dict(ref) for key in ("classifier", "identity_join", "ontology", "ledger_schema", "content_pack_schema")},
+        }
+        self.auth_patch = mock.patch.object(A, "authenticate_p1", return_value=({}, {}, binding))
+        self.real_load_components = A.load_components
+        self.components_patch = mock.patch.object(A, "load_components", return_value=(frozen, {}))
+        self.real_bind_runtime_inputs = A.bind_runtime_inputs
+        self.runtime_patch = mock.patch.object(A, "bind_runtime_inputs", return_value={
+            "provenance_ledgers": [{"position": 0, "file_sha256": H, "ledger_sha256": H}],
+            "provenance_content_pack_sha256": H,
+        })
+        self.auth_patch.start(); self.components_patch.start(); self.runtime_patch.start()
 
     def tearDown(self) -> None:
+        self.runtime_patch.stop(); self.components_patch.stop(); self.auth_patch.stop()
         self.temp.cleanup()
 
     def git(self, *args: str) -> str:
@@ -169,7 +188,11 @@ class AggregateCertificateTests(unittest.TestCase):
         }
 
     def build(self) -> dict:
-        return A.build_certificate(self.chronology_path, self.registry_path, self.manifest_path)
+        return A.build_certificate(
+            self.chronology_path, self.registry_path, self.manifest_path,
+            self.manifest_path, self.manifest_path, self.commit,
+            [self.manifest_path], self.manifest_path,
+        )
 
     def resign(self, certificate: dict) -> dict:
         certificate["certificate_sha256"] = A.unsigned_digest(certificate)
@@ -252,7 +275,10 @@ class AggregateCertificateTests(unittest.TestCase):
 
     def test_exact_byte_isolated_replay_passes_and_cached_or_wrong_tree_fails(self) -> None:
         certificate = self.build()
-        attestation = A.replay_certificate(certificate, self.chronology_path, self.registry_path, self.repo)
+        attestation = A.replay_certificate(
+            certificate, self.chronology_path, self.registry_path, self.repo,
+            [self.manifest_path], self.manifest_path,
+        )
         A.validate_schema(attestation, A.ATTESTATION_SCHEMA_PATH, "replay attestation")
         self.assertEqual(attestation["certificate_sha256"], certificate["certificate_sha256"])
         self.assertEqual(attestation["private_registry_sha256"], A.sha256_file(self.registry_path))
@@ -264,12 +290,12 @@ class AggregateCertificateTests(unittest.TestCase):
         tampered = self.root / "tampered-registry.json"
         tampered.write_bytes(self.registry_path.read_bytes() + b" ")
         with self.assertRaisesRegex(A.CertificateError, "exact-byte deterministic"):
-            A.replay_certificate(certificate, self.chronology_path, tampered, self.repo)
+            A.replay_certificate(certificate, self.chronology_path, tampered, self.repo, [self.manifest_path], self.manifest_path)
         bad = copy.deepcopy(certificate)
         bad["upstream"]["formal_conjectures_tree"] = "0" * 40
         self.resign(bad)
         with self.assertRaisesRegex(A.CertificateError, "FormalConjectures tree"):
-            A.replay_certificate(bad, self.chronology_path, self.registry_path, self.repo)
+            A.replay_certificate(bad, self.chronology_path, self.registry_path, self.repo, [self.manifest_path], self.manifest_path)
 
     def test_registry_unsigned_projection_mutation_is_rejected(self) -> None:
         registry = self.registry()
@@ -278,16 +304,86 @@ class AggregateCertificateTests(unittest.TestCase):
         with self.assertRaisesRegex(A.CertificateError, "unsigned projection"):
             self.build()
 
+    def test_actual_ledger_set_and_content_pack_bytes_are_sealed(self) -> None:
+        ledger = {
+            "schema": "c5k4-method-v1.5-provenance-ledger-1.0",
+            "status": "CLASSIFIED_COMPLETE", "ledger_id": "fixture-ledger",
+            "created_at_utc": "2026-08-17T00:17:00Z",
+            "source_snapshot_sha256": H, "source_id": "fixture", "ontology_sha256": H,
+            "units": [], "counts": {
+                "SEMANTIC_EXPOSURE": 0, "MACHINE_REGISTRY_CONTACT": 0,
+                "IMMUTABLE_SOURCE_CUSTODY": 0, "UNKNOWN": 0,
+            }, "source_complete": True, "fail_closed": False,
+        }
+        ledger["ledger_sha256"] = A.future_registry.identity_hits.content_address(ledger, "ledger_sha256")
+        ledger_path = self.write("actual-ledger.json", ledger)
+        pack_path = self.write("actual-pack.json", {
+            "schema": "c5k4-method-v1.5-private-provenance-content-pack-1.0",
+            "publication_permitted": False, "entries": [],
+        })
+        internal = self.registry()
+        internal["inputs"].update({
+            "provenance_ledger_0_sha256": A.sha256_file(ledger_path),
+            "provenance_content_pack_sha256": A.sha256_file(pack_path),
+        })
+        runtime = {
+            "provenance_ledgers": {"item_schema": A.relative_ref(
+                A.ROOT / "schemas/benchmark-provenance-ledger-v1.5.schema.json", "ledger schema"
+            )},
+            "provenance_content_pack": {"schema": A.relative_ref(
+                A.ROOT / "schemas/benchmark-private-provenance-content-pack-v1.5.schema.json", "pack schema"
+            )},
+        }
+        sealed = self.real_bind_runtime_inputs(internal, [ledger_path], pack_path, runtime)
+        self.assertEqual(sealed["provenance_ledgers"][0]["file_sha256"], A.sha256_file(ledger_path))
+        internal["inputs"]["provenance_content_pack_sha256"] = "0" * 64
+        with self.assertRaisesRegex(A.CertificateError, "content-pack bytes"):
+            self.real_bind_runtime_inputs(internal, [ledger_path], pack_path, runtime)
+
+    def test_selector_manifest_resolves_only_authenticated_p1_roles(self) -> None:
+        manifest_path = A.ROOT / "results/benchmark/v1.5-protocol/checkpoint-component-manifest.json"
+        native_paths = {
+            "future_cohort_builder": "scripts/build_benchmark_v15_future_cohort.py",
+            "future_cohort_rule": "results/benchmark/v1.5-protocol/future-cohort-rule.json",
+            "future_registry_output_schema": "schemas/benchmark-future-registry-output-v1.5.schema.json",
+            "checkpoint_invocation_contract": "results/benchmark/v1.5-protocol/checkpoint-invocation-contract.json",
+            "provenance_classifier": "scripts/classify_benchmark_provenance_v15.py",
+            "identity_hits_builder": "scripts/build_benchmark_v15_identity_hits.py",
+            "provenance_ontology": "results/benchmark/v1.5-protocol/provenance-ontology.json",
+            "provenance_ledger_schema": "schemas/benchmark-provenance-ledger-v1.5.schema.json",
+            "provenance_content_pack_schema": "schemas/benchmark-private-provenance-content-pack-v1.5.schema.json",
+            "checkpoint_component_manifest": "results/benchmark/v1.5-protocol/checkpoint-component-manifest.json",
+            "checkpoint_component_manifest_schema": "schemas/benchmark-checkpoint-component-manifest-v1.5.schema.json",
+        }
+        inherited_paths = {
+            "five_strata_classifier": "results/benchmark/v1.4-protocol/five-strata-classifier.json",
+            "grouping_rule": "results/benchmark/v1.4-protocol/grouping-rule.json",
+            "syntax_pool_builder": "scripts/build_benchmark_v14_pool.py",
+        }
+        p1a = {
+            "components": {key: A.relative_ref(A.ROOT / path, key) for key, path in native_paths.items()},
+            "inherited_v1_4": {"components": {
+                key: A.relative_ref(A.ROOT / path, key) for key, path in inherited_paths.items()
+            }},
+        }
+        components, runtime = self.real_load_components(manifest_path, p1a)
+        self.assertEqual(components["syntax_pool"]["executable"]["path"], "scripts/build_benchmark_v14_pool.py")
+        self.assertEqual(runtime["provenance_ledgers"]["minimum_items"], 1)
+        p1a["components"]["future_cohort_builder"] = p1a["components"]["provenance_classifier"]
+        changed, _ = self.real_load_components(manifest_path, p1a)
+        self.assertEqual(changed["registry"]["executable"], p1a["components"]["provenance_classifier"])
+        self.assertNotEqual(changed["registry"]["executable"], components["registry"]["executable"])
+
     def test_component_and_chronology_bindings_are_exact(self) -> None:
         certificate = self.build()
         bad = copy.deepcopy(certificate)
         bad["frozen_components"]["registry"]["executable"]["sha256"] = "0" * 64
         self.resign(bad)
-        with self.assertRaisesRegex(A.CertificateError, "registry.executable bytes"):
-            A.replay_certificate(bad, self.chronology_path, self.registry_path, self.repo)
+        with self.assertRaisesRegex(A.CertificateError, "P1-resolved components"):
+            A.replay_certificate(bad, self.chronology_path, self.registry_path, self.repo, [self.manifest_path], self.manifest_path)
         other = self.write("other-chronology.json", self.chronology())
         with self.assertRaisesRegex(A.CertificateError, "path differs"):
-            A.replay_certificate(certificate, other, self.registry_path, self.repo)
+            A.replay_certificate(certificate, other, self.registry_path, self.repo, [self.manifest_path], self.manifest_path)
 
 
 if __name__ == "__main__":

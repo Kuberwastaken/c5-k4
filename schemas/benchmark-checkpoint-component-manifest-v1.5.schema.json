@@ -1,0 +1,109 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-checkpoint-component-manifest-v1.5.schema.json",
+  "title": "Method v1.5 checkpoint component selectors",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "authority", "components", "runtime_inputs"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-checkpoint-component-manifest-1.0"},
+    "authority": {"const": "RESOLVE_ONLY_THROUGH_AUTHENTICATED_P1"},
+    "components": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["registry", "classification", "grouping", "syntax_pool", "provenance"],
+      "properties": {
+        "registry": {
+          "type": "object", "additionalProperties": false,
+          "required": ["executable", "policy", "schema", "invocation_contract"],
+          "properties": {
+            "executable": {"$ref": "#/definitions/native/future_cohort_builder"},
+            "policy": {"$ref": "#/definitions/native/future_cohort_rule"},
+            "schema": {"$ref": "#/definitions/native/future_registry_output_schema"},
+            "invocation_contract": {"$ref": "#/definitions/native/checkpoint_invocation_contract"}
+          }
+        },
+        "classification": {
+          "type": "object", "additionalProperties": false,
+          "required": ["policy"],
+          "properties": {"policy": {"$ref": "#/definitions/inherited/five_strata_classifier"}}
+        },
+        "grouping": {
+          "type": "object", "additionalProperties": false,
+          "required": ["policy"],
+          "properties": {"policy": {"$ref": "#/definitions/inherited/grouping_rule"}}
+        },
+        "syntax_pool": {
+          "type": "object", "additionalProperties": false,
+          "required": ["executable"],
+          "properties": {"executable": {"$ref": "#/definitions/inherited/syntax_pool_builder"}}
+        },
+        "provenance": {
+          "type": "object", "additionalProperties": false,
+          "required": ["classifier", "identity_join", "ontology", "ledger_schema", "content_pack_schema"],
+          "properties": {
+            "classifier": {"$ref": "#/definitions/native/provenance_classifier"},
+            "identity_join": {"$ref": "#/definitions/native/identity_hits_builder"},
+            "ontology": {"$ref": "#/definitions/native/provenance_ontology"},
+            "ledger_schema": {"$ref": "#/definitions/native/provenance_ledger_schema"},
+            "content_pack_schema": {"$ref": "#/definitions/native/provenance_content_pack_schema"}
+          }
+        }
+      }
+    },
+    "runtime_inputs": {
+      "type": "object", "additionalProperties": false,
+      "required": ["private_registry", "provenance_ledgers", "provenance_content_pack"],
+      "properties": {
+        "private_registry": {
+          "type": "object", "additionalProperties": false, "required": ["schema"],
+          "properties": {"schema": {"$ref": "#/definitions/native/future_registry_output_schema"}}
+        },
+        "provenance_ledgers": {
+          "type": "object", "additionalProperties": false,
+          "required": ["item_schema", "minimum_items", "registry_input_key_pattern", "ordering"],
+          "properties": {
+            "item_schema": {"$ref": "#/definitions/native/provenance_ledger_schema"},
+            "minimum_items": {"const": 1},
+            "registry_input_key_pattern": {"const": "provenance_ledger_{zero_based_index}_sha256"},
+            "ordering": {"const": "COMMAND_LINE_OCCURRENCE_ORDER"}
+          }
+        },
+        "provenance_content_pack": {
+          "type": "object", "additionalProperties": false,
+          "required": ["schema", "registry_input_key"],
+          "properties": {
+            "schema": {"$ref": "#/definitions/native/provenance_content_pack_schema"},
+            "registry_input_key": {"const": "provenance_content_pack_sha256"}
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "selector": {
+      "type": "object", "additionalProperties": false,
+      "required": ["closure", "role"],
+      "properties": {
+        "closure": {"enum": ["NATIVE_V1_5", "INHERITED_V1_4"]},
+        "role": {"type": "string", "minLength": 1}
+      }
+    },
+    "native": {
+      "future_cohort_builder": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "future_cohort_builder"}}}]},
+      "future_cohort_rule": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "future_cohort_rule"}}}]},
+      "future_registry_output_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "future_registry_output_schema"}}}]},
+      "checkpoint_invocation_contract": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "checkpoint_invocation_contract"}}}]},
+      "provenance_classifier": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "provenance_classifier"}}}]},
+      "identity_hits_builder": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "identity_hits_builder"}}}]},
+      "provenance_ontology": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "provenance_ontology"}}}]},
+      "provenance_ledger_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "provenance_ledger_schema"}}}]},
+      "provenance_content_pack_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "provenance_content_pack_schema"}}}]}
+    },
+    "inherited": {
+      "five_strata_classifier": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "INHERITED_V1_4"}, "role": {"const": "five_strata_classifier"}}}]},
+      "grouping_rule": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "INHERITED_V1_4"}, "role": {"const": "grouping_rule"}}}]},
+      "syntax_pool_builder": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "INHERITED_V1_4"}, "role": {"const": "syntax_pool_builder"}}}]}
+    }
+  }
+}

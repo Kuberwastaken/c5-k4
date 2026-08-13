@@ -6,7 +6,7 @@
   "additionalProperties": false,
   "required": [
     "schema", "artifact_kind", "protocol_version", "publication_boundary",
-    "checkpoint", "upstream", "chronology", "frozen_components", "aggregates",
+    "checkpoint", "upstream", "chronology", "p1_binding", "component_manifest", "frozen_components", "aggregates",
     "sealed_replay", "certificate_sha256"
   ],
   "properties": {
@@ -56,18 +56,43 @@
         "all_prior_valid_checkpoints_failed": {"const": true}
       }
     },
+    "p1_binding": {
+      "type": "object", "additionalProperties": false,
+      "required": ["p1a", "p1t", "p1a_commit", "p1t_commit"],
+      "properties": {
+        "p1a": {"$ref": "#/definitions/artifactRef"},
+        "p1t": {"$ref": "#/definitions/artifactRef"},
+        "p1a_commit": {"$ref": "#/definitions/gitOid"},
+        "p1t_commit": {"$ref": "#/definitions/gitOid"}
+      }
+    },
+    "component_manifest": {"$ref": "#/definitions/artifactRef"},
     "frozen_components": {
       "type": "object", "additionalProperties": false,
-      "required": ["registry", "classifier", "grouping", "provenance"],
+      "required": ["registry", "classification", "grouping", "syntax_pool", "provenance"],
       "properties": {
-        "registry": {"$ref": "#/definitions/component"},
-        "classifier": {"$ref": "#/definitions/component"},
-        "grouping": {"$ref": "#/definitions/component"},
+        "registry": {
+          "type": "object", "additionalProperties": false,
+          "required": ["executable", "policy", "schema", "invocation_contract"],
+          "properties": {
+            "executable": {"$ref": "#/definitions/artifactRef"}, "policy": {"$ref": "#/definitions/artifactRef"},
+            "schema": {"$ref": "#/definitions/artifactRef"}, "invocation_contract": {"$ref": "#/definitions/artifactRef"}
+          }
+        },
+        "classification": {"$ref": "#/definitions/policyComponent"},
+        "grouping": {"$ref": "#/definitions/policyComponent"},
+        "syntax_pool": {
+          "type": "object", "additionalProperties": false, "required": ["executable"],
+          "properties": {"executable": {"$ref": "#/definitions/artifactRef"}}
+        },
         "provenance": {
-          "allOf": [
-            {"$ref": "#/definitions/component"},
-            {"type": "object", "required": ["source_ledger"]}
-          ]
+          "type": "object", "additionalProperties": false,
+          "required": ["classifier", "identity_join", "ontology", "ledger_schema", "content_pack_schema"],
+          "properties": {
+            "classifier": {"$ref": "#/definitions/artifactRef"}, "identity_join": {"$ref": "#/definitions/artifactRef"},
+            "ontology": {"$ref": "#/definitions/artifactRef"}, "ledger_schema": {"$ref": "#/definitions/artifactRef"},
+            "content_pack_schema": {"$ref": "#/definitions/artifactRef"}
+          }
         }
       }
     },
@@ -86,13 +111,32 @@
       "type": "object", "additionalProperties": false,
       "required": [
         "private_registry_sha256", "private_registry_schema_sha256",
-        "aggregate_extractor", "deterministic_exact_byte_replay_required",
+        "runtime_inputs", "aggregate_extractor", "deterministic_exact_byte_replay_required",
         "fresh_isolated_reacquisition_required", "exact_commit_and_trees_required",
         "generic_generated_artifact_verifier_authoritative", "pass_pool_publication"
       ],
       "properties": {
         "private_registry_sha256": {"$ref": "#/definitions/sha256"},
         "private_registry_schema_sha256": {"$ref": "#/definitions/sha256"},
+        "runtime_inputs": {
+          "type": "object", "additionalProperties": false,
+          "required": ["provenance_ledgers", "provenance_content_pack_sha256"],
+          "properties": {
+            "provenance_ledgers": {
+              "type": "array", "minItems": 1,
+              "items": {
+                "type": "object", "additionalProperties": false,
+                "required": ["position", "file_sha256", "ledger_sha256"],
+                "properties": {
+                  "position": {"type": "integer", "minimum": 0},
+                  "file_sha256": {"$ref": "#/definitions/sha256"},
+                  "ledger_sha256": {"$ref": "#/definitions/sha256"}
+                }
+              }
+            },
+            "provenance_content_pack_sha256": {"$ref": "#/definitions/sha256"}
+          }
+        },
         "aggregate_extractor": {"$ref": "#/definitions/artifactRef"},
         "deterministic_exact_byte_replay_required": {"const": true},
         "fresh_isolated_reacquisition_required": {"const": true},
@@ -115,16 +159,9 @@
         "sha256": {"$ref": "#/definitions/sha256"}
       }
     },
-    "component": {
-      "type": "object", "additionalProperties": false,
-      "required": ["executable", "policy", "schema"],
-      "properties": {
-        "executable": {"$ref": "#/definitions/artifactRef"},
-        "policy": {"$ref": "#/definitions/artifactRef"},
-        "schema": {"$ref": "#/definitions/artifactRef"},
-        "invocation_contract": {"$ref": "#/definitions/artifactRef"},
-        "source_ledger": {"$ref": "#/definitions/artifactRef"}
-      }
+    "policyComponent": {
+      "type": "object", "additionalProperties": false, "required": ["policy"],
+      "properties": {"policy": {"$ref": "#/definitions/artifactRef"}}
     },
     "fiveCounts": {
       "type": "object", "additionalProperties": false,

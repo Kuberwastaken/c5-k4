@@ -21,12 +21,14 @@ from jsonschema import Draft7Validator, FormatChecker
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import build_benchmark_v15_future_cohort as future_registry  # noqa: E402
+import build_benchmark_v15_p1 as p1  # noqa: E402
 
 
 ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = ROOT / "schemas/benchmark-scheduled-aggregate-certificate-v1.5.schema.json"
 ATTESTATION_SCHEMA_PATH = ROOT / "schemas/benchmark-scheduled-replay-attestation-v1.5.schema.json"
 REGISTRY_SCHEMA_PATH = ROOT / "schemas/benchmark-future-registry-output-v1.5.schema.json"
+MANIFEST_SCHEMA_PATH = ROOT / "schemas/benchmark-checkpoint-component-manifest-v1.5.schema.json"
 SCHEMA = "c5k4-method-v1.5-scheduled-aggregate-certificate-1.0"
 UPSTREAM_REPOSITORY = "https://github.com/google-deepmind/formal-conjectures.git"
 UPSTREAM_REF = "refs/heads/main"
@@ -41,12 +43,6 @@ STRATA = (
 QUOTAS = dict(zip(STRATA, (3, 3, 2, 2, 2)))
 SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 OID_RE = re.compile(r"^[0-9a-f]{40}$")
-COMPONENT_KEYS = {
-    "registry": {"executable", "policy", "schema", "invocation_contract"},
-    "classifier": {"executable", "policy", "schema"},
-    "grouping": {"executable", "policy", "schema"},
-    "provenance": {"executable", "policy", "schema", "source_ledger"},
-}
 
 
 class CertificateError(ValueError):
@@ -100,26 +96,110 @@ def validate_schema(value: dict[str, Any], schema_path: Path, label: str) -> Non
         raise CertificateError(f"{label} fails its strict JSON schema: {exc}") from exc
 
 
-def load_components(manifest_path: Path) -> dict[str, dict[str, dict[str, str]]]:
-    manifest = load_json(manifest_path, "component binding manifest")
-    if set(manifest) != set(COMPONENT_KEYS):
-        raise CertificateError("component manifest must contain exactly registry/classifier/grouping/provenance")
-    result: dict[str, dict[str, dict[str, str]]] = {}
-    for component, expected in COMPONENT_KEYS.items():
-        raw = manifest[component]
-        if not isinstance(raw, dict) or set(raw) != expected:
-            raise CertificateError(f"{component} manifest fields differ from the frozen contract")
-        result[component] = {}
-        for role in sorted(expected):
-            path_text = raw[role]
-            if not isinstance(path_text, str):
-                raise CertificateError(f"{component}.{role} must be a repository-relative path")
-            path = ROOT / path_text
-            ref = relative_ref(path, f"{component}.{role}")
-            if ref["path"] != path_text:
-                raise CertificateError(f"{component}.{role} path is not canonical repository-relative text")
-            result[component][role] = ref
-    return result
+def authenticate_p1(
+    p1a_path: Path, p1t_path: Path, p1t_commit: str,
+) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
+    """Return the only component closure an aggregate certificate may trust."""
+    p1a_value = load_json(p1a_path, "P1A")
+    p1t_value = load_json(p1t_path, "P1T")
+    try:
+        p1.validate_p1a(p1a_value)
+        p1.validate_p1t(p1t_value, p1t_commit=p1t_commit, artifact_path=p1t_path)
+    except p1.P1Error as exc:
+        raise CertificateError(f"P1A/P1T authentication failed: {exc}") from exc
+    if p1t_value["p1a"]["path"] != relative_ref(p1a_path, "P1A")["path"]:
+        raise CertificateError("P1T authenticates a different P1A path")
+    if p1t_value["p1a"]["sha256"] != sha256_file(p1a_path):
+        raise CertificateError("P1T authenticates different P1A bytes")
+    binding = {
+        "p1a": relative_ref(p1a_path, "P1A"),
+        "p1t": relative_ref(p1t_path, "P1T"),
+        "p1a_commit": p1t_value["p1a_commit"],
+        "p1t_commit": p1t_commit,
+    }
+    return p1a_value, p1t_value, binding
+
+
+def _resolve_selector(selector: Any, p1a_value: dict[str, Any], label: str) -> dict[str, str]:
+    if not isinstance(selector, dict) or set(selector) != {"closure", "role"}:
+        raise CertificateError(f"{label} is not an exact P1 role selector")
+    closure, role = selector.get("closure"), selector.get("role")
+    if closure == "NATIVE_V1_5":
+        source = p1a_value.get("components", {})
+    elif closure == "INHERITED_V1_4":
+        source = p1a_value.get("inherited_v1_4", {}).get("components", {})
+    else:
+        raise CertificateError(f"{label} selects an unknown P1 closure")
+    row = source.get(role) if isinstance(source, dict) else None
+    if not isinstance(row, dict) or not isinstance(row.get("path"), str) or not isinstance(row.get("sha256"), str):
+        raise CertificateError(f"{label} selects absent P1 role {role!r}")
+    return {"path": row["path"], "sha256": row["sha256"]}
+
+
+def load_components(
+    manifest_path: Path, p1a_value: dict[str, Any],
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    manifest = load_json(manifest_path, "checkpoint component manifest")
+    validate_schema(manifest, MANIFEST_SCHEMA_PATH, "checkpoint component manifest")
+    frozen_manifest = p1a_value.get("components", {}).get("checkpoint_component_manifest")
+    frozen_schema = p1a_value.get("components", {}).get("checkpoint_component_manifest_schema")
+    if (
+        not isinstance(frozen_manifest, dict)
+        or {"path": frozen_manifest.get("path"), "sha256": frozen_manifest.get("sha256")}
+        != relative_ref(manifest_path, "checkpoint component manifest")
+        or not isinstance(frozen_schema, dict)
+        or {"path": frozen_schema.get("path"), "sha256": frozen_schema.get("sha256")}
+        != relative_ref(MANIFEST_SCHEMA_PATH, "checkpoint component manifest schema")
+    ):
+        raise CertificateError("component manifest/schema are not the exact P1-native bindings")
+
+    def resolve_tree(value: Any, trail: tuple[str, ...] = ()) -> Any:
+        if isinstance(value, dict) and set(value) == {"closure", "role"}:
+            return _resolve_selector(value, p1a_value, ".".join(trail))
+        if isinstance(value, dict):
+            return {key: resolve_tree(child, (*trail, key)) for key, child in value.items()}
+        return value
+
+    return resolve_tree(manifest["components"]), resolve_tree(manifest["runtime_inputs"])
+
+
+def bind_runtime_inputs(
+    internal: dict[str, Any], ledger_paths: list[Path], content_pack_path: Path,
+    runtime_contract: dict[str, Any],
+) -> dict[str, Any]:
+    if not ledger_paths:
+        raise CertificateError("at least one actual provenance ledger must be sealed")
+    ledger_schema_ref = runtime_contract["provenance_ledgers"]["item_schema"]
+    content_schema_ref = runtime_contract["provenance_content_pack"]["schema"]
+    ledger_schema_path = ROOT / ledger_schema_ref["path"]
+    content_schema_path = ROOT / content_schema_ref["path"]
+    ledgers = []
+    inputs = internal.get("inputs", {})
+    for index, path in enumerate(ledger_paths):
+        value = load_json(path, f"provenance ledger {index}")
+        validate_schema(value, ledger_schema_path, f"provenance ledger {index}")
+        file_sha = sha256_file(path)
+        if value.get("ledger_sha256") != future_registry.identity_hits.content_address(value, "ledger_sha256"):
+            raise CertificateError(f"provenance ledger {index} self-digest is invalid")
+        if inputs.get(f"provenance_ledger_{index}_sha256") != file_sha:
+            raise CertificateError(f"private registry does not bind provenance ledger {index} bytes")
+        ledgers.append({"position": index, "file_sha256": file_sha, "ledger_sha256": value["ledger_sha256"]})
+    unexpected = sorted(
+        key for key in inputs
+        if re.fullmatch(r"provenance_ledger_[0-9]+_sha256", key)
+        and int(key.removeprefix("provenance_ledger_").removesuffix("_sha256")) >= len(ledger_paths)
+    )
+    if unexpected:
+        raise CertificateError("private registry binds additional unsealed provenance ledgers")
+    content_pack = load_json(content_pack_path, "provenance content pack")
+    validate_schema(content_pack, content_schema_path, "provenance content pack")
+    content_sha = sha256_file(content_pack_path)
+    if inputs.get("provenance_content_pack_sha256") != content_sha:
+        raise CertificateError("private registry does not bind provenance content-pack bytes")
+    return {
+        "provenance_ledgers": ledgers,
+        "provenance_content_pack_sha256": content_sha,
+    }
 
 
 def chronology_identity(receipt: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any]]:
@@ -208,7 +288,11 @@ def attestation_digest(attestation: dict[str, Any]) -> str:
 
 def build_certificate(
     chronology_path: Path, registry_path: Path, manifest_path: Path,
+    p1a_path: Path, p1t_path: Path, p1t_commit: str,
+    provenance_ledger_paths: list[Path], provenance_content_pack_path: Path,
 ) -> dict[str, Any]:
+    p1a_value, _p1t_value, p1_binding = authenticate_p1(p1a_path, p1t_path, p1t_commit)
+    frozen_components, runtime_contract = load_components(manifest_path, p1a_value)
     chronology = load_json(chronology_path, "chronology receipt")
     internal = load_json(registry_path, "private registry")
     validate_schema(internal, REGISTRY_SCHEMA_PATH, "private registry")
@@ -233,6 +317,9 @@ def build_certificate(
     if quota.get("commit") != registry_commit or quota.get("tree") != registry_tree:
         raise CertificateError("private registry quota certificate tip/tree is inconsistent")
     aggregates = derive_aggregates(internal)
+    runtime_inputs = bind_runtime_inputs(
+        internal, provenance_ledger_paths, provenance_content_pack_path, runtime_contract,
+    )
     if quota.get("first_passing_checkpoint") is not (aggregates["status"] == "PASS"):
         raise CertificateError("private registry first-pass flag differs from replayed status")
     certificate = {
@@ -266,11 +353,14 @@ def build_certificate(
             "prior_checkpoint_chain_sha256": checkpoint_chain_digest(chronology, internal),
             "all_prior_valid_checkpoints_failed": quota.get("all_prior_valid_checkpoints_failed"),
         },
-        "frozen_components": load_components(manifest_path),
+        "p1_binding": p1_binding,
+        "component_manifest": relative_ref(manifest_path, "checkpoint component manifest"),
+        "frozen_components": frozen_components,
         "aggregates": aggregates,
         "sealed_replay": {
             "private_registry_sha256": sha256_file(registry_path),
             "private_registry_schema_sha256": sha256_file(REGISTRY_SCHEMA_PATH),
+            "runtime_inputs": runtime_inputs,
             "aggregate_extractor": relative_ref(Path(__file__), "aggregate extractor"),
             "deterministic_exact_byte_replay_required": True,
             "fresh_isolated_reacquisition_required": True,
@@ -318,7 +408,7 @@ def validate_bound_ref(ref: dict[str, str], label: str) -> None:
 
 def replay_certificate(
     certificate: dict[str, Any], chronology_path: Path, private_registry_path: Path,
-    repository: Path,
+    repository: Path, provenance_ledger_paths: list[Path], provenance_content_pack_path: Path,
 ) -> dict[str, Any]:
     """Validate an independently re-executed private registry, not a cached artifact claim.
 
@@ -328,6 +418,18 @@ def replay_certificate(
     generic generated-artifact verifier is deliberately not accepted as proof.
     """
     validate_certificate(certificate)
+    p1_binding = certificate["p1_binding"]
+    p1a_value, _p1t_value, replayed_p1_binding = authenticate_p1(
+        ROOT / p1_binding["p1a"]["path"], ROOT / p1_binding["p1t"]["path"],
+        p1_binding["p1t_commit"],
+    )
+    if replayed_p1_binding != p1_binding:
+        raise CertificateError("replayed P1 binding differs from aggregate certificate")
+    frozen_components, runtime_contract = load_components(
+        ROOT / certificate["component_manifest"]["path"], p1a_value,
+    )
+    if frozen_components != certificate["frozen_components"]:
+        raise CertificateError("P1-resolved components differ from aggregate certificate")
     validate_bound_ref(certificate["chronology"]["receipt"], "chronology receipt")
     if chronology_path.resolve() != (ROOT / certificate["chronology"]["receipt"]["path"]).resolve():
         raise CertificateError("replay chronology path differs from the sealed receipt path")
@@ -352,6 +454,11 @@ def replay_certificate(
         raise CertificateError("replayed registry unsigned projection digest is invalid")
     if derive_aggregates(internal) != certificate["aggregates"]:
         raise CertificateError("re-executed private registry aggregates differ from certificate")
+    runtime_inputs = bind_runtime_inputs(
+        internal, provenance_ledger_paths, provenance_content_pack_path, runtime_contract,
+    )
+    if runtime_inputs != certificate["sealed_replay"]["runtime_inputs"]:
+        raise CertificateError("replayed runtime inputs differ from sealed ledger/content-pack set")
     attestation = {
         "schema": "c5k4-method-v1.5-scheduled-replay-attestation-1.0",
         "status": "INDEPENDENT_EXACT_REPLAY_PASS",
@@ -384,6 +491,11 @@ def main() -> int:
     build.add_argument("--chronology-receipt", type=Path, required=True)
     build.add_argument("--private-registry", type=Path, required=True)
     build.add_argument("--component-manifest", type=Path, required=True)
+    build.add_argument("--p1a", type=Path, required=True)
+    build.add_argument("--p1t", type=Path, required=True)
+    build.add_argument("--p1t-commit", required=True)
+    build.add_argument("--provenance-ledger", type=Path, action="append", required=True)
+    build.add_argument("--provenance-content-pack", type=Path, required=True)
     build.add_argument("--output", type=Path, required=True)
     check = sub.add_parser("validate")
     check.add_argument("--certificate", type=Path, required=True)
@@ -392,6 +504,8 @@ def main() -> int:
     replay.add_argument("--chronology-receipt", type=Path, required=True)
     replay.add_argument("--private-registry", type=Path, required=True)
     replay.add_argument("--isolated-repository", type=Path, required=True)
+    replay.add_argument("--provenance-ledger", type=Path, action="append", required=True)
+    replay.add_argument("--provenance-content-pack", type=Path, required=True)
     replay.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     try:
@@ -399,6 +513,9 @@ def main() -> int:
             value = build_certificate(
                 args.chronology_receipt.resolve(), args.private_registry.resolve(),
                 args.component_manifest.resolve(),
+                args.p1a.resolve(), args.p1t.resolve(), args.p1t_commit,
+                [path.resolve() for path in args.provenance_ledger],
+                args.provenance_content_pack.resolve(),
             )
             write_json(args.output.resolve(), value)
         elif args.command == "validate":
@@ -408,6 +525,8 @@ def main() -> int:
                 load_json(args.certificate.resolve(), "aggregate certificate"),
                 args.chronology_receipt.resolve(), args.private_registry.resolve(),
                 args.isolated_repository.resolve(),
+                [path.resolve() for path in args.provenance_ledger],
+                args.provenance_content_pack.resolve(),
             )
             write_json(args.output.resolve(), attestation)
     except (CertificateError, OSError) as exc:

@@ -1,0 +1,35 @@
+{
+  "authority": "RESOLVE_ONLY_THROUGH_AUTHENTICATED_P1",
+  "components": {
+    "classification": {"policy": {"closure": "INHERITED_V1_4", "role": "five_strata_classifier"}},
+    "grouping": {"policy": {"closure": "INHERITED_V1_4", "role": "grouping_rule"}},
+    "provenance": {
+      "classifier": {"closure": "NATIVE_V1_5", "role": "provenance_classifier"},
+      "content_pack_schema": {"closure": "NATIVE_V1_5", "role": "provenance_content_pack_schema"},
+      "identity_join": {"closure": "NATIVE_V1_5", "role": "identity_hits_builder"},
+      "ledger_schema": {"closure": "NATIVE_V1_5", "role": "provenance_ledger_schema"},
+      "ontology": {"closure": "NATIVE_V1_5", "role": "provenance_ontology"}
+    },
+    "registry": {
+      "executable": {"closure": "NATIVE_V1_5", "role": "future_cohort_builder"},
+      "invocation_contract": {"closure": "NATIVE_V1_5", "role": "checkpoint_invocation_contract"},
+      "policy": {"closure": "NATIVE_V1_5", "role": "future_cohort_rule"},
+      "schema": {"closure": "NATIVE_V1_5", "role": "future_registry_output_schema"}
+    },
+    "syntax_pool": {"executable": {"closure": "INHERITED_V1_4", "role": "syntax_pool_builder"}}
+  },
+  "runtime_inputs": {
+    "private_registry": {"schema": {"closure": "NATIVE_V1_5", "role": "future_registry_output_schema"}},
+    "provenance_content_pack": {
+      "registry_input_key": "provenance_content_pack_sha256",
+      "schema": {"closure": "NATIVE_V1_5", "role": "provenance_content_pack_schema"}
+    },
+    "provenance_ledgers": {
+      "item_schema": {"closure": "NATIVE_V1_5", "role": "provenance_ledger_schema"},
+      "minimum_items": 1,
+      "ordering": "COMMAND_LINE_OCCURRENCE_ORDER",
+      "registry_input_key_pattern": "provenance_ledger_{zero_based_index}_sha256"
+    }
+  },
+  "schema": "c5k4-method-v1.5-checkpoint-component-manifest-1.0"
+}
