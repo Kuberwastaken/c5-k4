@@ -16,7 +16,7 @@ The proposed bound is therefore `3 <= (-19 + 16)/2 = -3/2`.
 
 Closes #ISSUE_NUMBER.
 
-## Follow-up discovery pattern
+## Prior result and follow-up discovery pattern
 
 This is a formal-certification follow-up to the `C5[K4]` carrier pattern
 exposed by the earlier WOWII 63/85 disproofs. Gebendorfer identified
@@ -24,9 +24,6 @@ Conjecture 309 as another application of that carrier and proved the stronger
 infinite-family result. This PR adds the source-faithful declaration and an
 external no-`sorry` certificate; it does not claim a new mathematical
 disproof or first-resolution priority.
-
-Project-level method:
-https://github.com/Kuberwastaken/c5-k4/blob/460c505162adebfd91ca9864f05166a165ca4cab/METHOD.md
 
 Source/status/priority audit:
 https://github.com/Kuberwastaken/c5-k4/blob/05c3546ca8aa64ecb0a3b8ba456b56b07ba61b12/results/expansion/wowii_309_status_audit.md
@@ -50,6 +47,9 @@ Its trust assumptions are `propext`, `Classical.choice`,
 The live WOWII page still marks entry 309 `O`, but Gebendorfer's disproof was
 published on 25 July 2026:
 https://doi.org/10.5281/zenodo.21553295
+
+Primary WOWII list:
+http://cms.uhd.edu/faculty/delavinae/research/wowII/all.html
 
 The declaration follows the complete-list wording: `e` ranges over edges of
 the complement and `N_{complement G}(e)` is the union of the two complement

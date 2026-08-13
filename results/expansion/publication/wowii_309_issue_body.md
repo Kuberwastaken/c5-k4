@@ -29,7 +29,7 @@ domination number three, evaluates every vertex and complement edge, checks six
 nearby readings, and runs the statement on 994 connected Atlas controls. The
 chosen source reading has zero Atlas violations and fails on the witness.
 
-## Relationship to the C5[K4] campaign
+## Prior result and relationship to the C5[K4] campaign
 
 This is a formal-certification follow-up to the carrier pattern exposed by the
 earlier WOWII 63/85 disproofs. Gebendorfer identified Conjecture 309 as another
@@ -43,11 +43,7 @@ https://github.com/Kuberwastaken/c5-k4/blob/05c3546ca8aa64ecb0a3b8ba456b56b07ba6
 
 https://github.com/Kuberwastaken/c5-k4/blob/57f2826673b2b5b5d3695947900537f9b959b3de/scripts/verify_wowii_309.py
 
-The versioned wall-navigation method is:
-
-https://github.com/Kuberwastaken/c5-k4/blob/460c505162adebfd91ca9864f05166a165ca4cab/METHOD.md
-
-## Complete formal certificate
+## Complete external formal certificate
 
 The complete no-`sorry` Lean 4 certificate is available at:
 
@@ -64,6 +60,9 @@ The live WOWII page still marks entry 309 `O`, but the mathematical status is
 false by Gebendorfer's dated publication:
 
 https://doi.org/10.5281/zenodo.21553295
+
+Primary WOWII list:
+http://cms.uhd.edu/faculty/delavinae/research/wowII/all.html
 
 The formalization follows the complete-list wording: `e` ranges over edges of
 the complement and `N_{complement G}(e)` is the union of the two complement
