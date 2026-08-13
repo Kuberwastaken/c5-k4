@@ -11,6 +11,8 @@ on:
       - scripts/test_lint_resolution_card.py
       - scripts/lint_benchmark_v11.py
       - scripts/test_lint_benchmark_v11.py
+      - scripts/build_benchmark_contamination_inventory.py
+      - scripts/test_build_benchmark_contamination_inventory.py
       - results/benchmark/**
       - results/expansion/*_resolution_card.json
       - results/expansion/*_ledger.jsonl
@@ -23,6 +25,8 @@ on:
       - scripts/test_lint_resolution_card.py
       - scripts/lint_benchmark_v11.py
       - scripts/test_lint_benchmark_v11.py
+      - scripts/build_benchmark_contamination_inventory.py
+      - scripts/test_build_benchmark_contamination_inventory.py
       - results/benchmark/**
       - results/expansion/*_resolution_card.json
       - results/expansion/*_ledger.jsonl
@@ -63,3 +67,7 @@ jobs:
       - name: Run Method v1.1 benchmark linter tests
         shell: bash
         run: python3 scripts/test_lint_benchmark_v11.py
+
+      - name: Run contamination-inventory tests
+        shell: bash
+        run: python3 scripts/test_build_benchmark_contamination_inventory.py
