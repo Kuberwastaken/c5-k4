@@ -81,15 +81,34 @@ end as bounded holds with sharply stated theorem signals, not inflated truth
 claims. See [`method_v02_382e.md`](results/expansion/method_v02_382e.md) and
 [`method_v02_61.md`](results/expansion/method_v02_61.md).
 
-The latest frozen portfolio round is likewise fully visible. Newly specified
+The later frozen portfolios are likewise fully visible. Newly specified
 families for #198a, #145/#146, #291, #314, #160, and #34 produced **zero new
-crossings**. The #145/#146 data instead exposed a strong candidate theorem
-wall, while #314 stopped on prior art. A planned #200 trial was halted before
-its first graph evaluation because the novelty gate found an existing claimed
-counterexample and complete Lean certificate. Those results narrow the next
-prospective round to the live-looking #19, #40, #61, and #133 clusters, using
-newly frozen transformations rather than retuning a failed family. The exact
-contracts, ledgers, stop reasons, and bounded-hold reports are under
+crossings**. The #145/#146 data instead exposed a candidate theorem wall,
+while #314 and a planned #200 trial stopped on prior art. The subsequent live-
+core round on #19, #40, #61, and #133 also produced no counterexample, but it
+closed several tempting directions with exact structural reasons: diameter-
+two and graph-square moves for #19; Hamiltonicity, forest absorption, and
+co-depression effects for #40; local switch and ordinary-cover barriers for
+#61; and explicit target paths throughout two independent C4-free #133 lanes.
+
+The first cross-corpus equality round then stress-tested the method on current
+`formal-conjectures` statements outside that core. It yielded:
+
+- a preregistered **prediction confirmation** for Reed's finite bound: all 48
+  complete joins moved off equality by exactly the predicted `2m`;
+- a **known-proof-domain stop** for a second Reed surgery lane: every output
+  remained claw-free, where the conjecture is already proved;
+- an exact **Erdős 23 extremal identity** on 574 nonuniform `C5` blow-ups,
+  showing the balanced carrier is uniquely tight in that family;
+- a protocol-exact **neutral corridor** for #61: three order-12 realizations
+  remain tight through degree-preserving switches, but none raises diameter;
+- bounded holds for a Heawood edge contraction (#133) and cross-petal
+  incompatibility (#40); and
+- **no applicable cyclic triple cover** for the chosen #141 wall, independently
+  confirmed by an integer model and an exact finite-field CSP.
+
+No row in those rounds is a release candidate. The exact contracts, ledgers,
+corrections, stop reasons, and reports are under
 [`results/expansion/`](results/expansion/); the current portfolio and its
 scope limits are summarized in [`OVERARCHING_PLAN.md`](OVERARCHING_PLAN.md).
 

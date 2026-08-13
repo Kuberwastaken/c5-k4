@@ -116,7 +116,7 @@ far from equality; and two independent #133 lanes found explicit source-sized
 paths in every frozen candidate. Continuing those exact moves would violate
 the method's stop discipline.
 
-The next prospective round therefore starts from new equality data in the
+The first cross-corpus equality round started from new equality data in the
 current `formal-conjectures` corpus:
 
 - Reed's finite-graph bound on odd `C5[K_m]`, using two independently frozen
@@ -135,6 +135,33 @@ The Reed and Erdős lanes concern major human conjectures and therefore receive
 an especially conservative source and novelty gate. They are prospective
 stress tests of the equality-navigation heuristic, not predictions that those
 conjectures are false.
+
+That round is complete with no release candidate. Its durable outcomes are:
+
+- Reed complete joins confirmed the frozen coordinate prediction exactly on
+  all 48 outputs; a second Reed lane stopped because every surgery remained in
+  the proved claw-free class;
+- the Erdős 23 carrier family satisfies the exact identity
+  `beta_edge = min_i |A_i||A_(i+1)|`, making balance uniquely extremal among
+  all 574 tested nonuniform blow-ups;
+- the order-twelve #61 wall contains three neutral descendants, but its
+  literal-contract switch frontier closes at depth three without increasing
+  diameter; an earlier global-seen implementation is preserved separately as
+  `INCONCLUSIVE_PROTOCOL_DEVIATION`;
+- the #133 contraction preserves the local floor but collapses radius, while
+  the #40 cross-petal construction suppresses forest growth but restores
+  Hamiltonicity; and
+- the frozen cyclic `Z3` lift for #141 is infeasible, independently in the
+  integer model and an exact finite-field CSP.
+
+The next iteration keeps four prospective lanes and three formal-extraction
+lanes. Prospective work uses: triangle-free voltage lifts of the Erdős 23
+balanced wall; a nonabelian permutation lift for #141; a Reed surgery that
+must leave the claw-free proved domain; and a degree-changing gadget from the
+#61 neutral corridor. Formal work extracts: the balanced-bipartite #40 star
+obstruction, the explicit #133 contraction witness, and reusable Reed join
+coordinate lemmas. Each new transformation receives a separate frozen
+contract before its first development row.
 
 Every completed trial ends in one durable outcome from `METHOD.md`, including
 the zeroes. A negative residual starts verification; it does not itself start
