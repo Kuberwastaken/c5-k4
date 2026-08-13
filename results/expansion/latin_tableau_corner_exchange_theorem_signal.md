@@ -80,6 +80,21 @@ min-cut theorem and proving that an exchange-ready CDS coloring exists. An
 arbitrary child coloring need not expose the needed two-color path, so the
 remaining result likely needs a multicolor augmenting-trail theorem.
 
+The first four algebra/coloring components are now extracted in
+`lean/LatinTableauCornerExchange.lean`. At exact upstream commit
+`7a38c469ec329d0c97c068e03c58834f61628e7e`, the module passes
+
+```text
+timeout 60s lake env lean -DwarningAsError=true \
+  lean/LatinTableauCornerExchange.lean
+```
+
+It formalizes the profile/`Delta` telescoping identity, the `{-1,0,1}`
+coordinate bound from binary `Delta`, the threshold-to-basis-vector step, and
+generic proper-coloring extension across one new vertex. It intentionally does
+not assert the Ferrers min-cut formulas, actual `indepNumK` deletion bounds, or
+existence of the required exchange-ready component.
+
 The next honest lane is the restricted **one-defect nesting theorem**:
 
 > Under corner deletion, when the profile difference is `e_a-e_b+e_c`, give
