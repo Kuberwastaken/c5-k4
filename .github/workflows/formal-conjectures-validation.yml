@@ -1,0 +1,187 @@
+name: Validate formal-conjectures submission
+
+on:
+  workflow_dispatch:
+    inputs:
+      upstream_ref:
+        description: Exact google-deepmind/formal-conjectures commit SHA
+        required: true
+        default: d16e05aded22b8c467a0a27c14b2311f53185006
+        type: string
+      candidate_path:
+        description: Candidate file below upstream/formal-conjectures/
+        required: true
+        default: FormalConjectures/WrittenOnTheWallII/GraphConjecture309.lean
+        type: string
+      target_module:
+        description: Lean module to build before the full corpus
+        required: true
+        default: FormalConjectures.WrittenOnTheWallII.GraphConjecture309
+        type: string
+      verifier_path:
+        description: Exact Python verifier in this repository
+        required: true
+        default: scripts/verify_wowii_309.py
+        type: string
+      certificate_path:
+        description: Complete external Lean certificate in this repository
+        required: true
+        default: lean/GraphConjecture309.lean
+        type: string
+      full_build:
+        description: Run the complete upstream warning-as-error build
+        required: true
+        default: true
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: formal-conjectures-validation-${{ inputs.upstream_ref }}-${{ inputs.target_module }}
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    name: Verify candidate against DeepMind corpus
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      UPSTREAM_REF: ${{ inputs.upstream_ref }}
+      CANDIDATE_PATH: ${{ inputs.candidate_path }}
+      TARGET_MODULE: ${{ inputs.target_module }}
+      VERIFIER_PATH: ${{ inputs.verifier_path }}
+      CERTIFICATE_PATH: ${{ inputs.certificate_path }}
+    steps:
+      - name: Validate dispatch inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "$UPSTREAM_REF" =~ ^[0-9a-f]{40}$ ]]
+          [[ "$CANDIDATE_PATH" =~ ^FormalConjectures/[A-Za-z0-9_./-]+\.lean$ ]]
+          [[ "$TARGET_MODULE" =~ ^FormalConjectures\.[A-Za-z0-9_.]+$ ]]
+          [[ "$VERIFIER_PATH" =~ ^scripts/[A-Za-z0-9_./-]+\.py$ ]]
+          [[ "$CERTIFICATE_PATH" =~ ^lean/[A-Za-z0-9_./-]+\.lean$ ]]
+          for value in "$CANDIDATE_PATH" "$VERIFIER_PATH" "$CERTIFICATE_PATH"; do
+            [[ "$value" != *..* ]]
+          done
+
+      - name: Check out c5-k4 campaign artifacts
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          path: campaign
+
+      - name: Check out exact formal-conjectures base
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          repository: google-deepmind/formal-conjectures
+          ref: ${{ inputs.upstream_ref }}
+          fetch-depth: 0
+          path: formal-conjectures
+
+      - name: Overlay staged candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          source_path="$GITHUB_WORKSPACE/campaign/upstream/formal-conjectures/$CANDIDATE_PATH"
+          target_path="$GITHUB_WORKSPACE/formal-conjectures/$CANDIDATE_PATH"
+          test -f "$source_path"
+          test ! -e "$target_path"
+          mkdir -p "$(dirname "$target_path")"
+          cp "$source_path" "$target_path"
+          git -C "$GITHUB_WORKSPACE/formal-conjectures" diff --check -- "$CANDIDATE_PATH"
+          git -C "$GITHUB_WORKSPACE/formal-conjectures" diff --stat -- "$CANDIDATE_PATH"
+
+      - name: Install elan with retries
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --silent --show-error \
+            --retry 8 --retry-all-errors --retry-delay 5 \
+            --connect-timeout 30 \
+            https://github.com/leanprover/elan/releases/download/v1.4.2/elan-x86_64-unknown-linux-gnu.tar.gz \
+            --output elan.tar.gz
+          tar xzf elan.tar.gz
+          ./elan-init -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Restore Mathlib olean download cache
+        uses: actions/cache/restore@6f8efc29b200d32929f49075959781ed54ec270c # v3
+        with:
+          path: ~/.cache/mathlib
+          key: formal-conjectures-${{ inputs.upstream_ref }}-${{ hashFiles(format('campaign/upstream/formal-conjectures/{0}', inputs.candidate_path)) }}
+          restore-keys: |
+            formal-conjectures-${{ inputs.upstream_ref }}-
+            formal-conjectures-
+
+      - name: Get upstream olean cache with retries
+        working-directory: formal-conjectures
+        shell: bash
+        run: |
+          set -euo pipefail
+          for attempt in 1 2 3 4 5; do
+            if lake exe cache unpack && lake exe cache get; then
+              exit 0
+            fi
+            if [[ "$attempt" == 5 ]]; then
+              echo "Olean cache retrieval failed after $attempt attempts" >&2
+              exit 1
+            fi
+            sleep $((attempt * 10))
+          done
+
+      - name: Run exact verifier
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 "$GITHUB_WORKSPACE/campaign/$VERIFIER_PATH"
+
+      - name: Compile complete external certificate warning-clean
+        working-directory: formal-conjectures
+        shell: bash
+        run: |
+          set -euo pipefail
+          lake env lean -DwarningAsError=true \
+            "$GITHUB_WORKSPACE/campaign/$CERTIFICATE_PATH"
+
+      - name: Generate aggregate Lean modules
+        working-directory: formal-conjectures
+        shell: bash
+        run: |
+          set -euo pipefail
+          ./scripts/mk_all_formathlib.sh
+          rm -f FormalConjectures/All.lean
+          lake exe mk_all --lib FormalConjectures || true
+          mv FormalConjectures.lean FormalConjectures/All.lean
+          echo "set_option linter.style.moduleDocstring false" >> FormalConjectures/All.lean
+
+      - name: Build candidate dependency closure warning-clean
+        working-directory: formal-conjectures
+        shell: bash
+        run: lake --wfail build "$TARGET_MODULE"
+
+      - name: Build complete upstream corpus warning-clean
+        if: inputs.full_build
+        working-directory: formal-conjectures
+        shell: bash
+        run: |
+          set -euo pipefail
+          lake --wfail build FormalConjecturesForMathlib FormalConjecturesUtil
+          lake --wfail test
+          lake --wfail build
+
+      - name: Record validation summary
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "## formal-conjectures submission validation"
+            echo
+            echo "- Upstream: \`google-deepmind/formal-conjectures@$UPSTREAM_REF\`"
+            echo "- Candidate: \`$CANDIDATE_PATH\`"
+            echo "- Target module: \`$TARGET_MODULE\`"
+            echo "- Verifier: \`$VERIFIER_PATH\`"
+            echo "- External certificate: \`$CERTIFICATE_PATH\`"
+            echo "- Full corpus requested: \`${{ inputs.full_build }}\`"
+            echo "- Job result: \`${{ job.status }}\`"
+          } >> "$GITHUB_STEP_SUMMARY"
