@@ -52,6 +52,7 @@ class ValidationWorkflowContractTests(unittest.TestCase):
             "PYTHONDONTWRITEBYTECODE: '1'",
             "PYTHONHASHSEED: '0'",
             "TZ: UTC",
+            "cryptography==44.0.1",
             "jsonschema==3.2.0",
         ):
             self.assertIn(required, text)
