@@ -1,0 +1,178 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-p1-v1.5.schema.json",
+  "title": "Method v1.5 executable P1 freeze and attestation",
+  "oneOf": [
+    {"$ref": "#/definitions/p1a"},
+    {"$ref": "#/definitions/p1t"}
+  ],
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "gitOid": {"type": "string", "pattern": "^[0-9a-f]{40,64}$"},
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?Z$"
+    },
+    "fileDigest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/definitions/sha256"}
+      }
+    },
+    "nativeComponent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "content_class"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/definitions/sha256"},
+        "content_class": {"const": "V1_5_PROTOCOL_ONLY_NO_TARGET_DATA"}
+      }
+    },
+    "inheritedComponent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "source_commit", "content_class", "source_content_class"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/definitions/sha256"},
+        "source_commit": {"$ref": "#/definitions/gitOid"},
+        "content_class": {"const": "INHERITED_V1_4_EXACT"},
+        "source_content_class": {"const": "PROTOCOL_ONLY_NO_TARGET_DATA"}
+      }
+    },
+    "audit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm", "native_component_count", "inherited_component_count",
+        "audited_bindings_sha256", "candidate_identities_detected",
+        "statement_text_detected", "target_rankings_detected",
+        "target_semantic_analysis_detected"
+      ],
+      "properties": {
+        "algorithm": {"const": "STRICT_ROLE_MAP_DIGEST_AND_STRUCTURAL_TARGET_DATA_AUDIT_V1_5"},
+        "native_component_count": {"type": "integer", "minimum": 1},
+        "inherited_component_count": {"type": "integer", "minimum": 1},
+        "audited_bindings_sha256": {"$ref": "#/definitions/sha256"},
+        "candidate_identities_detected": {"const": 0},
+        "statement_text_detected": {"const": 0},
+        "target_rankings_detected": {"const": 0},
+        "target_semantic_analysis_detected": {"const": 0}
+      }
+    },
+    "p1a": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version", "artifact_kind", "authority", "protocol_version",
+        "components", "inherited_v1_4", "target_data_audit",
+        "chronology_capture", "prohibitions", "candidate_identities",
+        "statement_text", "target_rankings", "target_semantics"
+      ],
+      "properties": {
+        "schema_version": {"const": "c5k4-method-v1.5-p1-1.0"},
+        "artifact_kind": {"const": "P1A"},
+        "authority": {"const": "AUTHORITATIVE_P1"},
+        "protocol_version": {"const": "1.5"},
+        "components": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {"$ref": "#/definitions/nativeComponent"}
+        },
+        "inherited_v1_4": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["source_p0a", "source_p0t", "source_p0a_commit", "source_protocol_version", "selected_roles", "components", "closure_policy"],
+          "properties": {
+            "source_p0a": {"$ref": "#/definitions/fileDigest"},
+            "source_p0t": {"$ref": "#/definitions/fileDigest"},
+            "source_p0a_commit": {"$ref": "#/definitions/gitOid"},
+            "source_protocol_version": {"const": "1.4"},
+            "selected_roles": {
+              "type": "array", "minItems": 1, "uniqueItems": true,
+              "items": {"type": "string", "minLength": 1}
+            },
+            "components": {
+              "type": "object", "minProperties": 1,
+              "additionalProperties": {"$ref": "#/definitions/inheritedComponent"}
+            },
+            "closure_policy": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["source_p0a_must_validate", "roles_selected_by_assembler", "manual_digest_copy_forbidden", "all_selected_files_revalidated"],
+              "properties": {
+                "source_p0a_must_validate": {"const": true},
+                "roles_selected_by_assembler": {"const": true},
+                "manual_digest_copy_forbidden": {"const": true},
+                "all_selected_files_revalidated": {"const": true}
+              }
+            }
+          }
+        },
+        "target_data_audit": {"$ref": "#/definitions/audit"},
+        "chronology_capture": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["allowed_u1_capture_count", "requires_public_p1t_receipt", "entropy_permitted", "selection_permitted"],
+          "properties": {
+            "allowed_u1_capture_count": {"const": 1},
+            "requires_public_p1t_receipt": {"const": true},
+            "entropy_permitted": {"const": false},
+            "selection_permitted": {"const": false}
+          }
+        },
+        "prohibitions": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["candidate_identities", "statement_text", "target_ranking", "target_semantic_analysis", "entropy", "selection"],
+          "properties": {
+            "candidate_identities": {"const": true},
+            "statement_text": {"const": true},
+            "target_ranking": {"const": true},
+            "target_semantic_analysis": {"const": true},
+            "entropy": {"const": true},
+            "selection": {"const": true}
+          }
+        },
+        "candidate_identities": {"type": "array", "maxItems": 0},
+        "statement_text": {"type": "array", "maxItems": 0},
+        "target_rankings": {"type": "array", "maxItems": 0},
+        "target_semantics": {"type": "array", "maxItems": 0}
+      }
+    },
+    "p1t": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version", "artifact_kind", "protocol_version", "p1a",
+        "p1a_commit", "p1a_published_at_utc", "attestation_policy"
+      ],
+      "properties": {
+        "schema_version": {"const": "c5k4-method-v1.5-p1-1.0"},
+        "artifact_kind": {"const": "P1T"},
+        "protocol_version": {"const": "1.5"},
+        "p1a": {"$ref": "#/definitions/fileDigest"},
+        "p1a_commit": {"$ref": "#/definitions/gitOid"},
+        "p1a_published_at_utc": {"$ref": "#/definitions/timestamp"},
+        "attestation_policy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["p1a_ancestor_required", "p1a_bytes_immutable", "allowed_p1t_changed_paths"],
+          "properties": {
+            "p1a_ancestor_required": {"const": true},
+            "p1a_bytes_immutable": {"const": true},
+            "allowed_p1t_changed_paths": {
+              "type": "array", "minItems": 1, "maxItems": 1,
+              "items": {"type": "string", "minLength": 1}
+            }
+          }
+        }
+      }
+    }
+  }
+}
