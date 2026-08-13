@@ -192,8 +192,10 @@ The current no-`sorry`, warning-clean Lean ladder includes:
   budget and isolates odd cycles of length at least five, with `C3` exceptional.
   Every cycle of order at least five now has an explicit root-sensitive
   adjacent deletion pair, and its induced complement is formally isomorphic
-  to a path. Thus the full connected-bipartite complement package is closed;
-  the triangle branch remains separate.
+  to a path. The separate triangle selector deletes the two non-root vertices
+  and meets the same two-deletion budget exactly. Thus every odd cycle branch
+  is now structurally closed; the earlier claim that `C3` caused a budget
+  obstruction has been formally corrected.
 
 These are theorem-extraction checkpoints, not extra “kills.” Failed rungs,
 countermodels, repaired interfaces, and surviving obligations are committed

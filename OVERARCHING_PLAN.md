@@ -186,7 +186,9 @@ in the current `formal-conjectures` checkout. Current theorem lanes are:
   by exactly one; the corrected two-deletion threshold and local interface are
   formal. A root-sensitive adjacent pair is explicit on every cycle of order
   at least five, and its complement is formally identified with a connected
-  bipartite path. The triangle branch remains separate.
+  bipartite path. The separate triangle selector also satisfies the ordinary
+  package and budget exactly; the earlier `C3` budget-obstruction diagnosis is
+  retracted.
 - **WOWII 438b:** maintain the completed stronger arbitrary-subset proof and
   existing upstream review lane; do not recast it as a counterexample.
 
@@ -258,8 +260,8 @@ obligations.
    surviving linear/Latin-square ownership designs.
 5. Continue WOWII 141 by selecting the canonical last common root-path vertex
    and deriving closing-edge exclusion from equal-layer shortest paths.
-6. Continue WOWII 183 with the separate triangle branch, then feed the closed
-   odd-cycle package into the component assembly.
+6. Feed WOWII 183's now-closed odd-cycle package, including the corrected
+   triangle selector, into the component assembly.
 7. Continue WOWII 61 at three eliminated heads via cumulative credit, never
    through ordinary successor prefix dominance or pointwise loss order, both
    formally false.
