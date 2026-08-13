@@ -1,0 +1,113 @@
+{
+  "$schema": "../../schemas/resolution-card-v1.schema.json",
+  "schema_version": "c5k4-resolution-card-1.0",
+  "contract": {
+    "path": "results/expansion/equation677_255_contract.md",
+    "sha256": "b25db5eb98789ab919949d971111e8115be495e25757a5d761eb78b27bdd497b"
+  },
+  "resolution_card": {
+    "logical_class": "FINITE_UNIVERSAL",
+    "target_negation": {
+      "literal": "There exists a finite magma M satisfying Equation 677 and not satisfying Equation 255.",
+      "derivation": "Negate the universal finite-magma quantifier and its Equation255 conclusion while retaining the Equation677 premise.",
+      "declaration_blob_sha256": "ce01a0a4c994dfd82b8f14295be7f6c97c8be6e59f5367015c299f95a750f6d5"
+    },
+    "finite_witness_suffices": true,
+    "negation_certificate": {
+      "kind": "FINITE_OBJECT_EXACT_CHECK",
+      "description": "A complete finite operation table, exhaustive Equation 677 verification, and one labelled element witnessing failure of Equation 255.",
+      "replay": "After explicit authorization: timeout 60s python3 scripts/prospective_equation677_255_sat.py --n 8 --cap-seconds 60"
+    },
+    "exact_residual": {
+      "available": true,
+      "expression": "R(M)=1 if Equation677(M) implies Equation255(M), and R(M)=0 for a finite countermodel",
+      "convention": "BOOLEAN_EXACT",
+      "crossing_condition": "Equation677(M) and R(M)=0"
+    }
+  },
+  "status_coordinates": {
+    "informal_status": {
+      "source": "teorth/equational_theories Equation 677 commentary",
+      "revision": "9836b9b39dd39dd36dc0a20375ed95f3db6f0eac",
+      "scope": "finite Equation 677 implies Equation 255",
+      "raw_value": "open; main remaining finite implication and last survivor",
+      "captured_at_utc": "2026-08-13T16:55:00Z",
+      "evidence": "https://github.com/teorth/equational_theories/blob/9836b9b39dd39dd36dc0a20375ed95f3db6f0eac/commentary/Equation677.md"
+    },
+    "formal_solution_status": {
+      "source": "google-deepmind/formal-conjectures all-state and public exact-declaration search",
+      "revision": "7a38c469ec329d0c97c068e03c58834f61628e7e",
+      "scope": "EquationalTheories_677_255.Finite.Equation677_implies_Equation255",
+      "raw_value": "no formal solution found; exact public hits are statement or benchmark mirrors",
+      "captured_at_utc": "2026-08-13T16:55:00Z",
+      "evidence": "https://github.com/search?q=%22Finite.Equation677_implies_Equation255%22&type=code"
+    },
+    "statement_formalized": {
+      "source": "google-deepmind/formal-conjectures",
+      "revision": "7a38c469ec329d0c97c068e03c58834f61628e7e",
+      "scope": "FormalConjectures/Other/EquationalTheories_677_255.lean",
+      "raw_value": "yes",
+      "captured_at_utc": "2026-08-13T16:55:00Z",
+      "evidence": "https://github.com/google-deepmind/formal-conjectures/blob/7a38c469ec329d0c97c068e03c58834f61628e7e/FormalConjectures/Other/EquationalTheories_677_255.lean"
+    },
+    "declaration_status": {
+      "source": "google-deepmind/formal-conjectures",
+      "revision": "7a38c469ec329d0c97c068e03c58834f61628e7e",
+      "scope": "EquationalTheories_677_255.Finite.Equation677_implies_Equation255",
+      "raw_value": "research open",
+      "captured_at_utc": "2026-08-13T16:55:00Z",
+      "evidence": "https://github.com/google-deepmind/formal-conjectures/blob/7a38c469ec329d0c97c068e03c58834f61628e7e/FormalConjectures/Other/EquationalTheories_677_255.lean#L68-L74"
+    }
+  },
+  "trial": {
+    "lane": "COUNTEREXAMPLE",
+    "authorization": "RUN",
+    "evidence_split": "DEVELOPMENT",
+    "process_wall_cap_seconds": 60,
+    "solver_cap_seconds": 60,
+    "carrier_identity": {
+      "kind": "FAMILY_CONSTRUCTOR_AND_GRID",
+      "sha256": "15fd8ad1101782b8dbdc1051e6cccf2bbbd1a1571a2504b9347061fa5597ed70",
+      "canonicalization": "compact sorted-key UTF-8 domain manifest with terminal newline, fixing the SAT constructor, orders 5 through 8, distinguished failure role, solver, and cap"
+    },
+    "theorem_baselines": [],
+    "sign_potential": [
+      {
+        "term_id": "equation677_premise",
+        "role": "PREMISE_MARGIN",
+        "exact_expression": "for all x,y, y*(x*((y*x)*y))=x",
+        "predicted_delta": "PINNED",
+        "effect_on_target_residual": "PINNED",
+        "rationale": "the SAT clauses enforce the premise exactly at every pair"
+      },
+      {
+        "term_id": "equation255_boolean_residual",
+        "role": "TARGET_RESIDUAL",
+        "exact_expression": "R(M)=1 iff every x satisfies ((x*x)*x)*x=x",
+        "predicted_delta": "UNKNOWN",
+        "effect_on_target_residual": "UNKNOWN",
+        "rationale": "the finite spectrum was unknown and no structural crossing family was assumed"
+      },
+      {
+        "term_id": "sat_certificate_cost",
+        "role": "CERTIFICATE_COST",
+        "exact_expression": "n^3 Boolean variables and 3*n^2+n^3*(n-1)+n^5 clauses",
+        "predicted_delta": "INCREASE",
+        "effect_on_target_residual": "UNKNOWN",
+        "rationale": "the exact exhaustive search grows sharply with order and order eight reached the frozen wall cap"
+      }
+    ]
+  },
+  "ledger": {
+    "path": "results/expansion/equation677_255_ledger.jsonl",
+    "evidence_split": "DEVELOPMENT",
+    "append_only": true,
+    "prerequisites": [
+      {
+        "path": "results/expansion/equation677_255_calibration.jsonl",
+        "sha256": "6ad8a30f54dcf0df9b8fb5325527db79c25631b6e6a98877b67b273a9b494933",
+        "evidence_split": "CALIBRATION"
+      }
+    ]
+  }
+}
