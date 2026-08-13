@@ -216,6 +216,19 @@ class ResolutionCardLintTests(unittest.TestCase):
         codes = {item.code for item in LINTER.lint_card(self.card_path, ledger)}
         self.assertTrue({"LEDGER_SPLIT", "CAP_EXCEEDED", "ARTIFACT_DIGEST"}.issubset(codes))
 
+    def test_prerequisite_digest_is_checked(self):
+        prerequisite = self.root / "calibration.jsonl"
+        prerequisite.write_text('{"kind":"calibration"}\n', encoding="utf-8")
+        card = self.card()
+        card["ledger"]["prerequisites"] = [{
+            "path": str(prerequisite),
+            "sha256": digest(prerequisite.read_bytes()),
+            "evidence_split": "CALIBRATION",
+        }]
+        self.assertEqual(self.codes(card), set())
+        card["ledger"]["prerequisites"][0]["sha256"] = H64
+        self.assertIn("PREREQUISITE_DIGEST", self.codes(card))
+
     def test_timeout_cannot_claim_crossing(self):
         card = self.card()
         self.write_card(card)

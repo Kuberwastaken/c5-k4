@@ -127,6 +127,15 @@ def semantic_findings(card: dict[str, Any], card_path: Path) -> list[Finding]:
     if trial["evidence_split"] != card["ledger"]["evidence_split"]:
         error("SPLIT_MISMATCH", "ledger.evidence_split",
               "trial and ledger evidence splits differ")
+    for index, prerequisite in enumerate(card["ledger"]["prerequisites"]):
+        prerequisite_path = resolve_path(card_path, prerequisite["path"])
+        location = f"ledger.prerequisites.{index}"
+        if not prerequisite_path.is_file():
+            error("PREREQUISITE_MISSING", location,
+                  f"prerequisite ledger does not exist: {prerequisite_path}")
+        elif sha256_file(prerequisite_path).lower() != prerequisite["sha256"].lower():
+            error("PREREQUISITE_DIGEST", f"{location}.sha256",
+                  "prerequisite ledger SHA-256 mismatch")
     if trial["evidence_split"] == "HELDOUT" and "preregistered_commit" not in trial:
         error("HELDOUT_FREEZE", "trial.preregistered_commit",
               "held-out work requires a preregistration commit")
@@ -305,8 +314,8 @@ def main(argv: list[str] | None = None) -> int:
 
     if any(item.code == "INPUT" for item in findings):
         return 2
-    integrity = {"CONTRACT_DIGEST", "LEDGER_CONTRACT", "LEDGER_CARD", "LEDGER_SPLIT",
-                 "CAP_EXCEEDED", "TIMEOUT_CLAIM"}
+    integrity = {"CONTRACT_DIGEST", "PREREQUISITE_DIGEST", "LEDGER_CONTRACT",
+                 "LEDGER_CARD", "LEDGER_SPLIT", "CAP_EXCEEDED", "TIMEOUT_CLAIM"}
     if any(item.severity == "error" and item.code in integrity for item in findings):
         return 3
     return 1 if any(item.severity == "error" for item in findings) else 0
