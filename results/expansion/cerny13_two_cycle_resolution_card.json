@@ -1,0 +1,113 @@
+{
+  "$schema": "../../schemas/resolution-card-v1.schema.json",
+  "schema_version": "c5k4-resolution-card-1.0",
+  "contract": {
+    "path": "results/expansion/cerny13_two_cycle_contract.md",
+    "sha256": "aa37e0d5d1a32aa8ba3c419cdd9481a2cab1b6a24ecf1444b6098ce92e1ed668"
+  },
+  "resolution_card": {
+    "logical_class": "FINITE_UNIVERSAL",
+    "target_negation": {
+      "literal": "There exists one finite synchronizing DFA M for which every reset word has length greater than (card(states)-1)^2.",
+      "derivation": "Negate the universal DFA quantifier and the existential bounded reset-word conclusion of the intended positive side of the exact declaration.",
+      "declaration_blob_sha256": "a370ccc0e20edf6c2d7af7aa8638a224a47dfdbe28125fbdf8f78ab3deb0cd12"
+    },
+    "finite_witness_suffices": true,
+    "negation_certificate": {
+      "kind": "FINITE_OBJECT_EXACT_CHECK",
+      "description": "A finite transition table, an explicit reset word proving synchronization, and exhaustive power-automaton reachability showing no word through the quadratic ceiling resets it.",
+      "replay": "timeout 60s python3 scripts/prospective_cerny13_two_cycle.py"
+    },
+    "exact_residual": {
+      "available": true,
+      "expression": "R(M) = 144 - shortestResetLength(M)",
+      "convention": "HOLDS_NONNEGATIVE",
+      "crossing_condition": "R(M) < 0"
+    }
+  },
+  "status_coordinates": {
+    "informal_status": {
+      "source": "Černý source and current synchronizing-automata survey",
+      "revision": "2026-08-11",
+      "scope": "classical Černý conjecture for all finite synchronizing DFAs",
+      "raw_value": "open",
+      "captured_at_utc": "2026-08-13T16:25:00Z",
+      "evidence": "https://en.wikipedia.org/wiki/%C4%8Cern%C3%BD_conjecture"
+    },
+    "formal_solution_status": {
+      "source": "google-deepmind/formal-conjectures all-state GitHub audit",
+      "revision": "7a38c469ec329d0c97c068e03c58834f61628e7e",
+      "scope": "CernyConjecture.cerny_conjecture and exact title/declaration searches",
+      "raw_value": "no formal solution or proof attempt found",
+      "captured_at_utc": "2026-08-13T16:25:00Z",
+      "evidence": "https://github.com/google-deepmind/formal-conjectures/pull/3906"
+    },
+    "statement_formalized": {
+      "source": "google-deepmind/formal-conjectures",
+      "revision": "7a38c469ec329d0c97c068e03c58834f61628e7e",
+      "scope": "FormalConjectures/Wikipedia/CernyConjecture.lean",
+      "raw_value": "yes",
+      "captured_at_utc": "2026-08-13T16:25:00Z",
+      "evidence": "https://github.com/google-deepmind/formal-conjectures/blob/7a38c469ec329d0c97c068e03c58834f61628e7e/FormalConjectures/Wikipedia/CernyConjecture.lean"
+    },
+    "declaration_status": {
+      "source": "google-deepmind/formal-conjectures",
+      "revision": "7a38c469ec329d0c97c068e03c58834f61628e7e",
+      "scope": "CernyConjecture.cerny_conjecture",
+      "raw_value": "research open; statement-only issue 3905 and merged PR 3906",
+      "captured_at_utc": "2026-08-13T16:25:00Z",
+      "evidence": "https://github.com/google-deepmind/formal-conjectures/issues/3905"
+    }
+  },
+  "trial": {
+    "lane": "COUNTEREXAMPLE",
+    "authorization": "RUN",
+    "evidence_split": "DEVELOPMENT",
+    "process_wall_cap_seconds": 60,
+    "solver_cap_seconds": 60,
+    "carrier_identity": {
+      "kind": "FAMILY_CONSTRUCTOR_AND_GRID",
+      "sha256": "706fc66e813ddbc355c8246a0a38e37b9507ec84f749443b2ac0a2647f2ef107",
+      "canonicalization": "UTF-8 sorted-key compact JSON of the six ordered labelled transition tables d=1,...,6, including both letter-role arrays a and b, with a terminal newline"
+    },
+    "theorem_baselines": [],
+    "sign_potential": [
+      {
+        "term_id": "synchronizing_premise",
+        "role": "PREMISE_MARGIN",
+        "exact_expression": "distance in the power automaton from the full state set to any singleton is finite",
+        "predicted_delta": "PINNED",
+        "effect_on_target_residual": "PINNED",
+        "rationale": "the frozen construction was designed to retain synchronization after splitting the cycle"
+      },
+      {
+        "term_id": "quadratic_reset_residual",
+        "role": "TARGET_RESIDUAL",
+        "exact_expression": "144 - shortestResetLength(M_d)",
+        "predicted_delta": "DECREASE",
+        "effect_on_target_residual": "DECREASE",
+        "rationale": "the successor swap leaves the circular and one-cluster proof domains and was predicted to preserve slow pair compression"
+      },
+      {
+        "term_id": "power_automaton_cost",
+        "role": "CERTIFICATE_COST",
+        "exact_expression": "at most 2^13-1 nonempty subset states for each of six automata",
+        "predicted_delta": "PINNED",
+        "effect_on_target_residual": "UNKNOWN",
+        "rationale": "the complete finite search is bounded independently of the reset threshold"
+      }
+    ]
+  },
+  "ledger": {
+    "path": "results/expansion/cerny13_two_cycle_ledger.jsonl",
+    "evidence_split": "DEVELOPMENT",
+    "append_only": true,
+    "prerequisites": [
+      {
+        "path": "results/expansion/cerny13_two_cycle_calibration.jsonl",
+        "sha256": "bd1303cd505ea321eaaf9d2f90965b970d7d045fbedc7bd086c16e28e8c5f08b",
+        "evidence_split": "CALIBRATION"
+      }
+    ]
+  }
+}
