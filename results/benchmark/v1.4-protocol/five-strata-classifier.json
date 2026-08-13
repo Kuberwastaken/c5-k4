@@ -1,0 +1,148 @@
+{
+  "schema_version": "c5k4-five-strata-classifier-1.4",
+  "scope": "module-wide deterministic syntax-only classification of open finite formal-conjectures declarations",
+  "upstream": {
+    "repository": "google-deepmind/formal-conjectures",
+    "pin_rule": "results/benchmark/v1.4-protocol/upstream-ref-rule.json",
+    "declaration_root": "FormalConjectures"
+  },
+  "permitted_inputs": [
+    "source path",
+    "declaration kind and name",
+    "declaration header syntax tokens",
+    "source-module import and type syntax tokens",
+    "open-category marker",
+    "content digests"
+  ],
+  "forbidden_inputs": [
+    "natural-language source statement",
+    "mathematical interpretation",
+    "known proof or counterexample",
+    "candidate family",
+    "residual or tightness",
+    "target-specific compute",
+    "random rank or target selection"
+  ],
+  "domain_signals": {
+    "path_regex": {
+      "GRAPH": [
+        "(?:^|/)WrittenOnTheWallII/",
+        "(?:^|/)GraphConjecture[^/]*\\.lean$",
+        "(?:^|/)(?:Graph|Ramsey|Chromatic|Coloring|Colouring)[^/]*\\.lean$"
+      ],
+      "FINITE_ALGEBRA_EQUATIONAL": [
+        "(?:^|/)(?:EquationalTheories|Kourovka|Algebra|GroupTheory)[^/]*"
+      ],
+      "AUTOMATA_GAME_PROCESS": [
+        "(?:^|/)[^/]*(?:Automat|Cerny|Černý|Game|Process|CatchUp|BusyBeaver|ChipFiring|Puzzle|CurlingNumber)[^/]*\\.lean$"
+      ]
+    },
+    "header_regex": {
+      "GRAPH": [
+        "\\b(?:SimpleGraph|SimpleDigraph|Multigraph|Digraph|Quiver)\\b"
+      ],
+      "FINITE_ALGEBRA_EQUATIONAL": [
+        "\\b(?:Magma|Semigroup|Monoid|Group|AddGroup|Ring|Semiring|Field|Quasigroup|Loop)\\b"
+      ],
+      "AUTOMATA_GAME_PROCESS": [
+        "\\b(?:Automaton|TransitionSystem|GameState|Player|Strategy|MoveRelation|Synchronizing)\\b"
+      ]
+    },
+    "module_regex": {
+      "GRAPH": [
+        "\\b(?:SimpleGraph|SimpleDigraph|Multigraph|Digraph)\\b"
+      ],
+      "AUTOMATA_GAME_PROCESS": [
+        "\\b(?:Automaton|TransitionSystem|GameState|MoveRelation|Synchronizing|BusyBeaver|Cerny|Černý|CatchUp|CurlingNumber)\\b"
+      ]
+    }
+  },
+  "graph_scalar_signal": {
+    "outer_conclusion_relation_regex": [
+      "≤",
+      "≥",
+      "(?<![<:])<(?![=>])",
+      "(?<![-])>(?![=>])",
+      "\\b(?:LT\\.lt|LE\\.le|GT\\.gt|GE\\.ge)\\b"
+    ]
+  },
+  "finite_signal": {
+    "path_regex": [],
+    "header_regex": [
+      "\\b(?:Fin|Fintype|Finite|Multiset|Finset)\\b"
+    ],
+    "module_regex": [
+      "\\b(?:Fin|Fintype|Finite|Multiset|Finset)\\b"
+    ]
+  },
+  "classification_algorithm": {
+    "domain_order": ["GRAPH", "FINITE_ALGEBRA_EQUATIONAL", "AUTOMATA_GAME_PROCESS"],
+    "multiple_domain_signals": "MULTIPLE_DOMAIN_SIGNALS",
+    "branches": [
+      {
+        "when": "GRAPH and not FINITE",
+        "stratum": null,
+        "basis": "GRAPH_WITHOUT_FINITE_SIGNAL"
+      },
+      {
+        "when": "GRAPH and FINITE and OUTER_ORDERED_RELATION_CONCLUSION",
+        "stratum": "GRAPH_SCALAR_INEQUALITY",
+        "basis": "FINITE_GRAPH_WITH_OUTER_ORDERED_CONCLUSION"
+      },
+      {
+        "when": "GRAPH and FINITE and not OUTER_ORDERED_RELATION_CONCLUSION",
+        "stratum": "GRAPH_STRUCTURAL_PROPERTY",
+        "basis": "FINITE_GRAPH_WITHOUT_OUTER_ORDERED_CONCLUSION"
+      },
+      {
+        "when": "FINITE_ALGEBRA_EQUATIONAL and FINITE",
+        "stratum": "FINITE_ALGEBRA_EQUATIONAL",
+        "basis": "ALGEBRA_AND_FINITE_SIGNALS"
+      },
+      {
+        "when": "FINITE_ALGEBRA_EQUATIONAL and not FINITE",
+        "stratum": null,
+        "basis": "ALGEBRA_WITHOUT_FINITE_SIGNAL"
+      },
+      {
+        "when": "AUTOMATA_GAME_PROCESS",
+        "stratum": "AUTOMATA_GAME_PROCESS",
+        "basis": "AUTOMATA_GAME_PROCESS_SYNTAX_SIGNAL"
+      },
+      {
+        "when": "no specialized domain and FINITE",
+        "stratum": "FINITE_COMBINATORIAL",
+        "basis": "EXPLICIT_FINITE_SIGNAL"
+      },
+      {
+        "when": "otherwise",
+        "stratum": null,
+        "basis": "UNCLASSIFIED_WITHOUT_FINITE_SIGNAL"
+      }
+    ]
+  },
+  "parser_contract": {
+    "header_boundary": "bytes from the open-category marker through the declaration header, ending before the first := in its category block",
+    "outer_conclusion": "remove declaration binders, take text after the first top-level colon, strip enclosing balanced parentheses, then repeatedly retain the consequent after the final top-level implication",
+    "regex_flags": ["IGNORECASE", "DOTALL"],
+    "ordered_relation_scope": "outer conclusion top level only"
+  },
+  "cluster_rule": {
+    "sampling_unit": "ONE_SOURCE_MODULE_CONSERVATIVE_MERGE",
+    "eligible_only_if": "all open declarations in the module receive the same non-ambiguous stratum",
+    "otherwise": "AMBIGUOUS_EXCLUDE",
+    "cross_module_sibling_ambiguity": "exclude during the provenance/identity gate; never split after randomness"
+  },
+  "output_policy": {
+    "statement_text": false,
+    "random_ranks": false,
+    "target_selection": false,
+    "allowed_row_content": [
+      "hashes",
+      "paths",
+      "declaration metadata",
+      "allowlisted syntax flags",
+      "fixed classification labels"
+    ]
+  }
+}

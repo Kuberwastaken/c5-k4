@@ -1,0 +1,187 @@
+name: Run frozen Method v1.4 job
+
+on:
+  workflow_dispatch:
+    inputs:
+      campaign_commit:
+        description: Exact 40-hex campaign commit containing the frozen v1.4 contracts
+        required: true
+        type: string
+      manifest_path:
+        description: Repository-relative frozen Method v1.4 manifest path
+        required: true
+        type: string
+      cluster_id:
+        description: Exact cluster_id from the frozen manifest
+        required: true
+        type: string
+      job_mode:
+        description: Frozen execution stage
+        required: true
+        type: choice
+        options:
+          - SHARED_ANALYSIS
+          - DISCOVERY_ARM
+          - INDEPENDENT_VERIFICATION
+      arm:
+        description: Discovery arm, or NONE for shared analysis/verification
+        required: true
+        default: NONE
+        type: choice
+        options:
+          - NONE
+          - CATALOGUE
+          - GENERIC
+          - WALL_NAVIGATION
+
+permissions:
+  contents: read
+
+concurrency:
+  group: method-v14-${{ inputs.campaign_commit }}-${{ inputs.cluster_id }}-${{ inputs.job_mode }}-${{ inputs.arm }}
+  cancel-in-progress: false
+
+jobs:
+  run-frozen-job:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - name: Reject a movable execution ref
+        shell: bash
+        env:
+          CAMPAIGN_COMMIT: ${{ inputs.campaign_commit }}
+        run: |
+          if [[ ! "$CAMPAIGN_COMMIT" =~ ^[0-9a-f]{40}$ ]]; then
+            echo "campaign_commit must be an exact lowercase 40-hex Git commit" >&2
+            exit 2
+          fi
+
+      - name: Check out the exact frozen campaign commit
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ inputs.campaign_commit }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Verify exact checkout
+        shell: bash
+        env:
+          CAMPAIGN_COMMIT: ${{ inputs.campaign_commit }}
+          HOME: /nonexistent
+          LANG: C
+          LC_ALL: C
+          GIT_CONFIG_GLOBAL: /dev/null
+          GIT_CONFIG_NOSYSTEM: '1'
+          GIT_CONFIG_SYSTEM: /dev/null
+          GIT_NO_LAZY_FETCH: '1'
+          GIT_NO_REPLACE_OBJECTS: '1'
+          GIT_TERMINAL_PROMPT: '0'
+          GIT_ASKPASS: /bin/false
+          SSH_ASKPASS: /bin/false
+        run: |
+          safe_git=(/usr/bin/git -c core.hooksPath=/dev/null -c core.fsmonitor=false -c diff.external= -c diff.trustExitCode=false -c filter.lfs.process= -c filter.lfs.smudge= -c filter.lfs.required=false)
+          checked_out=$("${safe_git[@]}" rev-parse HEAD)
+          if [[ "$checked_out" != "$CAMPAIGN_COMMIT" ]]; then
+            echo "checkout drift: expected $CAMPAIGN_COMMIT, got $checked_out" >&2
+            exit 2
+          fi
+          if [[ -n "$("${safe_git[@]}" status --porcelain=v1 --untracked-files=all)" ]]; then
+            echo "exact campaign checkout is not clean" >&2
+            exit 2
+          fi
+
+      - name: Set up pinned Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12.9'
+
+      - name: Install pinned manifest-validator dependencies
+        shell: bash
+        run: |
+          python -m pip install --disable-pip-version-check \
+            attrs==24.2.0 \
+            jsonschema==3.2.0 \
+            pyrsistent==0.20.0 \
+            setuptools==75.8.0 \
+            six==1.16.0
+
+      - name: Dry-run the exact frozen contract
+        id: preflight
+        shell: bash
+        env:
+          BENCHMARK_MANIFEST: ${{ inputs.manifest_path }}
+          BENCHMARK_CLUSTER: ${{ inputs.cluster_id }}
+          BENCHMARK_MODE: ${{ inputs.job_mode }}
+          BENCHMARK_ARM: ${{ inputs.arm }}
+          BENCHMARK_OUTPUT: ${{ runner.temp }}/method-v14-artifacts
+        run: |
+          mkdir -p "$BENCHMARK_OUTPUT"
+          set +e
+          set -o pipefail
+          python3 scripts/run_benchmark_v14_job.py \
+            --manifest "$BENCHMARK_MANIFEST" \
+            --cluster-id "$BENCHMARK_CLUSTER" \
+            --mode "$BENCHMARK_MODE" \
+            --arm "$BENCHMARK_ARM" \
+            --output "$BENCHMARK_OUTPUT/preflight" \
+            --dry-run \
+            --require-git-ancestry \
+            2>&1 | tee "$BENCHMARK_OUTPUT/preflight.log"
+          runner_status=${PIPESTATUS[0]}
+          set -e
+          printf '%s\n' "$runner_status" > "$BENCHMARK_OUTPUT/preflight-exit-code.txt"
+          exit "$runner_status"
+
+      - name: Execute only the content-addressed frozen contract
+        id: execute
+        shell: bash
+        env:
+          BENCHMARK_MANIFEST: ${{ inputs.manifest_path }}
+          BENCHMARK_CLUSTER: ${{ inputs.cluster_id }}
+          BENCHMARK_MODE: ${{ inputs.job_mode }}
+          BENCHMARK_ARM: ${{ inputs.arm }}
+          BENCHMARK_OUTPUT: ${{ runner.temp }}/method-v14-artifacts
+        run: |
+          set +e
+          set -o pipefail
+          python3 scripts/run_benchmark_v14_job.py \
+            --manifest "$BENCHMARK_MANIFEST" \
+            --cluster-id "$BENCHMARK_CLUSTER" \
+            --mode "$BENCHMARK_MODE" \
+            --arm "$BENCHMARK_ARM" \
+            --output "$BENCHMARK_OUTPUT/run" \
+            --require-git-ancestry \
+            2>&1 | tee "$BENCHMARK_OUTPUT/workflow-runner.log"
+          runner_status=${PIPESTATUS[0]}
+          set -e
+          printf '%s\n' "$runner_status" > "$BENCHMARK_OUTPUT/runner-exit-code.txt"
+          exit "$runner_status"
+
+      - name: Content-address the complete workflow record
+        id: address
+        if: always()
+        shell: bash
+        env:
+          BENCHMARK_OUTPUT: ${{ runner.temp }}/method-v14-artifacts
+        run: |
+          mkdir -p "$BENCHMARK_OUTPUT"
+          cd "$BENCHMARK_OUTPUT"
+          find . -type f ! -name artifact-sha256.txt ! -name artifact-root-sha256.txt \
+            -print0 | sort -z | xargs -0 -r sha256sum > artifact-sha256.txt
+          sha256sum artifact-sha256.txt | awk '{print $1}' > artifact-root-sha256.txt
+          root_sha256=$(tr -d '\n' < artifact-root-sha256.txt)
+          if [[ ! "$root_sha256" =~ ^[0-9a-f]{64}$ ]]; then
+            echo "failed to content-address workflow record" >&2
+            exit 2
+          fi
+          printf 'root_sha256=%s\n' "$root_sha256" >> "$GITHUB_OUTPUT"
+
+      - name: Upload complete content-addressed job record
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: method-v14-${{ steps.address.outputs.root_sha256 }}
+          path: ${{ runner.temp }}/method-v14-artifacts
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 90

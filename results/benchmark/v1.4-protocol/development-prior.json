@@ -1,0 +1,23 @@
+{
+  "schema_version": "c5k4-development-prior-1.4",
+  "evidence_cutoff": "P0A_PARENT_COMMIT",
+  "scope": "one common pre-target baseline for all twelve Method v1.4 clusters",
+  "outcome_order": [
+    "CROSS",
+    "ZERO_COMPLETE",
+    "THEOREM_STRUCTURE",
+    "PRESEARCH_STOP",
+    "TIMEOUT",
+    "PROTOCOL_INVALID"
+  ],
+  "probabilities": {
+    "CROSS": "0.05",
+    "ZERO_COMPLETE": "0.20",
+    "THEOREM_STRUCTURE": "0.25",
+    "PRESEARCH_STOP": "0.20",
+    "TIMEOUT": "0.25",
+    "PROTOCOL_INVALID": "0.05"
+  },
+  "probability_increment": "0.05",
+  "exact_arithmetic": true
+}

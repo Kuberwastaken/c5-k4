@@ -1,0 +1,48 @@
+{
+  "schema_version": "c5k4-selection-stratum-priors-1.4",
+  "evidence_cutoff": "P0A_PARENT_COMMIT",
+  "derivation": "Preregistered conservative stratum shifts from the common development prior; no selected identity or statement semantics are inputs.",
+  "probability_increment": "0.05",
+  "priors": {
+    "GRAPH_SCALAR_INEQUALITY": {
+      "CROSS": "0.10",
+      "ZERO_COMPLETE": "0.20",
+      "THEOREM_STRUCTURE": "0.25",
+      "PRESEARCH_STOP": "0.15",
+      "TIMEOUT": "0.25",
+      "PROTOCOL_INVALID": "0.05"
+    },
+    "GRAPH_STRUCTURAL_PROPERTY": {
+      "CROSS": "0.05",
+      "ZERO_COMPLETE": "0.20",
+      "THEOREM_STRUCTURE": "0.30",
+      "PRESEARCH_STOP": "0.20",
+      "TIMEOUT": "0.20",
+      "PROTOCOL_INVALID": "0.05"
+    },
+    "FINITE_ALGEBRA_EQUATIONAL": {
+      "CROSS": "0.05",
+      "ZERO_COMPLETE": "0.15",
+      "THEOREM_STRUCTURE": "0.25",
+      "PRESEARCH_STOP": "0.15",
+      "TIMEOUT": "0.35",
+      "PROTOCOL_INVALID": "0.05"
+    },
+    "AUTOMATA_GAME_PROCESS": {
+      "CROSS": "0.05",
+      "ZERO_COMPLETE": "0.15",
+      "THEOREM_STRUCTURE": "0.20",
+      "PRESEARCH_STOP": "0.20",
+      "TIMEOUT": "0.35",
+      "PROTOCOL_INVALID": "0.05"
+    },
+    "FINITE_COMBINATORIAL": {
+      "CROSS": "0.05",
+      "ZERO_COMPLETE": "0.25",
+      "THEOREM_STRUCTURE": "0.20",
+      "PRESEARCH_STOP": "0.15",
+      "TIMEOUT": "0.30",
+      "PROTOCOL_INVALID": "0.05"
+    }
+  }
+}

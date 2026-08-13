@@ -1,0 +1,55 @@
+{
+  "schema_version": "c5k4-scoring-rule-1.4",
+  "aggregate_denominator": "ALL_SELECTED",
+  "selected_n": 12,
+  "outcomes": [
+    "CROSS",
+    "ZERO_COMPLETE",
+    "THEOREM_STRUCTURE",
+    "PRESEARCH_STOP",
+    "TIMEOUT",
+    "PROTOCOL_INVALID"
+  ],
+  "terminal_precedence": [
+    "CROSS",
+    "THEOREM_STRUCTURE",
+    "ZERO_COMPLETE",
+    "TIMEOUT",
+    "PRESEARCH_STOP",
+    "PROTOCOL_INVALID"
+  ],
+  "brier": {
+    "formula": "sum_o (p_o - 1[o=terminal_outcome])^2",
+    "aggregation": "arithmetic mean across all twelve selected clusters",
+    "skill_formula": "1 - mean_brier_method / mean_brier_development_prior",
+    "required_forecasts": ["selection", "intervention"],
+    "exact_arithmetic": true
+  },
+  "arm_metrics": {
+    "normalized_gain": "For safe residual r>=0 use max(0,-r)/max(1,abs(frozen control residual)); for safe residual r<=0 use max(0,r)/max(1,abs(frozen control residual)).",
+    "phase0_structural_zero": "Every nonrunnable selected cluster contributes gain zero to all three arms and a tie to both wall-versus-baseline comparisons.",
+    "mean_denominator": 12,
+    "cpu_normalized_gain": "Total normalized gain divided by observed arm CPU; null when no CPU was consumed. No CPU value is imputed for structural zeros.",
+    "rates_denominator": 12,
+    "controlling_term_sign": "Report correct, incorrect, and non-evaluable out of twelve. Headline support accuracy is correct/12, so non-evaluable units cannot improve the gate."
+  },
+  "theorem_yield": {
+    "1": "proved theorem shadow/closure or warning-clean formal lemma",
+    "1/2": "preregistered theorem signal surviving its complete frozen audit and an independent countermodel check",
+    "0": "retrospective conjectural explanation or no theorem evidence"
+  },
+  "support_thresholds": {
+    "PREDICTIVE_SUPPORT": [
+      "selection and intervention Brier skill are positive over all twelve",
+      "wall arm strictly exceeds both baselines in mean normalized gain over all twelve",
+      "for each baseline, paired wall wins are at least paired wall losses over all twelve",
+      "controlling-term full-denominator sign accuracy correct/12 is at least 0.70"
+    ],
+    "DISCOVERY_SUPPORT": [
+      "all PREDICTIVE_SUPPORT requirements",
+      "at least one independently twice-certified cluster-level crossing",
+      "for that crossing, the frozen intervention forecast assigned CROSS greater probability than ZERO_COMPLETE"
+    ]
+  },
+  "reporting": "Novel, retro, ambiguous, and status-preempted crossings remain separate. Every output records selected_n=12, runnable_n, completed-arm counts, structural-zero reasons, observed CPU, and full-denominator timeout/protocol-invalid rates."
+}

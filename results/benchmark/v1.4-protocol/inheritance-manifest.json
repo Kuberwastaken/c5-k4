@@ -1,0 +1,46 @@
+{
+  "schema_version": "c5k4-method-inheritance-1.4",
+  "artifact_status": "PRE_P0_PROTOCOL_COMPONENT",
+  "predecessor": {
+    "protocol_version": "1.3",
+    "terminal_state": "PROTOCOL_INVALID",
+    "terminal_commit": "326841496e4d9184c5e8c617c64757363c191f4f",
+    "protocol_document": {
+      "path": "METHOD_V1_3_BENCHMARK.md",
+      "sha256": "f727f058191bbc15b73cb0e5811848442b67a9350201cc1944a0c4324924a5dd"
+    }
+  },
+  "scientific_design": {
+    "relationship": "IDENTICAL_TO_METHOD_V1_3",
+    "unchanged": [
+      "sampling frame and question-cluster unit",
+      "five fixed strata and 3/3/2/2/2 quotas",
+      "eligibility, grouping, provenance, and source-boundary rules",
+      "CATALOGUE, GENERIC, and WALL_NAVIGATION arm definitions",
+      "shared-analysis, arm, verification, and 60-second process-tree budgets",
+      "priors, forecasts, transformation library, scoring, and stopping rules",
+      "future drand selection and non-circular publication protocol"
+    ]
+  },
+  "sole_change": {
+    "class": "IMPLEMENTATION_CORRECTION_ONLY",
+    "component": "scripts/build_benchmark_v14_registry.py",
+    "validator": "upstream resolution and offline object materialization",
+    "v1_3_defect": "The sole upstream network command used ls-remote, resolving main without materializing the newly resolved object required by the network-forbidden production build.",
+    "v1_4_correction": "The same second and final preflight network operation is one no-retry atomic fetch into a preregistered absent bare SHA-1 object store and explicit namespaced destination ref. Its porcelain output, commit, root tree, FormalConjectures subtree, and isolation/fsck audit are frozen for offline replay.",
+    "failure_policy": "any preexisting store, command/path drift, retry, extra network call, missing object, ref/tree/subtree mismatch, shallow/promisor/alternate/remote state, or chronology mismatch fails closed"
+  },
+  "versioned_execution_plumbing": {
+    "description": "Names, schemas, domain separators, workflows, and authoritative default paths are versioned from v1.3 to v1.4 without changing the scientific design.",
+    "provenance_policy_default": "The v1.4 contamination prototype defaults to the v1.4 authoritative protocol policy; the production registry still injects and content-addresses those exact frozen policy bytes.",
+    "session_snapshot_isolation": "After P0T, one complete sync is copied to the preregistered immutable ai-chats and retained-session snapshot paths so ongoing sync jobs cannot drift S0 during the sole registry build."
+  },
+  "forbidden_changes": [
+    "eligibility relaxation",
+    "quota or stratum change",
+    "target or upstream repin retry",
+    "budget change",
+    "arm or transformation change",
+    "forecast or scoring change"
+  ]
+}

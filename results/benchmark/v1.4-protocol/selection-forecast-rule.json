@@ -1,0 +1,19 @@
+{
+  "schema_version": "c5k4-selection-forecast-rule-1.4",
+  "freeze_phase": "C1A",
+  "allowed_inputs": [
+    "selected cluster stratum",
+    "selection-stratum-priors artifact digest"
+  ],
+  "forbidden_inputs": [
+    "cluster identity except for output association",
+    "statement text or semantics",
+    "source status or prior art",
+    "candidate, proof route, residual, or arm result"
+  ],
+  "rule": "Copy the exact probability vector keyed by the selected cluster's frozen stratum. No rounding or adjustment is permitted.",
+  "all_selected_required": true,
+  "probability_increment": "0.05",
+  "strictly_between_zero_and_one": true,
+  "exact_sum": "1"
+}

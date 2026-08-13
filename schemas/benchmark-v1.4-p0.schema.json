@@ -1,0 +1,146 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-v1.4-p0.schema.json",
+  "title": "Method v1.4 non-circular P0 artifact and attestation",
+  "oneOf": [
+    {"$ref": "#/definitions/p0a"},
+    {"$ref": "#/definitions/p0t"}
+  ],
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "gitOid": {"type": "string", "pattern": "^[0-9a-f]{40,64}$"},
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?Z$"
+    },
+    "fileDigest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/definitions/sha256"}
+      }
+    },
+    "component": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "content_class"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/definitions/sha256"},
+        "content_class": {"const": "PROTOCOL_ONLY_NO_TARGET_DATA"}
+      }
+    },
+    "prototype": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "authority", "excluded_from_formal_build"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/definitions/sha256"},
+        "authority": {"const": "PRE_P0_NOT_FREEZE"},
+        "excluded_from_formal_build": {"const": true}
+      }
+    },
+    "producer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["producer_id", "executable", "invocation_contract", "input_schema", "output_schema"],
+      "properties": {
+        "producer_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$"},
+        "executable": {"$ref": "#/definitions/fileDigest"},
+        "invocation_contract": {"$ref": "#/definitions/fileDigest"},
+        "input_schema": {"$ref": "#/definitions/fileDigest"},
+        "output_schema": {"$ref": "#/definitions/fileDigest"}
+      }
+    },
+    "p0a": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version", "artifact_kind", "authority", "protocol_version",
+        "components", "allowlisted_registry_producers", "prototype_artifacts",
+        "target_data_audit_receipt",
+        "registry_build", "prohibitions", "final_eligible_rows",
+        "selected_clusters", "target_semantics"
+      ],
+      "properties": {
+        "schema_version": {"const": "c5k4-method-v1.4-p0-1.0"},
+        "artifact_kind": {"const": "P0A"},
+        "authority": {"const": "AUTHORITATIVE_P0"},
+        "protocol_version": {"const": "1.4"},
+        "components": {
+          "type": "object",
+          "additionalProperties": {"$ref": "#/definitions/component"}
+        },
+        "allowlisted_registry_producers": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/definitions/producer"}
+        },
+        "prototype_artifacts": {
+          "type": "array",
+          "items": {"$ref": "#/definitions/prototype"}
+        },
+        "target_data_audit_receipt": {"$ref": "#/definitions/fileDigest"},
+        "registry_build": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["allowed_build_count", "requires_p0t", "entropy_permitted", "upstream_resolution_component"],
+          "properties": {
+            "allowed_build_count": {"const": 1},
+            "requires_p0t": {"const": true},
+            "entropy_permitted": {"const": false},
+            "upstream_resolution_component": {"const": "upstream_ref_rule"}
+          }
+        },
+        "prohibitions": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["final_eligible_pool", "selection", "target_ranking", "statement_text", "semantic_target_analysis"],
+          "properties": {
+            "final_eligible_pool": {"const": true},
+            "selection": {"const": true},
+            "target_ranking": {"const": true},
+            "statement_text": {"const": true},
+            "semantic_target_analysis": {"const": true}
+          }
+        },
+        "final_eligible_rows": {"type": "array", "maxItems": 0},
+        "selected_clusters": {"type": "array", "maxItems": 0},
+        "target_semantics": {"type": "array", "maxItems": 0}
+      }
+    },
+    "p0t": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version", "artifact_kind", "protocol_version", "p0a",
+        "p0a_commit", "p0a_published_at_utc", "attestation_policy"
+      ],
+      "properties": {
+        "schema_version": {"const": "c5k4-method-v1.4-p0-1.0"},
+        "artifact_kind": {"const": "P0T"},
+        "protocol_version": {"const": "1.4"},
+        "p0a": {"$ref": "#/definitions/fileDigest"},
+        "p0a_commit": {"$ref": "#/definitions/gitOid"},
+        "p0a_published_at_utc": {"$ref": "#/definitions/timestamp"},
+        "attestation_policy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["p0a_ancestor_required", "p0a_bytes_immutable", "allowed_p0t_changed_paths"],
+          "properties": {
+            "p0a_ancestor_required": {"const": true},
+            "p0a_bytes_immutable": {"const": true},
+            "allowed_p0t_changed_paths": {
+              "type": "array", "minItems": 1, "maxItems": 1,
+              "items": {"type": "string", "minLength": 1}
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "artifact_status": "AUTHORITATIVE_P0_PROTOCOL",
+  "complete": true,
+  "inventory_sha256": "a3619323a814a08c1bb2478b86d7b938dac65cad1f09bb73172869782f76e1c0",
+  "policy": {
+    "decision_input": "EXACT_PRE_P0_MACHINE_PROVENANCE_ONLY",
+    "discussion_roles_exemptible": false,
+    "exemption_key": "SHA256_CANONICAL_JSON_SOURCE_ID_LOCATOR_ROLE_CONTENT_SHA256",
+    "future_outputs_exemptible": false,
+    "global_content_hash_allowlist": false,
+    "statement_text_inspected": false
+  },
+  "producer": {
+    "executable_blob": "7557b744ebc4a5359038b270c6c66a2602134b3f",
+    "executable_path": "scripts/build_benchmark_v12_pool.py",
+    "executable_sha256": "b16eac03c4f85a230a2c3c5992e414c63337d08f3de241ae284ef6d79d0057fb",
+    "generator_commit": "a11de9a8e6216c688de9091b7332074fa3b3b135",
+    "generator_repository": "https://github.com/Kuberwastaken/c5-k4.git",
+    "replay_verified": true,
+    "upstream_commit": "3f08b849788e5e73d52069c616469ea995aac7d7",
+    "upstream_tree": "a41c32dda2ed1544836f1761887bc0d3da00b8f0"
+  },
+  "registry_only_unit_identity_sha256": [
+    "478c97305facde28513951d6f60b7eb1a01abfb79bf14f505881eaed0fb76099",
+    "82d1206329168df15db33d3a5fc9ff707a94f06d062bd912943078a25c4ba950"
+  ],
+  "schema_version": "c5k4-registry-exemption-rule-1.4",
+  "units": [
+    {
+      "bounded_schema_verified": true,
+      "byte_count": 1376829,
+      "content_schema": "c5k4-open-inventory-1.2-prototype",
+      "content_sha256": "3944860e991c1714f8d246a2ec21b980468ce14c22036a761a568a484d47d8c2",
+      "invocation_contract_verified": true,
+      "locator": "git-blob:3c5d1c79a105997b5d7e77d74f56d824911da8ff:results/benchmark/v1.2-prototype/open-inventory.json",
+      "mixed_unit_rejected": true,
+      "output_digest_verified": true,
+      "producer_verified": true,
+      "role": "machine-generated-git-blob",
+      "source_id": "repo:c5-k4",
+      "source_kind": "git",
+      "unit_identity_sha256": "478c97305facde28513951d6f60b7eb1a01abfb79bf14f505881eaed0fb76099"
+    },
+    {
+      "bounded_schema_verified": true,
+      "byte_count": 821874,
+      "content_schema": "c5k4-question-cluster-pool-1.2-prototype",
+      "content_sha256": "b797a69080cba45669ecda915d666f3cab949f4b2daba5a89e360fc84e374274",
+      "invocation_contract_verified": true,
+      "locator": "git-blob:93356076affd0b584b3e6f75118960c72c614ba2:results/benchmark/v1.2-prototype/question-cluster-pool.json",
+      "mixed_unit_rejected": true,
+      "output_digest_verified": true,
+      "producer_verified": true,
+      "role": "machine-generated-git-blob",
+      "source_id": "repo:c5-k4",
+      "source_kind": "git",
+      "unit_identity_sha256": "82d1206329168df15db33d3a5fc9ff707a94f06d062bd912943078a25c4ba950"
+    }
+  ]
+}

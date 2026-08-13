@@ -1,0 +1,1668 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-v1.4.schema.json",
+  "title": "c5-k4 Method v1.4 prospective benchmark",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "benchmark_id",
+    "phase",
+    "protocol",
+    "source_snapshots",
+    "upstream",
+    "freeze_artifacts",
+    "provenance",
+    "quota_feasibility",
+    "randomness",
+    "selection",
+    "budgets",
+    "chronology",
+    "commit_pairs",
+    "clusters",
+    "ledgers",
+    "aggregates",
+    "scoring"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "c5k4-benchmark-1.4"
+    },
+    "benchmark_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]*$"
+    },
+    "phase": {
+      "enum": [
+        "PROTOCOL_DESIGN",
+        "PRE_C0_FEASIBILITY",
+        "NO_ELIGIBLE_BENCHMARK_PRE_C0",
+        "C0_FROZEN",
+        "C1_SELECTED",
+        "EVALUATING",
+        "COMPLETE",
+        "PROTOCOL_INVALID"
+      ]
+    },
+    "protocol": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "p0_artifact",
+        "p0_attestation",
+        "target_rows_present",
+        "upstream_resolution_rule",
+        "prototype_artifacts"
+      ],
+      "properties": {
+        "p0_artifact": {
+          "$ref": "#/definitions/fileDigest"
+        },
+        "p0_attestation": {
+          "$ref": "#/definitions/fileDigest"
+        },
+        "target_rows_present": {
+          "const": false
+        },
+        "upstream_resolution_rule": {
+          "$ref": "#/definitions/fileDigest"
+        },
+        "prototype_artifacts": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$ref": "#/definitions/fileDigest"
+              },
+              {
+                "type": "object",
+                "required": [
+                  "authoritative"
+                ],
+                "properties": {
+                  "authoritative": {
+                    "const": false
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "source_snapshots": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "s0",
+        "supplemental",
+        "complete",
+        "canonical_sha256"
+      ],
+      "properties": {
+        "s0": {
+          "$ref": "#/definitions/snapshot"
+        },
+        "supplemental": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/snapshot"
+          }
+        },
+        "complete": {
+          "const": true
+        },
+        "canonical_sha256": {
+          "$ref": "#/definitions/sha256"
+        }
+      }
+    },
+    "upstream": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository",
+        "commit",
+        "tree",
+        "declaration_root"
+      ],
+      "properties": {
+        "repository": {
+          "const": "google-deepmind/formal-conjectures"
+        },
+        "commit": {
+          "$ref": "#/definitions/gitOid"
+        },
+        "tree": {
+          "$ref": "#/definitions/gitOid"
+        },
+        "declaration_root": {
+          "const": "FormalConjectures"
+        },
+        "checkout_path": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "freeze_artifacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "open_inventory",
+        "classifier",
+        "provenance_policy",
+        "registry_input_schema",
+        "registry_output_schema",
+        "provenance_inventory",
+        "contamination_inventory",
+        "source_snapshots",
+        "eligible_pool",
+        "feasibility_certificate",
+        "c0_randomness_contract",
+        "c0_validation_receipt",
+        "development_prior",
+        "transformation_library",
+        "scoring_rule",
+        "stopping_rule"
+      ],
+      "properties": {
+        "open_inventory": {
+          "$ref": "#/definitions/fileDigest"
+        },
+        "classifier": {
+          "$ref": "#/definitions/fileDigest"
+        },
+        "provenance_policy": {
+          "$ref": "#/definitions/fileDigest"
+        },
+        "registry_input_schema": {
+          "$ref": "#/definitions/fileDigest"
+        },
+        "registry_output_schema": {
+          "$ref": "#/definitions/fileDigest"
+        },
+        "provenance_inventory": {
+          "$ref": "#/definitions/fileDigest"
+        },
+        "contamination_inventory": {
+          "$ref": "#/definitions/fileDigest"
+        },
+        "source_snapshots": {
+          "$ref": "#/definitions/fileDigest"
+        },
+        "eligible_pool": {
+          "$ref": "#/definitions/fileDigest"
+        },
+        "feasibility_certificate": {
+          "$ref": "#/definitions/fileDigest"
+        },
+        "c0_randomness_contract": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/fileDigest"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "c0_validation_receipt": {
+          "oneOf": [
+            {"$ref": "#/definitions/fileDigest"},
+            {"type": "null"}
+          ]
+        },
+        "development_prior": {
+          "$ref": "#/definitions/fileDigest"
+        },
+        "transformation_library": {
+          "$ref": "#/definitions/fileDigest"
+        },
+        "scoring_rule": {
+          "$ref": "#/definitions/fileDigest"
+        },
+        "stopping_rule": {
+          "$ref": "#/definitions/fileDigest"
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "policy",
+        "sources_complete",
+        "allowlisted_producers",
+        "records"
+      ],
+      "properties": {
+        "policy": {
+          "const": "SEMANTIC_OR_UNKNOWN_EXCLUDES_REGISTRY_ONLY_VISIBLE"
+        },
+        "sources_complete": {
+          "const": true
+        },
+        "allowlisted_producers": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/producer"
+          }
+        },
+        "records": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/provenanceRecord"
+          }
+        }
+      }
+    },
+    "quota_feasibility": {
+      "$ref": "#/definitions/feasibility"
+    },
+    "randomness": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/randomnessUnarmed"
+        },
+        {
+          "$ref": "#/definitions/randomnessArmed"
+        },
+        {
+          "$ref": "#/definitions/randomnessVerified"
+        }
+      ]
+    },
+    "selection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sampling_unit",
+        "target_cluster_count",
+        "quotas",
+        "no_backfill",
+        "relaxed_exclusion",
+        "replacement_events",
+        "evidence"
+      ],
+      "properties": {
+        "sampling_unit": {
+          "const": "QUESTION_CLUSTER"
+        },
+        "target_cluster_count": {
+          "const": 12
+        },
+        "quotas": {
+          "$ref": "#/definitions/quotas"
+        },
+        "no_backfill": {
+          "const": true
+        },
+        "relaxed_exclusion": {
+          "const": false
+        },
+        "replacement_events": {
+          "type": "array",
+          "maxItems": 0
+        },
+        "evidence": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/fileDigest"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "budgets": {
+      "$ref": "#/definitions/budgets"
+    },
+    "chronology": {
+      "$ref": "#/definitions/chronology"
+    },
+    "commit_pairs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "p0",
+        "f0",
+        "c0",
+        "c1",
+        "r0"
+      ],
+      "properties": {
+        "p0": {
+          "$ref": "#/definitions/nullableCommitPair"
+        },
+        "f0": {
+          "$ref": "#/definitions/nullableCommitPair"
+        },
+        "c0": {
+          "$ref": "#/definitions/nullableCommitPair"
+        },
+        "c1": {
+          "$ref": "#/definitions/nullableCommitPair"
+        },
+        "r0": {
+          "$ref": "#/definitions/nullableCommitPair"
+        }
+      }
+    },
+    "clusters": {
+      "type": "array",
+      "maxItems": 12,
+      "items": {
+        "$ref": "#/definitions/cluster"
+      }
+    },
+    "ledgers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ledger"
+      }
+    },
+    "aggregates": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/aggregates"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "scoring": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["input", "result"],
+          "properties": {
+            "input": {"$ref": "#/definitions/fileDigest"},
+            "result": {"$ref": "#/definitions/fileDigest"}
+          }
+        },
+        {"type": "null"}
+      ]
+    }
+  },
+  "definitions": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "gitOid": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40,64}$"
+    },
+    "nullableGitOid": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/gitOid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?Z$"
+    },
+    "nullableTimestamp": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/timestamp"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "fileDigest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "$ref": "#/definitions/sha256"
+        },
+        "authoritative": {
+          "type": "boolean"
+        }
+      }
+    },
+    "snapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "snapshot_id",
+        "path",
+        "file_sha256",
+        "snapshot_sha256",
+        "acquired_at_utc",
+        "corpus_sha256",
+        "complete",
+        "immutable_ref"
+      ],
+      "properties": {
+        "snapshot_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "file_sha256": {
+          "$ref": "#/definitions/sha256"
+        },
+        "snapshot_sha256": {
+          "$ref": "#/definitions/sha256"
+        },
+        "acquired_at_utc": {
+          "$ref": "#/definitions/timestamp"
+        },
+        "corpus_sha256": {
+          "$ref": "#/definitions/sha256"
+        },
+        "complete": {
+          "const": true
+        },
+        "immutable_ref": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "producer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "producer_id",
+        "executable_sha256",
+        "invocation_contract_sha256",
+        "input_schema_sha256",
+        "output_schema_sha256"
+      ],
+      "properties": {
+        "producer_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "executable_sha256": {
+          "$ref": "#/definitions/sha256"
+        },
+        "invocation_contract_sha256": {
+          "$ref": "#/definitions/sha256"
+        },
+        "input_schema_sha256": {
+          "$ref": "#/definitions/sha256"
+        },
+        "output_schema_sha256": {
+          "$ref": "#/definitions/sha256"
+        }
+      }
+    },
+    "provenanceRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "unit_id",
+        "class",
+        "identity_evidence_count",
+        "mixed",
+        "producer_id",
+        "input_sha256",
+        "output_sha256",
+        "input_artifact",
+        "output_artifact",
+        "schema_valid"
+      ],
+      "properties": {
+        "unit_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "class": {
+          "enum": [
+            "SEMANTIC_SOURCE",
+            "MACHINE_REGISTRY_CONTACT",
+            "UNKNOWN"
+          ]
+        },
+        "identity_evidence_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "mixed": {
+          "type": "boolean"
+        },
+        "producer_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "input_sha256": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/sha256"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "output_sha256": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/sha256"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "input_artifact": {
+          "oneOf": [
+            {"$ref": "#/definitions/fileDigest"},
+            {"type": "null"}
+          ]
+        },
+        "output_artifact": {
+          "oneOf": [
+            {"$ref": "#/definitions/fileDigest"},
+            {"type": "null"}
+          ]
+        },
+        "schema_valid": {
+          "type": "boolean"
+        }
+      }
+    },
+    "quotas": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "GRAPH_SCALAR_INEQUALITY",
+        "GRAPH_STRUCTURAL_PROPERTY",
+        "FINITE_ALGEBRA_EQUATIONAL",
+        "AUTOMATA_GAME_PROCESS",
+        "FINITE_COMBINATORIAL"
+      ],
+      "properties": {
+        "GRAPH_SCALAR_INEQUALITY": {
+          "const": 3
+        },
+        "GRAPH_STRUCTURAL_PROPERTY": {
+          "const": 3
+        },
+        "FINITE_ALGEBRA_EQUATIONAL": {
+          "const": 2
+        },
+        "AUTOMATA_GAME_PROCESS": {
+          "const": 2
+        },
+        "FINITE_COMBINATORIAL": {
+          "const": 2
+        }
+      }
+    },
+    "feasibilityRow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stratum",
+        "quota",
+        "eligible_count",
+        "deficit"
+        ,"surplus"
+      ],
+      "properties": {
+        "stratum": {
+          "enum": [
+            "GRAPH_SCALAR_INEQUALITY",
+            "GRAPH_STRUCTURAL_PROPERTY",
+            "FINITE_ALGEBRA_EQUATIONAL",
+            "AUTOMATA_GAME_PROCESS",
+            "FINITE_COMBINATORIAL"
+          ]
+        },
+        "quota": {
+          "type": "integer"
+        },
+        "eligible_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "deficit": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "surplus": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "feasibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "phase",
+        "status",
+        "upstream",
+        "chronology",
+        "entropy_used",
+        "selected_clusters",
+        "digests",
+        "quotas",
+        "strata",
+        "certificate_sha256"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "c5k4-quota-feasibility-1.4"
+        },
+        "phase": {
+          "const": "PRE_C0_FEASIBILITY"
+        },
+        "status": {
+          "enum": [
+            "PASS",
+            "FAIL"
+          ]
+        },
+        "upstream": {
+          "type": "object"
+        },
+        "chronology": {
+          "type": "object"
+        },
+        "entropy_used": {
+          "const": false
+        },
+        "selected_clusters": {
+          "type": "array",
+          "maxItems": 0
+        },
+        "digests": {
+          "$ref": "#/definitions/feasibilityDigestSet"
+        },
+        "quotas": {
+          "$ref": "#/definitions/quotas"
+        },
+        "strata": {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 5,
+          "items": {
+            "$ref": "#/definitions/feasibilityRow"
+          }
+        },
+        "certificate_sha256": {
+          "$ref": "#/definitions/sha256"
+        }
+      }
+    },
+    "digestSet": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "open_inventory_sha256",
+        "classifier_sha256",
+        "provenance_policy_sha256",
+        "provenance_inventory_sha256",
+        "contamination_inventory_sha256",
+        "source_snapshots_sha256"
+      ],
+      "properties": {
+        "open_inventory_sha256": {
+          "$ref": "#/definitions/sha256"
+        },
+        "classifier_sha256": {
+          "$ref": "#/definitions/sha256"
+        },
+        "provenance_policy_sha256": {
+          "$ref": "#/definitions/sha256"
+        },
+        "provenance_inventory_sha256": {
+          "$ref": "#/definitions/sha256"
+        },
+        "contamination_inventory_sha256": {
+          "$ref": "#/definitions/sha256"
+        },
+        "source_snapshots_sha256": {
+          "$ref": "#/definitions/sha256"
+        }
+      }
+    },
+    "feasibilityDigestSet": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eligible_pool_file_sha256",
+        "eligible_pool_canonical_sha256",
+        "open_inventory_sha256",
+        "classifier_sha256",
+        "provenance_policy_sha256",
+        "provenance_inventory_sha256",
+        "contamination_inventory_sha256",
+        "source_snapshots_sha256"
+      ],
+      "properties": {
+        "eligible_pool_file_sha256": {
+          "$ref": "#/definitions/sha256"
+        },
+        "eligible_pool_canonical_sha256": {
+          "$ref": "#/definitions/sha256"
+        },
+        "open_inventory_sha256": {
+          "$ref": "#/definitions/sha256"
+        },
+        "classifier_sha256": {
+          "$ref": "#/definitions/sha256"
+        },
+        "provenance_policy_sha256": {
+          "$ref": "#/definitions/sha256"
+        },
+        "provenance_inventory_sha256": {
+          "$ref": "#/definitions/sha256"
+        },
+        "contamination_inventory_sha256": {
+          "$ref": "#/definitions/sha256"
+        },
+        "source_snapshots_sha256": {
+          "$ref": "#/definitions/sha256"
+        }
+      }
+    },
+    "chain": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "hash",
+        "public_key",
+        "scheme_id",
+        "genesis_time",
+        "period_seconds"
+      ],
+      "properties": {
+        "hash": {
+          "const": "8990e7a9aaed2ffed73dbd7092123d6f289930540d7651336225dc172e51b2ce"
+        },
+        "public_key": {
+          "const": "868f005eb8e6e4ca0a47c8a77ceaa5309a47978a7c71bc5cce96366b5d7a569937c529eeda66c7293784a9402801af31"
+        },
+        "scheme_id": {
+          "const": "pedersen-bls-chained"
+        },
+        "genesis_time": {
+          "const": 1595431050
+        },
+        "period_seconds": {
+          "const": 30
+        }
+      }
+    },
+    "randomnessBase": {
+      "type": "object",
+      "properties": {
+        "source": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "round": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "round_closes_at_utc": {
+          "$ref": "#/definitions/nullableTimestamp"
+        },
+        "chain": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/chain"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "relays": {
+          "type": "array"
+        },
+        "selection_algorithm": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "value": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "value_sha256": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/sha256"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "verified_artifact": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/fileDigest"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "randomnessUnarmed": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/randomnessBase"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "state",
+            "source",
+            "round",
+            "round_closes_at_utc",
+            "chain",
+            "relays",
+            "selection_algorithm",
+            "value",
+            "value_sha256",
+            "verified_artifact"
+          ],
+          "properties": {
+            "state": {
+              "const": "UNARMED"
+            },
+            "source": {
+              "type": "null"
+            },
+            "round": {
+              "type": "null"
+            },
+            "round_closes_at_utc": {
+              "type": "null"
+            },
+            "chain": {
+              "type": "null"
+            },
+            "relays": {
+              "type": "array",
+              "maxItems": 0
+            },
+            "selection_algorithm": {
+              "type": "null"
+            },
+            "value": {
+              "type": "null"
+            },
+            "value_sha256": {
+              "type": "null"
+            },
+            "verified_artifact": {
+              "type": "null"
+            }
+          }
+        }
+      ]
+    },
+    "randomnessArmed": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/randomnessBase"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "state",
+            "source",
+            "round",
+            "round_closes_at_utc",
+            "chain",
+            "relays",
+            "selection_algorithm",
+            "value",
+            "value_sha256",
+            "verified_artifact"
+          ],
+          "properties": {
+            "state": {
+              "const": "ARMED"
+            },
+            "source": {
+              "const": "League of Entropy drand"
+            },
+            "round": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "round_closes_at_utc": {
+              "$ref": "#/definitions/timestamp"
+            },
+            "chain": {
+              "$ref": "#/definitions/chain"
+            },
+            "relays": {
+              "const": [
+                "https://api.drand.sh",
+                "https://api2.drand.sh"
+              ]
+            },
+            "selection_algorithm": {
+              "const": "UNBIASED_DOMAIN_SEPARATED_SHA256_FISHER_YATES"
+            },
+            "value": {
+              "type": "null"
+            },
+            "value_sha256": {
+              "type": "null"
+            },
+            "verified_artifact": {
+              "type": "null"
+            }
+          }
+        }
+      ]
+    },
+    "randomnessVerified": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/randomnessBase"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "state",
+            "source",
+            "round",
+            "round_closes_at_utc",
+            "chain",
+            "relays",
+            "selection_algorithm",
+            "value",
+            "value_sha256",
+            "verified_artifact"
+          ],
+          "properties": {
+            "state": {
+              "const": "VERIFIED"
+            },
+            "source": {
+              "const": "League of Entropy drand"
+            },
+            "round": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "round_closes_at_utc": {
+              "$ref": "#/definitions/timestamp"
+            },
+            "chain": {
+              "$ref": "#/definitions/chain"
+            },
+            "relays": {
+              "const": [
+                "https://api.drand.sh",
+                "https://api2.drand.sh"
+              ]
+            },
+            "selection_algorithm": {
+              "const": "UNBIASED_DOMAIN_SEPARATED_SHA256_FISHER_YATES"
+            },
+            "value": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "value_sha256": {
+              "$ref": "#/definitions/sha256"
+            },
+            "verified_artifact": {
+              "$ref": "#/definitions/fileDigest"
+            }
+          }
+        }
+      ]
+    },
+    "budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "process_count",
+        "process_wall_cap_seconds",
+        "cpu_budget_seconds"
+      ],
+      "properties": {
+        "process_count": {
+          "type": "integer"
+        },
+        "process_wall_cap_seconds": {
+          "type": "number",
+          "maximum": 60
+        },
+        "cpu_budget_seconds": {
+          "type": "number"
+        }
+      }
+    },
+    "budgets": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "shared_analysis",
+        "discovery_arm",
+        "independent_verification"
+      ],
+      "properties": {
+        "shared_analysis": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "process_count",
+            "cpu_budget_seconds",
+            "process_wall_cap_seconds"
+          ],
+          "properties": {
+            "process_count": {
+              "const": 10
+            },
+            "cpu_budget_seconds": {
+              "const": 600
+            },
+            "process_wall_cap_seconds": {
+              "const": 60
+            }
+          }
+        },
+        "discovery_arm": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/budget"
+            },
+            {
+              "properties": {
+                "process_count": {
+                  "const": 8
+                },
+                "process_wall_cap_seconds": {
+                  "const": 60
+                },
+                "cpu_budget_seconds": {
+                  "const": 480
+                }
+              }
+            }
+          ]
+        },
+        "independent_verification": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/budget"
+            },
+            {
+              "properties": {
+                "process_count": {
+                  "const": 2
+                },
+                "process_wall_cap_seconds": {
+                  "const": 60
+                },
+                "cpu_budget_seconds": {
+                  "const": 120
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "chronology": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "p0_artifact_commit",
+        "p0_attestation_commit",
+        "p0_published_at_utc",
+        "s0_acquired_at_utc",
+        "feasibility_checked_at_utc",
+        "f0_artifact_commit",
+        "f0_attestation_commit",
+        "f0_published_at_utc",
+        "c0_artifact_commit",
+        "c0_attestation_commit",
+        "c0_published_at_utc",
+        "randomness_retrieved_at_utc",
+        "c1_artifact_commit",
+        "c1_attestation_commit",
+        "c1_frozen_at_utc",
+        "evaluation_started_at_utc",
+        "r0_artifact_commit",
+        "r0_attestation_commit",
+        "completed_at_utc"
+      ],
+      "properties": {
+        "p0_artifact_commit": {
+          "$ref": "#/definitions/nullableGitOid"
+        },
+        "p0_attestation_commit": {
+          "$ref": "#/definitions/nullableGitOid"
+        },
+        "p0_published_at_utc": {
+          "$ref": "#/definitions/nullableTimestamp"
+        },
+        "s0_acquired_at_utc": {
+          "$ref": "#/definitions/nullableTimestamp"
+        },
+        "feasibility_checked_at_utc": {
+          "$ref": "#/definitions/nullableTimestamp"
+        },
+        "f0_artifact_commit": {
+          "$ref": "#/definitions/nullableGitOid"
+        },
+        "f0_attestation_commit": {
+          "$ref": "#/definitions/nullableGitOid"
+        },
+        "f0_published_at_utc": {
+          "$ref": "#/definitions/nullableTimestamp"
+        },
+        "c0_artifact_commit": {
+          "$ref": "#/definitions/nullableGitOid"
+        },
+        "c0_attestation_commit": {
+          "$ref": "#/definitions/nullableGitOid"
+        },
+        "c0_published_at_utc": {
+          "$ref": "#/definitions/nullableTimestamp"
+        },
+        "randomness_retrieved_at_utc": {
+          "$ref": "#/definitions/nullableTimestamp"
+        },
+        "c1_artifact_commit": {
+          "$ref": "#/definitions/nullableGitOid"
+        },
+        "c1_attestation_commit": {
+          "$ref": "#/definitions/nullableGitOid"
+        },
+        "c1_frozen_at_utc": {
+          "$ref": "#/definitions/nullableTimestamp"
+        },
+        "evaluation_started_at_utc": {
+          "$ref": "#/definitions/nullableTimestamp"
+        },
+        "r0_artifact_commit": {
+          "$ref": "#/definitions/nullableGitOid"
+        },
+        "r0_attestation_commit": {
+          "$ref": "#/definitions/nullableGitOid"
+        },
+        "completed_at_utc": {
+          "$ref": "#/definitions/nullableTimestamp"
+        }
+      }
+    },
+    "commitPair": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifact_commit",
+        "attestation_commit",
+        "artifact_self_reference",
+        "attested_artifact_commit",
+        "attestation_parent",
+        "artifact_tree_sha256",
+        "attested_artifact_tree_sha256",
+        "changed_fields"
+      ],
+      "properties": {
+        "artifact_commit": {
+          "$ref": "#/definitions/gitOid"
+        },
+        "attestation_commit": {
+          "$ref": "#/definitions/gitOid"
+        },
+        "artifact_self_reference": {
+          "type": "null"
+        },
+        "attested_artifact_commit": {
+          "$ref": "#/definitions/gitOid"
+        },
+        "attestation_parent": {
+          "$ref": "#/definitions/gitOid"
+        },
+        "artifact_tree_sha256": {
+          "$ref": "#/definitions/sha256"
+        },
+        "attested_artifact_tree_sha256": {
+          "$ref": "#/definitions/sha256"
+        },
+        "changed_fields": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "nullableCommitPair": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/commitPair"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "declaration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "declaration_name",
+        "file_sha256"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "pattern": "^FormalConjectures/.+\\.lean$"
+        },
+        "declaration_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "file_sha256": {
+          "$ref": "#/definitions/sha256"
+        }
+      }
+    },
+    "arm": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract",
+        "process_count",
+        "process_wall_cap_seconds",
+        "cpu_budget_seconds",
+        "seed",
+        "parameter_grid",
+        "transformation_id",
+        "no_adaptation",
+        "frozen_at_utc",
+        "started_at_utc",
+        "status"
+      ],
+      "properties": {
+        "contract": {
+          "$ref": "#/definitions/fileDigest"
+        },
+        "process_count": {
+          "const": 8
+        },
+        "process_wall_cap_seconds": {
+          "const": 60
+        },
+        "cpu_budget_seconds": {
+          "const": 480
+        },
+        "seed": {
+          "type": [
+            "string",
+            "integer"
+          ]
+        },
+        "parameter_grid": {
+          "type": "object"
+        },
+        "transformation_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "no_adaptation": {
+          "const": true
+        },
+        "frozen_at_utc": {
+          "$ref": "#/definitions/timestamp"
+        },
+        "started_at_utc": {
+          "$ref": "#/definitions/nullableTimestamp"
+        },
+        "status": {
+          "enum": [
+            "PENDING",
+            "RUNNING",
+            "TERMINATED"
+          ]
+        }
+      }
+    },
+    "arms": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "CATALOGUE",
+        "GENERIC",
+        "WALL_NAVIGATION"
+      ],
+      "properties": {
+        "CATALOGUE": {
+          "$ref": "#/definitions/arm"
+        },
+        "GENERIC": {
+          "$ref": "#/definitions/arm"
+        },
+        "WALL_NAVIGATION": {
+          "$ref": "#/definitions/arm"
+        }
+      }
+    },
+    "cluster": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "cluster_id",
+        "identity_sha256",
+        "stratum",
+        "declarations",
+        "selection_forecast",
+        "intervention_forecast",
+        "runnable",
+        "structural_zero",
+        "shared_analysis_contract",
+        "independent_verification_contract",
+        "evaluation_started_at_utc",
+        "arms",
+        "terminal_outcome",
+        "terminal_evidence",
+        "theorem_evidence",
+        "crossing_verification"
+      ],
+      "properties": {
+        "cluster_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "identity_sha256": {
+          "$ref": "#/definitions/sha256"
+        },
+        "stratum": {
+          "enum": [
+            "GRAPH_SCALAR_INEQUALITY",
+            "GRAPH_STRUCTURAL_PROPERTY",
+            "FINITE_ALGEBRA_EQUATIONAL",
+            "AUTOMATA_GAME_PROCESS",
+            "FINITE_COMBINATORIAL"
+          ]
+        },
+        "declarations": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/declaration"
+          }
+        },
+        "selection_forecast": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "intervention_forecast": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "runnable": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "structural_zero": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/structuralZero"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "shared_analysis_contract": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/fileDigest"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "independent_verification_contract": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/fileDigest"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "evaluation_started_at_utc": {
+          "$ref": "#/definitions/nullableTimestamp"
+        },
+        "arms": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/arms"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "terminal_outcome": {
+          "enum": [
+            "CROSS",
+            "ZERO_COMPLETE",
+            "THEOREM_STRUCTURE",
+            "PRESEARCH_STOP",
+            "TIMEOUT",
+            "PROTOCOL_INVALID",
+            null
+          ]
+        },
+        "terminal_evidence": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/fileDigest"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "theorem_evidence": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/fileDigest"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "crossing_verification": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/fileDigest"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "structuralZero": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reason",
+        "CATALOGUE",
+        "GENERIC",
+        "WALL_NAVIGATION",
+        "wall_vs_catalogue",
+        "wall_vs_generic"
+      ],
+      "properties": {
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "CATALOGUE": {
+          "const": 0
+        },
+        "GENERIC": {
+          "const": 0
+        },
+        "WALL_NAVIGATION": {
+          "const": 0
+        },
+        "wall_vs_catalogue": {
+          "const": "TIE"
+        },
+        "wall_vs_generic": {
+          "const": "TIE"
+        }
+      }
+    },
+    "ledger": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256",
+        "append_only",
+        "hash_chain"
+      ],
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "sha256": {
+          "$ref": "#/definitions/sha256"
+        },
+        "append_only": {
+          "const": true
+        },
+        "hash_chain": {
+          "const": "SHA256_CANONICAL_JSON_WITHOUT_ROW_SHA256"
+        }
+      }
+    },
+    "aggregates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "selected_n",
+        "aggregate_denominator",
+        "runnable_n",
+        "completed_arm_counts",
+        "structural_zero_n",
+        "derived_from_ledgers",
+        "hand_authored"
+      ],
+      "properties": {
+        "selected_n": {
+          "const": 12
+        },
+        "aggregate_denominator": {
+          "const": "ALL_SELECTED"
+        },
+        "runnable_n": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 12
+        },
+        "completed_arm_counts": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "CATALOGUE",
+            "GENERIC",
+            "WALL_NAVIGATION"
+          ],
+          "properties": {
+            "CATALOGUE": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 12
+            },
+            "GENERIC": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 12
+            },
+            "WALL_NAVIGATION": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 12
+            }
+          }
+        },
+        "structural_zero_n": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 12
+        },
+        "derived_from_ledgers": {
+          "const": true
+        },
+        "hand_authored": {
+          "const": false
+        }
+      }
+    }
+  }
+}
