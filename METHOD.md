@@ -1,4 +1,4 @@
-# Invariant-Wall Navigation: Development Method v0.7
+# Invariant-Wall Navigation: Development Method v0.8
 
 Programme-level execution order and maturity criteria are maintained in
 [`OVERARCHING_PLAN.md`](OVERARCHING_PLAN.md). This file is the detailed,
@@ -92,6 +92,11 @@ Before construction work:
      unsettled);
    - `MULTI_READING`;
    - `UNUSABLE_SOURCE`.
+6. If any hypothesis is strict, quantified over subsets, or defined by an
+   extremum, freeze the exact witness semantics for both truth and failure.
+   A scalar minimum or Boolean flag is insufficient: a premise-false stop must
+   carry a replayable subset/vertex/edge witness, its eligibility calculation,
+   the induced quantity, and the literal strict comparison.
 
 No reading may be changed after a candidate is found without preserving the
 old result and explaining the change in the log.
@@ -236,11 +241,33 @@ contract. If they differ, preserve the original rows and classify them
 `PROTOCOL_DEVIATION`; then run a separately identified literal replay if still
 within the frozen budget. A no-crossing result does not cure a protocol error.
 
+### Phase 6A — Serialize labelled structure, not merely an abstract graph
+
+Graph6 identifies a graph serialization; it does not certify that designated
+vertex numbers still denote the frozen roots, ports, fibers, bipartition
+sides, or witness coordinates. Whenever a construction depends on labelled
+roles, every row must therefore store:
+
+- the full labelled edge list (or an equivalent adjacency table);
+- an explicit role map for roots, ports, fibers, parts, and attachments;
+- graph6 as an abstract-graph checksum, not the sole labelled record;
+- every witness in the same labelled coordinate system; and
+- a digest of the combined labelled record.
+
+Replay must either reconstruct the exact labelled graph, or exhibit an
+explicit isomorphism and transport every role and witness through it before
+checking the claim. Abstract isomorphism alone cannot validate a labelled
+distance or attachment statement. The WOWII 61 cube-chain audit is the model:
+its conditional mathematics survived, but a graph6/root-port mismatch
+overrode the apparent hold with `PROTOCOL_DEVIATION`.
+
 ### Phase 7 — Candidate verification
 
 No apparent crossing is a result until it passes all gates:
 
-1. **Hypotheses:** replay every graph hypothesis exactly.
+1. **Hypotheses:** replay every graph hypothesis exactly. Strict or extremal
+   premises require a concrete satisfying or falsifying witness; equality at a
+   strict boundary is premise failure, not a hold.
 2. **All readings:** compute a verdict table for every frozen interpretation.
 3. **Database sanity:** rerun the accepted reading on all controls.
 4. **Independent recomputation:** use a second implementation or a structural
@@ -310,6 +337,7 @@ Every attempted target receives exactly one primary outcome:
 
 | outcome | meaning |
 |---|---|
+| `GATE_FAIL` | a frozen calibration, fixture, control, or constructor assertion failed; the family remains locked |
 | `NEW_UNAMBIGUOUS_DISPROOF` | all source readings agree and novelty survives |
 | `NEW_FORMALIZED_READING_DISPROOF` | the Lean/gate-preferred reading is false; historical intent remains caveated |
 | `RETRO_COUNTEREXAMPLE` | witness is new to this campaign but the conjecture was already false |
@@ -317,9 +345,11 @@ Every attempted target receives exactly one primary outcome:
 | `THEOREM_SIGNAL` | a sharply reduced possible theorem with negative computational evidence |
 | `PREDICTION_CONFIRMED` | every tested coordinate matches a frozen closed-form prediction |
 | `NO_APPLICABLE_CANDIDATES` | the exact prescribed transformation has no admissible output |
+| `NO_TARGET_RAISING_CANDIDATES` | admissible outputs exist, but none moves the preregistered target coordinate |
 | `KNOWN_PROOF_DOMAIN` | every admissible output lies in a class where the target is already proved |
 | `NEUTRAL_CORRIDOR` | exact transformations produce new tight objects but the frozen frontier closes |
 | `PROTOCOL_DEVIATION` | implementation and frozen contract differ; rows are preserved but excluded |
+| `PREMISE_FALSE_STRICT` | an exact witness falsifies a strict premise, so the conjectured conclusion is not evaluated |
 | `HOLD_BOUNDED` | all declared tests hold; no truth claim beyond the bounds |
 | `TIMEOUT_BRACKET` | exact optimization did not finish; certified bounds retained |
 | `CORRUPT_OR_ERRATUM` | source/database gate rejects the printed statement |
@@ -340,7 +370,7 @@ inside already-published statements from collections already represented in
 `formal-conjectures`. Source recovery does not by itself make an unrelated
 corpus eligible. WoW I and Graph Brain results remain internal to `c5-k4` and
 must not be submitted upstream. This keeps the public research trail legible
-while Method v0.4 is refined.
+while Method v0.8 is refined.
 
 ### Wave A — known tight walls
 
@@ -392,6 +422,54 @@ No target already inspected, discussed, ranked, or searched in this repository
 will be counted as held out.
 
 ## Method changelog
+
+### v0.8 — 2026-08-13
+
+- Records the first post-v0.7 round as **zero crossings across nine frozen
+  decisions**: five clean bounded holds and four strict stops. The holds are
+  the WOWII 40 internal matching and shared-endpoint star families, the WOWII
+  141 Whitney switch, and the Reed hard-claw and singleton-edge-deletion
+  trials. The stops are the WOWII 61 sparse-bead coordinate mismatch, the
+  WOWII 61 cube-chain labelled-protocol deviation, the WOWII 141 two-lift
+  family with no target-raising output, and the Erdős 128 Mycielski graph with
+  an explicitly false strict premise. Conditional cube-chain rows are not
+  counted as a hold, and analytic corollaries are not counted as extra trials.
+- Separates applicability outcomes that earlier summaries could blur:
+  `NO_APPLICABLE_CANDIDATES`, `NO_TARGET_RAISING_CANDIDATES`,
+  `PREMISE_FALSE_STRICT`, and `PROTOCOL_DEVIATION` are distinct from
+  `HOLD_BOUNDED`. A protocol defect overrides a numerically safe downstream
+  table; a false strict premise stops before the conclusion.
+- Promotes **radius-one exhaustion followed by theorem-shadow closure** to a
+  preferred stopping pattern. For the 18-vertex Reed graph, all 89 singleton
+  edge deletions were exactly eight-colorable. Colorability monotonicity then
+  proves that every nonempty edge-deletion set is eight-colorable, closing the
+  whole pruning operation class without adaptively testing larger deletion
+  menus. The general implication is certified in
+  `lean/ReedEdgeDeletionClosure.lean`.
+- Requires role-preserving labelled serialization. Graph6 alone is an
+  abstract-graph artifact and cannot certify a root-port distance, fiber,
+  bipartition, or sparse-labelled witness. Store the labelled edge list and
+  role map; otherwise transport all roles and witnesses through an explicit
+  isomorphism. The cube-chain mismatch is retained as
+  `INCONCLUSIVE_PROTOCOL_DEVIATION` even though its actual labelled family was
+  independently safe.
+- Requires explicit falsifying witnesses for strict premises. In the Erdős
+  128 Mycielski lane, the shadow set is eligible and independent, so its zero
+  induced-edge count falsifies the strict density premise. Lean generalizes
+  that witness to every classical Mycielski graph; this closes the
+  transformation direction without saying anything about the conjecture's
+  truth on graphs satisfying the premise.
+- Treats transformation-family closure as a mathematical product, not a
+  license to retune. The WOWII 40 internal-edge cone is theorem-shadowed, every
+  two-lift of `K3,3-e` retains a 4-cycle by an exact voltage-parity obstruction,
+  every nonempty pruning of the Reed seed loses the ninth color, and every
+  classical Mycielski graph fails the selected strict premise. A new trial must
+  leave the closed operation class and freeze a new coordinate law.
+- Reaffirms that a computed crossing is only a **candidate** until source,
+  status, duplicate/priority, exact-replay, and full novelty gates pass, then a
+  local no-`sorry`, warnings-as-errors Lean certificate and axiom audit pass.
+  Only that complete record can enter the one-problem release preflight. This
+  round produced no release candidate and authorized no public action.
 
 ### v0.7 — 2026-08-13
 
