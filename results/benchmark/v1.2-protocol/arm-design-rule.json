@@ -1,0 +1,44 @@
+{
+  "schema_version": "c5k4-arm-design-rule-1.2",
+  "freeze_phase": "P0A",
+  "common_rules": {
+    "arms": ["CATALOGUE", "GENERIC", "WALL_NAVIGATION"],
+    "literal_objective_and_hypothesis_evaluator_shared": true,
+    "candidate_encoding_and_canonicalization_shared": true,
+    "equal_discovery_budget": "8_PROCESS_TREES_X_60_SECONDS_MAX_480_CPU_SECONDS",
+    "network_policy": "DENY",
+    "results_embargo_until_all_three_arms_terminate": true,
+    "continue_after_crossing": true,
+    "no_adaptation": true,
+    "exact_contract_and_grid_freeze": "AFTER_C1T_PHASE0_AND_SHARED_ANALYSIS_BEFORE_ANY_DISCOVERY_ARM"
+  },
+  "seed_rule": {
+    "formula": "SHA256('c5-k4/method-v1.2/arm-seed\\0' || decoded_C1_randomness || utf8(cluster_id) || 0x00 || utf8(arm) || uint32_be(process_index))",
+    "process_index_domain": [0, 1, 2, 3, 4, 5, 6, 7],
+    "manual_seed_selection": false
+  },
+  "arms": {
+    "CATALOGUE": {
+      "allowed_information": "frozen baseline library, literal evaluator, selected stratum and hypotheses",
+      "search_rule": "Evaluate the applicable frozen catalogue entries in canonical digest order, then the applicable fixed small-order enumeration prefix; do not construct from wall analysis.",
+      "target_specific_wall_reasoning": false
+    },
+    "GENERIC": {
+      "allowed_information": "literal evaluator, selected stratum, hypotheses, fixed generic operation grammar and deterministic arm seed",
+      "search_rule": "Run the frozen stratum grammar with its canonical size schedule and seeded proposal order; no equality residual, theorem subtraction, controlling-term sign, or selected wall transformation is an input.",
+      "target_specific_wall_reasoning": false
+    },
+    "WALL_NAVIGATION": {
+      "allowed_information": "literal evaluator plus completed shared equality, theorem-baseline, residual, and signed controlling-term analysis",
+      "search_rule": "Choose exactly one applicable P0 transformation id and one finite grid, freeze both with signed effect forecast, then run only that contract.",
+      "backup_transformation": false
+    }
+  },
+  "protocol_invalid_conditions": [
+    "an arm receives another arm's output before all three terminate",
+    "catalogue or generic receives target wall analysis",
+    "a seed, operation grammar, transformation, grid, or evaluator changes after the first arm starts",
+    "a second wall transformation or expanded near-miss grid is activated",
+    "fewer than all frozen process trees are submitted because a crossing was observed"
+  ]
+}
