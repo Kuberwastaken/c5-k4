@@ -197,7 +197,7 @@ class P0Tests(unittest.TestCase):
         receipt = P0.generate_audit_receipt(self.config)
         expected = json.loads(self.receipt.read_text())
         self.assertEqual(receipt, expected)
-        self.assertEqual(len(receipt["components"]), 27)
+        self.assertEqual(len(receipt["components"]), len(P0.REQUIRED_COMPONENTS))
 
     def test_audit_rejects_forbidden_target_data_fields(self) -> None:
         role = "development_prior"

@@ -128,11 +128,11 @@ repaired.
 
 ### Semantics-blind source discovery and S0 acquisition
 
-The executable source-boundary prototype is
+The executable source-boundary builder is
 [`scripts/build_benchmark_v12_source_snapshot.py`](scripts/build_benchmark_v12_source_snapshot.py).
 Its path-purpose policy is
-[`results/benchmark/v1.2-prototype/source-path-purpose-policy.json`](results/benchmark/v1.2-prototype/source-path-purpose-policy.json).
-The policy is a prototype until its exact bytes are committed in `P0A`; changing
+[`results/benchmark/v1.2-protocol/source-path-purpose-policy.json`](results/benchmark/v1.2-protocol/source-path-purpose-policy.json).
+The policy becomes authoritative only when its exact bytes are committed in `P0A`; changing
 even JSON whitespace changes its digest. Repository inclusion is decided only
 from a path relative to the frozen discovery root. An unclassified repository,
 overlapping allow/deny rules, an unsupported or unmerged worktree object, or a

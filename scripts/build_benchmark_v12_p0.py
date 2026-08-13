@@ -24,6 +24,7 @@ REQUIRED_COMPONENTS = (
     "five_strata_classifier",
     "grouping_rule",
     "provenance_policy",
+    "registry_exemption_rule",
     "source_discovery_contract",
     "source_path_policy",
     "source_discovery_boundary",
@@ -35,7 +36,16 @@ REQUIRED_COMPONENTS = (
     "benchmark_schema",
     "benchmark_linter",
     "registry_builder",
+    "source_snapshot_builder",
+    "syntax_pool_builder",
+    "contamination_builder",
+    "provenance_classifier",
+    "registry_exemption_builder",
     "selector",
+    "c0_builder",
+    "scorer",
+    "frozen_job_runner",
+    "drand_fetcher",
     "budget_rule",
     # P0 freezes how the three comparison arms are instantiated. Exact
     # target-specific contracts and grids remain post-C1/pre-execution.
@@ -66,6 +76,10 @@ JSON_CONTRACTS = {
     "provenance_policy": (
         "c5k4-provenance-policy-1.2",
         {"schema_version", "artifact_status", "unit_classes", "precedence", "semantic_roles", "unknown_roles", "machine_roles", "machine_source_kinds", "bounded_content_schemas", "machine_exemption_required_fields", "machine_exemption_required_true", "immutable_locator_prefixes", "identity_policy", "invariants"},
+    ),
+    "registry_exemption_rule": (
+        "c5k4-registry-exemption-rule-1.2",
+        {"schema_version", "artifact_status", "complete", "policy", "producer", "units", "registry_only_unit_identity_sha256", "inventory_sha256"},
     ),
     "source_path_policy": (
         "c5k4-source-path-purpose-policy-1.2",
