@@ -154,14 +154,45 @@ That round is complete with no release candidate. Its durable outcomes are:
 - the frozen cyclic `Z3` lift for #141 is infeasible, independently in the
   integer model and an exact finite-field CSP.
 
-The next iteration keeps four prospective lanes and three formal-extraction
-lanes. Prospective work uses: triangle-free voltage lifts of the Erdős 23
-balanced wall; a nonabelian permutation lift for #141; a Reed surgery that
-must leave the claw-free proved domain; and a degree-changing gadget from the
-#61 neutral corridor. Formal work extracts: the balanced-bipartite #40 star
-obstruction, the explicit #133 contraction witness, and reusable Reed join
-coordinate lemmas. Each new transformation receives a separate frozen
-contract before its first development row.
+#### Post-v0.8 audited round
+
+The next committed round remained within current finite-graph declarations
+represented in `google-deepmind/formal-conjectures`. After excluding the
+original Erdős 23 v1 `PROTOCOL_DEVIATION`, it contains six protocol-valid
+outcome rows and zero crossings:
+
+| Target | Scorekeeping classification | Durable conclusion |
+|---|---|---|
+| Dean `k=5` two-switches | `HOLD_BOUNDED` | 7,081 depth-indexed rows, 6,951 distinct labelled graphs, and 20 isomorphism classes all contain 5- and 10-cycles; Dirac closes the whole order-ten 5-regular operation class |
+| Erdős 128 canonical Hajós join | `PREMISE_FALSE_STRICT` | a certified nine-vertex, two-edge set falsifies the order-19 graph's strict density premise; the derived low-separator Lean theorem is a general witness mechanism, not a claim about every Hajós join |
+| independent-domination private-leaf transfer | `HOLD_BOUNDED` | the premise survives, but `(n,D,i)=(30,10,20)` has safe slack 240; the private-leaf formula and the transformed arithmetic have separate warning-clean Lean interfaces |
+| Erdős 23 Andrásfai successor | v1 `PROTOCOL_DEVIATION` excluded; v2 `HOLD_BOUNDED` | the separately frozen parameter-41 `A14[bar K5]` row has exact slack 456 and passed independent audit; the low-parameter v1 rows remain post-deviation calibration |
+| Erdős 742 part transfer | `KNOWN_PROOF_DOMAIN` | the order-ten proposal lies inside Fan's proved range, so it contributes zero candidate evaluations, holds, or crossings; the `K4,6` row is excluded post-stop calibration |
+| WOWII 19 equality-seed line graphs | `INCONCLUSIVE` | 39 of 49 in-scope isomorphism classes were solved exactly with no crossing and five equalities; ten exact optimizations remain unresolved, so the lane is not a hold |
+
+The six protocol-valid rows comprise three bounded holds, one strict
+premise-false stop, one known-proof-domain stop, and one inconclusive bracket.
+The original Erdős 23 deviation is preserved but is not prospective evidence.
+The theorem and Lean closures derived from these rows are not additional
+trials: Dean Hamiltonian divisibility, the Erdős 128 low-separator
+obstruction, the private-leaf independent-domination formula and arithmetic,
+the Erdős 23 uniform-blow-up scaling API, and the WOWII 19 endpoint-clique
+bound all have explicit honest adapter boundaries.
+
+Two earlier v0.8 operation classes also received committed formal closure.
+For WOWII 40, if `G(H)` is `K_{2,c}` with arbitrary internal right-side graph
+`H`, Lean proves
+`c+1 <= b(G(H)) -> c <= f(G(H))`; equivalently, the omitted right vertices
+form a subsingleton vertex cover, forcing `H` to be a star plus isolates. For
+WOWII 141, Lean replaces the seven-row voltage table with a Boolean parity
+theorem forcing an even one among five base four-cycles. Its gauge and graph-
+cover transport remain an explicit adapter boundary, so this is not described
+as a complete graph-level Lean theorem.
+
+No WoW I, Graph Brain, AutoGraphiX, TxGraffiti, uncommitted live lane, theorem
+closure, or post-stop calibration enters this scorecard's denominator. Any
+next transformation must receive a separate frozen contract before its first
+development row.
 
 Every completed trial ends in one durable outcome from `METHOD.md`, including
 the zeroes. A negative residual starts verification; it does not itself start
@@ -188,7 +219,14 @@ in the current `formal-conjectures` checkout. Current theorem lanes are:
   certificate also closes its class. A conventional tree-plus-one-edge model
   now supplies the unique fundamental path and cycle carrier, and actual
   diametral/max-degree equality is classified exactly. The remaining bridge is
-  the unicyclic incidence exclusion of those saturated configurations.
+  the unicyclic incidence exclusion of those saturated configurations. A
+  separately frozen line-graph trial is inconclusive rather than a hold: 39
+  of 49 in-scope isomorphism classes are exact and safe, while ten retain
+  timeout brackets. Its reusable coordinate conclusion is nevertheless
+  sharp: line-graph neighborhood independence is at most two, and an induced
+  bipartite selected-edge set has seed degree at most two. Both necessities
+  are warning-clean in Lean; the even-cycle converse remains outside that
+  extraction.
 - **WOWII 40:** the exact deficiency coordinates and arbitrary disjoint-path
   family transfer are formal. A 17-vertex four-petal cactus refutes the
   tempting one-long-path lemma; feedback-sized short-path families and the
@@ -202,7 +240,11 @@ in the current `formal-conjectures` checkout. Current theorem lanes are:
   transfer. Include/exclude cut states are now attained and recover the global
   optimum by `max`. For a one-vertex separation, both state formulas are now
   exact: exclude states add, while include states add with one shared cut
-  vertex counted once.
+  vertex counted once. The internal-surgery wall is now theorem-closed: for
+  `G(H)=K_{2,c}` with arbitrary internal right-side graph `H`, the full
+  invariant adapter proves `c+1<=b(G(H)) -> c<=f(G(H))`. The proof extracts a
+  subsingleton vertex cover of `H`, so `H` is a star plus isolates. Further
+  work must leave this internal-edge operation class.
 - **WOWII 59:** the statement is already externally disproved. Around the only
   low-residue corner `(residue,b,f)=(3,6,4)`, Lean now proves mixed-color
   attachment, core exchange, and the exact dense `2+2/2+3/3+2/3+3`
@@ -269,7 +311,11 @@ in the current `formal-conjectures` checkout. Current theorem lanes are:
   acyclicity is reduced to a cycle-peak theorem. Canonical root-path splicing,
   closing-edge exclusion, and independence of all BFS layers through radius
   three are formal. Unique parenthood between consecutive layers is the
-  remaining substantive cycle-peak condition.
+  remaining substantive cycle-peak condition. Separately, the completed
+  `K3,3-e` two-lift zero now has a Boolean parity theorem: every voltage triple
+  makes at least one of five base four-cycles even. The labelled-base, gauge,
+  and lift-to-simple-cycle adapters remain explicit, so this is an algebraic
+  obstruction rather than a claimed graph-level Lean closure.
 - **WOWII 183:** the false singleton rooted-trunk interface has been repaired.
   Attachment selection, connected domination, component folding, aggregate
   accounting, and singleton branches are formal. Bipartite and tree components
@@ -341,29 +387,42 @@ The development set currently contains four qualitatively useful outcomes:
 The zeroes and theorem lanes are part of the evidence: 422b was pruned at the
 quotient level, 184/185 held on their frozen grid, 438b became a stronger
 theorem, and 133/183 have produced successively narrower formal or structural
-obligations.
+obligations. The post-v0.8 round adds calibration rather than a fifth crossing
+case study: six protocol-valid outcomes, zero crossings, and five reusable
+formal explanations spanning Hamiltonicity, low separators, private-leaf
+domination, uniform blow-up scaling, and line-graph coordinates. WOWII 40's
+internal-edge cone is now theorem-closed, while WOWII 141's two-lift parity
+obstruction is formal at the voltage-algebra level.
 
 ## Near-term execution order
 
-1. Preserve the strict `TIMEOUT_BRACKET` stop on WOWII 179; do not reopen its
-   unevaluated grid without a newly frozen protocol.
-2. Run the four frozen discovery trials above in parallel and publish every
-   bounded hold, timeout bracket, corrupt reading, or candidate gate failure.
-3. For any negative residual, stop family adaptation and execute statement,
-   database, independent-recompute, novelty, and Lean gates in that order.
-4. Continue only the closest proof closures: WOWII 19's consecutive-arm
-   witness cases, WOWII 59's saturated deficient-column residue, WOWII 61's
-   boundary-multiplicity bridge, and WOWII 141's scalable girth extension.
-5. Treat WOWII 40's mixed recursive `RankTree` algebra as complete enough for
-   now; further work must extract genuine graph structure rather than add
-   another unused recursion wrapper.
-6. Treat the 44-vertex WOWII 133 completion as a calibrated failure of the
-   frozen local obstruction strategy: its alternative handle satisfies the
-   target, so future work must compare handles rather than force that local
-   completion to be impossible.
-7. Keep all 14 current WOWII modules excluded from any held-out success count;
-   new transformations can yield discoveries, but not retrospective held-out
-   evidence.
+1. Preserve all protocol stops and brackets. The original Erdős 23 v1 rows
+   remain excluded; Erdős 742 is stopped in a known proof domain; the ten
+   unresolved WOWII 19 line-graph rows stay unknown unless a new frozen
+   solver contract is justified. Preserve the independent WOWII 179 timeout
+   bracket as well.
+2. Do not deepen the Dean order-ten two-switch family: Dirac closes every
+   5-regular graph at that order. Any new Dean trial must leave order ten and
+   retain `minDegree>=5` without automatic `minDegree>=n/2` Hamiltonicity.
+3. Treat low-separator composition as adverse to the Erdős 128 strict
+   premise unless a new frozen operation proves an eligible-set density
+   budget in advance. Do not generalize the single Hajós row to all joins.
+4. Do not repeat the independent-domination single-leaf concentration move.
+   Its exact formula explains the safe displacement; any continuation must
+   specify how it avoids lowering `i` while changing the parity/degree side.
+5. For WOWII 19 line graphs, the next operation must be newly frozen and must
+   aim to raise the floor of average edge eccentricity without matching growth
+   in even-linear edge rank. The five equality rows identify a wall but do not
+   select a unique transformation.
+6. Treat WOWII 40's internal-edge cone as closed. For WOWII 141, either
+   discharge the labelled-base/gauge/lift adapters or choose a transformation
+   outside ordinary two-lifts; do not count the algebraic parity theorem as a
+   second prospective decision.
+7. For any future negative residual, stop family adaptation and execute the
+   statement, database, independent-recompute, novelty, and Lean gates in that
+   order. Keep all current WOWII modules excluded from any held-out success
+   count; new transformations can yield discoveries, but not retrospective
+   held-out evidence.
 
 Long computation and narrow proof experiments should be delegated to bounded
 agents. The primary lane validates artifacts, catches scope or trust errors,
