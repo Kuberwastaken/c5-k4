@@ -1,0 +1,148 @@
+name: Validate external Lean certificate
+
+on:
+  workflow_dispatch:
+    inputs:
+      upstream_ref:
+        description: Exact google-deepmind/formal-conjectures commit SHA
+        required: true
+        default: 7a38c469ec329d0c97c068e03c58834f61628e7e
+        type: string
+      certificate_path:
+        description: Lean certificate in this repository
+        required: true
+        default: lean/LatinTableauCornerExchange.lean
+        type: string
+      full_build:
+        description: Run the complete upstream warning-as-error build
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: external-lean-${{ inputs.upstream_ref }}-${{ inputs.certificate_path }}
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    name: Replay certificate against pinned corpus
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      UPSTREAM_REF: ${{ inputs.upstream_ref }}
+      CERTIFICATE_PATH: ${{ inputs.certificate_path }}
+    steps:
+      - name: Validate dispatch inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "$UPSTREAM_REF" =~ ^[0-9a-f]{40}$ ]]
+          [[ "$CERTIFICATE_PATH" =~ ^lean/[A-Za-z0-9_./-]+\.lean$ ]]
+          [[ "$CERTIFICATE_PATH" != *..* ]]
+
+      - name: Check out campaign artifacts
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          path: campaign
+
+      - name: Check out exact formal-conjectures base
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          repository: google-deepmind/formal-conjectures
+          ref: ${{ inputs.upstream_ref }}
+          fetch-depth: 1
+          path: formal-conjectures
+
+      - name: Install elan with retries
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --silent --show-error \
+            --retry 8 --retry-all-errors --retry-delay 5 \
+            --connect-timeout 30 \
+            https://github.com/leanprover/elan/releases/download/v1.4.2/elan-x86_64-unknown-linux-gnu.tar.gz \
+            --output elan.tar.gz
+          tar xzf elan.tar.gz
+          ./elan-init -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Restore Mathlib olean cache
+        uses: actions/cache/restore@6f8efc29b200d32929f49075959781ed54ec270c # v3
+        with:
+          path: ~/.cache/mathlib
+          key: external-lean-${{ inputs.upstream_ref }}
+          restore-keys: |
+            external-lean-
+            formal-conjectures-
+
+      - name: Restore formal-conjectures build cache
+        uses: actions/cache/restore@6f8efc29b200d32929f49075959781ed54ec270c # v3
+        with:
+          path: formal-conjectures/.lake/build/lib/lean
+          key: external-lean-build-${{ inputs.upstream_ref }}
+          restore-keys: |
+            external-lean-build-
+            formal-conjectures-build-${{ inputs.upstream_ref }}-
+
+      - name: Get upstream olean cache with retries
+        working-directory: formal-conjectures
+        shell: bash
+        run: |
+          set -euo pipefail
+          for attempt in 1 2 3 4 5; do
+            if lake exe cache unpack && lake exe cache get; then
+              exit 0
+            fi
+            if [[ "$attempt" == 5 ]]; then
+              echo "Olean cache retrieval failed after $attempt attempts" >&2
+              exit 1
+            fi
+            sleep $((attempt * 10))
+          done
+
+      - name: Build upstream utilities warning-clean
+        working-directory: formal-conjectures
+        shell: bash
+        run: lake --wfail build FormalConjecturesUtil
+
+      - name: Compile external certificate warning-clean
+        working-directory: formal-conjectures
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f "$GITHUB_WORKSPACE/campaign/$CERTIFICATE_PATH"
+          lake env lean -DwarningAsError=true \
+            "$GITHUB_WORKSPACE/campaign/$CERTIFICATE_PATH"
+
+      - name: Build complete upstream corpus warning-clean
+        if: inputs.full_build
+        working-directory: formal-conjectures
+        shell: bash
+        run: |
+          set -euo pipefail
+          lake --wfail build FormalConjecturesForMathlib FormalConjecturesUtil
+          lake --wfail test
+          lake --wfail build
+
+      - name: Save build cache
+        if: success()
+        uses: actions/cache/save@6f8efc29b200d32929f49075959781ed54ec270c # v3
+        with:
+          path: formal-conjectures/.lake/build/lib/lean
+          key: external-lean-build-${{ inputs.upstream_ref }}
+
+      - name: Record validation summary
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "## External Lean certificate validation"
+            echo
+            echo "- Upstream: \`google-deepmind/formal-conjectures@$UPSTREAM_REF\`"
+            echo "- Certificate: \`$CERTIFICATE_PATH\`"
+            echo "- Full corpus requested: \`${{ inputs.full_build }}\`"
+            echo "- Job result: \`${{ job.status }}\`"
+          } >> "$GITHUB_STEP_SUMMARY"
