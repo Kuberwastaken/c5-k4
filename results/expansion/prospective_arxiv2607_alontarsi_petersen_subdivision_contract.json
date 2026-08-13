@@ -1,0 +1,82 @@
+{
+  "contract_version": "method-v0.8",
+  "frozen_at_utc": "2026-08-13T00:00:00Z",
+  "target": {
+    "repository": "google-deepmind/formal-conjectures",
+    "upstream_commit": "d16e05aded22b8c467a0a27c14b2311f53185006",
+    "file": "FormalConjectures/Arxiv/2607.06396/AlonTarsi.lean",
+    "declaration": "Arxiv.2607.06396.alon_tarsi_short_cycle_cover",
+    "category": "research open",
+    "source": "https://arxiv.org/abs/2607.06396v1",
+    "source_location": "Conjecture 4, introduction",
+    "reading": "UNAMBIGUOUS",
+    "statement": "Every finite bridgeless simple graph G has a multiset of simple cycles covering every edge with total length at most (7/5)|E(G)|."
+  },
+  "status_gate": {
+    "github_issue": "https://github.com/google-deepmind/formal-conjectures/issues/4813 (closed 2026-08-11)",
+    "github_pr": "https://github.com/google-deepmind/formal-conjectures/pull/4850 (merged 2026-08-11)",
+    "solution_issue_or_pr_found": false,
+    "local_exact_target_coverage": [
+      "results/expansion/formal_conjectures.md classifies the declaration but performs no cycle-cover trial",
+      "results/expansion/method_v02_upstream_selection.md excludes it from the earlier fixed-invariant sweep"
+    ]
+  },
+  "literature_gate": {
+    "known_general_status": "open",
+    "known_wall": "The Petersen graph has 15 edges and shortest cycle-cover length 21, attaining 7/5.",
+    "known_equalities": "Published work gives infinite cubic equality families of cyclic connectivity 2 and 3.",
+    "references": [
+      "N. Alon and M. Tarsi, Covering multigraphs by simple circuits, SIAM J. Algebraic Discrete Methods 6 (1985), DOI 10.1137/0606035",
+      "E. Macajova and M. Skoviera, Cubic Graphs with No Short Cycle Covers, SIAM J. Discrete Math. 35 (2021), DOI 10.1137/21M1399208"
+    ]
+  },
+  "semantics": {
+    "invariant": "scc(G), minimum total length of a multiset of simple cycles covering E(G)",
+    "residual": "R(G)=7|E(G)|-5*scc(G)",
+    "holds_when": "R(G)>=0",
+    "optimization": "binary set cover over all undirected simple cycles; positive costs make duplicate cycles unnecessary",
+    "solver": "scipy.optimize.milp/HiGHS",
+    "per_process_timeout_seconds": 55,
+    "per_milp_time_limit_seconds": 40,
+    "integrality_guard": "accept only solver success with objective within 1e-7 of an integer"
+  },
+  "database_gate": {
+    "graphs": "all connected Graph Atlas graphs on 2..7 vertices that are bridgeless, plus C5..C9, P7, Petersen, K3,3, K7, stars K1,2..K1,6, and complete bipartite K2,3/K2,4/K3,3",
+    "expected": "all applicable controls have R>=0; inapplicable controls are logged",
+    "microfixtures": {
+      "C5": {"edges": 5, "scc": 5, "residual": 10},
+      "Petersen": {"edges": 15, "scc": 21, "residual": 0}
+    }
+  },
+  "family": {
+    "base": "networkx.petersen_graph() with labelled edge (0,1)",
+    "transformation": "replace edge (0,1) by a path with t new degree-two vertices",
+    "grid": {"t_min": 1, "t_max": 12},
+    "label_roles": "original vertices p0..p9; subdivision path x1..xt from p0 to p1",
+    "prediction": {
+      "edge_count": "15+t (increase)",
+      "bridgeless": "preserved",
+      "scc": "21+t (increase exactly)",
+      "residual": "2t (increase exactly; moves away from the wall)",
+      "controlling_identity": "suppressing the degree-two path maps every cover to a Petersen cover; an automorphic image of a length-21 Petersen cover covers the selected edge once"
+    }
+  },
+  "budget": {
+    "candidate_graphs": 12,
+    "no_parameter_extension": true,
+    "incremental_append_every_rows": 4,
+    "stop_rules": [
+      "any failed microfixture => GATE_FAIL and no family rows",
+      "any applicable database residual below zero => CORRUPT_OR_ERRATUM and no family rows",
+      "any timeout => TIMEOUT_BRACKET for that row, with no guessed objective",
+      "no alternative base edge, base graph, operation, or t-range may be substituted"
+    ]
+  },
+  "primary_outcome_priority": [
+    "GATE_FAIL",
+    "CORRUPT_OR_ERRATUM",
+    "TIMEOUT_BRACKET",
+    "THEOREM_SHADOW",
+    "PREDICTION_CONFIRMED"
+  ]
+}
