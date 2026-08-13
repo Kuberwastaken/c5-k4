@@ -308,7 +308,9 @@ def introduction_has_formal_deletion(repo: Path, introduction: str) -> bool:
     return any(path.endswith(".lean") for path in deleted)
 
 
-def checkpoint_context(receipt: dict[str, Any], u1_commit: str) -> dict[str, Any]:
+def checkpoint_context(
+    receipt: dict[str, Any], public_chain_proof: dict[str, Any]
+) -> dict[str, Any]:
     ordinal = receipt.get("checkpoint_ordinal")
     if not isinstance(ordinal, int) or ordinal < 1:
         raise FutureCohortError("checkpoint ordinal is invalid")
@@ -321,18 +323,35 @@ def checkpoint_context(receipt: dict[str, Any], u1_commit: str) -> dict[str, Any
     basis = receipt.get("basis")
     if not isinstance(basis, dict):
         raise FutureCohortError("checkpoint basis is absent")
-    previous = basis.get("previous_checkpoint")
-    if previous is None:
-        if ordinal != 1:
-            raise FutureCohortError("noninitial checkpoint has no prior-chain binding")
-        prior_sha = sha256(canonical_json({
-            "authority": "V15_CHECKPOINT_CHAIN_GENESIS", "u1_commit": u1_commit,
-        }))
-    else:
-        prior_sha = previous.get("sha256") if isinstance(previous, dict) else None
-        if not isinstance(prior_sha, str) or re.fullmatch(r"[0-9a-f]{64}", prior_sha) is None:
-            raise FutureCohortError("prior checkpoint digest is invalid")
-    return {"ordinal": ordinal, "label": label, "prior_sha": prior_sha}
+    proof_ref = basis.get("public_chain_proof")
+    if not isinstance(proof_ref, dict):
+        raise FutureCohortError("checkpoint basis has no authenticated public-chain proof")
+    claimed_digest = public_chain_proof.get("proof_sha256")
+    unsigned = dict(public_chain_proof)
+    unsigned.pop("proof_sha256", None)
+    if (
+        not isinstance(claimed_digest, str)
+        or re.fullmatch(r"[0-9a-f]{64}", claimed_digest) is None
+        or claimed_digest != sha256(canonical_json(unsigned))
+        or proof_ref.get("proof_sha256") != claimed_digest
+        or proof_ref.get("public_tip_commit") != public_chain_proof.get("public_tip_commit")
+    ):
+        raise FutureCohortError("public checkpoint-chain proof binding is invalid")
+    checkpoints = public_chain_proof.get("checkpoints")
+    next_checkpoint = public_chain_proof.get("next_checkpoint")
+    if (
+        public_chain_proof.get("terminal") is not False
+        or not isinstance(checkpoints, list)
+        or public_chain_proof.get("checkpoint_count") != len(checkpoints)
+        or len(checkpoints) != ordinal - 1
+        or any(row.get("status") != "QUOTA_FAIL" for row in checkpoints if isinstance(row, dict))
+        or any(not isinstance(row, dict) for row in checkpoints)
+        or not isinstance(next_checkpoint, dict)
+        or next_checkpoint.get("ordinal") != ordinal
+        or next_checkpoint.get("scheduled_for_utc") != scheduled
+    ):
+        raise FutureCohortError("public chain does not prove every prior checkpoint failed")
+    return {"ordinal": ordinal, "label": label, "prior_sha": claimed_digest}
 
 
 def permanent_exclusion_reasons(row: dict[str, Any], index: dict[str, set[str]]) -> set[str]:
@@ -380,6 +399,7 @@ def build(
     repository: Path | None = None,
     provenance_ledgers: list[dict[str, Any]] | None = None,
     provenance_contents: dict[str, bytes] | None = None,
+    public_chain_proof: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     validate_policies(grouping, classifier)
     ledgers = provenance_ledgers or []
@@ -492,7 +512,9 @@ def build(
         stratum: max(0, QUOTAS[stratum] - eligible_by_stratum[stratum])
         for stratum in STRATA
     }
-    checkpoint = checkpoint_context(u2_receipt, u1["commit"])
+    if public_chain_proof is None:
+        raise FutureCohortError("authenticated public checkpoint-chain proof is required")
+    checkpoint = checkpoint_context(u2_receipt, public_chain_proof)
     output["quota_certificate"] = {
         "checkpoint_ordinal": checkpoint["ordinal"],
         "checkpoint_label": checkpoint["label"],
@@ -526,8 +548,7 @@ def checkpoint_chain(
 ) -> tuple[dict[str, Any], dict[str, Any] | None]:
     """Evaluate scheduled checkpoints in order and select the first quota PASS.
 
-    A missed scheduled checkpoint is never reconstructed.  It receives no
-    registry evaluation and therefore cannot close the cohort.
+    Chronology gaps are terminal and never enter this quota-evaluation helper.
     """
 
     if not checkpoints:
@@ -546,15 +567,7 @@ def checkpoint_chain(
         if not isinstance(label, str) or not label:
             raise FutureCohortError("checkpoint label is required")
         if status == "MISSED":
-            certificates.append({
-                "checkpoint_ordinal": ordinal, "checkpoint_label": label,
-                "capture_status": "MISSED", "terminal_horizon": terminal,
-                "commit": None, "tree": None, "quotas": dict(QUOTAS),
-                "eligible_by_stratum": None, "deficits": None,
-                "status": "UNEVALUATED_MISSED", "candidate_count": None,
-                "registry_sha256": None,
-            })
-            continue
+            raise FutureCohortError("a missed checkpoint is a terminal chronology failure")
         if status != "CAPTURED" or not isinstance(checkpoint.get("receipt"), dict):
             raise FutureCohortError("captured checkpoint needs one embedded receipt")
         registry = build(
@@ -562,6 +575,7 @@ def checkpoint_chain(
             classifier_path, input_digests=input_digests,
             provenance_ledgers=provenance_ledgers,
             provenance_contents=provenance_contents,
+            public_chain_proof=checkpoint.get("public_chain_proof"),
         )
         quota = registry["quota_certificate"]
         certificate = {
@@ -619,6 +633,7 @@ def main() -> int:
     parser.add_argument("--classifier", type=Path, required=True)
     parser.add_argument("--provenance-ledger", type=Path, action="append", required=True)
     parser.add_argument("--provenance-content-pack", type=Path, required=True)
+    parser.add_argument("--public-chain-proof", type=Path, required=True)
     parser.add_argument(
         "--repository", type=Path,
         help="ephemeral authenticated U2 object store containing U1 ancestry",
@@ -632,6 +647,7 @@ def main() -> int:
         "grouping_rule": args.grouping_rule.resolve(),
         "classifier": args.classifier.resolve(),
         "provenance_content_pack": args.provenance_content_pack.resolve(),
+        "public_chain_proof": args.public_chain_proof.resolve(),
     }
     for index, ledger_path in enumerate(args.provenance_ledger):
         paths[f"provenance_ledger_{index}"] = ledger_path.resolve()
@@ -648,6 +664,7 @@ def main() -> int:
             for index in range(len(args.provenance_ledger))
         ],
         provenance_contents=load_content_pack(values["provenance_content_pack"]),
+        public_chain_proof=values["public_chain_proof"],
     )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_bytes(pretty_json(output))

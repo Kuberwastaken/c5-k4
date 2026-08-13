@@ -225,10 +225,9 @@ def checkpoint_chain_digest(receipt: dict[str, Any], internal: dict[str, Any]) -
     digest = quota.get("prior_checkpoint_chain_sha256")
     if not isinstance(digest, str) or SHA256_RE.fullmatch(digest) is None:
         raise CertificateError("private registry has no exact prior checkpoint-chain digest")
-    previous = receipt.get("basis", {}).get("previous_checkpoint")
-    if previous is not None:
-        if not isinstance(previous, dict) or previous.get("sha256") != digest:
-            raise CertificateError("private registry is not bound to the exact previous chronology receipt")
+    proof = receipt.get("basis", {}).get("public_chain_proof")
+    if not isinstance(proof, dict) or proof.get("proof_sha256") != digest:
+        raise CertificateError("private registry is not bound to the authenticated public-chain proof")
     return digest
 
 

@@ -85,6 +85,7 @@ class AggregateCertificateTests(unittest.TestCase):
             "basis": {
                 "u1_receipt": {"commit": self.commit, "path": "u1.json", "sha256": H},
                 "previous_checkpoint": None,
+                "public_chain_proof": {"proof_sha256": "9" * 64},
             },
             "upstream": {
                 "repository": A.UPSTREAM_REPOSITORY,
@@ -118,7 +119,7 @@ class AggregateCertificateTests(unittest.TestCase):
         sequence = [key for key, quota in A.QUOTAS.items() for _ in range(quota)]
         records = [self.record(index, stratum) for index, stratum in enumerate(sequence)]
         counts = dict(A.QUOTAS)
-        prior = A.sha256_bytes(A.canonical_json({"authority": "V15_CHECKPOINT_CHAIN_GENESIS", "u1_commit": self.commit}))
+        prior = "9" * 64
         registry = {
             "schema_version": "c5k4-future-cohort-registry-1.5",
             "authority": "SCHEDULED_IDENTITY_ONLY_CHECKPOINT",
