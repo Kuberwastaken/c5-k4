@@ -2,10 +2,11 @@
 
 **Status:** pre-P1 implementation and validation. The deterministic builders,
 bounded schemas, custody verifiers, private identity join, aggregate/replay
-certificates, P1 assembler, public-chain verifier, and inert scheduled workflow
-exist and have contract tests. They are not an operational benchmark yet. No
-P1 freeze, U1 capture, future-cohort observation, entropy, selection, or
-target-semantic inspection has occurred.
+certificates, P1 assembler, public-chain verifier, fail-closed checkpoint
+runner, controlled-delivery prototype, and inert scheduled workflow exist and
+have contract tests. They are not an operational benchmark yet. No P1 freeze,
+U1 capture, future-cohort observation, entropy, selection, or target-semantic
+inspection has occurred.
 
 **Purpose:** run the unchanged twelve-cluster, three-arm DeepMind experiment on
 a genuinely prospective population: question clusters first introduced on
@@ -145,8 +146,13 @@ output channels. Use of an unregistered delivery channel fails closed.
 The implemented custody contracts specify signed per-host hash/sequence
 chains, five-minute heartbeat bounds, content-addressed payload verification,
 restart and gap handling, private coverage certificates, and a public sealed
-binding that cannot disclose private record metadata. These are verifiers and
-schemas, not capture daemons or storage infrastructure.
+binding that cannot disclose private record metadata. A separate VPS-only
+prototype exercises durable `PREPARE -> START -> DELIVER/ABORT` transitions,
+Ed25519 receipt chaining, a 240-second heartbeat, sticky invalidation, crash
+recovery, and wrapped subprocess standard streams. It is deliberately fixed to
+`PRE_P1_NOT_OPERATIONAL`: it is not a production capture daemon, immutable
+remote store, accepted host key, or claim about stock Codex, Claude, or Mac
+delivery paths.
 
 At a checkpoint, provenance ledgers and their content pack stay private. The
 private identity-join builder reopens digest-verified bytes only for excluding
@@ -230,6 +236,13 @@ The repository currently contains and tests:
   identity join, future-cohort construction, aggregate extraction and exact
   replay, private custody chains, the public checkpoint chain, generated
   registry artifacts, and P1 assembly;
+- a fail-closed checkpoint runner that authenticates its prospective
+  P1/component and public-chain inputs, constrains publication to three
+  schema-bounded public files, and refuses CAPTURE while custody and the
+  execution adapter remain unfrozen;
+- a dedicated-VPS controlled-delivery prototype and adversarial tests for
+  signed receipt sequencing, content-before-delivery custody, crash ambiguity,
+  store failure, heartbeat expiry, and stdin/stdout/stderr capture;
 - an offline validation workflow; and
 - the scheduled checkpoint workflow in an intentionally inert state. Its
   invocation contract remains `PRE_P1_SCAFFOLD_NOT_EXECUTABLE`, with null
@@ -237,9 +250,10 @@ The repository currently contains and tests:
 
 The following are operational blockers, not completed artifacts:
 
-1. implement and adversarially validate the production checkpoint runner and
-   capture broker that compose the existing builders without leaking private
-   identities or diagnostics;
+1. compose the existing builders behind the checkpoint runner, promote the
+   controlled-delivery prototype into an accepted single-writer service, and
+   validate the complete private CAPTURE path without leaking identities or
+   diagnostics;
 2. install and acceptance-test the Mac and VPS signed delivery-journal daemons,
    freeze their keys and participant/model endpoint ledger, and provision the
    authenticated immutable private content store with retention and inventory
