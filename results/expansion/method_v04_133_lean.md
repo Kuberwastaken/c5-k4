@@ -1,6 +1,6 @@
 # Method v0.4: local Lean formalization audit for WOWII 133 cubic C4-free
 
-Status: **EXACT STATEMENT COMPILES / BLOCKED AT GEODESIC-TO-INDUCED-LIST API**
+Status: **EXACT STATEMENT COMPILES / FIRST BRIDGE SUBSEQUENTLY RESOLVED**
 
 Date: **2026-08-12 UTC**
 
@@ -8,6 +8,11 @@ Local artifact: `lean/GraphConjecture133Cubic.lean`
 
 No file in `formal-conjectures` was edited.  No `sorry`, axiom, commit, push,
 release, or upstream action was used.
+
+**Follow-up (2026-08-13):** the first bridge described below has now been
+proved without `sorry` as `isInducedPath_support_of_length_eq_dist`; see
+`method_v04_133_geodesic_bridge.md`.  The historical audit below is retained to
+show the exact boundary that the follow-up closed.
 
 ## Exact theorem target
 

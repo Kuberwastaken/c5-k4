@@ -29,9 +29,66 @@ def CubicC4FreeSplit (G : SimpleGraph V) : Prop :=
 def CubicC4FreeConclusion (G : SimpleGraph V) : Prop :=
   (G.radius.toNat : ℝ) + (⌊l G⌋ : ℝ) ≤ (path G : ℝ)
 
+omit [Fintype V] [DecidableEq V] [Nonempty V] in
+/-- The ordered support of a shortest walk is an induced path in the exact
+list-based sense used by the WOWII `path` invariant. -/
+lemma isInducedPath_support_of_length_eq_dist {G : SimpleGraph V} {u v : V}
+    (p : G.Walk u v) (hp : p.length = G.dist u v) :
+    G.isInducedPath p.support := by
+  constructor
+  · exact (p.isPath_of_length_eq_dist hp).support_nodup
+  · intro i j
+    have hgeti : p.support.get i = p.getVert i.val := by
+      simpa [Function.comp_apply] using congrFun p.getVert_comp_val_eq_get_support i |>.symm
+    have hgetj : p.support.get j = p.getVert j.val := by
+      simpa [Function.comp_apply] using congrFun p.getVert_comp_val_eq_get_support j |>.symm
+    rw [hgeti, hgetj]
+    constructor
+    · intro hij
+      have hi : i.val ≤ p.length := by grind [p.length_support]
+      have hj : j.val ≤ p.length := by grind [p.length_support]
+      have hne : i.val ≠ j.val := by
+        intro heq
+        rw [heq] at hij
+        exact G.loopless _ hij
+      rcases lt_or_gt_of_ne hne with hijlt | hjilt
+      · left
+        let q : G.Walk u v :=
+          ((p.take i.val).append hij.toWalk).append (p.drop j.val)
+        have hq : G.dist u v ≤ q.length := G.dist_le q
+        have htake : (p.take i.val).length = i.val := by simp [Walk.take_length, hi]
+        have hdrop : (p.drop j.val).length = p.length - j.val := by
+          simp [Walk.drop_length]
+        simp only [q, Walk.length_append, Walk.length_cons, Walk.length_nil,
+          zero_add] at hq
+        rw [htake, hdrop, ← hp] at hq
+        omega
+      · right
+        let q : G.Walk u v :=
+          ((p.take j.val).append hij.symm.toWalk).append (p.drop i.val)
+        have hq : G.dist u v ≤ q.length := G.dist_le q
+        have htake : (p.take j.val).length = j.val := by simp [Walk.take_length, hj]
+        have hdrop : (p.drop i.val).length = p.length - i.val := by
+          simp [Walk.drop_length]
+        simp only [q, Walk.length_append, Walk.length_cons, Walk.length_nil,
+          zero_add] at hq
+        rw [htake, hdrop, ← hp] at hq
+        omega
+    · rintro (hij | hji)
+      · have hi : i.val < p.length := by
+          have hjlt := j.isLt
+          have hlen := p.length_support
+          omega
+        simpa [hij] using p.adj_getVert_succ hi
+      · have hj : j.val < p.length := by
+          have hilt := i.isLt
+          have hlen := p.length_support
+          omega
+        simpa [hji] using (p.adj_getVert_succ hj).symm
+
 omit [Nonempty V] in
-/-- A concrete induced-path witness is the currently missing bridge into the
-`path` invariant's `Finset.max` implementation. -/
+/-- A concrete induced-path witness gives a lower bound for the `path`
+invariant's `Finset.max` implementation. -/
 lemma path_ge_of_isInducedPath (G : SimpleGraph V) (xs : List V)
     (hxs : G.isInducedPath xs) : xs.length ≤ path G := by
   classical
