@@ -81,6 +81,25 @@ end as bounded holds with sharply stated theorem signals, not inflated truth
 claims. See [`method_v02_382e.md`](results/expansion/method_v02_382e.md) and
 [`method_v02_61.md`](results/expansion/method_v02_61.md).
 
+The workflow now has an explicit **proof-extraction** side as well. For WOWII
+#133, successive warning-clean no-`sorry` Lean bridges formalize shortest-walk
+inducedness, a radius-realizing path, the cubic/C4-free radius lower bound,
+clean list prepending, and finally `radius(G)+2 <= path(G)` in the cubic
+C4-free branch. For WOWII #183, attempts to explain a persistent wall have
+produced exact countermodels to two tempting auxiliary lemmas and stronger
+replacement theorems: a distance-three pair with `gamma_c>=3` forces `b>=5`,
+while `gamma_c>=4` forces `b>=6`. These are partial theorem results, not extra
+“kills”; their failed rungs and surviving obligations are committed alongside
+the proofs.
+
+The newest prospective non-metric trial, WOWII #179, also demonstrates the
+stop discipline. Its split-clique family was frozen before evaluation, and a
+pre-grid calculation showed that the family residual is structurally
+nonnegative. The mandatory control gate nevertheless timed out on `T(7)` under
+the fixed cap, so the trial is recorded as `TIMEOUT_BRACKET`: the remaining
+controls and the grid are not silently run, and the family identity is not
+promoted into a successful trial outcome.
+
 The programme-level roadmap is [`OVERARCHING_PLAN.md`](OVERARCHING_PLAN.md),
 and the full versioned development protocol is [`METHOD.md`](METHOD.md). They fix
 the residual-wall workflow, theorem-shadow taxonomy, transformation catalogue,
