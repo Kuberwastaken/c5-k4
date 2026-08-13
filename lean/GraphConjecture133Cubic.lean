@@ -124,6 +124,50 @@ lemma path_ge_of_isInducedPath (G : SimpleGraph V) (xs : List V)
   rw [hm]
   simpa using Finset.le_max_of_eq himage hm
 
+omit [Fintype V] [DecidableEq V] [Nonempty V] in
+/-- Prepending a fresh vertex adjacent to the old head and to no later vertex
+preserves the repository-local list representation of an induced path. -/
+lemma isInducedPath_cons_of_adj_head_of_not_adj_tail {G : SimpleGraph V}
+    {a b : V} {xs : List V} (hpath : G.isInducedPath (b :: xs))
+    (hab : G.Adj a b) (hafresh : a ∉ b :: xs)
+    (hclean : ∀ x ∈ xs, ¬G.Adj a x) :
+    G.isInducedPath (a :: b :: xs) := by
+  constructor
+  · simp only [List.nodup_cons]
+    exact ⟨hafresh, by simpa only [List.nodup_cons] using hpath.1⟩
+  · intro i j
+    refine Fin.cases ?_ (fun i' ↦ ?_) i
+    · refine Fin.cases ?_ (fun j' ↦ ?_) j
+      · simp
+      · refine Fin.cases ?_ (fun k ↦ ?_) j'
+        · simpa using hab
+        · have hnot : ¬G.Adj a (xs.get k) := hclean (xs.get k) (List.get_mem xs k)
+          simp only [Fin.val_succ]
+          constructor
+          · exact fun hadj ↦ (hnot hadj).elim
+          · intro hij
+            simp at hij
+    · refine Fin.cases ?_ (fun j' ↦ ?_) j
+      · refine Fin.cases ?_ (fun k ↦ ?_) i'
+        · simpa using hab.symm
+        · have hnot : ¬G.Adj a (xs.get k) := hclean (xs.get k) (List.get_mem xs k)
+          simp only [Fin.val_succ]
+          constructor
+          · exact fun hadj ↦ (hnot hadj.symm).elim
+          · intro hij
+            simp at hij
+      · simp only [Fin.val_succ]
+        constructor
+        · intro hadj
+          rcases (hpath.2 i' j').mp hadj with hij | hji
+          · left; omega
+          · right; omega
+        · intro hij
+          apply (hpath.2 i' j').mpr
+          rcases hij with hij | hji
+          · left; omega
+          · right; omega
+
 /-- Every finite connected graph has an induced path containing at least
 `radius + 1` vertices. -/
 lemma radius_add_one_le_path (G : SimpleGraph V) (hconn : G.Connected) :
