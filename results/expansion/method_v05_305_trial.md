@@ -96,5 +96,6 @@ Again, that is an excluded observation, not a valid bounded-hold outcome.
 - No adaptive family, bound extension, browsing, upstream operation, release,
   README edit, commit, or push occurred.
 
-Primary ledger: `results/expansion/method_v05_305_trial.jsonl`  
+Primary ledger: `results/expansion/method_v05_305_trial.jsonl`
+
 Independent ledger: `results/expansion/method_v05_305_trial.verify.jsonl`
