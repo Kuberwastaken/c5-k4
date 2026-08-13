@@ -1,4 +1,4 @@
-# Erdős 23 Andrásfai-successor trial: prior-art correction and valid frontier
+# Erdős 23 Andrásfai-successor trial: protocol correction and audited frontier
 
 Date: **2026-08-13 UTC**
 
@@ -14,12 +14,22 @@ into the safe side of the current DeepMind Erdős 23 bound:
 | `A_5` | 70 | 35 | 29 | 150 | 196 | 46 |
 | `A_6` | 85 | 51 | 42 | 225 | 289 | 64 |
 
-The numerical rows are exact, but their original `HOLD_BOUNDED` method verdict
-is superseded by `INCONCLUSIVE_PROTOCOL_DEVIATION / PRIOR_ART_STOP`. A
-mandatory theorem-domain audit was performed too late: arXiv:2606.28041
-reports a computer-assisted proof for every Erdős parameter `n <= 40`, which
-includes the four tested parameters `8,11,14,17`. The rows remain useful
-calibration but are not prospective evidence.
+The numerical rows are exact, but the strict primary classification of the
+original trial is **`PROTOCOL_DEVIATION`**, for two independent reasons:
+
+1. Its source gate was tied to a hard-coded upstream commit and blob instead
+   of independently establishing the live source/database state before
+   development. The later literal source replay does not retroactively cure
+   that defect.
+2. Its mandatory theorem-domain audit was performed only after evaluation.
+   arXiv:2606.28041 reports a computer-assisted proof for every Erdős
+   parameter `n <= 40`, including the tested parameters `8,11,14,17`.
+
+The four rows remain useful post-deviation calibration, but they are excluded
+from prospective evidence and count as zero candidate evaluations for strict
+scorekeeping. The earlier `HOLD_BOUNDED` and
+`INCONCLUSIVE_PROTOCOL_DEVIATION / PRIOR_ART_STOP` ledger events remain as
+history and are superseded as the original trial's primary classification.
 
 ## Corrected frontier frozen before evaluation
 
@@ -31,17 +41,33 @@ only the first integer outside the reported finite theorem domain:
 A_14[bar K_5]: quotient order 41, graph order 205, Erdős parameter 41.
 ```
 
-The single quotient maximum cut is solved by a binary MILP at zero MIP gap
+The single quotient maximum cut was solved by a binary MILP at zero MIP gap
 under a 55-second internal and 60-second process cap. No larger `k`, alternate
-solver menu, or adaptive family is authorized.
+solver menu, or adaptive family was authorized.
 
-## Source and database gate
+The corrected row is:
 
-The checked source is `FormalConjectures/ErdosProblems/23.lean` at upstream
+| quotient | graph order | parameter | quotient max cut | lifted bipartization | bound | slack |
+|---|---:|---:|---:|---:|---:|---:|
+| `A_14` | 205 | 41 | 238 | 1,225 | 1,681 | 456 |
+
+The exact numerical outcome is positive slack `456`, so the v2 classification
+is **`HOLD_BOUNDED`**, with zero candidates. Unlike the original low-parameter
+rows, it is outside the reported `n <= 40` finite theorem domain. This
+separately frozen v2 result is scoreable after the independent audit described
+below. It does not alter or cure the original v1 `PROTOCOL_DEVIATION`.
+
+## Source and database gate record
+
+The later replay checked `FormalConjectures/ErdosProblems/23.lean` at upstream
 commit `d16e05aded22b8c467a0a27c14b2311f53185006`, blob
 `346d29667313a32382bbf42b87588d53bb208400`. `Erdos23.erdos_23` remains
 tagged `research open`. It asks whether every triangle-free graph on `5*n`
 vertices has edge bipartization number at most `n^2`.
+
+That replay documents the snapshot used for v2 review; it does not repair the
+original v1 gate, whose hard-coded source expectation is itself one of the two
+recorded protocol defects.
 
 The gate checked all six connected triangle-free order-five Atlas graphs,
 with no value above one. Balanced `C5` independent blow-ups of bag sizes one
@@ -78,5 +104,14 @@ closure is claimed.
 
 ## Independent audit
 
-Pending for the corrected parameter-41 row. No commit, push, release, issue,
-pull request, or public action is authorized by this trial.
+**PASS for the separately frozen parameter-41 v2 row.** An independent,
+different binary max-cut MILP implementation finished in 6.7 seconds at zero
+MIP gap and reproduced quotient maximum cut `238`, quotient bipartization
+`49`, lifted bipartization `1,225`, bound `1,681`, and slack `456`. The literal
+source gate replay passed. The theorem-domain audit confirmed that
+arXiv:2606.28041 proves the reported range through `n=40` and identifies
+`n=41` as the threshold where that finite-range result no longer applies.
+
+Accordingly, v2 is finally classified as scoreable `HOLD_BOUNDED`; original
+v1 remains `PROTOCOL_DEVIATION`. No commit, push, release, issue, pull request,
+or public action is authorized by this trial.

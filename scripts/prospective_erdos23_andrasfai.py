@@ -7,9 +7,13 @@ import argparse
 import hashlib
 import json
 import os
+import subprocess
 from pathlib import Path
 
 import networkx as nx
+import numpy as np
+from scipy.optimize import Bounds, LinearConstraint, milp
+from scipy.sparse import lil_matrix
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -42,6 +46,40 @@ def maxcut_exhaustive(G: nx.Graph) -> tuple[int, list[int]]:
             best = value
             best_side = sorted(side)
     return best, best_side
+
+
+def maxcut_milp(G: nx.Graph) -> tuple[int, list[int], dict]:
+    nodes = sorted(G)
+    edges = sorted(tuple(sorted(edge)) for edge in G.edges())
+    n, m = len(nodes), len(edges)
+    index = {v: i for i, v in enumerate(nodes)}
+    matrix = lil_matrix((4 * m + 1, n + m), dtype=float)
+    lower = np.full(4 * m + 1, -np.inf)
+    upper = np.zeros(4 * m + 1)
+    row = 0
+    for j, (u, v) in enumerate(edges):
+        iu, iv, iy = index[u], index[v], n + j
+        for cu, cv, cy, bound in ((-1, -1, 1, 0), (1, 1, 1, 2), (1, -1, -1, 0), (-1, 1, -1, 0)):
+            matrix[row, iu], matrix[row, iv], matrix[row, iy] = cu, cv, cy
+            upper[row] = bound
+            row += 1
+    # Break complement symmetry by fixing the least vertex on side zero.
+    matrix[row, index[nodes[0]]] = 1
+    upper[row] = 0
+    objective = np.zeros(n + m)
+    objective[n:] = -1
+    result = milp(
+        c=objective,
+        integrality=np.ones(n + m),
+        bounds=Bounds(np.zeros(n + m), np.ones(n + m)),
+        constraints=LinearConstraint(matrix.tocsr(), lower, upper),
+        options={"time_limit": 55.0, "mip_rel_gap": 0.0},
+    )
+    if not result.success or result.mip_gap != 0:
+        raise RuntimeError(f"maxcut MILP incomplete: {result.status} {result.message} gap={result.mip_gap}")
+    side = [v for v in nodes if result.x[index[v]] > 0.5]
+    value = sum((u in side) != (v in side) for u, v in edges)
+    return value, side, {"mip_gap": float(result.mip_gap), "mip_node_count": int(result.mip_node_count)}
 
 
 def replay_cut(G: nx.Graph, side: list[int]) -> dict:
@@ -132,6 +170,26 @@ def evaluate_blowup(Q: nx.Graph, bag: int) -> dict:
 
 
 def gate() -> dict:
+    upstream = Path("/Users/kuber.mehta/Projects/formal-conjectures")
+    commit = subprocess.run(
+        ["git", "rev-parse", "upstream/main"], cwd=upstream, check=True,
+        capture_output=True, text=True, timeout=10,
+    ).stdout.strip()
+    source = subprocess.run(
+        ["git", "show", "upstream/main:FormalConjectures/ErdosProblems/23.lean"],
+        cwd=upstream, check=True, capture_output=True, text=True, timeout=10,
+    ).stdout
+    blob = subprocess.run(
+        ["git", "hash-object", "--stdin"], input=source, check=True,
+        capture_output=True, text=True, timeout=10,
+    ).stdout.strip()
+    source_ok = (
+        commit == "d16e05aded22b8c467a0a27c14b2311f53185006"
+        and blob == "346d29667313a32382bbf42b87588d53bb208400"
+        and "@[category research open, AMS 5]\ntheorem erdos_23" in source
+        and "G.CliqueFree 3" in source
+        and "Fintype.card V = 5 * n" in source
+    )
     atlas = []
     failures = []
     for G0 in nx.graph_atlas_g():
@@ -174,11 +232,14 @@ def gate() -> dict:
         if row["beta"] != 0:
             failures.append(row)
 
+    if not source_ok:
+        failures.append({"source_gate": {"commit": commit, "blob": blob}})
     result = {
         "event": "DB_GATE",
         "status": "PASS" if not failures else "FAIL",
-        "upstream_commit": "d16e05aded22b8c467a0a27c14b2311f53185006",
-        "source_blob": "346d29667313a32382bbf42b87588d53bb208400",
+        "upstream_commit": commit,
+        "source_blob": blob,
+        "source_gate_replayed": source_ok,
         "source_status": "research open",
         "atlas_connected_triangle_free_order5": len(atlas),
         "atlas": atlas,
@@ -196,7 +257,61 @@ def gate() -> dict:
 def gate_passed() -> bool:
     rows = [json.loads(line) for line in LEDGER.read_text().splitlines() if line.strip()]
     gates = [r for r in rows if r.get("event") == "DB_GATE"]
-    return bool(gates and gates[-1].get("status") == "PASS")
+    return bool(gates and gates[-1].get("status") == "PASS" and gates[-1].get("source_gate_replayed"))
+
+
+def development_v2() -> dict:
+    if not gate_passed():
+        row = {"event": "VERDICT_V2", "status": "DB_SANITY_REJECT", "public_action": False}
+        append(row)
+        return row
+    k, bag = 14, 5
+    Q = andrasfai(k)
+    qcut, qside, solver = maxcut_milp(Q)
+    G = independent_blowup(Q, bag)
+    side = lift_side(qside, bag)
+    replay = replay_cut(G, side)
+    parameter = G.number_of_nodes() // 5
+    beta = G.number_of_edges() - replay["cut"]
+    row = {
+        "event": "GRAPH_EVALUATED_V2",
+        "k": k,
+        "graph6": graph6(G),
+        "graph6_sha256": hashlib.sha256(graph6(G).encode()).hexdigest(),
+        "n": G.number_of_nodes(),
+        "m": G.number_of_edges(),
+        "parameter": parameter,
+        "bound": parameter * parameter,
+        "triangle_free": triangle_free_direct(G),
+        "quotient_n": Q.number_of_nodes(),
+        "quotient_m": Q.number_of_edges(),
+        "quotient_maxcut": qcut,
+        "quotient_side": qside,
+        "lifted_side": side,
+        "maxcut": replay["cut"],
+        "deleted_count": replay["deleted_count"],
+        "deleted_edges_sha256": hashlib.sha256(json.dumps(replay["deleted_edges"], separators=(",", ":")).encode()).hexdigest(),
+        "kept_bipartite": replay["kept_bipartite"],
+        "slack": parameter * parameter - beta,
+        "solver": solver,
+        "candidate": parameter * parameter - beta < 0,
+        "public_action": False,
+    }
+    if not row["triangle_free"] or not row["kept_bipartite"] or row["n"] != 5 * parameter:
+        raise RuntimeError("v2 premise/witness replay failed")
+    append(row)
+    verdict = {
+        "event": "VERDICT_V2",
+        "status": "CANDIDATE_ADVERSARIAL" if row["candidate"] else "HOLD_BOUNDED",
+        "development_graphs": 1,
+        "parameter": 41,
+        "known_finite_domain_excluded": True,
+        "slack": row["slack"],
+        "independent_audit_required": True,
+        "public_action": False,
+    }
+    append(verdict)
+    return verdict
 
 
 def development() -> dict:
@@ -231,9 +346,14 @@ def development() -> dict:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--phase", required=True, choices=("gate", "development"))
+    parser.add_argument("--phase", required=True, choices=("gate", "development", "development-v2"))
     args = parser.parse_args()
-    result = gate() if args.phase == "gate" else development()
+    if args.phase == "gate":
+        result = gate()
+    elif args.phase == "development":
+        result = development()
+    else:
+        result = development_v2()
     print(json.dumps(result, indent=2, sort_keys=True))
 
 
