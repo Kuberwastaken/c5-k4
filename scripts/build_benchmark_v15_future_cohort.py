@@ -29,6 +29,7 @@ from typing import Any
 ROOT = Path(__file__).parents[1].resolve()
 sys.path.insert(0, str(ROOT / "scripts"))
 import build_benchmark_v14_pool as syntax  # noqa: E402
+import build_benchmark_v15_identity_hits as identity_hits  # noqa: E402
 
 
 SCHEMA_VERSION = "c5k4-future-cohort-registry-1.5"
@@ -184,9 +185,7 @@ def validate_provenance_ledgers(ledgers: list[dict[str, Any]]) -> None:
         raise FutureCohortError("at least one complete provenance ledger is required")
     for ledger in ledgers:
         supplied_digest = ledger.get("ledger_sha256")
-        unsigned = dict(ledger)
-        unsigned.pop("ledger_sha256", None)
-        if supplied_digest != sha256(canonical_json(unsigned)):
+        if supplied_digest != identity_hits.content_address(ledger, "ledger_sha256"):
             raise FutureCohortError("provenance ledger self-digest is invalid")
         if ledger.get("status") not in {"CLASSIFIED_COMPLETE", "CLASSIFIED_FAIL_CLOSED"}:
             raise FutureCohortError("provenance ledger status is invalid")
@@ -203,37 +202,11 @@ def validate_provenance_ledgers(ledgers: list[dict[str, Any]]) -> None:
             raise FutureCohortError("provenance ledger counts do not replay")
 
 
-def provenance_exclusion_reasons(
-    row: dict[str, Any], ledgers: list[dict[str, Any]]
-) -> set[str]:
-    """Join excluding evidence only through frozen exact identity tokens."""
-    reasons: set[str] = set()
-    tokens = {
-        row.get("cluster_id"), row.get("path"), row.get("identity_sha256"),
-        row.get("module_blob_sha256"),
-    }
-    for declaration in row.get("declarations", []):
-        tokens.update({declaration.get("name"), declaration.get("statement_header_sha256")})
-    tokens.discard(None)
-    for ledger in ledgers:
-        if ledger.get("status") == "CLASSIFIED_FAIL_CLOSED" or ledger.get("fail_closed") is True:
-            reasons.add("PROVENANCE_SOURCE_FAIL_CLOSED")
-        for unit in ledger["units"]:
-            provenance_class = unit.get("provenance_class")
-            if provenance_class not in {"SEMANTIC_EXPOSURE", "UNKNOWN"}:
-                continue
-            locator = unit.get("locator")
-            content = unit.get("content_sha256")
-            # Locators are structured source addresses. Exact paths/identities
-            # may occur as a full locator or as one colon-delimited component.
-            locator_tokens = set(re.split(r"[:#]", locator)) if isinstance(locator, str) else set()
-            matched = locator in tokens or content in tokens or bool(tokens & locator_tokens)
-            if matched:
-                reasons.add(
-                    "SEMANTIC_EXPOSURE" if provenance_class == "SEMANTIC_EXPOSURE"
-                    else "UNKNOWN_EXPOSURE"
-                )
-    return reasons
+def load_content_pack(pack: dict[str, Any]) -> dict[str, bytes]:
+    try:
+        return identity_hits.load_content_pack(pack)
+    except identity_hits.IdentityHitError as exc:
+        raise FutureCohortError(str(exc)) from exc
 
 
 def extract_pool(
@@ -406,6 +379,7 @@ def build(
     input_digests: dict[str, str],
     repository: Path | None = None,
     provenance_ledgers: list[dict[str, Any]] | None = None,
+    provenance_contents: dict[str, bytes] | None = None,
 ) -> dict[str, Any]:
     validate_policies(grouping, classifier)
     ledgers = provenance_ledgers or []
@@ -420,6 +394,15 @@ def build(
     prior_open = current_cluster_index(u1_pool)
     excluded = exclusion_index(v14_pool)
     records = []
+    candidate_rows = [
+        row for row in u2_pool["clusters"] if row["cluster_id"] not in prior_open
+    ]
+    try:
+        private_identity_hits = identity_hits.build(
+            candidate_rows, ledgers, provenance_contents or {}
+        )
+    except identity_hits.IdentityHitError as exc:
+        raise FutureCohortError(f"private identity join failed closed: {exc}") from exc
 
     for row in sorted(u2_pool["clusters"], key=lambda item: item["cluster_id"]):
         # An existing U1 cluster remains outside the future cohort even if its
@@ -427,7 +410,7 @@ def build(
         if row["cluster_id"] in prior_open:
             continue
         reasons = permanent_exclusion_reasons(row, excluded)
-        reasons.update(provenance_exclusion_reasons(row, ledgers))
+        reasons.update(identity_hits.exclusion_reasons(row, private_identity_hits))
         if row.get("machine_stratum") is None or row.get("eligible") is not True:
             reasons.add("AMBIGUOUS_OR_UNCLASSIFIED")
         path = row["path"]
@@ -539,6 +522,7 @@ def checkpoint_chain(
     *,
     input_digests: dict[str, str],
     provenance_ledgers: list[dict[str, Any]],
+    provenance_contents: dict[str, bytes] | None = None,
 ) -> tuple[dict[str, Any], dict[str, Any] | None]:
     """Evaluate scheduled checkpoints in order and select the first quota PASS.
 
@@ -577,6 +561,7 @@ def checkpoint_chain(
             u1_receipt, checkpoint["receipt"], v14_pool, grouping, classifier,
             classifier_path, input_digests=input_digests,
             provenance_ledgers=provenance_ledgers,
+            provenance_contents=provenance_contents,
         )
         quota = registry["quota_certificate"]
         certificate = {
@@ -633,6 +618,7 @@ def main() -> int:
     parser.add_argument("--grouping-rule", type=Path, required=True)
     parser.add_argument("--classifier", type=Path, required=True)
     parser.add_argument("--provenance-ledger", type=Path, action="append", required=True)
+    parser.add_argument("--provenance-content-pack", type=Path, required=True)
     parser.add_argument(
         "--repository", type=Path,
         help="ephemeral authenticated U2 object store containing U1 ancestry",
@@ -645,6 +631,7 @@ def main() -> int:
         "v14_exclusion": args.v14_exclusion.resolve(),
         "grouping_rule": args.grouping_rule.resolve(),
         "classifier": args.classifier.resolve(),
+        "provenance_content_pack": args.provenance_content_pack.resolve(),
     }
     for index, ledger_path in enumerate(args.provenance_ledger):
         paths[f"provenance_ledger_{index}"] = ledger_path.resolve()
@@ -660,6 +647,7 @@ def main() -> int:
             values[f"provenance_ledger_{index}"]
             for index in range(len(args.provenance_ledger))
         ],
+        provenance_contents=load_content_pack(values["provenance_content_pack"]),
     )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_bytes(pretty_json(output))

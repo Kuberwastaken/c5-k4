@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 from pathlib import Path
 import subprocess
 import sys
@@ -80,7 +81,7 @@ class FutureCohortTests(unittest.TestCase):
             "source_complete": True, "fail_closed": fail_closed,
             "units": rows, "counts": counts,
         }
-        ledger["ledger_sha256"] = future.sha256(future.canonical_json(ledger))
+        ledger["ledger_sha256"] = future.identity_hits.content_address(ledger, "ledger_sha256")
         return ledger
 
     def build(self, u1: str, u2: str, excluded: list[dict] | None = None) -> dict:
@@ -221,21 +222,30 @@ class FutureCohortTests(unittest.TestCase):
         )
         u2 = self.commit("new exposed target")
         unit = {
-            "locator": f"session:tool-output:{path}", "content_sha256": "f" * 64,
+            "unit_id": "semantic-unit-1",
+            "locator": "session:tool-output:1", "content_sha256": hashlib.sha256(path.encode()).hexdigest(),
             "provenance_class": "SEMANTIC_EXPOSURE",
         }
         output = future.build(
             self.receipt(u1), self.receipt(u2), self.v14(), self.grouping,
             self.classifier, CLASSIFIER_PATH, input_digests={"provenance_ledger_sha256": "1" * 64},
             provenance_ledgers=[self.ledger([unit])],
+            provenance_contents={unit["content_sha256"]: path.encode()},
         )
         self.assertEqual(output["records"][0]["membership_status"], "EXCLUDE")
         self.assertIn("SEMANTIC_EXPOSURE", output["records"][0]["exclusion_reasons"])
+        with self.assertRaisesRegex(future.FutureCohortError, "failed closed"):
+            future.build(
+                self.receipt(u1), self.receipt(u2), self.v14(), self.grouping,
+                self.classifier, CLASSIFIER_PATH, input_digests={"provenance_ledger_sha256": "3" * 64},
+                provenance_ledgers=[self.ledger([unit])], provenance_contents={},
+            )
         unit["provenance_class"] = "UNKNOWN"
         output = future.build(
             self.receipt(u1), self.receipt(u2), self.v14(), self.grouping,
             self.classifier, CLASSIFIER_PATH, input_digests={"provenance_ledger_sha256": "2" * 64},
             provenance_ledgers=[self.ledger([unit])],
+            provenance_contents={unit["content_sha256"]: path.encode()},
         )
         self.assertIn("UNKNOWN_EXPOSURE", output["records"][0]["exclusion_reasons"])
 

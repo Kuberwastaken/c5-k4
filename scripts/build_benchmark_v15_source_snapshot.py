@@ -13,6 +13,7 @@ v1.5 adds interval chronology, export coverage, and typed session parsing.
 from __future__ import annotations
 
 import argparse
+import base64
 import datetime as dt
 import hashlib
 import json
@@ -133,6 +134,7 @@ def parse_session_exposure_units(
     source_id: str,
     relative_path: str,
     machine_lane_declaration: dict[str, Any] | None = None,
+    private_content_sink: dict[str, bytes] | None = None,
 ) -> list[dict[str, Any]]:
     """Parse one immutable transcript without performing a target alias join."""
 
@@ -149,11 +151,17 @@ def parse_session_exposure_units(
         exposure_class: str, content: bytes, *, reason: str,
         call_id: str | None = None, tool_name: str | None = None,
     ) -> dict[str, Any]:
-        return _unit(
+        unit = _unit(
             source_id, relative_path, line_number, record_kind, origin_class,
             exposure_class, content, session_format=fmt, call_id=call_id,
             tool_name=tool_name, reason=reason,
         )
+        if private_content_sink is not None:
+            digest = unit["content_sha256"]
+            prior = private_content_sink.setdefault(digest, content)
+            if prior != content:
+                raise ValueError("SHA-256 collision in private session content pack")
+        return unit
     try:
         text = raw.decode("utf-8", "strict")
     except UnicodeDecodeError:
@@ -283,12 +291,15 @@ def typed_session_ledger(
     created_at_utc: str = "1970-01-01T00:00:00Z",
     source_snapshot_sha256: str = "0" * 64,
     ontology_sha256: str = "0" * 64,
+    private_content_sink: dict[str, bytes] | None = None,
 ) -> dict[str, Any]:
     _utc(created_at_utc, "created_at_utc")
     for field, value in (("source_snapshot_sha256", source_snapshot_sha256), ("ontology_sha256", ontology_sha256)):
         if not isinstance(value, str) or len(value) != 64 or any(char not in "0123456789abcdef" for char in value):
             raise ValueError(f"{field} must be lowercase SHA-256")
-    units = parse_session_exposure_units(raw, fmt, source_id, relative_path, machine_lane_declaration)
+    units = parse_session_exposure_units(
+        raw, fmt, source_id, relative_path, machine_lane_declaration, private_content_sink
+    )
     counts = {name: 0 for name in sorted(EXPOSURE_CLASSES)}
     for unit_row in units:
         counts[unit_row["provenance_class"]] += 1
@@ -308,6 +319,23 @@ def typed_session_ledger(
     }
     result["ledger_sha256"] = content_address(result, "ledger_sha256")
     return result
+
+
+def private_content_pack(contents: dict[str, bytes]) -> dict[str, Any]:
+    for digest, raw in contents.items():
+        if not isinstance(digest, str) or not isinstance(raw, bytes) or sha256(raw) != digest:
+            raise ValueError("private content sink is not content-addressed")
+    return {
+        "schema": "c5k4-method-v1.5-private-provenance-content-pack-1.0",
+        "publication_permitted": False,
+        "entries": [
+            {
+                "content_sha256": digest,
+                "content_base64": base64.b64encode(raw).decode("ascii"),
+            }
+            for digest, raw in sorted(contents.items())
+        ],
+    }
 
 
 def build_source_snapshot(
@@ -489,6 +517,7 @@ def main() -> int:
     session.add_argument("--relative-path", required=True)
     session.add_argument("--machine-lane", type=Path)
     session.add_argument("--output", type=Path)
+    session.add_argument("--private-content-pack-output", type=Path)
     interval = commands.add_parser("build-interval")
     interval.add_argument("--p1-snapshot", type=Path, required=True)
     interval.add_argument("--cutoff-snapshot", type=Path, required=True)
@@ -498,10 +527,18 @@ def main() -> int:
     interval.add_argument("--output", type=Path)
     args = parser.parse_args()
     if args.command == "parse-session":
+        private_contents: dict[str, bytes] = {}
         value = typed_session_ledger(
             args.input.read_bytes(), args.format, args.source_id, args.relative_path,
             _load(args.machine_lane) if args.machine_lane else None,
+            private_content_sink=private_contents,
         )
+        if args.private_content_pack_output:
+            if args.private_content_pack_output.exists():
+                raise ValueError("private content pack output already exists; overwrite is forbidden")
+            args.private_content_pack_output.write_text(
+                pretty_json(private_content_pack(private_contents)), encoding="utf-8"
+            )
     else:
         value = build_interval_ledger_input(
             _load(args.p1_snapshot), _load(args.cutoff_snapshot),

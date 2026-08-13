@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-private-identity-hits-v1.5.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "status", "controls", "target_set_sha256", "target_count", "excluding_unit_count", "binding_count", "clusters", "identity_hits_sha256"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-private-identity-hit-ledger-1.0"},
+    "status": {"const": "VERIFIED_COMPLETE_PRIVATE_IDENTITY_JOIN"},
+    "controls": {
+      "type": "object", "additionalProperties": false,
+      "required": ["public_artifact_permitted", "raw_content_present", "matched_alias_values_present", "matching_rule"],
+      "properties": {
+        "public_artifact_permitted": {"const": false},
+        "raw_content_present": {"const": false},
+        "matched_alias_values_present": {"const": false},
+        "matching_rule": {"const": "UTF8_EXACT_BOUNDARY_DELIMITED_FROZEN_ALIAS"}
+      }
+    },
+    "target_set_sha256": {"$ref": "#/definitions/sha256"},
+    "target_count": {"type": "integer", "minimum": 0},
+    "excluding_unit_count": {"type": "integer", "minimum": 0},
+    "binding_count": {"type": "integer", "minimum": 0},
+    "clusters": {
+      "type": "array", "maxItems": 100000,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["cluster_id", "identity_sha256", "bindings"],
+        "properties": {
+          "cluster_id": {"type": "string", "minLength": 1, "maxLength": 256},
+          "identity_sha256": {"$ref": "#/definitions/sha256"},
+          "bindings": {
+            "type": "array", "minItems": 1, "maxItems": 100000,
+            "items": {
+              "type": "object", "additionalProperties": false,
+              "required": ["unit_id", "provenance_class", "matched_alias_kinds"],
+              "properties": {
+                "unit_id": {"type": "string", "minLength": 1, "maxLength": 256},
+                "provenance_class": {"enum": ["SEMANTIC_EXPOSURE", "UNKNOWN"]},
+                "matched_alias_kinds": {
+                  "type": "array", "minItems": 1, "maxItems": 6, "uniqueItems": true,
+                  "items": {"enum": ["CLUSTER_ID", "MODULE_PATH", "IDENTITY_SHA256", "MODULE_BLOB_SHA256", "DECLARATION_NAME", "STATEMENT_HEADER_SHA256"]}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "identity_hits_sha256": {"$ref": "#/definitions/sha256"}
+  },
+  "definitions": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+}

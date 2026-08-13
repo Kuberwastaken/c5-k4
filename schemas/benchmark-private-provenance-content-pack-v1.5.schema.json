@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-private-provenance-content-pack-v1.5.schema.json",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema", "publication_permitted", "entries"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-private-provenance-content-pack-1.0"},
+    "publication_permitted": {"const": false},
+    "entries": {
+      "type": "array", "maxItems": 1000000,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["content_sha256", "content_base64"],
+        "properties": {
+          "content_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "content_base64": {"type": "string", "contentEncoding": "base64"}
+        }
+      }
+    }
+  }
+}

@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import base64
 import json
 from pathlib import Path
 import unittest
@@ -18,6 +19,27 @@ def jsonl(*rows: object) -> bytes:
 
 
 class TypedSessionTests(unittest.TestCase):
+    def test_private_content_sink_roundtrips_exact_hashed_message_bytes(self) -> None:
+        message = "FormalConjectures/GraphFresh.lean and graph_fresh"
+        raw = jsonl({
+            "type": "response_item",
+            "payload": {"type": "message", "role": "user", "content": [
+                {"type": "input_text", "text": message}
+            ]},
+        })
+        sink: dict[str, bytes] = {}
+        ledger = snapshot.typed_session_ledger(
+            raw, "codex", "sessions", "codex/private.jsonl",
+            private_content_sink=sink,
+        )
+        digest = ledger["units"][0]["content_sha256"]
+        self.assertEqual(sink, {digest: message.encode()})
+        pack = snapshot.private_content_pack(sink)
+        self.assertIs(pack["publication_permitted"], False)
+        self.assertEqual(base64.b64decode(pack["entries"][0]["content_base64"]), message.encode())
+        schema = json.loads((Path(__file__).parents[1] / "schemas/benchmark-private-provenance-content-pack-v1.5.schema.json").read_text())
+        jsonschema.validate(pack, schema)
+
     def test_codex_text_is_semantic_and_undeclared_tool_traffic_fails_closed(self) -> None:
         raw = jsonl(
             {"type": "response_item", "payload": {"type": "message", "role": "user", "content": [{"type": "input_text", "text": "inspect target"}]}},
