@@ -67,10 +67,34 @@ corpus.
 
 ### A. Prospective wall crossings
 
-Run one frozen cluster at a time. The current non-metric trial is WOWII 179,
-selected in `results/expansion/method_v04_nonmetric_selection.md`. Its database
-gate and fixed private-neighborhood split-clique grid may be evaluated exactly
-as written; its family and bounds may not be adapted after observing results.
+Discovery is the primary portfolio objective. At least half of concurrent
+research lanes should normally run prospectively frozen transformation trials;
+proof extraction may use the remaining lanes when it is near a meaningful
+closure or produces a reusable invariant identity. A long proof ladder is not
+a substitute for testing new separating transformations.
+
+The strict timeout bracket on WOWII 179 remains closed. The next trial round
+therefore uses four distinct current `formal-conjectures` targets, with each
+contract written before its first development-family evaluation:
+
+1. **WOWII 198a:** nontraceable block attachments and sparse/clique surgery
+   designed to keep `b <= 2 + averageEccentricity` while destroying every
+   Hamiltonian path;
+2. **WOWII 145/146:** tails, pendant blocks, and unequal blow-ups designed to
+   separate boundary-set eccentricity from induced-tree size and the two
+   denominator coordinates;
+3. **WOWII 291:** nonuniform blow-ups and degree-preserving surgery designed to
+   raise total domination while making the first Havel--Hakimi zero early and
+   keeping the minimum-triangle frequency small;
+4. **WOWII 314:** structured triangle-free diameter-two graphs designed to
+   keep the largest induced path at most four while separating minimum total
+   dominating-set cardinalities.
+
+These targets were previously evaluated on the old fixed arsenal, so this
+round is prospective only with respect to its newly frozen transformations.
+It must not be advertised as a held-out-corpus experiment. Each lane gets an
+append-only contract and ledger, the same database-sanity and independent-
+recomputation gates, and the same 60-second process cap.
 
 Every completed trial ends in one durable outcome from `METHOD.md`, including
 the zeroes. A negative residual starts verification; it does not itself start
@@ -256,21 +280,23 @@ obligations.
 
 1. Preserve the strict `TIMEOUT_BRACKET` stop on WOWII 179; do not reopen its
    unevaluated grid without a newly frozen protocol.
-2. Finish WOWII 19's center and consecutive-endpoint residues after the
-   distance-two off-path route elimination.
-3. Extend WOWII 40's exclude-dominant recursive leaf theorem through the
-   include-dominant branch and then a block-tree induction; do not revive the
-   refuted one-long-path strategy.
-4. Close WOWII 133's final clean-handle-failure to internal-blocker splice.
-5. Prove WOWII 141's unique-parent condition and feed it into cycle peak.
-6. Feed WOWII 183's now-closed odd-cycle package, including the corrected
-   triangle selector, into the component assembly.
-7. Prove WOWII 61's no-residual-overshoot bridge via cumulative credit, never
-   through ordinary successor prefix dominance or pointwise loss order, both
-   formally false.
-8. Keep Method v0.6's prospective queue empty until a genuinely new open
-   WOWII module enters `formal-conjectures`; all 14 current modules were
-   already evaluated and cannot be retrospectively relabeled held out.
+2. Run the four frozen discovery trials above in parallel and publish every
+   bounded hold, timeout bracket, corrupt reading, or candidate gate failure.
+3. For any negative residual, stop family adaptation and execute statement,
+   database, independent-recompute, novelty, and Lean gates in that order.
+4. Continue only the closest proof closures: WOWII 19's consecutive-arm
+   witness cases, WOWII 59's saturated deficient-column residue, WOWII 61's
+   boundary-multiplicity bridge, and WOWII 141's scalable girth extension.
+5. Treat WOWII 40's mixed recursive `RankTree` algebra as complete enough for
+   now; further work must extract genuine graph structure rather than add
+   another unused recursion wrapper.
+6. Treat the 44-vertex WOWII 133 completion as a calibrated failure of the
+   frozen local obstruction strategy: its alternative handle satisfies the
+   target, so future work must compare handles rather than force that local
+   completion to be impossible.
+7. Keep all 14 current WOWII modules excluded from any held-out success count;
+   new transformations can yield discoveries, but not retrospective held-out
+   evidence.
 
 Long computation and narrow proof experiments should be delegated to bounded
 agents. The primary lane validates artifacts, catches scope or trust errors,
