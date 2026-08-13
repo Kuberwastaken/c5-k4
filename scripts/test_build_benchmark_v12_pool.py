@@ -1,0 +1,120 @@
+#!/usr/bin/env python3
+"""Regression tests for the syntax-only Method v1.2 prototype builder."""
+
+from __future__ import annotations
+
+import json
+from pathlib import Path
+import sys
+import unittest
+
+
+ROOT = Path(__file__).parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
+import build_benchmark_v12_pool as pool  # noqa: E402
+
+
+CLASSIFIER = (
+    ROOT / "results" / "benchmark" / "v1.2-prototype" / "five-strata-classifier.json"
+)
+
+
+class PoolV12Tests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.rules = json.loads(CLASSIFIER.read_text(encoding="utf-8"))
+
+    def metadata(self, path: str, declaration: str, module_prefix: str = ""):
+        match = pool.DECLARATION.search(declaration)
+        assert match is not None
+        return pool.syntax_metadata(
+            path, declaration, match.end(), self.rules, module_prefix + declaration
+        )
+
+    def test_ordered_binder_hypothesis_does_not_force_scalar(self) -> None:
+        metadata = self.metadata(
+            "FormalConjectures/Fixture/X.lean",
+            "theorem structural (G : SimpleGraph (Fin 4)) (h : G.edgeSet.ncard ≤ 6) : G.Connected",
+        )
+        self.assertFalse(metadata["outer_ordered_relation_conclusion"])
+        self.assertEqual(pool.classify(metadata)[0], "GRAPH_STRUCTURAL_PROPERTY")
+
+    def test_outer_conclusion_relation_forces_scalar(self) -> None:
+        metadata = self.metadata(
+            "FormalConjectures/Fixture/X.lean",
+            "theorem scalar (G : SimpleGraph (Fin 4)) : G.edgeSet.ncard ≤ 6",
+        )
+        self.assertTrue(metadata["outer_ordered_relation_conclusion"])
+        self.assertEqual(pool.classify(metadata)[0], "GRAPH_SCALAR_INEQUALITY")
+
+    def test_top_level_implication_uses_consequent_relation(self) -> None:
+        metadata = self.metadata(
+            "FormalConjectures/Fixture/X.lean",
+            "theorem scalar (G : SimpleGraph (Fin 4)) : G.Connected → G.edgeSet.ncard ≤ 6",
+        )
+        self.assertTrue(metadata["outer_ordered_relation_conclusion"])
+
+    def test_parenthesized_outer_relation_is_scalar(self) -> None:
+        metadata = self.metadata(
+            "FormalConjectures/Fixture/X.lean",
+            "theorem scalar (G : SimpleGraph (Fin 4)) : (G.edgeSet.ncard ≤ 6)",
+        )
+        self.assertTrue(metadata["outer_ordered_relation_conclusion"])
+        self.assertEqual(pool.classify(metadata)[0], "GRAPH_SCALAR_INEQUALITY")
+
+    def test_nested_ordered_term_is_not_outer_relation(self) -> None:
+        metadata = self.metadata(
+            "FormalConjectures/Fixture/X.lean",
+            "theorem structural (G : SimpleGraph (Fin 4)) : SomePredicate (G.edgeSet.ncard ≤ 6)",
+        )
+        self.assertFalse(metadata["outer_ordered_relation_conclusion"])
+
+    def test_module_wide_simplegraph_signal_classifies_declaration(self) -> None:
+        metadata = self.metadata(
+            "FormalConjectures/ErdosProblems/Fixture.lean",
+            "theorem indirect (n : Fin 4) : True",
+            "import Mathlib.Combinatorics.SimpleGraph.Basic\n",
+        )
+        self.assertTrue(metadata["graph_module"])
+        self.assertEqual(pool.classify(metadata)[0], "GRAPH_STRUCTURAL_PROPERTY")
+
+    def test_module_wide_process_signal_and_fourth_path(self) -> None:
+        metadata = self.metadata(
+            "FormalConjectures/Arxiv/CurlingNumberConjecture.lean",
+            "theorem process (n : Nat) : True",
+        )
+        self.assertTrue(metadata["automata_game_process_path"])
+        self.assertEqual(pool.classify(metadata)[0], "AUTOMATA_GAME_PROCESS")
+
+    def test_bounded_output_has_no_statement_or_selection(self) -> None:
+        metadata = self.metadata(
+            "FormalConjectures/Fixture/X.lean",
+            "theorem secret (G : SimpleGraph (Fin 4)) : G.edgeSet.ncard ≤ 6",
+        )
+        upstream = {"commit": pool.PINNED_COMMIT, "tree": pool.PINNED_TREE}
+        declaration = {
+            "declaration_id": "FormalConjectures/Fixture/X.lean::secret",
+            "path": "FormalConjectures/Fixture/X.lean",
+            "name": "secret",
+            "kind": "theorem",
+            "category_line": 1,
+            "module_blob_sha256": "1" * 64,
+            "statement_header_sha256": "2" * 64,
+            "syntax_metadata": metadata,
+            "machine_stratum": "GRAPH_SCALAR_INEQUALITY",
+            "classification_basis": "FINITE_GRAPH_WITH_OUTER_ORDERED_CONCLUSION",
+        }
+        inventory = pool.build_inventory(upstream, [declaration], CLASSIFIER)
+        built = pool.build_pool(inventory, "3" * 64, CLASSIFIER)
+        encoded = pool.pretty_json(built).casefold()
+        self.assertNotIn("edgeset", encoded)
+        self.assertNotIn("random_rank", encoded)
+        self.assertNotIn("selected_cluster", encoded)
+        self.assertFalse(built["selection_fields_present"])
+
+    def test_classifier_and_executable_have_same_exact_pin(self) -> None:
+        self.assertEqual(self.rules["upstream"]["commit"], pool.PINNED_COMMIT)
+        self.assertEqual(self.rules["upstream"]["tree"], pool.PINNED_TREE)
+
+
+if __name__ == "__main__":
+    unittest.main()
