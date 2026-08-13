@@ -86,12 +86,16 @@ def serializable(transitions: dict[str, tuple[int, ...]]) -> dict[str, list[int]
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--jsonl", type=Path)
+    parser.add_argument("--jsonl", type=Path, help="combined output for scratch replay")
+    parser.add_argument("--calibration-jsonl", type=Path)
+    parser.add_argument("--development-jsonl", type=Path)
     parser.add_argument("--contract-sha256")
     parser.add_argument("--resolution-card-sha256")
     args = parser.parse_args()
     if bool(args.contract_sha256) != bool(args.resolution_card_sha256):
         parser.error("provide both integrity hashes or neither")
+    if bool(args.calibration_jsonl) != bool(args.development_jsonl):
+        parser.error("provide both split-ledger paths or neither")
 
     started = time.monotonic()
     rows: list[dict[str, object]] = []
@@ -145,7 +149,14 @@ def main() -> int:
     output = "".join(canonical(row).decode() for row in rows)
     if args.jsonl:
         args.jsonl.write_text(output, encoding="utf-8")
-    else:
+    if args.calibration_jsonl:
+        args.calibration_jsonl.write_text(
+            "".join(canonical(row).decode() for row in rows[:10]), encoding="utf-8"
+        )
+        args.development_jsonl.write_text(
+            "".join(canonical(row).decode() for row in rows[10:]), encoding="utf-8"
+        )
+    if not args.jsonl and not args.calibration_jsonl:
         print(output, end="")
     print(
         json.dumps(
