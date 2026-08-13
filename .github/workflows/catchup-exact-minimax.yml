@@ -42,8 +42,10 @@ jobs:
 
       - name: Replay frozen controls under cap
         shell: bash
-        run: timeout --signal=TERM --kill-after=5s 60s \
-          python3 scripts/test_prospective_catchup_exact.py build/prospective_catchup_exact
+        run: |
+          timeout --signal=TERM --kill-after=5s 60s \
+            python3 scripts/test_prospective_catchup_exact.py \
+            build/prospective_catchup_exact
 
   development:
     needs: calibration
