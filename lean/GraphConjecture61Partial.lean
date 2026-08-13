@@ -271,6 +271,115 @@ theorem safe_threeSeparated_augmentation
           dist_eq_one_iff_adj.mpr hiy]
     exact (by omega : ¬ 3 ≤ G.dist x y) (hsep x hx y hy hxy)
 
+section DegreeSequences
+
+/-
+## The degree-transfer obstruction
+
+For the Maxine route, the degree sequence left by deleting a maximum-degree
+vertex is more concentrated than the canonical Havel--Hakimi successor: the
+latter decrements the largest available entries.  The minimal sorted-list
+comparison expressing that direction is ordinary prefix majorization.
+
+The comparison is deliberately defined on lists rather than graphs.  This
+makes visible an important obstruction: `residueAux` is not monotone for this
+relation on arbitrary sorted natural-number lists.  The smallest failure has
+length three and uses a nongraphical majorizing list, so any valid continuation
+must carry graphicality (or a realization-level transfer) as an invariant.
+-/
+
+/-- `s` descending-majorizes `t`: both lists are descending, have the same
+length and total sum, and every prefix sum of `s` is at least the corresponding
+prefix sum of `t`.
+
+The orientation is from the more concentrated sequence to the more balanced
+one.  Thus the actual deletion sequence is intended to majorize the canonical
+Havel--Hakimi successor. -/
+def DescendingMajorizes (s t : List ℕ) : Prop :=
+  s.Pairwise (· ≥ ·) ∧
+  t.Pairwise (· ≥ ·) ∧
+  s.length = t.length ∧
+  s.sum = t.sum ∧
+  ∀ k, (t.take k).sum ≤ (s.take k).sum
+
+/-- One elementary balancing transfer, followed by descending re-sorting.
+An entry `a` occurring before an entry `b` gives one unit to `b`; the gap
+condition makes this a genuine Robin-Hood transfer rather than a permutation.
+
+This is the atomic move relevant to exchanging one low-degree neighbour for
+one higher-degree non-neighbour in the maximum-vertex deletion comparison. -/
+def DescendingUnitTransfer (s t : List ℕ) : Prop :=
+  s.Pairwise (· ≥ ·) ∧
+  ∃ pre middle post : List ℕ, ∃ a b : ℕ,
+    s = pre ++ a :: middle ++ b :: post ∧
+    b + 2 ≤ a ∧
+    t = (pre ++ (a - 1) :: middle ++ (b + 1) :: post).mergeSort (· ≥ ·)
+
+/-- The length-three counterexample is already a single elementary balancing
+transfer, not merely an artifact of taking the transitive majorization
+closure. -/
+theorem counterexample_is_descendingUnitTransfer :
+    DescendingUnitTransfer [2, 2, 0] [2, 1, 1] := by
+  refine ⟨by simp, [2], [], [], 2, 0, ?_, by decide, ?_⟩
+  · decide
+  · native_decide
+
+/-- Closed form for two-entry inputs.  It is useful for certifying that the
+counterexample below is minimal by list length rather than just the first one
+found by a bounded search. -/
+theorem residueAux_pair (a b : ℕ) :
+    residueAux [a, b] = if a = 0 then 2 else if b ≤ 1 then 1 else 0 := by
+  cases a with
+  | zero => simp [residueAux]
+  | succ a =>
+      cases b with
+      | zero => simp [residueAux, havelHakimiStep]
+      | succ b =>
+          cases b with
+          | zero => simp [residueAux, havelHakimiStep]
+          | succ b => simp [residueAux, havelHakimiStep]
+
+/-- Prefix majorization has the required residue direction for every pair of
+descending two-entry lists.  Together with the trivial zero- and one-entry
+cases, this proves that a failure needs at least three entries. -/
+theorem residueAux_pair_monotone_of_majorization
+    {a b c d : ℕ}
+    (hs : b ≤ a) (ht : d ≤ c)
+    (hsum : a + b = c + d) (hprefix : c ≤ a) :
+    residueAux [c, d] ≤ residueAux [a, b] := by
+  rw [residueAux_pair, residueAux_pair]
+  split_ifs <;> omega
+
+/-- The required unrestricted monotonicity is false.  The sorted sequence
+`[2,2,0]` majorizes `[2,1,1]`, but its residue is smaller: `1 < 2`.
+
+The left sequence is nongraphical: on three vertices, two vertices of degree
+two force the third degree to be two.  This pinpoints the invariant absent from
+plain list majorization. -/
+theorem residueAux_not_monotone_under_descendingMajorizes :
+    DescendingMajorizes [2, 2, 0] [2, 1, 1] ∧
+      ¬ residueAux [2, 1, 1] ≤ residueAux [2, 2, 0] := by
+  constructor
+  · refine ⟨by simp, by simp, by simp, by simp, ?_⟩
+    intro k
+    rcases lt_or_ge k 3 with hk | hk
+    · interval_cases k <;> decide
+    · have hlen : [2, 1, 1].length ≤ k := by simpa using hk
+      rw [List.take_of_length_le hlen]
+      have hlen' : [2, 2, 0].length ≤ k := by simpa using hk
+      rw [List.take_of_length_le hlen']
+      decide
+  · native_decide
+
+/-- The same exact witness refutes monotonicity already for one atomic unit
+transfer. -/
+theorem residueAux_not_monotone_under_descendingUnitTransfer :
+    DescendingUnitTransfer [2, 2, 0] [2, 1, 1] ∧
+      ¬ residueAux [2, 1, 1] ≤ residueAux [2, 2, 0] := by
+  exact ⟨counterexample_is_descendingUnitTransfer, by native_decide⟩
+
+end DegreeSequences
+
 section Finite
 
 variable [Fintype V] [DecidableEq V]
