@@ -1,7 +1,14 @@
 # Method v0.4 Lane P1: the two distance-core tiers
 
-Date: **2026-08-13**. Status: **the `gamma_c=3` tier is proved; the
-`gamma_c=4` tier is reduced to one explicit structural lemma**.
+Date: **2026-08-13**. Status: **the `gamma_c=3` tier is proved; the proposed
+`gamma_c=4` structural lemma was subsequently refuted**.
+
+> **Follow-up (2026-08-13).** The adjacent geodesic-extension lemma isolated
+> below is false, although its conditional consequence remains valid. A
+> 13-vertex counterexample satisfying all live hypotheses is recorded in
+> `method_v04_183_extension_lemma.md`; it has `gamma_c=4` and `b=7`, so it does
+> not refute WOWII 183. The remaining tier needs a multi-vertex augmentation or
+> a different proof route.
 
 This note continues `method_v04_183_twoconnected.md`.  Let
 
@@ -76,7 +83,7 @@ of order two, contrary to `gamma_c>=3`.  Therefore `b>=5`.  QED.
 This closes the first surviving tier without the path-extension proposition,
 2-connectivity, claw-freeness, or uniqueness of the distance-three vertex.
 
-## The `gamma_c=4` tier: one surviving lemma
+## The `gamma_c=4` tier: subsequently refuted auxiliary lemma
 
 The same color argument proves the second tier once the geodesic can be
 extended by one adjacent vertex.
@@ -103,7 +110,8 @@ By the maximum-set color lemma, every vertex outside `B` has a neighbor in
 `A`, so `D` dominates all of `G`.  This gives `gamma_c<=3`, contradicting
 `gamma_c>=4`.  Therefore `b>=6`.  QED.
 
-Thus the only unproved step needed for the `gamma_c=4` tier is:
+The following was the only unproved step proposed for the `gamma_c=4` tier;
+the follow-up cited above subsequently refuted it:
 
 > **Adjacent geodesic-extension lemma.**  Under the live 2-connected,
 > claw-free, unique-distance-three hypotheses, the geodesic
