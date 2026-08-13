@@ -86,6 +86,16 @@ def sha256_file(path: Path) -> str:
     return sha256(path.read_bytes())
 
 
+def registry_digest(output: dict[str, Any]) -> str:
+    """Digest the explicit unsigned projection (both digest slots omitted)."""
+    projection = json.loads(canonical_json(output))
+    projection.pop("registry_sha256", None)
+    quota = projection.get("quota_certificate")
+    if isinstance(quota, dict):
+        quota.pop("registry_sha256", None)
+    return sha256(canonical_json(projection))
+
+
 def load_object(path: Path, where: str) -> dict[str, Any]:
     try:
         value = json.loads(path.read_bytes())
@@ -112,12 +122,25 @@ def git(repo: Path, *args: str, check: bool = True) -> bytes:
     return result.stdout
 
 
-def authenticate_receipt(receipt: dict[str, Any], label: str) -> dict[str, Any]:
+def _receipt_identity(receipt: dict[str, Any], label: str) -> dict[str, Any]:
+    if all(key in receipt for key in ("repository_path", "commit", "root_tree")):
+        return receipt
+    if isinstance(receipt.get("upstream"), dict):
+        return receipt["upstream"]
+    if isinstance(receipt.get("capture"), dict):
+        return receipt["capture"]
+    raise FutureCohortError(f"{label} has no authenticated repository identity")
+
+
+def authenticate_receipt(
+    receipt: dict[str, Any], label: str, repository: Path | None = None
+) -> dict[str, Any]:
     """Authenticate the identity fields of a U1/U2 resolver receipt offline."""
 
-    repository_text = receipt.get("repository_path")
-    commit = receipt.get("commit")
-    tree = receipt.get("root_tree")
+    identity = _receipt_identity(receipt, label)
+    repository_text = str(repository) if repository is not None else identity.get("repository_path")
+    commit = identity.get("commit")
+    tree = identity.get("root_tree")
     if not isinstance(repository_text, str) or not repository_text:
         raise FutureCohortError(f"{label}.repository_path is required")
     if not isinstance(commit, str) or HEX40.fullmatch(commit) is None:
@@ -131,7 +154,7 @@ def authenticate_receipt(receipt: dict[str, Any], label: str) -> dict[str, Any]:
     actual_tree = git(repo, "rev-parse", "--verify", f"{commit}^{{tree}}").decode().strip()
     if actual_commit != commit or actual_tree != tree:
         raise FutureCohortError(f"{label} commit/tree authentication failed")
-    destination_ref = receipt.get("destination_ref")
+    destination_ref = identity.get("destination_ref")
     if destination_ref is not None:
         if not isinstance(destination_ref, str) or not destination_ref.startswith("refs/"):
             raise FutureCohortError(f"{label}.destination_ref is malformed")
@@ -154,6 +177,63 @@ def validate_policies(grouping: dict[str, Any], classifier: dict[str, Any]) -> N
     for forbidden in ("statement_text", "random_ranks", "target_selection"):
         if output_policy.get(forbidden) is not False:
             raise FutureCohortError(f"classifier permits forbidden output: {forbidden}")
+
+
+def validate_provenance_ledgers(ledgers: list[dict[str, Any]]) -> None:
+    if not ledgers:
+        raise FutureCohortError("at least one complete provenance ledger is required")
+    for ledger in ledgers:
+        supplied_digest = ledger.get("ledger_sha256")
+        unsigned = dict(ledger)
+        unsigned.pop("ledger_sha256", None)
+        if supplied_digest != sha256(canonical_json(unsigned)):
+            raise FutureCohortError("provenance ledger self-digest is invalid")
+        if ledger.get("status") not in {"CLASSIFIED_COMPLETE", "CLASSIFIED_FAIL_CLOSED"}:
+            raise FutureCohortError("provenance ledger status is invalid")
+        if ledger.get("source_complete") is not True or not isinstance(ledger.get("units"), list):
+            raise FutureCohortError("provenance ledger is incomplete")
+        counts = Counter(unit.get("provenance_class") for unit in ledger["units"])
+        expected = {
+            key: counts.get(key, 0) for key in (
+                "SEMANTIC_EXPOSURE", "MACHINE_REGISTRY_CONTACT",
+                "IMMUTABLE_SOURCE_CUSTODY", "UNKNOWN",
+            )
+        }
+        if ledger.get("counts") != expected:
+            raise FutureCohortError("provenance ledger counts do not replay")
+
+
+def provenance_exclusion_reasons(
+    row: dict[str, Any], ledgers: list[dict[str, Any]]
+) -> set[str]:
+    """Join excluding evidence only through frozen exact identity tokens."""
+    reasons: set[str] = set()
+    tokens = {
+        row.get("cluster_id"), row.get("path"), row.get("identity_sha256"),
+        row.get("module_blob_sha256"),
+    }
+    for declaration in row.get("declarations", []):
+        tokens.update({declaration.get("name"), declaration.get("statement_header_sha256")})
+    tokens.discard(None)
+    for ledger in ledgers:
+        if ledger.get("status") == "CLASSIFIED_FAIL_CLOSED" or ledger.get("fail_closed") is True:
+            reasons.add("PROVENANCE_SOURCE_FAIL_CLOSED")
+        for unit in ledger["units"]:
+            provenance_class = unit.get("provenance_class")
+            if provenance_class not in {"SEMANTIC_EXPOSURE", "UNKNOWN"}:
+                continue
+            locator = unit.get("locator")
+            content = unit.get("content_sha256")
+            # Locators are structured source addresses. Exact paths/identities
+            # may occur as a full locator or as one colon-delimited component.
+            locator_tokens = set(re.split(r"[:#]", locator)) if isinstance(locator, str) else set()
+            matched = locator in tokens or content in tokens or bool(tokens & locator_tokens)
+            if matched:
+                reasons.add(
+                    "SEMANTIC_EXPOSURE" if provenance_class == "SEMANTIC_EXPOSURE"
+                    else "UNKNOWN_EXPOSURE"
+                )
+    return reasons
 
 
 def extract_pool(
@@ -243,6 +323,45 @@ def introduction_commits(repo: Path, u2: str, path: str) -> list[str]:
     return [line.decode() for line in raw.splitlines() if line]
 
 
+def introduction_has_formal_deletion(repo: Path, introduction: str) -> bool:
+    """Treat coupled add/delete history as an unresolvable identity ambiguity."""
+    parents = git(repo, "show", "-s", "--format=%P", introduction).decode().split()
+    if len(parents) != 1:
+        return True
+    deleted = git(
+        repo, "diff", "--name-only", "--diff-filter=D", parents[0], introduction,
+        "--", "FormalConjectures",
+    ).decode().splitlines()
+    return any(path.endswith(".lean") for path in deleted)
+
+
+def checkpoint_context(receipt: dict[str, Any], u1_commit: str) -> dict[str, Any]:
+    ordinal = receipt.get("checkpoint_ordinal")
+    if not isinstance(ordinal, int) or ordinal < 1:
+        raise FutureCohortError("checkpoint ordinal is invalid")
+    scheduled = receipt.get("scheduled_for_utc")
+    if not isinstance(scheduled, str) or re.fullmatch(
+        r"[0-9]{4}-[0-9]{2}-[0-9]{2}T00:17:00Z", scheduled
+    ) is None:
+        raise FutureCohortError("checkpoint schedule label is invalid")
+    label = "checkpoint-" + scheduled[:10]
+    basis = receipt.get("basis")
+    if not isinstance(basis, dict):
+        raise FutureCohortError("checkpoint basis is absent")
+    previous = basis.get("previous_checkpoint")
+    if previous is None:
+        if ordinal != 1:
+            raise FutureCohortError("noninitial checkpoint has no prior-chain binding")
+        prior_sha = sha256(canonical_json({
+            "authority": "V15_CHECKPOINT_CHAIN_GENESIS", "u1_commit": u1_commit,
+        }))
+    else:
+        prior_sha = previous.get("sha256") if isinstance(previous, dict) else None
+        if not isinstance(prior_sha, str) or re.fullmatch(r"[0-9a-f]{64}", prior_sha) is None:
+            raise FutureCohortError("prior checkpoint digest is invalid")
+    return {"ordinal": ordinal, "label": label, "prior_sha": prior_sha}
+
+
 def permanent_exclusion_reasons(row: dict[str, Any], index: dict[str, set[str]]) -> set[str]:
     reasons = set()
     for key in ("cluster_id", "path", "identity_sha256", "module_blob_sha256"):
@@ -285,12 +404,14 @@ def build(
     classifier_path: Path,
     *,
     input_digests: dict[str, str],
+    repository: Path | None = None,
+    provenance_ledgers: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     validate_policies(grouping, classifier)
-    u1 = authenticate_receipt(u1_receipt, "U1")
-    u2 = authenticate_receipt(u2_receipt, "U2")
-    if u1["commit"] == u2["commit"]:
-        raise FutureCohortError("U1 and U2 must be distinct upstream tips")
+    ledgers = provenance_ledgers or []
+    validate_provenance_ledgers(ledgers)
+    u1 = authenticate_receipt(u1_receipt, "U1", repository)
+    u2 = authenticate_receipt(u2_receipt, "U2", repository)
     if not reachable(u2["repo"], u1["commit"], u2["commit"]):
         raise FutureCohortError("U1 is not an ancestor of U2 in the authenticated U2 repository")
 
@@ -306,6 +427,7 @@ def build(
         if row["cluster_id"] in prior_open:
             continue
         reasons = permanent_exclusion_reasons(row, excluded)
+        reasons.update(provenance_exclusion_reasons(row, ledgers))
         if row.get("machine_stratum") is None or row.get("eligible") is not True:
             reasons.add("AMBIGUOUS_OR_UNCLASSIFIED")
         path = row["path"]
@@ -327,6 +449,8 @@ def build(
                 reasons.add("INTRODUCTION_REACHABLE_BEFORE_U1")
             if not reachable(u2["repo"], introduction, u2["commit"]):
                 reasons.add("INTRODUCTION_NOT_REACHABLE_FROM_U2")
+            if introduction_has_formal_deletion(u2["repo"], introduction):
+                reasons.add("COINTRODUCED_WITH_FORMAL_DELETION_OR_RENAME")
 
         record = identity_row(row)
         record.update({
@@ -348,12 +472,12 @@ def build(
             stratum_counts[row["machine_stratum"]] += 1
     output = {
         "schema_version": SCHEMA_VERSION,
-        "authority": "DETERMINISTIC_POST_FREEZE_FUTURE_COHORT",
+        "authority": "SCHEDULED_IDENTITY_ONLY_CHECKPOINT",
         "upstream": {
-            "repository": "google-deepmind/formal-conjectures",
+            "repository": "https://github.com/google-deepmind/formal-conjectures.git",
             "u1_commit": u1["commit"], "u1_tree": u1["tree"],
             "u2_commit": u2["commit"], "u2_tree": u2["tree"],
-            "ancestry_interval": "U1_EXCLUSIVE_U2_INCLUSIVE",
+            "ancestry_interval": f'{u1["commit"]}..{u2["commit"]}',
         },
         "inputs": dict(sorted(input_digests.items())),
         "controls": {
@@ -362,7 +486,7 @@ def build(
             "ranking_present": False,
             "entropy_used": False,
             "selection_permitted": False,
-            "first_introduction_basis": "GIT_REACHABILITY_AND_TREE_CONTENT_NOT_TIMESTAMPS",
+            "first_introduction_basis": "GIT_ANCESTRY_AND_TREE_CONTENT",
             "v14_exclusion_cluster_count": len(v14_pool["clusters"]),
         },
         "counts": {
@@ -371,7 +495,9 @@ def build(
             "delta_records": len(records),
             "included": sum(row["membership_status"] == "INCLUDE" for row in records),
             "excluded": sum(row["membership_status"] == "EXCLUDE" for row in records),
-            "included_by_stratum": dict(sorted(stratum_counts.items())),
+            "eligible_by_stratum": {
+                stratum: stratum_counts.get(stratum, 0) for stratum in STRATA
+            },
             "exclusion_reasons": dict(sorted(reason_counts.items())),
         },
         "records": records,
@@ -383,14 +509,23 @@ def build(
         stratum: max(0, QUOTAS[stratum] - eligible_by_stratum[stratum])
         for stratum in STRATA
     }
+    checkpoint = checkpoint_context(u2_receipt, u1["commit"])
     output["quota_certificate"] = {
+        "checkpoint_ordinal": checkpoint["ordinal"],
+        "checkpoint_label": checkpoint["label"],
+        "commit": u2["commit"], "tree": u2["tree"],
         "quotas": dict(QUOTAS),
         "eligible_by_stratum": eligible_by_stratum,
         "deficits": deficits,
         "status": "PASS" if not any(deficits.values()) else "FAIL",
         "candidate_count": sum(eligible_by_stratum.values()),
+        "prior_checkpoint_chain_sha256": checkpoint["prior_sha"],
+        "all_prior_valid_checkpoints_failed": True,
+        "first_passing_checkpoint": not any(deficits.values()),
     }
-    output["registry_sha256"] = sha256(canonical_json(output))
+    digest = registry_digest(output)
+    output["quota_certificate"]["registry_sha256"] = digest
+    output["registry_sha256"] = digest
     return output
 
 
@@ -403,6 +538,7 @@ def checkpoint_chain(
     classifier_path: Path,
     *,
     input_digests: dict[str, str],
+    provenance_ledgers: list[dict[str, Any]],
 ) -> tuple[dict[str, Any], dict[str, Any] | None]:
     """Evaluate scheduled checkpoints in order and select the first quota PASS.
 
@@ -440,6 +576,7 @@ def checkpoint_chain(
         registry = build(
             u1_receipt, checkpoint["receipt"], v14_pool, grouping, classifier,
             classifier_path, input_digests=input_digests,
+            provenance_ledgers=provenance_ledgers,
         )
         quota = registry["quota_certificate"]
         certificate = {
@@ -447,7 +584,11 @@ def checkpoint_chain(
             "capture_status": "CAPTURED", "terminal_horizon": terminal,
             "commit": registry["upstream"]["u2_commit"],
             "tree": registry["upstream"]["u2_tree"],
-            **quota, "registry_sha256": registry["registry_sha256"],
+            "quotas": quota["quotas"],
+            "eligible_by_stratum": quota["eligible_by_stratum"],
+            "deficits": quota["deficits"], "status": quota["status"],
+            "candidate_count": quota["candidate_count"],
+            "registry_sha256": registry["registry_sha256"],
         }
         certificates.append(certificate)
         if quota["status"] == "PASS":
@@ -491,6 +632,11 @@ def main() -> int:
     parser.add_argument("--v14-exclusion", type=Path, required=True)
     parser.add_argument("--grouping-rule", type=Path, required=True)
     parser.add_argument("--classifier", type=Path, required=True)
+    parser.add_argument("--provenance-ledger", type=Path, action="append", required=True)
+    parser.add_argument(
+        "--repository", type=Path,
+        help="ephemeral authenticated U2 object store containing U1 ancestry",
+    )
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     paths = {
@@ -500,6 +646,8 @@ def main() -> int:
         "grouping_rule": args.grouping_rule.resolve(),
         "classifier": args.classifier.resolve(),
     }
+    for index, ledger_path in enumerate(args.provenance_ledger):
+        paths[f"provenance_ledger_{index}"] = ledger_path.resolve()
     if args.output.exists():
         raise FutureCohortError("output already exists; overwrite is forbidden")
     values = {name: load_object(path, name) for name, path in paths.items()}
@@ -507,6 +655,11 @@ def main() -> int:
         values["u1_receipt"], values["u2_receipt"], values["v14_exclusion"],
         values["grouping_rule"], values["classifier"], paths["classifier"],
         input_digests={name + "_sha256": sha256_file(path) for name, path in paths.items()},
+        repository=None if args.repository is None else args.repository.resolve(),
+        provenance_ledgers=[
+            values[f"provenance_ledger_{index}"]
+            for index in range(len(args.provenance_ledger))
+        ],
     )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_bytes(pretty_json(output))

@@ -15,9 +15,9 @@
       "statement_text_present": {"const": false}, "outcomes_present": {"const": false}, "ranking_present": {"const": false}, "entropy_used": {"const": false}, "selection_permitted": {"const": false},
       "first_introduction_basis": {"const": "GIT_ANCESTRY_AND_TREE_CONTENT"}, "v14_exclusion_cluster_count": {"const": 728}
     }},
-    "counts": {"type": "object", "additionalProperties": false, "required": ["u1_open_clusters", "u2_open_clusters", "delta_records", "included", "excluded", "included_by_stratum", "exclusion_reasons"], "properties": {
+    "counts": {"type": "object", "additionalProperties": false, "required": ["u1_open_clusters", "u2_open_clusters", "delta_records", "included", "excluded", "eligible_by_stratum", "exclusion_reasons"], "properties": {
       "u1_open_clusters": {"type": "integer", "minimum": 0}, "u2_open_clusters": {"type": "integer", "minimum": 0}, "delta_records": {"type": "integer", "minimum": 0}, "included": {"type": "integer", "minimum": 0}, "excluded": {"type": "integer", "minimum": 0},
-      "included_by_stratum": {"$ref": "#/definitions/stratumCounts"}, "exclusion_reasons": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}}
+      "eligible_by_stratum": {"$ref": "#/definitions/stratumCounts"}, "exclusion_reasons": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}}
     }},
     "quota_certificate": {"type": "object", "additionalProperties": false, "required": ["checkpoint_ordinal", "checkpoint_label", "commit", "tree", "quotas", "eligible_by_stratum", "deficits", "status", "candidate_count", "prior_checkpoint_chain_sha256", "all_prior_valid_checkpoints_failed", "first_passing_checkpoint", "registry_sha256"], "properties": {
       "checkpoint_ordinal": {"type": "integer", "minimum": 1}, "checkpoint_label": {"type": "string", "pattern": "^checkpoint-[0-9]{4}-[0-9]{2}-[0-9]{2}$"}, "commit": {"$ref": "#/definitions/gitOid"}, "tree": {"$ref": "#/definitions/gitOid"},
@@ -45,9 +45,9 @@
     }},
     "record": {"type": "object", "additionalProperties": false, "required": ["cluster_id", "identity_sha256", "path", "module_blob_sha256", "declarations", "machine_stratum", "classification_basis", "first_introduction_commit", "first_introduction_tree", "membership_status", "exclusion_reasons"], "properties": {
       "cluster_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]{0,511}$"}, "identity_sha256": {"$ref": "#/definitions/sha256"}, "path": {"type": "string", "pattern": "^FormalConjectures/[^\\u0000]+\\.lean$"},
-      "module_blob_sha256": {"$ref": "#/definitions/sha256"}, "declarations": {"type": "array", "minItems": 1, "items": {"$ref": "#/definitions/declaration"}}, "machine_stratum": {"$ref": "#/definitions/stratum"},
-      "classification_basis": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "^[A-Z0-9_]+$"}}, "first_introduction_commit": {"$ref": "#/definitions/gitOid"}, "first_introduction_tree": {"$ref": "#/definitions/gitOid"},
+      "module_blob_sha256": {"$ref": "#/definitions/sha256"}, "declarations": {"type": "array", "minItems": 1, "items": {"$ref": "#/definitions/declaration"}}, "machine_stratum": {"anyOf": [{"$ref": "#/definitions/stratum"}, {"type": "null"}]},
+      "classification_basis": {"type": "string", "pattern": "^[A-Z0-9_]+$"}, "first_introduction_commit": {"anyOf": [{"$ref": "#/definitions/gitOid"}, {"type": "null"}]}, "first_introduction_tree": {"anyOf": [{"$ref": "#/definitions/gitOid"}, {"type": "null"}]},
       "membership_status": {"enum": ["INCLUDE", "EXCLUDE"]}, "exclusion_reasons": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^[A-Z0-9_]+$"}}
-    }}
+    }, "allOf": [{"if": {"properties": {"membership_status": {"const": "INCLUDE"}}}, "then": {"properties": {"machine_stratum": {"$ref": "#/definitions/stratum"}, "first_introduction_commit": {"$ref": "#/definitions/gitOid"}, "first_introduction_tree": {"$ref": "#/definitions/gitOid"}, "exclusion_reasons": {"maxItems": 0}}}}]}
   }
 }

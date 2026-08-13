@@ -6,7 +6,7 @@
   "sampling_unit": "CONSERVATIVE_QUESTION_CLUSTER",
   "future_boundary": {
     "lower_tip": "U1_CAPTURED_STRICTLY_AFTER_PUBLIC_P1T_RECEIPT",
-    "upper_tip": "U2_CAPTURED_AT_OR_AFTER_FIXED_HORIZON",
+    "upper_tip": "FIRST_VALID_QUOTA_PASS_CHECKPOINT_OR_FIXED_HORIZON",
     "history_interval": "U1..U2",
     "require_u2_descendant_of_u1": true,
     "use_git_ancestry_not_commit_timestamps": true
@@ -15,7 +15,8 @@
     "first_introduction_required": true,
     "first_introduction_must_be_in_history_interval": true,
     "absent_from_u1_cluster_closure": true,
-    "exclude_rename_move_readd_reformalization_reopening": true,
+    "exclude_machine_detectable_rename_move_readd_reformalization_reopening": true,
+    "coupled_formal_add_delete_or_ambiguous_transformation": "EXCLUDE_UNKNOWN",
     "identity_or_history_ambiguity": "EXCLUDE",
     "semantic_or_unknown_exposure": "EXCLUDE",
     "machine_only_construction": true,
@@ -27,7 +28,7 @@
     "upstream_commit": "158727e43d3be335f902ac7ef6b9beb819e38c9d",
     "population_artifact": "results/benchmark/v1.4-f0a/registry/question-cluster-pool.json",
     "cluster_count": 728,
-    "rule": "No cluster in this population, including a sibling, equivalent encoding, or logical negation, may enter the v1.5 confirmatory population.",
+    "rule": "No cluster in this population, nor any machine-detectable sibling or syntactic identity trace under the frozen grouping/history rules, may enter the v1.5 confirmatory population; transformations not decidable by those rules fail closed as UNKNOWN when evidenced.",
     "confirmatory_reuse": false
   },
   "strata_and_quotas": {
