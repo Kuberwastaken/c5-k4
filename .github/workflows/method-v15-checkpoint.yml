@@ -1,0 +1,200 @@
+name: Method v1.5 scheduled checkpoint
+
+on:
+  schedule:
+    - cron: '17 0 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: method-v15-checkpoint-publication
+  cancel-in-progress: false
+
+jobs:
+  checkpoint:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      LC_ALL: C.UTF-8
+      PYTHONHASHSEED: '0'
+      TZ: UTC
+      CONTRACT_PATH: results/benchmark/v1.5-protocol/checkpoint-invocation-contract.json
+    steps:
+      - name: Check out the scheduled default-branch state
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Fail closed before the P1 freeze
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          RUN_ATTEMPT: ${{ github.run_attempt }}
+        run: |
+          set -euo pipefail
+          python3 scripts/test_benchmark_v15_checkpoint_workflow_contract.py \
+            --workflow .github/workflows/method-v15-checkpoint.yml \
+            --contract "$CONTRACT_PATH" \
+            --runtime
+          python3 - "$CONTRACT_PATH" "$EVENT_NAME" "$RUN_ATTEMPT" <<'PY'
+          import json, re, sys
+          from pathlib import Path
+
+          contract = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
+          if contract.get("status") != "FROZEN_P1_EXECUTABLE":
+              raise SystemExit("Method v1.5 checkpointing is not frozen; refusing execution")
+          if sys.argv[2] != "schedule" or sys.argv[3] != "1":
+              raise SystemExit("only the original schedule event is a valid checkpoint")
+          runner = contract.get("runner", {})
+          if not re.fullmatch(r"[0-9a-f]{64}", str(runner.get("sha256", ""))):
+              raise SystemExit("checkpoint runner is not content-addressed")
+          PY
+
+      - name: Load the append-only chain and authenticate the frozen protocol
+        id: chain
+        shell: bash
+        run: |
+          set -euo pipefail
+          publication_branch=$(jq -er '.publication.branch' "$CONTRACT_PATH")
+          u1_path=$(jq -er '.inputs.u1_receipt_path' "$CONTRACT_PATH")
+          git fetch --no-tags origin \
+            "refs/heads/${publication_branch}:refs/remotes/origin/${publication_branch}"
+          checkpoint_tree="$RUNNER_TEMP/method-v15-checkpoints"
+          git worktree add --detach "$checkpoint_tree" "refs/remotes/origin/${publication_branch}" >/dev/null
+          test -f "$checkpoint_tree/$u1_path"
+
+          frozen_commit=$(jq -er '.p1.p1t_commit' "$checkpoint_tree/$u1_path")
+          [[ "$frozen_commit" =~ ^[0-9a-f]{40}$ ]]
+          git checkout --detach "$frozen_commit" >/dev/null
+          test "$(git rev-parse HEAD)" = "$frozen_commit"
+
+          expected_workflow=$(jq -er '.frozen.workflow_sha256' "$CONTRACT_PATH")
+          actual_workflow=$(sha256sum .github/workflows/method-v15-checkpoint.yml | awk '{print $1}')
+          test "$actual_workflow" = "$expected_workflow"
+          runner_path=$(jq -er '.runner.path' "$CONTRACT_PATH")
+          expected_runner=$(jq -er '.runner.sha256' "$CONTRACT_PATH")
+          test -f "$runner_path"
+          test "$(sha256sum "$runner_path" | awk '{print $1}')" = "$expected_runner"
+
+          previous=$(find "$checkpoint_tree" -type f -path '*/checkpoints/*/receipt.json' \
+            -print | LC_ALL=C sort | tail -n 1)
+          if [[ -n "$previous" ]]; then
+            status=$(jq -er '.status' "$previous")
+            case "$status" in
+              QUOTA_PASS_U2|TERMINAL_QUOTA_DEFICIT|INVALID_CHRONOLOGY_CAPTURE)
+                echo 'The checkpoint chain is terminal; no later checkpoint will run.'
+                echo 'terminal=true' >> "$GITHUB_OUTPUT"
+                exit 0
+                ;;
+            esac
+          fi
+
+          scheduled_for=$(python3 - "$checkpoint_tree/$u1_path" "$previous" <<'PY'
+          import sys
+          from datetime import datetime, timedelta, timezone
+          from pathlib import Path
+
+          import scripts.build_benchmark_v15_chronology as chronology
+
+          u1 = chronology.validate_u1(Path(sys.argv[1]))
+          if sys.argv[2]:
+              prior = chronology.load_checkpoint(Path(sys.argv[2]))
+              expected = chronology.checkpoint_time(prior["scheduled_for_utc"]) + timedelta(days=1)
+          else:
+              expected = chronology.first_checkpoint_after(u1)
+          observed = datetime.now(timezone.utc).replace(hour=0, minute=17, second=0, microsecond=0)
+          if expected != observed:
+              raise SystemExit("current scheduled run does not continue the U1/receipt chain exactly")
+          print(expected.isoformat().replace("+00:00", "Z"))
+          PY
+          )
+          label=${scheduled_for//:/-}
+          destination="checkpoints/$label"
+          test ! -e "$checkpoint_tree/$destination"
+          {
+            echo 'terminal=false'
+            echo "frozen_commit=$frozen_commit"
+            echo "checkpoint_tree=$checkpoint_tree"
+            echo "u1_receipt=$checkpoint_tree/$u1_path"
+            echo "previous_receipt=$previous"
+            echo "scheduled_for=$scheduled_for"
+            echo "destination=$destination"
+            echo "runner_path=$runner_path"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Produce one bounded checkpoint publication
+        if: steps.chain.outputs.terminal == 'false'
+        shell: bash
+        env:
+          U1_RECEIPT: ${{ steps.chain.outputs.u1_receipt }}
+          PREVIOUS_RECEIPT: ${{ steps.chain.outputs.previous_receipt }}
+          SCHEDULED_FOR: ${{ steps.chain.outputs.scheduled_for }}
+          RUNNER_PATH: ${{ steps.chain.outputs.runner_path }}
+          EVENT_NAME: ${{ github.event_name }}
+          RUN_ATTEMPT: ${{ github.run_attempt }}
+        run: |
+          set -euo pipefail
+          output="$RUNNER_TEMP/method-v15-publication"
+          mkdir -p "$output"
+          args=(
+            --contract "$CONTRACT_PATH"
+            --u1-receipt "$U1_RECEIPT"
+            --scheduled-for-utc "$SCHEDULED_FOR"
+            --event-name "$EVENT_NAME"
+            --run-attempt "$RUN_ATTEMPT"
+            --output "$output"
+          )
+          if [[ -n "$PREVIOUS_RECEIPT" ]]; then
+            args+=(--previous-receipt "$PREVIOUS_RECEIPT")
+          fi
+          if ! python3 "$RUNNER_PATH" "${args[@]}" \
+            >"$RUNNER_TEMP/method-v15-runner.stdout" \
+            2>"$RUNNER_TEMP/method-v15-runner.stderr"; then
+            echo 'The frozen checkpoint runner failed closed; private diagnostics were not published.' >&2
+            exit 2
+          fi
+
+      - name: Validate and append the bounded publication
+        if: steps.chain.outputs.terminal == 'false'
+        shell: bash
+        env:
+          CHECKPOINT_TREE: ${{ steps.chain.outputs.checkpoint_tree }}
+          DESTINATION: ${{ steps.chain.outputs.destination }}
+        run: |
+          set -euo pipefail
+          source_dir="$RUNNER_TEMP/method-v15-publication"
+          mapfile -t files < <(find "$source_dir" -maxdepth 1 -type f -printf '%f\n' | LC_ALL=C sort)
+          expected=(publication-manifest.json quota-certificate.json receipt.json)
+          [[ "${files[*]}" = "${expected[*]}" ]]
+          python3 - "$source_dir" <<'PY'
+          import json, sys
+          from pathlib import Path
+
+          root = Path(sys.argv[1])
+          forbidden = {"cluster_id", "declarations", "records", "statement", "statement_text", "target_identity"}
+          def walk(value):
+              if isinstance(value, dict):
+                  if forbidden.intersection(value):
+                      raise SystemExit("publication contains a forbidden target-bearing field")
+                  for child in value.values(): walk(child)
+              elif isinstance(value, list):
+                  for child in value: walk(child)
+          for path in sorted(root.glob("*.json")):
+              walk(json.loads(path.read_text(encoding="utf-8")))
+          PY
+          mkdir "$CHECKPOINT_TREE/$DESTINATION"
+          cp "$source_dir"/*.json "$CHECKPOINT_TREE/$DESTINATION/"
+          cd "$CHECKPOINT_TREE"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- "$DESTINATION"
+          changed=$(git diff --cached --name-only)
+          test "$(printf '%s\n' "$changed" | wc -l)" -eq 3
+          if printf '%s\n' "$changed" | grep -Ev "^${DESTINATION}/(publication-manifest|quota-certificate|receipt)\.json$"; then
+            echo 'append-only publication path check failed' >&2
+            exit 2
+          fi
+          git commit -m "method: append v1.5 checkpoint ${DESTINATION#checkpoints/}" >/dev/null
+          git push origin "HEAD:refs/heads/$(jq -er '.publication.branch' "$GITHUB_WORKSPACE/$CONTRACT_PATH")"

@@ -1,0 +1,100 @@
+{
+  "schema": "c5k4-method-v1.5-checkpoint-invocation-contract-1.0",
+  "status": "PRE_P1_SCAFFOLD_NOT_EXECUTABLE",
+  "trigger": {
+    "event": "schedule",
+    "cron": "17 0 * * *",
+    "run_attempt": 1,
+    "manual_dispatch_permitted": false,
+    "push_trigger_permitted": false,
+    "reusable_trigger_permitted": false
+  },
+  "serialization": {
+    "group": "method-v15-checkpoint-publication",
+    "cancel_in_progress": false
+  },
+  "frozen": {
+    "protocol_commit_source": "U1_RECEIPT.p1.p1t_commit",
+    "workflow_path": ".github/workflows/method-v15-checkpoint.yml",
+    "workflow_sha256": null
+  },
+  "runner": {
+    "path": "scripts/run_benchmark_v15_checkpoint.py",
+    "sha256": null,
+    "stdout_publication_permitted": false,
+    "stderr_publication_permitted": false
+  },
+  "inputs": {
+    "u1_receipt_path": "u1/chronology-receipt.json",
+    "previous_receipt_rule": "LEXICOGRAPHICALLY_LATEST_APPEND_ONLY_RECEIPT_OR_NONE",
+    "tick_derivation": "FIRST_DAILY_00_17_UTC_TICK_STRICTLY_AFTER_U1_OR_PREVIOUS_TICK_PLUS_ONE_DAY",
+    "event_name": "schedule",
+    "run_attempt": 1
+  },
+  "publication": {
+    "branch": "method-v1.5-checkpoints",
+    "mode": "APPEND_ONLY_NORMAL_PUSH",
+    "checkpoint_path_template": "checkpoints/YYYY-MM-DDT00-17-00Z",
+    "files": [
+      "publication-manifest.json",
+      "quota-certificate.json",
+      "receipt.json"
+    ],
+    "failed_checkpoint_content": "BOUNDED_AGGREGATE_CERTIFICATE_AND_CHRONOLOGY_RECEIPT_ONLY",
+    "pass_full_pool_publication": "SEPARATE_PRE_ENTROPY_PHASE_ONLY",
+    "forbidden_fields": [
+      "cluster_id",
+      "declarations",
+      "records",
+      "statement",
+      "statement_text",
+      "target_identity"
+    ],
+    "logs_permitted": false,
+    "overwrite_permitted": false,
+    "force_push_permitted": false
+  },
+  "aggregate_certificate": {
+    "must_bind": [
+      "upstream_commit",
+      "upstream_root_tree",
+      "upstream_formal_conjectures_tree",
+      "runner_sha256",
+      "workflow_sha256",
+      "invocation_contract_sha256",
+      "chronology_rule_sha256",
+      "future_cohort_rule_sha256",
+      "input_schema_sha256",
+      "output_schema_sha256",
+      "grouping_rule_sha256",
+      "classifier_sha256",
+      "source_ledger_sha256",
+      "counts_by_stratum",
+      "quota_by_stratum",
+      "deficits_by_stratum",
+      "status",
+      "registry_sha256",
+      "deterministic_replay_contract_sha256"
+    ],
+    "identity_rows_permitted": false,
+    "statement_text_permitted": false,
+    "outcomes_permitted": false,
+    "ranking_permitted": false,
+    "entropy_permitted": false
+  },
+  "stopping": {
+    "first_quota_pass_is_terminal": true,
+    "later_checkpoint_after_pass_permitted": false,
+    "last_scheduled_checkpoint_utc": "2027-08-15T00:17:00Z",
+    "last_capture_start_deadline_utc": "2027-08-15T06:00:00Z",
+    "extension_permitted": false,
+    "backfill_or_reconstruction_permitted": false
+  },
+  "activation_requirements": {
+    "p1t_receipt_required": true,
+    "valid_u1_receipt_required": true,
+    "workflow_sha256_required": true,
+    "runner_sha256_required": true,
+    "all_bound_digest_values_required": true
+  }
+}

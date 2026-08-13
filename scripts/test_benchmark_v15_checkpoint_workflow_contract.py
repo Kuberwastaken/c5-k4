@@ -1,0 +1,169 @@
+#!/usr/bin/env python3
+"""Offline structural validator for the Method v1.5 checkpoint workflow."""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import re
+import tempfile
+import unittest
+from pathlib import Path
+
+
+ROOT = Path(__file__).parents[1].resolve()
+WORKFLOW = ROOT / ".github/workflows/method-v15-checkpoint.yml"
+CONTRACT = ROOT / "results/benchmark/v1.5-protocol/checkpoint-invocation-contract.json"
+HEX64 = re.compile(r"^[0-9a-f]{64}$")
+
+
+def digest(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def validate(workflow: Path, contract_path: Path, *, runtime: bool = False) -> None:
+    text = workflow.read_text(encoding="utf-8")
+    contract = json.loads(contract_path.read_text(encoding="utf-8"))
+    if contract.get("schema") != "c5k4-method-v1.5-checkpoint-invocation-contract-1.0":
+        raise ValueError("unexpected invocation-contract schema")
+
+    header = text.split("permissions:", 1)[0]
+    if not re.search(r"(?m)^on:\n  schedule:\n    - cron: '17 0 \* \* \*'\n$", header):
+        raise ValueError("workflow must have exactly the frozen schedule trigger")
+    for forbidden in ("workflow_dispatch:", "push:", "pull_request:", "workflow_call:"):
+        if forbidden in header:
+            raise ValueError(f"forbidden workflow trigger: {forbidden}")
+    if "group: method-v15-checkpoint-publication" not in text or "cancel-in-progress: false" not in text:
+        raise ValueError("checkpoint publication is not serialized without cancellation")
+    for required in (
+        "github.event_name", "github.run_attempt", "sha256sum .github/workflows/method-v15-checkpoint.yml",
+        "git checkout --detach \"$frozen_commit\"", "git push origin \"HEAD:refs/heads/",
+        "QUOTA_PASS_U2|TERMINAL_QUOTA_DEFICIT|INVALID_CHRONOLOGY_CAPTURE",
+        "chronology.first_checkpoint_after(u1)", "timedelta(days=1)",
+        "test ! -e \"$checkpoint_tree/$destination\"",
+    ):
+        if required not in text:
+            raise ValueError(f"workflow is missing required frozen behavior: {required}")
+    for forbidden in ("--force", "workflow_dispatch", "repository_dispatch", "pull_request_target"):
+        if forbidden in text:
+            raise ValueError(f"workflow contains forbidden behavior: {forbidden}")
+
+    trigger = contract.get("trigger", {})
+    if trigger != {
+        "event": "schedule", "cron": "17 0 * * *", "run_attempt": 1,
+        "manual_dispatch_permitted": False, "push_trigger_permitted": False,
+        "reusable_trigger_permitted": False,
+    }:
+        raise ValueError("contract trigger differs from the frozen schedule-only rule")
+    stopping = contract.get("stopping", {})
+    if stopping.get("first_quota_pass_is_terminal") is not True:
+        raise ValueError("first quota PASS is not terminal")
+    if stopping.get("last_scheduled_checkpoint_utc") != "2027-08-15T00:17:00Z":
+        raise ValueError("hard horizon differs from chronology rule")
+    publication = contract.get("publication", {})
+    if publication.get("files") != ["publication-manifest.json", "quota-certificate.json", "receipt.json"]:
+        raise ValueError("publication allowlist is not exact")
+    if publication.get("logs_permitted") is not False or publication.get("overwrite_permitted") is not False:
+        raise ValueError("publication permits logs or overwrite")
+    if publication.get("pass_full_pool_publication") != "SEPARATE_PRE_ENTROPY_PHASE_ONLY":
+        raise ValueError("PASS pool is not deferred to a separate pre-entropy phase")
+    certificate = contract.get("aggregate_certificate", {})
+    if certificate.get("identity_rows_permitted") is not False or certificate.get("statement_text_permitted") is not False:
+        raise ValueError("aggregate certificate permits target-bearing content")
+    required_bindings = {
+        "upstream_commit", "upstream_root_tree", "upstream_formal_conjectures_tree",
+        "runner_sha256", "workflow_sha256", "invocation_contract_sha256",
+        "chronology_rule_sha256", "future_cohort_rule_sha256", "input_schema_sha256",
+        "output_schema_sha256", "grouping_rule_sha256", "classifier_sha256",
+        "source_ledger_sha256", "counts_by_stratum", "quota_by_stratum",
+        "deficits_by_stratum", "status", "registry_sha256",
+        "deterministic_replay_contract_sha256",
+    }
+    if set(certificate.get("must_bind", [])) != required_bindings:
+        raise ValueError("aggregate certificate binding set is incomplete or unbounded")
+
+    expected = contract.get("frozen", {}).get("workflow_sha256")
+    runner_sha = contract.get("runner", {}).get("sha256")
+    active = contract.get("status") == "FROZEN_P1_EXECUTABLE"
+    if active:
+        if not isinstance(expected, str) or HEX64.fullmatch(expected) is None or digest(workflow) != expected:
+            raise ValueError("active contract does not bind the exact workflow bytes")
+        if not isinstance(runner_sha, str) or HEX64.fullmatch(runner_sha) is None:
+            raise ValueError("active contract does not bind the checkpoint runner")
+    elif runtime:
+        raise ValueError("pre-P1 checkpoint scaffold is intentionally non-executable")
+
+
+class WorkflowContractMutationTests(unittest.TestCase):
+    def fixture(self) -> tuple[tempfile.TemporaryDirectory[str], Path, Path]:
+        temporary = tempfile.TemporaryDirectory()
+        root = Path(temporary.name)
+        workflow = root / "workflow.yml"
+        contract = root / "contract.json"
+        workflow.write_bytes(WORKFLOW.read_bytes())
+        contract.write_bytes(CONTRACT.read_bytes())
+        return temporary, workflow, contract
+
+    def test_scaffold_validates_offline_but_not_at_runtime(self) -> None:
+        validate(WORKFLOW, CONTRACT)
+        with self.assertRaisesRegex(ValueError, "intentionally non-executable"):
+            validate(WORKFLOW, CONTRACT, runtime=True)
+
+    def test_manual_trigger_is_rejected(self) -> None:
+        temporary, workflow, contract = self.fixture()
+        with temporary:
+            workflow.write_text(
+                workflow.read_text(encoding="utf-8").replace(
+                    "  schedule:\n", "  workflow_dispatch:\n  schedule:\n", 1
+                ),
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(ValueError, "frozen schedule trigger|forbidden workflow trigger"):
+                validate(workflow, contract)
+
+    def test_cancellation_is_rejected(self) -> None:
+        temporary, workflow, contract = self.fixture()
+        with temporary:
+            workflow.write_text(
+                workflow.read_text(encoding="utf-8").replace(
+                    "cancel-in-progress: false", "cancel-in-progress: true", 1
+                ),
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(ValueError, "not serialized"):
+                validate(workflow, contract)
+
+    def test_active_contract_requires_exact_workflow_hash(self) -> None:
+        temporary, workflow, contract_path = self.fixture()
+        with temporary:
+            contract = json.loads(contract_path.read_text(encoding="utf-8"))
+            contract["status"] = "FROZEN_P1_EXECUTABLE"
+            contract["frozen"]["workflow_sha256"] = "0" * 64
+            contract["runner"]["sha256"] = "1" * 64
+            contract_path.write_text(json.dumps(contract), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "exact workflow bytes"):
+                validate(workflow, contract_path)
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--workflow", type=Path, default=WORKFLOW)
+    parser.add_argument("--contract", type=Path, default=CONTRACT)
+    parser.add_argument("--runtime", action="store_true")
+    parser.add_argument("--self-test", action="store_true")
+    args = parser.parse_args()
+    if args.self_test:
+        suite = unittest.defaultTestLoader.loadTestsFromTestCase(WorkflowContractMutationTests)
+        return 0 if unittest.TextTestRunner(verbosity=2).run(suite).wasSuccessful() else 1
+    try:
+        validate(args.workflow.resolve(), args.contract.resolve(), runtime=args.runtime)
+    except (OSError, ValueError, json.JSONDecodeError) as exc:
+        print(f"Method v1.5 checkpoint workflow contract: FAIL: {exc}")
+        return 2
+    print("Method v1.5 checkpoint workflow contract: PASS")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
