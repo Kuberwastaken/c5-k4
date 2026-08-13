@@ -1,10 +1,10 @@
-# Invariant-Wall Navigation: Development Method v0.4
+# Invariant-Wall Navigation: Development Method v0.7
 
 Programme-level execution order and maturity criteria are maintained in
 [`OVERARCHING_PLAN.md`](OVERARCHING_PLAN.md). This file is the detailed,
 versioned protocol that governs that plan.
 
-**Status:** committed development protocol, 2026-08-12
+**Status:** committed development protocol, 2026-08-13
 
 **Scope:** existing published finite-graph conjectures from collections already
 represented in
@@ -185,6 +185,14 @@ term in `R`: increase, decrease, pinned, or unknown. A successful family counts
 as **prospectively designed** only when the predicted controlling separation
 was written before the violating instance was evaluated.
 
+The prediction itself is an auditable outcome. If every tested coordinate
+matches a frozen closed form, record `PREDICTION_CONFIRMED` even when the family
+moves safely away from the wall. If the prescribed construction is exactly
+infeasible, record `NO_APPLICABLE_CANDIDATES`; do not substitute another group,
+sheet count, gadget, or parameter in the same trial. A transformation that
+enters a class where the target is already proved stops as
+`KNOWN_PROOF_DOMAIN` before expensive invariant evaluation.
+
 ### Phase 6 — Bounded construction search
 
 Search the smallest parameter region capable of testing the prediction:
@@ -216,6 +224,17 @@ record which parameter is pinned by the construction. Do not silently add more
 edge edits. The barbell Wave 1 trial showed that endpoint clique size and two
 local edge toggles are pinning coordinates for 169/174/180/182; a further trial
 must change the quotient or core geometry.
+
+Every completed frozen family is closed. A follow-up may use its learned
+identity only through a separately committed addendum or contract naming a
+genuinely different transformation. Post-result parameter extension, solver
+replacement that changes semantics, or an added mutation is retuning and may
+not be folded into the original verdict.
+
+Implementation semantics are independently audited against the literal
+contract. If they differ, preserve the original rows and classify them
+`PROTOCOL_DEVIATION`; then run a separately identified literal replay if still
+within the frozen budget. A no-crossing result does not cure a protocol error.
 
 ### Phase 7 — Candidate verification
 
@@ -296,6 +315,11 @@ Every attempted target receives exactly one primary outcome:
 | `RETRO_COUNTEREXAMPLE` | witness is new to this campaign but the conjecture was already false |
 | `THEOREM_SHADOW` | a known theorem makes the apparent wall uncrossable in the tested regime |
 | `THEOREM_SIGNAL` | a sharply reduced possible theorem with negative computational evidence |
+| `PREDICTION_CONFIRMED` | every tested coordinate matches a frozen closed-form prediction |
+| `NO_APPLICABLE_CANDIDATES` | the exact prescribed transformation has no admissible output |
+| `KNOWN_PROOF_DOMAIN` | every admissible output lies in a class where the target is already proved |
+| `NEUTRAL_CORRIDOR` | exact transformations produce new tight objects but the frozen frontier closes |
+| `PROTOCOL_DEVIATION` | implementation and frozen contract differ; rows are preserved but excluded |
 | `HOLD_BOUNDED` | all declared tests hold; no truth claim beyond the bounds |
 | `TIMEOUT_BRACKET` | exact optimization did not finish; certified bounds retained |
 | `CORRUPT_OR_ERRATUM` | source/database gate rejects the printed statement |
@@ -368,6 +392,31 @@ No target already inspected, discussed, ranked, or searched in this repository
 will be counted as held out.
 
 ## Method changelog
+
+### v0.7 — 2026-08-13
+
+- Promotes preregistered coordinate prediction to a first-class outcome. The
+  Reed complete-join trial predicted and then verified exact slack `2m` on all
+  48 outputs.
+- Adds `NO_APPLICABLE_CANDIDATES` and `KNOWN_PROOF_DOMAIN` stops. The WOWII 141
+  cyclic, `S3`, and `S4` cover systems were exactly infeasible; two Reed gadget
+  lanes stopped inside proved claw-free classes before transformed profiling.
+- Adds `NEUTRAL_CORRIDOR`: the order-twelve WOWII 61 switch lane found three
+  new tight realizations, then exhausted its literal frontier without raising
+  diameter.
+- Requires literal-contract replay after any implementation mismatch. The
+  initial #61 corridor implementation used global-seen rather than
+  retained-only deduplication and remains separately classified
+  `PROTOCOL_DEVIATION` even though it found no crossing.
+- Makes every frozen family terminal. A next trial needs a separately committed
+  contract and a genuinely new separating operation; it cannot extend the old
+  grid after seeing the result.
+- Requires a theorem-domain audit before expensive profiling on major human
+  conjectures. This prevented claw-free Reed gadgets from being misrepresented
+  as open-domain evidence.
+- Adds policy scanning for `native_decide` alongside `sorry`, `admit`, and
+  custom axioms. The #133 contraction certificate was corrected to kernel
+  `decide` and rebuilt warning-clean under its 60-second cap.
 
 ### v0.6 — 2026-08-13
 
