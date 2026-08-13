@@ -1,0 +1,262 @@
+{
+  "audit_rule_sha256": "e925d7a13f259d9e07f02565b9d0c123768193e01bd89a4fe9498964c13af962",
+  "components": [
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "METHOD_V1_2_BENCHMARK.md",
+      "role": "protocol_document",
+      "sha256": "6cf5c437bf658327946ac315490d0f8fef879ede8984f6643cf0295184b560a6"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "scripts/build_benchmark_v12_p0.py",
+      "role": "p0_builder",
+      "sha256": "eb332ca237c46536e6c4fb75709f37459ecf44a1f24bdaca74583a4aff935ea6"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "results/benchmark/v1.2-protocol/five-strata-classifier.json",
+      "role": "five_strata_classifier",
+      "sha256": "a292e20b3cf3c6b95be3e3a754bfeab5e6a6f7e82179387b2920feab0b51c6a2"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "results/benchmark/v1.2-protocol/grouping-rule.json",
+      "role": "grouping_rule",
+      "sha256": "208c688d992520740fb21152d5c26eebd1fdae0fa519fa9a491e549a0bb65aa2"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "results/benchmark/v1.2-protocol/provenance-policy.json",
+      "role": "provenance_policy",
+      "sha256": "2b31e7a6d361ace8c0f10105d4253f7ef405cac63501843c09035a31a3c59633"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "results/benchmark/v1.2-protocol/registry-exemption-rule.json",
+      "role": "registry_exemption_rule",
+      "sha256": "740fdd333af3f398d0c4859fa1c3923425dfe3f570f6d0438453f2a6cfb77b0b"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "results/benchmark/v1.2-protocol/source-discovery-contract.json",
+      "role": "source_discovery_contract",
+      "sha256": "ca0ebe5ca5baf866b6ac77eaa05a6691e55eb9983f4a365f06b330b065f94399"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "results/benchmark/v1.2-protocol/source-path-purpose-policy.json",
+      "role": "source_path_policy",
+      "sha256": "22e3fa3b1cdbdd8a9d9148fa5b6df5cac2355cf83eba50f5c94747c5559ab574"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "results/benchmark/v1.2-protocol/source-discovery-boundary.json",
+      "role": "source_discovery_boundary",
+      "sha256": "14aa8dfe53569efec9fce1d64fdf4a5e72d10a2e96c886b1f22e68eb5c12131b"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "results/benchmark/v1.2-protocol/upstream-ref-rule.json",
+      "role": "upstream_ref_rule",
+      "sha256": "14d874639700b46a8827e85365b7f6a4f1e406cdbcea19e95caabbba1dc9120f"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "results/benchmark/v1.2-protocol/quotas.json",
+      "role": "quotas",
+      "sha256": "9dbf5c86d4d7615dc7aa8f2b4eb346ae1dd042a1df5f5243fedd27e356c823af"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "schemas/benchmark-registry-input-v1.2.schema.json",
+      "role": "registry_contact_input_schema",
+      "sha256": "36a24dab64b7d61534f0dfd611e67dcac0ed8289800a6ecd3652edb9287b1ab3"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "schemas/benchmark-registry-output-v1.2.schema.json",
+      "role": "registry_contact_output_schema",
+      "sha256": "9c8b971db5ffcce179ca5646bfe8f67a1dd6af7d8921ac2ce24e3c093b3744e6"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "schemas/benchmark-v1.2-p0.schema.json",
+      "role": "protocol_manifest_schema",
+      "sha256": "4529f40e22e7a22ab4e9978af76ffdda1601206d3607b98ae034c98b2af341bc"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "schemas/benchmark-v1.2.schema.json",
+      "role": "benchmark_schema",
+      "sha256": "59154b952433f282db0b47a74ee9b4ab31a929dae29338df0053ff66c3db4c5e"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "scripts/lint_benchmark_v12.py",
+      "role": "benchmark_linter",
+      "sha256": "9df4d576f44ca85271f76b91b7245843dda503424d2715cbf9cfebaa1f804cd4"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "scripts/build_benchmark_v12_registry.py",
+      "role": "registry_builder",
+      "sha256": "4a6da8445ca261908026099f448146a073842e05d6be1e536186b44b4de697f8"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "scripts/build_benchmark_v12_source_snapshot.py",
+      "role": "source_snapshot_builder",
+      "sha256": "fd093dd29a70a0d2669d7efb2a254521c9e45580814ab39ae28a78ec6446da98"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "scripts/build_benchmark_v12_pool.py",
+      "role": "syntax_pool_builder",
+      "sha256": "b16eac03c4f85a230a2c3c5992e414c63337d08f3de241ae284ef6d79d0057fb"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "scripts/build_benchmark_contamination_v12.py",
+      "role": "contamination_builder",
+      "sha256": "6c29968401b2fd8136bdbee0077a965084b4a9ad45c0910c4a4242e422990f39"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "scripts/classify_benchmark_provenance_v12.py",
+      "role": "provenance_classifier",
+      "sha256": "2f271dbae60a73c0003b3f6b20cc29fe8ee934f822b8ea62a7de2995173afc56"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "scripts/build_registry_exemptions_v12.py",
+      "role": "registry_exemption_builder",
+      "sha256": "98a89768db6549adecd03022e7e9bbe2f9be20358d6badc0cbdef7ba3984fddd"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "scripts/select_benchmark_v12.py",
+      "role": "selector",
+      "sha256": "d45f9eb92ac0d49b9f38a36209f84b6cb4332dbeac100cc57bcf6fab91e6dfcb"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "scripts/build_benchmark_v12_c0.py",
+      "role": "c0_builder",
+      "sha256": "fd20bc25ac83c6b95f350d2e062226586bd09d05968cbd8f2bc4e2013dc59ac3"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "scripts/score_benchmark_v12.py",
+      "role": "scorer",
+      "sha256": "3659612053d00fea73905efd45a7d9a65d2368c1f5a0936248cda2f2ac50d092"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "scripts/run_benchmark_v12_job.py",
+      "role": "frozen_job_runner",
+      "sha256": "1c227e637885d36a645bd863722b17e524e29fe22ea82128e28568788e93e02a"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": ".github/workflows/method-v12-frozen-job.yml",
+      "role": "frozen_job_workflow",
+      "sha256": "c41ef35d62a7e0ddc8ed4050794becd4bd6bb8de9d1372d9f949ad589212c8fd"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "schemas/benchmark-run-contract-v1.2.schema.json",
+      "role": "run_contract_schema",
+      "sha256": "2ef5b3a75d8ffd1b65fa3fa7b11bf0f15f4789daa9d128e5272792f1f74ec3bd"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "tools/benchmark-drand/fetch-and-verify-v12.mjs",
+      "role": "drand_fetcher",
+      "sha256": "ad7924f56a73ec781913d098e138d73515cb069732923400fb96b7b12e70bdbb"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "tools/benchmark-drand/package.json",
+      "role": "drand_package_manifest",
+      "sha256": "ad3604db388952184199c03e4d4c451f082de90002689617557f393e77065828"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "tools/benchmark-drand/package-lock.json",
+      "role": "drand_package_lock",
+      "sha256": "95c45bfa5cf6e2dadd7a66e60d07ee6414223f3840ac9755a15b6c733484c08e"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "results/benchmark/v1.2-protocol/budget-rule.json",
+      "role": "budget_rule",
+      "sha256": "a2185419e1a0f5b26037d6e574e49090d5faf2881673b91038e3f96d0373656a"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "results/benchmark/v1.2-protocol/arm-design-rule.json",
+      "role": "arm_design_rule",
+      "sha256": "fd6d18f941d25115692656c16d86906a0be8e2c89b6e8bfcd514df79e964439c"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "results/benchmark/v1.2-protocol/baseline-library.json",
+      "role": "baseline_library",
+      "sha256": "994e42d59e7eec66b7cb8a70b301994d68de537453c034116056d738a54af42c"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "results/benchmark/v1.2-protocol/development-prior.json",
+      "role": "development_prior",
+      "sha256": "cd019b5dacfec584b35ca15264d9f8c6ab6e006de9a379b2ba1043a1dd6ad71b"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "results/benchmark/v1.2-protocol/selection-forecast-rule.json",
+      "role": "selection_forecast_rule",
+      "sha256": "fa122ecd4f9630ecabbfc95a6912b576f000b24c8dafd99cf295dcee89b4e5f0"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "results/benchmark/v1.2-protocol/selection-stratum-priors.json",
+      "role": "selection_stratum_priors",
+      "sha256": "1304a82a70d6ddfef0e7ef2deec6bd1fc8966a9937e976ff87fa32a8e35fc159"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "results/benchmark/v1.2-protocol/intervention-forecast-rule.json",
+      "role": "intervention_forecast_rule",
+      "sha256": "5b60383f74611b03cfa80a52a67ecf7f34ffb9ba90b462d11f18735d2acd7447"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "results/benchmark/v1.2-protocol/transformation-library.json",
+      "role": "transformation_library",
+      "sha256": "83bf9aa21b1b8eaacd2c5dc02d324622609bb09b06d8f5fb58e69c605efdec82"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "results/benchmark/v1.2-protocol/scoring-rule.json",
+      "role": "scoring_rule",
+      "sha256": "f48118a230dd4868a45e17261f5a2587aa3c63202f3742ca58fd0c9e21229e07"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "results/benchmark/v1.2-protocol/stopping-rule.json",
+      "role": "stopping_rule",
+      "sha256": "c6dad35ffedbae15e61ec8a2b15a8ccae8dd62525ee0543f36ad27a3acf775bf"
+    },
+    {
+      "classification": "PROTOCOL_ONLY_NO_TARGET_DATA",
+      "path": "results/benchmark/v1.2-protocol/target-data-audit-rule.json",
+      "role": "target_data_audit_rule",
+      "sha256": "e925d7a13f259d9e07f02565b9d0c123768193e01bd89a4fe9498964c13af962"
+    }
+  ],
+  "final_eligible_rows_detected": 0,
+  "schema_version": "c5k4-method-v1.2-target-data-audit-receipt-1.0",
+  "selected_clusters_detected": 0,
+  "semantic_target_analysis_detected": 0,
+  "statement_text_detected": 0
+}
