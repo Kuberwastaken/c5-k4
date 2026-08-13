@@ -941,6 +941,219 @@ lemma radius_add_three_le_path_of_cubic_triangleFree_c4Free
   rw [← hpLength, ← hxcLength]
   exact path_ge_of_isInducedPath G (x :: c :: p.support) hxcInduced
 
+omit [DecidableEq V] [Nonempty V] in
+/-- A triangle-free neighborhood is an independent set, so its local
+independence number is exactly its degree. -/
+lemma indepNeighborsCard_eq_degree_of_triangleFree (G : SimpleGraph V)
+    [DecidableRel G.Adj] (htri : G.CliqueFree 3) (v : V) :
+    indepNeighborsCard G v = G.degree v := by
+  unfold indepNeighborsCard
+  rw [← G.card_neighborSet_eq_degree]
+  symm
+  apply maximumIndepSet_card_eq_indepNum
+  constructor
+  · intro x _hx y _hy hxy
+    change ¬G.Adj x.val y.val
+    exact G.isIndepSet_neighborSet_of_triangleFree htri v x.property y.property
+      (Subtype.coe_injective.ne hxy)
+  · intro t _ht
+    exact Finset.card_le_univ t
+
+omit [DecidableEq V] in
+/-- In the triangle-free cubic branch every local summand is three, hence so
+is the floor of their average. -/
+lemma floor_l_eq_three_of_cubic_triangleFree (G : SimpleGraph V)
+    [DecidableRel G.Adj] (hreg : G.IsRegularOfDegree 3)
+    (htri : G.CliqueFree 3) :
+    ⌊l G⌋ = (3 : ℤ) := by
+  have hlocal : ∀ v, indepNeighborsCard G v = 3 := fun v ↦
+    (indepNeighborsCard_eq_degree_of_triangleFree G htri v).trans (hreg v)
+  unfold l averageIndepNeighbors indepNeighbors
+  simp_rw [hlocal]
+  simp [Fintype.card_ne_zero]
+
+omit [DecidableEq V] [Nonempty V] in
+/-- Every local independent set is contained in the neighborhood, so its
+cardinality is at most the degree. -/
+lemma indepNeighborsCard_le_degree (G : SimpleGraph V) [DecidableRel G.Adj]
+    (v : V) : indepNeighborsCard G v ≤ G.degree v := by
+  unfold indepNeighborsCard
+  obtain ⟨s, hs⟩ :=
+    (G.induce (G.neighborSet v)).exists_isNIndepSet_indepNum
+  rw [← hs.card_eq, ← G.card_neighborSet_eq_degree]
+  exact Finset.card_le_univ s
+
+omit [DecidableEq V] [Nonempty V] in
+/-- A cubic C4-free neighborhood contains an independent pair.  Enumerating
+its three vertices, either the first pair is nonadjacent or an edge on that
+pair forces the second pair to be nonadjacent: otherwise the center and the
+three neighbors form a four-cycle. -/
+lemma two_le_indepNeighborsCard_of_cubic_c4Free (G : SimpleGraph V)
+    [DecidableRel G.Adj] (hreg : G.IsRegularOfDegree 3)
+    (hc4 : ¬HasC4 G) (v : V) :
+    2 ≤ indepNeighborsCard G v := by
+  classical
+  have hcard : (G.neighborFinset v).card = 3 := by
+    rw [G.card_neighborFinset_eq_degree, hreg v]
+  obtain ⟨x, y, z, hxyne, hxzne, hyzne, hfin⟩ :=
+    Finset.card_eq_three.mp hcard
+  have hxv : G.Adj v x := by
+    have : x ∈ G.neighborFinset v := by simp [hfin]
+    simpa [G.mem_neighborFinset] using this
+  have hyv : G.Adj v y := by
+    have : y ∈ G.neighborFinset v := by simp [hfin]
+    simpa [G.mem_neighborFinset] using this
+  have hzv : G.Adj v z := by
+    have : z ∈ G.neighborFinset v := by simp [hfin]
+    simpa [G.mem_neighborFinset] using this
+  let xs : G.neighborSet v := ⟨x, by simpa [G.mem_neighborSet] using hxv⟩
+  let ys : G.neighborSet v := ⟨y, by simpa [G.mem_neighborSet] using hyv⟩
+  let zs : G.neighborSet v := ⟨z, by simpa [G.mem_neighborSet] using hzv⟩
+  have hpair : ∃ a b : G.neighborSet v,
+      a ≠ b ∧ ¬(G.induce (G.neighborSet v)).Adj a b := by
+    by_cases hxy : G.Adj x y
+    · have hyz : ¬G.Adj y z := by
+        intro hyz
+        apply hc4
+        refine ⟨v, x, y, z, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+        · exact hxv.ne
+        · exact hyv.ne
+        · exact hzv.ne
+        · exact hxyne
+        · exact hxzne
+        · exact hyzne
+        · exact hxv
+        · exact hxy
+        · exact hyz
+        · exact hzv.symm
+      refine ⟨ys, zs, ?_, by simpa [ys, zs]⟩
+      intro h
+      exact hyzne (congrArg Subtype.val h)
+    · refine ⟨xs, ys, ?_, by simpa [xs, ys]⟩
+      intro h
+      exact hxyne (congrArg Subtype.val h)
+  obtain ⟨a, b, hab, hnot⟩ := hpair
+  have hi : (G.induce (G.neighborSet v)).IsIndepSet
+      ({a, b} : Finset (G.neighborSet v)) := by
+    intro u hu w hw huw
+    simp only [Finset.mem_coe, Finset.mem_insert, Finset.mem_singleton] at hu hw
+    rcases hu with rfl | rfl <;> rcases hw with rfl | rfl
+    · exact (huw rfl).elim
+    · exact hnot
+    · exact fun h ↦ hnot h.symm
+    · exact (huw rfl).elim
+  have hc := hi.card_le_indepNum
+  simpa [Finset.card_pair hab] using hc
+
+omit [DecidableEq V] [Nonempty V] in
+/-- A triangle through `v` contributes an edge inside its three-vertex
+neighborhood, so a local independent set cannot use all three vertices. -/
+lemma indepNeighborsCard_le_two_of_triangle_at (G : SimpleGraph V)
+    [DecidableRel G.Adj] (hreg : G.IsRegularOfDegree 3) {v a b : V}
+    (hva : G.Adj v a) (hvb : G.Adj v b) (hab : G.Adj a b) :
+    indepNeighborsCard G v ≤ 2 := by
+  unfold indepNeighborsCard
+  obtain ⟨s, hs⟩ :=
+    (G.induce (G.neighborSet v)).exists_isNIndepSet_indepNum
+  rw [← hs.card_eq]
+  have hcard : Fintype.card (G.neighborSet v) = 3 := by
+    rw [G.card_neighborSet_eq_degree, hreg v]
+  have hle : s.card ≤ 3 := by
+    rw [← hcard]
+    exact Finset.card_le_univ s
+  have hne : s.card ≠ 3 := by
+    intro hscard
+    have hsuniv : s = Finset.univ :=
+      Finset.eq_univ_of_card s (hscard.trans hcard.symm)
+    let as : G.neighborSet v :=
+      ⟨a, by simpa [G.mem_neighborSet] using hva⟩
+    let bs : G.neighborSet v :=
+      ⟨b, by simpa [G.mem_neighborSet] using hvb⟩
+    have has : as ∈ s := by simp [hsuniv]
+    have hbs : bs ∈ s := by simp [hsuniv]
+    have habne : as ≠ bs := by
+      intro heq
+      have : a = b := congrArg Subtype.val heq
+      subst b
+      exact G.loopless a hab
+    exact hs.isIndepSet has hbs habne (by simpa [as, bs] using hab)
+  omega
+
+omit [DecidableEq V] [Nonempty V] in
+/-- Failure of triangle-freeness provides one neighborhood whose local
+independence number is at most two. -/
+lemma exists_indepNeighborsCard_le_two_of_not_triangleFree
+    (G : SimpleGraph V) [DecidableRel G.Adj]
+    (hreg : G.IsRegularOfDegree 3) (htri : ¬G.CliqueFree 3) :
+    ∃ v, indepNeighborsCard G v ≤ 2 := by
+  rw [G.not_cliqueFree_iff] at htri
+  let f := Classical.choice htri
+  have h01 : G.Adj (f 0) (f 1) := f.toHom.map_adj (by simp)
+  have h02 : G.Adj (f 0) (f 2) := f.toHom.map_adj (by simp)
+  have h12 : G.Adj (f 1) (f 2) := f.toHom.map_adj (by simp)
+  exact ⟨f 0, indepNeighborsCard_le_two_of_triangle_at G hreg h01 h02 h12⟩
+
+omit [DecidableEq V] in
+/-- If natural-valued local data all lie in `[2,3]` and at least one is two,
+then the floor of their real average is two. -/
+lemma floor_average_eq_two_of_local_bounds (f : V → ℕ)
+    (hlo : ∀ v, 2 ≤ f v) (hhi : ∀ v, f v ≤ 3)
+    (hex : ∃ v, f v ≤ 2) :
+    ⌊((∑ v ∈ Finset.univ, (f v : ℝ)) / (Fintype.card V : ℝ))⌋ =
+      (2 : ℤ) := by
+  have hcard : (0 : ℝ) < (Fintype.card V : ℝ) := by positivity
+  have hsumlo : (∑ _v ∈ (Finset.univ : Finset V), (2 : ℝ)) ≤
+      ∑ v ∈ Finset.univ, (f v : ℝ) := by
+    apply Finset.sum_le_sum
+    intro v _hv
+    exact_mod_cast hlo v
+  have hsumhi : (∑ v ∈ Finset.univ, (f v : ℝ)) <
+      ∑ _v ∈ (Finset.univ : Finset V), (3 : ℝ) := by
+    apply Finset.sum_lt_sum
+    · intro v _hv
+      exact_mod_cast hhi v
+    · obtain ⟨v, hv⟩ := hex
+      exact ⟨v, Finset.mem_univ v,
+        by exact_mod_cast (show f v < 3 by omega)⟩
+  rw [Int.floor_eq_iff]
+  constructor <;>
+    simp only [Finset.sum_const, Finset.card_univ, nsmul_eq_mul] at hsumlo hsumhi ⊢
+  · apply (le_div_iff₀ hcard).mpr
+    simpa [mul_comm] using hsumlo
+  · apply (div_lt_iff₀ hcard).mpr
+    norm_num
+    simpa [mul_comm] using hsumhi
+
+omit [DecidableEq V] in
+/-- In the triangle-containing cubic C4-free branch all local summands are at
+least two and at most three, with a triangle vertex contributing exactly two.
+Therefore the floor of their average is two. -/
+lemma floor_l_eq_two_of_cubic_c4Free_not_triangleFree (G : SimpleGraph V)
+    [DecidableRel G.Adj] (hreg : G.IsRegularOfDegree 3)
+    (hc4 : ¬HasC4 G) (htri : ¬G.CliqueFree 3) :
+    ⌊l G⌋ = (2 : ℤ) := by
+  unfold l averageIndepNeighbors indepNeighbors
+  apply floor_average_eq_two_of_local_bounds (fun v ↦ indepNeighborsCard G v)
+  · exact fun v ↦ two_le_indepNeighborsCard_of_cubic_c4Free G hreg hc4 v
+  · exact fun v ↦ (indepNeighborsCard_le_degree G v).trans (hreg v).le
+  · exact exists_indepNeighborsCard_le_two_of_not_triangleFree G hreg htri
+
+/-- The complete corrected cubic C4-free split: both local-average identities
+and both path bounds are now formal. -/
+theorem cubicC4FreeSplit (G : SimpleGraph V) [DecidableRel G.Adj]
+    (hconn : G.Connected) (hreg : G.IsRegularOfDegree 3)
+    (hc4 : ¬HasC4 G) :
+    CubicC4FreeSplit G := by
+  constructor
+  · intro htri
+    exact ⟨floor_l_eq_three_of_cubic_triangleFree G hreg htri,
+      radius_add_three_le_path_of_cubic_triangleFree_c4Free
+        G hconn hreg htri hc4⟩
+  · intro htri
+    exact ⟨floor_l_eq_two_of_cubic_c4Free_not_triangleFree
+        G hreg hc4 htri,
+      radius_add_two_le_path_of_cubic_c4Free G hconn hreg hc4⟩
+
 omit [Nonempty V] in
 /-- The exact split implies the source-shaped real inequality by integer
 arithmetic alone; all graph theory is isolated in `CubicC4FreeSplit`. -/
@@ -956,6 +1169,13 @@ lemma conclusion_of_split (G : SimpleGraph V) (h : CubicC4FreeSplit G) :
     rw [hl]
     exact_mod_cast hp
 
+/-- The corrected cubic C4-free specialization of WOWII 133. -/
+theorem cubicC4FreeSpecialization (G : SimpleGraph V) [DecidableRel G.Adj]
+    (hconn : G.Connected) (hreg : G.IsRegularOfDegree 3)
+    (hc4 : ¬HasC4 G) :
+    CubicC4FreeConclusion G :=
+  conclusion_of_split G (cubicC4FreeSplit G hconn hreg hc4)
+
 /-- Precise theorem target.  The two branches deliberately match the paper
 proof: `radius+3` only under triangle-freeness, and otherwise the local-average
 floor is two and `radius+2` is proved. -/
@@ -966,5 +1186,12 @@ def CubicC4FreeTheorem : Prop :=
     G.IsRegularOfDegree 3 →
     ¬HasC4 G →
     CubicC4FreeSplit G ∧ CubicC4FreeConclusion G
+
+/-- The complete axiom-clean proof of the corrected cubic C4-free specialization
+packaged in the original local theorem target. -/
+theorem cubicC4FreeTheorem : CubicC4FreeTheorem (V := V) := by
+  intro G _hdec hconn hreg hc4
+  have hsplit := cubicC4FreeSplit G hconn hreg hc4
+  exact ⟨hsplit, conclusion_of_split G hsplit⟩
 
 end WrittenOnTheWallII.GraphConjecture133Cubic
