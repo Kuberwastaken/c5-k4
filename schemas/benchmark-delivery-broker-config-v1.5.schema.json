@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-delivery-broker-config-v1.5.schema.json",
+  "title": "Method v1.5 PRE-P1 controlled VPS delivery broker configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "status", "protocol_version", "host_id", "signing_key_id", "heartbeat_interval_seconds", "store", "service_acceptance"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-delivery-broker-config-1.0"},
+    "status": {"const": "PRE_P1_NOT_OPERATIONAL"},
+    "protocol_version": {"const": "1.5"},
+    "host_id": {"const": "ai-vps-controlled-harness"},
+    "signing_key_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"},
+    "heartbeat_interval_seconds": {"type": "integer", "minimum": 1, "maximum": 240},
+    "store": {
+      "type": "object", "additionalProperties": false,
+      "required": ["test_backend", "test_root", "production_backend", "production_locator", "retention_acceptance"],
+      "properties": {
+        "test_backend": {"const": "LOCAL_FILESYSTEM_CONTENT_ADDRESSED_TEST_STORE"},
+        "test_root": {"type": "string", "minLength": 1},
+        "production_backend": {"type": "null"},
+        "production_locator": {"type": "null"},
+        "retention_acceptance": {"const": false}
+      }
+    },
+    "service_acceptance": {
+      "type": "object", "additionalProperties": false,
+      "required": ["dedicated_service_installed", "host_key_accepted", "acceptance_suite_passed"],
+      "properties": {
+        "dedicated_service_installed": {"const": false},
+        "host_key_accepted": {"const": false},
+        "acceptance_suite_passed": {"const": false}
+      }
+    }
+  }
+}

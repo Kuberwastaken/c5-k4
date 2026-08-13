@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-delivery-broker-readiness-v1.5.schema.json",
+  "title": "Method v1.5 PRE-P1 controlled VPS broker target-blind readiness",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema", "status", "scope", "config_sha256", "public_key_sha256", "state_sha256", "receipt_chain_tip_sha256", "heartbeat_fresh", "locked_invalid", "production_store_configured", "service_accepted", "operational", "reasons", "readiness_sha256"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-delivery-broker-readiness-1.0"},
+    "status": {"const": "PRE_P1_NOT_OPERATIONAL"},
+    "scope": {"const": "DEDICATED_AI_VPS_HARNESS_ONLY"},
+    "config_sha256": {"$ref": "#/definitions/sha256"},
+    "public_key_sha256": {"$ref": "#/definitions/sha256"},
+    "state_sha256": {"$ref": "#/definitions/sha256"},
+    "receipt_chain_tip_sha256": {"oneOf": [{"type": "null"}, {"$ref": "#/definitions/sha256"}]},
+    "heartbeat_fresh": {"type": "boolean"},
+    "locked_invalid": {"type": "boolean"},
+    "production_store_configured": {"const": false},
+    "service_accepted": {"const": false},
+    "operational": {"const": false},
+    "reasons": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["PRODUCTION_STORE_UNSET", "HOST_KEY_NOT_ACCEPTED", "DEDICATED_SERVICE_NOT_ACCEPTED", "ACCEPTANCE_SUITE_NOT_FROZEN", "HEARTBEAT_STALE", "LOCKED_INVALID"]}},
+    "readiness_sha256": {"$ref": "#/definitions/sha256"}
+  },
+  "definitions": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+}

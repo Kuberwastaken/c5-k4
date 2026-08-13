@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-delivery-broker-receipt-v1.5.schema.json",
+  "title": "Method v1.5 PRE-P1 signed controlled-delivery receipt",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema", "status", "protocol_version", "host_id", "signing_key_id", "signature_algorithm", "sequence_number", "previous_receipt_sha256", "event_kind", "transaction_id", "payload_sha256", "payload_byte_count", "delivery_channel", "observed_at_utc", "receipt_sha256", "signature"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-delivery-broker-receipt-1.0"},
+    "status": {"const": "PRE_P1_NOT_OPERATIONAL"},
+    "protocol_version": {"const": "1.5"},
+    "host_id": {"const": "ai-vps-controlled-harness"},
+    "signing_key_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"},
+    "signature_algorithm": {"const": "Ed25519"},
+    "sequence_number": {"type": "integer", "minimum": 0, "maximum": 9223372036854775807},
+    "previous_receipt_sha256": {"oneOf": [{"type": "null"}, {"$ref": "#/definitions/sha256"}]},
+    "event_kind": {"enum": ["HEARTBEAT", "PREPARE", "START", "DELIVER", "ABORT", "LOCK_INVALID"]},
+    "transaction_id": {"oneOf": [{"type": "null"}, {"type": "string", "pattern": "^[0-9a-f]{32}$"}]},
+    "payload_sha256": {"$ref": "#/definitions/sha256"},
+    "payload_byte_count": {"type": "integer", "minimum": 0, "maximum": 9223372036854775807},
+    "delivery_channel": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]{0,255}$"},
+    "observed_at_utc": {"$ref": "#/definitions/timestamp"},
+    "receipt_sha256": {"$ref": "#/definitions/sha256"},
+    "signature": {"type": "string", "pattern": "^[A-Za-z0-9+/]{86}==$"}
+  },
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "timestamp": {"type": "string", "format": "date-time", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"}
+  }
+}
