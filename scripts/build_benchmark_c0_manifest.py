@@ -34,7 +34,12 @@ def reference(relative: str) -> dict[str, str]:
     return {"path": relative, "sha256": sha256_file(path)}
 
 
-def build(c0_commit: str | None, c0_published_at_utc: str | None) -> dict:
+def build(
+    c0_commit: str | None,
+    c0_published_at_utc: str | None,
+    c1_commit: str | None = None,
+    c1_frozen_at_utc: str | None = None,
+) -> dict:
     if (c0_commit is None) != (c0_published_at_utc is None):
         raise ValueError("C0 commit and publication time must be supplied together")
     contamination_path = ROOT / "results/benchmark/contamination-inventory.c0.json"
@@ -43,7 +48,11 @@ def build(c0_commit: str | None, c0_published_at_utc: str | None) -> dict:
     prior_ref["probabilities"] = json.loads(
         (ROOT / prior_ref["path"]).read_text(encoding="utf-8")
     )["probabilities"]
-    return {
+    if (c1_commit is None) != (c1_frozen_at_utc is None):
+        raise ValueError("C1 commit and freeze time must be supplied together")
+    if c1_commit is not None and c0_commit is None:
+        raise ValueError("a terminal C1 requires an attested C0")
+    manifest = {
         "$schema": "../../schemas/benchmark-v1.1.schema.json",
         "schema_version": "c5k4-benchmark-1.1",
         "benchmark_id": "method-v1.1-deepmind-heldout-20260813",
@@ -128,6 +137,32 @@ def build(c0_commit: str | None, c0_published_at_utc: str | None) -> dict:
         "clusters": [],
         "ledgers": [],
     }
+    if c1_commit is not None:
+        randomness_artifact = json.loads(
+            (ROOT / "results/benchmark/c1/drand-round-6373886.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        manifest["phase"] = "NO_ELIGIBLE_BENCHMARK"
+        manifest["randomness"]["value"] = randomness_artifact["randomness"]
+        manifest["randomness"]["value_sha256"] = randomness_artifact[
+            "randomness_sha256"
+        ]
+        manifest["randomness"]["verification"]["raw_artifact"] = reference(
+            "results/benchmark/c1/drand-round-6373886.json"
+        )
+        manifest["selection"]["evidence"] = reference(
+            "results/benchmark/c1/selection-evidence.json"
+        )
+        manifest["chronology"].update(
+            randomness_retrieved_at_utc=randomness_artifact["retrieval"][
+                "retrieved_at_utc"
+            ],
+            c1_commit=c1_commit,
+            c1_frozen_at_utc=c1_frozen_at_utc,
+            completed_at_utc=c1_frozen_at_utc,
+        )
+    return manifest
 
 
 def main() -> int:
@@ -135,8 +170,15 @@ def main() -> int:
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--c0-commit")
     parser.add_argument("--c0-published-at-utc")
+    parser.add_argument("--c1-commit")
+    parser.add_argument("--c1-frozen-at-utc")
     args = parser.parse_args()
-    manifest = build(args.c0_commit, args.c0_published_at_utc)
+    manifest = build(
+        args.c0_commit,
+        args.c0_published_at_utc,
+        args.c1_commit,
+        args.c1_frozen_at_utc,
+    )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     print(sha256_file(args.output))

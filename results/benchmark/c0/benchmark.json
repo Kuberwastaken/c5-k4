@@ -2,7 +2,7 @@
   "$schema": "../../schemas/benchmark-v1.1.schema.json",
   "schema_version": "c5k4-benchmark-1.1",
   "benchmark_id": "method-v1.1-deepmind-heldout-20260813",
-  "phase": "C0_FROZEN",
+  "phase": "NO_ELIGIBLE_BENCHMARK",
   "upstream": {
     "repository": "google-deepmind/formal-conjectures",
     "commit": "7a38c469ec329d0c97c068e03c58834f61628e7e",
@@ -925,11 +925,14 @@
       "require_relay_equality": true,
       "require_bls_signature": true,
       "require_randomness_sha256_signature": true,
-      "raw_artifact": null
+      "raw_artifact": {
+        "path": "results/benchmark/c1/drand-round-6373886.json",
+        "sha256": "b1839c965f9e37ddad132303759d044cede30a2cd520357c4305215fd32811b8"
+      }
     },
     "selection_algorithm": "UNBIASED_DOMAIN_SEPARATED_SHA256_FISHER_YATES_V1",
-    "value": null,
-    "value_sha256": null
+    "value": "ecea8fb2b10bdd632da791d1985e9235a2a2f87969ac38d7b63a310ddd8aa46d",
+    "value_sha256": "2fd7df10cbf842d2c2d1dd11a3b0d3edcd1152890b58ea0628ccbadc52339606"
   },
   "selection": {
     "sampling_unit": "QUESTION_CLUSTER",
@@ -945,7 +948,10 @@
     "relaxed_exclusion": false,
     "backfill_events": [],
     "insufficient_stratum_outcome": "NO_ELIGIBLE_BENCHMARK",
-    "evidence": null
+    "evidence": {
+      "path": "results/benchmark/c1/selection-evidence.json",
+      "sha256": "63b501c85a9a7322ea6890f6c4a21c2c1b9f97a552cd6b3f6168c381155cab27"
+    }
   },
   "budgets": {
     "shared_analysis": {
@@ -966,11 +972,11 @@
   "chronology": {
     "c0_commit": "8e679b86791360c5df41d096e8ff2c8b565759ce",
     "c0_published_at_utc": "2026-08-13T18:01:41Z",
-    "randomness_retrieved_at_utc": null,
-    "c1_commit": null,
-    "c1_frozen_at_utc": null,
+    "randomness_retrieved_at_utc": "2026-08-13T19:00:51.216Z",
+    "c1_commit": "767f3e8e38f1f5af0fe32323ef50063f804895fe",
+    "c1_frozen_at_utc": "2026-08-13T19:10:43Z",
     "evaluation_started_at_utc": null,
-    "completed_at_utc": null
+    "completed_at_utc": "2026-08-13T19:10:43Z"
   },
   "clusters": [],
   "ledgers": []
