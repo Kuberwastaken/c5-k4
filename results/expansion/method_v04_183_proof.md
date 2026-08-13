@@ -1,6 +1,14 @@
 # Method v0.4 Lane P1: WOWII 183 claw-free core
 
-Date: **2026-08-12**. Status: **paper-proof attempt; no complete proof**.
+Date: **2026-08-12**. Status: **paper-proof attempt; no complete proof;
+deletion lemma retracted on 2026-08-13**.
+
+> **Correction (2026-08-13).** The “sound sufficient construction” below is
+> false as stated: inclusion-maximal connected induced bipartite sets need
+> not dominate vertices at distance two from the set. The exact `EYWO`
+> countermodel and the corrected maximum-cardinality color lemma are recorded
+> in `method_v04_183_tier_proof.md`. The section is retained only as an audit
+> trail and must not be cited as a proved lemma.
 
 This note continues the corrected full-core lane in
 `method_v03_183_p1.md`. The live proposition is:
@@ -31,9 +39,10 @@ L_s(G) >= tau_odd(G)+2.
 The corrected primary-source Theorem 5 proves this whenever `mu(G)>=3`.
 Hence this note considers only `mu<=2`, equivalently claw-free graphs.
 
-## A sound sufficient construction
+## Retracted sufficient construction
 
-The following lemma is valid, but its existence hypothesis is not automatic.
+**Retracted:** the following lemma is not valid with “inclusion-maximal
+connected” as its premise. See the correction above.
 
 > **Deletion lemma.** Let `x,z` satisfy `dist(x,z)=3`. Suppose `B` is an
 > inclusion-maximal connected induced bipartite vertex set containing `x,z`,
