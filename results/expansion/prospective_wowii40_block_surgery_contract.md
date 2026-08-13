@@ -16,10 +16,15 @@ vertex, and `b` is maximum induced-bipartite order.  The WOWII page marker is
 `O`; the current DeepMind declaration is `@[category research open]` with a
 `sorry` proof.  The source note records only the proved `p(G)=1` case.
 
-Repository and web/GitHub searches performed before construction found no
-recorded #40 counterexample, issue, or pull request.  This is a bounded
-prospective search, not yet a novelty claim; any crossing must receive a
-fresh source/status/priority audit before being described as new.
+The initial broad web search found no recorded #40 counterexample or pull
+request.  A later exact GitHub API query located upstream issue #4702, opened
+2026-08-03: it records an equivalent deficiency form, a conditional reduction
+of the bipartite case to two open lemmas, and dual-engine exhaustive
+verification through order eleven.  The frozen construction and computation
+contract below predates development evaluation and is unchanged by this
+status correction.  Any crossing must be compared against the issue's linked
+preprint/artifacts and receive a fresh source/status/priority audit before it
+is described as new.
 
 ## Frozen mechanism
 
