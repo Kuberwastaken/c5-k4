@@ -1,0 +1,1610 @@
+{
+  "algorithm": {
+    "block": "SHA256(domain || seed || uint32_be(stratum_index) || uint64_be(counter))",
+    "bounded_integer": "U64_BIG_ENDIAN_REJECTION_BELOW_FLOOR_2^64_OVER_M_TIMES_M",
+    "domain_hex": "63352d6b342f6d6574686f642d76312e312f433100",
+    "initial_order": "identity_sha256_lower_ascending_then_cluster_id_utf8_bytes_ascending",
+    "name": "UNBIASED_DOMAIN_SEPARATED_SHA256_FISHER_YATES",
+    "no_backfill": true,
+    "seed": "LOWERCASE_HEX_DECODED_32_BYTES",
+    "shuffle": "FULL_DESCENDING_FISHER_YATES",
+    "within_stratum_only": true
+  },
+  "evidence_sha256": "4577b5883cc649f42c31486d405f9685e70f4977f15db7bd6214b3dedad2c1bf",
+  "pool": {
+    "canonical_sha256": "f02751818f983f2a26374ae3f1b8a115bb030aec269d0be70e5472b9fd620b74",
+    "cluster_count": 729,
+    "contamination": {
+      "applied": true,
+      "identity_ambiguity_means_exclusion": true,
+      "inventory_sha256": "1981fa17203ecc8be92ddd6b742971b077c840d09968c0e0898993ac73623f69"
+    },
+    "eligible_cluster_count": 250,
+    "file_sha256": "66053635704287dcfa78cb0529ff00871fac19b0e3ce329cdde94cfa2f161ef1",
+    "schema_version": "c5k4-eligible-cluster-pool-1.1",
+    "upstream": {
+      "commit": "7a38c469ec329d0c97c068e03c58834f61628e7e",
+      "tree": "daa36d0d9e82133dfd83488d89594d92b4940fb7"
+    }
+  },
+  "quotas": {
+    "AUTOMATA_GAME_PROCESS": 2,
+    "FINITE_ALGEBRA_EQUATIONAL": 2,
+    "FINITE_COMBINATORIAL": 2,
+    "GRAPH_SCALAR_INEQUALITY": 3,
+    "GRAPH_STRUCTURAL_PROPERTY": 3
+  },
+  "randomness": {
+    "encoding": "UTF-8_EXACT_NO_NORMALIZATION",
+    "value": "ecea8fb2b10bdd632da791d1985e9235a2a2f87969ac38d7b63a310ddd8aa46d",
+    "value_sha256": "2fd7df10cbf842d2c2d1dd11a3b0d3edcd1152890b58ea0628ccbadc52339606"
+  },
+  "schema_version": "c5k4-benchmark-selection-1.1",
+  "selected_clusters": [],
+  "status": "NO_ELIGIBLE_BENCHMARK",
+  "strata": [
+    {
+      "eligible_count": 0,
+      "entropy_consumption": {
+        "sha256_blocks_consumed": 0,
+        "u64_words_consumed": 0,
+        "u64_words_rejected": 0
+      },
+      "quota": 3,
+      "quota_satisfied": false,
+      "shuffled": [],
+      "stratum": "GRAPH_SCALAR_INEQUALITY"
+    },
+    {
+      "eligible_count": 0,
+      "entropy_consumption": {
+        "sha256_blocks_consumed": 0,
+        "u64_words_consumed": 0,
+        "u64_words_rejected": 0
+      },
+      "quota": 3,
+      "quota_satisfied": false,
+      "shuffled": [],
+      "stratum": "GRAPH_STRUCTURAL_PROPERTY"
+    },
+    {
+      "eligible_count": 7,
+      "entropy_consumption": {
+        "sha256_blocks_consumed": 2,
+        "u64_words_consumed": 6,
+        "u64_words_rejected": 0
+      },
+      "quota": 2,
+      "quota_satisfied": true,
+      "shuffled": [
+        {
+          "cluster_id": "fc-module:FormalConjectures/Paper/ConjugacyClassSizes",
+          "identity_sha256": "fa75b0c248236ad9b17eba7735c65cbe7abd7ae97663837cf70ffaa0b231a1eb",
+          "selected": true,
+          "shuffle_position": 1
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Wikipedia/SurjunctiveGroup",
+          "identity_sha256": "a27e6a31e1c3e1d0a69eb336f03178d779abadd27bd4498f8759988743e38eef",
+          "selected": true,
+          "shuffle_position": 2
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/193",
+          "identity_sha256": "ba97658e845fba45048a329022b3d0bc1b14137ef6a187777f1fc6b261772ccb",
+          "selected": false,
+          "shuffle_position": 3
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Wikipedia/BoundedBurnsideProblem",
+          "identity_sha256": "ce779a9b835ab425d78bbf225be68f26cba655c982698531457e9caa8b3caf60",
+          "selected": false,
+          "shuffle_position": 4
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/GreensOpenProblems/29",
+          "identity_sha256": "7194846bf8874db8c9d6be0b1fa4ea557ecfdde951b92f15ba46efd07de44212",
+          "selected": false,
+          "shuffle_position": 5
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Arxiv/2604.08040/SubgroupCounts",
+          "identity_sha256": "0097a4f0e20fd03a1818b660f27bacf0f973c6a96b6ba40d4438cc2fae7e6921",
+          "selected": false,
+          "shuffle_position": 6
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Wikipedia/LeinsterGroup",
+          "identity_sha256": "0e49eb1e6b4424da6b8bd413012c8a257a559282bd57c763281b6437aaf444f3",
+          "selected": false,
+          "shuffle_position": 7
+        }
+      ],
+      "stratum": "FINITE_ALGEBRA_EQUATIONAL"
+    },
+    {
+      "eligible_count": 1,
+      "entropy_consumption": {
+        "sha256_blocks_consumed": 0,
+        "u64_words_consumed": 0,
+        "u64_words_rejected": 0
+      },
+      "quota": 2,
+      "quota_satisfied": false,
+      "shuffled": [
+        {
+          "cluster_id": "fc-module:FormalConjectures/Wikipedia/BusyBeaver",
+          "identity_sha256": "d381e29cb14cdd5fcb6d744d36aa1747a2fae44a39a4ca296eecc1476f2ad5dc",
+          "selected": false,
+          "shuffle_position": 1
+        }
+      ],
+      "stratum": "AUTOMATA_GAME_PROCESS"
+    },
+    {
+      "eligible_count": 242,
+      "entropy_consumption": {
+        "sha256_blocks_consumed": 61,
+        "u64_words_consumed": 241,
+        "u64_words_rejected": 0
+      },
+      "quota": 2,
+      "quota_satisfied": true,
+      "shuffled": [
+        {
+          "cluster_id": "fc-module:FormalConjectures/GreensOpenProblems/61",
+          "identity_sha256": "792ce893553d08f17076a68b54bb746e4ac56018c0f294ffb6a957d57cc82998",
+          "selected": true,
+          "shuffle_position": 1
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/930",
+          "identity_sha256": "6d31965b94d3d2356a646b9f083bbc5e3705b6a310c605783dd3f65bd84c27e7",
+          "selected": true,
+          "shuffle_position": 2
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/GreensOpenProblems/27",
+          "identity_sha256": "40cc804bec8e5f5046e2d86251e201f8655722bb037ff5c55d23662f776a3fe3",
+          "selected": false,
+          "shuffle_position": 3
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/857",
+          "identity_sha256": "85be959fd24c4f19a0aadcea08253e7c2a1b34a265626d9e34d5a1175289ab46",
+          "selected": false,
+          "shuffle_position": 4
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/522",
+          "identity_sha256": "d61a146a811d9a822ef35f20dc9f970ada513d5f03a0bf1d3ba005a085daa786",
+          "selected": false,
+          "shuffle_position": 5
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/41",
+          "identity_sha256": "d3765fa42c8e88b3bf89de1bdbb08e73e087b48b3459bac5f9feabf9cc3fd926",
+          "selected": false,
+          "shuffle_position": 6
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/123",
+          "identity_sha256": "ebb781408a321443fb8c9d20feb96a6db38f32800d9173e8d2d2a31af04b11b1",
+          "selected": false,
+          "shuffle_position": 7
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/GreensOpenProblems/40",
+          "identity_sha256": "fe6d76d5b3a8e14f21a6cedcc844c072c744a428255248e471de966fcb9dd139",
+          "selected": false,
+          "shuffle_position": 8
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/873",
+          "identity_sha256": "847f0abe25eca0edce86202551d20034b709bd8134f49afd2e2b07bbe06980b9",
+          "selected": false,
+          "shuffle_position": 9
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/252",
+          "identity_sha256": "dde4e604f1b36f6dd57c240b8dbecb32e25b5c621f6de2df4cd948cf7ccd1d39",
+          "selected": false,
+          "shuffle_position": 10
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Paper/WeakTiling",
+          "identity_sha256": "66e6d8ed42f5701b6d2df0d996e93d3fbca30e3093acb4f3d2f299238905a128",
+          "selected": false,
+          "shuffle_position": 11
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/1210",
+          "identity_sha256": "6a3a6b1b548b3279a2de5e6c0f023386328027f905efdf7460e677cefb428f79",
+          "selected": false,
+          "shuffle_position": 12
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/OEIS/237271",
+          "identity_sha256": "070fbf7cfab5c4af8f5d5b6c469bf70bb3433b80211024ef6177580d6038eb04",
+          "selected": false,
+          "shuffle_position": 13
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/686",
+          "identity_sha256": "502962da36e3356fa18b14f90ea462d03f54849ed362514a45693e10544d2b1a",
+          "selected": false,
+          "shuffle_position": 14
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/1212",
+          "identity_sha256": "324dec00959e80754c11d6ffcb053589c313f99fbcc246ab88a8c2d6eaed4ca2",
+          "selected": false,
+          "shuffle_position": 15
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/891",
+          "identity_sha256": "bb8b8f6371ac9894fe150f6f5667a072001bc2d301570fafce8697184582fef3",
+          "selected": false,
+          "shuffle_position": 16
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/295",
+          "identity_sha256": "fd9cf0fbe019f5d6e94fee144ac9dac56c740dea09c67e105a5aea504a87f961",
+          "selected": false,
+          "shuffle_position": 17
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/373",
+          "identity_sha256": "dd8d0a0872c6dde1ed6c006c0481032fd6f65b6fd1fe84b823807e5fc278a7a9",
+          "selected": false,
+          "shuffle_position": 18
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/1060",
+          "identity_sha256": "c724369f98496db58524ade7c843df88830a57bc5c312f8adc9d715a849bdf6b",
+          "selected": false,
+          "shuffle_position": 19
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/655",
+          "identity_sha256": "11c4700703d8abe90f06cbf76255075b7deffdc58952b535bd2eebdf0d17794e",
+          "selected": false,
+          "shuffle_position": 20
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Other/VCDimConvex",
+          "identity_sha256": "4ef9b09b782d33490971d42d35f51c5bb257d62ea195f068d11667e24c8239ee",
+          "selected": false,
+          "shuffle_position": 21
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/885",
+          "identity_sha256": "51692e61f8fa526add2d5e61dbe9b0bee6f2b3b0297f9fbd490e05561bbd7c4a",
+          "selected": false,
+          "shuffle_position": 22
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Wikipedia/ErdosMoser",
+          "identity_sha256": "59cb73adefa4e30a84bc69d9a1d15a0211029e024248c260be895770b6828b5e",
+          "selected": false,
+          "shuffle_position": 23
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Wikipedia/RationalDistanceProblem",
+          "identity_sha256": "aecb2d3b55306c2eaf9dacf17665f71a11fe2d1eac63c3add224ea61e5312bb7",
+          "selected": false,
+          "shuffle_position": 24
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/272",
+          "identity_sha256": "5d2888359df5b8fa0b63923515b2b62307f9b649e69dcc0a627a3019972be495",
+          "selected": false,
+          "shuffle_position": 25
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/170",
+          "identity_sha256": "dd2a64d2b0be9307f7626ba937f112b7566d959f52cc2c618f7468ae1c8e2b25",
+          "selected": false,
+          "shuffle_position": 26
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Paper/HartshorneConjecture",
+          "identity_sha256": "8a1a3e042c83f4e157565952becc7e3d8a85ef0d967de95f14f61f64fcfc379c",
+          "selected": false,
+          "shuffle_position": 27
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/319",
+          "identity_sha256": "cee40ef580e19a1938221442afd22fde719fddfa5cac78fc744bb615be31df5d",
+          "selected": false,
+          "shuffle_position": 28
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/352",
+          "identity_sha256": "54632d8f86d0d7fa6d414c926ac365f8633797cdb4a4f2213b8681a9976e8616",
+          "selected": false,
+          "shuffle_position": 29
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/25",
+          "identity_sha256": "d50fa0e82a4d7f9901ffe1576e72eb431a382faf249e7171230dd3558ca7792a",
+          "selected": false,
+          "shuffle_position": 30
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/887",
+          "identity_sha256": "74107f143fb44f5cf72f1b5c5eb853cbadae0df1f162d142d8504cb05a89dd48",
+          "selected": false,
+          "shuffle_position": 31
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/890",
+          "identity_sha256": "e4f7fd3e994ab0d0dac1ee0088b325864cc3a4b20060616fa9e7858bc22f2ae0",
+          "selected": false,
+          "shuffle_position": 32
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/1061",
+          "identity_sha256": "e7b52ce05a7b5e6d77c36c01105ef579e4ac88f9faaab56bdd72931951e9fed2",
+          "selected": false,
+          "shuffle_position": 33
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/GreensOpenProblems/51",
+          "identity_sha256": "084e7b2087331903b243299f88db91d0edda6e9279be1b1f386b8c7e162eccf6",
+          "selected": false,
+          "shuffle_position": 34
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/1093",
+          "identity_sha256": "bec41881b46c381f9eaa29be1c735c77a4e72d32c962585c590c3c78870c658f",
+          "selected": false,
+          "shuffle_position": 35
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/306",
+          "identity_sha256": "ad649e45bf5fcd7c4391a6e95ccddcd748ebc8f64c2667adc81f167ef61350fa",
+          "selected": false,
+          "shuffle_position": 36
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/126",
+          "identity_sha256": "428a4083d2bdeb34e7be6b2f2bdf185311aee5b4b98095b22faf30b3322eaf01",
+          "selected": false,
+          "shuffle_position": 37
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/1106",
+          "identity_sha256": "08bf7d17cb100b33f2d0287807fd92c0daf0e46d7e930c4e394382554bf2d13e",
+          "selected": false,
+          "shuffle_position": 38
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Arxiv/2209.04540/SpectralSetsAndWeakTiling",
+          "identity_sha256": "63dafdbc5eedf7a0bcbed05d068fdb2f3f0c4a68343c4d01437f5b5d20dab098",
+          "selected": false,
+          "shuffle_position": 39
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/313",
+          "identity_sha256": "c33ee64038eac33e6ba87192dfb5b753d5f8ddd942bd39a64038109f1bd56f0d",
+          "selected": false,
+          "shuffle_position": 40
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/GreensOpenProblems/32",
+          "identity_sha256": "4a1ab0d4c3d3978deda88a1b9ed953cd3bd34187153b3d7faad95409fca73c43",
+          "selected": false,
+          "shuffle_position": 41
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/1094",
+          "identity_sha256": "c346602efb723ab712794dfac80f0cc507d15d474e2bfe2066b273d8b2befbf0",
+          "selected": false,
+          "shuffle_position": 42
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/OpenQuantumProblems/35",
+          "identity_sha256": "e9a9ddb2e5e84c7fdf40e81c9cfaedd0e82568a7aada078a29a7e871ea61ad6e",
+          "selected": false,
+          "shuffle_position": 43
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Wikipedia/RudinsConjecture",
+          "identity_sha256": "0e1d326583f8348779ca723b2996b67291126f2106955afa2aaaedaba1f92c38",
+          "selected": false,
+          "shuffle_position": 44
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/1137",
+          "identity_sha256": "e7548119f639cbd4c5d4c3d724c7c216a7796c1aeee4af621cf7d886697ac590",
+          "selected": false,
+          "shuffle_position": 45
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Arxiv/2607.05739/TanArctanSum",
+          "identity_sha256": "33e27d1d5388bd73020b8d81eb9af779245733bf466a247d3274c0e9e153ab3d",
+          "selected": false,
+          "shuffle_position": 46
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/1062",
+          "identity_sha256": "2e22577e128365a5d4c63267393afe3b7d7877ec9f393fead616a7c13523c4fd",
+          "selected": false,
+          "shuffle_position": 47
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/1085",
+          "identity_sha256": "d51968b321bede027cfb8dd6120b2e51c6d47f86f0a49bfe292e9427078c4ddd",
+          "selected": false,
+          "shuffle_position": 48
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/774",
+          "identity_sha256": "4e22e625dfafb6cab6c0fd01b760b00a59e3b7a71fbb4b62febfdce6c0884a01",
+          "selected": false,
+          "shuffle_position": 49
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/120",
+          "identity_sha256": "ddadbbcdc707df1eec840c00a141e6d7264de20965ceee8264b45ab5a6b249c0",
+          "selected": false,
+          "shuffle_position": 50
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/967",
+          "identity_sha256": "a9e25304d842fa7c8dd8db3712dbb1ad612aec41d24d158487c61bfcb985a3cd",
+          "selected": false,
+          "shuffle_position": 51
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/886",
+          "identity_sha256": "e60dc315d063263e36b8a12e0e9dcd7d59ddc036d568f846250c5bfc09e3645d",
+          "selected": false,
+          "shuffle_position": 52
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/817",
+          "identity_sha256": "17157531fee822a9d259320c4e661c0b387bb35e86338a53157b04021e336d5e",
+          "selected": false,
+          "shuffle_position": 53
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/623",
+          "identity_sha256": "1fd0f79582a85b299ea0f202edd747a3ceb65a4558c44957c718dd27776d9716",
+          "selected": false,
+          "shuffle_position": 54
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/138",
+          "identity_sha256": "1e8eb07226ec1d330008ffc1beeb1c7f06e625aab2d8af09e75db4f575404990",
+          "selected": false,
+          "shuffle_position": 55
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Paper/PrimeTuples",
+          "identity_sha256": "3cbd82ab8b38bf905c77ff999e83af1ab03a937bbd919f80e68028a0125c93c5",
+          "selected": false,
+          "shuffle_position": 56
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Mathoverflow/347178",
+          "identity_sha256": "34438b8505660e8a814264dd1c519c21c4fd3b9db95f7dd2f221d6c943152d7d",
+          "selected": false,
+          "shuffle_position": 57
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/383",
+          "identity_sha256": "536ac05bc195e236f428d5ec0332fc034ffddefc54c6b1caeefdc46872c1b5f4",
+          "selected": false,
+          "shuffle_position": 58
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/241",
+          "identity_sha256": "9f720eb1078be32f6b6e58cfd4170e2b0bc648db6dea577da0d9220be0cf5b1d",
+          "selected": false,
+          "shuffle_position": 59
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/1054",
+          "identity_sha256": "3cbc37773fb88dc730196d9e7744b4be8830b828187cbcbd31e4d665958ce2f3",
+          "selected": false,
+          "shuffle_position": 60
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/1113",
+          "identity_sha256": "700d514e543089cbf577b5f087f7a70a2fafb03fe72604613df74a1da5a8dae1",
+          "selected": false,
+          "shuffle_position": 61
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Wikipedia/Schanuel",
+          "identity_sha256": "a020ca7a72271daf0672ce0e2387e05c36a55ee02e69dfe491d97f79e8af0986",
+          "selected": false,
+          "shuffle_position": 62
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/1192",
+          "identity_sha256": "7c32d80c7eab06430e9db1e5cb7892d289d0759ab317dfa062e82d19fa2e9bfd",
+          "selected": false,
+          "shuffle_position": 63
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Paper/StrongSensitivityConjecture",
+          "identity_sha256": "de628f6addcdb0b4e59f7c539eb824fda86b46dd96a53add38f15f22afed8553",
+          "selected": false,
+          "shuffle_position": 64
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/539",
+          "identity_sha256": "c3ea0588077341471688a4fc26751cf7ef5cf50e7a9ef1e3ec96d6cdcf9653bc",
+          "selected": false,
+          "shuffle_position": 65
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/17",
+          "identity_sha256": "7755a7b7c1a6c25572d01a08a8c15335ae0db25db210f80e0e066b0979c31103",
+          "selected": false,
+          "shuffle_position": 66
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/5",
+          "identity_sha256": "cd15b6d3e586fe955e832fa56c2cbe6b9fcdf0d8ce51fd4714f83af50a6179d2",
+          "selected": false,
+          "shuffle_position": 67
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/291",
+          "identity_sha256": "a7cedfe39266521005e4ee4fcfe0592b617c560d609a80f883343500a3cb820e",
+          "selected": false,
+          "shuffle_position": 68
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/535",
+          "identity_sha256": "bc5851aa4abc871ca00df5f6509bbdb8a6df8050c26fcb41cffb6ec7c519b244",
+          "selected": false,
+          "shuffle_position": 69
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Paper/VoronovskajaTypeFormula",
+          "identity_sha256": "5eb2a44758f697303f3b11c9b9e7947ed3903326da5248f0f990443ce532a961",
+          "selected": false,
+          "shuffle_position": 70
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/302",
+          "identity_sha256": "5afcc3f3876341006f4684a33e09ca14bbb423dc10c7393ad8442063ae2b91ca",
+          "selected": false,
+          "shuffle_position": 71
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/137",
+          "identity_sha256": "ec3d7eaf32048e80404241d627253f28330e835f801958437edde6e49c0f3e04",
+          "selected": false,
+          "shuffle_position": 72
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Wikipedia/Mandelbrot",
+          "identity_sha256": "e2e84dbdbf99f4251a828f98235d5541b6eab60d98002901a3c9de30b028b0da",
+          "selected": false,
+          "shuffle_position": 73
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/155",
+          "identity_sha256": "fd11247d66869f12fcb0a95c37815f4b2a646db109fb9b1156503426b5ace7e7",
+          "selected": false,
+          "shuffle_position": 74
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/633",
+          "identity_sha256": "57d2337e0a5c0aaa66e3d250eddaf8723967dc100154301fc3d5c4711a7345e0",
+          "selected": false,
+          "shuffle_position": 75
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/700",
+          "identity_sha256": "b7fa52c64db0f61968a90e23d7acd1c3c31f3bfedb90453e2391770f9f68f501",
+          "selected": false,
+          "shuffle_position": 76
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Paper/ClaudesCycles",
+          "identity_sha256": "09d2d9012cd900b4a426d2864e66016dbfd6e0f23aeb7a2d31fd561d0c094ed4",
+          "selected": false,
+          "shuffle_position": 77
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/44",
+          "identity_sha256": "422b265f377b1259975ea23964df01cca68438b0d2f09ba43856b5baed179969",
+          "selected": false,
+          "shuffle_position": 78
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/1072",
+          "identity_sha256": "655eb4cddd16d1f9144bcef29038a1f719107bfaf76200eff62b1fef37fb7959",
+          "selected": false,
+          "shuffle_position": 79
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/457",
+          "identity_sha256": "ab55fce7e74e946ac00de9c9bf6427d48fa45f52380f820c74c1a9b44bfa3a9e",
+          "selected": false,
+          "shuffle_position": 80
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/695",
+          "identity_sha256": "f448e60d3999eb39260cf112dd0c36b164b8330d3bf7c5912e270bfb65424745",
+          "selected": false,
+          "shuffle_position": 81
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/400",
+          "identity_sha256": "28de8e27761dc3e9dc32a0e56c4356e17f89625ca404977bdba94904e87d6138",
+          "selected": false,
+          "shuffle_position": 82
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/770",
+          "identity_sha256": "80b12a97eab8cc062739059bcb515b582c0adf11ef5279880729d6b220dacc5b",
+          "selected": false,
+          "shuffle_position": 83
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/143",
+          "identity_sha256": "cac0f541a1009f8fe71f3e17232e50243baa18debefeaa052bbf1c98a66c3b6a",
+          "selected": false,
+          "shuffle_position": 84
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/101",
+          "identity_sha256": "c60b883b2402e104331fc958f8f9a441c5b01bd42fda10a7126c6e4a1c906af9",
+          "selected": false,
+          "shuffle_position": 85
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/536",
+          "identity_sha256": "694817488048c87a40a2462c94ffaa150e0c2f0a92513dbf9554df8cab1f27f7",
+          "selected": false,
+          "shuffle_position": 86
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/757",
+          "identity_sha256": "c0b2c5516f5cfb31322fd29365d7cc5592ce3fde169b61512bd63768589d7416",
+          "selected": false,
+          "shuffle_position": 87
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Wikipedia/VaughtConjecture",
+          "identity_sha256": "02dec40708cbf718524194e47580f3d6cd3c54038e8466c4f0a9457960f14033",
+          "selected": false,
+          "shuffle_position": 88
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/189",
+          "identity_sha256": "0e5bdbafd16c50e3b0da57b4df4a9ca8aef63ae5cc2f446df39704868507973f",
+          "selected": false,
+          "shuffle_position": 89
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Arxiv/2607.05349/MicroscopicWeighting",
+          "identity_sha256": "4fe189fd2f561f215e018b97dd0e1d3b64ed33ece336f07201c520ada0d038dc",
+          "selected": false,
+          "shuffle_position": 90
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/1002",
+          "identity_sha256": "a33a293c7676004102ecaecfc847344e10af139f4de54806ea7d017e555422ae",
+          "selected": false,
+          "shuffle_position": 91
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/28",
+          "identity_sha256": "fd428a407759ce71d83bfc66d9faa26ed79a8ae330349e0bdce56f81f30b930e",
+          "selected": false,
+          "shuffle_position": 92
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/406",
+          "identity_sha256": "f127c3cd84a6ffc123439153d7c59dd2876d9595c777ba142811be3301fe7789",
+          "selected": false,
+          "shuffle_position": 93
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/516",
+          "identity_sha256": "15e9277e356a261c74bede964790244a4d9c06dc238b284e054478a6a9518d51",
+          "selected": false,
+          "shuffle_position": 94
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/377",
+          "identity_sha256": "c22c972e04840eb8873e1947fdf7d6191c1253a3aaa3c8b560bb1bdb32e829cb",
+          "selected": false,
+          "shuffle_position": 95
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/153",
+          "identity_sha256": "f12f0e906851ec86df9c58bb3e05ed0f3ffe4b4415c5024bbad4929d6114acc1",
+          "selected": false,
+          "shuffle_position": 96
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/349",
+          "identity_sha256": "3343e6d2aacab2d8c561cb4f95ec80f2606af79459805638f7b3eca32066ece3",
+          "selected": false,
+          "shuffle_position": 97
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/13",
+          "identity_sha256": "6b8c39a73395e0036f0beeb035fd0e562539dc2ccbbf465c587f362eaa707ea3",
+          "selected": false,
+          "shuffle_position": 98
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/1199",
+          "identity_sha256": "11d0d81287522dcc471ec1746a4a3ce395e31c707cc0d51411996e00bc61c238",
+          "selected": false,
+          "shuffle_position": 99
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Paper/ZagierMZV",
+          "identity_sha256": "f6c009431ef68e0cd0a30e1793db08e01e0f3a69a8f8b5b6f0012fa15e8e8bc8",
+          "selected": false,
+          "shuffle_position": 100
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/99",
+          "identity_sha256": "a49b1aee6a6d9eb59de0debdedfdc413553fdb33b1c4b162218b04fe6a706ccf",
+          "selected": false,
+          "shuffle_position": 101
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/GreensOpenProblems/37",
+          "identity_sha256": "b331c0b4943259b75de265acaa94c5893be3f9ddd7dd9bfe8ae04bfe79a69536",
+          "selected": false,
+          "shuffle_position": 102
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/602",
+          "identity_sha256": "5d657618d3f8a388cf10a6628f835c42d9d7ce59621ce2cb2d4b27f2a12201ea",
+          "selected": false,
+          "shuffle_position": 103
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Mathoverflow/21003",
+          "identity_sha256": "d687298f123eb0869849f91d00bfc79f857e8144668238cce050043c338a3655",
+          "selected": false,
+          "shuffle_position": 104
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/689",
+          "identity_sha256": "3a502de8d36581455308b95eef113db4311b02e3b2dbe017f8b1889c9c328879",
+          "selected": false,
+          "shuffle_position": 105
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/36",
+          "identity_sha256": "b838b24514153a909e0ebd1543b0ab254ec8f58ad8917787068e2aed3f48d2f1",
+          "selected": false,
+          "shuffle_position": 106
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/450",
+          "identity_sha256": "1b7c901d1294081066be4fbda999568aff2577e89933ca6450c6bc90bc7a66ef",
+          "selected": false,
+          "shuffle_position": 107
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/323",
+          "identity_sha256": "f2278a2d51f78fd43feef1b200ba4d1285637f4c70a54ce36552d6d87ee1fd16",
+          "selected": false,
+          "shuffle_position": 108
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/1201",
+          "identity_sha256": "84a0d7fd0e467d6e72d9661404606a7b74c58208985d23a6673eca2c3e625603",
+          "selected": false,
+          "shuffle_position": 109
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/1",
+          "identity_sha256": "a2d039eb536ee19e1cc13d14975976d88b7f80ec9025ba6bb4168029daebf72a",
+          "selected": false,
+          "shuffle_position": 110
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/1084",
+          "identity_sha256": "94ec1c1f123c6292af85e9619d97a563f5d3124bea3b81c744ad7e7ea099ea21",
+          "selected": false,
+          "shuffle_position": 111
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/GreensOpenProblems/46",
+          "identity_sha256": "62b8673e97ff34bdf9a27d9484f005bb59d38b95559706f8095a7f6e6c3231cc",
+          "selected": false,
+          "shuffle_position": 112
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/10",
+          "identity_sha256": "a3f3195b9c398aaf2fa12ee69cba8662a139589d8451b1db492f3f3ab1dde248",
+          "selected": false,
+          "shuffle_position": 113
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/1145",
+          "identity_sha256": "b2e8e425c839611177a842aa8523862e28fc6427d13afe70c2aa05d07f2a450e",
+          "selected": false,
+          "shuffle_position": 114
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/416",
+          "identity_sha256": "fbb9ffd1750752c8bbf9923acd90877d3400c09e4a2b2ec9a7eaad9ebadace3c",
+          "selected": false,
+          "shuffle_position": 115
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/30",
+          "identity_sha256": "4486eefa7db516efb4c96a185c9c54f037c657f576fe3e674376500af2ea6346",
+          "selected": false,
+          "shuffle_position": 116
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/1049",
+          "identity_sha256": "e0af3afda57fa2902bdebd838633dcea4544e581e4e82a277a704f82f8445612",
+          "selected": false,
+          "shuffle_position": 117
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/723",
+          "identity_sha256": "c4d65b552191ac304169bcb52e09c88244a22c5e0942ee1b4a86c1e7a79c5c3b",
+          "selected": false,
+          "shuffle_position": 118
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/789",
+          "identity_sha256": "79f522318ece7d750631e963fffd9cb212a4df1f4e4d08fd36ec191c3baa6beb",
+          "selected": false,
+          "shuffle_position": 119
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/726",
+          "identity_sha256": "f60a01f814c1806f1ae217e48bec6817d7f0f4fdedd776f2b4cff6f380b27301",
+          "selected": false,
+          "shuffle_position": 120
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/289",
+          "identity_sha256": "8bb938714c01ac24dd52c2e023d33f27c2c18918afd76faf6876061628b54f44",
+          "selected": false,
+          "shuffle_position": 121
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Wikipedia/MagicSquares",
+          "identity_sha256": "82f7d7d2e22a72d4741c528d8ebb8b548c415001ee2b8c104c0562e0b6dfacff",
+          "selected": false,
+          "shuffle_position": 122
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/701",
+          "identity_sha256": "dff5a4b22c26ea59d1005bf52f14cb4184ad07f10f2c0e9dd9ac24410ce9d3d9",
+          "selected": false,
+          "shuffle_position": 123
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/340",
+          "identity_sha256": "2366e05e0e7398e12987a2957b995362d36c39a2b7ea7109140db2685d7f9109",
+          "selected": false,
+          "shuffle_position": 124
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/288",
+          "identity_sha256": "1392bfbf6b780ec08a432529c77e24ef96c04d6b3f4984f715b7f79cb4df2b9c",
+          "selected": false,
+          "shuffle_position": 125
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Arxiv/0912.2382/CurlingNumberConjecture",
+          "identity_sha256": "8299b75449ee76b4e0f4b8a20a8f5e69aa8268a007065fad02ea980e90ec5e4b",
+          "selected": false,
+          "shuffle_position": 126
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/172",
+          "identity_sha256": "98b47fe8392c6dafd95389735f6c5dd2832d9939155326194722cb8463b64ef1",
+          "selected": false,
+          "shuffle_position": 127
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/769",
+          "identity_sha256": "bd0a881ce7d264917df9032ca07904f1f3a302e32f9380ade51bf3ca9888b34c",
+          "selected": false,
+          "shuffle_position": 128
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/624",
+          "identity_sha256": "299402c67d77758503a2b2a80e3a263eaaf8bd49e38e5582b1e4ed8b0dc7eef0",
+          "selected": false,
+          "shuffle_position": 129
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/GreensOpenProblems/19",
+          "identity_sha256": "783b23abd1ad55e0e6cfd0e08d72e683f5b1c99787aedb87f7f66762abfc93bc",
+          "selected": false,
+          "shuffle_position": 130
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Wikipedia/RegularPrimes",
+          "identity_sha256": "af70aa656c8f7ff66350ba6ca40c9cc59862b971d6fb37b5037f73eb2015006e",
+          "selected": false,
+          "shuffle_position": 131
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/GreensOpenProblems/52",
+          "identity_sha256": "e5f8e1317ee602d563a2751f3a6011d71630c8d495d5fedabd2460bd284ac01e",
+          "selected": false,
+          "shuffle_position": 132
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/1063",
+          "identity_sha256": "652a42a8ea9e13e3081d040a11a935138c543f410df8990e35bd952e6650a514",
+          "selected": false,
+          "shuffle_position": 133
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/GreensOpenProblems/25",
+          "identity_sha256": "2d4d5d963fbe858c1c90fac351a92bca0443f0dce2ef654d9c64ea72fb9c6d05",
+          "selected": false,
+          "shuffle_position": 134
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/96",
+          "identity_sha256": "592edc98a9b99cfc0840a433f419a00091c05e4ad4aab7365bedc2b03a59df43",
+          "selected": false,
+          "shuffle_position": 135
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/971",
+          "identity_sha256": "1373c38feabf9c1020417d421632515364e413cfe0e60e91fed8b07427f8ff59",
+          "selected": false,
+          "shuffle_position": 136
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/357",
+          "identity_sha256": "f46a750cfe9d4fe2d8c6b6f1af61b30ba9bfbe81457760c27390ea321a103e01",
+          "selected": false,
+          "shuffle_position": 137
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/1041",
+          "identity_sha256": "d3ebc962824d39c66d66fc60d02733183cfad71dbd855024f3703ac607dfd496",
+          "selected": false,
+          "shuffle_position": 138
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/660",
+          "identity_sha256": "075126e76aaef32f4e983633089ac565104c33c42abb3030b288db0b85623f15",
+          "selected": false,
+          "shuffle_position": 139
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/973",
+          "identity_sha256": "6c432e57b02b83bcaa54b3c5246619f89b0b57727cfdd559bbbaeb6bef554c0c",
+          "selected": false,
+          "shuffle_position": 140
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/786",
+          "identity_sha256": "99e6211710ac5c90fb277d6cdd61adb57d82806a4d498be2f3ecd73aaa6ae102",
+          "selected": false,
+          "shuffle_position": 141
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/889",
+          "identity_sha256": "0464bee2a9c8cf054a53119be33a0e096df66b3ba088b34dd5d986e7252f341a",
+          "selected": false,
+          "shuffle_position": 142
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/932",
+          "identity_sha256": "b35b583f206e6a97cc81abbabcb987e8b5516f6b7ec58c304af4034a7b8027f6",
+          "selected": false,
+          "shuffle_position": 143
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Wikipedia/PompeiuProblem",
+          "identity_sha256": "11cf271ba95cf4966917de10f1a114363af267e4588b2ba59b3ed6ef9a9c8055",
+          "selected": false,
+          "shuffle_position": 144
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/1059",
+          "identity_sha256": "bc6399685a1c98ac87eeba11dc517d31e170f9acddf3eda3210270a97a6f5fb2",
+          "selected": false,
+          "shuffle_position": 145
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/982",
+          "identity_sha256": "428c1e18b3eb33310c514a1be5ea81a6e33d1f8a623a7579bcbce4bc85967577",
+          "selected": false,
+          "shuffle_position": 146
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/GreensOpenProblems/44",
+          "identity_sha256": "1f940a2b2140cf9719938c68e12b26caefb3554face38f56540a4b65437efe87",
+          "selected": false,
+          "shuffle_position": 147
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/538",
+          "identity_sha256": "3993cedfc5e9c3a7b2ec32f80761ddd0e89a98b25e1fbccdfe23e05f9fd88e04",
+          "selected": false,
+          "shuffle_position": 148
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/33",
+          "identity_sha256": "55ea70f12fb4572d652d58fcbf2df23dd7bf6c199a2e4a81fc83fecc8df4df76",
+          "selected": false,
+          "shuffle_position": 149
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Mathoverflow/10799",
+          "identity_sha256": "61c9b1ce9bd5dbd89bab9aea9bedeaa04f294fd1c7b387c5379e32ea34cb1cb0",
+          "selected": false,
+          "shuffle_position": 150
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/454",
+          "identity_sha256": "e17de584306003a852c87396277a125f80c91c04f651a5f17036a52975cc347c",
+          "selected": false,
+          "shuffle_position": 151
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/510",
+          "identity_sha256": "aa2ea9613dabd0f532e8695e0b08b69c338d82e114dc54981190741ff4c881fd",
+          "selected": false,
+          "shuffle_position": 152
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/653",
+          "identity_sha256": "06dcc67ae5fa33852670e24c13c19cf254bc7b421e29f5907bc8ed45db39c6e7",
+          "selected": false,
+          "shuffle_position": 153
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/1101",
+          "identity_sha256": "e7531981da622b309625de1575ab4c7fde8671fb8ebe87d241bcf5d697008619",
+          "selected": false,
+          "shuffle_position": 154
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/GreensOpenProblems/41",
+          "identity_sha256": "2237579c13d3e293423f8aa3a37ac6f1b3b4917bdfe4303177116e1160750c65",
+          "selected": false,
+          "shuffle_position": 155
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/GreensOpenProblems/26",
+          "identity_sha256": "c03af7ad5ae5db7ba86060c4fc2ae574fb50b3d4f7572af1141f1d54b3616894",
+          "selected": false,
+          "shuffle_position": 156
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Mathoverflow/235893",
+          "identity_sha256": "30dea5102b7e6dc2a0e4aa5c2c178581c90f5367865542e354c028350424e58a",
+          "selected": false,
+          "shuffle_position": 157
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/1056",
+          "identity_sha256": "b7008a93120930f568b0f6d4a459165e8ae44389efa81320791876141220c6e4",
+          "selected": false,
+          "shuffle_position": 158
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Wikipedia/EllipticCurveRank",
+          "identity_sha256": "b14787fac2e1cef2a1842de1ccdd61b2513cf5979adf9919d110a178d1b9f68e",
+          "selected": false,
+          "shuffle_position": 159
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/GreensOpenProblems/38",
+          "identity_sha256": "e7ff8211874a0f9a976f939dc845e02121a1bdacdc516cf22d2c58d502853f24",
+          "selected": false,
+          "shuffle_position": 160
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/52",
+          "identity_sha256": "d06d882693ca5472135fc24bd90ec89e228423139fee643419be8119127ebfac",
+          "selected": false,
+          "shuffle_position": 161
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Other/BeaverMathOlympiad",
+          "identity_sha256": "763289d394c866dfa6ac75adbf3d0e6a24030263fca60d1af4103de31b3f0674",
+          "selected": false,
+          "shuffle_position": 162
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/LittProblems/1",
+          "identity_sha256": "ee3ce6ab69636daed876da8f368efb10af4b7ecea9f661cc1032ffa09757448f",
+          "selected": false,
+          "shuffle_position": 163
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Wikipedia/KomlosConjecture",
+          "identity_sha256": "e52feea50d05b15ba9560fdd59a20d7f7ab14f0787112113d7754af35a0583a1",
+          "selected": false,
+          "shuffle_position": 164
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/GreensOpenProblems/62",
+          "identity_sha256": "960b3f534fb9e06c05d8c45b59ce65bfd97cfbdceb7c7f534e1c418595212de6",
+          "selected": false,
+          "shuffle_position": 165
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Wikipedia/BeckFialaConjecture",
+          "identity_sha256": "4aba392db94b2eac8a49ec62eeb11dcf5dcc28e6339ef937894f507cb27ccfbc",
+          "selected": false,
+          "shuffle_position": 166
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/156",
+          "identity_sha256": "f71e51fc52fc8d49f9207ed2f24b47ebf8e5f2ac185a98936d45a7c494dcc9ed",
+          "selected": false,
+          "shuffle_position": 167
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/677",
+          "identity_sha256": "f390f4cb34aab63d89c2f884f7c32d93b712af5d903a22cfd7ad038bf9b322b3",
+          "selected": false,
+          "shuffle_position": 168
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/107",
+          "identity_sha256": "44531eb74da115cbc300146c6b942e5ddb951cd02ad284d66479358195666124",
+          "selected": false,
+          "shuffle_position": 169
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/213",
+          "identity_sha256": "a670ccc04edea753b05a776a042703bcbd04218bb16fce20255b06b0a403c903",
+          "selected": false,
+          "shuffle_position": 170
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/168",
+          "identity_sha256": "13f1d2e69adb11ea5bc26a768f4e456f1a7e9353cbbdca10025f63232c6180c8",
+          "selected": false,
+          "shuffle_position": 171
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/996",
+          "identity_sha256": "5acca8bb7d553e00c05e8c543228a360f43b50f6009ee07bb1615d9e701808dc",
+          "selected": false,
+          "shuffle_position": 172
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/337",
+          "identity_sha256": "abcafd321e06681c09cb9d9c8e618ced749278da72a02d2017289e806ea96a21",
+          "selected": false,
+          "shuffle_position": 173
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/287",
+          "identity_sha256": "7e01b55ac1e7949ab3c7f73a56335986f3b3884512b97f4d7a0ca93592c278ba",
+          "selected": false,
+          "shuffle_position": 174
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/979",
+          "identity_sha256": "c7768f0a84e3fc8b14aaefb63a0dff029a8f826eab15f597b37fef8cc543c350",
+          "selected": false,
+          "shuffle_position": 175
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/699",
+          "identity_sha256": "865f89d55d5f270c068c4c3bff4919a69532b127590b4ed6c7a87ddc65d18e3c",
+          "selected": false,
+          "shuffle_position": 176
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/949",
+          "identity_sha256": "215626962caffac8a324b991fb0799a15b90911c7d30fa8fa2ea4736eb45c80c",
+          "selected": false,
+          "shuffle_position": 177
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/94",
+          "identity_sha256": "98c626a2c0e1e26e0319c92761dca4d24e6ae2b1ec4bc3b952004d00b7d39646",
+          "selected": false,
+          "shuffle_position": 178
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/1052",
+          "identity_sha256": "ae1f6e60e2e6806ef5af5faf46e86288264300c25dfc68e66ae682d6940997f9",
+          "selected": false,
+          "shuffle_position": 179
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/830",
+          "identity_sha256": "b0443ffe979cbbebd9f007c085386b810d33f50cfa1a3d9eb38b8a2b17ec841b",
+          "selected": false,
+          "shuffle_position": 180
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Wikipedia/Koethe",
+          "identity_sha256": "4cf8d133b383f750d0e85f0f2583977065e78811b0208bee2c427ff1c5cb5c75",
+          "selected": false,
+          "shuffle_position": 181
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/1108",
+          "identity_sha256": "9ceb2157cfe2cb1d733b223e3ca4e401c797a041d92f06075cde916efb77e346",
+          "selected": false,
+          "shuffle_position": 182
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/GreensOpenProblems/36",
+          "identity_sha256": "abdcadde2bf520d5368e447b60ffcb4523eb59cd6f85dbd7e44fc78c65499c47",
+          "selected": false,
+          "shuffle_position": 183
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/145",
+          "identity_sha256": "7be47e6a5e2cc6440983ec01953adc49c4fdc43b249b31047225b4f05e05764c",
+          "selected": false,
+          "shuffle_position": 184
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Mathoverflow/34145",
+          "identity_sha256": "a3df4f034d86f00ec555771f5e5267e9338494684c5c682d342b1ba516a01803",
+          "selected": false,
+          "shuffle_position": 185
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/269",
+          "identity_sha256": "3bb3db593a203a910d22c2f2d02b30b8f1e7af53bd3a533c8a1d210b831a0cba",
+          "selected": false,
+          "shuffle_position": 186
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/893",
+          "identity_sha256": "da03fe9412ffac214f46b05d987e381378ec0d6a68404ca17c24844a2885fd75",
+          "selected": false,
+          "shuffle_position": 187
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/GreensOpenProblems/21",
+          "identity_sha256": "47233995f48c986227f2ecddeedad87b85b90672e8bd86aaf70a2a6ece668d3e",
+          "selected": false,
+          "shuffle_position": 188
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/238",
+          "identity_sha256": "fad5d81f272b957530b4d04466e812366e8cdd48d66a6e68f7ac9fc5775c51be",
+          "selected": false,
+          "shuffle_position": 189
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/98",
+          "identity_sha256": "2c1ee111342aa1e945f5d75508d5afe61831fabc7c993053a04bcc00750d0e32",
+          "selected": false,
+          "shuffle_position": 190
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/GreensOpenProblems/12",
+          "identity_sha256": "e07da8709184c36a5ed5a70ce093ef59cd6f4a294327ff69a4a6c79b6862f66f",
+          "selected": false,
+          "shuffle_position": 191
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/779",
+          "identity_sha256": "67c47ab2b888c2b23c5ca1c354fbfe83093b6e5a90a93b8cbca98c7fdaf8f1ba",
+          "selected": false,
+          "shuffle_position": 192
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/1109",
+          "identity_sha256": "4827a0f202126d18b1a11ddcbd36a094b1aa819d65f2afcd11a46f7d27b9422e",
+          "selected": false,
+          "shuffle_position": 193
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/507",
+          "identity_sha256": "79cbbff93a9d76ab44678ade78ae7648504aebdfac4641dfee7ab8f8cc9866b5",
+          "selected": false,
+          "shuffle_position": 194
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/124",
+          "identity_sha256": "8a2af8db563240f86ec31058f4dcecc89f70321aa2ce5b4a2932f826923a19ed",
+          "selected": false,
+          "shuffle_position": 195
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/317",
+          "identity_sha256": "f0dbe10d09d0b3aaef692f28ff2f5f4454c06a71bcdbbe66d660fccbb0e8e037",
+          "selected": false,
+          "shuffle_position": 196
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/HilbertProblems/5",
+          "identity_sha256": "53707abb4327dddaae05e7d3995cde92b28da6c229f2e9f524f391e00695ed6b",
+          "selected": false,
+          "shuffle_position": 197
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Wikipedia/PierceBirkhoff",
+          "identity_sha256": "95a47b13cab5d30e48f5701fb657bd489684393f8484417e3aa7241718badb5e",
+          "selected": false,
+          "shuffle_position": 198
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/509",
+          "identity_sha256": "9b578d957ff5072fb913961a60782fe178e504751e1823ee8a92e874e633109b",
+          "selected": false,
+          "shuffle_position": 199
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Wikipedia/conjecture_1_3_to_2_3",
+          "identity_sha256": "a56138ba2b58ecf792b1aa5ffaf302754c354dcd26f370c3aceff9f478cbb3c2",
+          "selected": false,
+          "shuffle_position": 200
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Mathoverflow/434111",
+          "identity_sha256": "b814b8ab6a64e8a5b96fc8afd69fb559e789f0cb627820a2cd3b8a985c44af75",
+          "selected": false,
+          "shuffle_position": 201
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/942",
+          "identity_sha256": "e4bf5fae5f0216852d62b8ce6a1a9dadcafc6f84d7131de14479088374eb3fac",
+          "selected": false,
+          "shuffle_position": 202
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/GreensOpenProblems/60",
+          "identity_sha256": "1d1b25a6530c02b3341fe3f66cf3c03b8e116830be90e864e6367f84af369814",
+          "selected": false,
+          "shuffle_position": 203
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/GreensOpenProblems/50",
+          "identity_sha256": "1f8ff41b9c152b4e0aa780f3ce0fae76aee0652c8193728ab534a1838dd524dd",
+          "selected": false,
+          "shuffle_position": 204
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/GreensOpenProblems/16",
+          "identity_sha256": "340a5b00033f545cb9ff6e7d83f993163f84470de24c183fe333820c841f7c06",
+          "selected": false,
+          "shuffle_position": 205
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/389",
+          "identity_sha256": "396dbb39d2ce079ac693ff1e6f953384683100416ac7589c641f8f054633574c",
+          "selected": false,
+          "shuffle_position": 206
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/950",
+          "identity_sha256": "6e6b0a94241a020931d3cf7d45e236cd71c064152df84cf43bc16da398021c40",
+          "selected": false,
+          "shuffle_position": 207
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/959",
+          "identity_sha256": "117b30ee190baf35f122f698efcc36f08c14b7cc2debc3468cb507e711f80661",
+          "selected": false,
+          "shuffle_position": 208
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/GreensOpenProblems/58",
+          "identity_sha256": "2cc0ea47d0094765efcce4798513f2134b011fdb08712953bad028178267be9d",
+          "selected": false,
+          "shuffle_position": 209
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/1044",
+          "identity_sha256": "9811d09833a0f2b66a7010017b0c84285b034568c28c7623db6745170576cb4c",
+          "selected": false,
+          "shuffle_position": 210
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/1110",
+          "identity_sha256": "7506fa8ee4c1b48f44fe814f47ca2ab5514634092ceaf0683ad44808d0eedfe5",
+          "selected": false,
+          "shuffle_position": 211
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/GreensOpenProblems/9",
+          "identity_sha256": "834b4d6791c8bb3614d4ec9de7e7dfc198ec8d3e383bb7c19ef47b87ed0c6e4a",
+          "selected": false,
+          "shuffle_position": 212
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/1133",
+          "identity_sha256": "39e954689c32d9dff85f7c7955d8882a2da140f721f90a299adee0e576494658",
+          "selected": false,
+          "shuffle_position": 213
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Mathoverflow/339137",
+          "identity_sha256": "327730a99d4c0eed57479c39a25895daa4e070c901067ac9cf00d1433ead63c2",
+          "selected": false,
+          "shuffle_position": 214
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/361",
+          "identity_sha256": "cebea122dcc13e696bf2fcfd9ace2dca24a844d1d4231b1ca53c5e26c49f4f20",
+          "selected": false,
+          "shuffle_position": 215
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/865",
+          "identity_sha256": "adcb26302f522a8001d669351b90158cc59bf233ed9d8aa240ee91f181b073d3",
+          "selected": false,
+          "shuffle_position": 216
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/OEIS/357513",
+          "identity_sha256": "2d39103487b09cdc794f863ac260d7a3f6bff074dc5a7201a56774086ec13bc4",
+          "selected": false,
+          "shuffle_position": 217
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/329",
+          "identity_sha256": "4b85ef48d195141d22c283477b054a801e222cf7e90752c47183b73201274eaf",
+          "selected": false,
+          "shuffle_position": 218
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/940",
+          "identity_sha256": "005248db7a6d693cf2306505d8a24da41ada8d0ab0e72b151ae5528824489129",
+          "selected": false,
+          "shuffle_position": 219
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Wikipedia/Goormaghtigh",
+          "identity_sha256": "7749cf36cb097d9b2dc3172883e2b887af7d74a275f861a162af8315d3dd1129",
+          "selected": false,
+          "shuffle_position": 220
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/938",
+          "identity_sha256": "8da74a3e39fe246a5c1098bb5c2af9539d0fbe6bff1d2bc656164849c8d81bae",
+          "selected": false,
+          "shuffle_position": 221
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/359",
+          "identity_sha256": "9584c4f78d4413fb435b3d4d2248fad71fc217343aae1f73c853cce92a9b011a",
+          "selected": false,
+          "shuffle_position": 222
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Arxiv/math.0110202/BanachMazurRotation",
+          "identity_sha256": "c8c2c3a23d9dc876ebf4626a727cff4d1b8a311ff511680059e675dcae1fd847",
+          "selected": false,
+          "shuffle_position": 223
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/312",
+          "identity_sha256": "4358e0e3a6137dff8756207462db1635157ac10d5e5875134cb9027c7532dae5",
+          "selected": false,
+          "shuffle_position": 224
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/501",
+          "identity_sha256": "04189a383fc640920cb0f06d3cf18dbde256992fd8a1a80f5980dd9f7fb58736",
+          "selected": false,
+          "shuffle_position": 225
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Wikipedia/BatemanHornConjecture",
+          "identity_sha256": "e2e59bd1b7396d1eb9810522f2afb07092ee4f3582b99c99a606215f7de0c093",
+          "selected": false,
+          "shuffle_position": 226
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Arxiv/1601.03081/UniqueCrystalComponents",
+          "identity_sha256": "248b86e64c3b5ce4852325805e2deba3549bef870a2ddc7567ffca05ce410ce0",
+          "selected": false,
+          "shuffle_position": 227
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/105",
+          "identity_sha256": "d8aa42310c19052c79bf9a807d61355c78a37914b2bddb2e97d05d7b2aba6921",
+          "selected": false,
+          "shuffle_position": 228
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/18",
+          "identity_sha256": "ad7552a7d4f532041b3adcc46857e00a00432275c5b23146e08af8dc06432338",
+          "selected": false,
+          "shuffle_position": 229
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/341",
+          "identity_sha256": "ec8eedf0a951b776cff83d55c32ccd676eb5a4c5ec31edebdb2027e052520bcb",
+          "selected": false,
+          "shuffle_position": 230
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/32",
+          "identity_sha256": "265481f1df84271050fbcdbc0c638dde7847890003b94812204446686daa04e4",
+          "selected": false,
+          "shuffle_position": 231
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/358",
+          "identity_sha256": "ecce0a77f345a75ac59e8251914f2554149d41720d7f08bc0edb2f1bd42c3af2",
+          "selected": false,
+          "shuffle_position": 232
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/421",
+          "identity_sha256": "2c90701162aa00a06fd89a5e725190b23e41090436afd2e6863fc34de4a7f5e8",
+          "selected": false,
+          "shuffle_position": 233
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/913",
+          "identity_sha256": "0b5d5e063f47b6f227b7abc442ca163f8108f0b50c24442ab51fe049986840cb",
+          "selected": false,
+          "shuffle_position": 234
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Wikipedia/BingBorsuk",
+          "identity_sha256": "58bd5bf4a8294dd70918ec00d42f5790f03c6ba38bdb8b29dd8a03a1e0dbe2d8",
+          "selected": false,
+          "shuffle_position": 235
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/488",
+          "identity_sha256": "b2ab4067072337fa3dd3d49387311c0b21ddf89250a977bdc09351c6120765fa",
+          "selected": false,
+          "shuffle_position": 236
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Paper/Kurepa",
+          "identity_sha256": "0104c6a9576263fb17ad91db803d117b61f75369c4cddb6e6b78f845bfa17698",
+          "selected": false,
+          "shuffle_position": 237
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/458",
+          "identity_sha256": "cd8ae268e370088e2c4f020de0386605ebcb1a7e9e64ff6ecc07bd9fbeef0fe1",
+          "selected": false,
+          "shuffle_position": 238
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Mathoverflow/1973",
+          "identity_sha256": "bf994974c1189b6ac7e592ec67ee991ebeae22fa7e98fb1cd86e425ea1caa7fc",
+          "selected": false,
+          "shuffle_position": 239
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/Wikipedia/InvariantSubspaceProblem",
+          "identity_sha256": "06c9b5a3cc7b68b0b447dbf518c72017e31031239afbbfa4966bbcb033d5ebfd",
+          "selected": false,
+          "shuffle_position": 240
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/233",
+          "identity_sha256": "c30fca6da2696486ae6d076167acd8cdcccd8621ae2ae81f08ef557d11c83d23",
+          "selected": false,
+          "shuffle_position": 241
+        },
+        {
+          "cluster_id": "fc-module:FormalConjectures/ErdosProblems/375",
+          "identity_sha256": "fabf45dc5c7de91bcbfdf2bdc43a4df11eb464f7ca27baaa4108450a32ac3976",
+          "selected": false,
+          "shuffle_position": 242
+        }
+      ],
+      "stratum": "FINITE_COMBINATORIAL"
+    }
+  ]
+}

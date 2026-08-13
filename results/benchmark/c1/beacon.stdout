@@ -1,0 +1,5 @@
+
+> c5-k4-benchmark-drand-verifier@1.0.0 fetch
+> node fetch-and-verify.mjs /Users/kuber.mehta/Projects/c5-k4/results/benchmark/c1/drand-round-6373886.json
+
+ecea8fb2b10bdd632da791d1985e9235a2a2f87969ac38d7b63a310ddd8aa46d

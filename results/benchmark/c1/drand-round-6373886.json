@@ -1,0 +1,50 @@
+{
+  "schema_version": "c5k4-drand-randomness-artifact-1",
+  "retrieval": {
+    "source": "League of Entropy drand legacy mainnet",
+    "retrieved_at_utc": "2026-08-13T19:00:51.216Z",
+    "relays": [
+      {
+        "url": "https://api.drand.sh",
+        "info_raw": "{\"public_key\":\"868f005eb8e6e4ca0a47c8a77ceaa5309a47978a7c71bc5cce96366b5d7a569937c529eeda66c7293784a9402801af31\",\"period\":30,\"genesis_time\":1595431050,\"hash\":\"8990e7a9aaed2ffed73dbd7092123d6f289930540d7651336225dc172e51b2ce\",\"groupHash\":\"176f93498eac9ca337150b46d21dd58673ea4e3581185f869672e59fa4cb390a\",\"schemeID\":\"pedersen-bls-chained\",\"metadata\":{\"beaconID\":\"default\"}}",
+        "info_raw_sha256": "fcf35be5d74f73c785df566af0914881d18a5c5c9c875d530407295620cbd927",
+        "beacon_raw": "{\"round\":6373886,\"randomness\":\"ecea8fb2b10bdd632da791d1985e9235a2a2f87969ac38d7b63a310ddd8aa46d\",\"signature\":\"a737609041f2764f473ca19124037718792685a52b227e8519c6f7fa778a5e1c06010fbcf5deb53b1cd2aaa081688a8f15a7db040634320a4c20516967f71888ac403a802776cf2e571e983889bcda428e68bc908fe5b5d012109761b20fd80f\",\"previous_signature\":\"add55569f997473e624624fd0ea2c40f052ecc8cb06d9ac6e3288eef8a11ee40ed009294216a1b5bdcc5313222a685941659dc17a1c223e7d00428c5dfe4d386052efae34b17e7cfda1ec07c846ad1ce517d84990ab122266ef3d1d0aa3828d3\"}",
+        "beacon_raw_sha256": "d7a7c7fe5cab69f1db76a231d36ec742a57bb98cf4c348e4723391e0a3b06883"
+      },
+      {
+        "url": "https://api2.drand.sh",
+        "info_raw": "{\"public_key\":\"868f005eb8e6e4ca0a47c8a77ceaa5309a47978a7c71bc5cce96366b5d7a569937c529eeda66c7293784a9402801af31\",\"period\":30,\"genesis_time\":1595431050,\"hash\":\"8990e7a9aaed2ffed73dbd7092123d6f289930540d7651336225dc172e51b2ce\",\"groupHash\":\"176f93498eac9ca337150b46d21dd58673ea4e3581185f869672e59fa4cb390a\",\"schemeID\":\"pedersen-bls-chained\",\"metadata\":{\"beaconID\":\"default\"}}",
+        "info_raw_sha256": "fcf35be5d74f73c785df566af0914881d18a5c5c9c875d530407295620cbd927",
+        "beacon_raw": "{\"round\":6373886,\"randomness\":\"ecea8fb2b10bdd632da791d1985e9235a2a2f87969ac38d7b63a310ddd8aa46d\",\"signature\":\"a737609041f2764f473ca19124037718792685a52b227e8519c6f7fa778a5e1c06010fbcf5deb53b1cd2aaa081688a8f15a7db040634320a4c20516967f71888ac403a802776cf2e571e983889bcda428e68bc908fe5b5d012109761b20fd80f\",\"previous_signature\":\"add55569f997473e624624fd0ea2c40f052ecc8cb06d9ac6e3288eef8a11ee40ed009294216a1b5bdcc5313222a685941659dc17a1c223e7d00428c5dfe4d386052efae34b17e7cfda1ec07c846ad1ce517d84990ab122266ef3d1d0aa3828d3\"}",
+        "beacon_raw_sha256": "d7a7c7fe5cab69f1db76a231d36ec742a57bb98cf4c348e4723391e0a3b06883"
+      }
+    ]
+  },
+  "chain": {
+    "hash": "8990e7a9aaed2ffed73dbd7092123d6f289930540d7651336225dc172e51b2ce",
+    "public_key": "868f005eb8e6e4ca0a47c8a77ceaa5309a47978a7c71bc5cce96366b5d7a569937c529eeda66c7293784a9402801af31",
+    "scheme_id": "pedersen-bls-chained",
+    "genesis_time": 1595431050,
+    "period_seconds": 30
+  },
+  "round": 6373886,
+  "round_closes_at_utc": "2026-08-13T19:00:00Z",
+  "beacon": {
+    "previous_signature": "add55569f997473e624624fd0ea2c40f052ecc8cb06d9ac6e3288eef8a11ee40ed009294216a1b5bdcc5313222a685941659dc17a1c223e7d00428c5dfe4d386052efae34b17e7cfda1ec07c846ad1ce517d84990ab122266ef3d1d0aa3828d3",
+    "randomness": "ecea8fb2b10bdd632da791d1985e9235a2a2f87969ac38d7b63a310ddd8aa46d",
+    "round": 6373886,
+    "signature": "a737609041f2764f473ca19124037718792685a52b227e8519c6f7fa778a5e1c06010fbcf5deb53b1cd2aaa081688a8f15a7db040634320a4c20516967f71888ac403a802776cf2e571e983889bcda428e68bc908fe5b5d012109761b20fd80f"
+  },
+  "beacon_canonical_sha256": "df555008d70715f5dbc57c42e3b8fca95395a7617ea5aedcf819dc84b489886e",
+  "randomness": "ecea8fb2b10bdd632da791d1985e9235a2a2f87969ac38d7b63a310ddd8aa46d",
+  "randomness_sha256": "2fd7df10cbf842d2c2d1dd11a3b0d3edcd1152890b58ea0628ccbadc52339606",
+  "signature_sha256": "ecea8fb2b10bdd632da791d1985e9235a2a2f87969ac38d7b63a310ddd8aa46d",
+  "verification": {
+    "exact_round": true,
+    "official_relay_equality": true,
+    "frozen_chain_info": true,
+    "bls_signature": true,
+    "randomness_equals_sha256_signature": true,
+    "drand_client_version": "1.4.2"
+  }
+}
