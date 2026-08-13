@@ -15,7 +15,7 @@ research worktrees are expected and are content-addressed, not rejected.
 ```sh
 python3 scripts/build_benchmark_v12_source_snapshot.py discover \
   --projects-root /Users/kuber.mehta/Projects \
-  --policy results/benchmark/v1.2-prototype/source-path-purpose-policy.json
+  --policy results/benchmark/v1.2-protocol/source-path-purpose-policy.json
 ```
 
 The command reads directory names, Git object metadata, and exact current-tree
@@ -45,7 +45,7 @@ The production discovery shape is:
 ```sh
 python3 scripts/build_benchmark_v12_source_snapshot.py discover \
   --projects-root /Users/kuber.mehta/Projects \
-  --policy results/benchmark/v1.2-prototype/source-path-purpose-policy.json \
+  --policy results/benchmark/v1.2-protocol/source-path-purpose-policy.json \
   --ai-chats-repo /ABSOLUTE/PATH/TO/ai-chats \
   --session-mirror codex-local=codex:/ABSOLUTE/LOCAL/CODEX/SESSIONS:codex \
   --session-mirror claude-local=claude:/ABSOLUTE/LOCAL/CLAUDE/SESSIONS:claude \
@@ -69,7 +69,7 @@ recording the actual UTC cutoff:
 ```sh
 python3 scripts/build_benchmark_v12_source_snapshot.py acquire \
   --sources-config /ABSOLUTE/PATH/sources-config.json \
-  --policy results/benchmark/v1.2-prototype/source-path-purpose-policy.json \
+  --policy results/benchmark/v1.2-protocol/source-path-purpose-policy.json \
   --p0-attestation /ABSOLUTE/PATH/p0-attestation.json \
   --p0t-commit EXACT_40_HEX_PUBLIC_COMMIT \
   --public-remote-url https://github.com/Kuberwastaken/c5-k4.git \

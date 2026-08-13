@@ -387,7 +387,7 @@ class SourceSnapshotTests(unittest.TestCase):
             )
 
     def test_policy_classifies_frozen_project_directory_fixture(self) -> None:
-        policy_path = Path(__file__).resolve().parents[1] / "results/benchmark/v1.2-prototype/source-path-purpose-policy.json"
+        policy_path = Path(__file__).resolve().parents[1] / "results/benchmark/v1.2-protocol/source-path-purpose-policy.json"
         policy = json.loads(policy_path.read_text(encoding="utf-8"))
         snapshot.validate_policy(policy)
         names = (
@@ -407,6 +407,23 @@ class SourceSnapshotTests(unittest.TestCase):
         self.assertEqual(decisions["formal-conjectures"]["source_kind"], "git_user_delta")
         for name in ("permanental-dominance-n4", "scratch"):
             self.assertEqual(decisions[name]["source_kind"], "tree")
+
+    def test_authoritative_discovery_contract_is_exact_invocation_bytes(self) -> None:
+        root = Path(__file__).resolve().parents[1]
+        contract = root / "results/benchmark/v1.2-protocol/source-discovery-contract.json"
+        expected = snapshot.discovery_contract_bytes(
+            Path("/Users/kuber.mehta/Projects"),
+            Path("/home/ec2-user/.local/share/ai-chats"),
+            [
+                "claude-local=claude:/home/ec2-user/.claude/projects:claude",
+                "codex-local=codex:/home/ec2-user/.codex/sessions:codex",
+            ],
+            [
+                "c5-k4-github=/Users/kuber.mehta/Projects/c5-k4/"
+                "results/benchmark/v1.2-s0/c5-k4-github-releases.json"
+            ],
+        )
+        self.assertEqual(contract.read_bytes(), expected)
 
     def test_s0_requires_public_p0_and_rechecks_every_corpus(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

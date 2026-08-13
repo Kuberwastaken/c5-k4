@@ -1,0 +1,60 @@
+{
+  "default": "EXCLUDE_UNKNOWN",
+  "description": "Authoritative path-purpose boundary frozen before S0. It classifies repository purpose from relative paths only and fails closed on every unknown immediate project directory.",
+  "required_release_snapshot_ids": [
+    "c5-k4-github"
+  ],
+  "required_session_mirror_ids": [
+    "claude-local",
+    "codex-local"
+  ],
+  "rules": [
+    {
+      "decision": "INCLUDE_SEMANTIC",
+      "id": "c5k4-research",
+      "purpose": "PRIMARY_RESEARCH_HISTORY",
+      "relative_path_regex": "c5-k4",
+      "source_kind": "git_history"
+    },
+    {
+      "decision": "INCLUDE_SEMANTIC",
+      "id": "standalone-math-research",
+      "purpose": "SIBLING_RESEARCH_HISTORY",
+      "relative_path_regex": "(?:breakthroughmaxxing|conway99-c3-orbits-lean|formal-conjectures-counterexamples|formal-conjectures-wowii309|reimann|subagentmaxxing|wanless-778-lean|wowii-63-85-counterexample|zeta-23-lean)",
+      "source_kind": "git_history"
+    },
+    {
+      "decision": "INCLUDE_SEMANTIC",
+      "id": "upstream-registry-user-delta",
+      "purpose": "USER_COMMITS_AND_CURRENT_TREE_EXCLUDING_UPSTREAM_BASE",
+      "relative_path_regex": "formal-conjectures",
+      "source_kind": "git_user_delta"
+    },
+    {
+      "decision": "INCLUDE_SEMANTIC",
+      "id": "unversioned-math-research",
+      "purpose": "UNVERSIONED_RESEARCH_TREE",
+      "relative_path_regex": "(?:permanental-dominance-n4|scratch)",
+      "source_kind": "tree"
+    },
+    {
+      "decision": "EXCLUDE_NONRESEARCH",
+      "id": "product-marketing-personal",
+      "purpose": "NONRESEARCH_SOFTWARE_MARKETING_OR_PERSONAL_REPOSITORY",
+      "relative_path_regex": "(?:claurst|cookie|grok-build|hive|kuberwastaken\\.github\\.io|linkedin-forensics|marketing-outbound|megaphone|resume|sira-router)"
+    },
+    {
+      "decision": "EXCLUDE_NONRESEARCH",
+      "id": "nested-agent-framework-vendor",
+      "purpose": "NONRESEARCH_AGENT_FRAMEWORK_VENDOR_CHECKOUT",
+      "relative_path_regex": "hive-mind/refs/hive"
+    },
+    {
+      "decision": "EXCLUDE_NONRESEARCH",
+      "id": "agent-launcher-artifacts",
+      "purpose": "NONRESEARCH_COMMAND_OR_VISUAL_ASSET_DIRECTORY",
+      "relative_path_regex": "(?:--continue|--resume|--reusme|hive-logo|hive-mind|vpsmaxxing-logo)"
+    }
+  ],
+  "schema_version": "c5k4-source-path-purpose-policy-1.2"
+}
