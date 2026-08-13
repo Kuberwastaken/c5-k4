@@ -102,6 +102,13 @@ The last theorem discharges the binary-`Delta` assumption at the API used by
 the conjecture. The module intentionally does not assert the Ferrers min-cut
 formulas or existence of the required exchange-ready component.
 
+The generic Kempe-style step is now formal too. Under an explicit closure
+hypothesis on a selected bichromatic vertex set, the module constructs the
+proper partial two-color swap and proves exact color-class set, cardinality,
+and subtraction-free delta identities. This still does **not** assert that the
+Ferrers instance contains a closed set with the required imbalance; selecting
+that set remains the combinatorial theorem.
+
 The next honest lane is the restricted **one-defect nesting theorem**:
 
 > Under corner deletion, when the profile difference is `e_a-e_b+e_c`, give

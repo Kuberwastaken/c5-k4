@@ -189,4 +189,152 @@ def extendColoringAtNone
 
 end Coloring
 
+section BicolorSwap
+
+variable {V Color : Type*}
+
+/-- Swap `a` and `b` only on vertices in `s`. -/
+def swapTwoOn [DecidableEq Color] (C : V → Color) (s : Set V)
+    [DecidablePred (· ∈ s)] (a b : Color) (v : V) : Color :=
+  if v ∈ s then Equiv.swap a b (C v) else C v
+
+/-- `s` contains the other endpoint of every `a`--`b` edge whose first
+endpoint is already in `s`. This is the exact boundary condition needed by a
+partial two-color swap; it does not assert that such an `s` exists. -/
+def IsClosedUnderTwoColorEdges
+    (G : SimpleGraph V) (C : G.Coloring Color) (s : Set V)
+    (a b : Color) : Prop :=
+  ∀ ⦃v w⦄, G.Adj v w → v ∈ s →
+    ((C v = a ∧ C w = b) ∨ (C v = b ∧ C w = a)) → w ∈ s
+
+/-- Swapping two colors on a set closed under the corresponding bichromatic
+edges preserves properness. -/
+def swapTwoColoring [DecidableEq Color]
+    (G : SimpleGraph V) (C : G.Coloring Color) (s : Set V)
+    [DecidablePred (· ∈ s)] (a b : Color)
+    (hclosed : IsClosedUnderTwoColorEdges G C s a b) : G.Coloring Color :=
+  SimpleGraph.Coloring.mk (swapTwoOn C s a b) (by
+    intro v w hvw
+    by_cases hv : v ∈ s
+    · by_cases hw : w ∈ s
+      · simp only [swapTwoOn, if_pos hv, if_pos hw]
+        exact fun h ↦ C.valid hvw ((Equiv.swap a b).injective h)
+      · simp only [swapTwoOn, if_pos hv, if_neg hw, Equiv.swap_apply_def]
+        split_ifs with hva hvb
+        · exact fun h ↦ hw (hclosed hvw hv (Or.inl ⟨hva, h.symm⟩))
+        · exact fun h ↦ hw (hclosed hvw hv (Or.inr ⟨hvb, h.symm⟩))
+        · exact C.valid hvw
+    · by_cases hw : w ∈ s
+      · simp only [swapTwoOn, if_neg hv, if_pos hw, Equiv.swap_apply_def]
+        split_ifs with hwa hwb
+        · exact fun h ↦ hv (hclosed hvw.symm hw (Or.inl ⟨hwa, h⟩))
+        · exact fun h ↦ hv (hclosed hvw.symm hw (Or.inr ⟨hwb, h⟩))
+        · exact C.valid hvw
+      · simp only [swapTwoOn, if_neg hv, if_neg hw]
+        exact C.valid hvw)
+
+@[simp] theorem swapTwoColoring_apply_mem [DecidableEq Color]
+    (G : SimpleGraph V) (C : G.Coloring Color) (s : Set V)
+    [DecidablePred (· ∈ s)] (a b : Color)
+    (hclosed : IsClosedUnderTwoColorEdges G C s a b) {v : V} (hv : v ∈ s) :
+    swapTwoColoring G C s a b hclosed v = Equiv.swap a b (C v) := by
+  change swapTwoOn C s a b v = Equiv.swap a b (C v)
+  simp [swapTwoOn, hv]
+
+@[simp] theorem swapTwoColoring_apply_not_mem [DecidableEq Color]
+    (G : SimpleGraph V) (C : G.Coloring Color) (s : Set V)
+    [DecidablePred (· ∈ s)] (a b : Color)
+    (hclosed : IsClosedUnderTwoColorEdges G C s a b) {v : V} (hv : v ∉ s) :
+    swapTwoColoring G C s a b hclosed v = C v := by
+  change swapTwoOn C s a b v = C v
+  simp [swapTwoOn, hv]
+
+/-- Exact description of the first color class after a partial swap. -/
+theorem swapTwoColoring_colorClass_left [DecidableEq Color]
+    (G : SimpleGraph V) (C : G.Coloring Color) (s : Set V)
+    [DecidablePred (· ∈ s)] (a b : Color)
+    (hclosed : IsClosedUnderTwoColorEdges G C s a b) :
+    (swapTwoColoring G C s a b hclosed).colorClass a =
+      (C.colorClass a \ s) ∪ (C.colorClass b ∩ s) := by
+  ext v
+  by_cases hv : v ∈ s
+  · simp [SimpleGraph.Coloring.colorClass,
+      swapTwoColoring_apply_mem G C s a b hclosed hv,
+      Equiv.swap_apply_eq_iff, hv]
+  · simp [SimpleGraph.Coloring.colorClass,
+      swapTwoColoring_apply_not_mem G C s a b hclosed hv, hv]
+
+/-- Exact description of the second color class after a partial swap. -/
+theorem swapTwoColoring_colorClass_right [DecidableEq Color]
+    (G : SimpleGraph V) (C : G.Coloring Color) (s : Set V)
+    [DecidablePred (· ∈ s)] (a b : Color)
+    (hclosed : IsClosedUnderTwoColorEdges G C s a b) :
+    (swapTwoColoring G C s a b hclosed).colorClass b =
+      (C.colorClass b \ s) ∪ (C.colorClass a ∩ s) := by
+  ext v
+  by_cases hv : v ∈ s
+  · simp [SimpleGraph.Coloring.colorClass,
+      swapTwoColoring_apply_mem G C s a b hclosed hv,
+      Equiv.swap_apply_eq_iff, hv]
+  · simp [SimpleGraph.Coloring.colorClass,
+      swapTwoColoring_apply_not_mem G C s a b hclosed hv, hv]
+
+/-- Cardinal form of `swapTwoColoring_colorClass_left`. -/
+theorem swapTwoColoring_colorClass_left_ncard [DecidableEq Color] [Finite V]
+    (G : SimpleGraph V) (C : G.Coloring Color) (s : Set V)
+    [DecidablePred (· ∈ s)] (a b : Color)
+    (hclosed : IsClosedUnderTwoColorEdges G C s a b) :
+    ((swapTwoColoring G C s a b hclosed).colorClass a).ncard =
+      (C.colorClass a \ s).ncard + (C.colorClass b ∩ s).ncard := by
+  rw [swapTwoColoring_colorClass_left G C s a b hclosed]
+  refine Set.ncard_union_eq ?_
+    (Set.finite_univ.subset (Set.subset_univ _))
+    (Set.finite_univ.subset (Set.subset_univ _))
+  rw [Set.disjoint_left]
+  intro v hv hvs
+  exact hv.2 hvs.2
+
+/-- Cardinal form of `swapTwoColoring_colorClass_right`. -/
+theorem swapTwoColoring_colorClass_right_ncard [DecidableEq Color] [Finite V]
+    (G : SimpleGraph V) (C : G.Coloring Color) (s : Set V)
+    [DecidablePred (· ∈ s)] (a b : Color)
+    (hclosed : IsClosedUnderTwoColorEdges G C s a b) :
+    ((swapTwoColoring G C s a b hclosed).colorClass b).ncard =
+      (C.colorClass b \ s).ncard + (C.colorClass a ∩ s).ncard := by
+  rw [swapTwoColoring_colorClass_right G C s a b hclosed]
+  refine Set.ncard_union_eq ?_
+    (Set.finite_univ.subset (Set.subset_univ _))
+    (Set.finite_univ.subset (Set.subset_univ _))
+  rw [Set.disjoint_left]
+  intro v hv hvs
+  exact hv.2 hvs.2
+
+/-- Subtraction-free delta identity for the first color. -/
+theorem swapTwoColoring_left_delta_balance [DecidableEq Color] [Finite V]
+    (G : SimpleGraph V) (C : G.Coloring Color) (s : Set V)
+    [DecidablePred (· ∈ s)] (a b : Color)
+    (hclosed : IsClosedUnderTwoColorEdges G C s a b) :
+    ((swapTwoColoring G C s a b hclosed).colorClass a).ncard +
+        (C.colorClass a ∩ s).ncard =
+      (C.colorClass a).ncard + (C.colorClass b ∩ s).ncard := by
+  rw [swapTwoColoring_colorClass_left_ncard G C s a b hclosed]
+  have hsplit := Set.ncard_inter_add_ncard_diff_eq_ncard
+    (C.colorClass a) s (Set.finite_univ.subset (Set.subset_univ _))
+  omega
+
+/-- Subtraction-free delta identity for the second color. -/
+theorem swapTwoColoring_right_delta_balance [DecidableEq Color] [Finite V]
+    (G : SimpleGraph V) (C : G.Coloring Color) (s : Set V)
+    [DecidablePred (· ∈ s)] (a b : Color)
+    (hclosed : IsClosedUnderTwoColorEdges G C s a b) :
+    ((swapTwoColoring G C s a b hclosed).colorClass b).ncard +
+        (C.colorClass b ∩ s).ncard =
+      (C.colorClass b).ncard + (C.colorClass a ∩ s).ncard := by
+  rw [swapTwoColoring_colorClass_right_ncard G C s a b hclosed]
+  have hsplit := Set.ncard_inter_add_ncard_diff_eq_ncard
+    (C.colorClass b) s (Set.finite_univ.subset (Set.subset_univ _))
+  omega
+
+end BicolorSwap
+
 end LatinTableau.CornerExchange
