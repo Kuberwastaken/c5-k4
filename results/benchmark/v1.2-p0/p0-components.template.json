@@ -1,0 +1,42 @@
+{
+  "schema_version": "c5k4-method-v1.2-p0-components-1.0",
+  "authority": "PRE_P0_NOT_FREEZE",
+  "notes": "Prototype only. Replace every null path and sha256, then set authority to AUTHORITATIVE_P0. This file is not a P0 freeze.",
+  "components": {
+    "protocol_document": null,
+    "five_strata_classifier": null,
+    "grouping_rule": null,
+    "provenance_policy": null,
+    "source_discovery_contract": null,
+    "source_path_policy": null,
+    "source_discovery_boundary": null,
+    "upstream_ref_rule": null,
+    "quotas": null,
+    "registry_contact_input_schema": null,
+    "registry_contact_output_schema": null,
+    "protocol_manifest_schema": null,
+    "benchmark_schema": null,
+    "benchmark_linter": null,
+    "registry_builder": null,
+    "selector": null,
+    "budget_rule": null,
+    "development_prior": null,
+    "selection_forecast_rule": null,
+    "selection_stratum_priors": null,
+    "intervention_forecast_rule": null,
+    "transformation_library": null,
+    "scoring_rule": null,
+    "stopping_rule": null,
+    "target_data_audit_rule": null
+  },
+  "target_data_audit_receipt": null,
+  "allowlisted_registry_producers": [],
+  "prototype_artifacts": [
+    {
+      "path": "results/benchmark/v1.2-prototype/question-cluster-pool.json",
+      "sha256": "PRE_P0_NOT_COMPUTED",
+      "authority": "PRE_P0_NOT_FREEZE",
+      "excluded_from_formal_build": true
+    }
+  ]
+}
