@@ -124,6 +124,10 @@ def _references(manifest: dict[str, Any]) -> Iterable[tuple[str, dict[str, Any]]
         if cluster["arms"]:
             for arm in ARMS:
                 yield f"clusters.{i}.arms.{arm}.contract", cluster["arms"][arm]["contract"]
+    for i, record in enumerate(manifest["provenance"]["records"]):
+        for field in ("input_artifact", "output_artifact"):
+            if record[field] is not None:
+                yield f"provenance.records.{i}.{field}", record[field]
     for i, ledger in enumerate(manifest["ledgers"]):
         yield f"ledgers.{i}", ledger
     if manifest["scoring"] is not None:
@@ -207,6 +211,8 @@ def semantic_findings(manifest: dict[str, Any], manifest_path: Path) -> list[Fin
 
     # Provenance classes are exclusive by schema; semantic/unknown identity evidence excludes.
     producers = {row["producer_id"]: row for row in manifest["provenance"]["allowlisted_producers"]}
+    input_schema = _load_json(resolve_path(manifest_path, freeze["registry_input_schema"]["path"]), "REGISTRY_SCHEMA_PARSE", "freeze_artifacts.registry_input_schema", error)
+    output_schema = _load_json(resolve_path(manifest_path, freeze["registry_output_schema"]["path"]), "REGISTRY_SCHEMA_PARSE", "freeze_artifacts.registry_output_schema", error)
     record_ids: set[str] = set()
     for index, record in enumerate(manifest["provenance"]["records"]):
         location = f"provenance.records.{index}"
@@ -216,8 +222,22 @@ def semantic_findings(manifest: dict[str, Any], manifest_path: Path) -> list[Fin
         if record["mixed"]:
             error("PROVENANCE_MIXED", location, "mixed source units fail closed")
         if record["class"] == "MACHINE_REGISTRY_CONTACT":
-            if record["producer_id"] not in producers or not record["schema_valid"] or record["input_sha256"] is None or record["output_sha256"] is None:
+            if record["producer_id"] not in producers or not record["schema_valid"] or record["input_sha256"] is None or record["output_sha256"] is None or record["input_artifact"] is None or record["output_artifact"] is None:
                 error("PROVENANCE_LAUNDERING", location, "registry contact needs a frozen producer, invocation, inputs, and schema-valid output")
+            else:
+                for field, schema in (("input_artifact", input_schema), ("output_artifact", output_schema)):
+                    value = _load_json(resolve_path(manifest_path, record[field]["path"]), "REGISTRY_ARTIFACT_PARSE", f"{location}.{field}", error)
+                    if value is not None and schema is not None:
+                        validation = list(jsonschema.Draft7Validator(schema).iter_errors(value))
+                        if validation:
+                            error("REGISTRY_SCHEMA_INVALID", f"{location}.{field}", validation[0].message)
+                        if field == "output_artifact" and (
+                            value.get("output_sha256") != canonical_object_sha256(value, "output_sha256")
+                            or value.get("feasibility_replay", {}).get("row_source_artifact_id") != "eligible_pool"
+                        ):
+                            error("REGISTRY_OUTPUT_REPLAY", f"{location}.{field}", "registry output self-digest/eligible-row replay binding is invalid")
+                if record["input_artifact"]["sha256"] != record["input_sha256"] or record["output_artifact"]["sha256"] != record["output_sha256"]:
+                    error("PROVENANCE_DIGEST_BINDING", location, "provenance digests differ from bounded artifacts")
         elif record["producer_id"] is not None or record["schema_valid"]:
             error("PROVENANCE_LAUNDERING", location, "semantic/unknown source cannot be relabeled through machine provenance")
 
@@ -260,7 +280,7 @@ def semantic_findings(manifest: dict[str, Any], manifest_path: Path) -> list[Fin
             error("PRE_C0_SHAPE", "$", "feasibility phase has no entropy, selected targets, or later chronology")
 
     # Replay the gate from rows; aggregates are never trusted.
-    expected_strata = [{"stratum": s, "quota": QUOTAS[s], "eligible_count": counts[s], "deficit": max(0, QUOTAS[s] - counts[s])} for s in STRATA]
+    expected_strata = [{"stratum": s, "quota": QUOTAS[s], "eligible_count": counts[s], "deficit": max(0, QUOTAS[s] - counts[s]), "surplus": max(0, counts[s] - QUOTAS[s])} for s in STRATA]
     if feasibility["strata"] != expected_strata:
         error("FEASIBILITY_REPLAY", "quota_feasibility.strata", "counts/deficits do not replay from every pool row")
     expected_status = "PASS" if all(not row["deficit"] for row in expected_strata) else "FAIL"
@@ -282,12 +302,12 @@ def semantic_findings(manifest: dict[str, Any], manifest_path: Path) -> list[Fin
     if fail_phase:
         forbidden = ("c0_artifact_commit", "c0_attestation_commit", "c0_published_at_utc", "randomness_retrieved_at_utc", "c1_artifact_commit", "c1_attestation_commit", "c1_frozen_at_utc", "evaluation_started_at_utc", "r0_artifact_commit", "r0_attestation_commit", "completed_at_utc")
         if feasibility["status"] != "FAIL": error("FAIL_PHASE_GATE", "quota_feasibility.status", "pre-C0 terminal requires FAIL")
-        if randomness["state"] != "UNARMED" or freeze["c0_randomness_contract"] is not None:
+        if randomness["state"] != "UNARMED" or freeze["c0_randomness_contract"] is not None or freeze["c0_validation_receipt"] is not None:
             error("FAILED_GATE_BEACON", "randomness", "failed gate cannot arm or attach randomness")
         if clusters or manifest["selection"]["evidence"] or manifest["ledgers"] or manifest["aggregates"] is not None or manifest["scoring"] is not None or any(chronology[k] is not None for k in forbidden):
             error("PRE_C0_TERMINAL_SHAPE", "$", "pre-C0 failure has no C0/C1/selection/evaluation/result evidence")
-        if manifest["commit_pairs"]["f0"] is None:
-            error("F0_REQUIRED", "commit_pairs.f0", "failure needs F0A/F0T")
+        if chronology["f0_artifact_commit"] is not None or chronology["f0_attestation_commit"] is not None:
+            error("CIRCULAR_F0", "chronology", "F0 scientific artifact cannot name F0A or F0T")
     if phase in C0_PHASES and feasibility["status"] != "PASS":
         error("C0_BEFORE_PASS", "phase", "only a replayed PASS gate can enter C0")
     if phase in C0_PHASES and (randomness["state"] == "UNARMED" or freeze["c0_randomness_contract"] is None):
@@ -296,16 +316,30 @@ def semantic_findings(manifest: dict[str, Any], manifest_path: Path) -> list[Fin
         error("RANDOMNESS_NOT_FUTURE", "randomness.round_closes_at_utc", "round must close after C0T publication")
     if phase == "C0_FROZEN" and (randomness["state"] != "ARMED" or clusters or manifest["selection"]["evidence"] is not None):
         error("C0_SHAPE", "$", "C0 has null entropy and no selection")
+    if phase == "C0_FROZEN" and chronology["c0_attestation_commit"] is not None:
+        error("CIRCULAR_C0", "chronology.c0_attestation_commit", "C0T cannot contain its own commit ID")
+    if phase == "C1_SELECTED":
+        if chronology["c0_attestation_commit"] is None or freeze["c0_validation_receipt"] is None:
+            error("C0_EXTERNAL_VALIDATION_REQUIRED", "chronology.c0_attestation_commit", "C1A must bind an externally validated C0T receipt/commit")
+        if chronology["c1_artifact_commit"] is not None or chronology["c1_attestation_commit"] is not None:
+            error("CIRCULAR_C1", "chronology", "C1A cannot name C1A or C1T")
 
     # Commit pairs prove null self-reference, direct ancestry, identical artifact tree, and allowlisted changes.
-    required_pairs = {"p0"}
-    if fail_phase: required_pairs.add("f0")
-    if phase in C0_PHASES: required_pairs.add("c0")
-    if phase in C1_PHASES: required_pairs.add("c1")
-    if phase == "COMPLETE": required_pairs.add("r0")
+    # A phase artifact cannot name its own artifact/attestation commits.  A
+    # pair becomes manifest evidence only in a strictly later phase.
+    required_pairs = {"p0"} if phase != "PROTOCOL_DESIGN" else set()
+    if phase in C1_PHASES: required_pairs.add("c0")
+    if phase in {"EVALUATING", "COMPLETE", "PROTOCOL_INVALID"}: required_pairs.add("c1")
+    forbidden_pairs = set()
+    if phase == "NO_ELIGIBLE_BENCHMARK_PRE_C0": forbidden_pairs.add("f0")
+    if phase == "C0_FROZEN": forbidden_pairs.add("c0")
+    if phase == "C1_SELECTED": forbidden_pairs.add("c1")
+    if phase == "COMPLETE": forbidden_pairs.add("r0")
     for name, pair in manifest["commit_pairs"].items():
         if name in required_pairs and pair is None:
             error("ATTESTATION_REQUIRED", f"commit_pairs.{name}", f"phase requires {name.upper()}A/{name.upper()}T")
+        if name in forbidden_pairs and pair is not None:
+            error("CIRCULAR_ATTESTATION", f"commit_pairs.{name}", "phase artifact cannot contain its own artifact/attestation commit pair")
         if pair is None: continue
         if pair["artifact_commit"] == pair["attestation_commit"] or pair["attested_artifact_commit"] != pair["artifact_commit"] or pair["attestation_parent"] != pair["artifact_commit"]:
             error("ATTESTATION_ANCESTRY", f"commit_pairs.{name}", "attestation must be distinct, directly descend from, and identify artifact commit")
@@ -329,9 +363,10 @@ def semantic_findings(manifest: dict[str, Any], manifest_path: Path) -> list[Fin
             selector_artifacts = {key: artifact_bytes.get(f"freeze_artifacts.{key}") for key in ARTIFACT_KEYS}
             c0_ref = freeze["c0_randomness_contract"]
             raw_ref = randomness["verified_artifact"]
-            if c0_ref and raw_ref and all(value is not None for value in selector_artifacts.values()):
+            receipt_ref = freeze["c0_validation_receipt"]
+            if c0_ref and receipt_ref and raw_ref and all(value is not None for value in selector_artifacts.values()):
                 try:
-                    replayed = replay_selection(pool_path.read_bytes(), resolve_path(manifest_path, freeze["feasibility_certificate"]["path"]).read_bytes(), selector_artifacts, resolve_path(manifest_path, c0_ref["path"]).read_bytes(), resolve_path(manifest_path, raw_ref["path"]).read_bytes())
+                    replayed = replay_selection(pool_path.read_bytes(), resolve_path(manifest_path, freeze["feasibility_certificate"]["path"]).read_bytes(), selector_artifacts, resolve_path(manifest_path, c0_ref["path"]).read_bytes(), resolve_path(manifest_path, receipt_ref["path"]).read_bytes(), resolve_path(manifest_path, raw_ref["path"]).read_bytes())
                 except (OSError, ValueError) as exc:
                     error("SELECTION_REPLAY", "selection.evidence", str(exc))
                 else:
@@ -389,7 +424,8 @@ def semantic_findings(manifest: dict[str, Any], manifest_path: Path) -> list[Fin
             completed = {arm: sum(bool(row["arms"]) and row["arms"][arm]["status"] == "TERMINATED" for row in clusters) for arm in ARMS}
             if aggregates["selected_n"] != 12 or aggregates["aggregate_denominator"] != "ALL_SELECTED" or aggregates["runnable_n"] != runnable_n or aggregates["structural_zero_n"] != zero_n or aggregates["completed_arm_counts"] != completed:
                 error("DENOMINATOR_SHRINKAGE", "aggregates", "headline aggregates must replay over all twelve selected clusters")
-        if manifest["commit_pairs"]["r0"] is None: error("R0_REQUIRED", "commit_pairs.r0", "complete result needs R0A/R0T")
+        if chronology["r0_artifact_commit"] is not None or chronology["r0_attestation_commit"] is not None:
+            error("CIRCULAR_R0", "chronology", "R0 scientific artifact cannot name R0A or R0T")
         scoring = manifest["scoring"]
         if scoring is None:
             error("SCORING_REPLAY_REQUIRED", "scoring", "COMPLETE requires content-addressed scorer input and result")

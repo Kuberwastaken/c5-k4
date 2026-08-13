@@ -54,13 +54,60 @@ class ScoreV12Tests(unittest.TestCase):
         self.references = {}
         names = (
             "eligible_pool", "quota_feasibility", *SCORER.SELECTOR.ARTIFACT_KEYS,
-            "c0_contract", "verified_randomness",
+            "verified_randomness",
         )
         for name in names:
             raw = json.dumps({"fixture": name}, sort_keys=True).encode()
             path = self.root / f"{name}.json"
             path.write_bytes(raw)
             self.references[name] = {"path": path.name, "sha256": digest(raw)}
+        self.c0_contract = {
+            "schema_version": "c5k4-c0-randomness-contract-1.2",
+            "phase": "C0_FROZEN",
+            "chronology": {
+                "p0_artifact_commit": "1" * 40,
+                "p0_attestation_commit": "2" * 40,
+                "p0_published_at_utc": "2026-08-13T00:00:00Z",
+                "s0_acquired_at_utc": "2026-08-13T01:00:00Z",
+                "c0_artifact_commit": "3" * 40,
+                "c0_attestation_commit": None,
+                "c0_published_at_utc": "2026-08-13T02:00:00Z",
+            },
+            "randomness": {
+                "source": "League of Entropy drand",
+                "chain_hash": SCORER.SELECTOR.DRAND_CHAIN_HASH,
+                "round": 1,
+                "round_closes_at_utc": "2026-08-14T00:00:00Z",
+                "value": None,
+            },
+            "published_at_utc": "2026-08-13T02:00:00Z",
+            "publication_observation": {
+                "source": "GITHUB_COMMIT_API_OBSERVATION",
+                "observed_commit": "3" * 40,
+                "observed_at_utc": "2026-08-13T02:00:00Z",
+            },
+        }
+        c0_raw = json.dumps(self.c0_contract, sort_keys=True).encode()
+        c0_path = self.root / "c0_contract.json"
+        c0_path.write_bytes(c0_raw)
+        self.references["c0_contract"] = {"path": c0_path.name, "sha256": digest(c0_raw)}
+        receipt = {
+            "schema_version": "c5k4-c0-validation-receipt-1.2",
+            "c0t": {"path": "results/benchmark/v1.2-c0/c0t.json", "file_sha256": digest(c0_raw)},
+            "c0_artifact_commit": "3" * 40,
+            "c0_attestation_commit": "4" * 40,
+            "direct_nonmerge_parent_verified": True,
+            "changed_paths": ["results/benchmark/v1.2-c0/c0t.json"],
+            "committed_bytes_verified": True,
+            "publication_observation": self.c0_contract["publication_observation"],
+            "c0_published_at_utc": "2026-08-13T02:00:00Z",
+            "future_round_close_at_utc": "2026-08-14T00:00:00Z",
+        }
+        receipt["receipt_sha256"] = SCORER.SELECTOR.object_digest(receipt, "receipt_sha256")
+        receipt_raw = json.dumps(receipt, sort_keys=True).encode()
+        receipt_path = self.root / "c0_validation_receipt.json"
+        receipt_path.write_bytes(receipt_raw)
+        self.references["c0_validation_receipt"] = {"path": receipt_path.name, "sha256": digest(receipt_raw)}
         evidence_raw = json.dumps(self.evidence, sort_keys=True).encode()
         evidence_path = self.root / "selection.json"
         evidence_path.write_bytes(evidence_raw)
@@ -196,6 +243,9 @@ class ScoreV12Tests(unittest.TestCase):
         with patch.object(SCORER.SELECTOR, "select", return_value=self.evidence) as replay:
             result = SCORER.score_manifest(self.manifest_path)
         replay.assert_called_once()
+        args = replay.call_args.args
+        self.assertEqual(len(args), 6)
+        self.assertEqual(args[4], (self.root / "c0_validation_receipt.json").read_bytes())
         return result
 
     def test_full_denominator_structural_zeros_and_ties(self):
@@ -253,6 +303,32 @@ class ScoreV12Tests(unittest.TestCase):
         with patch.object(SCORER.SELECTOR, "select", return_value=changed):
             with self.assertRaisesRegex(SCORER.ScoreError, "exact executable replay"):
                 SCORER.score_manifest(self.manifest_path)
+
+    def test_external_c0t_receipt_tamper_fails_before_selector(self):
+        manifest, _ = self.build()
+        path = self.root / "c0_validation_receipt.json"
+        receipt = json.loads(path.read_text())
+        receipt["direct_nonmerge_parent_verified"] = False
+        path.write_text(json.dumps(receipt, sort_keys=True))
+        manifest["selection_replay"]["c0_validation_receipt"]["sha256"] = digest(path.read_bytes())
+        self.manifest_path.write_text(json.dumps(manifest))
+        with patch.object(SCORER.SELECTOR, "select", return_value=self.evidence) as replay:
+            with self.assertRaisesRegex(SCORER.ScoreError, "receipt digest does not replay"):
+                SCORER.score_manifest(self.manifest_path)
+        replay.assert_not_called()
+
+    def test_external_c0t_receipt_requires_exact_c0_bytes(self):
+        manifest, _ = self.build()
+        path = self.root / "c0_contract.json"
+        c0 = json.loads(path.read_text())
+        c0["publication_observation"]["source"] = "TAMPERED"
+        path.write_text(json.dumps(c0, sort_keys=True))
+        manifest["selection_replay"]["c0_contract"]["sha256"] = digest(path.read_bytes())
+        self.manifest_path.write_text(json.dumps(manifest))
+        with patch.object(SCORER.SELECTOR, "select", return_value=self.evidence) as replay:
+            with self.assertRaisesRegex(SCORER.ScoreError, "does not authenticate exact external C0T"):
+                SCORER.score_manifest(self.manifest_path)
+        replay.assert_not_called()
 
     def test_scoring_rule_is_content_addressed(self):
         manifest, _ = self.build()

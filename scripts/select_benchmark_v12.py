@@ -303,6 +303,7 @@ def replay_feasibility(
                 "quota": quota,
                 "eligible_count": count,
                 "deficit": max(0, quota - count),
+                "surplus": max(0, count - quota),
             }
         )
     if strata != replayed:
@@ -315,6 +316,7 @@ def validate_future_entropy(
     pool_bytes: bytes,
     certificate: dict[str, Any],
     c0_bytes: bytes,
+    c0_validation_bytes: bytes,
     randomness_bytes: bytes,
 ) -> tuple[dict[str, Any], dict[str, Any], bytes]:
     c0 = _load_object(c0_bytes, "C0 randomness contract")
@@ -334,18 +336,31 @@ def validate_future_entropy(
     }
     if not isinstance(chronology, dict) or set(chronology) != expected_chronology:
         raise ValueError("C0 chronology must contain exactly the P0/S0/C0 freeze fields")
-    for key in (
-        "p0_artifact_commit",
-        "p0_attestation_commit",
-        "c0_artifact_commit",
-        "c0_attestation_commit",
-    ):
+    for key in ("p0_artifact_commit", "p0_attestation_commit", "c0_artifact_commit"):
         _hex(chronology[key], 40, f"C0 chronology.{key}")
-    if len({chronology[key] for key in (
-        "p0_artifact_commit", "p0_attestation_commit",
-        "c0_artifact_commit", "c0_attestation_commit",
-    )}) != 4:
-        raise ValueError("P0A/P0T/C0A/C0T commit identities must be distinct")
+    if chronology["c0_attestation_commit"] is not None:
+        raise ValueError("C0T cannot contain its own commit identity")
+    receipt = _load_object(c0_validation_bytes, "C0 validation receipt")
+    if receipt.get("schema_version") != "c5k4-c0-validation-receipt-1.2":
+        raise ValueError("C0 validation receipt schema is not frozen v1.2")
+    if receipt.get("receipt_sha256") != object_digest(receipt, "receipt_sha256"):
+        raise ValueError("C0 validation receipt digest does not replay")
+    c0t_commit = _hex(receipt.get("c0_attestation_commit"), 40, "validated external C0T commit")
+    expected_receipt = {
+        "c0t": {"path": receipt.get("c0t", {}).get("path"), "file_sha256": sha256(c0_bytes)},
+        "c0_artifact_commit": chronology["c0_artifact_commit"],
+        "c0_attestation_commit": c0t_commit,
+        "direct_nonmerge_parent_verified": True,
+        "changed_paths": [receipt.get("c0t", {}).get("path")],
+        "committed_bytes_verified": True,
+        "publication_observation": c0.get("publication_observation"),
+        "c0_published_at_utc": chronology["c0_published_at_utc"],
+        "future_round_close_at_utc": c0["randomness"]["round_closes_at_utc"],
+    }
+    if any(receipt.get(key) != value for key, value in expected_receipt.items()):
+        raise ValueError("C0 validation receipt does not prove exact C0T bytes, ancestry, path, and publication")
+    if len({chronology["p0_artifact_commit"], chronology["p0_attestation_commit"], chronology["c0_artifact_commit"], c0t_commit}) != 4:
+        raise ValueError("P0A/P0T/C0A/external C0T commit identities must be distinct")
     p0_published = _timestamp(
         chronology["p0_published_at_utc"], "C0 chronology.p0_published_at_utc"
     )
@@ -403,6 +418,13 @@ def validate_future_entropy(
         )
     if randomness.get("round") != contract["round"]:
         raise ValueError("verified randomness round does not match C0")
+    binding = randomness.get("c0_binding")
+    if not isinstance(binding, dict) or binding != {
+        "artifact_commit": chronology["c0_artifact_commit"],
+        "attestation_commit": c0t_commit,
+        "published_at_utc": chronology["c0_published_at_utc"],
+    }:
+        raise ValueError("verified randomness does not bind the externally supplied C0T commit")
     if randomness.get("round_closes_at_utc") != contract["round_closes_at_utc"]:
         raise ValueError("verified randomness close time does not match C0")
     chain = randomness.get("chain")
@@ -445,6 +467,7 @@ def select(
     feasibility_bytes: bytes,
     artifact_bytes: Mapping[str, bytes],
     c0_bytes: bytes,
+    c0_validation_bytes: bytes,
     randomness_bytes: bytes,
 ) -> dict[str, Any]:
     """Return full replay evidence after every pre-entropy check succeeds."""
@@ -457,7 +480,7 @@ def select(
     # No identity is ranked and shuffle_rows is never called before this full
     # verified-future-entropy gate returns successfully.
     c0, randomness, seed = validate_future_entropy(
-        pool_bytes, certificate, c0_bytes, randomness_bytes
+        pool_bytes, certificate, c0_bytes, c0_validation_bytes, randomness_bytes
     )
 
     strata_evidence: list[dict[str, Any]] = []
@@ -517,6 +540,7 @@ def select(
             "quota_feasibility_file_sha256": sha256(feasibility_bytes),
             "quota_feasibility_certificate_sha256": certificate["certificate_sha256"],
             "c0_contract_file_sha256": sha256(c0_bytes),
+            "c0_validation_receipt_file_sha256": sha256(c0_validation_bytes),
             "randomness_artifact_file_sha256": sha256(randomness_bytes),
             **{f"{key}_file_sha256": sha256(artifact_bytes[key]) for key in ARTIFACT_KEYS},
         },
@@ -526,7 +550,7 @@ def select(
             "p0_artifact_commit": c0["chronology"]["p0_artifact_commit"],
             "p0_attestation_commit": c0["chronology"]["p0_attestation_commit"],
             "c0_artifact_commit": c0["chronology"]["c0_artifact_commit"],
-            "c0_attestation_commit": c0["chronology"]["c0_attestation_commit"],
+            "c0_attestation_commit": _load_object(c0_validation_bytes, "C0 validation receipt")["c0_attestation_commit"],
             "round": c0["randomness"]["round"],
             "round_closes_at_utc": c0["randomness"]["round_closes_at_utc"],
         },
@@ -566,6 +590,7 @@ def main() -> int:
     parser.add_argument("--contamination-inventory", type=Path, required=True)
     parser.add_argument("--source-snapshots", type=Path, required=True)
     parser.add_argument("--c0-contract", type=Path, required=True)
+    parser.add_argument("--c0-validation-receipt", type=Path, required=True)
     parser.add_argument("--verified-randomness", type=Path, required=True)
     parser.add_argument("--output", type=Path)
     args = parser.parse_args()
@@ -582,6 +607,7 @@ def main() -> int:
                 "source_snapshots": args.source_snapshots.read_bytes(),
             },
             args.c0_contract.read_bytes(),
+            args.c0_validation_receipt.read_bytes(),
             args.verified_randomness.read_bytes(),
         )
     except (OSError, ValueError) as exc:

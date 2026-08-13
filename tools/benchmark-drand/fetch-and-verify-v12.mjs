@@ -13,7 +13,7 @@ export const C0_SCHEMA_VERSION = 'c5k4-c0-randomness-contract-1.2'
 export const ARTIFACT_SCHEMA_VERSION = 'c5k4-drand-randomness-artifact-1'
 export const INVOCATION_CONTRACT = Object.freeze({
   schema_version: 'c5k4-drand-fetch-invocation-contract-1.2',
-  argv: Object.freeze(['--c0-contract', 'FILE', '--output', 'NEW_FILE']),
+  argv: Object.freeze(['--c0-contract', 'FILE', '--c0-validation-receipt', 'FILE', '--output', 'NEW_FILE']),
   network_after_contract_and_unlock_only: true,
   relay_count: 2,
   output_create_mode: 'EXCLUSIVE_NO_OVERWRITE'
@@ -58,17 +58,23 @@ function utcMillis (value, where) {
 }
 
 /** Validate the frozen contract fully before callers are allowed to do I/O. */
-export function profileFromC0 (c0) {
+export function profileFromC0 (c0, receipt, c0Raw) {
   if (c0 === null || typeof c0 !== 'object' || Array.isArray(c0)) throw new Error('C0 contract must be an object')
   if (c0.schema_version !== C0_SCHEMA_VERSION) throw new Error(`C0 schema_version must be ${C0_SCHEMA_VERSION}`)
   if (c0.phase !== 'C0_FROZEN') throw new Error('C0 phase must be C0_FROZEN')
   const chronology = c0.chronology
   if (chronology === null || typeof chronology !== 'object' || Array.isArray(chronology)) throw new Error('C0 chronology must be an object')
-  const commitKeys = ['p0_artifact_commit', 'p0_attestation_commit', 'c0_artifact_commit', 'c0_attestation_commit']
-  const chronologyKeys = [...commitKeys, 'p0_published_at_utc', 's0_acquired_at_utc', 'c0_published_at_utc'].sort()
+  const commitKeys = ['p0_artifact_commit', 'p0_attestation_commit', 'c0_artifact_commit']
+  const chronologyKeys = [...commitKeys, 'c0_attestation_commit', 'p0_published_at_utc', 's0_acquired_at_utc', 'c0_published_at_utc'].sort()
   if (canonicalJson(Object.keys(chronology).sort()) !== canonicalJson(chronologyKeys)) throw new Error('C0 chronology has missing or unknown fields')
   for (const key of commitKeys) exactHex(chronology[key], 40, `C0 chronology.${key}`)
-  if (new Set(commitKeys.map(key => chronology[key])).size !== commitKeys.length) throw new Error('P0A/P0T/C0A/C0T commit identities must be distinct')
+  if (chronology.c0_attestation_commit !== null) throw new Error('C0T cannot contain its own commit identity')
+  if (receipt === null || typeof receipt !== 'object' || Array.isArray(receipt) || receipt.schema_version !== 'c5k4-c0-validation-receipt-1.2') throw new Error('valid C0 validation receipt is required')
+  if (typeof c0Raw !== 'string' || receipt.c0t?.file_sha256 !== sha256Hex(Buffer.from(c0Raw, 'utf8'))) throw new Error('C0 validation receipt does not bind exact C0T bytes')
+  const unsignedReceipt = Object.fromEntries(Object.entries(receipt).filter(([key]) => key !== 'receipt_sha256'))
+  if (receipt.receipt_sha256 !== sha256Hex(Buffer.from(canonicalJson(unsignedReceipt), 'utf8'))) throw new Error('C0 validation receipt digest does not replay')
+  exactHex(receipt.c0_attestation_commit, 40, 'validated external C0T commit')
+  if (receipt.c0_artifact_commit !== chronology.c0_artifact_commit || receipt.direct_nonmerge_parent_verified !== true || receipt.committed_bytes_verified !== true || receipt.c0_published_at_utc !== chronology.c0_published_at_utc || receipt.future_round_close_at_utc !== c0.randomness.round_closes_at_utc) throw new Error('C0 validation receipt does not bind ancestry, bytes, and publication')
   const p0 = utcMillis(chronology.p0_published_at_utc, 'C0 chronology.p0_published_at_utc')
   const s0 = utcMillis(chronology.s0_acquired_at_utc, 'C0 chronology.s0_acquired_at_utc')
   const c0Published = utcMillis(chronology.c0_published_at_utc, 'C0 chronology.c0_published_at_utc')
@@ -95,7 +101,7 @@ export function profileFromC0 (c0) {
     roundClosesAtUtc: randomness.round_closes_at_utc,
     c0PublishedAtUtc: c0.published_at_utc,
     c0ArtifactCommit: chronology.c0_artifact_commit,
-    c0AttestationCommit: chronology.c0_attestation_commit
+    c0AttestationCommit: receipt.c0_attestation_commit
   })
 }
 
@@ -253,10 +259,10 @@ function argumentsFrom (argv) {
   const values = {}
   for (let index = 0; index < argv.length; index += 2) {
     const key = argv[index]
-    if (!['--c0-contract', '--output'].includes(key) || argv[index + 1] === undefined) throw new Error('usage: fetch-and-verify-v12.mjs --c0-contract FILE --output FILE')
+    if (!['--c0-contract', '--c0-validation-receipt', '--output'].includes(key) || argv[index + 1] === undefined) throw new Error('usage: fetch-and-verify-v12.mjs --c0-contract FILE --c0-validation-receipt FILE --output FILE')
     values[key] = argv[index + 1]
   }
-  if (!values['--c0-contract'] || !values['--output']) throw new Error('usage: fetch-and-verify-v12.mjs --c0-contract FILE --output FILE')
+  if (!values['--c0-contract'] || !values['--c0-validation-receipt'] || !values['--output']) throw new Error('usage: fetch-and-verify-v12.mjs --c0-contract FILE --c0-validation-receipt FILE --output FILE')
   return values
 }
 
@@ -271,8 +277,9 @@ async function main () {
   const args = argumentsFrom(process.argv.slice(2))
   const c0Raw = await fs.readFile(args['--c0-contract'], 'utf8')
   const c0 = parseObject(c0Raw, 'C0 contract')
+  const receipt = parseObject(await fs.readFile(args['--c0-validation-receipt'], 'utf8'), 'C0 validation receipt')
   // All contract checks and the time lock run before the first network call.
-  const profile = profileFromC0(c0)
+  const profile = profileFromC0(c0, receipt, c0Raw)
   assertUnlocked(profile)
   const responses = await fetchOfficialResponses(profile)
   const artifact = await verifyRelayPair(responses, profile)

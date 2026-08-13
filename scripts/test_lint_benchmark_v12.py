@@ -44,6 +44,7 @@ class BenchmarkV12LintTests(unittest.TestCase):
             "contamination_inventory", "source_snapshots", "prior", "library", "scoring",
             "stopping", "c0", "randomness", "selection", "terminal", "ledger",
             "score_input", "score_result",
+            "c0_receipt",
         ):
             self.write_artifact(name, {"schema_version": f"fixture-{name}"})
 
@@ -94,6 +95,7 @@ class BenchmarkV12LintTests(unittest.TestCase):
             "source_snapshots": copy.deepcopy(self.refs["source_snapshots"]),
             "eligible_pool": None, "feasibility_certificate": None,
             "c0_randomness_contract": copy.deepcopy(self.refs["c0"]) if feasible else None,
+            "c0_validation_receipt": copy.deepcopy(self.refs["c0_receipt"]) if feasible else None,
             "development_prior": copy.deepcopy(self.refs["prior"]),
             "transformation_library": copy.deepcopy(self.refs["library"]),
             "scoring_rule": copy.deepcopy(self.refs["scoring"]),
@@ -128,7 +130,7 @@ class BenchmarkV12LintTests(unittest.TestCase):
                 **digest_keys,
             },
             "quotas": copy.deepcopy(LINTER.QUOTAS),
-            "strata": [{"stratum": s, "quota": LINTER.QUOTAS[s], "eligible_count": counts[s], "deficit": max(0, LINTER.QUOTAS[s] - counts[s])} for s in LINTER.STRATA],
+            "strata": [{"stratum": s, "quota": LINTER.QUOTAS[s], "eligible_count": counts[s], "deficit": max(0, LINTER.QUOTAS[s] - counts[s]), "surplus": max(0, counts[s] - LINTER.QUOTAS[s])} for s in LINTER.STRATA],
             "certificate_sha256": H,
         }
         cert["certificate_sha256"] = LINTER.canonical_object_sha256(cert, "certificate_sha256")
@@ -154,15 +156,15 @@ class BenchmarkV12LintTests(unittest.TestCase):
         chronology = {
             "p0_artifact_commit": OID, "p0_attestation_commit": "d" * 40, "p0_published_at_utc": "2026-08-13T00:00:00Z",
             "s0_acquired_at_utc": "2026-08-13T01:00:00Z", "feasibility_checked_at_utc": "2026-08-13T02:00:00Z",
-            "f0_artifact_commit": "e" * 40 if not feasible else None, "f0_attestation_commit": "f" * 40 if not feasible else None,
+            "f0_artifact_commit": None, "f0_attestation_commit": None,
             "f0_published_at_utc": "2026-08-13T03:00:00Z" if not feasible else None,
             "c0_artifact_commit": "1" * 40 if feasible else None, "c0_attestation_commit": "2" * 40 if feasible else None,
             "c0_published_at_utc": "2026-08-13T03:00:00Z" if feasible else None,
             "randomness_retrieved_at_utc": "2026-08-13T05:00:00Z" if feasible else None,
-            "c1_artifact_commit": "3" * 40 if feasible else None, "c1_attestation_commit": "4" * 40 if feasible else None,
+            "c1_artifact_commit": "3" * 40 if complete else None, "c1_attestation_commit": "4" * 40 if complete else None,
             "c1_frozen_at_utc": "2026-08-13T06:00:00Z" if feasible else None,
             "evaluation_started_at_utc": "2026-08-13T07:00:00Z" if complete else None,
-            "r0_artifact_commit": "5" * 40 if complete else None, "r0_attestation_commit": "6" * 40 if complete else None,
+            "r0_artifact_commit": None, "r0_attestation_commit": None,
             "completed_at_utc": "2026-08-13T08:00:00Z" if complete else None,
         }
         chain = {"hash": "8990e7a9aaed2ffed73dbd7092123d6f289930540d7651336225dc172e51b2ce", "public_key": "868f005eb8e6e4ca0a47c8a77ceaa5309a47978a7c71bc5cce96366b5d7a569937c529eeda66c7293784a9402801af31", "scheme_id": "pedersen-bls-chained", "genesis_time": 1595431050, "period_seconds": 30}
@@ -178,7 +180,7 @@ class BenchmarkV12LintTests(unittest.TestCase):
             "selection": {"sampling_unit": "QUESTION_CLUSTER", "target_cluster_count": 12, "quotas": copy.deepcopy(LINTER.QUOTAS), "no_backfill": True, "relaxed_exclusion": False, "replacement_events": [], "evidence": copy.deepcopy(self.refs["selection"]) if feasible else None},
             "budgets": {"shared_analysis": {"process_count": 10, "process_wall_cap_seconds": 60, "cpu_budget_seconds": 600}, "discovery_arm": {"process_count": 8, "process_wall_cap_seconds": 60, "cpu_budget_seconds": 480}, "independent_verification": {"process_count": 2, "process_wall_cap_seconds": 60, "cpu_budget_seconds": 120}},
             "chronology": chronology,
-            "commit_pairs": {"p0": self.pair("a"), "f0": self.pair("e") if not feasible else None, "c0": self.pair("b") if feasible else None, "c1": self.pair("c") if feasible else None, "r0": self.pair("d") if complete else None},
+            "commit_pairs": {"p0": self.pair("a"), "f0": None, "c0": self.pair("b") if feasible else None, "c1": self.pair("c") if complete else None, "r0": None},
             "clusters": clusters, "ledgers": [],
             "aggregates": ({"selected_n": 12, "aggregate_denominator": "ALL_SELECTED", "runnable_n": 0, "completed_arm_counts": {a: 0 for a in LINTER.ARMS}, "structural_zero_n": 12, "derived_from_ledgers": True, "hand_authored": False} if complete else None),
             "scoring": ({"input": copy.deepcopy(self.refs["score_input"]), "result": copy.deepcopy(self.refs["score_result"])} if complete else None),
@@ -202,9 +204,27 @@ class BenchmarkV12LintTests(unittest.TestCase):
         self.assertEqual(self.codes(self.manifest(feasible=True), replay=True), set())
         self.assertEqual(self.codes(self.manifest(feasible=True, complete=True), replay=True), set())
 
+    def test_c0t_is_noncircular_and_c1_binds_external_validation(self) -> None:
+        m = self.manifest(feasible=True)
+        m["phase"] = "C0_FROZEN"
+        m["clusters"] = []
+        m["selection"]["evidence"] = None
+        m["randomness"]["state"] = "ARMED"
+        m["randomness"]["value"] = None
+        m["randomness"]["value_sha256"] = None
+        m["randomness"]["verified_artifact"] = None
+        m["freeze_artifacts"]["c0_validation_receipt"] = None
+        m["chronology"]["c0_attestation_commit"] = None
+        for key in ("randomness_retrieved_at_utc", "c1_artifact_commit", "c1_attestation_commit", "c1_frozen_at_utc"):
+            m["chronology"][key] = None
+        m["commit_pairs"]["c0"] = None
+        self.assertEqual(self.codes(m), set())
+        m["chronology"]["c0_attestation_commit"] = "2" * 40
+        self.assertIn("CIRCULAR_C0", self.codes(m))
+
     def test_negative_provenance_laundering_and_mixed_unit(self) -> None:
         m = self.manifest(feasible=False)
-        m["provenance"]["records"] = [{"unit_id": "u", "class": "MACHINE_REGISTRY_CONTACT", "identity_evidence_count": 1, "mixed": True, "producer_id": "missing", "input_sha256": None, "output_sha256": None, "schema_valid": False}]
+        m["provenance"]["records"] = [{"unit_id": "u", "class": "MACHINE_REGISTRY_CONTACT", "identity_evidence_count": 1, "mixed": True, "producer_id": "missing", "input_sha256": None, "output_sha256": None, "input_artifact": None, "output_artifact": None, "schema_valid": False}]
         self.assertTrue({"PROVENANCE_MIXED", "PROVENANCE_LAUNDERING"}.issubset(self.codes(m)))
 
     def test_negative_missing_source_snapshot(self) -> None:

@@ -65,6 +65,7 @@ def fixtures(extra: int = 1):
                 "quota": quota,
                 "eligible_count": count,
                 "deficit": max(0, quota - count),
+                "surplus": max(0, count - quota),
             }
         )
     certificate = {
@@ -105,7 +106,7 @@ def fixtures(extra: int = 1):
             "p0_published_at_utc": "2026-08-13T18:00:00Z",
             "s0_acquired_at_utc": "2026-08-13T18:10:00Z",
             "c0_artifact_commit": "3" * 40,
-            "c0_attestation_commit": "4" * 40,
+            "c0_attestation_commit": None,
             "c0_published_at_utc": "2026-08-13T18:20:00Z",
         },
         "published_at_utc": "2026-08-13T18:20:00Z",
@@ -119,8 +120,21 @@ def fixtures(extra: int = 1):
             "value": None,
         },
     }
+    c0_raw = encoded(c0)
+    receipt = {
+        "schema_version": "c5k4-c0-validation-receipt-1.2",
+        "c0t": {"path": "results/c0t.json", "file_sha256": selector.sha256(c0_raw)},
+        "c0_artifact_commit": "3" * 40, "c0_attestation_commit": "4" * 40,
+        "direct_nonmerge_parent_verified": True, "changed_paths": ["results/c0t.json"],
+        "committed_bytes_verified": True, "publication_observation": None,
+        "c0_published_at_utc": "2026-08-13T18:20:00Z",
+        "future_round_close_at_utc": "2026-08-13T19:00:00Z",
+    }
+    receipt["receipt_sha256"] = selector.object_digest(receipt, "receipt_sha256")
+    receipt_raw = encoded(receipt)
     randomness = {
         "schema_version": selector.RANDOMNESS_SCHEMA_VERSION,
+        "c0_binding": {"artifact_commit": "3" * 40, "attestation_commit": "4" * 40, "published_at_utc": "2026-08-13T18:20:00Z"},
         "retrieval": {"retrieved_at_utc": "2026-08-13T19:00:01Z"},
         "chain": {"hash": selector.DRAND_CHAIN_HASH},
         "round": 42,
@@ -140,12 +154,12 @@ def fixtures(extra: int = 1):
             "randomness_equals_sha256_signature": True,
         },
     }
-    return pool, pool_raw, artifacts, certificate, certificate_raw, c0, encoded(c0), randomness, encoded(randomness)
+    return pool, pool_raw, artifacts, certificate, certificate_raw, c0, c0_raw, receipt, receipt_raw, randomness, encoded(randomness)
 
 
 def run(parts):
-    _, pool_raw, artifacts, _, certificate_raw, _, c0_raw, _, randomness_raw = parts
-    return selector.select(pool_raw, certificate_raw, artifacts, c0_raw, randomness_raw)
+    _, pool_raw, artifacts, _, certificate_raw, _, c0_raw, _, receipt_raw, _, randomness_raw = parts
+    return selector.select(pool_raw, certificate_raw, artifacts, c0_raw, receipt_raw, randomness_raw)
 
 
 class SelectionV12Tests(unittest.TestCase):
@@ -177,7 +191,7 @@ class SelectionV12Tests(unittest.TestCase):
         )
         self.assertEqual(
             result["evidence_sha256"],
-            "0a702192b49538e9a30e55476df1fe838e3804e978825635ae32b497991aa18e",
+            "c953b9f2dc331b350049859a95cde169e16ec4f63b124760791a9aee0e69d060",
         )
 
     def test_rejection_sampling_discards_out_of_range_u64(self) -> None:
@@ -202,7 +216,7 @@ class SelectionV12Tests(unittest.TestCase):
             certificate, "certificate_sha256"
         )
         parts[4] = encoded(certificate)
-        parts[8] = b"this is deliberately not entropy JSON"
+        parts[10] = b"this is deliberately not entropy JSON"
         with self.assertRaisesRegex(ValueError, "PRE_C0 failure is terminal"):
             run(parts)
 
@@ -247,18 +261,22 @@ class SelectionV12Tests(unittest.TestCase):
         parts = list(fixtures())
         parts[5]["randomness"]["round_closes_at_utc"] = "2026-08-13T18:20:00Z"
         parts[6] = encoded(parts[5])
+        parts[7]["c0t"]["file_sha256"] = selector.sha256(parts[6])
+        parts[7]["future_round_close_at_utc"] = "2026-08-13T18:20:00Z"
+        parts[7]["receipt_sha256"] = selector.object_digest(parts[7], "receipt_sha256")
+        parts[8] = encoded(parts[7])
         with self.assertRaisesRegex(ValueError, "not future"):
             run(parts)
 
     def test_unverified_or_early_randomness_is_rejected(self) -> None:
         parts = list(fixtures())
-        parts[7]["verification"]["bls_signature"] = False
-        parts[8] = encoded(parts[7])
+        parts[9]["verification"]["bls_signature"] = False
+        parts[10] = encoded(parts[9])
         with self.assertRaisesRegex(ValueError, "verification passes"):
             run(parts)
         parts = list(fixtures())
-        parts[7]["retrieval"]["retrieved_at_utc"] = "2026-08-13T18:59:59Z"
-        parts[8] = encoded(parts[7])
+        parts[9]["retrieval"]["retrieved_at_utc"] = "2026-08-13T18:59:59Z"
+        parts[10] = encoded(parts[9])
         with self.assertRaisesRegex(ValueError, "before the frozen round closed"):
             run(parts)
 
@@ -282,6 +300,9 @@ class SelectionV12Tests(unittest.TestCase):
         second[5]["pool_file_sha256"] = selector.sha256(second[1])
         second[5]["quota_feasibility_sha256"] = second[3]["certificate_sha256"]
         second[6] = encoded(second[5])
+        second[7]["c0t"]["file_sha256"] = selector.sha256(second[6])
+        second[7]["receipt_sha256"] = selector.object_digest(second[7], "receipt_sha256")
+        second[8] = encoded(second[7])
         self.assertEqual(
             [row["cluster_id"] for row in run(first)["selected_clusters"]],
             [row["cluster_id"] for row in run(second)["selected_clusters"]],

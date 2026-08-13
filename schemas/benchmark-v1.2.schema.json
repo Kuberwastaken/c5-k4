@@ -163,6 +163,7 @@
         "eligible_pool",
         "feasibility_certificate",
         "c0_randomness_contract",
+        "c0_validation_receipt",
         "development_prior",
         "transformation_library",
         "scoring_rule",
@@ -207,6 +208,12 @@
             {
               "type": "null"
             }
+          ]
+        },
+        "c0_validation_receipt": {
+          "oneOf": [
+            {"$ref": "#/definitions/fileDigest"},
+            {"type": "null"}
           ]
         },
         "development_prior": {
@@ -524,6 +531,8 @@
         "producer_id",
         "input_sha256",
         "output_sha256",
+        "input_artifact",
+        "output_artifact",
         "schema_valid"
       ],
       "properties": {
@@ -571,6 +580,18 @@
             }
           ]
         },
+        "input_artifact": {
+          "oneOf": [
+            {"$ref": "#/definitions/fileDigest"},
+            {"type": "null"}
+          ]
+        },
+        "output_artifact": {
+          "oneOf": [
+            {"$ref": "#/definitions/fileDigest"},
+            {"type": "null"}
+          ]
+        },
         "schema_valid": {
           "type": "boolean"
         }
@@ -612,6 +633,7 @@
         "quota",
         "eligible_count",
         "deficit"
+        ,"surplus"
       ],
       "properties": {
         "stratum": {
@@ -631,6 +653,10 @@
           "minimum": 0
         },
         "deficit": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "surplus": {
           "type": "integer",
           "minimum": 0
         }

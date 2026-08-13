@@ -88,6 +88,16 @@ def hex_digest(value: Any, where: str) -> str:
     return value
 
 
+def git_oid(value: Any, where: str) -> str:
+    if not isinstance(value, str) or len(value) != 40 or value.lower() != value:
+        raise ScoreError("GIT_OID", f"{where} must be 40 lowercase hexadecimal characters")
+    try:
+        bytes.fromhex(value)
+    except ValueError as exc:
+        raise ScoreError("GIT_OID", f"{where} is not hexadecimal") from exc
+    return value
+
+
 def resolve(manifest_path: Path, recorded: Any) -> Path:
     if not isinstance(recorded, str) or not recorded:
         raise ScoreError("PATH", "artifact path must be a nonempty string")
@@ -133,16 +143,38 @@ def replay_selection(manifest: dict[str, Any], manifest_path: Path) -> list[dict
     replay = manifest["selection_replay"]
     required = {
         "evidence", "eligible_pool", "quota_feasibility", "c0_contract",
-        "verified_randomness", *SELECTOR.ARTIFACT_KEYS,
+        "c0_validation_receipt", "verified_randomness", *SELECTOR.ARTIFACT_KEYS,
     }
     if not isinstance(replay, dict) or set(replay) != required:
         raise ScoreError("SELECTION_REPLAY", "selection_replay has incomplete or unknown inputs")
     raw = {name: read_reference(manifest_path, ref, f"selection_replay.{name}") for name, ref in replay.items()}
     try:
+        c0 = json.loads(raw["c0_contract"])
+        receipt = json.loads(raw["c0_validation_receipt"])
+        if receipt.get("schema_version") != "c5k4-c0-validation-receipt-1.2":
+            raise ValueError("C0 validation receipt schema is not frozen v1.2")
+        if receipt.get("receipt_sha256") != SELECTOR.object_digest(receipt, "receipt_sha256"):
+            raise ValueError("C0 validation receipt digest does not replay")
+        chronology = c0.get("chronology", {})
+        c0t = receipt.get("c0t", {})
+        expected_receipt = {
+            "c0t": {"path": c0t.get("path"), "file_sha256": hashlib.sha256(raw["c0_contract"]).hexdigest()},
+            "c0_artifact_commit": chronology.get("c0_artifact_commit"),
+            "c0_attestation_commit": receipt.get("c0_attestation_commit"),
+            "direct_nonmerge_parent_verified": True,
+            "changed_paths": [c0t.get("path")],
+            "committed_bytes_verified": True,
+            "publication_observation": c0.get("publication_observation"),
+            "c0_published_at_utc": chronology.get("c0_published_at_utc"),
+            "future_round_close_at_utc": c0.get("randomness", {}).get("round_closes_at_utc"),
+        }
+        if any(receipt.get(key) != value for key, value in expected_receipt.items()):
+            raise ValueError("C0 validation receipt does not authenticate exact external C0T validation")
+        git_oid(receipt.get("c0_attestation_commit"), "c0_validation_receipt.c0_attestation_commit")
         expected = SELECTOR.select(
             raw["eligible_pool"], raw["quota_feasibility"],
             {name: raw[name] for name in SELECTOR.ARTIFACT_KEYS},
-            raw["c0_contract"], raw["verified_randomness"],
+            raw["c0_contract"], raw["c0_validation_receipt"], raw["verified_randomness"],
         )
         recorded = json.loads(raw["evidence"])
     except (ValueError, UnicodeDecodeError, json.JSONDecodeError) as exc:
