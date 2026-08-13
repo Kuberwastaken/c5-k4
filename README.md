@@ -96,6 +96,7 @@ workflow.
 - [WOWII 172: barbell-family counterexample and formal certificate](https://github.com/Kuberwastaken/c5-k4/releases/tag/wowii-172-v1)
 - [WOWII 176: barbell-family counterexample and formal certificate](https://github.com/Kuberwastaken/c5-k4/releases/tag/wowii-176-v1)
 - [WOWII 430a: nonuniform path-blow-up counterexample and formal certificate](https://github.com/Kuberwastaken/c5-k4/releases/tag/wowii-430a-v1)
+- [WOWII 181: formalized square-degree reading counterexample and formal certificate](https://github.com/Kuberwastaken/c5-k4/releases/tag/wowii-181-v1)
 
 Known externally claimed results such as WOWII 64 and 309 remain fully
 formalized and credited in the repository, but are not republished as
