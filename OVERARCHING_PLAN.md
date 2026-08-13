@@ -300,6 +300,12 @@ contains open answer placeholders. It can test whether the workflow recovers
 and formalizes a known implication, but it is not a new discovery and does not
 enter the counterexample score.
 
+The reverse status delta is now calibrated too. Erdős 489, 796, and 1188 still
+read `open / unformalized / formalized yes` in the canonical data, but the exact
+DeepMind declarations already link merged, sorry-free solutions. They require
+metadata synchronization, not duplicate Lean proofs, and are excluded from
+both the discovery score and the formal-transfer queue.
+
 Every target receives source-direction, certificate-shape, local-theorem,
 live-status, literature, and bounded-evaluability gates before a family can be
 frozen. A Phase-0 ambiguity or proved-domain hit is a completed stop, not
