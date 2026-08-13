@@ -1,0 +1,36 @@
+{
+  "date_utc": "2026-08-13",
+  "target": "WOWII 61 zero-padded excess-profile implication",
+  "new_exact_orders": [9, 10],
+  "method": {
+    "sequence_generation": "all descending length-n sequences with entries in [0,n-1]",
+    "graphicality": "exact Havel-Hakimi reduction",
+    "degree_pair_filter": "componentwise comparison of all degree-prefix sums",
+    "profile": "canonical Havel-Hakimi step losses minus 2, cumulatively zero-padded through n",
+    "profile_test": "componentwise comparison of all zero-padded cumulative profile sums",
+    "implementation": "Python enumeration with NumPy vectorized pair comparisons",
+    "per_process_timeout_seconds": 60
+  },
+  "new_results": [
+    {
+      "n": 9,
+      "graphical_sequences": 4361,
+      "weak_dominance_pairs": 7477797,
+      "padded_profile_failures": 0,
+      "runtime_seconds": 1.29
+    },
+    {
+      "n": 10,
+      "graphical_sequences": 16016,
+      "weak_dominance_pairs": 97447686,
+      "padded_profile_failures": 0,
+      "runtime_seconds": 14.85
+    }
+  ],
+  "cumulative_orders_1_through_10": {
+    "graphical_sequences_across_separate_orders": 22083,
+    "weak_dominance_pairs": 105582418,
+    "padded_profile_failures": 0
+  },
+  "claim_limit": "Exact finite evidence only. No general implication theorem is inferred from the search."
+}
