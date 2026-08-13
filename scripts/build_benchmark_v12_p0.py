@@ -21,6 +21,7 @@ SCHEMA_VERSION = "c5k4-method-v1.2-p0-1.0"
 CONFIG_VERSION = "c5k4-method-v1.2-p0-components-1.0"
 REQUIRED_COMPONENTS = (
     "protocol_document",
+    "p0_builder",
     "five_strata_classifier",
     "grouping_rule",
     "provenance_policy",
@@ -45,7 +46,11 @@ REQUIRED_COMPONENTS = (
     "c0_builder",
     "scorer",
     "frozen_job_runner",
+    "frozen_job_workflow",
+    "run_contract_schema",
     "drand_fetcher",
+    "drand_package_manifest",
+    "drand_package_lock",
     "budget_rule",
     # P0 freezes how the three comparison arms are instantiated. Exact
     # target-specific contracts and grids remain post-C1/pre-execution.
