@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-git-custody-locator-proof-v1.5.schema.json",
+  "title": "Method v1.5 authenticated Git custody locator proof",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "status",
+    "locator_binding",
+    "vendor_receipt",
+    "verification",
+    "proof_sha256"
+  ],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-git-custody-locator-proof-1.0"},
+    "status": {"const": "VERIFIED_IMMUTABLE_SOURCE_CUSTODY"},
+    "locator_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id",
+        "source_kind",
+        "locator",
+        "role",
+        "content_sha256",
+        "content_schema",
+        "unit_identity_sha256",
+        "git_blob",
+        "path",
+        "vendor_base_commit",
+        "vendor_base_tree",
+        "acquisition_receipt_sha256",
+        "locator_specific"
+      ],
+      "properties": {
+        "source_id": {"type": "string", "minLength": 1},
+        "source_kind": {"const": "git_provenance_partition"},
+        "locator": {"type": "string", "pattern": "^git-blob:[0-9a-f]{40}:.+$"},
+        "role": {"const": "vendor-base-blob"},
+        "content_sha256": {"$ref": "#/definitions/sha256"},
+        "content_schema": {"type": ["string", "null"]},
+        "unit_identity_sha256": {"$ref": "#/definitions/sha256"},
+        "git_blob": {"$ref": "#/definitions/gitOid"},
+        "path": {"type": "string", "minLength": 1},
+        "vendor_base_commit": {"$ref": "#/definitions/gitOid"},
+        "vendor_base_tree": {"$ref": "#/definitions/gitOid"},
+        "acquisition_receipt_sha256": {"$ref": "#/definitions/sha256"},
+        "locator_specific": {"const": true}
+      }
+    },
+    "vendor_receipt": {"$ref": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-vendor-base-receipt-v1.5.schema.json"},
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "vendor_receipt_live_replay",
+        "base_commit_and_tree_match",
+        "path_and_blob_match",
+        "blob_content_sha256_match",
+        "no_semantic_rendering_evidenced"
+      ],
+      "properties": {
+        "vendor_receipt_live_replay": {"const": true},
+        "base_commit_and_tree_match": {"const": true},
+        "path_and_blob_match": {"const": true},
+        "blob_content_sha256_match": {"const": true},
+        "no_semantic_rendering_evidenced": {"const": true}
+      }
+    },
+    "proof_sha256": {"$ref": "#/definitions/sha256"}
+  },
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "gitOid": {"type": "string", "pattern": "^[0-9a-f]{40}$"}
+  }
+}

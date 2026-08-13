@@ -7,7 +7,10 @@ import hashlib
 import json
 from pathlib import Path
 import re
+import subprocess
 from typing import Any, Iterable
+
+import build_benchmark_v15_vendor_bases as vendor
 
 
 SEMANTIC_EXPOSURE = "SEMANTIC_EXPOSURE"
@@ -104,18 +107,57 @@ def _valid_machine_proof(unit: dict[str, Any], proof: object) -> bool:
 
 
 def _valid_custody_proof(unit: dict[str, Any], proof: object) -> bool:
-    if not _proof_is_locator_bound(unit, proof):
+    if not isinstance(proof, dict):
         return False
-    assert isinstance(proof, dict)
-    return (
-        proof.get("schema_version") == "c5k4-immutable-source-custody-receipt-1.5"
-        and proof.get("verification_status") == "VERIFIED"
-        and proof.get("authenticated_fresh_bare_capture") is True
-        and proof.get("base_commit_verified") is True
-        and proof.get("base_tree_verified") is True
-        and proof.get("no_semantic_rendering_evidenced") is True
-        and proof.get("locator_specific_proof") is True
-    )
+    binding = proof.get("locator_binding")
+    receipt = proof.get("vendor_receipt")
+    verification = proof.get("verification")
+    if not _proof_is_locator_bound(unit, binding):
+        return False
+    if (
+        proof.get("schema") != "c5k4-method-v1.5-git-custody-locator-proof-1.0"
+        or proof.get("status") != "VERIFIED_IMMUTABLE_SOURCE_CUSTODY"
+        or proof.get("proof_sha256") != sha256(canonical_json({key: value for key, value in proof.items() if key != "proof_sha256"}))
+        or not isinstance(receipt, dict)
+        or not isinstance(verification, dict)
+        or not all(verification.get(key) is True for key in (
+            "vendor_receipt_live_replay", "base_commit_and_tree_match",
+            "path_and_blob_match", "blob_content_sha256_match",
+            "no_semantic_rendering_evidenced",
+        ))
+    ):
+        return False
+    try:
+        vendor.validate_receipt(receipt)
+    except (ValueError, OSError):
+        return False
+    match = GIT_BLOB_LOCATOR.fullmatch(unit["locator"])
+    if match is None:
+        return False
+    blob, path = match.groups()
+    audit = receipt.get("audit", {})
+    if (
+        binding.get("locator_specific") is not True
+        or binding.get("git_blob") != blob
+        or binding.get("path") != path
+        or binding.get("vendor_base_commit") != audit.get("commit")
+        or binding.get("vendor_base_tree") != audit.get("root_tree")
+        or binding.get("acquisition_receipt_sha256") != receipt.get("receipt_sha256")
+    ):
+        return False
+    try:
+        raw = vendor.git(Path(receipt["repository_path"]), "ls-tree", "-z", audit["commit"], "--", path).stdout
+        records = [record for record in raw.split(b"\0") if record]
+        if len(records) != 1:
+            return False
+        metadata, path_raw = records[0].split(b"\t", 1)
+        _mode, kind, tree_blob = metadata.decode("ascii").split(" ")
+        if kind != "blob" or tree_blob != blob or path_raw.decode("utf-8", "surrogateescape") != path:
+            return False
+        content = vendor.git(Path(receipt["repository_path"]), "cat-file", "blob", blob).stdout
+    except (KeyError, OSError, UnicodeError, ValueError, subprocess.CalledProcessError):
+        return False
+    return sha256(content) == unit["content_sha256"]
 
 
 def classify_unit(
@@ -154,6 +196,8 @@ def proof_index(records: Iterable[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     indexed: dict[str, dict[str, Any]] = {}
     for record in records:
         identity = record.get("unit_identity_sha256")
+        if not isinstance(identity, str) and isinstance(record.get("locator_binding"), dict):
+            identity = record["locator_binding"].get("unit_identity_sha256")
         if not isinstance(identity, str) or not HEX_SHA256.fullmatch(identity):
             continue
         if identity in indexed and indexed[identity] != record:

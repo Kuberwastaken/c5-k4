@@ -23,11 +23,15 @@ import build_benchmark_v15_vendor_bases as vendor
 
 
 SCHEMA = "c5k4-method-v1.5-git-provenance-partition-1.0"
+CUSTODY_PROOF_SCHEMA = "c5k4-method-v1.5-git-custody-locator-proof-1.0"
 IMMUTABLE = "IMMUTABLE_SOURCE_CUSTODY"
 SEMANTIC = "SEMANTIC_EXPOSURE"
 UNKNOWN = "UNKNOWN"
 HEX40 = re.compile(r"[0-9a-f]{40}")
 HEX64 = re.compile(r"[0-9a-f]{64}")
+UNIT_IDENTITY_FIELDS = (
+    "source_id", "source_kind", "locator", "role", "content_sha256", "content_schema",
+)
 
 
 class PartitionError(ValueError):
@@ -91,8 +95,65 @@ def _unit(source_id: str, locator: str, role: str, content_sha256: str, cls: str
         "classification_reason": reason,
         **extra,
     }
-    value["unit_identity_sha256"] = sha256(canonical_json({key: value[key] for key in ("source_id", "locator", "role", "content_sha256")}))
+    value["unit_identity_sha256"] = sha256(canonical_json({key: value[key] for key in UNIT_IDENTITY_FIELDS}))
     return value
+
+
+def custody_locator_proof(unit: dict[str, Any], vendor_receipt: dict[str, Any]) -> dict[str, Any]:
+    """Bind one exact partitioned base blob to its authenticated vendor receipt."""
+
+    vendor_repo = Path(str(vendor_receipt.get("repository_path", "")))
+    vendor.validate_receipt(vendor_receipt, vendor_repo)
+    expected_identity = sha256(canonical_json({key: unit.get(key) for key in UNIT_IDENTITY_FIELDS}))
+    if unit.get("unit_identity_sha256") != expected_identity:
+        raise PartitionError("custody unit identity does not replay")
+    if (
+        unit.get("source_kind") != "git_provenance_partition"
+        or unit.get("role") != "vendor-base-blob"
+        or unit.get("provenance_class") != IMMUTABLE
+        or unit.get("classification_reason") != "EXACT_PATH_AND_BLOB_AT_AUTHENTICATED_VENDOR_BASE"
+    ):
+        raise PartitionError("custody proof requires one exact immutable vendor-base blob")
+    match = re.fullmatch(r"git-blob:([0-9a-f]{40}):(.+)", str(unit.get("locator", "")))
+    if match is None or match.groups() != (unit.get("git_blob"), unit.get("path")):
+        raise PartitionError("custody unit locator does not bind its blob and path")
+    audit = vendor_receipt["audit"]
+    if (
+        unit.get("vendor_base_commit") != audit["commit"]
+        or unit.get("vendor_base_tree") != audit["root_tree"]
+        or unit.get("acquisition_receipt_sha256") != vendor_receipt["receipt_sha256"]
+    ):
+        raise PartitionError("custody unit does not bind the authenticated vendor base")
+    entries = dict(tree_blobs(vendor_repo, audit["commit"]))
+    if entries.get(unit["path"]) != unit["git_blob"]:
+        raise PartitionError("custody path/blob is absent from the authenticated vendor tree")
+    if blob_sha256(vendor_repo, unit["git_blob"]) != unit["content_sha256"]:
+        raise PartitionError("custody blob content digest does not replay")
+    binding = {key: unit.get(key) for key in UNIT_IDENTITY_FIELDS}
+    binding.update({
+        "unit_identity_sha256": expected_identity,
+        "git_blob": unit["git_blob"],
+        "path": unit["path"],
+        "vendor_base_commit": unit["vendor_base_commit"],
+        "vendor_base_tree": unit["vendor_base_tree"],
+        "acquisition_receipt_sha256": unit["acquisition_receipt_sha256"],
+        "locator_specific": True,
+    })
+    proof: dict[str, Any] = {
+        "schema": CUSTODY_PROOF_SCHEMA,
+        "status": "VERIFIED_IMMUTABLE_SOURCE_CUSTODY",
+        "locator_binding": binding,
+        "vendor_receipt": vendor_receipt,
+        "verification": {
+            "vendor_receipt_live_replay": True,
+            "base_commit_and_tree_match": True,
+            "path_and_blob_match": True,
+            "blob_content_sha256_match": True,
+            "no_semantic_rendering_evidenced": True,
+        },
+    }
+    proof["proof_sha256"] = sha256(canonical_json(proof))
+    return proof
 
 
 def tree_blobs(repo: Path, commit: str) -> list[tuple[str, str]]:

@@ -66,7 +66,7 @@ class ProvenanceTests(unittest.TestCase):
         self.assertEqual(self.classified({**self.unit, "mixed": True}, self.proof), provenance.UNKNOWN)
         self.assertEqual(self.classified({"role": "machine-generated-git-blob"}, self.proof), provenance.UNKNOWN)
 
-    def test_verified_vendor_blob_is_custody_not_machine_contact(self) -> None:
+    def test_legacy_unverifiable_custody_claim_is_unknown(self) -> None:
         unit = {**self.unit, "source_kind": "git_vendor", "role": "vendor-base-blob"}
         proof = {
             **{key: unit[key] for key in (
@@ -78,7 +78,7 @@ class ProvenanceTests(unittest.TestCase):
             "base_tree_verified": True, "no_semantic_rendering_evidenced": True,
             "locator_specific_proof": True,
         }
-        self.assertEqual(self.classified(unit, proof), provenance.IMMUTABLE_SOURCE_CUSTODY)
+        self.assertEqual(self.classified(unit, proof), provenance.UNKNOWN)
         broken = copy.deepcopy(proof)
         broken["base_tree_verified"] = False
         self.assertEqual(self.classified(unit, broken), provenance.UNKNOWN)

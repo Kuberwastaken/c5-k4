@@ -9,7 +9,10 @@ import subprocess
 import tempfile
 import unittest
 
+import jsonschema
+
 import build_benchmark_v15_vendor_bases as vendor
+import classify_benchmark_provenance_v15 as classifier
 import partition_git_provenance_v15 as partition
 from test_build_benchmark_v15_vendor_bases import make_bare, receipt_for, run
 
@@ -51,6 +54,53 @@ class PartitionTests(unittest.TestCase):
             self.assertTrue(deltas)
             self.assertTrue(all(unit["provenance_class"] == partition.SEMANTIC for unit in deltas))
             self.assertFalse(result["fail_closed"])
+
+    def test_authenticated_vendor_partition_classifies_end_to_end(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo, receipt = fixture(Path(tmp))
+            result = partition.partition_repository(repo, "HEAD", receipt, source_id="fixture")
+            unit = next(row for row in result["units"] if row["role"] == "vendor-base-blob")
+            self.assertEqual(unit["unit_identity_sha256"], classifier.unit_identity_sha256(unit))
+            proof = partition.custody_locator_proof(unit, receipt)
+            schema_path = Path(__file__).parents[1] / "schemas/benchmark-git-custody-locator-proof-v1.5.schema.json"
+            schema = json.loads(schema_path.read_text(encoding="utf-8"))
+            vendor_schema = json.loads(
+                (schema_path.parent / "benchmark-vendor-base-receipt-v1.5.schema.json").read_text(encoding="utf-8")
+            )
+            resolver = jsonschema.RefResolver.from_schema(
+                schema, store={vendor_schema["$id"]: vendor_schema}
+            )
+            jsonschema.Draft7Validator(schema, resolver=resolver).validate(proof)
+            classified = classifier.classify_unit(unit, proof)
+            self.assertEqual(classified["provenance_class"], classifier.IMMUTABLE_SOURCE_CUSTODY)
+            self.assertEqual(
+                classifier.classify_units([unit], [proof])[0]["provenance_class"],
+                classifier.IMMUTABLE_SOURCE_CUSTODY,
+            )
+
+    def test_custody_locator_or_receipt_mismatch_is_unknown(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo, receipt = fixture(Path(tmp))
+            result = partition.partition_repository(repo, "HEAD", receipt, source_id="fixture")
+            unit = next(row for row in result["units"] if row["role"] == "vendor-base-blob")
+            proof = partition.custody_locator_proof(unit, receipt)
+
+            moved = dict(unit)
+            moved["locator"] = moved["locator"] + ".copy"
+            moved["unit_identity_sha256"] = classifier.unit_identity_sha256(moved)
+            self.assertEqual(
+                classifier.classify_unit(moved, proof)["provenance_class"],
+                classifier.UNKNOWN,
+            )
+
+            tampered = json.loads(json.dumps(proof))
+            tampered["vendor_receipt"]["audit"]["root_tree"] = "0" * 40
+            unsigned = {key: value for key, value in tampered.items() if key != "proof_sha256"}
+            tampered["proof_sha256"] = classifier.sha256(classifier.canonical_json(unsigned))
+            self.assertEqual(
+                classifier.classify_unit(unit, tampered)["provenance_class"],
+                classifier.UNKNOWN,
+            )
 
     def test_rename_or_copy_never_inherits_vendor_custody(self) -> None:
         for operation in ("rename", "copy"):
