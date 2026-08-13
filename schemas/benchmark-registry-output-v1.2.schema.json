@@ -1,0 +1,281 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-registry-output-v1.2.schema.json",
+  "title": "Method v1.2 single production registry-build output envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "authority",
+    "protocol_version",
+    "build_ordinal",
+    "input_file_sha256",
+    "input_canonical_sha256",
+    "chronology",
+    "upstream",
+    "producer",
+    "controls",
+    "artifacts",
+    "feasibility_replay",
+    "output_sha256"
+  ],
+  "properties": {
+    "schema_version": {"const": "c5k4-registry-build-output-1.2"},
+    "authority": {"const": "PRODUCTION_REGISTRY_BUILD"},
+    "protocol_version": {"const": "1.2"},
+    "build_ordinal": {"const": 1},
+    "input_file_sha256": {"$ref": "#/definitions/sha256"},
+    "input_canonical_sha256": {"$ref": "#/definitions/sha256"},
+    "chronology": {"$ref": "#/definitions/chronology"},
+    "upstream": {"$ref": "#/definitions/upstream"},
+    "producer": {"$ref": "#/definitions/producer"},
+    "controls": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "prototype_inputs_used",
+        "candidate_semantics_inspected",
+        "entropy_used",
+        "selected_clusters",
+        "selection_or_ranking_performed",
+        "output_directory_created_exclusively",
+        "preexisting_output_replaced"
+      ],
+      "properties": {
+        "prototype_inputs_used": {"const": false},
+        "candidate_semantics_inspected": {"const": false},
+        "entropy_used": {"const": false},
+        "selected_clusters": {"type": "array", "maxItems": 0},
+        "selection_or_ranking_performed": {"const": false},
+        "output_directory_created_exclusively": {"const": true},
+        "preexisting_output_replaced": {"const": false}
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": {"$ref": "#/definitions/artifact"},
+      "allOf": [
+        {"contains": {"properties": {"artifact_id": {"const": "open_inventory"}}, "required": ["artifact_id"]}},
+        {"contains": {"properties": {"artifact_id": {"const": "question_cluster_pool"}}, "required": ["artifact_id"]}},
+        {"contains": {"properties": {"artifact_id": {"const": "provenance_inventory"}}, "required": ["artifact_id"]}},
+        {"contains": {"properties": {"artifact_id": {"const": "contamination_inventory"}}, "required": ["artifact_id"]}},
+        {"contains": {"properties": {"artifact_id": {"const": "eligible_pool"}}, "required": ["artifact_id"]}},
+        {"contains": {"properties": {"artifact_id": {"const": "quota_feasibility"}}, "required": ["artifact_id"]}}
+      ]
+    },
+    "feasibility_replay": {"$ref": "#/definitions/feasibilityReplay"},
+    "output_sha256": {"$ref": "#/definitions/sha256"}
+  },
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "gitOid": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+    },
+    "stratum": {
+      "enum": [
+        "GRAPH_SCALAR_INEQUALITY",
+        "GRAPH_STRUCTURAL_PROPERTY",
+        "FINITE_ALGEBRA_EQUATIONAL",
+        "AUTOMATA_GAME_PROCESS",
+        "FINITE_COMBINATORIAL"
+      ]
+    },
+    "chronology": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "p0_artifact_commit",
+        "p0_attestation_commit",
+        "p0_published_at_utc",
+        "s0_snapshot_id",
+        "s0_acquired_at_utc",
+        "s0_snapshot_sha256",
+        "registry_build_completed_at_utc"
+      ],
+      "properties": {
+        "p0_artifact_commit": {"$ref": "#/definitions/gitOid"},
+        "p0_attestation_commit": {"$ref": "#/definitions/gitOid"},
+        "p0_published_at_utc": {"$ref": "#/definitions/timestamp"},
+        "s0_snapshot_id": {"const": "S0"},
+        "s0_acquired_at_utc": {"$ref": "#/definitions/timestamp"},
+        "s0_snapshot_sha256": {"$ref": "#/definitions/sha256"},
+        "registry_build_completed_at_utc": {"$ref": "#/definitions/timestamp"}
+      }
+    },
+    "upstream": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "remote_ref", "commit", "tree", "subtree", "resolution_count"],
+      "properties": {
+        "repository": {"const": "https://github.com/google-deepmind/formal-conjectures.git"},
+        "remote_ref": {"const": "refs/heads/main"},
+        "commit": {"$ref": "#/definitions/gitOid"},
+        "tree": {"$ref": "#/definitions/gitOid"},
+        "subtree": {"const": "FormalConjectures"},
+        "resolution_count": {"const": 1}
+      }
+    },
+    "producer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "producer_id",
+        "executable_sha256",
+        "invocation_contract_sha256",
+        "input_schema_sha256",
+        "output_schema_sha256"
+      ],
+      "properties": {
+        "producer_id": {"const": "method-v1.2-production-registry-builder"},
+        "executable_sha256": {"$ref": "#/definitions/sha256"},
+        "invocation_contract_sha256": {"$ref": "#/definitions/sha256"},
+        "input_schema_sha256": {"$ref": "#/definitions/sha256"},
+        "output_schema_sha256": {"$ref": "#/definitions/sha256"}
+      }
+    },
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["artifact_id", "path", "file_sha256", "canonical_sha256", "schema_version", "row_count"],
+      "oneOf": [
+        {"properties": {"artifact_id": {"const": "open_inventory"}, "path": {"const": "open-inventory.json"}, "schema_version": {"const": "c5k4-open-inventory-1.2"}}},
+        {"properties": {"artifact_id": {"const": "question_cluster_pool"}, "path": {"const": "question-cluster-pool.json"}, "schema_version": {"const": "c5k4-question-cluster-pool-1.2"}}},
+        {"properties": {"artifact_id": {"const": "provenance_inventory"}, "path": {"const": "provenance-inventory.json"}, "schema_version": {"const": "c5k4-provenance-inventory-1.2"}}},
+        {"properties": {"artifact_id": {"const": "contamination_inventory"}, "path": {"const": "contamination-inventory.json"}, "schema_version": {"const": "c5k4-contamination-inventory-1.2"}}},
+        {"properties": {"artifact_id": {"const": "eligible_pool"}, "path": {"const": "eligible-cluster-pool.json"}, "schema_version": {"const": "c5k4-eligible-cluster-pool-1.2"}}},
+        {"properties": {"artifact_id": {"const": "quota_feasibility"}, "path": {"const": "quota-feasibility.json"}, "schema_version": {"const": "c5k4-quota-feasibility-1.2"}}}
+      ],
+      "properties": {
+        "artifact_id": {
+          "enum": [
+            "open_inventory",
+            "question_cluster_pool",
+            "provenance_inventory",
+            "contamination_inventory",
+            "eligible_pool",
+            "quota_feasibility"
+          ]
+        },
+        "path": {
+          "enum": [
+            "open-inventory.json",
+            "question-cluster-pool.json",
+            "provenance-inventory.json",
+            "contamination-inventory.json",
+            "eligible-cluster-pool.json",
+            "quota-feasibility.json"
+          ]
+        },
+        "file_sha256": {"$ref": "#/definitions/sha256"},
+        "canonical_sha256": {"$ref": "#/definitions/sha256"},
+        "schema_version": {
+          "enum": [
+            "c5k4-open-inventory-1.2",
+            "c5k4-question-cluster-pool-1.2",
+            "c5k4-provenance-inventory-1.2",
+            "c5k4-contamination-inventory-1.2",
+            "c5k4-eligible-cluster-pool-1.2",
+            "c5k4-quota-feasibility-1.2"
+          ]
+        },
+        "row_count": {"type": "integer", "minimum": 0}
+      }
+    },
+    "quotas": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "GRAPH_SCALAR_INEQUALITY",
+        "GRAPH_STRUCTURAL_PROPERTY",
+        "FINITE_ALGEBRA_EQUATIONAL",
+        "AUTOMATA_GAME_PROCESS",
+        "FINITE_COMBINATORIAL"
+      ],
+      "properties": {
+        "GRAPH_SCALAR_INEQUALITY": {"const": 3},
+        "GRAPH_STRUCTURAL_PROPERTY": {"const": 3},
+        "FINITE_ALGEBRA_EQUATIONAL": {"const": 2},
+        "AUTOMATA_GAME_PROCESS": {"const": 2},
+        "FINITE_COMBINATORIAL": {"const": 2}
+      }
+    },
+    "feasibilityRow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stratum", "quota", "eligible_count", "deficit", "surplus"],
+      "oneOf": [
+        {"properties": {"stratum": {"const": "GRAPH_SCALAR_INEQUALITY"}, "quota": {"const": 3}}},
+        {"properties": {"stratum": {"const": "GRAPH_STRUCTURAL_PROPERTY"}, "quota": {"const": 3}}},
+        {"properties": {"stratum": {"const": "FINITE_ALGEBRA_EQUATIONAL"}, "quota": {"const": 2}}},
+        {"properties": {"stratum": {"const": "AUTOMATA_GAME_PROCESS"}, "quota": {"const": 2}}},
+        {"properties": {"stratum": {"const": "FINITE_COMBINATORIAL"}, "quota": {"const": 2}}}
+      ],
+      "properties": {
+        "stratum": {"$ref": "#/definitions/stratum"},
+        "quota": {"type": "integer", "minimum": 2, "maximum": 3},
+        "eligible_count": {"type": "integer", "minimum": 0},
+        "deficit": {"type": "integer", "minimum": 0},
+        "surplus": {"type": "integer", "minimum": 0}
+      }
+    },
+    "feasibilityReplay": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "row_source_artifact_id",
+        "row_source_canonical_sha256",
+        "eligibility_rule",
+        "all_rows_replayed",
+        "total_row_count",
+        "eligible_row_count",
+        "quotas",
+        "strata",
+        "status",
+        "terminal_result",
+        "entropy_used",
+        "selected_clusters"
+      ],
+      "properties": {
+        "row_source_artifact_id": {"const": "eligible_pool"},
+        "row_source_canonical_sha256": {"$ref": "#/definitions/sha256"},
+        "eligibility_rule": {"const": "MACHINE_CLASSIFIED_AND_IDENTITY_COMPLETE_AND_NO_SEMANTIC_OR_UNKNOWN_EXPOSURE"},
+        "all_rows_replayed": {"const": true},
+        "total_row_count": {"type": "integer", "minimum": 0},
+        "eligible_row_count": {"type": "integer", "minimum": 0},
+        "quotas": {"$ref": "#/definitions/quotas"},
+        "strata": {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 5,
+          "items": {"$ref": "#/definitions/feasibilityRow"},
+          "allOf": [
+            {"contains": {"properties": {"stratum": {"const": "GRAPH_SCALAR_INEQUALITY"}}, "required": ["stratum"]}},
+            {"contains": {"properties": {"stratum": {"const": "GRAPH_STRUCTURAL_PROPERTY"}}, "required": ["stratum"]}},
+            {"contains": {"properties": {"stratum": {"const": "FINITE_ALGEBRA_EQUATIONAL"}}, "required": ["stratum"]}},
+            {"contains": {"properties": {"stratum": {"const": "AUTOMATA_GAME_PROCESS"}}, "required": ["stratum"]}},
+            {"contains": {"properties": {"stratum": {"const": "FINITE_COMBINATORIAL"}}, "required": ["stratum"]}}
+          ]
+        },
+        "status": {"enum": ["PASS", "FAIL"]},
+        "terminal_result": {"enum": [null, "NO_ELIGIBLE_BENCHMARK_PRE_C0"]},
+        "entropy_used": {"const": false},
+        "selected_clusters": {"type": "array", "maxItems": 0}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"status": {"const": "PASS"}}, "required": ["status"]},
+          "then": {"properties": {"terminal_result": {"type": "null"}}}
+        },
+        {
+          "if": {"properties": {"status": {"const": "FAIL"}}, "required": ["status"]},
+          "then": {"properties": {"terminal_result": {"const": "NO_ELIGIBLE_BENCHMARK_PRE_C0"}}}
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "schema_version": "c5k4-registry-build-invocation-contract-1.2",
+  "authority": "P0_PROTOCOL_COMPONENT",
+  "protocol_version": "1.2",
+  "producer_id": "method-v1.2-production-registry-builder",
+  "executable": "scripts/build_benchmark_v12_registry.py",
+  "input_schema": "schemas/benchmark-registry-input-v1.2.schema.json",
+  "output_schema": "schemas/benchmark-registry-output-v1.2.schema.json",
+  "command": [
+    "python3",
+    "scripts/build_benchmark_v12_registry.py",
+    "--input",
+    "${INPUT_JSON}",
+    "--formal-repo",
+    "${PINNED_FORMAL_CONJECTURES_CHECKOUT}",
+    "--output-dir",
+    "${NEW_ABSENT_OUTPUT_DIRECTORY}"
+  ],
+  "path_parameters": {
+    "INPUT_JSON": "one file validating against the frozen input schema",
+    "PINNED_FORMAL_CONJECTURES_CHECKOUT": "a checkout whose exact commit and root tree equal input.upstream",
+    "NEW_ABSENT_OUTPUT_DIRECTORY": "an absent path created atomically and exclusively by the producer"
+  },
+  "execution": {
+    "allowed_build_count": 1,
+    "build_ordinal": 1,
+    "requires_public_p0t": true,
+    "requires_complete_s0": true,
+    "network_permitted": false,
+    "stdin_permitted": false,
+    "environment_as_scientific_input_permitted": false,
+    "entropy_permitted": false,
+    "selection_or_ranking_permitted": false,
+    "prototype_inputs_permitted": false,
+    "overwrite_permitted": false,
+    "create_exclusive_output_directory": true
+  },
+  "required_output_files": [
+    "registry-build-output.json",
+    "open-inventory.json",
+    "question-cluster-pool.json",
+    "provenance-inventory.json",
+    "contamination-inventory.json",
+    "eligible-cluster-pool.json",
+    "quota-feasibility.json"
+  ],
+  "output_artifact_ids": [
+    "open_inventory",
+    "question_cluster_pool",
+    "provenance_inventory",
+    "contamination_inventory",
+    "eligible_pool",
+    "quota_feasibility"
+  ],
+  "validation": {
+    "file_sha256_construction": "SHA256_OF_EXACT_FILE_BYTES",
+    "canonical_sha256_construction": "SHA256_OF_UTF8_JSON_SORT_KEYS_COMPACT_SEPARATORS_NO_TRAILING_NEWLINE_WITH_INTERNAL_SELF_DIGEST_FIELD_OMITTED_WHEN_PRESENT",
+    "input_schema_before_any_target_read": true,
+    "all_input_file_and_canonical_digests_recomputed": true,
+    "p0t_and_s0_chronology_replayed": true,
+    "upstream_commit_tree_and_subtree_replayed": true,
+    "output_schema_before_success": true,
+    "six_output_file_and_canonical_digests_recomputed": true,
+    "eligible_intersection_replayed_row_by_row": true,
+    "feasibility_counts_deficits_surpluses_and_status_replayed_row_by_row": true,
+    "output_self_digest_replayed_with_output_sha256_omitted": true,
+    "any_failure_leaves_no_authoritative_output": true
+  },
+  "forbidden_output": [
+    "statement_text",
+    "mathematical_interpretation",
+    "candidate_witness",
+    "proof_or_disproof_route",
+    "random_rank",
+    "selected_target"
+  ]
+}
