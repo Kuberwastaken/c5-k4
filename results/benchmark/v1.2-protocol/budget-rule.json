@@ -1,0 +1,27 @@
+{
+  "schema_version": "c5k4-benchmark-budget-rule-1.2",
+  "arms": [
+    "CATALOGUE",
+    "GENERIC",
+    "WALL_NAVIGATION"
+  ],
+  "shared_analysis": {
+    "maximum_process_trees": 10,
+    "wall_seconds_per_process_tree": 60,
+    "maximum_cpu_seconds": 600
+  },
+  "each_discovery_arm": {
+    "process_trees": 8,
+    "wall_seconds_per_process_tree": 60,
+    "maximum_cpu_seconds": 480
+  },
+  "independent_verification": {
+    "process_trees": 2,
+    "wall_seconds_per_process_tree": 60,
+    "maximum_cpu_seconds": 120
+  },
+  "network_policy": "DENY",
+  "no_cross_arm_sharing_before_all_terminate": true,
+  "no_adaptation": true,
+  "early_stop_after_crossing": false
+}
