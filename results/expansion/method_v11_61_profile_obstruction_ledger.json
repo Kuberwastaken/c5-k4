@@ -1,0 +1,43 @@
+{
+  "date_utc": "2026-08-13",
+  "target": "WOWII 61 excess-profile coupling implication",
+  "scope": {
+    "orders": [1, 2, 3, 4, 5, 6, 7, 8],
+    "degree_sequences": "all descending simple-graphical sequences of length n with entries in [0,n-1]",
+    "graphicality_test": "exact Havel-Hakimi reduction",
+    "pair_filter": "weak prefix dominance at every prefix including the full list",
+    "trajectory": "canonical descending Havel-Hakimi trajectory to its all-zero terminal",
+    "profile_entry": "degree-sum loss minus 2",
+    "timeout_seconds": 60,
+    "runtime_seconds": 8.1
+  },
+  "per_order": [
+    {"n": 1, "graphical_sequences": 1, "weak_dominance_pairs": 1, "padded_prefix_failures": 0},
+    {"n": 2, "graphical_sequences": 2, "weak_dominance_pairs": 3, "padded_prefix_failures": 0},
+    {"n": 3, "graphical_sequences": 4, "weak_dominance_pairs": 10, "padded_prefix_failures": 0},
+    {"n": 4, "graphical_sequences": 11, "weak_dominance_pairs": 64, "padded_prefix_failures": 0},
+    {"n": 5, "graphical_sequences": 31, "weak_dominance_pairs": 467, "padded_prefix_failures": 0},
+    {"n": 6, "graphical_sequences": 102, "weak_dominance_pairs": 4702, "padded_prefix_failures": 0},
+    {"n": 7, "graphical_sequences": 342, "weak_dominance_pairs": 50077, "padded_prefix_failures": 0},
+    {"n": 8, "graphical_sequences": 1213, "weak_dominance_pairs": 601611, "padded_prefix_failures": 0}
+  ],
+  "totals": {
+    "graphical_sequences_across_orders": 1706,
+    "weak_dominance_pairs_across_orders": 656935,
+    "padded_prefix_failures": 0
+  },
+  "original_length_gated_relation": {
+    "passes_through_order": 3,
+    "first_failure_order": 4,
+    "source": [2, 1, 1, 0],
+    "target": [1, 1, 1, 1],
+    "source_profile": [2],
+    "target_profile": [0, 0],
+    "failure": "target profile length 2 is not at most source profile length 1"
+  },
+  "zero_padded_repair": {
+    "definition": "for every k at most target profile length, sum(target.take(k)) <= sum(source.take(k)); source.take pads implicitly by stabilizing after source length",
+    "status": "no failure through order 8",
+    "claim_limit": "bounded exact evidence only; no general implication theorem is asserted"
+  }
+}
