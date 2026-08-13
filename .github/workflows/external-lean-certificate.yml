@@ -13,6 +13,11 @@ on:
         required: true
         default: lean/LatinTableauCornerExchange.lean
         type: string
+      dependency_module:
+        description: Upstream module imported by the certificate
+        required: true
+        default: FormalConjectures.Paper.LatinTableau
+        type: string
       full_build:
         description: Run the complete upstream warning-as-error build
         required: true
@@ -34,6 +39,7 @@ jobs:
     env:
       UPSTREAM_REF: ${{ inputs.upstream_ref }}
       CERTIFICATE_PATH: ${{ inputs.certificate_path }}
+      DEPENDENCY_MODULE: ${{ inputs.dependency_module }}
     steps:
       - name: Validate dispatch inputs
         shell: bash
@@ -41,6 +47,7 @@ jobs:
           set -euo pipefail
           [[ "$UPSTREAM_REF" =~ ^[0-9a-f]{40}$ ]]
           [[ "$CERTIFICATE_PATH" =~ ^lean/[A-Za-z0-9_./-]+\.lean$ ]]
+          [[ "$DEPENDENCY_MODULE" =~ ^FormalConjectures\.[A-Za-z0-9_.]+$ ]]
           [[ "$CERTIFICATE_PATH" != *..* ]]
 
       - name: Check out campaign artifacts
@@ -108,6 +115,11 @@ jobs:
         shell: bash
         run: lake --wfail build FormalConjecturesUtil
 
+      - name: Build certificate dependency warning-clean
+        working-directory: formal-conjectures
+        shell: bash
+        run: lake --wfail build "$DEPENDENCY_MODULE"
+
       - name: Compile external certificate warning-clean
         working-directory: formal-conjectures
         shell: bash
@@ -143,6 +155,7 @@ jobs:
             echo
             echo "- Upstream: \`google-deepmind/formal-conjectures@$UPSTREAM_REF\`"
             echo "- Certificate: \`$CERTIFICATE_PATH\`"
+            echo "- Dependency: \`$DEPENDENCY_MODULE\`"
             echo "- Full corpus requested: \`${{ inputs.full_build }}\`"
             echo "- Job result: \`${{ job.status }}\`"
           } >> "$GITHUB_STEP_SUMMARY"
