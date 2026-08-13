@@ -1,0 +1,127 @@
+name: Catch-Up exact minimax
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: catchup-exact-${{ github.sha }}
+  cancel-in-progress: false
+
+env:
+  CONTRACT_SHA256: 007aa763b0e4e77129dcf8891586305d3da42d3e3399003b67aae7be4c3adb13
+  CARD_SHA256: 01110c5f8cc00a7399fba352c018273e6a6068b3591bb8430cb28207e384cf74
+  CALIBRATION_SHA256: ac6990b336bd5b1bff6b0c04dcd449a11c28b2fab709f699cecb222b85f046d1
+
+jobs:
+  calibration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Check out frozen campaign
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+
+      - name: Verify frozen artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "$CONTRACT_SHA256  results/expansion/catchup_n23_n24_contract.md" | sha256sum --check
+          echo "$CARD_SHA256  results/expansion/catchup_n23_n24_resolution_card.json" | sha256sum --check
+          echo "$CALIBRATION_SHA256  results/expansion/catchup_calibration_3_20.jsonl" | sha256sum --check
+
+      - name: Build warning-clean exact solver
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p build
+          g++ -std=c++20 -O3 -Wall -Wextra -Werror \
+            scripts/prospective_catchup_exact.cpp -o build/prospective_catchup_exact
+          sha256sum build/prospective_catchup_exact > build/solver.sha256
+
+      - name: Replay frozen controls under cap
+        shell: bash
+        run: timeout --signal=TERM --kill-after=5s 60s \
+          python3 scripts/test_prospective_catchup_exact.py build/prospective_catchup_exact
+
+  development:
+    needs: calibration
+    strategy:
+      fail-fast: false
+      matrix:
+        n: [23, 24]
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Check out frozen campaign
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+
+      - name: Verify frozen artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "$CONTRACT_SHA256  results/expansion/catchup_n23_n24_contract.md" | sha256sum --check
+          echo "$CARD_SHA256  results/expansion/catchup_n23_n24_resolution_card.json" | sha256sum --check
+          echo "$CALIBRATION_SHA256  results/expansion/catchup_calibration_3_20.jsonl" | sha256sum --check
+
+      - name: Build warning-clean exact solver
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p build "artifacts/n${{ matrix.n }}"
+          g++ -std=c++20 -O3 -Wall -Wextra -Werror \
+            scripts/prospective_catchup_exact.cpp -o build/prospective_catchup_exact
+          sha256sum build/prospective_catchup_exact > "artifacts/n${{ matrix.n }}/solver.sha256"
+
+      - name: Run isolated exact row under 60-second cap
+        id: solve
+        shell: bash
+        run: |
+          set +e
+          /usr/bin/time -v -o "artifacts/n${{ matrix.n }}/resources.txt" \
+            timeout --signal=TERM --kill-after=5s 60s \
+            build/prospective_catchup_exact --n "${{ matrix.n }}" \
+            > "artifacts/n${{ matrix.n }}/ledger.jsonl" \
+            2> "artifacts/n${{ matrix.n }}/stderr.txt"
+          code=$?
+          status=UNEXPECTED_FAILURE
+          case "$code" in
+            0) status=EXACT_RESULT ;;
+            70) status=RESOURCE_BAD_ALLOC ;;
+            124|137|143) status=TIMEOUT_OR_EXTERNAL_TERMINATION ;;
+          esac
+          printf '{"event":"workflow_outcome","n":%s,"exit_code":%s,"status":"%s","cap_seconds":60}\n' \
+            "${{ matrix.n }}" "$code" "$status" \
+            >> "artifacts/n${{ matrix.n }}/ledger.jsonl"
+          sha256sum "artifacts/n${{ matrix.n }}"/* > "artifacts/n${{ matrix.n }}/SHA256SUMS"
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          echo "status=$status" >> "$GITHUB_OUTPUT"
+          if [[ "$status" == UNEXPECTED_FAILURE ]]; then
+            exit "$code"
+          fi
+          exit 0
+
+      - name: Upload immutable row artifact
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: catchup-n${{ matrix.n }}-${{ github.sha }}
+          path: artifacts/n${{ matrix.n }}/
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Summarize exact row
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "## Catch-Up N=${{ matrix.n }}"
+            echo
+            echo "- Frozen card: \`$CARD_SHA256\`"
+            echo "- Solver status: \`${{ steps.solve.outputs.status }}\`"
+            echo "- Exit code: \`${{ steps.solve.outputs.exit_code }}\`"
+            echo "- Wall cap: \`60 seconds\`"
+            echo
+            tail -5 "artifacts/n${{ matrix.n }}/ledger.jsonl" || true
+          } >> "$GITHUB_STEP_SUMMARY"
