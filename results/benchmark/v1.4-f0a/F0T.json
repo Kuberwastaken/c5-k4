@@ -1,0 +1,21 @@
+{
+  "artifact_kind": "F0T",
+  "attestation_policy": {
+    "allowed_f0t_changed_paths": [
+      "results/benchmark/v1.4-f0a/F0T.json"
+    ],
+    "f0a_ancestor_required": true,
+    "f0a_bytes_immutable": true
+  },
+  "f0a": {
+    "artifact_sha256": "61488f059a8392958642e14d2978857ad3c65c2c6f8342b9b2d7d59fac780382",
+    "file_sha256": "3b5982141a36efcb9daeeb607099f0a5e2559481aec85a177ebe2c93dd44e8a9",
+    "path": "results/benchmark/v1.4-f0a/F0A.json"
+  },
+  "f0a_commit": "4225b78565d23e9563c8197ec189f1ce884d0989",
+  "f0a_published_at_utc": "2026-08-13T22:44:45Z",
+  "phase": "NO_ELIGIBLE_BENCHMARK_PRE_C0",
+  "protocol_version": "1.4",
+  "schema_version": "c5k4-method-v1.4-f0-1.0",
+  "terminal_result": "NO_ELIGIBLE_BENCHMARK_PRE_C0"
+}
