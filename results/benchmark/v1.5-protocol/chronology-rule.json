@@ -19,20 +19,20 @@
     },
     {
       "order": 4,
-      "name": "ACCUMULATION_INTERVAL",
-      "requirement": "Do not inspect future candidate semantics or close the cohort based on observed quota counts."
+      "name": "SCHEDULED_ACCUMULATION_CHECKPOINTS",
+      "requirement": "At 00:17 UTC daily, a schedule-triggered GitHub Actions run captures canonical upstream main and emits identity-only receipts, hashes, aggregate stratum counts, and a quota certificate. Manual dispatches and reruns are not checkpoints; a run starting at or after 06:00 UTC is recorded as missed."
     },
     {
       "order": 5,
-      "name": "FIXED_HORIZON",
-      "not_before_utc": "2027-08-15T00:00:00Z",
-      "capture_start_deadline_utc": "2027-08-16T00:00:00Z",
-      "requirement": "Start the one frozen terminal upstream capture within this fixed 24-hour public window; missing the window is terminal chronology failure."
+      "name": "FIRST_PASS_OR_FIXED_HORIZON",
+      "last_scheduled_checkpoint_utc": "2027-08-15T00:17:00Z",
+      "capture_start_deadline_utc": "2027-08-15T06:00:00Z",
+      "requirement": "The first scheduled checkpoint whose aggregate counts meet every quota becomes U2. If none passes, the fixed last checkpoint terminates for quota deficit or chronology failure."
     },
     {
       "order": 6,
       "name": "U2_CAPTURE_AND_HISTORY_REPLAY",
-      "requirement": "Bind U2, prove U1 ancestry, and deterministically compute first introductions in U1..U2."
+      "requirement": "Bind U2, prove U1 ancestry and that no prior valid checkpoint passed, and deterministically compute first introductions in U1..U2."
     },
     {
       "order": 7,
@@ -51,23 +51,34 @@
     }
   ],
   "fixed_horizon": {
-    "utc": "2027-08-15T00:00:00Z",
-    "capture_start_deadline_utc": "2027-08-16T00:00:00Z",
-    "capture_window_seconds": 86400,
-    "selection_basis": "Chosen in the pre-P1 scaffold to provide an approximately one-year public accumulation interval.",
+    "last_scheduled_checkpoint_utc": "2027-08-15T00:17:00Z",
+    "capture_start_deadline_utc": "2027-08-15T06:00:00Z",
+    "selection_basis": "Chosen in the pre-P1 scaffold as an approximately one-year hard no-quota deadline.",
     "independent_of_target_counts": true,
-    "early_close_for_quota_sufficiency": false,
+    "close_at_first_scheduled_quota_pass": true,
     "extension_for_quota_deficit": false,
     "manual_override": false
   },
+  "checkpoint_schedule": {
+    "cron": "17 0 * * *",
+    "timezone": "UTC",
+    "valid_start_before_utc_time": "06:00:00",
+    "allowed_event": "schedule",
+    "manual_dispatch_is_checkpoint": false,
+    "rerun_is_checkpoint": false,
+    "append_only_checkpoint_branch": true,
+    "published_content": "IDENTITY_RECEIPTS_HASHES_AGGREGATE_COUNTS_AND_QUOTA_CERTIFICATE_ONLY"
+  },
   "capture_rules": {
     "u1_after_public_p1t": true,
-    "u2_not_before_fixed_horizon": true,
-    "u2_capture_must_start_before_fixed_deadline": true,
-    "single_frozen_capture_per_boundary": true,
+    "u2_is_first_valid_passing_checkpoint_or_fixed_terminal_checkpoint": true,
+    "last_checkpoint_must_start_before_fixed_deadline": true,
+    "one_capture_per_scheduled_checkpoint": true,
     "u2_must_descend_from_u1": true,
+    "all_prior_valid_checkpoints_must_fail_quota_gate": true,
     "alternate_ref_forbidden": true,
     "hand_picked_tip_forbidden": true,
+    "manual_or_rerun_checkpoint_forbidden": true,
     "membership_clock": "GIT_ANCESTRY_AND_TREE_CONTENT",
     "author_timestamp_controls_membership": false,
     "committer_timestamp_controls_membership": false

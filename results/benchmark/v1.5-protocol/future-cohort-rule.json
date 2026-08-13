@@ -74,8 +74,9 @@
     "require_exact_component_digests_at_p1": true
   },
   "quota_gate": {
-    "evaluation_time": "AFTER_U2_CAPTURE_ONLY",
-    "early_close_when_quotas_fill": false,
+    "evaluation_time": "EACH_VALID_SCHEDULED_IDENTITY_ONLY_CHECKPOINT",
+    "close_at_first_checkpoint_when_quotas_fill": true,
+    "statement_semantics_or_outcomes_available_to_gate": false,
     "pass": "every frozen stratum count meets its quota",
     "fail_terminal_status": "INSUFFICIENT_FUTURE_COHORT_PRE_C0",
     "entropy_on_failure": false,

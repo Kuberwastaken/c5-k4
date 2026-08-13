@@ -24,7 +24,7 @@ before P1.
 This design tests the same scientific claim as v1.4 without laundering prior
 contact. It deliberately trades speed for a clean temporal holdout.
 
-## P1 and the fixed observation horizon
+## P1, scheduled checkpoints, and the fixed observation horizon
 
 P1 has two public commits. `P1A` freezes the complete executable protocol,
 schemas, source boundary, provenance rules, inherited component digests, and
@@ -38,23 +38,27 @@ records the then-current upstream `main` tip as `U1`. Publication of `P1T`
 must precede the observation of `U1`. The exact `P1T`, public receipt, `U1`
 commit and tree, command transcript, and UTC times are content-addressed.
 
-The cohort closes at the fixed public horizon
-**2027-08-15T00:00:00Z**. This date was chosen in this pre-P1 scaffold, before
-any future target exists or any target count is known. It supplies roughly one
-year for a heterogeneous upstream cohort to accumulate while making the wait
-and terminal condition finite. It may not be advanced, extended, or replaced
-because of observed target counts.
+After U1, a public GitHub Actions schedule starts one machine-only checkpoint
+at **00:17 UTC every day**. Manual dispatch and rerun results are not cohort
+checkpoints. A scheduled run that does not start before 06:00 UTC is recorded
+as missed and cannot be recreated. Each valid checkpoint atomically captures
+canonical upstream `main`, constructs the identity-only future pool, and
+publishes only receipts, hashes, aggregate stratum counts, and the quota
+certificate to an append-only checkpoint branch.
 
-The one frozen U2 capture must start at or after the horizon and no later than
-**2027-08-16T00:00:00Z**. This public 24-hour execution window accommodates
-ordinary scheduler or network delay without permitting the operator to wait
-for favorable target counts. Missing the window is
-`INVALID_CHRONOLOGY_CAPTURE`; it does not extend the cohort. The observed
-upstream `main` tip is `U2`, and the terminal population is computed from the
-ancestry interval `U1..U2`. The experiment does not close early when quotas
-happen to fill. If `U2` is unavailable or its history is not a connected
-descendant of `U1`, the frozen failure rule applies; no alternate ref or
-hand-picked tip may be substituted.
+The cohort closes at the first scheduled checkpoint whose frozen aggregate
+counts meet all five quotas. This is a target-blind stopping time: neither
+statement semantics nor outcomes are inspected, and the operator cannot wait
+for a preferred passing tip. That checkpoint is U2. The terminal population is
+computed from `U1..U2`; later commits cannot enter it.
+
+If no checkpoint passes, the last allowed checkpoint starts at 00:17 UTC on
+**2027-08-15** and must start before **2027-08-15T06:00:00Z**. This deadline
+was chosen in the pre-P1 scaffold, before future targets or counts existed. A
+quota deficit there terminates `INSUFFICIENT_FUTURE_COHORT_PRE_C0`; a missed
+last checkpoint terminates `INVALID_CHRONOLOGY_CAPTURE`. The deadline cannot
+be extended or replaced. Every U2 candidate must descend from U1; no alternate
+ref, manual run, rerun, or hand-picked tip may be substituted.
 
 ## Deterministic future-cohort membership
 
@@ -141,10 +145,11 @@ an executable freeze.
 
 ## Gate, selection, and terminal outcomes
 
-The post-horizon registry builder emits only schema-bounded identity and
+Each scheduled registry checkpoint emits only schema-bounded identity and
 aggregate evidence until the quota gate passes. Before any entropy request, a
 machine linter recomputes first-introduction membership, the v1.4 exclusion,
-provenance, eligibility, and exact per-stratum counts from rows.
+provenance, eligibility, exact per-stratum counts, and proof that U2 is the
+first passing checkpoint.
 
 If all five quotas are met, a public pre-entropy commit freezes the complete
 eligible pool. Selection then uses the same future drand rule and exact
