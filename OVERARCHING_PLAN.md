@@ -107,6 +107,35 @@ gates, and the same 60-second process cap. These targets have been studied by
 the project before, so the round is prospective only with respect to its newly
 frozen transformations; it is not a held-out-corpus experiment.
 
+That live-core round produced no release candidate. Its sharp conclusions are
+retained rather than retuned: diameter-two and graph-square moves are blocked
+for #19; four distinct #40 wall moves failed for explicit Hamiltonicity,
+forest-growth, cloning, or co-depression reasons; all one-switch descents from
+the order-eight #61 realization cliffs are absent and ordinary two-lifts move
+far from equality; and two independent #133 lanes found explicit source-sized
+paths in every frozen candidate. Continuing those exact moves would violate
+the method's stop discipline.
+
+The next prospective round therefore starts from new equality data in the
+current `formal-conjectures` corpus:
+
+- Reed's finite-graph bound on odd `C5[K_m]`, using two independently frozen
+  separating transformations;
+- Erdős 23 on the exactly tight triangle-free complement carrier, using
+  nonuniform independent-part blow-ups and triangle-free surgery;
+- the newly observed order-twelve WOWII 61 realization cliff, which is outside
+  the completed order-eight switch bracket;
+- the residual-one Heawood wall for WOWII 133;
+- a #40 cross-petal incompatibility move motivated by, but distinct from, the
+  failed bouquet construction; and
+- one independently ranked equality wall elsewhere in the concretely
+  applicable current manifest.
+
+The Reed and Erdős lanes concern major human conjectures and therefore receive
+an especially conservative source and novelty gate. They are prospective
+stress tests of the equality-navigation heuristic, not predictions that those
+conjectures are false.
+
 Every completed trial ends in one durable outcome from `METHOD.md`, including
 the zeroes. A negative residual starts verification; it does not itself start
 publication. A bounded hold may seed a proof lane only after an exact lemma
