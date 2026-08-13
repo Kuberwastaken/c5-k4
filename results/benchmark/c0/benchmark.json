@@ -2,7 +2,7 @@
   "$schema": "../../schemas/benchmark-v1.1.schema.json",
   "schema_version": "c5k4-benchmark-1.1",
   "benchmark_id": "method-v1.1-deepmind-heldout-20260813",
-  "phase": "PROTOCOL_DESIGN",
+  "phase": "C0_FROZEN",
   "upstream": {
     "repository": "google-deepmind/formal-conjectures",
     "commit": "7a38c469ec329d0c97c068e03c58834f61628e7e",
@@ -964,8 +964,8 @@
     }
   },
   "chronology": {
-    "c0_commit": null,
-    "c0_published_at_utc": null,
+    "c0_commit": "8e679b86791360c5df41d096e8ff2c8b565759ce",
+    "c0_published_at_utc": "2026-08-13T18:01:41Z",
     "randomness_retrieved_at_utc": null,
     "c1_commit": null,
     "c1_frozen_at_utc": null,
