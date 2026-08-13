@@ -114,6 +114,15 @@ jobs:
             formal-conjectures-${{ inputs.upstream_ref }}-
             formal-conjectures-
 
+      - name: Restore formal-conjectures build cache
+        uses: actions/cache/restore@6f8efc29b200d32929f49075959781ed54ec270c # v3
+        with:
+          path: formal-conjectures/.lake/build/lib/lean
+          key: formal-conjectures-build-${{ inputs.upstream_ref }}-${{ hashFiles(format('campaign/upstream/formal-conjectures/{0}', inputs.candidate_path)) }}
+          restore-keys: |
+            formal-conjectures-build-${{ inputs.upstream_ref }}-
+            formal-conjectures-build-
+
       - name: Get upstream olean cache with retries
         working-directory: formal-conjectures
         shell: bash
@@ -184,6 +193,13 @@ jobs:
           lake --wfail build FormalConjecturesForMathlib FormalConjecturesUtil
           lake --wfail test
           lake --wfail build
+
+      - name: Save formal-conjectures build cache
+        if: success() && inputs.full_build
+        uses: actions/cache/save@6f8efc29b200d32929f49075959781ed54ec270c # v3
+        with:
+          path: formal-conjectures/.lake/build/lib/lean
+          key: formal-conjectures-build-${{ inputs.upstream_ref }}-${{ hashFiles(format('campaign/upstream/formal-conjectures/{0}', inputs.candidate_path)) }}
 
       - name: Record validation summary
         if: always()
