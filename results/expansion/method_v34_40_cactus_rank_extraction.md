@@ -33,7 +33,7 @@ the recursive proof object with no remaining rank or state gap.
 
 The complete 28-module dependency chain was rebuilt in topological order into
 the fresh `mktemp` directory
-`/Users/kuber.mehta/Projects/scratch/c5k4_40_cactus_extract_final.ZYy9fJ`.
+`/Users/kuber.mehta/Projects/scratch/c5k4_40_cactus_extract_final2.4vf4se`.
 Every Lean process used an explicit olean output,
 `-DwarningAsError=true`, and a 60-second cap; all 28 returned exit code zero.
 The new source contains no `native_decide`, `sorry`, `admit`, `#print`, or
