@@ -1,0 +1,12 @@
+{
+  "p0t_commit": "4570d279fd322555457cdd862dbe4e0635c1361c",
+  "public_remote_url": "https://github.com/Kuberwastaken/c5-k4.git",
+  "resolved_at_utc": "2026-08-13T21:21:02Z",
+  "schema_version": "c5k4-registry-preflight-input-1.3",
+  "upstream_resolution_command": [
+    "git",
+    "ls-remote",
+    "https://github.com/google-deepmind/formal-conjectures.git",
+    "refs/heads/main"
+  ]
+}
