@@ -126,6 +126,49 @@ before C0; it is not silently ignored. Any target-semantic access after C0 and
 before C1 is a protocol violation because the frozen pool can no longer be
 repaired.
 
+### Semantics-blind source discovery and S0 acquisition
+
+The executable source-boundary prototype is
+[`scripts/build_benchmark_v12_source_snapshot.py`](scripts/build_benchmark_v12_source_snapshot.py).
+Its path-purpose policy is
+[`results/benchmark/v1.2-prototype/source-path-purpose-policy.json`](results/benchmark/v1.2-prototype/source-path-purpose-policy.json).
+The policy is a prototype until its exact bytes are committed in `P0A`; changing
+even JSON whitespace changes its digest. Repository inclusion is decided only
+from a path relative to the frozen discovery root. An unclassified repository,
+overlapping allow/deny rules, a dirty included worktree, or a required source
+that is absent makes the source configuration incomplete.
+
+Discovery does not read Git blobs, commit messages, transcript turns, release
+bodies, or candidate statements. It records exact local Git tips, remotes,
+HEAD, and a SHA-256 of sorted reachable Git object IDs, types, and sizes. This
+pins history without copying it. Release metadata is supplied as a separately
+preserved JSON export and pinned by byte count and SHA-256. The exact
+`ai-chats` commit is pinned separately. Each required local Codex and Claude
+JSONL tree must have the same path-to-Git-object inventory as its configured
+subtree at that commit. Hashing those bytes is permitted machine acquisition;
+the tool neither parses nor emits their turns.
+
+Without a P0 attestation, `discover` can emit only a
+`c5k4-semantic-sources-config-1.2-prototype` object with
+`prototype_only: true`. `acquire` categorically refuses that object. Production
+discovery validates exact `P0A`/`P0T` ancestry, the policy hash, the P0-frozen
+digest of the complete discovery invocation (projects root, session roots and
+subtrees, ai-chats repository, and release exports), and that `P0T`
+is advertised by the preregistered public remote using read-only `git
+ls-remote`. S0 then replays every tip, corpus hash, clean-worktree check,
+session-mirror comparison, and release-export hash. It records the supplied
+whole-second UTC acquisition time on every source and emits an internally
+content-addressed manifest. Source repositories and histories are never
+modified or copied.
+
+After public `P0T`, the operator must first sync every local Codex and Claude
+session into `ai-chats`, commit and publish that repository, and preserve the
+frozen GitHub release-metadata JSON export. Then `discover` is run with every
+required session mirror and release snapshot plus the P0 attestation, followed
+immediately by `acquire` with a recorded UTC timestamp. The config, exports,
+and S0 manifest are preserved before the registry build. No production
+discovery or S0 acquisition was run while preparing this prototype.
+
 The deterministic builder then makes the open inventory, conservative cluster
 pool, provenance inventory, and contamination-applied eligible pool for one
 exact upstream commit and tree determined by the rule preregistered at `P0T`.

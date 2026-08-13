@@ -1,0 +1,44 @@
+{
+  "default": "EXCLUDE_UNKNOWN",
+  "description": "Prototype path-purpose boundary. It classifies repository purpose from relative paths only and must be frozen in P0 before any production S0 acquisition.",
+  "required_release_snapshot_ids": [
+    "c5-k4-github"
+  ],
+  "required_session_mirror_ids": [
+    "claude-local",
+    "codex-local"
+  ],
+  "rules": [
+    {
+      "decision": "INCLUDE_SEMANTIC",
+      "id": "c5k4-research",
+      "purpose": "PRIMARY_RESEARCH_HISTORY",
+      "relative_path_regex": "c5-k4"
+    },
+    {
+      "decision": "INCLUDE_SEMANTIC",
+      "id": "standalone-math-research",
+      "purpose": "SIBLING_RESEARCH_HISTORY",
+      "relative_path_regex": "(?:breakthroughmaxxing|conway99-c3-orbits-lean|formal-conjectures-counterexamples|formal-conjectures-wowii309|wanless-778-lean|wowii-63-85-counterexample|zeta-23-lean)"
+    },
+    {
+      "decision": "EXCLUDE_NONRESEARCH",
+      "id": "upstream-registry-vendor",
+      "purpose": "MACHINE_REGISTRY_INPUT_NOT_SEMANTIC_SOURCE",
+      "relative_path_regex": "formal-conjectures"
+    },
+    {
+      "decision": "EXCLUDE_NONRESEARCH",
+      "id": "product-marketing-personal",
+      "purpose": "NONRESEARCH_SOFTWARE_MARKETING_OR_PERSONAL_REPOSITORY",
+      "relative_path_regex": "(?:claurst|cookie|grok-build|hive|kuberwastaken\\.github\\.io|linkedin-forensics|megaphone|reimann|resume|sira-router|subagentmaxxing)"
+    },
+    {
+      "decision": "EXCLUDE_NONRESEARCH",
+      "id": "nested-agent-framework-vendor",
+      "purpose": "NONRESEARCH_AGENT_FRAMEWORK_VENDOR_CHECKOUT",
+      "relative_path_regex": "hive-mind/refs/hive"
+    }
+  ],
+  "schema_version": "c5k4-source-path-purpose-policy-1.2"
+}
