@@ -1,5 +1,13 @@
 # Method v0.7: Lean extraction of the #183 outside-neighborhood budget
 
+> **Correction (method v0.8):** the `RootedTrunkPrinciple` interface defined
+> in this checkpoint is inconsistent on singleton induced subgraphs, so the
+> corresponding conditional assembly premise is vacuous. The formal diagnosis
+> and corrected nontrivial-component interface are recorded in
+> `method_v08_183_component_assembly.md`. The certificate-to-invariant transfer
+> proved below remains valid; only the proposed source of the certificate
+> required repair.
+
 ## Result
 
 `lean/GraphConjecture183OutsideBudget.lean` formalizes the complete
