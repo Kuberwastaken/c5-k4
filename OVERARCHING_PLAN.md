@@ -199,6 +199,51 @@ the zeroes. A negative residual starts verification; it does not itself start
 publication. A bounded hold may seed a proof lane only after an exact lemma
 ladder is written.
 
+#### Method v0.9: current-manifest rotation
+
+The next rotation begins from a fresh current-upstream manifest rather than
+another adaptive extension of the exhausted WOWII operation menu. At upstream
+commit `d16e05aded22b8c467a0a27c14b2311f53185006`, the conservative finite-graph
+inventory contains 79 research-open declarations in 57 modules. Twenty-six
+declarations belong to clusters already attempted, theorem-closed, or actively
+frozen here; the remaining 53 are filtered for exact seeds, interpretable
+obstructions, bounded evaluation, and proof-domain risk.
+
+The first newly selected wall was Alon--Tarsi's short-cycle-cover inequality.
+Petersen has exact minimum cover length `21=(7/5)15`, and a labelled
+two-Petersen edge sum has `42=(7/5)30`. Two prospectively frozen operations
+produced no crossing: the complete reverse-switch family has 16 safe children
+and two equality children, while fixed-edge subdivision satisfies the exact
+all-parameter law `scc(G_t)=21+t` and therefore moves strictly safe. The
+forward switch family remains an honest timeout bracket after six rows.
+
+The independent-domination private-leaf cone is also terminal: 246,854 frozen
+quotient coordinates contain zero negatives and 82 equalities, and a
+warning-clean Lean square-gap argument proves both source inequalities for the
+entire positive private-leaf class. The earlier Erdős 64 Petersen `Z3` lift
+table now has an algebraic Lean explanation: fifteen base eight-cycle voltage
+forms cover all of `F_3^6`.
+
+One attempted WOWII 133 fold stopped before candidate evaluation because its
+frozen `C4` calibration was wrong. A separate Petersen-splice trial was
+retrospectively excluded when the local theorem inventory revealed that every
+output lay under an already committed cubic specialization. These failures
+motivate v0.9's mandatory local theorem-domain audit at the exact pre-freeze
+commit.
+
+The next Phase-0 queue is deliberately small and untouched by development
+evaluation:
+
+1. Erdős 184 cycle/edge decomposition;
+2. the graceful/Kotzig/Ringel labeling-decomposition cluster;
+3. graph pebbling products;
+4. Erdős 628 (Tihany partition).
+
+Each receives source-direction, local-theorem, live-status, literature, and
+bounded-evaluability gates before a family can be frozen. A Phase-0 ambiguity
+or proved-domain hit is a completed stop, not permission to move directly to
+the next convenient construction in the same trial.
+
 ### B. Proof extraction and formalization
 
 Maximize reusable no-`sorry` proof components, not merely top-level theorem
