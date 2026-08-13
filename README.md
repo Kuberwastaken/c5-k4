@@ -81,7 +81,8 @@ end as bounded holds with sharply stated theorem signals, not inflated truth
 claims. See [`method_v02_382e.md`](results/expansion/method_v02_382e.md) and
 [`method_v02_61.md`](results/expansion/method_v02_61.md).
 
-The full versioned development protocol is [`METHOD.md`](METHOD.md). It fixes
+The programme-level roadmap is [`OVERARCHING_PLAN.md`](OVERARCHING_PLAN.md),
+and the full versioned development protocol is [`METHOD.md`](METHOD.md). They fix
 the residual-wall workflow, theorem-shadow taxonomy, transformation catalogue,
 verification gates, outcome ledger, and the boundary between the current
 `formal-conjectures` development set and a future genuinely held-out test.

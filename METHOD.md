@@ -1,5 +1,9 @@
 # Invariant-Wall Navigation: Development Method v0.3
 
+Programme-level execution order and maturity criteria are maintained in
+[`OVERARCHING_PLAN.md`](OVERARCHING_PLAN.md). This file is the detailed,
+versioned protocol that governs that plan.
+
 **Status:** committed development protocol, 2026-08-12
 
 **Scope:** existing published finite-graph conjectures from collections already
