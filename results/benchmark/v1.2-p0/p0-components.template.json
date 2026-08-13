@@ -20,6 +20,8 @@
     "registry_builder": null,
     "selector": null,
     "budget_rule": null,
+    "arm_design_rule": null,
+    "baseline_library": null,
     "development_prior": null,
     "selection_forecast_rule": null,
     "selection_stratum_priors": null,

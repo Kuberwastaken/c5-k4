@@ -37,6 +37,10 @@ REQUIRED_COMPONENTS = (
     "registry_builder",
     "selector",
     "budget_rule",
+    # P0 freezes how the three comparison arms are instantiated. Exact
+    # target-specific contracts and grids remain post-C1/pre-execution.
+    "arm_design_rule",
+    "baseline_library",
     "development_prior",
     # Selection probabilities are frozen from registry metadata at C1.  Their
     # rule and five stratum priors are distinct from the post-C1 intervention
@@ -82,6 +86,14 @@ JSON_CONTRACTS = {
     "budget_rule": (
         "c5k4-benchmark-budget-rule-1.2",
         {"schema_version", "shared_analysis", "each_discovery_arm", "arms", "independent_verification", "no_adaptation", "no_cross_arm_sharing_before_all_terminate", "early_stop_after_crossing", "network_policy"},
+    ),
+    "arm_design_rule": (
+        "c5k4-arm-design-rule-1.2",
+        {"schema_version", "freeze_phase", "common_rules", "seed_rule", "arms", "protocol_invalid_conditions"},
+    ),
+    "baseline_library": (
+        "c5k4-baseline-library-1.2",
+        {"schema_version", "freeze_phase", "catalogue", "generic_operation_grammars", "canonical_schedule", "forbidden"},
     ),
     "development_prior": (
         "c5k4-development-prior-1.2",
@@ -253,6 +265,67 @@ def generate_audit_receipt(config: dict[str, Any]) -> dict[str, Any]:
         "selected_clusters_detected": 0,
         "statement_text_detected": 0,
         "semantic_target_analysis_detected": 0,
+    }
+
+
+def explicit_ref(path_text: str, *, role: str, permit_prototype: bool = False) -> dict[str, str]:
+    path = repo_path(path_text)
+    if not path.is_file():
+        raise P0Error(f"{role} artifact does not exist: {path_text}")
+    if not permit_prototype and PROTOTYPE_SEGMENT in PurePosixPath(path_text).parts:
+        raise P0Error(f"authoritative component {role} points into PRE_P0 prototype area")
+    return {"path": path_text, "sha256": sha256_file(path)}
+
+
+def materialize_config(
+    component_assignments: list[str], producer_assignments: list[str], prototypes: list[str]
+) -> dict[str, Any]:
+    components: dict[str, dict[str, str]] = {}
+    for assignment in component_assignments:
+        if "=" not in assignment:
+            raise P0Error(f"component assignment must be ROLE=PATH: {assignment!r}")
+        role, path_text = assignment.split("=", 1)
+        if role not in REQUIRED_COMPONENTS:
+            raise P0Error(f"unknown component role: {role!r}")
+        if role in components:
+            raise P0Error(f"duplicate component role: {role}")
+        components[role] = explicit_ref(path_text, role=role)
+    observed, required = set(components), set(REQUIRED_COMPONENTS)
+    if observed != required:
+        raise P0Error(f"component roles differ: missing={sorted(required-observed)}, extra={sorted(observed-required)}")
+
+    producers = []
+    producer_ids: set[str] = set()
+    for assignment in producer_assignments:
+        fields = assignment.split(",")
+        if len(fields) != 5:
+            raise P0Error("producer assignment must be ID,EXECUTABLE,CONTRACT,INPUT_SCHEMA,OUTPUT_SCHEMA")
+        producer_id, executable, contract, input_schema, output_schema = fields
+        if not producer_id or producer_id in producer_ids:
+            raise P0Error(f"empty or duplicate producer ID: {producer_id!r}")
+        producer_ids.add(producer_id)
+        producers.append({
+            "producer_id": producer_id,
+            "executable": explicit_ref(executable, role=f"producer {producer_id} executable"),
+            "invocation_contract": explicit_ref(contract, role=f"producer {producer_id} contract"),
+            "input_schema": explicit_ref(input_schema, role=f"producer {producer_id} input schema"),
+            "output_schema": explicit_ref(output_schema, role=f"producer {producer_id} output schema"),
+        })
+    if not producers:
+        raise P0Error("at least one explicit producer assignment is required")
+    prototype_rows = []
+    for path_text in prototypes:
+        ref = explicit_ref(path_text, role="prototype", permit_prototype=True)
+        prototype_rows.append({
+            **ref, "authority": "PRE_P0_NOT_FREEZE", "excluded_from_formal_build": True
+        })
+    return {
+        "schema_version": CONFIG_VERSION,
+        "authority": "AUTHORITATIVE_P0",
+        "components": components,
+        "allowlisted_registry_producers": producers,
+        "prototype_artifacts": prototype_rows,
+        "target_data_audit_receipt": None,
     }
 
 
@@ -529,6 +602,14 @@ def main() -> int:
         action="store_true",
         help="content-address the new receipt into the explicit component config",
     )
+    materialize = sub.add_parser("materialize-config")
+    materialize.add_argument("--component", action="append", default=[], metavar="ROLE=PATH")
+    materialize.add_argument(
+        "--producer", action="append", default=[],
+        metavar="ID,EXECUTABLE,CONTRACT,INPUT_SCHEMA,OUTPUT_SCHEMA",
+    )
+    materialize.add_argument("--prototype", action="append", default=[])
+    materialize.add_argument("--output", type=Path, required=True)
     validate = sub.add_parser("validate")
     validate.add_argument("--artifact", type=Path, required=True)
     validate.add_argument("--p0t-commit")
@@ -551,6 +632,11 @@ def main() -> int:
                     "sha256": sha256_file(args.output),
                 }
                 write_json(args.components, config)
+        elif args.command == "materialize-config":
+            write_json(
+                args.output,
+                materialize_config(args.component, args.producer, args.prototype),
+            )
         else:
             value = json.loads(args.artifact.read_text(encoding="utf-8"))
             if value.get("artifact_kind") == "P0A":

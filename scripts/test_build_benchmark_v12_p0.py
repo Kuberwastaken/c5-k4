@@ -197,16 +197,16 @@ class P0Tests(unittest.TestCase):
         receipt = P0.generate_audit_receipt(self.config)
         expected = json.loads(self.receipt.read_text())
         self.assertEqual(receipt, expected)
-        self.assertEqual(len(receipt["components"]), 25)
+        self.assertEqual(len(receipt["components"]), 27)
 
     def test_audit_rejects_forbidden_target_data_fields(self) -> None:
         role = "development_prior"
         path = P0.repo_path(self.config["components"][role]["path"])
         value = json.loads(path.read_text())
-        value["clusters"] = [{"cluster_id": "must-not-exist"}]
+        value["scope"] = {"clusters": [{"cluster_id": "must-not-exist"}]}
         path.write_text(json.dumps(value), encoding="utf-8")
         self.config["components"][role]["sha256"] = digest(path)
-        with self.assertRaisesRegex(P0.P0Error, "top-level keys differ|forbidden target-data"):
+        with self.assertRaisesRegex(P0.P0Error, "forbidden target-data"):
             P0.generate_audit_receipt(self.config)
 
     def test_audit_rejects_wrong_protocol_version_and_top_level_keys(self) -> None:
@@ -228,6 +228,25 @@ class P0Tests(unittest.TestCase):
         self.config["components"][role]["sha256"] = digest(path)
         receipt = P0.generate_audit_receipt(self.config)
         self.assertEqual(receipt["final_eligible_rows_detected"], 0)
+
+    def test_config_materializer_requires_every_explicit_role_and_never_infers(self) -> None:
+        assignments = [
+            f"{role}={self.refs[role]['path']}" for role in P0.REQUIRED_COMPONENTS
+        ]
+        producer = ",".join([
+            "registry-builder-v1",
+            self.refs["producer"]["path"],
+            self.refs["contract"]["path"],
+            self.refs["input-schema"]["path"],
+            self.refs["output-schema"]["path"],
+        ])
+        materialized = P0.materialize_config(
+            assignments, [producer], [self.prototype.relative_to(P0.ROOT).as_posix()]
+        )
+        self.assertEqual(materialized["components"], self.config["components"])
+        self.assertIsNone(materialized["target_data_audit_receipt"])
+        with self.assertRaisesRegex(P0.P0Error, "missing"):
+            P0.materialize_config(assignments[:-1], [producer], [])
 
     def test_p0t_authenticates_already_committed_p0a_without_self_reference(self) -> None:
         p0a = self.build()
