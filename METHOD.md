@@ -159,6 +159,10 @@ Before construction work:
 8. For Erdős entries, snapshot the canonical YAML revision and all four status
    coordinates from Phase 0A. Search open, closed, and merged upstream attempts;
    partial variants and undigested formal proofs are controls, not novelty.
+9. Search newly created standalone proof repositories and releases, not only
+   issues and pull requests in the statement repository. Freeze a content hash
+   for every proposed carrier and validate its premises before scheduling an
+   extension search.
 
 No reading may be changed after a candidate is found without preserving the
 old result and explaining the change in the log.
@@ -522,8 +526,10 @@ will be counted as held out.
   development, and future held-out ledgers.
 - Replaces the old `SimpleGraph`-token manifest heuristic with declaration-wide
   shape auditing. This exposed Erdős 617, whose finite edge-colouring statement
-  uses `Sym2 V -> Fin r`; prior work through `r <= 9` is calibration, so the
-  prospective frontier starts at `r = 10`.
+  uses `Sym2 V -> Fin r`. The lane then stopped at Phase 0: standalone public
+  proof artifacts already claim `r = 10,11`, and the proposed affine `K_100`
+  carrier does not exist. This adds fresh-repository search and carrier-hash
+  validation to the mandatory pre-scheduling audit.
 
 ### v0.9 — 2026-08-13
 

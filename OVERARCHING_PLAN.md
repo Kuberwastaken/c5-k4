@@ -259,13 +259,16 @@ exists in Lean, not that a solution has been proved; conversely, exact Lean
 variants can be merged before the prose database updates. All novelty checks
 compare exact statement scope and all open, closed, and merged attempts.
 
-The first prospective finite lane exposed by this correction is Erdős 617 at
-`r = 10`. External repositories already contain fixed-case work for `r = 5`
-through `r = 9`, so those cases are controls only. The frozen experiment starts
-from a balanced colouring of `K_100`, varies only the 100 incident colours of
-one added vertex, checks the literal `K_101` negation, and enforces the same
-60-second cap. A satisfying extension is a candidate counterexample; an
-unsatisfiable result closes only that carrier-specific transformation.
+The first missed finite lane exposed by this correction was Erdős 617, but it
+stopped at Phase 0. Standalone public artifacts already claim computer-assisted
+proofs for `r = 5` through `r = 11`, including a separate clean-room-audited
+package for `r = 10,11`; they are not Lean-formalized or externally accepted,
+but they remove novelty. The proposed affine `K_100` carrier was also invalid:
+order ten does not support the required affine-plane construction. Exact
+calibration shows that the valid prime-power affine carriers cannot accept the
+one-new-vertex extension anyway, because differently directed required lines
+intersect and would force two incident colors at one vertex. The whole affine
+extension operation is therefore closed rather than retuned.
 
 Erdős 92 is retained separately as a retrospective theorem-transfer benchmark:
 the canonical database records a disproof via problem 90 while DeepMind still
@@ -477,8 +480,9 @@ obstruction is formal at the voltage-algebra level.
 ## Near-term execution order
 
 1. Run the Method v1.0 status/certificate audit before every ranking pass.
-   Freeze Erdős 617 `r = 10` as the first newly exposed finite development
-   trial; use `r <= 9` only for independent calibration and prior-art checks.
+   Treat Erdős 617 `r <= 11` as prior-art calibration and its affine one-vertex
+   operation as theorem-closed; rotate to a genuinely unclaimed finite target
+   with a validated, content-hashed carrier.
 2. Preserve all protocol stops and brackets. The original Erdős 23 v1 rows
    remain excluded; Erdős 742 is stopped in a known proof domain; the ten
    unresolved WOWII 19 line-graph rows stay unknown unless a new frozen
