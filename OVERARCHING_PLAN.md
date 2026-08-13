@@ -13,6 +13,7 @@ graph conjectures:
 
 ```text
 source-faithful statement
+  -> literal resolution-certificate shape
   -> exact residual and database gate
   -> tight/equality family
   -> theorem-baseline subtraction
@@ -62,6 +63,10 @@ corpus.
 8. Do not publish a counterexample until source recovery, all plausible
    readings, independent recomputation, novelty review, a warning-clean
    no-`sorry` Lean certificate, and the release lock all pass.
+9. Treat status as four coordinates, not one label: accepted mathematical
+   status, formal-solution status, statement-formalization status, and the exact
+   DeepMind declaration/variant status. A mismatch starts a status-sync audit;
+   it does not create a discovery claim.
 
 ## Active workstreams
 
@@ -239,10 +244,40 @@ evaluation:
 3. graph pebbling products;
 4. Erdős 628 (Tihany partition).
 
-Each receives source-direction, local-theorem, live-status, literature, and
-bounded-evaluability gates before a family can be frozen. A Phase-0 ambiguity
-or proved-domain hit is a completed stop, not permission to move directly to
-the next convenient construction in the same trial.
+#### Method v1.0: certificate-shape rotation
+
+The v0.9 manifest heuristic over-selected finite-looking declarations whose
+negations actually require infinite families, global nonexistence proofs, or
+two-sided optimum certificates. It also missed Erdős 617 because the complete-
+graph edge colouring is encoded as `Sym2 V -> Fin r` rather than a
+`SimpleGraph`. Method v1.0 therefore performs a declaration-wide logical scan
+before assigning any wall score.
+
+The canonical Erdős Problems data and DeepMind metadata are now read as four
+separate coordinates. In particular, `formalized: yes` means that a statement
+exists in Lean, not that a solution has been proved; conversely, exact Lean
+variants can be merged before the prose database updates. All novelty checks
+compare exact statement scope and all open, closed, and merged attempts.
+
+The first prospective finite lane exposed by this correction is Erdős 617 at
+`r = 10`. External repositories already contain fixed-case work for `r = 5`
+through `r = 9`, so those cases are controls only. The frozen experiment starts
+from a balanced colouring of `K_100`, varies only the 100 incident colours of
+one added vertex, checks the literal `K_101` negation, and enforces the same
+60-second cap. A satisfying extension is a candidate counterexample; an
+unsatisfiable result closes only that carrier-specific transformation.
+
+Erdős 92 is retained separately as a retrospective theorem-transfer benchmark:
+the canonical database records a disproof via problem 90 while DeepMind still
+contains open answer placeholders. It can test whether the workflow recovers
+and formalizes a known implication, but it is not a new discovery and does not
+enter the counterexample score.
+
+Every target receives source-direction, certificate-shape, local-theorem,
+live-status, literature, and bounded-evaluability gates before a family can be
+frozen. A Phase-0 ambiguity or proved-domain hit is a completed stop, not
+permission to move directly to the next convenient construction in the same
+trial.
 
 ### B. Proof extraction and formalization
 
@@ -441,29 +476,32 @@ obstruction is formal at the voltage-algebra level.
 
 ## Near-term execution order
 
-1. Preserve all protocol stops and brackets. The original Erdős 23 v1 rows
+1. Run the Method v1.0 status/certificate audit before every ranking pass.
+   Freeze Erdős 617 `r = 10` as the first newly exposed finite development
+   trial; use `r <= 9` only for independent calibration and prior-art checks.
+2. Preserve all protocol stops and brackets. The original Erdős 23 v1 rows
    remain excluded; Erdős 742 is stopped in a known proof domain; the ten
    unresolved WOWII 19 line-graph rows stay unknown unless a new frozen
    solver contract is justified. Preserve the independent WOWII 179 timeout
    bracket as well.
-2. Do not deepen the Dean order-ten two-switch family: Dirac closes every
+3. Do not deepen the Dean order-ten two-switch family: Dirac closes every
    5-regular graph at that order. Any new Dean trial must leave order ten and
    retain `minDegree>=5` without automatic `minDegree>=n/2` Hamiltonicity.
-3. Treat low-separator composition as adverse to the Erdős 128 strict
+4. Treat low-separator composition as adverse to the Erdős 128 strict
    premise unless a new frozen operation proves an eligible-set density
    budget in advance. Do not generalize the single Hajós row to all joins.
-4. Do not repeat the independent-domination single-leaf concentration move.
+5. Do not repeat the independent-domination single-leaf concentration move.
    Its exact formula explains the safe displacement; any continuation must
    specify how it avoids lowering `i` while changing the parity/degree side.
-5. For WOWII 19 line graphs, the next operation must be newly frozen and must
+6. For WOWII 19 line graphs, the next operation must be newly frozen and must
    aim to raise the floor of average edge eccentricity without matching growth
    in even-linear edge rank. The five equality rows identify a wall but do not
    select a unique transformation.
-6. Treat WOWII 40's internal-edge cone as closed. For WOWII 141, either
+7. Treat WOWII 40's internal-edge cone as closed. For WOWII 141, either
    discharge the labelled-base/gauge/lift adapters or choose a transformation
    outside ordinary two-lifts; do not count the algebraic parity theorem as a
    second prospective decision.
-7. For any future negative residual, stop family adaptation and execute the
+8. For any future negative residual, stop family adaptation and execute the
    statement, database, independent-recompute, novelty, and Lean gates in that
    order. Keep all current WOWII modules excluded from any held-out success
    count; new transformations can yield discoveries, but not retrospective

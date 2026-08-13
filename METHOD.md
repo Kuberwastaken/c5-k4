@@ -1,4 +1,4 @@
-# Invariant-Wall Navigation: Development Method v0.9
+# Invariant-Wall Navigation: Development Method v1.0
 
 Programme-level execution order and maturity criteria are maintained in
 [`OVERARCHING_PLAN.md`](OVERARCHING_PLAN.md). This file is the detailed,
@@ -73,9 +73,58 @@ For a candidate family `F(theta)`, the working record must contain:
 
 This turns "tightness" into a concrete object rather than a visual analogy.
 
-## Method v0.3
+## Method v1.0
 
-### Phase 0 — Freeze the target and its provenance
+### Phase 0A — Prove that the requested resolution has the right certificate shape
+
+No ranking score, attractive seed, or cheap solver can compensate for a
+logical mismatch. Before provenance or wall analysis, write a machine-readable
+`resolution_card` containing at least:
+
+```json
+{
+  "logical_class": "FINITE_UNIVERSAL",
+  "target_negation": "there exists one finite applicable object with R < 0",
+  "negation_certificate": "labelled object plus exact premise and residual witnesses",
+  "finite_witness_suffices": true,
+  "exact_residual": "R = LHS - RHS",
+  "answer_placeholder": false,
+  "eventual_quantifier": false,
+  "global_constant_quantifier": false,
+  "unbounded_auxiliary_search": false
+}
+```
+
+The counterexample loop accepts only a declaration whose literal negation has
+a finite, replayable certificate. The four principal logical classes are:
+
+| class | required resolution certificate | bounded-search role |
+|---|---|---|
+| finite universal | one finite applicable object falsifying the conclusion | eligible after all other gates |
+| asymptotic or uniform | an explicit infinite family, symbolic premise proof, and rate contradicting every allowed constant or threshold | finite rows are calibration only |
+| existential | one construction can prove it; disproof requires a global nonexistence theorem | construction/proof lane, never a counterexample miss |
+| fixed optimum or `answer(sorry)` | a sourced value plus both global lower and upper certificates | local improvements are bounds only |
+
+An asymptotic declaration enters a resolution trial only when Phase 0A already
+supplies the explicit family and symbolic rate. An existential or fixed-answer
+declaration receives a different contract and denominator. A graph-valued type
+or the token `SimpleGraph` is not evidence that one finite graph can resolve a
+statement.
+
+For Erdős Problems, freeze four coordinates separately:
+
+1. the exact prose problem and its `informal_status`;
+2. `formal_status`, which records a formally checked solution;
+3. `formalized`, which records only that a statement was translated;
+4. every exact DeepMind declaration's category, answer scope, proof link, and
+   sibling variants.
+
+Neither database is a sole novelty oracle. A site status can lag a reviewed
+DeepMind proof, while a solved Lean declaration can cover only one variant of
+an open prose problem. File-level status is never promoted to problem-level
+resolution without exact scope comparison.
+
+### Phase 0B — Freeze the target and its provenance
 
 Before construction work:
 
@@ -107,6 +156,9 @@ Before construction work:
    its output class against those theorem hypotheses. A source may remain
    upstream-open while the entire proposed operation lies in a class already
    proved locally; that is `KNOWN_PROOF_DOMAIN`, not prospective evidence.
+8. For Erdős entries, snapshot the canonical YAML revision and all four status
+   coordinates from Phase 0A. Search open, closed, and merged upstream attempts;
+   partial variants and undigested formal proofs are controls, not novelty.
 
 No reading may be changed after a candidate is found without preserving the
 old result and explaining the change in the log.
@@ -199,6 +251,13 @@ Before running a transformation, record a directional prediction for every
 term in `R`: increase, decrease, pinned, or unknown. A successful family counts
 as **prospectively designed** only when the predicted controlling separation
 was written before the violating instance was evaluated.
+
+The prediction is a required sign-potential table containing the premise
+margin, literal target residual, every subtracted theorem baseline, and the
+cost of the exact certificate. At least one of the following must be frozen
+before construction: a symbolic parameter range where the residual can turn
+negative, a quotient/ILP feasible point with negative objective, or a local
+edit derivative that is negative while every premise remains feasible.
 
 The prediction itself is an auditable outcome. If every tested coordinate
 matches a frozen closed form, record `PREDICTION_CONFIRMED` even when the family
@@ -354,6 +413,12 @@ Every attempted target receives exactly one primary outcome:
 | outcome | meaning |
 |---|---|
 | `GATE_FAIL` | a frozen calibration, fixture, control, or constructor assertion failed; the family remains locked |
+| `CERTIFICATE_SHAPE_FAIL` | one bounded object cannot logically resolve the exact declaration |
+| `ASYMPTOTIC_PROOF_ONLY` | resolution requires an explicit infinite family and symbolic rate |
+| `CONSTRUCTION_ONLY` | bounded search can prove by finding a witness, but a zero cannot disprove |
+| `FIXED_OPTIMUM` | local search can improve a bound but cannot determine the requested global answer |
+| `FINITE_SANITY_ONLY` | computed rows calibrate a claim but are not literal resolution certificates |
+| `STATUS_SYNC` | exact mathematical/formalization/proof metadata differ and need reconciliation |
 | `NEW_UNAMBIGUOUS_DISPROOF` | all source readings agree and novelty survives |
 | `NEW_FORMALIZED_READING_DISPROOF` | the Lean/gate-preferred reading is false; historical intent remains caveated |
 | `RETRO_COUNTEREXAMPLE` | witness is new to this campaign but the conjecture was already false |
@@ -386,7 +451,7 @@ inside already-published statements from collections already represented in
 `formal-conjectures`. Source recovery does not by itself make an unrelated
 corpus eligible. WoW I and Graph Brain results remain internal to `c5-k4` and
 must not be submitted upstream. This keeps the public research trail legible
-while Method v0.9 is refined.
+while Method v1.0 is refined.
 
 ### Wave A — known tight walls
 
@@ -401,10 +466,13 @@ while Method v0.9 is refined.
 
 ### Wave B — current upstream graph declarations
 
-Refresh the exact `@[category research open]` finite-graph manifest from the
-current upstream commit. Rank only concretely falsifiable universal statements
-whose invariants intersect the transformation catalogue. Preserve the prior
-77-declaration sweep as a baseline, including its zeroes.
+Refresh every exact `@[category research open]` declaration from the current
+upstream commit; do not select files by the presence of `SimpleGraph`. Run
+`scripts/audit_erdos_resolution_shape.py` for Erdős declarations, then manually
+complete the negation certificate for every finite-status candidate. Rank only
+concretely falsifiable universal statements whose invariants intersect the
+transformation catalogue. Preserve the prior 77-declaration sweep as a
+baseline, including its zeroes and its omission of edge-colouring problem 617.
 
 ### Iteration rule
 
@@ -438,6 +506,24 @@ No target already inspected, discussed, ranked, or searched in this repository
 will be counted as held out.
 
 ## Method changelog
+
+### v1.0 — 2026-08-13
+
+- Makes resolution-certificate shape a hard pre-ranking gate. Asymptotic,
+  existential, fixed-answer, infinite-cardinal, and unbounded-uniform claims
+  cannot be promoted by an attractive carrier or cheap finite computation.
+- Separates Erdős Problems' informal status, formal-solution status, and
+  statement-formalization status from DeepMind's exact declaration metadata.
+  Novelty requires exact scope comparison across both repositories and all
+  open, closed, and merged attempts.
+- Requires the literal target negation, a replayable certificate, and an exact
+  residual bridge before bounded rows can count as counterexample evidence.
+- Adds a transformation sign-potential table and separates calibration,
+  development, and future held-out ledgers.
+- Replaces the old `SimpleGraph`-token manifest heuristic with declaration-wide
+  shape auditing. This exposed Erdős 617, whose finite edge-colouring statement
+  uses `Sym2 V -> Fin r`; prior work through `r <= 9` is calibration, so the
+  prospective frontier starts at `r = 10`.
 
 ### v0.9 — 2026-08-13
 
