@@ -83,35 +83,59 @@ Maximize reusable no-`sorry` proof components, not merely top-level theorem
 counts. Active proof extraction is restricted to WOWII declarations present
 in the current `formal-conjectures` checkout. Current theorem lanes are:
 
-- **WOWII 19:** finite-supremum and floor normalization, the self-centered
-  diameter-two branch, the diametral geodesic separation core, and explicit
-  endpoint-witness assembly are formal. The remaining global step is a
-  max-local-independence to diametral-endpoint coupling.
-- **WOWII 40:** `B+2<=2f`, maximum-core imbalance, exact deficiency
-  coordinates, explicit path-cover witnesses, and the full connected acyclic
-  branch are formal. Positive feedback deletion is the surviving wall.
-- **WOWII 59:** the statement is already externally disproved, but the safe
-  region `residue<=2` and the residue-three frontier are formal theorem
-  slices; under `residue<=alpha`, the only remaining low-residue coordinate is
-  `(residue,b,f)=(3,6,4)`.
-- **WOWII 61:** exact Havel--Hakimi trajectory accounting, realized unit-loss
-  couplings, and step-indexed excess-profile monotonicity are formal. The open
-  question is whether weak graphical dominance forces a compatible profile
-  coupling.
-- **WOWII 100:** for the exact Lean `degreeL2Norm` reading, complement energy
-  proves the statement unconditionally at `alpha>=17`, and under both
-  connectedness hypotheses at `alpha=2` or `alpha>=14`. The upstream prose
-  uses a different diameter reading and must remain visibly separated.
-- **WOWII 133:** the exact C4-free triangle-corrected reduction, all cubic
-  graphs, all connected triangle-free 1- and 2-regular graphs, and the class
-  `floor(l)<=1` are formal. Higher regular degree remains open.
-- **WOWII 141:** the induced-star bound proves girth at most five; a precise
-  one-vertex splice certificate pays the girth-six/seven branch once its
-  existence is established.
-- **WOWII 183:** the false singleton rooted-trunk interface has been formally
-  diagnosed and repaired. Attachment lemmas, nonvacuity models, additive
-  connected-component folding, and certificate transfer are formal; only
-  attachment selection plus ambient connected domination remains.
+- **WOWII 19:** the maximum-star, endpoint-tail, mixed star--geodesic, and
+  whole-graph/one-deletion certificates are formal. They cover every connected
+  Graph Atlas control through order seven. In general, `b>=n-tau_odd` reduces
+  the conjecture to the precise transversal charge
+  `tau_odd+diameter+localMax<=n+1`; 5,516 deterministic order-8--10 controls
+  satisfy that charge. The maximum-star complement proves the universal
+  partial charge `tau_odd+localMax+1<=n`, hence all diameter-at-most-two
+  graphs; the remaining diameter contribution is open.
+- **WOWII 40:** the exact deficiency coordinates and arbitrary disjoint-path
+  family transfer are formal. A 17-vertex four-petal cactus refutes the
+  tempting one-long-path lemma; feedback-sized short-path families and the
+  full even-cycle-flower petal certificate replace it. The surviving theorem
+  is block-level extraction of total linear-forest rank at least `2tau+1`.
+  One shared cut vertex can now be allocated away formally; recursive
+  block-tree bookkeeping is the remaining cactus step.
+- **WOWII 59:** the statement is already externally disproved. Around the only
+  low-residue corner `(residue,b,f)=(3,6,4)`, Lean now proves mixed-color
+  attachment, core exchange, and the exact dense `2+2/2+3/3+2/3+3`
+  classification. All 32 one-outside and all 544 two-outside dense extensions
+  have residue two. Dense outside pairs share core neighbors in both colors;
+  the remaining issue is unbounded accumulation and residue control.
+- **WOWII 61:** exact Havel--Hakimi trajectory accounting, padded excess
+  profiles, one-step residual loss, and cumulative residual coupling are
+  formal. Ordinary successor prefix dominance and pointwise recursive loss
+  order are both formally false at order four. The exact remaining theorem is
+  that initial weak graphical dominance supplies nonnegative cumulative
+  credit. The credit has an exact local update and solvency rule, with no
+  failure among 105,582,418 audited pairs through order ten.
+- **WOWII 100:** for the exact Lean `degreeL2Norm` reading, the theorem is
+  formal for connected graphs with `alpha` in `{2,3}` or `alpha>=12`;
+  complement connectedness is unnecessary in the large-alpha argument. A
+  two-outside energy certificate covers every attachment coordinate for
+  `alpha=8..11`; its graph-level incidence bound and connectedness witness
+  construction are now formal, leaving only a thin theorem-composition module.
+  The upstream prose uses a different diameter reading and remains separated.
+- **WOWII 133:** the exact C4-free reduction and low-degree classes are formal.
+  In the four-regular branch, long handle contacts and the complete depth-two
+  choice are discharged; depth-three contact rows are classified exactly.
+  Shared-parent triangle/C4 constraints still leave 20 exact abstract row
+  matrices, so further progress must use global metric information.
+- **WOWII 141:** the exact conjecture is formal unconditionally for every
+  connected graph of girth at most seven. The two-vertex-tail assembly needed
+  at girth eight/nine is also formal from explicit second-leaf data. Its sole
+  global gap is reduced to acyclicity of a radius-two BFS layering plus the
+  final girth-based chord exclusion.
+- **WOWII 183:** the false singleton rooted-trunk interface has been repaired.
+  Attachment selection, connected domination, component folding, aggregate
+  accounting, and singleton branches are formal. Bipartite and tree components
+  receive full-support witnesses automatically; the remaining local theorem is
+  rooted connected-dominating trunk existence for nontrivial components and
+  its nonbipartite witness bound. Deleting a non-root leaf is now a certified
+  exact trunk for tree components; root-sensitive leaf selection and ambient
+  coercion remain.
 - **WOWII 438b:** maintain the completed stronger arbitrary-subset proof and
   existing upstream review lane; do not recast it as a counterexample.
 
@@ -175,14 +199,22 @@ obligations.
 
 1. Preserve the strict `TIMEOUT_BRACKET` stop on WOWII 179; do not reopen its
    unevaluated grid without a newly frozen protocol.
-2. Close WOWII 133's explicit neighborhood-edge/triangle bijection, then use
-   the triangle-corrected local-average identity in the noncubic path bound.
-3. Attack WOWII 183's final conflict-graph existence condition in the hard
-   equality and near-equality tiers; retain all parity countermodels.
-4. Continue WOWII 61 only through graphical, realization-aware recursive
-   invariants; the unrestricted and naive equal-sum variants are formally
-   false.
-5. Keep Method v0.6's prospective queue empty until a genuinely new open
+2. Attack WOWII 19's transversal charge
+   `tau_odd+diameter+localMax<=n+1`, first on named structural classes and
+   then through a general multi-arm decomposition.
+3. Continue WOWII 40 through block-level extraction of disjoint path-family
+   rank `2tau+1`; do not revive the formally refuted one-long-path strategy.
+4. Finish WOWII 133's depth-three escape by exploiting cross-row constraints
+   among the three candidates sharing a parent.
+5. Continue WOWII 141 through the radius-two layer contradiction equivalent
+   to the missing distance-three property, then instantiate the completed
+   two-leaf assembly.
+6. Continue WOWII 183 only through nontrivial rooted-trunk existence and the
+   nonbipartite local witness bound; singleton and global aggregation work is
+   complete.
+7. Continue WOWII 61 through cumulative credit, never through ordinary
+   successor prefix dominance or pointwise loss order, both formally false.
+8. Keep Method v0.6's prospective queue empty until a genuinely new open
    WOWII module enters `formal-conjectures`; all 14 current modules were
    already evaluated and cannot be retrospectively relabeled held out.
 

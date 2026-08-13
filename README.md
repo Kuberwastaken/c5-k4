@@ -89,21 +89,42 @@ DeepMind work queues.
 
 The current no-`sorry`, warning-clean Lean ladder includes:
 
-- **#133:** the corrected cubic C4-free specialization, matching-neighborhood
-  identities, an explicit neighborhood-edge/triangle bijection, and the
-  unconditional C4-free identity `l=(2m-3t)/n`; only the remaining noncubic
-  graph inequality is open.
-- **#19:** an explicit induced-bipartite star witness, attainment of the local
-  finite supremum, and the exact non-self-centered eccentricity/floor
-  reduction; the remaining obligation is purely combinatorial.
-- **#40:** the source baseline `B+2<=2f` and the complete `pathCoverNumber=1`
-  branch; the unrestricted residual is `pathCoverNumber-1<=2f-(B+2)`.
-- **#61:** an exact loss-budgeted Havel--Hakimi lifting theorem and a graphical
-  paw/C4 certificate showing why naive successor induction fails.
-- **#183:** attachment-clique and outside-budget transfer lemmas. A subsequent
-  audit proved that the first rooted-trunk interface was inconsistent on
-  singleton components, so that conditional was vacuous; the repository now
-  records the formal diagnosis and a corrected nontrivial-component boundary.
+- **#19:** maximum-star, canonical-tail, mixed star--geodesic, multi-arm, and
+  odd-cycle-transversal certificates. Every connected Atlas graph through
+  order seven is covered, and the universal problem is reduced to the exact
+  charge `tau_odd+diameter+localMax<=n+1`. A maximum-star transversal proves
+  `tau_odd+localMax+1<=n` universally and closes diameter at most two.
+- **#40:** exact deficiency coordinates, explicit path-cover witnesses,
+  arbitrary disjoint path-family rank, and cactus-petal certificates. The
+  repository also preserves the 17-vertex flower obstruction to the false
+  one-long-path strategy and proves how to allocate away a shared cut vertex.
+- **#59:** safe residue slices, the unique low-residue corner, mixed-color
+  ambient attachment, one-for-one core exchange, and the complete dense
+  attachment-count classification. Exact one- and two-outside audits contain
+  no residue-three corner. This is proof extraction around an already
+  externally disproved statement, not another kill.
+- **#61:** exact trajectory telescoping, padded excess profiles, one-step loss
+  algebra, the minimal successor-order obstructions, and the corrected
+  cumulative-credit invariant with an exact local balance/update theorem. The
+  remaining implication from initial weak graphical dominance is isolated
+  without assuming a false successor order.
+- **#100:** for the exact Lean `degreeL2Norm` expression, unconditional proofs
+  cover `alpha` in `{2,3}` and every `alpha>=12`; a verified two-witness energy
+  package covers `alpha=8..11`, and its graph-level incidence/second-witness
+  bridge is formal. A thin integration declaration remains. The distinct
+  diameter wording in the upstream prose is not conflated with these results.
+- **#133:** the corrected C4-free specialization, matching/triangle identities,
+  deep-handle assembly, finite early-contact reduction, complete depth-two
+  escape, and the allowable depth-three contact table. The 20 surviving
+  shared-parent matrices are recorded as an exhausted local-proof boundary.
+- **#141:** an unconditional proof through girth seven, plus a fully verified
+  two-vertex-tail assembly for girth eight/nine. Only the global
+  radius-two-layer acyclicity theorem and final chord exclusion remain there.
+- **#183:** corrected attachment selection, connected domination, component
+  folding, local-to-global budget accounting, exact singleton branches, and
+  bipartite/tree component witness adapters. The old vacuous interface remains
+  documented; non-root leaf deletion now supplies an exact tree trunk, while
+  root-sensitive leaf selection and the general nonbipartite trunk remain.
 
 These are theorem-extraction checkpoints, not extra “kills.” Failed rungs,
 countermodels, repaired interfaces, and surviving obligations are committed
