@@ -133,6 +133,63 @@ lemma radius_add_one_le_path (G : SimpleGraph V) (hconn : G.Connected) :
   rw [← hpSupport]
   exact path_ge_of_isInducedPath G p.support hpInduced
 
+/-- A finite connected cubic graph without a four-cycle has radius at least
+two.  This isolates the small-radius exclusion used by both extension branches
+of the paper proof. -/
+lemma two_le_radius_toNat_of_cubic_c4Free (G : SimpleGraph V)
+    [DecidableRel G.Adj] (hconn : G.Connected)
+    (hreg : G.IsRegularOfDegree 3) (hc4 : ¬HasC4 G) :
+    2 ≤ G.radius.toNat := by
+  have hnontrivial : Nontrivial V := by
+    let v : V := Classical.ofNonempty
+    apply G.nontrivial_of_degree_ne_zero (v := v)
+    rw [hreg v]
+    omega
+  letI : Nontrivial V := hnontrivial
+  have hrne : G.radius ≠ ⊤ := G.radius_ne_top_iff.mpr hconn
+  by_contra hr
+  have hrsmall : G.radius.toNat = 0 ∨ G.radius.toNat = 1 := by omega
+  rcases hrsmall with hrzero | hrone
+  · have : G.radius = 0 := by
+      rcases ENat.toNat_eq_zero.mp hrzero with hz | htop
+      · exact hz
+      · exact (hrne htop).elim
+    exact G.radius_ne_zero_of_nontrivial this
+  · have hradius : G.radius = 1 := (ENat.toNat_eq_iff one_ne_zero).mp hrone
+    obtain ⟨c, hc⟩ := G.exists_eccent_eq_radius
+    have hcadj : ∀ v, c ≠ v → G.Adj c v := by
+      exact (G.eccent_eq_one_iff c).mp (hc.trans hradius)
+    have huniv : Finset.univ = insert c (G.neighborFinset c) := by
+      ext v
+      simp only [Finset.mem_univ, Finset.mem_insert, G.mem_neighborFinset, true_iff]
+      exact eq_or_ne c v |>.imp Eq.symm (hcadj v)
+    have hcard : Fintype.card V = 4 := by
+      have hcnot : c ∉ G.neighborFinset c := G.notMem_neighborFinset_self c
+      have hdeg : (G.neighborFinset c).card = 3 := by
+        rw [G.card_neighborFinset_eq_degree, hreg c]
+      have := congrArg Finset.card huniv
+      simp [hcnot, hdeg] at this
+      omega
+    have hcompreg : Gᶜ.IsRegularOfDegree 0 := by
+      simpa [hcard] using hreg.compl
+    have hcomp : Gᶜ = ⊥ := by
+      ext u v
+      simp only [bot_adj, iff_false]
+      intro huv
+      have hpos : 0 < Gᶜ.degree u := huv.degree_pos_left
+      rw [hcompreg u] at hpos
+      omega
+    have htop : G = ⊤ := by
+      simpa using congrArg (fun H : SimpleGraph V ↦ Hᶜ) hcomp
+    let e : V ≃ Fin 4 := (Fintype.equivFin V).trans (finCongr hcard)
+    let a : V := e.symm 0
+    let b : V := e.symm 1
+    let c' : V := e.symm 2
+    let d : V := e.symm 3
+    apply hc4
+    refine ⟨a, b, c', d, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+    all_goals simp [a, b, c', d, htop]
+
 omit [Nonempty V] in
 /-- The exact split implies the source-shaped real inequality by integer
 arithmetic alone; all graph theory is isolated in `CubicC4FreeSplit`. -/
