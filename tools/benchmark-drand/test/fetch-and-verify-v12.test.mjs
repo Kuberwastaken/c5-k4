@@ -6,6 +6,7 @@ import test from 'node:test'
 import { fileURLToPath } from 'node:url'
 
 import {
+  INVOCATION_CONTRACT,
   LEGACY_CHAIN,
   assertUnlocked,
   fetchOfficialResponses,
@@ -55,6 +56,16 @@ function pair () {
     beacon: structuredClone(beacon)
   }))
 }
+
+test('publishes an exact P0-bindable invocation contract', () => {
+  assert.deepEqual(INVOCATION_CONTRACT, {
+    schema_version: 'c5k4-drand-fetch-invocation-contract-1.2',
+    argv: ['--c0-contract', 'FILE', '--output', 'NEW_FILE'],
+    network_after_contract_and_unlock_only: true,
+    relay_count: 2,
+    output_create_mode: 'EXCLUSIVE_NO_OVERWRITE'
+  })
+})
 
 test('derives the dynamic round only from a valid future C0 contract', () => {
   const profile = profileFromC0(c0())

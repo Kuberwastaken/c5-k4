@@ -11,6 +11,13 @@ import { fetchBeacon } from 'drand-client'
 
 export const C0_SCHEMA_VERSION = 'c5k4-c0-randomness-contract-1.2'
 export const ARTIFACT_SCHEMA_VERSION = 'c5k4-drand-randomness-artifact-1'
+export const INVOCATION_CONTRACT = Object.freeze({
+  schema_version: 'c5k4-drand-fetch-invocation-contract-1.2',
+  argv: Object.freeze(['--c0-contract', 'FILE', '--output', 'NEW_FILE']),
+  network_after_contract_and_unlock_only: true,
+  relay_count: 2,
+  output_create_mode: 'EXCLUSIVE_NO_OVERWRITE'
+})
 export const LEGACY_CHAIN = Object.freeze({
   source: 'League of Entropy drand',
   chainHash: '8990e7a9aaed2ffed73dbd7092123d6f289930540d7651336225dc172e51b2ce',
