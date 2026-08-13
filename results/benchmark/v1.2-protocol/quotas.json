@@ -1,0 +1,13 @@
+{
+  "schema_version": "c5k4-benchmark-quotas-1.2",
+  "sampling_unit": "QUESTION_CLUSTER",
+  "selected_n": 12,
+  "no_backfill": true,
+  "quotas": {
+    "GRAPH_SCALAR_INEQUALITY": 3,
+    "GRAPH_STRUCTURAL_PROPERTY": 3,
+    "FINITE_ALGEBRA_EQUATIONAL": 2,
+    "AUTOMATA_GAME_PROCESS": 2,
+    "FINITE_COMBINATORIAL": 2
+  }
+}

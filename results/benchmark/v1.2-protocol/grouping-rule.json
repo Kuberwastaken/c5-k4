@@ -1,0 +1,14 @@
+{
+  "schema_version": "c5k4-question-cluster-grouping-rule-1.2",
+  "input_scope": "ONE_PINNED_FORMALCONJECTURES_TREE",
+  "unit": "QUESTION_CLUSTER",
+  "rules_in_precedence_order": [
+    "Group declarations explicitly linked as variants, siblings, equivalent encodings, or logical negations.",
+    "Group declarations sharing one source-question identity after namespace-qualified exact alias normalization.",
+    "Do not group from unqualified numeric conjecture names or mathematical similarity.",
+    "Exclude every affected row when sibling or source-question identity is unresolved."
+  ],
+  "ambiguity_policy": "FAIL_CLOSED_EXCLUDE_CLUSTER",
+  "manual_grouping_after_p0": false,
+  "statement_semantics_permitted": false
+}

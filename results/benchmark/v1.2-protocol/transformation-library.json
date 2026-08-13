@@ -1,0 +1,84 @@
+{
+  "schema_version": "c5k4-transformation-library-1.2",
+  "selection_rule": "After C1T source recovery and exact wall analysis, choose exactly one applicable transformation id and one finite parameter grid before any discovery arm starts. If no entry is applicable, stop PRESEARCH_STOP. No backup transformation is allowed.",
+  "entries": [
+    {
+      "id": "GRAPH_VERTEX_SUBSTITUTION",
+      "strata": ["GRAPH_SCALAR_INEQUALITY", "GRAPH_STRUCTURAL_PROPERTY"],
+      "operation": "uniform or explicitly bounded nonuniform vertex blow-up by cliques or independent sets",
+      "required_effect_forecast": "signed change for every controlling graph invariant and every theorem baseline"
+    },
+    {
+      "id": "GRAPH_COMPLEMENT",
+      "strata": ["GRAPH_SCALAR_INEQUALITY", "GRAPH_STRUCTURAL_PROPERTY"],
+      "operation": "graph complement",
+      "required_effect_forecast": "exact translation of hypotheses and controlling invariants under complementation"
+    },
+    {
+      "id": "GRAPH_LINE_OR_SUBDIVISION",
+      "strata": ["GRAPH_SCALAR_INEQUALITY", "GRAPH_STRUCTURAL_PROPERTY"],
+      "operation": "line graph, bounded edge subdivision, or their fixed one-step composition",
+      "required_effect_forecast": "signed objective effect plus applicability and shortcut-risk audit"
+    },
+    {
+      "id": "GRAPH_BLOCK_SUM_OR_LIFT",
+      "strata": ["GRAPH_SCALAR_INEQUALITY", "GRAPH_STRUCTURAL_PROPERTY"],
+      "operation": "one fixed block sum, voltage lift, or cover construction",
+      "required_effect_forecast": "separator/fiber effects and exact hypothesis preservation"
+    },
+    {
+      "id": "GRAPH_BOUNDED_EDGE_SURGERY",
+      "strata": ["GRAPH_SCALAR_INEQUALITY", "GRAPH_STRUCTURAL_PROPERTY"],
+      "operation": "one frozen orbit of at most two edge additions, deletions, switches, or contractions",
+      "required_effect_forecast": "controlling-term signs, label transport, and isomorph rejection rule"
+    },
+    {
+      "id": "ALGEBRA_QUOTIENT_OR_SUBALGEBRA",
+      "strata": ["FINITE_ALGEBRA_EQUATIONAL"],
+      "operation": "one bounded quotient or subalgebra construction",
+      "required_effect_forecast": "premise preservation and a literal failing conclusion certificate"
+    },
+    {
+      "id": "ALGEBRA_PRODUCT",
+      "strata": ["FINITE_ALGEBRA_EQUATIONAL"],
+      "operation": "one fixed finite direct-product grid",
+      "required_effect_forecast": "coordinatewise premise and conclusion behavior"
+    },
+    {
+      "id": "ALGEBRA_TABLE_SURGERY",
+      "strata": ["FINITE_ALGEBRA_EQUATIONAL"],
+      "operation": "row permutation reduction or bounded multiplication-table cell surgery",
+      "required_effect_forecast": "constraint preservation, symmetry quotient, and certificate replay"
+    },
+    {
+      "id": "PROCESS_DEFECT_SURGERY",
+      "strata": ["AUTOMATA_GAME_PROCESS"],
+      "operation": "one bounded transition/letter modification preserving a preregistered defect",
+      "required_effect_forecast": "defect sign and explicit shortcut-risk bound"
+    },
+    {
+      "id": "PROCESS_STATE_NORMALIZATION",
+      "strata": ["AUTOMATA_GAME_PROCESS"],
+      "operation": "one semantics-preserving normalized state representation followed by a bounded local move",
+      "required_effect_forecast": "bijection or bisimulation proof and signed objective effect"
+    },
+    {
+      "id": "COMBINATORIAL_CORNER_EXCHANGE",
+      "strata": ["FINITE_COMBINATORIAL"],
+      "operation": "one corner/profile transfer or closed two-color exchange family",
+      "required_effect_forecast": "exact profile delta, feasibility, and closure conditions"
+    },
+    {
+      "id": "COMBINATORIAL_LOCAL_SURGERY",
+      "strata": ["FINITE_COMBINATORIAL"],
+      "operation": "one bounded add/delete/swap operation on a finite object encoding",
+      "required_effect_forecast": "constraint preservation, canonicalization, and signed statistic effect"
+    }
+  ],
+  "forbidden_adaptation": [
+    "activating a second transformation after any arm outcome is visible",
+    "expanding the parameter grid after a near miss",
+    "moving a construction between arms",
+    "using a selected target to add a new library entry during Method v1.2"
+  ]
+}

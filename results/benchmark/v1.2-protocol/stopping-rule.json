@@ -1,0 +1,26 @@
+{
+  "schema_version": "c5k4-stopping-rule-1.2",
+  "pre_c0_shortage": "NO_ELIGIBLE_BENCHMARK_PRE_C0",
+  "no_backfill": true,
+  "no_quota_relaxation": true,
+  "selected_cluster_replacement": false,
+  "required_terminal_clusters": 12,
+  "early_stop_after_crossing": false,
+  "new_solver_family_target_or_bound": "DEFER_TO_LATER_BENCHMARK_VERSION",
+  "terminal_precedence": [
+    "CROSS",
+    "THEOREM_STRUCTURE",
+    "ZERO_COMPLETE",
+    "TIMEOUT",
+    "PRESEARCH_STOP",
+    "PROTOCOL_INVALID"
+  ],
+  "cross_requirements": [
+    "literal residual",
+    "two independent recomputations",
+    "source/status/novelty audit",
+    "replayable certificate"
+  ],
+  "zero_complete_requirement": "ENTIRE_FROZEN_FINITE_DOMAIN_OR_OPERATION_CLASS_EXHAUSTED_WITHOUT_TIMEOUT",
+  "protocol_invalid_precedence_note": "Protocol-invalid evidence cannot be rehabilitated by downstream numerical results."
+}
