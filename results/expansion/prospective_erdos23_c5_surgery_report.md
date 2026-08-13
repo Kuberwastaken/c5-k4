@@ -86,3 +86,8 @@ but this local geometry supplies no counterexample direction.
 The adversarial candidate and novelty gates were not triggered because no
 strict crossing appeared. No commit, push, release, issue, PR, or public action
 was taken.
+
+All 610 gate and development records, including cut partitions and explicit
+deleted-edge witnesses, are preserved incrementally in
+`prospective_erdos23_c5_surgery_records.jsonl` (SHA-256
+`8b44dff54f20763102ec8ad96e7fd15e3f460c36b7c4e4555f61f19e67fe1012`).
