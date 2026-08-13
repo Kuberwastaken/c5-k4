@@ -90,52 +90,56 @@ in the current `formal-conjectures` checkout. Current theorem lanes are:
   `tau_odd+diameter+localMax<=n+1`; 5,516 deterministic order-8--10 controls
   satisfy that charge. The maximum-star complement proves the universal
   partial charge `tau_odd+localMax+1<=n`, hence all diameter-at-most-two
-  graphs; the remaining diameter contribution is open.
+  graphs. For trees, the charge is reduced to the classical finite connected
+  count `diameter+maximumDegree<=n+1`; formalizing that count is the remaining
+  tree step.
 - **WOWII 40:** the exact deficiency coordinates and arbitrary disjoint-path
   family transfer are formal. A 17-vertex four-petal cactus refutes the
   tempting one-long-path lemma; feedback-sized short-path families and the
   full even-cycle-flower petal certificate replace it. The surviving theorem
   is block-level extraction of total linear-forest rank at least `2tau+1`.
-  One shared cut vertex can now be allocated away formally; recursive
-  block-tree bookkeeping is the remaining cactus step.
+  One shared cut vertex can now be allocated away formally and the construction
+  is instantiated on a shared-center flower; recursive block-tree bookkeeping
+  is the remaining cactus step.
 - **WOWII 59:** the statement is already externally disproved. Around the only
   low-residue corner `(residue,b,f)=(3,6,4)`, Lean now proves mixed-color
   attachment, core exchange, and the exact dense `2+2/2+3/3+2/3+3`
-  classification. All 32 one-outside and all 544 two-outside dense extensions
-  have residue two. Dense outside pairs share core neighbors in both colors;
+  classification. All 32 one-outside, all 544 two-outside, and all 3,188
+  three-outside rows retaining `b=6,f=4` have residue two. The three attachment
+  rows obey a formal aligned-or-rotating-complement dichotomy in each color;
   the remaining issue is unbounded accumulation and residue control.
 - **WOWII 61:** exact Havel--Hakimi trajectory accounting, padded excess
   profiles, one-step residual loss, and cumulative residual coupling are
   formal. Ordinary successor prefix dominance and pointwise recursive loss
   order are both formally false at order four. The exact remaining theorem is
   that initial weak graphical dominance supplies nonnegative cumulative
-  credit. The credit has an exact local update and solvency rule, with no
-  failure among 105,582,418 audited pairs through order ten.
+  credit. The credit has an exact local update and solvency rule, and local
+  funding is equivalent to `2*targetHead<=credit+2*sourceHead`, with no failure
+  among 105,582,418 audited pairs through order ten.
 - **WOWII 100:** for the exact Lean `degreeL2Norm` reading, the theorem is
-  formal for connected graphs with `alpha` in `{2,3}` or `alpha>=12`;
-  complement connectedness is unnecessary in the large-alpha argument. A
-  two-outside energy certificate covers every attachment coordinate for
-  `alpha=8..11`; its graph-level incidence bound and connectedness witness
-  construction are now formal, leaving only a thin theorem-composition module.
+  formal for connected graphs with `alpha` in `{2,3}` or `alpha>=8`;
+  complement connectedness is unnecessary. The two-witness energy certificate
+  for `alpha=8..11` is integrated at graph level, leaving only `alpha=4..7`.
   The upstream prose uses a different diameter reading and remains separated.
 - **WOWII 133:** the exact C4-free reduction and low-degree classes are formal.
   In the four-regular branch, long handle contacts and the complete depth-two
   choice are discharged; depth-three contact rows are classified exactly.
   Shared-parent triangle/C4 constraints still leave 20 exact abstract row
-  matrices, so further progress must use global metric information.
+  matrices. A metric detour restricts contact-index gaps to at most four, but
+  all 20 already obey it, so further progress needs equal-length rerouting,
+  radius choice, or endpoint-degree information rather than plain shortestness.
 - **WOWII 141:** the exact conjecture is formal unconditionally for every
   connected graph of girth at most seven. The two-vertex-tail assembly needed
-  at girth eight/nine is also formal from explicit second-leaf data. Its sole
-  global gap is reduced to acyclicity of a radius-two BFS layering plus the
-  final girth-based chord exclusion.
+  at girth eight/nine is also formal from explicit second-leaf data. The
+  exceptional-root radius-two forest theorem is formal; its concrete BFS-layer
+  instantiation and final girth-based chord bookkeeping are the remaining gap.
 - **WOWII 183:** the false singleton rooted-trunk interface has been repaired.
   Attachment selection, connected domination, component folding, aggregate
   accounting, and singleton branches are formal. Bipartite and tree components
-  receive full-support witnesses automatically; the remaining local theorem is
-  rooted connected-dominating trunk existence for nontrivial components and
-  its nonbipartite witness bound. Deleting a non-root leaf is now a certified
-  exact trunk for tree components; root-sensitive leaf selection and ambient
-  coercion remain.
+  receive full-support witnesses automatically. Deleting a non-root leaf is a
+  certified exact trunk for tree components, and a degree-sum proof now finds
+  such a leaf away from every prescribed root. Component-subtype-to-ambient
+  coercion and the general nonbipartite witness bound remain.
 - **WOWII 438b:** maintain the completed stronger arbitrary-subset proof and
   existing upstream review lane; do not recast it as a counterexample.
 
