@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-vendor-base-receipt-v1.5.schema.json",
+  "title": "Method v1.5 authenticated immutable vendor-base receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "status", "acquired_at_utc", "repository_path", "fresh_repository", "bare_repository", "remote", "remote_ref", "destination_ref", "fetch_command", "fetch_stdout_sha256", "fetch_stderr_sha256", "audit", "retry_count", "receipt_sha256"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-vendor-base-receipt-1.0"},
+    "status": {"const": "AUTHENTICATED_IMMUTABLE_SOURCE_CUSTODY"},
+    "acquired_at_utc": {"$ref": "#/definitions/timestamp"},
+    "repository_path": {"type": "string", "pattern": "^/[^\\u0000]+$"},
+    "fresh_repository": {"const": true},
+    "bare_repository": {"const": true},
+    "remote": {"type": "string", "format": "uri", "pattern": "^https://"},
+    "remote_ref": {"type": "string", "pattern": "^refs/heads/[A-Za-z0-9._/-]+$"},
+    "destination_ref": {"type": "string", "pattern": "^refs/c5k4-benchmark/v1\\.5/vendor/[A-Za-z0-9._/-]+$"},
+    "fetch_command": {"type": "array", "minItems": 12, "items": {"type": "string", "minLength": 1}},
+    "fetch_stdout_sha256": {"$ref": "#/definitions/sha256"},
+    "fetch_stderr_sha256": {"$ref": "#/definitions/sha256"},
+    "audit": {
+      "type": "object", "additionalProperties": false,
+      "required": ["object_format", "commit", "root_tree", "refs", "connectivity_fsck_stdout_sha256", "connectivity_fsck_stderr_sha256"],
+      "properties": {
+        "object_format": {"const": "sha1"},
+        "commit": {"$ref": "#/definitions/gitOid"},
+        "root_tree": {"$ref": "#/definitions/gitOid"},
+        "refs": {"type": "array", "minItems": 1, "maxItems": 1, "items": {
+          "type": "object", "additionalProperties": false,
+          "required": ["ref", "object_id", "object_type"],
+          "properties": {"ref": {"type": "string", "pattern": "^refs/c5k4-benchmark/v1\\.5/vendor/"}, "object_id": {"$ref": "#/definitions/gitOid"}, "object_type": {"const": "commit"}}
+        }},
+        "connectivity_fsck_stdout_sha256": {"$ref": "#/definitions/sha256"},
+        "connectivity_fsck_stderr_sha256": {"$ref": "#/definitions/sha256"}
+      }
+    },
+    "retry_count": {"const": 0},
+    "receipt_sha256": {"$ref": "#/definitions/sha256"}
+  },
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "gitOid": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "timestamp": {"type": "string", "format": "date-time", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"}
+  }
+}

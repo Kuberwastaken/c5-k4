@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-future-registry-output-v1.5.schema.json",
+  "title": "Method v1.5 bounded future-cohort registry output",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "authority", "upstream", "inputs", "controls", "counts", "quota_certificate", "records", "registry_sha256"],
+  "properties": {
+    "schema_version": {"const": "c5k4-future-cohort-registry-1.5"}, "authority": {"const": "SCHEDULED_IDENTITY_ONLY_CHECKPOINT"},
+    "upstream": {"type": "object", "additionalProperties": false, "required": ["repository", "u1_commit", "u1_tree", "u2_commit", "u2_tree", "ancestry_interval"], "properties": {
+      "repository": {"const": "https://github.com/google-deepmind/formal-conjectures.git"}, "u1_commit": {"$ref": "#/definitions/gitOid"}, "u1_tree": {"$ref": "#/definitions/gitOid"},
+      "u2_commit": {"$ref": "#/definitions/gitOid"}, "u2_tree": {"$ref": "#/definitions/gitOid"}, "ancestry_interval": {"type": "string", "pattern": "^[0-9a-f]{40}\\.\\.[0-9a-f]{40}$"}
+    }},
+    "inputs": {"type": "object", "additionalProperties": false, "minProperties": 1, "patternProperties": {"^[a-z][a-z0-9_]*_sha256$": {"$ref": "#/definitions/sha256"}}},
+    "controls": {"type": "object", "additionalProperties": false, "required": ["statement_text_present", "outcomes_present", "ranking_present", "entropy_used", "selection_permitted", "first_introduction_basis", "v14_exclusion_cluster_count"], "properties": {
+      "statement_text_present": {"const": false}, "outcomes_present": {"const": false}, "ranking_present": {"const": false}, "entropy_used": {"const": false}, "selection_permitted": {"const": false},
+      "first_introduction_basis": {"const": "GIT_ANCESTRY_AND_TREE_CONTENT"}, "v14_exclusion_cluster_count": {"const": 728}
+    }},
+    "counts": {"type": "object", "additionalProperties": false, "required": ["u1_open_clusters", "u2_open_clusters", "delta_records", "included", "excluded", "included_by_stratum", "exclusion_reasons"], "properties": {
+      "u1_open_clusters": {"type": "integer", "minimum": 0}, "u2_open_clusters": {"type": "integer", "minimum": 0}, "delta_records": {"type": "integer", "minimum": 0}, "included": {"type": "integer", "minimum": 0}, "excluded": {"type": "integer", "minimum": 0},
+      "included_by_stratum": {"$ref": "#/definitions/stratumCounts"}, "exclusion_reasons": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}}
+    }},
+    "quota_certificate": {"type": "object", "additionalProperties": false, "required": ["checkpoint_ordinal", "checkpoint_label", "commit", "tree", "quotas", "eligible_by_stratum", "deficits", "status", "candidate_count", "prior_checkpoint_chain_sha256", "all_prior_valid_checkpoints_failed", "first_passing_checkpoint", "registry_sha256"], "properties": {
+      "checkpoint_ordinal": {"type": "integer", "minimum": 1}, "checkpoint_label": {"type": "string", "pattern": "^checkpoint-[0-9]{4}-[0-9]{2}-[0-9]{2}$"}, "commit": {"$ref": "#/definitions/gitOid"}, "tree": {"$ref": "#/definitions/gitOid"},
+      "quotas": {"$ref": "#/definitions/quotas"}, "eligible_by_stratum": {"$ref": "#/definitions/stratumCounts"}, "deficits": {"$ref": "#/definitions/stratumCounts"}, "status": {"enum": ["PASS", "FAIL"]},
+      "candidate_count": {"type": "integer", "minimum": 0}, "prior_checkpoint_chain_sha256": {"$ref": "#/definitions/sha256"}, "all_prior_valid_checkpoints_failed": {"const": true},
+      "first_passing_checkpoint": {"type": "boolean"}, "registry_sha256": {"$ref": "#/definitions/sha256"}
+    }},
+    "records": {"type": "array", "items": {"$ref": "#/definitions/record"}}, "registry_sha256": {"$ref": "#/definitions/sha256"}
+  },
+  "allOf": [
+    {"if": {"properties": {"quota_certificate": {"properties": {"status": {"const": "PASS"}}, "required": ["status"]}}, "required": ["quota_certificate"]}, "then": {"properties": {"quota_certificate": {"properties": {"first_passing_checkpoint": {"const": true}}}}}},
+    {"if": {"properties": {"quota_certificate": {"properties": {"status": {"const": "FAIL"}}, "required": ["status"]}}, "required": ["quota_certificate"]}, "then": {"properties": {"quota_certificate": {"properties": {"first_passing_checkpoint": {"const": false}}}}}}
+  ],
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "gitOid": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "stratum": {"enum": ["GRAPH_SCALAR_INEQUALITY", "GRAPH_STRUCTURAL_PROPERTY", "FINITE_ALGEBRA_EQUATIONAL", "AUTOMATA_GAME_PROCESS", "FINITE_COMBINATORIAL"]},
+    "stratumCounts": {"type": "object", "additionalProperties": false, "required": ["GRAPH_SCALAR_INEQUALITY", "GRAPH_STRUCTURAL_PROPERTY", "FINITE_ALGEBRA_EQUATIONAL", "AUTOMATA_GAME_PROCESS", "FINITE_COMBINATORIAL"], "properties": {
+      "GRAPH_SCALAR_INEQUALITY": {"type": "integer", "minimum": 0}, "GRAPH_STRUCTURAL_PROPERTY": {"type": "integer", "minimum": 0}, "FINITE_ALGEBRA_EQUATIONAL": {"type": "integer", "minimum": 0}, "AUTOMATA_GAME_PROCESS": {"type": "integer", "minimum": 0}, "FINITE_COMBINATORIAL": {"type": "integer", "minimum": 0}
+    }},
+    "quotas": {"type": "object", "additionalProperties": false, "required": ["GRAPH_SCALAR_INEQUALITY", "GRAPH_STRUCTURAL_PROPERTY", "FINITE_ALGEBRA_EQUATIONAL", "AUTOMATA_GAME_PROCESS", "FINITE_COMBINATORIAL"], "properties": {
+      "GRAPH_SCALAR_INEQUALITY": {"const": 3}, "GRAPH_STRUCTURAL_PROPERTY": {"const": 3}, "FINITE_ALGEBRA_EQUATIONAL": {"const": 2}, "AUTOMATA_GAME_PROCESS": {"const": 2}, "FINITE_COMBINATORIAL": {"const": 2}
+    }},
+    "declaration": {"type": "object", "additionalProperties": false, "required": ["name", "kind", "category_line", "statement_header_sha256"], "properties": {
+      "name": {"type": "string", "pattern": "^[A-Za-z0-9_'.]+$"}, "kind": {"enum": ["theorem", "def", "abbrev"]}, "category_line": {"type": "integer", "minimum": 1}, "statement_header_sha256": {"$ref": "#/definitions/sha256"}
+    }},
+    "record": {"type": "object", "additionalProperties": false, "required": ["cluster_id", "identity_sha256", "path", "module_blob_sha256", "declarations", "machine_stratum", "classification_basis", "first_introduction_commit", "first_introduction_tree", "membership_status", "exclusion_reasons"], "properties": {
+      "cluster_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]{0,511}$"}, "identity_sha256": {"$ref": "#/definitions/sha256"}, "path": {"type": "string", "pattern": "^FormalConjectures/[^\\u0000]+\\.lean$"},
+      "module_blob_sha256": {"$ref": "#/definitions/sha256"}, "declarations": {"type": "array", "minItems": 1, "items": {"$ref": "#/definitions/declaration"}}, "machine_stratum": {"$ref": "#/definitions/stratum"},
+      "classification_basis": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "^[A-Z0-9_]+$"}}, "first_introduction_commit": {"$ref": "#/definitions/gitOid"}, "first_introduction_tree": {"$ref": "#/definitions/gitOid"},
+      "membership_status": {"enum": ["INCLUDE", "EXCLUDE"]}, "exclusion_reasons": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^[A-Z0-9_]+$"}}
+    }}
+  }
+}

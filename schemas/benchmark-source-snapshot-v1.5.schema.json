@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-source-snapshot-v1.5.schema.json",
+  "title": "Method v1.5 complete source snapshot",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema", "status", "snapshot_id", "source_id", "source_kind", "captured_at_utc", "coverage", "capture", "artifacts", "source_complete", "snapshot_sha256"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-source-snapshot-1.0"},
+    "status": {"const": "COMPLETE_CONTENT_ADDRESSED_SOURCE_SNAPSHOT"},
+    "snapshot_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"},
+    "source_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"},
+    "source_kind": {"enum": ["GIT_REPOSITORY", "SESSION_ARCHIVE", "CHAT_ARCHIVE", "RELEASE_EXPORT", "ISSUE_PR_EXPORT", "GENERATED_ARTIFACT"]},
+    "captured_at_utc": {"$ref": "#/definitions/timestamp"},
+    "coverage": {
+      "type": "object", "additionalProperties": false,
+      "required": ["lower_bound_utc", "upper_bound_utc", "complete", "gaps"],
+      "properties": {
+        "lower_bound_utc": {"$ref": "#/definitions/timestamp"},
+        "upper_bound_utc": {"$ref": "#/definitions/timestamp"},
+        "complete": {"const": true},
+        "gaps": {"type": "array", "maxItems": 0}
+      }
+    },
+    "capture": {"$ref": "#/definitions/producer"},
+    "artifacts": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["locator", "content_sha256", "byte_count"],
+        "properties": {
+          "locator": {"type": "string", "minLength": 1, "maxLength": 4096},
+          "content_sha256": {"$ref": "#/definitions/sha256"},
+          "byte_count": {"type": "integer", "minimum": 0}
+        }
+      }
+    },
+    "source_complete": {"const": true},
+    "snapshot_sha256": {"$ref": "#/definitions/sha256"}
+  },
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "timestamp": {"type": "string", "format": "date-time", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"},
+    "producer": {"type": "object", "additionalProperties": false, "required": ["producer_id", "executable_sha256", "invocation_contract_sha256"], "properties": {
+      "producer_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"},
+      "executable_sha256": {"$ref": "#/definitions/sha256"},
+      "invocation_contract_sha256": {"$ref": "#/definitions/sha256"}
+    }}
+  }
+}

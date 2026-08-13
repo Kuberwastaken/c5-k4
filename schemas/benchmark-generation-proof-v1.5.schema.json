@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-generation-proof-v1.5.schema.json",
+  "title": "Method v1.5 bounded machine-generation proof",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema", "status", "generation_id", "generated_at_utc", "chronology", "producer", "inputs", "allowed_operations", "output", "locator_binding", "semantic_bounds", "verification", "proof_sha256"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-generation-proof-1.0"},
+    "status": {"const": "VERIFIED_MACHINE_REGISTRY_CONTACT"},
+    "generation_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"},
+    "generated_at_utc": {"$ref": "#/definitions/timestamp"},
+    "chronology": {"type": "object", "additionalProperties": false, "required": ["basis_commit", "output_commit", "producer_frozen_at_commit", "historical_inputs_predate_output"], "properties": {
+      "basis_commit": {"$ref": "#/definitions/gitOid"}, "output_commit": {"$ref": "#/definitions/gitOid"},
+      "producer_frozen_at_commit": {"$ref": "#/definitions/gitOid"}, "historical_inputs_predate_output": {"const": true}
+    }},
+    "producer": {"type": "object", "additionalProperties": false, "required": ["producer_id", "executable_path", "executable_sha256", "invocation_contract_sha256"], "properties": {
+      "producer_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"},
+      "executable_path": {"type": "string", "pattern": "^(scripts|tools)/[^\\u0000]+$"},
+      "executable_sha256": {"$ref": "#/definitions/sha256"},
+      "invocation_contract_sha256": {"$ref": "#/definitions/sha256"}
+    }},
+    "inputs": {"type": "array", "minItems": 1, "items": {"$ref": "#/definitions/artifactRef"}},
+    "allowed_operations": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["IDENTITY", "SYNTAX", "ANCESTRY", "GROUPING", "PROVENANCE", "ELIGIBILITY", "COUNT", "HASH", "DETERMINISTIC_SELECTION"]}},
+    "output": {
+      "type": "object", "additionalProperties": false,
+      "required": ["artifact_id", "path", "file_sha256", "canonical_sha256", "schema_version", "schema_sha256", "byte_count", "row_count"],
+      "properties": {
+        "artifact_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"},
+        "path": {"type": "string", "minLength": 1, "maxLength": 4096},
+        "file_sha256": {"$ref": "#/definitions/sha256"}, "canonical_sha256": {"$ref": "#/definitions/sha256"},
+        "schema_version": {"type": "string", "pattern": "^c5k4-[A-Za-z0-9._-]+$"}, "schema_sha256": {"$ref": "#/definitions/sha256"},
+        "byte_count": {"type": "integer", "minimum": 0}, "row_count": {"type": "integer", "minimum": 0}
+      }
+    },
+    "locator_binding": {"type": "object", "additionalProperties": false,
+      "required": ["source_id", "source_kind", "locator", "role", "content_sha256", "content_schema", "unit_identity_sha256", "locator_specific"],
+      "properties": {
+        "source_id": {"type": "string", "minLength": 1}, "source_kind": {"type": "string", "minLength": 1},
+        "locator": {"type": "string", "minLength": 1}, "role": {"type": "string", "minLength": 1},
+        "content_sha256": {"$ref": "#/definitions/sha256"}, "content_schema": {"type": ["string", "null"]},
+        "unit_identity_sha256": {"$ref": "#/definitions/sha256"}, "locator_specific": {"const": true}
+      }
+    },
+    "semantic_bounds": {"type": "object", "additionalProperties": false,
+      "required": ["statement_text_emitted", "target_residual_emitted", "target_ranking_emitted", "candidate_or_route_emitted", "result_emitted", "natural_language_delivery"],
+      "properties": {
+        "statement_text_emitted": {"const": false}, "target_residual_emitted": {"const": false}, "target_ranking_emitted": {"const": false},
+        "candidate_or_route_emitted": {"const": false}, "result_emitted": {"const": false}, "natural_language_delivery": {"const": false}
+      }
+    },
+    "verification": {"type": "object", "additionalProperties": false,
+      "required": ["schema_valid", "self_digest_valid", "input_digests_replayed", "producer_digest_replayed", "deterministic_exact_replay_one", "deterministic_exact_replay_two", "replays_byte_identical"],
+      "properties": {"schema_valid": {"const": true}, "self_digest_valid": {"const": true}, "input_digests_replayed": {"const": true}, "producer_digest_replayed": {"const": true}, "deterministic_exact_replay_one": {"const": true}, "deterministic_exact_replay_two": {"const": true}, "replays_byte_identical": {"const": true}}
+    },
+    "proof_sha256": {"$ref": "#/definitions/sha256"}
+  },
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "gitOid": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "timestamp": {"type": "string", "format": "date-time", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"},
+    "artifactRef": {"type": "object", "additionalProperties": false, "required": ["artifact_id", "file_sha256", "canonical_sha256", "schema_version"], "properties": {
+      "artifact_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"},
+      "file_sha256": {"$ref": "#/definitions/sha256"}, "canonical_sha256": {"$ref": "#/definitions/sha256"},
+      "schema_version": {"type": "string", "pattern": "^c5k4-[A-Za-z0-9._-]+$"}
+    }}
+  }
+}

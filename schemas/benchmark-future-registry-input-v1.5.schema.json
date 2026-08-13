@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-future-registry-input-v1.5.schema.json",
+  "title": "Method v1.5 scheduled future-cohort registry input",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "authority", "protocol_version", "checkpoint", "chronology", "producer", "inputs", "controls"],
+  "properties": {
+    "schema_version": {"const": "c5k4-future-registry-input-1.5"}, "authority": {"const": "P1_FROZEN_SCHEDULED_CHECKPOINT"}, "protocol_version": {"const": "1.5"},
+    "checkpoint": {"$ref": "#/definitions/checkpoint"},
+    "chronology": {"type": "object", "additionalProperties": false, "required": ["p1t_commit", "u1_commit", "u1_tree", "prior_checkpoint_chain_sha256", "prior_valid_checkpoint_count", "all_prior_valid_checkpoints_failed_quota_gate"], "properties": {
+      "p1t_commit": {"$ref": "#/definitions/gitOid"}, "u1_commit": {"$ref": "#/definitions/gitOid"}, "u1_tree": {"$ref": "#/definitions/gitOid"},
+      "prior_checkpoint_chain_sha256": {"$ref": "#/definitions/sha256"}, "prior_valid_checkpoint_count": {"type": "integer", "minimum": 0},
+      "all_prior_valid_checkpoints_failed_quota_gate": {"const": true}
+    }},
+    "producer": {"type": "object", "additionalProperties": false, "required": ["producer_id", "executable_sha256", "invocation_contract_sha256", "input_schema_sha256", "output_schema_sha256"], "properties": {
+      "producer_id": {"const": "method-v1.5-future-cohort-registry-builder"}, "executable_sha256": {"$ref": "#/definitions/sha256"}, "invocation_contract_sha256": {"$ref": "#/definitions/sha256"},
+      "input_schema_sha256": {"$ref": "#/definitions/sha256"}, "output_schema_sha256": {"$ref": "#/definitions/sha256"}
+    }},
+    "inputs": {"type": "object", "additionalProperties": false, "required": ["chronology_receipt_sha256", "u1_registry_sha256", "v14_exclusion_sha256", "grouping_rule_sha256", "classifier_sha256", "provenance_ledger_sha256", "quota_rule_sha256"], "properties": {
+      "chronology_receipt_sha256": {"$ref": "#/definitions/sha256"}, "u1_registry_sha256": {"$ref": "#/definitions/sha256"}, "v14_exclusion_sha256": {"$ref": "#/definitions/sha256"},
+      "grouping_rule_sha256": {"$ref": "#/definitions/sha256"}, "classifier_sha256": {"$ref": "#/definitions/sha256"}, "provenance_ledger_sha256": {"$ref": "#/definitions/sha256"}, "quota_rule_sha256": {"$ref": "#/definitions/sha256"}
+    }},
+    "controls": {"type": "object", "additionalProperties": false, "required": ["scheduled_event", "manual_dispatch", "rerun", "statement_text_permitted", "outcomes_permitted", "ranking_permitted", "entropy_used", "selection_permitted", "overwrite_permitted"], "properties": {
+      "scheduled_event": {"const": true}, "manual_dispatch": {"const": false}, "rerun": {"const": false}, "statement_text_permitted": {"const": false},
+      "outcomes_permitted": {"const": false}, "ranking_permitted": {"const": false}, "entropy_used": {"const": false}, "selection_permitted": {"const": false}, "overwrite_permitted": {"const": false}
+    }}
+  },
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "gitOid": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "timestamp": {"type": "string", "format": "date-time", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"},
+    "checkpoint": {"type": "object", "additionalProperties": false, "required": ["ordinal", "label", "scheduled_at_utc", "valid_start_before_utc", "capture_started_at_utc", "hard_horizon_checkpoint"], "properties": {
+      "ordinal": {"type": "integer", "minimum": 1}, "label": {"type": "string", "pattern": "^checkpoint-[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
+      "scheduled_at_utc": {"$ref": "#/definitions/timestamp"}, "valid_start_before_utc": {"$ref": "#/definitions/timestamp"}, "capture_started_at_utc": {"$ref": "#/definitions/timestamp"}, "hard_horizon_checkpoint": {"type": "boolean"}
+    }}
+  }
+}

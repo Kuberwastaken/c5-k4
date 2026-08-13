@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-provenance-ledger-v1.5.schema.json",
+  "title": "Method v1.5 classified provenance ledger",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema", "status", "ledger_id", "created_at_utc", "source_snapshot_sha256", "source_id", "ontology_sha256", "units", "counts", "source_complete", "fail_closed", "ledger_sha256"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-provenance-ledger-1.0"},
+    "status": {"enum": ["CLASSIFIED_COMPLETE", "CLASSIFIED_FAIL_CLOSED"]},
+    "ledger_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"},
+    "created_at_utc": {"$ref": "#/definitions/timestamp"},
+    "source_snapshot_sha256": {"$ref": "#/definitions/sha256"},
+    "source_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"},
+    "ontology_sha256": {"$ref": "#/definitions/sha256"},
+    "units": {"type": "array", "items": {"$ref": "#/definitions/unit"}},
+    "counts": {"type": "object", "additionalProperties": false,
+      "required": ["SEMANTIC_EXPOSURE", "MACHINE_REGISTRY_CONTACT", "IMMUTABLE_SOURCE_CUSTODY", "UNKNOWN"],
+      "properties": {
+        "SEMANTIC_EXPOSURE": {"type": "integer", "minimum": 0}, "MACHINE_REGISTRY_CONTACT": {"type": "integer", "minimum": 0},
+        "IMMUTABLE_SOURCE_CUSTODY": {"type": "integer", "minimum": 0}, "UNKNOWN": {"type": "integer", "minimum": 0}
+      }
+    },
+    "source_complete": {"const": true},
+    "fail_closed": {"type": "boolean"},
+    "ledger_sha256": {"$ref": "#/definitions/sha256"}
+  },
+  "allOf": [
+    {"if": {"properties": {"status": {"const": "CLASSIFIED_FAIL_CLOSED"}}, "required": ["status"]}, "then": {"properties": {"fail_closed": {"const": true}}}},
+    {"if": {"properties": {"status": {"const": "CLASSIFIED_COMPLETE"}}, "required": ["status"]}, "then": {"properties": {"fail_closed": {"const": false}}}}
+  ],
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "timestamp": {"type": "string", "format": "date-time", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"},
+    "class": {"enum": ["SEMANTIC_EXPOSURE", "MACHINE_REGISTRY_CONTACT", "IMMUTABLE_SOURCE_CUSTODY", "UNKNOWN"]},
+    "unit": {"type": "object", "additionalProperties": false,
+      "required": ["unit_id", "locator", "role", "content_sha256", "provenance_class", "classification_reason", "delivery_path", "producer_proof_sha256"],
+      "properties": {
+        "unit_id": {"$ref": "#/definitions/sha256"}, "locator": {"type": "string", "minLength": 1, "maxLength": 4096},
+        "role": {"type": "string", "minLength": 1, "maxLength": 128}, "content_sha256": {"$ref": "#/definitions/sha256"},
+        "provenance_class": {"$ref": "#/definitions/class"}, "classification_reason": {"type": "string", "pattern": "^[A-Z0-9_]+$"},
+        "delivery_path": {"enum": ["HUMAN_OR_MODEL", "FROZEN_MACHINE_ONLY", "CUSTODY_ONLY", "UNPROVED"]},
+        "producer_proof_sha256": {"oneOf": [{"$ref": "#/definitions/sha256"}, {"type": "null"}]}
+      },
+      "allOf": [
+        {"if": {"properties": {"provenance_class": {"const": "SEMANTIC_EXPOSURE"}}, "required": ["provenance_class"]}, "then": {"properties": {"delivery_path": {"const": "HUMAN_OR_MODEL"}}}},
+        {"if": {"properties": {"provenance_class": {"const": "MACHINE_REGISTRY_CONTACT"}}, "required": ["provenance_class"]}, "then": {"properties": {"delivery_path": {"const": "FROZEN_MACHINE_ONLY"}, "producer_proof_sha256": {"$ref": "#/definitions/sha256"}}}},
+        {"if": {"properties": {"provenance_class": {"const": "IMMUTABLE_SOURCE_CUSTODY"}}, "required": ["provenance_class"]}, "then": {"properties": {"delivery_path": {"const": "CUSTODY_ONLY"}, "producer_proof_sha256": {"$ref": "#/definitions/sha256"}}}},
+        {"if": {"properties": {"provenance_class": {"const": "UNKNOWN"}}, "required": ["provenance_class"]}, "then": {"properties": {"delivery_path": {"const": "UNPROVED"}}}}
+      ]
+    }
+  }
+}
