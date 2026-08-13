@@ -16,8 +16,10 @@ Date: **2026-08-13 UTC**
 
 - Upstream repository: `google-deepmind/formal-conjectures`.
 - Base branch: `main`.
-- Audited base SHA: `d16e05aded22b8c467a0a27c14b2311f53185006`.
+- Audited base SHA: `a3d35a75bfa56dbc49c1a0be4d3ce628491d7536`.
 - Proposed head: `Kuberwastaken:formalize-wowii-309`.
+- Proposed head commits: `72501857` (formalization) and `44196c76`
+  (source-totalization clarification).
 - Current upstream has no
   `FormalConjectures/WrittenOnTheWallII/GraphConjecture309.lean` and no path
   history for that filename.
@@ -68,9 +70,9 @@ Date: **2026-08-13 UTC**
   `lake --wfail build FormalConjectures.WrittenOnTheWallII.GraphConjecture309`:
   PASS (8,053 jobs).
 - Clean GitHub Actions validation:
-  `https://github.com/Kuberwastaken/c5-k4/actions/runs/31704036464`:
+  `https://github.com/Kuberwastaken/c5-k4/actions/runs/31710725372`:
   PASS. The run checked out exact upstream SHA
-  `d16e05aded22b8c467a0a27c14b2311f53185006`, overlaid the staged candidate,
+  `a3d35a75bfa56dbc49c1a0be4d3ce628491d7536`, overlaid the staged candidate,
   passed the exact verifier, built `FormalConjecturesUtil`, compiled the
   external certificate warning-clean, generated aggregate modules, built the
   candidate dependency closure, and completed the full upstream

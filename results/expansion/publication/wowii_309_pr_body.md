@@ -64,11 +64,11 @@ the counterexample, whose complement has 80 edges.
   nearby readings, and reports zero violations among 989 applicable connected
   Atlas controls.
 - The external certificate passes `lake env lean -DwarningAsError=true` against
-  upstream commit `d16e05aded22b8c467a0a27c14b2311f53185006`.
+  upstream commit `a3d35a75bfa56dbc49c1a0be4d3ce628491d7536`.
 - `lake --wfail build FormalConjectures.WrittenOnTheWallII.GraphConjecture309`
   passes on a clean GitHub Actions runner.
 - The full upstream warning-as-error corpus build is recorded at:
-  https://github.com/Kuberwastaken/c5-k4/actions/runs/31704036464
+  https://github.com/Kuberwastaken/c5-k4/actions/runs/31710725372
 
 ## AI assistance disclosure
 
