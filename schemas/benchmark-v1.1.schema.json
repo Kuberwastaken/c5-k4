@@ -1,0 +1,391 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-v1.1.schema.json",
+  "title": "c5-k4 Method v1.1 prospective benchmark",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "benchmark_id",
+    "phase",
+    "upstream",
+    "freeze_artifacts",
+    "contamination",
+    "randomness",
+    "selection",
+    "budgets",
+    "chronology",
+    "clusters",
+    "ledgers"
+  ],
+  "properties": {
+    "$schema": {"type": "string", "minLength": 1},
+    "schema_version": {"const": "c5k4-benchmark-1.1"},
+    "benchmark_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$"},
+    "phase": {
+      "enum": [
+        "PROTOCOL_DESIGN",
+        "C0_FROZEN",
+        "C1_SELECTED",
+        "EVALUATING",
+        "COMPLETE",
+        "NO_ELIGIBLE_BENCHMARK"
+      ]
+    },
+    "upstream": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "commit", "tree", "declaration_root", "open_inventory"],
+      "properties": {
+        "repository": {"const": "google-deepmind/formal-conjectures"},
+        "commit": {"$ref": "#/definitions/gitOid"},
+        "tree": {"$ref": "#/definitions/gitOid"},
+        "declaration_root": {"const": "FormalConjectures"},
+        "checkout_path": {"type": "string", "minLength": 1},
+        "open_inventory": {"$ref": "#/definitions/fileDigest"}
+      }
+    },
+    "freeze_artifacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pool_manifest",
+        "classifier",
+        "development_prior",
+        "transformation_library",
+        "scoring_rule",
+        "stopping_rule"
+      ],
+      "properties": {
+        "pool_manifest": {"$ref": "#/definitions/fileDigest"},
+        "classifier": {"$ref": "#/definitions/fileDigest"},
+        "development_prior": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["path", "sha256", "probabilities"],
+          "properties": {
+            "path": {"type": "string", "minLength": 1},
+            "sha256": {"$ref": "#/definitions/sha256"},
+            "probabilities": {"$ref": "#/definitions/probabilityVector"}
+          }
+        },
+        "transformation_library": {"$ref": "#/definitions/fileDigest"},
+        "scoring_rule": {"$ref": "#/definitions/fileDigest"},
+        "stopping_rule": {"$ref": "#/definitions/fileDigest"}
+      }
+    },
+    "contamination": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "inventory",
+        "excluded_cluster_ids",
+        "excluded_identity_sha256s",
+        "excluded_declaration_sha256s",
+        "identity_ambiguity_means_exclusion"
+      ],
+      "properties": {
+        "inventory": {"$ref": "#/definitions/fileDigest"},
+        "excluded_cluster_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "excluded_identity_sha256s": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"$ref": "#/definitions/sha256"}
+        },
+        "excluded_declaration_sha256s": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"$ref": "#/definitions/sha256"}
+        },
+        "identity_ambiguity_means_exclusion": {"const": true}
+      }
+    },
+    "randomness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "round", "round_closes_at_utc", "value", "value_sha256"],
+      "properties": {
+        "source": {"type": "string", "minLength": 1},
+        "round": {"type": ["string", "integer"], "minLength": 1, "minimum": 0},
+        "round_closes_at_utc": {"$ref": "#/definitions/timestamp"},
+        "value": {"type": ["string", "null"]},
+        "value_sha256": {
+          "oneOf": [{"$ref": "#/definitions/sha256"}, {"type": "null"}]
+        }
+      }
+    },
+    "selection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sampling_unit",
+        "target_cluster_count",
+        "quotas",
+        "no_backfill",
+        "relaxed_exclusion",
+        "backfill_events",
+        "insufficient_stratum_outcome"
+      ],
+      "properties": {
+        "sampling_unit": {"const": "QUESTION_CLUSTER"},
+        "target_cluster_count": {"const": 12},
+        "quotas": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "GRAPH_SCALAR_INEQUALITY",
+            "GRAPH_STRUCTURAL_PROPERTY",
+            "FINITE_ALGEBRA_EQUATIONAL",
+            "AUTOMATA_GAME_PROCESS",
+            "FINITE_COMBINATORIAL"
+          ],
+          "properties": {
+            "GRAPH_SCALAR_INEQUALITY": {"const": 3},
+            "GRAPH_STRUCTURAL_PROPERTY": {"const": 3},
+            "FINITE_ALGEBRA_EQUATIONAL": {"const": 2},
+            "AUTOMATA_GAME_PROCESS": {"const": 2},
+            "FINITE_COMBINATORIAL": {"const": 2}
+          }
+        },
+        "no_backfill": {"const": true},
+        "relaxed_exclusion": {"const": false},
+        "backfill_events": {"type": "array", "maxItems": 0},
+        "insufficient_stratum_outcome": {"const": "NO_ELIGIBLE_BENCHMARK"}
+      }
+    },
+    "budgets": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["shared_analysis", "discovery_arm", "independent_verification"],
+      "properties": {
+        "shared_analysis": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["cpu_budget_seconds", "process_wall_cap_seconds"],
+          "properties": {
+            "cpu_budget_seconds": {"type": "number", "exclusiveMinimum": 0, "maximum": 600},
+            "process_wall_cap_seconds": {"type": "number", "exclusiveMinimum": 0, "maximum": 60}
+          }
+        },
+        "discovery_arm": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["process_count", "process_wall_cap_seconds", "cpu_budget_seconds"],
+          "properties": {
+            "process_count": {"const": 8},
+            "process_wall_cap_seconds": {"type": "number", "exclusiveMinimum": 0, "maximum": 60},
+            "cpu_budget_seconds": {"type": "number", "exclusiveMinimum": 0, "maximum": 480}
+          }
+        },
+        "independent_verification": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["process_count", "process_wall_cap_seconds", "cpu_budget_seconds"],
+          "properties": {
+            "process_count": {"const": 2},
+            "process_wall_cap_seconds": {"type": "number", "exclusiveMinimum": 0, "maximum": 60},
+            "cpu_budget_seconds": {"type": "number", "exclusiveMinimum": 0, "maximum": 120}
+          }
+        }
+      }
+    },
+    "chronology": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "c0_commit",
+        "c0_published_at_utc",
+        "randomness_retrieved_at_utc",
+        "c1_commit",
+        "c1_frozen_at_utc",
+        "evaluation_started_at_utc",
+        "completed_at_utc"
+      ],
+      "properties": {
+        "c0_commit": {"$ref": "#/definitions/nullableGitOid"},
+        "c0_published_at_utc": {"$ref": "#/definitions/nullableTimestamp"},
+        "randomness_retrieved_at_utc": {"$ref": "#/definitions/nullableTimestamp"},
+        "c1_commit": {"$ref": "#/definitions/nullableGitOid"},
+        "c1_frozen_at_utc": {"$ref": "#/definitions/nullableTimestamp"},
+        "evaluation_started_at_utc": {"$ref": "#/definitions/nullableTimestamp"},
+        "completed_at_utc": {"$ref": "#/definitions/nullableTimestamp"}
+      }
+    },
+    "clusters": {
+      "type": "array",
+      "maxItems": 12,
+      "items": {"$ref": "#/definitions/cluster"}
+    },
+    "ledgers": {
+      "type": "array",
+      "items": {"$ref": "#/definitions/ledger"}
+    }
+  },
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-fA-F]{64}$"},
+    "gitOid": {"type": "string", "pattern": "^[0-9a-fA-F]{40,64}$"},
+    "nullableGitOid": {
+      "oneOf": [{"$ref": "#/definitions/gitOid"}, {"type": "null"}]
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?Z$"
+    },
+    "nullableTimestamp": {
+      "oneOf": [{"$ref": "#/definitions/timestamp"}, {"type": "null"}]
+    },
+    "fileDigest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/definitions/sha256"}
+      }
+    },
+    "probability": {
+      "type": "string",
+      "pattern": "^(?:0\\.(?:05|10|15|20|25|30|35|40|45|50|55|60|65|70|75|80|85|90|95))$"
+    },
+    "probabilityVector": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "CROSS",
+        "ZERO_COMPLETE",
+        "THEOREM_STRUCTURE",
+        "PRESEARCH_STOP",
+        "TIMEOUT",
+        "PROTOCOL_INVALID"
+      ],
+      "properties": {
+        "CROSS": {"$ref": "#/definitions/probability"},
+        "ZERO_COMPLETE": {"$ref": "#/definitions/probability"},
+        "THEOREM_STRUCTURE": {"$ref": "#/definitions/probability"},
+        "PRESEARCH_STOP": {"$ref": "#/definitions/probability"},
+        "TIMEOUT": {"$ref": "#/definitions/probability"},
+        "PROTOCOL_INVALID": {"$ref": "#/definitions/probability"}
+      }
+    },
+    "forecast": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["frozen_at_utc", "probabilities"],
+      "properties": {
+        "frozen_at_utc": {"$ref": "#/definitions/timestamp"},
+        "probabilities": {"$ref": "#/definitions/probabilityVector"}
+      }
+    },
+    "declaration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "declaration_name", "file_sha256"],
+      "properties": {
+        "path": {"type": "string", "pattern": "^FormalConjectures/.+\\.lean$"},
+        "declaration_name": {"type": "string", "minLength": 1},
+        "file_sha256": {"$ref": "#/definitions/sha256"}
+      }
+    },
+    "arm": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract",
+        "process_count",
+        "process_wall_cap_seconds",
+        "cpu_budget_seconds",
+        "seed",
+        "parameter_grid",
+        "transformation_id",
+        "no_adaptation",
+        "status"
+      ],
+      "properties": {
+        "contract": {"$ref": "#/definitions/fileDigest"},
+        "process_count": {"const": 8},
+        "process_wall_cap_seconds": {"type": "number", "exclusiveMinimum": 0, "maximum": 60},
+        "cpu_budget_seconds": {"type": "number", "exclusiveMinimum": 0, "maximum": 480},
+        "seed": {"type": ["integer", "string"]},
+        "parameter_grid": {"type": "object"},
+        "transformation_id": {"type": "string", "minLength": 1},
+        "no_adaptation": {"const": true},
+        "status": {"enum": ["PENDING", "RUNNING", "TERMINATED"]}
+      }
+    },
+    "arms": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["CATALOGUE", "GENERIC", "WALL_NAVIGATION"],
+      "properties": {
+        "CATALOGUE": {"$ref": "#/definitions/arm"},
+        "GENERIC": {"$ref": "#/definitions/arm"},
+        "WALL_NAVIGATION": {"$ref": "#/definitions/arm"}
+      }
+    },
+    "cluster": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "cluster_id",
+        "identity_sha256",
+        "stratum",
+        "declarations",
+        "selection_forecast",
+        "intervention_forecast",
+        "runnable",
+        "arms_frozen_at_utc",
+        "evaluation_started_at_utc",
+        "arms",
+        "terminal_outcome"
+      ],
+      "properties": {
+        "cluster_id": {"type": "string", "minLength": 1},
+        "identity_sha256": {"$ref": "#/definitions/sha256"},
+        "stratum": {
+          "enum": [
+            "GRAPH_SCALAR_INEQUALITY",
+            "GRAPH_STRUCTURAL_PROPERTY",
+            "FINITE_ALGEBRA_EQUATIONAL",
+            "AUTOMATA_GAME_PROCESS",
+            "FINITE_COMBINATORIAL"
+          ]
+        },
+        "declarations": {"type": "array", "minItems": 1, "items": {"$ref": "#/definitions/declaration"}},
+        "selection_forecast": {"oneOf": [{"$ref": "#/definitions/forecast"}, {"type": "null"}]},
+        "intervention_forecast": {"oneOf": [{"$ref": "#/definitions/forecast"}, {"type": "null"}]},
+        "runnable": {"type": ["boolean", "null"]},
+        "arms_frozen_at_utc": {"$ref": "#/definitions/nullableTimestamp"},
+        "evaluation_started_at_utc": {"$ref": "#/definitions/nullableTimestamp"},
+        "arms": {"oneOf": [{"$ref": "#/definitions/arms"}, {"type": "null"}]},
+        "terminal_outcome": {
+          "type": ["string", "null"],
+          "enum": [
+            "CROSS",
+            "ZERO_COMPLETE",
+            "THEOREM_STRUCTURE",
+            "PRESEARCH_STOP",
+            "TIMEOUT",
+            "PROTOCOL_INVALID",
+            null
+          ]
+        }
+      }
+    },
+    "ledger": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "append_only", "hash_chain"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/definitions/sha256"},
+        "append_only": {"const": true},
+        "hash_chain": {"const": "SHA256_CANONICAL_JSON_WITHOUT_ROW_SHA256"}
+      }
+    }
+  }
+}
