@@ -32,7 +32,8 @@
   },
   "versioned_execution_plumbing": {
     "description": "Names, schemas, domain separators, workflows, and authoritative default paths are versioned from v1.2 to v1.3 without changing the scientific design.",
-    "provenance_policy_default": "The v1.3 contamination prototype defaults to the v1.3 authoritative protocol policy; the production registry still injects and content-addresses those exact frozen policy bytes."
+    "provenance_policy_default": "The v1.3 contamination prototype defaults to the v1.3 authoritative protocol policy; the production registry still injects and content-addresses those exact frozen policy bytes.",
+    "session_snapshot_isolation": "After P0T, one complete sync is copied to the preregistered immutable ai-chats and retained-session snapshot paths so ongoing sync jobs cannot drift S0 during the sole registry build."
   },
   "forbidden_changes": [
     "eligibility relaxation",

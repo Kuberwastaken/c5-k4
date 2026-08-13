@@ -413,10 +413,10 @@ class SourceSnapshotTests(unittest.TestCase):
         contract = root / "results/benchmark/v1.3-protocol/source-discovery-contract.json"
         expected = snapshot.discovery_contract_bytes(
             Path("/Users/kuber.mehta/Projects"),
-            Path("/home/ec2-user/.local/share/ai-chats"),
+            Path("/home/ec2-user/.local/share/c5k4-v13-ai-chats-snapshot"),
             [
-                "claude-local=claude:/home/ec2-user/.claude/projects:claude",
-                "codex-local=codex:/home/ec2-user/.codex/sessions:codex",
+                "claude-local=claude:/home/ec2-user/.local/share/c5k4-v13-session-snapshot/claude:claude",
+                "codex-local=codex:/home/ec2-user/.local/share/c5k4-v13-session-snapshot/codex:codex",
             ],
             [
                 "c5-k4-github=/Users/kuber.mehta/Projects/c5-k4/"

@@ -27,6 +27,14 @@ No eligibility rule, target population, classifier, quota, search budget,
 forecast, transformation, scoring threshold, or retry policy changes in v1.3.
 Any further change requires a later benchmark version.
 
+V1.3 also removes the live-filesystem race that invalidated v1.2's first
+invocation. After P0T, session synchronization is performed once and the exact
+archive plus the retained local-session trees are copied to the fixed snapshot
+paths preregistered in the source-discovery contract. S0 and the sole registry
+build read those immutable snapshots, not paths written by the five-minute
+sync jobs. This is execution isolation only; it neither changes the semantic
+source boundary nor omits any session present at the snapshot event.
+
 The machine-readable inheritance statement is frozen separately in
 [`results/benchmark/v1.3-protocol/inheritance-manifest.json`](results/benchmark/v1.3-protocol/inheritance-manifest.json)
 and is a required P0 component.
