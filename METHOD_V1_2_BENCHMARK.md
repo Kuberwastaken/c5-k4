@@ -1,7 +1,9 @@
 # Method v1.2 prospective benchmark (proposed)
 
-**Status:** protocol proposal; no v1.2 registry has been inspected, no target
-has been selected, and no target semantics may be inspected under this draft
+**Status:** protocol proposal in PRE_P0 development; syntax-only prototype
+registry rows and aggregate feasibility diagnostics have been produced, no
+final eligible pool or target has been selected, and no target semantics may
+be inspected under this draft
 **Purpose:** run the original twelve-cluster DeepMind comparison while fixing
 the v1.1 chronology defect, not by weakening eligibility, quotas, or budgets
 
@@ -65,9 +67,11 @@ language model. Permitted operations are limited to:
   with no statement text, residual, mathematical interpretation, candidate,
   proof route, or target-specific result.
 
-A file path, declaration name, registry clone, generated inventory, CI log, or
-tool result is therefore not by itself proof that a target was considered.
-Such a unit is non-excluding only when its provenance record proves that it was
+A file path, declaration name, identity-only row, aggregate count, registry
+clone, generated inventory, CI log, or tool result is therefore not by itself
+proof that a target was considered semantically. Exact identities in such an
+output still record machine contact and may be non-excluding only when its
+provenance record proves that it was
 produced by an allowlisted executable digest under a frozen invocation
 contract and that its output validates against the bounded registry-contact
 schema. There are no ad hoc hash exemptions. A mixed unit, an unverifiable
@@ -105,7 +109,11 @@ forecasts, transformation library, scoring rule, and stopping rule must first
 be committed and publicly available in a protocol artifact commit `P0A`.
 Because `P0A` cannot contain its own object ID, a protocol attestation commit
 `P0T` records the already-public `P0A` ID and publication time without changing
-the protocol artifacts. `P0A` contains no v1.2 target rows. `P0T` is fixed
+the protocol artifacts. `P0A` contains no final eligible-pool rows, selected
+targets, target ranking, statement text, or semantic target analysis. It may
+retain explicitly marked `PRE_P0_NOT_FREEZE` syntax-only prototype registry
+artifacts from protocol development; those artifacts have no authority in the
+formal build, eligibility replay, or selection. `P0T` is fixed
 before the one allowed v1.2 registry build and deterministically fixes the one
 upstream commit that build may resolve.
 
