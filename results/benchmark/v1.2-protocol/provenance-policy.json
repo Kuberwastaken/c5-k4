@@ -1,0 +1,54 @@
+{
+  "schema_version": "c5k4-provenance-policy-1.2",
+  "artifact_status": "AUTHORITATIVE_P0_PROTOCOL",
+  "unit_classes": ["SEMANTIC_SOURCE", "MACHINE_REGISTRY_CONTACT", "UNKNOWN"],
+  "precedence": [
+    "MALFORMED_OR_MIXED_IS_UNKNOWN",
+    "HUMAN_OR_MODEL_SEMANTIC_ROLE_IS_SEMANTIC",
+    "HANDWRITTEN_REPOSITORY_CONTENT_IS_SEMANTIC",
+    "VERIFIED_BOUNDED_GENERATED_OUTPUT_IS_MACHINE_CONTACT",
+    "OTHERWISE_UNKNOWN"
+  ],
+  "semantic_roles": ["user-turn", "assistant-turn", "human-message", "model-message", "repo-prose", "repo-script", "repo-code", "repo-comment", "commit-message"],
+  "machine_roles": ["machine-generated-git-blob", "codex-tool-output", "claude-tool-output", "agent-tool-output", "custom-tool-output"],
+  "machine_source_kinds": {
+    "machine-generated-git-blob": ["git"],
+    "codex-tool-output": ["git_sessions"],
+    "claude-tool-output": ["git_sessions"],
+    "agent-tool-output": ["git_sessions"],
+    "custom-tool-output": ["git_sessions"]
+  },
+  "unknown_roles": ["git-metadata", "git-path-list", "tool-call", "malformed-json-raw", "unpaired-tool-output", "unclassified"],
+  "immutable_locator_prefixes": {
+    "machine-generated-git-blob": ["git-blob:"],
+    "codex-tool-output": ["session-blob:", "sessions/", ".codex/sessions/"],
+    "claude-tool-output": ["session-blob:", "claude/", ".claude/"],
+    "agent-tool-output": ["session-blob:", "agent-return:"],
+    "custom-tool-output": ["session-blob:", "custom-tool-output:"]
+  },
+  "bounded_content_schemas": [
+    "c5k4-open-inventory-1.2",
+    "c5k4-question-cluster-pool-1.2",
+    "c5k4-eligible-cluster-pool-1.2",
+    "c5k4-benchmark-selection-1.2",
+    "c5k4-five-strata-classifier-1.2",
+    "c5k4-registry-identity-counts-1.2"
+  ],
+  "machine_exemption_required_fields": ["source_id", "source_kind", "locator", "role", "content_sha256", "content_schema", "unit_identity_sha256", "producer_verified", "invocation_contract_verified", "output_digest_verified", "bounded_schema_verified", "mixed_unit_rejected"],
+  "machine_exemption_required_true": ["producer_verified", "invocation_contract_verified", "output_digest_verified", "bounded_schema_verified", "mixed_unit_rejected"],
+  "identity_policy": {
+    "excluding_unit_classes": ["SEMANTIC_SOURCE", "UNKNOWN"],
+    "non_excluding_unit_classes": ["MACHINE_REGISTRY_CONTACT"],
+    "namespace_anchor_required_alias_kinds": ["DECLARATION_NAME", "GENERIC_ALIAS", "SHORTHAND"],
+    "unanchored_examples_non_excluding": ["Conjecture 191", "GraphConjecture191"]
+  },
+  "invariants": {
+    "exactly_one_class_per_scan_unit": true,
+    "semantic_precedence_over_exemption": true,
+    "global_content_hash_allowlist": false,
+    "path_or_declaration_name_alone_proves_semantic_exposure": false,
+    "identity_in_semantic_or_unknown_excludes": true,
+    "identity_in_machine_contact_excludes": false,
+    "absence_of_identity_hit_cures_incomplete_source": false
+  }
+}
