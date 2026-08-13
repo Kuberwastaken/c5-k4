@@ -1,4 +1,4 @@
-import FormalConjecturesUtil
+import FormalConjectures.Paper.LatinTableau
 
 /-!
 # Latin Tableau corner-exchange lemmas
@@ -9,6 +9,93 @@ Conjecture or the remaining Ferrers exchange-existence step.
 -/
 
 namespace LatinTableau.CornerExchange
+
+open Set SimpleGraph
+
+variable {V : Type*}
+
+/-- Every concrete union of `k` independent sets is bounded by the cumulative
+optimum `indepNumK`. -/
+theorem family_ncard_le_indepNumK [Finite V]
+    (G : SimpleGraph V) (k : ℕ) (f : Fin k → Set V)
+    (hf : ∀ i, G.IsIndepSet (f i)) :
+    (⋃ i, f i).ncard ≤ G.indepNumK k := by
+  apply le_csSup
+  · refine ⟨Nat.card V, ?_⟩
+    rintro n ⟨g, _hg, rfl⟩
+    exact Set.ncard_le_card _
+  · exact ⟨f, hf, rfl⟩
+
+/-- Passing to an induced graph cannot increase the cumulative optimum. -/
+theorem induce_indepNumK_le [Finite V]
+    (G : SimpleGraph V) (s : Set V) (k : ℕ) :
+    (G.induce s).indepNumK k ≤ G.indepNumK k := by
+  unfold SimpleGraph.indepNumK
+  apply csSup_le
+  · refine ⟨0, ?_⟩
+    refine ⟨fun _ ↦ ∅, ?_, by simp⟩
+    intro i
+    simp [SimpleGraph.isIndepSet_iff]
+  · rintro n ⟨f, hf, rfl⟩
+    let f' : Fin k → Set V := fun i ↦ Subtype.val '' f i
+    have hf' : ∀ i, G.IsIndepSet (f' i) := by
+      rintro i _ ⟨x, hx, rfl⟩ _ ⟨y, hy, rfl⟩ hxy hadj
+      exact hf i hx hy (fun h ↦ hxy (congrArg Subtype.val h))
+        (SimpleGraph.induce_adj.mpr hadj)
+    have hcard : (⋃ i, f' i).ncard = (⋃ i, f i).ncard := by
+      rw [show (⋃ i, f' i) = Subtype.val '' (⋃ i, f i) by
+        ext w
+        simp [f']]
+      exact Set.ncard_image_of_injective _ Subtype.val_injective
+    rw [← hcard]
+    exact family_ncard_le_indepNumK G k f' hf'
+
+/-- Deleting one vertex changes the actual cumulative optimum by at most one
+in the downward direction. The graph on the right is induced on the vertices
+different from `v`. -/
+theorem indepNumK_le_induce_ne_add_one [Finite V]
+    (G : SimpleGraph V) (v : V) (k : ℕ) :
+    G.indepNumK k ≤ (G.induce {w | w ≠ v}).indepNumK k + 1 := by
+  unfold SimpleGraph.indepNumK
+  apply csSup_le
+  · refine ⟨0, ?_⟩
+    refine ⟨fun _ ↦ ∅, ?_, by simp⟩
+    intro i
+    simp [SimpleGraph.isIndepSet_iff]
+  · rintro n ⟨f, hf, rfl⟩
+    let f' : Fin k → Set {w : V // w ≠ v} := fun i ↦ {w | (w : V) ∈ f i}
+    have hf' : ∀ i, (G.induce {w | w ≠ v}).IsIndepSet (f' i) := by
+      intro i x hx y hy hxy hadj
+      exact hf i hx hy (fun h ↦ hxy (Subtype.ext h))
+        (SimpleGraph.induce_adj.mp hadj)
+    have hcard : (⋃ i, f' i).ncard = ((⋃ i, f i) \ {v}).ncard := by
+      rw [show (⋃ i, f i) \ {v} = (⋃ i, f i) ∩ {w | w ≠ v} by ext; simp]
+      rw [← Set.ncard_subtype (fun w : V ↦ w ≠ v) (⋃ i, f i)]
+      congr 1
+      ext w
+      simp [f']
+    calc
+      (⋃ i, f i).ncard ≤ ((⋃ i, f i) \ {v}).ncard + 1 := by
+        simpa using Set.ncard_le_ncard_diff_add_ncard (⋃ i, f i) ({v} : Set V)
+      _ = (⋃ i, f' i).ncard + 1 := by rw [hcard]
+      _ ≤ (G.induce {w | w ≠ v}).indepNumK k + 1 :=
+        Nat.add_le_add_right (family_ncard_le_indepNumK _ _ f' hf') 1
+
+/-- Deleting one vertex changes `indepNumK` by at most one. -/
+theorem indepNumK_induce_ne_stable [Finite V]
+    (G : SimpleGraph V) (v : V) (k : ℕ) :
+    (G.induce {w | w ≠ v}).indepNumK k ≤ G.indepNumK k ∧
+      G.indepNumK k ≤ (G.induce {w | w ≠ v}).indepNumK k + 1 :=
+  ⟨induce_indepNumK_le G _ k, indepNumK_le_induce_ne_add_one G v k⟩
+
+/-- The cumulative optimum's deletion difference is literally binary, in the
+form consumed by the abstract profile lemmas below. -/
+theorem indepNumK_eq_induce_ne_or_eq_add_one [Finite V]
+    (G : SimpleGraph V) (v : V) (k : ℕ) :
+    G.indepNumK k = (G.induce {w | w ≠ v}).indepNumK k ∨
+      G.indepNumK k = (G.induce {w | w ≠ v}).indepNumK k + 1 := by
+  rcases indepNumK_induce_ne_stable G v k with ⟨hlower, hupper⟩
+  omega
 
 /-- If `dA` and `dB` are consecutive differences of cumulative profiles `A`
 and `B`, and `delta` is their cumulative difference, then the difference of

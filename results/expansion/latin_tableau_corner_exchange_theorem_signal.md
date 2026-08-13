@@ -90,10 +90,17 @@ timeout 60s lake env lean -DwarningAsError=true \
 ```
 
 It formalizes the profile/`Delta` telescoping identity, the `{-1,0,1}`
-coordinate bound from binary `Delta`, the threshold-to-basis-vector step, and
-generic proper-coloring extension across one new vertex. It intentionally does
-not assert the Ferrers min-cut formulas, actual `indepNumK` deletion bounds, or
-existence of the required exchange-ready component.
+coordinate bound from binary `Delta`, the threshold-to-basis-vector step,
+generic proper-coloring extension across one new vertex, and the actual
+`SimpleGraph.indepNumK` deletion inequality
+
+```text
+indepNumK(G-v,k) <= indepNumK(G,k) <= indepNumK(G-v,k)+1.
+```
+
+The last theorem discharges the binary-`Delta` assumption at the API used by
+the conjecture. The module intentionally does not assert the Ferrers min-cut
+formulas or existence of the required exchange-ready component.
 
 The next honest lane is the restricted **one-defect nesting theorem**:
 
