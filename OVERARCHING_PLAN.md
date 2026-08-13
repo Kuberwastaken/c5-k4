@@ -80,17 +80,38 @@ ladder is written.
 ### B. Proof extraction and formalization
 
 Maximize reusable no-`sorry` proof components, not merely top-level theorem
-counts. Current theorem lanes are:
+counts. Active proof extraction is restricted to WOWII declarations present
+in the current `formal-conjectures` checkout. Current theorem lanes are:
 
-- **WOWII 133:** the corrected cubic/C4-free specialization is fully
-  formalized, warning-clean and no-`sorry`. The noncubic reduction now proves
-  the matching-neighborhood formula and global triangle-incidence count; its
-  sole representation bridge is the neighborhood-edge/triangle bijection.
-- **WOWII 183:** the `gamma_c>=3` and `gamma_c>=4` distance-three tiers are
-  formalized. The false two-neighbor retention rung has been replaced by the
-  universal theorem `gamma_c(G)<=b(G-N(x))` and an exact attachment conflict
-  graph. The hard equality tier asks only for one clean vertex or one
-  parity-compatible pair, with `H_m` and `J_m` as mandatory equality tests.
+- **WOWII 19:** finite-supremum and floor normalization, the self-centered
+  diameter-two branch, the diametral geodesic separation core, and explicit
+  endpoint-witness assembly are formal. The remaining global step is a
+  max-local-independence to diametral-endpoint coupling.
+- **WOWII 40:** `B+2<=2f`, maximum-core imbalance, exact deficiency
+  coordinates, explicit path-cover witnesses, and the full connected acyclic
+  branch are formal. Positive feedback deletion is the surviving wall.
+- **WOWII 59:** the statement is already externally disproved, but the safe
+  region `residue<=2` and the residue-three frontier are formal theorem
+  slices; under `residue<=alpha`, the only remaining low-residue coordinate is
+  `(residue,b,f)=(3,6,4)`.
+- **WOWII 61:** exact Havel--Hakimi trajectory accounting, realized unit-loss
+  couplings, and step-indexed excess-profile monotonicity are formal. The open
+  question is whether weak graphical dominance forces a compatible profile
+  coupling.
+- **WOWII 100:** for the exact Lean `degreeL2Norm` reading, complement energy
+  proves the statement unconditionally at `alpha>=17`, and under both
+  connectedness hypotheses at `alpha=2` or `alpha>=14`. The upstream prose
+  uses a different diameter reading and must remain visibly separated.
+- **WOWII 133:** the exact C4-free triangle-corrected reduction, all cubic
+  graphs, all connected triangle-free 1- and 2-regular graphs, and the class
+  `floor(l)<=1` are formal. Higher regular degree remains open.
+- **WOWII 141:** the induced-star bound proves girth at most five; a precise
+  one-vertex splice certificate pays the girth-six/seven branch once its
+  existence is established.
+- **WOWII 183:** the false singleton rooted-trunk interface has been formally
+  diagnosed and repaired. Attachment lemmas, nonvacuity models, additive
+  connected-component folding, and certificate transfer are formal; only
+  attachment selection plus ambient connected domination remains.
 - **WOWII 438b:** maintain the completed stronger arbitrary-subset proof and
   existing upstream review lane; do not recast it as a counterexample.
 
