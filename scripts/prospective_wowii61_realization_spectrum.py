@@ -335,6 +335,11 @@ def main() -> None:
     parser.add_argument("--max-sequences", type=int, default=20000)
     parser.add_argument("--realization-limit", type=int, default=2)
     parser.add_argument("--attempts", type=int, default=256)
+    parser.add_argument(
+        "--summary-only",
+        action="store_true",
+        help="omit the verbose best-realization payload from stdout",
+    )
     args = parser.parse_args()
     started = time.monotonic()
     if args.phase == "exhaustive8":
@@ -347,6 +352,8 @@ def main() -> None:
             args.realization_limit, args.attempts,
         )
     result["seconds"] = time.monotonic() - started
+    if args.summary_only:
+        result.pop("best", None)
     print(json.dumps(result, sort_keys=True))
 
 
