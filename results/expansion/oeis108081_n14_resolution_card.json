@@ -1,0 +1,113 @@
+{
+  "$schema": "../../schemas/resolution-card-v1.schema.json",
+  "schema_version": "c5k4-resolution-card-1.0",
+  "contract": {
+    "path": "results/expansion/oeis108081_n14_contract.json",
+    "sha256": "ae00b4a53f2a390b06962b5bf4a277b6a8c9564d3bf992f5b824fdd46fd1884e"
+  },
+  "resolution_card": {
+    "logical_class": "FINITE_UNIVERSAL",
+    "target_negation": {
+      "literal": "There exists n : Nat with n >= 1 and Set.ncard (xN n) != a (n - 1).",
+      "derivation": "Negate the universal n and implication conclusion of OeisA108081.count_words_in_x_is_a_shifted.",
+      "declaration_blob_sha256": "b03761724c1052d613a676584301d6ad1f3d20aff62aa421525ef8b6b611a54d"
+    },
+    "finite_witness_suffices": true,
+    "negation_certificate": {
+      "kind": "FINITE_OBJECT_EXACT_CHECK",
+      "description": "For a fixed n, enumerate the complete finite closure of XWord by every positive root split and both constructors, then compare its distinct cardinality with the literal sequence a (n - 1).",
+      "replay": "g++ -O3 -std=c++20 -Wall -Wextra -Werror scripts/prospective_oeis108081_exact.cpp -o /tmp/oeis108081 && timeout 60s /tmp/oeis108081"
+    },
+    "exact_residual": {
+      "available": true,
+      "expression": "R(n) is the exact Boolean proposition Set.ncard (xN n) = a (n - 1)",
+      "convention": "BOOLEAN_EXACT",
+      "crossing_condition": "R(n) is false"
+    }
+  },
+  "status_coordinates": {
+    "informal_status": {
+      "source": "OEIS A108081",
+      "revision": "e9ed7d30e7f7a39212faf2f1d5ad213233b936c07003fae58fbf531545fb3ce6",
+      "scope": "number of recursively generated words of each length",
+      "raw_value": "open question; reported checked through word length 12",
+      "captured_at_utc": "2026-08-13T16:56:00Z",
+      "evidence": "https://oeis.org/A108081"
+    },
+    "formal_solution_status": {
+      "source": "google-deepmind/formal-conjectures exact resolution search",
+      "revision": "7a38c469ec329d0c97c068e03c58834f61628e7e",
+      "scope": "OeisA108081.count_words_in_x_is_a_shifted",
+      "raw_value": "no formal proof or disproof found",
+      "captured_at_utc": "2026-08-13T16:56:00Z",
+      "evidence": "https://github.com/google-deepmind/formal-conjectures/tree/7a38c469ec329d0c97c068e03c58834f61628e7e"
+    },
+    "statement_formalized": {
+      "source": "google-deepmind/formal-conjectures",
+      "revision": "7a38c469ec329d0c97c068e03c58834f61628e7e",
+      "scope": "FormalConjectures/OEIS/108081.lean",
+      "raw_value": "yes",
+      "captured_at_utc": "2026-08-13T16:56:00Z",
+      "evidence": "https://github.com/google-deepmind/formal-conjectures/blob/7a38c469ec329d0c97c068e03c58834f61628e7e/FormalConjectures/OEIS/108081.lean"
+    },
+    "declaration_status": {
+      "source": "google-deepmind/formal-conjectures",
+      "revision": "7a38c469ec329d0c97c068e03c58834f61628e7e",
+      "scope": "OeisA108081.count_words_in_x_is_a_shifted",
+      "raw_value": "research open",
+      "captured_at_utc": "2026-08-13T16:56:00Z",
+      "evidence": "https://github.com/google-deepmind/formal-conjectures/blob/7a38c469ec329d0c97c068e03c58834f61628e7e/FormalConjectures/OEIS/108081.lean#L83-L87"
+    }
+  },
+  "trial": {
+    "lane": "COUNTEREXAMPLE",
+    "authorization": "RUN",
+    "evidence_split": "DEVELOPMENT",
+    "process_wall_cap_seconds": 60,
+    "solver_cap_seconds": 60,
+    "carrier_identity": {
+      "kind": "FAMILY_CONSTRUCTOR_AND_GRID",
+      "sha256": "ae00b4a53f2a390b06962b5bf4a277b6a8c9564d3bf992f5b824fdd46fd1884e",
+      "canonicalization": "Exact UTF-8 development-contract JSON fixing the XWord root-closure constructor, calibration grid n=1..13, development row n=14, solver digest, and stop rule"
+    },
+    "theorem_baselines": [],
+    "sign_potential": [
+      {
+        "term_id": "positive_length_premise",
+        "role": "PREMISE_MARGIN",
+        "exact_expression": "n >= 1",
+        "predicted_delta": "PINNED",
+        "effect_on_target_residual": "PINNED",
+        "rationale": "the development row n=14 remains inside the declaration's domain"
+      },
+      {
+        "term_id": "cardinality_equality",
+        "role": "TARGET_RESIDUAL",
+        "exact_expression": "Set.ncard (xN n) = a (n - 1)",
+        "predicted_delta": "UNKNOWN",
+        "effect_on_target_residual": "UNKNOWN",
+        "rationale": "the source only reports finite equality evidence through n=12, so the next recursive extension is not predetermined"
+      },
+      {
+        "term_id": "distinct_word_closure_cost",
+        "role": "CERTIFICATE_COST",
+        "exact_expression": "number of distinct words produced over all positive root splits and both XWord constructors",
+        "predicted_delta": "INCREASE",
+        "effect_on_target_residual": "UNKNOWN",
+        "rationale": "the exact closure grows from 4,227,273 words at n=13 to an a priori unknown set at n=14"
+      }
+    ]
+  },
+  "ledger": {
+    "path": "results/expansion/oeis108081_n14_development_ledger.jsonl",
+    "evidence_split": "DEVELOPMENT",
+    "append_only": true,
+    "prerequisites": [
+      {
+        "path": "results/expansion/oeis108081_calibration_1_13.jsonl",
+        "sha256": "0047279cdf07db0af768d9e2e82025297553d2a0c164368e8b483ec9515d5cbf",
+        "evidence_split": "CALIBRATION"
+      }
+    ]
+  }
+}

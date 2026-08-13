@@ -1,0 +1,14 @@
+n=1 count=1 expected=1 equal=true elapsed=3.581e-06
+n=2 count=2 expected=2 equal=true elapsed=3.9573e-05
+n=3 count=7 expected=7 equal=true elapsed=4.3204e-05
+n=4 count=25 expected=25 equal=true elapsed=4.8224e-05
+n=5 count=92 expected=92 equal=true elapsed=6.0485e-05
+n=6 count=344 expected=344 equal=true elapsed=0.000102118
+n=7 count=1300 expected=1300 equal=true elapsed=0.000266432
+n=8 count=4950 expected=4950 equal=true elapsed=0.000931487
+n=9 count=18955 expected=18955 equal=true elapsed=0.00442127
+n=10 count=72905 expected=72905 equal=true elapsed=0.0215355
+n=11 count=281403 expected=281403 equal=true elapsed=0.0959765
+n=12 count=1089343 expected=1089343 equal=true elapsed=0.797731
+n=13 count=4227273 expected=4227273 equal=true elapsed=4.22313
+n=14 count=16438345 expected=16438345 equal=true elapsed=19.9307
