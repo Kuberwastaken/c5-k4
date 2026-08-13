@@ -129,13 +129,17 @@ sequence. Two independent encodings reproduce length 14 under 24 seconds. It
 is another bounded equality, not evidence for the universal statement; the
 next brute-force length is outside the frozen contract.
 
-The next evaluation is specified separately in
-[`METHOD_V1_1_BENCHMARK.md`](METHOD_V1_1_BENCHMARK.md): twelve uncontaminated
-DeepMind question clusters selected using future public randomness, with
-catalogue, generic-search, and wall-navigation arms receiving equal budgets.
-Frozen outcome forecasts and Brier calibration replace release count as the
-primary measure. The benchmark cannot start until its schema and CI linter are
-committed.
+The prospective benchmark record is deliberately fail-closed. Method v1.1
+terminated `NO_ELIGIBLE_BENCHMARK`; it never selected a target. Its corrected
+chronology successor, [Method v1.2](METHOD_V1_2_BENCHMARK.md), published P0 and
+S0 but terminated `PROTOCOL_INVALID` before eligibility could be measured: the
+frozen registry producer used the ordinary-Git corpus formula for a user-delta
+source. It produced no authoritative registry, C0/C1, entropy, selection, or
+candidate-semantic inspection. The exact receipts and diagnosis are in the
+[v1.2 failure record](results/benchmark/v1.2-registry-failure/README.md). A
+corrected run requires a later protocol version with a new P0 and S0; it may
+not reinterpret the failed v1.2 invocation as `NO_ELIGIBLE` or silently retry
+the frozen producer.
 
 The development record also publishes its zeroes. Method v0.2 found no
 crossing for #382e after 212,502 wall-directed substitutions, all connected

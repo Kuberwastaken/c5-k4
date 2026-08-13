@@ -1,13 +1,16 @@
-# Method v1.2 prospective benchmark (proposed)
+# Method v1.2 prospective benchmark (terminal)
 
-**Status:** protocol proposal in PRE_P0 development; syntax-only prototype
-registry rows and aggregate feasibility diagnostics have been produced, no
-final eligible pool or target has been selected, and no target semantics may
-be inspected under this draft
+**Status:** terminal `PROTOCOL_INVALID`. P0A, P0T, and S0 were published, but
+the frozen registry producer failed before quota feasibility because its
+ordinary-Git corpus-binding check was incorrectly applied to the
+`git_user_delta` source. No authoritative registry, C0, C1, entropy, selection,
+or candidate-semantic inspection occurred. This is not
+`NO_ELIGIBLE_BENCHMARK_PRE_C0`; see the
+[failure record](results/benchmark/v1.2-registry-failure/README.md).
 **Purpose:** run the original twelve-cluster DeepMind comparison while fixing
 the v1.1 chronology defect, not by weakening eligibility, quotas, or budgets
 
-Method v1.2 is a new prospective experiment. It does not reopen, extend, or
+Method v1.2 was a prospective experiment. It does not reopen, extend, or
 reinterpret Method v1.1. The v1.1 terminal result remains
 `NO_ELIGIBLE_BENCHMARK`.
 

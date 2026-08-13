@@ -21,7 +21,7 @@
     },
     {
       "ordinal": 2,
-      "result": "FAILED_AFTER_FULL_SEMANTICS_BLIND_REPLAY",
+      "result": "FAILED_DURING_SEMANTICS_BLIND_REPLAY",
       "error": "uncapped semantic-source replay was incomplete",
       "contract_violation": "A second build was attempted although allowed_build_count was one and retry was forbidden.",
       "output_directory_created": false
