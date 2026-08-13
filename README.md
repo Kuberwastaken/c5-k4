@@ -94,22 +94,28 @@ The current no-`sorry`, warning-clean Lean ladder includes:
   order seven is covered, and the universal problem is reduced to the exact
   charge `tau_odd+diameter+localMax<=n+1`. A maximum-star transversal proves
   `tau_odd+localMax+1<=n` universally and closes diameter at most two. For
-  trees, the remaining result is reduced to the classical count
-  `diameter+maximumDegree<=n+1`; the complete finite-set/path selection proof
-  leaves only the standard two/three path-neighbor shortcut lemma.
+  trees, a path-index proof establishes the classical count
+  `diameter+maximumDegree<=n+1` and closes the exact conjecture
+  unconditionally.
 - **#40:** exact deficiency coordinates, explicit path-cover witnesses,
   arbitrary disjoint path-family rank, and cactus-petal certificates. The
   repository also preserves the 17-vertex flower obstruction to the false
   one-long-path strategy, proves how to allocate away a shared cut vertex,
   instantiates that allocation on an explicit shared-center flower, and proves
   the recursive rank increment contributed by a disjoint leaf-block path.
+  Vertex deletion raises feedback deletion exactly when restoring the vertex
+  does not grow the maximum induced forest, yielding one complete recursion
+  step and exposing the shared-center exception to arbitrary block charging.
 - **#59:** safe residue slices, the unique low-residue corner, mixed-color
   ambient attachment, one-for-one core exchange, and the complete dense
   attachment-count classification. Exact one-, two-, and three-outside audits
   contain no residue-three corner at `b=6,f=4`; the three-row attachment
   systems satisfy a formal aligned-or-rotating-complement dichotomy. Four
   dense rows on either color side now formally force a repeated row or an
-  aligned triple. This is proof extraction around an already
+  aligned triple. The two sides admit exactly 16 full row types, so 17 dense
+  outside vertices formally force a repeated full row; an exact finite audit
+  gives the sharper five-distinct-type bi-alignment threshold. This is proof
+  extraction around an already
   externally disproved statement, not another kill.
 - **#61:** exact trajectory telescoping, padded excess profiles, one-step loss
   algebra, the minimal successor-order obstructions, and the corrected
@@ -118,14 +124,15 @@ The current no-`sorry`, warning-clean Lean ladder includes:
   head-credit inequality `2*targetHead<=credit+2*sourceHead`. Cumulative loss
   is exactly twice the cumulative eliminated-head sum, so the remaining
   implication is precisely monotonicity of those head prefixes under initial
-  graphical weak dominance.
+  graphical weak dominance. The tempting incident-edge extremal
+  characterization is formally refuted by the five-vertex path.
 - **#100:** for the exact Lean `degreeL2Norm` expression, unconditional proofs
   cover `alpha` in `{2,3}` and every `alpha>=8`; the two-witness energy package
   is fully integrated at graph level for `alpha=8..11`, without complement
-  connectedness. A three-witness certificate crosses the complete remaining
-  `alpha=4..7` coordinate box with strict margins; only extracting and
-  classifying the one-, two-, and three-witness cases remains. The distinct
-  diameter wording in the upstream prose is not conflated with these results.
+  connectedness. Connectedness now supplies an exhaustive one/two/three-
+  witness classification, closing `alpha=4..7` unconditionally under the
+  exact degree-norm reading. The distinct diameter wording in the upstream
+  prose is not conflated with these results.
 - **#133:** the corrected C4-free specialization, matching/triangle identities,
   deep-handle assembly, finite early-contact reduction, complete depth-two
   escape, and the allowable depth-three contact table. The 20 surviving
@@ -133,20 +140,22 @@ The current no-`sorry`, warning-clean Lean ladder includes:
   a formal metric detour proves contact indices differ by at most four, but
   a same-row two-edge detour plus triangle/C4 exclusion removes every
   multi-contact row. Ten injective singleton patterns remain and must be
-  compared across alternative clean-vertex choices.
+  compared across alternative clean-vertex choices. Choice accounting exposes
+  nine pairwise-separated depth-two vertices, but all ten abstract patterns
+  still survive until third-layer overlaps or target-degree capacity are used.
 - **#141:** an unconditional proof through girth seven, plus a fully verified
-  two-vertex-tail assembly for girth eight/nine. The exceptional-root
-  two-layer forest theorem is concretely instantiated, proving that every
-  root in a connected girth-at-least-eight graph has a distance-three witness.
-  Only the final local chord exclusion and second-leaf packaging remain.
+  two-vertex-tail assembly for girth eight/nine. The exceptional-root forest,
+  distance-three witness, final chord exclusion, and second-leaf packaging are
+  all formal. The exact conjecture is now proved unconditionally for every
+  connected finite graph of girth at most nine.
 - **#183:** corrected attachment selection, connected domination, component
   folding, local-to-global budget accounting, exact singleton branches, and
   bipartite/tree component witness adapters. The old vacuous interface remains
   documented; non-root leaf deletion now supplies an exact tree trunk, while
-  a degree-sum proof supplies a leaf distinct from every prescribed root. Only
-  one named ambient-connectivity transport through the component/outside
-  subtypes and the general nonbipartite trunk remain; all tree membership,
-  cardinality, domination, and root fields are discharged.
+  a degree-sum proof supplies a leaf distinct from every prescribed root. An
+  explicit graph homomorphism transports the deleted-leaf trunk through both
+  subtype layers, so nontrivial tree components now integrate unconditionally.
+  The general nonbipartite trunk remains.
 
 These are theorem-extraction checkpoints, not extra “kills.” Failed rungs,
 countermodels, repaired interfaces, and surviving obligations are committed
