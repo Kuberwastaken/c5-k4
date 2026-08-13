@@ -73,6 +73,34 @@ navigation of tightness walls into new graph families. Direct carrier kills,
 spawned counterexamples, retro-kills, and interpretation-dependent statements
 remain counted separately below.
 
+### Method v1.0: resolution shape before graph search
+
+The method now begins one step earlier: it proves that the exact declaration
+can be resolved by the kind of certificate the proposed search can produce.
+A finite graph cannot refute an eventual asymptotic statement, failure to find
+an existential witness is not a disproof, and a better lower bound does not
+determine a fixed optimum. These are hard stops before seed or wall ranking;
+an attractive carrier and cheap computation cannot compensate for the wrong
+logical shape.
+
+For Erdős Problems, the project also keeps four status coordinates separate:
+accepted informal status, formal-solution status, statement-formalization
+status, and the exact DeepMind declaration or variant. An automated GitHub
+Action now scans every current open-tagged Erdős declaration against immutable
+snapshots and publishes the full machine-readable crosswalk as a workflow
+artifact. The first scan covered 620 declarations and exposed a real omission
+in the older `SimpleGraph`-based selector: Erdős 617 is encoded as an edge
+colouring `Sym2 V → Fin r`.
+
+That omission did **not** become a claimed discovery. Phase 0 found standalone
+public proof artifacts already covering the proposed `r=10,11` cases, while
+the suggested affine `K₁₀₀` carrier was invalid. Exact calibration then showed
+that the whole affine one-new-vertex operation is structurally blocked. This
+is the intended behavior of the loop: reject duplicates and invalid carriers
+early, publish the stop, then rotate to a genuinely unclaimed finite target.
+The protocol and exact audit are in [`METHOD.md`](METHOD.md) and
+[`erdos_deepmind_resolution_shape_audit_20260813.md`](results/expansion/erdos_deepmind_resolution_shape_audit_20260813.md).
+
 The development record also publishes its zeroes. Method v0.2 found no
 crossing for #382e after 212,502 wall-directed substitutions, all connected
 order-eight graphs, and 20,000 unrestricted-weight samples; and no crossing
