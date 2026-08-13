@@ -27,6 +27,8 @@
     "custom-tool-output": ["session-blob:", "custom-tool-output:"]
   },
   "bounded_content_schemas": [
+    "c5k4-open-inventory-1.2-prototype",
+    "c5k4-question-cluster-pool-1.2-prototype",
     "c5k4-open-inventory-1.2",
     "c5k4-question-cluster-pool-1.2",
     "c5k4-eligible-cluster-pool-1.2",
