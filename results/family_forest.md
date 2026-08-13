@@ -212,7 +212,8 @@ The alternative reading (degrees measured in G) also survives the gate but has s
 carrier and slack 9 on T(7): NOT killed under that reading. Flagged accordingly.
 
 T(7) numbers (every quantity proved by exhaustive enumeration, from-scratch script
-verify_181_T7.py, no ILP in the verification path):
+[`scripts/verify_wowii_181.py`](../scripts/verify_wowii_181.py), no ILP in the
+verification path):
 - n = 21, 10-regular, diam = 2 (so G^2 = K_21, B(G^2) = V, deg_avg(B(G^2)) in G^2 = 20 exactly)
 - alpha = 3 (all C(21,4) 4-subsets checked non-independent; witness {01,23,45})
 - b = 6 (all C(21,7) = 116280 7-subsets checked non-bipartite; witness {01,02,13,23,45,46})
@@ -289,5 +290,6 @@ remaining question to a narrow theorem-like lemma but not proving it. See
 - gate.py / gate_result.pkl — 1000-graph DB-sanity gate
 - run_family.py / family_result.pkl — 30-member family matrix
 - wave2.py / wave3.py — bespoke sweeps (SRGs, Paley, C4-free zoo)
-- verify_181_T7.py — self-contained exhaustive verification of the T(7) kill
+- `scripts/verify_wowii_181.py` — self-contained exhaustive verification of
+  the T(7) formalized-reading counterexample
 - verify_T_family.py — T(6)..T(11) confirmation (ILP b capped at 60s; structural fallbacks)
