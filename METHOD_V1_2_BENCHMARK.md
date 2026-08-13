@@ -135,18 +135,32 @@ Its path-purpose policy is
 The policy is a prototype until its exact bytes are committed in `P0A`; changing
 even JSON whitespace changes its digest. Repository inclusion is decided only
 from a path relative to the frozen discovery root. An unclassified repository,
-overlapping allow/deny rules, a dirty included worktree, or a required source
-that is absent makes the source configuration incomplete.
+overlapping allow/deny rules, an unsupported or unmerged worktree object, or a
+required source that is absent makes the source configuration incomplete.
 
-Discovery does not read Git blobs, commit messages, transcript turns, release
-bodies, or candidate statements. It records exact local Git tips, remotes,
-HEAD, and a SHA-256 of sorted reachable Git object IDs, types, and sizes. This
-pins history without copying it. Release metadata is supplied as a separately
+Discovery does not decode or emit Git blobs, commit messages, transcript turns,
+release bodies, or candidate statements. Except for hashing current-tree
+overlay bytes, it records only exact local Git tips, remotes, HEAD, and a
+SHA-256 of sorted reachable Git object IDs, types, and sizes. This pins history
+without copying it. Release metadata is supplied as a separately
 preserved JSON export and pinned by byte count and SHA-256. The exact
 `ai-chats` commit is pinned separately. Each required local Codex and Claude
-JSONL tree must have the same path-to-Git-object inventory as its configured
-subtree at that commit. Hashing those bytes is permitted machine acquisition;
-the tool neither parses nor emits their turns.
+JSONL tree must be an exact path-and-Git-object subset of its configured
+subtree at that commit. The local seven-day retention window may omit older
+archived sessions, but a retained path with different bytes fails closed. The
+complete pinned ai-chats subtree is scanned later. Hashing those bytes is
+permitted machine acquisition; the tool neither parses nor emits their turns.
+
+An included research repository need not have a clean worktree. Discovery
+content-addresses its complete delta from HEAD: staged index values, unstaged
+tracked values, deletions, and untracked nonignored files. Every overlay row
+records a normalized relative path, index or worktree layer, presence state,
+mode, object type, byte count, SHA-256, and an immutable Git-blob or replayable
+filesystem selector. A path with different staged and unstaged values has two
+rows. File contents are hashed but never emitted. The overlay digest is bound
+with the reachable-history object digest into the source corpus digest. S0 and
+the contamination builder both reconstruct every row and fail on any path,
+mode, layer, byte, or hash drift before scanning those exact units.
 
 Without a P0 attestation, `discover` can emit only a
 `c5k4-semantic-sources-config-1.2-prototype` object with
@@ -155,7 +169,11 @@ discovery validates exact `P0A`/`P0T` ancestry, the policy hash, the P0-frozen
 digest of the complete discovery invocation (projects root, session roots and
 subtrees, ai-chats repository, and release exports), and that `P0T`
 is advertised by the preregistered public remote using read-only `git
-ls-remote`. S0 then replays every tip, corpus hash, clean-worktree check,
+ls-remote`. The P0T artifact does not self-name its commit or remote: those are
+explicit acquisition arguments. The tool verifies its exact committed bytes,
+sole-parent P0A ancestry, one-path change rule, then reads the authenticated
+committed P0A to verify both component hashes. S0 then replays every tip,
+history and current-tree corpus hash,
 session-mirror comparison, and release-export hash. It records the supplied
 whole-second UTC acquisition time on every source and emits an internally
 content-addressed manifest. Source repositories and histories are never

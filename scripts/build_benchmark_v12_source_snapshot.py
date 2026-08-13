@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Discover and freeze Method v1.2 semantic-source boundaries without semantics.
 
-Only filesystem names and Git/release object metadata are read during discovery.
-Git blobs, commit messages, transcript turns, and release bodies are never read.
+Only filesystem names, Git/release metadata, and current-tree bytes needed for
+hashing are read during discovery. Commit messages, transcript turns, release
+bodies, and candidate semantics are never decoded, inspected, or emitted.
 The production ``acquire`` command is unavailable until a P0 attestation is
 locally valid and its P0T commit is advertised by the recorded public remote.
 """
@@ -16,15 +17,17 @@ import json
 import os
 from pathlib import Path
 import re
+import stat
 import subprocess
 import sys
 from typing import Any, Iterable
+import unicodedata
 
 
 POLICY_SCHEMA = "c5k4-source-path-purpose-policy-1.2"
 CONFIG_SCHEMA = "c5k4-semantic-sources-config-1.2"
 PROTOTYPE_CONFIG_SCHEMA = CONFIG_SCHEMA + "-prototype"
-P0_SCHEMA = "c5k4-protocol-attestation-1.2"
+P0_SCHEMA = "c5k4-method-v1.2-p0-1.0"
 SNAPSHOT_SCHEMA = "c5k4-source-snapshot-S0-1.2"
 HEX_COMMIT = re.compile(r"[0-9a-fA-F]{40}|[0-9a-fA-F]{64}")
 HEX_SHA256 = re.compile(r"[0-9a-f]{64}")
@@ -61,16 +64,23 @@ def discovery_contract_sha256(
 ) -> str:
     """Freeze the complete source boundary before S0, including local roots."""
 
-    return sha256(
-        canonical_json(
-            {
-                "tool": "build_benchmark_v12_source_snapshot.py/discover",
-                "projects_root": str(projects_root.resolve()),
-                "ai_chats_repo": None if ai_chats_repo is None else str(ai_chats_repo.resolve()),
-                "session_mirror_specs": sorted(session_mirror_specs),
-                "release_snapshot_specs": sorted(release_specs),
-            }
-        )
+    return sha256(discovery_contract_bytes(projects_root, ai_chats_repo, session_mirror_specs, release_specs))
+
+
+def discovery_contract_bytes(
+    projects_root: Path,
+    ai_chats_repo: Path | None,
+    session_mirror_specs: list[str],
+    release_specs: list[str],
+) -> bytes:
+    return canonical_json(
+        {
+            "tool": "build_benchmark_v12_source_snapshot.py/discover",
+            "projects_root": str(projects_root.resolve()),
+            "ai_chats_repo": None if ai_chats_repo is None else str(ai_chats_repo.resolve()),
+            "session_mirror_specs": sorted(session_mirror_specs),
+            "release_snapshot_specs": sorted(release_specs),
+        }
     )
 
 
@@ -117,6 +127,10 @@ def validate_policy(policy: dict[str, Any]) -> None:
             raise ValueError(f"policy rule {rule['id']!r} has invalid decision")
         if not isinstance(rule.get("purpose"), str) or not rule["purpose"]:
             raise ValueError(f"policy rule {rule['id']!r} needs a purpose")
+        if rule.get("decision") == "INCLUDE_SEMANTIC" and rule.get("source_kind") not in {
+            "git_history", "git_user_delta", "tree"
+        }:
+            raise ValueError(f"included policy rule {rule['id']!r} needs source_kind")
         try:
             re.compile(rule.get("relative_path_regex", ""))
         except re.error as exc:
@@ -142,23 +156,19 @@ def classify_path(relative: str, policy: dict[str, Any]) -> dict[str, Any]:
         "decision": rule["decision"],
         "policy_rule_id": rule["id"],
         "purpose": rule["purpose"],
+        **({"source_kind": rule["source_kind"]} if "source_kind" in rule else {}),
     }
 
 
-def discover_git_repositories(root: Path) -> list[Path]:
-    """Find worktrees using directory names only, pruning known bulk internals."""
+def discover_project_directories(root: Path) -> list[Path]:
+    """Enumerate every immediate directory; none may vanish by repository type."""
 
     if not root.is_dir():
         raise FileNotFoundError(root)
-    found: list[Path] = []
-    pruned = {".git", ".lake", ".venv", "node_modules", "vendor", "graphify-out"}
-    for current, directories, _files in os.walk(root):
-        directories[:] = sorted(name for name in directories if name not in pruned)
-        current_path = Path(current)
-        if (current_path / ".git").exists():
-            found.append(current_path)
-            directories[:] = []
-    return sorted(found, key=lambda path: path.relative_to(root).as_posix().encode())
+    return sorted(
+        (path for path in root.iterdir() if path.is_dir()),
+        key=lambda path: path.name.encode(),
+    )
 
 
 def repository_tips(repo: Path) -> list[dict[str, str]]:
@@ -198,13 +208,170 @@ def object_set(repo: Path, commits: Iterable[str]) -> dict[str, Any]:
     return {
         "object_count": len(records),
         "object_metadata_sha256": digest,
-        "corpus_sha256": digest,
     }
 
 
-def worktree_clean(repo: Path) -> bool:
-    # Status codes and paths are not semantic contents; dirty trees cannot be pinned.
-    return not bool(git(repo, "status", "--porcelain=v1", "--untracked-files=all"))
+def _git_paths(raw: bytes) -> list[str]:
+    paths = []
+    for value in raw.split(b"\0"):
+        if not value:
+            continue
+        original = value.decode("utf-8", "strict")
+        path = unicodedata.normalize("NFC", original)
+        if path != original:
+            raise ValueError(f"Git path is not NFC-normalized: {original!r}")
+        if path.startswith("/") or path in {"", ".", ".."} or ".." in Path(path).parts:
+            raise ValueError(f"unsafe Git path {path!r}")
+        paths.append(path)
+    if len(paths) != len(set(paths)):
+        raise ValueError("normalizing Git paths produced a collision")
+    return sorted(paths, key=lambda value: value.encode())
+
+
+def _index(repo: Path) -> dict[str, tuple[str, str]]:
+    result: dict[str, tuple[str, str]] = {}
+    rows = git(repo, "ls-files", "--stage", "-z").split(b"\0")
+    normalized_seen: dict[str, str] = {}
+    for raw in rows:
+        if not raw:
+            continue
+        metadata, path_raw = raw.split(b"\t", 1)
+        mode, object_id, stage = metadata.decode().split()
+        path_original = path_raw.decode("utf-8", "strict")
+        path = unicodedata.normalize("NFC", path_original)
+        if path != path_original:
+            raise ValueError(f"index path is not NFC-normalized: {path_original!r}")
+        if path.startswith("/") or ".." in Path(path).parts:
+            raise ValueError(f"unsafe index path {path!r}")
+        if path in normalized_seen and normalized_seen[path] != path_original:
+            raise ValueError("normalizing index paths produced a collision")
+        normalized_seen[path] = path_original
+        if stage != "0":
+            raise ValueError(f"unmerged index path cannot be snapshotted: {path}")
+        result[path] = (mode, object_id)
+    return result
+
+
+def _entry(
+    relative: str,
+    layer: str,
+    state: str,
+    mode: str,
+    kind: str,
+    raw: bytes,
+    selector: dict[str, Any],
+) -> dict[str, Any]:
+    return {
+        "relative_path": relative,
+        "layer": layer,
+        "state": state,
+        "mode": mode,
+        "type": kind,
+        "byte_count": len(raw),
+        "sha256": sha256(raw),
+        "selector": selector,
+    }
+
+
+def _filesystem_entry(repo: Path, relative: str) -> dict[str, Any]:
+    path = repo / relative
+    try:
+        info = path.lstat()
+    except FileNotFoundError:
+        return _entry(
+            relative, "WORKTREE", "DELETED", "000000", "DELETED", b"", {"kind": "absent"}
+        )
+    if stat.S_ISLNK(info.st_mode):
+        raw = os.readlink(path).encode("utf-8", "surrogateescape")
+        mode, kind = "120000", "SYMLINK"
+    elif stat.S_ISREG(info.st_mode):
+        raw = path.read_bytes()
+        mode = "100755" if info.st_mode & stat.S_IXUSR else "100644"
+        kind = "REGULAR"
+    else:
+        raise ValueError(f"unsupported worktree object type: {relative}")
+    return _entry(
+        relative, "WORKTREE", "PRESENT", mode, kind, raw, {"kind": "filesystem"}
+    )
+
+
+def worktree_overlay(repo: Path, head: str) -> dict[str, Any]:
+    """Content-address every staged, unstaged, and untracked nonignored state."""
+
+    index = _index(repo)
+    staged = _git_paths(git(repo, "diff", "--cached", "--name-only", "-z", "--no-renames", head))
+    unstaged = _git_paths(git(repo, "diff", "--name-only", "-z", "--no-renames"))
+    untracked = _git_paths(git(repo, "ls-files", "--others", "--exclude-standard", "-z"))
+    entries: list[dict[str, Any]] = []
+    for relative in staged:
+        indexed = index.get(relative)
+        if indexed is None:
+            entries.append(
+                _entry(relative, "INDEX", "DELETED", "000000", "DELETED", b"", {"kind": "absent"})
+            )
+            continue
+        mode, object_id = indexed
+        raw = git(repo, "cat-file", "blob", object_id)
+        kind = "SYMLINK" if mode == "120000" else "REGULAR"
+        if mode not in {"100644", "100755", "120000"}:
+            raise ValueError(f"unsupported index mode {mode!r}: {relative}")
+        entries.append(
+            _entry(
+                relative,
+                "INDEX",
+                "PRESENT",
+                mode,
+                kind,
+                raw,
+                {"kind": "git_blob", "object_id": object_id},
+            )
+        )
+    for relative in sorted(set(unstaged) | set(untracked), key=lambda value: value.encode()):
+        entries.append(_filesystem_entry(repo, relative))
+    entries.sort(key=lambda row: (row["relative_path"].encode(), row["layer"]))
+    result = {
+        "complete": True,
+        "base_head_commit": head,
+        "entries": entries,
+    }
+    result["inventory_sha256"] = sha256(canonical_json(entries))
+    return result
+
+
+def _verify_overlay_entry(repo: Path, entry: dict[str, Any]) -> None:
+    selector = entry["selector"]
+    if selector["kind"] == "git_blob":
+        raw = git(repo, "cat-file", "blob", selector["object_id"])
+    elif selector["kind"] == "filesystem":
+        current = _filesystem_entry(repo, entry["relative_path"])
+        raw = (
+            os.readlink(repo / entry["relative_path"]).encode("utf-8", "surrogateescape")
+            if current["type"] == "SYMLINK"
+            else (repo / entry["relative_path"]).read_bytes()
+        )
+        for key in ("state", "mode", "type"):
+            if current[key] != entry[key]:
+                raise ValueError(f"worktree overlay metadata drifted: {entry['relative_path']}")
+    elif selector["kind"] == "absent":
+        raw = b""
+        if entry["layer"] == "WORKTREE" and os.path.lexists(repo / entry["relative_path"]):
+            raise ValueError(f"deleted worktree path reappeared: {entry['relative_path']}")
+        if entry["layer"] == "INDEX" and entry["relative_path"] in _index(repo):
+            raise ValueError(f"deleted index path reappeared: {entry['relative_path']}")
+    else:
+        raise ValueError("unknown worktree overlay selector")
+    if len(raw) != entry["byte_count"] or sha256(raw) != entry["sha256"]:
+        raise ValueError(f"worktree overlay bytes drifted: {entry['relative_path']}")
+
+
+def verify_worktree_overlay(repo: Path, expected: dict[str, Any], head: str) -> None:
+    if expected.get("base_head_commit") != head:
+        raise ValueError("worktree overlay base HEAD mismatch")
+    current = worktree_overlay(repo, head)
+    if current != expected:
+        raise ValueError("worktree overlay inventory drifted")
+    for entry in expected["entries"]:
+        _verify_overlay_entry(repo, entry)
 
 
 def remote_urls(repo: Path) -> list[dict[str, str]]:
@@ -230,17 +397,120 @@ def repo_record(repo: Path, root: Path, classification: dict[str, Any]) -> dict[
     tips = repository_tips(repo)
     commits = [row["object_id"] for row in tips]
     head = git(repo, "rev-parse", "HEAD").decode().strip()
+    objects = object_set(repo, [*commits, head])
+    overlay = worktree_overlay(repo, head)
     record = {
         **base,
         "head_commit": head,
         "tips": tips,
         "remotes": remote_urls(repo),
-        "worktree_clean": worktree_clean(repo),
-        **object_set(repo, [*commits, head]),
+        "worktree_overlay": overlay,
+        **objects,
     }
-    record["complete"] = record["worktree_clean"]
-    record["failure"] = None if record["complete"] else "UNPINNED_WORKTREE_STATE"
+    record["corpus_sha256"] = sha256(
+        canonical_json(
+            {
+                "git_object_metadata_sha256": objects["object_metadata_sha256"],
+                "worktree_overlay_inventory_sha256": overlay["inventory_sha256"],
+            }
+        )
+    )
+    record["complete"] = True
+    record["failure"] = None
     return record
+
+
+def _upstream_refs(repo: Path) -> list[dict[str, str]]:
+    rows = [
+        row for row in repository_tips(repo)
+        if row["ref"].startswith("refs/remotes/upstream/")
+    ]
+    if not rows:
+        raise ValueError("git_user_delta source has no refs/remotes/upstream/* base")
+    return rows
+
+
+def git_user_delta_record(
+    repo: Path, root: Path, classification: dict[str, Any]
+) -> dict[str, Any]:
+    record = repo_record(repo, root, classification)
+    upstream = _upstream_refs(repo)
+    all_tips = [row["object_id"] for row in record["tips"]]
+    upstream_tips = [row["object_id"] for row in upstream]
+    user_commits = git(
+        repo, "rev-list", *sorted(set(all_tips + [record["head_commit"]])), "--not", *sorted(set(upstream_tips))
+    ).decode().splitlines()
+    user_commits = sorted(set(user_commits))
+    record.update(
+        kind="git_user_delta",
+        upstream_base_refs=upstream,
+        user_commit_ids=user_commits,
+        user_commit_set_sha256=sha256(canonical_json(user_commits)),
+    )
+    # Contamination scans only user commits plus the complete current overlay;
+    # upstream registry objects remain pinned audit inputs, not semantic units.
+    record["corpus_sha256"] = sha256(
+        canonical_json(
+            {
+                "user_commit_set_sha256": record["user_commit_set_sha256"],
+                "worktree_overlay_inventory_sha256": record["worktree_overlay"]["inventory_sha256"],
+            }
+        )
+    )
+    return record
+
+
+TREE_IGNORED_DIRS = {
+    ".git", ".lake", ".venv", "node_modules", "vendor", "__pycache__",
+    "graphify-out", ".pytest_cache", "dist", "build", "target",
+}
+
+
+def tree_inventory(root: Path) -> dict[str, Any]:
+    entries = []
+    for current, directories, files in os.walk(root):
+        current_path = Path(current)
+        kept_directories = []
+        for name in sorted(directories):
+            path = current_path / name
+            if name in TREE_IGNORED_DIRS:
+                continue
+            if path.is_symlink():
+                relative = path.relative_to(root).as_posix()
+                entries.append(_filesystem_entry(root, relative))
+            else:
+                kept_directories.append(name)
+        directories[:] = kept_directories
+        for name in sorted(files):
+            path = current_path / name
+            relative_original = path.relative_to(root).as_posix()
+            relative = unicodedata.normalize("NFC", relative_original)
+            if relative != relative_original:
+                raise ValueError(f"tree path is not NFC-normalized: {relative_original!r}")
+            entries.append(_filesystem_entry(root, relative))
+    entries.sort(key=lambda row: row["relative_path"].encode())
+    # Tree rows have one CURRENT_TREE layer rather than Git's WORKTREE layer.
+    for row in entries:
+        row["layer"] = "CURRENT_TREE"
+    result = {"complete": True, "ignored_directories": sorted(TREE_IGNORED_DIRS), "entries": entries}
+    result["inventory_sha256"] = sha256(canonical_json(entries))
+    return result
+
+
+def tree_record(root: Path, projects_root: Path, classification: dict[str, Any]) -> dict[str, Any]:
+    relative = root.relative_to(projects_root).as_posix()
+    inventory = tree_inventory(root)
+    return {
+        "source_id": "tree:" + relative,
+        "kind": "tree",
+        "path": str(root.resolve()),
+        "relative_path": relative,
+        **classification,
+        "tree_snapshot": inventory,
+        "corpus_sha256": inventory["inventory_sha256"],
+        "complete": True,
+        "failure": None,
+    }
 
 
 def _local_session_inventory(root: Path, repo: Path) -> dict[str, Any]:
@@ -289,7 +559,9 @@ def _session_mirror(spec: str, ai_repo: Path, commit: str) -> dict[str, Any]:
         raise ValueError(f"invalid session mirror {mirror_id!r}")
     local = _local_session_inventory(Path(local_text).resolve(), ai_repo)
     mirrored = _git_session_inventory(ai_repo, commit, subdir)
-    agrees = local["records"] == mirrored["records"]
+    archived = set(mirrored["records"])
+    missing_or_stale = sorted(record for record in local["records"] if record not in archived)
+    agrees = not missing_or_stale
     return {
         "id": mirror_id,
         "format": fmt,
@@ -298,6 +570,8 @@ def _session_mirror(spec: str, ai_repo: Path, commit: str) -> dict[str, Any]:
         "unit_count": local["unit_count"],
         "inventory_sha256": local["inventory_sha256"],
         "mirror_agrees": agrees,
+        "archived_unit_count": mirrored["unit_count"],
+        "missing_or_stale_local_count": len(missing_or_stale),
         "failure": None if agrees else "LOCAL_SESSION_MIRROR_MISMATCH",
     }
 
@@ -308,17 +582,20 @@ def ai_chats_record(repo: Path, mirror_specs: list[str]) -> dict[str, Any]:
     commit = git(repo, "rev-parse", "HEAD").decode().strip()
     mirrors = [_session_mirror(spec, repo, commit) for spec in mirror_specs]
     mirrors.sort(key=lambda row: row["id"].encode())
+    if worktree_overlay(repo, commit)["entries"]:
+        raise ValueError("ai-chats must be committed before its immutable session snapshot")
+    objects = object_set(repo, [commit])
     record = {
         "source_id": "sessions:ai-chats",
         "kind": "git_sessions",
         "path": str(repo.resolve()),
         "immutable_commit": commit,
         "remotes": remote_urls(repo),
-        "worktree_clean": worktree_clean(repo),
         "session_mirrors": mirrors,
-        **object_set(repo, [commit]),
+        **objects,
+        "corpus_sha256": objects["object_metadata_sha256"],
     }
-    record["complete"] = record["worktree_clean"] and all(row["mirror_agrees"] for row in mirrors)
+    record["complete"] = all(row["mirror_agrees"] for row in mirrors)
     record["failure"] = None if record["complete"] else "UNPINNED_OR_UNSYNCED_SESSION_STATE"
     return record
 
@@ -345,44 +622,78 @@ def release_record(spec: str) -> dict[str, Any]:
 
 
 def validate_p0(
-    attestation: dict[str, Any],
+    p0t: dict[str, Any],
     repo: Path,
     policy_sha256: str,
-    expected_discovery_contract_sha256: str | None = None,
-) -> None:
-    if attestation.get("schema_version") != P0_SCHEMA:
+    expected_discovery_contract_sha256: str,
+    p0t_commit: str,
+    public_remote_url: str,
+    p0t_artifact_raw: bytes,
+) -> dict[str, str]:
+    """Validate the real non-self-referential P0T and derive its bindings."""
+
+    if p0t.get("schema_version") != P0_SCHEMA:
         raise ValueError(f"P0 attestation schema must be {P0_SCHEMA!r}")
-    for field in ("p0_artifact_commit", "p0_attestation_commit"):
-        if not isinstance(attestation.get(field), str) or not HEX_COMMIT.fullmatch(attestation[field]):
+    if p0t.get("artifact_kind") != "P0T":
+        raise ValueError("P0 binding must identify artifact_kind P0T")
+    p0a_commit = p0t.get("p0a_commit")
+    for field, value in (("p0a_commit", p0a_commit), ("p0t_commit", p0t_commit)):
+        if not isinstance(value, str) or not HEX_COMMIT.fullmatch(value):
             raise ValueError(f"{field} must be an exact commit")
-        resolved = git(repo, "rev-parse", attestation[field]).decode().strip()
-        if resolved.casefold() != attestation[field].casefold():
+        resolved = git(repo, "rev-parse", value).decode().strip()
+        if resolved.casefold() != value.casefold():
             raise ValueError(f"{field} is not locally available as an exact commit")
-    subprocess.run(
-        ["git", "-C", str(repo), "merge-base", "--is-ancestor", attestation["p0_artifact_commit"], attestation["p0_attestation_commit"]],
-        check=True,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-    )
-    timestamp = attestation.get("p0_published_at_utc")
+    parents = git(repo, "show", "-s", "--format=%P", p0t_commit).decode().split()
+    if parents != [p0a_commit]:
+        raise ValueError("P0T must have P0A as its exact sole parent")
+    timestamp = p0t.get("p0a_published_at_utc")
     if not isinstance(timestamp, str) or not RFC3339_UTC.fullmatch(timestamp):
-        raise ValueError("p0_published_at_utc must be whole-second RFC3339 UTC")
-    if attestation.get("source_path_policy_sha256") != policy_sha256:
-        raise ValueError("P0 does not freeze this source path-purpose policy")
-    contract_sha = attestation.get("source_discovery_contract_sha256")
-    if not isinstance(contract_sha, str) or not HEX_SHA256.fullmatch(contract_sha):
-        raise ValueError("P0 must freeze a source_discovery_contract_sha256")
-    if expected_discovery_contract_sha256 is not None and contract_sha != expected_discovery_contract_sha256:
-        raise ValueError("P0 source-discovery invocation contract does not match")
-    remote = attestation.get("public_remote_url")
-    if not isinstance(remote, str) or not remote:
-        raise ValueError("P0 attestation needs public_remote_url")
+        raise ValueError("p0a_published_at_utc must be whole-second RFC3339 UTC")
+    p0a_ref = p0t.get("p0a")
+    if not isinstance(p0a_ref, dict) or set(p0a_ref) != {"path", "sha256"}:
+        raise ValueError("P0T p0a reference must contain exactly path and sha256")
+    allowed = p0t.get("attestation_policy", {}).get("allowed_p0t_changed_paths")
+    if p0t.get("attestation_policy", {}).get("p0a_ancestor_required") is not True or p0t.get("attestation_policy", {}).get("p0a_bytes_immutable") is not True:
+        raise ValueError("P0T attestation policy does not enforce ancestry and immutable P0A bytes")
+    if not isinstance(allowed, list) or len(allowed) != 1:
+        raise ValueError("P0T must allow exactly its one attestation path")
+    changed = git(repo, "diff-tree", "--no-commit-id", "--name-only", "-r", p0t_commit).decode().splitlines()
+    if changed != allowed:
+        raise ValueError("P0T commit changed paths outside its attestation")
+    committed_p0t = git(repo, "show", f"{p0t_commit}:{allowed[0]}")
+    if committed_p0t != p0t_artifact_raw:
+        raise ValueError("supplied P0T artifact differs from committed P0T bytes")
+    p0a_raw = git(repo, "show", f"{p0a_commit}:{p0a_ref['path']}")
+    if sha256(p0a_raw) != p0a_ref["sha256"]:
+        raise ValueError("P0T does not authenticate committed P0A bytes")
+    p0a = json.loads(p0a_raw)
+    if not isinstance(p0a, dict) or p0a.get("artifact_kind") != "P0A":
+        raise ValueError("committed P0A artifact is invalid")
+    components = p0a.get("components", {})
+    for role, expected in (
+        ("source_path_policy", policy_sha256),
+        ("source_discovery_contract", expected_discovery_contract_sha256),
+    ):
+        component = components.get(role)
+        if not isinstance(component, dict) or component.get("sha256") != expected:
+            raise ValueError(f"P0A does not freeze the expected {role}")
+        committed = git(repo, "show", f"{p0a_commit}:{component['path']}")
+        if sha256(committed) != expected:
+            raise ValueError(f"P0A {role} committed bytes disagree")
+    if not isinstance(public_remote_url, str) or not public_remote_url:
+        raise ValueError("public_remote_url must be nonempty")
     advertised = subprocess.run(
-        ["git", "ls-remote", remote], check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE
+        ["git", "ls-remote", public_remote_url], check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE
     ).stdout.decode().splitlines()
     advertised_ids = {line.split()[0].casefold() for line in advertised if line.split()}
-    if attestation["p0_attestation_commit"].casefold() not in advertised_ids:
+    if p0t_commit.casefold() not in advertised_ids:
         raise ValueError("P0T is not advertised by the recorded public remote")
+    return {
+        "p0a_commit": p0a_commit,
+        "p0t_commit": p0t_commit.lower(),
+        "p0a_published_at_utc": timestamp,
+        "public_remote_url": public_remote_url,
+    }
 
 
 def build_config(
@@ -392,6 +703,8 @@ def build_config(
     session_mirror_specs: list[str],
     release_specs: list[str],
     p0_attestation_path: Path | None,
+    p0t_commit: str | None,
+    public_remote_url: str | None,
     protocol_repo: Path,
 ) -> dict[str, Any]:
     policy, policy_raw = load_json(policy_path)
@@ -402,13 +715,37 @@ def build_config(
     )
     p0 = None
     if p0_attestation_path is not None:
-        p0, _ = load_json(p0_attestation_path)
-        validate_p0(p0, protocol_repo, policy_sha, contract_sha)
+        p0, p0_raw = load_json(p0_attestation_path)
+        if p0t_commit is None or public_remote_url is None:
+            raise ValueError("production discovery requires --p0t-commit and --public-remote-url")
+        p0_binding = validate_p0(
+            p0, protocol_repo, policy_sha, contract_sha, p0t_commit, public_remote_url, p0_raw
+        )
+    else:
+        p0_binding = None
 
     discovered = []
-    for repo in discover_git_repositories(projects_root.resolve()):
-        relative = repo.relative_to(projects_root.resolve()).as_posix()
-        discovered.append(repo_record(repo, projects_root.resolve(), classify_path(relative, policy)))
+    for path in discover_project_directories(projects_root.resolve()):
+        relative = path.relative_to(projects_root.resolve()).as_posix()
+        classification = classify_path(relative, policy)
+        if classification["decision"] != "INCLUDE_SEMANTIC":
+            discovered.append({
+                "source_id": "path:" + relative,
+                "kind": "excluded_directory",
+                "path": str(path.resolve()),
+                "relative_path": relative,
+                **classification,
+            })
+            continue
+        source_kind = classification["source_kind"]
+        if source_kind == "git_history":
+            discovered.append(repo_record(path, projects_root.resolve(), classification))
+        elif source_kind == "git_user_delta":
+            discovered.append(git_user_delta_record(path, projects_root.resolve(), classification))
+        elif source_kind == "tree":
+            discovered.append(tree_record(path, projects_root.resolve(), classification))
+        else:  # validate_policy makes this unreachable.
+            raise ValueError(f"unknown included source kind {source_kind!r}")
     sources = [row for row in discovered if row["decision"] == "INCLUDE_SEMANTIC"]
     if ai_chats_repo is not None:
         sources.append(ai_chats_record(ai_chats_repo.resolve(), session_mirror_specs))
@@ -448,10 +785,7 @@ def build_config(
             "sha256": policy_sha,
         },
         "source_discovery_contract_sha256": contract_sha,
-        "protocol": None if p0 is None else {
-            key: p0[key]
-            for key in ("p0_artifact_commit", "p0_attestation_commit", "p0_published_at_utc", "public_remote_url")
-        },
+        "protocol": p0_binding,
         "sources": sources,
         "nonresearch_exclusions": excluded,
         "complete": not unknown and not incomplete and ai_chats_repo is not None and not missing_mirrors and not missing_releases,
@@ -478,13 +812,40 @@ def verify_config_sources(config: dict[str, Any]) -> None:
         path = Path(source["path"])
         if source["kind"] == "git_history":
             head = git(path, "rev-parse", "HEAD").decode().strip()
-            if head != source["head_commit"] or repository_tips(path) != source["tips"] or not worktree_clean(path):
+            if head != source["head_commit"] or repository_tips(path) != source["tips"]:
                 raise ValueError(f"Git source drifted after discovery: {source['source_id']}")
             current = object_set(path, [head, *[row["object_id"] for row in source["tips"]]])
             if any(current[key] != source[key] for key in current):
                 raise ValueError(f"Git corpus drifted after discovery: {source['source_id']}")
+            verify_worktree_overlay(path, source["worktree_overlay"], head)
+            expected_corpus = sha256(
+                canonical_json(
+                    {
+                        "git_object_metadata_sha256": current["object_metadata_sha256"],
+                        "worktree_overlay_inventory_sha256": source["worktree_overlay"]["inventory_sha256"],
+                    }
+                )
+            )
+            if source.get("corpus_sha256") != expected_corpus:
+                raise ValueError(f"source corpus digest mismatch: {source['source_id']}")
+        elif source["kind"] == "git_user_delta":
+            head = git(path, "rev-parse", "HEAD").decode().strip()
+            if head != source["head_commit"] or repository_tips(path) != source["tips"]:
+                raise ValueError(f"Git delta source drifted: {source['source_id']}")
+            replay = git_user_delta_record(
+                path,
+                Path(config["projects_root"]),
+                {key: source[key] for key in ("decision", "policy_rule_id", "purpose", "source_kind")},
+            )
+            for key in ("upstream_base_refs", "user_commit_ids", "user_commit_set_sha256", "worktree_overlay", "corpus_sha256"):
+                if replay[key] != source[key]:
+                    raise ValueError(f"Git delta corpus drifted: {source['source_id']}")
+        elif source["kind"] == "tree":
+            current = tree_inventory(path)
+            if current != source["tree_snapshot"] or source.get("corpus_sha256") != current["inventory_sha256"]:
+                raise ValueError(f"unversioned tree drifted: {source['source_id']}")
         elif source["kind"] == "git_sessions":
-            if git(path, "rev-parse", "HEAD").decode().strip() != source["immutable_commit"] or not worktree_clean(path):
+            if git(path, "rev-parse", "HEAD").decode().strip() != source["immutable_commit"] or worktree_overlay(path, source["immutable_commit"])["entries"]:
                 raise ValueError("ai-chats commit/worktree drifted after discovery")
             current = object_set(path, [source["immutable_commit"]])
             if any(current[key] != source[key] for key in current):
@@ -493,7 +854,7 @@ def verify_config_sources(config: dict[str, Any]) -> None:
                 local = _local_session_inventory(Path(mirror["local_root"]), path)
                 pinned = _git_session_inventory(path, source["immutable_commit"], mirror["ai_chats_subdir"])
                 if (
-                    local["records"] != pinned["records"]
+                    not set(local["records"]).issubset(set(pinned["records"]))
                     or local["unit_count"] != mirror["unit_count"]
                     or local["inventory_sha256"] != mirror["inventory_sha256"]
                 ):
@@ -511,6 +872,8 @@ def acquire_s0(
     policy_path: Path,
     attestation_path: Path,
     protocol_repo: Path,
+    p0t_commit: str,
+    public_remote_url: str,
     acquired_at: str,
 ) -> dict[str, Any]:
     if not RFC3339_UTC.fullmatch(acquired_at):
@@ -520,22 +883,24 @@ def acquire_s0(
         raise ValueError("S0 requires a non-prototype sources config produced after public P0")
     policy, policy_raw = load_json(policy_path)
     validate_policy(policy)
-    attestation, _ = load_json(attestation_path)
+    attestation, attestation_raw = load_json(attestation_path)
     policy_sha = sha256(policy_raw)
-    validate_p0(attestation, protocol_repo, policy_sha)
-    published = dt.datetime.fromisoformat(attestation["p0_published_at_utc"].replace("Z", "+00:00"))
+    binding = validate_p0(
+        attestation,
+        protocol_repo,
+        policy_sha,
+        config["source_discovery_contract_sha256"],
+        p0t_commit,
+        public_remote_url,
+        attestation_raw,
+    )
+    published = dt.datetime.fromisoformat(binding["p0a_published_at_utc"].replace("Z", "+00:00"))
     acquired = dt.datetime.fromisoformat(acquired_at.replace("Z", "+00:00"))
     if acquired <= published:
         raise ValueError("S0 acquisition must occur after P0 publication")
     if config.get("source_path_policy", {}).get("sha256") != policy_sha:
         raise ValueError("sources config policy digest mismatch")
-    if config.get("source_discovery_contract_sha256") != attestation.get("source_discovery_contract_sha256"):
-        raise ValueError("sources config discovery contract mismatch")
-    expected_protocol = {
-        key: attestation[key]
-        for key in ("p0_artifact_commit", "p0_attestation_commit", "p0_published_at_utc", "public_remote_url")
-    }
-    if config.get("protocol") != expected_protocol:
+    if config.get("protocol") != binding:
         raise ValueError("sources config was not bound to this P0 attestation")
     if sha256(config_raw) == config.get("sources_config_sha256"):
         # The field is an internal content address (excluding itself), never a
@@ -546,9 +911,9 @@ def acquire_s0(
         "schema_version": SNAPSHOT_SCHEMA,
         "snapshot_id": "S0",
         "acquired_at_utc": acquired_at,
-        "p0_artifact_commit": attestation["p0_artifact_commit"],
-        "p0_attestation_commit": attestation["p0_attestation_commit"],
-        "p0_published_at_utc": attestation["p0_published_at_utc"],
+        "p0a_commit": binding["p0a_commit"],
+        "p0t_commit": binding["p0t_commit"],
+        "p0a_published_at_utc": binding["p0a_published_at_utc"],
         "source_path_policy_sha256": policy_sha,
         "source_discovery_contract_sha256": config["source_discovery_contract_sha256"],
         "sources_config_sha256": config["sources_config_sha256"],
@@ -581,12 +946,16 @@ def main() -> int:
     discover.add_argument("--session-mirror", action="append", default=[])
     discover.add_argument("--release-snapshot", action="append", default=[])
     discover.add_argument("--p0-attestation", type=Path)
+    discover.add_argument("--p0t-commit")
+    discover.add_argument("--public-remote-url")
     discover.add_argument("--protocol-repo", type=Path, default=Path.cwd())
     discover.add_argument("--output", type=Path)
     acquire = subparsers.add_parser("acquire")
     acquire.add_argument("--sources-config", type=Path, required=True)
     acquire.add_argument("--policy", type=Path, required=True)
     acquire.add_argument("--p0-attestation", type=Path, required=True)
+    acquire.add_argument("--p0t-commit", required=True)
+    acquire.add_argument("--public-remote-url", required=True)
     acquire.add_argument("--protocol-repo", type=Path, default=Path.cwd())
     acquire.add_argument("--acquired-at", required=True)
     acquire.add_argument("--output", type=Path)
@@ -599,6 +968,8 @@ def main() -> int:
             args.session_mirror,
             args.release_snapshot,
             args.p0_attestation,
+            args.p0t_commit,
+            args.public_remote_url,
             args.protocol_repo,
         )
     else:
@@ -607,6 +978,8 @@ def main() -> int:
             args.policy,
             args.p0_attestation,
             args.protocol_repo,
+            args.p0t_commit,
+            args.public_remote_url,
             args.acquired_at,
         )
     write_output(value, args.output)
