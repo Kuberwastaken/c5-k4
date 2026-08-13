@@ -1,0 +1,132 @@
+name: Validate Method v1.5 protocol
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/method-v15-*.yml
+      - METHOD_V1_5_BENCHMARK.md
+      - schemas/*v1.5*.json
+      - scripts/*v15*.py
+      - results/benchmark/v1.5-*/**
+      - results/benchmark/v1.4-p0/P0A.json
+      - results/benchmark/v1.4-p0/P0T.json
+      - .gitattributes
+  pull_request:
+    paths:
+      - .github/workflows/method-v15-*.yml
+      - METHOD_V1_5_BENCHMARK.md
+      - schemas/*v1.5*.json
+      - scripts/*v15*.py
+      - results/benchmark/v1.5-*/**
+      - results/benchmark/v1.4-p0/P0A.json
+      - results/benchmark/v1.4-p0/P0T.json
+      - .gitattributes
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: method-v15-validation-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      LC_ALL: C.UTF-8
+      PYTHONDONTWRITEBYTECODE: '1'
+      PYTHONHASHSEED: '0'
+      TZ: UTC
+    steps:
+      - name: Check out repository history and LFS objects
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+          lfs: true
+          persist-credentials: false
+
+      - name: Set up pinned Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12.9'
+
+      - name: Install pinned validator dependencies
+        shell: bash
+        run: |
+          python -m pip install --disable-pip-version-check \
+            attrs==24.2.0 \
+            jsonschema==3.2.0 \
+            pyrsistent==0.20.0 \
+            setuptools==75.8.0 \
+            six==1.16.0
+
+      - name: Compile every Method v1.5 Python module
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -t python_files < <(
+            find scripts -maxdepth 1 -type f -name '*v15*.py' -print | LC_ALL=C sort
+          )
+          if (( ${#python_files[@]} == 0 )); then
+            echo 'no Method v1.5 Python modules found' >&2
+            exit 2
+          fi
+          printf 'compiling %d Method v1.5 Python modules\n' "${#python_files[@]}"
+          python -m py_compile "${python_files[@]}"
+
+      - name: Run every Method v1.5 Python test
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -t test_files < <(
+            find scripts -maxdepth 1 -type f -name 'test_*v15*.py' -print | LC_ALL=C sort
+          )
+          if (( ${#test_files[@]} == 0 )); then
+            echo 'no Method v1.5 Python tests found' >&2
+            exit 2
+          fi
+          printf 'discovered %d Method v1.5 Python tests\n' "${#test_files[@]}"
+          for test_file in "${test_files[@]}"; do
+            printf 'running %s\n' "$test_file"
+            python "$test_file"
+          done
+
+      - name: Parse every Method v1.5 JSON artifact and validate every schema
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          from jsonschema import Draft7Validator
+
+          paths = set(Path('schemas').glob('*v1.5*.json'))
+          paths.update(Path('results/benchmark').glob('v1.5*/**/*.json'))
+          if not paths:
+              raise SystemExit('no Method v1.5 JSON artifacts found')
+          schema_count = 0
+          for path in sorted(paths, key=lambda item: item.as_posix()):
+              with path.open(encoding='utf-8') as stream:
+                  value = json.load(stream)
+              if path.parent == Path('schemas'):
+                  Draft7Validator.check_schema(value)
+                  schema_count += 1
+              print(path.as_posix())
+          if schema_count == 0:
+              raise SystemExit('no Method v1.5 JSON schemas found')
+          print(f'validated {schema_count} Method v1.5 JSON schemas')
+          PY
+
+      - name: Confirm validation leaves the checkout unchanged
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -n "$(git status --porcelain=v1 --untracked-files=all)" ]]; then
+            git status --short
+            echo 'Method v1.5 validation modified its checkout' >&2
+            exit 2
+          fi
