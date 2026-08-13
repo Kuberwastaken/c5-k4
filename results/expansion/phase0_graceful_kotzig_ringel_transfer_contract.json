@@ -1,0 +1,99 @@
+{
+  "contract_version": "method-v0.8-phase0",
+  "frozen_at_utc": "2026-08-13T11:13:08Z",
+  "scope": "Source/status and transfer-cluster gate only; no construction or development rows authorized.",
+  "upstream": {
+    "repository": "google-deepmind/formal-conjectures",
+    "commit": "d16e05aded22b8c467a0a27c14b2311f53185006",
+    "commit_date": "2026-08-12T22:55:30Z"
+  },
+  "declarations": [
+    {
+      "file": "FormalConjectures/Wikipedia/GracefulLabeling.lean",
+      "declaration": "GracefulLabeling.graceful_tree_conjecture",
+      "line": 74,
+      "category": "research open",
+      "source": "https://en.wikipedia.org/wiki/Graceful_labeling",
+      "historical_source": "A. Rosa, On certain valuations of the vertices of a graph, Theory of Graphs (Rome, 1966), 1967, pp. 349-355",
+      "reading": "UNAMBIGUOUS",
+      "normalized_statement": "Every finite tree with m edges has an injective vertex labeling into {0,...,m} whose absolute edge differences are exactly {1,...,m}."
+    },
+    {
+      "file": "FormalConjectures/Paper/KotzigConjecture.lean",
+      "declaration": "KotzigConjecture.kotzig_conjecture",
+      "line": 43,
+      "category": "research open",
+      "source": "A. Kotzig, cited in A. Rosa, On certain valuations of the vertices of a graph, 1967",
+      "reading": "UNAMBIGUOUS",
+      "normalized_statement": "For every n-edge tree, cyclic shifts modulo 2n+1 of one embedding give 2n+1 pairwise edge-disjoint copies whose union is K_(2n+1)."
+    },
+    {
+      "file": "FormalConjectures/Paper/RingelConjecture.lean",
+      "declaration": "RingelConjecture.ringel_conjecture",
+      "line": 42,
+      "category": "research open",
+      "source": "G. Ringel, Problem 25, Theory of Graphs and its Applications (Smolenice, 1963), 1964",
+      "reading": "UNAMBIGUOUS",
+      "normalized_statement": "For every n-edge tree, K_(2n+1) decomposes into 2n+1 pairwise edge-disjoint copies of the tree."
+    },
+    {
+      "file": "FormalConjectures/Arxiv/2001.02665/RingelConjecture.lean",
+      "declarations": [
+        "Arxiv.2001.02665.ringel_conjecture_large",
+        "Arxiv.2001.02665.kotzig_conjecture_large"
+      ],
+      "lines": [48, 69],
+      "category": "research solved",
+      "source": "https://arxiv.org/abs/2001.02665",
+      "normalized_statement": "The Ringel and stronger cyclic Kotzig conclusions hold for every sufficiently large n."
+    }
+  ],
+  "transfer_cluster": {
+    "legitimate": true,
+    "kind": "strict implication chain, not duplicate declarations and not a shared numerical residual wall",
+    "implications": [
+      "graceful labeling => cyclic Kotzig decomposition",
+      "cyclic Kotzig decomposition => Ringel decomposition"
+    ],
+    "non_implications": [
+      "A Kotzig/rho labeling need not place all tree vertices in {0,...,n}, so the literature does not identify Kotzig with graceful labeling.",
+      "Ringel decomposition forgets cyclic coherence and does not imply Kotzig."
+    ],
+    "literature_coordinate": "Kotzig is equivalent to a rainbow tree in the near-distance coloring, or equivalently a rho-labeling; graceful labeling imposes the extra vertex-range restriction {0,...,n}."
+  },
+  "status_gate": {
+    "github": [
+      "Issue #104 remains open as a broad formalization-target list.",
+      "PR #4189 merged the graceful declaration on 2026-06-26; duplicate PR #4188 closed unmerged.",
+      "PR #4172 merged the Ringel, Kotzig, and large-n declarations on 2026-07-20.",
+      "No live proof/disproof/status PR or issue was found for these declaration names or titles."
+    ],
+    "local_coverage": [
+      "results/expansion/formal_conjectures.md classifies graceful labeling, Kotzig, and Ringel as decomposition universals requiring unbounded auxiliary search.",
+      "results/expansion/method_v02_upstream_selection.md preserves the same exclusion.",
+      "No local labeling solver, decomposition rows, target-specific contract, proof, certificate, release, or prior transformation trial was found."
+    ],
+    "claim_audit": "arXiv:2202.03178 claims a proof of the graceful tree conjecture, but current authoritative and 2025/2026 literature continues to classify the conjecture as open; the claim is not treated as an accepted resolution."
+  },
+  "proved_domains": [
+    "Every tree through 35 vertices is reported computationally graceful by W. Fang, arXiv:1003.3045v2.",
+    "Every path is graceful by the classical alternating-extremes labeling.",
+    "Every sufficiently large n satisfies the cyclic Kotzig conclusion, hence Ringel, by Montgomery-Pokrovskiy-Sudakov, arXiv:2001.02665 / GAFA 2021."
+  ],
+  "candidate_wall": {
+    "seed": "P3, the two-edge path with ordered vertices a-b-c",
+    "seed_labeling": {"a": 0, "b": 2, "c": 1},
+    "seed_edge_differences": [2, 1],
+    "equality": "The induced difference set is exactly {1,2}; cyclic shifts give the exact K5 decomposition, which also satisfies Ringel.",
+    "obstruction": "The natural residual is Boolean/existential rather than signed. Subdividing an end edge of P3 preserves the path class, whose alternating-extremes graceful labeling is a theorem for every length.",
+    "catalogue_transformation_considered": "Replace end edge b-c by a path with t new degree-two vertices, for a prospective bounded grid t=1,...,12.",
+    "directional_prediction": "tree order and edge count increase by t; graceful/Kotzig/Ringel truth remains pinned true because every output is a path.",
+    "development_authorized": false
+  },
+  "stop": {
+    "outcome": "KNOWN_PROOF_DOMAIN",
+    "reason": "Every output of the only exact obstruction-derived catalogue transformation from the equality seed is a path, hence already graceful and therefore already Kotzig and Ringel. Evaluating the twelve positive instances cannot test a crossing or distinguish the implication levels.",
+    "no_development_rows": true,
+    "next_lane_requirement": "A future contract must name a non-path seed and a transformation that leaves all established graceful classes and the sufficiently-large Kotzig/Ringel domain, while freezing a falsifiable failure certificate for the existential conclusion."
+  }
+}

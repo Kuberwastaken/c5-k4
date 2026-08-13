@@ -1,0 +1,12 @@
+{"contract_sha256":"c403f3dfa642702eeeb14b8a68ca99daf4e195166c609796ad9305c4490a4e9d","kind":"phase0_start","timestamp_utc":"2026-08-13T11:13:08Z","upstream_commit":"d16e05aded22b8c467a0a27c14b2311f53185006"}
+{"category":"research open","declaration":"GracefulLabeling.graceful_tree_conjecture","file":"FormalConjectures/Wikipedia/GracefulLabeling.lean","kind":"source_gate","reading":"UNAMBIGUOUS","verdict":"PASS"}
+{"category":"research open","declaration":"KotzigConjecture.kotzig_conjecture","file":"FormalConjectures/Paper/KotzigConjecture.lean","kind":"source_gate","reading":"UNAMBIGUOUS","verdict":"PASS"}
+{"category":"research open","declaration":"RingelConjecture.ringel_conjecture","file":"FormalConjectures/Paper/RingelConjecture.lean","kind":"source_gate","reading":"UNAMBIGUOUS","verdict":"PASS"}
+{"category":"research solved","declarations":["Arxiv.2001.02665.ringel_conjecture_large","Arxiv.2001.02665.kotzig_conjecture_large"],"file":"FormalConjectures/Arxiv/2001.02665/RingelConjecture.lean","kind":"proved_domain_gate","verdict":"PASS"}
+{"issue_104":"OPEN","kind":"github_status_gate","pr_4172":"MERGED","pr_4188":"CLOSED_UNMERGED","pr_4189":"MERGED","solution_issue_or_pr_found":false,"verdict":"PASS"}
+{"exact_computation_found":false,"kind":"local_coverage_gate","prior_classification_only":true,"prior_files":["results/expansion/formal_conjectures.md","results/expansion/method_v02_upstream_selection.md"],"target_specific_trial_found":false,"verdict":"PASS"}
+{"accepted_general_resolution":false,"claimed_proof_audited":"arXiv:2202.03178","current_status":"open","kind":"literature_status_gate","small_proved_domain":"all trees through 35 vertices","structural_proved_domain":"all paths graceful","verdict":"PASS"}
+{"implications":["graceful=>Kotzig","Kotzig=>Ringel"],"kind":"cluster_gate","legitimate_transfer_cluster":true,"not_equivalent":true,"reason":"Graceful imposes the extra vertex interval; Ringel drops cyclic coherence.","verdict":"PASS"}
+{"edge_differences":[2,1],"kind":"equality_seed","labels":{"a":0,"b":2,"c":1},"seed":"P3","verdict":"EXACT"}
+{"candidate_grid":{"t_max":12,"t_min":1},"kind":"transformation_gate","operation":"subdivide fixed end edge b-c by t degree-two vertices","predicted_outputs":"paths","verdict":"KNOWN_PROOF_DOMAIN"}
+{"development_rows":0,"kind":"phase0_summary","outcome":"KNOWN_PROOF_DOMAIN","reason":"All prescribed transformed outputs are paths and hence already graceful, Kotzig, and Ringel; positive existential instances cannot distinguish the transfer levels.","strict_stop":true}
