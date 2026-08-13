@@ -6,16 +6,24 @@ on:
     branches: [main]
     paths:
       - schemas/resolution-card-v1.schema.json
+      - schemas/benchmark-v1.1.schema.json
       - scripts/lint_resolution_card.py
       - scripts/test_lint_resolution_card.py
+      - scripts/lint_benchmark_v11.py
+      - scripts/test_lint_benchmark_v11.py
+      - results/benchmark/**
       - results/expansion/*_resolution_card.json
       - results/expansion/*_ledger.jsonl
       - .github/workflows/method-resolution-card-validation.yml
   pull_request:
     paths:
       - schemas/resolution-card-v1.schema.json
+      - schemas/benchmark-v1.1.schema.json
       - scripts/lint_resolution_card.py
       - scripts/test_lint_resolution_card.py
+      - scripts/lint_benchmark_v11.py
+      - scripts/test_lint_benchmark_v11.py
+      - results/benchmark/**
       - results/expansion/*_resolution_card.json
       - results/expansion/*_ledger.jsonl
       - .github/workflows/method-resolution-card-validation.yml
@@ -51,3 +59,7 @@ jobs:
       - name: Validate all Method v1 cards and ledgers
         shell: bash
         run: python3 scripts/lint_resolution_card.py --check-repo
+
+      - name: Run Method v1.1 benchmark linter tests
+        shell: bash
+        run: python3 scripts/test_lint_benchmark_v11.py
