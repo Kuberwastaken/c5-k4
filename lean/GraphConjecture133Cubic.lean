@@ -86,6 +86,22 @@ lemma isInducedPath_support_of_length_eq_dist {G : SimpleGraph V} {u v : V}
           omega
         simpa [hji] using (p.adj_getVert_succ hj).symm
 
+omit [DecidableEq V] in
+/-- In a finite connected graph, some shortest walk realizes the radius, and
+its ordered support is an induced path with exactly `radius + 1` vertices. -/
+lemma exists_radius_geodesic_support (G : SimpleGraph V) (hconn : G.Connected) :
+    ∃ (u v : V) (p : G.Walk u v),
+      p.length = G.radius.toNat ∧
+      G.isInducedPath p.support ∧
+      p.support.length = G.radius.toNat + 1 := by
+  obtain ⟨u, v, huv⟩ := G.exists_edist_eq_radius_of_finite
+  obtain ⟨p, _hpPath, hpLength⟩ := hconn.exists_path_of_dist u v
+  refine ⟨u, v, p, ?_, isInducedPath_support_of_length_eq_dist p hpLength, ?_⟩
+  · rw [hpLength]
+    exact congrArg ENat.toNat huv
+  · rw [p.length_support, hpLength]
+    exact congrArg (fun n : ℕ ↦ n + 1) (congrArg ENat.toNat huv)
+
 omit [Nonempty V] in
 /-- A concrete induced-path witness gives a lower bound for the `path`
 invariant's `Finset.max` implementation. -/
@@ -107,6 +123,15 @@ lemma path_ge_of_isInducedPath (G : SimpleGraph V) (xs : List V)
   change xs.toFinset.card ≤ (paths.image Finset.card).max.getD 0
   rw [hm]
   simpa using Finset.le_max_of_eq himage hm
+
+/-- Every finite connected graph has an induced path containing at least
+`radius + 1` vertices. -/
+lemma radius_add_one_le_path (G : SimpleGraph V) (hconn : G.Connected) :
+    G.radius.toNat + 1 ≤ path G := by
+  obtain ⟨u, v, p, _hpLength, hpInduced, hpSupport⟩ :=
+    exists_radius_geodesic_support G hconn
+  rw [← hpSupport]
+  exact path_ge_of_isInducedPath G p.support hpInduced
 
 omit [Nonempty V] in
 /-- The exact split implies the source-shaped real inequality by integer

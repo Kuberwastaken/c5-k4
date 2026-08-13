@@ -1,6 +1,6 @@
 # Method v0.4: local Lean formalization audit for WOWII 133 cubic C4-free
 
-Status: **EXACT STATEMENT COMPILES / FIRST BRIDGE SUBSEQUENTLY RESOLVED**
+Status: **EXACT STATEMENT COMPILES / FIRST TWO BRIDGES SUBSEQUENTLY RESOLVED**
 
 Date: **2026-08-12 UTC**
 
@@ -13,6 +13,12 @@ release, or upstream action was used.
 proved without `sorry` as `isInducedPath_support_of_length_eq_dist`; see
 `method_v04_133_geodesic_bridge.md`.  The historical audit below is retained to
 show the exact boundary that the follow-up closed.
+
+**Second follow-up (2026-08-13):** radius-realizing endpoint selection,
+shortest-walk construction, exact support length, and the generic bound
+`G.radius.toNat + 1 ≤ path G` are now proved without `sorry`; see
+`method_v04_133_radius_bridge.md`.  The next boundary is the cubic/C4-free
+one-vertex extension, not the metric representation API.
 
 ## Exact theorem target
 
@@ -116,11 +122,12 @@ The following keeps the paper mathematics unchanged.
 2. **Geodesics are induced.** If `p.length = G.dist u v`, prove the associated
    vertex list satisfies `G.isInducedPath`.  A chord between nonconsecutive
    indices yields a strictly shorter `u-v` walk, contradicting `dist_le`.
-3. **Finite radius geodesic.** Combine
+3. **Finite radius geodesic (subsequently resolved through the generic
+   `radius+1` path bound).** Combine
    `exists_edist_eq_radius_of_finite`, connectedness, and
    `Connected.exists_path_of_dist`; prove the list has length
-   `G.radius.toNat + 1` and at least three vertices.  The latter uses cubicity
-   plus C4-freeness to exclude radius zero and one.
+   `G.radius.toNat + 1`.  The remaining claim that it has at least three
+   vertices uses cubicity plus C4-freeness to exclude radius zero and one.
 4. **One-extension lemma.** Extract the two off-geodesic neighbors of the
    center from `neighborFinset` cardinality three.  C4-freeness proves at least
    one avoids `v1`; metric and C4 arguments exclude all later contacts.  Prepend
