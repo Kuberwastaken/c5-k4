@@ -312,6 +312,13 @@ frozen. A Phase-0 ambiguity or proved-domain hit is a completed stop, not
 permission to move directly to the next convenient construction in the same
 trial.
 
+Method v1.1 will evaluate the procedure prospectively rather than add another
+retrospective case study. Its frozen 12-cluster benchmark uses future public
+randomness, strict contamination exclusions, three equal-budget arms, and
+multiclass probability forecasts scored by Brier skill. See
+`METHOD_V1_1_BENCHMARK.md`. No target selection is allowed until the benchmark
+schema, chronology checks, and hash-chain validation run in CI.
+
 ### B. Proof extraction and formalization
 
 Maximize reusable no-`sorry` proof components, not merely top-level theorem

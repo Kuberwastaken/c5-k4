@@ -115,6 +115,14 @@ threshold-to-basis, and one-vertex coloring-extension lemmas. The remaining
 obstruction is stated narrowly as a Ferrers multicolor exchange-existence
 problem, rather than being hidden behind another size sweep.
 
+The next evaluation is specified separately in
+[`METHOD_V1_1_BENCHMARK.md`](METHOD_V1_1_BENCHMARK.md): twelve uncontaminated
+DeepMind question clusters selected using future public randomness, with
+catalogue, generic-search, and wall-navigation arms receiving equal budgets.
+Frozen outcome forecasts and Brier calibration replace release count as the
+primary measure. The benchmark cannot start until its schema and CI linter are
+committed.
+
 The development record also publishes its zeroes. Method v0.2 found no
 crossing for #382e after 212,502 wall-directed substitutions, all connected
 order-eight graphs, and 20,000 unrestricted-weight samples; and no crossing
