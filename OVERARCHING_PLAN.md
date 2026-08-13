@@ -83,12 +83,14 @@ Maximize reusable no-`sorry` proof components, not merely top-level theorem
 counts. Current theorem lanes are:
 
 - **WOWII 133:** the corrected cubic/C4-free specialization is fully
-  formalized, warning-clean and no-`sorry`; the next lane targets the first
-  genuinely noncubic reduction rather than repeating the closed special case.
+  formalized, warning-clean and no-`sorry`. The noncubic reduction now proves
+  the matching-neighborhood formula and global triangle-incidence count; its
+  sole representation bridge is the neighborhood-edge/triangle bijection.
 - **WOWII 183:** the `gamma_c>=3` and `gamma_c>=4` distance-three tiers are
-  formalized. The remaining high tier is factored into the universal bound
-  `gamma_c<=n-deg(x)` and an unproved two-neighbor retention lemma, with the
-  pendant-clique family retained as a mandatory equality test.
+  formalized. The false two-neighbor retention rung has been replaced by the
+  universal theorem `gamma_c(G)<=b(G-N(x))` and an exact attachment conflict
+  graph. The hard equality tier asks only for one clean vertex or one
+  parity-compatible pair, with `H_m` and `J_m` as mandatory equality tests.
 - **WOWII 438b:** maintain the completed stronger arbitrary-subset proof and
   existing upstream review lane; do not recast it as a counterexample.
 
@@ -152,16 +154,16 @@ obligations.
 
 1. Preserve the strict `TIMEOUT_BRACKET` stop on WOWII 179; do not reopen its
    unevaluated grid without a newly frozen protocol.
-2. Move WOWII 133 beyond its completed cubic/C4-free specialization by testing
-   and formalizing the smallest source-faithful noncubic reduction.
-3. Resolve or refute WOWII 183's two-neighbor retention lemma; formalize it
-   only if it survives the fixed-catalogue and pendant-family gates.
-4. Complete and independently verify the frozen WOWII 305 trial. If it holds,
-   commit the zero and freeze the next target before evaluation; if it crosses,
-   stop discovery work on that target and enter the full verification/release
-   pipeline.
-5. Periodically refresh the current formal-conjectures-covered finite-graph
-   manifest, but never count already inspected targets as held out.
+2. Close WOWII 133's explicit neighborhood-edge/triangle bijection, then use
+   the triangle-corrected local-average identity in the noncubic path bound.
+3. Attack WOWII 183's final conflict-graph existence condition in the hard
+   equality and near-equality tiers; retain all parity countermodels.
+4. Continue WOWII 61 only through graphical, realization-aware recursive
+   invariants; the unrestricted and naive equal-sum variants are formally
+   false.
+5. Keep Method v0.6's prospective queue empty until a genuinely new open
+   WOWII module enters `formal-conjectures`; all 14 current modules were
+   already evaluated and cannot be retrospectively relabeled held out.
 
 Long computation and narrow proof experiments should be delegated to bounded
 agents. The primary lane validates artifacts, catches scope or trust errors,

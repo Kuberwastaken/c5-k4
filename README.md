@@ -85,14 +85,20 @@ The workflow now has an explicit **proof-extraction** side as well. For WOWII
 #133, successive warning-clean no-`sorry` Lean bridges now close the corrected
 **cubic C4-free specialization**, including both local-average floor identities
 and the triangle-free/non-triangle-free path split. The noncubic conjecture
-remains open. For WOWII #183, attempts to explain a persistent wall have
+remains open, but the next reduction is also formal: C4-free neighborhoods are
+matchings plus isolates, their independence and edge counts add to the degree,
+and triangle incidence is counted exactly. The remaining Lean bridge is the
+explicit neighborhood-edge/triangle bijection. For WOWII #183, attempts to
+explain a persistent wall have
 produced exact countermodels to tempting auxiliary lemmas and no-`sorry` Lean
 proofs of two replacement tiers: a distance-three pair with `gamma_c>=3`
-forces `b>=5`, while `gamma_c>=4` forces `b>=6`. The high tier is reduced to
-an explicit two-neighbor retention lemma that is exact on the pendant-clique
-family but is not yet proved. These are partial theorem results, not extra
-“kills”; their failed rungs and surviving obligations are committed alongside
-the proofs.
+forces `b>=5`, while `gamma_c>=4` forces `b>=6`. The proposed two-neighbor
+retention lemma is false, but its failure exposed a stronger universal budget
+theorem `gamma_c(G) <= b(G-N(x))`. The remaining high tier is reduced exactly
+to finding one clean attachment vertex or one parity-compatible pair in a
+small conflict graph. These are partial theorem results, not extra “kills”;
+their failed rungs and surviving obligations are committed alongside the
+proofs.
 
 The newest prospective non-metric trial, WOWII #179, also demonstrates the
 stop discipline. Its split-clique family was frozen before evaluation, and a
