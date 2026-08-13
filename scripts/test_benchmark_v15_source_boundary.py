@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 import re
 import unittest
@@ -149,11 +150,15 @@ class SourceBoundaryTests(unittest.TestCase):
         for name in FROZEN_PROJECT_CHILDREN:
             matches = [row for row in rules if re.fullmatch(row["relative_path_regex"], name)]
             self.assertEqual(len(matches), 1, name)
-        self.assertEqual(
-            {path.name for path in Path(policy["root"]).iterdir()},
-            FROZEN_PROJECT_CHILDREN,
-            "P1 must fail if the project-root boundary gains or loses a path",
-        )
+        source_root = Path(policy["root"])
+        if source_root.is_dir():
+            self.assertEqual(
+                {path.name for path in source_root.iterdir()},
+                FROZEN_PROJECT_CHILDREN,
+                "P1 must fail if the project-root boundary gains or loses a path",
+            )
+        elif os.environ.get("C5K4_REQUIRE_LIVE_SOURCE_ROOT") == "1":
+            self.fail(f"required live project-root boundary is unavailable: {source_root}")
         self.assertFalse(any(re.fullmatch(row["relative_path_regex"], "future-unknown-research") for row in rules))
 
     def test_policy_preserves_vendor_partition_and_overlay_capture(self) -> None:
