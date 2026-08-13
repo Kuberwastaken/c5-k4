@@ -73,28 +73,39 @@ proof extraction may use the remaining lanes when it is near a meaningful
 closure or produces a reusable invariant identity. A long proof ladder is not
 a substitute for testing new separating transformations.
 
-The strict timeout bracket on WOWII 179 remains closed. The next trial round
-therefore uses four distinct current `formal-conjectures` targets, with each
-contract written before its first development-family evaluation:
+The first frozen portfolio round is complete. It produced bounded holds for
+WOWII 198a, 145/146, 291, 314, 160, and 34, with zero crossings. The 314 lane
+also stopped on prior art. The 145/146 trial exposed a strong theorem signal,
+`tree(G) >= 2 * ecc(B(G))`, but historical status and existing upstream work
+make theorem extraction there secondary to novel-disproof work. These are
+published zeroes, not successes and not held-out-corpus claims.
 
-1. **WOWII 198a:** nontraceable block attachments and sparse/clique surgery
-   designed to keep `b <= 2 + averageEccentricity` while destroying every
-   Hamiltonian path;
-2. **WOWII 145/146:** tails, pendant blocks, and unequal blow-ups designed to
-   separate boundary-set eccentricity from induced-tree size and the two
-   denominator coordinates;
-3. **WOWII 291:** nonuniform blow-ups and degree-preserving surgery designed to
-   raise total domination while making the first Havel--Hakimi zero early and
-   keeping the minimum-triangle frequency small;
-4. **WOWII 314:** structured triangle-free diameter-two graphs designed to
-   keep the largest induced path at most four while separating minimum total
-   dominating-set cardinalities.
+The next round concentrates on the genuinely live-looking core after the
+historical-priority gate:
 
-These targets were previously evaluated on the old fixed arsenal, so this
-round is prospective only with respect to its newly frozen transformations.
-It must not be advertised as a held-out-corpus experiment. Each lane gets an
-append-only contract and ledger, the same database-sanity and independent-
-recomputation gates, and the same 60-second process cap.
+1. **WOWII 19:** odd-cycle block trees, nonuniform blow-ups, and bounded edge
+   surgery designed to separate induced-bipartite size from the eccentricity
+   and local-independence wall;
+2. **WOWII 40:** nonuniform bipartite block trees, block substitutions, and ear
+   surgery designed to separate induced-forest rank from path-cover and
+   induced-bipartite coordinates;
+3. **WOWII 61:** two independent lanes over graphical degree sequences and
+   nonisomorphic realizations, targeting the exact residual-overshoot
+   obstruction rather than repeating the earlier 2-switch sample;
+4. **WOWII 133:** two independent C4-free lanes, one based on alternate-handle
+   surgery and one on cages, covers, lifts, and C4-safe switches.
+
+WOWII 200 receives only a source/status audit because the historical page
+already records a refutation by others; confirmation closes it as prior art
+before any development-family row. Likewise, proof work on already resolved
+141 and already-disproved 59 is stopped while release discovery is the active
+priority.
+
+Every lane writes its contract before evaluating its development family and
+uses an append-only ledger, the database-sanity and independent-recomputation
+gates, and the same 60-second process cap. These targets have been studied by
+the project before, so the round is prospective only with respect to its newly
+frozen transformations; it is not a held-out-corpus experiment.
 
 Every completed trial ends in one durable outcome from `METHOD.md`, including
 the zeroes. A negative residual starts verification; it does not itself start
