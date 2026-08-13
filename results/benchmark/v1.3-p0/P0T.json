@@ -1,0 +1,18 @@
+{
+  "artifact_kind": "P0T",
+  "attestation_policy": {
+    "allowed_p0t_changed_paths": [
+      "results/benchmark/v1.3-p0/P0T.json"
+    ],
+    "p0a_ancestor_required": true,
+    "p0a_bytes_immutable": true
+  },
+  "p0a": {
+    "path": "results/benchmark/v1.3-p0/P0A.json",
+    "sha256": "b559137813ea727ea79920a95fcc718af62a61b315cec4cbb683442566fe2e3d"
+  },
+  "p0a_commit": "c643ed8786eecd1c4b991e624f3cd32e2406bda1",
+  "p0a_published_at_utc": "2026-08-13T21:17:26Z",
+  "protocol_version": "1.3",
+  "schema_version": "c5k4-method-v1.3-p0-1.0"
+}
