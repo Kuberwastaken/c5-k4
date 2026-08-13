@@ -1,7 +1,11 @@
 # Method v1.5 future-cohort benchmark (pre-P1 protocol)
 
-**Status:** protocol scaffold only. No P1 freeze, future-cohort observation,
-registry build, entropy, selection, or target-semantic inspection has occurred.
+**Status:** pre-P1 implementation and validation. The deterministic builders,
+bounded schemas, custody verifiers, private identity join, aggregate/replay
+certificates, P1 assembler, public-chain verifier, and inert scheduled workflow
+exist and have contract tests. They are not an operational benchmark yet. No
+P1 freeze, U1 capture, future-cohort observation, entropy, selection, or
+target-semantic inspection has occurred.
 
 **Purpose:** run the unchanged twelve-cluster, three-arm DeepMind experiment on
 a genuinely prospective population: question clusters first introduced on
@@ -27,11 +31,14 @@ contact. It deliberately trades speed for a clean temporal holdout.
 ## P1, scheduled checkpoints, and the fixed observation horizon
 
 P1 has two public commits. `P1A` freezes the complete executable protocol,
-schemas, source boundary, provenance rules, inherited component digests, and
-the one allowed chronology-capture invocation. `P1T` attests the already
-public `P1A` object and changes only the attestation artifact. Neither commit
-may contain candidate identities, statement text, target rankings, or target
-analysis.
+schemas, source boundary, provenance rules, checkpoint invocation, and exact
+component digests. Native v1.5 roles come from a closed role map; unchanged
+scientific roles are selected by name and derived from the authenticated v1.4
+P0A/P0T closure rather than copied from caller input. Runtime components are
+resolved through exact `{closure, role}` selectors in the P1-bound checkpoint
+component manifest. `P1T` must be the sole-parent child of `P1A` and change
+only its one attestation artifact. Neither commit may contain candidate
+identities, statement text, target rankings, or target analysis.
 
 After the public remote is proven to contain `P1T`, the chronology capture
 records the then-current upstream `main` tip as `U1`. Publication of `P1T`
@@ -40,11 +47,22 @@ commit and tree, command transcript, and UTC times are content-addressed.
 
 After U1, a public GitHub Actions schedule starts one machine-only checkpoint
 at **00:17 UTC every day**. Manual dispatch and rerun results are not cohort
-checkpoints. A scheduled run that does not start before 06:00 UTC is recorded
-as missed and cannot be recreated. Each valid checkpoint atomically captures
-canonical upstream `main`, constructs the identity-only future pool, and
+checkpoints. A scheduled run that does not start before 06:00 UTC cannot be
+recreated; the first detectable expired unpublished tick produces only the
+bounded chronology-failure terminal bundle. Each valid checkpoint atomically
+captures canonical upstream `main`, constructs the private future pool, and
 publishes only receipts, hashes, aggregate stratum counts, and the quota
-certificate to an append-only checkpoint branch.
+certificate. Target identities remain private until a passing pool is frozen
+in the separate pre-entropy phase.
+
+The public checkpoint history is a Git-authenticated chain, not a mutable
+directory convention. Its genesis must be a sole-parent child of exact `P1T`
+that adds only the U1 receipt. Each checkpoint must be a sole-parent,
+add-only commit from the verified public tip and add exactly
+`publication-manifest.json`, `quota-certificate.json`, and `receipt.json`
+under its scheduled-tick path. The verifier derives the prior receipt from
+ancestry; a caller-supplied predecessor is not authoritative. Publication is
+an atomic normal fast-forward push, with overwrite and force-push forbidden.
 
 The cohort closes at the first scheduled checkpoint whose frozen aggregate
 counts meet all five quotas. This is a target-blind stopping time: neither
@@ -62,14 +80,17 @@ ref, manual run, rerun, or hand-picked tip may be substituted.
 
 ## Deterministic future-cohort membership
 
-The sampling unit remains a conservative question cluster: sibling
-statements, equivalent encodings, and logical negations are one unit. A
-cluster belongs to the future cohort only if all of the following hold:
+The sampling unit remains the frozen conservative question cluster used by
+the inherited machine grouping rule. V1.5 claims only the identities and
+relations that this exact executable rule can establish; it does not claim a
+universal decision procedure for mathematical equivalence. A cluster belongs
+to the future cohort only if all of the following hold:
 
 1. it has an unambiguous first-introduction commit in `U1..U2` under the
    frozen grouping and history-walk algorithm;
-2. neither it nor any known sibling/equivalent/negated encoding is present at
-   `U1` or in the immutable v1.4 728-cluster population;
+2. neither it nor any identity trace or relation detected by the frozen
+   grouping/history rules is present at `U1` or in the immutable v1.4
+   728-cluster population;
 3. its first-introduction membership is determined from Git ancestry and
    content, not author or committer timestamps;
 4. it satisfies the same open-status, finite-object, classifier, identity,
@@ -77,16 +98,18 @@ cluster belongs to the future cohort only if all of the following hold:
 5. no semantic or unknown exposure is found from P1 through the pre-selection
    source cutoff.
 
-Rename, move, delete-and-readd, namespace change, reformalization, or reopening
-does not make an old cluster new. Ambiguous ancestry or grouping fails closed.
-Membership is generated without mathematical interpretation, target ranking,
-or outcome inspection.
+Machine-detectable rename, move, delete-and-readd, namespace reuse, coupled
+formal add/delete, or reopening does not make an old cluster new. A
+transformation whose continuity cannot be established by the frozen rules is
+excluded as ambiguous/unknown; the protocol does not assert that every
+possible reformalization is logically recognized. Membership is generated
+without mathematical interpretation, target ranking, or outcome inspection.
 
 The v1.4 population is an explicit negative-control exclusion set. No one of
 those 728 clusters may enter v1.5 confirmatory selection, even if a later
 upstream edit would otherwise make it appear newly introduced.
 
-## Provenance without storage-as-exposure
+## Provenance, authenticated delivery, and private identity joining
 
 V1.5 distinguishes content custody from semantic contact. Merely storing an
 immutable upstream blob or a verified schema-bounded enumeration is not
@@ -111,9 +134,28 @@ Every evidence unit receives exactly one frozen provenance class:
 
 The ontology is prospective only. It may not reclassify v1.4 evidence or
 recover a member of the 728-cluster exclusion set. Natural-language research,
-manual target inspection, model prompts, code comments, commits, issues,
-releases, and target-specific compute remain semantic sources. Mixed units
-and unverifiable generated artifacts are `UNKNOWN`.
+manual target inspection, model prompts, code comments, and target-specific
+compute remain semantic when actually delivered to a frozen participant or
+model. Public existence by itself is not delivery: the source boundary does
+not claim complete surveillance of GitHub, every local file, every browser,
+or every external platform. It covers authenticated deliveries through the
+frozen hosts, participants, model endpoints, research roots, and generated
+output channels. Use of an unregistered delivery channel fails closed.
+
+The implemented custody contracts specify signed per-host hash/sequence
+chains, five-minute heartbeat bounds, content-addressed payload verification,
+restart and gap handling, private coverage certificates, and a public sealed
+binding that cannot disclose private record metadata. These are verifiers and
+schemas, not capture daemons or storage infrastructure.
+
+At a checkpoint, provenance ledgers and their content pack stay private. The
+private identity-join builder reopens digest-verified bytes only for excluding
+`SEMANTIC_EXPOSURE` and `UNKNOWN` units and compares the machine-generated
+cluster aliases with a frozen exact, boundary-delimited rule. It emits neither
+source text nor matched alias values. The future-cohort builder consumes this
+private hit ledger to exclude affected clusters; the public checkpoint exposes
+only sealed bindings and aggregates. This is an exact frozen alias join, not a
+claim that semantic paraphrases or all logical equivalents can be detected.
 
 ## Unchanged confirmatory experiment
 
@@ -145,11 +187,16 @@ an executable freeze.
 
 ## Gate, selection, and terminal outcomes
 
-Each scheduled registry checkpoint emits only schema-bounded identity and
-aggregate evidence until the quota gate passes. Before any entropy request, a
-machine linter recomputes first-introduction membership, the v1.4 exclusion,
-provenance, eligibility, exact per-stratum counts, and proof that U2 is the
-first passing checkpoint.
+Each scheduled registry checkpoint keeps schema-bounded identities private and
+emits only bounded aggregate evidence until the quota gate passes. The
+certificate builder authenticates P1A/P1T, resolves grouping, classification,
+registry, provenance, and schemas through the exact P1 component selectors,
+binds the chronology receipt and private runtime inputs, recomputes counts and
+deficits from records, and seals the private-registry digest. The replay step
+must independently reconstruct the private registry in an isolated repository
+and produce byte-identical output before a checkpoint receipt can finalize.
+The public-chain verifier then proves that every earlier scheduled checkpoint
+failed the quota gate and that U2 is the first pass.
 
 If all five quotas are met, a public pre-entropy commit freezes the complete
 eligible pool. Selection then uses the same future drand rule and exact
@@ -169,14 +216,42 @@ The allowed high-level terminal outcomes are:
 No terminal outcome authorizes rerunning the same cohort with new rules. A
 scientific change requires a new version and a new genuinely future boundary.
 
-## Scaffold artifacts
+## Implemented contracts and remaining activation work
 
-The present checkpoint adds only these non-executable high-level contracts:
+The repository currently contains and tests:
 
-- `results/benchmark/v1.5-protocol/future-cohort-rule.json`;
-- `results/benchmark/v1.5-protocol/provenance-ontology.json`; and
-- `results/benchmark/v1.5-protocol/chronology-rule.json`.
+- future-cohort, chronology, provenance, source-boundary, path-purpose, and
+  checkpoint-invocation contracts;
+- strict schemas for registries, source/provenance/custody evidence, aggregate
+  certificates, replay attestations, public-chain proofs, component manifests,
+  and P1A/P1T;
+- builders/verifiers for authenticated vendor bases, Git provenance
+  partitioning, source snapshots, provenance classification, the private
+  identity join, future-cohort construction, aggregate extraction and exact
+  replay, private custody chains, the public checkpoint chain, generated
+  registry artifacts, and P1 assembly;
+- an offline validation workflow; and
+- the scheduled checkpoint workflow in an intentionally inert state. Its
+  invocation contract remains `PRE_P1_SCAFFOLD_NOT_EXECUTABLE`, with null
+  workflow and runner digests, so scheduled jobs must refuse to capture.
 
-Production builders, schemas, source snapshots, P1 components, receipts,
-entropy, selections, target identities, and outcomes intentionally do not
-exist yet.
+The following are operational blockers, not completed artifacts:
+
+1. implement and adversarially validate the production checkpoint runner and
+   capture broker that compose the existing builders without leaking private
+   identities or diagnostics;
+2. install and acceptance-test the Mac and VPS signed delivery-journal daemons,
+   freeze their keys and participant/model endpoint ledger, and provision the
+   authenticated immutable private content store with retention and inventory
+   proofs;
+3. bind the final workflow, runner, custody, source, schema, and executable
+   digests in the closed P1 component set and change the invocation contract to
+   executable only after every activation requirement passes;
+4. create and publish the sole-purpose `P1A` and immediate one-path `P1T`
+   commits and verify the public P1T receipt; and
+5. only then perform the one-shot U1 capture and create the public checkpoint
+   branch genesis.
+
+No P1A, P1T, readiness receipt, U1/U2 receipt, operational private store,
+future registry, entropy value, selection, target identity publication, or
+benchmark outcome exists today.
