@@ -94,8 +94,10 @@ in the current `formal-conjectures` checkout. Current theorem lanes are:
   count `diameter+maximumDegree<=n+1`. A path-index argument proves the needed
   two/three-neighbor bound, closes that count, and proves the exact conjecture
   for every finite connected bipartite graph. A portable odd-unicyclic core
-  certificate also closes its class; deriving it from a conventional
-  unique-cycle decomposition is the remaining foundational bridge.
+  certificate also closes its class. A conventional tree-plus-one-edge model
+  now supplies the unique fundamental path and cycle carrier, and actual
+  diametral/max-degree equality is classified exactly. The remaining bridge is
+  the unicyclic incidence exclusion of those saturated configurations.
 - **WOWII 40:** the exact deficiency coordinates and arbitrary disjoint-path
   family transfer are formal. A 17-vertex four-petal cactus refutes the
   tempting one-long-path lemma; feedback-sized short-path families and the
@@ -107,7 +109,9 @@ in the current `formal-conjectures` checkout. Current theorem lanes are:
   feedback deletion advances exactly when restoring the selected vertex does
   not grow the maximum induced forest. These combine into a complete one-step
   transfer. Include/exclude cut states are now attained and recover the global
-  optimum by `max`; proving their one-vertex-separation arithmetic remains.
+  optimum by `max`. For a one-vertex separation, both state formulas are now
+  exact: exclude states add, while include states add with one shared cut
+  vertex counted once.
 - **WOWII 59:** the statement is already externally disproved. Around the only
   low-residue corner `(residue,b,f)=(3,6,4)`, Lean now proves mixed-color
   attachment, core exchange, and the exact dense `2+2/2+3/3+2/3+3`
@@ -116,9 +120,12 @@ in the current `formal-conjectures` checkout. Current theorem lanes are:
   rows obey a formal aligned-or-rotating-complement dichotomy in each color.
   Four dense rows on one color side force repetition or an aligned triple;
   each side has four types and the product has 16, so 17 vertices formally
-  force a repeated full row. Exact enumeration gives the sharp five-distinct-
-  type bi-alignment threshold. The first Lean encoding overflowed the stack in
-  a clean audit and is withheld until a shallower proof passes.
+  force a repeated full row. The sharp five-distinct-type bi-alignment theorem
+  is now formal via symbolic normalization and a shallow kernel certificate;
+  four explicit types prove sharpness. The aligned-five boundary, compatible
+  seven-vertex extension, exact selection/complete-cover alternative, and the
+  one-edge six-vertex plateau are formal. The remaining edge-containing
+  branches require a forest or exchange argument.
 - **WOWII 61:** exact Havel--Hakimi trajectory accounting, padded excess
   profiles, one-step residual loss, and cumulative residual coupling are
   formal. Ordinary successor prefix dominance and pointwise recursive loss
@@ -131,8 +138,12 @@ in the current `formal-conjectures` checkout. Current theorem lanes are:
   of those head prefixes under graphical weak majorization. The proposed
   original-graph incident-edge extremal formula is false already on `P5`, so
   further work must use a degree-sequence-intrinsic prefix functional. The
-  second head is sharply between `e-1` and `e`; this proves `k=2` monotonicity
-  under strict top-two dominance and isolates equal-prefix multiplicity.
+  second head is sharply between `e-1` and `e`, with its exact endpoint
+  determined by survival of a maximum beyond the decrement boundary. Prefix-
+  sum saturation and descending localization now close the equal-top-two
+  case under full weak prefix dominance. The open frontier starts at three
+  eliminated heads and must use cumulative credit rather than successor
+  dominance.
 - **WOWII 100:** the exact current Lean `degreeL2Norm Gᶜ` declaration is proved
   for every finite nontrivial connected graph, with a direct theorem matching
   the upstream signature. Complement connectedness is unnecessary. The
@@ -148,15 +159,22 @@ in the current `formal-conjectures` checkout. Current theorem lanes are:
   Choice accounting exposes nine disjoint depth-two vertices but leaves all
   ten abstract triples, locating the next constraint in the third layer.
   Third-layer capacity and shared-blocker coexistence are formal; multiplicity
-  three is sharp and saturates degree four after one blocker edge.
+  three is sharp and saturates degree four after one blocker edge. Aggregate
+  charging leaves seven profiles, and a smallest colored model realizes the
+  fully collapsed one. Degree completion forces rather than breaks its empty
+  contacts. C4-freeness now limits distinct cross-branch parents to one common
+  third, eliminating the repeated modular model once cross-branch parent
+  distinctness is proved.
 - **WOWII 141:** the exact conjecture is formal unconditionally for every
   connected graph of girth at most nine. The radius-two forest contradiction,
   distance-three witness, local five-cycle chord exclusion, and complete
   second-leaf assembly close girth eight/nine beyond the earlier girth-seven
   theorem. Girth ten/eleven is the next scalable tail length.
   The third-leaf assembly, exact `maxLocal+4` arithmetic, and chordless
-  distance-four prefix for that range are now formal; global radius-three BFS
-  acyclicity is the sole remaining existence step.
+  distance-four prefix for that range are now formal. Global radius-three BFS
+  acyclicity is reduced to a cycle-peak theorem; simple-cycle cutting and a
+  bounded last-common-root-path splice are formal, leaving canonical selection
+  and shortest-path closing-edge exclusion.
 - **WOWII 183:** the false singleton rooted-trunk interface has been repaired.
   Attachment selection, connected domination, component folding, aggregate
   accounting, and singleton branches are formal. Bipartite and tree components
@@ -166,7 +184,9 @@ in the current `formal-conjectures` checkout. Current theorem lanes are:
   homomorphism proves ambient connectivity, so nontrivial tree components now
   integrate unconditionally. One-deletion nonbipartite trunks fail the budget
   by exactly one; the corrected two-deletion threshold and local interface are
-  formal, with odd-cycle instantiation and the triangle branch remaining.
+  formal. A root-sensitive adjacent pair is explicit on every cycle of order
+  at least five, and its complement is formally identified with a connected
+  bipartite path. The triangle branch remains separate.
 - **WOWII 438b:** maintain the completed stronger arbitrary-subset proof and
   existing upstream review lane; do not recast it as a counterexample.
 
@@ -230,21 +250,19 @@ obligations.
 
 1. Preserve the strict `TIMEOUT_BRACKET` stop on WOWII 179; do not reopen its
    unevaluated grid without a newly frozen protocol.
-2. Attack WOWII 19's transversal charge
-   `tau_odd+diameter+localMax<=n+1`, first on named structural classes and
-   then through a general multi-arm decomposition.
-3. Continue WOWII 40 through block-level extraction of disjoint path-family
-   rank `2tau+1`; do not revive the formally refuted one-long-path strategy.
-4. Finish WOWII 133's depth-three escape by exploiting cross-row constraints
-   among the three candidates sharing a parent.
-5. Continue WOWII 141 through the radius-two layer contradiction equivalent
-   to the missing distance-three property, then instantiate the completed
-   two-leaf assembly.
-6. Continue WOWII 183 only through nontrivial rooted-trunk existence and the
-   nonbipartite local witness bound; singleton and global aggregation work is
-   complete.
-7. Continue WOWII 61 through cumulative credit, never through ordinary
-   successor prefix dominance or pointwise loss order, both formally false.
+2. Finish WOWII 19's odd-unicyclic equality cases by excluding the saturated
+   diametral-path/maximum-neighborhood configurations.
+3. Use WOWII 40's completed separator arithmetic to assemble block-level
+   linear-forest rank; do not revive the refuted one-long-path strategy.
+4. Prove cross-branch parent distinctness in WOWII 133, then classify the
+   surviving linear/Latin-square ownership designs.
+5. Continue WOWII 141 by selecting the canonical last common root-path vertex
+   and deriving closing-edge exclusion from equal-layer shortest paths.
+6. Continue WOWII 183 with the separate triangle branch, then feed the closed
+   odd-cycle package into the component assembly.
+7. Continue WOWII 61 at three eliminated heads via cumulative credit, never
+   through ordinary successor prefix dominance or pointwise loss order, both
+   formally false.
 8. Keep Method v0.6's prospective queue empty until a genuinely new open
    WOWII module enters `formal-conjectures`; all 14 current modules were
    already evaluated and cannot be retrospectively relabeled held out.

@@ -98,7 +98,10 @@ The current no-`sorry`, warning-clean Lean ladder includes:
   `diameter+maximumDegree<=n+1` and closes the exact conjecture
   unconditionally. The result extends to every connected bipartite graph and
   to an explicit odd-unicyclic core certificate that supplies the missing
-  one-unit surplus.
+  one-unit surplus. A conventional spanning-tree-plus-one-edge decomposition
+  now supplies the unique fundamental path and cycle carrier. At extremal
+  equality, the actual diametral path and maximum-degree neighborhood are
+  formally saturated; only the unicyclic incidence exclusion remains.
 - **#40:** exact deficiency coordinates, explicit path-cover witnesses,
   arbitrary disjoint path-family rank, and cactus-petal certificates. The
   repository also preserves the 17-vertex flower obstruction to the false
@@ -110,7 +113,10 @@ The current no-`sorry`, warning-clean Lean ladder includes:
   step and exposing the shared-center exception to arbitrary block charging.
   Include-cut and exclude-cut forest optima are attained and their maximum is
   exactly the unrestricted induced-forest order, giving the correct stateful
-  interface for cut-vertex composition.
+  interface for cut-vertex composition. For an explicit one-vertex
+  separation, walk-support localization proves both state formulas: the
+  exclude-cut optimum is the sum of the side optima, while the include-cut
+  optimum satisfies the exact sum-minus-one identity.
 - **#59:** safe residue slices, the unique low-residue corner, mixed-color
   ambient attachment, one-for-one core exchange, and the complete dense
   attachment-count classification. Exact one-, two-, and three-outside audits
@@ -118,12 +124,15 @@ The current no-`sorry`, warning-clean Lean ladder includes:
   systems satisfy a formal aligned-or-rotating-complement dichotomy. Four
   dense rows on either color side now formally force a repeated row or an
   aligned triple. The two sides admit exactly 16 full row types, so 17 dense
-  outside vertices formally force a repeated full row; an exact finite audit
-  gives the sharper five-distinct-type bi-alignment threshold. Its first Lean
-  encoding hit a clean-build stack overflow and remains uncommitted pending a
-  shallower proof. This is proof
-  extraction around an already
-  externally disproved statement, not another kill.
+  outside vertices formally force a repeated full row. The sharper theorem is
+  now formal: five distinct full row types force a bi-aligned triple, and four
+  explicit types prove sharpness. The committed proof replaces an earlier
+  stack-overflowing enumeration with symbolic normalization and one shallow
+  kernel certificate. Lean also gives the exact aligned-five boundary, its
+  compatible seven-vertex extension, the complete-cover obstruction to
+  selecting those extensions, and the exact one-edge six-vertex plateau. This
+  is proof extraction around an already externally disproved statement, not
+  another kill.
 - **#61:** exact trajectory telescoping, padded excess profiles, one-step loss
   algebra, the minimal successor-order obstructions, and the corrected
   cumulative-credit invariant with an exact local balance/update theorem.
@@ -133,8 +142,11 @@ The current no-`sorry`, warning-clean Lean ladder includes:
   implication is precisely monotonicity of those head prefixes under initial
   graphical weak dominance. The tempting incident-edge extremal
   characterization is formally refuted by the five-vertex path. At two steps,
-  the successor head lies sharply in `[e-1,e]`, proving pairwise monotonicity
-  whenever the source has a strict top-two prefix advantage.
+  the successor head lies sharply in `[e-1,e]` and equals the upper endpoint
+  exactly when a maximum survives the decrement boundary. Boundary
+  multiplicity, prefix-sum saturation, and descending-list localization now
+  close the complete equal-top-two case under weak prefix dominance. The
+  remaining frontier begins at three eliminated heads.
 - **#100:** the current upstream Lean declaration, whose term is
   `degreeL2Norm Gᶜ`, is proved for every finite nontrivial connected graph;
   complement connectedness is unnecessary. A direct corollary matches the
@@ -152,13 +164,22 @@ The current no-`sorry`, warning-clean Lean ladder includes:
   still survive until third-layer overlaps or target-degree capacity are used.
   Same-branch third sets are disjoint, while cross-branch multiplicity three
   is real; shared blockers now have a formal non-incidence/saturation signature.
+  Exact multiplicity accounting leaves seven profiles, and a smallest colored
+  ownership model realizes the fully collapsed profile. Four-regular degree
+  completion reinforces its empty contacts, but C4-freeness supplies the first
+  genuine cut: distinct cross-branch parents share at most one third vertex,
+  eliminating the repeated modular ownership model once parent distinctness
+  is established.
 - **#141:** an unconditional proof through girth seven, plus a fully verified
   two-vertex-tail assembly for girth eight/nine. The exceptional-root forest,
   distance-three witness, final chord exclusion, and second-leaf packaging are
   all formal. The exact conjecture is now proved unconditionally for every
   connected finite graph of girth at most nine. For girth ten/eleven, the exact
-  third-leaf assembly and chordless distance-four prefix are formal; only the
-  global radius-three BFS acyclicity theorem remains.
+  third-leaf assembly and chordless distance-four prefix are formal. The
+  radius-three BFS certificate is reduced to a cycle-peak property; simple-
+  cycle cutting and a bounded last-common-root-path splice are now formal.
+  Canonical last-common selection and shortest-path closing-edge exclusion
+  remain.
 - **#183:** corrected attachment selection, connected domination, component
   folding, local-to-global budget accounting, exact singleton branches, and
   bipartite/tree component witness adapters. The old vacuous interface remains
@@ -169,6 +190,10 @@ The current no-`sorry`, warning-clean Lean ladder includes:
   One-vertex cycle breaking is formally one unit too expensive after adding
   the mandatory attachment; a corrected two-deletion package meets the exact
   budget and isolates odd cycles of length at least five, with `C3` exceptional.
+  Every cycle of order at least five now has an explicit root-sensitive
+  adjacent deletion pair, and its induced complement is formally isomorphic
+  to a path. Thus the full connected-bipartite complement package is closed;
+  the triangle branch remains separate.
 
 These are theorem-extraction checkpoints, not extra “kills.” Failed rungs,
 countermodels, repaired interfaces, and surviving obligations are committed
