@@ -269,10 +269,14 @@ def run_process(
         "taskset",
         "-c",
         str(cpu),
+        "sudo",
+        "-n",
         "unshare",
-        "--user",
-        "--map-root-user",
         "--net",
+        "--setuid",
+        str(os.getuid()),
+        "--setgid",
+        str(os.getgid()),
         "/usr/bin/time",
         "--quiet",
         "-f",
@@ -425,7 +429,7 @@ def execute(args: argparse.Namespace) -> int:
         "process_count": contract["process_count"],
         "process_wall_cap_seconds": 60,
         "cpu_budget_seconds": contract["cpu_budget_seconds"],
-        "network_isolation": "unshare --user --map-root-user --net",
+        "network_isolation": "sudo -n unshare --net with immediate uid/gid drop",
         "environment_policy": "fixed allowlist; no runner or GitHub secrets inherited",
         "started_at_utc": utc_now(),
     }
@@ -436,11 +440,21 @@ def execute(args: argparse.Namespace) -> int:
     results: list[dict[str, Any]] = []
     infrastructure_error: str | None = None
     if not args.dry_run:
-        for executable in ("taskset", "unshare", "/usr/bin/time"):
+        for executable in ("taskset", "sudo", "unshare", "/usr/bin/time"):
             if shutil.which(executable) is None:
                 raise ContractError(f"required isolation executable is unavailable: {executable}")
         preflight = subprocess.run(
-            ["unshare", "--user", "--map-root-user", "--net", "true"],
+            [
+                "sudo",
+                "-n",
+                "unshare",
+                "--net",
+                "--setuid",
+                str(os.getuid()),
+                "--setgid",
+                str(os.getgid()),
+                "true",
+            ],
             env=sanitized_environment(output_root, "preflight", manifest["benchmark_id"], cluster["cluster_id"], args.mode, arm),
             capture_output=True,
             text=True,
