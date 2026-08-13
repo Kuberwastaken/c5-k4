@@ -1,0 +1,77 @@
+{
+  "card_version": "method-v1.0",
+  "evidence_split": "development",
+  "frozen_in_conversation_before_evaluation": true,
+  "preregistered_git_hash": null,
+  "posthoc_contract_digest": "8dd339d1593973b0a299e9cb8826b7ae32ee5cf00c79c70d961da6e8fcfb927b",
+  "why_not_heldout": [
+    "The transfer was selected after inspecting the completed order-at-most-14 development run.",
+    "Order 15 is the immediate next block, not a cohort chosen by a sealed ranking protocol.",
+    "168 of 176 diagrams already lie in the source paper's reported 12-by-12 verification box."
+  ],
+  "upstream": {
+    "repository": "google-deepmind/formal-conjectures",
+    "commit": "7a38c469ec329d0c97c068e03c58834f61628e7e",
+    "file": "FormalConjectures/Paper/LatinTableau.lean",
+    "declaration": "LatinTableau.SimpleGraph.LatinTableauConjecture",
+    "category": "research open"
+  },
+  "logical_class": "FINITE_UNIVERSAL",
+  "target_negation": "There exists one finite Young diagram whose graph is not CDSColorable.",
+  "finite_witness_suffices": true,
+  "negation_certificate": "A Young diagram plus exact prefix optima and an independently checked proof that no proper coloring realizes their increments.",
+  "exact_residual": "Boolean certificate: CDSColorable is false; no scalar proxy is promoted to a disproof.",
+  "source_status": {
+    "source": "Chow and Tiefenbruck, Electronic Journal of Combinatorics 32(2), 2025",
+    "standing": "open",
+    "reported_computation": "all diagrams fitting in a 12-by-12 square",
+    "deepmind_attempts": "closed issue 1384 and merged statement PR 1385; no resolution attempt found"
+  },
+  "carrier": {
+    "kind": "complete partition block",
+    "constructor": "all integer partitions of 15 in nonincreasing order",
+    "count": 176,
+    "content_hash": "defined by scripts/prospective_latin_tableau_order15.py output"
+  },
+  "transformation": {
+    "name": "bottommost removable corner deletion",
+    "rule": "subtract one from the last part and delete it if zero",
+    "eligibility": "the parent-minus-child prefix-increment profile is one standard basis vector",
+    "required_transfer": "the deleted corner receives that unique profile color",
+    "adaptation": "none: no alternate corner, retry, or recoloring rule"
+  },
+  "sign_potential": [
+    {
+      "coordinate": "finite applicability",
+      "prediction": "preserved",
+      "reason": "corner deletion preserves the Young-diagram class"
+    },
+    {
+      "coordinate": "prefix-optimum increment profile",
+      "prediction": "one coordinate decreases on eligible rows",
+      "reason": "one cell is deleted"
+    },
+    {
+      "coordinate": "literal CDS certificate",
+      "prediction": "unknown",
+      "reason": "profile compatibility is necessary for direct transfer but is not equivalent to CDS existence"
+    },
+    {
+      "coordinate": "certificate cost",
+      "prediction": "bounded",
+      "reason": "176 diagrams of 15 cells, exact flow and finite coloring feasibility"
+    }
+  ],
+  "bounds": {
+    "orders": [15],
+    "process_wall_seconds": 60,
+    "solver_wall_seconds_per_diagram": 5,
+    "post_result_extension": false
+  },
+  "authorized_outcomes": [
+    "NEW_UNAMBIGUOUS_DISPROOF",
+    "FINITE_SANITY_ONLY",
+    "TIMEOUT_BRACKET",
+    "PROTOCOL_DEVIATION"
+  ]
+}
