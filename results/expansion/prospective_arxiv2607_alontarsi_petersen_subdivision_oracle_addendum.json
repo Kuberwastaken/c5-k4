@@ -1,0 +1,12 @@
+{
+  "addendum_version": 1,
+  "frozen_after_primary_gate_before_family": true,
+  "reason": "Independent-oracle requirement received after the primary database gate and before any family evaluation.",
+  "original_contract_sha256": "8dbac70194303bf9163ecbc85733cc5150c9a737c7ada3cd74e36855c2aa9703",
+  "audit_scope": "Every applicable connected Graph Atlas graph on at most six vertices, plus C5 and Petersen microfixtures.",
+  "second_oracle": "Enumerate cycle edge sets as 2-regular connected nonempty edge subsets, then solve weighted set cover by exact dynamic programming over covered-edge masks.",
+  "independence": "This does not call networkx.simple_cycles, scipy.optimize.milp, or the primary exact_scc function.",
+  "pass_condition": "Every second-oracle shortest-cover value equals the already appended primary-oracle value; C5=5 and Petersen=21.",
+  "stop_rule": "Any mismatch or resource failure yields GATE_FAIL and leaves the family locked.",
+  "process_timeout_seconds": 55
+}
