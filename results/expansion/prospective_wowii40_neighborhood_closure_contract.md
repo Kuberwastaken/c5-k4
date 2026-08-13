@@ -26,12 +26,12 @@ Every one of the ten rows satisfies the same parity-sensitive identity
 or equivalently
 
 ```text
-R := L + tau_B - 2*tau_F = 2 - epsilon.
+R := L + tau_B - 2*tau_F = 1 + epsilon.
 ```
 
-Thus the eight odd-parity rows have `R=2`, while the two even-parity rows
-have `R=1`.  This is the common equality wall; it is stronger than merely
-recording that `R` belongs to `{1,2}`.
+Thus the eight odd-parity rows have `(epsilon,R)=(1,2)`, while the two
+even-parity rows have `(epsilon,R)=(0,1)`.  This is the common equality wall;
+it is stronger than merely recording that `R` belongs to `{1,2}`.
 
 ## Frozen separating transformation
 
