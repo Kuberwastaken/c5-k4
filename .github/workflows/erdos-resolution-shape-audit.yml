@@ -1,0 +1,99 @@
+name: Audit Erdős resolution shapes
+
+on:
+  workflow_dispatch:
+    inputs:
+      formal_conjectures_ref:
+        description: Exact google-deepmind/formal-conjectures commit SHA
+        required: true
+        default: 7a38c469ec329d0c97c068e03c58834f61628e7e
+        type: string
+      erdos_problems_ref:
+        description: Exact teorth/erdosproblems commit SHA
+        required: true
+        default: 66dfe4860f73d94ecb1b09b99990a67272b6d16a
+        type: string
+  push:
+    branches: [main]
+    paths:
+      - scripts/audit_erdos_resolution_shape.py
+      - scripts/test_audit_erdos_resolution_shape.py
+      - .github/workflows/erdos-resolution-shape-audit.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: erdos-resolution-shape-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      FORMAL_REF: ${{ inputs.formal_conjectures_ref || '7a38c469ec329d0c97c068e03c58834f61628e7e' }}
+      ERDOS_REF: ${{ inputs.erdos_problems_ref || '66dfe4860f73d94ecb1b09b99990a67272b6d16a' }}
+    steps:
+      - name: Validate immutable inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "$FORMAL_REF" =~ ^[0-9a-f]{40}$ ]]
+          [[ "$ERDOS_REF" =~ ^[0-9a-f]{40}$ ]]
+
+      - name: Check out campaign tooling
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          path: campaign
+
+      - name: Check out exact formal-conjectures snapshot
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          repository: google-deepmind/formal-conjectures
+          ref: ${{ env.FORMAL_REF }}
+          path: formal-conjectures
+
+      - name: Check out exact Erdős Problems status snapshot
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          repository: teorth/erdosproblems
+          ref: ${{ env.ERDOS_REF }}
+          path: erdosproblems
+
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12.9'
+          cache: pip
+          cache-dependency-path: campaign/.github/workflows/erdos-resolution-shape-audit.yml
+
+      - name: Install audit dependency
+        shell: bash
+        run: python -m pip install --disable-pip-version-check PyYAML==6.0.2
+
+      - name: Run regression tests
+        working-directory: campaign
+        shell: bash
+        run: python3 scripts/test_audit_erdos_resolution_shape.py
+
+      - name: Generate immutable crosswalk artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts
+          python3 campaign/scripts/audit_erdos_resolution_shape.py \
+            --formal-repo formal-conjectures \
+            --erdos-yaml erdosproblems/data/problems.yaml \
+            --jsonl artifacts/erdos-resolution-shapes.jsonl \
+            --markdown artifacts/erdos-resolution-shapes.md
+          sha256sum artifacts/* > artifacts/SHA256SUMS
+          sed -n '1,30p' artifacts/erdos-resolution-shapes.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload complete audit
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: erdos-resolution-shapes-${{ env.FORMAL_REF }}-${{ env.ERDOS_REF }}
+          path: artifacts/
+          if-no-files-found: error
+          retention-days: 30
