@@ -1,4 +1,4 @@
-# Invariant-Wall Navigation: Development Method v0.3
+# Invariant-Wall Navigation: Development Method v0.4
 
 Programme-level execution order and maturity criteria are maintained in
 [`OVERARCHING_PLAN.md`](OVERARCHING_PLAN.md). This file is the detailed,
@@ -316,7 +316,7 @@ inside already-published statements from collections already represented in
 `formal-conjectures`. Source recovery does not by itself make an unrelated
 corpus eligible. WoW I and Graph Brain results remain internal to `c5-k4` and
 must not be submitted upstream. This keeps the public research trail legible
-while Method v0.3 is refined.
+while Method v0.4 is refined.
 
 ### Wave A — known tight walls
 
