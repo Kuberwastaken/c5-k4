@@ -1,0 +1,84 @@
+{
+  "schema": "c5k4-method-v1.5-provenance-ontology-1.0",
+  "status": "PRE_P1_SCAFFOLD_NOT_EXECUTABLE",
+  "scope": "Evidence acquired from public P1 through the pre-selection semantic-source cutoff for clusters first introduced in the v1.5 future cohort.",
+  "principles": [
+    "Content custody is not by itself semantic exposure.",
+    "A copied semantic unit does not become machine contact merely because a program stored it.",
+    "Classification is by proved producer, operation, output schema, and delivery path, never by favorable target effect.",
+    "Mixed or unverifiable units fail closed.",
+    "This ontology cannot reclassify Method v1.4 evidence or recover its 728 development clusters."
+  ],
+  "classes": {
+    "SEMANTIC_EXPOSURE": {
+      "excluding": true,
+      "definition": "A target statement, mathematical meaning, status, residual, family, proof or disproof route, transformation, candidate, or target-specific result was delivered to or produced for a human or language model.",
+      "examples": [
+        "natural-language session turn",
+        "manual target inspection",
+        "model prompt containing target semantics",
+        "research prose or code comment about a target",
+        "issue, pull request, release, or commit message discussing a target",
+        "target-specific search or solver output"
+      ]
+    },
+    "MACHINE_REGISTRY_CONTACT": {
+      "excluding": false,
+      "definition": "An allowlisted content-addressed executable performed only frozen identity, syntax, ancestry, grouping, provenance, eligibility, count, hashing, or deterministic selection operations and emitted a validated bounded schema without target semantics.",
+      "requirements": [
+        "producer digest is P1-frozen",
+        "invocation contract is P1-frozen",
+        "input bytes are content-addressed",
+        "output validates against a P1-frozen bounded schema",
+        "no statement text, residual, interpretation, candidate, route, or result is emitted",
+        "output is not delivered through an unbounded natural-language channel"
+      ]
+    },
+    "IMMUTABLE_SOURCE_CUSTODY": {
+      "excluding": false,
+      "definition": "Exact upstream or vendor bytes are retained as content-addressed source material, but no semantic presentation to a human or language model is evidenced.",
+      "requirements": [
+        "source origin and bytes are proved",
+        "pre-C1 decoding is restricted to a frozen machine-contact executable",
+        "no manual or model-facing rendering occurred",
+        "custody metadata itself contains no target semantics"
+      ],
+      "note": "If source bytes are rendered to a human or language model, the rendered unit is SEMANTIC_EXPOSURE even though the stored blob remains source custody."
+    },
+    "UNKNOWN": {
+      "excluding": true,
+      "definition": "The source completeness, producer, operation, output schema, delivery path, or semantic contact level cannot be proved.",
+      "examples": [
+        "unverifiable generated inventory",
+        "mixed semantic and registry-contact output",
+        "unsupported source type",
+        "missing source interval",
+        "ambiguous cluster identity or provenance"
+      ]
+    }
+  },
+  "classification": {
+    "exactly_one_class_per_evidence_unit": true,
+    "cluster_excluded_if_any_semantic_exposure": true,
+    "cluster_excluded_if_any_unknown": true,
+    "absence_of_alias_hit_cures_source_gap": false,
+    "manual_hash_exemptions": false,
+    "post_hoc_reclassification_by_target_identity": false
+  },
+  "source_boundary": {
+    "includes": [
+      "research repository histories and overlays",
+      "retained Codex and Claude sessions",
+      "synchronized chat archive",
+      "release, issue, and pull-request exports",
+      "future target-specific compute artifacts",
+      "machine registry outputs and their provenance receipts"
+    ],
+    "unclassified_required_source": "FAIL_CLOSED",
+    "incomplete_required_source": "FAIL_CLOSED"
+  },
+  "v1_4_non_reinterpretation": {
+    "allowed": false,
+    "rule": "Method v1.4 remains terminal under its own frozen provenance policy; this prospective ontology applies only after v1.5 P1."
+  }
+}

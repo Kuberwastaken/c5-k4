@@ -1,0 +1,80 @@
+{
+  "schema": "c5k4-method-v1.5-chronology-rule-1.0",
+  "status": "PRE_P1_SCAFFOLD_NOT_EXECUTABLE",
+  "events": [
+    {
+      "order": 1,
+      "name": "P1A_PUBLICATION",
+      "requirement": "Publish the complete executable protocol and all component digests without candidate identities, statements, rankings, or outcomes."
+    },
+    {
+      "order": 2,
+      "name": "P1T_PUBLICATION_AND_RECEIPT",
+      "requirement": "Publish a one-artifact attestation of P1A and prove that the public remote contains P1T."
+    },
+    {
+      "order": 3,
+      "name": "U1_CAPTURE",
+      "requirement": "Only after the public P1T receipt, execute the single frozen baseline capture of upstream main and bind its commit and trees."
+    },
+    {
+      "order": 4,
+      "name": "ACCUMULATION_INTERVAL",
+      "requirement": "Do not inspect future candidate semantics or close the cohort based on observed quota counts."
+    },
+    {
+      "order": 5,
+      "name": "FIXED_HORIZON",
+      "not_before_utc": "2027-08-15T00:00:00Z",
+      "requirement": "At or after this fixed public time, execute the one frozen terminal upstream capture."
+    },
+    {
+      "order": 6,
+      "name": "U2_CAPTURE_AND_HISTORY_REPLAY",
+      "requirement": "Bind U2, prove U1 ancestry, and deterministically compute first introductions in U1..U2."
+    },
+    {
+      "order": 7,
+      "name": "PRE_SELECTION_SOURCE_CUTOFF",
+      "requirement": "Acquire and classify every frozen semantic source from P1 through cutoff; semantic or unknown contact excludes the whole cluster."
+    },
+    {
+      "order": 8,
+      "name": "QUOTA_GATE",
+      "requirement": "Recompute the future cohort and exact 3/3/2/2/2 counts before entropy."
+    },
+    {
+      "order": 9,
+      "name": "ENTROPY_AND_SELECTION_IF_GATE_PASSES",
+      "requirement": "Freeze the eligible pool publicly, then use the inherited future drand selector; otherwise terminate without entropy."
+    }
+  ],
+  "fixed_horizon": {
+    "utc": "2027-08-15T00:00:00Z",
+    "selection_basis": "Chosen in the pre-P1 scaffold to provide an approximately one-year public accumulation interval.",
+    "independent_of_target_counts": true,
+    "early_close_for_quota_sufficiency": false,
+    "extension_for_quota_deficit": false,
+    "manual_override": false
+  },
+  "capture_rules": {
+    "u1_after_public_p1t": true,
+    "u2_not_before_fixed_horizon": true,
+    "single_frozen_capture_per_boundary": true,
+    "u2_must_descend_from_u1": true,
+    "alternate_ref_forbidden": true,
+    "hand_picked_tip_forbidden": true,
+    "membership_clock": "GIT_ANCESTRY_AND_TREE_CONTENT",
+    "author_timestamp_controls_membership": false,
+    "committer_timestamp_controls_membership": false
+  },
+  "failure_states": {
+    "chronology_or_replay_failure": "INVALID_CHRONOLOGY_CAPTURE",
+    "quota_deficit_at_horizon": "INSUFFICIENT_FUTURE_COHORT_PRE_C0",
+    "other_frozen_invariant_failure": "PROTOCOL_INVALID"
+  },
+  "rerun_policy": {
+    "same_cohort_with_changed_rules": false,
+    "new_scientific_version_requires_new_future_boundary": true
+  }
+}

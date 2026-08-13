@@ -1,0 +1,89 @@
+{
+  "schema": "c5k4-method-v1.5-future-cohort-rule-1.0",
+  "status": "PRE_P1_SCAFFOLD_NOT_EXECUTABLE",
+  "upstream_repository": "https://github.com/google-deepmind/formal-conjectures.git",
+  "upstream_ref": "refs/heads/main",
+  "sampling_unit": "CONSERVATIVE_QUESTION_CLUSTER",
+  "future_boundary": {
+    "lower_tip": "U1_CAPTURED_STRICTLY_AFTER_PUBLIC_P1T_RECEIPT",
+    "upper_tip": "U2_CAPTURED_AT_OR_AFTER_FIXED_HORIZON",
+    "history_interval": "U1..U2",
+    "require_u2_descendant_of_u1": true,
+    "use_git_ancestry_not_commit_timestamps": true
+  },
+  "membership": {
+    "first_introduction_required": true,
+    "first_introduction_must_be_in_history_interval": true,
+    "absent_from_u1_cluster_closure": true,
+    "exclude_rename_move_readd_reformalization_reopening": true,
+    "identity_or_history_ambiguity": "EXCLUDE",
+    "semantic_or_unknown_exposure": "EXCLUDE",
+    "machine_only_construction": true,
+    "target_ranking_forbidden": true,
+    "target_outcome_inspection_forbidden": true
+  },
+  "immutable_development_exclusion": {
+    "method": "v1.4",
+    "upstream_commit": "158727e43d3be335f902ac7ef6b9beb819e38c9d",
+    "population_artifact": "results/benchmark/v1.4-f0a/registry/question-cluster-pool.json",
+    "cluster_count": 728,
+    "rule": "No cluster in this population, including a sibling, equivalent encoding, or logical negation, may enter the v1.5 confirmatory population.",
+    "confirmatory_reuse": false
+  },
+  "strata_and_quotas": {
+    "GRAPH_SCALAR_INEQUALITY": 3,
+    "GRAPH_STRUCTURAL_PROPERTY": 3,
+    "FINITE_ALGEBRA_EQUATIONAL": 2,
+    "AUTOMATA_GAME_PROCESS": 2,
+    "FINITE_COMBINATORIAL": 2
+  },
+  "selected_cluster_count": 12,
+  "backfill": false,
+  "quota_relaxation": false,
+  "manual_substitution": false,
+  "replacement_after_selection": false,
+  "denominator": 12,
+  "arms": [
+    "CATALOGUE",
+    "GENERIC",
+    "WALL_NAVIGATION"
+  ],
+  "equal_budget": {
+    "process_trees_per_arm_per_cluster": 8,
+    "wall_seconds_per_process_tree": 60,
+    "cpu_seconds_per_arm_per_cluster_max": 480,
+    "shared_analysis_cpu_seconds_per_cluster_max": 600,
+    "independent_verification_process_trees_per_cluster": 2,
+    "independent_verification_wall_seconds_per_tree": 60
+  },
+  "inheritance": {
+    "scientific_source": "Method v1.4",
+    "unchanged": [
+      "three arms",
+      "arm budgets",
+      "baseline library",
+      "wall transformation",
+      "no-adaptation rule",
+      "outcome space",
+      "scoring",
+      "stopping",
+      "forecasting",
+      "verification",
+      "full-denominator aggregation"
+    ],
+    "require_exact_component_digests_at_p1": true
+  },
+  "quota_gate": {
+    "evaluation_time": "AFTER_U2_CAPTURE_ONLY",
+    "early_close_when_quotas_fill": false,
+    "pass": "every frozen stratum count meets its quota",
+    "fail_terminal_status": "INSUFFICIENT_FUTURE_COHORT_PRE_C0",
+    "entropy_on_failure": false,
+    "selection_on_failure": false
+  },
+  "forbidden_content_in_this_scaffold": [
+    "future target identities",
+    "future target statements",
+    "future target outcomes"
+  ]
+}
