@@ -82,7 +82,9 @@ Date: **2026-08-13 UTC**
 
 - Issue: `https://github.com/google-deepmind/formal-conjectures/issues/4931`,
   titled `Formalize the disproof of WOWII Conjecture 309`.
-- PR title: `WrittenOnTheWallII: disprove conjecture 309`.
+- PR: `https://github.com/google-deepmind/formal-conjectures/pull/4932`,
+  titled `WrittenOnTheWallII: disprove conjecture 309` and opened ready for
+  review from `Kuberwastaken:formalize-wowii-309`.
 - The issue and PR bodies follow the 172/176 section order and include immutable
   certificate, audit, verifier, source-status, attribution, and AI-assistance
   disclosures.
