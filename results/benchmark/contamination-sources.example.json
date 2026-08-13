@@ -1,0 +1,52 @@
+{
+  "schema_version": "c5k4-contamination-sources-1.0-draft",
+  "template_only": true,
+  "notes": [
+    "This file documents source kinds; it is not a C0 source freeze.",
+    "Copy it to a new content-addressed manifest, set template_only to false, and replace every placeholder with a frozen snapshot path.",
+    "Enumerate every sibling repository and unversioned research tree discovered before C0; do not select sources based on candidate identities.",
+    "Session roots should be immutable snapshots, not live agent-session directories.",
+    "The vendor-delta source prevents the formal-conjectures registry itself from marking every declaration exposed."
+  ],
+  "sources": [
+    {
+      "id": "git:campaign-history-and-worktree",
+      "kind": "git",
+      "path": "/absolute/path/to/frozen/campaign-repository",
+      "include_worktree": true
+    },
+    {
+      "id": "git:sibling-research-repository",
+      "kind": "git",
+      "path": "/absolute/path/to/frozen/sibling-repository"
+    },
+    {
+      "id": "git:formal-conjectures-user-delta",
+      "kind": "git_delta",
+      "path": "/absolute/path/to/frozen/formal-conjectures-fork",
+      "excluded_ref_prefix": "refs/remotes/upstream/"
+    },
+    {
+      "id": "tree:unversioned-research-artifacts",
+      "kind": "tree",
+      "path": "/absolute/path/to/frozen/unversioned-tree"
+    },
+    {
+      "id": "sessions:codex",
+      "kind": "sessions",
+      "format": "codex",
+      "path": "/absolute/path/to/frozen/codex-session-snapshot"
+    },
+    {
+      "id": "sessions:claude",
+      "kind": "sessions",
+      "format": "claude",
+      "path": "/absolute/path/to/frozen/claude-session-snapshot"
+    },
+    {
+      "id": "releases:campaign",
+      "kind": "release_snapshot",
+      "path": "/absolute/path/to/frozen/full-release-metadata.json"
+    }
+  ]
+}
