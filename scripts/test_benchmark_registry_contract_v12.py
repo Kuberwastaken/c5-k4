@@ -86,7 +86,7 @@ def input_fixture() -> dict:
             "public_p0t": file_ref("p0t-advertisement-receipt"),
             "upstream_main": file_ref("upstream-resolution-receipt"),
         },
-        "registry_build_completed_at_utc": "2026-08-13T20:20:00Z",
+        "registry_build_invoked_at_utc": "2026-08-13T20:20:00Z",
         "controls": {
             "prototype_inputs_permitted": False,
             "candidate_semantics_inspected": False,
@@ -135,7 +135,7 @@ def output_fixture() -> dict:
         "input_canonical_sha256": "b" * 64,
         "chronology": {
             **source["chronology"],
-            "registry_build_completed_at_utc": source["registry_build_completed_at_utc"],
+            "registry_build_completed_at_utc": "2026-08-13T20:21:00Z",
         },
         "upstream": source["upstream"],
         "producer": {key: value for key, value in source["producer"].items() if key != "executable_path"},

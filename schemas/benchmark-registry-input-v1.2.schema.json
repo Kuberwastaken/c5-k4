@@ -15,7 +15,7 @@
     "producer",
     "inputs",
     "resolver_receipts",
-    "registry_build_completed_at_utc",
+    "registry_build_invoked_at_utc",
     "controls"
   ],
   "properties": {
@@ -29,7 +29,7 @@
     "producer": {"$ref": "#/definitions/producer"},
     "inputs": {"$ref": "#/definitions/inputs"},
     "resolver_receipts": {"$ref": "#/definitions/resolverReceipts"},
-    "registry_build_completed_at_utc": {"$ref": "#/definitions/timestamp"},
+    "registry_build_invoked_at_utc": {"$ref": "#/definitions/timestamp"},
     "controls": {
       "type": "object",
       "additionalProperties": false,

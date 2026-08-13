@@ -33,6 +33,20 @@
     "PINNED_FORMAL_CONJECTURES_CHECKOUT": "a checkout whose exact commit and root tree equal input.upstream",
     "NEW_ABSENT_OUTPUT_DIRECTORY": "an absent path created atomically and exclusively by the producer"
   },
+  "timestamp_semantics": {
+    "registry_build_invoked_at_utc": "recorded in the build input immediately before the offline build starts",
+    "registry_build_completed_at_utc": "observed by the offline producer after all six artifacts and replay checks are complete and before atomic publication",
+    "required_order": "S0 <= resolver receipts <= registry_build_invoked_at_utc <= registry_build_completed_at_utc"
+  },
+  "registry_exemption_input": {
+    "p0_component_role": "registry_exemption_rule",
+    "schema_version": "c5k4-registry-exemption-rule-1.2",
+    "scope": "only already-existing pre-P0 bounded machine registry units present at exact S0 source locators",
+    "unit_identity": ["source_id", "source_kind", "locator", "role", "content_sha256", "content_schema"],
+    "global_content_hash_allowlist": false,
+    "future_production_outputs_exempted": false,
+    "missing_or_mismatched_s0_unit_policy": "FAIL_CLOSED"
+  },
   "execution": {
     "allowed_build_count": 1,
     "build_ordinal": 1,
