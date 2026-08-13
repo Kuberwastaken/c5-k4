@@ -14,6 +14,8 @@
     "upstream",
     "producer",
     "inputs",
+    "resolver_receipts",
+    "registry_build_completed_at_utc",
     "controls"
   ],
   "properties": {
@@ -26,6 +28,8 @@
     "upstream": {"$ref": "#/definitions/upstream"},
     "producer": {"$ref": "#/definitions/producer"},
     "inputs": {"$ref": "#/definitions/inputs"},
+    "resolver_receipts": {"$ref": "#/definitions/resolverReceipts"},
+    "registry_build_completed_at_utc": {"$ref": "#/definitions/timestamp"},
     "controls": {
       "type": "object",
       "additionalProperties": false,
@@ -148,6 +152,15 @@
         "source_discovery_boundary": {"$ref": "#/definitions/fileRef"},
         "quotas": {"$ref": "#/definitions/fileRef"},
         "registry_exemptions": {"$ref": "#/definitions/fileRef"}
+      }
+    },
+    "resolverReceipts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["public_p0t", "upstream_main"],
+      "properties": {
+        "public_p0t": {"$ref": "#/definitions/fileRef"},
+        "upstream_main": {"$ref": "#/definitions/fileRef"}
       }
     }
   }

@@ -6,9 +6,19 @@
   "executable": "scripts/build_benchmark_v12_registry.py",
   "input_schema": "schemas/benchmark-registry-input-v1.2.schema.json",
   "output_schema": "schemas/benchmark-registry-output-v1.2.schema.json",
-  "command": [
+  "preflight_command": [
     "python3",
     "scripts/build_benchmark_v12_registry.py",
+    "preflight",
+    "--input",
+    "${PREFLIGHT_INPUT_JSON}",
+    "--receipt-dir",
+    "${NEW_ABSENT_RECEIPT_DIRECTORY}"
+  ],
+  "build_command": [
+    "python3",
+    "scripts/build_benchmark_v12_registry.py",
+    "build",
     "--input",
     "${INPUT_JSON}",
     "--formal-repo",
@@ -17,7 +27,9 @@
     "${NEW_ABSENT_OUTPUT_DIRECTORY}"
   ],
   "path_parameters": {
-    "INPUT_JSON": "one file validating against the frozen input schema",
+    "PREFLIGHT_INPUT_JSON": "a bounded non-semantic request containing the frozen P0T remote and upstream rule",
+    "NEW_ABSENT_RECEIPT_DIRECTORY": "an absent path receiving the exact raw P0T-advertisement and upstream-resolution receipts",
+    "INPUT_JSON": "one file validating against the frozen input schema and binding both preflight receipts",
     "PINNED_FORMAL_CONJECTURES_CHECKOUT": "a checkout whose exact commit and root tree equal input.upstream",
     "NEW_ABSENT_OUTPUT_DIRECTORY": "an absent path created atomically and exclusively by the producer"
   },
@@ -26,7 +38,40 @@
     "build_ordinal": 1,
     "requires_public_p0t": true,
     "requires_complete_s0": true,
-    "network_permitted": false,
+    "network_boundary": {
+      "preflight": {
+        "default": "FORBIDDEN",
+        "allowed_calls": [
+        {
+          "purpose": "VERIFY_PUBLIC_P0T_ADVERTISEMENT",
+          "command_prefix": ["git", "ls-remote"],
+          "remote": "P0T.public_remote_url",
+          "maximum_calls": 1,
+          "scientific_data_returned": false
+        },
+        {
+          "purpose": "SOLE_UPSTREAM_REF_RESOLUTION",
+          "command": [
+            "git",
+            "ls-remote",
+            "https://github.com/google-deepmind/formal-conjectures.git",
+            "refs/heads/main"
+          ],
+          "maximum_calls": 1,
+          "required_matching_rows": 1
+        }
+        ],
+        "total_maximum_calls": 2,
+        "retry_permitted": false,
+        "redirect_to_unfrozen_remote_permitted": false,
+        "raw_receipts_content_addressed": true
+      },
+      "production_build": {
+        "network_permitted": false,
+        "receipt_replay_required": true,
+        "receipt_drift_policy": "FAIL_CLOSED"
+      }
+    },
     "stdin_permitted": false,
     "environment_as_scientific_input_permitted": false,
     "entropy_permitted": false,

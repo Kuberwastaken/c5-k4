@@ -82,6 +82,11 @@ def input_fixture() -> dict:
             "quotas": file_ref("quotas"),
             "registry_exemptions": file_ref("registry-exemptions"),
         },
+        "resolver_receipts": {
+            "public_p0t": file_ref("p0t-advertisement-receipt"),
+            "upstream_main": file_ref("upstream-resolution-receipt"),
+        },
+        "registry_build_completed_at_utc": "2026-08-13T20:20:00Z",
         "controls": {
             "prototype_inputs_permitted": False,
             "candidate_semantics_inspected": False,
@@ -130,7 +135,7 @@ def output_fixture() -> dict:
         "input_canonical_sha256": "b" * 64,
         "chronology": {
             **source["chronology"],
-            "registry_build_completed_at_utc": "2026-08-13T20:20:00Z",
+            "registry_build_completed_at_utc": source["registry_build_completed_at_utc"],
         },
         "upstream": source["upstream"],
         "producer": {key: value for key, value in source["producer"].items() if key != "executable_path"},
@@ -266,6 +271,16 @@ class RegistryContractTests(unittest.TestCase):
         self.assertTrue(self.contract["execution"]["create_exclusive_output_directory"])
         self.assertFalse(self.contract["execution"]["overwrite_permitted"])
         self.assertFalse(self.contract["execution"]["entropy_permitted"])
+        network = self.contract["execution"]["network_boundary"]
+        self.assertEqual(network["preflight"]["default"], "FORBIDDEN")
+        self.assertEqual(network["preflight"]["total_maximum_calls"], 2)
+        self.assertFalse(network["preflight"]["retry_permitted"])
+        self.assertFalse(network["production_build"]["network_permitted"])
+        self.assertTrue(network["production_build"]["receipt_replay_required"])
+        self.assertEqual(
+            [row["purpose"] for row in network["preflight"]["allowed_calls"]],
+            ["VERIFY_PUBLIC_P0T_ADVERTISEMENT", "SOLE_UPSTREAM_REF_RESOLUTION"],
+        )
         self.assertEqual(self.contract["output_artifact_ids"], [row[0] for row in ARTIFACTS])
         self.assertEqual(len(self.contract["required_output_files"]), 7)
 
