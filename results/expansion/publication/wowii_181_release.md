@@ -47,3 +47,11 @@ Date: **2026-08-13 UTC**
 Resolved with `git rev-parse` to
 `f71a0d28b59907b8b9ee9f534d6ad7d5cdf8a528`. The annotated tag must
 dereference to exactly that preflight snapshot.
+
+## Publication readback
+
+- Release: <https://github.com/Kuberwastaken/c5-k4/releases/tag/wowii-181-v1>.
+- Local and remote tag dereference to the locked target.
+- GitHub readback confirms the explicitly qualified title and opening caveat,
+  a non-draft/non-prerelease release, and no binary assets.
+- Every immutable artifact link returned HTTP 200.
