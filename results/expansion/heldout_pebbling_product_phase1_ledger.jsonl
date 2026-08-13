@@ -1,0 +1,2 @@
+{"event":"phase1_addendum_written","status":"FROZEN","phase0_contract_sha256":"0b9ccc12583c84e9a2932daa13b58f89e9c03bcedbe03a04c6dc0e42249f3eb6","development_graphs_constructed":0,"pebbling_states_constructed":0,"reachability_calls":0,"candidate_rows":0,"public_action":false}
+{"event":"preconstruction_zero_state","status":"PASS","product_constructed":false,"pebbling_states_constructed":0,"primary_oracle_calls":0,"independent_oracle_calls":0,"family_unlocked":false}
