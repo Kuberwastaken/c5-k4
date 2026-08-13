@@ -96,7 +96,9 @@ The current no-`sorry`, warning-clean Lean ladder includes:
   `tau_odd+localMax+1<=n` universally and closes diameter at most two. For
   trees, a path-index proof establishes the classical count
   `diameter+maximumDegree<=n+1` and closes the exact conjecture
-  unconditionally.
+  unconditionally. The result extends to every connected bipartite graph and
+  to an explicit odd-unicyclic core certificate that supplies the missing
+  one-unit surplus.
 - **#40:** exact deficiency coordinates, explicit path-cover witnesses,
   arbitrary disjoint path-family rank, and cactus-petal certificates. The
   repository also preserves the 17-vertex flower obstruction to the false
@@ -106,6 +108,9 @@ The current no-`sorry`, warning-clean Lean ladder includes:
   Vertex deletion raises feedback deletion exactly when restoring the vertex
   does not grow the maximum induced forest, yielding one complete recursion
   step and exposing the shared-center exception to arbitrary block charging.
+  Include-cut and exclude-cut forest optima are attained and their maximum is
+  exactly the unrestricted induced-forest order, giving the correct stateful
+  interface for cut-vertex composition.
 - **#59:** safe residue slices, the unique low-residue corner, mixed-color
   ambient attachment, one-for-one core exchange, and the complete dense
   attachment-count classification. Exact one-, two-, and three-outside audits
@@ -114,7 +119,9 @@ The current no-`sorry`, warning-clean Lean ladder includes:
   dense rows on either color side now formally force a repeated row or an
   aligned triple. The two sides admit exactly 16 full row types, so 17 dense
   outside vertices formally force a repeated full row; an exact finite audit
-  gives the sharper five-distinct-type bi-alignment threshold. This is proof
+  gives the sharper five-distinct-type bi-alignment threshold. Its first Lean
+  encoding hit a clean-build stack overflow and remains uncommitted pending a
+  shallower proof. This is proof
   extraction around an already
   externally disproved statement, not another kill.
 - **#61:** exact trajectory telescoping, padded excess profiles, one-step loss
@@ -125,14 +132,14 @@ The current no-`sorry`, warning-clean Lean ladder includes:
   is exactly twice the cumulative eliminated-head sum, so the remaining
   implication is precisely monotonicity of those head prefixes under initial
   graphical weak dominance. The tempting incident-edge extremal
-  characterization is formally refuted by the five-vertex path.
-- **#100:** for the exact Lean `degreeL2Norm` expression, unconditional proofs
-  cover `alpha` in `{2,3}` and every `alpha>=8`; the two-witness energy package
-  is fully integrated at graph level for `alpha=8..11`, without complement
-  connectedness. Connectedness now supplies an exhaustive one/two/three-
-  witness classification, closing `alpha=4..7` unconditionally under the
-  exact degree-norm reading. The distinct diameter wording in the upstream
-  prose is not conflated with these results.
+  characterization is formally refuted by the five-vertex path. At two steps,
+  the successor head lies sharply in `[e-1,e]`, proving pairwise monotonicity
+  whenever the source has a strict top-two prefix advantage.
+- **#100:** the current upstream Lean declaration, whose term is
+  `degreeL2Norm Gᶜ`, is proved for every finite nontrivial connected graph;
+  complement connectedness is unnecessary. A direct corollary matches the
+  upstream signature literally. The distinct complement-diameter wording in
+  the historical prose is not conflated with this completed formal result.
 - **#133:** the corrected C4-free specialization, matching/triangle identities,
   deep-handle assembly, finite early-contact reduction, complete depth-two
   escape, and the allowable depth-three contact table. The 20 surviving
@@ -143,11 +150,15 @@ The current no-`sorry`, warning-clean Lean ladder includes:
   compared across alternative clean-vertex choices. Choice accounting exposes
   nine pairwise-separated depth-two vertices, but all ten abstract patterns
   still survive until third-layer overlaps or target-degree capacity are used.
+  Same-branch third sets are disjoint, while cross-branch multiplicity three
+  is real; shared blockers now have a formal non-incidence/saturation signature.
 - **#141:** an unconditional proof through girth seven, plus a fully verified
   two-vertex-tail assembly for girth eight/nine. The exceptional-root forest,
   distance-three witness, final chord exclusion, and second-leaf packaging are
   all formal. The exact conjecture is now proved unconditionally for every
-  connected finite graph of girth at most nine.
+  connected finite graph of girth at most nine. For girth ten/eleven, the exact
+  third-leaf assembly and chordless distance-four prefix are formal; only the
+  global radius-three BFS acyclicity theorem remains.
 - **#183:** corrected attachment selection, connected domination, component
   folding, local-to-global budget accounting, exact singleton branches, and
   bipartite/tree component witness adapters. The old vacuous interface remains
@@ -155,7 +166,9 @@ The current no-`sorry`, warning-clean Lean ladder includes:
   a degree-sum proof supplies a leaf distinct from every prescribed root. An
   explicit graph homomorphism transports the deleted-leaf trunk through both
   subtype layers, so nontrivial tree components now integrate unconditionally.
-  The general nonbipartite trunk remains.
+  One-vertex cycle breaking is formally one unit too expensive after adding
+  the mandatory attachment; a corrected two-deletion package meets the exact
+  budget and isolates odd cycles of length at least five, with `C3` exceptional.
 
 These are theorem-extraction checkpoints, not extra “kills.” Failed rungs,
 countermodels, repaired interfaces, and surviving obligations are committed

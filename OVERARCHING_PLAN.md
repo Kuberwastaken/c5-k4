@@ -93,7 +93,9 @@ in the current `formal-conjectures` checkout. Current theorem lanes are:
   graphs. For trees, the charge is reduced to the classical finite connected
   count `diameter+maximumDegree<=n+1`. A path-index argument proves the needed
   two/three-neighbor bound, closes that count, and proves the exact conjecture
-  for every finite connected tree. Larger sparse classes are the next target.
+  for every finite connected bipartite graph. A portable odd-unicyclic core
+  certificate also closes its class; deriving it from a conventional
+  unique-cycle decomposition is the remaining foundational bridge.
 - **WOWII 40:** the exact deficiency coordinates and arbitrary disjoint-path
   family transfer are formal. A 17-vertex four-petal cactus refutes the
   tempting one-long-path lemma; feedback-sized short-path families and the
@@ -104,7 +106,8 @@ in the current `formal-conjectures` checkout. Current theorem lanes are:
   path now formally advances the rank budget from `2k+1` to `2(k+1)+1`;
   feedback deletion advances exactly when restoring the selected vertex does
   not grow the maximum induced forest. These combine into a complete one-step
-  transfer; proving that forest equality for selected cactus clusters remains.
+  transfer. Include/exclude cut states are now attained and recover the global
+  optimum by `max`; proving their one-vertex-separation arithmetic remains.
 - **WOWII 59:** the statement is already externally disproved. Around the only
   low-residue corner `(residue,b,f)=(3,6,4)`, Lean now proves mixed-color
   attachment, core exchange, and the exact dense `2+2/2+3/3+2/3+3`
@@ -114,7 +117,8 @@ in the current `formal-conjectures` checkout. Current theorem lanes are:
   Four dense rows on one color side force repetition or an aligned triple;
   each side has four types and the product has 16, so 17 vertices formally
   force a repeated full row. Exact enumeration gives the sharp five-distinct-
-  type bi-alignment threshold; its symbolic Lean proof is the next step.
+  type bi-alignment threshold. The first Lean encoding overflowed the stack in
+  a clean audit and is withheld until a shallower proof passes.
 - **WOWII 61:** exact Havel--Hakimi trajectory accounting, padded excess
   profiles, one-step residual loss, and cumulative residual coupling are
   formal. Ordinary successor prefix dominance and pointwise recursive loss
@@ -126,14 +130,14 @@ in the current `formal-conjectures` checkout. Current theorem lanes are:
   twice cumulative eliminated-head sum, reducing the theorem to monotonicity
   of those head prefixes under graphical weak majorization. The proposed
   original-graph incident-edge extremal formula is false already on `P5`, so
-  further work must use a degree-sequence-intrinsic prefix functional.
-- **WOWII 100:** for the exact Lean `degreeL2Norm` reading, the theorem is
-  formal for connected graphs with `alpha` in `{2,3}` or `alpha>=8`;
-  complement connectedness is unnecessary. The two-witness energy certificate
-  for `alpha=8..11` is integrated at graph level. Connectedness supplies an
-  exhaustive one/two/three-witness classification and closes `alpha=4..7`
-  unconditionally. The upstream prose uses a different diameter reading and
-  remains separated.
+  further work must use a degree-sequence-intrinsic prefix functional. The
+  second head is sharply between `e-1` and `e`; this proves `k=2` monotonicity
+  under strict top-two dominance and isolates equal-prefix multiplicity.
+- **WOWII 100:** the exact current Lean `degreeL2Norm Gᶜ` declaration is proved
+  for every finite nontrivial connected graph, with a direct theorem matching
+  the upstream signature. Complement connectedness is unnecessary. The
+  upstream prose uses a different complement-diameter reading and remains
+  separated from this completed formal statement.
 - **WOWII 133:** the exact C4-free reduction and low-degree classes are formal.
   In the four-regular branch, long handle contacts and the complete depth-two
   choice are discharged; depth-three contact rows are classified exactly.
@@ -143,11 +147,16 @@ in the current `formal-conjectures` checkout. Current theorem lanes are:
   patterns across alternative clean-vertex choices or use endpoint degrees.
   Choice accounting exposes nine disjoint depth-two vertices but leaves all
   ten abstract triples, locating the next constraint in the third layer.
+  Third-layer capacity and shared-blocker coexistence are formal; multiplicity
+  three is sharp and saturates degree four after one blocker edge.
 - **WOWII 141:** the exact conjecture is formal unconditionally for every
   connected graph of girth at most nine. The radius-two forest contradiction,
   distance-three witness, local five-cycle chord exclusion, and complete
   second-leaf assembly close girth eight/nine beyond the earlier girth-seven
   theorem. Girth ten/eleven is the next scalable tail length.
+  The third-leaf assembly, exact `maxLocal+4` arithmetic, and chordless
+  distance-four prefix for that range are now formal; global radius-three BFS
+  acyclicity is the sole remaining existence step.
 - **WOWII 183:** the false singleton rooted-trunk interface has been repaired.
   Attachment selection, connected domination, component folding, aggregate
   accounting, and singleton branches are formal. Bipartite and tree components
@@ -155,7 +164,9 @@ in the current `formal-conjectures` checkout. Current theorem lanes are:
   certified exact trunk for tree components, and a degree-sum proof now finds
   such a leaf away from every prescribed root. An explicit nested-subtype graph
   homomorphism proves ambient connectivity, so nontrivial tree components now
-  integrate unconditionally. The general nonbipartite witness bound remains.
+  integrate unconditionally. One-deletion nonbipartite trunks fail the budget
+  by exactly one; the corrected two-deletion threshold and local interface are
+  formal, with odd-cycle instantiation and the triangle branch remaining.
 - **WOWII 438b:** maintain the completed stronger arbitrary-subset proof and
   existing upstream review lane; do not recast it as a counterexample.
 
