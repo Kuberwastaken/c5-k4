@@ -256,11 +256,17 @@ def iter_git_matches(
                     "source_kind": "git",
                     "locator": locator,
                     "role": role,
+                    "content_schema": claim["schema_version"],
                     "content_sha256": claim["content_sha256"],
                     "byte_count": len(raw),
                     "unit_identity_sha256": unit_identity_sha256(
                         source["id"], locator, role, claim["content_sha256"]
                     ),
+                    "producer_verified": True,
+                    "invocation_contract_verified": True,
+                    "output_digest_verified": True,
+                    "bounded_schema_verified": True,
+                    "mixed_unit_rejected": True,
                 }
 
 
@@ -366,12 +372,18 @@ def iter_session_matches(
                     "source_kind": "git_sessions",
                     "locator": unit["locator"],
                     "role": unit["role"],
+                    "content_schema": claim["schema_version"],
                     "content_sha256": content_sha,
                     "byte_count": len(unit["raw"]),
                     "invocation_sha256": unit["invocation_sha256"],
                     "unit_identity_sha256": unit_identity_sha256(
                         source["id"], unit["locator"], unit["role"], content_sha
                     ),
+                    "producer_verified": True,
+                    "invocation_contract_verified": True,
+                    "output_digest_verified": True,
+                    "bounded_schema_verified": True,
+                    "mixed_unit_rejected": True,
                 }
 
 

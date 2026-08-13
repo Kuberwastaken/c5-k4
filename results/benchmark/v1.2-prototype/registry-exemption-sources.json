@@ -1,0 +1,12 @@
+{
+  "artifact_status": "PRE_P0_NOT_FREEZE",
+  "schema_version": "c5k4-registry-exemption-sources-1.2-draft",
+  "sources": [
+    {
+      "id": "git:c5-k4-campaign",
+      "kind": "git",
+      "path": "/Users/kuber.mehta/Projects/c5-k4",
+      "tips": ["a11de9a8e6216c688de9091b7332074fa3b3b135"]
+    }
+  ]
+}

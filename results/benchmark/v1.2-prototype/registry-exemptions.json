@@ -1,0 +1,85 @@
+{
+  "complete": true,
+  "inventory_sha256": "28c732e4e4521f8f71a325aa4e51a5884fc92dc8302bdff30c02cb5571d33cd1",
+  "ledger_sha256": "9ee2b77eee5177ac9830db57087b43f000ed18b9eec97c4fe66cf6e48b20557c",
+  "policy": {
+    "decision_input": "REGISTRY_AND_PROVENANCE_METADATA_ONLY",
+    "discussion_roles_exemptible": false,
+    "exemption_key": "SHA256_CANONICAL_JSON_SOURCE_ID_LOCATOR_ROLE_CONTENT_SHA256",
+    "global_content_hash_allowlist": false,
+    "statement_text_inspected": false
+  },
+  "registry_only_unit_identity_sha256": [
+    "25e21af96c8a626d5cb970c209e0ede24821893063e60641a38bcdbd358f3abf",
+    "2e8a2d795eac7b9086bd18691cd32a54875cb7f4bbfa24b7aa26a68999e1cc61",
+    "342954b2c61bf1032995fc0c4ed07657a423a6a0896c299b73dacc70c7c3ffb8"
+  ],
+  "schema_version": "c5k4-registry-exemptions-1.2-draft",
+  "source_audit": [
+    {
+      "complete": true,
+      "failure": null,
+      "id": "git:c5-k4-campaign",
+      "kind": "git",
+      "matches": 3
+    }
+  ],
+  "sources_sha256": "267391ca1de645a896d4aec4c7acdb8af0954c61e0fbb27c4c0d6c6b9ce5166b",
+  "units": [
+    {
+      "artifact_kind": "syntax_classifier",
+      "bounded_schema_verified": true,
+      "byte_count": 4253,
+      "claim_id": "v12-prototype-five-strata-classifier",
+      "content_sha256": "2a27834e013d06ab36a65816df8c7af18cbe0f389700b5c56fe4fe1761f9da79",
+      "content_schema": "c5k4-five-strata-classifier-1.2-prototype",
+      "generator_id": "v12-prototype-pool-builder",
+      "invocation_contract_verified": true,
+      "locator": "git-blob:5dcfbb22ce9ff91e2294487d96a76bc185ff50ce:results/benchmark/v1.2-prototype/five-strata-classifier.json",
+      "mixed_unit_rejected": true,
+      "output_digest_verified": true,
+      "producer_verified": true,
+      "role": "machine-generated-git-blob",
+      "source_id": "git:c5-k4-campaign",
+      "source_kind": "git",
+      "unit_identity_sha256": "25e21af96c8a626d5cb970c209e0ede24821893063e60641a38bcdbd358f3abf"
+    },
+    {
+      "artifact_kind": "question_cluster_pool",
+      "bounded_schema_verified": true,
+      "byte_count": 821874,
+      "claim_id": "v12-prototype-question-cluster-pool",
+      "content_sha256": "b797a69080cba45669ecda915d666f3cab949f4b2daba5a89e360fc84e374274",
+      "content_schema": "c5k4-question-cluster-pool-1.2-prototype",
+      "generator_id": "v12-prototype-pool-builder",
+      "invocation_contract_verified": true,
+      "locator": "git-blob:93356076affd0b584b3e6f75118960c72c614ba2:results/benchmark/v1.2-prototype/question-cluster-pool.json",
+      "mixed_unit_rejected": true,
+      "output_digest_verified": true,
+      "producer_verified": true,
+      "role": "machine-generated-git-blob",
+      "source_id": "git:c5-k4-campaign",
+      "source_kind": "git",
+      "unit_identity_sha256": "2e8a2d795eac7b9086bd18691cd32a54875cb7f4bbfa24b7aa26a68999e1cc61"
+    },
+    {
+      "artifact_kind": "open_inventory",
+      "bounded_schema_verified": true,
+      "byte_count": 1376829,
+      "claim_id": "v12-prototype-open-inventory",
+      "content_sha256": "3944860e991c1714f8d246a2ec21b980468ce14c22036a761a568a484d47d8c2",
+      "content_schema": "c5k4-open-inventory-1.2-prototype",
+      "generator_id": "v12-prototype-pool-builder",
+      "invocation_contract_verified": true,
+      "locator": "git-blob:3c5d1c79a105997b5d7e77d74f56d824911da8ff:results/benchmark/v1.2-prototype/open-inventory.json",
+      "mixed_unit_rejected": true,
+      "output_digest_verified": true,
+      "producer_verified": true,
+      "role": "machine-generated-git-blob",
+      "source_id": "git:c5-k4-campaign",
+      "source_kind": "git",
+      "unit_identity_sha256": "342954b2c61bf1032995fc0c4ed07657a423a6a0896c299b73dacc70c7c3ffb8"
+    }
+  ],
+  "unmatched_claim_ids": []
+}

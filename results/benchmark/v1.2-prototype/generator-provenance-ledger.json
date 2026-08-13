@@ -1,0 +1,45 @@
+{
+  "artifact_status": "PRE_P0_NOT_FREEZE",
+  "schema_version": "c5k4-generator-provenance-ledger-1.2-draft",
+  "trusted_generators": [
+    {
+      "id": "v12-prototype-pool-builder",
+      "path": "scripts/build_benchmark_v12_pool.py",
+      "ref": "a11de9a8e6216c688de9091b7332074fa3b3b135",
+      "repo": "/Users/kuber.mehta/Projects/c5-k4",
+      "sha256": "b16eac03c4f85a230a2c3c5992e414c63337d08f3de241ae284ef6d79d0057fb"
+    }
+  ],
+  "outputs": [
+    {
+      "artifact_kind": "open_inventory",
+      "byte_count": 1376829,
+      "content_sha256": "3944860e991c1714f8d246a2ec21b980468ce14c22036a761a568a484d47d8c2",
+      "generator_id": "v12-prototype-pool-builder",
+      "git_paths": ["results/benchmark/v1.2-prototype/open-inventory.json"],
+      "id": "v12-prototype-open-inventory",
+      "invocation_sha256s": [],
+      "schema_version": "c5k4-open-inventory-1.2-prototype"
+    },
+    {
+      "artifact_kind": "question_cluster_pool",
+      "byte_count": 821874,
+      "content_sha256": "b797a69080cba45669ecda915d666f3cab949f4b2daba5a89e360fc84e374274",
+      "generator_id": "v12-prototype-pool-builder",
+      "git_paths": ["results/benchmark/v1.2-prototype/question-cluster-pool.json"],
+      "id": "v12-prototype-question-cluster-pool",
+      "invocation_sha256s": [],
+      "schema_version": "c5k4-question-cluster-pool-1.2-prototype"
+    },
+    {
+      "artifact_kind": "syntax_classifier",
+      "byte_count": 4253,
+      "content_sha256": "2a27834e013d06ab36a65816df8c7af18cbe0f389700b5c56fe4fe1761f9da79",
+      "generator_id": "v12-prototype-pool-builder",
+      "git_paths": ["results/benchmark/v1.2-prototype/five-strata-classifier.json"],
+      "id": "v12-prototype-five-strata-classifier",
+      "invocation_sha256s": [],
+      "schema_version": "c5k4-five-strata-classifier-1.2-prototype"
+    }
+  ]
+}
