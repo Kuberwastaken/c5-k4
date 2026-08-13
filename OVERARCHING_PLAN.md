@@ -301,6 +301,13 @@ original solver outputs and later deterministic CNF reconstructions are marked
 separately. This is a development timeout bracket, not bounded evidence at
 order eight and not a release candidate.
 
+The next declaration rotation selected OEIS A108081. Exact root-decomposition
+closure extends the source's reported word-count checks from length 12 through
+length 14; the `n=14` equality was reproduced by an independent packed-word
+implementation. The one-step wall test therefore ends `HOLD_BOUNDED`, and its
+contract expressly forbids a brute-force `n=15` continuation without a new
+structural compression idea.
+
 Erdős 92 is retained separately as a retrospective theorem-transfer benchmark:
 the canonical database records a disproof via problem 90 while DeepMind still
 contains open answer placeholders. It can test whether the workflow recovers

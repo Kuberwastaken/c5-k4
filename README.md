@@ -122,6 +122,13 @@ The target is current and the certificate shape is exact, but the result is a
 hard negative—not a proof, counterexample, or release. See
 [`equation677_255_report.md`](results/expansion/equation677_255_report.md).
 
+The current-manifest rotation also extended OEIS A108081's exact recursive
+word-count check beyond the source's reported length 12: lengths 13 and 14
+contain 4,227,273 and 16,438,345 distinct words, exactly matching the proposed
+sequence. Two independent encodings reproduce length 14 under 24 seconds. It
+is another bounded equality, not evidence for the universal statement; the
+next brute-force length is outside the frozen contract.
+
 The next evaluation is specified separately in
 [`METHOD_V1_1_BENCHMARK.md`](METHOD_V1_1_BENCHMARK.md): twelve uncontaminated
 DeepMind question clusters selected using future public randomness, with
