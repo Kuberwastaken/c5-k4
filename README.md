@@ -139,7 +139,12 @@ candidate-semantic inspection. The exact receipts and diagnosis are in the
 [v1.2 failure record](results/benchmark/v1.2-registry-failure/README.md). A
 corrected run requires a later protocol version with a new P0 and S0; it may
 not reinterpret the failed v1.2 invocation as `NO_ELIGIBLE` or silently retry
-the frozen producer.
+the frozen producer. [Method v1.3](METHOD_V1_3_BENCHMARK.md) corrected that
+validator and isolated the session freeze, but terminated `PROTOCOL_INVALID`
+before invoking its production build: preflight resolved a new upstream commit
+that the frozen two-call network envelope could identify but not materialize
+locally. The exact receipts are in the
+[v1.3 pre-build failure record](results/benchmark/v1.3-prebuild-failure/README.md).
 
 The development record also publishes its zeroes. Method v0.2 found no
 crossing for #382e after 212,502 wall-directed substitutions, all connected

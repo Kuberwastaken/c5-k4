@@ -1,13 +1,16 @@
-# Method v1.3 prospective benchmark (proposed)
+# Method v1.3 prospective benchmark (terminal)
 
-**Status:** successor scaffold in PRE_P0 development; no v1.3 P0, S0,
-production registry, C0, C1, entropy, selection, or target-semantic inspection
-has occurred
+**Status:** terminal `PROTOCOL_INVALID`. P0 and a complete S0 were published,
+but the exact preflight resolved an upstream commit absent from all local Git
+object stores. The frozen network boundary permitted resolution but not object
+materialization, so the production registry build was not invoked. No C0/C1,
+entropy, selection, or target-semantic inspection occurred; see the
+[pre-build failure record](results/benchmark/v1.3-prebuild-failure/README.md).
 **Purpose:** rerun the original twelve-cluster DeepMind comparison with the
 identical v1.2 scientific design after correcting one fail-closed
 `git_user_delta` corpus-binding validator defect
 
-Method v1.3 is a new prospective experiment. It does not reopen, extend, or
+Method v1.3 was a prospective experiment. It does not reopen, extend, or
 reinterpret Method v1.2. The v1.2 terminal result remains
 `PROTOCOL_INVALID`.
 
