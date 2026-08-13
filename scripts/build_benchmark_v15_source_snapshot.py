@@ -26,7 +26,6 @@ import build_benchmark_v14_source_snapshot as v14
 SCHEMA = "c5k4-source-interval-ledger-input-1.5"
 SOURCE_SNAPSHOT_SCHEMA = "c5k4-method-v1.5-source-snapshot-1.0"
 SESSION_LEDGER_SCHEMA = "c5k4-method-v1.5-provenance-ledger-1.0"
-MACHINE_LANE_SCHEMA = "c5k4-declared-machine-lane-1.5"
 EXPOSURE_CLASSES = {
     "SEMANTIC_EXPOSURE",
     "MACHINE_REGISTRY_CONTACT",
@@ -45,6 +44,10 @@ EXPORT_KINDS = {"RELEASE", "ISSUE", "PULL_REQUEST"}
 SOURCE_KINDS = {
     "GIT_REPOSITORY", "SESSION_ARCHIVE", "CHAT_ARCHIVE", "RELEASE_EXPORT",
     "ISSUE_PR_EXPORT", "GENERATED_ARTIFACT",
+}
+ENDPOINT_SOURCE_KINDS = {
+    "git_history", "git_sessions", "git_user_delta", "tree",
+    "release_metadata_snapshot", "platform_export_snapshot",
 }
 
 
@@ -83,6 +86,7 @@ def _unit(
     exposure_class: str,
     raw: bytes,
     *,
+    session_format: str,
     call_id: str | None = None,
     tool_name: str | None = None,
     reason: str,
@@ -95,14 +99,25 @@ def _unit(
         "USER": "HUMAN_OR_MODEL",
         "ASSISTANT": "HUMAN_OR_MODEL",
         "TOOL_CALL": "UNPROVED",
-        "TOOL_OUTPUT": "FROZEN_MACHINE_ONLY" if exposure_class == "MACHINE_REGISTRY_CONTACT" else "UNPROVED",
+        "TOOL_OUTPUT": "HUMAN_OR_MODEL" if exposure_class == "SEMANTIC_EXPOSURE" else "UNPROVED",
         "SESSION_METADATA": "UNPROVED",
         "UNPARSEABLE": "UNPROVED",
     }[origin_class]
+    role = {
+        "USER": "user-turn",
+        "ASSISTANT": "assistant-turn",
+        "TOOL_CALL": f"{session_format}-tool-call",
+        "TOOL_OUTPUT": f"{session_format}-tool-output",
+        "SESSION_METADATA": "session-metadata",
+        "UNPARSEABLE": "unparseable-session-record",
+    }[origin_class]
     row: dict[str, Any] = {
+        "source_id": source_id,
+        "source_kind": "git_sessions",
         "locator": f"{relative_path}:{line_number}",
-        "role": f"{origin_class}:{record_kind}",
+        "role": role,
         "content_sha256": sha256(raw),
+        "content_schema": f"{session_format}-session-{record_kind}-1.0",
         "provenance_class": exposure_class,
         "classification_reason": reason,
         "delivery_path": delivery_path,
@@ -110,61 +125,6 @@ def _unit(
     }
     row["unit_id"] = content_address(row, "unit_id")
     return row
-
-
-def _declaration_index(
-    declaration: dict[str, Any] | None,
-    *,
-    source_id: str,
-    fmt: str,
-    relative_path: str,
-) -> tuple[dict[tuple[str, str, str], dict[str, Any]], str | None]:
-    if declaration is None:
-        return {}, None
-    if declaration.get("schema_version") != MACHINE_LANE_SCHEMA:
-        raise ValueError("machine lane declaration has the wrong schema_version")
-    declared_at = _utc(declaration.get("declared_at_utc"), "machine lane declared_at_utc")
-    interval_close = _utc(declaration.get("interval_close_utc"), "machine lane interval_close_utc")
-    if declared_at >= interval_close:
-        raise ValueError("machine lane was not contemporaneously declared before interval close")
-    for field, expected in (
-        ("source_id", source_id),
-        ("session_format", fmt),
-        ("relative_path", relative_path),
-    ):
-        if declaration.get(field) != expected:
-            raise ValueError(f"machine lane {field} does not match the session")
-    outputs = declaration.get("outputs")
-    if not isinstance(outputs, list):
-        raise ValueError("machine lane outputs must be a list")
-    index: dict[tuple[str, str, str], dict[str, Any]] = {}
-    for row in outputs:
-        if not isinstance(row, dict) or set(row) != {
-            "call_id", "tool_name", "output_content_sha256", "identity_only"
-        }:
-            raise ValueError("machine lane output declaration has an invalid shape")
-        if row["identity_only"] is not True:
-            raise ValueError("machine lane may contain only identity-only outputs")
-        values = (row["call_id"], row["tool_name"], row["output_content_sha256"])
-        if not all(isinstance(value, str) and value for value in values):
-            raise ValueError("machine lane output identity fields must be strings")
-        key = values
-        if key in index:
-            raise ValueError("duplicate machine lane output declaration")
-        index[key] = row
-    return index, sha256(canonical_json(declaration))
-
-
-def _output_disposition(
-    declared: dict[tuple[str, str, str], dict[str, Any]],
-    call_id: str,
-    tool_name: str,
-    raw: bytes,
-) -> tuple[str, str]:
-    key = (call_id, tool_name, sha256(raw))
-    if key in declared:
-        return "MACHINE_REGISTRY_CONTACT", "EXACT_CONTEMPORANEOUS_IDENTITY_ONLY_LANE"
-    return "UNKNOWN", "TOOL_OUTPUT_NOT_IN_EXACT_DECLARED_MACHINE_LANE"
 
 
 def parse_session_exposure_units(
@@ -178,17 +138,27 @@ def parse_session_exposure_units(
 
     if fmt not in {"codex", "claude"}:
         raise ValueError(f"unknown session format: {fmt}")
-    declared, producer_proof_sha256 = _declaration_index(
-        machine_lane_declaration,
-        source_id=source_id,
-        fmt=fmt,
-        relative_path=relative_path,
-    )
+    # Session tool output has already been delivered into an interactive
+    # transcript.  A sidecar declaration can be authored after the fact and
+    # cannot prove otherwise, so it is never an exemption mechanism.
+    if machine_lane_declaration is not None:
+        raise ValueError("session machine-lane declarations are not trusted provenance proofs")
+
+    def make_unit(
+        line_number: int, record_kind: str, origin_class: str,
+        exposure_class: str, content: bytes, *, reason: str,
+        call_id: str | None = None, tool_name: str | None = None,
+    ) -> dict[str, Any]:
+        return _unit(
+            source_id, relative_path, line_number, record_kind, origin_class,
+            exposure_class, content, session_format=fmt, call_id=call_id,
+            tool_name=tool_name, reason=reason,
+        )
     try:
         text = raw.decode("utf-8", "strict")
     except UnicodeDecodeError:
-        return [_unit(source_id, relative_path, 1, "malformed-session", "UNPARSEABLE", "UNKNOWN", raw,
-                      reason="SESSION_NOT_UTF8")]
+        return [make_unit(1, "malformed-session", "UNPARSEABLE", "UNKNOWN", raw,
+                          reason="SESSION_NOT_UTF8")]
 
     calls: dict[str, str] = {}
     units: list[dict[str, Any]] = []
@@ -197,12 +167,12 @@ def parse_session_exposure_units(
         try:
             row = json.loads(line)
         except json.JSONDecodeError:
-            units.append(_unit(source_id, relative_path, line_number, "malformed-json", "UNPARSEABLE", "UNKNOWN", line_raw,
-                               reason="MALFORMED_OR_TRUNCATED_JSON"))
+            units.append(make_unit(line_number, "malformed-json", "UNPARSEABLE", "UNKNOWN", line_raw,
+                                   reason="MALFORMED_OR_TRUNCATED_JSON"))
             continue
         if not isinstance(row, dict):
-            units.append(_unit(source_id, relative_path, line_number, "non-object-json", "UNPARSEABLE", "UNKNOWN", line_raw,
-                               reason="NON_OBJECT_SESSION_RECORD"))
+            units.append(make_unit(line_number, "non-object-json", "UNPARSEABLE", "UNKNOWN", line_raw,
+                                   reason="NON_OBJECT_SESSION_RECORD"))
             continue
 
         if fmt == "codex":
@@ -215,60 +185,76 @@ def parse_session_exposure_units(
                         role = payload.get("role", "assistant")
                         origin = "USER" if role == "user" else "ASSISTANT" if role in {"assistant", "assistant-agent"} else "SESSION_METADATA"
                         exposure = "SEMANTIC_EXPOSURE" if origin in {"USER", "ASSISTANT"} else "UNKNOWN"
-                        units.append(_unit(source_id, relative_path, line_number, "message", origin, exposure,
-                                           value.encode("utf-8"), reason="RETAINED_NATURAL_LANGUAGE" if exposure == "SEMANTIC_EXPOSURE" else "UNCLASSIFIED_MESSAGE_ROLE"))
-                elif kind == "function_call":
+                        units.append(make_unit(line_number, "message", origin, exposure,
+                                               value.encode("utf-8"), reason="RETAINED_NATURAL_LANGUAGE" if exposure == "SEMANTIC_EXPOSURE" else "UNCLASSIFIED_MESSAGE_ROLE"))
+                    else:
+                        units.append(make_unit(line_number, "empty-message", "SESSION_METADATA", "UNKNOWN", line_raw,
+                                               reason="MESSAGE_WITHOUT_TEXT"))
+                elif kind in {"function_call", "custom_tool_call"}:
                     call_id, tool_name = payload.get("call_id"), payload.get("name")
-                    arguments = payload.get("arguments")
+                    arguments = payload.get("arguments") if kind == "function_call" else payload.get("input")
                     if not isinstance(call_id, str) or not isinstance(tool_name, str):
-                        units.append(_unit(source_id, relative_path, line_number, "malformed-tool-call", "UNPARSEABLE", "UNKNOWN", line_raw,
-                                           reason="TOOL_CALL_LACKS_ID_OR_NAME"))
+                        units.append(make_unit(line_number, "malformed-tool-call", "UNPARSEABLE", "UNKNOWN", line_raw,
+                                               reason="TOOL_CALL_LACKS_ID_OR_NAME"))
                         continue
                     calls[call_id] = tool_name
                     call_raw = canonical_json({"tool_name": tool_name, "tool_input": arguments})
-                    units.append(_unit(source_id, relative_path, line_number, "tool-call", "TOOL_CALL", "UNKNOWN", call_raw,
-                                       call_id=call_id, tool_name=tool_name, reason="TARGET_BLIND_TOOL_CALL_FAILS_CLOSED"))
-                elif kind == "function_call_output":
+                    units.append(make_unit(line_number, "tool-call", "TOOL_CALL", "UNKNOWN", call_raw,
+                                           call_id=call_id, tool_name=tool_name, reason="TARGET_BLIND_TOOL_CALL_FAILS_CLOSED"))
+                elif kind in {"function_call_output", "custom_tool_call_output"}:
                     call_id, output = payload.get("call_id"), payload.get("output")
                     tool_name = calls.get(call_id) if isinstance(call_id, str) else None
-                    if not isinstance(output, str) or tool_name is None:
-                        units.append(_unit(source_id, relative_path, line_number, "unpaired-tool-output", "UNPARSEABLE", "UNKNOWN", line_raw,
-                                           call_id=call_id if isinstance(call_id, str) else None, reason="UNPAIRED_OR_MALFORMED_TOOL_OUTPUT"))
+                    output_text = _text_content(output)
+                    if not output_text or tool_name is None:
+                        units.append(make_unit(line_number, "unpaired-tool-output", "UNPARSEABLE", "UNKNOWN", line_raw,
+                                               call_id=call_id if isinstance(call_id, str) else None, reason="UNPAIRED_OR_MALFORMED_TOOL_OUTPUT"))
                         continue
-                    output_raw = output.encode("utf-8")
-                    exposure, reason = _output_disposition(declared, call_id, tool_name, output_raw)
-                    parsed = _unit(source_id, relative_path, line_number, "tool-output", "TOOL_OUTPUT", exposure, output_raw,
-                                   call_id=call_id, tool_name=tool_name, reason=reason)
-                    if exposure == "MACHINE_REGISTRY_CONTACT":
-                        parsed["producer_proof_sha256"] = producer_proof_sha256
-                        parsed["unit_id"] = content_address(parsed, "unit_id")
-                    units.append(parsed)
+                    units.append(make_unit(line_number, "tool-output", "TOOL_OUTPUT", "SEMANTIC_EXPOSURE",
+                                           output_text.encode("utf-8"), call_id=call_id, tool_name=tool_name,
+                                           reason="INTERACTIVE_TOOL_OUTPUT_IS_SEMANTIC"))
+                else:
+                    units.append(make_unit(line_number, "unsupported-response-item", "SESSION_METADATA", "UNKNOWN", line_raw,
+                                           reason="UNSUPPORTED_SESSION_RECORD"))
             elif row.get("type") == "turn_context" and isinstance(payload, dict) and isinstance(payload.get("summary"), str) and payload["summary"]:
-                units.append(_unit(source_id, relative_path, line_number, "context-summary", "ASSISTANT", "SEMANTIC_EXPOSURE",
-                                   payload["summary"].encode("utf-8"), reason="RETAINED_ASSISTANT_SUMMARY"))
+                units.append(make_unit(line_number, "context-summary", "ASSISTANT", "SEMANTIC_EXPOSURE",
+                                       payload["summary"].encode("utf-8"), reason="RETAINED_ASSISTANT_SUMMARY"))
+            elif row.get("type") == "event_msg" and isinstance(payload, dict) and payload.get("type") in {"user_message", "agent_message"}:
+                value = payload.get("message")
+                if isinstance(value, str) and value:
+                    origin = "USER" if payload["type"] == "user_message" else "ASSISTANT"
+                    units.append(make_unit(line_number, "event-message", origin, "SEMANTIC_EXPOSURE",
+                                           value.encode("utf-8"), reason="RETAINED_NATURAL_LANGUAGE"))
+                else:
+                    units.append(make_unit(line_number, "malformed-event-message", "UNPARSEABLE", "UNKNOWN", line_raw,
+                                           reason="MESSAGE_WITHOUT_TEXT"))
+            else:
+                units.append(make_unit(line_number, "unsupported-record", "SESSION_METADATA", "UNKNOWN", line_raw,
+                                       reason="UNSUPPORTED_SESSION_RECORD"))
         else:
             message = row.get("message")
             content = message.get("content") if isinstance(message, dict) else None
             if row.get("type") not in {"user", "assistant"} or not isinstance(content, list):
+                units.append(make_unit(line_number, "unsupported-record", "SESSION_METADATA", "UNKNOWN", line_raw,
+                                       reason="UNSUPPORTED_SESSION_RECORD"))
                 continue
             if row["type"] == "assistant":
                 for block in content:
                     if isinstance(block, dict) and block.get("type") == "tool_use":
                         call_id, tool_name = block.get("id"), block.get("name")
                         if not isinstance(call_id, str) or not isinstance(tool_name, str):
-                            units.append(_unit(source_id, relative_path, line_number, "malformed-tool-call", "UNPARSEABLE", "UNKNOWN", line_raw,
-                                               reason="TOOL_CALL_LACKS_ID_OR_NAME"))
+                            units.append(make_unit(line_number, "malformed-tool-call", "UNPARSEABLE", "UNKNOWN", line_raw,
+                                                   reason="TOOL_CALL_LACKS_ID_OR_NAME"))
                             continue
                         calls[call_id] = tool_name
-                        units.append(_unit(source_id, relative_path, line_number, "tool-call", "TOOL_CALL", "UNKNOWN",
-                                           canonical_json({"tool_name": tool_name, "tool_input": block.get("input")}),
-                                           call_id=call_id, tool_name=tool_name, reason="TARGET_BLIND_TOOL_CALL_FAILS_CLOSED"))
+                        units.append(make_unit(line_number, "tool-call", "TOOL_CALL", "UNKNOWN",
+                                               canonical_json({"tool_name": tool_name, "tool_input": block.get("input")}),
+                                               call_id=call_id, tool_name=tool_name, reason="TARGET_BLIND_TOOL_CALL_FAILS_CLOSED"))
             natural = [block for block in content if not (isinstance(block, dict) and block.get("type") in {"tool_use", "tool_result"})]
             value = _text_content(natural)
             if value:
                 origin = "USER" if row["type"] == "user" else "ASSISTANT"
-                units.append(_unit(source_id, relative_path, line_number, "message", origin, "SEMANTIC_EXPOSURE",
-                                   value.encode("utf-8"), reason="RETAINED_NATURAL_LANGUAGE"))
+                units.append(make_unit(line_number, "message", origin, "SEMANTIC_EXPOSURE",
+                                       value.encode("utf-8"), reason="RETAINED_NATURAL_LANGUAGE"))
             for block in content:
                 if not isinstance(block, dict) or block.get("type") != "tool_result":
                     continue
@@ -276,17 +262,13 @@ def parse_session_exposure_units(
                 tool_name = calls.get(call_id) if isinstance(call_id, str) else None
                 output = _text_content(block.get("content"))
                 if not output or tool_name is None:
-                    units.append(_unit(source_id, relative_path, line_number, "unpaired-tool-output", "UNPARSEABLE", "UNKNOWN", line_raw,
-                                       call_id=call_id if isinstance(call_id, str) else None, reason="UNPAIRED_OR_MALFORMED_TOOL_OUTPUT"))
+                    units.append(make_unit(line_number, "unpaired-tool-output", "UNPARSEABLE", "UNKNOWN", line_raw,
+                                           call_id=call_id if isinstance(call_id, str) else None, reason="UNPAIRED_OR_MALFORMED_TOOL_OUTPUT"))
                     continue
                 output_raw = output.encode("utf-8")
-                exposure, reason = _output_disposition(declared, call_id, tool_name, output_raw)
-                parsed = _unit(source_id, relative_path, line_number, "tool-output", "TOOL_OUTPUT", exposure, output_raw,
-                               call_id=call_id, tool_name=tool_name, reason=reason)
-                if exposure == "MACHINE_REGISTRY_CONTACT":
-                    parsed["producer_proof_sha256"] = producer_proof_sha256
-                    parsed["unit_id"] = content_address(parsed, "unit_id")
-                units.append(parsed)
+                units.append(make_unit(line_number, "tool-output", "TOOL_OUTPUT", "SEMANTIC_EXPOSURE", output_raw,
+                                       call_id=call_id, tool_name=tool_name,
+                                       reason="INTERACTIVE_TOOL_OUTPUT_IS_SEMANTIC"))
     return units
 
 
@@ -398,6 +380,31 @@ def _sources_by_id(snapshot: dict[str, Any], label: str) -> dict[str, dict[str, 
     return result
 
 
+def _validate_endpoint_snapshot(snapshot: object, label: str) -> dict[str, dict[str, Any]]:
+    """Reject incomplete, unauthenticated, or structurally unknown endpoints."""
+
+    if not isinstance(snapshot, dict) or snapshot.get("complete") is not True:
+        raise ValueError(f"{label} endpoint snapshot is not complete")
+    for field in ("snapshot_sha256", "corpus_sha256"):
+        value = snapshot.get(field)
+        if not isinstance(value, str) or len(value) != 64 or any(c not in "0123456789abcdef" for c in value):
+            raise ValueError(f"{label}.{field} must be a lowercase SHA-256")
+    if snapshot["snapshot_sha256"] != content_address(snapshot, "snapshot_sha256"):
+        raise ValueError(f"{label} endpoint snapshot digest does not verify")
+    sources = _sources_by_id(snapshot, label)
+    if not sources:
+        raise ValueError(f"{label} endpoint snapshot has no sources")
+    for source_id, row in sources.items():
+        if row.get("complete") is not True or row.get("failure") is not None:
+            raise ValueError(f"{label} source {source_id!r} is incomplete")
+        if row.get("kind") not in ENDPOINT_SOURCE_KINDS:
+            raise ValueError(f"{label} source {source_id!r} has unrecognized kind")
+        digest = row.get("corpus_sha256")
+        if not isinstance(digest, str) or len(digest) != 64 or any(c not in "0123456789abcdef" for c in digest):
+            raise ValueError(f"{label} source {source_id!r} lacks a valid corpus digest")
+    return sources
+
+
 def build_interval_ledger_input(
     p1_snapshot: dict[str, Any],
     cutoff_snapshot: dict[str, Any],
@@ -419,8 +426,8 @@ def build_interval_ledger_input(
         raise ValueError("a pre-horizon cutoff requires an identity-only quota-gate pass")
     if not isinstance(checkpoint_identity, str) or not checkpoint_identity:
         raise ValueError("checkpoint_identity is required")
-    p1_sources = _sources_by_id(p1_snapshot, "p1")
-    cutoff_sources = _sources_by_id(cutoff_snapshot, "cutoff")
+    p1_sources = _validate_endpoint_snapshot(p1_snapshot, "p1")
+    cutoff_sources = _validate_endpoint_snapshot(cutoff_snapshot, "cutoff")
     missing = sorted(set(p1_sources) - set(cutoff_sources))
     if missing:
         raise ValueError(f"cutoff omitted P1 sources: {missing}")

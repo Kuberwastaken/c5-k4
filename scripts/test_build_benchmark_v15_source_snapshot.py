@@ -10,6 +10,7 @@ import unittest
 import jsonschema
 
 import build_benchmark_v15_source_snapshot as snapshot
+import classify_benchmark_provenance_v15 as provenance
 
 
 def jsonl(*rows: object) -> bytes:
@@ -27,20 +28,20 @@ class TypedSessionTests(unittest.TestCase):
         units = snapshot.parse_session_exposure_units(raw, "codex", "sessions", "codex/a.jsonl")
         self.assertEqual(
             [row["provenance_class"] for row in units],
-            ["SEMANTIC_EXPOSURE", "UNKNOWN", "UNKNOWN", "SEMANTIC_EXPOSURE"],
+            ["SEMANTIC_EXPOSURE", "UNKNOWN", "SEMANTIC_EXPOSURE", "SEMANTIC_EXPOSURE"],
         )
         self.assertEqual(units[0]["delivery_path"], "HUMAN_OR_MODEL")
         self.assertEqual(units[1]["delivery_path"], "UNPROVED")
         self.assertNotIn("target", json.dumps(units))
 
-    def test_only_exact_contemporaneous_identity_lane_is_machine_contact(self) -> None:
+    def test_forgeable_session_lane_declaration_is_rejected(self) -> None:
         output = "identity-only registry row"
         raw = jsonl(
             {"type": "response_item", "payload": {"type": "function_call", "call_id": "c1", "name": "registry", "arguments": {"mode": "identity"}}},
             {"type": "response_item", "payload": {"type": "function_call_output", "call_id": "c1", "output": output}},
         )
         declaration = {
-            "schema_version": snapshot.MACHINE_LANE_SCHEMA,
+            "schema_version": "c5k4-declared-machine-lane-1.5",
             "declared_at_utc": "2026-08-13T00:00:00Z",
             "interval_close_utc": "2026-08-20T00:00:00Z",
             "source_id": "sessions",
@@ -52,16 +53,8 @@ class TypedSessionTests(unittest.TestCase):
                 "identity_only": True,
             }],
         }
-        units = snapshot.parse_session_exposure_units(raw, "codex", "sessions", "codex/a.jsonl", declaration)
-        self.assertEqual(units[0]["provenance_class"], "UNKNOWN")
-        self.assertEqual(units[1]["provenance_class"], "MACHINE_REGISTRY_CONTACT")
-        self.assertEqual(units[1]["delivery_path"], "FROZEN_MACHINE_ONLY")
-        self.assertEqual(units[1]["producer_proof_sha256"], snapshot.sha256(snapshot.canonical_json(declaration)))
-
-        changed = json.loads(json.dumps(declaration))
-        changed["outputs"][0]["output_content_sha256"] = "f" * 64
-        changed_units = snapshot.parse_session_exposure_units(raw, "codex", "sessions", "codex/a.jsonl", changed)
-        self.assertEqual(changed_units[1]["provenance_class"], "UNKNOWN")
+        with self.assertRaisesRegex(ValueError, "not trusted"):
+            snapshot.parse_session_exposure_units(raw, "codex", "sessions", "codex/a.jsonl", declaration)
 
     def test_malformed_and_unpaired_records_are_unknown(self) -> None:
         raw = b'{"truncated"\n' + jsonl(
@@ -85,8 +78,36 @@ class TypedSessionTests(unittest.TestCase):
         units = snapshot.parse_session_exposure_units(raw, "claude", "sessions", "claude/a.jsonl")
         self.assertEqual(
             [row["provenance_class"] for row in units],
-            ["SEMANTIC_EXPOSURE", "UNKNOWN", "SEMANTIC_EXPOSURE", "UNKNOWN"],
+            ["SEMANTIC_EXPOSURE", "UNKNOWN", "SEMANTIC_EXPOSURE", "SEMANTIC_EXPOSURE"],
         )
+
+    def test_real_codex_event_and_custom_tool_records_are_retained(self) -> None:
+        raw = jsonl(
+            {"type": "event_msg", "payload": {"type": "user_message", "message": "human text"}},
+            {"type": "event_msg", "payload": {"type": "agent_message", "message": "agent text"}},
+            {"type": "response_item", "payload": {"type": "custom_tool_call", "call_id": "c1", "name": "exec", "input": "code"}},
+            {"type": "response_item", "payload": {"type": "custom_tool_call_output", "call_id": "c1", "output": [{"type": "input_text", "text": "tool bytes"}]}},
+            {"type": "event_msg", "payload": {"type": "token_count", "info": {}}},
+        )
+        units = snapshot.parse_session_exposure_units(raw, "codex", "sessions", "real.jsonl")
+        self.assertEqual(len(units), 5)
+        self.assertEqual([row["provenance_class"] for row in units], [
+            "SEMANTIC_EXPOSURE", "SEMANTIC_EXPOSURE", "UNKNOWN",
+            "SEMANTIC_EXPOSURE", "UNKNOWN",
+        ])
+        self.assertEqual(units[3]["role"], "codex-tool-output")
+
+    def test_parser_units_compose_with_general_classifier(self) -> None:
+        raw = jsonl(
+            {"type": "response_item", "payload": {"type": "message", "role": "user", "content": "question"}},
+            {"type": "response_item", "payload": {"type": "custom_tool_call", "call_id": "c", "name": "exec", "input": "x"}},
+            {"type": "response_item", "payload": {"type": "custom_tool_call_output", "call_id": "c", "output": "answer"}},
+        )
+        units = snapshot.parse_session_exposure_units(raw, "codex", "sessions", "e2e.jsonl")
+        classified = provenance.classify_units(units, [])
+        self.assertEqual([row["provenance_class"] for row in classified], [
+            provenance.SEMANTIC_EXPOSURE, provenance.UNKNOWN, provenance.SEMANTIC_EXPOSURE,
+        ])
 
     def test_ledger_has_exact_counts_and_no_alias_join(self) -> None:
         raw = jsonl({"type": "response_item", "payload": {"type": "message", "role": "assistant", "content": "hello"}})
@@ -123,14 +144,19 @@ class SourceIntervalTests(unittest.TestCase):
         jsonschema.validate(value, schema)
 
     def endpoint(self, at: str, include_exports: bool = True) -> dict:
-        sources = [{"source_id": "repo:x", "kind": "git_user_delta", "corpus_sha256": "a" * 64}]
+        sources = [{"source_id": "repo:x", "kind": "git_user_delta", "corpus_sha256": "a" * 64,
+                    "complete": True, "failure": None}]
         if include_exports:
             for kind in sorted(snapshot.EXPORT_KINDS):
                 sources.append({
                     "source_id": "export:" + kind.lower(), "kind": "platform_export_snapshot",
-                    "export_kind": kind, "corpus_sha256": kind[0].lower() * 64,
+                    "export_kind": kind, "corpus_sha256": snapshot.sha256(kind.encode()),
+                    "complete": True, "failure": None,
                 })
-        return {"acquired_at_utc": at, "sources": sources}
+        result = {"acquired_at_utc": at, "complete": True, "corpus_sha256": "e" * 64,
+                  "sources": sources}
+        result["snapshot_sha256"] = snapshot.content_address(result, "snapshot_sha256")
+        return result
 
     def test_interval_accepts_first_passing_checkpoint_and_is_target_blind(self) -> None:
         value = snapshot.build_interval_ledger_input(
@@ -149,6 +175,25 @@ class SourceIntervalTests(unittest.TestCase):
                 checkpoint_identity="weekly-1", quota_gate_passed=False,
                 hard_horizon_utc="2027-08-13T00:00:00Z",
             )
+
+    def test_interval_rejects_incomplete_null_digest_and_unrecognized_source(self) -> None:
+        valid = self.endpoint("2026-08-13T00:00:00Z")
+        end = self.endpoint("2026-08-20T00:00:00Z")
+        for mutation, message in (
+            (lambda x: x.update(complete=False), "not complete"),
+            (lambda x: x.update(snapshot_sha256=None), "snapshot_sha256"),
+            (lambda x: x["sources"][0].update(kind="mystery"), "unrecognized kind"),
+            (lambda x: x["sources"][0].update(complete=False), "is incomplete"),
+        ):
+            broken = json.loads(json.dumps(end))
+            mutation(broken)
+            if broken.get("snapshot_sha256") is not None:
+                broken["snapshot_sha256"] = snapshot.content_address(broken, "snapshot_sha256")
+            with self.assertRaisesRegex(ValueError, message):
+                snapshot.build_interval_ledger_input(
+                    valid, broken, checkpoint_identity="weekly-1", quota_gate_passed=True,
+                    hard_horizon_utc="2027-08-13T00:00:00Z",
+                )
         with self.assertRaisesRegex(ValueError, "release/issue/PR"):
             snapshot.build_interval_ledger_input(
                 self.endpoint("2026-08-13T00:00:00Z", False), self.endpoint("2026-08-20T00:00:00Z", False),
