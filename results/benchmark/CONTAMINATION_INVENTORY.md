@@ -14,6 +14,15 @@ turns for aliases generated from that registry metadata. Tool outputs are
 excluded because a registry dump is not evidence that a target was considered.
 The output records source/unit hashes and locators but no matched prose.
 
+For synchronized agent history, `git_sessions` reads a named `codex` or
+`claude` subdirectory from one exact commit in the transcript repository. This
+keeps the input immutable without scanning Git blobs as undifferentiated prose;
+the latter would incorrectly count tool-output registry dumps as exposure.
+An incomplete synchronized JSONL row is nevertheless scanned as raw text and
+labeled `malformed-json-raw`; it is never silently discarded or assumed to be
+tool output. Each source audit records the malformed-row count and a digest of
+their locators and exact unit hashes.
+
 ## Freeze procedure
 
 1. Before C0, discover all research repositories, unversioned trees, release
@@ -47,6 +56,10 @@ The output records source/unit hashes and locators but no matched prose.
   units, so a mixed unit containing registry text and research discussion must
   never be exempted. Any exemption file is itself content-addressed in the
   inventory.
+- C0 exempts only the exact raw-unit hashes of its machine-generated open
+  inventory, provisional cluster pool, and syntax-only classifier. This breaks
+  the otherwise circular self-contamination without exempting method prose,
+  research notes, proofs, scripts, or any other campaign-worktree unit.
 - The inventory does not classify strata, rank units, or select targets.
 
 Example invocation after creating real immutable snapshots:

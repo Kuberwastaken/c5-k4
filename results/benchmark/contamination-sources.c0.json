@@ -1,0 +1,98 @@
+{
+  "schema_version": "c5k4-contamination-sources-1.0-draft",
+  "template_only": false,
+  "notes": [
+    "C0 source boundary discovered without consulting candidate semantics.",
+    "Git sources scan every object reachable from every local ref; the emitted per-source corpus digest freezes the exact observed object set.",
+    "Only mathematics, formalization, counterexample-discovery, and agent-method repositories are sibling research sources; product, personal-site, resume, and marketing repositories are outside the research-history boundary.",
+    "The c5-k4 worktree is included, so uncommitted research notes present at acquisition are conservatively scanned.",
+    "Synchronized Codex and Claude histories are read from one exact ai-chats commit, with tool outputs excluded by the format-aware parser.",
+    "The formal-conjectures fork is scanned only for user commits not reachable from any upstream remote ref; registry vendor content is not exposure evidence.",
+    "No registry-only exemptions are used. Any source failure fails all otherwise unmatched clusters closed."
+  ],
+  "sources": [
+    {
+      "id": "git:c5-k4-campaign",
+      "kind": "git",
+      "path": "/Users/kuber.mehta/Projects/c5-k4",
+      "include_worktree": true
+    },
+    {
+      "id": "git:breakthroughmaxxing",
+      "kind": "git",
+      "path": "/Users/kuber.mehta/Projects/breakthroughmaxxing"
+    },
+    {
+      "id": "git:conway99-c3-orbits-lean",
+      "kind": "git",
+      "path": "/Users/kuber.mehta/Projects/conway99-c3-orbits-lean"
+    },
+    {
+      "id": "git:formal-conjectures-counterexamples",
+      "kind": "git",
+      "path": "/Users/kuber.mehta/Projects/formal-conjectures-counterexamples"
+    },
+    {
+      "id": "git:reimann",
+      "kind": "git",
+      "path": "/Users/kuber.mehta/Projects/reimann"
+    },
+    {
+      "id": "git:subagentmaxxing",
+      "kind": "git",
+      "path": "/Users/kuber.mehta/Projects/subagentmaxxing"
+    },
+    {
+      "id": "git:wanless-778-lean",
+      "kind": "git",
+      "path": "/Users/kuber.mehta/Projects/wanless-778-lean"
+    },
+    {
+      "id": "git:wowii-63-85-counterexample",
+      "kind": "git",
+      "path": "/Users/kuber.mehta/Projects/wowii-63-85-counterexample"
+    },
+    {
+      "id": "git:zeta-23-lean",
+      "kind": "git",
+      "path": "/Users/kuber.mehta/Projects/zeta-23-lean"
+    },
+    {
+      "id": "git:formal-conjectures-user-delta",
+      "kind": "git_delta",
+      "path": "/Users/kuber.mehta/Projects/formal-conjectures",
+      "excluded_ref_prefix": "refs/remotes/upstream/"
+    },
+    {
+      "id": "tree:unversioned-permanental-dominance",
+      "kind": "tree",
+      "path": "/Users/kuber.mehta/Projects/permanental-dominance-n4"
+    },
+    {
+      "id": "tree:research-scratch",
+      "kind": "tree",
+      "path": "/Users/kuber.mehta/Projects/scratch"
+    },
+    {
+      "id": "sessions:codex",
+      "kind": "git_sessions",
+      "format": "codex",
+      "path": "/home/ec2-user/.local/share/ai-chats",
+      "ref": "e1a0fc9da99979ee34619608a0b28fb93d144497",
+      "subdir": "codex"
+    },
+    {
+      "id": "sessions:claude",
+      "kind": "git_sessions",
+      "format": "claude",
+      "path": "/home/ec2-user/.local/share/ai-chats",
+      "ref": "e1a0fc9da99979ee34619608a0b28fb93d144497",
+      "subdir": "claude"
+    },
+    {
+      "id": "releases:c5-k4",
+      "kind": "release_snapshot",
+      "path": "/Users/kuber.mehta/Projects/c5-k4/results/benchmark/c5-k4-releases.c0.json"
+    }
+  ]
+}

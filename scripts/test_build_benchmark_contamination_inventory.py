@@ -93,6 +93,77 @@ class InventoryTests(unittest.TestCase):
             self.assertEqual(len(units), 1)
             self.assertEqual(units[0]["role"], "assistant")
 
+    def test_git_session_parser_pins_commit_and_skips_tool_outputs(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            transcript = repo / "codex" / "session.jsonl"
+            transcript.parent.mkdir(parents=True)
+            transcript.write_text(
+                "\n".join(
+                    [
+                        json.dumps(
+                            {
+                                "type": "response_item",
+                                "payload": {
+                                    "type": "function_call_output",
+                                    "output": "Erdos 23",
+                                },
+                            }
+                        ),
+                        json.dumps(
+                            {
+                                "type": "response_item",
+                                "payload": {
+                                    "type": "message",
+                                    "role": "user",
+                                    "content": [
+                                        {"type": "input_text", "text": "Erdos 24"}
+                                    ],
+                                },
+                            }
+                        ),
+                    ]
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            subprocess.run(["git", "init", "-q", str(repo)], check=True)
+            git(repo, "add", "codex/session.jsonl")
+            git(
+                repo,
+                "-c",
+                "user.name=Test",
+                "-c",
+                "user.email=test@example.com",
+                "commit",
+                "-qm",
+                "fixture",
+            )
+            commit = subprocess.check_output(
+                ["git", "-C", str(repo), "rev-parse", "HEAD"], text=True
+            ).strip()
+            units = list(
+                inventory.iter_git_sessions(
+                    repo, commit, "codex", "codex", "sessions:codex"
+                )
+            )
+            self.assertEqual(len(units), 1)
+            self.assertEqual(units[0]["role"], "user")
+            with self.assertRaisesRegex(ValueError, "exact commit"):
+                list(
+                    inventory.iter_git_sessions(
+                        repo, "HEAD", "codex", "codex", "sessions:codex"
+                    )
+                )
+
+    def test_partial_session_row_is_scanned_conservatively(self) -> None:
+        raw = b'{"type":"response_item","text":"Erdos 23'
+        units = list(
+            inventory.session_bytes_units(raw, "codex", "sessions", "partial.jsonl")
+        )
+        self.assertEqual(len(units), 1)
+        self.assertEqual(units[0]["role"], "malformed-json-raw")
+
     def test_registry_parser_groups_open_siblings_by_module(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             repo = Path(directory)
@@ -219,6 +290,46 @@ class InventoryTests(unittest.TestCase):
                 result["excluded_declaration_sha256s"],
                 [result["clusters"][0]["source_blob_sha256"]],
             )
+
+    def test_exemption_is_unit_exact_and_research_worktree_still_counts(self) -> None:
+        clusters = [
+            {
+                "cluster_id": "x",
+                "identity_sha256": "1" * 64,
+                "source_blob_sha256": "2" * 64,
+                "aliases": ["erdos 23"],
+            }
+        ]
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            generated = root / "open-inventory.json"
+            generated.write_text('{"name":"Erdos 23"}\n', encoding="utf-8")
+            exempt = inventory.sha256(generated.read_bytes())
+            _, rows = inventory.scan(
+                {
+                    "sources": [
+                        {"id": "worktree", "kind": "tree", "path": str(root)}
+                    ]
+                },
+                clusters,
+                {exempt},
+            )
+            self.assertEqual(rows[0]["exposure_status"], "UNEXPOSED")
+
+            (root / "research.md").write_text(
+                "We investigated Erdos 23.\n", encoding="utf-8"
+            )
+            _, rows = inventory.scan(
+                {
+                    "sources": [
+                        {"id": "worktree", "kind": "tree", "path": str(root)}
+                    ]
+                },
+                clusters,
+                {exempt},
+            )
+            self.assertEqual(rows[0]["exposure_status"], "EXPOSED")
+            self.assertEqual(rows[0]["evidence_total"], 1)
 
 
 if __name__ == "__main__":

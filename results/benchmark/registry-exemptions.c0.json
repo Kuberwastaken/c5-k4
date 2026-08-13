@@ -1,0 +1,28 @@
+{
+  "schema_version": "c5k4-registry-exemptions-1.0",
+  "basis": "PURE_MACHINE_GENERATED_REGISTRY_OR_CLASSIFIER_UNIT",
+  "notes": [
+    "Each digest is the exact raw-file SHA-256 and therefore the worktree-file unit digest used by the contamination builder.",
+    "Only the generated open inventory, provisional cluster pool, and syntax-only classifier are exempt.",
+    "Mixed method documents, research artifacts, and the rest of the c5-k4 worktree remain exposure evidence."
+  ],
+  "units": [
+    {
+      "path": "results/benchmark/c0/open-inventory.json",
+      "sha256": "8a2d012c3863f426f4dcb39628000d999508cd42527d62ca64105287341bbb0d"
+    },
+    {
+      "path": "results/benchmark/c0/question-cluster-pool.json",
+      "sha256": "9861ecc219287d9cd013c8090b48ec9ba127eb8013e8221f866b542987f91114"
+    },
+    {
+      "path": "results/benchmark/c0/five-strata-classifier.json",
+      "sha256": "5425a5faaf9fcd02b7667d13044a58f33d663207c19d624d6f44a6493a6e35e4"
+    }
+  ],
+  "registry_only_unit_sha256": [
+    "5425a5faaf9fcd02b7667d13044a58f33d663207c19d624d6f44a6493a6e35e4",
+    "8a2d012c3863f426f4dcb39628000d999508cd42527d62ca64105287341bbb0d",
+    "9861ecc219287d9cd013c8090b48ec9ba127eb8013e8221f866b542987f91114"
+  ]
+}

@@ -44,6 +44,14 @@
       "path": "/absolute/path/to/frozen/claude-session-snapshot"
     },
     {
+      "id": "sessions:codex-pinned-git-tree",
+      "kind": "git_sessions",
+      "format": "codex",
+      "path": "/absolute/path/to/transcript-git-repository",
+      "ref": "0123456789abcdef0123456789abcdef01234567",
+      "subdir": "codex"
+    },
+    {
       "id": "releases:campaign",
       "kind": "release_snapshot",
       "path": "/absolute/path/to/frozen/full-release-metadata.json"

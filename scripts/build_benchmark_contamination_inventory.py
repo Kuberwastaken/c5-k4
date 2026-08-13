@@ -167,57 +167,85 @@ def content_text(content: object) -> str:
     return "\n".join(output)
 
 
+def session_row_units(
+    row: dict, fmt: str, source_id: str, locator: str
+) -> Iterator[dict]:
+    """Yield natural-language turns, never tool outputs, from one transcript row."""
+
+    if fmt == "codex":
+        payload = row.get("payload", {})
+        if row.get("type") == "response_item" and payload.get("type") == "message":
+            role = payload.get("role")
+            if role in {"user", "assistant"}:
+                value = content_text(payload.get("content"))
+                if value:
+                    yield text_unit(source_id, locator, role, value)
+        elif (
+            row.get("type") == "response_item"
+            and payload.get("type") == "agent_message"
+        ):
+            value = content_text(payload.get("content"))
+            if value:
+                yield text_unit(source_id, locator, "assistant-agent", value)
+        elif row.get("type") == "turn_context":
+            value = payload.get("summary")
+            if isinstance(value, str) and value:
+                yield text_unit(source_id, locator, "compaction-summary", value)
+    elif fmt == "claude":
+        # Tool outputs often echo the entire registry and are not proof that a
+        # human or model considered a target's semantics.
+        if row.get("type") not in {"user", "assistant"} or row.get("toolUseResult"):
+            return
+        value = content_text(row.get("message", {}).get("content"))
+        if value:
+            yield text_unit(source_id, locator, row["type"], value)
+    else:
+        raise ValueError(f"unknown session format: {fmt}")
+
+
+def session_bytes_units(
+    raw: bytes, fmt: str, source_id: str, relative: str
+) -> Iterator[dict]:
+    for line_number, line in enumerate(raw.decode("utf-8", "strict").splitlines(), 1):
+        locator = f"{relative}:{line_number}"
+        try:
+            row = json.loads(line)
+        except json.JSONDecodeError:
+            # A synchronized transcript may contain a final partial row. It
+            # cannot safely be classified as tool output, so scan the raw row
+            # conservatively instead of failing the entire session source.
+            yield text_unit(source_id, locator, "malformed-json-raw", line)
+            continue
+        yield from session_row_units(row, fmt, source_id, locator)
+
+
 def iter_sessions(root: Path, fmt: str, source_id: str) -> Iterator[dict]:
     if not root.is_dir():
         raise FileNotFoundError(root)
     for path in sorted(root.rglob("*.jsonl")):
         relative = str(path.relative_to(root))
-        with path.open(encoding="utf-8", errors="strict") as handle:
-            for line_number, line in enumerate(handle, 1):
-                row = json.loads(line)
-                if fmt == "codex":
-                    payload = row.get("payload", {})
-                    if row.get("type") == "response_item" and payload.get("type") == "message":
-                        role = payload.get("role")
-                        if role in {"user", "assistant"}:
-                            value = content_text(payload.get("content"))
-                            if value:
-                                yield text_unit(
-                                    source_id, f"{relative}:{line_number}", role, value
-                                )
-                    elif (
-                        row.get("type") == "response_item"
-                        and payload.get("type") == "agent_message"
-                    ):
-                        value = content_text(payload.get("content"))
-                        if value:
-                            yield text_unit(
-                                source_id,
-                                f"{relative}:{line_number}",
-                                "assistant-agent",
-                                value,
-                            )
-                    elif row.get("type") == "turn_context":
-                        value = payload.get("summary")
-                        if isinstance(value, str) and value:
-                            yield text_unit(
-                                source_id,
-                                f"{relative}:{line_number}",
-                                "compaction-summary",
-                                value,
-                            )
-                elif fmt == "claude":
-                    # Tool outputs often echo the entire registry and are not proof that
-                    # a human or model considered a target's semantics.
-                    if row.get("type") not in {"user", "assistant"} or row.get("toolUseResult"):
-                        continue
-                    value = content_text(row.get("message", {}).get("content"))
-                    if value:
-                        yield text_unit(
-                            source_id, f"{relative}:{line_number}", row["type"], value
-                        )
-                else:
-                    raise ValueError(f"unknown session format: {fmt}")
+        yield from session_bytes_units(path.read_bytes(), fmt, source_id, relative)
+
+
+def iter_git_sessions(
+    repo: Path, ref: str, subdir: str, fmt: str, source_id: str
+) -> Iterator[dict]:
+    """Read session turns from one immutable Git tree without a checkout."""
+
+    if not (repo / ".git").exists():
+        raise FileNotFoundError(f"not a Git repository: {repo}")
+    resolved = git(repo, "rev-parse", ref).decode().strip()
+    if resolved.casefold() != ref.casefold():
+        raise ValueError("git_sessions ref must be an exact commit")
+    names = git(repo, "ls-tree", "-r", "--name-only", ref, "--", subdir)
+    for relative in sorted(names.decode().splitlines()):
+        if relative.endswith(".jsonl"):
+            yield from session_bytes_units(
+                git(repo, "show", f"{ref}:{relative}"),
+                fmt,
+                source_id,
+                relative,
+            )
 
 
 def iter_release_snapshot(path: Path, source_id: str) -> Iterator[dict]:
@@ -402,15 +430,22 @@ def scan(
     evidence_total = {cluster["cluster_id"]: 0 for cluster in clusters}
     source_records = []
     complete = True
-    alias_index = [
-        (cluster["cluster_id"], alias)
-        for cluster in clusters
-        for alias in cluster["aliases"]
-    ]
+    # Token trie preserves the exact boundary semantics of ``" alias " in
+    # haystack`` without rescanning every potentially large artifact once per
+    # registry alias.
+    alias_trie: dict = {}
+    for cluster in clusters:
+        for alias in cluster["aliases"]:
+            node = alias_trie
+            for token in alias.split():
+                node = node.setdefault(token, {})
+            node.setdefault(None, []).append((cluster["cluster_id"], alias))
     for source in config["sources"]:
         source_id = source["id"]
         count = 0
         corpus = hashlib.sha256()
+        malformed_count = 0
+        malformed_corpus = hashlib.sha256()
         failure = None
         try:
             kind = source["kind"]
@@ -424,6 +459,14 @@ def scan(
                 )
             elif kind == "sessions":
                 units = iter_sessions(Path(source["path"]), source["format"], source_id)
+            elif kind == "git_sessions":
+                units = iter_git_sessions(
+                    Path(source["path"]),
+                    source["ref"],
+                    source["subdir"],
+                    source["format"],
+                    source_id,
+                )
             elif kind == "release_snapshot":
                 units = iter_release_snapshot(Path(source["path"]), source_id)
             elif kind == "tree":
@@ -432,6 +475,16 @@ def scan(
                 raise ValueError(f"unknown source kind: {kind}")
             for unit in units:
                 count += 1
+                if unit["role"] == "malformed-json-raw":
+                    malformed_count += 1
+                    malformed_corpus.update(
+                        canonical_json(
+                            {
+                                "locator": unit["locator"],
+                                "unit_sha256": unit["unit_sha256"],
+                            }
+                        )
+                    )
                 corpus.update(
                     canonical_json(
                         {
@@ -442,20 +495,30 @@ def scan(
                 )
                 if unit["unit_sha256"] in exemptions:
                     continue
-                haystack = normalized_tokens(unit.pop("text"))
-                for cluster_id, alias in alias_index:
-                    if f" {alias} " in haystack:
-                        evidence_total[cluster_id] += 1
-                        if len(evidence[cluster_id]) < 50:
-                            evidence[cluster_id].append(
-                                {
-                                    "source_id": source_id,
-                                    "locator": unit["locator"],
-                                    "role": unit["role"],
-                                    "unit_sha256": unit["unit_sha256"],
-                                    "matched_alias_sha256": sha256(alias.encode()),
-                                }
-                            )
+                tokens = normalized_tokens(unit.pop("text")).split()
+                matched: list[tuple[str, str]] = []
+                for start in range(len(tokens)):
+                    node = alias_trie
+                    cursor = start
+                    while cursor < len(tokens):
+                        token = tokens[cursor]
+                        node = node.get(token)
+                        if node is None:
+                            break
+                        matched.extend(node.get(None, ()))
+                        cursor += 1
+                for cluster_id, alias in matched:
+                    evidence_total[cluster_id] += 1
+                    if len(evidence[cluster_id]) < 50:
+                        evidence[cluster_id].append(
+                            {
+                                "source_id": source_id,
+                                "locator": unit["locator"],
+                                "role": unit["role"],
+                                "unit_sha256": unit["unit_sha256"],
+                                "matched_alias_sha256": sha256(alias.encode()),
+                            }
+                        )
         except Exception as error:  # fail closed in output; never silently pass.
             complete = False
             failure = f"{type(error).__name__}: {error}"
@@ -465,6 +528,10 @@ def scan(
                 "kind": source.get("kind"),
                 "units": count,
                 "corpus_sha256": corpus.hexdigest(),
+                "malformed_json_raw_units": malformed_count,
+                "malformed_json_raw_sha256": (
+                    malformed_corpus.hexdigest() if malformed_count else None
+                ),
                 "complete": failure is None,
                 "failure": failure,
             }
