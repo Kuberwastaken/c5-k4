@@ -101,7 +101,12 @@ The current no-`sorry`, warning-clean Lean ladder includes:
   one-unit surplus. A conventional spanning-tree-plus-one-edge decomposition
   now supplies the unique fundamental path and cycle carrier. At extremal
   equality, the actual diametral path and maximum-degree neighborhood are
-  formally saturated; only the unicyclic incidence exclusion remains.
+  formally saturated. The added edge either has consecutive endpoints on the
+  geodesic or has one endpoint off it; in the latter branch the on-path
+  endpoint is now forced to be the center (in one orientation), after the
+  triangle and distance-two alternate routes are excluded by tree-path
+  uniqueness. The symmetric orientation, center residue, and consecutive
+  on-path case are the remaining unicyclic incidence branches.
 - **#40:** exact deficiency coordinates, explicit path-cover witnesses,
   arbitrary disjoint path-family rank, and cactus-petal certificates. The
   repository also preserves the 17-vertex flower obstruction to the false
@@ -116,7 +121,12 @@ The current no-`sorry`, warning-clean Lean ladder includes:
   interface for cut-vertex composition. For an explicit one-vertex
   separation, walk-support localization proves both state formulas: the
   exclude-cut optimum is the sum of the side optima, while the include-cut
-  optimum satisfies the exact sum-minus-one identity.
+  optimum satisfies the exact sum-minus-one identity. Ambient constrained
+  states are now identified with the corresponding induced-subgraph
+  invariants. In the exclude-dominant branch this gives a genuine recursive
+  leaf step: feedback deletion rises by one while the allocated path-family
+  rank rises by two. The include-dominant branch and iteration over a full
+  block tree remain.
 - **#59:** safe residue slices, the unique low-residue corner, mixed-color
   ambient attachment, one-for-one core exchange, and the complete dense
   attachment-count classification. Exact one-, two-, and three-outside audits
@@ -130,9 +140,15 @@ The current no-`sorry`, warning-clean Lean ladder includes:
   stack-overflowing enumeration with symbolic normalization and one shallow
   kernel certificate. Lean also gives the exact aligned-five boundary, its
   compatible seven-vertex extension, the complete-cover obstruction to
-  selecting those extensions, and the exact one-edge six-vertex plateau. This
-  is proof extraction around an already externally disproved statement, not
-  another kill.
+  selecting those extensions, and the exact one-edge six-vertex plateau. In
+  the path branch, alternate-core exchange and a direct five-vertex witness
+  reduce failure to the extension vertex meeting at least two vertices of the
+  outside path. Independently, deletion-critical bipartite five-cards are now
+  converted to explicit `K2,2` rectangles, while the finite `3+3` coordinate
+  classifier leaves only `K3,3` and `K3,3-e`; only the final `Fin 3`
+  relabeling remains between those theorems. Residue three alone is formally
+  shown to give no useful maximum-degree ceiling. This is proof extraction
+  around an already externally disproved statement, not another kill.
 - **#61:** exact trajectory telescoping, padded excess profiles, one-step loss
   algebra, the minimal successor-order obstructions, and the corrected
   cumulative-credit invariant with an exact local balance/update theorem.
@@ -145,8 +161,13 @@ The current no-`sorry`, warning-clean Lean ladder includes:
   the successor head lies sharply in `[e-1,e]` and equals the upper endpoint
   exactly when a maximum survives the decrement boundary. Boundary
   multiplicity, prefix-sum saturation, and descending-list localization now
-  close the complete equal-top-two case under weak prefix dominance. The
-  remaining frontier begins at three eliminated heads.
+  close the complete equal-top-two case under weak prefix dominance. An exact
+  arbitrary-depth amortization theorem now permits multi-unit head reversals
+  whenever accumulated credit funds them. Equivalently, cumulative order
+  fails exactly when the signed residual degree-sum gap overshoots its initial
+  value; a first unfunded step overshoots by at least two. The remaining
+  conjecture-specific bridge is the named no-residual-overshoot lemma from
+  initial graphical weak prefix dominance.
 - **#100:** the current upstream Lean declaration, whose term is
   `degreeL2Norm Gᶜ`, is proved for every finite nontrivial connected graph;
   complement connectedness is unnecessary. A direct corollary matches the
@@ -163,13 +184,13 @@ The current no-`sorry`, warning-clean Lean ladder includes:
   nine pairwise-separated depth-two vertices, but all ten abstract patterns
   still survive until third-layer overlaps or target-degree capacity are used.
   Same-branch third sets are disjoint, while cross-branch multiplicity three
-  is real; shared blockers now have a formal non-incidence/saturation signature.
-  Exact multiplicity accounting leaves seven profiles, and a smallest colored
-  ownership model realizes the fully collapsed profile. Four-regular degree
-  completion reinforces its empty contacts, but C4-freeness supplies the first
-  genuine cut: distinct cross-branch parents share at most one third vertex,
-  eliminating the repeated modular ownership model once parent distinctness
-  is established.
+  is real; shared blockers have a formal non-incidence/saturation signature.
+  Endpoint geometry eliminates target zero from the blocker budget, so four
+  internal targets have total capacity eight while one branch already supplies
+  nine distinct thirds. Lean formalizes the resulting blocker injection and
+  eliminates every aggregate multiplicity profile, including the former Latin
+  survivor. The sole remaining splice translates failure of a clean handle
+  into an internal early-target blocker selection.
 - **#141:** an unconditional proof through girth seven, plus a fully verified
   two-vertex-tail assembly for girth eight/nine. The exceptional-root forest,
   distance-three witness, final chord exclusion, and second-leaf packaging are
@@ -177,9 +198,11 @@ The current no-`sorry`, warning-clean Lean ladder includes:
   connected finite graph of girth at most nine. For girth ten/eleven, the exact
   third-leaf assembly and chordless distance-four prefix are formal. The
   radius-three BFS certificate is reduced to a cycle-peak property; simple-
-  cycle cutting and a bounded last-common-root-path splice are now formal.
-  Canonical last-common selection and shortest-path closing-edge exclusion
-  remain.
+  cycle cutting, canonical last-common-root-path selection, and shortest-path
+  closing-edge exclusion are now formal. Equal-layer adjacent endpoints yield
+  the required bounded simple cycle, and every BFS layer through radius three
+  is therefore independent at girth at least eight. The remaining substantive
+  cycle-peak condition is unique parenthood between consecutive layers.
 - **#183:** corrected attachment selection, connected domination, component
   folding, local-to-global budget accounting, exact singleton branches, and
   bipartite/tree component witness adapters. The old vacuous interface remains

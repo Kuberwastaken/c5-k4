@@ -124,8 +124,11 @@ in the current `formal-conjectures` checkout. Current theorem lanes are:
   is now formal via symbolic normalization and a shallow kernel certificate;
   four explicit types prove sharpness. The aligned-five boundary, compatible
   seven-vertex extension, exact selection/complete-cover alternative, and the
-  one-edge six-vertex plateau are formal. The remaining edge-containing
-  branches require a forest or exchange argument.
+  one-edge six-vertex plateau are formal. The path branch is reduced to the
+  extension vertex hitting at least two outside-path vertices. Deletion-
+  critical bipartite five-cards yield explicit rectangles, and the coordinate
+  classifier leaves only `K3,3` and `K3,3-e`; explicit `Fin 3` transport is the
+  remaining interface. A residue audit proves degree-only closure impossible.
 - **WOWII 61:** exact Havel--Hakimi trajectory accounting, padded excess
   profiles, one-step residual loss, and cumulative residual coupling are
   formal. Ordinary successor prefix dominance and pointwise recursive loss
@@ -140,10 +143,11 @@ in the current `formal-conjectures` checkout. Current theorem lanes are:
   further work must use a degree-sequence-intrinsic prefix functional. The
   second head is sharply between `e-1` and `e`, with its exact endpoint
   determined by survival of a maximum beyond the decrement boundary. Prefix-
-  sum saturation and descending localization now close the equal-top-two
-  case under full weak prefix dominance. The open frontier starts at three
-  eliminated heads and must use cumulative credit rather than successor
-  dominance.
+  sum saturation and descending localization close the equal-top-two case.
+  Arbitrary-depth funded-trajectory induction now allows multi-unit reversals.
+  The exact remaining statement is the no-residual-overshoot bridge: initial
+  graphical weak prefix dominance must prevent the signed residual degree-sum
+  gap from exceeding its initial value.
 - **WOWII 100:** the exact current Lean `degreeL2Norm Gᶜ` declaration is proved
   for every finite nontrivial connected graph, with a direct theorem matching
   the upstream signature. Complement connectedness is unnecessary. The
@@ -158,13 +162,12 @@ in the current `formal-conjectures` checkout. Current theorem lanes are:
   patterns across alternative clean-vertex choices or use endpoint degrees.
   Choice accounting exposes nine disjoint depth-two vertices but leaves all
   ten abstract triples, locating the next constraint in the third layer.
-  Third-layer capacity and shared-blocker coexistence are formal; multiplicity
-  three is sharp and saturates degree four after one blocker edge. Aggregate
-  charging leaves seven profiles, and a smallest colored model realizes the
-  fully collapsed one. Degree completion forces rather than breaks its empty
-  contacts. C4-freeness now limits distinct cross-branch parents to one common
-  third, eliminating the repeated modular model once cross-branch parent
-  distinctness is proved.
+  Third-layer capacity and shared-blocker coexistence are formal. Endpoint
+  geometry removes target zero from the blocker budget; the four remaining
+  targets hold at most eight thirds, while one branch supplies nine distinct
+  thirds. The blocker injection and all aggregate profile eliminations are
+  formal. Only the graph-level clean-handle-failure to internal-blocker splice
+  remains.
 - **WOWII 141:** the exact conjecture is formal unconditionally for every
   connected graph of girth at most nine. The radius-two forest contradiction,
   distance-three witness, local five-cycle chord exclusion, and complete
@@ -172,9 +175,10 @@ in the current `formal-conjectures` checkout. Current theorem lanes are:
   theorem. Girth ten/eleven is the next scalable tail length.
   The third-leaf assembly, exact `maxLocal+4` arithmetic, and chordless
   distance-four prefix for that range are now formal. Global radius-three BFS
-  acyclicity is reduced to a cycle-peak theorem; simple-cycle cutting and a
-  bounded last-common-root-path splice are formal, leaving canonical selection
-  and shortest-path closing-edge exclusion.
+  acyclicity is reduced to a cycle-peak theorem. Canonical root-path splicing,
+  closing-edge exclusion, and independence of all BFS layers through radius
+  three are formal. Unique parenthood between consecutive layers is the
+  remaining substantive cycle-peak condition.
 - **WOWII 183:** the false singleton rooted-trunk interface has been repaired.
   Attachment selection, connected domination, component folding, aggregate
   accounting, and singleton branches are formal. Bipartite and tree components
@@ -252,17 +256,16 @@ obligations.
 
 1. Preserve the strict `TIMEOUT_BRACKET` stop on WOWII 179; do not reopen its
    unevaluated grid without a newly frozen protocol.
-2. Finish WOWII 19's odd-unicyclic equality cases by excluding the saturated
-   diametral-path/maximum-neighborhood configurations.
-3. Use WOWII 40's completed separator arithmetic to assemble block-level
-   linear-forest rank; do not revive the refuted one-long-path strategy.
-4. Prove cross-branch parent distinctness in WOWII 133, then classify the
-   surviving linear/Latin-square ownership designs.
-5. Continue WOWII 141 by selecting the canonical last common root-path vertex
-   and deriving closing-edge exclusion from equal-layer shortest paths.
+2. Finish WOWII 19's center and consecutive-endpoint residues after the
+   distance-two off-path route elimination.
+3. Extend WOWII 40's exclude-dominant recursive leaf theorem through the
+   include-dominant branch and then a block-tree induction; do not revive the
+   refuted one-long-path strategy.
+4. Close WOWII 133's final clean-handle-failure to internal-blocker splice.
+5. Prove WOWII 141's unique-parent condition and feed it into cycle peak.
 6. Feed WOWII 183's now-closed odd-cycle package, including the corrected
    triangle selector, into the component assembly.
-7. Continue WOWII 61 at three eliminated heads via cumulative credit, never
+7. Prove WOWII 61's no-residual-overshoot bridge via cumulative credit, never
    through ordinary successor prefix dominance or pointwise loss order, both
    formally false.
 8. Keep Method v0.6's prospective queue empty until a genuinely new open
