@@ -4,7 +4,7 @@ Frozen: **2026-08-13 UTC**, before constructing `L □ L` or any pebble state.
 
 This activates only the 4,032 states frozen in
 `heldout_pebbling_product_phase0_contract.md` (current Phase 0 contract digest
-`0b9ccc12583c84e9a2932daa13b58f89e9c03bcedbe03a04c6dc0e42249f3eb6`).
+`87fd502e85fb6e43dce2d06903c77799678698770abfed6e0dafd6e0cfabb265`).
 No graph substitution, support change, redistribution, or extra state is in
 scope.
 
