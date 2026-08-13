@@ -244,26 +244,35 @@ class ChronologyTests(unittest.TestCase):
         }
         capture_path = self.write("capture.json", capture)
         counts = dict(C.STRATA_QUOTAS)
-        certificate = {
-            "checkpoint_ordinal": 1,
-            "checkpoint_label": "2026-08-17T00:17:00Z",
-            "commit": OID_B,
-            "tree": OID_C,
-            "included_by_stratum": counts,
-            "quotas": dict(C.STRATA_QUOTAS),
+        aggregates = {
+            "eligible_by_stratum": counts, "quotas": dict(C.STRATA_QUOTAS),
             "deficits": {key: 0 for key in C.STRATA_QUOTAS},
-            "status": "PASS",
-            "candidate_count": 12,
-            "registry_sha256": "e" * 64,
+            "status": "PASS", "candidate_count": 12,
+        }
+        certificate = {
+            "certificate_sha256": "e" * 64,
+            "checkpoint": {"ordinal": 1, "scheduled_for_utc": "2026-08-17T00:17:00Z"},
+            "upstream": {"commit": OID_B, "root_tree": OID_C, "formal_conjectures_tree": OID_D},
+            "chronology": {"receipt": {"path": capture_path.relative_to(C.ROOT).as_posix(), "sha256": C.sha256_file(capture_path)}},
+            "aggregates": aggregates,
         }
         certificate_path = self.write("certificate.json", certificate)
-        receipt = C.finalize_checkpoint(capture_path, certificate_path)
+        attestation = {
+            "certificate_sha256": "e" * 64,
+            "chronology_receipt_sha256": C.sha256_file(capture_path),
+            "upstream": {"commit": OID_B, "root_tree": OID_C, "formal_conjectures_tree": OID_D},
+        }
+        attestation["attestation_sha256"] = C.aggregate.attestation_digest(attestation)
+        attestation_path = self.write("attestation.json", attestation)
+        with mock.patch.object(C.aggregate, "validate_certificate"), mock.patch.object(C.aggregate, "validate_schema"):
+            receipt = C.finalize_checkpoint(capture_path, certificate_path, attestation_path)
         self.assertEqual(receipt["status"], "QUOTA_PASS_U2")
         self.assertEqual(receipt["u2"]["membership_interval"], f"{OID_A}..{OID_B}")
-        certificate["deficits"]["FINITE_COMBINATORIAL"] = 1
+        certificate["aggregates"]["deficits"]["FINITE_COMBINATORIAL"] = 1
         self.write("bad-certificate.json", certificate)
         with self.assertRaisesRegex(C.ChronologyError, "deficits"):
-            C.finalize_checkpoint(capture_path, self.root / "bad-certificate.json")
+            with mock.patch.object(C.aggregate, "validate_certificate"), mock.patch.object(C.aggregate, "validate_schema"):
+                C.finalize_checkpoint(capture_path, self.root / "bad-certificate.json", attestation_path)
 
 
 if __name__ == "__main__":

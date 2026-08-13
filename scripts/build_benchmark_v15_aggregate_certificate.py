@@ -19,9 +19,13 @@ from typing import Any
 
 from jsonschema import Draft7Validator, FormatChecker
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import build_benchmark_v15_future_cohort as future_registry  # noqa: E402
+
 
 ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = ROOT / "schemas/benchmark-scheduled-aggregate-certificate-v1.5.schema.json"
+ATTESTATION_SCHEMA_PATH = ROOT / "schemas/benchmark-scheduled-replay-attestation-v1.5.schema.json"
 REGISTRY_SCHEMA_PATH = ROOT / "schemas/benchmark-future-registry-output-v1.5.schema.json"
 SCHEMA = "c5k4-method-v1.5-scheduled-aggregate-certificate-1.0"
 UPSTREAM_REPOSITORY = "https://github.com/google-deepmind/formal-conjectures.git"
@@ -196,12 +200,25 @@ def unsigned_digest(certificate: dict[str, Any]) -> str:
     return sha256_bytes(canonical_json(unsigned))
 
 
+def attestation_digest(attestation: dict[str, Any]) -> str:
+    unsigned = dict(attestation)
+    unsigned.pop("attestation_sha256", None)
+    return sha256_bytes(canonical_json(unsigned))
+
+
 def build_certificate(
     chronology_path: Path, registry_path: Path, manifest_path: Path,
 ) -> dict[str, Any]:
     chronology = load_json(chronology_path, "chronology receipt")
     internal = load_json(registry_path, "private registry")
     validate_schema(internal, REGISTRY_SCHEMA_PATH, "private registry")
+    expected_registry_digest = future_registry.registry_digest(internal)
+    if (
+        internal.get("registry_sha256") != expected_registry_digest
+        or internal.get("quota_certificate", {}).get("registry_sha256")
+        != expected_registry_digest
+    ):
+        raise CertificateError("private registry unsigned projection digest is invalid")
     upstream, trigger = chronology_identity(chronology)
     registry_commit, registry_tree = _registry_identity(internal)
     if registry_commit != upstream["commit"] or registry_tree != upstream["root_tree"]:
@@ -302,7 +319,7 @@ def validate_bound_ref(ref: dict[str, str], label: str) -> None:
 def replay_certificate(
     certificate: dict[str, Any], chronology_path: Path, private_registry_path: Path,
     repository: Path,
-) -> None:
+) -> dict[str, Any]:
     """Validate an independently re-executed private registry, not a cached artifact claim.
 
     The caller must reacquire the canonical repository into a fresh isolated
@@ -331,8 +348,26 @@ def replay_certificate(
         raise CertificateError("re-executed private registry is not exact-byte deterministic")
     internal = load_json(private_registry_path, "re-executed private registry")
     validate_schema(internal, REGISTRY_SCHEMA_PATH, "re-executed private registry")
+    if internal.get("registry_sha256") != future_registry.registry_digest(internal):
+        raise CertificateError("replayed registry unsigned projection digest is invalid")
     if derive_aggregates(internal) != certificate["aggregates"]:
         raise CertificateError("re-executed private registry aggregates differ from certificate")
+    attestation = {
+        "schema": "c5k4-method-v1.5-scheduled-replay-attestation-1.0",
+        "status": "INDEPENDENT_EXACT_REPLAY_PASS",
+        "certificate_sha256": certificate["certificate_sha256"],
+        "chronology_receipt_sha256": sha256_file(chronology_path),
+        "private_registry_sha256": sha256_file(private_registry_path),
+        "registry_unsigned_projection_sha256": internal["registry_sha256"],
+        "upstream": {
+            "commit": upstream["commit"], "root_tree": upstream["root_tree"],
+            "formal_conjectures_tree": upstream["formal_conjectures_tree"],
+        },
+        "verifier": relative_ref(Path(__file__), "replay verifier"),
+    }
+    attestation["attestation_sha256"] = attestation_digest(attestation)
+    validate_schema(attestation, ATTESTATION_SCHEMA_PATH, "replay attestation")
+    return attestation
 
 
 def write_json(path: Path, value: dict[str, Any]) -> None:
@@ -357,6 +392,7 @@ def main() -> int:
     replay.add_argument("--chronology-receipt", type=Path, required=True)
     replay.add_argument("--private-registry", type=Path, required=True)
     replay.add_argument("--isolated-repository", type=Path, required=True)
+    replay.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     try:
         if args.command == "build":
@@ -368,11 +404,12 @@ def main() -> int:
         elif args.command == "validate":
             validate_certificate(load_json(args.certificate.resolve(), "aggregate certificate"))
         else:
-            replay_certificate(
+            attestation = replay_certificate(
                 load_json(args.certificate.resolve(), "aggregate certificate"),
                 args.chronology_receipt.resolve(), args.private_registry.resolve(),
                 args.isolated_repository.resolve(),
             )
+            write_json(args.output.resolve(), attestation)
     except (CertificateError, OSError) as exc:
         print(f"INVALID_AGGREGATE_CERTIFICATE: {exc}", file=sys.stderr)
         return 2

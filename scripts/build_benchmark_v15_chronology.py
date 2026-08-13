@@ -19,6 +19,8 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path, PurePosixPath
 from typing import Any, Sequence
 
+import build_benchmark_v15_aggregate_certificate as aggregate
+
 
 ROOT = Path(__file__).parents[1].resolve()
 CHRONOLOGY_RULE = ROOT / "results/benchmark/v1.5-protocol/chronology-rule.json"
@@ -497,40 +499,54 @@ STRATA_QUOTAS = {
 }
 
 
-def finalize_checkpoint(capture_path: Path, certificate_path: Path) -> dict[str, Any]:
+def finalize_checkpoint(
+    capture_path: Path, certificate_path: Path, replay_attestation_path: Path
+) -> dict[str, Any]:
     try:
         capture = json.loads(capture_path.read_text(encoding="utf-8"))
         certificate = json.loads(certificate_path.read_text(encoding="utf-8"))
+        replay_attestation = json.loads(replay_attestation_path.read_text(encoding="utf-8"))
     except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
         raise ChronologyError("capture or quota certificate is not valid UTF-8 JSON") from exc
     if capture.get("schema") != SCHEMA or capture.get("artifact_kind") != "CHECKPOINT_CAPTURE":
         raise ChronologyError("expected a v1.5 checkpoint capture")
-    exact_keys = {
-        "checkpoint_ordinal", "checkpoint_label", "commit", "tree",
-        "included_by_stratum", "quotas", "deficits", "status",
-        "candidate_count", "registry_sha256",
-    }
-    if not isinstance(certificate, dict) or set(certificate) != exact_keys:
-        raise ChronologyError("quota certificate has unbounded or incomplete shape")
-    if certificate["checkpoint_ordinal"] != capture["checkpoint_ordinal"] or certificate["checkpoint_label"] != capture["scheduled_for_utc"]:
-        raise ChronologyError("quota certificate identifies a different checkpoint")
-    if certificate["commit"] != capture["upstream"]["commit"] or certificate["tree"] != capture["upstream"]["root_tree"]:
-        raise ChronologyError("quota certificate is not bound to the captured upstream tip/tree")
-    if certificate["quotas"] != STRATA_QUOTAS or set(certificate["included_by_stratum"]) != set(STRATA_QUOTAS) or set(certificate["deficits"]) != set(STRATA_QUOTAS):
-        raise ChronologyError("quota certificate does not cover exact frozen strata/quotas")
-    included = certificate["included_by_stratum"]
+    try:
+        aggregate.validate_certificate(certificate)
+        aggregate.validate_schema(
+            replay_attestation, aggregate.ATTESTATION_SCHEMA_PATH, "replay attestation"
+        )
+    except aggregate.CertificateError as exc:
+        raise ChronologyError(f"invalid aggregate/replay proof: {exc}") from exc
+    if replay_attestation.get("attestation_sha256") != aggregate.attestation_digest(replay_attestation):
+        raise ChronologyError("replay attestation self-digest is invalid")
+    if replay_attestation.get("certificate_sha256") != certificate.get("certificate_sha256"):
+        raise ChronologyError("replay attestation authenticates another aggregate certificate")
+    if certificate["checkpoint"]["ordinal"] != capture["checkpoint_ordinal"] or certificate["checkpoint"]["scheduled_for_utc"] != capture["scheduled_for_utc"]:
+        raise ChronologyError("aggregate certificate identifies a different checkpoint")
+    upstream = certificate["upstream"]
+    if any(upstream[key] != capture["upstream"][key] for key in ("commit", "root_tree", "formal_conjectures_tree")):
+        raise ChronologyError("aggregate certificate is not bound to captured upstream trees")
+    if replay_attestation.get("upstream") != {key: upstream[key] for key in ("commit", "root_tree", "formal_conjectures_tree")}:
+        raise ChronologyError("replay attestation upstream binding differs")
+    if certificate["chronology"]["receipt"] != {
+        "path": repo_relative(capture_path, "checkpoint capture"),
+        "sha256": sha256_file(capture_path),
+    } or replay_attestation.get("chronology_receipt_sha256") != sha256_file(capture_path):
+        raise ChronologyError("aggregate/replay proof authenticates another capture")
+    aggregates = certificate["aggregates"]
+    if aggregates["quotas"] != STRATA_QUOTAS or set(aggregates["eligible_by_stratum"]) != set(STRATA_QUOTAS) or set(aggregates["deficits"]) != set(STRATA_QUOTAS):
+        raise ChronologyError("aggregate certificate does not cover exact frozen strata/quotas")
+    included = aggregates["eligible_by_stratum"]
     if any(not isinstance(included[key], int) or included[key] < 0 for key in STRATA_QUOTAS):
         raise ChronologyError("quota counts must be nonnegative integers")
     deficits = {key: max(0, quota - included[key]) for key, quota in STRATA_QUOTAS.items()}
-    if certificate["deficits"] != deficits:
+    if aggregates["deficits"] != deficits:
         raise ChronologyError("quota deficits are not replayable from aggregate counts")
     passed = not any(deficits.values())
-    if certificate["status"] != ("PASS" if passed else "FAIL"):
+    if aggregates["status"] != ("PASS" if passed else "FAIL"):
         raise ChronologyError("quota certificate status differs from replayed deficits")
-    if certificate["candidate_count"] != sum(included.values()):
+    if aggregates["candidate_count"] != sum(included.values()):
         raise ChronologyError("candidate count differs from aggregate stratum counts")
-    if not isinstance(certificate["registry_sha256"], str) or re.fullmatch(r"[0-9a-f]{64}", certificate["registry_sha256"]) is None:
-        raise ChronologyError("registry digest must be an exact SHA-256")
     scheduled = checkpoint_time(capture["scheduled_for_utc"])
     terminal = scheduled == parse_time(LAST_CHECKPOINT, "last checkpoint")
     status = "QUOTA_PASS_U2" if passed else ("TERMINAL_QUOTA_DEFICIT" if terminal else "QUOTA_FAIL")
@@ -552,7 +568,13 @@ def finalize_checkpoint(capture_path: Path, certificate_path: Path) -> dict[str,
         "quota_certificate": {
             "path": repo_relative(certificate_path, "quota certificate"),
             "sha256": sha256_file(certificate_path),
-            **certificate,
+            "certificate_sha256": certificate["certificate_sha256"],
+            "aggregates": aggregates,
+        },
+        "replay_attestation": {
+            "path": repo_relative(replay_attestation_path, "replay attestation"),
+            "sha256": sha256_file(replay_attestation_path),
+            "attestation_sha256": replay_attestation["attestation_sha256"],
         },
         "terminal_horizon": terminal,
         "u2": None if not passed else {
@@ -597,6 +619,7 @@ def main() -> int:
     finalize = commands.add_parser("finalize-checkpoint")
     finalize.add_argument("--capture", type=Path, required=True)
     finalize.add_argument("--quota-certificate", type=Path, required=True)
+    finalize.add_argument("--replay-attestation", type=Path, required=True)
     finalize.add_argument("--output", type=Path, required=True)
     check = commands.add_parser("validate-u1")
     check.add_argument("--receipt", type=Path, required=True)
@@ -621,7 +644,10 @@ def main() -> int:
             )
             write_json(args.output.resolve(), value)
         elif args.command == "finalize-checkpoint":
-            value = finalize_checkpoint(args.capture.resolve(), args.quota_certificate.resolve())
+            value = finalize_checkpoint(
+                args.capture.resolve(), args.quota_certificate.resolve(),
+                args.replay_attestation.resolve(),
+            )
             write_json(args.output.resolve(), value)
         else:
             validate_u1(args.receipt.resolve())

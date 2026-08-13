@@ -100,7 +100,7 @@ class AggregateCertificateTests(unittest.TestCase):
         records = [self.record(index, stratum) for index, stratum in enumerate(sequence)]
         counts = dict(A.QUOTAS)
         prior = A.sha256_bytes(A.canonical_json({"authority": "V15_CHECKPOINT_CHAIN_GENESIS", "u1_commit": self.commit}))
-        return {
+        registry = {
             "schema_version": "c5k4-future-cohort-registry-1.5",
             "authority": "SCHEDULED_IDENTITY_ONLY_CHECKPOINT",
             "upstream": {
@@ -134,6 +134,10 @@ class AggregateCertificateTests(unittest.TestCase):
             "records": records,
             "registry_sha256": H,
         }
+        digest = A.future_registry.registry_digest(registry)
+        registry["quota_certificate"]["registry_sha256"] = digest
+        registry["registry_sha256"] = digest
+        return registry
 
     def manifest(self) -> dict:
         registry_executable = "scripts/build_benchmark_v15_future_cohort.py"
@@ -171,6 +175,12 @@ class AggregateCertificateTests(unittest.TestCase):
         certificate["certificate_sha256"] = A.unsigned_digest(certificate)
         return certificate
 
+    def resign_registry(self, registry: dict) -> dict:
+        digest = A.future_registry.registry_digest(registry)
+        registry["quota_certificate"]["registry_sha256"] = digest
+        registry["registry_sha256"] = digest
+        return registry
+
     def test_pass_certificate_is_aggregate_only_and_pool_is_separate(self) -> None:
         certificate = self.build()
         A.validate_certificate(certificate)
@@ -192,6 +202,7 @@ class AggregateCertificateTests(unittest.TestCase):
             eligible_by_stratum=counts, deficits=deficits, status="FAIL",
             candidate_count=1, first_passing_checkpoint=False,
         )
+        self.resign_registry(registry)
         self.registry_path.write_text(json.dumps(registry) + "\n")
         certificate = self.build()
         self.assertEqual(certificate["aggregates"]["status"], "FAIL")
@@ -234,13 +245,22 @@ class AggregateCertificateTests(unittest.TestCase):
         self.chronology_path.write_text(json.dumps(self.chronology()) + "\n")
         registry = self.registry()
         registry["quota_certificate"]["candidate_count"] = 99
+        self.resign_registry(registry)
         self.registry_path.write_text(json.dumps(registry) + "\n")
         with self.assertRaisesRegex(A.CertificateError, "record-derived"):
             self.build()
 
     def test_exact_byte_isolated_replay_passes_and_cached_or_wrong_tree_fails(self) -> None:
         certificate = self.build()
-        A.replay_certificate(certificate, self.chronology_path, self.registry_path, self.repo)
+        attestation = A.replay_certificate(certificate, self.chronology_path, self.registry_path, self.repo)
+        A.validate_schema(attestation, A.ATTESTATION_SCHEMA_PATH, "replay attestation")
+        self.assertEqual(attestation["certificate_sha256"], certificate["certificate_sha256"])
+        self.assertEqual(attestation["private_registry_sha256"], A.sha256_file(self.registry_path))
+        bad_attestation = copy.deepcopy(attestation)
+        bad_attestation["certificate_sha256"] = "0" * 64
+        self.assertNotEqual(
+            bad_attestation["attestation_sha256"], A.attestation_digest(bad_attestation)
+        )
         tampered = self.root / "tampered-registry.json"
         tampered.write_bytes(self.registry_path.read_bytes() + b" ")
         with self.assertRaisesRegex(A.CertificateError, "exact-byte deterministic"):
@@ -250,6 +270,13 @@ class AggregateCertificateTests(unittest.TestCase):
         self.resign(bad)
         with self.assertRaisesRegex(A.CertificateError, "FormalConjectures tree"):
             A.replay_certificate(bad, self.chronology_path, self.registry_path, self.repo)
+
+    def test_registry_unsigned_projection_mutation_is_rejected(self) -> None:
+        registry = self.registry()
+        registry["counts"]["u1_open_clusters"] += 1
+        self.registry_path.write_text(json.dumps(registry) + "\n")
+        with self.assertRaisesRegex(A.CertificateError, "unsigned projection"):
+            self.build()
 
     def test_component_and_chronology_bindings_are_exact(self) -> None:
         certificate = self.build()
