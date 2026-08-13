@@ -1,13 +1,36 @@
 {
-  "schema": "c5k4-method-v1.5-source-boundary-1.0",
-  "status": "PRE_P1_TARGET_BLIND",
+  "schema": "c5k4-method-v1.5-source-boundary-1.1",
+  "status": "PRE_P1_CAPTURE_NOT_OPERATIONAL",
+  "executable": false,
   "scope": {
     "lower_endpoint": "PUBLIC_P1T_RECEIPT",
     "upper_endpoint": "PRE_SELECTION_SOURCE_CUTOFF",
     "interval": "P1T_EXCLUSIVE_CUTOFF_INCLUSIVE",
+    "boundary_principle": "ACTUAL_AUTHENTICATED_DELIVERY_NOT_GLOBAL_PUBLIC_AVAILABILITY",
     "candidate_identity_joined": false,
     "candidate_semantics_inspected": false,
-    "covers_new_sources_introduced_during_interval": true
+    "covers_new_delivery_channels_introduced_during_interval": true,
+    "participant_set": "P1_FROZEN_PARTICIPANT_AND_MODEL_ENDPOINT_LEDGER"
+  },
+  "activation": {
+    "claim": "This file specifies required future capture; it does not attest that capture exists or is complete.",
+    "p1_publication_permitted": false,
+    "required_before_p1t": [
+      "Mac and VPS capture daemons are installed and continuously healthy",
+      "one immutable content store, retention horizon, and authentication policy are frozen",
+      "host signing public keys and key identifiers are frozen",
+      "a destructive-write, truncation, restart, offline-gap, and sequence-conflict acceptance test passes on both hosts",
+      "a public target-blind readiness receipt binds daemon, policy, key, content-store, and acceptance-test digests"
+    ],
+    "currently_unset": [
+      "capture daemon executable digests",
+      "Mac and VPS signing key identifiers",
+      "immutable content-store locator and retention attestation",
+      "acceptance-test receipt",
+      "public readiness receipt"
+    ],
+    "retroactive_reconstruction_permitted": false,
+    "transition_rule": "A target-blind pre-P1 protocol commit may set executable true only after every required readiness artifact exists. P1T may not precede that commit."
   },
   "axes": {
     "origin": {
@@ -21,7 +44,7 @@
         "UNPARSEABLE",
         "UNKNOWN"
       ],
-      "meaning": "Who or what produced or controls the bytes."
+      "meaning": "Who or what produced or controls the delivered bytes."
     },
     "exposure": {
       "values": [
@@ -30,7 +53,7 @@
         "IMMUTABLE_SOURCE_CUSTODY",
         "UNKNOWN"
       ],
-      "meaning": "Whether a bounded semantic delivery path is proved."
+      "meaning": "Whether an authenticated delivery path to a participant or model is proved."
     },
     "orthogonality": [
       "Every evidence unit receives exactly one origin and exactly one exposure class.",
@@ -43,59 +66,102 @@
   "failure_policy": {
     "missing_required_source": "FAIL_CLOSED",
     "unclassified_source_or_unit": "FAIL_CLOSED",
-    "coverage_gap": "FAIL_CLOSED",
+    "coverage_gap": "FAIL_CLOSED_PROTOCOL_INVALID",
     "unsupported_or_malformed_record": "UNKNOWN",
     "unproved_delivery_path": "UNKNOWN",
     "mixed_unit": "UNKNOWN",
-    "source_drift_during_capture": "FAIL_CLOSED",
-    "new_research_path_not_matched_by_frozen_policy": "FAIL_CLOSED",
+    "source_drift_during_capture": "FAIL_CLOSED_PROTOCOL_INVALID",
+    "new_delivery_channel_not_in_frozen_ledger": "FAIL_CLOSED_PROTOCOL_INVALID",
+    "heartbeat_or_sequence_gap": "FAIL_CLOSED_PROTOCOL_INVALID",
+    "missing_or_invalid_signature": "FAIL_CLOSED_PROTOCOL_INVALID",
+    "missing_content_addressed_blob": "FAIL_CLOSED_PROTOCOL_INVALID",
+    "participant_used_unjournaled_device_or_browser": "FAIL_CLOSED_PROTOCOL_INVALID",
     "manual_exemption": "FORBIDDEN",
     "target_identity_based_reclassification": "FORBIDDEN"
   },
   "capture": {
     "path_policy": "results/benchmark/v1.5-protocol/source-path-purpose-policy.json",
-    "event_journal": {
-      "required_for": [
-        "research repository overlays",
-        "unversioned research trees",
-        "local generated artifacts outside committed Git objects"
+    "delivery_definition": "Bytes count as delivered when they are rendered or returned to a frozen human participant, language model, agent context, tool consumer, or generated-artifact consumer. Merely existing on a public platform is not delivery.",
+    "host_journals": {
+      "required_hosts": [
+        "companion-mac",
+        "ai-vps"
       ],
-      "rule": "A content-addressed append-only journal must copy each created or changed regular-file byte stream before replacement or deletion and record tombstones. P1 and cutoff endpoint trees alone do not establish interval completeness.",
-      "start": "before or atomically with the public P1T receipt",
-      "stop": "only after cutoff endpoint acquisition",
-      "gap_or_overflow": "FAIL_CLOSED"
+      "required_record_fields": [
+        "host_id",
+        "sequence_number",
+        "previous_receipt_sha256",
+        "payload_sha256",
+        "payload_byte_count",
+        "delivery_channel",
+        "observed_at_utc",
+        "signing_key_id",
+        "signature"
+      ],
+      "maximum_heartbeat_interval_seconds": 300,
+      "content_rule": "Every delivered byte stream is copied to the immutable content store before or atomically with delivery. Truncation, replacement, deletion, and abandoned partial writes receive signed records.",
+      "chain_rule": "Each host uses a strictly monotonic sequence and binds the exact preceding receipt; restarts continue the chain and boot identity is recorded.",
+      "offline_rule": "Research and benchmark delivery are forbidden while the local capture daemon is unhealthy. Work performed during an unproved interval invalidates the protocol.",
+      "gap_or_fork": "FAIL_CLOSED_PROTOCOL_INVALID"
     },
-    "session_sync": {
-      "maximum_expected_interval_seconds": 300,
-      "local_and_archive_required": true,
-      "sequence_receipts_required": true,
-      "gap_or_newer_wins_conflict": "FAIL_CLOSED"
+    "session_capture": {
+      "formats": [
+        "codex",
+        "claude"
+      ],
+      "rule": "Capture append increments, offsets, truncations, and final bytes from every frozen participant/model session endpoint on both hosts; periodic endpoint scans are reconciliation only and cannot cure a journal gap.",
+      "best_effort_rsync_is_completeness_proof": false,
+      "git_mirror_alone_is_completeness_proof": false,
+      "newer_wins_conflict": "FAIL_CLOSED_PROTOCOL_INVALID"
     },
-    "platform_exports": {
-      "pagination": "complete cursor replay through cutoff",
-      "include_deleted_or_minimized_when_platform_api_exposes_them": true,
-      "api_or_permission_gap": "FAIL_CLOSED",
-      "rendering_during_capture": "FORBIDDEN"
+    "immutable_content_store": {
+      "required": true,
+      "locator": null,
+      "authentication": null,
+      "retention_through_utc": null,
+      "required_properties": [
+        "private authenticated reads and writes",
+        "content-addressed immutable objects",
+        "versioning or write-once retention through the fixed horizon and audit period",
+        "independent inventory and missing-object verification",
+        "no raw semantic bytes in public Actions logs or artifacts"
+      ]
     },
-    "generated_artifacts": {
+    "generated_deliveries": {
       "declaration_time": "before producer invocation",
       "required_binding": [
         "producer executable digest",
         "invocation contract digest",
         "input digests",
         "output digest and bounded schema",
-        "delivery path"
+        "authenticated delivery receipt"
       ],
       "undeclared_or_unbounded": "UNKNOWN"
     }
   },
   "required_sources": [
     {
-      "source_id": "projects-research",
-      "kind": "PROJECT_ROOT_CLASSIFIED_COLLECTION",
-      "locator": "/Users/kuber.mehta/Projects",
-      "coverage": "ALL_IMMEDIATE_CHILDREN_AT_P1_EACH_CHECKPOINT_AND_CUTOFF",
-      "classification": "FROZEN_PATH_POLICY_EXACTLY_ONE_RULE",
+      "source_id": "authenticated-upstream-formal-conjectures-git",
+      "kind": "AUTHENTICATED_GIT_SOURCE",
+      "locator": "https://github.com/google-deepmind/formal-conjectures.git#refs/heads/main",
+      "coverage": "P1_BASELINE_AND_COMPLETE_U1_THROUGH_U2_COMMIT_AND_TREE_INTERVAL",
+      "origin_values_allowed": [
+        "AUTHENTICATED_UPSTREAM",
+        "UNKNOWN"
+      ],
+      "exposure_values_allowed": [
+        "MACHINE_REGISTRY_CONTACT",
+        "IMMUTABLE_SOURCE_CUSTODY",
+        "SEMANTIC_EXPOSURE",
+        "UNKNOWN"
+      ],
+      "complete_when": "Git object, ancestry, ref-source, and tree receipts authenticate the frozen interval; any bytes rendered beyond the bounded machine lane also have a signed delivery-journal record."
+    },
+    {
+      "source_id": "dedicated-research-repositories",
+      "kind": "DEDICATED_RESEARCH_REPOSITORY_COLLECTION",
+      "locator": "results/benchmark/v1.5-protocol/source-path-purpose-policy.json",
+      "coverage": "ONLY_EXPLICIT_FROZEN_RESEARCH_ROOTS_AND_THEIR_DELIVERED_OVERLAYS",
       "origin_values_allowed": [
         "AUTHENTICATED_UPSTREAM",
         "USER",
@@ -109,137 +175,24 @@
         "IMMUTABLE_SOURCE_CUSTODY",
         "UNKNOWN"
       ],
-      "complete_when": "Every path is classified; every included repository has complete object/history and overlay evidence; every included tree has journal and endpoint evidence."
+      "complete_when": "Each explicit root is authenticated and every overlay byte actually delivered to a participant/model is present in a signed host journal and immutable content store; files never delivered are not semantic exposure merely by storage."
     },
     {
-      "source_id": "codex-local-sessions",
-      "kind": "SESSION_ARCHIVE",
-      "locator": "/home/ec2-user/.codex/sessions",
-      "coverage": "ALL_EXISTING_AND_INTRODUCED_JSONL_BYTES_THROUGH_CUTOFF",
-      "format": "codex",
+      "source_id": "mac-participant-model-delivery-journal",
+      "kind": "HOST_SESSION_DELIVERY_JOURNAL",
+      "locator": "pre-p1-unset:companion-mac",
+      "session_endpoints": [
+        "/Users/kuber.mehta/.codex/sessions",
+        "/Users/kuber.mehta/.claude/projects"
+      ],
+      "coverage": "ALL_FROZEN_PARTICIPANT_MODEL_AND_TOOL_DELIVERIES_ON_MAC",
       "origin_values_allowed": [
         "USER",
         "ASSISTANT",
         "TOOL",
+        "PLATFORM",
         "SESSION_METADATA",
         "UNPARSEABLE",
-        "UNKNOWN"
-      ],
-      "exposure_values_allowed": [
-        "SEMANTIC_EXPOSURE",
-        "MACHINE_REGISTRY_CONTACT",
-        "UNKNOWN"
-      ],
-      "complete_when": "The local archive, sync sequence, and cutoff endpoint agree without missing or truncated records."
-    },
-    {
-      "source_id": "claude-local-sessions",
-      "kind": "SESSION_ARCHIVE",
-      "locator": "/home/ec2-user/.claude/projects",
-      "coverage": "ALL_EXISTING_AND_INTRODUCED_JSONL_AND_MEMORY_BYTES_THROUGH_CUTOFF",
-      "format": "claude",
-      "origin_values_allowed": [
-        "USER",
-        "ASSISTANT",
-        "TOOL",
-        "SESSION_METADATA",
-        "UNPARSEABLE",
-        "UNKNOWN"
-      ],
-      "exposure_values_allowed": [
-        "SEMANTIC_EXPOSURE",
-        "MACHINE_REGISTRY_CONTACT",
-        "UNKNOWN"
-      ],
-      "complete_when": "The local archive, sync sequence, and cutoff endpoint agree without missing or truncated records."
-    },
-    {
-      "source_id": "synchronized-ai-chats",
-      "kind": "CHAT_ARCHIVE_GIT_REPOSITORY",
-      "locator": "/home/ec2-user/.local/share/ai-chats",
-      "remote": "https://github.com/Kuberwastaken/ai-chats.git",
-      "coverage": "COMPLETE_COMMIT_GRAPH_AND_OVERLAY_FROM_P1_THROUGH_CUTOFF",
-      "origin_values_allowed": [
-        "USER",
-        "ASSISTANT",
-        "TOOL",
-        "SESSION_METADATA",
-        "UNPARSEABLE",
-        "UNKNOWN"
-      ],
-      "exposure_values_allowed": [
-        "SEMANTIC_EXPOSURE",
-        "MACHINE_REGISTRY_CONTACT",
-        "UNKNOWN"
-      ],
-      "complete_when": "Local and public append-only tips plus all sequence receipts agree and no sync conflict occurred."
-    },
-    {
-      "source_id": "github-c5k4-releases",
-      "kind": "RELEASE_EXPORT",
-      "locator": "github:Kuberwastaken/c5-k4:releases",
-      "coverage": "ALL_RELEASES_TAGS_ASSETS_AND_METADATA_CREATED_UPDATED_OR_DELETED_THROUGH_CUTOFF",
-      "origin_values_allowed": [
-        "USER",
-        "ASSISTANT",
-        "TOOL",
-        "PLATFORM",
-        "UNKNOWN"
-      ],
-      "exposure_values_allowed": [
-        "SEMANTIC_EXPOSURE",
-        "MACHINE_REGISTRY_CONTACT",
-        "UNKNOWN"
-      ],
-      "complete_when": "All pages and asset manifests are content-addressed and the API reports no pagination gap."
-    },
-    {
-      "source_id": "github-c5k4-issues-pull-requests",
-      "kind": "ISSUE_PR_EXPORT",
-      "locator": "github:Kuberwastaken/c5-k4:issues,pulls,comments,reviews,timeline",
-      "coverage": "ALL_RECORDS_CREATED_UPDATED_OR_DELETED_THROUGH_CUTOFF",
-      "origin_values_allowed": [
-        "USER",
-        "ASSISTANT",
-        "TOOL",
-        "PLATFORM",
-        "UNKNOWN"
-      ],
-      "exposure_values_allowed": [
-        "SEMANTIC_EXPOSURE",
-        "MACHINE_REGISTRY_CONTACT",
-        "UNKNOWN"
-      ],
-      "complete_when": "REST and GraphQL pagination, comments, reviews, review threads, and timeline records close without a cursor gap."
-    },
-    {
-      "source_id": "github-formal-conjectures-issues-pull-requests",
-      "kind": "ISSUE_PR_EXPORT",
-      "locator": "github:google-deepmind/formal-conjectures:issues,pulls,comments,reviews,timeline",
-      "coverage": "ALL_RECORDS_CREATED_UPDATED_OR_DELETED_FROM_P1_THROUGH_CUTOFF_PLUS_ALL_PRE_P1_RECORDS_UPDATED_IN_INTERVAL",
-      "origin_values_allowed": [
-        "USER",
-        "ASSISTANT",
-        "TOOL",
-        "PLATFORM",
-        "UNKNOWN"
-      ],
-      "exposure_values_allowed": [
-        "SEMANTIC_EXPOSURE",
-        "MACHINE_REGISTRY_CONTACT",
-        "UNKNOWN"
-      ],
-      "complete_when": "REST and GraphQL pagination, comments, reviews, review threads, and timeline records close without a cursor gap; no actor or keyword filter is permitted."
-    },
-    {
-      "source_id": "github-c5k4-actions",
-      "kind": "GENERATED_ARTIFACT",
-      "locator": "github:Kuberwastaken/c5-k4:actions:runs,jobs,logs,artifacts",
-      "coverage": "ALL_RUNS_STARTED_OR_UPDATED_FROM_P1_THROUGH_CUTOFF",
-      "origin_values_allowed": [
-        "USER",
-        "TOOL",
-        "PLATFORM",
         "UNKNOWN"
       ],
       "exposure_values_allowed": [
@@ -248,13 +201,59 @@
         "IMMUTABLE_SOURCE_CUSTODY",
         "UNKNOWN"
       ],
-      "complete_when": "Every run, attempt, job, raw log, and artifact has a receipt; expired or unavailable bytes fail closed."
+      "complete_when": "The frozen Mac signing key verifies one unbroken sequence from P1T through cutoff, every referenced blob exists, and all frozen Mac delivery endpoints reconcile to the chain."
     },
     {
-      "source_id": "declared-external-generated-artifacts",
-      "kind": "GENERATED_ARTIFACT_COLLECTION",
-      "locator": "P1_FROZEN_DECLARATION_LEDGER",
-      "coverage": "EVERY_OUTPUT_OUTSIDE_AN_INCLUDED_RESEARCH_TREE_FROM_P1_THROUGH_CUTOFF",
+      "source_id": "vps-participant-model-delivery-journal",
+      "kind": "HOST_SESSION_DELIVERY_JOURNAL",
+      "locator": "pre-p1-unset:ai-vps",
+      "session_endpoints": [
+        "/home/ec2-user/.codex/sessions",
+        "/home/ec2-user/.claude/projects"
+      ],
+      "coverage": "ALL_FROZEN_PARTICIPANT_MODEL_AND_TOOL_DELIVERIES_ON_VPS",
+      "origin_values_allowed": [
+        "USER",
+        "ASSISTANT",
+        "TOOL",
+        "PLATFORM",
+        "SESSION_METADATA",
+        "UNPARSEABLE",
+        "UNKNOWN"
+      ],
+      "exposure_values_allowed": [
+        "SEMANTIC_EXPOSURE",
+        "MACHINE_REGISTRY_CONTACT",
+        "IMMUTABLE_SOURCE_CUSTODY",
+        "UNKNOWN"
+      ],
+      "complete_when": "The frozen VPS signing key verifies one unbroken sequence from P1T through cutoff, every referenced blob exists, and all frozen VPS delivery endpoints reconcile to the chain."
+    },
+    {
+      "source_id": "authenticated-private-delivery-content-store",
+      "kind": "PRIVATE_IMMUTABLE_CONTENT_STORE",
+      "locator": "PRE_P1_UNSET",
+      "coverage": "EVERY_CONTENT_DIGEST_REFERENCED_BY_A_REQUIRED_DELIVERY_JOURNAL",
+      "origin_values_allowed": [
+        "USER",
+        "ASSISTANT",
+        "TOOL",
+        "PLATFORM",
+        "SESSION_METADATA",
+        "UNPARSEABLE",
+        "UNKNOWN"
+      ],
+      "exposure_values_allowed": [
+        "IMMUTABLE_SOURCE_CUSTODY",
+        "UNKNOWN"
+      ],
+      "complete_when": "An authenticated inventory proves every journal-referenced object exists with exact bytes and frozen retention; the locator, authentication, and retention fields are non-null before P1T."
+    },
+    {
+      "source_id": "owned-public-delivery-events",
+      "kind": "OWNED_PUBLIC_DELIVERY_JOURNAL",
+      "locator": "journal:c5-k4:participant-or-model-delivered-events",
+      "coverage": "C5K4_COMMITS_ISSUES_PULLS_RELEASES_ACTION_OUTPUTS_ONLY_WHEN_DELIVERED_TO_OR_AUTHORED_BY_A_FROZEN_PARTICIPANT_OR_MODEL",
       "origin_values_allowed": [
         "USER",
         "ASSISTANT",
@@ -268,38 +267,49 @@
         "IMMUTABLE_SOURCE_CUSTODY",
         "UNKNOWN"
       ],
-      "complete_when": "The declaration ledger, event journal, producer receipts, and endpoint inventory agree; undeclared output fails closed."
+      "complete_when": "Every owned-platform byte stream crossing a frozen delivery endpoint is captured before rendering or publication and reconciles with signed host receipts; global platform state is not claimed complete."
+    },
+    {
+      "source_id": "declared-generated-deliveries",
+      "kind": "DECLARED_GENERATED_DELIVERY_COLLECTION",
+      "locator": "P1_FROZEN_GENERATED_DELIVERY_LEDGER",
+      "coverage": "EVERY_GENERATED_OUTPUT_DELIVERED_OUTSIDE_A_REQUIRED_SESSION_OR_REPOSITORY_CHANNEL",
+      "origin_values_allowed": [
+        "USER",
+        "ASSISTANT",
+        "TOOL",
+        "PLATFORM",
+        "UNKNOWN"
+      ],
+      "exposure_values_allowed": [
+        "SEMANTIC_EXPOSURE",
+        "MACHINE_REGISTRY_CONTACT",
+        "IMMUTABLE_SOURCE_CUSTODY",
+        "UNKNOWN"
+      ],
+      "complete_when": "The pre-invocation declaration, producer receipt, output object, and signed delivery receipt agree; an undeclared delivered output is UNKNOWN and fails closed."
     }
   ],
-  "dynamic_expansion": {
-    "included_git_repository": [
-      "complete reachable Git history at every captured ref",
-      "all commit and tag messages",
-      "index and worktree overlay bytes",
-      "reflog-reachable interval commits when available",
-      "submodule identities and checked-out bytes",
-      "Git LFS pointer and materialized object receipts",
-      "generated files and logs within the repository"
-    ],
-    "included_unversioned_tree": [
-      "all regular files and symlink identities",
-      "event-journal copies and tombstones",
-      "P1 and cutoff endpoint inventories"
-    ],
-    "included_platform_record": [
-      "title and body",
-      "comments and edits",
-      "reviews and review threads",
-      "timeline and state changes",
-      "attachments and asset manifests",
-      "machine-generated logs and artifacts"
-    ]
-  },
+  "explicit_non_sources": [
+    {
+      "locator": "github:google-deepmind/formal-conjectures:global-issues-pulls-comments-reviews-timeline",
+      "reason": "Global public availability is not semantic delivery, and complete deleted or transient external-platform history cannot be authenticated by this project. Any such bytes actually rendered to a participant/model are captured by the host delivery journal."
+    },
+    {
+      "locator": "github:Kuberwastaken/c5-k4:all-actions-runs-jobs-logs-artifacts",
+      "reason": "Recursive archival of every Actions log is not an exposure boundary. Only output bytes delivered to a participant/model or declared generated consumer enter the delivery journals."
+    },
+    {
+      "locator": "all-files-under-/Users/kuber.mehta/Projects",
+      "reason": "Storage outside an explicit research root is not exposure. Use of such a path for benchmark research or delivery is an unjournaled channel and fails closed."
+    }
+  ],
   "forbidden_omissions": [
-    "A source may not be omitted because another source appears to duplicate its bytes.",
-    "A source may not be omitted because it is believed not to contain a future identity.",
+    "A delivered byte stream may not be omitted because another source appears to duplicate it.",
+    "A delivered byte stream may not be omitted because it is believed not to contain a future identity.",
     "An identity-only output may not be omitted after delivery to a human or language model.",
-    "Deleted, rebased, overwritten, expired, truncated, or inaccessible interval evidence creates a coverage gap unless an earlier content-addressed capture proves the exact bytes.",
-    "Repositories classified EXCLUDE_NONRESEARCH may not be used for benchmark research; evidence of such use makes the path UNKNOWN and fails closed."
+    "Deleted, overwritten, expired, truncated, or inaccessible delivered evidence creates a coverage gap unless an earlier signed content-addressed capture proves the exact bytes.",
+    "A participant or model may not use an unregistered host, browser, chat, tool, repository, or generated-output channel during the interval.",
+    "Endpoint inventories, Git mirrors, API snapshots, and best-effort sync cannot cure a missing signed journal interval."
   ]
 }

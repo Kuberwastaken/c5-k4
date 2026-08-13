@@ -1,57 +1,64 @@
 {
   "schema": "c5k4-source-path-purpose-policy-1.5",
-  "status": "PRE_P1_TARGET_BLIND",
-  "root": "/Users/kuber.mehta/Projects",
-  "default": "FAIL_UNCLASSIFIED",
+  "status": "PRE_P1_CAPTURE_NOT_OPERATIONAL",
+  "root_model": "EXPLICIT_DEDICATED_ROOTS_ONLY",
+  "default": "FAIL_OUTSIDE_FROZEN_RESEARCH_ROOTS",
   "matching": {
-    "unit": "one immediate child of root, after resolving neither symlinks nor aliases",
-    "full_match_required": true,
+    "unit": "one exact lexical absolute path; symlink, alias, parent, sibling, and descendant worktree exceptions are not implicit",
+    "exact_path_required": true,
     "exactly_one_rule_required": true,
-    "new_path_after_p1": "FAIL_CLOSED_UNTIL_A_TARGET_BLIND_PUBLIC_PROTOCOL_SUCCESSOR",
-    "renames_and_symlinks": "UNKNOWN"
+    "new_path_after_p1": "FAIL_CLOSED_PROTOCOL_INVALID",
+    "renames_symlinks_and_unlisted_worktrees": "UNKNOWN",
+    "storage_without_delivery_is_semantic_exposure": false,
+    "delivery_from_any_path_must_enter_host_journal": true
   },
-  "rules": [
+  "roots": [
     {
       "id": "primary-research",
-      "relative_path_regex": "c5-k4",
+      "absolute_path": "/Users/kuber.mehta/Projects/c5-k4",
       "decision": "INCLUDE",
-      "purpose": "PRIMARY_RESEARCH_REPOSITORY",
-      "capture_profile": "GIT_HISTORY_OVERLAY_AND_GENERATED_ARTIFACTS"
-    },
-    {
-      "id": "sibling-mathematics-research",
-      "relative_path_regex": "(?:breakthroughmaxxing|conway99-c3-orbits-lean|formal-conjectures-counterexamples|formal-conjectures-wowii309|reimann|subagentmaxxing|wanless-778-lean|wowii-63-85-counterexample|zeta-23-lean)",
-      "decision": "INCLUDE",
-      "purpose": "SIBLING_RESEARCH_REPOSITORY",
-      "capture_profile": "GIT_HISTORY_AND_OVERLAY"
+      "purpose": "PRIMARY_BENCHMARK_RESEARCH_REPOSITORY",
+      "capture_profile": "GIT_HISTORY_PLUS_SIGNED_DELIVERED_OVERLAY_JOURNAL"
     },
     {
       "id": "upstream-formal-conjectures",
-      "relative_path_regex": "formal-conjectures",
+      "absolute_path": "/Users/kuber.mehta/Projects/formal-conjectures",
       "decision": "INCLUDE",
       "purpose": "AUTHENTICATED_VENDOR_BASE_PLUS_USER_DELTA",
-      "capture_profile": "GIT_VENDOR_PARTITION_AND_OVERLAY"
-    },
-    {
-      "id": "unversioned-mathematics-research",
-      "relative_path_regex": "(?:permanental-dominance-n4|scratch)",
-      "decision": "INCLUDE",
-      "purpose": "UNVERSIONED_RESEARCH_TREE",
-      "capture_profile": "TREE_EVENT_JOURNAL_AND_ENDPOINT"
-    },
-    {
-      "id": "nonresearch-project",
-      "relative_path_regex": "(?:claurst|cookie|grok-build|hive|kuberwastaken\\.github\\.io|linkedin-forensics|marketing-outbound|megaphone|resume|sira-router)",
-      "decision": "EXCLUDE_NONRESEARCH",
-      "purpose": "SOFTWARE_MARKETING_OR_PERSONAL_PROJECT",
-      "capture_profile": null
-    },
-    {
-      "id": "agent-launcher-or-visual-artifact",
-      "relative_path_regex": "(?:--continue|--resume|--reusme|hive-logo|hive-mind|vpsmaxxing-logo)",
-      "decision": "EXCLUDE_NONRESEARCH",
-      "purpose": "AGENT_LAUNCHER_OR_VISUAL_ASSET",
-      "capture_profile": null
+      "capture_profile": "GIT_VENDOR_PARTITION_PLUS_SIGNED_DELIVERED_OVERLAY_JOURNAL"
     }
+  ],
+  "session_delivery_endpoints": [
+    {
+      "id": "mac-codex",
+      "host_id": "companion-mac",
+      "absolute_path": "/Users/kuber.mehta/.codex/sessions",
+      "format": "codex"
+    },
+    {
+      "id": "mac-claude",
+      "host_id": "companion-mac",
+      "absolute_path": "/Users/kuber.mehta/.claude/projects",
+      "format": "claude"
+    },
+    {
+      "id": "vps-codex",
+      "host_id": "ai-vps",
+      "absolute_path": "/home/ec2-user/.codex/sessions",
+      "format": "codex"
+    },
+    {
+      "id": "vps-claude",
+      "host_id": "ai-vps",
+      "absolute_path": "/home/ec2-user/.claude/projects",
+      "format": "claude"
+    }
+  ],
+  "operational_constraints": [
+    "Benchmark research writes may occur only in an explicit root.",
+    "A worktree outside an explicit root is a new path and fails closed unless frozen before P1T.",
+    "Content read from any filesystem path, browser, API, chat, or tool must cross a healthy signed host delivery journal before reaching a participant or model.",
+    "No participant may continue benchmark work while the local journal heartbeat, signing key, or immutable content store is unavailable.",
+    "Nonresearch paths are outside the storage inventory, but using one for benchmark research or delivery invalidates the protocol."
   ]
 }

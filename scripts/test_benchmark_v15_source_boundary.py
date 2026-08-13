@@ -1,12 +1,10 @@
 #!/usr/bin/env python3
-"""Contract tests for the target-blind Method v1.5 source boundary."""
+"""Contract tests for the target-blind Method v1.5 delivery boundary."""
 
 from __future__ import annotations
 
 import json
-import os
 from pathlib import Path
-import re
 import unittest
 
 
@@ -24,23 +22,21 @@ EXPOSURES = {
     "IMMUTABLE_SOURCE_CUSTODY", "UNKNOWN",
 }
 REQUIRED_SOURCE_KINDS = {
-    "PROJECT_ROOT_CLASSIFIED_COLLECTION",
-    "SESSION_ARCHIVE",
-    "CHAT_ARCHIVE_GIT_REPOSITORY",
-    "RELEASE_EXPORT",
-    "ISSUE_PR_EXPORT",
-    "GENERATED_ARTIFACT",
-    "GENERATED_ARTIFACT_COLLECTION",
+    "AUTHENTICATED_GIT_SOURCE",
+    "DEDICATED_RESEARCH_REPOSITORY_COLLECTION",
+    "HOST_SESSION_DELIVERY_JOURNAL",
+    "PRIVATE_IMMUTABLE_CONTENT_STORE",
+    "OWNED_PUBLIC_DELIVERY_JOURNAL",
+    "DECLARED_GENERATED_DELIVERY_COLLECTION",
 }
-FROZEN_PROJECT_CHILDREN = {
-    "--continue", "--resume", "--reusme", "breakthroughmaxxing", "c5-k4",
-    "claurst", "conway99-c3-orbits-lean", "cookie", "formal-conjectures",
-    "formal-conjectures-counterexamples", "formal-conjectures-wowii309",
-    "grok-build", "hive", "hive-logo", "hive-mind",
-    "kuberwastaken.github.io", "linkedin-forensics", "marketing-outbound",
-    "megaphone", "permanental-dominance-n4", "reimann", "resume",
-    "scratch", "sira-router", "subagentmaxxing", "vpsmaxxing-logo",
-    "wanless-778-lean", "wowii-63-85-counterexample", "zeta-23-lean",
+REQUIRED_SOURCE_IDS = {
+    "authenticated-upstream-formal-conjectures-git",
+    "dedicated-research-repositories",
+    "mac-participant-model-delivery-journal",
+    "vps-participant-model-delivery-journal",
+    "authenticated-private-delivery-content-store",
+    "owned-public-delivery-events",
+    "declared-generated-deliveries",
 }
 
 
@@ -57,23 +53,25 @@ class SourceBoundaryTests(unittest.TestCase):
         cls.boundary = load(BOUNDARY_PATH)
         cls.policy = load(PATH_POLICY_PATH)
 
-    def test_boundary_is_target_blind_and_spans_the_whole_interval(self) -> None:
+    def test_boundary_is_target_blind_pre_p1_and_explicitly_inert(self) -> None:
         value = self.boundary
-        self.assertEqual(value["schema"], "c5k4-method-v1.5-source-boundary-1.0")
-        self.assertEqual(value["status"], "PRE_P1_TARGET_BLIND")
+        self.assertEqual(value["schema"], "c5k4-method-v1.5-source-boundary-1.1")
+        self.assertEqual(value["status"], "PRE_P1_CAPTURE_NOT_OPERATIONAL")
+        self.assertFalse(value["executable"])
         self.assertEqual(value["scope"]["lower_endpoint"], "PUBLIC_P1T_RECEIPT")
         self.assertEqual(value["scope"]["upper_endpoint"], "PRE_SELECTION_SOURCE_CUTOFF")
         self.assertEqual(value["scope"]["interval"], "P1T_EXCLUSIVE_CUTOFF_INCLUSIVE")
-        self.assertTrue(value["scope"]["covers_new_sources_introduced_during_interval"])
+        self.assertEqual(
+            value["scope"]["boundary_principle"],
+            "ACTUAL_AUTHENTICATED_DELIVERY_NOT_GLOBAL_PUBLIC_AVAILABILITY",
+        )
         self.assertFalse(value["scope"]["candidate_identity_joined"])
         self.assertFalse(value["scope"]["candidate_semantics_inspected"])
-        forbidden = re.compile(
-            r"(?:cluster_id|conjecture_id|statement_text|selected_clusters|candidate_ids)",
-            re.IGNORECASE,
-        )
-        self.assertIsNone(forbidden.search(json.dumps(value, sort_keys=True)))
+        self.assertFalse(value["activation"]["p1_publication_permitted"])
+        self.assertFalse(value["activation"]["retroactive_reconstruction_permitted"])
+        self.assertGreaterEqual(len(value["activation"]["currently_unset"]), 5)
 
-    def test_origin_and_exposure_are_separate_exhaustive_axes(self) -> None:
+    def test_origin_and_exposure_remain_orthogonal(self) -> None:
         axes = self.boundary["axes"]
         self.assertEqual(set(axes), {"origin", "exposure", "orthogonality"})
         self.assertEqual(set(axes["origin"]["values"]), ORIGINS)
@@ -83,98 +81,120 @@ class SourceBoundaryTests(unittest.TestCase):
         for source in sources:
             self.assertTrue(set(source["origin_values_allowed"]) <= ORIGINS)
             self.assertTrue(set(source["exposure_values_allowed"]) <= EXPOSURES)
-            self.assertNotIn("provenance_class", source)
             self.assertNotIn("origin_to_exposure", source)
-        # The same TOOL origin can have multiple dispositions.  This guards
-        # against silently reconstructing a one-axis provenance model.
         tool_exposures = set().union(*(
             set(row["exposure_values_allowed"])
             for row in sources if "TOOL" in row["origin_values_allowed"]
         ))
         self.assertEqual(tool_exposures, EXPOSURES)
 
-    def test_every_required_source_family_is_present_once_or_more(self) -> None:
+    def test_required_sources_are_delivery_sources_not_global_surveillance(self) -> None:
         sources = self.boundary["required_sources"]
         ids = [row["source_id"] for row in sources]
         self.assertEqual(len(ids), len(set(ids)))
+        self.assertEqual(set(ids), REQUIRED_SOURCE_IDS)
         self.assertEqual({row["kind"] for row in sources}, REQUIRED_SOURCE_KINDS)
-        by_id = {row["source_id"]: row for row in sources}
-        required_ids = {
-            "projects-research", "codex-local-sessions", "claude-local-sessions",
-            "synchronized-ai-chats", "github-c5k4-releases",
-            "github-c5k4-issues-pull-requests",
-            "github-formal-conjectures-issues-pull-requests",
-            "github-c5k4-actions", "declared-external-generated-artifacts",
-        }
-        self.assertEqual(set(by_id), required_ids)
-        self.assertEqual(by_id["codex-local-sessions"]["locator"], "/home/ec2-user/.codex/sessions")
-        self.assertEqual(by_id["claude-local-sessions"]["locator"], "/home/ec2-user/.claude/projects")
-        self.assertEqual(by_id["synchronized-ai-chats"]["locator"], "/home/ec2-user/.local/share/ai-chats")
-        self.assertIn("comments,reviews,timeline", by_id["github-c5k4-issues-pull-requests"]["locator"])
-        self.assertIn("comments,reviews,timeline", by_id["github-formal-conjectures-issues-pull-requests"]["locator"])
-        self.assertIn("runs,jobs,logs,artifacts", by_id["github-c5k4-actions"]["locator"])
         self.assertTrue(all(row["complete_when"] for row in sources))
+        by_id = {row["source_id"]: row for row in sources}
+        self.assertEqual(
+            by_id["authenticated-upstream-formal-conjectures-git"]["locator"],
+            "https://github.com/google-deepmind/formal-conjectures.git#refs/heads/main",
+        )
+        self.assertEqual(
+            by_id["authenticated-private-delivery-content-store"]["locator"],
+            "PRE_P1_UNSET",
+        )
+        serialized = json.dumps(sources, sort_keys=True)
+        self.assertNotIn("global-issues-pulls-comments", serialized)
+        self.assertNotIn("all-actions-runs-jobs-logs-artifacts", serialized)
+        self.assertNotIn("ALL_RECORDS_CREATED_UPDATED_OR_DELETED", serialized)
 
-    def test_interval_capture_cannot_be_claimed_from_endpoints_alone(self) -> None:
+    def test_impossible_global_sources_are_explicitly_disclaimed(self) -> None:
+        exclusions = self.boundary["explicit_non_sources"]
+        locators = {row["locator"] for row in exclusions}
+        self.assertIn(
+            "github:google-deepmind/formal-conjectures:global-issues-pulls-comments-reviews-timeline",
+            locators,
+        )
+        self.assertIn(
+            "github:Kuberwastaken/c5-k4:all-actions-runs-jobs-logs-artifacts",
+            locators,
+        )
+        self.assertIn("all-files-under-/Users/kuber.mehta/Projects", locators)
+        self.assertTrue(all(row["reason"] for row in exclusions))
+
+    def test_host_capture_requires_signed_unbroken_hash_chains(self) -> None:
         capture = self.boundary["capture"]
-        journal = capture["event_journal"]
-        self.assertIn("P1 and cutoff endpoint trees alone do not establish interval completeness", journal["rule"])
-        self.assertEqual(journal["gap_or_overflow"], "FAIL_CLOSED")
-        self.assertEqual(capture["session_sync"]["maximum_expected_interval_seconds"], 300)
-        self.assertTrue(capture["session_sync"]["local_and_archive_required"])
-        self.assertEqual(capture["platform_exports"]["api_or_permission_gap"], "FAIL_CLOSED")
-        self.assertEqual(capture["generated_artifacts"]["declaration_time"], "before producer invocation")
-        self.assertEqual(capture["generated_artifacts"]["undeclared_or_unbounded"], "UNKNOWN")
+        journals = capture["host_journals"]
+        self.assertEqual(set(journals["required_hosts"]), {"companion-mac", "ai-vps"})
+        self.assertEqual(journals["maximum_heartbeat_interval_seconds"], 300)
+        self.assertEqual(
+            set(journals["required_record_fields"]),
+            {
+                "host_id", "sequence_number", "previous_receipt_sha256",
+                "payload_sha256", "payload_byte_count", "delivery_channel",
+                "observed_at_utc", "signing_key_id", "signature",
+            },
+        )
+        self.assertEqual(journals["gap_or_fork"], "FAIL_CLOSED_PROTOCOL_INVALID")
+        sessions = capture["session_capture"]
+        self.assertFalse(sessions["best_effort_rsync_is_completeness_proof"])
+        self.assertFalse(sessions["git_mirror_alone_is_completeness_proof"])
+        store = capture["immutable_content_store"]
+        self.assertTrue(store["required"])
+        self.assertIsNone(store["locator"])
+        self.assertIsNone(store["authentication"])
+        self.assertIsNone(store["retention_through_utc"])
 
-    def test_failure_policy_is_uniformly_fail_closed(self) -> None:
+    def test_every_unproved_delivery_or_capture_gap_fails_closed(self) -> None:
         policy = self.boundary["failure_policy"]
         for key in (
-            "missing_required_source", "unclassified_source_or_unit", "coverage_gap",
-            "source_drift_during_capture", "new_research_path_not_matched_by_frozen_policy",
+            "missing_required_source", "unclassified_source_or_unit",
+            "coverage_gap", "source_drift_during_capture",
+            "new_delivery_channel_not_in_frozen_ledger", "heartbeat_or_sequence_gap",
+            "missing_or_invalid_signature", "missing_content_addressed_blob",
+            "participant_used_unjournaled_device_or_browser",
         ):
-            self.assertEqual(policy[key], "FAIL_CLOSED")
+            self.assertIn("FAIL_CLOSED", policy[key])
         self.assertEqual(policy["unsupported_or_malformed_record"], "UNKNOWN")
         self.assertEqual(policy["unproved_delivery_path"], "UNKNOWN")
         self.assertEqual(policy["mixed_unit"], "UNKNOWN")
         self.assertEqual(policy["manual_exemption"], "FORBIDDEN")
         self.assertEqual(policy["target_identity_based_reclassification"], "FORBIDDEN")
 
-    def test_path_policy_classifies_frozen_root_exactly_once(self) -> None:
+    def test_path_policy_uses_only_two_explicit_dedicated_roots(self) -> None:
         policy = self.policy
         self.assertEqual(policy["schema"], "c5k4-source-path-purpose-policy-1.5")
-        self.assertEqual(policy["default"], "FAIL_UNCLASSIFIED")
-        self.assertTrue(policy["matching"]["full_match_required"])
+        self.assertEqual(policy["status"], "PRE_P1_CAPTURE_NOT_OPERATIONAL")
+        self.assertEqual(policy["root_model"], "EXPLICIT_DEDICATED_ROOTS_ONLY")
+        self.assertEqual(policy["default"], "FAIL_OUTSIDE_FROZEN_RESEARCH_ROOTS")
+        self.assertTrue(policy["matching"]["exact_path_required"])
         self.assertTrue(policy["matching"]["exactly_one_rule_required"])
-        rules = policy["rules"]
-        self.assertEqual(len({row["id"] for row in rules}), len(rules))
-        for name in FROZEN_PROJECT_CHILDREN:
-            matches = [row for row in rules if re.fullmatch(row["relative_path_regex"], name)]
-            self.assertEqual(len(matches), 1, name)
-        source_root = Path(policy["root"])
-        if source_root.is_dir():
-            self.assertEqual(
-                {path.name for path in source_root.iterdir()},
-                FROZEN_PROJECT_CHILDREN,
-                "P1 must fail if the project-root boundary gains or loses a path",
-            )
-        elif os.environ.get("C5K4_REQUIRE_LIVE_SOURCE_ROOT") == "1":
-            self.fail(f"required live project-root boundary is unavailable: {source_root}")
-        self.assertFalse(any(re.fullmatch(row["relative_path_regex"], "future-unknown-research") for row in rules))
+        roots = policy["roots"]
+        self.assertEqual(
+            {row["absolute_path"] for row in roots},
+            {
+                "/Users/kuber.mehta/Projects/c5-k4",
+                "/Users/kuber.mehta/Projects/formal-conjectures",
+            },
+        )
+        self.assertEqual(len({row["id"] for row in roots}), len(roots))
+        self.assertTrue(all(row["decision"] == "INCLUDE" for row in roots))
+        self.assertNotIn("/Users/kuber.mehta/Projects", {row["absolute_path"] for row in roots})
 
-    def test_policy_preserves_vendor_partition_and_overlay_capture(self) -> None:
-        rules = {row["id"]: row for row in self.policy["rules"]}
+    def test_session_endpoints_cover_both_formats_on_both_hosts(self) -> None:
+        endpoints = self.policy["session_delivery_endpoints"]
         self.assertEqual(
-            rules["upstream-formal-conjectures"]["capture_profile"],
-            "GIT_VENDOR_PARTITION_AND_OVERLAY",
+            {(row["host_id"], row["format"]) for row in endpoints},
+            {
+                ("companion-mac", "codex"), ("companion-mac", "claude"),
+                ("ai-vps", "codex"), ("ai-vps", "claude"),
+            },
         )
-        self.assertEqual(
-            rules["primary-research"]["capture_profile"],
-            "GIT_HISTORY_OVERLAY_AND_GENERATED_ARTIFACTS",
-        )
-        self.assertEqual(
-            rules["unversioned-mathematics-research"]["capture_profile"],
-            "TREE_EVENT_JOURNAL_AND_ENDPOINT",
-        )
+        self.assertEqual(len({row["absolute_path"] for row in endpoints}), 4)
+        constraints = " ".join(self.policy["operational_constraints"])
+        self.assertIn("fails closed", constraints)
+        self.assertIn("healthy signed host delivery journal", constraints)
 
 
 if __name__ == "__main__":
