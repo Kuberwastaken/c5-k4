@@ -26,7 +26,8 @@
       "order": 5,
       "name": "FIXED_HORIZON",
       "not_before_utc": "2027-08-15T00:00:00Z",
-      "requirement": "At or after this fixed public time, execute the one frozen terminal upstream capture."
+      "capture_start_deadline_utc": "2027-08-16T00:00:00Z",
+      "requirement": "Start the one frozen terminal upstream capture within this fixed 24-hour public window; missing the window is terminal chronology failure."
     },
     {
       "order": 6,
@@ -51,6 +52,8 @@
   ],
   "fixed_horizon": {
     "utc": "2027-08-15T00:00:00Z",
+    "capture_start_deadline_utc": "2027-08-16T00:00:00Z",
+    "capture_window_seconds": 86400,
     "selection_basis": "Chosen in the pre-P1 scaffold to provide an approximately one-year public accumulation interval.",
     "independent_of_target_counts": true,
     "early_close_for_quota_sufficiency": false,
@@ -60,6 +63,7 @@
   "capture_rules": {
     "u1_after_public_p1t": true,
     "u2_not_before_fixed_horizon": true,
+    "u2_capture_must_start_before_fixed_deadline": true,
     "single_frozen_capture_per_boundary": true,
     "u2_must_descend_from_u1": true,
     "alternate_ref_forbidden": true,

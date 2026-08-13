@@ -45,12 +45,16 @@ year for a heterogeneous upstream cohort to accumulate while making the wait
 and terminal condition finite. It may not be advanced, extended, or replaced
 because of observed target counts.
 
-At or after the horizon, one frozen capture records the observed upstream
-`main` tip as `U2`. The terminal population is computed from the ancestry
-interval `U1..U2`. The experiment does not close early when quotas happen to
-fill. If `U2` is unavailable or its history is not a connected descendant of
-`U1`, the frozen failure rule applies; no alternate ref or hand-picked tip may
-be substituted.
+The one frozen U2 capture must start at or after the horizon and no later than
+**2027-08-16T00:00:00Z**. This public 24-hour execution window accommodates
+ordinary scheduler or network delay without permitting the operator to wait
+for favorable target counts. Missing the window is
+`INVALID_CHRONOLOGY_CAPTURE`; it does not extend the cohort. The observed
+upstream `main` tip is `U2`, and the terminal population is computed from the
+ancestry interval `U1..U2`. The experiment does not close early when quotas
+happen to fill. If `U2` is unavailable or its history is not a connected
+descendant of `U1`, the frozen failure rule applies; no alternate ref or
+hand-picked tip may be substituted.
 
 ## Deterministic future-cohort membership
 
