@@ -1,0 +1,53 @@
+name: Validate Method resolution cards
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - schemas/resolution-card-v1.schema.json
+      - scripts/lint_resolution_card.py
+      - scripts/test_lint_resolution_card.py
+      - results/expansion/*_resolution_card.json
+      - results/expansion/*_ledger.jsonl
+      - .github/workflows/method-resolution-card-validation.yml
+  pull_request:
+    paths:
+      - schemas/resolution-card-v1.schema.json
+      - scripts/lint_resolution_card.py
+      - scripts/test_lint_resolution_card.py
+      - results/expansion/*_resolution_card.json
+      - results/expansion/*_ledger.jsonl
+      - .github/workflows/method-resolution-card-validation.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: method-resolution-card-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out campaign
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12.9'
+
+      - name: Install pinned validator
+        shell: bash
+        run: python -m pip install --disable-pip-version-check jsonschema==3.2.0
+
+      - name: Run focused linter tests
+        shell: bash
+        run: python3 scripts/test_lint_resolution_card.py
+
+      - name: Validate all Method v1 cards and ledgers
+        shell: bash
+        run: python3 scripts/lint_resolution_card.py --check-repo
