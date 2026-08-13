@@ -1,0 +1,16 @@
+{
+  "advertised": true,
+  "authority": "FROZEN_PRODUCTION_INPUT",
+  "command": [
+    "git",
+    "ls-remote",
+    "https://github.com/Kuberwastaken/c5-k4.git"
+  ],
+  "kind": "PUBLIC_P0T_ADVERTISEMENT",
+  "p0t_commit": "95b5889f9884cee3f2c13817c9cf8e623388cfac",
+  "remote_url": "https://github.com/Kuberwastaken/c5-k4.git",
+  "resolved_at_utc": "2026-08-13T20:29:00Z",
+  "schema_version": "c5k4-resolver-receipt-1.2",
+  "stdout": "95b5889f9884cee3f2c13817c9cf8e623388cfac\tHEAD\n3bfa33d7470055a9a11d9ffde29186245dc3a329\trefs/heads/lean-carrier-disproofs\n95b5889f9884cee3f2c13817c9cf8e623388cfac\trefs/heads/main\n81e596ea07e54dd2c2f029be98bea3228272858f\trefs/tags/wowii-172-v1\n64abb3ce00e6ac34ac8358baa9798511d0ca8ec0\trefs/tags/wowii-172-v1^{}\n12249f397a45e9ce79d9fae03f46fc782281de79\trefs/tags/wowii-176-v1\n51faa868b85ce5069e4017dfa97845772435229a\trefs/tags/wowii-176-v1^{}\n1bd06ab8fb87d490b68451f3455b95a78e2d7db9\trefs/tags/wowii-181-v1\nf71a0d28b59907b8b9ee9f534d6ad7d5cdf8a528\trefs/tags/wowii-181-v1^{}\na07e7016149c5c7e8dc1f5d38cf101d5c5f12f8b\trefs/tags/wowii-430a-v1\nd187206a7328cbaf1e595cee2e178eb86076ec29\trefs/tags/wowii-430a-v1^{}\n",
+  "stdout_sha256": "7c426fb3b9484d1cdda0a6aac3769f941086b0f2197c0311fb11854e3c7521d3"
+}

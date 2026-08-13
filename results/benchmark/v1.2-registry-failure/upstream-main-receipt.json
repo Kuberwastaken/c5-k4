@@ -1,0 +1,14 @@
+{
+  "authority": "FROZEN_PRODUCTION_INPUT",
+  "command": [
+    "git",
+    "ls-remote",
+    "https://github.com/google-deepmind/formal-conjectures.git",
+    "refs/heads/main"
+  ],
+  "kind": "UPSTREAM_MAIN_RESOLUTION",
+  "resolved_at_utc": "2026-08-13T20:29:00Z",
+  "schema_version": "c5k4-resolver-receipt-1.2",
+  "stdout": "3f08b849788e5e73d52069c616469ea995aac7d7\trefs/heads/main\n",
+  "stdout_sha256": "5456bf66d2155b3e6609e891230af3103edfacb2f1e2c16eed842ddb9914080b"
+}

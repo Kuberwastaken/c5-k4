@@ -1,0 +1,129 @@
+{
+  "allowed_build_count": 1,
+  "authority": "PRODUCTION_AFTER_P0T_S0",
+  "build_ordinal": 1,
+  "chronology": {
+    "p0_artifact_commit": "473194616a5d46a21f7438c445dd45beef06d16c",
+    "p0_attestation_commit": "95b5889f9884cee3f2c13817c9cf8e623388cfac",
+    "p0_published_at_utc": "2026-08-13T20:20:42Z",
+    "s0_acquired_at_utc": "2026-08-13T20:27:49Z",
+    "s0_snapshot_id": "S0",
+    "s0_snapshot_sha256": "119fe1f06142bb249b9cb9702d69ee99b8a5438b4af536a025c4f5e42dd8371a"
+  },
+  "controls": {
+    "candidate_semantics_inspected": false,
+    "create_exclusive_output_directory": true,
+    "entropy_used": false,
+    "overwrite_permitted": false,
+    "prototype_inputs_permitted": false,
+    "selected_clusters": [],
+    "selection_or_ranking_permitted": false
+  },
+  "inputs": {
+    "five_strata_classifier": {
+      "authority": "AUTHORITATIVE_P0",
+      "canonical_sha256": "b01f9252532233dc3df72cb7feea8d1c57f636aff01bd5000a893ff64e92e535",
+      "file_sha256": "a292e20b3cf3c6b95be3e3a754bfeab5e6a6f7e82179387b2920feab0b51c6a2",
+      "path": "results/benchmark/v1.2-protocol/five-strata-classifier.json",
+      "schema_version": "c5k4-five-strata-classifier-1.2"
+    },
+    "grouping_rule": {
+      "authority": "AUTHORITATIVE_P0",
+      "canonical_sha256": "06ad47570461c47be881385ea5e44759389a74c34e71b276bd4a33febede32cc",
+      "file_sha256": "208c688d992520740fb21152d5c26eebd1fdae0fa519fa9a491e549a0bb65aa2",
+      "path": "results/benchmark/v1.2-protocol/grouping-rule.json",
+      "schema_version": "c5k4-question-cluster-grouping-rule-1.2"
+    },
+    "p0a": {
+      "authority": "AUTHORITATIVE_P0",
+      "canonical_sha256": "acbe6ffa51b180b2b2caf771dd870956897028396c37ecf252a6d97589d25c37",
+      "file_sha256": "fffad791663721dc7328f77950529199069f27008436ff911fefa159403a1ff2",
+      "path": "results/benchmark/v1.2-p0/P0A.json",
+      "schema_version": "c5k4-method-v1.2-p0-1.0"
+    },
+    "p0t": {
+      "authority": "AUTHORITATIVE_P0T",
+      "canonical_sha256": "88e2296c7e9fc547daf4a3cf4c6a5e41617c87d374c3ccb769b0a1a54fcf42bc",
+      "file_sha256": "0de4c2a00fb03380f60364aaa0dc637a365c75aeef03eb379def5db87d24a8b0",
+      "path": "results/benchmark/v1.2-p0/P0T.json",
+      "schema_version": "c5k4-method-v1.2-p0-1.0"
+    },
+    "provenance_policy": {
+      "authority": "AUTHORITATIVE_P0",
+      "canonical_sha256": "6b4e225e6ee78b3b552d00683407a6f582b1c0359781c95339993258e6a2e0e9",
+      "file_sha256": "2b31e7a6d361ace8c0f10105d4253f7ef405cac63501843c09035a31a3c59633",
+      "path": "results/benchmark/v1.2-protocol/provenance-policy.json",
+      "schema_version": "c5k4-provenance-policy-1.2"
+    },
+    "quotas": {
+      "authority": "AUTHORITATIVE_P0",
+      "canonical_sha256": "3d5266f72ca8e2cf864fc984f953b9957340cfaf0b663d433dac5f50b2e1d5ce",
+      "file_sha256": "9dbf5c86d4d7615dc7aa8f2b4eb346ae1dd042a1df5f5243fedd27e356c823af",
+      "path": "results/benchmark/v1.2-protocol/quotas.json",
+      "schema_version": "c5k4-benchmark-quotas-1.2"
+    },
+    "registry_exemptions": {
+      "authority": "AUTHORITATIVE_P0",
+      "canonical_sha256": "6a9cdabfce642868385c72f20e907b40e89385e43b5bbc7b604e1258994d12a3",
+      "file_sha256": "740fdd333af3f398d0c4859fa1c3923425dfe3f570f6d0438453f2a6cfb77b0b",
+      "path": "results/benchmark/v1.2-protocol/registry-exemption-rule.json",
+      "schema_version": "c5k4-registry-exemption-rule-1.2"
+    },
+    "s0": {
+      "authority": "AUTHORITATIVE_S0",
+      "canonical_sha256": "40737e0cc6a26f5214ea6f83840c981e70e9bee4e3a915cf220e313b9051bf2d",
+      "file_sha256": "8f86c9ac76dd65a79f859c9a574835f3c71571802e07fb6dbf7967b5ed7efff1",
+      "path": "/tmp/c5k4-v12-S0-fixed.json",
+      "schema_version": "c5k4-source-snapshot-S0-1.2"
+    },
+    "source_discovery_boundary": {
+      "authority": "AUTHORITATIVE_P0",
+      "canonical_sha256": "5ae6800a11432b14320ba5b5d6701a0367f991188fa43b73151aa0a9e270cecd",
+      "file_sha256": "14aa8dfe53569efec9fce1d64fdf4a5e72d10a2e96c886b1f22e68eb5c12131b",
+      "path": "results/benchmark/v1.2-protocol/source-discovery-boundary.json",
+      "schema_version": "c5k4-source-discovery-boundary-1.2"
+    },
+    "sources_config": {
+      "authority": "AUTHORITATIVE_S0",
+      "canonical_sha256": "b9b3ab26e5678f1a29704aebd024af2154279e13e6362f825ebdd8886bd223fa",
+      "file_sha256": "b62e73c6314ec4b937d861ed8daa0a94cd496c1f54244da9ceebed21e3ab3076",
+      "path": "/tmp/c5k4-v12-sources-config-fixed.json",
+      "schema_version": "c5k4-semantic-sources-config-1.2"
+    }
+  },
+  "producer": {
+    "executable_path": "scripts/build_benchmark_v12_registry.py",
+    "executable_sha256": "4a6da8445ca261908026099f448146a073842e05d6be1e536186b44b4de697f8",
+    "input_schema_sha256": "36a24dab64b7d61534f0dfd611e67dcac0ed8289800a6ecd3652edb9287b1ab3",
+    "invocation_contract_sha256": "bcbc5b464e9905b92cfe5c228f2bba66a6053050a3c51b5cebef4da33584635e",
+    "output_schema_sha256": "9c8b971db5ffcce179ca5646bfe8f67a1dd6af7d8921ac2ce24e3c093b3744e6",
+    "producer_id": "method-v1.2-production-registry-builder"
+  },
+  "protocol_version": "1.2",
+  "registry_build_invoked_at_utc": "2026-08-13T20:31:00Z",
+  "resolver_receipts": {
+    "public_p0t": {
+      "authority": "FROZEN_PRODUCTION_INPUT",
+      "canonical_sha256": "57f9c9f65bbfb08f510529dfc07049d6a7b0b8911b870044281562aa57061d5b",
+      "file_sha256": "d012ae9fb7a50cb9e8b952a1154055e00474e68e5a2f7ad3b148c1da29102a68",
+      "path": "/tmp/c5k4-v12-registry-receipts/public-p0t.json",
+      "schema_version": "c5k4-resolver-receipt-1.2"
+    },
+    "upstream_main": {
+      "authority": "FROZEN_PRODUCTION_INPUT",
+      "canonical_sha256": "aa446361f86e2b460e31629b4924f62d7a0ed7b714240a90209f3604742fe0a0",
+      "file_sha256": "79ee60516004db57631d10fa7ca71acc346d0710a2c7500f8f93a4184a6f428a",
+      "path": "/tmp/c5k4-v12-registry-receipts/upstream-main.json",
+      "schema_version": "c5k4-resolver-receipt-1.2"
+    }
+  },
+  "schema_version": "c5k4-registry-build-input-1.2",
+  "upstream": {
+    "commit": "3f08b849788e5e73d52069c616469ea995aac7d7",
+    "remote_ref": "refs/heads/main",
+    "repository": "https://github.com/google-deepmind/formal-conjectures.git",
+    "resolution_count": 1,
+    "subtree": "FormalConjectures",
+    "tree": "a41c32dda2ed1544836f1761887bc0d3da00b8f0"
+  }
+}

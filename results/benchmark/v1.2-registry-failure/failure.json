@@ -1,0 +1,53 @@
+{
+  "schema_version": "c5k4-method-v1.2-registry-failure-1.0",
+  "artifact_status": "AUTHORITATIVE_PROTOCOL_FAILURE",
+  "protocol_version": "1.2",
+  "terminal_status": "PROTOCOL_INVALID",
+  "benchmark_started": false,
+  "c0_permitted": false,
+  "selection_permitted": false,
+  "entropy_used": false,
+  "selected_clusters": [],
+  "candidate_semantics_inspected": false,
+  "authoritative_registry_output_emitted": false,
+  "attempts": [
+    {
+      "ordinal": 1,
+      "result": "FAILED_BEFORE_REGISTRY_REPLAY",
+      "error": "ai-chats commit/worktree drifted after discovery",
+      "frozen_ai_chats_commit": "211924f44e88ad0522755da49b9a86b002061b59",
+      "observed_ai_chats_commit": "4b961040c0ebb2134c72cbc00ee78de2a9b12f78",
+      "output_directory_created": false
+    },
+    {
+      "ordinal": 2,
+      "result": "FAILED_AFTER_FULL_SEMANTICS_BLIND_REPLAY",
+      "error": "uncapped semantic-source replay was incomplete",
+      "contract_violation": "A second build was attempted although allowed_build_count was one and retry was forbidden.",
+      "output_directory_created": false
+    }
+  ],
+  "root_cause": {
+    "source_id": "repo:formal-conjectures",
+    "source_kind": "git_user_delta",
+    "exception": "ValueError: git source corpus binding mismatch: repo:formal-conjectures",
+    "s0_corpus_construction": "SHA256({user_commit_set_sha256,worktree_overlay_inventory_sha256})",
+    "validator_corpus_construction": "SHA256({git_object_metadata_sha256,worktree_overlay_inventory_sha256})",
+    "s0_corpus_sha256": "b8f6e7e32429b5d6215e33f60ed9cf3957f8a62df2bc23a1b69d6ae5115a97b3",
+    "incorrect_validator_sha256": "7294db7725731eb22bdeb77b71ea08241ce9fa6d99b08150271ebd9ff797a84f"
+  },
+  "aggregate_diagnostic": {
+    "source_count": 15,
+    "complete_source_count": 14,
+    "failed_source_count": 1,
+    "git_history_complete": 10,
+    "git_user_delta_complete": 0,
+    "git_sessions_complete": 2,
+    "tree_complete": 2,
+    "release_snapshot_complete": 1,
+    "session_units_replayed": 270762,
+    "target_identities_reported": 0,
+    "target_statements_reported": 0
+  },
+  "disposition": "Method v1.2 cannot be repaired or scored. Any corrected run requires a later protocol version with a newly frozen producer before a new P0 and S0."
+}
