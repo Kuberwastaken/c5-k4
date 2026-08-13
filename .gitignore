@@ -5,3 +5,4 @@ __pycache__/
 # manifest, labels, and static viewer are durable project artifacts.
 graphify-out/.graphify_python
 graphify-out/.graphify_root
+graphify-out/cache/
