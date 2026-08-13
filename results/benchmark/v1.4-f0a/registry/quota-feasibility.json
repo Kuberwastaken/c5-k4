@@ -1,0 +1,74 @@
+{
+  "certificate_sha256": "b858f4fb3c45d9591635459d58739f716c6409c769ae1d87ee861de289cdba09",
+  "chronology": {
+    "feasibility_checked_at_utc": "2026-08-13T22:18:57Z",
+    "p0_artifact_commit": "d5f0eb53bd0b9411e4878c016a98b25ecde9bd7c",
+    "p0_attestation_commit": "6d05b7c5e81ae97bbd3d099da56f67448af9d7bc",
+    "p0_published_at_utc": "2026-08-13T22:08:39Z",
+    "s0_acquired_at_utc": "2026-08-13T22:18:57Z"
+  },
+  "digests": {
+    "classifier_sha256": "53df8514fba5179b731006485cea2f1f848c45f74495f7a252dc27b490df27e0",
+    "contamination_inventory_sha256": "6ddaa087fe195a7e924d22d81115488c38164beedd5a9d2859e3426eba6c5fb0",
+    "eligible_pool_canonical_sha256": "bc7a90c5ef7e7872378cd9c05467d6a313c3efeedeec00ad393c9a030c4f4952",
+    "eligible_pool_file_sha256": "cfea515e94f111c72016d353a48e6c487171014d229ce85c340e9eaeacbb892e",
+    "open_inventory_sha256": "887a1b595e1f3228698571d3bbe4133564d9955d8faa2959ced1f6c8d9f70b20",
+    "provenance_inventory_sha256": "d2cd4c068bf41d78a812d864f0ee878a6185e23bf7acba7f324c48e79daad9a1",
+    "provenance_policy_sha256": "983a5d2728d6f33c11b4de6dcd1e50e65b840dffbb238ce2aa6e2e81f3e3f0e2",
+    "source_snapshots_sha256": "bf88a7bb24e0a8df1d0b5e731a9618b2e2d2176f4a937e0aa295bfb9143fc729"
+  },
+  "entropy_used": false,
+  "phase": "PRE_C0_FEASIBILITY",
+  "quotas": {
+    "AUTOMATA_GAME_PROCESS": 2,
+    "FINITE_ALGEBRA_EQUATIONAL": 2,
+    "FINITE_COMBINATORIAL": 2,
+    "GRAPH_SCALAR_INEQUALITY": 3,
+    "GRAPH_STRUCTURAL_PROPERTY": 3
+  },
+  "schema_version": "c5k4-quota-feasibility-1.4",
+  "selected_clusters": [],
+  "status": "FAIL",
+  "strata": [
+    {
+      "deficit": 3,
+      "eligible_count": 0,
+      "quota": 3,
+      "stratum": "GRAPH_SCALAR_INEQUALITY",
+      "surplus": 0
+    },
+    {
+      "deficit": 3,
+      "eligible_count": 0,
+      "quota": 3,
+      "stratum": "GRAPH_STRUCTURAL_PROPERTY",
+      "surplus": 0
+    },
+    {
+      "deficit": 2,
+      "eligible_count": 0,
+      "quota": 2,
+      "stratum": "FINITE_ALGEBRA_EQUATIONAL",
+      "surplus": 0
+    },
+    {
+      "deficit": 2,
+      "eligible_count": 0,
+      "quota": 2,
+      "stratum": "AUTOMATA_GAME_PROCESS",
+      "surplus": 0
+    },
+    {
+      "deficit": 2,
+      "eligible_count": 0,
+      "quota": 2,
+      "stratum": "FINITE_COMBINATORIAL",
+      "surplus": 0
+    }
+  ],
+  "upstream": {
+    "commit": "158727e43d3be335f902ac7ef6b9beb819e38c9d",
+    "repository": "google-deepmind/formal-conjectures",
+    "tree": "80d17febad5b2f724165561f5af74e19156e34d5"
+  }
+}

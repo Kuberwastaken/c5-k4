@@ -1,0 +1,149 @@
+{
+  "artifacts": [
+    {
+      "artifact_id": "open_inventory",
+      "canonical_sha256": "55cb2d138280fbff92f4d42b9a21497543f3bf14c5fcbba5d29584f4cdd4b52e",
+      "file_sha256": "887a1b595e1f3228698571d3bbe4133564d9955d8faa2959ced1f6c8d9f70b20",
+      "path": "open-inventory.json",
+      "row_count": 0,
+      "schema_version": "c5k4-open-inventory-1.4"
+    },
+    {
+      "artifact_id": "question_cluster_pool",
+      "canonical_sha256": "3ae62f314ccc82e0d31dcfe6df8c2b0af92e932df0937d570b6b587a356e70fc",
+      "file_sha256": "7eb7520e21ff7aa9f2f5b98dc7d71f079c6b684673bb287ad67f48bd8e312687",
+      "path": "question-cluster-pool.json",
+      "row_count": 728,
+      "schema_version": "c5k4-question-cluster-pool-1.4"
+    },
+    {
+      "artifact_id": "provenance_inventory",
+      "canonical_sha256": "47d01be2656a728f7ce6151f04e5c3bb958d6449615e3f7c2a95a98eb3d809ac",
+      "file_sha256": "d2cd4c068bf41d78a812d864f0ee878a6185e23bf7acba7f324c48e79daad9a1",
+      "path": "provenance-inventory.json",
+      "row_count": 341561,
+      "schema_version": "c5k4-provenance-inventory-1.4"
+    },
+    {
+      "artifact_id": "contamination_inventory",
+      "canonical_sha256": "035b809cc7a2077421023186f4ff6ed375f4689b56bb5a7a203ccf7f58c2038c",
+      "file_sha256": "6ddaa087fe195a7e924d22d81115488c38164beedd5a9d2859e3426eba6c5fb0",
+      "path": "contamination-inventory.json",
+      "row_count": 728,
+      "schema_version": "c5k4-contamination-inventory-1.4"
+    },
+    {
+      "artifact_id": "eligible_pool",
+      "canonical_sha256": "bc7a90c5ef7e7872378cd9c05467d6a313c3efeedeec00ad393c9a030c4f4952",
+      "file_sha256": "cfea515e94f111c72016d353a48e6c487171014d229ce85c340e9eaeacbb892e",
+      "path": "eligible-cluster-pool.json",
+      "row_count": 728,
+      "schema_version": "c5k4-eligible-cluster-pool-1.4"
+    },
+    {
+      "artifact_id": "quota_feasibility",
+      "canonical_sha256": "b858f4fb3c45d9591635459d58739f716c6409c769ae1d87ee861de289cdba09",
+      "file_sha256": "e39ee7d02b6ba97342b46f292a17958a0ff08ece83f3ce0b2807a9d49e273b27",
+      "path": "quota-feasibility.json",
+      "row_count": 5,
+      "schema_version": "c5k4-quota-feasibility-1.4"
+    }
+  ],
+  "authority": "PRODUCTION_REGISTRY_BUILD",
+  "build_ordinal": 1,
+  "chronology": {
+    "p0_artifact_commit": "d5f0eb53bd0b9411e4878c016a98b25ecde9bd7c",
+    "p0_attestation_commit": "6d05b7c5e81ae97bbd3d099da56f67448af9d7bc",
+    "p0_published_at_utc": "2026-08-13T22:08:39Z",
+    "registry_build_completed_at_utc": "2026-08-13T22:38:54Z",
+    "s0_acquired_at_utc": "2026-08-13T22:18:57Z",
+    "s0_snapshot_id": "S0",
+    "s0_snapshot_sha256": "657fe9b7d7f1277372a8125cbdec94c9317f322f70048afefd1792e39ad1055f"
+  },
+  "controls": {
+    "candidate_semantics_inspected": false,
+    "entropy_used": false,
+    "output_directory_created_exclusively": true,
+    "preexisting_output_replaced": false,
+    "prototype_inputs_used": false,
+    "selected_clusters": [],
+    "selection_or_ranking_performed": false
+  },
+  "feasibility_replay": {
+    "all_rows_replayed": true,
+    "eligibility_rule": "MACHINE_CLASSIFIED_AND_IDENTITY_COMPLETE_AND_NO_SEMANTIC_OR_UNKNOWN_EXPOSURE",
+    "eligible_row_count": 0,
+    "entropy_used": false,
+    "quotas": {
+      "AUTOMATA_GAME_PROCESS": 2,
+      "FINITE_ALGEBRA_EQUATIONAL": 2,
+      "FINITE_COMBINATORIAL": 2,
+      "GRAPH_SCALAR_INEQUALITY": 3,
+      "GRAPH_STRUCTURAL_PROPERTY": 3
+    },
+    "row_source_artifact_id": "eligible_pool",
+    "row_source_canonical_sha256": "bc7a90c5ef7e7872378cd9c05467d6a313c3efeedeec00ad393c9a030c4f4952",
+    "selected_clusters": [],
+    "status": "FAIL",
+    "strata": [
+      {
+        "deficit": 3,
+        "eligible_count": 0,
+        "quota": 3,
+        "stratum": "GRAPH_SCALAR_INEQUALITY",
+        "surplus": 0
+      },
+      {
+        "deficit": 3,
+        "eligible_count": 0,
+        "quota": 3,
+        "stratum": "GRAPH_STRUCTURAL_PROPERTY",
+        "surplus": 0
+      },
+      {
+        "deficit": 2,
+        "eligible_count": 0,
+        "quota": 2,
+        "stratum": "FINITE_ALGEBRA_EQUATIONAL",
+        "surplus": 0
+      },
+      {
+        "deficit": 2,
+        "eligible_count": 0,
+        "quota": 2,
+        "stratum": "AUTOMATA_GAME_PROCESS",
+        "surplus": 0
+      },
+      {
+        "deficit": 2,
+        "eligible_count": 0,
+        "quota": 2,
+        "stratum": "FINITE_COMBINATORIAL",
+        "surplus": 0
+      }
+    ],
+    "terminal_result": "NO_ELIGIBLE_BENCHMARK_PRE_C0",
+    "total_row_count": 728
+  },
+  "input_canonical_sha256": "75aea2aec4bcff4afd0e7562127e3c89d6e8fc7c57a0f2d80081101d09f2177f",
+  "input_file_sha256": "575ca11d4571e7445c345a4b34b95a539a5328f955394b379b1e5def82d5f84d",
+  "output_sha256": "3050413892629953af33df719b6cc498e44e42754d5495b0efdf8defca9aff16",
+  "producer": {
+    "executable_sha256": "46a8f634a7e64c0a44116ef6427fe6f48415ad7ea3776fece04bd19158823cae",
+    "input_schema_sha256": "532dea5cf7c18846a38af9c65d32e4395ab4e37aa80118afed1aae73f69dd9ef",
+    "invocation_contract_sha256": "640e9f709b7957b83e0f563cf4cbb24023ab3caaa9a3d7c7faaecc3c35f46855",
+    "output_schema_sha256": "89915b89fff680112f5447b279da2d74349b8319d1c1b295dab431c7b40046f9",
+    "producer_id": "method-v1.4-production-registry-builder"
+  },
+  "protocol_version": "1.4",
+  "schema_version": "c5k4-registry-build-output-1.4",
+  "upstream": {
+    "commit": "158727e43d3be335f902ac7ef6b9beb819e38c9d",
+    "materialized_repository_path": "/home/ec2-user/.local/share/c5k4-v14-formal-conjectures.git",
+    "remote_ref": "refs/heads/main",
+    "repository": "https://github.com/google-deepmind/formal-conjectures.git",
+    "resolution_count": 1,
+    "subtree": "FormalConjectures",
+    "tree": "80d17febad5b2f724165561f5af74e19156e34d5"
+  }
+}
