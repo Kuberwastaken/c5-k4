@@ -1,0 +1,113 @@
+{
+  "$schema": "../../schemas/resolution-card-v1.schema.json",
+  "schema_version": "c5k4-resolution-card-1.0",
+  "contract": {
+    "path": "results/expansion/catchup_n23_n24_contract.md",
+    "sha256": "007aa763b0e4e77129dcf8891586305d3da42d3e3399003b67aae7be4c3adb13"
+  },
+  "resolution_card": {
+    "logical_class": "FINITE_UNIVERSAL",
+    "target_negation": {
+      "literal": "There exists N with even N(N+1)/2 such that optimal Catch-Up on {1,...,N} has value win or loss rather than draw.",
+      "derivation": "Negate the universal N and equality-to-draw conclusion of the exact frozen declaration.",
+      "declaration_blob_sha256": "456ec04552d1ceeecb4a2954ad1c3de57107ec72921c9378f3d1b8387242db7d"
+    },
+    "finite_witness_suffices": true,
+    "negation_certificate": {
+      "kind": "FINITE_OBJECT_EXACT_CHECK",
+      "description": "An exact non-draw minimax value plus a replayable winning-strategy DAG checked against every legal reply.",
+      "replay": "g++ -std=c++20 -O3 scripts/prospective_catchup_exact.cpp -o /tmp/catchup && timeout 60s /tmp/catchup --n 23"
+    },
+    "exact_residual": {
+      "available": true,
+      "expression": "R(N)=0 for draw, +1 for first-player win, -1 for first-player loss",
+      "convention": "BOOLEAN_EXACT",
+      "crossing_condition": "R(N) != 0"
+    }
+  },
+  "status_coordinates": {
+    "informal_status": {
+      "source": "Isaksen-Ismail-Brams-Nealen, Catch-Up, 2015",
+      "revision": "93745c0b55856343ec0c91cfd26bea9cdda167b612e9841d8a5d23c05aba38cb",
+      "scope": "even triangular-sum starting sets {1,...,N}",
+      "raw_value": "open; exact minimax reported only through N=20",
+      "captured_at_utc": "2026-08-13T16:40:00Z",
+      "evidence": "https://www.cs.nyu.edu/~jchen/publications/Catch-Up.pdf"
+    },
+    "formal_solution_status": {
+      "source": "google-deepmind/formal-conjectures all-state audit",
+      "revision": "7a38c469ec329d0c97c068e03c58834f61628e7e",
+      "scope": "CatchUp.value_of_even_mul_succ_self_div_two",
+      "raw_value": "no formal solution found",
+      "captured_at_utc": "2026-08-13T16:40:00Z",
+      "evidence": "https://github.com/google-deepmind/formal-conjectures/pull/1325"
+    },
+    "statement_formalized": {
+      "source": "google-deepmind/formal-conjectures",
+      "revision": "7a38c469ec329d0c97c068e03c58834f61628e7e",
+      "scope": "FormalConjectures/Paper/CatchUpConjecture.lean",
+      "raw_value": "yes",
+      "captured_at_utc": "2026-08-13T16:40:00Z",
+      "evidence": "https://github.com/google-deepmind/formal-conjectures/blob/7a38c469ec329d0c97c068e03c58834f61628e7e/FormalConjectures/Paper/CatchUpConjecture.lean"
+    },
+    "declaration_status": {
+      "source": "google-deepmind/formal-conjectures",
+      "revision": "7a38c469ec329d0c97c068e03c58834f61628e7e",
+      "scope": "CatchUp.value_of_even_mul_succ_self_div_two",
+      "raw_value": "research open; issue 4834 has API proposals but no new exact case",
+      "captured_at_utc": "2026-08-13T16:40:00Z",
+      "evidence": "https://github.com/google-deepmind/formal-conjectures/issues/4834"
+    }
+  },
+  "trial": {
+    "lane": "COUNTEREXAMPLE",
+    "authorization": "RUN",
+    "evidence_split": "DEVELOPMENT",
+    "process_wall_cap_seconds": 60,
+    "solver_cap_seconds": 60,
+    "carrier_identity": {
+      "kind": "FAMILY_CONSTRUCTOR_AND_GRID",
+      "sha256": "ab99508a9f5b924088897dbaf967c8f7125ae2380c5e061e7e9721c76a999403",
+      "canonicalization": "UTF-8 compact literal contract JSON fixing source commit/blob, controls, development rows 23 and 24, N-to-N+4 operation, ascending move order, and 60-second cap"
+    },
+    "theorem_baselines": [],
+    "sign_potential": [
+      {
+        "term_id": "even_total_premise",
+        "role": "PREMISE_MARGIN",
+        "exact_expression": "Even(N*(N+1)/2)",
+        "predicted_delta": "PINNED",
+        "effect_on_target_residual": "PINNED",
+        "rationale": "both N=23 and N=24 have even triangular sum"
+      },
+      {
+        "term_id": "game_value_residual",
+        "role": "TARGET_RESIDUAL",
+        "exact_expression": "zero iff exact minimax returns draw",
+        "predicted_delta": "UNKNOWN",
+        "effect_on_target_residual": "UNKNOWN",
+        "rationale": "the source had only Monte Carlo estimates beyond its exact N=20 wall"
+      },
+      {
+        "term_id": "minimax_state_cost",
+        "role": "CERTIFICATE_COST",
+        "exact_expression": "number of reachable normalized (remaining mask, current deficit) states",
+        "predicted_delta": "INCREASE",
+        "effect_on_target_residual": "UNKNOWN",
+        "rationale": "N-to-N+4 increases the exact game graph and previously hit a resource bracket"
+      }
+    ]
+  },
+  "ledger": {
+    "path": "results/expansion/catchup_n23_n24_ledger.jsonl",
+    "evidence_split": "DEVELOPMENT",
+    "append_only": true,
+    "prerequisites": [
+      {
+        "path": "results/expansion/catchup_calibration_3_20.jsonl",
+        "sha256": "ac6990b336bd5b1bff6b0c04dcd449a11c28b2fab709f699cecb222b85f046d1",
+        "evidence_split": "CALIBRATION"
+      }
+    ]
+  }
+}
