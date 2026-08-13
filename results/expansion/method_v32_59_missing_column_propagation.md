@@ -76,3 +76,11 @@ the Havel--Hakimi residue, rather than merely one isolated degree. That audit
 must account for the ambient order and every untracked outside vertex; the
 local prefix alone must not be silently identified with the complete degree
 sequence.
+
+## Verification
+
+The module was rebuilt against the clean dependency closure in
+`/tmp/c5k4-59-v30-audit.0hp4f0`, including a fresh warning-as-error build of
+v31. The final v32 target passed with `-DwarningAsError=true` in 7.90 seconds.
+Every Lean process was independently capped at 60 seconds. The source contains
+no `sorry`, `admit`, `axiom`, or `native_decide`.
