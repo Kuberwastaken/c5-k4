@@ -1,0 +1,12 @@
+{"contract_sha256":"52aab16b23b540d35be8d77e6289171aa719a93c35eda78bd06006f91cf7bc45","kind":"phase0_start","timestamp_utc":"2026-08-13T11:22:15Z","upstream_commit":"d16e05aded22b8c467a0a27c14b2311f53185006"}
+{"category":"research open","declaration":"Conway99Graph.conway99Graph","file":"FormalConjectures/Wikipedia/Conway99Graph.lean","kind":"source_gate","reading":"UNAMBIGUOUS","verdict":"PASS"}
+{"answer_wrapper":true,"failure_certificate":"A disproof requires a global nonexistence proof; failure of any finite candidate family is not a negative answer.","kind":"quantifier_gate","verdict":"PASS"}
+{"issue_104":"OPEN","issue_4747":"OPEN_SEED_API_SORRY","kind":"github_status_gate","solution_issue_or_pr_found":false,"target_specific_pr_found":false,"verdict":"PASS"}
+{"kind":"local_coverage_gate","prior_classification_only":true,"prior_files":["results/expansion/formal_conjectures.md","results/expansion/current_finite_graph_target_ranking_20260813T110249Z.md"],"target_specific_trial_found":false,"verdict":"PASS"}
+{"dependency":"Conway99Graph.completeGraph_boxProd_completeGraph_cliqueSet","kind":"upstream_theorem_inventory","seed":"Conway99Graph.Conway9","seed_adjacent_clause_sorry_free":false,"seed_nonadjacent_clause_sorry_free":true,"verdict":"FORMAL_TRUST_GAP"}
+{"current_status":"open","kind":"literature_status_gate","parameters":[99,14,1,2],"reference":"Cesarz-Woldar 2025, DOI 10.5802/alco.418","verdict":"PASS"}
+{"forbidden_automorphism_order":11,"kind":"literature_theorem_gate","reference":"Wilbrink 1984, EUT-Report 84-WSK-03, pp. 342-355","verdict":"PASS"}
+{"degree_sum_identity":"A d = 2(n-1) 1","forced_degree_9":4,"forced_degree_99":14,"kind":"algebraic_gate","matrix_identity":"A^2 = D - A + 2J - 2I","verdict":"PASS"}
+{"exact_parameters":[9,4,1,2],"kind":"equality_seed","name":"Conway9 = K3 box K3 = Paley(9) = 3x3 rook graph","order_ratio_to_target":11,"verdict":"EXACT_MATHEMATICAL_SEED_WITH_FORMAL_TRUST_GAP"}
+{"candidate":"connected cyclic 11-sheet regular lift followed by at most 12 ordinary 2-switches","deck_automorphism_order":11,"kind":"transformation_gate","output_degree":4,"switch_degree_preserving":true,"target_forced_degree":14,"verdict":"NO_TARGET_RAISING_CANDIDATES"}
+{"development_rows":0,"kind":"phase0_summary","outcome":"NO_TARGET_RAISING_CANDIDATES","reason":"The natural quotient-derived family remains 4-regular under every permitted switch, whereas the target equations force degree 14; its unswitched cyclic members also have forbidden order-11 deck symmetry.","strict_stop":true}

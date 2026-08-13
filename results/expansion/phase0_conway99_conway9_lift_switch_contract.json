@@ -1,0 +1,102 @@
+{
+  "contract_version": "method-v0.8-phase0",
+  "frozen_at_utc": "2026-08-13T11:22:15Z",
+  "scope": "Source/status, theorem inventory, and algebraic pre-grid obstruction only; zero development rows authorized.",
+  "upstream": {
+    "repository": "google-deepmind/formal-conjectures",
+    "commit": "d16e05aded22b8c467a0a27c14b2311f53185006",
+    "file": "FormalConjectures/Wikipedia/Conway99Graph.lean",
+    "declaration": "Conway99Graph.conway99Graph",
+    "line": 64,
+    "category": "research open"
+  },
+  "source": {
+    "formal_source_url": "https://en.wikipedia.org/wiki/Conway%27s_99-graph_problem",
+    "historical_source": "J. H. Conway, Five $1,000 Problems, OEIS50-DIMACS Conference (2014), updated 2017, OEIS A248380",
+    "reading": "UNAMBIGUOUS",
+    "normalized_statement": "Does a finite simple graph on 99 vertices exist in which adjacent pairs have exactly one common neighbor and nonadjacent pairs have exactly two common neighbors?",
+    "lean_semantics": {
+      "adjacent_clause": "G.LocallyLinear, documented and used here as every adjacent pair lying in a unique triangle",
+      "nonadjacent_clause": "Pairwise over distinct vertices: not adjacent implies the intersection of neighbor sets has ncard exactly 2",
+      "answer_wrapper": "answer(sorry) makes this a yes/no existence question; a positive witness or impossibility proof is required, not a single failed candidate"
+    }
+  },
+  "status_gate": {
+    "current_literature_status": "open",
+    "github": [
+      "Broad formalization issue #104 is open and marks the target as added.",
+      "Issue #4747 is open and records the unsolved sorry in the Conway9 clique-set API lemma.",
+      "No target-specific solution, disproof, status, or competing pull request was found by title, declaration name, module name, or '99-graph problem'."
+    ],
+    "local_project": [
+      "results/expansion/formal_conjectures.md classifies Conway99 as a fixed existential not evaluated by the arsenal.",
+      "results/expansion/current_finite_graph_target_ranking_20260813T110249Z.md names the missing algebraic quotient as the prerequisite for a bounded trial.",
+      "No target-specific constructor, verifier, theorem, certificate, ledger, or release was found in c5-k4 before this Phase 0 record."
+    ]
+  },
+  "upstream_theorem_inventory": [
+    {
+      "declaration": "Conway99Graph.triangle_locallyLinear_and_nonEdgesAreDiagonals",
+      "role": "three-vertex sanity control"
+    },
+    {
+      "declaration": "Conway99Graph.Conway9",
+      "definition": "K3 box K3",
+      "role": "nine-vertex exact analogue, isomorphic to the Paley(9)/3x3 rook graph"
+    },
+    {
+      "declaration": "Conway99Graph.conway9_nonEdgesAreDiagonals",
+      "status": "proved in file without a local sorry",
+      "role": "nonadjacent pairs have two common neighbors"
+    },
+    {
+      "declaration": "Conway99Graph.completeGraph_boxProd_completeGraph_cliqueSet",
+      "category": "API",
+      "status": "contains sorry and is listed in open issue #4747",
+      "role": "dependency of conway9_locallyLinear"
+    },
+    {
+      "declaration": "Conway99Graph.conway9_locallyLinear",
+      "status": "downstream of the sorry-bearing clique-set API lemma",
+      "role": "adjacent pairs have one common neighbor; not an independent sorry-free formal seed"
+    }
+  ],
+  "literature_gate": {
+    "equivalent_parameters": "Every witness is necessarily srg(99,14,1,2).",
+    "known_analogues": [
+      "srg(9,4,1,2), the Paley(9)/3x3 rook graph",
+      "srg(243,22,1,2), the Berlekamp-van Lint-Seidel graph"
+    ],
+    "current_reference": "P. G. Cesarz and A. J. Woldar, On the automorphism group of a putative Conway 99-graph, Algebraic Combinatorics 8 (2025), 379-398, DOI 10.5802/alco.418; explicitly states existence remains open.",
+    "automorphism_obstruction": "H. A. Wilbrink, On the (99,14,1,2) strongly regular graphs, EUT-Report 84-WSK-03 (1984), 342-355: a putative graph has no automorphism of order 11 and is not vertex-transitive.",
+    "spectral_data": "A putative adjacency matrix has eigenvalues 14^1, 3^54, (-4)^44; Laplacian nonzero eigenvalues 11^54 and 18^44."
+  },
+  "algebraic_reduction": {
+    "matrix_identity": "For n vertices, adjacency matrix A and degree diagonal D, the two common-neighbor clauses give A^2 = D - A + 2J - 2I.",
+    "degree_sum_identity": "Multiplying by the all-ones vector gives A d = 2(n-1) 1.",
+    "regularity_argument": "If delta and Delta are minimum and maximum degrees, evaluating the neighbor-degree sum at delta- and Delta-degree vertices gives delta*Delta=2(n-1). Equality forces min-degree vertices to neighbor only max-degree vertices and conversely. Connectedness follows from mu=2; if delta<Delta the graph would be bipartite, contradicting lambda=1 triangles. Hence delta=Delta=k.",
+    "parameter_equation": "k^2 = 2(n-1)",
+    "instances": [
+      {"n": 9, "forced_degree": 4},
+      {"n": 99, "forced_degree": 14}
+    ]
+  },
+  "quotient_and_transformation_gate": {
+    "seed": "Conway9 = K3 box K3, with exact parameters (9,4,1,2)",
+    "order_ratio": 11,
+    "candidate_transformation": "A connected regular cyclic 11-sheet voltage lift of Conway9, followed by at most 12 ordinary degree-preserving 2-switches.",
+    "why_this_is_the_exact_natural_quotient_test": "The sheet count is forced by 99/9=11; a regular voltage lift is the standard replayable realization of Conway9 as a quotient, and 2-switches are the bounded catalogue operation that can break local common-neighbor structure while preserving order and degrees.",
+    "obstruction_1": "Every graph cover preserves the base degree, so every lifted vertex has degree 4. Every ordinary 2-switch preserves the full degree sequence. All outputs therefore remain 4-regular, while the target equations force 14-regularity.",
+    "obstruction_2": "Before any switches, a cyclic 11-lift has a deck automorphism of order 11, a domain excluded for every putative Conway99 graph by Wilbrink. Switches can break that symmetry but cannot repair the pinned degree coordinate.",
+    "other_standard_blowups": "The independent 11-blowup has degree 44 and the clique 11-blowup has degree 54, so neither supplies the required quotient either.",
+    "capability": false,
+    "development_authorized": false
+  },
+  "stop": {
+    "outcome": "NO_TARGET_RAISING_CANDIDATES",
+    "strict_stop": true,
+    "development_rows": 0,
+    "reason": "The exact quotient-derived lift/switch family exists but is algebraically pinned at degree 4, so no member can satisfy or even move the forced degree-14 target coordinate. The known 9-vertex analogue is an equation analogue, not an admissible quotient seed for this transformation.",
+    "future_requirement": "A future Phase 0 must first provide an explicit 99-vertex 14-regular quotient template with no order-11 deck symmetry and exact pairwise common-neighbor update equations; it may not retune this closed Conway9 lift/switch family."
+  }
+}
