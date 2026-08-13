@@ -270,6 +270,16 @@ one-new-vertex extension anyway, because differently directed required lines
 intersect and would force two incident colors at one vertex. The whole affine
 extension operation is therefore closed rather than retuned.
 
+Two further declaration-wide development trials are now complete. For the
+Latin Tableau conjecture, both an exact flow/ILP implementation and an
+independent flow/backtracking implementation certify all 176 Young diagrams of
+order 15; the deterministic bottom-corner transfer succeeds on 172 and exposes
+four precise profile-redistribution obstructions. For Černý, a frozen six-row
+`C13` two-cycle surgery leaves the one-cluster domain but creates a defect-two
+contraction letter; all rows reset in 11--21 steps and satisfy the exact safe
+law `L=23-2d`, far below 144. These are development zeroes and transformation-
+catalogue updates, not truth claims or held-out evidence.
+
 Erdős 92 is retained separately as a retrospective theorem-transfer benchmark:
 the canonical database records a disproof via problem 90 while DeepMind still
 contains open answer placeholders. It can test whether the workflow recovers
@@ -483,29 +493,32 @@ obstruction is formal at the voltage-algebra level.
    Treat Erdős 617 `r <= 11` as prior-art calibration and its affine one-vertex
    operation as theorem-closed; rotate to a genuinely unclaimed finite target
    with a validated, content-hashed carrier.
-2. Preserve all protocol stops and brackets. The original Erdős 23 v1 rows
+2. Enforce `schemas/resolution-card-v1.schema.json` on every new runnable trial.
+   Keep calibration and development in separately hashed ledgers, and require
+   the carrier's labelled roles in its canonical digest.
+3. Preserve all protocol stops and brackets. The original Erdős 23 v1 rows
    remain excluded; Erdős 742 is stopped in a known proof domain; the ten
    unresolved WOWII 19 line-graph rows stay unknown unless a new frozen
    solver contract is justified. Preserve the independent WOWII 179 timeout
    bracket as well.
-3. Do not deepen the Dean order-ten two-switch family: Dirac closes every
+4. Do not deepen the Dean order-ten two-switch family: Dirac closes every
    5-regular graph at that order. Any new Dean trial must leave order ten and
    retain `minDegree>=5` without automatic `minDegree>=n/2` Hamiltonicity.
-4. Treat low-separator composition as adverse to the Erdős 128 strict
+5. Treat low-separator composition as adverse to the Erdős 128 strict
    premise unless a new frozen operation proves an eligible-set density
    budget in advance. Do not generalize the single Hajós row to all joins.
-5. Do not repeat the independent-domination single-leaf concentration move.
+6. Do not repeat the independent-domination single-leaf concentration move.
    Its exact formula explains the safe displacement; any continuation must
    specify how it avoids lowering `i` while changing the parity/degree side.
-6. For WOWII 19 line graphs, the next operation must be newly frozen and must
+7. For WOWII 19 line graphs, the next operation must be newly frozen and must
    aim to raise the floor of average edge eccentricity without matching growth
    in even-linear edge rank. The five equality rows identify a wall but do not
    select a unique transformation.
-7. Treat WOWII 40's internal-edge cone as closed. For WOWII 141, either
+8. Treat WOWII 40's internal-edge cone as closed. For WOWII 141, either
    discharge the labelled-base/gauge/lift adapters or choose a transformation
    outside ordinary two-lifts; do not count the algebraic parity theorem as a
    second prospective decision.
-8. For any future negative residual, stop family adaptation and execute the
+9. For any future negative residual, stop family adaptation and execute the
    statement, database, independent-recompute, novelty, and Lean gates in that
    order. Keep all current WOWII modules excluded from any held-out success
    count; new transformations can yield discoveries, but not retrospective

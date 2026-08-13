@@ -530,6 +530,16 @@ will be counted as held out.
   proof artifacts already claim `r = 10,11`, and the proposed affine `K_100`
   carrier does not exist. This adds fresh-repository search and carrier-hash
   validation to the mandatory pre-scheduling audit.
+- Adds a Draft-07 resolution-card schema and strict linter for all new trials.
+  A runnable card now enforces the literal negation, certificate kind, four
+  status coordinates, contract/carrier hashes, exact residual bridge,
+  sign-potential roles, evidence split, ledger links, and 60-second caps.
+- Records the first two post-gate development zeroes. Every order-15 Latin
+  Tableau diagram is CDS-colorable, while four bottom-corner transfers fail at
+  the profile-compatibility level without falsifying CDS existence. The six
+  frozen two-cycle Černý surgeries all synchronize in 11--21 steps: adding a
+  second merge changes the contraction letter from defect one to defect two
+  and creates an alternating safe-direction law instead of crossing the wall.
 
 ### v0.9 — 2026-08-13
 
