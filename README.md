@@ -112,8 +112,77 @@ corrections, stop reasons, and reports are under
 [`results/expansion/`](results/expansion/); the current portfolio and its
 scope limits are summarized in [`OVERARCHING_PLAN.md`](OVERARCHING_PLAN.md).
 
+### Method v0.8: prospective evidence without a crossing
+
+The first post-v0.7 round is deliberately reported with its full denominator.
+Its scope is **current finite-graph targets already represented in
+`google-deepmind/formal-conjectures`**—not Written on the Wall I, Graph Brain,
+or a newly introduced corpus.
+
+Across nine separately frozen decisions, the round found **zero crossings**:
+five clean bounded holds and four strict stops.
+
+| Target cluster | Frozen decisions | Strict result |
+|---|---:|---|
+| WOWII 40 internal-side surgery | 2 | two `HOLD_BOUNDED` results; matching edits reach equality or safety, while shared-endpoint stars are safe by one |
+| WOWII 61 sparse blocks | 2 | one coordinate-gate stop and one `PROTOCOL_DEVIATION`; the conditionally safe 832-row cube table is not counted as a hold |
+| WOWII 141 from the `K3,3-e` wall | 2 | one Whitney switch reaches exact equality; all seven connected two-lifts retain girth four, so `NO_TARGET_RAISING_CANDIDATES` |
+| Reed's finite bound | 2 | the first hard-claw blocker is safe by one; all 89 singleton edge deletions are safe and lower the chromatic number |
+| Erdős 128 | 1 | `PREMISE_FALSE_STRICT`: the Mycielski shadow set is an eligible independent-set witness, so the strict premise fails |
+
+The round's main output is therefore methodological closure, not another kill:
+
+- **Outcome labels are substantive.** `GATE_FAIL`,
+  `NO_TARGET_RAISING_CANDIDATES`, `PREMISE_FALSE_STRICT`, and
+  `PROTOCOL_DEVIATION` are not euphemisms for a bounded hold. A failed premise
+  stops before the conclusion; a serialization defect overrides a safe
+  downstream table.
+- **Exhaust a radius-one neighborhood, then look for a theorem shadow.** The
+  Reed lane checked every one-edge deletion exactly. Since all 89 outputs are
+  eight-colorable, colorability monotonicity closes every nonempty
+  multi-edge-deletion subgraph at once. The general closure is formalized in
+  [`ReedEdgeDeletionClosure.lean`](lean/ReedEdgeDeletionClosure.lean).
+- **Graph6 alone is insufficient for labelled constructions.** The cube-chain
+  audit found that the serialized graph was abstractly isomorphic to the
+  intended cube while labels zero and seven no longer denoted the claimed
+  root and port. Label-dependent rows must store an edge list and role map, or
+  transport all roles and witnesses through an explicit isomorphism.
+- **Strict premises need falsifying witnesses.** For Erdős 128, the ten shadow
+  vertices in the tested Mycielski graph meet the size threshold and induce
+  zero edges. The no-`sorry` extraction proves the same obstruction for every
+  classical Mycielski graph; it closes that transformation, not the conjecture.
+- **A finished transformation family stays finished.** Exact arguments now
+  close the natural internal-edge cone around the WOWII 40 wall, every
+  two-lift of `K3,3-e`, every nonempty edge-pruning of the Reed seed, and every
+  classical Mycielski lift for the selected strict premise. Continuing any of
+  them requires a new frozen operation, not a larger adaptive menu.
+
+No outcome in this round passed—or needed—the full candidate pipeline. A
+future numerical crossing becomes release-eligible only after exact replay,
+source and status checks, complete duplicate/priority and novelty searches,
+then a local warning-clean, no-`sorry` Lean certificate and axiom audit. Only
+after those gates may the repository's one-problem release preflight begin.
+
+The detailed round artifacts are
+[`prospective_wowii40_internal_matching_report.md`](results/expansion/prospective_wowii40_internal_matching_report.md),
+[`prospective_wowii40_internal_star_report.md`](results/expansion/prospective_wowii40_internal_star_report.md),
+[`method_v50_61_sparse_feedback_bead_gate.md`](results/expansion/method_v50_61_sparse_feedback_bead_gate.md),
+[`method_v51_61_cube_chains.md`](results/expansion/method_v51_61_cube_chains.md),
+[`prospective_formal_141_whitney_switch_result.md`](results/expansion/prospective_formal_141_whitney_switch_result.md),
+[`prospective_formal_141_k33e_two_lift_result.md`](results/expansion/prospective_formal_141_k33e_two_lift_result.md),
+[`method_v49_reed_hard_claw_result.md`](results/expansion/method_v49_reed_hard_claw_result.md),
+[`method_v50_reed_edge_deletion_result.md`](results/expansion/method_v50_reed_edge_deletion_result.md),
+and
+[`prospective_erdos128_mycielski_result.md`](results/expansion/prospective_erdos128_mycielski_result.md).
+The derived operation-class closures are recorded separately in
+[`prospective_wowii40_k1_wall_obstruction.md`](results/expansion/prospective_wowii40_k1_wall_obstruction.md),
+[`method_v51_reed_deletion_closure_result.md`](results/expansion/method_v51_reed_deletion_closure_result.md),
+and
+[`method_v38_erdos128_mycielski_shadow_lean.md`](results/expansion/method_v38_erdos128_mycielski_shadow_lean.md);
+they are consequences of the nine decisions, not three additional trials.
+
 The workflow now has an explicit **proof-extraction** side as well. Active
-development is restricted to WOWII declarations present in the current
+development is restricted to finite-graph declarations present in the current
 `formal-conjectures` corpus; the WoW I, Graph Brain, AutoGraphiX, and
 TxGraffiti sweeps below are retained as completed historical audits, not as
 DeepMind work queues.
