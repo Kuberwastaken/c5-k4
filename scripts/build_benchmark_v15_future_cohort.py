@@ -1,0 +1,518 @@
+#!/usr/bin/env python3
+"""Build the deterministic Method v1.5 post-freeze future cohort.
+
+The builder compares two independently authenticated upstream-main receipts.
+U1 is the first canonical tip captured after the public v1.5 freeze; U2 is a
+later canonical tip.  A cluster can enter the cohort only when it is open at
+U2, absent from the open-cluster registry at U1, first appears in the Git
+ancestry interval U1..U2, and has no identity trace in the permanent v1.4
+exclusion closure or the ancestry reachable from U1.
+
+Only bounded identity and classification metadata are emitted.  In
+particular, this program emits no statement text, outcomes, ranks, entropy,
+or target-specific semantic annotations.
+"""
+
+from __future__ import annotations
+
+import argparse
+from collections import Counter
+import hashlib
+import json
+from pathlib import Path
+import re
+import subprocess
+import sys
+from typing import Any
+
+
+ROOT = Path(__file__).parents[1].resolve()
+sys.path.insert(0, str(ROOT / "scripts"))
+import build_benchmark_v14_pool as syntax  # noqa: E402
+
+
+SCHEMA_VERSION = "c5k4-future-cohort-registry-1.5"
+CHECKPOINT_CHAIN_SCHEMA_VERSION = "c5k4-future-cohort-checkpoint-chain-1.5"
+STRATA = (
+    "GRAPH_SCALAR_INEQUALITY", "GRAPH_STRUCTURAL_PROPERTY",
+    "FINITE_ALGEBRA_EQUATIONAL", "AUTOMATA_GAME_PROCESS", "FINITE_COMBINATORIAL",
+)
+QUOTAS = {
+    "GRAPH_SCALAR_INEQUALITY": 3, "GRAPH_STRUCTURAL_PROPERTY": 3,
+    "FINITE_ALGEBRA_EQUATIONAL": 2, "AUTOMATA_GAME_PROCESS": 2,
+    "FINITE_COMBINATORIAL": 2,
+}
+HEX40 = re.compile(r"^[0-9a-f]{40}$")
+SAFE_GIT_CONFIG_ARGS = (
+    "-c", "core.hooksPath=/dev/null",
+    "-c", "core.fsmonitor=false",
+    "-c", "diff.external=",
+    "-c", "diff.trustExitCode=false",
+    "-c", "filter.lfs.process=",
+    "-c", "filter.lfs.smudge=",
+    "-c", "filter.lfs.required=false",
+)
+SAFE_GIT_ENV = {
+    "PATH": "/usr/bin:/bin",
+    "HOME": "/nonexistent-c5k4-v15",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "GIT_CONFIG_GLOBAL": "/dev/null",
+    "GIT_OPTIONAL_LOCKS": "0",
+    "GIT_TERMINAL_PROMPT": "0",
+}
+
+
+class FutureCohortError(ValueError):
+    """A fail-closed future-cohort contract violation."""
+
+
+def canonical_json(value: Any) -> bytes:
+    return json.dumps(
+        value, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+    ).encode("utf-8")
+
+
+def pretty_json(value: Any) -> bytes:
+    return json.dumps(value, ensure_ascii=False, sort_keys=True, indent=2).encode() + b"\n"
+
+
+def sha256(raw: bytes) -> str:
+    return hashlib.sha256(raw).hexdigest()
+
+
+def sha256_file(path: Path) -> str:
+    return sha256(path.read_bytes())
+
+
+def load_object(path: Path, where: str) -> dict[str, Any]:
+    try:
+        value = json.loads(path.read_bytes())
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise FutureCohortError(f"cannot read {where}: {exc}") from exc
+    if not isinstance(value, dict):
+        raise FutureCohortError(f"{where} must be one JSON object")
+    return value
+
+
+def git(repo: Path, *args: str, check: bool = True) -> bytes:
+    result = subprocess.run(
+        ["/usr/bin/git", *SAFE_GIT_CONFIG_ARGS, "-C", str(repo), *args],
+        check=False,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        env=SAFE_GIT_ENV,
+    )
+    if check and result.returncode != 0:
+        detail = result.stderr.decode("utf-8", "replace").strip()
+        raise FutureCohortError(f"Git command failed ({' '.join(args)}): {detail}")
+    if not check and result.returncode != 0:
+        return b""
+    return result.stdout
+
+
+def authenticate_receipt(receipt: dict[str, Any], label: str) -> dict[str, Any]:
+    """Authenticate the identity fields of a U1/U2 resolver receipt offline."""
+
+    repository_text = receipt.get("repository_path")
+    commit = receipt.get("commit")
+    tree = receipt.get("root_tree")
+    if not isinstance(repository_text, str) or not repository_text:
+        raise FutureCohortError(f"{label}.repository_path is required")
+    if not isinstance(commit, str) or HEX40.fullmatch(commit) is None:
+        raise FutureCohortError(f"{label}.commit must be a lowercase SHA-1")
+    if not isinstance(tree, str) or HEX40.fullmatch(tree) is None:
+        raise FutureCohortError(f"{label}.root_tree must be a lowercase SHA-1")
+    repo = Path(repository_text).resolve()
+    if not repo.is_dir():
+        raise FutureCohortError(f"{label} repository is absent: {repo}")
+    actual_commit = git(repo, "rev-parse", "--verify", f"{commit}^{{commit}}").decode().strip()
+    actual_tree = git(repo, "rev-parse", "--verify", f"{commit}^{{tree}}").decode().strip()
+    if actual_commit != commit or actual_tree != tree:
+        raise FutureCohortError(f"{label} commit/tree authentication failed")
+    destination_ref = receipt.get("destination_ref")
+    if destination_ref is not None:
+        if not isinstance(destination_ref, str) or not destination_ref.startswith("refs/"):
+            raise FutureCohortError(f"{label}.destination_ref is malformed")
+        resolved = git(repo, "rev-parse", "--verify", destination_ref).decode().strip()
+        if resolved != commit:
+            raise FutureCohortError(f"{label} destination ref does not resolve to its commit")
+    return {"repo": repo, "commit": commit, "tree": tree}
+
+
+def validate_policies(grouping: dict[str, Any], classifier: dict[str, Any]) -> None:
+    if grouping.get("unit") != "QUESTION_CLUSTER":
+        raise FutureCohortError("grouping policy does not define question clusters")
+    if grouping.get("manual_grouping_after_p0") is not False:
+        raise FutureCohortError("grouping policy permits post-freeze manual grouping")
+    if grouping.get("statement_semantics_permitted") is not False:
+        raise FutureCohortError("grouping policy permits statement semantics")
+    output_policy = classifier.get("output_policy")
+    if not isinstance(output_policy, dict):
+        raise FutureCohortError("classifier output policy is absent")
+    for forbidden in ("statement_text", "random_ranks", "target_selection"):
+        if output_policy.get(forbidden) is not False:
+            raise FutureCohortError(f"classifier permits forbidden output: {forbidden}")
+
+
+def extract_pool(
+    repo: Path, commit: str, tree: str, classifier: dict[str, Any], classifier_path: Path
+) -> dict[str, Any]:
+    old_commit, old_tree = syntax.PINNED_COMMIT, syntax.PINNED_TREE
+    syntax.PINNED_COMMIT, syntax.PINNED_TREE = commit, tree
+    try:
+        upstream, declarations = syntax.extract(repo, classifier, enforce_pin=True)
+    finally:
+        syntax.PINNED_COMMIT, syntax.PINNED_TREE = old_commit, old_tree
+    inventory = syntax.build_inventory(upstream, declarations, classifier_path)
+    return syntax.build_pool(inventory, sha256(canonical_json(inventory)), classifier_path)
+
+
+def exclusion_index(pool: dict[str, Any]) -> dict[str, set[str]]:
+    rows = pool.get("clusters")
+    if not isinstance(rows, list):
+        raise FutureCohortError("v1.4 exclusion artifact has no clusters array")
+    index = {
+        "cluster_id": set(), "path": set(), "identity_sha256": set(),
+        "module_blob_sha256": set(), "statement_header_sha256": set(),
+        "declaration_name": set(),
+    }
+    for position, row in enumerate(rows):
+        if not isinstance(row, dict):
+            raise FutureCohortError(f"v1.4 exclusion row {position} is not an object")
+        for key in ("cluster_id", "path", "identity_sha256", "module_blob_sha256"):
+            value = row.get(key)
+            if isinstance(value, str) and value:
+                index[key].add(value)
+        declarations = row.get("declarations")
+        if not isinstance(declarations, list):
+            raise FutureCohortError(f"v1.4 exclusion row {position} has invalid declarations")
+        for declaration in declarations:
+            if not isinstance(declaration, dict):
+                raise FutureCohortError("v1.4 exclusion declaration is not an object")
+            name = declaration.get("name")
+            header = declaration.get("statement_header_sha256")
+            if isinstance(name, str) and name:
+                index["declaration_name"].add(name)
+            if isinstance(header, str) and header:
+                index["statement_header_sha256"].add(header)
+    return index
+
+
+def current_cluster_index(pool: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    return {
+        row["cluster_id"]: row
+        for row in pool["clusters"]
+        if isinstance(row, dict) and isinstance(row.get("cluster_id"), str)
+    }
+
+
+def reachable(repo: Path, ancestor: str, descendant: str) -> bool:
+    result = subprocess.run(
+        ["/usr/bin/git", *SAFE_GIT_CONFIG_ARGS, "-C", str(repo),
+         "merge-base", "--is-ancestor", ancestor, descendant],
+        check=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=SAFE_GIT_ENV,
+    )
+    if result.returncode not in (0, 1):
+        raise FutureCohortError("cannot evaluate receipt ancestry")
+    return result.returncode == 0
+
+
+def prior_path_history(repo: Path, u1: str, path: str) -> bool:
+    return bool(git(repo, "log", "--format=%H", u1, "--", path).strip())
+
+
+def prior_blob_history(repo: Path, u1: str, u2: str, path: str) -> bool:
+    blob = git(repo, "rev-parse", f"{u2}:{path}").decode().strip()
+    objects = git(repo, "rev-list", "--objects", u1, "--", "FormalConjectures")
+    return any(line.split(b" ", 1)[0].decode() == blob for line in objects.splitlines())
+
+
+def prior_name_history(repo: Path, u1: str, name: str) -> bool:
+    # Pickaxe inspects content changes reachable from U1; it does not use dates.
+    return bool(
+        git(repo, "log", "--format=%H", "-F", f"-S{name}", u1, "--", "FormalConjectures").strip()
+    )
+
+
+def introduction_commits(repo: Path, u2: str, path: str) -> list[str]:
+    raw = git(
+        repo, "log", "--follow", "--diff-filter=A", "--format=%H", u2, "--", path
+    )
+    return [line.decode() for line in raw.splitlines() if line]
+
+
+def permanent_exclusion_reasons(row: dict[str, Any], index: dict[str, set[str]]) -> set[str]:
+    reasons = set()
+    for key in ("cluster_id", "path", "identity_sha256", "module_blob_sha256"):
+        if row.get(key) in index[key]:
+            reasons.add("V14_EXCLUSION_" + key.upper())
+    for declaration in row.get("declarations", []):
+        if declaration.get("name") in index["declaration_name"]:
+            reasons.add("V14_EXCLUSION_DECLARATION_NAME")
+        if declaration.get("statement_header_sha256") in index["statement_header_sha256"]:
+            reasons.add("V14_EXCLUSION_STATEMENT_HEADER")
+    return reasons
+
+
+def identity_row(row: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "cluster_id": row["cluster_id"],
+        "identity_sha256": row["identity_sha256"],
+        "path": row["path"],
+        "module_blob_sha256": row["module_blob_sha256"],
+        "declarations": [
+            {
+                "name": declaration["name"],
+                "kind": declaration["kind"],
+                "category_line": declaration["category_line"],
+                "statement_header_sha256": declaration["statement_header_sha256"],
+            }
+            for declaration in row["declarations"]
+        ],
+        "machine_stratum": row["machine_stratum"],
+        "classification_basis": row["classification_basis"],
+    }
+
+
+def build(
+    u1_receipt: dict[str, Any],
+    u2_receipt: dict[str, Any],
+    v14_pool: dict[str, Any],
+    grouping: dict[str, Any],
+    classifier: dict[str, Any],
+    classifier_path: Path,
+    *,
+    input_digests: dict[str, str],
+) -> dict[str, Any]:
+    validate_policies(grouping, classifier)
+    u1 = authenticate_receipt(u1_receipt, "U1")
+    u2 = authenticate_receipt(u2_receipt, "U2")
+    if u1["commit"] == u2["commit"]:
+        raise FutureCohortError("U1 and U2 must be distinct upstream tips")
+    if not reachable(u2["repo"], u1["commit"], u2["commit"]):
+        raise FutureCohortError("U1 is not an ancestor of U2 in the authenticated U2 repository")
+
+    u1_pool = extract_pool(u2["repo"], u1["commit"], u1["tree"], classifier, classifier_path)
+    u2_pool = extract_pool(u2["repo"], u2["commit"], u2["tree"], classifier, classifier_path)
+    prior_open = current_cluster_index(u1_pool)
+    excluded = exclusion_index(v14_pool)
+    records = []
+
+    for row in sorted(u2_pool["clusters"], key=lambda item: item["cluster_id"]):
+        # An existing U1 cluster remains outside the future cohort even if its
+        # statement or metadata changed after the freeze.
+        if row["cluster_id"] in prior_open:
+            continue
+        reasons = permanent_exclusion_reasons(row, excluded)
+        if row.get("machine_stratum") is None or row.get("eligible") is not True:
+            reasons.add("AMBIGUOUS_OR_UNCLASSIFIED")
+        path = row["path"]
+        if prior_path_history(u2["repo"], u1["commit"], path):
+            reasons.add("PATH_REACHABLE_BEFORE_U1")
+        if prior_blob_history(u2["repo"], u1["commit"], u2["commit"], path):
+            reasons.add("BLOB_REACHABLE_BEFORE_U1")
+        for declaration in row["declarations"]:
+            if prior_name_history(u2["repo"], u1["commit"], declaration["name"]):
+                reasons.add("DECLARATION_NAME_REACHABLE_BEFORE_U1")
+
+        additions = introduction_commits(u2["repo"], u2["commit"], path)
+        if len(additions) != 1:
+            reasons.add("AMBIGUOUS_INTRODUCTION_HISTORY")
+            introduction = None
+        else:
+            introduction = additions[0]
+            if reachable(u2["repo"], introduction, u1["commit"]):
+                reasons.add("INTRODUCTION_REACHABLE_BEFORE_U1")
+            if not reachable(u2["repo"], introduction, u2["commit"]):
+                reasons.add("INTRODUCTION_NOT_REACHABLE_FROM_U2")
+
+        record = identity_row(row)
+        record.update({
+            "first_introduction_commit": introduction,
+            "first_introduction_tree": (
+                git(u2["repo"], "rev-parse", f"{introduction}^{{tree}}").decode().strip()
+                if introduction is not None else None
+            ),
+            "membership_status": "INCLUDE" if not reasons else "EXCLUDE",
+            "exclusion_reasons": sorted(reasons),
+        })
+        records.append(record)
+
+    reason_counts: Counter[str] = Counter()
+    stratum_counts: Counter[str] = Counter()
+    for row in records:
+        reason_counts.update(row["exclusion_reasons"])
+        if row["membership_status"] == "INCLUDE":
+            stratum_counts[row["machine_stratum"]] += 1
+    output = {
+        "schema_version": SCHEMA_VERSION,
+        "authority": "DETERMINISTIC_POST_FREEZE_FUTURE_COHORT",
+        "upstream": {
+            "repository": "google-deepmind/formal-conjectures",
+            "u1_commit": u1["commit"], "u1_tree": u1["tree"],
+            "u2_commit": u2["commit"], "u2_tree": u2["tree"],
+            "ancestry_interval": "U1_EXCLUSIVE_U2_INCLUSIVE",
+        },
+        "inputs": dict(sorted(input_digests.items())),
+        "controls": {
+            "statement_text_present": False,
+            "outcomes_present": False,
+            "ranking_present": False,
+            "entropy_used": False,
+            "selection_permitted": False,
+            "first_introduction_basis": "GIT_REACHABILITY_AND_TREE_CONTENT_NOT_TIMESTAMPS",
+            "v14_exclusion_cluster_count": len(v14_pool["clusters"]),
+        },
+        "counts": {
+            "u1_open_clusters": len(u1_pool["clusters"]),
+            "u2_open_clusters": len(u2_pool["clusters"]),
+            "delta_records": len(records),
+            "included": sum(row["membership_status"] == "INCLUDE" for row in records),
+            "excluded": sum(row["membership_status"] == "EXCLUDE" for row in records),
+            "included_by_stratum": dict(sorted(stratum_counts.items())),
+            "exclusion_reasons": dict(sorted(reason_counts.items())),
+        },
+        "records": records,
+    }
+    eligible_by_stratum = {
+        stratum: stratum_counts.get(stratum, 0) for stratum in STRATA
+    }
+    deficits = {
+        stratum: max(0, QUOTAS[stratum] - eligible_by_stratum[stratum])
+        for stratum in STRATA
+    }
+    output["quota_certificate"] = {
+        "quotas": dict(QUOTAS),
+        "eligible_by_stratum": eligible_by_stratum,
+        "deficits": deficits,
+        "status": "PASS" if not any(deficits.values()) else "FAIL",
+        "candidate_count": sum(eligible_by_stratum.values()),
+    }
+    output["registry_sha256"] = sha256(canonical_json(output))
+    return output
+
+
+def checkpoint_chain(
+    u1_receipt: dict[str, Any],
+    checkpoints: list[dict[str, Any]],
+    v14_pool: dict[str, Any],
+    grouping: dict[str, Any],
+    classifier: dict[str, Any],
+    classifier_path: Path,
+    *,
+    input_digests: dict[str, str],
+) -> tuple[dict[str, Any], dict[str, Any] | None]:
+    """Evaluate scheduled checkpoints in order and select the first quota PASS.
+
+    A missed scheduled checkpoint is never reconstructed.  It receives no
+    registry evaluation and therefore cannot close the cohort.
+    """
+
+    if not checkpoints:
+        raise FutureCohortError("checkpoint manifest must be nonempty")
+    certificates = []
+    selected = None
+    previous_ordinal = 0
+    for checkpoint in checkpoints:
+        ordinal = checkpoint.get("checkpoint_ordinal")
+        label = checkpoint.get("checkpoint_label")
+        status = checkpoint.get("capture_status")
+        terminal = checkpoint.get("terminal_horizon") is True
+        if not isinstance(ordinal, int) or ordinal != previous_ordinal + 1:
+            raise FutureCohortError("checkpoint ordinals must be contiguous from one")
+        previous_ordinal = ordinal
+        if not isinstance(label, str) or not label:
+            raise FutureCohortError("checkpoint label is required")
+        if status == "MISSED":
+            certificates.append({
+                "checkpoint_ordinal": ordinal, "checkpoint_label": label,
+                "capture_status": "MISSED", "terminal_horizon": terminal,
+                "commit": None, "tree": None, "quotas": dict(QUOTAS),
+                "eligible_by_stratum": None, "deficits": None,
+                "status": "UNEVALUATED_MISSED", "candidate_count": None,
+                "registry_sha256": None,
+            })
+            continue
+        if status != "CAPTURED" or not isinstance(checkpoint.get("receipt"), dict):
+            raise FutureCohortError("captured checkpoint needs one embedded receipt")
+        registry = build(
+            u1_receipt, checkpoint["receipt"], v14_pool, grouping, classifier,
+            classifier_path, input_digests=input_digests,
+        )
+        quota = registry["quota_certificate"]
+        certificate = {
+            "checkpoint_ordinal": ordinal, "checkpoint_label": label,
+            "capture_status": "CAPTURED", "terminal_horizon": terminal,
+            "commit": registry["upstream"]["u2_commit"],
+            "tree": registry["upstream"]["u2_tree"],
+            **quota, "registry_sha256": registry["registry_sha256"],
+        }
+        certificates.append(certificate)
+        if quota["status"] == "PASS":
+            selected = registry
+            break
+    first = certificates[-1] if selected is not None else None
+    chain = {
+        "schema_version": CHECKPOINT_CHAIN_SCHEMA_VERSION,
+        "authority": "FIRST_SCHEDULED_QUOTA_PASS_OR_HARD_TERMINAL",
+        "inputs": dict(sorted(input_digests.items())),
+        "controls": {
+            "checkpoint_ordering": "CONTIGUOUS_PREREGISTERED_ORDINAL",
+            "missed_checkpoint_recreation_permitted": False,
+            "manual_close_permitted": False,
+            "backfill_permitted": False,
+            "statement_text_present": False, "outcomes_present": False,
+            "ranking_present": False, "entropy_used": False,
+        },
+        "checkpoint_certificates": certificates,
+        "first_passing_ordinal": (
+            first["checkpoint_ordinal"] if selected is not None else None
+        ),
+        "selected_u2_commit": (
+            selected["upstream"]["u2_commit"] if selected is not None else None
+        ),
+        "selected_u2_tree": (
+            selected["upstream"]["u2_tree"] if selected is not None else None
+        ),
+        "terminal_horizon_reached": any(
+            row["terminal_horizon"] for row in certificates
+        ) and selected is None,
+    }
+    chain["chain_sha256"] = sha256(canonical_json(chain))
+    return chain, selected
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--u1-receipt", type=Path, required=True)
+    parser.add_argument("--u2-receipt", type=Path, required=True)
+    parser.add_argument("--v14-exclusion", type=Path, required=True)
+    parser.add_argument("--grouping-rule", type=Path, required=True)
+    parser.add_argument("--classifier", type=Path, required=True)
+    parser.add_argument("--output", type=Path, required=True)
+    args = parser.parse_args()
+    paths = {
+        "u1_receipt": args.u1_receipt.resolve(),
+        "u2_receipt": args.u2_receipt.resolve(),
+        "v14_exclusion": args.v14_exclusion.resolve(),
+        "grouping_rule": args.grouping_rule.resolve(),
+        "classifier": args.classifier.resolve(),
+    }
+    if args.output.exists():
+        raise FutureCohortError("output already exists; overwrite is forbidden")
+    values = {name: load_object(path, name) for name, path in paths.items()}
+    output = build(
+        values["u1_receipt"], values["u2_receipt"], values["v14_exclusion"],
+        values["grouping_rule"], values["classifier"], paths["classifier"],
+        input_digests={name + "_sha256": sha256_file(path) for name, path in paths.items()},
+    )
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    args.output.write_bytes(pretty_json(output))
+    print(json.dumps({"output": str(args.output), **output["counts"]}, sort_keys=True))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
