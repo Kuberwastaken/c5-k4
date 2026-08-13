@@ -101,6 +101,20 @@ early, publish the stop, then rotate to a genuinely unclaimed finite target.
 The protocol and exact audit are in [`METHOD.md`](METHOD.md) and
 [`erdos_deepmind_resolution_shape_audit_20260813.md`](results/expansion/erdos_deepmind_resolution_shape_audit_20260813.md).
 
+The first certificate-gated non-graph exact trial is also public. A normalized
+solver reproducing the current Catch-Up declaration passed source calibration
+through `N=20` and an independent recurrence audit. Under isolated 60-second
+GitHub Actions jobs, `N=23` is an exact draw after 95,451,689 memo states;
+`N=24` remains an explicit timeout bracket. This is a method result—not a
+counterexample or release—and its raw incremental evidence is preserved in
+[`catchup_n23_n24_report.md`](results/expansion/catchup_n23_n24_report.md).
+
+The order-15 Latin Tableau zero has likewise been converted into theorem work:
+warning-clean Lean now proves the profile telescoping, binary-change,
+threshold-to-basis, and one-vertex coloring-extension lemmas. The remaining
+obstruction is stated narrowly as a Ferrers multicolor exchange-existence
+problem, rather than being hidden behind another size sweep.
+
 The development record also publishes its zeroes. Method v0.2 found no
 crossing for #382e after 212,502 wall-directed substitutions, all connected
 order-eight graphs, and 20,000 unrestricted-weight samples; and no crossing

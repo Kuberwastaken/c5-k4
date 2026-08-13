@@ -540,6 +540,15 @@ will be counted as held out.
   frozen two-cycle Černý surgeries all synchronize in 11--21 steps: adding a
   second merge changes the contraction letter from defect one to defect two
   and creates an alternating safe-direction law instead of crossing the wall.
+- Records the first exact non-graph resource frontier. A normalized Catch-Up
+  minimax solver passed source calibration and independent recurrence audit;
+  under isolated 60-second jobs, `N=23` is an exact draw and `N=24` is a
+  timeout bracket. The bracket is an outcome, not permission for an unlogged
+  adaptive solver change.
+- Converts the Latin Tableau zero into warning-clean theorem components while
+  keeping the missing Ferrers exchange-existence theorem explicit. Formalizing
+  algebraic consequences of a theorem signal does not promote the parent
+  conjecture to proved or the bounded trial to a discovery.
 
 ### v0.9 — 2026-08-13
 

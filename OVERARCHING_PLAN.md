@@ -280,6 +280,20 @@ contraction letter; all rows reset in 11--21 steps and satisfy the exact safe
 law `L=23-2d`, far below 144. These are development zeroes and transformation-
 catalogue updates, not truth claims or held-out evidence.
 
+The Catch-Up lane provides the first exact non-graph resource frontier under
+the same gate. A semantics-preserving normalized minimax solver replayed the
+source results through `N=20`; independent reconstruction of the Lean
+recurrence and a separate absolute-state solver found no semantic defect. In
+isolated 60-second Action jobs, `N=23` resolved as a draw and `N=24` reached a
+durable timeout bracket. No adaptive retry is folded into that frozen trial.
+
+For Latin Tableau, the theorem signal has begun producing formal components:
+the cumulative-profile telescoping identity, binary deletion coordinate bound,
+threshold-to-basis-vector implication, and generic one-vertex coloring
+extension compile warning-free at the pinned DeepMind revision. The honest
+next theorem obligation is the Ferrers min-cut/exchange-existence bridge, not
+another enumeration order.
+
 Erdős 92 is retained separately as a retrospective theorem-transfer benchmark:
 the canonical database records a disproof via problem 90 while DeepMind still
 contains open answer placeholders. It can test whether the workflow recovers
