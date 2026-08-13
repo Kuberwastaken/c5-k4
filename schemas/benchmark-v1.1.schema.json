@@ -107,11 +107,50 @@
     "randomness": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["source", "round", "round_closes_at_utc", "value", "value_sha256"],
+      "required": [
+        "source", "round", "round_closes_at_utc", "chain", "relays",
+        "verification", "selection_algorithm", "value", "value_sha256"
+      ],
       "properties": {
-        "source": {"type": "string", "minLength": 1},
+        "source": {"const": "League of Entropy drand legacy mainnet"},
         "round": {"type": ["string", "integer"], "minLength": 1, "minimum": 0},
         "round_closes_at_utc": {"$ref": "#/definitions/timestamp"},
+        "chain": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["hash", "public_key", "scheme_id", "genesis_time", "period_seconds"],
+          "properties": {
+            "hash": {"const": "8990e7a9aaed2ffed73dbd7092123d6f289930540d7651336225dc172e51b2ce"},
+            "public_key": {"const": "868f005eb8e6e4ca0a47c8a77ceaa5309a47978a7c71bc5cce96366b5d7a569937c529eeda66c7293784a9402801af31"},
+            "scheme_id": {"const": "pedersen-bls-chained"},
+            "genesis_time": {"const": 1595431050},
+            "period_seconds": {"const": 30}
+          }
+        },
+        "relays": {
+          "const": ["https://api.drand.sh", "https://api2.drand.sh"]
+        },
+        "verification": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "library", "library_version", "require_exact_round",
+            "require_relay_equality", "require_bls_signature",
+            "require_randomness_sha256_signature", "raw_artifact"
+          ],
+          "properties": {
+            "library": {"const": "drand-client"},
+            "library_version": {"const": "1.4.2"},
+            "require_exact_round": {"const": true},
+            "require_relay_equality": {"const": true},
+            "require_bls_signature": {"const": true},
+            "require_randomness_sha256_signature": {"const": true},
+            "raw_artifact": {
+              "oneOf": [{"$ref": "#/definitions/fileDigest"}, {"type": "null"}]
+            }
+          }
+        },
+        "selection_algorithm": {"const": "UNBIASED_DOMAIN_SEPARATED_SHA256_FISHER_YATES_V1"},
         "value": {"type": ["string", "null"]},
         "value_sha256": {
           "oneOf": [{"$ref": "#/definitions/sha256"}, {"type": "null"}]
@@ -128,7 +167,8 @@
         "no_backfill",
         "relaxed_exclusion",
         "backfill_events",
-        "insufficient_stratum_outcome"
+        "insufficient_stratum_outcome",
+        "evidence"
       ],
       "properties": {
         "sampling_unit": {"const": "QUESTION_CLUSTER"},
@@ -154,7 +194,10 @@
         "no_backfill": {"const": true},
         "relaxed_exclusion": {"const": false},
         "backfill_events": {"type": "array", "maxItems": 0},
-        "insufficient_stratum_outcome": {"const": "NO_ELIGIBLE_BENCHMARK"}
+        "insufficient_stratum_outcome": {"const": "NO_ELIGIBLE_BENCHMARK"},
+        "evidence": {
+          "oneOf": [{"$ref": "#/definitions/fileDigest"}, {"type": "null"}]
+        }
       }
     },
     "budgets": {
@@ -359,6 +402,12 @@
         "selection_forecast": {"oneOf": [{"$ref": "#/definitions/forecast"}, {"type": "null"}]},
         "intervention_forecast": {"oneOf": [{"$ref": "#/definitions/forecast"}, {"type": "null"}]},
         "runnable": {"type": ["boolean", "null"]},
+        "shared_analysis_contract": {
+          "oneOf": [{"$ref": "#/definitions/fileDigest"}, {"type": "null"}]
+        },
+        "independent_verification_contract": {
+          "oneOf": [{"$ref": "#/definitions/fileDigest"}, {"type": "null"}]
+        },
         "arms_frozen_at_utc": {"$ref": "#/definitions/nullableTimestamp"},
         "evaluation_started_at_utc": {"$ref": "#/definitions/nullableTimestamp"},
         "arms": {"oneOf": [{"$ref": "#/definitions/arms"}, {"type": "null"}]},

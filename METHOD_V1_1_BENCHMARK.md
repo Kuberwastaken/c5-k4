@@ -34,6 +34,23 @@ At `C1`, the frozen future-randomness value selects exactly twelve clusters:
 - two automata/game/process clusters;
 - two finite combinatorial clusters.
 
+The executable sampler is
+[`scripts/select_benchmark_v11.py`](scripts/select_benchmark_v11.py). Its C0
+input is a `c5k4-eligible-cluster-pool-1.1` JSON object containing the pinned
+upstream commit/tree, a content digest and fail-closed marker for the applied
+contamination inventory, and cluster rows with `cluster_id`,
+`identity_sha256`, `stratum`, and a Boolean `eligible` decision. The sampler
+rejects a pre-contamination pool. Other row metadata is opaque to the sampler.
+Within each stratum it starts from rows sorted by lowercase identity digest and
+then cluster ID UTF-8 bytes, and runs a full Fisher--Yates shuffle. Each random
+block is SHA-256 of the domain tag
+`c5-k4/method-v1.1/C1\\0`, the 32 decoded beacon-randomness bytes, the
+big-endian 32-bit stratum index, and a big-endian 64-bit block counter. Its
+64-bit words use rejection sampling, removing modulo bias. The first fixed
+quota after the shuffle is selected. The output records the exact
+and canonical pool hashes, randomness hash, complete eligible ranking, and
+selection digest, so a third party can replay C1 without statement access.
+
 If a stratum has too few uncontaminated units, the benchmark ends as
 `NO_ELIGIBLE_BENCHMARK`. There is no backfill or relaxed exclusion. Manual
 Phase-0 review occurs only after `C1`; every selected cluster remains in the
@@ -165,3 +182,49 @@ Add a benchmark schema and linter coverage for:
 - terminal-outcome/evidence consistency and ledger-derived aggregate scores.
 
 No `C0` freeze is permitted until these checks are executable in CI.
+
+## Frozen job execution
+
+Benchmark computation is dispatched through
+[`method-v11-frozen-job.yml`](.github/workflows/method-v11-frozen-job.yml).
+The dispatch accepts an exact 40-hex campaign commit, manifest path, cluster,
+job mode, and (for discovery) arm. It never accepts a command line. The local
+runner resolves the corresponding content-addressed contract from the
+lint-clean manifest:
+
+- `shared_analysis_contract` on the selected cluster;
+- the selected entry under `cluster.arms` for a discovery arm;
+- `independent_verification_contract` on the selected cluster.
+
+Shared-analysis and independent-verification contract references are optional
+while a cluster has not reached those stages, but must be frozen in the
+manifest before their jobs can run. Discovery references remain mandatory for
+every runnable cluster through the existing arm schema.
+
+Every execution contract conforms to
+[`benchmark-run-contract-v1.schema.json`](schemas/benchmark-run-contract-v1.schema.json).
+It enumerates every process and its complete argument vector in advance. The
+runner rejects changes to an arm's seed, parameter grid, transformation,
+process count, wall cap, CPU budget, or `no_adaptation` flag. Discovery is
+locked to exactly eight concurrent process trees, 60 seconds each, and 480
+CPU-seconds. Verification is locked to two by 60 seconds. Shared analysis may
+enumerate at most ten 60-second processes and at most 600 CPU-seconds.
+
+On Linux, each process tree receives one CPU affinity and a fresh user/network
+namespace. This makes the 60-second wall limit an upper bound of 60 CPU-seconds
+for that tree, blocks network-dependent search, and prevents eight nominal
+processes from silently multiplying their CPU allowance through threads. The
+runner passes a fixed environment allowlist and no GitHub or runner secrets.
+It fails closed if network namespaces are unavailable.
+
+Each job uploads its frozen manifest and contract digests, runner digest,
+checked-out Git commit, exact invocations, stdout, stderr, GNU time metrics,
+timeouts, exit codes, before/after repository status, and an SHA-256 inventory
+of the complete artifact tree. A timeout or nonzero search exit is recorded as
+a scientific outcome; missing processes, CPU-cap violations, changed checkout
+state, or isolation failures are orchestration failures.
+
+Before spending a budget, dispatch the same job with `dry_run: true`. This
+performs all manifest, digest, chronology, contract, budget, and Git-ancestry
+checks without launching a target process. The exact `frozen_ref` is used for
+checkout, so a branch move cannot change a queued experiment.

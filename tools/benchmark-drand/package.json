@@ -1,0 +1,13 @@
+{
+  "name": "c5-k4-benchmark-drand-verifier",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "fetch": "node fetch-and-verify.mjs",
+    "test": "node --test test/*.test.mjs"
+  },
+  "dependencies": {
+    "drand-client": "1.4.2"
+  }
+}

@@ -7,30 +7,42 @@ on:
     paths:
       - schemas/resolution-card-v1.schema.json
       - schemas/benchmark-v1.1.schema.json
+      - schemas/benchmark-run-contract-v1.schema.json
       - scripts/lint_resolution_card.py
       - scripts/test_lint_resolution_card.py
       - scripts/lint_benchmark_v11.py
       - scripts/test_lint_benchmark_v11.py
+      - scripts/run_benchmark_v11_job.py
+      - scripts/test_run_benchmark_v11_job.py
       - scripts/build_benchmark_contamination_inventory.py
       - scripts/test_build_benchmark_contamination_inventory.py
+      - scripts/select_benchmark_v11.py
+      - scripts/test_select_benchmark_v11.py
       - results/benchmark/**
       - results/expansion/*_resolution_card.json
       - results/expansion/*_ledger.jsonl
       - .github/workflows/method-resolution-card-validation.yml
+      - .github/workflows/method-v11-frozen-job.yml
   pull_request:
     paths:
       - schemas/resolution-card-v1.schema.json
       - schemas/benchmark-v1.1.schema.json
+      - schemas/benchmark-run-contract-v1.schema.json
       - scripts/lint_resolution_card.py
       - scripts/test_lint_resolution_card.py
       - scripts/lint_benchmark_v11.py
       - scripts/test_lint_benchmark_v11.py
+      - scripts/run_benchmark_v11_job.py
+      - scripts/test_run_benchmark_v11_job.py
       - scripts/build_benchmark_contamination_inventory.py
       - scripts/test_build_benchmark_contamination_inventory.py
+      - scripts/select_benchmark_v11.py
+      - scripts/test_select_benchmark_v11.py
       - results/benchmark/**
       - results/expansion/*_resolution_card.json
       - results/expansion/*_ledger.jsonl
       - .github/workflows/method-resolution-card-validation.yml
+      - .github/workflows/method-v11-frozen-job.yml
 
 permissions:
   contents: read
@@ -68,6 +80,14 @@ jobs:
         shell: bash
         run: python3 scripts/test_lint_benchmark_v11.py
 
+      - name: Run frozen benchmark-job tests
+        shell: bash
+        run: python3 scripts/test_run_benchmark_v11_job.py
+
       - name: Run contamination-inventory tests
         shell: bash
         run: python3 scripts/test_build_benchmark_contamination_inventory.py
+
+      - name: Run deterministic C1 sampler tests
+        shell: bash
+        run: python3 scripts/test_select_benchmark_v11.py

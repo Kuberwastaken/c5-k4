@@ -21,6 +21,11 @@ from pathlib import Path, PurePosixPath
 from typing import Any, Iterable
 
 try:
+    from select_benchmark_v11 import select as replay_selection
+except ModuleNotFoundError:  # imported as ``scripts.lint_benchmark_v11``
+    from scripts.select_benchmark_v11 import select as replay_selection
+
+try:
     import jsonschema
 except ImportError as exc:  # pragma: no cover - environment/setup failure
     raise SystemExit("jsonschema is required: python3 -m pip install jsonschema") from exc
@@ -123,7 +128,18 @@ def _file_references(manifest: dict[str, Any]) -> Iterable[tuple[str, dict[str, 
     for name, value in manifest["freeze_artifacts"].items():
         yield f"freeze_artifacts.{name}", value
     yield "contamination.inventory", manifest["contamination"]["inventory"]
+    if manifest["selection"]["evidence"] is not None:
+        yield "selection.evidence", manifest["selection"]["evidence"]
+    if manifest["randomness"]["verification"]["raw_artifact"] is not None:
+        yield "randomness.verification.raw_artifact", manifest["randomness"]["verification"]["raw_artifact"]
     for cluster_index, cluster in enumerate(manifest["clusters"]):
+        for contract_name in (
+            "shared_analysis_contract",
+            "independent_verification_contract",
+        ):
+            reference = cluster.get(contract_name)
+            if reference is not None:
+                yield f"clusters.{cluster_index}.{contract_name}", reference
         if cluster["arms"] is None:
             continue
         for arm_name in ARMS:
@@ -175,6 +191,7 @@ def semantic_findings(manifest: dict[str, Any], manifest_path: Path) -> list[Fin
     chronology = manifest["chronology"]
     clusters = manifest["clusters"]
     randomness = manifest["randomness"]
+    raw_randomness = randomness["verification"]["raw_artifact"]
     times = {key: _timestamp(value) for key, value in chronology.items() if key.endswith("_utc")}
     round_close = _timestamp(randomness["round_closes_at_utc"])
 
@@ -185,6 +202,10 @@ def semantic_findings(manifest: dict[str, Any], manifest_path: Path) -> list[Fin
             error("PREMATURE_FREEZE", "chronology", "protocol design chronology must remain null")
         if randomness["value"] is not None or randomness["value_sha256"] is not None:
             error("PREMATURE_RANDOMNESS", "randomness.value", "future value must be unknown before C0")
+        if raw_randomness is not None:
+            error("PREMATURE_RANDOMNESS_ARTIFACT", "randomness.verification.raw_artifact", "future raw response must be unknown before C0")
+        if manifest["selection"]["evidence"] is not None:
+            error("PREMATURE_SELECTION_EVIDENCE", "selection.evidence", "protocol design cannot contain C1 evidence")
 
     if phase in POST_C0_PHASES:
         if chronology["c0_commit"] is None or times["c0_published_at_utc"] is None:
@@ -198,6 +219,10 @@ def semantic_findings(manifest: dict[str, Any], manifest_path: Path) -> list[Fin
             error("PREMATURE_SELECTION", "clusters", "C0 cannot already contain C1 selections")
         if randomness["value"] is not None or randomness["value_sha256"] is not None:
             error("PREMATURE_RANDOMNESS", "randomness.value", "C0 must not know the future value")
+        if raw_randomness is not None:
+            error("PREMATURE_RANDOMNESS_ARTIFACT", "randomness.verification.raw_artifact", "C0 must not contain the future raw response")
+        if manifest["selection"]["evidence"] is not None:
+            error("PREMATURE_SELECTION_EVIDENCE", "selection.evidence", "C0 cannot contain C1 evidence")
         for key in ("randomness_retrieved_at_utc", "c1_frozen_at_utc", "evaluation_started_at_utc", "completed_at_utc"):
             if times[key] is not None:
                 error("PREMATURE_CHRONOLOGY", f"chronology.{key}", "timestamp is later than C0")
@@ -210,6 +235,10 @@ def semantic_findings(manifest: dict[str, Any], manifest_path: Path) -> list[Fin
         required = ("randomness_retrieved_at_utc", "c1_frozen_at_utc")
         if chronology["c1_commit"] is None or any(times[key] is None for key in required):
             error("C1_REQUIRED", "chronology", f"phase {phase} requires randomness retrieval and C1")
+        if raw_randomness is None:
+            error("RANDOMNESS_ARTIFACT_REQUIRED", "randomness.verification.raw_artifact", f"phase {phase} requires frozen verified relay responses")
+        if manifest["selection"]["evidence"] is None:
+            error("SELECTION_EVIDENCE_REQUIRED", "selection.evidence", f"phase {phase} requires sampler evidence")
 
     if phase in POST_C1_PHASES:
         if len(clusters) != 12:
@@ -222,6 +251,45 @@ def semantic_findings(manifest: dict[str, Any], manifest_path: Path) -> list[Fin
             error("NO_ELIGIBLE_SHAPE", "clusters", "NO_ELIGIBLE_BENCHMARK requires an incomplete selection")
         if times["evaluation_started_at_utc"] is not None:
             error("NO_ELIGIBLE_EVALUATION", "chronology.evaluation_started_at_utc", "no evaluation is allowed")
+
+    evidence_reference = manifest["selection"]["evidence"]
+    if evidence_reference is not None:
+        evidence_path = resolve_path(manifest_path, evidence_reference["path"])
+        try:
+            evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
+        except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+            error("SELECTION_EVIDENCE_PARSE", "selection.evidence.path", f"cannot parse sampler evidence: {exc}")
+        else:
+            recorded_digest = evidence.get("evidence_sha256")
+            unsigned = {key: value for key, value in evidence.items() if key != "evidence_sha256"}
+            computed_digest = sha256_bytes(json.dumps(
+                unsigned, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+            ).encode("utf-8"))
+            if recorded_digest != computed_digest:
+                error("SELECTION_EVIDENCE_DIGEST", "selection.evidence.path", "internal sampler evidence digest mismatch")
+            expected_status = "NO_ELIGIBLE_BENCHMARK" if phase == "NO_ELIGIBLE_BENCHMARK" else "SELECTED"
+            if evidence.get("status") != expected_status:
+                error("SELECTION_EVIDENCE_STATUS", "selection.evidence.path", "sampler status disagrees with benchmark phase")
+            selected_ids = [row.get("cluster_id") for row in evidence.get("selected_clusters", []) if isinstance(row, dict)]
+            if selected_ids != [cluster["cluster_id"] for cluster in clusters]:
+                error("SELECTION_EVIDENCE_MEMBERSHIP", "selection.evidence.path", "sampler selection disagrees with manifest clusters")
+            evidence_randomness = evidence.get("randomness", {})
+            if evidence_randomness.get("value") != randomness["value"] or evidence_randomness.get("value_sha256") != randomness["value_sha256"]:
+                error("SELECTION_EVIDENCE_RANDOMNESS", "selection.evidence.path", "sampler randomness disagrees with manifest")
+            evidence_upstream = evidence.get("pool", {}).get("upstream")
+            if evidence_upstream != {"commit": manifest["upstream"]["commit"], "tree": manifest["upstream"]["tree"]}:
+                error("SELECTION_EVIDENCE_UPSTREAM", "selection.evidence.path", "sampler upstream disagrees with manifest")
+            if evidence.get("quotas") != QUOTAS:
+                error("SELECTION_EVIDENCE_QUOTAS", "selection.evidence.path", "sampler quotas disagree with frozen quotas")
+            pool_path = resolve_path(manifest_path, manifest["freeze_artifacts"]["pool_manifest"]["path"])
+            if randomness["value"] is not None:
+                try:
+                    replayed = replay_selection(pool_path.read_bytes(), randomness["value"])
+                except (OSError, ValueError) as exc:
+                    error("SELECTION_REPLAY", "freeze_artifacts.pool_manifest.path", f"cannot replay frozen C1: {exc}")
+                else:
+                    if replayed != evidence:
+                        error("SELECTION_REPLAY", "selection.evidence.path", "sampler evidence is not the exact replay of frozen pool and randomness")
 
     ids = [cluster["cluster_id"] for cluster in clusters]
     identities = [cluster["identity_sha256"].lower() for cluster in clusters]

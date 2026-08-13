@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-run-contract-v1.schema.json",
+  "title": "c5-k4 Method v1.1 frozen execution contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "benchmark_id",
+    "cluster_id",
+    "job_mode",
+    "arm",
+    "process_count",
+    "process_wall_cap_seconds",
+    "cpu_budget_seconds",
+    "seed",
+    "parameter_grid",
+    "transformation_id",
+    "no_adaptation",
+    "network_policy",
+    "processes"
+  ],
+  "properties": {
+    "$schema": {"type": "string", "minLength": 1},
+    "schema_version": {"const": "c5k4-benchmark-run-contract-1"},
+    "benchmark_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$"},
+    "cluster_id": {"type": "string", "minLength": 1},
+    "job_mode": {
+      "enum": ["DISCOVERY_ARM", "SHARED_ANALYSIS", "INDEPENDENT_VERIFICATION"]
+    },
+    "arm": {
+      "type": ["string", "null"],
+      "enum": ["CATALOGUE", "GENERIC", "WALL_NAVIGATION", null]
+    },
+    "process_count": {"type": "integer", "minimum": 1, "maximum": 10},
+    "process_wall_cap_seconds": {"const": 60},
+    "cpu_budget_seconds": {"type": "number", "exclusiveMinimum": 0, "maximum": 600},
+    "seed": {"type": ["integer", "string", "null"]},
+    "parameter_grid": {"type": "object"},
+    "transformation_id": {"type": "string", "minLength": 1},
+    "no_adaptation": {"const": true},
+    "network_policy": {"const": "DENY"},
+    "processes": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 10,
+      "items": {"$ref": "#/definitions/process"}
+    }
+  },
+  "definitions": {
+    "process": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["process_id", "argv", "working_directory", "parameter_assignment"],
+      "properties": {
+        "process_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"},
+        "argv": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "minLength": 1, "maxLength": 4096}
+        },
+        "working_directory": {"type": "string", "minLength": 1},
+        "parameter_assignment": {"type": "object"}
+      }
+    }
+  }
+}

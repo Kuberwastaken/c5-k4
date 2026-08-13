@@ -20,6 +20,12 @@ LINTER = importlib.util.module_from_spec(SPEC)
 sys.modules[SPEC.name] = LINTER
 SPEC.loader.exec_module(LINTER)
 
+SELECTOR_SCRIPT = Path(__file__).with_name("select_benchmark_v11.py")
+SELECTOR_SPEC = importlib.util.spec_from_file_location("benchmark_v11_selector_test", SELECTOR_SCRIPT)
+assert SELECTOR_SPEC is not None and SELECTOR_SPEC.loader is not None
+SELECTOR = importlib.util.module_from_spec(SELECTOR_SPEC)
+SELECTOR_SPEC.loader.exec_module(SELECTOR)
+
 
 H64 = "a" * 64
 OID = "b" * 40
@@ -38,6 +44,7 @@ STRATA = (
     + ["AUTOMATA_GAME_PROCESS"] * 2
     + ["FINITE_COMBINATORIAL"] * 2
 )
+RANDOMNESS = "01" * 32
 
 
 def digest(data: bytes) -> str:
@@ -60,10 +67,40 @@ class BenchmarkLintTests(unittest.TestCase):
             "stopping",
             "contamination",
             "arm",
+            "raw",
         ):
             path = self.root / f"{name}.txt"
             path.write_text(f"frozen {name}\n", encoding="utf-8")
             self.artifacts[name] = {"path": path.name, "sha256": digest(path.read_bytes())}
+        pool = {
+            "schema_version": SELECTOR.POOL_SCHEMA_VERSION,
+            "upstream": {"commit": OID, "tree": "c" * 40},
+            "contamination": {
+                "applied": True,
+                "inventory_sha256": "f" * 64,
+                "identity_ambiguity_means_exclusion": True,
+            },
+            "clusters": [
+                {
+                    "cluster_id": f"cluster-{index:02d}",
+                    "identity_sha256": f"{index + 1:064x}",
+                    "stratum": stratum,
+                    "eligible": True,
+                }
+                for index, stratum in enumerate(STRATA)
+            ],
+        }
+        pool_path = self.root / "pool.txt"
+        pool_path.write_text(json.dumps(pool, indent=2), encoding="utf-8")
+        self.artifacts["pool"] = {"path": pool_path.name, "sha256": digest(pool_path.read_bytes())}
+        selection = SELECTOR.select(pool_path.read_bytes(), RANDOMNESS)
+        self.selection = selection
+        selection_path = self.root / "selection.json"
+        selection_path.write_text(json.dumps(selection, indent=2), encoding="utf-8")
+        self.artifacts["selection"] = {
+            "path": selection_path.name,
+            "sha256": digest(selection_path.read_bytes()),
+        }
 
     def tearDown(self):
         self.temp.cleanup()
@@ -73,10 +110,12 @@ class BenchmarkLintTests(unittest.TestCase):
 
     def manifest(self) -> dict:
         clusters = []
-        for index, stratum in enumerate(STRATA):
+        for selected in self.selection["selected_clusters"]:
+            index = int(selected["cluster_id"].removeprefix("cluster-"))
+            stratum = selected["stratum"]
             clusters.append({
-                "cluster_id": f"cluster-{index:02d}",
-                "identity_sha256": f"{index + 1:064x}",
+                "cluster_id": selected["cluster_id"],
+                "identity_sha256": selected["identity_sha256"],
                 "stratum": stratum,
                 "declarations": [{
                     "path": f"FormalConjectures/Test/Problem{index}.lean",
@@ -91,7 +130,7 @@ class BenchmarkLintTests(unittest.TestCase):
                 "arms": None,
                 "terminal_outcome": None,
             })
-        value = "future-random-value"
+        value = RANDOMNESS
         return {
             "$schema": "schemas/benchmark-v1.1.schema.json",
             "schema_version": LINTER.SCHEMA_VERSION,
@@ -123,9 +162,27 @@ class BenchmarkLintTests(unittest.TestCase):
                 "identity_ambiguity_means_exclusion": True,
             },
             "randomness": {
-                "source": "NIST randomness beacon",
+                "source": "League of Entropy drand legacy mainnet",
                 "round": 123456,
                 "round_closes_at_utc": "2026-08-14T01:00:00Z",
+                "chain": {
+                    "hash": "8990e7a9aaed2ffed73dbd7092123d6f289930540d7651336225dc172e51b2ce",
+                    "public_key": "868f005eb8e6e4ca0a47c8a77ceaa5309a47978a7c71bc5cce96366b5d7a569937c529eeda66c7293784a9402801af31",
+                    "scheme_id": "pedersen-bls-chained",
+                    "genesis_time": 1595431050,
+                    "period_seconds": 30,
+                },
+                "relays": ["https://api.drand.sh", "https://api2.drand.sh"],
+                "verification": {
+                    "library": "drand-client",
+                    "library_version": "1.4.2",
+                    "require_exact_round": True,
+                    "require_relay_equality": True,
+                    "require_bls_signature": True,
+                    "require_randomness_sha256_signature": True,
+                    "raw_artifact": copy.deepcopy(self.artifacts["raw"]),
+                },
+                "selection_algorithm": "UNBIASED_DOMAIN_SEPARATED_SHA256_FISHER_YATES_V1",
                 "value": value,
                 "value_sha256": digest(value.encode("utf-8")),
             },
@@ -143,6 +200,7 @@ class BenchmarkLintTests(unittest.TestCase):
                 "relaxed_exclusion": False,
                 "backfill_events": [],
                 "insufficient_stratum_outcome": "NO_ELIGIBLE_BENCHMARK",
+                "evidence": copy.deepcopy(self.artifacts["selection"]),
             },
             "budgets": {
                 "shared_analysis": {"cpu_budget_seconds": 600, "process_wall_cap_seconds": 60},
@@ -252,6 +310,9 @@ class BenchmarkLintTests(unittest.TestCase):
         manifest = self.manifest()
         manifest["chronology"]["c1_frozen_at_utc"] = "2026-08-14T01:30:00Z"
         self.assertIn("CHRONOLOGY", self.codes(manifest))
+        manifest = self.manifest()
+        manifest["randomness"]["verification"]["raw_artifact"] = None
+        self.assertIn("RANDOMNESS_ARTIFACT_REQUIRED", self.codes(manifest))
 
     def test_forecasts_and_arm_contracts_precede_evaluation(self):
         manifest = self.manifest()
@@ -264,7 +325,21 @@ class BenchmarkLintTests(unittest.TestCase):
     def test_protocol_design_leaves_future_and_freezes_null(self):
         manifest = self.manifest()
         manifest["phase"] = "PROTOCOL_DESIGN"
+        manifest["randomness"]["verification"]["raw_artifact"] = None
         self.assertTrue({"PREMATURE_SELECTION", "PREMATURE_FREEZE", "PREMATURE_RANDOMNESS"}.issubset(self.codes(manifest)))
+
+    def test_selection_evidence_is_required_and_authenticated(self):
+        manifest = self.manifest()
+        manifest["selection"]["evidence"] = None
+        self.assertIn("SELECTION_EVIDENCE_REQUIRED", self.codes(manifest))
+        manifest = self.manifest()
+        selection_path = self.root / "selection.json"
+        evidence = json.loads(selection_path.read_text())
+        evidence["selected_clusters"][0]["cluster_id"] = "tampered"
+        selection_path.write_text(json.dumps(evidence, indent=2))
+        manifest["selection"]["evidence"]["sha256"] = digest(selection_path.read_bytes())
+        codes = self.codes(manifest)
+        self.assertTrue({"SELECTION_EVIDENCE_DIGEST", "SELECTION_EVIDENCE_MEMBERSHIP"}.issubset(codes))
 
     def make_row(self, manifest: dict, previous: str, process: str, cpu: float = 1.0) -> dict:
         row = {

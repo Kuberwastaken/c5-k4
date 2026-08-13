@@ -1,6 +1,7 @@
 __pycache__/
 *.py[cod]
 *.olean
+/tools/benchmark-drand/node_modules/
 
 # Graphify interpreter/root pointers are machine-local. The graph, report,
 # manifest, labels, and static viewer are durable project artifacts.

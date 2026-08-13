@@ -1,0 +1,120 @@
+name: Run frozen Method v1.1 job
+
+on:
+  workflow_dispatch:
+    inputs:
+      frozen_ref:
+        description: Exact 40-hex campaign commit containing the frozen contracts
+        required: true
+        type: string
+      manifest_path:
+        description: Repository-relative frozen Method v1.1 manifest path
+        required: true
+        type: string
+      cluster_id:
+        description: Exact cluster_id from the frozen manifest
+        required: true
+        type: string
+      job_mode:
+        description: Frozen execution stage
+        required: true
+        type: choice
+        options:
+          - SHARED_ANALYSIS
+          - DISCOVERY_ARM
+          - INDEPENDENT_VERIFICATION
+      arm:
+        description: Discovery arm, or NONE for shared analysis/verification
+        required: true
+        default: NONE
+        type: choice
+        options:
+          - NONE
+          - CATALOGUE
+          - GENERIC
+          - WALL_NAVIGATION
+      dry_run:
+        description: Validate and resolve the frozen job without executing it
+        required: true
+        default: true
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: method-v11-${{ inputs.frozen_ref }}-${{ inputs.cluster_id }}-${{ inputs.job_mode }}-${{ inputs.arm }}
+  cancel-in-progress: false
+
+jobs:
+  run-frozen-job:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Reject a movable execution ref
+        shell: bash
+        env:
+          FROZEN_REF: ${{ inputs.frozen_ref }}
+        run: |
+          if [[ ! "$FROZEN_REF" =~ ^[0-9a-fA-F]{40}$ ]]; then
+            echo "frozen_ref must be an exact 40-hex Git commit" >&2
+            exit 2
+          fi
+
+      - name: Check out the exact frozen campaign commit
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ inputs.frozen_ref }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up pinned Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12.9'
+
+      - name: Install pinned manifest validator
+        shell: bash
+        run: python -m pip install --disable-pip-version-check jsonschema==3.2.0
+
+      - name: Execute only the content-addressed frozen contract
+        id: execute
+        shell: bash
+        env:
+          BENCHMARK_MANIFEST: ${{ inputs.manifest_path }}
+          BENCHMARK_CLUSTER: ${{ inputs.cluster_id }}
+          BENCHMARK_MODE: ${{ inputs.job_mode }}
+          BENCHMARK_ARM: ${{ inputs.arm }}
+          BENCHMARK_DRY_RUN: ${{ inputs.dry_run }}
+          BENCHMARK_OUTPUT: ${{ runner.temp }}/method-v11-artifacts
+        run: |
+          mkdir -p "$BENCHMARK_OUTPUT"
+          runner_args=(
+            --manifest "$BENCHMARK_MANIFEST"
+            --cluster-id "$BENCHMARK_CLUSTER"
+            --mode "$BENCHMARK_MODE"
+            --arm "$BENCHMARK_ARM"
+            --output "$BENCHMARK_OUTPUT/run"
+            --require-git-ancestry
+          )
+          if [[ "$BENCHMARK_DRY_RUN" == "true" ]]; then
+            runner_args+=(--dry-run)
+          fi
+          set +e
+          set -o pipefail
+          python3 scripts/run_benchmark_v11_job.py "${runner_args[@]}" \
+            2>&1 | tee "$BENCHMARK_OUTPUT/workflow-runner.log"
+          runner_status=${PIPESTATUS[0]}
+          set -e
+          printf '%s\n' "$runner_status" > "$BENCHMARK_OUTPUT/runner-exit-code.txt"
+          exit "$runner_status"
+
+      - name: Upload complete job record
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: method-v11-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/method-v11-artifacts
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 90
