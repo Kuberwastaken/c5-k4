@@ -38,3 +38,18 @@ or q is adjacent to at least two vertices of the outside path.
 The remaining finite patterns are center-plus-one-endpoint,
 both-endpoints-without-center, and all three path vertices. They are the exact
 next obstruction family for local analysis.
+
+## Lean audit
+
+The complete dependency chain from `GraphConjecture40Baseline` through v26
+and `GraphConjecture59PathAttachmentSplit` was rebuilt from source on a fresh
+olean path. The independent v19 branch
+`GraphConjecture59SynchronizedRows` → `GraphConjecture59FiveTypeAlignment`
+was rebuilt against the same fresh base.
+
+Every process completed under the 60-second cap with
+`-DwarningAsError=true`. The slowest dependency was
+`GraphConjecture59FiveTypeAlignment` at 26 seconds. A final timed rebuild of
+the new module completed in 9.42 seconds with exit code 0 and no output.
+
+The source contains no `sorry`, `admit`, `axiom`, or `native_decide`.
