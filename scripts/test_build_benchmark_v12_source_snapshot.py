@@ -386,15 +386,20 @@ class SourceSnapshotTests(unittest.TestCase):
                 ["current.txt"],
             )
 
-    def test_real_policy_classifies_every_immediate_project_directory(self) -> None:
+    def test_policy_classifies_frozen_project_directory_fixture(self) -> None:
         policy_path = Path(__file__).resolve().parents[1] / "results/benchmark/v1.2-prototype/source-path-purpose-policy.json"
         policy = json.loads(policy_path.read_text(encoding="utf-8"))
         snapshot.validate_policy(policy)
-        root = Path("/Users/kuber.mehta/Projects")
-        decisions = {
-            path.name: snapshot.classify_path(path.name, policy)
-            for path in snapshot.discover_project_directories(root)
-        }
+        names = (
+            "c5-k4",
+            "formal-conjectures",
+            "marketing-outbound",
+            "permanental-dominance-n4",
+            "reimann",
+            "scratch",
+            "subagentmaxxing",
+        )
+        decisions = {name: snapshot.classify_path(name, policy) for name in names}
         self.assertFalse([name for name, row in decisions.items() if row["decision"] == "EXCLUDE_UNKNOWN"])
         for name in ("reimann", "subagentmaxxing"):
             self.assertEqual(decisions[name]["decision"], "INCLUDE_SEMANTIC")
