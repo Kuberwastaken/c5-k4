@@ -3,6 +3,11 @@
 Date: **2026-08-13**. Status: **the auxiliary lemma is false; WOWII 183
 remains open in this lane**.
 
+> **Follow-up (2026-08-13).** The failed lemma exposed the correct
+> multi-vertex dichotomy. `method_v04_183_multiext.md` proves that every
+> connected graph with a distance-three pair and `gamma_c>=4` has `b>=6`, so
+> the exact `gamma_c=4` tier is now closed without the auxiliary lemma.
+
 This note tests only the adjacent geodesic-extension lemma isolated in
 `method_v04_183_tier_proof.md`.  It does not widen the catalogue search and
 does not claim a counterexample to WOWII 183.
