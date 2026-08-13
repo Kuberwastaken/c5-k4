@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-private-custody-batch-v1.5.schema.json",
+  "title": "Method v1.5 PRE-P1 signed private per-host custody batch",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "status", "protocol_version", "host_id", "signing_key_id", "signature_algorithm", "batch_sequence", "previous_batch_sha256", "boot_id", "captured_from_utc", "captured_through_utc", "maximum_heartbeat_interval_seconds", "first_record_sequence", "last_record_sequence", "records", "batch_sha256", "signature"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-private-custody-batch-1.0"},
+    "status": {"const": "PRE_P1_PRIVATE_CUSTODY_NOT_OPERATIONAL"},
+    "protocol_version": {"const": "1.5"},
+    "host_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"},
+    "signing_key_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"},
+    "signature_algorithm": {"const": "Ed25519"},
+    "batch_sequence": {"$ref": "#/definitions/sequence"},
+    "previous_batch_sha256": {"oneOf": [{"type": "null"}, {"$ref": "#/definitions/sha256"}]},
+    "boot_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"},
+    "captured_from_utc": {"$ref": "#/definitions/timestamp"},
+    "captured_through_utc": {"$ref": "#/definitions/timestamp"},
+    "maximum_heartbeat_interval_seconds": {"const": 300},
+    "first_record_sequence": {"$ref": "#/definitions/sequence"},
+    "last_record_sequence": {"$ref": "#/definitions/sequence"},
+    "records": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 100000,
+      "items": {"$ref": "#/definitions/record"}
+    },
+    "batch_sha256": {"$ref": "#/definitions/sha256"},
+    "signature": {"$ref": "#/definitions/ed25519Signature"}
+  },
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "timestamp": {"type": "string", "format": "date-time", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"},
+    "sequence": {"type": "integer", "minimum": 0, "maximum": 9223372036854775807},
+    "ed25519Signature": {"type": "string", "pattern": "^[A-Za-z0-9+/]{86}==$"},
+    "record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sequence_number", "previous_receipt_sha256", "event_kind", "payload_sha256", "payload_byte_count", "delivery_channel", "observed_at_utc", "boot_id", "receipt_sha256"],
+      "properties": {
+        "sequence_number": {"$ref": "#/definitions/sequence"},
+        "previous_receipt_sha256": {"oneOf": [{"type": "null"}, {"$ref": "#/definitions/sha256"}]},
+        "event_kind": {"enum": ["HEARTBEAT", "DELIVERY", "TRUNCATION", "REPLACEMENT", "DELETION", "ABANDONED_PARTIAL", "RESTART"]},
+        "payload_sha256": {"$ref": "#/definitions/sha256"},
+        "payload_byte_count": {"type": "integer", "minimum": 0, "maximum": 9223372036854775807},
+        "delivery_channel": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]{0,255}$"},
+        "observed_at_utc": {"$ref": "#/definitions/timestamp"},
+        "boot_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"},
+        "receipt_sha256": {"$ref": "#/definitions/sha256"}
+      }
+    }
+  }
+}
