@@ -192,6 +192,12 @@ Search the smallest parameter region capable of testing the prediction:
 - one target cluster per report;
 - stop at the declared family/parameter/CPU limit.
 
+Every exploratory subprocess, including scratch one-liners used to test a
+lemma, must be launched under an explicit wall-clock timeout. A parent agent's
+turn boundary is not a timeout: before checkpointing or delegating, inspect for
+live child processes and terminate any process outside the declared bound. No
+output from an over-cap process may enter the evidence ledger.
+
 The objective is not the smallest graph at this phase. It is a transparent
 structural witness. Minimality is a separate bounded follow-up.
 
@@ -370,6 +376,9 @@ will be counted as held out.
   HTTP-200 verification of every immutable artifact link.
 - Existing upstream PRs are maintenance-only; `formal-conjectures` remains the
   read-only development corpus.
+- Extended the 60-second discipline to scratch/exploratory subprocesses after
+  an orphaned exponential residue-lemma loop ran past its bound; its output was
+  discarded and the process terminated.
 
 ### v0.3 — 2026-08-12
 
