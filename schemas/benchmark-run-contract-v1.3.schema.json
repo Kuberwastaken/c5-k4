@@ -1,0 +1,132 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-run-contract-v1.3.schema.json",
+  "title": "c5-k4 Method v1.3 frozen execution contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "benchmark_version",
+    "benchmark_id",
+    "cluster_id",
+    "job_mode",
+    "arm",
+    "process_tree_count",
+    "process_tree_wall_cap_seconds",
+    "cpu_budget_seconds",
+    "seed",
+    "parameter_grid",
+    "transformation_id",
+    "no_adaptation",
+    "continue_after_crossing",
+    "cross_arm_result_inputs",
+    "results_embargo",
+    "network_policy",
+    "process_tree_isolation",
+    "ledger_policy",
+    "processes"
+  ],
+  "properties": {
+    "$schema": {"const": "schemas/benchmark-run-contract-v1.3.schema.json"},
+    "schema_version": {"const": "c5k4-benchmark-run-contract-1.3"},
+    "benchmark_version": {"const": "c5k4-benchmark-1.3"},
+    "benchmark_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$"},
+    "cluster_id": {"type": "string", "minLength": 1},
+    "job_mode": {
+      "enum": ["DISCOVERY_ARM", "SHARED_ANALYSIS", "INDEPENDENT_VERIFICATION"]
+    },
+    "arm": {
+      "type": ["string", "null"],
+      "enum": ["CATALOGUE", "GENERIC", "WALL_NAVIGATION", null]
+    },
+    "process_tree_count": {"type": "integer", "minimum": 1, "maximum": 10},
+    "process_tree_wall_cap_seconds": {"const": 60},
+    "cpu_budget_seconds": {"type": "integer", "minimum": 60, "maximum": 600},
+    "seed": {"type": ["integer", "string", "null"]},
+    "parameter_grid": {"type": "object"},
+    "transformation_id": {"type": "string", "minLength": 1},
+    "no_adaptation": {"const": true},
+    "continue_after_crossing": {"const": true},
+    "cross_arm_result_inputs": {"type": "array", "maxItems": 0},
+    "results_embargo": {"const": "UNTIL_ALL_DISCOVERY_ARMS_TERMINATE"},
+    "network_policy": {"const": "DENY"},
+    "process_tree_isolation": {
+      "const": "ONE_CPU_PROCESS_GROUP_NETWORK_NAMESPACE"
+    },
+    "ledger_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "format",
+        "append_only",
+        "hash_algorithm",
+        "genesis_previous_sha256",
+        "sequence_origin"
+      ],
+      "properties": {
+        "format": {"const": "JSONL_HASH_CHAIN_V1"},
+        "append_only": {"const": true},
+        "hash_algorithm": {"const": "SHA256"},
+        "genesis_previous_sha256": {"const": "0000000000000000000000000000000000000000000000000000000000000000"},
+        "sequence_origin": {"const": 0}
+      }
+    },
+    "processes": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 10,
+      "items": {"$ref": "#/definitions/process"}
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"job_mode": {"const": "DISCOVERY_ARM"}}},
+      "then": {
+        "properties": {
+          "arm": {"enum": ["CATALOGUE", "GENERIC", "WALL_NAVIGATION"]},
+          "process_tree_count": {"const": 8},
+          "cpu_budget_seconds": {"const": 480},
+          "processes": {"minItems": 8, "maxItems": 8}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"job_mode": {"const": "SHARED_ANALYSIS"}}},
+      "then": {
+        "properties": {
+          "arm": {"type": "null"},
+          "process_tree_count": {"maximum": 10},
+          "cpu_budget_seconds": {"maximum": 600}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"job_mode": {"const": "INDEPENDENT_VERIFICATION"}}},
+      "then": {
+        "properties": {
+          "arm": {"type": "null"},
+          "process_tree_count": {"const": 2},
+          "cpu_budget_seconds": {"const": 120},
+          "processes": {"minItems": 2, "maxItems": 2}
+        }
+      }
+    }
+  ],
+  "definitions": {
+    "process": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["process_id", "argv", "working_directory", "parameter_assignment"],
+      "properties": {
+        "process_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"},
+        "argv": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "minLength": 1, "maxLength": 4096}
+        },
+        "working_directory": {"type": "string", "minLength": 1},
+        "parameter_assignment": {"type": "object"}
+      }
+    }
+  }
+}

@@ -1,0 +1,136 @@
+{
+  "schema_version": "c5k4-registry-build-invocation-contract-1.3",
+  "authority": "P0_PROTOCOL_COMPONENT",
+  "protocol_version": "1.3",
+  "producer_id": "method-v1.3-production-registry-builder",
+  "executable": "scripts/build_benchmark_v13_registry.py",
+  "input_schema": "schemas/benchmark-registry-input-v1.3.schema.json",
+  "output_schema": "schemas/benchmark-registry-output-v1.3.schema.json",
+  "preflight_command": [
+    "python3",
+    "scripts/build_benchmark_v13_registry.py",
+    "preflight",
+    "--input",
+    "${PREFLIGHT_INPUT_JSON}",
+    "--receipt-dir",
+    "${NEW_ABSENT_RECEIPT_DIRECTORY}"
+  ],
+  "build_command": [
+    "python3",
+    "scripts/build_benchmark_v13_registry.py",
+    "build",
+    "--input",
+    "${INPUT_JSON}",
+    "--formal-repo",
+    "${PINNED_FORMAL_CONJECTURES_CHECKOUT}",
+    "--output-dir",
+    "${NEW_ABSENT_OUTPUT_DIRECTORY}"
+  ],
+  "path_parameters": {
+    "PREFLIGHT_INPUT_JSON": "a bounded non-semantic request containing the frozen P0T remote and upstream rule",
+    "NEW_ABSENT_RECEIPT_DIRECTORY": "an absent path receiving the exact raw P0T-advertisement and upstream-resolution receipts",
+    "INPUT_JSON": "one file validating against the frozen input schema and binding both preflight receipts",
+    "PINNED_FORMAL_CONJECTURES_CHECKOUT": "a checkout whose exact commit and root tree equal input.upstream",
+    "NEW_ABSENT_OUTPUT_DIRECTORY": "an absent path created atomically and exclusively by the producer"
+  },
+  "timestamp_semantics": {
+    "registry_build_invoked_at_utc": "recorded in the build input immediately before the offline build starts",
+    "registry_build_completed_at_utc": "observed by the offline producer after all six artifacts and replay checks are complete and before atomic publication",
+    "required_order": "S0 <= resolver receipts <= registry_build_invoked_at_utc <= registry_build_completed_at_utc"
+  },
+  "registry_exemption_input": {
+    "p0_component_role": "registry_exemption_rule",
+    "schema_version": "c5k4-registry-exemption-rule-1.3",
+    "scope": "only already-existing pre-P0 bounded machine registry units present at exact S0 source locators",
+    "unit_identity": ["source_id", "source_kind", "locator", "role", "content_sha256", "content_schema"],
+    "global_content_hash_allowlist": false,
+    "future_production_outputs_exempted": false,
+    "missing_or_mismatched_s0_unit_policy": "FAIL_CLOSED"
+  },
+  "execution": {
+    "allowed_build_count": 1,
+    "build_ordinal": 1,
+    "requires_public_p0t": true,
+    "requires_complete_s0": true,
+    "network_boundary": {
+      "preflight": {
+        "default": "FORBIDDEN",
+        "allowed_calls": [
+        {
+          "purpose": "VERIFY_PUBLIC_P0T_ADVERTISEMENT",
+          "command_prefix": ["git", "ls-remote"],
+          "remote": "P0T.public_remote_url",
+          "maximum_calls": 1,
+          "scientific_data_returned": false
+        },
+        {
+          "purpose": "SOLE_UPSTREAM_REF_RESOLUTION",
+          "command": [
+            "git",
+            "ls-remote",
+            "https://github.com/google-deepmind/formal-conjectures.git",
+            "refs/heads/main"
+          ],
+          "maximum_calls": 1,
+          "required_matching_rows": 1
+        }
+        ],
+        "total_maximum_calls": 2,
+        "retry_permitted": false,
+        "redirect_to_unfrozen_remote_permitted": false,
+        "raw_receipts_content_addressed": true
+      },
+      "production_build": {
+        "network_permitted": false,
+        "receipt_replay_required": true,
+        "receipt_drift_policy": "FAIL_CLOSED"
+      }
+    },
+    "stdin_permitted": false,
+    "environment_as_scientific_input_permitted": false,
+    "entropy_permitted": false,
+    "selection_or_ranking_permitted": false,
+    "prototype_inputs_permitted": false,
+    "overwrite_permitted": false,
+    "create_exclusive_output_directory": true
+  },
+  "required_output_files": [
+    "registry-build-output.json",
+    "open-inventory.json",
+    "question-cluster-pool.json",
+    "provenance-inventory.json",
+    "contamination-inventory.json",
+    "eligible-cluster-pool.json",
+    "quota-feasibility.json"
+  ],
+  "output_artifact_ids": [
+    "open_inventory",
+    "question_cluster_pool",
+    "provenance_inventory",
+    "contamination_inventory",
+    "eligible_pool",
+    "quota_feasibility"
+  ],
+  "validation": {
+    "file_sha256_construction": "SHA256_OF_EXACT_FILE_BYTES",
+    "canonical_sha256_construction": "SHA256_OF_UTF8_JSON_SORT_KEYS_COMPACT_SEPARATORS_NO_TRAILING_NEWLINE_WITH_INTERNAL_SELF_DIGEST_FIELD_OMITTED_WHEN_PRESENT",
+    "input_schema_before_any_target_read": true,
+    "all_input_file_and_canonical_digests_recomputed": true,
+    "p0t_and_s0_chronology_replayed": true,
+    "upstream_commit_tree_and_subtree_replayed": true,
+    "output_schema_before_success": true,
+    "six_output_file_and_canonical_digests_recomputed": true,
+    "eligible_intersection_replayed_row_by_row": true,
+    "feasibility_counts_deficits_surpluses_and_status_replayed_row_by_row": true,
+    "output_self_digest_replayed_with_output_sha256_omitted": true,
+    "any_failure_leaves_no_authoritative_output": true
+  },
+  "forbidden_output": [
+    "statement_text",
+    "mathematical_interpretation",
+    "candidate_witness",
+    "proof_or_disproof_route",
+    "random_rank",
+    "selected_target"
+  ]
+}

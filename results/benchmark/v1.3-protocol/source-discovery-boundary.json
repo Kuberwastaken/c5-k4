@@ -1,0 +1,17 @@
+{
+  "schema_version": "c5k4-source-discovery-boundary-1.3",
+  "research_root": "/Users/kuber.mehta/Projects",
+  "required_semantic_source_classes": [
+    "included research Git histories and exact current worktree bytes",
+    "complete locally available Codex and Claude session JSONL mirrored into a published ai-chats commit",
+    "complete c5-k4 GitHub release metadata export through S0"
+  ],
+  "discovery_reads_target_semantics": false,
+  "unknown_path_policy": "FAIL_CLOSED",
+  "missing_source_policy": "FAIL_CLOSED",
+  "source_drift_policy": "FAIL_CLOSED",
+  "dirty_research_worktree_policy": "HASH_AND_REPLAY_EXACT_CURRENT_BYTES_WITHOUT_MUTATION",
+  "semantic_scan_unit_policy": "SCAN_PINNED_HISTORY_AND_S0_CURRENT_BYTES_SEPARATELY",
+  "post_s0_pre_c1_semantic_access": "FORBIDDEN_EXCEPT_SUPPLEMENTAL_SNAPSHOT_BEFORE_C0",
+  "post_c0_pre_c1_semantic_access": "PROTOCOL_INVALID"
+}

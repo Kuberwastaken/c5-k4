@@ -1,0 +1,28 @@
+{
+  "schema_version": "c5k4-target-data-audit-rule-1.3",
+  "semantic_review_starts_after": "C1T",
+  "required_per_selected_cluster": [
+    "literal formal statement and negation",
+    "source and current-status audit",
+    "sibling and identity audit",
+    "certificate-shape decision",
+    "prior-art and novelty audit",
+    "hypothesis and invariant definitions",
+    "database/calibration controls",
+    "literal residual and safe orientation",
+    "theorem-baseline subtraction",
+    "wall and controlling-term signs",
+    "intervention profile decision with rule evidence"
+  ],
+  "phase0_terminal_reasons": [
+    "NO_FINITE_REPLAY_CERTIFICATE",
+    "RESOLVED_STATUS",
+    "PUBLIC_PRIOR_ART",
+    "FORMALIZATION_MISMATCH",
+    "CORRUPT_STATEMENT",
+    "IDENTITY_AMBIGUITY"
+  ],
+  "selected_cluster_replacement": false,
+  "selected_denominator": 12,
+  "audit_evidence_content_addressed": true
+}

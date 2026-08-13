@@ -1,0 +1,17 @@
+{
+  "schema_version": "c5k4-upstream-ref-rule-1.3",
+  "repository": "https://github.com/google-deepmind/formal-conjectures.git",
+  "remote_ref": "refs/heads/main",
+  "resolution_event": "FIRST_AND_ONLY_PRODUCTION_REGISTRY_BUILD_AFTER_P0T_AND_S0",
+  "resolution_command": [
+    "git",
+    "ls-remote",
+    "https://github.com/google-deepmind/formal-conjectures.git",
+    "refs/heads/main"
+  ],
+  "required_matches": 1,
+  "required_object_format": "SHA1_40_HEX",
+  "tree_rule": "GIT_COMMIT_ROOT_TREE",
+  "subtree": "FormalConjectures",
+  "retry_or_repin": false
+}

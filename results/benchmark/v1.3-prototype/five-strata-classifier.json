@@ -1,0 +1,107 @@
+{
+  "schema_version": "c5k4-five-strata-classifier-1.3-prototype",
+  "scope": "syntax-only quota-feasibility prototyping before P0 and target selection",
+  "upstream": {
+    "repository": "google-deepmind/formal-conjectures",
+    "commit": "3f08b849788e5e73d52069c616469ea995aac7d7",
+    "tree": "a41c32dda2ed1544836f1761887bc0d3da00b8f0",
+    "declaration_root": "FormalConjectures"
+  },
+  "permitted_inputs": [
+    "source path",
+    "declaration kind and name",
+    "declaration header syntax tokens",
+    "source-module import and type syntax tokens",
+    "open-category marker",
+    "content digests"
+  ],
+  "forbidden_inputs": [
+    "natural-language source statement",
+    "mathematical interpretation",
+    "known proof or counterexample",
+    "candidate family",
+    "residual or tightness",
+    "target-specific compute",
+    "random rank or target selection"
+  ],
+  "domain_signals": {
+    "path_regex": {
+      "GRAPH": [
+        "(?:^|/)WrittenOnTheWallII/",
+        "(?:^|/)GraphConjecture[^/]*\\.lean$",
+        "(?:^|/)(?:Graph|Ramsey|Chromatic|Coloring|Colouring)[^/]*\\.lean$"
+      ],
+      "FINITE_ALGEBRA_EQUATIONAL": [
+        "(?:^|/)(?:EquationalTheories|Kourovka|Algebra|GroupTheory)[^/]*"
+      ],
+      "AUTOMATA_GAME_PROCESS": [
+        "(?:^|/)[^/]*(?:Automat|Cerny|Černý|Game|Process|CatchUp|BusyBeaver|ChipFiring|Puzzle|CurlingNumber)[^/]*\\.lean$"
+      ]
+    },
+    "header_regex": {
+      "GRAPH": [
+        "\\b(?:SimpleGraph|SimpleDigraph|Multigraph|Digraph|Quiver)\\b"
+      ],
+      "FINITE_ALGEBRA_EQUATIONAL": [
+        "\\b(?:Magma|Semigroup|Monoid|Group|AddGroup|Ring|Semiring|Field|Quasigroup|Loop)\\b"
+      ],
+      "AUTOMATA_GAME_PROCESS": [
+        "\\b(?:Automaton|TransitionSystem|GameState|Player|Strategy|MoveRelation|Synchronizing)\\b"
+      ]
+    },
+    "module_regex": {
+      "GRAPH": [
+        "\\b(?:SimpleGraph|SimpleDigraph|Multigraph|Digraph)\\b"
+      ],
+      "AUTOMATA_GAME_PROCESS": [
+        "\\b(?:Automaton|TransitionSystem|GameState|MoveRelation|Synchronizing|BusyBeaver|Cerny|Černý|CatchUp|CurlingNumber)\\b"
+      ]
+    }
+  },
+  "graph_scalar_signal": {
+    "outer_conclusion_relation_regex": [
+      "≤",
+      "≥",
+      "(?<![<:])<(?![=>])",
+      "(?<![-])>(?![=>])",
+      "\\b(?:LT\\.lt|LE\\.le|GT\\.gt|GE\\.ge)\\b"
+    ]
+  },
+  "finite_signal": {
+    "path_regex": [],
+    "header_regex": [
+      "\\b(?:Fin|Fintype|Finite|Multiset|Finset)\\b"
+    ],
+    "module_regex": [
+      "\\b(?:Fin|Fintype|Finite|Multiset|Finset)\\b"
+    ]
+  },
+  "declaration_rule": [
+    "Domain recognition uses path, declaration-header, and allowlisted module-wide import/type syntax signals.",
+    "If more than one of GRAPH, FINITE_ALGEBRA_EQUATIONAL, and AUTOMATA_GAME_PROCESS fires, classify as ambiguous.",
+    "For graph declarations, ordered tokens are tested only in the parsed outer conclusion relation after declaration binders and top-level implications; ordered tokens in hypotheses do not make a scalar stratum.",
+    "A GRAPH declaration plus an explicit finite signal with an outer ordered conclusion is GRAPH_SCALAR_INEQUALITY; graph declarations without an explicit finite signal are excluded.",
+    "A GRAPH declaration plus an explicit finite signal without an outer ordered conclusion is GRAPH_STRUCTURAL_PROPERTY.",
+    "A sole algebra signal plus an explicit finite signal is FINITE_ALGEBRA_EQUATIONAL; otherwise exclude.",
+    "A sole automata/game/process path, header, or module signal is AUTOMATA_GAME_PROCESS.",
+    "With no specialized signal but an explicit finite signal, use FINITE_COMBINATORIAL. Otherwise exclude as unclassified."
+  ],
+  "cluster_rule": {
+    "sampling_unit": "ONE_SOURCE_MODULE_CONSERVATIVE_MERGE",
+    "eligible_only_if": "all open declarations in the module receive the same non-ambiguous stratum",
+    "otherwise": "AMBIGUOUS_EXCLUDE",
+    "cross_module_sibling_ambiguity": "exclude during the provenance/identity gate; never split after randomness"
+  },
+  "output_policy": {
+    "statement_text": false,
+    "random_ranks": false,
+    "target_selection": false,
+    "allowed_row_content": [
+      "hashes",
+      "paths",
+      "declaration metadata",
+      "allowlisted syntax flags",
+      "fixed classification labels"
+    ]
+  }
+}

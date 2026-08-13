@@ -1,0 +1,45 @@
+{
+  "schema_version": "c5k4-method-inheritance-1.3",
+  "artifact_status": "PRE_P0_PROTOCOL_COMPONENT",
+  "predecessor": {
+    "protocol_version": "1.2",
+    "terminal_state": "PROTOCOL_INVALID",
+    "terminal_commit": "3f96de8407ac7871d0d0190b79203668d08ae034",
+    "protocol_document": {
+      "path": "METHOD_V1_2_BENCHMARK.md",
+      "sha256": "8fd24097785ac0eea518e46324b67c36f3d48bf65a2e9359d2ab43b42aa7ff24"
+    }
+  },
+  "scientific_design": {
+    "relationship": "IDENTICAL_TO_METHOD_V1_2",
+    "unchanged": [
+      "sampling frame and question-cluster unit",
+      "five fixed strata and 3/3/2/2/2 quotas",
+      "eligibility, grouping, provenance, and source-boundary rules",
+      "CATALOGUE, GENERIC, and WALL_NAVIGATION arm definitions",
+      "shared-analysis, arm, verification, and 60-second process-tree budgets",
+      "priors, forecasts, transformation library, scoring, and stopping rules",
+      "future drand selection and non-circular publication protocol"
+    ]
+  },
+  "sole_change": {
+    "class": "IMPLEMENTATION_CORRECTION_ONLY",
+    "component": "scripts/build_benchmark_contamination_v13.py",
+    "validator": "worktree overlay corpus binding",
+    "ordinary_git_binding": "git_object_metadata_sha256 plus worktree_overlay_inventory_sha256",
+    "git_user_delta_binding": "user_commit_set_sha256 plus worktree_overlay_inventory_sha256",
+    "failure_policy": "missing, mismatched, or unsupported binding inputs fail closed"
+  },
+  "versioned_execution_plumbing": {
+    "description": "Names, schemas, domain separators, workflows, and authoritative default paths are versioned from v1.2 to v1.3 without changing the scientific design.",
+    "provenance_policy_default": "The v1.3 contamination prototype defaults to the v1.3 authoritative protocol policy; the production registry still injects and content-addresses those exact frozen policy bytes."
+  },
+  "forbidden_changes": [
+    "eligibility relaxation",
+    "quota or stratum change",
+    "target or upstream repin retry",
+    "budget change",
+    "arm or transformation change",
+    "forecast or scoring change"
+  ]
+}

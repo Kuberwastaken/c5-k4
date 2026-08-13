@@ -1,0 +1,67 @@
+{
+  "schema_version": "c5k4-intervention-forecast-rule-1.3",
+  "freeze_phase": "AFTER_PHASE0_AND_WALL_ANALYSIS_BEFORE_ANY_DISCOVERY_ARM",
+  "all_selected_required": true,
+  "profile_precedence": [
+    "PRESEARCH_SIGNAL",
+    "CROSSING_SIGNAL",
+    "THEOREM_SIGNAL",
+    "ZERO_SIGNAL",
+    "TIMEOUT_SIGNAL",
+    "NEUTRAL_STRATUM_PRIOR"
+  ],
+  "profile_conditions": {
+    "PRESEARCH_SIGNAL": "Phase-0 establishes a certificate-shape failure, resolved status, public prior art, formalization mismatch, corrupt statement, or identity ambiguity.",
+    "CROSSING_SIGNAL": "The literal residual is replayable and one frozen transformation has a nonzero signed effect toward crossing while preserving every checked hypothesis, with no theorem baseline forbidding that direction.",
+    "THEOREM_SIGNAL": "A named theorem baseline or complete bounded structural argument forces the observed wall and blocks the proposed crossing direction.",
+    "ZERO_SIGNAL": "A complete finite domain or operation class is frozen and fits the arm budgets, with no signed wall transformation qualifying as CROSSING_SIGNAL.",
+    "TIMEOUT_SIGNAL": "The literal residual is replayable but neither a qualifying signed transformation nor a complete in-budget domain nor a theorem signal is available.",
+    "NEUTRAL_STRATUM_PRIOR": "Used only when no earlier condition is decidable; copy the selection stratum prior."
+  },
+  "profiles": {
+    "PRESEARCH_SIGNAL": {
+      "CROSS": "0.05",
+      "ZERO_COMPLETE": "0.05",
+      "THEOREM_STRUCTURE": "0.10",
+      "PRESEARCH_STOP": "0.65",
+      "TIMEOUT": "0.10",
+      "PROTOCOL_INVALID": "0.05"
+    },
+    "CROSSING_SIGNAL": {
+      "CROSS": "0.35",
+      "ZERO_COMPLETE": "0.15",
+      "THEOREM_STRUCTURE": "0.20",
+      "PRESEARCH_STOP": "0.05",
+      "TIMEOUT": "0.20",
+      "PROTOCOL_INVALID": "0.05"
+    },
+    "THEOREM_SIGNAL": {
+      "CROSS": "0.10",
+      "ZERO_COMPLETE": "0.10",
+      "THEOREM_STRUCTURE": "0.50",
+      "PRESEARCH_STOP": "0.05",
+      "TIMEOUT": "0.20",
+      "PROTOCOL_INVALID": "0.05"
+    },
+    "ZERO_SIGNAL": {
+      "CROSS": "0.05",
+      "ZERO_COMPLETE": "0.50",
+      "THEOREM_STRUCTURE": "0.15",
+      "PRESEARCH_STOP": "0.05",
+      "TIMEOUT": "0.20",
+      "PROTOCOL_INVALID": "0.05"
+    },
+    "TIMEOUT_SIGNAL": {
+      "CROSS": "0.05",
+      "ZERO_COMPLETE": "0.10",
+      "THEOREM_STRUCTURE": "0.15",
+      "PRESEARCH_STOP": "0.05",
+      "TIMEOUT": "0.60",
+      "PROTOCOL_INVALID": "0.05"
+    }
+  },
+  "probability_increment": "0.05",
+  "strictly_between_zero_and_one": true,
+  "exact_sum": "1",
+  "manual_probability_adjustment": false
+}
