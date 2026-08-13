@@ -17,6 +17,9 @@ import build_benchmark_v12_pool as pool  # noqa: E402
 CLASSIFIER = (
     ROOT / "results" / "benchmark" / "v1.2-prototype" / "five-strata-classifier.json"
 )
+AUTHORITATIVE_CLASSIFIER = (
+    ROOT / "results" / "benchmark" / "v1.2-protocol" / "five-strata-classifier.json"
+)
 
 
 class PoolV12Tests(unittest.TestCase):
@@ -114,6 +117,47 @@ class PoolV12Tests(unittest.TestCase):
     def test_classifier_and_executable_have_same_exact_pin(self) -> None:
         self.assertEqual(self.rules["upstream"]["commit"], pool.PINNED_COMMIT)
         self.assertEqual(self.rules["upstream"]["tree"], pool.PINNED_TREE)
+
+    def test_authoritative_classifier_has_executable_rules_matching_prototype(self) -> None:
+        authoritative = json.loads(AUTHORITATIVE_CLASSIFIER.read_text(encoding="utf-8"))
+        self.assertEqual(authoritative["schema_version"], "c5k4-five-strata-classifier-1.2")
+        for key in ("domain_signals", "graph_scalar_signal", "finite_signal", "cluster_rule", "output_policy"):
+            self.assertEqual(authoritative[key], self.rules[key])
+        self.assertEqual(
+            authoritative["classification_algorithm"]["multiple_domain_signals"],
+            "MULTIPLE_DOMAIN_SIGNALS",
+        )
+        self.assertEqual(
+            [row["basis"] for row in authoritative["classification_algorithm"]["branches"]],
+            [
+                "GRAPH_WITHOUT_FINITE_SIGNAL",
+                "FINITE_GRAPH_WITH_OUTER_ORDERED_CONCLUSION",
+                "FINITE_GRAPH_WITHOUT_OUTER_ORDERED_CONCLUSION",
+                "ALGEBRA_AND_FINITE_SIGNALS",
+                "ALGEBRA_WITHOUT_FINITE_SIGNAL",
+                "AUTOMATA_GAME_PROCESS_SYNTAX_SIGNAL",
+                "EXPLICIT_FINITE_SIGNAL",
+                "UNCLASSIFIED_WITHOUT_FINITE_SIGNAL",
+            ],
+        )
+
+    def test_authoritative_regexes_execute_with_builder_semantics(self) -> None:
+        authoritative = json.loads(AUTHORITATIVE_CLASSIFIER.read_text(encoding="utf-8"))
+        match = pool.DECLARATION.search(
+            "theorem scalar (G : SimpleGraph (Fin 4)) : G.edgeSet.ncard ≤ 6"
+        )
+        assert match is not None
+        metadata = pool.syntax_metadata(
+            "FormalConjectures/Fixture/X.lean",
+            "theorem scalar (G : SimpleGraph (Fin 4)) : G.edgeSet.ncard ≤ 6",
+            match.end(),
+            authoritative,
+            "",
+        )
+        self.assertEqual(pool.classify(metadata), (
+            "GRAPH_SCALAR_INEQUALITY",
+            "FINITE_GRAPH_WITH_OUTER_ORDERED_CONCLUSION",
+        ))
 
 
 if __name__ == "__main__":

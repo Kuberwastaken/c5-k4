@@ -57,7 +57,7 @@ PROTOTYPE_SEGMENT = "v1.2-prototype"
 JSON_CONTRACTS = {
     "five_strata_classifier": (
         "c5k4-five-strata-classifier-1.2",
-        {"schema_version", "scope", "upstream", "permitted_inputs", "forbidden_inputs", "domain_signals", "finite_signal", "graph_scalar_signal", "declaration_rule", "cluster_rule", "output_policy"},
+        {"schema_version", "scope", "upstream", "permitted_inputs", "forbidden_inputs", "domain_signals", "finite_signal", "graph_scalar_signal", "classification_algorithm", "parser_contract", "cluster_rule", "output_policy"},
     ),
     "grouping_rule": (
         "c5k4-question-cluster-grouping-rule-1.2",
