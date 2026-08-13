@@ -275,6 +275,68 @@ section Finite
 
 variable [Fintype V] [DecidableEq V]
 
+/-- The Havel--Hakimi residue never exceeds the length of the degree list.
+This is the elementary size invariant needed at the terminal (edgeless) case
+of any future Maxine induction. -/
+theorem residueAux_le_length (s : List ℕ) : residueAux s ≤ s.length := by
+  induction s using residueAux.induct with
+  | case1 => simp [residueAux]
+  | case2 s => simp only [residueAux.eq_2, List.length_cons]; omega
+  | case3 d rest hd ih =>
+      rw [residueAux.eq_3 d rest hd]
+      calc
+        residueAux (havelHakimiStep (d :: rest))
+            ≤ (havelHakimiStep (d :: rest)).length := ih
+        _ = rest.length := havelHakimiStep_length_cons d rest
+        _ ≤ (d :: rest).length := by simp
+
+omit [DecidableEq V] in
+/-- In particular, graph residue is bounded by the vertex count. -/
+theorem residue_le_card [DecidableRel G.Adj] : residue G ≤ Fintype.card V := by
+  unfold residue
+  refine (residueAux_le_length _).trans_eq ?_
+  simp
+
+omit [DecidableEq V] in
+/-- The realization-level residue bridge is equivalent to the numerical
+inequality `residue G ≤ indepNum G`.  The forward implication uses any
+residue-sized witness; the reverse implication takes a subset of a maximum
+independent set.  This isolates the genuinely missing Griggs--Kleitman
+theorem from finite-set selection bookkeeping. -/
+theorem exists_independent_card_eq_residue_iff_le_indepNum
+    [DecidableRel G.Adj] :
+    (∃ I : Finset V, G.IsIndepSet (I : Set V) ∧ I.card = residue G) ↔
+      residue G ≤ G.indepNum := by
+  constructor
+  · rintro ⟨I, hI, hcard⟩
+    rw [← hcard]
+    exact hI.card_le_indepNum
+  · intro hres
+    obtain ⟨M, hM⟩ := G.exists_isNIndepSet_indepNum
+    obtain ⟨I, hIM, hIcard⟩ :=
+      Finset.exists_subset_card_eq (hres.trans_eq hM.card_eq.symm)
+    refine ⟨I, hM.isIndepSet.mono ?_, hIcard⟩
+    exact_mod_cast hIM
+
+omit [DecidableEq V] in
+/-- Convenient witness-producing form of the reverse direction above. -/
+theorem exists_independent_card_eq_residue_of_le_indepNum
+    [DecidableRel G.Adj] (hres : residue G ≤ G.indepNum) :
+    ∃ I : Finset V, G.IsIndepSet (I : Set V) ∧ I.card = residue G :=
+  exists_independent_card_eq_residue_iff_le_indepNum.mpr hres
+
+omit [DecidableEq V] in
+/-- Terminal Maxine case: if the whole vertex set is independent, a
+residue-sized independent set can be selected directly. -/
+theorem exists_independent_card_eq_residue_of_univ_independent
+    [DecidableRel G.Adj] (hG : G.IsIndepSet (Set.univ : Set V)) :
+    ∃ I : Finset V, G.IsIndepSet (I : Set V) ∧ I.card = residue G := by
+  have hcard : residue G ≤ (Finset.univ : Finset V).card := by
+    simpa using (residue_le_card (G := G))
+  obtain ⟨I, _hIuniv, hIcard⟩ := Finset.exists_subset_card_eq hcard
+  have hsub : (I : Set V) ⊆ (Set.univ : Set V) := Set.subset_univ _
+  exact ⟨I, hG.mono hsub, hIcard⟩
+
 omit [DecidableEq V] in
 /-- Any explicit induced forest supplies a lower bound for the project's
 `largestInducedForestSize` definition. -/
@@ -385,6 +447,21 @@ theorem exists_residue_quarter_witness_of_independent_set
   obtain ⟨p, hp⟩ := hconn.exists_walk_length_eq_dist u v
   exact exists_residue_quarter_witness_of_certificates
     hconn p hp (hp.trans huv) I hI hIcard
+
+/-- Numerical interface to the quarter theorem.  Once the classical
+Griggs--Kleitman inequality `residue G ≤ indepNum G` is available, the exact
+residue-sized independent set is selected automatically and all remaining
+geodesic/forest construction is discharged by the preceding development. -/
+theorem exists_residue_quarter_witness_of_residue_le_indepNum
+    [Nonempty V] [DecidableRel G.Adj]
+    (hconn : G.Connected) (hres : residue G ≤ G.indepNum) :
+    ∃ X : Finset V,
+      G.diam ≤ 4 * X.card ∧
+      residue G + X.card ≤ G.largestInducedForestSize := by
+  obtain ⟨I, hI, hIcard⟩ :=
+    exists_independent_card_eq_residue_of_le_indepNum (G := G) hres
+  exact exists_residue_quarter_witness_of_independent_set
+    hconn I hI hIcard
 
 end Finite
 
