@@ -75,3 +75,35 @@ only from the exact inequality `f < ceil((p+n+1)/2)`.
 No commit, push, release, issue, PR, or other public action is authorized in
 this lane.
 
+## Exact outcome
+
+The database gate passed all 1,031 controls.  The 36 predeclared constructions
+deduplicated to 24 exact graphs: two of order 12 and 22 of order 16.  Every
+solve completed within its cap.
+
+| quantity | exact result |
+|---|---:|
+| strict crossings | 0 |
+| bipartite outputs (`b=n`) | 24 |
+| Hamiltonian outputs (`p=1`) | 24 |
+| slack 1 | 21 |
+| slack 2 | 2 |
+| slack 3 | 1 |
+
+The corresponding residual distribution is `{3: 21, 5: 2, 7: 1}`.  Thus the
+cross edges did suppress simultaneous forest growth substantially: most
+outputs ended only one unit above the conjectured bound.  But the same edges
+made every composition Hamiltonian, erasing the bouquet's useful path-cover
+fragmentation.
+
+There is also a sharp obstruction to extending this exact direction.  In a
+bipartite graph with color classes `A,B`, all of the larger color class plus
+any single vertex of the other class induce a star, so
+`f >= max(|A|,|B|)+1`.  For a balanced order-16 output with `b=16,p=1`, this
+already gives `f>=9`, exactly the right side.  More bipartite cross edges can
+at best reach equality; they cannot cross while Hamiltonicity persists.
+
+The frozen classification is `HOLD_BOUNDED`.  A genuinely separating successor
+would have to retain `p>=2` while approaching the bipartite forest lower bound,
+or accept a small odd-cycle penalty in exchange for more than twice as much
+additional feedback burden.  No novelty or release gate was triggered.
