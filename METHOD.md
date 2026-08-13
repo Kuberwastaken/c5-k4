@@ -369,6 +369,37 @@ will be counted as held out.
 
 ## Method changelog
 
+### v0.6 — 2026-08-13
+
+- Requires each prospective trial to compile a canonical machine-readable
+  contract before evaluation. Source identity, normalized statement,
+  applicability, residual sign, controls, fixtures, solvers, caps, family,
+  grid, and stop rules are hashed together.
+- Adds hand-derived semantic microfixtures and 40-second feasibility sentinels
+  before the full gate. Two implementations agreeing is insufficient if both
+  contradict a frozen calibration or cannot execute the declared controls with
+  headroom below the 55/60-second caps.
+- Requires an exact pre-grid obstruction check and an independently audited,
+  chronological unlock attestation. Grid constructors remain unavailable
+  until every calibration, witness, baseline, gate row, and replay passes.
+- Preserves protocol-violating rows append-only but excludes them from every
+  mathematical outcome. See
+  [`method_v06_gate_contract.md`](results/expansion/method_v06_gate_contract.md).
+- Records that all 14 current open WOWII modules in `formal-conjectures` were
+  already evaluated, so the genuinely held-out queue is empty until a future
+  upstream-manifest addition.
+
+### v0.5 — 2026-08-13
+
+- Added the prospective WOWII 305 trial and then stopped it when post-run audit
+  found its endpoint-excluding calibration contradicted the frozen
+  endpoint-inclusive reading. The accidentally unlocked grid is classified
+  `EXCLUDED_PROTOCOL_VIOLATION`, not `HOLD_BOUNDED`.
+- Advanced proof extraction: closed the corrected cubic C4-free specialization
+  of WOWII 133 in Lean, formalized the `gamma_c>=3` and `gamma_c>=4`
+  distance-three tiers behind WOWII 183, and carried explicit graphical
+  realizability into the WOWII 61 residue-transfer lane.
+
 ### v0.4 — 2026-08-12
 
 - Replaced new upstream issues/PRs with one-problem versioned releases in
