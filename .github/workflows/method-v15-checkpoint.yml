@@ -61,8 +61,9 @@ jobs:
           u1_path=$(jq -er '.inputs.u1_receipt_path' "$CONTRACT_PATH")
           git fetch --no-tags origin \
             "refs/heads/${publication_branch}:refs/remotes/origin/${publication_branch}"
+          public_ref="refs/remotes/origin/${publication_branch}"
           checkpoint_tree="$RUNNER_TEMP/method-v15-checkpoints"
-          git worktree add --detach "$checkpoint_tree" "refs/remotes/origin/${publication_branch}" >/dev/null
+          git worktree add --detach "$checkpoint_tree" "$public_ref" >/dev/null
           test -f "$checkpoint_tree/$u1_path"
 
           frozen_commit=$(jq -er '.p1.p1t_commit' "$checkpoint_tree/$u1_path")
@@ -78,36 +79,28 @@ jobs:
           test -f "$runner_path"
           test "$(sha256sum "$runner_path" | awk '{print $1}')" = "$expected_runner"
 
-          previous=$(find "$checkpoint_tree" -type f -path '*/checkpoints/*/receipt.json' \
-            -print | LC_ALL=C sort | tail -n 1)
-          if [[ -n "$previous" ]]; then
-            status=$(jq -er '.status' "$previous")
-            case "$status" in
-              QUOTA_PASS_U2|TERMINAL_QUOTA_DEFICIT|INVALID_CHRONOLOGY_CAPTURE)
-                echo 'The checkpoint chain is terminal; no later checkpoint will run.'
-                echo 'terminal=true' >> "$GITHUB_OUTPUT"
-                exit 0
-                ;;
-            esac
+          chain_proof="$RUNNER_TEMP/method-v15-public-chain-proof.json"
+          python3 scripts/verify_benchmark_v15_public_checkpoint_chain.py \
+            --repository "$GITHUB_WORKSPACE" --ref "$public_ref" \
+            --p1t-commit "$frozen_commit" --output "$chain_proof"
+          chain_tip=$(jq -er '.public_tip_commit' "$chain_proof")
+          test "$(git -C "$checkpoint_tree" rev-parse HEAD)" = "$chain_tip"
+          if [[ "$(jq -er '.terminal' "$chain_proof")" = true ]]; then
+            echo 'The Git-authenticated checkpoint chain is terminal; no later checkpoint will run.'
+            echo 'terminal=true' >> "$GITHUB_OUTPUT"
+            exit 0
           fi
-
-          scheduled_for=$(python3 - "$checkpoint_tree/$u1_path" "$previous" <<'PY'
+          scheduled_for=$(jq -er '.next_checkpoint.scheduled_for_utc' "$chain_proof")
+          checkpoint_mode=$(python3 - "$scheduled_for" <<'PY'
           import sys
-          from datetime import datetime, timedelta, timezone
-          from pathlib import Path
+          from datetime import datetime, timezone
 
-          import scripts.build_benchmark_v15_chronology as chronology
-
-          u1 = chronology.validate_u1(Path(sys.argv[1]))
-          if sys.argv[2]:
-              prior = chronology.load_checkpoint(Path(sys.argv[2]))
-              expected = chronology.checkpoint_time(prior["scheduled_for_utc"]) + timedelta(days=1)
-          else:
-              expected = chronology.first_checkpoint_after(u1)
-          observed = datetime.now(timezone.utc).replace(hour=0, minute=17, second=0, microsecond=0)
-          if expected != observed:
-              raise SystemExit("current scheduled run does not continue the U1/receipt chain exactly")
-          print(expected.isoformat().replace("+00:00", "Z"))
+          expected = datetime.fromisoformat(sys.argv[1].replace("Z", "+00:00"))
+          now = datetime.now(timezone.utc)
+          deadline = expected.replace(hour=6, minute=0, second=0, microsecond=0)
+          if now < expected:
+              raise SystemExit("scheduled workflow predates the Git-authenticated next tick")
+          print("CAPTURE" if now < deadline else "TERMINAL_CHRONOLOGY_GAP")
           PY
           )
           label=${scheduled_for//:/-}
@@ -118,10 +111,12 @@ jobs:
             echo "frozen_commit=$frozen_commit"
             echo "checkpoint_tree=$checkpoint_tree"
             echo "u1_receipt=$checkpoint_tree/$u1_path"
-            echo "previous_receipt=$previous"
             echo "scheduled_for=$scheduled_for"
             echo "destination=$destination"
             echo "runner_path=$runner_path"
+            echo "chain_proof=$chain_proof"
+            echo "chain_tip=$chain_tip"
+            echo "checkpoint_mode=$checkpoint_mode"
           } >> "$GITHUB_OUTPUT"
 
       - name: Produce one bounded checkpoint publication
@@ -129,11 +124,12 @@ jobs:
         shell: bash
         env:
           U1_RECEIPT: ${{ steps.chain.outputs.u1_receipt }}
-          PREVIOUS_RECEIPT: ${{ steps.chain.outputs.previous_receipt }}
           SCHEDULED_FOR: ${{ steps.chain.outputs.scheduled_for }}
           RUNNER_PATH: ${{ steps.chain.outputs.runner_path }}
           EVENT_NAME: ${{ github.event_name }}
           RUN_ATTEMPT: ${{ github.run_attempt }}
+          PUBLIC_CHAIN_PROOF: ${{ steps.chain.outputs.chain_proof }}
+          CHECKPOINT_MODE: ${{ steps.chain.outputs.checkpoint_mode }}
         run: |
           set -euo pipefail
           output="$RUNNER_TEMP/method-v15-publication"
@@ -144,10 +140,15 @@ jobs:
             --scheduled-for-utc "$SCHEDULED_FOR"
             --event-name "$EVENT_NAME"
             --run-attempt "$RUN_ATTEMPT"
+            --public-chain-proof "$PUBLIC_CHAIN_PROOF"
+            --public-repository "$GITHUB_WORKSPACE"
             --output "$output"
           )
-          if [[ -n "$PREVIOUS_RECEIPT" ]]; then
-            args+=(--previous-receipt "$PREVIOUS_RECEIPT")
+          if [[ "$CHECKPOINT_MODE" = TERMINAL_CHRONOLOGY_GAP ]]; then
+            args+=(--terminal-chronology-gap)
+          elif [[ "$CHECKPOINT_MODE" != CAPTURE ]]; then
+            echo 'Unrecognized frozen checkpoint mode.' >&2
+            exit 2
           fi
           if ! python3 "$RUNNER_PATH" "${args[@]}" \
             >"$RUNNER_TEMP/method-v15-runner.stdout" \
@@ -162,6 +163,7 @@ jobs:
         env:
           CHECKPOINT_TREE: ${{ steps.chain.outputs.checkpoint_tree }}
           DESTINATION: ${{ steps.chain.outputs.destination }}
+          CHAIN_TIP: ${{ steps.chain.outputs.chain_tip }}
         run: |
           set -euo pipefail
           source_dir="$RUNNER_TEMP/method-v15-publication"
@@ -187,6 +189,7 @@ jobs:
           mkdir "$CHECKPOINT_TREE/$DESTINATION"
           cp "$source_dir"/*.json "$CHECKPOINT_TREE/$DESTINATION/"
           cd "$CHECKPOINT_TREE"
+          test "$(git rev-parse HEAD)" = "$CHAIN_TIP"
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -- "$DESTINATION"
@@ -197,4 +200,4 @@ jobs:
             exit 2
           fi
           git commit -m "method: append v1.5 checkpoint ${DESTINATION#checkpoints/}" >/dev/null
-          git push origin "HEAD:refs/heads/$(jq -er '.publication.branch' "$GITHUB_WORKSPACE/$CONTRACT_PATH")"
+          git push --atomic origin "HEAD:refs/heads/$(jq -er '.publication.branch' "$GITHUB_WORKSPACE/$CONTRACT_PATH")"

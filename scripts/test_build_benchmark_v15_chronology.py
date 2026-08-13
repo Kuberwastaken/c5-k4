@@ -200,36 +200,70 @@ class ChronologyTests(unittest.TestCase):
             with self.assertRaisesRegex(C.ChronologyError, "strictly after"):
                 C.build_u1(self.root / "p1t.json", OID_B, self.root / "bare")
 
-    def test_checkpoint_chain_cannot_skip_duplicate_or_continue_after_pass(self) -> None:
+    def test_position_is_derived_only_from_authenticated_chain_proof(self) -> None:
         u1 = self.u1()
-        with mock.patch.object(C, "validate_u1", return_value=u1):
-            ordinal, previous, scheduled = C.checkpoint_position(u1, None, "2026-08-17T00:17:00Z")
-        self.assertEqual((ordinal, previous, scheduled), (1, None, utc("2026-08-17T00:17:00Z")))
-        fail = {
-            "schema": C.SCHEMA, "artifact_kind": "CHECKPOINT_RECEIPT",
-            "checkpoint_ordinal": 1, "scheduled_for_utc": "2026-08-17T00:17:00Z",
-            "status": "QUOTA_FAIL",
+        chain = {
+            "terminal": False, "checkpoint_count": 0, "previous_checkpoint": None,
+            "next_checkpoint": {"ordinal": 1, "scheduled_for_utc": "2026-08-17T00:17:00Z"},
         }
-        fail_path = self.write("fail.json", fail)
-        with mock.patch.object(C, "validate_u1", return_value=u1):
-            with self.assertRaisesRegex(C.ChronologyError, "skipped"):
-                C.checkpoint_position(u1, fail_path, "2026-08-19T00:17:00Z")
-        fail["status"] = "QUOTA_PASS_U2"
-        self.write("pass.json", fail)
+        ordinal, previous, scheduled = C.checkpoint_position(
+            u1, chain, "2026-08-17T00:17:00Z"
+        )
+        self.assertEqual((ordinal, previous, scheduled), (1, None, utc("2026-08-17T00:17:00Z")))
+        with self.assertRaisesRegex(C.ChronologyError, "authenticated next"):
+            C.checkpoint_position(u1, chain, "2026-08-18T00:17:00Z")
+        chain["terminal"] = True
+        chain["next_checkpoint"] = None
         with self.assertRaisesRegex(C.ChronologyError, "terminal"):
-            C.checkpoint_position(u1, self.root / "pass.json", "2026-08-18T00:17:00Z")
+            C.checkpoint_position(u1, chain, "2026-08-17T00:17:00Z")
+
+    def test_chain_proof_is_replayed_not_trusted_as_caller_json(self) -> None:
+        proof = {
+            "schema": C.public_chain.PROOF_SCHEMA,
+            "public_tip_commit": OID_A,
+        }
+        proof["proof_sha256"] = C.public_chain.proof_digest(proof)
+        path = self.write("chain-proof.json", proof)
+        with mock.patch.object(C.public_chain, "verify_chain", return_value=proof):
+            self.assertEqual(
+                C.validate_public_chain_proof(path, self.root, C.public_chain.PUBLICATION_REF, OID_B),
+                proof,
+            )
+        altered = dict(proof)
+        altered["public_tip_commit"] = OID_C
+        altered["proof_sha256"] = C.public_chain.proof_digest(altered)
+        altered_path = self.write("altered-chain-proof.json", altered)
+        with mock.patch.object(C.public_chain, "verify_chain", return_value=proof):
+            with self.assertRaisesRegex(C.ChronologyError, "differs from replay"):
+                C.validate_public_chain_proof(
+                    altered_path, self.root, C.public_chain.PUBLICATION_REF, OID_B
+                )
 
     def test_manual_rerun_and_late_checkpoint_are_rejected(self) -> None:
         u1 = self.u1()
         u1_path = self.write("u1.json", u1)
-        with mock.patch.object(C, "validate_u1", return_value=u1):
+        basis = (u1, 1, None, utc("2026-08-17T00:17:00Z"), {})
+        with mock.patch.object(C, "_checkpoint_basis", return_value=basis):
             with self.assertRaisesRegex(C.ChronologyError, "original schedule"):
-                C.capture_checkpoint(u1_path, None, "2026-08-17T00:17:00Z", "workflow_dispatch", 1, self.root / "bare1")
+                C.capture_checkpoint(u1_path, self.root / "proof", self.root, C.public_chain.PUBLICATION_REF, "2026-08-17T00:17:00Z", "workflow_dispatch", 1, self.root / "bare1")
             with self.assertRaisesRegex(C.ChronologyError, "original schedule"):
-                C.capture_checkpoint(u1_path, None, "2026-08-17T00:17:00Z", "schedule", 2, self.root / "bare2")
+                C.capture_checkpoint(u1_path, self.root / "proof", self.root, C.public_chain.PUBLICATION_REF, "2026-08-17T00:17:00Z", "schedule", 2, self.root / "bare2")
             with mock.patch.object(C, "_now", return_value=utc("2026-08-17T06:00:00Z")):
                 with self.assertRaisesRegex(C.ChronologyError, "window"):
-                    C.capture_checkpoint(u1_path, None, "2026-08-17T00:17:00Z", "schedule", 1, self.root / "bare3")
+                    C.capture_checkpoint(u1_path, self.root / "proof", self.root, C.public_chain.PUBLICATION_REF, "2026-08-17T00:17:00Z", "schedule", 1, self.root / "bare3")
+
+    def test_expired_unpublished_tick_is_terminal_not_caught_up(self) -> None:
+        u1 = self.u1()
+        basis = (u1, 1, None, utc("2026-08-17T00:17:00Z"), {})
+        with mock.patch.object(C, "_checkpoint_basis", return_value=basis), mock.patch.object(
+            C, "_now", return_value=utc("2026-08-18T00:17:00Z")
+        ):
+            receipt = C.record_missed_checkpoint(
+                self.root / "u1", self.root / "proof", self.root,
+                C.public_chain.PUBLICATION_REF, "2026-08-17T00:17:00Z",
+            )
+        self.assertEqual(receipt["status"], "INVALID_CHRONOLOGY_CAPTURE")
+        self.assertFalse(receipt["terminal_horizon"])
 
     def test_quota_certificate_closes_at_first_replayed_pass(self) -> None:
         capture = {

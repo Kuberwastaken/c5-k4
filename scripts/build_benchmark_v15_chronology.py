@@ -20,6 +20,7 @@ from pathlib import Path, PurePosixPath
 from typing import Any, Sequence
 
 import build_benchmark_v15_aggregate_certificate as aggregate
+import verify_benchmark_v15_public_checkpoint_chain as public_chain
 
 
 ROOT = Path(__file__).parents[1].resolve()
@@ -384,42 +385,75 @@ def load_checkpoint(path: Path) -> dict[str, Any]:
     return value
 
 
+def validate_public_chain_proof(
+    proof_path: Path, repository: Path, publication_ref: str, p1t_commit: str,
+) -> dict[str, Any]:
+    """Replay a chain proof against the exact public tracking ref."""
+    try:
+        claimed = json.loads(proof_path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise ChronologyError("public chain proof is not valid UTF-8 JSON") from exc
+    if claimed.get("schema") != public_chain.PROOF_SCHEMA:
+        raise ChronologyError("unsupported public chain proof")
+    if claimed.get("proof_sha256") != public_chain.proof_digest(claimed):
+        raise ChronologyError("public chain proof self-digest is invalid")
+    try:
+        replayed = public_chain.verify_chain(repository, publication_ref, p1t_commit)
+    except public_chain.PublicChainError as exc:
+        raise ChronologyError(f"public checkpoint ancestry is invalid: {exc}") from exc
+    if canonical_json(claimed) != canonical_json(replayed):
+        raise ChronologyError("public chain proof differs from replay of the public ref")
+    return replayed
+
+
 def checkpoint_position(
-    u1: dict[str, Any], previous_path: Path | None, scheduled_for: str
+    u1: dict[str, Any], chain: dict[str, Any], scheduled_for: str
 ) -> tuple[int, dict[str, Any] | None, datetime]:
     scheduled = checkpoint_time(scheduled_for)
-    first = first_checkpoint_after(u1)
-    if previous_path is None:
-        if scheduled != first:
-            raise ChronologyError("first checkpoint is not the first daily 00:17 tick strictly after U1")
-        return 1, None, scheduled
-    previous = load_checkpoint(previous_path)
-    if previous["status"] in {"QUOTA_PASS_U2", "TERMINAL_QUOTA_DEFICIT", "INVALID_CHRONOLOGY_CAPTURE"}:
+    if chain.get("terminal") is True or chain.get("next_checkpoint") is None:
         raise ChronologyError("checkpoint chain is already terminal")
-    expected = checkpoint_time(previous["scheduled_for_utc"]) + timedelta(days=1)
-    if scheduled != expected:
-        raise ChronologyError("checkpoint chain skipped, duplicated, or reordered a daily tick")
-    ordinal = previous.get("checkpoint_ordinal")
-    if not isinstance(ordinal, int) or ordinal < 1:
-        raise ChronologyError("previous checkpoint ordinal is invalid")
-    return ordinal + 1, previous, scheduled
+    expected = chain["next_checkpoint"]
+    if expected.get("scheduled_for_utc") != scheduled_for:
+        raise ChronologyError("scheduled tick is not the Git-authenticated next checkpoint")
+    ordinal = expected.get("ordinal")
+    if not isinstance(ordinal, int) or ordinal != chain.get("checkpoint_count", -1) + 1:
+        raise ChronologyError("Git-authenticated next checkpoint ordinal is invalid")
+    if ordinal == 1 and scheduled != first_checkpoint_after(u1):
+        raise ChronologyError("first checkpoint is not the first daily tick strictly after U1")
+    previous = chain.get("previous_checkpoint")
+    if ordinal > 1 and not isinstance(previous, dict):
+        raise ChronologyError("public chain omits its previous checkpoint")
+    return ordinal, previous, scheduled
 
 
 def _checkpoint_basis(
-    u1_path: Path, previous_path: Path | None, scheduled_for: str
+    u1_path: Path, chain_proof_path: Path, public_repository: Path,
+    publication_ref: str, scheduled_for: str,
 ) -> tuple[dict[str, Any], int, dict[str, Any] | None, datetime, dict[str, Any]]:
     u1 = validate_u1(u1_path)
-    ordinal, previous, scheduled = checkpoint_position(u1, previous_path, scheduled_for)
+    chain = validate_public_chain_proof(
+        chain_proof_path, public_repository, publication_ref, u1["p1"]["p1t_commit"]
+    )
+    if chain["genesis"]["u1_blob_sha256"] != sha256_file(u1_path):
+        raise ChronologyError("working U1 receipt differs from the public genesis blob")
+    ordinal, previous, scheduled = checkpoint_position(u1, chain, scheduled_for)
     basis = {
         "u1_receipt": {
-            "path": repo_relative(u1_path, "U1 receipt"),
+            "path": public_chain.U1_PATH,
             "sha256": sha256_file(u1_path),
             "commit": u1["upstream"]["commit"],
+            "publication_commit": chain["genesis"]["commit"],
         },
-        "previous_checkpoint": None if previous_path is None else {
-            "path": repo_relative(previous_path, "previous checkpoint"),
-            "sha256": sha256_file(previous_path),
-            "checkpoint_ordinal": previous["checkpoint_ordinal"],
+        "public_chain_proof": {
+            "sha256": sha256_file(chain_proof_path),
+            "proof_sha256": chain["proof_sha256"],
+            "public_tip_commit": chain["public_tip_commit"],
+        },
+        "previous_checkpoint": None if previous is None else {
+            "path": previous["receipt_path"],
+            "sha256": previous["receipt_blob_sha256"],
+            "commit": previous["commit"],
+            "checkpoint_ordinal": previous["ordinal"],
             "scheduled_for_utc": previous["scheduled_for_utc"],
             "status": previous["status"],
         },
@@ -429,14 +463,18 @@ def _checkpoint_basis(
 
 def capture_checkpoint(
     u1_path: Path,
-    previous_path: Path | None,
+    chain_proof_path: Path,
+    public_repository: Path,
+    publication_ref: str,
     scheduled_for: str,
     event_name: str,
     run_attempt: int,
     destination: Path,
 ) -> dict[str, Any]:
     """Capture one valid schedule-triggered daily checkpoint (not its quota verdict)."""
-    u1, ordinal, _, scheduled, basis = _checkpoint_basis(u1_path, previous_path, scheduled_for)
+    u1, ordinal, _, scheduled, basis = _checkpoint_basis(
+        u1_path, chain_proof_path, public_repository, publication_ref, scheduled_for
+    )
     if event_name != "schedule" or run_attempt != 1:
         raise ChronologyError("only an original schedule event may create a checkpoint capture")
     observed = _now()
@@ -466,14 +504,17 @@ def capture_checkpoint(
 
 
 def record_missed_checkpoint(
-    u1_path: Path, previous_path: Path | None, scheduled_for: str
+    u1_path: Path, chain_proof_path: Path, public_repository: Path,
+    publication_ref: str, scheduled_for: str,
 ) -> dict[str, Any]:
-    u1, ordinal, _, scheduled, basis = _checkpoint_basis(u1_path, previous_path, scheduled_for)
+    u1, ordinal, _, scheduled, basis = _checkpoint_basis(
+        u1_path, chain_proof_path, public_repository, publication_ref, scheduled_for
+    )
     deadline = scheduled.replace(hour=CHECKPOINT_START_DEADLINE_HOUR, minute=0)
     observed = _now()
     if observed < deadline:
         raise ChronologyError("a checkpoint cannot be declared missed before its start deadline")
-    terminal = scheduled == parse_time(LAST_CHECKPOINT, "last checkpoint")
+    terminal_horizon = scheduled == parse_time(LAST_CHECKPOINT, "last checkpoint")
     return {
         "schema": SCHEMA,
         "artifact_kind": "CHECKPOINT_RECEIPT",
@@ -485,8 +526,8 @@ def record_missed_checkpoint(
         "capture": None,
         "quota_certificate": None,
         "recorded_at_utc": format_time(observed),
-        "terminal_horizon": terminal,
-        "status": "INVALID_CHRONOLOGY_CAPTURE" if terminal else "MISSED",
+        "terminal_horizon": terminal_horizon,
+        "status": "INVALID_CHRONOLOGY_CAPTURE",
     }
 
 
@@ -605,7 +646,9 @@ def main() -> int:
     u1.add_argument("--output", type=Path, required=True)
     capture = commands.add_parser("capture-checkpoint")
     capture.add_argument("--u1-receipt", type=Path, required=True)
-    capture.add_argument("--previous-receipt", type=Path)
+    capture.add_argument("--public-chain-proof", type=Path, required=True)
+    capture.add_argument("--public-repository", type=Path, required=True)
+    capture.add_argument("--publication-ref", default=public_chain.PUBLICATION_REF)
     capture.add_argument("--scheduled-for-utc", required=True)
     capture.add_argument("--event-name", required=True)
     capture.add_argument("--run-attempt", type=int, required=True)
@@ -613,7 +656,9 @@ def main() -> int:
     capture.add_argument("--output", type=Path, required=True)
     missed = commands.add_parser("record-missed")
     missed.add_argument("--u1-receipt", type=Path, required=True)
-    missed.add_argument("--previous-receipt", type=Path)
+    missed.add_argument("--public-chain-proof", type=Path, required=True)
+    missed.add_argument("--public-repository", type=Path, required=True)
+    missed.add_argument("--publication-ref", default=public_chain.PUBLICATION_REF)
     missed.add_argument("--scheduled-for-utc", required=True)
     missed.add_argument("--output", type=Path, required=True)
     finalize = commands.add_parser("finalize-checkpoint")
@@ -631,7 +676,8 @@ def main() -> int:
         elif args.command == "capture-checkpoint":
             value = capture_checkpoint(
                 args.u1_receipt.resolve(),
-                None if args.previous_receipt is None else args.previous_receipt.resolve(),
+                args.public_chain_proof.resolve(), args.public_repository.resolve(),
+                args.publication_ref,
                 args.scheduled_for_utc, args.event_name, args.run_attempt,
                 args.bare_destination.resolve(),
             )
@@ -639,7 +685,8 @@ def main() -> int:
         elif args.command == "record-missed":
             value = record_missed_checkpoint(
                 args.u1_receipt.resolve(),
-                None if args.previous_receipt is None else args.previous_receipt.resolve(),
+                args.public_chain_proof.resolve(), args.public_repository.resolve(),
+                args.publication_ref,
                 args.scheduled_for_utc,
             )
             write_json(args.output.resolve(), value)

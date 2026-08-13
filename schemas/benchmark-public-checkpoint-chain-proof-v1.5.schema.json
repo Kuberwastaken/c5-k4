@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-public-checkpoint-chain-proof-v1.5.schema.json",
+  "title": "Method v1.5 Git-authenticated public checkpoint chain proof",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "repository", "ref", "p1t_commit", "public_tip_commit", "genesis", "checkpoint_count", "checkpoints", "previous_checkpoint", "next_checkpoint", "terminal", "normal_push_must_use_lease_tip", "proof_sha256"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-public-checkpoint-chain-proof-1.0"},
+    "repository": {"const": "https://github.com/Kuberwastaken/c5-k4.git"},
+    "ref": {"const": "refs/remotes/origin/method-v1.5-checkpoints"},
+    "p1t_commit": {"$ref": "#/definitions/oid"},
+    "public_tip_commit": {"$ref": "#/definitions/oid"},
+    "genesis": {
+      "type": "object", "additionalProperties": false,
+      "required": ["commit", "parent_commit", "u1_path", "u1_blob_sha256"],
+      "properties": {"commit": {"$ref": "#/definitions/oid"}, "parent_commit": {"$ref": "#/definitions/oid"}, "u1_path": {"const": "u1/chronology-receipt.json"}, "u1_blob_sha256": {"$ref": "#/definitions/sha"}}
+    },
+    "checkpoint_count": {"type": "integer", "minimum": 0},
+    "checkpoints": {"type": "array", "items": {"$ref": "#/definitions/checkpoint"}},
+    "previous_checkpoint": {"oneOf": [{"type": "null"}, {"$ref": "#/definitions/checkpoint"}]},
+    "next_checkpoint": {
+      "oneOf": [
+        {"type": "null"},
+        {"type": "object", "additionalProperties": false, "required": ["ordinal", "scheduled_for_utc", "required_parent_commit"], "properties": {"ordinal": {"type": "integer", "minimum": 1}, "scheduled_for_utc": {"$ref": "#/definitions/tick"}, "required_parent_commit": {"$ref": "#/definitions/oid"}}}
+      ]
+    },
+    "terminal": {"type": "boolean"},
+    "normal_push_must_use_lease_tip": {"$ref": "#/definitions/oid"},
+    "proof_sha256": {"$ref": "#/definitions/sha"}
+  },
+  "definitions": {
+    "oid": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "sha": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "tick": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T00:17:00Z$"},
+    "checkpoint": {
+      "type": "object", "additionalProperties": false,
+      "required": ["ordinal", "scheduled_for_utc", "status", "commit", "parent_commit", "receipt_path", "receipt_blob_sha256"],
+      "properties": {
+        "ordinal": {"type": "integer", "minimum": 1}, "scheduled_for_utc": {"$ref": "#/definitions/tick"},
+        "status": {"enum": ["QUOTA_FAIL", "MISSED", "QUOTA_PASS_U2", "TERMINAL_QUOTA_DEFICIT", "INVALID_CHRONOLOGY_CAPTURE"]},
+        "commit": {"$ref": "#/definitions/oid"}, "parent_commit": {"$ref": "#/definitions/oid"},
+        "receipt_path": {"type": "string", "pattern": "^checkpoints/[0-9]{4}-[0-9]{2}-[0-9]{2}T00-17-00Z/receipt\\.json$"},
+        "receipt_blob_sha256": {"$ref": "#/definitions/sha"}
+      }
+    }
+  },
+  "allOf": [
+    {"if": {"properties": {"terminal": {"const": true}}}, "then": {"properties": {"next_checkpoint": {"type": "null"}}}},
+    {"if": {"properties": {"terminal": {"const": false}}}, "then": {"properties": {"next_checkpoint": {"type": "object"}}}}
+  ]
+}

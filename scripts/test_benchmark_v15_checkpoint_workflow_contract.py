@@ -38,9 +38,12 @@ def validate(workflow: Path, contract_path: Path, *, runtime: bool = False) -> N
         raise ValueError("checkpoint publication is not serialized without cancellation")
     for required in (
         "github.event_name", "github.run_attempt", "sha256sum .github/workflows/method-v15-checkpoint.yml",
-        "git checkout --detach \"$frozen_commit\"", "git push origin \"HEAD:refs/heads/",
-        "QUOTA_PASS_U2|TERMINAL_QUOTA_DEFICIT|INVALID_CHRONOLOGY_CAPTURE",
-        "chronology.first_checkpoint_after(u1)", "timedelta(days=1)",
+        "git checkout --detach \"$frozen_commit\"", "git push --atomic origin \"HEAD:refs/heads/",
+        "verify_benchmark_v15_public_checkpoint_chain.py",
+        "--public-chain-proof \"$PUBLIC_CHAIN_PROOF\"",
+        "TERMINAL_CHRONOLOGY_GAP", "--terminal-chronology-gap",
+        "jq -er '.next_checkpoint.scheduled_for_utc'",
+        "test \"$(git rev-parse HEAD)\" = \"$CHAIN_TIP\"",
         "test ! -e \"$checkpoint_tree/$destination\"",
     ):
         if required not in text:
@@ -61,6 +64,8 @@ def validate(workflow: Path, contract_path: Path, *, runtime: bool = False) -> N
         raise ValueError("first quota PASS is not terminal")
     if stopping.get("last_scheduled_checkpoint_utc") != "2027-08-15T00:17:00Z":
         raise ValueError("hard horizon differs from chronology rule")
+    if stopping.get("missed_tick_catchup_permitted") is not False or stopping.get("expired_gap_terminal_status") != "INVALID_CHRONOLOGY_CAPTURE":
+        raise ValueError("expired checkpoint gap is not terminal and fail-closed")
     publication = contract.get("publication", {})
     if publication.get("files") != ["publication-manifest.json", "quota-certificate.json", "receipt.json"]:
         raise ValueError("publication allowlist is not exact")
@@ -68,6 +73,13 @@ def validate(workflow: Path, contract_path: Path, *, runtime: bool = False) -> N
         raise ValueError("publication permits logs or overwrite")
     if publication.get("pass_full_pool_publication") != "SEPARATE_PRE_ENTROPY_PHASE_ONLY":
         raise ValueError("PASS pool is not deferred to a separate pre-entropy phase")
+    inputs = contract.get("inputs", {})
+    if inputs.get("previous_receipt_rule") != "DERIVED_ONLY_BY_GIT_AUTHENTICATED_PUBLIC_CHAIN_PROOF":
+        raise ValueError("previous receipt is not derived from authenticated Git ancestry")
+    if inputs.get("publication_genesis") != "SOLE_PARENT_P1T_ADD_ONLY_U1_RECEIPT":
+        raise ValueError("publication genesis is not anchored directly to P1T")
+    if publication.get("server_update_rule") != "ATOMIC_NORMAL_FAST_FORWARD_PUSH_FROM_VERIFIED_PUBLIC_TIP":
+        raise ValueError("publication does not require an atomic normal fast-forward push")
     certificate = contract.get("aggregate_certificate", {})
     if certificate.get("identity_rows_permitted") is not False or certificate.get("statement_text_permitted") is not False:
         raise ValueError("aggregate certificate permits target-bearing content")

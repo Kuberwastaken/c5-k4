@@ -20,7 +20,7 @@
     {
       "order": 4,
       "name": "SCHEDULED_ACCUMULATION_CHECKPOINTS",
-      "requirement": "At 00:17 UTC daily, a schedule-triggered GitHub Actions run captures canonical upstream main and emits identity-only receipts, hashes, aggregate stratum counts, and a quota certificate. Manual dispatches and reruns are not checkpoints; a run starting at or after 06:00 UTC is recorded as missed."
+      "requirement": "At 00:17 UTC daily, a schedule-triggered GitHub Actions run captures canonical upstream main and emits identity-only receipts, hashes, aggregate stratum counts, and a quota certificate. Manual dispatches and reruns are not checkpoints. If the oldest unpublished tick is detected at or after its 06:00 UTC deadline, publish only a bounded INVALID_CHRONOLOGY_CAPTURE terminal bundle; catch-up and later target capture are forbidden."
     },
     {
       "order": 5,
@@ -67,6 +67,11 @@
     "manual_dispatch_is_checkpoint": false,
     "rerun_is_checkpoint": false,
     "append_only_checkpoint_branch": true,
+    "publication_genesis": "A sole-parent child of exact P1T adding only u1/chronology-receipt.json",
+    "checkpoint_commit_shape": "Each checkpoint is one sole-parent add-only commit adding exactly the three frozen artifacts under its tick path",
+    "previous_receipt_authority": "Derived from the exact public Git ref ancestry, including introducing commit, path, and blob digest; caller-selected predecessor bytes are not authoritative",
+    "public_ref_rewrite_policy": "Every accepted chain is anchored at P1T and every publication uses a normal atomic fast-forward push from the verified tip",
+    "expired_tick_policy": "The first expired unpublished tick terminates as INVALID_CHRONOLOGY_CAPTURE; it is never reconstructed and the workflow never advances to a later tick",
     "published_content": "IDENTITY_RECEIPTS_HASHES_AGGREGATE_COUNTS_AND_QUOTA_CERTIFICATE_ONLY"
   },
   "capture_rules": {
@@ -79,6 +84,7 @@
     "alternate_ref_forbidden": true,
     "hand_picked_tip_forbidden": true,
     "manual_or_rerun_checkpoint_forbidden": true,
+    "missed_tick_backfill_or_catchup_forbidden": true,
     "membership_clock": "GIT_ANCESTRY_AND_TREE_CONTENT",
     "author_timestamp_controls_membership": false,
     "committer_timestamp_controls_membership": false
