@@ -42,6 +42,14 @@ particular, `manual finite-negation review` does not authorize a search. A
 human must still write the literal negation certificate, verify source fidelity,
 search prior work, and validate the carrier.
 
+The pinned GitHub Actions replay succeeded in
+[run 31719259755](https://github.com/Kuberwastaken/c5-k4/actions/runs/31719259755).
+Its uploaded artifacts have SHA-256 digests
+`91d73e1df5f2aa5dda89249f37463b931aa1db5a1496ed98ace6953d721279a8`
+for the JSONL crosswalk and
+`33586e7c729bd6f23f1e94c3c574b99f32225d596c6d0cf23f339f1201de0ef4`
+for the Markdown report.
+
 The audit found 38 declarations whose containing prose problem is already
 recorded as proved, disproved, or solved. Exact review is still necessary:
 some are partial variants, some are already merged proof-link updates, and
