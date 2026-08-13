@@ -160,6 +160,7 @@ theorem reachable_from_zero (v : Vertex) : completionGraph.Reachable 0 v := by
           hadj.reachable
 
 theorem completion_connected : completionGraph.Connected := by
+  constructor
   intro u v
   exact (reachable_from_zero u).symm.trans (reachable_from_zero v)
 
