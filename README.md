@@ -82,13 +82,15 @@ claims. See [`method_v02_382e.md`](results/expansion/method_v02_382e.md) and
 [`method_v02_61.md`](results/expansion/method_v02_61.md).
 
 The workflow now has an explicit **proof-extraction** side as well. For WOWII
-#133, successive warning-clean no-`sorry` Lean bridges formalize shortest-walk
-inducedness, a radius-realizing path, the cubic/C4-free radius lower bound,
-clean list prepending, and finally `radius(G)+2 <= path(G)` in the cubic
-C4-free branch. For WOWII #183, attempts to explain a persistent wall have
-produced exact countermodels to two tempting auxiliary lemmas and stronger
-replacement theorems: a distance-three pair with `gamma_c>=3` forces `b>=5`,
-while `gamma_c>=4` forces `b>=6`. These are partial theorem results, not extra
+#133, successive warning-clean no-`sorry` Lean bridges now close the corrected
+**cubic C4-free specialization**, including both local-average floor identities
+and the triangle-free/non-triangle-free path split. The noncubic conjecture
+remains open. For WOWII #183, attempts to explain a persistent wall have
+produced exact countermodels to tempting auxiliary lemmas and no-`sorry` Lean
+proofs of two replacement tiers: a distance-three pair with `gamma_c>=3`
+forces `b>=5`, while `gamma_c>=4` forces `b>=6`. The high tier is reduced to
+an explicit two-neighbor retention lemma that is exact on the pendant-clique
+family but is not yet proved. These are partial theorem results, not extra
 “kills”; their failed rungs and surviving obligations are committed alongside
 the proofs.
 

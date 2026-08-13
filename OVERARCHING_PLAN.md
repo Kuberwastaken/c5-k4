@@ -82,12 +82,13 @@ ladder is written.
 Maximize reusable no-`sorry` proof components, not merely top-level theorem
 counts. Current theorem lanes are:
 
-- **WOWII 133:** formalize the corrected cubic/C4-free specialization by
-  composing geodesic, radius, list-representation, and local-neighborhood
-  lemmas. Each bridge must compile warning-clean and receive an axiom audit.
-- **WOWII 183:** alternate paper proof and fixed-catalogue countermodel checks
-  on the remaining claw-free diameter-three core. Failed structural lemmas stay
-  in the record with exact countermodels.
+- **WOWII 133:** the corrected cubic/C4-free specialization is fully
+  formalized, warning-clean and no-`sorry`; the next lane targets the first
+  genuinely noncubic reduction rather than repeating the closed special case.
+- **WOWII 183:** the `gamma_c>=3` and `gamma_c>=4` distance-three tiers are
+  formalized. The remaining high tier is factored into the universal bound
+  `gamma_c<=n-deg(x)` and an unproved two-neighbor retention lemma, with the
+  pendant-clique family retained as a mandatory equality test.
 - **WOWII 438b:** maintain the completed stronger arbitrary-subset proof and
   existing upstream review lane; do not recast it as a counterexample.
 
@@ -149,15 +150,16 @@ obligations.
 
 ## Near-term execution order
 
-1. Finish and independently verify the frozen WOWII 179 gate and grid.
-2. Continue small, composable no-`sorry` bridges for WOWII 133 until the exact
-   corrected specialization closes or a genuine mathematical obstruction is
-   isolated.
-3. Resolve or refute the single remaining WOWII 183 geodesic-extension lemma;
-   then propagate the result through the cut-vertex/2-connected split.
-4. If 179 holds, commit the zero and freeze the next target before evaluation.
-   If it crosses, stop discovery work on that target and enter the complete
-   verification/release pipeline.
+1. Preserve the strict `TIMEOUT_BRACKET` stop on WOWII 179; do not reopen its
+   unevaluated grid without a newly frozen protocol.
+2. Move WOWII 133 beyond its completed cubic/C4-free specialization by testing
+   and formalizing the smallest source-faithful noncubic reduction.
+3. Resolve or refute WOWII 183's two-neighbor retention lemma; formalize it
+   only if it survives the fixed-catalogue and pendant-family gates.
+4. Complete and independently verify the frozen WOWII 305 trial. If it holds,
+   commit the zero and freeze the next target before evaluation; if it crosses,
+   stop discovery work on that target and enter the full verification/release
+   pipeline.
 5. Periodically refresh the current formal-conjectures-covered finite-graph
    manifest, but never count already inspected targets as held out.
 
