@@ -102,6 +102,12 @@ the fixed cap, so the trial is recorded as `TIMEOUT_BRACKET`: the remaining
 controls and the grid are not silently run, and the family identity is not
 promoted into a successful trial outcome.
 
+For navigating the full development record, [`GRAPH_REPORT.md`](graphify-out/GRAPH_REPORT.md)
+summarizes a generated project knowledge graph and `graphify-out/graph.html`
+provides its static interactive viewer. This map is an index, not mathematical
+evidence; its own health audit records dangling semantic edges and collapsed
+same-endpoint relationships rather than hiding them.
+
 The programme-level roadmap is [`OVERARCHING_PLAN.md`](OVERARCHING_PLAN.md),
 and the full versioned development protocol is [`METHOD.md`](METHOD.md). They fix
 the residual-wall workflow, theorem-shadow taxonomy, transformation catalogue,

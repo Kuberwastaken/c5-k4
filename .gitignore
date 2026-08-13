@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+
+# Graphify interpreter/root pointers are machine-local. The graph, report,
+# manifest, labels, and static viewer are durable project artifacts.
+graphify-out/.graphify_python
+graphify-out/.graphify_root
