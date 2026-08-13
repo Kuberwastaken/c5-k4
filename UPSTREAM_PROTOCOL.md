@@ -1,13 +1,16 @@
 # Public-result publication protocol
 
-**Standing rule, superseding the earlier upstream workflow:** do not open new
-issues or PRs in `google-deepmind/formal-conjectures` from this campaign.
-Treat that repository as read-only for corpus selection, duplicate checks, and
-status comparison. Publish newly validated, apparently unclaimed
-counterexamples as versioned releases of `Kuberwastaken/c5-k4` instead.
+**Standing rule:** treat `google-deepmind/formal-conjectures` as read-only
+unless the user explicitly authorizes a new upstream submission in the current
+campaign turn.  Explicit authorization permits only results that pass every
+gate below.  A matching open, closed, or merged issue, PR, declaration, or
+commit disqualifies a duplicate submission; reuse or leave the existing record
+alone as appropriate.  Independently publish newly validated, apparently
+unclaimed counterexamples as versioned releases of `Kuberwastaken/c5-k4`.
 
 Existing upstream PRs may be monitored and repaired in response to CI or
-review, but this does not authorize a new upstream issue, PR, or comment.
+review.  Without current explicit authorization, this does not authorize a new
+upstream issue, PR, comment, or review action.
 
 Canonical exemplars:
 
@@ -17,6 +20,16 @@ Canonical exemplars:
 - issue [#4910](https://github.com/google-deepmind/formal-conjectures/issues/4910)
   and PR [#4911](https://github.com/google-deepmind/formal-conjectures/pull/4911)
   for WOWII 176.
+
+## Upstream issue and PR format
+
+When an upstream submission is explicitly authorized, one issue and one PR
+cover one problem.  The issue uses, in order: `Summary`, `Counterexample` or
+`Proof`, `Relationship to the C5[K4] campaign`, immutable audit/verifier/proof
+links, `Source/status note`, and `AI assistance disclosure`.  The PR uses, in
+order: `Summary`, the closing issue reference, `Follow-up discovery pattern`,
+`Formal proof`, `Source/status note`, `Verification`, and `AI assistance
+disclosure`.  Attribution and ambiguity caveats remain prominent in both.
 
 ## Scope and novelty gate
 
@@ -113,6 +126,7 @@ Each future release must add and commit a short checklist under
 - HTTP-200 checks for every planned URL;
 - proposed tag and release title;
 - confirmation that the release body uses the canonical section order above;
-- confirmation that no new upstream issue or PR will be opened.
+- confirmation whether an upstream issue/PR is explicitly authorized and, if
+  so, that no matching open, closed, or merged record exists.
 
 No checklist, no release.

@@ -317,11 +317,12 @@ statistic.
 ### Phase 8 — Formal certification and project release
 
 All public writes follow [`UPSTREAM_PROTOCOL.md`](UPSTREAM_PROTOCOL.md). Despite
-the historical filename, it now governs releases in this repository: do not
-create a tag or release until its committed preflight and release-lock records
-pass. New `formal-conjectures` issues and PRs are out of scope; that repository
-is read-only for selection and duplicate checks. Existing campaign PRs may be
-repaired only in response to CI or review.
+the historical filename, it governs releases in this repository and any
+explicitly user-authorized upstream submission: do not create a tag, release,
+issue, or PR until its committed preflight records pass. `formal-conjectures`
+is read-only by default; a new issue/PR requires current explicit authorization
+and an exhaustive open/closed/merged duplicate check. Existing campaign PRs
+may be repaired in response to CI or review.
 
 For each gate-surviving new disproof:
 
