@@ -534,7 +534,12 @@ def execute(
     contract = json.loads(contract_path.read_text(encoding="utf-8"))
     validate_contract(manifest, cluster, contract, args.mode, arm, repo_root)
 
-    head = git_output(repo_root, "rev-parse", "HEAD")
+    # A dry-run contract test may explicitly disable ancestry enforcement.  In
+    # that mode the checkout is not part of the trust boundary, so do not audit
+    # CI-injected repository configuration merely to populate optional
+    # metadata.  Production execution still performs the full offline audit
+    # below whenever require_git_ancestry is true.
+    head = git_output(repo_root, "rev-parse", "HEAD") if args.require_git_ancestry else None
     chronology = manifest["chronology"]
     c1_commit = chronology.get("c1_attestation_commit", chronology.get("c1_commit"))
     if args.require_git_ancestry:
@@ -609,7 +614,11 @@ def execute(
         )
         results, infrastructure_errors = run_all_processes(contract["processes"], cpus, worker)
 
-    status_after = git_output(repo_root, "status", "--porcelain=v1", "--untracked-files=all")
+    status_after = (
+        git_output(repo_root, "status", "--porcelain=v1", "--untracked-files=all")
+        if args.require_git_ancestry
+        else None
+    )
     total_cpu = sum(
         row.get("time", {}).get("cpu_seconds", 0)
         for row in results
