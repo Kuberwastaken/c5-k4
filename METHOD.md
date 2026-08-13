@@ -549,6 +549,10 @@ will be counted as held out.
   keeping the missing Ferrers exchange-existence theorem explicit. Formalizing
   algebraic consequences of a theorem signal does not promote the parent
   conjecture to proved or the bounded trial to a discovery.
+- Adds finite Equation 677 to Equation 255 as a non-graph hard-negative
+  calibration. The exact SAT prefix is UNSAT through order seven; order eight
+  is a 60-second timeout. Post-run deterministic CNF hashes are labelled as
+  reconstructions and do not rewrite the original solver-output provenance.
 
 ### v0.9 — 2026-08-13
 

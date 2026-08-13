@@ -294,6 +294,13 @@ extension compile warning-free at the pinned DeepMind revision. The honest
 next theorem obligation is the Ferrers min-cut/exchange-existence bridge, not
 another enumeration order.
 
+The finite Equation 677 to Equation 255 implication supplies a harder
+non-graph calibration. Exact SAT excludes countermodels at orders five through
+seven; order eight reaches the frozen 60-second cap without a verdict. The
+original solver outputs and later deterministic CNF reconstructions are marked
+separately. This is a development timeout bracket, not bounded evidence at
+order eight and not a release candidate.
+
 Erdős 92 is retained separately as a retrospective theorem-transfer benchmark:
 the canonical database records a disproof via problem 90 while DeepMind still
 contains open answer placeholders. It can test whether the workflow recovers

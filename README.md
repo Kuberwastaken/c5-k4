@@ -115,6 +115,13 @@ threshold-to-basis, and one-vertex coloring-extension lemmas. The remaining
 obstruction is stated narrowly as a Ferrers multicolor exchange-existence
 problem, rather than being hidden behind another size sweep.
 
+A second non-graph calibration targets the Equational Theories project's
+finite `Equation 677 -> Equation 255` “last survivor.” Exact SAT proves there
+is no countermodel at orders 5--7; order 8 is an explicit 60-second timeout.
+The target is current and the certificate shape is exact, but the result is a
+hard negative—not a proof, counterexample, or release. See
+[`equation677_255_report.md`](results/expansion/equation677_255_report.md).
+
 The next evaluation is specified separately in
 [`METHOD_V1_1_BENCHMARK.md`](METHOD_V1_1_BENCHMARK.md): twelve uncontaminated
 DeepMind question clusters selected using future public randomness, with
