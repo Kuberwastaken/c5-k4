@@ -207,7 +207,11 @@ def file_digest(value: Any, *, role: str, permit_prototype: bool = False) -> dic
 
 
 def _nonempty(value: Any) -> bool:
-    return value not in (None, "", [], {})
+    if value is None or value is False:
+        return False
+    if isinstance(value, (str, list, tuple, dict, set)):
+        return len(value) > 0
+    return True
 
 
 def scan_for_target_data(value: Any, *, role: str, trail: tuple[str, ...] = ()) -> None:

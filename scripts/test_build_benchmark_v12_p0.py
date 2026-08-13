@@ -25,6 +25,16 @@ def digest(path: Path) -> str:
 
 
 class P0Tests(unittest.TestCase):
+    def test_false_target_data_capability_flag_is_not_target_data(self) -> None:
+        P0.scan_for_target_data(
+            {"output_policy": {"statement_text": False, "selected_clusters": []}},
+            role="fixture",
+        )
+        with self.assertRaisesRegex(P0.P0Error, "statement_text"):
+            P0.scan_for_target_data(
+                {"output_policy": {"statement_text": "present"}}, role="fixture"
+            )
+
     def setUp(self) -> None:
         parent = P0.ROOT / "results" / "benchmark"
         self.temp = tempfile.TemporaryDirectory(prefix="v12-p0-test-", dir=parent)
