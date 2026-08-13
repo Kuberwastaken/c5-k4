@@ -1,7 +1,7 @@
 # Prospective WOWII #40 block-surgery checkpoint
 
 Date: 2026-08-13
-Status: frozen trial active; no crossing yet
+Status: frozen trial complete; `INCONCLUSIVE`, with no exact crossing
 
 ## Scope and status
 
@@ -35,24 +35,37 @@ The contract was written before development evaluation at
 All graph records and timeouts are append-only in
 [`prospective_wowii40_block_surgery_ledger.jsonl`](prospective_wowii40_block_surgery_ledger.jsonl).
 
-## Exact bounded results
+## Final frozen result
 
-The first completed checkpoint contains 260 development graphs:
+The canonical trial scope is the first 1,200 distinct candidate names at their
+first `graph_evaluated` or `graph_timeout` event in ledger order.  Its
+newline-delimited name list has SHA-256
+`cdef90b65b007d8779c1f0f8653dd30fc27810afc5ef4270302af72e96b3ca7d`.
+
+Of those 1,200 candidates, 1,173 completed exact evaluation:
 
 | lane | exact graphs |
 |---|---:|
-| ear surgeries | 178 |
-| nonuniform bipartite block trees | 47 |
+| one-off mutations | 901 |
+| ear surgeries | 182 |
+| nonuniform bipartite block trees | 55 |
 | block substitutions | 35 |
 
-Orders reach 17.  Sixteen candidates hit the deliberately shortened
-five-second exact-solve cap and are logged `INCONCLUSIVE`; the frozen contract
-allows up to 60 seconds, so these remain available for selective reruns.
+Orders reach 17.  There are zero exact crossings, 69 exact tight cases, and
+minimum slack zero.  Twenty-seven in-scope candidates remain unresolved after
+the permitted bounded retries.  Under the frozen verdict definitions, that
+makes the result `INCONCLUSIVE`, not `HOLD_BOUNDED`.
 
-There are zero crossings.  Ten graphs are exactly tight and the minimum slack
-is zero.  The current result is therefore `NO_CROSSING_YET`, not the frozen
-trial's final `HOLD_BOUNDED` verdict: only 260 of the allowed 1,200 development
-graphs have completed.
+## Cap bookkeeping correction
+
+The runner originally counted unique exactly completed graph6 strings but did
+not count timed-out candidate names toward the 1,200 cap.  It consequently
+evaluated 27 later candidates before the error was noticed.  Search stopped
+immediately on detection.  Those append-only rows remain in the ledger for
+auditability but are explicitly outside the frozen trial and play no role in
+the result above.  The runner now counts each newly attempted candidate name,
+including a timeout, while a retry of the same candidate consumes no new cap
+slot.
 
 ## Sanity gate
 

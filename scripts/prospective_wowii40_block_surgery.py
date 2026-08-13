@@ -6,6 +6,7 @@ from __future__ import annotations
 import itertools
 import json
 import math
+import os
 import signal
 import time
 from pathlib import Path
@@ -15,7 +16,8 @@ import networkx as nx
 
 ROOT = Path(__file__).resolve().parents[1]
 LEDGER = ROOT / "results/expansion/prospective_wowii40_block_surgery_ledger.jsonl"
-CAP = 5
+CAP = int(os.environ.get("WOWII40_SOLVE_CAP", "5"))
+RETRY_TIMEOUTS = os.environ.get("WOWII40_RETRY_TIMEOUTS", "0") == "1"
 
 
 class SolveTimeout(RuntimeError):
@@ -262,11 +264,14 @@ def substituted_path(sizes: tuple[int, ...], kinds: tuple[str, ...], interface: 
 
 def candidates():
     seen = set()
+    bases = []
     def emit(name, family, graph):
         if not (3 <= graph.number_of_nodes() <= 18) or not nx.is_connected(graph): return
         key = nx.weisfeiler_lehman_graph_hash(graph) + str(sorted(d for _, d in graph.degree()))
         if key in seen: return
         seen.add(key)
+        if family != "one_off_mutation":
+            bases.append((name, nx.Graph(graph)))
         yield name, family, graph
     for blocks in range(2, 5):
         for raw in itertools.product(((2, 2, "L"), (2, 3, "R"), (3, 2, "L"), (3, 4, "R")), repeat=blocks):
@@ -283,6 +288,25 @@ def candidates():
             for kinds in (tuple("indep" for _ in sizes), tuple("clique" if i % 2 else "indep" for i in range(blocks))):
                 for interface in ("portal", "matching", "complete"):
                     yield from emit(f"subst_{sizes}_{kinds}_{interface}", "block_substitution", substituted_path(sizes, kinds, interface))
+    # Frozen one-off lane: deterministic one- and two-interface-edge surgeries
+    # of every base graph.  The prefix limits only order the frozen finite set;
+    # they do not depend on evaluated invariant values.
+    for base_name, base in list(bases):
+        edges = sorted(tuple(sorted(e)) for e in base.edges())
+        nonedges = sorted(tuple(sorted(e)) for e in nx.non_edges(base))
+        for edge in edges[:8]:
+            graph = nx.Graph(base); graph.remove_edge(*edge)
+            yield from emit(f"mut_del_{base_name}_{edge}", "one_off_mutation", graph)
+        for edge in nonedges[:12]:
+            graph = nx.Graph(base); graph.add_edge(*edge)
+            yield from emit(f"mut_add_{base_name}_{edge}", "one_off_mutation", graph)
+        for e1, e2 in itertools.combinations(nonedges[:8], 2):
+            graph = nx.Graph(base); graph.add_edge(*e1); graph.add_edge(*e2)
+            yield from emit(f"mut_add2_{base_name}_{e1}_{e2}", "one_off_mutation", graph)
+        for old in edges[:4]:
+            for new in nonedges[:6]:
+                graph = nx.Graph(base); graph.remove_edge(*old); graph.add_edge(*new)
+                yield from emit(f"mut_swap_{base_name}_{old}_{new}", "one_off_mutation", graph)
 
 
 def main() -> None:
@@ -290,6 +314,7 @@ def main() -> None:
     best = 999
     already = set()
     timed_out_names = set()
+    attempted_names = set()
     for line in LEDGER.read_text(encoding="utf-8").splitlines():
         try:
             record = json.loads(line)
@@ -297,30 +322,47 @@ def main() -> None:
             continue
         if record.get("event") == "graph_evaluated":
             already.add(record.get("graph6"))
+            attempted_names.add(record.get("name"))
         elif record.get("event") == "graph_timeout":
             timed_out_names.add(record.get("name"))
+            attempted_names.add(record.get("name"))
     priority = {"ear_surgery": 0, "block_substitution": 1,
-                "nonuniform_bipartite_block_tree": 2}
+                "nonuniform_bipartite_block_tree": 2,
+                "one_off_mutation": 3}
     work = sorted(candidates(), key=lambda item:
-                  (priority[item[1]], item[2].number_of_nodes(), item[0]))
+                  (item[2].number_of_nodes(), priority[item[1]], item[0]))
+    global_attempted = len(attempted_names)
+    newly_attempted = set()
     for name, family, graph in work:
-        if evaluated >= 1200: break
+        is_retry = name in attempted_names
+        if not is_retry and global_attempted + len(newly_attempted) >= 1200:
+            break
         graph6 = nx.to_graph6_bytes(nx.convert_node_labels_to_integers(graph),
                                     header=False).decode().strip()
         if graph6 in already:
             continue
-        if name in timed_out_names:
+        if name in timed_out_names and not RETRY_TIMEOUTS:
             continue
+        if not is_retry:
+            newly_attempted.add(name)
         try:
             record = exact_record(name, family, graph)
         except SolveTimeout:
-            append({"event": "graph_timeout", "name": name, "family": family, "n": graph.number_of_nodes()})
+            append({"event": "graph_timeout", "name": name, "family": family,
+                    "n": graph.number_of_nodes(), "graph6": graph6})
             timeouts += 1
             continue
         append(record)
         evaluated += 1
         best = min(best, int(record["slack"]))
         crossings += int(bool(record["crossing"]))
+        if record["crossing"]:
+            append({"event": "construction_sweep_stopped_on_crossing",
+                    "name": name, "graph6": record["graph6"],
+                    "global_attempted": global_attempted + len(newly_attempted)})
+            print(json.dumps({"evaluated_this_run": evaluated,
+                              "crossing": name}))
+            return
     append({"event": "construction_sweep_complete", "graphs_evaluated": evaluated,
             "crossings": crossings, "timeouts": timeouts, "minimum_slack": best})
     print(json.dumps({"evaluated": evaluated, "crossings": crossings, "timeouts": timeouts, "minimum_slack": best}))
