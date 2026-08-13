@@ -146,6 +146,11 @@ jobs:
           set -euo pipefail
           python3 "$VERIFIER_PATH"
 
+      - name: Build upstream utilities warning-clean
+        working-directory: formal-conjectures
+        shell: bash
+        run: lake --wfail build FormalConjecturesUtil
+
       - name: Compile complete external certificate warning-clean
         working-directory: formal-conjectures
         shell: bash
