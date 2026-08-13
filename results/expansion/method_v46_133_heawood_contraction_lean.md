@@ -70,6 +70,8 @@ It exited successfully with no output in approximately six seconds.  A
 temporary `#print axioms` audit reported only `propext`, `Classical.choice`,
 `Lean.ofReduceBool`, `Lean.trustCompiler`, and `Quot.sound`; it reported no
 `sorryAx` or project-specific axiom.  The temporary print commands were
-removed, and a source scan found no `sorry`, `admit`, or custom `axiom`.
+removed.  A post-integration policy audit also replaced every use of
+`native_decide` with kernel reduction via `decide`; the source now contains no
+`sorry`, `admit`, custom `axiom`, or `native_decide`.
 
 No commit, push, release, issue, PR, or other public action was performed.

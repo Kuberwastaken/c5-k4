@@ -54,29 +54,29 @@ instance : DecidableRel contractedHeawood.Adj := by
   infer_instance
 
 theorem contractedHeawood_connected : contractedHeawood.Connected := by
-  native_decide
+  decide
 
 theorem contractedHeawood_c4Free : ¬HasC4 contractedHeawood := by
   unfold HasC4
-  native_decide +revert
+  decide +revert
 
 theorem contractedHeawood_triangleFree : contractedHeawood.CliqueFree 3 := by
   rw [← cliqueFinset_eq_empty_iff]
-  native_decide
+  decide
 
 theorem contractedHeawood_radius : contractedHeawood.radius.toNat = 2 := by
   rw [radius_eq_computable contractedHeawood contractedHeawood_connected]
-  native_decide
+  decide
 
 theorem contractedHeawood_degree_profile (v : Fin 13) :
     contractedHeawood.degree v = if v = 0 then 4 else 3 := by
-  fin_cases v <;> native_decide
+  fin_cases v <;> decide
 
 theorem contractedHeawood_averageDegree :
     averageDegree contractedHeawood = (40 / 13 : ℚ) := by
   unfold averageDegree
   simp_rw [contractedHeawood_degree_profile]
-  native_decide
+  decide
 
 theorem contractedHeawood_l :
     l contractedHeawood = (40 / 13 : ℝ) := by
@@ -94,7 +94,7 @@ def targetPath : List (Fin 13) := [0, 1, 2, 11, 10]
 theorem targetPath_isInduced :
     contractedHeawood.isInducedPath targetPath := by
   unfold SimpleGraph.isInducedPath targetPath
-  native_decide
+  decide
 
 /-- A concrete induced path lower-bounds the repository's `path` invariant. -/
 theorem path_ge_of_isInducedPath
