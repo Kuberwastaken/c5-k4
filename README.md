@@ -95,48 +95,58 @@ The current no-`sorry`, warning-clean Lean ladder includes:
   charge `tau_odd+diameter+localMax<=n+1`. A maximum-star transversal proves
   `tau_odd+localMax+1<=n` universally and closes diameter at most two. For
   trees, the remaining result is reduced to the classical count
-  `diameter+maximumDegree<=n+1`.
+  `diameter+maximumDegree<=n+1`; the complete finite-set/path selection proof
+  leaves only the standard two/three path-neighbor shortcut lemma.
 - **#40:** exact deficiency coordinates, explicit path-cover witnesses,
   arbitrary disjoint path-family rank, and cactus-petal certificates. The
   repository also preserves the 17-vertex flower obstruction to the false
   one-long-path strategy, proves how to allocate away a shared cut vertex,
-  and instantiates that allocation on an explicit shared-center flower.
+  instantiates that allocation on an explicit shared-center flower, and proves
+  the recursive rank increment contributed by a disjoint leaf-block path.
 - **#59:** safe residue slices, the unique low-residue corner, mixed-color
   ambient attachment, one-for-one core exchange, and the complete dense
   attachment-count classification. Exact one-, two-, and three-outside audits
   contain no residue-three corner at `b=6,f=4`; the three-row attachment
-  systems satisfy a formal aligned-or-rotating-complement dichotomy. This is
-  proof extraction around an already
+  systems satisfy a formal aligned-or-rotating-complement dichotomy. Four
+  dense rows on either color side now formally force a repeated row or an
+  aligned triple. This is proof extraction around an already
   externally disproved statement, not another kill.
 - **#61:** exact trajectory telescoping, padded excess profiles, one-step loss
   algebra, the minimal successor-order obstructions, and the corrected
   cumulative-credit invariant with an exact local balance/update theorem.
   Under admissible active lists, local funding is now equivalent to the single
-  head-credit inequality `2*targetHead<=credit+2*sourceHead`; the remaining
-  implication from initial weak graphical dominance is isolated without
-  assuming a false successor order.
+  head-credit inequality `2*targetHead<=credit+2*sourceHead`. Cumulative loss
+  is exactly twice the cumulative eliminated-head sum, so the remaining
+  implication is precisely monotonicity of those head prefixes under initial
+  graphical weak dominance.
 - **#100:** for the exact Lean `degreeL2Norm` expression, unconditional proofs
   cover `alpha` in `{2,3}` and every `alpha>=8`; the two-witness energy package
   is fully integrated at graph level for `alpha=8..11`, without complement
-  connectedness. Only `alpha=4..7` remains. The distinct diameter wording in
-  the upstream prose is not conflated with these results.
+  connectedness. A three-witness certificate crosses the complete remaining
+  `alpha=4..7` coordinate box with strict margins; only extracting and
+  classifying the one-, two-, and three-witness cases remains. The distinct
+  diameter wording in the upstream prose is not conflated with these results.
 - **#133:** the corrected C4-free specialization, matching/triangle identities,
   deep-handle assembly, finite early-contact reduction, complete depth-two
   escape, and the allowable depth-three contact table. The 20 surviving
   shared-parent matrices are recorded as an exhausted local-proof boundary;
   a formal metric detour proves contact indices differ by at most four, but
-  all 20 already meet that condition, so ordinary shortestness is exhausted.
+  a same-row two-edge detour plus triangle/C4 exclusion removes every
+  multi-contact row. Ten injective singleton patterns remain and must be
+  compared across alternative clean-vertex choices.
 - **#141:** an unconditional proof through girth seven, plus a fully verified
   two-vertex-tail assembly for girth eight/nine. The exceptional-root
-  two-layer forest theorem is now formal; only its concrete BFS-layer
-  instantiation and the final girth-based chord bookkeeping remain.
+  two-layer forest theorem is concretely instantiated, proving that every
+  root in a connected girth-at-least-eight graph has a distance-three witness.
+  Only the final local chord exclusion and second-leaf packaging remain.
 - **#183:** corrected attachment selection, connected domination, component
   folding, local-to-global budget accounting, exact singleton branches, and
   bipartite/tree component witness adapters. The old vacuous interface remains
   documented; non-root leaf deletion now supplies an exact tree trunk, while
   a degree-sum proof supplies a leaf distinct from every prescribed root. Only
-  component-subtype-to-ambient flattening and the general nonbipartite trunk
-  remain.
+  one named ambient-connectivity transport through the component/outside
+  subtypes and the general nonbipartite trunk remain; all tree membership,
+  cardinality, domination, and root fields are discharged.
 
 These are theorem-extraction checkpoints, not extra “kills.” Failed rungs,
 countermodels, repaired interfaces, and surviving obligations are committed
