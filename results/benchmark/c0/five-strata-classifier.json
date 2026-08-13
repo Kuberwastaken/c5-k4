@@ -1,0 +1,76 @@
+{
+  "schema_version": "c5k4-five-strata-classifier-1.0",
+  "scope": "syntax-only classification before target selection",
+  "permitted_inputs": [
+    "source path",
+    "declaration kind and name",
+    "declaration header syntax tokens",
+    "source-module finite syntax tokens",
+    "open-category marker",
+    "content digests"
+  ],
+  "forbidden_inputs": [
+    "natural-language source statement",
+    "mathematical interpretation",
+    "known proof or counterexample",
+    "candidate family",
+    "residual or tightness",
+    "target-specific compute"
+  ],
+  "domain_signals": {
+    "path_regex": {
+      "GRAPH": [
+        "(?:^|/)WrittenOnTheWallII/",
+        "(?:^|/)GraphConjecture[^/]*\\.lean$",
+        "(?:^|/)(?:Graph|Ramsey|Chromatic|Coloring|Colouring)[^/]*\\.lean$"
+      ],
+      "FINITE_ALGEBRA_EQUATIONAL": [
+        "(?:^|/)(?:EquationalTheories|Kourovka|Algebra|GroupTheory)[^/]*"
+      ],
+      "AUTOMATA_GAME_PROCESS": [
+        "(?:^|/)[^/]*(?:Automat|Cerny|Černý|Game|Process|CatchUp|BusyBeaver|ChipFiring|Puzzle)[^/]*\\.lean$"
+      ]
+    },
+    "header_regex": {
+      "GRAPH": [
+        "\\b(?:SimpleGraph|SimpleDigraph|Multigraph|Digraph|Quiver)\\b"
+      ],
+      "FINITE_ALGEBRA_EQUATIONAL": [
+        "\\b(?:Magma|Semigroup|Monoid|Group|AddGroup|Ring|Semiring|Field|Quasigroup|Loop)\\b"
+      ],
+      "AUTOMATA_GAME_PROCESS": [
+        "\\b(?:Automaton|TransitionSystem|GameState|Player|Strategy|MoveRelation|Synchronizing)\\b"
+      ]
+    }
+  },
+  "graph_scalar_signal": {
+    "header_regex": [
+      "≤",
+      "≥",
+      "(?<![<:])<(?![=>])",
+      "(?<![-])>(?![=>])",
+      "\\b(?:LT\\.lt|LE\\.le|GT\\.gt|GE\\.ge)\\b"
+    ]
+  },
+  "finite_signal": {
+    "path_regex": [],
+    "header_regex": [
+      "\\b(?:Fin|Fintype|Finite|Multiset|Finset)\\b"
+    ]
+  },
+  "declaration_rule": [
+    "If more than one of GRAPH, FINITE_ALGEBRA_EQUATIONAL, and AUTOMATA_GAME_PROCESS fires, classify as ambiguous.",
+    "An explicit finite signal may occur in the declaration header or elsewhere in the same source module, to cover section variables without reading semantics.",
+    "A GRAPH declaration plus an explicit finite signal with an ordered-relation token is GRAPH_SCALAR_INEQUALITY; graph declarations without an explicit finite signal are excluded.",
+    "A GRAPH declaration plus an explicit finite signal without an ordered-relation token is GRAPH_STRUCTURAL_PROPERTY.",
+    "A sole algebra signal plus an explicit finite signal is FINITE_ALGEBRA_EQUATIONAL; otherwise exclude.",
+    "A sole automata/game/process path or header signal is AUTOMATA_GAME_PROCESS. This stratum is defined by the frozen process-family syntax/path vocabulary rather than a generic finite token.",
+    "With no specialized signal but an explicit finite signal, use FINITE_COMBINATORIAL. Otherwise exclude as unclassified. This is a sampling label, not a claim about mathematical ontology."
+  ],
+  "cluster_rule": {
+    "sampling_unit": "ONE_SOURCE_MODULE_CONSERVATIVE_MERGE",
+    "eligible_only_if": "all open declarations in the module receive the same non-ambiguous stratum",
+    "otherwise": "AMBIGUOUS_EXCLUDE",
+    "cross_module_sibling_ambiguity": "exclude during the contamination/identity gate; never split after randomness"
+  }
+}

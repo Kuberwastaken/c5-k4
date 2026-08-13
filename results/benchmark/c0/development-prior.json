@@ -1,0 +1,19 @@
+{
+  "schema_version": "c5k4-development-prior-1.0",
+  "evidence_cutoff": "C0_PARENT_COMMIT",
+  "scope": "one common pre-target prior for every selected Method v1.1 cluster",
+  "probabilities": {
+    "CROSS": "0.05",
+    "ZERO_COMPLETE": "0.20",
+    "THEOREM_STRUCTURE": "0.25",
+    "PRESEARCH_STOP": "0.20",
+    "TIMEOUT": "0.25",
+    "PROTOCOL_INVALID": "0.05"
+  },
+  "derivation_rule": [
+    "Use the complete development record before C0, including crossings, bounded zeroes, theorem closures, prior-art/status stops, timeouts, and protocol defects.",
+    "Round to increments of 0.05 while keeping every class strictly between zero and one.",
+    "Apply this vector uniformly at C1. No target metadata, selected identity, or post-C0 result may change it."
+  ],
+  "interpretation": "The benchmark compares target-level selection forecasts against this deliberately conservative development baseline using multiclass Brier skill."
+}

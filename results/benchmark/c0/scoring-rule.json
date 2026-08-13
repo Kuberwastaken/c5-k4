@@ -1,0 +1,51 @@
+{
+  "schema_version": "c5k4-scoring-rule-1.0",
+  "outcomes": [
+    "CROSS",
+    "ZERO_COMPLETE",
+    "THEOREM_STRUCTURE",
+    "PRESEARCH_STOP",
+    "TIMEOUT",
+    "PROTOCOL_INVALID"
+  ],
+  "terminal_precedence": [
+    "CROSS",
+    "THEOREM_STRUCTURE",
+    "ZERO_COMPLETE",
+    "TIMEOUT",
+    "PRESEARCH_STOP",
+    "PROTOCOL_INVALID"
+  ],
+  "brier": {
+    "formula": "sum_o (p_o - 1[o=terminal_outcome])^2",
+    "aggregation": "arithmetic mean across all twelve frozen clusters",
+    "skill_formula": "1 - mean_brier_method / mean_brier_development_prior",
+    "exact_arithmetic": true
+  },
+  "arm_metrics": {
+    "normalized_gain": "For a minimization residual r with safe side r>=0, max(0,-r)/S; for a maximization residual r with safe side r<=0, max(0,r)/S. S=max(1,absolute frozen control residual scale). Record signed residual separately.",
+    "paired_comparison": "For each runnable cluster compare WALL_NAVIGATION against CATALOGUE and GENERIC on normalized_gain; exact equality is a tie.",
+    "cpu_normalized_gain": "normalized_gain divided by consumed CPU-seconds; zero when gain is zero",
+    "controlling_term_sign_accuracy": "correct preregistered nonzero controlling-term directions divided by all preregistered nonzero directions with exact evaluations",
+    "rates": ["TIMEOUT", "PROTOCOL_INVALID"]
+  },
+  "theorem_yield": {
+    "1.0": "proved theorem shadow/closure or warning-clean formal lemma",
+    "0.5": "preregistered theorem signal surviving its complete frozen audit and an independent countermodel check",
+    "0.0": "retrospective conjectural explanation"
+  },
+  "support_thresholds": {
+    "PREDICTIVE_SUPPORT": [
+      "Brier skill is positive",
+      "wall arm exceeds both baselines in mean normalized gain",
+      "for each baseline, paired wall wins are at least paired wall losses",
+      "controlling-term sign accuracy is at least 0.70"
+    ],
+    "DISCOVERY_SUPPORT": [
+      "all PREDICTIVE_SUPPORT requirements",
+      "at least one independently certified cluster-level crossing",
+      "for that crossing, the frozen intervention forecast assigned CROSS greater probability than ZERO_COMPLETE"
+    ]
+  },
+  "reporting": "Novel, retro, ambiguous, and status-preempted crossings are separate. Sibling declarations crossed by one object count once at cluster level."
+}
