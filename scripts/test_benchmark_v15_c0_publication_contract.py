@@ -38,7 +38,9 @@ class ContractTests(unittest.TestCase):
         c0a = lifecycle.index("COMPILE_C0A_WITH_STATUS_AWAITING_C0_PUBLICATION_ATTESTATION")
         self.assertLess(pool, c0a)
         self.assertTrue(self.contract["planned_c0a"]["must_bind_authenticated_pass_pool"])
+        self.assertTrue(self.contract["planned_c0a"]["must_bind_authenticated_p1r"])
         self.assertTrue(self.contract["planned_c0t"]["pass_pool_bound_must_be_true"])
+        self.assertTrue(self.contract["planned_c0t"]["p1r_bound_must_be_true"])
         self.assertTrue(self.contract["pass_pool_gate"]["canonical_pre_entropy_object_required"])
         self.assertFalse(self.contract["pass_pool_gate"]["standalone_publication_required"])
         self.assertTrue(self.contract["pass_pool_gate"]["exact_embedded_object_sha256_required"])
@@ -56,6 +58,8 @@ class ContractTests(unittest.TestCase):
         self.assertEqual(topology["c0a_parent"], "TERMINAL_FIRST_PASS_U2_COMMIT")
         self.assertEqual(topology["c0t_parent"], "EXACT_C0A_COMMIT")
         self.assertFalse(topology["merge_commits_permitted"])
+        self.assertIn("AUTHENTICATE_PUBLIC_P1R_ACTIVATION_BOUNDARY", self.contract["required_lifecycle"])
+        self.assertTrue(self.contract["prohibited"]["bare_p1t_as_activation_authority"])
         observation = self.contract["publication_observation"]
         self.assertEqual(observation["source"], "GITHUB_ACTIONS_PUSH_RUN_OBSERVATION")
         self.assertFalse(observation["caller_supplied_timestamp_is_authority"])

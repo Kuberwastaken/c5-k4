@@ -1,0 +1,164 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-v1.5-c0.schema.json",
+  "title": "Method v1.5 target-blind C0A/C0T bridge",
+  "oneOf": [
+    {"$ref": "#/definitions/c0a"},
+    {"$ref": "#/definitions/c0t"}
+  ],
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "gitOid": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "timestamp": {"type": "string", "format": "date-time", "pattern": "Z$"},
+    "path": {"type": "string", "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[^\\u0000]+$"},
+    "fileRef": {
+      "type": "object", "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {"path": {"$ref": "#/definitions/path"}, "sha256": {"$ref": "#/definitions/sha256"}}
+    },
+    "boundary": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "target_blind", "entropy_present", "selection_present", "ranking_present",
+        "statement_text_present", "target_semantics_present", "outcomes_present"
+      ],
+      "properties": {
+        "target_blind": {"const": true}, "entropy_present": {"const": false},
+        "selection_present": {"const": false}, "ranking_present": {"const": false},
+        "statement_text_present": {"const": false}, "target_semantics_present": {"const": false},
+        "outcomes_present": {"const": false}
+      }
+    },
+    "randomnessContract": {
+      "type": "object", "additionalProperties": false,
+      "required": ["source", "chain_hash", "round", "round_closes_at_utc", "value", "entropy_used", "selection_performed"],
+      "properties": {
+        "source": {"const": "League of Entropy drand"},
+        "chain_hash": {"const": "8990e7a9aaed2ffed73dbd7092123d6f289930540d7651336225dc172e51b2ce"},
+        "round": {"type": "integer", "minimum": 1},
+        "round_closes_at_utc": {"$ref": "#/definitions/timestamp"},
+        "value": {"type": "null"}, "entropy_used": {"const": false}, "selection_performed": {"const": false}
+      }
+    },
+    "topologyPlan": {
+      "type": "object", "additionalProperties": false,
+      "required": ["repository", "ref", "terminal_u2_commit", "c0a_path", "c0t_path", "c0a_change", "c0t_change", "merge_commits_permitted"],
+      "properties": {
+        "repository": {"const": "https://github.com/Kuberwastaken/c5-k4"},
+        "ref": {"const": "refs/heads/method-v1.5-c0"},
+        "terminal_u2_commit": {"$ref": "#/definitions/gitOid"},
+        "c0a_path": {"$ref": "#/definitions/path"}, "c0t_path": {"$ref": "#/definitions/path"},
+        "c0a_change": {"const": "ADD_EXACTLY_ONE_C0A_PATH"},
+        "c0t_change": {"const": "ADD_EXACTLY_ONE_C0T_PATH"},
+        "merge_commits_permitted": {"const": false}
+      }
+    },
+    "p1Activation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["p1r", "p1r_commit", "activation_boundary"],
+      "properties": {
+        "p1r": {
+          "type": "object", "additionalProperties": false,
+          "required": ["path", "sha256"],
+          "properties": {
+            "path": {"const": "results/benchmark/v1.5-protocol/P1R.json"},
+            "sha256": {"$ref": "#/definitions/sha256"}
+          }
+        },
+        "p1r_commit": {"$ref": "#/definitions/gitOid"},
+        "activation_boundary": {"const": "PUBLIC_AUTHENTICATED_P1R"}
+      }
+    },
+    "c0a": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "schema", "artifact_kind", "protocol_version", "status", "authority",
+        "p1_activation", "pass_pool", "pass_pool_binding", "randomness_contract", "publication_topology",
+        "workflow_binding", "publication_boundary", "artifact_sha256"
+      ],
+      "properties": {
+        "schema": {"const": "c5k4-method-v1.5-c0-1.0"}, "artifact_kind": {"const": "C0A"},
+        "protocol_version": {"const": "1.5"}, "status": {"const": "AWAITING_C0_PUBLICATION_ATTESTATION"},
+        "authority": {"const": "NO_LIVE_C0_AUTHORITY_CLAIMED"},
+        "p1_activation": {"$ref": "#/definitions/p1Activation"},
+        "pass_pool": {"type": "object"},
+        "pass_pool_binding": {
+          "type": "object", "additionalProperties": false,
+          "required": ["input_file_sha256", "canonical_object_sha256", "pool_sha256", "embedded_exact_canonical_object", "source_reauthentication_performed"],
+          "properties": {
+            "input_file_sha256": {"$ref": "#/definitions/sha256"},
+            "canonical_object_sha256": {"$ref": "#/definitions/sha256"},
+            "pool_sha256": {"$ref": "#/definitions/sha256"},
+            "embedded_exact_canonical_object": {"const": true}, "source_reauthentication_performed": {"const": true}
+          }
+        },
+        "randomness_contract": {"$ref": "#/definitions/randomnessContract"},
+        "publication_topology": {"$ref": "#/definitions/topologyPlan"},
+        "workflow_binding": {"$ref": "#/definitions/fileRef"},
+        "publication_boundary": {"$ref": "#/definitions/boundary"},
+        "artifact_sha256": {"$ref": "#/definitions/sha256"}
+      }
+    },
+    "observation": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "source", "authority", "repository", "event", "status", "conclusion", "run_id",
+        "head_sha", "head_branch", "workflow", "github_server_started_at_utc",
+        "github_server_completed_at_utc", "captured_run_object_sha256"
+      ],
+      "properties": {
+        "source": {"const": "GITHUB_ACTIONS_PUSH_RUN_OBSERVATION"},
+        "authority": {"const": "LIVE_GITHUB_API_FETCH"},
+        "repository": {"const": "Kuberwastaken/c5-k4"}, "event": {"const": "push"},
+        "status": {"const": "completed"}, "conclusion": {"const": "success"},
+        "run_id": {"type": "integer", "minimum": 1}, "head_sha": {"$ref": "#/definitions/gitOid"},
+        "head_branch": {"const": "method-v1.5-c0"},
+        "workflow": {
+          "type": "object", "additionalProperties": false,
+          "required": ["path", "committed_sha256"],
+          "properties": {"path": {"$ref": "#/definitions/path"}, "committed_sha256": {"$ref": "#/definitions/sha256"}}
+        },
+        "github_server_started_at_utc": {"$ref": "#/definitions/timestamp"},
+        "github_server_completed_at_utc": {"$ref": "#/definitions/timestamp"},
+        "captured_run_object_sha256": {"$ref": "#/definitions/sha256"}
+      }
+    },
+    "c0t": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "schema", "artifact_kind", "protocol_version", "status", "authority", "c0a",
+        "c0a_commit", "p1_activation", "pass_pool_binding", "randomness_contract", "publication_topology",
+        "publication_observation", "attestation_policy", "publication_boundary", "artifact_sha256"
+      ],
+      "properties": {
+        "schema": {"const": "c5k4-method-v1.5-c0-1.0"}, "artifact_kind": {"const": "C0T"},
+        "protocol_version": {"const": "1.5"}, "status": {"const": "C0_FROZEN_PRE_ENTROPY_ATTESTED"},
+        "authority": {"const": "LIVE_GITHUB_ACTIONS_OBSERVATION"},
+        "c0a": {"$ref": "#/definitions/fileRef"}, "c0a_commit": {"$ref": "#/definitions/gitOid"},
+        "p1_activation": {"$ref": "#/definitions/p1Activation"},
+        "pass_pool_binding": {
+          "type": "object", "additionalProperties": false,
+          "required": ["canonical_object_sha256", "pool_sha256", "pass_pool_bound"],
+          "properties": {
+            "canonical_object_sha256": {"$ref": "#/definitions/sha256"}, "pool_sha256": {"$ref": "#/definitions/sha256"},
+            "pass_pool_bound": {"const": true}
+          }
+        },
+        "randomness_contract": {"$ref": "#/definitions/randomnessContract"},
+        "publication_topology": {"$ref": "#/definitions/topologyPlan"},
+        "publication_observation": {"$ref": "#/definitions/observation"},
+        "attestation_policy": {
+          "type": "object", "additionalProperties": false,
+          "required": ["c0a_direct_parent_required", "nonmerge_required", "c0a_bytes_immutable", "allowed_c0t_changed_paths"],
+          "properties": {
+            "c0a_direct_parent_required": {"const": true}, "nonmerge_required": {"const": true},
+            "c0a_bytes_immutable": {"const": true},
+            "allowed_c0t_changed_paths": {"type": "array", "minItems": 1, "maxItems": 1, "items": {"$ref": "#/definitions/path"}}
+          }
+        },
+        "publication_boundary": {"$ref": "#/definitions/boundary"},
+        "artifact_sha256": {"$ref": "#/definitions/sha256"}
+      }
+    }
+  }
+}

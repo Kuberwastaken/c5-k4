@@ -1,17 +1,19 @@
 {
   "schema": "c5k4-method-v1.5-c0-publication-contract-1.0",
   "protocol_version": "1.5",
-  "status": "BLOCKED_AWAITING_C0_BRIDGE_AND_OBSERVER",
+  "status": "BLOCKED_AWAITING_P1R_VERIFIER_AND_C0_OBSERVER",
   "c0_authority_available": false,
   "current_blockers": [
-    "C0_BRIDGE_NOT_FROZEN",
-    "C0_SCHEMA_NOT_FROZEN",
-    "C0_BRIDGE_CONTRACT_TEST_NOT_FROZEN",
+    "PUBLIC_P1R_SCHEMA_NOT_FROZEN",
+    "PUBLIC_P1R_VERIFIER_NOT_FROZEN",
+    "PUBLIC_P1R_VERIFIER_CONTRACT_TEST_NOT_FROZEN",
     "C0_GITHUB_ACTIONS_OBSERVER_NOT_FROZEN",
     "C0_GITHUB_ACTIONS_OBSERVER_CONTRACT_TEST_NOT_FROZEN"
   ],
   "required_lifecycle": [
     "AUTHENTICATE_PUBLISHED_P1_ROLE_CLOSURE",
+    "AUTHENTICATE_PUBLIC_P1R_ACTIVATION_BOUNDARY",
+    "REJECT_BARE_P1T_AS_ACTIVATION_AUTHORITY",
     "REPLAY_PUBLIC_U1_TO_FIRST_QUOTA_PASS_U2_CHAIN",
     "AUTHENTICATE_EXACT_U1_RECEIPT_SHAPE_AND_COMMITTED_BYTES",
     "AUTHENTICATE_EXACT_U2_RECEIPT_MANIFEST_CERTIFICATE_TRIPLET",
@@ -53,6 +55,7 @@
     "status": "AWAITING_C0_PUBLICATION_ATTESTATION",
     "may_claim_frozen": false,
     "must_bind_authenticated_pass_pool": true,
+    "must_bind_authenticated_p1r": true,
     "entropy_value_permitted": false,
     "selection_permitted": false
   },
@@ -61,6 +64,7 @@
     "status_after_all_gates": "C0_FROZEN_PRE_ENTROPY_ATTESTED",
     "current_artifact_permitted": false,
     "pass_pool_bound_must_be_true": true,
+    "p1r_bound_must_be_true": true,
     "entropy_value_permitted": false,
     "selection_performed": false
   },
@@ -90,6 +94,7 @@
   "prohibited": {
     "legacy_v1_4_p0_s0_authority": true,
     "pre_u2_c0a": true,
+    "bare_p1t_as_activation_authority": true,
     "counts_only_u2_as_complete_c0": true,
     "c0_without_authenticated_pass_pool": true,
     "bare_c0a_frozen_claim": true,
@@ -100,6 +105,9 @@
     "merge_or_multi_path_c0_commits": true
   },
   "native_roles_required_before_activation": [
+    "v15_public_p1r_schema",
+    "v15_public_p1r_verifier",
+    "v15_public_p1r_verifier_contract_test",
     "v15_public_pass_pool_compiler",
     "v15_public_pass_pool_schema",
     "v15_public_pass_pool_contract_test",
