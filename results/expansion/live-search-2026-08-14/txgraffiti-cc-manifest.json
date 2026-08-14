@@ -1,0 +1,53 @@
+{
+  "schema": "c5k4-live-development-manifest-1.0",
+  "target": "TxGraffiti C-C: connected regular i(G) <= mu*(G)",
+  "evidence_split": "DEVELOPMENT",
+  "seed": 876712691732,
+  "process_wall_cap_seconds": 60,
+  "solver_cap_seconds": 8,
+  "internal_stop_seconds": 54,
+  "arms": {
+    "CATALOGUE": {
+      "atlas": "all connected regular Graph Atlas graphs with degree at least 3",
+      "complete_orders": [4, 5, 6, 7, 8, 9, 10],
+      "balanced_complete_bipartite_parts": [3, 4, 5, 6, 7, 8],
+      "named": [
+        "Petersen",
+        "Heawood",
+        "Moebius-Kantor",
+        "Pappus",
+        "Desargues",
+        "dodecahedral",
+        "Frucht"
+      ],
+      "circular_ladder_cycle_lengths": [3, 4, 5, 6, 7, 8, 9, 10],
+      "c5_clique_blowup_widths": [2, 3, 4, 5],
+      "extra": ["complement_C5[K4]"],
+      "maximum_order": 24
+    },
+    "GENERIC": {
+      "orders": [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+      "minimum_degree": 3,
+      "maximum_degree": 8,
+      "require_connected": true,
+      "require_order_times_degree_even": true
+    },
+    "WALL_NAVIGATION": {
+      "seeds": [
+        "complement_C5[K4]",
+        "Petersen",
+        "K3,3",
+        "circular_ladder_3",
+        "circular_ladder_5",
+        "circular_ladder_6",
+        "circular_ladder_9"
+      ],
+      "operation": "degree-preserving two-switch",
+      "preserve_one_minimum_maximal_matching": true,
+      "rank_by": "number of parent minimum independent dominating sets destroyed",
+      "maximum_ranked_children_per_state": 80,
+      "maximum_expanded_states": 24,
+      "maximum_depth": 2
+    }
+  }
+}

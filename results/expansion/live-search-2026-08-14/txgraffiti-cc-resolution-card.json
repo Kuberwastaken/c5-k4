@@ -1,0 +1,165 @@
+{
+  "$schema": "../../../schemas/resolution-card-v1.schema.json",
+  "schema_version": "c5k4-resolution-card-1.0",
+  "contract": {
+    "path": "results/expansion/live-search-2026-08-14/txgraffiti-cc-phase0.md",
+    "sha256": "d9e4a6f48f31dfbd1a757983d08cd51784e4cb75730fdc8f58899886f759a6e7"
+  },
+  "resolution_card": {
+    "logical_class": "FINITE_UNIVERSAL",
+    "target_negation": {
+      "literal": "There exists a finite connected simple r-regular graph G with r at least 3 and i(G) > mu*(G).",
+      "derivation": "Negate the universal graph quantifier in the connected source reading; the exact integer residual mu*(G)-i(G) must become negative.",
+      "declaration_blob_sha256": "f96aab528acd14b991750c4a0454708e5cd634eaf52e3fd502ca387079408013"
+    },
+    "finite_witness_suffices": true,
+    "negation_certificate": {
+      "kind": "FINITE_OBJECT_EXACT_CHECK",
+      "description": "An exact graph6 witness, regularity and connectivity replay, exhaustive independent-domination replay, and exhaustive independent-unmatched-set/perfect-matching replay.",
+      "replay": "python3 scripts/method_v15_live_search_runtime.py run --arm ARM --tree-index 0 --output OUTPUT --labelg LABELG --wall-seconds 60 -- python3 scripts/search_txgraffiti_cc_live.py --arm ARM"
+    },
+    "exact_residual": {
+      "available": true,
+      "expression": "R(G) = mu*(G) - i(G)",
+      "convention": "HOLDS_NONNEGATIVE",
+      "crossing_condition": "R(G) < 0"
+    }
+  },
+  "status_coordinates": {
+    "informal_status": {
+      "source": "Davila et al., In Reverie Together",
+      "revision": "arXiv:2507.17780",
+      "scope": "TxGraffiti mirror conjecture i(G) <= mu*(G) for regular graphs",
+      "raw_value": "open since 2020",
+      "captured_at_utc": "2026-08-14T07:51:32Z",
+      "evidence": "https://arxiv.org/abs/2507.17780"
+    },
+    "formal_solution_status": {
+      "source": "exact title, invariant-pair, and inequality literature search",
+      "revision": "2026-08-14",
+      "scope": "accepted proof, disproof, or formal certificate of the exact mirror conjecture",
+      "raw_value": "none found",
+      "captured_at_utc": "2026-08-14T07:51:32Z",
+      "evidence": "https://arxiv.org/abs/2104.01092"
+    },
+    "statement_formalized": {
+      "source": "google-deepmind/formal-conjectures current main plus exact declaration search",
+      "revision": "b33d8678a28118c95d8d4f60b11faaf39ccff1e6",
+      "scope": "TxGraffiti independent-domination/minimum-maximal-matching conjecture",
+      "raw_value": "not present as a DeepMind declaration",
+      "captured_at_utc": "2026-08-14T07:51:32Z",
+      "evidence": "https://github.com/google-deepmind/formal-conjectures/tree/b33d8678a28118c95d8d4f60b11faaf39ccff1e6"
+    },
+    "declaration_status": {
+      "source": "TxGraffiti 2026 survey and current project status search",
+      "revision": "2026-08-14",
+      "scope": "source-faithful connected regular reading",
+      "raw_value": "research open; no target-specific resolution found",
+      "captured_at_utc": "2026-08-14T07:51:32Z",
+      "evidence": "https://arxiv.org/abs/2507.17780"
+    }
+  },
+  "trial": {
+    "lane": "COUNTEREXAMPLE",
+    "authorization": "RUN",
+    "evidence_split": "DEVELOPMENT",
+    "process_wall_cap_seconds": 60,
+    "solver_cap_seconds": 8,
+    "preregistered_commit": "61d2a37bc6c8ead8d137b1e28a7a748dd25854c8",
+    "carrier_identity": {
+      "kind": "FAMILY_CONSTRUCTOR_AND_GRID",
+      "sha256": "e99977cef5eb8b61c4191ab0ae19f75b33e116fe79eb45ce61e94b8fbf1bb59c",
+      "canonicalization": "raw UTF-8 bytes of txgraffiti-cc-manifest.json; every evaluated graph is independently canonicalized by frozen nauty labelg"
+    },
+    "theorem_baselines": [
+      {
+        "baseline_id": "degree_two_source_baseline",
+        "statement": "The source records the inequality as clear for 2-regular graphs; the open range begins at degree 3."
+      },
+      {
+        "baseline_id": "regular_alpha_matching_neighbor",
+        "statement": "The neighboring TxGraffiti inequality alpha(G) <= mu(G) for regular graphs is already proved and is not evidence for the saturation analogue."
+      }
+    ],
+    "sign_potential": [
+      {
+        "term_id": "degree_two_source_baseline",
+        "role": "THEOREM_BASELINE",
+        "exact_expression": "i(G) <= mu*(G) for 2-regular graphs",
+        "predicted_delta": "PINNED",
+        "effect_on_target_residual": "PINNED",
+        "rationale": "the trial excludes the source-closed degree-two range and starts at degree three"
+      },
+      {
+        "term_id": "regular_alpha_matching_neighbor",
+        "role": "THEOREM_BASELINE",
+        "exact_expression": "alpha(G) <= mu(G) for regular graphs",
+        "predicted_delta": "PINNED",
+        "effect_on_target_residual": "UNKNOWN",
+        "rationale": "this neighboring proved inequality calibrates notation but does not control the two minimum-saturation parameters"
+      },
+      {
+        "term_id": "regular_connected_premise",
+        "role": "PREMISE_MARGIN",
+        "exact_expression": "G is connected and every vertex has the same degree r>=3",
+        "predicted_delta": "PINNED",
+        "effect_on_target_residual": "PINNED",
+        "rationale": "every wall move is a degree-preserving two-switch and disconnected children are rejected"
+      },
+      {
+        "term_id": "minimum_maximal_matching",
+        "role": "RESIDUAL_TERM",
+        "exact_expression": "mu*(G)",
+        "predicted_delta": "PINNED",
+        "effect_on_target_residual": "PINNED",
+        "rationale": "the wall arm preserves one explicit maximal matching, giving mu*(child)<=mu*(parent); exact optimization may lower it further"
+      },
+      {
+        "term_id": "independent_domination",
+        "role": "RESIDUAL_TERM",
+        "exact_expression": "i(G)",
+        "predicted_delta": "INCREASE",
+        "effect_on_target_residual": "DECREASE",
+        "rationale": "candidate switches are ranked by the number of parent minimum independent dominating sets they invalidate"
+      },
+      {
+        "term_id": "target_residual",
+        "role": "TARGET_RESIDUAL",
+        "exact_expression": "mu*(G)-i(G)",
+        "predicted_delta": "DECREASE",
+        "effect_on_target_residual": "DECREASE",
+        "rationale": "the intended separation pins a small maximal matching while forcing independent domination upward"
+      },
+      {
+        "term_id": "exact_optimization_cost",
+        "role": "CERTIFICATE_COST",
+        "exact_expression": "two binary ILPs per graph plus independent exhaustive replay for a negative residual",
+        "predicted_delta": "UNKNOWN",
+        "effect_on_target_residual": "UNKNOWN",
+        "rationale": "order and density vary across arms, so only the hard process and solver caps are frozen"
+      }
+    ]
+  },
+  "ledger": {
+    "path": "results/expansion/live-search-2026-08-14/txgraffiti-cc-ledgers/",
+    "evidence_split": "DEVELOPMENT",
+    "append_only": true,
+    "prerequisites": [
+      {
+        "path": "results/expansion/live-search-2026-08-14/txgraffiti-cc-statement.txt",
+        "sha256": "f96aab528acd14b991750c4a0454708e5cd634eaf52e3fd502ca387079408013",
+        "evidence_split": "DEVELOPMENT"
+      },
+      {
+        "path": "results/expansion/live-search-2026-08-14/txgraffiti-cc-manifest.json",
+        "sha256": "e99977cef5eb8b61c4191ab0ae19f75b33e116fe79eb45ce61e94b8fbf1bb59c",
+        "evidence_split": "DEVELOPMENT"
+      },
+      {
+        "path": "scripts/search_txgraffiti_cc_live.py",
+        "sha256": "41f90c3d9f47daf5b6e3844ceb49ac675257dcb7dfa2397dc1037d9e5c1a8089",
+        "evidence_split": "DEVELOPMENT"
+      }
+    ]
+  }
+}

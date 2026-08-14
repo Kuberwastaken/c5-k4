@@ -1,0 +1,3 @@
+For every finite connected simple r-regular graph G with r >= 3,
+the independent domination number i(G) is at most the minimum cardinality
+mu*(G) of a maximal matching.

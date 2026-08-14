@@ -1,6 +1,6 @@
 # TxGraffiti C-C live trial: source/status and frozen arm contract
 
-Date: **2026-08-14 UTC**  
+Date: **2026-08-14 UTC**
 Evidence split: **DEVELOPMENT**; this is not part of the held-out Method v1.5
 benchmark.
 
@@ -106,4 +106,3 @@ set of the same size.
   before any release is considered.
 - Zero crossings are committed as a bounded development result, never as a
   proof of the conjecture.
-
