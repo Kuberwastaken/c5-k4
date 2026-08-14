@@ -133,6 +133,17 @@ an independent audit and a fresh immutable run completes, this lane has no
 candidate and no mathematical result; the exact policy is recorded in the
 [`v3 continuity audit`](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/tip-continuity-policy-audit.md).
 
+The next wall selected in parallel—the strong `n^(3/2)` bound for
+2-increasing triples—was stopped during design rather than promoted into a
+frozen search. Although `F(4)=8` is exact equality, complete insertion tests
+and two independent unrestricted models give `F(5)=10`, while a formal
+counterexample at five would require length 12. Because those target values
+were observed before the arm was frozen, this is logged as a
+[`PROTOCOL_DEVIATION / DEVELOPMENT` diagnostic](results/expansion/live-search-2026-08-14/sincreasing-tuples-development/n5-pre-freeze-diagnostic.md),
+not a scored bounded result, candidate, or release. The episode sharpens the
+method rule: verify that the next integer crossing remains reachable before
+freezing a wall-transfer search.
+
 The order-15 Latin Tableau zero has likewise been converted into theorem work:
 warning-clean Lean now proves the profile telescoping, binary-change,
 threshold-to-basis, and one-vertex coloring-extension lemmas. The remaining
