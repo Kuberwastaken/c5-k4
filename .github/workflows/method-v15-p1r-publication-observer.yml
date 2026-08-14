@@ -1,0 +1,27 @@
+name: Method v1.5 P1R publication observer
+
+on:
+  push:
+    branches:
+      - method-v1.5-p1r
+    paths:
+      - results/benchmark/v1.5-protocol/P1R.json
+
+permissions:
+  contents: read
+
+jobs:
+  observe-exact-p1r-publication:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 2
+          persist-credentials: false
+      - name: Require an exact nonauthoritative P1R draft push
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_RUN_ATTEMPT" = "1"
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          python3 scripts/verify_benchmark_v15_p1r_publication.py --commit "$GITHUB_SHA"

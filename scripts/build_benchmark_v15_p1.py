@@ -10,6 +10,7 @@ This module never reads target statements and performs no network operation.
 from __future__ import annotations
 
 import argparse
+import base64
 import hashlib
 import importlib.util
 import json
@@ -24,6 +25,8 @@ import jsonschema
 
 ROOT = Path(__file__).parents[1].resolve()
 SCHEMA = ROOT / "schemas/benchmark-p1-v1.5.schema.json"
+P1R_SCHEMA = ROOT / "schemas/benchmark-p1r-v1.5.schema.json"
+READINESS_PACKAGE_SCHEMA_PATH = ROOT / "schemas/benchmark-candidate-base-readiness-package-v1.5.schema.json"
 SCHEMA_VERSION = "c5k4-method-v1.5-p1-1.0"
 CONFIG_VERSION = "c5k4-method-v1.5-p1-components-1.0"
 NATIVE_CONTENT_CLASS = "V1_5_PROTOCOL_ONLY_NO_TARGET_DATA"
@@ -184,6 +187,53 @@ NATIVE_COMPONENTS = (
     "scheduled_checkpoint_workflow",
     "checkpoint_invocation_contract",
     "checkpoint_workflow_contract_test",
+    "candidate_base_validator",
+    "candidate_base_validator_contract_test",
+    "public_readiness_authority_root_schema",
+    "candidate_base_operational_evidence_schema",
+    "candidate_base_independent_recompile_schema",
+    "candidate_base_readiness_package_schema",
+    "candidate_base_validation_input_schema",
+    "candidate_base_validation_output_schema",
+    "p1r_schema",
+    "public_p1r_activation_receipt_schema",
+    "isolated_evidence_runner",
+    "isolated_evidence_runner_schema",
+    "isolated_evidence_runner_contract",
+    "isolated_evidence_runner_test",
+    "candidate_base_readiness_spec",
+    "candidate_base_readiness_spec_schema",
+    "candidate_base_readiness_spec_contract_test",
+    "candidate_base_validator_independent_audit",
+    "candidate_base_validator_independent_audit_schema",
+    "candidate_base_validator_independent_audit_contract_test",
+    "operational_authority_gap",
+    "operational_authority_gap_schema",
+    "operational_authority_gap_contract_test",
+    "pass_pool_builder",
+    "pass_pool_schema",
+    "pass_pool_builder_contract_test",
+    "c0_publication_contract",
+    "c0_publication_contract_schema",
+    "c0_publication_contract_test",
+    "c0_v15_builder",
+    "c0_v15_schema",
+    "c0_v15_builder_contract_test",
+    "infrastructure_activation_workflow",
+    "infrastructure_activation_workflow_contract_test",
+    "candidate_base_security_schema_contract_test",
+    "public_p1r_verifier",
+    "public_p1r_verifier_contract_test",
+    "p1t_publication_observer_workflow",
+    "p1t_publication_observer_workflow_contract_test",
+    "p1t_publication_observer_validator",
+    "p1t_publication_observer_validator_contract_test",
+    "p1r_publication_observer_workflow",
+    "p1r_publication_observer_workflow_contract_test",
+    "p1r_publication_observer_validator",
+    "p1r_publication_observer_validator_contract_test",
+    "c0_observer_workflow",
+    "c0_observer_workflow_contract_test",
 )
 
 # The assembler selects these records from the authenticated P0A.  A caller
@@ -227,6 +277,10 @@ FORBIDDEN_DATA_KEYS = {
 SCHEMA_CONTAINER_KEYS = {"properties", "definitions", "$defs", "patternProperties"}
 STRUCTURAL_STATEMENT_ROLES = {"immutable_infrastructure_cloudformation"}
 HEX_SHA256 = re.compile(r"[0-9a-f]{64}")
+HEX_GIT_OID = re.compile(r"[0-9a-f]{40}")
+READINESS_PACKAGE_SCHEMA = "c5k4-method-v1.5-candidate-base-readiness-package-1.0"
+READINESS_PACKAGE_DOMAIN = "c5k4-method-v1.5-candidate-base-readiness-package-1.0"
+P1R_PATH = "results/benchmark/v1.5-protocol/P1R.json"
 
 
 class P1Error(ValueError):
@@ -243,6 +297,82 @@ def sha256_bytes(raw: bytes) -> str:
 
 def sha256_file(path: Path) -> str:
     return sha256_bytes(path.read_bytes())
+
+
+def domain_digest(domain: str, value: Any) -> str:
+    return sha256_bytes(domain.encode("ascii") + b"\x00" + canonical_json(value))
+
+
+def _strict_pairs(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    result: dict[str, Any] = {}
+    for key, value in pairs:
+        if key in result:
+            raise P1Error(f"duplicate JSON key in candidate readiness binding: {key!r}")
+        result[key] = value
+    return result
+
+
+def validate_candidate_readiness_package(value: Any) -> dict[str, Any]:
+    if not isinstance(value, dict):
+        raise P1Error("candidate readiness package must be an object")
+    try:
+        schema = json.loads(READINESS_PACKAGE_SCHEMA_PATH.read_text(encoding="utf-8"))
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise P1Error(f"candidate readiness package schema is unavailable: {exc}") from exc
+    errors = sorted(jsonschema.Draft7Validator(schema).iter_errors(value), key=lambda error: list(error.absolute_path))
+    if errors:
+        detail = "; ".join(f"{'.'.join(map(str, error.absolute_path)) or '$'}: {error.message}" for error in errors)
+        raise P1Error(f"candidate readiness package schema validation failed: {detail}")
+    unsigned = dict(value)
+    recorded = unsigned.pop("package_sha256")
+    if recorded != domain_digest(READINESS_PACKAGE_DOMAIN, unsigned):
+        raise P1Error("candidate readiness package self-digest mismatch")
+    return value
+
+
+def load_candidate_readiness_package(path: Path) -> dict[str, Any]:
+    try:
+        value = json.loads(path.read_text(encoding="utf-8"), object_pairs_hook=_strict_pairs)
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise P1Error(f"candidate readiness package is not strict UTF-8 JSON: {exc}") from exc
+    return validate_candidate_readiness_package(value)
+
+
+def embed_candidate_readiness_package(value: dict[str, Any]) -> dict[str, Any]:
+    canonical = canonical_json(value)
+    return {
+        "schema": "c5k4-method-v1.5-p1-embedded-readiness-package-1.0",
+        "status": "SIGNED_TARGET_BLIND_READINESS_AWAITING_PUBLIC_P1R",
+        "encoding": "BASE64_CANONICAL_JSON_UTF8",
+        "canonical_package_base64": base64.b64encode(canonical).decode("ascii"),
+        "package_sha256": sha256_bytes(canonical),
+        "assembler_verification_scope": "STRUCTURAL_CANONICAL_PACKAGE_ONLY_CRYPTO_UNVERIFIED_AWAITING_PUBLIC_P1R",
+        "activation_authority": False,
+    }
+
+
+def validate_embedded_candidate_readiness(value: Any) -> dict[str, Any]:
+    if not isinstance(value, dict) or set(value) != {"schema", "status", "encoding", "canonical_package_base64", "package_sha256", "assembler_verification_scope", "activation_authority"}:
+        raise P1Error("embedded candidate readiness package has invalid closed shape")
+    if (
+        value["schema"] != "c5k4-method-v1.5-p1-embedded-readiness-package-1.0"
+        or value["status"] != "SIGNED_TARGET_BLIND_READINESS_AWAITING_PUBLIC_P1R"
+        or value["encoding"] != "BASE64_CANONICAL_JSON_UTF8"
+        or value["assembler_verification_scope"] != "STRUCTURAL_CANONICAL_PACKAGE_ONLY_CRYPTO_UNVERIFIED_AWAITING_PUBLIC_P1R"
+        or value["activation_authority"] is not False
+    ):
+        raise P1Error("embedded candidate readiness package has invalid authority")
+    try:
+        raw = base64.b64decode(value["canonical_package_base64"], validate=True)
+    except ValueError as exc:
+        raise P1Error("embedded candidate readiness package is not canonical base64") from exc
+    if sha256_bytes(raw) != value["package_sha256"]:
+        raise P1Error("embedded candidate readiness package byte digest mismatch")
+    package = json.loads(raw.decode("utf-8"), object_pairs_hook=_strict_pairs)
+    validate_candidate_readiness_package(package)
+    if raw != canonical_json(package):
+        raise P1Error("embedded candidate readiness package bytes are not canonical JSON")
+    return package
 
 
 def repo_path(recorded: str) -> Path:
@@ -488,7 +618,7 @@ def _schema_validate(value: dict[str, Any]) -> None:
         raise P1Error(f"P1 schema validation failed: {detail}")
 
 
-def assemble_p1a(config_path: Path) -> dict[str, Any]:
+def assemble_p1a(config_path: Path, readiness_path: Path) -> dict[str, Any]:
     config = json.loads(config_path.read_text(encoding="utf-8"))
     if not isinstance(config, dict) or set(config) != {"schema_version", "authority", "components", "v1_4_p0a"}:
         raise P1Error("P1 component config has an invalid shape")
@@ -505,6 +635,7 @@ def assemble_p1a(config_path: Path) -> dict[str, Any]:
         audit_native_component(role, ref)
         native[role] = {**ref, "content_class": NATIVE_CONTENT_CLASS}
     source_p0a, source_p0t, source_commit, inherited = derive_v14_closure(config["v1_4_p0a"])
+    candidate_readiness = embed_candidate_readiness_package(load_candidate_readiness_package(readiness_path))
     p1a = {
         "schema_version": SCHEMA_VERSION,
         "artifact_kind": "P1A",
@@ -525,10 +656,12 @@ def assemble_p1a(config_path: Path) -> dict[str, Any]:
                 "all_selected_files_revalidated": True,
             },
         },
+        "candidate_base_readiness": candidate_readiness,
         "target_data_audit": audit_binding(native, inherited),
         "chronology_capture": {
             "allowed_u1_capture_count": 1,
-            "requires_public_p1t_receipt": True,
+            "requires_public_p1r_receipt": True,
+            "p1t_alone_activation_permitted": False,
             "entropy_permitted": False,
             "selection_permitted": False,
         },
@@ -563,6 +696,7 @@ def validate_p1a(p1a: dict[str, Any]) -> None:
         ref = file_digest({"path": row["path"], "sha256": row["sha256"]}, role=role)
         audit_native_component(role, ref)
     inheritance = p1a["inherited_v1_4"]
+    validate_embedded_candidate_readiness(p1a["candidate_base_readiness"])
     if inheritance["selected_roles"] != list(INHERITED_V1_4_ROLES):
         raise P1Error("P1A inherited role order or closure differs from the frozen selection")
     source, p0t, source_commit, expected = derive_v14_closure(inheritance["source_p0a"])
@@ -588,7 +722,7 @@ def git(*args: str) -> bytes:
 
 
 def commit_file(commit: str, path: str) -> bytes:
-    if not isinstance(commit, str) or re.fullmatch(r"[0-9a-f]{40,64}", commit) is None:
+    if not isinstance(commit, str) or HEX_GIT_OID.fullmatch(commit) is None:
         raise P1Error("commit must be an exact lowercase object ID")
     try:
         resolved = git("rev-parse", commit).decode().strip()
@@ -666,6 +800,79 @@ def validate_p1t(p1t: dict[str, Any], *, p1t_commit: str | None = None, artifact
             raise P1Error("committed P1T bytes/path differ from validated attestation")
 
 
+def _p1r_schema_validate(value: dict[str, Any]) -> None:
+    schema = json.loads(P1R_SCHEMA.read_text(encoding="utf-8"))
+    errors = sorted(
+        jsonschema.Draft7Validator(schema, format_checker=jsonschema.FormatChecker()).iter_errors(value),
+        key=lambda error: list(error.absolute_path),
+    )
+    if errors:
+        detail = "; ".join(f"{'.'.join(map(str, error.absolute_path)) or '$'}: {error.message}" for error in errors)
+        raise P1Error(f"P1R schema validation failed: {detail}")
+
+
+def assemble_p1r(p1t_path: Path, p1t_commit: str, observation_path: Path) -> dict[str, Any]:
+    p1t = json.loads(p1t_path.read_text(encoding="utf-8"), object_pairs_hook=_strict_pairs)
+    validate_p1t(p1t)
+    relative = repo_relative(p1t_path, role="P1T artifact")
+    if relative != "results/benchmark/v1.5-protocol/P1T.json":
+        raise P1Error("P1R requires the canonical P1T path")
+    raw = p1t_path.read_bytes()
+    if commit_file(p1t_commit, relative) != raw:
+        raise P1Error("committed P1T bytes differ from P1R observation source")
+    try:
+        observation = json.loads(observation_path.read_text(encoding="utf-8"), object_pairs_hook=_strict_pairs)
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise P1Error(f"P1R public observation is not strict UTF-8 JSON: {exc}") from exc
+    if not isinstance(observation, dict) or observation.get("p1t", {}).get("commit") != p1t_commit:
+        raise P1Error("P1R observation does not bind exact P1T commit")
+    p1r = {
+        "schema_version": "c5k4-method-v1.5-p1r-1.0",
+        "artifact_kind": "P1R",
+        "status": "NONAUTHORITATIVE_DRAFT_AWAITING_FULL_EXACT_C_REPLAY",
+        "protocol_version": "1.5",
+        "p1t": {"path": relative, "sha256": sha256_bytes(raw)},
+        "p1t_commit": p1t_commit,
+        "observation": observation,
+        "activation_policy": {
+            "structural_draft_only": True,
+            "p1r_is_activation_boundary": False,
+            "p1t_alone_is_activation_boundary": False,
+            "full_exact_c_replay_required": True,
+            "p1r_parent_must_be_exact_p1t": True,
+            "allowed_p1r_changed_paths": [P1R_PATH],
+            "public_p1r_ref_required": True,
+        },
+    }
+    _p1r_schema_validate(p1r)
+    return p1r
+
+
+def validate_p1r(p1r: dict[str, Any], *, p1r_commit: str | None = None, artifact_path: Path | None = None) -> None:
+    _p1r_schema_validate(p1r)
+    p1t_raw = commit_file(p1r["p1t_commit"], p1r["p1t"]["path"])
+    if sha256_bytes(p1t_raw) != p1r["p1t"]["sha256"]:
+        raise P1Error("P1R does not authenticate exact committed P1T bytes")
+    validate_p1t(json.loads(p1t_raw), p1t_commit=p1r["p1t_commit"])
+    if p1r["observation"]["p1t"]["commit"] != p1r["p1t_commit"]:
+        raise P1Error("P1R public observation differs from exact P1T")
+    if p1r_commit is None:
+        return
+    resolved = git("rev-parse", p1r_commit).decode().strip()
+    if resolved != p1r_commit:
+        raise P1Error("P1R commit must be an exact object ID")
+    parents = git("show", "-s", "--format=%P", p1r_commit).decode().split()
+    if parents != [p1r["p1t_commit"]]:
+        raise P1Error("P1R must be a non-merge commit whose sole parent is exact P1T")
+    changed = git("diff-tree", "--no-commit-id", "--name-only", "-r", p1r_commit).decode().splitlines()
+    if changed != [P1R_PATH]:
+        raise P1Error(f"P1R changed paths {changed}, expected exactly {[P1R_PATH]}")
+    if artifact_path is not None:
+        relative = repo_relative(artifact_path, role="P1R artifact")
+        if relative != P1R_PATH or commit_file(p1r_commit, relative) != artifact_path.read_bytes():
+            raise P1Error("committed P1R bytes/path differ from validated observation receipt")
+
+
 def explicit_ref(path_text: str, *, role: str) -> dict[str, str]:
     path = repo_path(path_text)
     if not path.is_file():
@@ -706,6 +913,7 @@ def main() -> int:
     config.add_argument("--output", type=Path, required=True)
     p1a = sub.add_parser("assemble-p1a")
     p1a.add_argument("--components", type=Path, required=True)
+    p1a.add_argument("--candidate-readiness", type=Path, required=True)
     p1a.add_argument("--output", type=Path, required=True)
     p1t = sub.add_parser("assemble-p1t")
     p1t.add_argument("--p1a", type=Path, required=True)
@@ -713,29 +921,45 @@ def main() -> int:
     p1t.add_argument("--published-at-utc", required=True)
     p1t.add_argument("--p1t-path", required=True)
     p1t.add_argument("--output", type=Path, required=True)
+    p1r = sub.add_parser("assemble-p1r")
+    p1r.add_argument("--p1t", type=Path, required=True)
+    p1r.add_argument("--p1t-commit", required=True)
+    p1r.add_argument("--observation", type=Path, required=True)
+    p1r.add_argument("--output", type=Path, required=True)
     validate = sub.add_parser("validate")
     validate.add_argument("--artifact", type=Path, required=True)
     validate.add_argument("--p1t-commit")
+    validate.add_argument("--p1r-commit")
     args = parser.parse_args()
     try:
         if args.command == "materialize-config":
             write_json(args.output, materialize_config(args.component, args.v1_4_p0a))
         elif args.command == "assemble-p1a":
-            write_json(args.output, assemble_p1a(args.components.resolve()))
+            write_json(args.output, assemble_p1a(args.components.resolve(), args.candidate_readiness.resolve()))
         elif args.command == "assemble-p1t":
             if args.output.resolve().relative_to(ROOT).as_posix() != args.p1t_path:
                 raise P1Error("--output must equal repository-relative --p1t-path")
             write_json(args.output, assemble_p1t(args.p1a.resolve(), args.p1a_commit, args.published_at_utc, args.p1t_path))
+        elif args.command == "assemble-p1r":
+            if args.output.resolve().relative_to(ROOT).as_posix() != P1R_PATH:
+                raise P1Error(f"--output must equal {P1R_PATH}")
+            write_json(args.output, assemble_p1r(args.p1t.resolve(), args.p1t_commit, args.observation.resolve()))
         else:
             value = json.loads(args.artifact.read_text(encoding="utf-8"))
             if value.get("artifact_kind") == "P1A":
-                if args.p1t_commit:
-                    raise P1Error("--p1t-commit is valid only for P1T")
+                if args.p1t_commit or args.p1r_commit:
+                    raise P1Error("commit validation options are invalid for P1A")
                 validate_p1a(value)
             elif value.get("artifact_kind") == "P1T":
+                if args.p1r_commit:
+                    raise P1Error("--p1r-commit is valid only for P1R")
                 validate_p1t(value, p1t_commit=args.p1t_commit, artifact_path=args.artifact)
+            elif value.get("artifact_kind") == "P1R":
+                if args.p1t_commit:
+                    raise P1Error("--p1t-commit is valid only for P1T")
+                validate_p1r(value, p1r_commit=args.p1r_commit, artifact_path=args.artifact)
             else:
-                raise P1Error("artifact_kind must be P1A or P1T")
+                raise P1Error("artifact_kind must be P1A, P1T, or P1R")
     except (OSError, json.JSONDecodeError, jsonschema.ValidationError, P1Error, subprocess.CalledProcessError) as exc:
         parser.error(str(exc))
     return 0

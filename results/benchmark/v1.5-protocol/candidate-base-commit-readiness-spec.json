@@ -4,6 +4,7 @@
   "protocol_version": "1.5",
   "artifact_class": "TARGET_BLIND_TRANSITION_SPECIFICATION",
   "current_state": {
+    "public_authority_root_bound": false,
     "candidate_base_commit_c_bound": false,
     "candidate_base_root_tree_bound": false,
     "closure_compiled": false,
@@ -12,6 +13,7 @@
     "independent_recompile_passed": false,
     "p1a_publication_permitted": false,
     "p1t_publication_permitted": false,
+    "p1r_publication_permitted": false,
     "operational": false
   },
   "target_blindness": {
@@ -34,6 +36,7 @@
     "worktree_authority": false,
     "moving_ref_authority": false,
     "caller_supplied_digest_authority": false,
+    "authority_root": "EXACT_PUBLIC_A0_STRICT_ANCESTOR_FROZEN_AFTER_P0T_BEFORE_C",
     "required_properties": [
       "PUBLIC_REMOTE_CONTAINS_EXACT_C",
       "C_IS_NON_MERGE_COMMIT",
@@ -91,7 +94,9 @@
     "fixture_or_placeholder_acceptance": false,
     "pre_p1_contract_acceptance": false,
     "unsigned_acceptance": false,
-    "evidence_must_bind_exact_c": true
+    "evidence_must_bind_exact_c": true,
+    "evidence_contract": "TYPED_IMMUTABLE_LOCATORS_EXACT_BYTES_SCHEMA_SELF_DIGEST_STATUS_FROZEN_VERIFIER_ISSUER_SIGNATURE_NONCE_EPOCH_FRESHNESS",
+    "opaque_hash_or_boolean_acceptance": false
   },
   "p1_transition": {
     "p1a": {
@@ -110,7 +115,20 @@
       "changed_path_count": 1,
       "allowed_changed_path": "results/benchmark/v1.5-protocol/P1T.json",
       "p1a_bytes_immutable": true,
-      "public_remote_ancestry_verification_required": true
+      "public_remote_ancestry_verification_required": true,
+      "activation_boundary": false
+    },
+    "p1r": {
+      "parent_count": 1,
+      "sole_parent": "EXACT_P1T_COMMIT",
+      "changed_path_count": 1,
+      "allowed_changed_path": "results/benchmark/v1.5-protocol/P1R.json",
+      "observes_exact_public_authority_p0t_c_and_p1t_refs": true,
+      "public_remote_ref_required": true,
+      "canonical_public_remote_ref": "refs/heads/method-v1.5-p1r",
+      "structural_draft_only": true,
+      "full_exact_c_replay_and_publication_observer_required": true,
+      "activation_boundary": false
     }
   },
   "phase_machine": {
@@ -132,12 +150,24 @@
         "authority": "P1A_TRANSITION_CANDIDATE_ONLY",
         "execution_permitted": false,
         "publication_permitted": false
+      },
+      {
+        "phase": "PRE_P1_P1T_COMMITTED_AWAITING_PUBLIC_P1R",
+        "authority": "P1T_TRANSITION_CANDIDATE_ONLY",
+        "execution_permitted": false,
+        "publication_permitted": false
+      },
+      {
+        "phase": "PRE_P1_P1R_DRAFT_PUBLIC_AWAITING_FULL_EXACT_C_REPLAY",
+        "authority": "NONAUTHORITATIVE_P1R_DRAFT_ONLY",
+        "execution_permitted": false,
+        "publication_permitted": false
       }
     ],
     "post_p1": [
       {
-        "phase": "POST_P1T_FROZEN_PRE_C1",
-        "authority": "PUBLIC_P1T_TO_SOLE_PARENT_P1A_TO_EXACT_C",
+        "phase": "POST_P1R_FROZEN_PRE_C1",
+        "authority": "RICH_SELF_DIGESTED_FULL_EXACT_C_P1R_ACTIVATION_RECEIPT_WITH_SERVER_PUBLICATION_OBSERVER",
         "target_semantics_permitted": false,
         "entropy_permitted": false,
         "selection_permitted": false
@@ -150,7 +180,7 @@
         "selection_permitted": true
       }
     ],
-    "p1_boundary": "PUBLIC_AUTHENTICATED_P1T_RECEIPT_NOT_P1A_FILE_CREATION"
+    "p1_boundary": "PUBLIC_AUTHENTICATED_P1R_RECEIPT_NOT_P1T_OR_P1A_FILE_CREATION"
   },
   "readiness_compilation": {
     "payload_algorithm": "DOMAIN_SEPARATED_CANONICAL_JSON_V1_5",
@@ -176,10 +206,12 @@
       "required": true,
       "input_authority": "EXACT_C_TREE_AND_AUTHENTICATED_SOURCE_COMMITS_ONLY",
       "minimum_independent_recompiles": 2,
+      "distinct_public_a0_anchored_verifier_ids_and_keys_required": true,
       "canonical_payloads_must_be_byte_identical": true,
       "closure_digests_must_be_byte_identical": true,
       "all_component_signatures_reverified": true,
-      "worktree_or_cache_input_permitted": false
+      "worktree_or_cache_input_permitted": false,
+      "single_invocation_or_self_attestation_permitted": false
     }
   },
   "experimenter_nonintervention": {

@@ -44,10 +44,15 @@ class CandidateBaseCommitReadinessSpecTests(unittest.TestCase):
         self.assertEqual((p1a["parent_count"], p1a["sole_parent"]), (1, "EXACT_C"))
         self.assertEqual(p1a["changed_path_count"], 1)
         self.assertTrue(p1a["parent_tree_recompile_required"])
+        self.assertEqual(self.spec["candidate_base_commit"]["authority_root"], "EXACT_PUBLIC_A0_STRICT_ANCESTOR_FROZEN_AFTER_P0T_BEFORE_C")
+        self.assertFalse(self.spec["p1_transition"]["p1r"]["activation_boundary"])
+        self.assertTrue(self.spec["p1_transition"]["p1r"]["structural_draft_only"])
+        self.assertTrue(self.spec["p1_transition"]["p1r"]["full_exact_c_replay_and_publication_observer_required"])
+        self.assertFalse(self.spec["p1_transition"]["p1t"]["activation_boundary"])
 
-    def test_pre_and_post_p1_boundary_is_public_p1t_not_p1a_creation(self) -> None:
+    def test_pre_and_post_p1_boundary_is_public_p1r_not_p1t_or_p1a_creation(self) -> None:
         machine = self.spec["phase_machine"]
-        self.assertEqual(machine["p1_boundary"], "PUBLIC_AUTHENTICATED_P1T_RECEIPT_NOT_P1A_FILE_CREATION")
+        self.assertEqual(machine["p1_boundary"], "PUBLIC_AUTHENTICATED_P1R_RECEIPT_NOT_P1T_OR_P1A_FILE_CREATION")
         self.assertTrue(all(not row["execution_permitted"] for row in machine["pre_p1"]))
         self.assertFalse(machine["post_p1"][0]["target_semantics_permitted"])
         self.assertTrue(machine["post_p1"][1]["target_semantics_permitted"])
@@ -56,6 +61,8 @@ class CandidateBaseCommitReadinessSpecTests(unittest.TestCase):
         compilation = self.spec["readiness_compilation"]
         self.assertEqual(compilation["independent_recompile"]["minimum_independent_recompiles"], 2)
         self.assertTrue(compilation["independent_recompile"]["all_component_signatures_reverified"])
+        self.assertTrue(compilation["independent_recompile"]["distinct_public_a0_anchored_verifier_ids_and_keys_required"])
+        self.assertFalse(compilation["independent_recompile"]["single_invocation_or_self_attestation_permitted"])
         self.assertEqual(
             compilation["composite_signature"]["required_signer_classes"],
             ["CONTROLLED_HARNESS_READINESS_KEY", "EVERY_FROZEN_EXPERIMENTER_IDENTITY"],
@@ -68,6 +75,7 @@ class CandidateBaseCommitReadinessSpecTests(unittest.TestCase):
         for mutation in (
             lambda x: x["current_state"].__setitem__("operational", True),
             lambda x: x["p1_transition"]["p1a"].__setitem__("parent_count", 2),
+            lambda x: x["p1_transition"]["p1r"].__setitem__("activation_boundary", True),
             lambda x: x["readiness_compilation"]["independent_recompile"].__setitem__("minimum_independent_recompiles", 1),
             lambda x: x["experimenter_nonintervention"].__setitem__("target_identity_exception", "ALLOWED"),
             lambda x: x["target_blindness"]["current_candidate_identities"].append("future:cluster"),

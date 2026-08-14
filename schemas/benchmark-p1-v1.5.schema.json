@@ -8,7 +8,7 @@
   ],
   "definitions": {
     "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
-    "gitOid": {"type": "string", "pattern": "^[0-9a-f]{40,64}$"},
+    "gitOid": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
     "timestamp": {
       "type": "string",
       "format": "date-time",
@@ -45,6 +45,22 @@
         "source_content_class": {"const": "PROTOCOL_ONLY_NO_TARGET_DATA"}
       }
     },
+    "candidateBaseReadiness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema", "status", "encoding", "canonical_package_base64", "package_sha256", "assembler_verification_scope", "activation_authority"
+      ],
+      "properties": {
+        "schema": {"const": "c5k4-method-v1.5-p1-embedded-readiness-package-1.0"},
+        "status": {"const": "SIGNED_TARGET_BLIND_READINESS_AWAITING_PUBLIC_P1R"},
+        "encoding": {"const": "BASE64_CANONICAL_JSON_UTF8"},
+        "canonical_package_base64": {"type": "string", "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$"},
+        "package_sha256": {"$ref": "#/definitions/sha256"}
+        ,"assembler_verification_scope": {"const": "STRUCTURAL_CANONICAL_PACKAGE_ONLY_CRYPTO_UNVERIFIED_AWAITING_PUBLIC_P1R"}
+        ,"activation_authority": {"const": false}
+      }
+    },
     "audit": {
       "type": "object",
       "additionalProperties": false,
@@ -70,7 +86,7 @@
       "additionalProperties": false,
       "required": [
         "schema_version", "artifact_kind", "authority", "protocol_version",
-        "components", "inherited_v1_4", "target_data_audit",
+        "components", "inherited_v1_4", "candidate_base_readiness", "target_data_audit",
         "chronology_capture", "prohibitions", "candidate_identities",
         "statement_text", "target_rankings", "target_semantics"
       ],
@@ -114,14 +130,16 @@
             }
           }
         },
+        "candidate_base_readiness": {"$ref": "#/definitions/candidateBaseReadiness"},
         "target_data_audit": {"$ref": "#/definitions/audit"},
         "chronology_capture": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["allowed_u1_capture_count", "requires_public_p1t_receipt", "entropy_permitted", "selection_permitted"],
+          "required": ["allowed_u1_capture_count", "requires_public_p1r_receipt", "p1t_alone_activation_permitted", "entropy_permitted", "selection_permitted"],
           "properties": {
             "allowed_u1_capture_count": {"const": 1},
-            "requires_public_p1t_receipt": {"const": true},
+            "requires_public_p1r_receipt": {"const": true},
+            "p1t_alone_activation_permitted": {"const": false},
             "entropy_permitted": {"const": false},
             "selection_permitted": {"const": false}
           }

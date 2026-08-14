@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import copy
+import base64
 import importlib.util
 import json
 import tempfile
@@ -68,6 +69,30 @@ class P1Tests(unittest.TestCase):
             },
         }
         self.config_path = self.root / "components.json"
+        def embedded(value: dict) -> dict:
+            raw = P1.canonical_json(value)
+            return {"encoding": "BASE64_CANONICAL_JSON_UTF8", "canonical_json_base64": base64.b64encode(raw).decode(), "sha256": P1.sha256_bytes(raw)}
+        file_ref = {"path": "schemas/example.json", "sha256": "1" * 64}
+        signature = base64.b64encode(b"\0" * 64).decode()
+        self.readiness = {
+            "schema": P1.READINESS_PACKAGE_SCHEMA,
+            "status": "SIGNED_TARGET_BLIND_READINESS_AWAITING_PUBLIC_P1R", "protocol_version": "1.5",
+            "candidate": {"commit": "a" * 40, "root_tree": "b" * 40},
+            "authority_root": {"commit": "c" * 40, "root_tree": "d" * 40, "path": "results/authority.json", "sha256": "2" * 64},
+            "closures": {"native": {"row_count": 1, "sha256": "3" * 64}, "inherited": {"row_count": 1, "sha256": "4" * 64}, "full_source": {"row_count": 1, "sha256": "5" * 64}, "aggregate_sha256": "6" * 64},
+            "operational_evidence": embedded({"schema": "fixture-evidence"}),
+            "compiler": {key: copy.deepcopy(file_ref) for key in ("validator", "input_schema", "output_schema", "authority_root_schema", "operational_evidence_schema", "independent_recompile_schema", "readiness_package_schema", "p1r_schema", "activation_receipt_schema", "isolated_evidence_runner", "isolated_evidence_runner_schema", "isolated_evidence_runner_contract", "isolated_evidence_runner_test")},
+            "structural_json_key_audit": {"algorithm": "STRUCTURAL_JSON_KEY_AUDIT_V1_5", "scope": ["V1_5_NATIVE_JSON_BLOBS", "V1_4_SELECTED_INHERITED_JSON_BLOBS", "V1_4_FULL_P0A_REFERENCED_JSON_BLOBS"], "json_blob_count": 1, "candidate_identities_keys_detected": 0, "statement_text_keys_detected": 0, "target_rankings_keys_detected": 0, "target_semantic_analysis_keys_detected": 0, "does_not_claim_free_text_or_python_semantic_audit": True},
+            "payload_sha256": "7" * 64,
+            "authority_signatures": [
+                {"signer_class": "CONTROLLED_HARNESS_READINESS_KEY", "signer_id": "harness-1", "verification_key_sha256": "8" * 64, "algorithm": "Ed25519", "signature": signature},
+                {"signer_class": "FROZEN_EXPERIMENTER_IDENTITY", "signer_id": "experimenter-1", "verification_key_sha256": "9" * 64, "algorithm": "Ed25519", "signature": signature},
+            ],
+            "independent_recompiles": [embedded({"recompiler": 1}), embedded({"recompiler": 2})],
+        }
+        self.readiness["package_sha256"] = P1.domain_digest(P1.READINESS_PACKAGE_DOMAIN, self.readiness)
+        self.readiness_path = self.root / "candidate-readiness.json"
+        self.readiness_path.write_text(json.dumps(self.readiness, indent=2) + "\n", encoding="utf-8")
         self.write_config()
 
     def tearDown(self) -> None:
@@ -80,7 +105,7 @@ class P1Tests(unittest.TestCase):
 
     def build(self) -> dict:
         self.write_config()
-        return P1.assemble_p1a(self.config_path)
+        return P1.assemble_p1a(self.config_path, self.readiness_path)
 
     def test_p1a_binds_closed_native_map_and_derived_v14_closure(self) -> None:
         p1a = self.build()
@@ -92,6 +117,29 @@ class P1Tests(unittest.TestCase):
             for row in p1a["inherited_v1_4"]["components"].values()
         ))
         P1.validate_p1a(p1a)
+        self.assertEqual(P1.validate_embedded_candidate_readiness(p1a["candidate_base_readiness"]), self.readiness)
+
+    def test_p1a_readiness_package_is_closed_canonical_and_self_authenticated(self) -> None:
+        p1a = self.build()
+        changed = copy.deepcopy(p1a)
+        changed["candidate_base_readiness"]["package_sha256"] = "0" * 64
+        with self.assertRaises(P1.P1Error):
+            P1.validate_p1a(changed)
+        changed = copy.deepcopy(self.readiness)
+        changed["payload_sha256"] = "0" * 64
+        self.readiness_path.write_text(json.dumps(changed) + "\n", encoding="utf-8")
+        with self.assertRaisesRegex(P1.P1Error, "self-digest"):
+            self.build()
+
+    def test_p1a_readiness_rejects_single_recompiler_or_single_authority_signature(self) -> None:
+        for field in ("independent_recompiles", "authority_signatures"):
+            value = copy.deepcopy(self.readiness)
+            value[field] = value[field][:1]
+            value.pop("package_sha256")
+            value["package_sha256"] = P1.domain_digest(P1.READINESS_PACKAGE_DOMAIN, value)
+            self.readiness_path.write_text(json.dumps(value) + "\n", encoding="utf-8")
+            with self.assertRaisesRegex(P1.P1Error, "schema validation"):
+                self.build()
 
     def test_pre_p1_closure_includes_runner_custody_and_delivery_boundary(self) -> None:
         required = {
@@ -158,6 +206,27 @@ class P1Tests(unittest.TestCase):
             "controlled_harness_https_daemon_contract",
             "controlled_harness_https_daemon_contract_schema",
             "controlled_harness_https_daemon", "controlled_harness_https_daemon_contract_test",
+            "candidate_base_validator", "candidate_base_validator_contract_test",
+            "public_readiness_authority_root_schema", "candidate_base_operational_evidence_schema",
+            "candidate_base_independent_recompile_schema", "candidate_base_readiness_package_schema",
+            "candidate_base_validation_input_schema", "candidate_base_validation_output_schema", "p1r_schema",
+            "public_p1r_activation_receipt_schema",
+            "isolated_evidence_runner", "isolated_evidence_runner_schema",
+            "isolated_evidence_runner_contract", "isolated_evidence_runner_test",
+            "candidate_base_readiness_spec", "candidate_base_readiness_spec_schema",
+            "candidate_base_readiness_spec_contract_test", "candidate_base_validator_independent_audit",
+            "candidate_base_validator_independent_audit_schema", "candidate_base_validator_independent_audit_contract_test",
+            "operational_authority_gap", "operational_authority_gap_schema", "operational_authority_gap_contract_test",
+            "pass_pool_builder", "pass_pool_schema", "pass_pool_builder_contract_test",
+            "c0_publication_contract", "c0_publication_contract_schema", "c0_publication_contract_test",
+            "c0_v15_builder", "c0_v15_schema", "c0_v15_builder_contract_test",
+            "infrastructure_activation_workflow", "infrastructure_activation_workflow_contract_test",
+            "candidate_base_security_schema_contract_test", "public_p1r_verifier",
+            "public_p1r_verifier_contract_test", "p1t_publication_observer_workflow",
+            "p1t_publication_observer_workflow_contract_test", "p1t_publication_observer_validator",
+            "p1t_publication_observer_validator_contract_test", "p1r_publication_observer_workflow",
+            "p1r_publication_observer_workflow_contract_test", "p1r_publication_observer_validator",
+            "p1r_publication_observer_validator_contract_test", "c0_observer_workflow", "c0_observer_workflow_contract_test",
         }
         self.assertLessEqual(required, set(P1.NATIVE_COMPONENTS))
         p1a = self.build()
@@ -296,6 +365,95 @@ class P1Tests(unittest.TestCase):
         with mock.patch.object(P1, "git", side_effect=fake_git), mock.patch.object(P1, "commit_file", side_effect=fake_commit):
             with self.assertRaisesRegex(P1.P1Error, "non-merge"):
                 P1.validate_p1t(p1t, p1t_commit="b" * 40, artifact_path=p1t_path)
+
+    def test_p1r_is_exact_one_path_child_and_only_activation_boundary(self) -> None:
+        p1a = self.build()
+        p1a_raw = json.dumps(p1a, sort_keys=True, indent=2).encode() + b"\n"
+        p1t = {
+            "schema_version": P1.SCHEMA_VERSION, "artifact_kind": "P1T", "protocol_version": "1.5",
+            "p1a": {"path": "results/benchmark/v1.5-protocol/P1A.json", "sha256": P1.sha256_bytes(p1a_raw)},
+            "p1a_commit": "a" * 40, "p1a_published_at_utc": "2026-08-14T00:00:00Z",
+            "attestation_policy": {"p1a_ancestor_required": True, "p1a_bytes_immutable": True, "allowed_p1t_changed_paths": ["results/benchmark/v1.5-protocol/P1T.json"]},
+        }
+        p1t_raw = json.dumps(p1t, sort_keys=True, indent=2).encode() + b"\n"
+        bind = lambda ref, commit: {"ref": ref, "commit": commit}
+        p1r = {
+            "schema_version": "c5k4-method-v1.5-p1r-1.0", "artifact_kind": "P1R",
+            "status": "NONAUTHORITATIVE_DRAFT_AWAITING_FULL_EXACT_C_REPLAY", "protocol_version": "1.5",
+            "p1t": {"path": "results/benchmark/v1.5-protocol/P1T.json", "sha256": P1.sha256_bytes(p1t_raw)},
+            "p1t_commit": "b" * 40,
+            "observation": {
+                "public_remote_url": "https://github.com/Kuberwastaken/c5-k4",
+                "authority_root": bind("refs/tags/a0", "d" * 40), "v1_4_p0t": bind("refs/tags/p0t", "e" * 40),
+                "candidate_c": bind("refs/tags/c", "f" * 40), "p1t": bind("refs/tags/p1t", "b" * 40),
+                "observed_at_utc": "2026-08-14T00:01:00Z", "ls_remote_stdout_sha256": "1" * 64,
+                "observer": {
+                    "workflow_repository": "Kuberwastaken/c5-k4",
+                    "workflow_path": ".github/workflows/method-v15-p1t-publication-observer.yml",
+                    "workflow_ref": ".github/workflows/method-v15-p1t-publication-observer.yml@refs/heads/main",
+                    "workflow_blob_sha256": "2" * 64, "run_id": 1, "run_attempt": 1,
+                    "actions_run_projection_sha256": "3" * 64,
+                },
+            },
+            "activation_policy": {"structural_draft_only": True, "p1r_is_activation_boundary": False, "p1t_alone_is_activation_boundary": False, "full_exact_c_replay_required": True, "p1r_parent_must_be_exact_p1t": True, "allowed_p1r_changed_paths": [P1.P1R_PATH], "public_p1r_ref_required": True},
+        }
+        original_git, original_commit_file = P1.git, P1.commit_file
+
+        def committed(commit: str, path: str) -> bytes:
+            if commit == "a" * 40:
+                return p1a_raw
+            if commit == "b" * 40:
+                return p1t_raw
+            return original_commit_file(commit, path)
+
+        def valid_git(*args: str) -> bytes:
+            if args in (("rev-parse", "b" * 40), ("rev-parse", "c" * 40)):
+                return (args[1] + "\n").encode()
+            if args[:3] == ("show", "-s", "--format=%P"):
+                return (("a" if args[-1] == "b" * 40 else "b") * 40 + "\n").encode()
+            if args[:4] == ("diff-tree", "--no-commit-id", "--name-only", "-r"):
+                return (("results/benchmark/v1.5-protocol/P1T.json" if args[-1] == "b" * 40 else P1.P1R_PATH) + "\n").encode()
+            return original_git(*args)
+
+        with mock.patch.object(P1, "git", side_effect=valid_git), mock.patch.object(P1, "commit_file", side_effect=committed):
+            P1.validate_p1r(p1r, p1r_commit="c" * 40)
+            self.assertFalse(p1r["activation_policy"]["p1t_alone_is_activation_boundary"])
+
+            def wrong_p1t_parent(*args: str) -> bytes:
+                if args[:3] == ("show", "-s", "--format=%P") and args[-1] == "b" * 40:
+                    return ("0" * 40 + "\n").encode()
+                return valid_git(*args)
+
+            with mock.patch.object(P1, "git", side_effect=wrong_p1t_parent):
+                with self.assertRaisesRegex(P1.P1Error, "P1T must be"):
+                    P1.validate_p1r(p1r, p1r_commit="c" * 40)
+
+            def extra_p1t_path(*args: str) -> bytes:
+                if args[:4] == ("diff-tree", "--no-commit-id", "--name-only", "-r") and args[-1] == "b" * 40:
+                    return b"results/benchmark/v1.5-protocol/P1T.json\nextra.txt\n"
+                return valid_git(*args)
+
+            with mock.patch.object(P1, "git", side_effect=extra_p1t_path):
+                with self.assertRaisesRegex(P1.P1Error, "P1T changed paths"):
+                    P1.validate_p1r(p1r, p1r_commit="c" * 40)
+
+            def wrong_p1r_parent(*args: str) -> bytes:
+                if args[:3] == ("show", "-s", "--format=%P") and args[-1] == "c" * 40:
+                    return ("0" * 40 + "\n").encode()
+                return valid_git(*args)
+
+            with mock.patch.object(P1, "git", side_effect=wrong_p1r_parent):
+                with self.assertRaisesRegex(P1.P1Error, "P1R must be"):
+                    P1.validate_p1r(p1r, p1r_commit="c" * 40)
+
+            def extra_p1r_path(*args: str) -> bytes:
+                if args[:4] == ("diff-tree", "--no-commit-id", "--name-only", "-r") and args[-1] == "c" * 40:
+                    return (P1.P1R_PATH + "\nextra.txt\n").encode()
+                return valid_git(*args)
+
+            with mock.patch.object(P1, "git", side_effect=extra_p1r_path):
+                with self.assertRaisesRegex(P1.P1Error, "P1R changed paths"):
+                    P1.validate_p1r(p1r, p1r_commit="c" * 40)
 
 
 if __name__ == "__main__":

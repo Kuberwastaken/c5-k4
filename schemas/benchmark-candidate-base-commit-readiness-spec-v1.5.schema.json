@@ -12,12 +12,14 @@
     "artifact_class": {"const": "TARGET_BLIND_TRANSITION_SPECIFICATION"},
     "current_state": {
       "type": "object", "additionalProperties": false,
-      "required": ["candidate_base_commit_c_bound", "candidate_base_root_tree_bound", "closure_compiled", "operational_evidence_accepted", "composite_signature_present", "independent_recompile_passed", "p1a_publication_permitted", "p1t_publication_permitted", "operational"],
+      "required": ["public_authority_root_bound", "candidate_base_commit_c_bound", "candidate_base_root_tree_bound", "closure_compiled", "operational_evidence_accepted", "composite_signature_present", "independent_recompile_passed", "p1a_publication_permitted", "p1t_publication_permitted", "p1r_publication_permitted", "operational"],
       "properties": {
+        "public_authority_root_bound": {"const": false},
         "candidate_base_commit_c_bound": {"const": false}, "candidate_base_root_tree_bound": {"const": false},
         "closure_compiled": {"const": false}, "operational_evidence_accepted": {"const": false},
         "composite_signature_present": {"const": false}, "independent_recompile_passed": {"const": false},
         "p1a_publication_permitted": {"const": false}, "p1t_publication_permitted": {"const": false},
+        "p1r_publication_permitted": {"const": false},
         "operational": {"const": false}
       }
     },
@@ -36,12 +38,13 @@
     },
     "candidate_base_commit": {
       "type": "object", "additionalProperties": false,
-      "required": ["symbol", "phase", "commit_binding", "tree_binding", "worktree_authority", "moving_ref_authority", "caller_supplied_digest_authority", "required_properties", "replacement_rule"],
+      "required": ["symbol", "phase", "commit_binding", "tree_binding", "worktree_authority", "moving_ref_authority", "caller_supplied_digest_authority", "authority_root", "required_properties", "replacement_rule"],
       "properties": {
         "symbol": {"const": "C"}, "phase": {"const": "PRE_P1_CANDIDATE_BASE"},
         "commit_binding": {"const": "EXACT_PUBLIC_COMMIT_OID"}, "tree_binding": {"const": "EXACT_ROOT_TREE_OID"},
         "worktree_authority": {"const": false}, "moving_ref_authority": {"const": false},
         "caller_supplied_digest_authority": {"const": false},
+        "authority_root": {"const": "EXACT_PUBLIC_A0_STRICT_ANCESTOR_FROZEN_AFTER_P0T_BEFORE_C"},
         "required_properties": {"const": ["PUBLIC_REMOTE_CONTAINS_EXACT_C", "C_IS_NON_MERGE_COMMIT", "C_TREE_CONTAINS_COMPLETE_TARGET_BLIND_PROTOCOL_AND_READINESS_INPUTS", "C_PRECEDES_ANY_TARGET_IDENTITY_ENTROPY_OR_SELECTION_ACCESS"]},
         "replacement_rule": {"const": "ANY_BYTE_OR_EVIDENCE_CHANGE_REQUIRES_NEW_C_AND_FULL_RECOMPILE"}
       }
@@ -58,16 +61,18 @@
     },
     "operational_readiness_inputs": {
       "type": "object", "additionalProperties": false,
-      "required": ["authority", "required_domains", "fixture_or_placeholder_acceptance", "pre_p1_contract_acceptance", "unsigned_acceptance", "evidence_must_bind_exact_c"],
+      "required": ["authority", "required_domains", "fixture_or_placeholder_acceptance", "pre_p1_contract_acceptance", "unsigned_acceptance", "evidence_must_bind_exact_c", "evidence_contract", "opaque_hash_or_boolean_acceptance"],
       "properties": {
         "authority": {"const": "AUTHENTICATED_TARGET_BLIND_EVIDENCE_ONLY"},
         "required_domains": {"const": ["PARTICIPANT_SCOPE_AND_NONINTERFERENCE", "CONTROLLED_HARNESS_DEPLOYMENT_AND_RUNTIME", "IMMUTABLE_WORM_STORE", "DESTRUCTIVE_GAP_ACCEPTANCE", "BROKER_CUSTODY_AND_CAPTURE_REPLAY", "CLASSIFIER_CLOSURE", "EXPERIMENTER_NONINTERVENTION"]},
         "fixture_or_placeholder_acceptance": {"const": false}, "pre_p1_contract_acceptance": {"const": false},
-        "unsigned_acceptance": {"const": false}, "evidence_must_bind_exact_c": {"const": true}
+        "unsigned_acceptance": {"const": false}, "evidence_must_bind_exact_c": {"const": true},
+        "evidence_contract": {"const": "TYPED_IMMUTABLE_LOCATORS_EXACT_BYTES_SCHEMA_SELF_DIGEST_STATUS_FROZEN_VERIFIER_ISSUER_SIGNATURE_NONCE_EPOCH_FRESHNESS"},
+        "opaque_hash_or_boolean_acceptance": {"const": false}
       }
     },
     "p1_transition": {
-      "type": "object", "additionalProperties": false, "required": ["p1a", "p1t"],
+      "type": "object", "additionalProperties": false, "required": ["p1a", "p1t", "p1r"],
       "properties": {
         "p1a": {
           "type": "object", "additionalProperties": false,
@@ -82,11 +87,22 @@
         },
         "p1t": {
           "type": "object", "additionalProperties": false,
-          "required": ["parent_count", "sole_parent", "changed_path_count", "allowed_changed_path", "p1a_bytes_immutable", "public_remote_ancestry_verification_required"],
+          "required": ["parent_count", "sole_parent", "changed_path_count", "allowed_changed_path", "p1a_bytes_immutable", "public_remote_ancestry_verification_required", "activation_boundary"],
           "properties": {
             "parent_count": {"const": 1}, "sole_parent": {"const": "EXACT_P1A_COMMIT"}, "changed_path_count": {"const": 1},
             "allowed_changed_path": {"const": "results/benchmark/v1.5-protocol/P1T.json"},
-            "p1a_bytes_immutable": {"const": true}, "public_remote_ancestry_verification_required": {"const": true}
+            "p1a_bytes_immutable": {"const": true}, "public_remote_ancestry_verification_required": {"const": true}, "activation_boundary": {"const": false}
+          }
+        },
+        "p1r": {
+          "type": "object", "additionalProperties": false,
+          "required": ["parent_count", "sole_parent", "changed_path_count", "allowed_changed_path", "observes_exact_public_authority_p0t_c_and_p1t_refs", "public_remote_ref_required", "canonical_public_remote_ref", "structural_draft_only", "full_exact_c_replay_and_publication_observer_required", "activation_boundary"],
+          "properties": {
+            "parent_count": {"const": 1}, "sole_parent": {"const": "EXACT_P1T_COMMIT"}, "changed_path_count": {"const": 1},
+            "allowed_changed_path": {"const": "results/benchmark/v1.5-protocol/P1R.json"},
+            "observes_exact_public_authority_p0t_c_and_p1t_refs": {"const": true}, "public_remote_ref_required": {"const": true},
+            "canonical_public_remote_ref": {"const": "refs/heads/method-v1.5-p1r"}, "structural_draft_only": {"const": true},
+            "full_exact_c_replay_and_publication_observer_required": {"const": true}, "activation_boundary": {"const": false}
           }
         }
       }
@@ -97,13 +113,15 @@
         "pre_p1": {"const": [
           {"phase": "PRE_P1_SPEC_ONLY", "authority": "NORMATIVE_ONLY", "execution_permitted": false, "publication_permitted": false},
           {"phase": "PRE_P1_CANDIDATE_BASE", "authority": "EXACT_C_PLUS_COMPILED_READINESS_CANDIDATE", "execution_permitted": false, "publication_permitted": false},
-          {"phase": "PRE_P1_P1A_COMMITTED_AWAITING_PUBLIC_P1T", "authority": "P1A_TRANSITION_CANDIDATE_ONLY", "execution_permitted": false, "publication_permitted": false}
+          {"phase": "PRE_P1_P1A_COMMITTED_AWAITING_PUBLIC_P1T", "authority": "P1A_TRANSITION_CANDIDATE_ONLY", "execution_permitted": false, "publication_permitted": false},
+          {"phase": "PRE_P1_P1T_COMMITTED_AWAITING_PUBLIC_P1R", "authority": "P1T_TRANSITION_CANDIDATE_ONLY", "execution_permitted": false, "publication_permitted": false},
+          {"phase": "PRE_P1_P1R_DRAFT_PUBLIC_AWAITING_FULL_EXACT_C_REPLAY", "authority": "NONAUTHORITATIVE_P1R_DRAFT_ONLY", "execution_permitted": false, "publication_permitted": false}
         ]},
         "post_p1": {"const": [
-          {"phase": "POST_P1T_FROZEN_PRE_C1", "authority": "PUBLIC_P1T_TO_SOLE_PARENT_P1A_TO_EXACT_C", "target_semantics_permitted": false, "entropy_permitted": false, "selection_permitted": false},
+          {"phase": "POST_P1R_FROZEN_PRE_C1", "authority": "RICH_SELF_DIGESTED_FULL_EXACT_C_P1R_ACTIVATION_RECEIPT_WITH_SERVER_PUBLICATION_OBSERVER", "target_semantics_permitted": false, "entropy_permitted": false, "selection_permitted": false},
           {"phase": "POST_C1_FROZEN_EXECUTION", "authority": "C1_AND_FROZEN_EXECUTION_ENVELOPE", "target_semantics_permitted": true, "entropy_permitted": true, "selection_permitted": true}
         ]},
-        "p1_boundary": {"const": "PUBLIC_AUTHENTICATED_P1T_RECEIPT_NOT_P1A_FILE_CREATION"}
+        "p1_boundary": {"const": "PUBLIC_AUTHENTICATED_P1R_RECEIPT_NOT_P1T_OR_P1A_FILE_CREATION"}
       }
     },
     "readiness_compilation": {
@@ -124,12 +142,13 @@
         },
         "independent_recompile": {
           "type": "object", "additionalProperties": false,
-          "required": ["required", "input_authority", "minimum_independent_recompiles", "canonical_payloads_must_be_byte_identical", "closure_digests_must_be_byte_identical", "all_component_signatures_reverified", "worktree_or_cache_input_permitted"],
+          "required": ["required", "input_authority", "minimum_independent_recompiles", "distinct_public_a0_anchored_verifier_ids_and_keys_required", "canonical_payloads_must_be_byte_identical", "closure_digests_must_be_byte_identical", "all_component_signatures_reverified", "worktree_or_cache_input_permitted", "single_invocation_or_self_attestation_permitted"],
           "properties": {
             "required": {"const": true}, "input_authority": {"const": "EXACT_C_TREE_AND_AUTHENTICATED_SOURCE_COMMITS_ONLY"},
             "minimum_independent_recompiles": {"const": 2}, "canonical_payloads_must_be_byte_identical": {"const": true},
+            "distinct_public_a0_anchored_verifier_ids_and_keys_required": {"const": true},
             "closure_digests_must_be_byte_identical": {"const": true}, "all_component_signatures_reverified": {"const": true},
-            "worktree_or_cache_input_permitted": {"const": false}
+            "worktree_or_cache_input_permitted": {"const": false}, "single_invocation_or_self_attestation_permitted": {"const": false}
           }
         }
       }

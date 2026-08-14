@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-candidate-base-validation-output-v1.5.schema.json",
+  "title": "Method v1.5 non-authoritative local P1R replay diagnostic",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "status", "protocol_version", "activation_boundary", "authority_root", "candidate", "closures", "readiness_package_sha256", "operational_evidence_bundle_sha256", "verified_signers", "p1_transition", "p1r_publication_observation", "validation_inputs_sha256", "diagnostic_sha256"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-candidate-base-validation-output-2.0"},
+    "status": {"const": "LOCAL_NONAUTHORITATIVE_REPLAY_VERIFIED"},
+    "protocol_version": {"const": "1.5"},
+    "activation_boundary": {"const": "PUBLIC_AUTHENTICATED_P1R"},
+    "authority_root": {"$ref": "#/definitions/gitBinding"},
+    "candidate": {"$ref": "#/definitions/gitBinding"},
+    "closures": {
+      "type": "object", "additionalProperties": false, "required": ["native", "inherited", "full_source", "aggregate_sha256"],
+      "properties": {"native": {"$ref": "#/definitions/closure"}, "inherited": {"$ref": "#/definitions/closure"}, "full_source": {"$ref": "#/definitions/closure"}, "aggregate_sha256": {"$ref": "#/definitions/sha256"}}
+    },
+    "readiness_package_sha256": {"$ref": "#/definitions/sha256"},
+    "operational_evidence_bundle_sha256": {"$ref": "#/definitions/sha256"},
+    "verified_signers": {"type": "array", "minItems": 11, "items": {"$ref": "#/definitions/signer"}},
+    "p1_transition": {
+      "type": "object", "additionalProperties": false,
+      "required": ["p1a_commit", "p1t_commit", "p1r_commit", "p1r_root_tree", "p1r_public_remote_ref"],
+      "properties": {"p1a_commit": {"$ref": "#/definitions/gitOid"}, "p1t_commit": {"$ref": "#/definitions/gitOid"}, "p1r_commit": {"$ref": "#/definitions/gitOid"}, "p1r_root_tree": {"$ref": "#/definitions/gitOid"}, "p1r_public_remote_ref": {"type": "string", "pattern": "^refs/(?:heads|tags)/[^ ]+$"}}
+    },
+    "p1r_publication_observation": {"$ref": "#/definitions/publicObservation"},
+    "validation_inputs_sha256": {"$ref": "#/definitions/sha256"},
+    "diagnostic_sha256": {"$ref": "#/definitions/sha256"}
+  },
+  "definitions": {
+    "gitOid": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:@+-]{0,127}$"},
+    "gitBinding": {"type": "object", "additionalProperties": false, "required": ["commit", "root_tree"], "properties": {"commit": {"$ref": "#/definitions/gitOid"}, "root_tree": {"$ref": "#/definitions/gitOid"}}},
+    "closure": {"type": "object", "additionalProperties": false, "required": ["row_count", "sha256"], "properties": {"row_count": {"type": "integer", "minimum": 1}, "sha256": {"$ref": "#/definitions/sha256"}}},
+    "signer": {"type": "object", "additionalProperties": false, "required": ["signer_class", "signer_id", "verification_key_sha256"], "properties": {"signer_class": {"enum": ["CONTROLLED_HARNESS_READINESS_KEY", "FROZEN_EXPERIMENTER_IDENTITY", "OPERATIONAL_EVIDENCE_ISSUER", "INDEPENDENT_RECOMPILER"]}, "signer_id": {"$ref": "#/definitions/id"}, "verification_key_sha256": {"$ref": "#/definitions/sha256"}}},
+    "publicObservation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["workflow_repository", "workflow_path", "workflow_ref", "workflow_blob_sha256", "run_id", "run_attempt", "server_observed_at_utc", "actions_run_projection_sha256"],
+      "properties": {
+        "workflow_repository": {"const": "Kuberwastaken/c5-k4"},
+        "workflow_path": {"const": ".github/workflows/method-v15-p1r-publication-observer.yml"},
+        "workflow_ref": {"const": ".github/workflows/method-v15-p1r-publication-observer.yml@refs/heads/method-v1.5-p1r"},
+        "workflow_blob_sha256": {"$ref": "#/definitions/sha256"}, "run_id": {"type": "integer", "minimum": 1},
+        "run_attempt": {"const": 1}, "server_observed_at_utc": {"type": "string", "format": "date-time"},
+        "actions_run_projection_sha256": {"$ref": "#/definitions/sha256"}
+      }
+    }
+  }
+}

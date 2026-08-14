@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-candidate-base-operational-evidence-v1.5.schema.json",
+  "title": "Method v1.5 typed C-bound operational evidence bundle",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "status", "protocol_version", "candidate", "authority_root", "service_epoch_binding_sha256", "compiled_at_utc", "valid_through_utc", "evidence", "bundle_sha256"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-candidate-base-operational-evidence-1.0"},
+    "status": {"const": "CANDIDATE_BASE_TYPED_OPERATIONAL_EVIDENCE_ACCEPTED"},
+    "protocol_version": {"const": "1.5"},
+    "candidate": {"$ref": "#/definitions/gitBinding"},
+    "authority_root": {"$ref": "#/definitions/authorityBinding"},
+    "service_epoch_binding_sha256": {"$ref": "#/definitions/sha256"},
+    "compiled_at_utc": {"$ref": "#/definitions/time"},
+    "valid_through_utc": {"$ref": "#/definitions/time"},
+    "evidence": {
+      "type": "array", "minItems": 7, "maxItems": 7,
+      "items": {"$ref": "#/definitions/evidenceRow"}
+    },
+    "bundle_sha256": {"$ref": "#/definitions/sha256"}
+  },
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "gitOid": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:@+-]{0,127}$"},
+    "time": {"type": "string", "format": "date-time", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?Z$"},
+    "repoPath": {"type": "string", "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[^\\u0000]+$"},
+    "fileDigest": {"type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": {"path": {"$ref": "#/definitions/repoPath"}, "sha256": {"$ref": "#/definitions/sha256"}}},
+    "gitBinding": {"type": "object", "additionalProperties": false, "required": ["commit", "root_tree"], "properties": {"commit": {"$ref": "#/definitions/gitOid"}, "root_tree": {"$ref": "#/definitions/gitOid"}}},
+    "authorityBinding": {"type": "object", "additionalProperties": false, "required": ["commit", "root_tree", "path", "sha256"], "properties": {"commit": {"$ref": "#/definitions/gitOid"}, "root_tree": {"$ref": "#/definitions/gitOid"}, "path": {"$ref": "#/definitions/repoPath"}, "sha256": {"$ref": "#/definitions/sha256"}}},
+    "immutableLocator": {
+      "type": "object", "additionalProperties": false,
+      "required": ["scheme", "bucket_arn", "object_key", "version_id", "object_sha256", "size_bytes", "retention_until_utc"],
+      "properties": {
+        "scheme": {"const": "S3_OBJECT_LOCK_VERSION"},
+        "bucket_arn": {"type": "string", "pattern": "^arn:aws:s3:::[A-Za-z0-9][A-Za-z0-9.-]{1,62}$"},
+        "object_key": {"type": "string", "minLength": 1, "maxLength": 1024},
+        "version_id": {"type": "string", "minLength": 1, "maxLength": 1024},
+        "object_sha256": {"$ref": "#/definitions/sha256"},
+        "size_bytes": {"type": "integer", "minimum": 2},
+        "retention_until_utc": {"$ref": "#/definitions/time"}
+      }
+    },
+    "evidenceRow": {
+      "type": "object", "additionalProperties": false,
+      "required": ["domain", "accepted_status", "artifact", "artifact_schema", "frozen_verifier", "verifier_protocol", "self_digest_field", "self_digest_domain", "self_digest_excluded_fields", "candidate_commit", "authority_root_commit", "service_epoch_binding_sha256", "challenge_nonce", "observed_at_utc", "valid_through_utc", "issuer", "acceptance_sha256", "signature"],
+      "properties": {
+        "domain": {"enum": ["PARTICIPANT_SCOPE_AND_NONINTERFERENCE", "CONTROLLED_HARNESS_DEPLOYMENT_AND_RUNTIME", "IMMUTABLE_WORM_STORE", "DESTRUCTIVE_GAP_ACCEPTANCE", "BROKER_CUSTODY_AND_CAPTURE_REPLAY", "CLASSIFIER_CLOSURE", "EXPERIMENTER_NONINTERVENTION"]},
+        "accepted_status": {"enum": ["CANDIDATE_C_PARTICIPANT_NONINTERFERENCE_ACCEPTED", "CANDIDATE_C_CONTROLLED_HARNESS_ACCEPTED", "CANDIDATE_C_IMMUTABLE_WORM_ACCEPTED", "CANDIDATE_C_DESTRUCTIVE_GAP_ACCEPTED", "CANDIDATE_C_BROKER_CUSTODY_CAPTURE_REPLAY_ACCEPTED", "CANDIDATE_C_CLASSIFIER_CLOSURE_ACCEPTED", "CANDIDATE_C_EXPERIMENTER_NONINTERVENTION_ACCEPTED"]},
+        "artifact": {"$ref": "#/definitions/immutableLocator"},
+        "artifact_schema": {"$ref": "#/definitions/fileDigest"},
+        "frozen_verifier": {"$ref": "#/definitions/fileDigest"},
+        "verifier_protocol": {"const": "C5K4_CANDIDATE_READINESS_VERIFY_V1"},
+        "self_digest_field": {"type": "string", "pattern": "^[a-z][a-z0-9_]{0,63}$"},
+        "self_digest_domain": {"type": "string", "pattern": "^c5k4-method-v1\\.5-[a-z0-9.-]+$"},
+        "self_digest_excluded_fields": {"const": ["signature"]},
+        "candidate_commit": {"$ref": "#/definitions/gitOid"},
+        "authority_root_commit": {"$ref": "#/definitions/gitOid"},
+        "service_epoch_binding_sha256": {"$ref": "#/definitions/sha256"},
+        "challenge_nonce": {"$ref": "#/definitions/sha256"},
+        "observed_at_utc": {"$ref": "#/definitions/time"},
+        "valid_through_utc": {"$ref": "#/definitions/time"},
+        "issuer": {"type": "object", "additionalProperties": false, "required": ["signer_id", "verification_key_sha256"], "properties": {"signer_id": {"$ref": "#/definitions/id"}, "verification_key_sha256": {"$ref": "#/definitions/sha256"}}},
+        "acceptance_sha256": {"$ref": "#/definitions/sha256"},
+        "signature": {"type": "string", "pattern": "^[A-Za-z0-9+/]{86}==$"}
+      },
+      "allOf": [
+        {"if": {"properties": {"domain": {"const": "PARTICIPANT_SCOPE_AND_NONINTERFERENCE"}}}, "then": {"properties": {"accepted_status": {"const": "CANDIDATE_C_PARTICIPANT_NONINTERFERENCE_ACCEPTED"}}}},
+        {"if": {"properties": {"domain": {"const": "CONTROLLED_HARNESS_DEPLOYMENT_AND_RUNTIME"}}}, "then": {"properties": {"accepted_status": {"const": "CANDIDATE_C_CONTROLLED_HARNESS_ACCEPTED"}}}},
+        {"if": {"properties": {"domain": {"const": "IMMUTABLE_WORM_STORE"}}}, "then": {"properties": {"accepted_status": {"const": "CANDIDATE_C_IMMUTABLE_WORM_ACCEPTED"}}}},
+        {"if": {"properties": {"domain": {"const": "DESTRUCTIVE_GAP_ACCEPTANCE"}}}, "then": {"properties": {"accepted_status": {"const": "CANDIDATE_C_DESTRUCTIVE_GAP_ACCEPTED"}}}},
+        {"if": {"properties": {"domain": {"const": "BROKER_CUSTODY_AND_CAPTURE_REPLAY"}}}, "then": {"properties": {"accepted_status": {"const": "CANDIDATE_C_BROKER_CUSTODY_CAPTURE_REPLAY_ACCEPTED"}}}},
+        {"if": {"properties": {"domain": {"const": "CLASSIFIER_CLOSURE"}}}, "then": {"properties": {"accepted_status": {"const": "CANDIDATE_C_CLASSIFIER_CLOSURE_ACCEPTED"}}}},
+        {"if": {"properties": {"domain": {"const": "EXPERIMENTER_NONINTERVENTION"}}}, "then": {"properties": {"accepted_status": {"const": "CANDIDATE_C_EXPERIMENTER_NONINTERVENTION_ACCEPTED"}}}}
+      ]
+    }
+  }
+}

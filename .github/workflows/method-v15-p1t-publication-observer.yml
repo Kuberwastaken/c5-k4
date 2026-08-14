@@ -1,0 +1,29 @@
+name: Method v1.5 P1T publication observer
+
+on:
+  push:
+    branches:
+      - method-v1.5-p1
+    paths:
+      - results/benchmark/v1.5-protocol/P1T.json
+
+permissions:
+  contents: read
+
+jobs:
+  observe-exact-p1t-publication:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 2
+          persist-credentials: false
+      - name: Require an exact one-path P1T push
+        shell: bash
+        env:
+          EXPECTED_PATH: results/benchmark/v1.5-protocol/P1T.json
+        run: |
+          set -euo pipefail
+          test "$GITHUB_RUN_ATTEMPT" = "1"
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          python3 scripts/verify_benchmark_v15_p1t_publication.py --commit "$GITHUB_SHA"

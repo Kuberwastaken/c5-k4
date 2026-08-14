@@ -1,0 +1,76 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-candidate-base-validation-input-v1.5.schema.json",
+  "title": "Method v1.5 candidate-base/P1R replay verification input",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "protocol_version", "authority_root", "v1_4_p0t", "candidate", "p1_transition", "p1r_publication_observer", "evidence_objects", "verification_keys"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-candidate-base-validation-input-2.0"},
+    "protocol_version": {"const": "1.5"},
+    "authority_root": {"$ref": "#/definitions/publicArtifact"},
+    "v1_4_p0t": {"$ref": "#/definitions/publicArtifact"},
+    "candidate": {
+      "type": "object", "additionalProperties": false,
+      "required": ["commit", "root_tree", "public_remote_url", "public_remote_ref", "component_config_path"],
+      "properties": {
+        "commit": {"$ref": "#/definitions/gitOid"}, "root_tree": {"$ref": "#/definitions/gitOid"},
+        "public_remote_url": {"const": "https://github.com/Kuberwastaken/c5-k4"},
+        "public_remote_ref": {"$ref": "#/definitions/publicRef"}, "component_config_path": {"$ref": "#/definitions/repoPath"}
+      }
+    },
+    "p1_transition": {
+      "type": "object", "additionalProperties": false,
+      "required": ["p1a_commit", "p1a_path", "p1t_commit", "p1t_path", "p1t_public_remote_ref", "p1r_commit", "p1r_path", "p1r_public_remote_ref"],
+      "properties": {
+        "p1a_commit": {"$ref": "#/definitions/gitOid"}, "p1a_path": {"const": "results/benchmark/v1.5-protocol/P1A.json"},
+        "p1t_commit": {"$ref": "#/definitions/gitOid"}, "p1t_path": {"const": "results/benchmark/v1.5-protocol/P1T.json"},
+        "p1t_public_remote_ref": {"$ref": "#/definitions/publicRef"},
+        "p1r_commit": {"$ref": "#/definitions/gitOid"}, "p1r_path": {"const": "results/benchmark/v1.5-protocol/P1R.json"},
+        "p1r_public_remote_ref": {"const": "refs/heads/method-v1.5-p1r"}
+      }
+    },
+    "p1r_publication_observer": {
+      "type": "object", "additionalProperties": false,
+      "required": ["workflow_repository", "workflow_path", "workflow_ref", "workflow_blob_sha256", "run_id", "run_attempt", "server_observed_at_utc", "actions_run_projection_sha256"],
+      "properties": {
+        "workflow_repository": {"const": "Kuberwastaken/c5-k4"},
+        "workflow_path": {"const": ".github/workflows/method-v15-p1r-publication-observer.yml"},
+        "workflow_ref": {"const": ".github/workflows/method-v15-p1r-publication-observer.yml@refs/heads/method-v1.5-p1r"},
+        "workflow_blob_sha256": {"$ref": "#/definitions/sha256"},
+        "run_id": {"type": "integer", "minimum": 1}, "run_attempt": {"const": 1},
+        "server_observed_at_utc": {"type": "string", "format": "date-time", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?Z$"},
+        "actions_run_projection_sha256": {"$ref": "#/definitions/sha256"}
+      }
+    },
+    "evidence_objects": {
+      "type": "array", "minItems": 7, "maxItems": 7,
+      "items": {
+        "type": "object", "additionalProperties": false, "required": ["domain", "path"],
+        "properties": {"domain": {"$ref": "#/definitions/domain"}, "path": {"type": "string", "minLength": 1}}
+      }
+    },
+    "verification_keys": {
+      "type": "array", "minItems": 11,
+      "items": {
+        "type": "object", "additionalProperties": false, "required": ["signer_class", "signer_id", "path"],
+        "properties": {
+          "signer_class": {"enum": ["CONTROLLED_HARNESS_READINESS_KEY", "FROZEN_EXPERIMENTER_IDENTITY", "OPERATIONAL_EVIDENCE_ISSUER", "INDEPENDENT_RECOMPILER"]},
+          "signer_id": {"$ref": "#/definitions/id"}, "path": {"type": "string", "minLength": 1}
+        }
+      }
+    }
+  },
+  "definitions": {
+    "gitOid": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:@+-]{0,127}$"},
+    "publicRef": {"type": "string", "pattern": "^refs/(?:heads|tags)/[^ ]+$"},
+    "repoPath": {"type": "string", "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[^\\u0000]+$"},
+    "publicArtifact": {
+      "type": "object", "additionalProperties": false, "required": ["commit", "root_tree", "path", "public_remote_ref"],
+      "properties": {"commit": {"$ref": "#/definitions/gitOid"}, "root_tree": {"$ref": "#/definitions/gitOid"}, "path": {"$ref": "#/definitions/repoPath"}, "public_remote_ref": {"$ref": "#/definitions/publicRef"}}
+    },
+    "domain": {"enum": ["PARTICIPANT_SCOPE_AND_NONINTERFERENCE", "CONTROLLED_HARNESS_DEPLOYMENT_AND_RUNTIME", "IMMUTABLE_WORM_STORE", "DESTRUCTIVE_GAP_ACCEPTANCE", "BROKER_CUSTODY_AND_CAPTURE_REPLAY", "CLASSIFIER_CLOSURE", "EXPERIMENTER_NONINTERVENTION"]}
+  }
+}
