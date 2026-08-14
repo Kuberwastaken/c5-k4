@@ -1,0 +1,117 @@
+{
+  "schema": "c5k4-graffiti3-conjecture13-live-result-1.0",
+  "status": "VERIFIED_COUNTEREXAMPLE_APPARENTLY_UNRECORDED",
+  "authoritative": true,
+  "campaign_commit": "b1fd235404b6d2fa2f7224e2b63e1b69dd951674",
+  "github_actions_run": "https://github.com/Kuberwastaken/c5-k4/actions/runs/31797234229",
+  "target": {
+    "source": "Graffiti3: Compact Theory Libraries for Automated Mathematical Discovery",
+    "doi": "10.21203/rs.3.rs-8493329/v1",
+    "conjecture": 13,
+    "base": 2,
+    "predicate": "pow(2,n-1,n)=1 and 19*phi(n)<=9*n",
+    "source_snapshot_boundary": 2000000,
+    "status_at_audit": "source-listed open",
+    "formal_conjectures_target": false,
+    "written_on_the_wall_i_target": false
+  },
+  "audit": {
+    "source_pdf_classification": "text_based",
+    "source_pdf_pages": 42,
+    "source_pdf_pages_needing_ocr": 0,
+    "source_pdf_sha256": "9758ec4530febf62bbcee35bd5804d2dda9e226a0878b082a25eaf1c7e4a9f7a",
+    "manifest_sha256": "0b1cfb36bc341e5f5cb45c136d438fb0dee88b045bf6997518d807275d3d3140",
+    "gate_attestation_sha256": "3c973b92606245472ffc348e4d498b58fb032c332faf430c25402eeb67e0f7df",
+    "artifact_checksum_manifests_replayed": 73,
+    "artifact_files_checksum_replayed": 518,
+    "worker_assignments_expected": 72,
+    "worker_assignments_found": 72,
+    "worker_assignments_complete_and_unique": true,
+    "worker_ledger_chains_replayed": 72,
+    "worker_ledger_rows_replayed": 89432,
+    "execution_status_documents_replayed": 72,
+    "execution_status_all_exit_codes_zero": true,
+    "terminal_bindings_replayed": 72,
+    "candidate_certificates_independently_replayed": 9,
+    "catalogue_construction_replayed": true,
+    "generic_blocks_independently_recomputed": 24,
+    "wall_domain_independently_reconstructed": true,
+    "worker_errors": 0,
+    "child_timeouts": 0
+  },
+  "database_gate": {
+    "min_n": 2,
+    "max_n": 2000000,
+    "evaluated": 1999999,
+    "chunks": 40,
+    "premise_rows": 679502,
+    "base2_pseudoprimes": 354,
+    "crossings": 0,
+    "controls_replayed": [341, 561]
+  },
+  "arms": {
+    "CATALOGUE": {
+      "proposed": 79076,
+      "exact_evaluated": 72716,
+      "excluded_overlap": 6360,
+      "crossings": 9,
+      "certificates": 9,
+      "terminal_reasons": {
+        "CERTIFICATE_FOUND": 9,
+        "DOMAIN_EXHAUSTED": 15
+      }
+    },
+    "GENERIC": {
+      "proposed": 6291456,
+      "exact_evaluated": 6291456,
+      "premise_composites": 38614,
+      "crossings": 0,
+      "certificates": 0,
+      "terminal_reasons": {
+        "DOMAIN_EXHAUSTED": 24
+      }
+    },
+    "WALL_NAVIGATION": {
+      "proposed": 10107,
+      "exact_evaluated": 10107,
+      "domain_size": 10107,
+      "crossings": 0,
+      "certificates": 0,
+      "terminal_reasons": {
+        "DOMAIN_EXHAUSTED": 24
+      }
+    }
+  },
+  "canonical_candidate": {
+    "path": "graffiti3-conjecture13-candidate-81722145.json",
+    "n": 81722145,
+    "factors": [[3, 1], [5, 1], [17, 1], [29, 1], [43, 1], [257, 1]],
+    "phi": 38535168,
+    "margin_t": 3331113,
+    "modular_residue": 1,
+    "carmichael": false,
+    "a001567_index": 1886,
+    "first_crossing_in_frozen_a001567_after_boundary": true,
+    "global_minimum_counterexample_claim": false
+  },
+  "all_verified_candidates": [
+    81722145,
+    8700387585,
+    36693243105,
+    116291248305,
+    167041654305,
+    202228602465,
+    228565392105,
+    421114213185,
+    503686014105
+  ],
+  "novelty": {
+    "audit_date": "2026-08-14",
+    "current_oeis_snapshots_match_frozen_hashes": true,
+    "candidate_previously_known_as_base2_pseudoprime": true,
+    "public_prior_connection_to_conjecture13_found": false,
+    "absolute_priority_claim": false,
+    "qualification": "The disproof connection is apparently unrecorded after current source, scholarly-web, OEIS, GitHub code/issue, author-repository, and exact-formula searches. Private or unindexed work cannot be excluded."
+  },
+  "publication_action": false
+}

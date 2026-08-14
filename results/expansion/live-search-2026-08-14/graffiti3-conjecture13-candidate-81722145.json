@@ -1,0 +1,57 @@
+{
+  "schema": "c5k4-graffiti3-conjecture13-canonical-candidate-1.0",
+  "status": "INDEPENDENTLY_VERIFIED_COUNTEREXAMPLE",
+  "n": 81722145,
+  "base": 2,
+  "factors": [
+    [3, 1],
+    [5, 1],
+    [17, 1],
+    [29, 1],
+    [43, 1],
+    [257, 1]
+  ],
+  "phi": 38535168,
+  "nine_n": 735499305,
+  "nineteen_phi": 732168192,
+  "margin_t": 3331113,
+  "modular_residue": 1,
+  "composite": true,
+  "odd": true,
+  "carmichael": false,
+  "predicate": {
+    "premise": "19*phi(n) <= 9*n",
+    "premise_holds": true,
+    "pseudoprime_test": "pow(2,n-1,n) = 1",
+    "pseudoprime_test_holds": true
+  },
+  "source": {
+    "doi": "10.21203/rs.3.rs-8493329/v1",
+    "conjecture": 13,
+    "source_pdf_sha256": "9758ec4530febf62bbcee35bd5804d2dda9e226a0878b082a25eaf1c7e4a9f7a"
+  },
+  "run": {
+    "github_actions_run": "https://github.com/Kuberwastaken/c5-k4/actions/runs/31797234229",
+    "campaign_commit": "b1fd235404b6d2fa2f7224e2b63e1b69dd951674",
+    "manifest_sha256": "0b1cfb36bc341e5f5cb45c136d438fb0dee88b045bf6997518d807275d3d3140",
+    "gate_attestation_sha256": "3c973b92606245472ffc348e4d498b58fb032c332faf430c25402eeb67e0f7df",
+    "arm": "CATALOGUE",
+    "shard": 0,
+    "original_certificate_sha256": "8bc47f06c41de4bc332fbadb4d9347eed3e7c4ae591b96e6c3ed364751cb44f1"
+  },
+  "locked_sequence": {
+    "id": "A001567",
+    "index": 1886,
+    "first_index_above_2000000": 355,
+    "entries_checked_through_candidate": 1532,
+    "crossings_through_candidate": 1,
+    "first_crossing_in_frozen_sorted_sequence_above_boundary": true,
+    "global_minimum_counterexample_claim": false
+  },
+  "novelty": {
+    "number_previously_known_as_base_2_pseudoprime": true,
+    "public_connection_to_graffiti3_conjecture13_found": false,
+    "audit_date": "2026-08-14",
+    "qualification": "Apparently unrecorded after a dated public-source search; not an absolute priority claim."
+  }
+}
