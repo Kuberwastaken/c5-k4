@@ -275,6 +275,14 @@ coordinates. That beam is retired too; the next run must stratify by order and
 search the smallest wall before scaling. See
 [`txgraffiti-cc-phase2-result.md`](results/expansion/live-search-2026-08-14/txgraffiti-cc-phase2-result.md).
 
+The stratified correction then retained 2,575 exact order-20 graphs, with
+2,235 (`86.8%`) exactly on `i=mu*=6` and none across the wall. This validates
+the boundary concentration but not domain exhaustion: the current clean
+summary does not distinguish iterator completion from the 54-second internal
+deadline. The result is reported as a bounded prefix, and the next pass must
+precompute canonical identities and log an explicit terminal reason. See
+[`txgraffiti-cc-phase3-result.md`](results/expansion/live-search-2026-08-14/txgraffiti-cc-phase3-result.md).
+
 No row in those rounds is a release candidate. The exact contracts, ledgers,
 corrections, stop reasons, and reports are under
 [`results/expansion/`](results/expansion/); the current portfolio and its
