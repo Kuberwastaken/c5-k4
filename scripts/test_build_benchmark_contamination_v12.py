@@ -219,6 +219,84 @@ class ReplayTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "drifted"):
                 list(replay.iter_worktree_overlay(repo, source))
 
+    def test_worktree_overlay_corpus_binding_uses_the_source_kind(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            subprocess.run(["git", "init", "-q", str(repo)], check=True)
+            git(repo, "config", "user.name", "Test")
+            git(repo, "config", "user.email", "test@example.com")
+            (repo / "tracked.txt").write_text("base\n", encoding="utf-8")
+            git(repo, "add", ".")
+            git(repo, "commit", "-qm", "base")
+            head = git(repo, "rev-parse", "HEAD")
+            (repo / "current.txt").write_text("overlay\n", encoding="utf-8")
+            overlay = replay.source_snapshot.worktree_overlay(repo, head)
+            object_metadata_sha256 = "a" * 64
+            user_commit_set_sha256 = "b" * 64
+            ordinary_corpus = replay.sha256(
+                replay.canonical_json(
+                    {
+                        "git_object_metadata_sha256": object_metadata_sha256,
+                        "worktree_overlay_inventory_sha256": overlay["inventory_sha256"],
+                    }
+                )
+            )
+            delta_corpus = replay.sha256(
+                replay.canonical_json(
+                    {
+                        "user_commit_set_sha256": user_commit_set_sha256,
+                        "worktree_overlay_inventory_sha256": overlay["inventory_sha256"],
+                    }
+                )
+            )
+            shared = {
+                "path": str(repo),
+                "worktree_overlay": overlay,
+                "object_metadata_sha256": object_metadata_sha256,
+                "user_commit_set_sha256": user_commit_set_sha256,
+            }
+
+            ordinary = {
+                **shared,
+                "id": "ordinary",
+                "kind": "git",
+                "corpus_sha256": ordinary_corpus,
+            }
+            self.assertTrue(list(replay.iter_worktree_overlay(repo, ordinary)))
+            with self.assertRaisesRegex(ValueError, "lacks corpus_sha256"):
+                list(
+                    replay.iter_worktree_overlay(
+                        repo,
+                        {
+                            **shared,
+                            "id": "missing-frozen-corpus",
+                            "kind": "git",
+                            "complete": True,
+                        },
+                    )
+                )
+            with self.assertRaisesRegex(ValueError, "corpus binding mismatch"):
+                list(
+                    replay.iter_worktree_overlay(
+                        repo, {**ordinary, "corpus_sha256": delta_corpus}
+                    )
+                )
+
+            for kind in ("git_delta", "git_user_delta"):
+                delta = {
+                    **shared,
+                    "id": kind,
+                    "kind": kind,
+                    "corpus_sha256": delta_corpus,
+                }
+                self.assertTrue(list(replay.iter_worktree_overlay(repo, delta)))
+                with self.assertRaisesRegex(ValueError, "corpus binding mismatch"):
+                    list(
+                        replay.iter_worktree_overlay(
+                            repo, {**delta, "corpus_sha256": ordinary_corpus}
+                        )
+                    )
+
 
 if __name__ == "__main__":
     unittest.main()

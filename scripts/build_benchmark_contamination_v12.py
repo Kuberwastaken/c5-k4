@@ -287,6 +287,33 @@ def iter_git_delta(repo: Path, source: dict[str, Any]) -> Iterator[dict[str, Any
                 yield unit(source_id, "git_delta", f"added-line:{commit}:{line_number}", "repo-code", raw, "SEMANTIC_SOURCE")
 
 
+def expected_git_corpus_sha256(
+    source: dict[str, Any], overlay_inventory_sha256: str
+) -> str:
+    """Reconstruct the corpus binding defined by the frozen Git source kind."""
+
+    kind = source.get("kind")
+    if kind == "git":
+        binding_key = "git_object_metadata_sha256"
+        source_key = "object_metadata_sha256"
+    elif kind in {"git_delta", "git_user_delta"}:
+        binding_key = "user_commit_set_sha256"
+        source_key = "user_commit_set_sha256"
+    else:
+        raise ValueError(f"unsupported Git corpus binding kind: {kind!r}")
+    binding_sha256 = source.get(source_key)
+    if not isinstance(binding_sha256, str):
+        raise ValueError(f"git source {source.get('id')!r} lacks {source_key}")
+    return sha256(
+        canonical_json(
+            {
+                binding_key: binding_sha256,
+                "worktree_overlay_inventory_sha256": overlay_inventory_sha256,
+            }
+        )
+    )
+
+
 def iter_worktree_overlay(repo: Path, source: dict[str, Any]) -> Iterator[dict[str, Any]]:
     """Validate and scan a source-snapshot overlay exactly, failing on drift."""
 
@@ -303,14 +330,11 @@ def iter_worktree_overlay(repo: Path, source: dict[str, Any]) -> Iterator[dict[s
         raise ValueError("worktree_overlay.entries must be a list")
     if overlay.get("inventory_sha256") != sha256(canonical_json(entries)):
         raise ValueError("worktree_overlay inventory digest mismatch")
-    if "object_metadata_sha256" in source and "corpus_sha256" in source:
-        expected_corpus = sha256(
-            canonical_json(
-                {
-                    "git_object_metadata_sha256": source["object_metadata_sha256"],
-                    "worktree_overlay_inventory_sha256": overlay["inventory_sha256"],
-                }
-            )
+    if source.get("complete") is True and "corpus_sha256" not in source:
+        raise ValueError(f"frozen git source {source['id']!r} lacks corpus_sha256")
+    if "corpus_sha256" in source:
+        expected_corpus = expected_git_corpus_sha256(
+            source, overlay["inventory_sha256"]
         )
         if source["corpus_sha256"] != expected_corpus:
             raise ValueError(f"git source corpus binding mismatch: {source['id']}")
