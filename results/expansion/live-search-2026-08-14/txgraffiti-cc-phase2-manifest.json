@@ -1,0 +1,51 @@
+{
+  "schema": "c5k4-live-development-manifest-1.0",
+  "target": "TxGraffiti C-C: connected regular i(G) <= mu*(G)",
+  "evidence_split": "DEVELOPMENT",
+  "predecessor": "txgraffiti-cc-phase1-result.md",
+  "source_and_status_contract": "txgraffiti-cc-phase0.md",
+  "seed": 876712691744,
+  "process_wall_cap_seconds": 60,
+  "solver_cap_seconds": 4,
+  "internal_stop_seconds": 54,
+  "scratch_scouting_disclosed": true,
+  "construction": {
+    "name": "matched-core independent-reservoir",
+    "base": "connected cubic H on 4t vertices",
+    "operation": "subdivide all 6t base edges and perfectly match the subdivision vertices",
+    "order": "10t",
+    "certified_minimum_maximal_matching": "mu*(G)=3t",
+    "lower_bound_proof": "for every maximal matching M in a cubic graph, 3|U|<=4|M| and n<=10|M|/3",
+    "exact_objective": "3t - i(G)"
+  },
+  "arms": {
+    "CATALOGUE": {
+      "bases": ["K4", "cube", "CL6", "Frucht", "Moebius-Kantor"],
+      "pairings_per_base": ["maximum line-graph distance", "adjacent base-edge pairs"],
+      "labeled_proposals": 10
+    },
+    "GENERIC": {
+      "coordinates_t": [5, 6],
+      "base_distribution": "seeded NetworkX random connected cubic graph",
+      "pairing_distribution": "uniform shuffled perfect matching",
+      "objective_blind": true
+    },
+    "WALL_NAVIGATION": {
+      "coordinates_t": [3, 4, 5],
+      "fresh_bases_per_coordinate": 2,
+      "initial_pairing": "maximum total line-graph distance",
+      "operations": ["perfect-matching two-edge exchange", "connected cubic base two-switch"],
+      "maximum_children_per_operation_per_state": 24,
+      "maximum_expanded_states": 24,
+      "beam_width": 24,
+      "maximum_depth": 3,
+      "rank_by": ["exact child residual ascending", "exact child independent domination descending", "canonical SHA-256"]
+    }
+  },
+  "candidate_replay": {
+    "independent_domination": "independent PySAT CaDiCaL at-most-3t UNSAT check",
+    "minimum_maximal_matching": "replay displayed maximal matching and cubic 3n/10 lower-bound certificate"
+  },
+  "canonicalization": "frozen nauty labelg only",
+  "pre_freeze_target_evaluations_allowed": false
+}
