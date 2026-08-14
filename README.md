@@ -222,9 +222,20 @@ from dispersed-basis/full-period coverage toward **least-escape CEGAR**: close
 the cheap contiguous seed first, feed the lexicographically least miss back to
 the constructor, and reserve symbolic bounded-minimum escape for proposals
 that survive. Dynamic prime ordering remains only a pressure-reducing
-fallback, since it cannot change the final uncovered set. The exact observed
-design and stop rules are in the
-[v3 report](results/expansion/live-search-2026-08-14/oeis-a231201-v3-observed-design.md).
+fallback, since it cannot change the final uncovered set.
+
+That turn is now justified by a proved structural stop rather than only by the
+six observed misses. For **every** assignment of one residue to each of the
+frozen 55 primes, infinitely many positive exponents avoid all 55 congruences;
+the exact number of avoiding classes modulo the combined period is positive
+and independent of the assignment. Consequently a `COMPLETE_PERIODIC_COVER`
+terminal is impossible in this universe. This does not resolve A231201:
+all periodic escape classes could begin beyond a proposed finite endpoint.
+It does make the next objective precise—maximize the least positive escape,
+and compare that certified bounded minimum with a constructed candidate—while
+ruling out further investment in full-period enumeration. See the
+[periodic-lift theorem and replayable certificate](results/expansion/live-search-2026-08-14/oeis-a231201-periodic-cover-theorem-shadow/result.md)
+and the exact observed [v3 design and stop rules](results/expansion/live-search-2026-08-14/oeis-a231201-v3-observed-design.md).
 
 A subsequent live-arm pass over the newly merged OEIS cohort found one exact
 lower-endpoint failure: the formalized A109074 identity says `1 = 3` at
