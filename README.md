@@ -63,16 +63,17 @@ original four kills:
 | stars on the Graffiti³ closed-distance-two GA wall | one hub keeps every spoke term at equality | split the hub into adjacent unequal centers (double stars) | Graffiti³ Conjecture 2; `DS(k,k)` fails for every `k>=12` |
 | repeated equality in #438b | matching edges seem able to evade both induced-subgraph corrections | low-degree false-twin layer | no crossing: the attempted separation yields a stronger arbitrary-subset theorem proving #438b |
 
-The `P₇` crossing is especially important: it is the second instance in a
-substantially different conjecture cluster of the same prospective pattern
+The `P₇` crossing was the first replication in a substantially different
+conjecture cluster of the same prospective pattern
 
 `tight carrier → isolate obstruction → separate invariant → new counterexample`.
 
-That is the expanding claim of this repository. `C₅[K₄]` remains the seed and
-the best diagnostic carrier, but the research object is now the repeatable
-navigation of tightness walls into new graph families. Direct carrier kills,
-spawned counterexamples, retro-kills, and interpretation-dependent statements
-remain counted separately below.
+The Graffiti³ double-star crossing now repeats it outside the earlier WOWII
+clusters. That is the expanding claim of this repository. `C₅[K₄]` remains
+the seed and the best diagnostic carrier, but the research object is now the
+repeatable navigation of tightness walls into new graph families. Direct
+carrier kills, spawned counterexamples, retro-kills, and
+interpretation-dependent statements remain counted separately below.
 
 ### Method v1.0: resolution shape before graph search
 
@@ -616,10 +617,11 @@ workflow.
 - [Bateman--Horn: certificate and audit of the counting-helper endpoint defect](https://github.com/Kuberwastaken/c5-k4/releases/tag/bateman-horn-count-endpoint-v1)
 - [Graffiti³ Conjecture 2: double-star counterexamples and formal arithmetic certificate](https://github.com/Kuberwastaken/c5-k4/releases/tag/graffiti3-conjecture2-double-star-v1)
 
-Only A113019 in this second group answers the intended mathematical source
-question. The other three releases preserve exact, formally certified defects
-in merged declarations or helper definitions and are excluded from the
-mathematical counterexample count.
+Among the OEIS and Bateman--Horn releases, only A113019 answers the intended
+mathematical source question. The other three preserve exact, formally
+certified defects in merged declarations or helper definitions and are
+excluded from the mathematical counterexample count. The Graffiti³ release is
+an intended-source disproof and is counted as a mathematical result.
 
 Known externally claimed results such as WOWII 64 and 309 remain fully
 formalized and credited in the repository, but are not republished as
