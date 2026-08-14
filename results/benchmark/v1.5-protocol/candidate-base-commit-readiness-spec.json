@@ -1,0 +1,212 @@
+{
+  "schema": "c5k4-method-v1.5-candidate-base-commit-readiness-spec-1.0",
+  "status": "PRE_P1_NORMATIVE_SPEC_NOT_READINESS_EVIDENCE",
+  "protocol_version": "1.5",
+  "artifact_class": "TARGET_BLIND_TRANSITION_SPECIFICATION",
+  "current_state": {
+    "candidate_base_commit_c_bound": false,
+    "candidate_base_root_tree_bound": false,
+    "closure_compiled": false,
+    "operational_evidence_accepted": false,
+    "composite_signature_present": false,
+    "independent_recompile_passed": false,
+    "p1a_publication_permitted": false,
+    "p1t_publication_permitted": false,
+    "operational": false
+  },
+  "target_blindness": {
+    "candidate_identities_permitted": false,
+    "statement_text_permitted": false,
+    "target_rankings_permitted": false,
+    "target_semantic_analysis_permitted": false,
+    "entropy_permitted": false,
+    "selection_permitted": false,
+    "current_candidate_identities": [],
+    "current_statement_text": [],
+    "current_target_rankings": [],
+    "current_target_semantics": []
+  },
+  "candidate_base_commit": {
+    "symbol": "C",
+    "phase": "PRE_P1_CANDIDATE_BASE",
+    "commit_binding": "EXACT_PUBLIC_COMMIT_OID",
+    "tree_binding": "EXACT_ROOT_TREE_OID",
+    "worktree_authority": false,
+    "moving_ref_authority": false,
+    "caller_supplied_digest_authority": false,
+    "required_properties": [
+      "PUBLIC_REMOTE_CONTAINS_EXACT_C",
+      "C_IS_NON_MERGE_COMMIT",
+      "C_TREE_CONTAINS_COMPLETE_TARGET_BLIND_PROTOCOL_AND_READINESS_INPUTS",
+      "C_PRECEDES_ANY_TARGET_IDENTITY_ENTROPY_OR_SELECTION_ACCESS"
+    ],
+    "replacement_rule": "ANY_BYTE_OR_EVIDENCE_CHANGE_REQUIRES_NEW_C_AND_FULL_RECOMPILE"
+  },
+  "closure": {
+    "native_v1_5": {
+      "authority": "P1_ASSEMBLER_CLOSED_NATIVE_ROLE_MAP",
+      "commit": "EXACT_C",
+      "required_checks": [
+        "ROLE_SET_EXACT_NO_MISSING_OR_EXTRA_ROLES",
+        "EVERY_PATH_NORMALIZED_REPOSITORY_RELATIVE_AND_PRESENT_IN_C_TREE",
+        "EVERY_SHA256_RECOMPUTED_FROM_EXACT_C_BLOB_BYTES",
+        "EVERY_JSON_SCHEMA_VALIDATED",
+        "STRUCTURAL_TARGET_DATA_AUDIT_ZERO"
+      ]
+    },
+    "inherited_v1_4": {
+      "authority": "AUTHENTICATED_V1_4_P0A_AND_P0T",
+      "selection": "P1_ASSEMBLER_CLOSED_INHERITED_ROLE_MAP",
+      "required_checks": [
+        "P0T_AUTHENTICATES_EXACT_P0A_COMMIT_AND_BYTES",
+        "SELECTED_ROLE_SET_EXACT_NO_MISSING_OR_EXTRA_ROLES",
+        "EVERY_SELECTED_BLOB_READ_FROM_EXACT_P0A_COMMIT",
+        "EVERY_SELECTED_SHA256_RECOMPUTED_NOT_COPIED",
+        "SOURCE_CONTENT_CLASS_PROTOCOL_ONLY_NO_TARGET_DATA"
+      ]
+    },
+    "source_v1_4": {
+      "scope": "FULL_P0A_REFERENCED_SOURCE_CLOSURE_NOT_ONLY_SELECTED_ROLES",
+      "commit": "EXACT_P0A_COMMIT_AUTHENTICATED_BY_P0T",
+      "required_checks": [
+        "P0A_VALIDATES_AGAINST_FROZEN_V1_4_SCHEMA",
+        "EVERY_REFERENCE_REACHABLE_FROM_P0A_IS_PRESENT_AT_SOURCE_COMMIT",
+        "EVERY_REFERENCED_DIGEST_RECOMPUTED_FROM_SOURCE_COMMIT_BYTES",
+        "TARGET_DATA_AUDIT_RECEIPT_IS_EXACT_ZERO_DETECTION_CLOSURE"
+      ]
+    },
+    "closure_digest": "DOMAIN_SEPARATED_CANONICAL_DIGEST_OF_ORDERED_NATIVE_INHERITED_AND_SOURCE_ROWS"
+  },
+  "operational_readiness_inputs": {
+    "authority": "AUTHENTICATED_TARGET_BLIND_EVIDENCE_ONLY",
+    "required_domains": [
+      "PARTICIPANT_SCOPE_AND_NONINTERFERENCE",
+      "CONTROLLED_HARNESS_DEPLOYMENT_AND_RUNTIME",
+      "IMMUTABLE_WORM_STORE",
+      "DESTRUCTIVE_GAP_ACCEPTANCE",
+      "BROKER_CUSTODY_AND_CAPTURE_REPLAY",
+      "CLASSIFIER_CLOSURE",
+      "EXPERIMENTER_NONINTERVENTION"
+    ],
+    "fixture_or_placeholder_acceptance": false,
+    "pre_p1_contract_acceptance": false,
+    "unsigned_acceptance": false,
+    "evidence_must_bind_exact_c": true
+  },
+  "p1_transition": {
+    "p1a": {
+      "parent_count": 1,
+      "sole_parent": "EXACT_C",
+      "changed_path_count": 1,
+      "allowed_changed_path": "results/benchmark/v1.5-protocol/P1A.json",
+      "component_byte_source": "EXACT_C_TREE_OR_AUTHENTICATED_V1_4_SOURCE_COMMIT",
+      "parent_tree_recompile_required": true,
+      "readiness_receipt_must_authenticate_exact_c": true,
+      "all_other_paths_byte_identical_to_c": true
+    },
+    "p1t": {
+      "parent_count": 1,
+      "sole_parent": "EXACT_P1A_COMMIT",
+      "changed_path_count": 1,
+      "allowed_changed_path": "results/benchmark/v1.5-protocol/P1T.json",
+      "p1a_bytes_immutable": true,
+      "public_remote_ancestry_verification_required": true
+    }
+  },
+  "phase_machine": {
+    "pre_p1": [
+      {
+        "phase": "PRE_P1_SPEC_ONLY",
+        "authority": "NORMATIVE_ONLY",
+        "execution_permitted": false,
+        "publication_permitted": false
+      },
+      {
+        "phase": "PRE_P1_CANDIDATE_BASE",
+        "authority": "EXACT_C_PLUS_COMPILED_READINESS_CANDIDATE",
+        "execution_permitted": false,
+        "publication_permitted": false
+      },
+      {
+        "phase": "PRE_P1_P1A_COMMITTED_AWAITING_PUBLIC_P1T",
+        "authority": "P1A_TRANSITION_CANDIDATE_ONLY",
+        "execution_permitted": false,
+        "publication_permitted": false
+      }
+    ],
+    "post_p1": [
+      {
+        "phase": "POST_P1T_FROZEN_PRE_C1",
+        "authority": "PUBLIC_P1T_TO_SOLE_PARENT_P1A_TO_EXACT_C",
+        "target_semantics_permitted": false,
+        "entropy_permitted": false,
+        "selection_permitted": false
+      },
+      {
+        "phase": "POST_C1_FROZEN_EXECUTION",
+        "authority": "C1_AND_FROZEN_EXECUTION_ENVELOPE",
+        "target_semantics_permitted": true,
+        "entropy_permitted": true,
+        "selection_permitted": true
+      }
+    ],
+    "p1_boundary": "PUBLIC_AUTHENTICATED_P1T_RECEIPT_NOT_P1A_FILE_CREATION"
+  },
+  "readiness_compilation": {
+    "payload_algorithm": "DOMAIN_SEPARATED_CANONICAL_JSON_V1_5",
+    "payload_must_bind": [
+      "EXACT_C_COMMIT_AND_ROOT_TREE",
+      "NATIVE_CLOSURE_DIGEST",
+      "INHERITED_CLOSURE_DIGEST",
+      "FULL_SOURCE_CLOSURE_DIGEST",
+      "OPERATIONAL_EVIDENCE_BUNDLE_DIGEST",
+      "EXPERIMENTER_NONINTERVENTION_CONTRACT_DIGEST",
+      "COMPILER_AND_SCHEMA_DIGESTS"
+    ],
+    "composite_signature": {
+      "algorithm": "ED25519_DOMAIN_SEPARATED_COMPONENT_SIGNATURES",
+      "required_signer_classes": [
+        "CONTROLLED_HARNESS_READINESS_KEY",
+        "EVERY_FROZEN_EXPERIMENTER_IDENTITY"
+      ],
+      "all_signatures_cover_identical_payload": true,
+      "missing_duplicate_or_unattributable_signer": "FAIL_CLOSED_PROTOCOL_INVALID"
+    },
+    "independent_recompile": {
+      "required": true,
+      "input_authority": "EXACT_C_TREE_AND_AUTHENTICATED_SOURCE_COMMITS_ONLY",
+      "minimum_independent_recompiles": 2,
+      "canonical_payloads_must_be_byte_identical": true,
+      "closure_digests_must_be_byte_identical": true,
+      "all_component_signatures_reverified": true,
+      "worktree_or_cache_input_permitted": false
+    }
+  },
+  "experimenter_nonintervention": {
+    "identity_set_frozen_before_p1a": true,
+    "identity_set_must_be_exact_and_nonempty": true,
+    "contract_signature_required_from_every_identity": true,
+    "interval": "P1T_INCLUSIVE_THROUGH_U2_INCLUSIVE",
+    "prohibited_actions": [
+      "AUTHOR_FUTURE_COHORT_CLUSTER",
+      "EDIT_FUTURE_COHORT_CLUSTER",
+      "REVIEW_FUTURE_COHORT_CLUSTER",
+      "REQUEST_CHANGES_TO_FUTURE_COHORT_CLUSTER",
+      "LOBBY_FOR_OR_AGAINST_FUTURE_COHORT_CLUSTER",
+      "OTHERWISE_INFLUENCE_FUTURE_COHORT_CLUSTER"
+    ],
+    "machine_detectable_contact": "EXCLUDE_CONFLICTED_CLUSTER_BEFORE_QUOTA_AND_SELECTION",
+    "unreported_or_unattributable_contact": "FAIL_CLOSED_PROTOCOL_INVALID",
+    "target_identity_exception": "FORBIDDEN",
+    "identity_set_change": "NEW_C_FULL_RECOMPILE_AND_RESTART_BEFORE_P1A"
+  },
+  "failure_policy": {
+    "missing_or_extra_closure_role": "FAIL_CLOSED",
+    "digest_or_commit_drift": "FAIL_CLOSED",
+    "non_sole_parent_or_extra_changed_path": "FAIL_CLOSED",
+    "phase_ambiguity": "FAIL_CLOSED",
+    "signature_or_recompile_failure": "FAIL_CLOSED",
+    "experimenter_contract_failure": "FAIL_CLOSED_PROTOCOL_INVALID",
+    "manual_override": "FORBIDDEN"
+  }
+}
