@@ -11,11 +11,24 @@
     "components": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["registry", "classification", "grouping", "syntax_pool", "provenance", "checkpoint_runner", "private_custody", "delivery_broker", "immutable_store", "arm_execution"],
+      "required": ["registry", "classification", "grouping", "syntax_pool", "provenance", "checkpoint_runner", "private_custody", "delivery_broker", "immutable_store", "arm_execution", "participant_scope"],
       "properties": {
+        "participant_scope": {
+          "type": "object", "additionalProperties": false,
+          "required": ["ledger", "ledger_schema", "noninterference_receipt", "noninterference_receipt_schema", "operational_noninterference_receipt_schema", "verifier", "test"],
+          "properties": {
+            "ledger": {"$ref": "#/definitions/native/participant_ledger"},
+            "ledger_schema": {"$ref": "#/definitions/native/participant_ledger_schema"},
+            "noninterference_receipt": {"$ref": "#/definitions/native/noninterference_receipt"},
+            "noninterference_receipt_schema": {"$ref": "#/definitions/native/noninterference_receipt_schema"},
+            "operational_noninterference_receipt_schema": {"$ref": "#/definitions/native/operational_noninterference_receipt_schema"},
+            "verifier": {"$ref": "#/definitions/native/participant_noninterference_verifier"},
+            "test": {"$ref": "#/definitions/native/participant_noninterference_contract_test"}
+          }
+        },
         "arm_execution": {
           "type": "object", "additionalProperties": false,
-          "required": ["capability_matrix", "capability_matrix_schema", "envelope_schema", "validator", "test", "triplet_launcher", "triplet_launcher_test", "triplet_claim_schema", "triplet_combined_record_schema", "triplet_isolation_backend", "triplet_isolation_backend_test", "triplet_isolation_plan_schema", "triplet_isolation_acceptance_schema", "triplet_isolation_readiness_schema"],
+          "required": ["capability_matrix", "capability_matrix_schema", "envelope_schema", "validator", "test", "triplet_launcher", "triplet_launcher_test", "triplet_claim_schema", "triplet_combined_record_schema", "triplet_isolation_backend", "triplet_isolation_backend_test", "triplet_isolation_plan_schema", "triplet_isolation_acceptance_schema", "triplet_isolation_readiness_schema", "linux_isolation_acceptance", "linux_isolation_acceptance_test"],
           "properties": {
             "capability_matrix": {"$ref": "#/definitions/native/arm_capability_matrix"},
             "capability_matrix_schema": {"$ref": "#/definitions/native/arm_capability_matrix_schema"},
@@ -29,6 +42,8 @@
             "triplet_isolation_plan_schema": {"$ref": "#/definitions/native/triplet_isolation_plan_schema"},
             "triplet_isolation_acceptance_schema": {"$ref": "#/definitions/native/triplet_isolation_acceptance_schema"},
             "triplet_isolation_readiness_schema": {"$ref": "#/definitions/native/triplet_isolation_readiness_schema"},
+            "linux_isolation_acceptance": {"$ref": "#/definitions/native/linux_isolation_acceptance"},
+            "linux_isolation_acceptance_test": {"$ref": "#/definitions/native/linux_isolation_acceptance_contract_test"},
             "validator": {"$ref": "#/definitions/native/arm_execution_envelope_validator"},
             "test": {"$ref": "#/definitions/native/arm_execution_envelope_contract_test"}
           }
@@ -49,7 +64,7 @@
         },
         "checkpoint_runner": {
           "type": "object", "additionalProperties": false,
-          "required": ["executable", "test", "publication_schema", "private_input_schema", "private_input_assembler", "private_input_assembler_test", "private_input_assembly_schema", "capture_orchestrator", "capture_orchestrator_test", "capture_plan_schema", "capture_readiness_schema", "gap_schema", "public_chain_verifier", "public_chain_proof_schema"],
+          "required": ["executable", "test", "publication_schema", "private_input_schema", "private_input_assembler", "private_input_assembler_test", "private_input_assembly_schema", "capture_orchestrator", "capture_orchestrator_test", "capture_plan_schema", "capture_readiness_schema", "role_resolver", "role_resolver_test", "role_resolution_schema", "role_resolution_readiness_schema", "gap_schema", "public_chain_verifier", "public_chain_proof_schema"],
           "properties": {
             "executable": {"$ref": "#/definitions/native/checkpoint_runner"},
             "test": {"$ref": "#/definitions/native/checkpoint_runner_contract_test"},
@@ -62,6 +77,10 @@
             "capture_orchestrator_test": {"$ref": "#/definitions/native/checkpoint_capture_orchestrator_contract_test"},
             "capture_plan_schema": {"$ref": "#/definitions/native/checkpoint_capture_plan_schema"},
             "capture_readiness_schema": {"$ref": "#/definitions/native/checkpoint_capture_readiness_schema"},
+            "role_resolver": {"$ref": "#/definitions/native/p1_role_resolver"},
+            "role_resolver_test": {"$ref": "#/definitions/native/p1_role_resolver_contract_test"},
+            "role_resolution_schema": {"$ref": "#/definitions/native/p1_role_resolution_schema"},
+            "role_resolution_readiness_schema": {"$ref": "#/definitions/native/p1_role_resolution_readiness_schema"},
             "gap_schema": {"$ref": "#/definitions/native/terminal_chronology_gap_certificate_schema"},
             "public_chain_verifier": {"$ref": "#/definitions/native/public_checkpoint_chain_verifier"},
             "public_chain_proof_schema": {"$ref": "#/definitions/native/public_checkpoint_chain_proof_schema"}
@@ -243,6 +262,19 @@
       ,"checkpoint_capture_orchestrator_contract_test": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "checkpoint_capture_orchestrator_contract_test"}}}]}
       ,"checkpoint_capture_plan_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "checkpoint_capture_plan_schema"}}}]}
       ,"checkpoint_capture_readiness_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "checkpoint_capture_readiness_schema"}}}]}
+      ,"participant_ledger": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "participant_ledger"}}}]}
+      ,"participant_ledger_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "participant_ledger_schema"}}}]}
+      ,"noninterference_receipt": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "noninterference_receipt"}}}]}
+      ,"noninterference_receipt_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "noninterference_receipt_schema"}}}]}
+      ,"operational_noninterference_receipt_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "operational_noninterference_receipt_schema"}}}]}
+      ,"participant_noninterference_verifier": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "participant_noninterference_verifier"}}}]}
+      ,"participant_noninterference_contract_test": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "participant_noninterference_contract_test"}}}]}
+      ,"p1_role_resolver": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "p1_role_resolver"}}}]}
+      ,"p1_role_resolver_contract_test": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "p1_role_resolver_contract_test"}}}]}
+      ,"p1_role_resolution_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "p1_role_resolution_schema"}}}]}
+      ,"p1_role_resolution_readiness_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "p1_role_resolution_readiness_schema"}}}]}
+      ,"linux_isolation_acceptance": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "linux_isolation_acceptance"}}}]}
+      ,"linux_isolation_acceptance_contract_test": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "linux_isolation_acceptance_contract_test"}}}]}
     },
     "inherited": {
       "five_strata_classifier": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "INHERITED_V1_4"}, "role": {"const": "five_strata_classifier"}}}]},

@@ -12,6 +12,8 @@
       "triplet_isolation_backend_test": {"closure": "NATIVE_V1_5", "role": "triplet_isolation_backend_contract_test"},
       "triplet_isolation_plan_schema": {"closure": "NATIVE_V1_5", "role": "triplet_isolation_plan_schema"},
       "triplet_isolation_readiness_schema": {"closure": "NATIVE_V1_5", "role": "triplet_isolation_readiness_schema"},
+      "linux_isolation_acceptance": {"closure": "NATIVE_V1_5", "role": "linux_isolation_acceptance"},
+      "linux_isolation_acceptance_test": {"closure": "NATIVE_V1_5", "role": "linux_isolation_acceptance_contract_test"},
       "triplet_launcher": {"closure": "NATIVE_V1_5", "role": "arm_triplet_launcher"},
       "triplet_launcher_test": {"closure": "NATIVE_V1_5", "role": "arm_triplet_launcher_contract_test"},
       "test": {"closure": "NATIVE_V1_5", "role": "arm_execution_envelope_contract_test"},
@@ -41,6 +43,10 @@
       "private_input_assembler_test": {"closure": "NATIVE_V1_5", "role": "runner_private_input_assembler_contract_test"},
       "private_input_assembly_schema": {"closure": "NATIVE_V1_5", "role": "runner_private_input_assembly_schema"},
       "publication_schema": {"closure": "NATIVE_V1_5", "role": "checkpoint_publication_manifest_schema"},
+      "role_resolution_readiness_schema": {"closure": "NATIVE_V1_5", "role": "p1_role_resolution_readiness_schema"},
+      "role_resolution_schema": {"closure": "NATIVE_V1_5", "role": "p1_role_resolution_schema"},
+      "role_resolver": {"closure": "NATIVE_V1_5", "role": "p1_role_resolver"},
+      "role_resolver_test": {"closure": "NATIVE_V1_5", "role": "p1_role_resolver_contract_test"},
       "public_chain_proof_schema": {"closure": "NATIVE_V1_5", "role": "public_checkpoint_chain_proof_schema"},
       "public_chain_verifier": {"closure": "NATIVE_V1_5", "role": "public_checkpoint_chain_verifier"},
       "test": {"closure": "NATIVE_V1_5", "role": "checkpoint_runner_contract_test"}
@@ -71,6 +77,15 @@
       "service_epoch_schema": {"closure": "NATIVE_V1_5", "role": "private_broker_service_epoch_schema"},
       "test": {"closure": "NATIVE_V1_5", "role": "private_custody_verifier_contract_test"}
       ,"worm_inventory_schema": {"closure": "NATIVE_V1_5", "role": "private_worm_object_inventory_schema"}
+    },
+    "participant_scope": {
+      "ledger": {"closure": "NATIVE_V1_5", "role": "participant_ledger"},
+      "ledger_schema": {"closure": "NATIVE_V1_5", "role": "participant_ledger_schema"},
+      "noninterference_receipt": {"closure": "NATIVE_V1_5", "role": "noninterference_receipt"},
+      "noninterference_receipt_schema": {"closure": "NATIVE_V1_5", "role": "noninterference_receipt_schema"},
+      "operational_noninterference_receipt_schema": {"closure": "NATIVE_V1_5", "role": "operational_noninterference_receipt_schema"},
+      "test": {"closure": "NATIVE_V1_5", "role": "participant_noninterference_contract_test"},
+      "verifier": {"closure": "NATIVE_V1_5", "role": "participant_noninterference_verifier"}
     },
     "provenance": {
       "classifier": {"closure": "NATIVE_V1_5", "role": "provenance_classifier"},

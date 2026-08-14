@@ -69,11 +69,22 @@
     "component_manifest": {"$ref": "#/definitions/artifactRef"},
     "frozen_components": {
       "type": "object", "additionalProperties": false,
-      "required": ["registry", "classification", "grouping", "syntax_pool", "provenance", "checkpoint_runner", "private_custody", "delivery_broker", "immutable_store", "arm_execution"],
+      "required": ["registry", "classification", "grouping", "syntax_pool", "provenance", "checkpoint_runner", "private_custody", "delivery_broker", "immutable_store", "arm_execution", "participant_scope"],
       "properties": {
+        "participant_scope": {
+          "type": "object", "additionalProperties": false,
+          "required": ["ledger", "ledger_schema", "noninterference_receipt", "noninterference_receipt_schema", "operational_noninterference_receipt_schema", "verifier", "test"],
+          "properties": {
+            "ledger": {"$ref": "#/definitions/artifactRef"}, "ledger_schema": {"$ref": "#/definitions/artifactRef"},
+            "noninterference_receipt": {"$ref": "#/definitions/artifactRef"},
+            "noninterference_receipt_schema": {"$ref": "#/definitions/artifactRef"},
+            "operational_noninterference_receipt_schema": {"$ref": "#/definitions/artifactRef"},
+            "verifier": {"$ref": "#/definitions/artifactRef"}, "test": {"$ref": "#/definitions/artifactRef"}
+          }
+        },
         "arm_execution": {
           "type": "object", "additionalProperties": false,
-          "required": ["capability_matrix", "capability_matrix_schema", "envelope_schema", "validator", "test", "triplet_launcher", "triplet_launcher_test", "triplet_claim_schema", "triplet_combined_record_schema", "triplet_isolation_backend", "triplet_isolation_backend_test", "triplet_isolation_plan_schema", "triplet_isolation_acceptance_schema", "triplet_isolation_readiness_schema"],
+          "required": ["capability_matrix", "capability_matrix_schema", "envelope_schema", "validator", "test", "triplet_launcher", "triplet_launcher_test", "triplet_claim_schema", "triplet_combined_record_schema", "triplet_isolation_backend", "triplet_isolation_backend_test", "triplet_isolation_plan_schema", "triplet_isolation_acceptance_schema", "triplet_isolation_readiness_schema", "linux_isolation_acceptance", "linux_isolation_acceptance_test"],
           "properties": {
             "capability_matrix": {"$ref": "#/definitions/artifactRef"},
             "capability_matrix_schema": {"$ref": "#/definitions/artifactRef"},
@@ -87,6 +98,8 @@
             "triplet_isolation_plan_schema": {"$ref": "#/definitions/artifactRef"},
             "triplet_isolation_acceptance_schema": {"$ref": "#/definitions/artifactRef"},
             "triplet_isolation_readiness_schema": {"$ref": "#/definitions/artifactRef"},
+            "linux_isolation_acceptance": {"$ref": "#/definitions/artifactRef"},
+            "linux_isolation_acceptance_test": {"$ref": "#/definitions/artifactRef"},
             "validator": {"$ref": "#/definitions/artifactRef"},
             "test": {"$ref": "#/definitions/artifactRef"}
           }
@@ -104,7 +117,7 @@
         },
         "checkpoint_runner": {
           "type": "object", "additionalProperties": false,
-          "required": ["executable", "test", "publication_schema", "private_input_schema", "private_input_assembler", "private_input_assembler_test", "private_input_assembly_schema", "capture_orchestrator", "capture_orchestrator_test", "capture_plan_schema", "capture_readiness_schema", "gap_schema", "public_chain_verifier", "public_chain_proof_schema"],
+          "required": ["executable", "test", "publication_schema", "private_input_schema", "private_input_assembler", "private_input_assembler_test", "private_input_assembly_schema", "capture_orchestrator", "capture_orchestrator_test", "capture_plan_schema", "capture_readiness_schema", "role_resolver", "role_resolver_test", "role_resolution_schema", "role_resolution_readiness_schema", "gap_schema", "public_chain_verifier", "public_chain_proof_schema"],
           "properties": {
             "executable": {"$ref": "#/definitions/artifactRef"}, "test": {"$ref": "#/definitions/artifactRef"},
             "publication_schema": {"$ref": "#/definitions/artifactRef"}, "private_input_schema": {"$ref": "#/definitions/artifactRef"},
@@ -114,6 +127,10 @@
             "capture_orchestrator_test": {"$ref": "#/definitions/artifactRef"},
             "capture_plan_schema": {"$ref": "#/definitions/artifactRef"},
             "capture_readiness_schema": {"$ref": "#/definitions/artifactRef"},
+            "role_resolver": {"$ref": "#/definitions/artifactRef"},
+            "role_resolver_test": {"$ref": "#/definitions/artifactRef"},
+            "role_resolution_schema": {"$ref": "#/definitions/artifactRef"},
+            "role_resolution_readiness_schema": {"$ref": "#/definitions/artifactRef"},
             "gap_schema": {"$ref": "#/definitions/artifactRef"}, "public_chain_verifier": {"$ref": "#/definitions/artifactRef"},
             "public_chain_proof_schema": {"$ref": "#/definitions/artifactRef"}
           }

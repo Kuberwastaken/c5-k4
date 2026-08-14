@@ -125,6 +125,13 @@ class P1Tests(unittest.TestCase):
             "triplet_isolation_readiness_schema",
             "checkpoint_capture_orchestrator", "checkpoint_capture_orchestrator_contract_test",
             "checkpoint_capture_plan_schema", "checkpoint_capture_readiness_schema",
+            "participant_ledger", "participant_ledger_schema", "noninterference_receipt",
+            "noninterference_receipt_schema", "participant_noninterference_verifier",
+            "operational_noninterference_receipt_schema",
+            "participant_noninterference_contract_test", "p1_role_resolver",
+            "p1_role_resolver_contract_test", "p1_role_resolution_schema",
+            "p1_role_resolution_readiness_schema", "linux_isolation_acceptance",
+            "linux_isolation_acceptance_contract_test",
         }
         self.assertLessEqual(required, set(P1.NATIVE_COMPONENTS))
         p1a = self.build()
