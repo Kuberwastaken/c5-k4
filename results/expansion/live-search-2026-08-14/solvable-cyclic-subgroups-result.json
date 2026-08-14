@@ -1,0 +1,106 @@
+{
+  "schema": "c5k4-solvable-cyclic-subgroups-live-result-1.0",
+  "status": "BOUNDED_ZERO",
+  "campaign_commit": "61f49a75974657304a8f2210171941bd1c8bdedf",
+  "github_actions_run": "https://github.com/Kuberwastaken/c5-k4/actions/runs/31793242351",
+  "upstream": {
+    "repository": "google-deepmind/formal-conjectures",
+    "commit": "942fb149e782a56c2719c543ab58e093f733acb4",
+    "path": "FormalConjectures/Arxiv/2604.08040/Conjecture5_5.lean",
+    "blob": "cb099f09a40eab0149b3332979d92e190ef44def",
+    "file_sha256": "26669f9461c5c65d8bd69469825057a2210eebee05f2e3a0ff3fedcfb57fc28a",
+    "declaration": "Arxiv.\u00ab2604.08040\u00bb.solvable_of_cyc_lt",
+    "category_at_pin": "research open",
+    "current_main_blob_unchanged_at_audit": true,
+    "issue_4844_closed_by_formalization": true
+  },
+  "audit": {
+    "artifact_checksum_manifests_replayed": 3,
+    "ledger_chains_replayed": 3,
+    "ledger_rows_replayed": 82,
+    "terminal_bindings_replayed": 3,
+    "sanity_control_profiles_replayed": 9,
+    "exact_target_profiles_replayed": 65,
+    "all_exact_targets_nonsolvable": true,
+    "profile_replay_method": "exact integer element-order histogram arithmetic",
+    "independent_gap_subgroup_enumeration": false,
+    "independent_gap_limitation": "GAP was not installed on the audit host"
+  },
+  "totals": {
+    "proposed_group_descriptors": 68,
+    "exact_evaluated": 65,
+    "objective_scored": 65,
+    "nonsolvable": 65,
+    "descriptor_errors": 2,
+    "evaluation_timeouts": 1,
+    "order_index_timeouts": 2,
+    "primary_candidates": 0,
+    "certificates": 0
+  },
+  "arms": {
+    "CATALOGUE": {
+      "preserved_scope": "complete order-index prefix 60..137",
+      "proposed": 4,
+      "exact_evaluated": 4,
+      "residuals": [0, 17, 35, 32],
+      "order_index_timeouts": [138],
+      "terminal_reason": "DEADLINE_PREFIX",
+      "cursor": {
+        "next_order": 139
+      },
+      "final_row_sha256": "9bc0ffef545087cd9d76e6d703f4f9babfad67b0f5c292f50cb8b0ce2eeb559b",
+      "ledger_sha256": "8663a10ce713b799a513a5a27e7da64c244a1798161c76501ab2df3ab34a56ad"
+    },
+    "GENERIC": {
+      "preserved_scope": "complete deterministic order-index prefix 256..335",
+      "proposed": 1,
+      "exact_evaluated": 1,
+      "evaluated_identifiers": ["SmallGroup(300,22)"],
+      "residuals": [50],
+      "order_index_timeouts": [336],
+      "terminal_reason": "DEADLINE_PREFIX",
+      "cursor": {
+        "next_order": 337,
+        "selected": 1
+      },
+      "final_row_sha256": "851bbb181a9e13b373d6e7dd966af2e3e47052fc35ea92e1c0f8bf5a2242d31d",
+      "ledger_sha256": "11034111bdad35cc1bb21c5421414f4587972ae8728ce2abb436d1e068e91b95"
+    },
+    "WALL_NAVIGATION": {
+      "descriptor_schedule_size": 63,
+      "descriptor_schedule_attempted": 63,
+      "proposed": 63,
+      "exact_evaluated": 60,
+      "residual_min": 0,
+      "residual_max": 348692,
+      "zero_residual_identifiers": ["A5", "A5_x_C7", "A5_x_C11"],
+      "descriptor_errors": [
+        {
+          "wall_index": 5,
+          "identifier": "Aut_A7",
+          "status": "PROFILE_MARKER_MISSING_OR_DUPLICATE",
+          "mathematical_inference": "NONE"
+        },
+        {
+          "wall_index": 7,
+          "identifier": "Aut_A8",
+          "status": "PROFILE_MARKER_MISSING_OR_DUPLICATE",
+          "mathematical_inference": "NONE"
+        }
+      ],
+      "evaluation_timeouts": [
+        {
+          "wall_index": 62,
+          "identifier": "A5_x_C13"
+        }
+      ],
+      "terminal_reason": "SEARCH_EXHAUSTED",
+      "cursor": {
+        "next_index": 63
+      },
+      "final_row_sha256": "d70306623ac7ea85f3db292962bd9d8a117c8cf237062c15f41d69fc99384d41",
+      "ledger_sha256": "ef2212b9e4c58a6ae37741789d89d46e9a07920c3cbc5086308fdd99b758f6fc"
+    }
+  },
+  "publication_action": false
+}
