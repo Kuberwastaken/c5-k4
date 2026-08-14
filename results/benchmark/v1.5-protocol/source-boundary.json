@@ -1,5 +1,5 @@
 {
-  "schema": "c5k4-method-v1.5-source-boundary-1.1",
+  "schema": "c5k4-method-v1.5-source-boundary-1.2",
   "status": "PRE_P1_CAPTURE_NOT_OPERATIONAL",
   "executable": false,
   "scope": {
@@ -10,24 +10,32 @@
     "candidate_identity_joined": false,
     "candidate_semantics_inspected": false,
     "covers_new_delivery_channels_introduced_during_interval": true,
-    "participant_set": "P1_FROZEN_PARTICIPANT_AND_MODEL_ENDPOINT_LEDGER"
+    "participant_set": "P1_FROZEN_AI_VPS_CONTROLLED_HARNESS_MACHINE_PARTICIPANT_LEDGER",
+    "pre_c1_human_participants_permitted": false,
+    "pre_c1_model_endpoints_permitted": false,
+    "claim_limit": "UNCONTAMINATED_MEANS_NO_FUTURE_TARGET_SEMANTICS_REACHED_OR_WERE_PRODUCED_FOR_A_FROZEN_EXPERIMENTAL_PARTICIPANT_BEFORE_C1_NOT_GLOBAL_RESEARCHER_UNAWARENESS"
   },
   "activation": {
     "claim": "This file specifies required future capture; it does not attest that capture exists or is complete.",
     "p1_publication_permitted": false,
     "required_before_p1t": [
-      "Mac and VPS capture daemons are installed and continuously healthy",
+      "the dedicated ai-vps-controlled-harness single-writer delivery service is installed and continuously healthy",
+      "the exact pre-C1 machine participant, executable, channel, filesystem, process, network, environment, secret, and control-input boundary is frozen",
+      "Mac, humans, stock Codex and Claude, the local relay, tmux, agent-sync, and general interactive VPS sessions are proved unable to deliver bytes or control inputs into the harness",
       "one immutable content store, retention horizon, and authentication policy are frozen",
-      "host signing public keys and key identifiers are frozen",
-      "a destructive-write, truncation, restart, offline-gap, and sequence-conflict acceptance test passes on both hosts",
-      "a public target-blind readiness receipt binds daemon, policy, key, content-store, and acceptance-test digests"
+      "the controlled-harness signing public key and key identifier are frozen",
+      "a destructive-write, truncation, restart, offline-gap, sequence-conflict, and unexpected-ingress acceptance test passes on the controlled harness",
+      "a public target-blind readiness receipt binds service, isolation policy, participant boundary, key, content-store, and acceptance-test digests",
+      "the experimenter upstream abstention identities and machine-detectable conflict-exclusion rule are frozen"
     ],
     "currently_unset": [
-      "capture daemon executable digests",
-      "Mac and VPS signing key identifiers",
+      "controlled-harness service executable digests",
+      "machine participant and noninterference boundary",
+      "controlled-harness signing key identifier",
       "immutable content-store locator and retention attestation",
       "acceptance-test receipt",
-      "public readiness receipt"
+      "public readiness receipt",
+      "experimenter upstream abstention and conflict identity binding"
     ],
     "retroactive_reconstruction_permitted": false,
     "transition_rule": "A target-blind pre-P1 protocol commit may set executable true only after every required readiness artifact exists. P1T may not precede that commit."
@@ -53,7 +61,7 @@
         "IMMUTABLE_SOURCE_CUSTODY",
         "UNKNOWN"
       ],
-      "meaning": "Whether an authenticated delivery path to a participant or model is proved."
+      "meaning": "Whether an authenticated delivery path to a frozen experimental participant is proved."
     },
     "orthogonality": [
       "Every evidence unit receives exactly one origin and exactly one exposure class.",
@@ -76,16 +84,19 @@
     "missing_or_invalid_signature": "FAIL_CLOSED_PROTOCOL_INVALID",
     "missing_content_addressed_blob": "FAIL_CLOSED_PROTOCOL_INVALID",
     "participant_used_unjournaled_device_or_browser": "FAIL_CLOSED_PROTOCOL_INVALID",
+    "possible_unregistered_ingress_into_participant": "FAIL_CLOSED_PROTOCOL_INVALID",
+    "outside_delivery_with_proved_zero_participant_ingress": "OUTSIDE_BOUNDARY_NO_EVIDENCE_UNIT",
+    "captured_attributable_participant_ingress": "CLASSIFY_UNIT_AND_EXCLUDE_MATCHED_CLUSTER_IF_SEMANTIC_OR_UNKNOWN",
+    "unreported_or_unattributable_upstream_intervention": "FAIL_CLOSED_PROTOCOL_INVALID",
     "manual_exemption": "FORBIDDEN",
     "target_identity_based_reclassification": "FORBIDDEN"
   },
   "capture": {
     "path_policy": "results/benchmark/v1.5-protocol/source-path-purpose-policy.json",
-    "delivery_definition": "Bytes count as delivered when they are rendered or returned to a frozen human participant, language model, agent context, tool consumer, or generated-artifact consumer. Merely existing on a public platform is not delivery.",
+    "delivery_definition": "Before C1, bytes count as delivered only when they are returned to or consumed by a frozen machine participant, executable, tool consumer, or generated-artifact consumer inside ai-vps-controlled-harness. Public existence or delivery to a proved nonparticipant with zero harness ingress is not experimental delivery.",
     "host_journals": {
       "required_hosts": [
-        "companion-mac",
-        "ai-vps"
+        "ai-vps-controlled-harness"
       ],
       "required_record_fields": [
         "host_id",
@@ -100,16 +111,17 @@
       ],
       "maximum_heartbeat_interval_seconds": 300,
       "content_rule": "Every delivered byte stream is copied to the immutable content store before or atomically with delivery. Truncation, replacement, deletion, and abandoned partial writes receive signed records.",
-      "chain_rule": "Each host uses a strictly monotonic sequence and binds the exact preceding receipt; restarts continue the chain and boot identity is recorded.",
-      "offline_rule": "Research and benchmark delivery are forbidden while the local capture daemon is unhealthy. Work performed during an unproved interval invalidates the protocol.",
+      "chain_rule": "The controlled harness uses a strictly monotonic sequence and binds the exact preceding receipt; restarts continue the chain and service-epoch identity is recorded.",
+      "offline_rule": "Benchmark delivery is forbidden while the controlled-harness service is unhealthy. Work performed during an unproved interval invalidates the protocol.",
       "gap_or_fork": "FAIL_CLOSED_PROTOCOL_INVALID"
     },
-    "session_capture": {
+    "participant_endpoint_capture": {
       "formats": [
-        "codex",
-        "claude"
+        "signed-controlled-delivery-receipt"
       ],
-      "rule": "Capture append increments, offsets, truncations, and final bytes from every frozen participant/model session endpoint on both hosts; periodic endpoint scans are reconciliation only and cannot cure a journal gap.",
+      "rule": "Every pre-C1 machine-participant ingress and egress crosses the controlled broker and is durably stored before consumption. Filesystem watchers and periodic endpoint scans are reconciliation only and cannot cure an ingress or journal gap.",
+      "stock_interactive_session_capture_claimed": false,
+      "pre_c1_model_context_capture_required": false,
       "best_effort_rsync_is_completeness_proof": false,
       "git_mirror_alone_is_completeness_proof": false,
       "newer_wins_conflict": "FAIL_CLOSED_PROTOCOL_INVALID"
@@ -136,8 +148,36 @@
         "output digest and bounded schema",
         "authenticated delivery receipt"
       ],
-      "undeclared_or_unbounded": "UNKNOWN"
+      "undeclared_or_unbounded_participant_ingress": "FAIL_CLOSED_PROTOCOL_INVALID",
+      "captured_but_unclassifiable_unit": "UNKNOWN"
     }
+  },
+  "participant_isolation": {
+    "pre_c1_participants": [
+      "P1-frozen upstream Git acquisition executable",
+      "P1-frozen identity, grouping, classification, provenance, quota, and replay executables",
+      "P1-frozen broker, custody, checkpoint, and bounded-publication executables"
+    ],
+    "pre_c1_nonparticipants": [
+      "all humans",
+      "companion Mac",
+      "stock Codex and Claude sessions on every host",
+      "local LLM relay",
+      "tmux and general interactive shells",
+      "agent-sync and synchronized chat archives",
+      "unrelated VPS processes"
+    ],
+    "nonparticipant_rule": "A listed nonparticipant is outside the benchmark only while frozen controls prove zero read, write, process-memory, socket, credential, environment, network, filesystem, model-context, and control-input ingress into the harness.",
+    "coexistence_rule": "A general process may coexist on the physical VPS without becoming a participant only if it cannot read or write harness roots, sockets, credentials, process memory, control requests, or output channels.",
+    "possible_ingress_rule": "Any possible unregistered ingress into a frozen participant is PROTOCOL_INVALID even if no later exact alias hit is found.",
+    "post_c1_rule": "Only after C1 may fresh isolated arm and independent-verification processes or model endpoints receive target semantics; they receive no inherited session, memory, cache, prior arm result, or shared model context."
+  },
+  "upstream_nonintervention": {
+    "freeze_before_p1t": true,
+    "operator_abstention": "Frozen experimenter identities must not author, edit, review, request changes to, lobby for, or otherwise influence a future-cohort formal-conjectures cluster during P1T..U2.",
+    "machine_detectable_experimenter_contact": "EXCLUDE_CONFLICTED_CLUSTER",
+    "unreported_or_unattributable_intervention": "FAIL_CLOSED_PROTOCOL_INVALID",
+    "target_identity_based_exception": "FORBIDDEN"
   },
   "required_sources": [
     {
@@ -158,10 +198,10 @@
       "complete_when": "Git object, ancestry, ref-source, and tree receipts authenticate the frozen interval; any bytes rendered beyond the bounded machine lane also have a signed delivery-journal record."
     },
     {
-      "source_id": "dedicated-research-repositories",
+      "source_id": "dedicated-harness-roots",
       "kind": "DEDICATED_RESEARCH_REPOSITORY_COLLECTION",
       "locator": "results/benchmark/v1.5-protocol/source-path-purpose-policy.json",
-      "coverage": "ONLY_EXPLICIT_FROZEN_RESEARCH_ROOTS_AND_THEIR_DELIVERED_OVERLAYS",
+      "coverage": "ONLY_EXPLICIT_FROZEN_CONTROLLED_HARNESS_ROOTS_AND_BROKERED_DELIVERIES",
       "origin_values_allowed": [
         "AUTHENTICATED_UPSTREAM",
         "USER",
@@ -175,17 +215,16 @@
         "IMMUTABLE_SOURCE_CUSTODY",
         "UNKNOWN"
       ],
-      "complete_when": "Each explicit root is authenticated and every overlay byte actually delivered to a participant/model is present in a signed host journal and immutable content store; files never delivered are not semantic exposure merely by storage."
+      "complete_when": "Each explicit controlled-harness root is authenticated, the protocol checkout is read-only, and every byte consumed by a machine participant is present in the signed harness journal and immutable content store."
     },
     {
-      "source_id": "mac-participant-model-delivery-journal",
+      "source_id": "controlled-harness-delivery-journal",
       "kind": "HOST_SESSION_DELIVERY_JOURNAL",
-      "locator": "pre-p1-unset:companion-mac",
+      "locator": "pre-p1-unset:ai-vps-controlled-harness",
       "session_endpoints": [
-        "/Users/kuber.mehta/.codex/sessions",
-        "/Users/kuber.mehta/.claude/projects"
+        "/run/c5k4-v15/broker.sock"
       ],
-      "coverage": "ALL_FROZEN_PARTICIPANT_MODEL_AND_TOOL_DELIVERIES_ON_MAC",
+      "coverage": "ALL_PRE_C1_MACHINE_PARTICIPANT_INGRESS_AND_EGRESS_IN_AI_VPS_CONTROLLED_HARNESS",
       "origin_values_allowed": [
         "USER",
         "ASSISTANT",
@@ -201,33 +240,7 @@
         "IMMUTABLE_SOURCE_CUSTODY",
         "UNKNOWN"
       ],
-      "complete_when": "The frozen Mac signing key verifies one unbroken sequence from P1T through cutoff, every referenced blob exists, and all frozen Mac delivery endpoints reconcile to the chain."
-    },
-    {
-      "source_id": "vps-participant-model-delivery-journal",
-      "kind": "HOST_SESSION_DELIVERY_JOURNAL",
-      "locator": "pre-p1-unset:ai-vps",
-      "session_endpoints": [
-        "/home/ec2-user/.codex/sessions",
-        "/home/ec2-user/.claude/projects"
-      ],
-      "coverage": "ALL_FROZEN_PARTICIPANT_MODEL_AND_TOOL_DELIVERIES_ON_VPS",
-      "origin_values_allowed": [
-        "USER",
-        "ASSISTANT",
-        "TOOL",
-        "PLATFORM",
-        "SESSION_METADATA",
-        "UNPARSEABLE",
-        "UNKNOWN"
-      ],
-      "exposure_values_allowed": [
-        "SEMANTIC_EXPOSURE",
-        "MACHINE_REGISTRY_CONTACT",
-        "IMMUTABLE_SOURCE_CUSTODY",
-        "UNKNOWN"
-      ],
-      "complete_when": "The frozen VPS signing key verifies one unbroken sequence from P1T through cutoff, every referenced blob exists, and all frozen VPS delivery endpoints reconcile to the chain."
+      "complete_when": "The frozen controlled-harness signing key verifies one unbroken sequence from P1T through cutoff, every referenced blob exists, and all frozen machine endpoints reconcile to the chain."
     },
     {
       "source_id": "authenticated-private-delivery-content-store",
@@ -253,7 +266,7 @@
       "source_id": "owned-public-delivery-events",
       "kind": "OWNED_PUBLIC_DELIVERY_JOURNAL",
       "locator": "journal:c5-k4:participant-or-model-delivered-events",
-      "coverage": "C5K4_COMMITS_ISSUES_PULLS_RELEASES_ACTION_OUTPUTS_ONLY_WHEN_DELIVERED_TO_OR_AUTHORED_BY_A_FROZEN_PARTICIPANT_OR_MODEL",
+      "coverage": "C5K4_COMMITS_RELEASES_AND_ACTION_OUTPUTS_ONLY_WHEN_CONSUMED_OR_AUTHORED_BY_A_FROZEN_MACHINE_PARTICIPANT",
       "origin_values_allowed": [
         "USER",
         "ASSISTANT",
@@ -267,13 +280,13 @@
         "IMMUTABLE_SOURCE_CUSTODY",
         "UNKNOWN"
       ],
-      "complete_when": "Every owned-platform byte stream crossing a frozen delivery endpoint is captured before rendering or publication and reconciles with signed host receipts; global platform state is not claimed complete."
+      "complete_when": "Every owned-platform byte stream crossing a frozen machine delivery endpoint is captured before consumption or publication and reconciles with signed harness receipts; global platform state is not claimed complete."
     },
     {
       "source_id": "declared-generated-deliveries",
       "kind": "DECLARED_GENERATED_DELIVERY_COLLECTION",
       "locator": "P1_FROZEN_GENERATED_DELIVERY_LEDGER",
-      "coverage": "EVERY_GENERATED_OUTPUT_DELIVERED_OUTSIDE_A_REQUIRED_SESSION_OR_REPOSITORY_CHANNEL",
+      "coverage": "EVERY_GENERATED_OUTPUT_CONSUMED_BY_A_FROZEN_MACHINE_PARTICIPANT_OUTSIDE_A_REQUIRED_BROKER_OR_REPOSITORY_CHANNEL",
       "origin_values_allowed": [
         "USER",
         "ASSISTANT",
@@ -287,29 +300,39 @@
         "IMMUTABLE_SOURCE_CUSTODY",
         "UNKNOWN"
       ],
-      "complete_when": "The pre-invocation declaration, producer receipt, output object, and signed delivery receipt agree; an undeclared delivered output is UNKNOWN and fails closed."
+      "complete_when": "The pre-invocation declaration, producer receipt, output object, and signed delivery receipt agree; an undeclared participant ingress invalidates the protocol."
     }
   ],
   "explicit_non_sources": [
     {
       "locator": "github:google-deepmind/formal-conjectures:global-issues-pulls-comments-reviews-timeline",
-      "reason": "Global public availability is not semantic delivery, and complete deleted or transient external-platform history cannot be authenticated by this project. Any such bytes actually rendered to a participant/model are captured by the host delivery journal."
+      "reason": "Global public availability is not experimental delivery. Any bytes crossing into a frozen machine participant must be captured by the controlled-harness journal; possible unrecorded ingress invalidates the protocol."
     },
     {
       "locator": "github:Kuberwastaken/c5-k4:all-actions-runs-jobs-logs-artifacts",
-      "reason": "Recursive archival of every Actions log is not an exposure boundary. Only output bytes delivered to a participant/model or declared generated consumer enter the delivery journals."
+      "reason": "Recursive archival of every Actions log is not the exposure boundary. Only bytes consumed or authored by a frozen machine participant enter the harness journal, and target-bearing hosted-runner execution is forbidden unless that runner is first added to the frozen participant boundary."
     },
     {
       "locator": "all-files-under-/Users/kuber.mehta/Projects",
-      "reason": "Storage outside an explicit research root is not exposure. Use of such a path for benchmark research or delivery is an unjournaled channel and fails closed."
+      "reason": "Storage outside an explicit harness root is not exposure when zero ingress is proved. Reading it into, or using it to control, a frozen participant is an unregistered channel and invalidates the protocol."
+    },
+    {
+      "locator": "companion-mac-and-all-human-interactive-channels",
+      "reason": "Humans and Mac applications are pre-C1 nonparticipants only under proved zero ingress into the controlled harness. Their independent receipt of public target semantics creates no evidence unit; any possible influence on harness inputs or control is protocol-invalid."
+    },
+    {
+      "locator": "ai-vps:stock-codex-claude-tmux-agent-sync-general-shells-and-local-relay",
+      "reason": "These processes and channels are not captured as participants and may coexist only under proved filesystem, socket, process, credential, environment, network, and control-input noninterference with ai-vps-controlled-harness."
     }
   ],
   "forbidden_omissions": [
     "A delivered byte stream may not be omitted because another source appears to duplicate it.",
     "A delivered byte stream may not be omitted because it is believed not to contain a future identity.",
-    "An identity-only output may not be omitted after delivery to a human or language model.",
+    "An identity-only output may not be omitted after consumption by a frozen machine participant.",
     "Deleted, overwritten, expired, truncated, or inaccessible delivered evidence creates a coverage gap unless an earlier signed content-addressed capture proves the exact bytes.",
-    "A participant or model may not use an unregistered host, browser, chat, tool, repository, or generated-output channel during the interval.",
+    "A frozen machine participant may not use an unregistered host, browser, chat, tool, repository, model endpoint, or generated-output channel during the interval.",
+    "Delivery to a nonparticipant may be ignored only when zero ingress or control influence into every frozen participant is proved.",
+    "UNKNOWN may not be used to downgrade a missing or possible unregistered participant ingress; that condition is PROTOCOL_INVALID.",
     "Endpoint inventories, Git mirrors, API snapshots, and best-effort sync cannot cure a missing signed journal interval."
   ]
 }

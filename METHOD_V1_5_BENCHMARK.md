@@ -29,6 +29,17 @@ before P1.
 This design tests the same scientific claim as v1.4 without laundering prior
 contact. It deliberately trades speed for a clean temporal holdout.
 
+The prospective claim is deliberately participant-relative. Before C1, the
+only experimental participants are P1-frozen machine executables inside one
+`ai-vps-controlled-harness`; there are no human participants and no model
+endpoints. “Uncontaminated” therefore means that future-target semantics did
+not reach, and were not produced for, one of those frozen participants. It
+does not claim that every researcher or public channel was unaware of the
+target. Mac applications, humans, stock Codex or Claude, interactive VPS
+sessions, tmux, agent-sync, and the local LLM relay are outside the experiment
+only while frozen isolation controls prove they have no causal ingress into
+the harness.
+
 ## P1, scheduled checkpoints, and the fixed observation horizon
 
 P1 has two public commits. `P1A` freezes the complete executable protocol,
@@ -47,14 +58,16 @@ must precede the observation of `U1`. The exact `P1T`, public receipt, `U1`
 commit and tree, command transcript, and UTC times are content-addressed.
 
 After U1, a public GitHub Actions schedule starts one machine-only checkpoint
-at **00:17 UTC every day**. Manual dispatch and rerun results are not cohort
+at **00:17 UTC every day**. The hosted job is a target-blind scheduler and
+bounded publisher, not a target-bearing participant: the dedicated controlled
+harness must authenticate its request, capture canonical upstream `main`,
+construct the private future pool, and return only the signed bounded
+publication. A hosted runner may not decode candidate statements or receive
+private registry inputs. Manual dispatch and rerun results are not cohort
 checkpoints. A scheduled run that does not start before 06:00 UTC cannot be
 recreated; the first detectable expired unpublished tick produces only the
-bounded chronology-failure terminal bundle. Each valid checkpoint atomically
-captures canonical upstream `main`, constructs the private future pool, and
-publishes only receipts, hashes, aggregate stratum counts, and the quota
-certificate. Target identities remain private until a passing pool is frozen
-in the separate pre-entropy phase.
+bounded chronology-failure terminal bundle. Target identities remain private
+until a passing pool is frozen in the separate pre-entropy phase.
 
 The public checkpoint history is a Git-authenticated chain, not a mutable
 directory convention. Its genesis must be a sole-parent child of exact `P1T`
@@ -136,23 +149,41 @@ Every evidence unit receives exactly one frozen provenance class:
 The ontology is prospective only. It may not reclassify v1.4 evidence or
 recover a member of the 728-cluster exclusion set. Natural-language research,
 manual target inspection, model prompts, code comments, and target-specific
-compute remain semantic when actually delivered to a frozen participant or
-model. Public existence by itself is not delivery: the source boundary does
-not claim complete surveillance of GitHub, every local file, every browser,
-or every external platform. It covers authenticated deliveries through the
-frozen hosts, participants, model endpoints, research roots, and generated
-output channels. Use of an unregistered delivery channel fails closed.
+compute remain semantic when they reach or control a frozen experimental
+participant. Public existence, or independent delivery to a proved
+nonparticipant, is not experimental delivery. The source boundary does not
+claim complete surveillance of GitHub, every local file, every browser, Mac,
+or general interactive sessions. It freezes a causal boundary around the
+controlled harness instead. Any possible unregistered filesystem, socket,
+process-memory, credential, environment, network, model-context, or
+control-input ingress into that boundary invalidates the protocol; it cannot
+be downgraded to cluster-level `UNKNOWN` because no alias later matches. A
+captured but unclassifiable unit is `UNKNOWN` and excludes every cluster to
+which the frozen exact join binds it.
 
 The implemented custody contracts specify signed per-host hash/sequence
 chains, five-minute heartbeat bounds, content-addressed payload verification,
 restart and gap handling, private coverage certificates, and a public sealed
-binding that cannot disclose private record metadata. A separate VPS-only
+binding that cannot disclose private record metadata. The dedicated VPS-only
 prototype exercises durable `PREPARE -> START -> DELIVER/ABORT` transitions,
 Ed25519 receipt chaining, a 240-second heartbeat, sticky invalidation, crash
 recovery, and wrapped subprocess standard streams. It is deliberately fixed to
 `PRE_P1_NOT_OPERATIONAL`: it is not a production capture daemon, immutable
-remote store, accepted host key, or claim about stock Codex, Claude, or Mac
-delivery paths.
+remote store, accepted host key, or proof of noninterference from stock Codex,
+Claude, Mac, tmux, the local relay, or general VPS delivery paths.
+
+After C1, target semantics may enter only fresh isolated arm and independent-
+verification processes or model contexts. No arm inherits a prior chat,
+memory, cache, session, writable state, or another arm's result. Humans remain
+outside the scored execution path until sealed arm and verification records
+exist.
+
+The temporal holdout also requires upstream nonintervention. Before P1T, the
+experimenter identities and abstention rule must be frozen. Those identities
+may not author, edit, review, request changes to, lobby for, or otherwise
+influence a future-cohort `formal-conjectures` cluster during `P1T..U2`.
+Machine-detectable experimenter contact excludes the conflicted cluster;
+unreported or unattributable intervention invalidates the protocol.
 
 At a checkpoint, provenance ledgers and their content pack stay private. The
 private identity-join builder reopens digest-verified bytes only for excluding
@@ -264,6 +295,10 @@ The repository currently contains and tests:
   invocation contract remains `PRE_P1_SCAFFOLD_NOT_EXECUTABLE`, with null
   workflow and runner digests, so scheduled jobs must refuse to capture.
 
+The current hosted scheduled workflow is not yet connected to the dedicated
+harness. It must remain target-blind: finding a private input in hosted
+`RUNNER_TEMP` is not custody or delivery proof.
+
 The following are operational blockers, not completed artifacts:
 
 1. finish the production CAPTURE orchestrator around the implemented custody
@@ -271,18 +306,24 @@ The following are operational blockers, not completed artifacts:
    resolution and the final aggregate/finalization handoff;
 2. provision and live-accept the private Object Lock bucket, KMS key, deletion
    policy, least-privilege role, host signing key, and continuously supervised
-   single-writer service; freeze the scientifically defensible participant and
-   delivery-channel scope after its two-host versus VPS-only review;
+   single-writer service; freeze the machine-only
+   `ai-vps-controlled-harness` participant and delivery-channel scope, prove
+   zero ingress from Mac, humans, stock Codex/Claude, tmux, general sessions,
+   agent-sync, and the local relay, and bind the exact filesystem, process,
+   network, environment, secret, and control-input isolation;
 3. implement and acceptance-test the real triplet isolation backend: user,
    mount, PID, and network namespaces; exact read-only capability mounts;
    disjoint private writable roots; CPU affinity; and 60-second process-tree
    termination. The injected test kernel is not a substitute for this gate;
-4. bind the final workflow, runner, custody, source, isolation, schema, and
+4. freeze experimenter identities, upstream abstention, and deterministic
+   conflict exclusion, and connect hosted Actions only as a target-blind
+   scheduler and bounded publisher for the controlled harness;
+5. bind the final workflow, runner, custody, source, isolation, schema, and
    executable digests in the closed P1 component set and change the invocation
    contract to executable only after every activation requirement passes;
-5. create and publish the sole-purpose `P1A` and immediate one-path `P1T`
+6. create and publish the sole-purpose `P1A` and immediate one-path `P1T`
    commits and verify the public P1T receipt; and
-6. only then perform the one-shot U1 capture and create the public checkpoint
+7. only then perform the one-shot U1 capture and create the public checkpoint
    branch genesis.
 
 No P1A, P1T, readiness receipt, U1/U2 receipt, operational private store,

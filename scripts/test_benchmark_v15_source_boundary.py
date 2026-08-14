@@ -31,9 +31,8 @@ REQUIRED_SOURCE_KINDS = {
 }
 REQUIRED_SOURCE_IDS = {
     "authenticated-upstream-formal-conjectures-git",
-    "dedicated-research-repositories",
-    "mac-participant-model-delivery-journal",
-    "vps-participant-model-delivery-journal",
+    "dedicated-harness-roots",
+    "controlled-harness-delivery-journal",
     "authenticated-private-delivery-content-store",
     "owned-public-delivery-events",
     "declared-generated-deliveries",
@@ -55,7 +54,7 @@ class SourceBoundaryTests(unittest.TestCase):
 
     def test_boundary_is_target_blind_pre_p1_and_explicitly_inert(self) -> None:
         value = self.boundary
-        self.assertEqual(value["schema"], "c5k4-method-v1.5-source-boundary-1.1")
+        self.assertEqual(value["schema"], "c5k4-method-v1.5-source-boundary-1.2")
         self.assertEqual(value["status"], "PRE_P1_CAPTURE_NOT_OPERATIONAL")
         self.assertFalse(value["executable"])
         self.assertEqual(value["scope"]["lower_endpoint"], "PUBLIC_P1T_RECEIPT")
@@ -67,6 +66,12 @@ class SourceBoundaryTests(unittest.TestCase):
         )
         self.assertFalse(value["scope"]["candidate_identity_joined"])
         self.assertFalse(value["scope"]["candidate_semantics_inspected"])
+        self.assertFalse(value["scope"]["pre_c1_human_participants_permitted"])
+        self.assertFalse(value["scope"]["pre_c1_model_endpoints_permitted"])
+        self.assertEqual(
+            value["scope"]["participant_set"],
+            "P1_FROZEN_AI_VPS_CONTROLLED_HARNESS_MACHINE_PARTICIPANT_LEDGER",
+        )
         self.assertFalse(value["activation"]["p1_publication_permitted"])
         self.assertFalse(value["activation"]["retroactive_reconstruction_permitted"])
         self.assertGreaterEqual(len(value["activation"]["currently_unset"]), 5)
@@ -126,7 +131,7 @@ class SourceBoundaryTests(unittest.TestCase):
     def test_host_capture_requires_signed_unbroken_hash_chains(self) -> None:
         capture = self.boundary["capture"]
         journals = capture["host_journals"]
-        self.assertEqual(set(journals["required_hosts"]), {"companion-mac", "ai-vps"})
+        self.assertEqual(journals["required_hosts"], ["ai-vps-controlled-harness"])
         self.assertEqual(journals["maximum_heartbeat_interval_seconds"], 300)
         self.assertEqual(
             set(journals["required_record_fields"]),
@@ -137,7 +142,9 @@ class SourceBoundaryTests(unittest.TestCase):
             },
         )
         self.assertEqual(journals["gap_or_fork"], "FAIL_CLOSED_PROTOCOL_INVALID")
-        sessions = capture["session_capture"]
+        sessions = capture["participant_endpoint_capture"]
+        self.assertEqual(sessions["formats"], ["signed-controlled-delivery-receipt"])
+        self.assertFalse(sessions["stock_interactive_session_capture_claimed"])
         self.assertFalse(sessions["best_effort_rsync_is_completeness_proof"])
         self.assertFalse(sessions["git_mirror_alone_is_completeness_proof"])
         store = capture["immutable_content_store"]
@@ -154,47 +161,73 @@ class SourceBoundaryTests(unittest.TestCase):
             "new_delivery_channel_not_in_frozen_ledger", "heartbeat_or_sequence_gap",
             "missing_or_invalid_signature", "missing_content_addressed_blob",
             "participant_used_unjournaled_device_or_browser",
+            "possible_unregistered_ingress_into_participant",
+            "unreported_or_unattributable_upstream_intervention",
         ):
             self.assertIn("FAIL_CLOSED", policy[key])
         self.assertEqual(policy["unsupported_or_malformed_record"], "UNKNOWN")
         self.assertEqual(policy["unproved_delivery_path"], "UNKNOWN")
         self.assertEqual(policy["mixed_unit"], "UNKNOWN")
+        self.assertEqual(
+            policy["outside_delivery_with_proved_zero_participant_ingress"],
+            "OUTSIDE_BOUNDARY_NO_EVIDENCE_UNIT",
+        )
         self.assertEqual(policy["manual_exemption"], "FORBIDDEN")
         self.assertEqual(policy["target_identity_based_reclassification"], "FORBIDDEN")
 
-    def test_path_policy_uses_only_two_explicit_dedicated_roots(self) -> None:
+    def test_path_policy_uses_only_two_explicit_controlled_harness_roots(self) -> None:
         policy = self.policy
-        self.assertEqual(policy["schema"], "c5k4-source-path-purpose-policy-1.5")
+        self.assertEqual(policy["schema"], "c5k4-source-path-purpose-policy-1.6")
         self.assertEqual(policy["status"], "PRE_P1_CAPTURE_NOT_OPERATIONAL")
         self.assertEqual(policy["root_model"], "EXPLICIT_DEDICATED_ROOTS_ONLY")
-        self.assertEqual(policy["default"], "FAIL_OUTSIDE_FROZEN_RESEARCH_ROOTS")
+        self.assertIn("ZERO_PARTICIPANT_INGRESS", policy["default"])
         self.assertTrue(policy["matching"]["exact_path_required"])
         self.assertTrue(policy["matching"]["exactly_one_rule_required"])
         roots = policy["roots"]
         self.assertEqual(
             {row["absolute_path"] for row in roots},
             {
-                "/Users/kuber.mehta/Projects/c5-k4",
-                "/Users/kuber.mehta/Projects/formal-conjectures",
+                "/opt/c5k4-v15/protocol",
+                "/var/lib/c5k4-v15",
             },
         )
         self.assertEqual(len({row["id"] for row in roots}), len(roots))
         self.assertTrue(all(row["decision"] == "INCLUDE" for row in roots))
-        self.assertNotIn("/Users/kuber.mehta/Projects", {row["absolute_path"] for row in roots})
+        self.assertTrue(any("READ_ONLY" in row["purpose"] for row in roots))
 
-    def test_session_endpoints_cover_both_formats_on_both_hosts(self) -> None:
-        endpoints = self.policy["session_delivery_endpoints"]
+    def test_only_controlled_broker_is_a_pre_c1_delivery_endpoint(self) -> None:
+        endpoints = self.policy["participant_delivery_endpoints"]
         self.assertEqual(
-            {(row["host_id"], row["format"]) for row in endpoints},
-            {
-                ("companion-mac", "codex"), ("companion-mac", "claude"),
-                ("ai-vps", "codex"), ("ai-vps", "claude"),
-            },
+            [(row["host_id"], row["format"]) for row in endpoints],
+            [("ai-vps-controlled-harness", "signed-controlled-delivery-receipt")],
         )
-        self.assertEqual(len({row["absolute_path"] for row in endpoints}), 4)
+        self.assertEqual([row["absolute_path"] for row in endpoints], ["/run/c5k4-v15/broker.sock"])
         constraints = " ".join(self.policy["operational_constraints"])
-        self.assertIn("fails closed", constraints)
-        self.assertIn("healthy signed host delivery journal", constraints)
+        self.assertIn("PROTOCOL_INVALID", constraints)
+        self.assertIn("signed broker", constraints)
+        self.assertIn("no human participants and no model endpoints", constraints)
+
+    def test_nonparticipants_require_proved_zero_ingress(self) -> None:
+        isolation = self.boundary["participant_isolation"]
+        serialized = json.dumps(isolation, sort_keys=True)
+        for token in ("all humans", "companion Mac", "stock Codex", "local LLM relay", "tmux"):
+            self.assertIn(token, serialized)
+        self.assertIn("zero read, write", isolation["nonparticipant_rule"])
+        self.assertIn("PROTOCOL_INVALID", isolation["possible_ingress_rule"])
+        self.assertIn("fresh isolated", isolation["post_c1_rule"])
+
+    def test_upstream_intervention_is_frozen_and_fail_closed(self) -> None:
+        policy = self.boundary["upstream_nonintervention"]
+        self.assertTrue(policy["freeze_before_p1t"])
+        self.assertEqual(
+            policy["machine_detectable_experimenter_contact"],
+            "EXCLUDE_CONFLICTED_CLUSTER",
+        )
+        self.assertEqual(
+            policy["unreported_or_unattributable_intervention"],
+            "FAIL_CLOSED_PROTOCOL_INVALID",
+        )
+        self.assertEqual(policy["target_identity_based_exception"], "FORBIDDEN")
 
 
 if __name__ == "__main__":

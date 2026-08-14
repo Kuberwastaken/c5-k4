@@ -96,6 +96,22 @@ class ProvenanceTests(unittest.TestCase):
         ontology = provenance.load_ontology(ROOT / "results/benchmark/v1.5-protocol/provenance-ontology.json")
         self.assertEqual(set(ontology["classes"]), provenance.CLASSES)
 
+    def test_ontology_distinguishes_outside_delivery_from_participant_ingress_gap(self) -> None:
+        ontology = provenance.load_ontology(ROOT / "results/benchmark/v1.5-protocol/provenance-ontology.json")
+        classification = ontology["classification"]
+        self.assertFalse(
+            classification["outside_nonparticipant_delivery_with_proved_zero_ingress_creates_unit"]
+        )
+        self.assertTrue(
+            classification["possible_unregistered_participant_ingress_is_protocol_invalid"]
+        )
+        boundary = ontology["source_boundary"]
+        self.assertIn("zero ingress", boundary["excluded_surface_condition"])
+        self.assertNotIn("retained Codex and Claude sessions", boundary["includes"])
+        principles = " ".join(ontology["principles"])
+        self.assertIn("no human participants and no model endpoints", principles)
+        self.assertIn("PROTOCOL_INVALID", principles)
+
 
 if __name__ == "__main__":
     unittest.main()

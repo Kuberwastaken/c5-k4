@@ -1,21 +1,24 @@
 {
-  "schema": "c5k4-method-v1.5-provenance-ontology-1.0",
+  "schema": "c5k4-method-v1.5-provenance-ontology-1.1",
   "status": "PRE_P1_SCAFFOLD_NOT_EXECUTABLE",
   "scope": "Evidence acquired from public P1 through the pre-selection semantic-source cutoff for clusters first introduced in the v1.5 future cohort.",
   "principles": [
     "Content custody is not by itself semantic exposure.",
     "A copied semantic unit does not become machine contact merely because a program stored it.",
     "Classification is by proved producer, operation, output schema, and delivery path, never by favorable target effect.",
-    "Mixed or unverifiable units fail closed.",
+    "Mixed or unverifiable captured evidence units are UNKNOWN and exclude every exactly joined cluster.",
+    "Delivery to a proved nonparticipant with zero ingress into the controlled harness is outside the boundary and creates no evidence unit.",
+    "A missing, possible, or unregistered ingress into a frozen participant is PROTOCOL_INVALID and cannot be downgraded to UNKNOWN.",
+    "Before C1 there are no human participants and no model endpoints; after C1 every arm and verifier receives a fresh isolated context.",
     "This ontology cannot reclassify Method v1.4 evidence or recover its 728 development clusters."
   ],
   "classes": {
     "SEMANTIC_EXPOSURE": {
       "excluding": true,
-      "definition": "A target statement, mathematical meaning, status, residual, family, proof or disproof route, transformation, candidate, or target-specific result was delivered to or produced for a human or language model.",
+      "definition": "A target statement, mathematical meaning, status, residual, family, proof or disproof route, transformation, candidate, or target-specific result was delivered to or produced for a frozen experimental participant. Before C1 the frozen participants are machine-only; after C1 this includes each fresh isolated arm or verification context.",
       "examples": [
-        "natural-language session turn",
-        "manual target inspection",
+        "natural-language turn delivered into a post-C1 frozen arm or verifier",
+        "manual target inspection that influences or controls the harness",
         "model prompt containing target semantics",
         "research prose or code comment about a target",
         "issue, pull request, release, or commit message discussing a target",
@@ -36,23 +39,23 @@
     },
     "IMMUTABLE_SOURCE_CUSTODY": {
       "excluding": false,
-      "definition": "Exact upstream or vendor bytes are retained as content-addressed source material, but no semantic presentation to a human or language model is evidenced.",
+      "definition": "Exact upstream or vendor bytes are retained as content-addressed source material, but no semantic presentation to a frozen experimental participant is evidenced.",
       "requirements": [
         "source origin and bytes are proved",
         "pre-C1 decoding is restricted to a frozen machine-contact executable",
-        "no manual or model-facing rendering occurred",
+        "no pre-C1 human-facing or model-facing rendering occurred inside the participant boundary",
         "custody metadata itself contains no target semantics"
       ],
-      "note": "If source bytes are rendered to a human or language model, the rendered unit is SEMANTIC_EXPOSURE even though the stored blob remains source custody."
+      "note": "If source bytes reach a frozen arm, verifier, or other experimental participant semantically, the rendered unit is SEMANTIC_EXPOSURE even though the stored blob remains source custody. Independent delivery outside the boundary is irrelevant only when zero participant ingress is proved."
     },
     "UNKNOWN": {
       "excluding": true,
-      "definition": "The source completeness, producer, operation, output schema, delivery path, or semantic contact level cannot be proved.",
+      "definition": "For a captured evidence unit, the source completeness, producer, operation, output schema, delivery path, semantic contact level, or exact candidate binding cannot be proved. UNKNOWN is not available when the missing fact is whether an unregistered ingress reached a frozen participant; that is protocol invalidity.",
       "examples": [
         "unverifiable generated inventory",
         "mixed semantic and registry-contact output",
         "unsupported source type",
-        "missing source interval",
+        "captured source unit with incomplete metadata",
         "ambiguous cluster identity or provenance"
       ]
     }
@@ -62,20 +65,30 @@
     "cluster_excluded_if_any_semantic_exposure": true,
     "cluster_excluded_if_any_unknown": true,
     "absence_of_alias_hit_cures_source_gap": false,
+    "outside_nonparticipant_delivery_with_proved_zero_ingress_creates_unit": false,
+    "possible_unregistered_participant_ingress_is_protocol_invalid": true,
     "manual_hash_exemptions": false,
     "post_hoc_reclassification_by_target_identity": false
   },
   "source_boundary": {
     "includes": [
-      "research repository histories and overlays",
-      "retained Codex and Claude sessions",
-      "synchronized chat archive",
-      "release, issue, and pull-request exports",
-      "future target-specific compute artifacts",
+      "exact P1 read-only protocol checkout",
+      "authenticated upstream Git objects retained under private immutable custody",
+      "signed ai-vps-controlled-harness ingress and egress receipts",
+      "bounded public scheduler requests and checkpoint publications consumed or authored by frozen machine participants",
+      "declared generated artifacts consumed by frozen participants",
       "machine registry outputs and their provenance receipts"
     ],
     "unclassified_required_source": "FAIL_CLOSED",
-    "incomplete_required_source": "FAIL_CLOSED"
+    "incomplete_required_source": "FAIL_CLOSED",
+    "excluded_surfaces": [
+      "Mac and human-facing applications",
+      "stock Codex and Claude sessions",
+      "tmux, agent-sync, general interactive VPS sessions, and local relay",
+      "public platform content never consumed by a frozen participant"
+    ],
+    "excluded_surface_condition": "Every excluded surface must have proved zero ingress or control influence into the frozen participant boundary.",
+    "upstream_nonintervention": "Frozen experimenter identities abstain from influencing future-cohort formal-conjectures clusters; machine-detectable contact excludes the conflicted cluster and unreported or unattributable intervention invalidates the protocol."
   },
   "v1_4_non_reinterpretation": {
     "allowed": false,

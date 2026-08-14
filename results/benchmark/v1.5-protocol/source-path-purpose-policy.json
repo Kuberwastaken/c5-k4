@@ -1,64 +1,58 @@
 {
-  "schema": "c5k4-source-path-purpose-policy-1.5",
+  "schema": "c5k4-source-path-purpose-policy-1.6",
   "status": "PRE_P1_CAPTURE_NOT_OPERATIONAL",
   "root_model": "EXPLICIT_DEDICATED_ROOTS_ONLY",
-  "default": "FAIL_OUTSIDE_FROZEN_RESEARCH_ROOTS",
+  "default": "OUTSIDE_BOUNDARY_ONLY_WHEN_ZERO_PARTICIPANT_INGRESS_IS_PROVED",
   "matching": {
     "unit": "one exact lexical absolute path; symlink, alias, parent, sibling, and descendant worktree exceptions are not implicit",
     "exact_path_required": true,
     "exactly_one_rule_required": true,
-    "new_path_after_p1": "FAIL_CLOSED_PROTOCOL_INVALID",
+    "new_participant_path_after_p1": "FAIL_CLOSED_PROTOCOL_INVALID",
     "renames_symlinks_and_unlisted_worktrees": "UNKNOWN",
     "storage_without_delivery_is_semantic_exposure": false,
-    "delivery_from_any_path_must_enter_host_journal": true
+    "participant_consumption_from_any_path_must_enter_host_journal": true,
+    "possible_unregistered_participant_ingress": "FAIL_CLOSED_PROTOCOL_INVALID",
+    "nonparticipant_storage_or_delivery_with_proved_zero_ingress": "OUTSIDE_BOUNDARY_NO_EVIDENCE_UNIT"
   },
   "roots": [
     {
-      "id": "primary-research",
-      "absolute_path": "/Users/kuber.mehta/Projects/c5-k4",
+      "id": "frozen-protocol-checkout",
+      "absolute_path": "/opt/c5k4-v15/protocol",
       "decision": "INCLUDE",
-      "purpose": "PRIMARY_BENCHMARK_RESEARCH_REPOSITORY",
-      "capture_profile": "GIT_HISTORY_PLUS_SIGNED_DELIVERED_OVERLAY_JOURNAL"
+      "purpose": "P1_EXACT_READ_ONLY_PROTOCOL_CHECKOUT",
+      "capture_profile": "AUTHENTICATED_GIT_TREE_READ_ONLY_NO_POST_P1_OVERLAY"
     },
     {
-      "id": "upstream-formal-conjectures",
-      "absolute_path": "/Users/kuber.mehta/Projects/formal-conjectures",
+      "id": "private-harness-state",
+      "absolute_path": "/var/lib/c5k4-v15",
       "decision": "INCLUDE",
-      "purpose": "AUTHENTICATED_VENDOR_BASE_PLUS_USER_DELTA",
-      "capture_profile": "GIT_VENDOR_PARTITION_PLUS_SIGNED_DELIVERED_OVERLAY_JOURNAL"
+      "purpose": "PRIVATE_BROKERED_UPSTREAM_CUSTODY_REPLAY_AND_STAGING",
+      "capture_profile": "SIGNED_CONTROLLED_DELIVERY_PLUS_CONTENT_ADDRESSED_WORM_CUSTODY"
     }
   ],
-  "session_delivery_endpoints": [
+  "participant_delivery_endpoints": [
     {
-      "id": "mac-codex",
-      "host_id": "companion-mac",
-      "absolute_path": "/Users/kuber.mehta/.codex/sessions",
-      "format": "codex"
-    },
-    {
-      "id": "mac-claude",
-      "host_id": "companion-mac",
-      "absolute_path": "/Users/kuber.mehta/.claude/projects",
-      "format": "claude"
-    },
-    {
-      "id": "vps-codex",
-      "host_id": "ai-vps",
-      "absolute_path": "/home/ec2-user/.codex/sessions",
-      "format": "codex"
-    },
-    {
-      "id": "vps-claude",
-      "host_id": "ai-vps",
-      "absolute_path": "/home/ec2-user/.claude/projects",
-      "format": "claude"
+      "id": "controlled-delivery-broker",
+      "host_id": "ai-vps-controlled-harness",
+      "absolute_path": "/run/c5k4-v15/broker.sock",
+      "format": "signed-controlled-delivery-receipt"
     }
+  ],
+  "explicit_nonparticipant_surfaces": [
+    "companion Mac and every human-facing application",
+    "stock Codex and Claude sessions on every host",
+    "tmux, interactive shells, and general agent processes",
+    "agent-sync and synchronized chat archives",
+    "local OpenAI-compatible relay at 127.0.0.1:8402",
+    "all project worktrees outside /opt/c5k4-v15/protocol and /var/lib/c5k4-v15"
   ],
   "operational_constraints": [
-    "Benchmark research writes may occur only in an explicit root.",
-    "A worktree outside an explicit root is a new path and fails closed unless frozen before P1T.",
-    "Content read from any filesystem path, browser, API, chat, or tool must cross a healthy signed host delivery journal before reaching a participant or model.",
-    "No participant may continue benchmark work while the local journal heartbeat, signing key, or immutable content store is unavailable.",
-    "Nonresearch paths are outside the storage inventory, but using one for benchmark research or delivery invalidates the protocol."
+    "Before C1 there are no human participants and no model endpoints; only P1-frozen machine executables inside ai-vps-controlled-harness may consume cohort bytes.",
+    "The protocol checkout is exact-P1 and read-only; all private writes occur inside the explicit private harness root through frozen executables.",
+    "Content from any filesystem path, network response, API, tool, control request, or generated artifact must cross the healthy signed broker before reaching a machine participant.",
+    "No participant may continue while the broker heartbeat, signing key, isolation boundary, or immutable content store is unavailable.",
+    "Mac, humans, stock Codex and Claude, tmux, general VPS sessions, agent-sync, and the local relay are outside only while zero filesystem, socket, process-memory, credential, environment, network, model-context, and control-input ingress is proved.",
+    "Any possible unregistered ingress into a participant is PROTOCOL_INVALID; UNKNOWN is not a cure for a missing ingress record.",
+    "After C1, each arm or verifier receives a fresh isolated process or model context with no inherited session, memory, cache, prior-arm result, or shared writable state."
   ]
 }
