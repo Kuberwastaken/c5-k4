@@ -121,16 +121,28 @@ longest-cycles declaration from arXiv:2606.03696. Its
 [`sharp-family audit`](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/math-audit.md)
 shows that the source family
 misses the rounded degree premise by exactly one, so the frozen construction
-performs balanced edge surgery and uses exact subset dynamic programming to
-test the required four-vertex path-deletion bound. The first workflow run is
+is designed to perform balanced edge surgery and would use exact subset dynamic
+programming to test the required four-vertex path-deletion bound. The first
+workflow run is
 deliberately classified as
 [`INVALID_PRE_EVALUATION_SOURCE_DRIFT`](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/invalid-run-31845837185.md):
 unrelated commits moved upstream `main`, the candidate job was skipped, and
-zero target rows or artifacts were produced. A replacement gate is being
-built around descendant-history plus complete semantic-import/toolchain
-continuity, rather than unsafe target-blob equality. Until that gate passes
-an independent audit and a fresh immutable run completes, this lane has no
-candidate and no mathematical result; the exact policy is recorded in the
+zero target rows or artifacts were produced. The replacement v3 gate was then
+sealed around descendant-history plus complete semantic-import/toolchain
+continuity, but its disabled live run failed before evaluation because it
+expected a nonexistent top-level `tree` in GitHub's commits REST response;
+that exact failure is preserved in the
+[`v3 invalid-run record`](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/invalid-run-31849777027.md).
+The independently audited, default-disabled
+[`v3.1 contract`](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/CONTRACT.md)
+corrected the REST shape and passed its static and target-free tests. Its first
+disabled live run reached the semantic-import continuity check, then failed
+closed on an external Lean import missing from the frozen prefix model; the
+target again remained skipped and zero artifacts were uploaded. See the
+[`v3.1 invalid-run record`](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/invalid-run-31850751842.md).
+Until a corrected, independently audited gate passes a fresh disabled run,
+this lane has no candidate, bounded result, or mathematical result. The exact
+continuity policy remains recorded in the
 [`v3 continuity audit`](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/tip-continuity-policy-audit.md).
 
 The next wall selected in parallel—the strong `n^(3/2)` bound for
@@ -143,6 +155,17 @@ were observed before the arm was frozen, this is logged as a
 not a scored bounded result, candidate, or release. The episode sharpens the
 method rule: verify that the next integer crossing remains reachable before
 freezing a wall-transfer search.
+
+The adjacent Erdős 373 factorial-product preflight stopped at the source and
+database gate. Its proposed finite band `17 <= n <= 256` is entirely inside
+the published unconditional verification range `n <= e^80`, while three open
+upstream pull requests touch the exact formal target path. It is therefore
+classified `CATALOGUE_CONTROL / STRICT_STOP_SOURCE_BOUND`: no `n >= 17` target
+was constructed or evaluated, and no search workflow, candidate, bounded
+result, or release exists. The global problem remains open above the published
+range. The proposed design and controlling-source audit are preserved in the
+[`preflight`](results/expansion/live-search-2026-08-14/erdos373-maximal-solution-development/preflight.md)
+and [`source-bound gate`](results/expansion/live-search-2026-08-14/erdos373-maximal-solution-development/source-bound-gate.md).
 
 The order-15 Latin Tableau zero has likewise been converted into theorem work:
 warning-clean Lean now proves the profile telescoping, binary-change,
