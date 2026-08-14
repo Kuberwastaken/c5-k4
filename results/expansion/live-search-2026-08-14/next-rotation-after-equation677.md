@@ -4,13 +4,21 @@
 **Disposition:** `RANKED_NOT_FROZEN_NOT_EVALUATED`  
 **Recommended next target:** the joint OEIS A109908/A109909 quadratic-prime
 cluster  
-**Runner-up:** Fernandes' even direct-product permutation-group conjecture  
+**Former runner-up:** Fernandes' even direct-product permutation-group conjecture —
+retired by the correction below
 **Third:** OEIS A103151
 
 This is a source/status and method-selection report only. It does not evaluate
 any target instance, freeze a search, claim a bounded result, or authorize a
 release or upstream action. Written on the Wall I is outside
 `google-deepmind/formal-conjectures` and was excluded without being ranked.
+
+> **Post-audit correction (2026-08-14):** this report missed open resolving
+> PR [#4868](https://github.com/google-deepmind/formal-conjectures/pull/4868),
+> which predates the report and links an exact-statement, universal,
+> no-`sorry` Lean proof of the Fernandes conjecture. That lane is
+> `PRIOR_ART_STRICT_STOP`, not a runner-up. The full correction is recorded in
+> [`fernandes-pr4868-prior-art-strict-stop.md`](fernandes-pr4868-prior-art-strict-stop.md).
 
 ## Current pin and subtraction
 
@@ -45,7 +53,7 @@ nonoverlapping method is preregistered.
 | rank | exact declaration(s) | current files | source/status result |
 |---:|---|---|---|
 | 1 | `OeisA109908.conjecture`; `OeisA109909.conjecture` | `OEIS/109908.lean`, blob `79f24ed3...`, SHA-256 `518c786a...`; `OEIS/109909.lean`, blob `f4328ad6...`, SHA-256 `bb91d62d...` | Both entered in merged PR #4450. Exact all-state upstream searches for either sequence ID returned no issue or PR. Both OEIS records still print the conjecture and say it was verified through `10^9`. |
-| 2 | `Arxiv.2605.12342.conjecture_1` | `Arxiv/2605.12342/Conjecture1.lean`, blob `f73b5388...`, SHA-256 `801f7278...` | Issue #4815 and merged PR #4836 only introduced the statement. The May 2026 source still labels Conjecture 1 open and lists computed positive and negative controls; no later resolving item was found. |
+| 2 (retired) | `Arxiv.2605.12342.conjecture_1` | `Arxiv/2605.12342/Conjecture1.lean`, blob `f73b5388...`, SHA-256 `801f7278...` | The initial audit found only issue #4815 and merged statement PR #4836. A corrective audit found resolving PR #4868 and its universal no-`sorry` proof; this target is a prior-art strict stop. |
 | 3 | `OeisA103151.conjecture` | `OEIS/103151.lean`, blob `fec2d6b5...`, SHA-256 `f7f236f5...` | Entered in merged PR #4450. Exact all-state search for `OeisA103151` returned no issue or PR. OEIS still prints the stronger-than-Goldbach conjecture. |
 
 The current authoritative b-files contain 10,000 A109908 rows, 93 A109909
@@ -243,8 +251,8 @@ either the shared quadratic-prime cluster or a small finite-group obstruction.
 ## Recommendation
 
 Freeze **only the joint A109908/A109909 finite-prefix-cover lane** after one
-fresh live race check. Preserve Fernandes as the next method-diverse rotation
-if source theorem subtraction leaves a nonempty small grid. Keep A103151 as
-the arithmetic reserve. Do not return to Equation 677 from this branch: public
-issue #1464 makes the proposed finite-table continuation overlapping work,
-even though its claims remain subject to review.
+fresh live race check. Retire Fernandes under the corrective #4868 prior-art
+gate. Keep A103151 as the arithmetic reserve. Do not return to Equation 677
+from this branch: public issue #1464 makes the proposed finite-table
+continuation overlapping work, even though its claims remain subject to
+review.
