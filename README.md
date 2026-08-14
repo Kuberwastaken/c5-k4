@@ -117,11 +117,19 @@ threshold-to-basis, and one-vertex coloring-extension lemmas. The remaining
 obstruction is stated narrowly as a Ferrers multicolor exchange-existence
 problem, rather than being hidden behind another size sweep.
 
-A second non-graph calibration targets the Equational Theories project's
-finite `Equation 677 -> Equation 255` “last survivor.” Exact SAT proves there
-is no countermodel at orders 5--7; order 8 is an explicit 60-second timeout.
-The target is current and the certificate shape is exact, but the result is a
-hard negative—not a proof, counterexample, or release. See
+A second non-graph calibration targeted the Equational Theories project's
+finite `Equation 677 -> Equation 255` “last survivor.” The original exact SAT
+run proved there is no countermodel at orders 5--7 and timed out at order 8.
+A later source gate then found public teorth issue #1464, which already claims
+the same fixed-column reduction and a DRAT-certified exclusion through order
+10. That claim is open and not yet promoted here to a reviewed theorem, but it
+strictly preempts a novel order-8 computation. The lane therefore stopped
+before rerunning a solver. A warning-clean, no-`sorry` Lean bridge now proves
+the reduction
+`Equation255At x ↔ ∃ y, y ◇ x = x`; the exact status and operand-orientation
+audit are in
+[`theory-audit.md`](results/expansion/live-search-2026-08-14/equation677-column-v2/theory-audit.md),
+with the historical run retained in
 [`equation677_255_report.md`](results/expansion/equation677_255_report.md).
 
 The current-manifest rotation also extended OEIS A108081's exact recursive
