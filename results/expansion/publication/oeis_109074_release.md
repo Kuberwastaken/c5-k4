@@ -33,7 +33,22 @@ Date: **2026-08-14 UTC**
 - The erratum classification must appear in the opening paragraph.
 - No generated binary assets.
 
-## Release lock and publication readback
+## Release lock
 
-Pending creation of the preflight commit and release.  A follow-up commit will
-record the exact tag target, GitHub readback, and immutable-link checks.
+The annotated tag dereferences locally and remotely to
+`5d412f8f1c8fa54eaaabe6c05e31e9b3dd3e9809`, the release-body preflight
+snapshot.  The tag object is
+`0e341a8a45f27cc915744efa1d885dfcd5d56141`.
+
+## Publication readback
+
+- Release:
+  <https://github.com/Kuberwastaken/c5-k4/releases/tag/oeis-109074-formalization-v1>.
+- GitHub readback confirms the intended qualified title, non-draft and
+  non-prerelease state, publication at `2026-08-14T06:30:12Z`, and zero binary
+  assets.
+- The audit, Lean certificate, independent verifier, frozen upstream module,
+  and authoritative OEIS b-file links all returned HTTP 200.
+- The release opening explicitly classifies the result as a
+  formalization/source erratum and excludes it from the mathematical-kill
+  count.
