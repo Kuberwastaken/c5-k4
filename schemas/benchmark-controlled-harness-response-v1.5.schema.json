@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-controlled-harness-response-v1.5.schema.json",
+  "title": "Method v1.5 bounded controlled-harness response",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["publication-manifest.json", "quota-certificate.json", "receipt.json"],
+  "properties": {
+    "publication-manifest.json": {
+      "type": "object",
+      "required": ["schema", "request_sha256"],
+      "properties": {
+        "schema": {"type": "string", "pattern": "^c5k4-method-v1\\.5-"},
+        "request_sha256": {"$ref": "#/definitions/sha256"}
+      }
+    },
+    "quota-certificate.json": {"$ref": "#/definitions/publicArtifact"},
+    "receipt.json": {"$ref": "#/definitions/publicArtifact"}
+  },
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "publicArtifact": {
+      "type": "object",
+      "required": ["schema"],
+      "properties": {
+        "schema": {"type": "string", "pattern": "^c5k4-method-v1\\.5-"}
+      }
+    }
+  }
+}

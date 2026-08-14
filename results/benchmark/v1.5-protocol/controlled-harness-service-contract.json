@@ -1,0 +1,52 @@
+{
+  "schema": "c5k4-method-v1.5-controlled-harness-service-contract-1.0",
+  "status": "PRE_P1_NONOPERATIONAL_NO_LISTENER",
+  "transport": {
+    "listener_permitted": false,
+    "https_endpoint": null,
+    "tls_spki_sha256": null
+  },
+  "oidc": {
+    "issuer": "https://token.actions.githubusercontent.com",
+    "audience_prefix": null,
+    "repository": "Kuberwastaken/c5-k4",
+    "ref": "refs/heads/main",
+    "workflow_ref": null,
+    "event_name": "schedule",
+    "run_attempt": "1",
+    "jwks_signature_verified_by_injected_verifier": true,
+    "standard_time_claims_verified_by_injected_verifier": true
+  },
+  "request": {
+    "schema_path": "schemas/benchmark-target-blind-checkpoint-request-v1.5.schema.json",
+    "max_bytes": 8192,
+    "canonical_json_required": true,
+    "target_blind": true
+  },
+  "binding": {
+    "p1t_commit": null,
+    "authenticated_binding_provider_required": true,
+    "public_chain_proof_required": true,
+    "exact_next_tick_required": true,
+    "exact_public_tip_required": true
+  },
+  "replay": {
+    "duplicate_request_forbidden": true,
+    "duplicate_tick_forbidden": true,
+    "atomic_durable_reservation_required": true,
+    "reservation_before_execution": true,
+    "reservation_rollback_permitted": false
+  },
+  "response": {
+    "schema_path": "schemas/benchmark-controlled-harness-response-v1.5.schema.json",
+    "max_bytes": 1048576,
+    "exact_files": [
+      "publication-manifest.json",
+      "quota-certificate.json",
+      "receipt.json"
+    ],
+    "manifest_binds_request_sha256": true,
+    "target_bearing_content_permitted": false,
+    "logs_permitted": false
+  }
+}

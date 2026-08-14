@@ -1,0 +1,80 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-controlled-harness-service-contract-v1.5.schema.json",
+  "title": "Method v1.5 target-blind controlled-harness service contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "status", "transport", "oidc", "request", "binding", "replay", "response"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-controlled-harness-service-contract-1.0"},
+    "status": {"enum": ["PRE_P1_NONOPERATIONAL_NO_LISTENER", "FROZEN_P1_EXECUTABLE"]},
+    "transport": {
+      "type": "object", "additionalProperties": false,
+      "required": ["listener_permitted", "https_endpoint", "tls_spki_sha256"],
+      "properties": {
+        "listener_permitted": {"type": "boolean"},
+        "https_endpoint": {"type": ["string", "null"]},
+        "tls_spki_sha256": {"type": ["string", "null"]}
+      }
+    },
+    "oidc": {
+      "type": "object", "additionalProperties": false,
+      "required": ["issuer", "audience_prefix", "repository", "ref", "workflow_ref", "event_name", "run_attempt", "jwks_signature_verified_by_injected_verifier", "standard_time_claims_verified_by_injected_verifier"],
+      "properties": {
+        "issuer": {"const": "https://token.actions.githubusercontent.com"},
+        "audience_prefix": {"type": ["string", "null"]},
+        "repository": {"const": "Kuberwastaken/c5-k4"},
+        "ref": {"const": "refs/heads/main"},
+        "workflow_ref": {"type": ["string", "null"]},
+        "event_name": {"const": "schedule"},
+        "run_attempt": {"const": "1"},
+        "jwks_signature_verified_by_injected_verifier": {"const": true},
+        "standard_time_claims_verified_by_injected_verifier": {"const": true}
+      }
+    },
+    "request": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_path", "max_bytes", "canonical_json_required", "target_blind"],
+      "properties": {
+        "schema_path": {"const": "schemas/benchmark-target-blind-checkpoint-request-v1.5.schema.json"},
+        "max_bytes": {"const": 8192},
+        "canonical_json_required": {"const": true},
+        "target_blind": {"const": true}
+      }
+    },
+    "binding": {
+      "type": "object", "additionalProperties": false,
+      "required": ["p1t_commit", "authenticated_binding_provider_required", "public_chain_proof_required", "exact_next_tick_required", "exact_public_tip_required"],
+      "properties": {
+        "p1t_commit": {"type": ["string", "null"]},
+        "authenticated_binding_provider_required": {"const": true},
+        "public_chain_proof_required": {"const": true},
+        "exact_next_tick_required": {"const": true},
+        "exact_public_tip_required": {"const": true}
+      }
+    },
+    "replay": {
+      "type": "object", "additionalProperties": false,
+      "required": ["duplicate_request_forbidden", "duplicate_tick_forbidden", "atomic_durable_reservation_required", "reservation_before_execution", "reservation_rollback_permitted"],
+      "properties": {
+        "duplicate_request_forbidden": {"const": true},
+        "duplicate_tick_forbidden": {"const": true},
+        "atomic_durable_reservation_required": {"const": true},
+        "reservation_before_execution": {"const": true},
+        "reservation_rollback_permitted": {"const": false}
+      }
+    },
+    "response": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_path", "max_bytes", "exact_files", "manifest_binds_request_sha256", "target_bearing_content_permitted", "logs_permitted"],
+      "properties": {
+        "schema_path": {"const": "schemas/benchmark-controlled-harness-response-v1.5.schema.json"},
+        "max_bytes": {"const": 1048576},
+        "exact_files": {"const": ["publication-manifest.json", "quota-certificate.json", "receipt.json"]},
+        "manifest_binds_request_sha256": {"const": true},
+        "target_bearing_content_permitted": {"const": false},
+        "logs_permitted": {"const": false}
+      }
+    }
+  }
+}
