@@ -1,0 +1,126 @@
+name: Validate standalone Mathlib certificate
+
+on:
+  workflow_dispatch:
+    inputs:
+      campaign_commit:
+        description: Exact c5-k4 commit containing the certificate
+        required: true
+        type: string
+      certificate_path:
+        description: Standalone Lean certificate in this repository
+        required: true
+        default: lean/Graffiti3Conjecture13Arithmetic.lean
+        type: string
+      mathlib_ref:
+        description: Exact mathlib4 commit used for replay
+        required: true
+        default: a3a10db0e9d66acbebf76c5e6a135066525ac900
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: standalone-mathlib-${{ inputs.campaign_commit }}-${{ inputs.certificate_path }}
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    name: Replay certificate against pinned Mathlib
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    env:
+      CAMPAIGN_COMMIT: ${{ inputs.campaign_commit }}
+      CERTIFICATE_PATH: ${{ inputs.certificate_path }}
+      MATHLIB_REF: ${{ inputs.mathlib_ref }}
+    steps:
+      - name: Validate immutable inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "$CAMPAIGN_COMMIT" =~ ^[0-9a-f]{40}$ ]]
+          [[ "$MATHLIB_REF" =~ ^[0-9a-f]{40}$ ]]
+          [[ "$CERTIFICATE_PATH" =~ ^lean/[A-Za-z0-9_./-]+\.lean$ ]]
+          [[ "$CERTIFICATE_PATH" != *..* ]]
+
+      - name: Check out exact campaign commit
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ inputs.campaign_commit }}
+          fetch-depth: 1
+          persist-credentials: false
+          path: campaign
+
+      - name: Check out exact Mathlib commit
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          repository: leanprover-community/mathlib4
+          ref: ${{ inputs.mathlib_ref }}
+          fetch-depth: 1
+          persist-credentials: false
+          path: mathlib
+
+      - name: Install elan with retries
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --silent --show-error \
+            --retry 8 --retry-all-errors --retry-delay 5 \
+            --connect-timeout 30 \
+            https://github.com/leanprover/elan/releases/download/v1.4.2/elan-x86_64-unknown-linux-gnu.tar.gz \
+            --output elan.tar.gz
+          tar xzf elan.tar.gz
+          ./elan-init -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Verify pinned clean checkouts and standalone scope
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C campaign rev-parse HEAD)" = "$CAMPAIGN_COMMIT"
+          test "$(git -C mathlib rev-parse HEAD)" = "$MATHLIB_REF"
+          test -z "$(git -C campaign status --porcelain=v1 --untracked-files=all)"
+          test -f "campaign/$CERTIFICATE_PATH"
+          if grep -Eq '^import[[:space:]]+FormalConjectures' "campaign/$CERTIFICATE_PATH"; then
+            echo 'standalone certificate imports FormalConjectures' >&2
+            exit 1
+          fi
+
+      - name: Fetch Mathlib olean cache with retries
+        working-directory: mathlib
+        shell: bash
+        run: |
+          set -euo pipefail
+          for attempt in 1 2 3 4 5; do
+            if lake exe cache get; then
+              exit 0
+            fi
+            if [[ "$attempt" == 5 ]]; then
+              echo "Mathlib cache retrieval failed after $attempt attempts" >&2
+              exit 1
+            fi
+            sleep $((attempt * 10))
+          done
+
+      - name: Compile standalone certificate warning-clean
+        working-directory: mathlib
+        shell: bash
+        run: |
+          set -euo pipefail
+          lake env lean -DwarningAsError=true \
+            "$GITHUB_WORKSPACE/campaign/$CERTIFICATE_PATH"
+
+      - name: Record replay summary
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo '## Standalone Mathlib certificate replay'
+            echo
+            echo "- Campaign: \`Kuberwastaken/c5-k4@$CAMPAIGN_COMMIT\`"
+            echo "- Certificate: \`$CERTIFICATE_PATH\`"
+            echo "- Mathlib: \`leanprover-community/mathlib4@$MATHLIB_REF\`"
+            echo '- Formal-conjectures dependency: `none`'
+            echo "- Job result: \`${{ job.status }}\`"
+          } >> "$GITHUB_STEP_SUMMARY"
