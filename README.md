@@ -140,6 +140,14 @@ adds two cheap front-door gates to the search loop: evaluate every universal
 claim at its literal boundary, and replay the first authoritative terms of
 every locally redefined reference sequence before allocating search time.
 
+That gate immediately replicated on A111291. The formal declaration changes a
+refactorable-number counting bound into a statement over every real `x>1`; at
+`x=3/2` its step-count is one while `x/(2 log x)>1`. The
+[audit and certificate](results/expansion/live-search-2026-08-14/oeis-111291.md)
+again classify this as an endpoint formalization erratum, not a mathematical
+kill. An exhaustive integer calibration through one million found no failure,
+which sharply separates the domain bug from the intended discrete phenomenon.
+
 The prospective benchmark record is deliberately fail-closed. Method v1.1
 terminated `NO_ELIGIBLE_BENCHMARK`; it never selected a target. Its corrected
 chronology successor, [Method v1.2](METHOD_V1_2_BENCHMARK.md), published P0 and
