@@ -17,8 +17,8 @@ claiming any declaration from `google-deepmind/formal-conjectures`.
 
 The search establishes separately that this is the smallest hit in its frozen
 enumeration.  Minimality is not asserted here: this file certifies only the
-displayed witness, including its complete squarefree factorization,
-compositeness, exact totient, base-two Fermat residue, and strict ratio margin.
+displayed witness, including its prime factorization, compositeness, exact
+totient, base-two Fermat residue, and strict ratio margin.
 -/
 
 namespace Graffiti3.Conjecture13

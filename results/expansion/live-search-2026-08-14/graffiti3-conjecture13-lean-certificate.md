@@ -75,8 +75,9 @@ after the successful check to preserve VPS storage.
 The generic mathlib-only workflow
 [`standalone-mathlib-certificate.yml`](../../../.github/workflows/standalone-mathlib-certificate.yml)
 checks out an immutable campaign commit and that exact Mathlib commit, rejects
-a `FormalConjectures` import, retrieves Mathlib's binary cache, and compiles
-the certificate with `-DwarningAsError=true`.  The workflow has not yet been
-dispatched because these files are intentionally left uncommitted for the
-parent campaign agent.  This note must be updated with the immutable
-successful Actions run before a release cites CI replay.
+a `FormalConjectures` import, retrieves only the five imported Mathlib
+dependency closures, and compiles the certificate with
+`-DwarningAsError=true`.  The workflow has not yet been dispatched because
+these files are intentionally left uncommitted for the parent campaign agent.
+This note must be updated with the immutable successful Actions run before a
+release cites CI replay.
