@@ -105,6 +105,8 @@ class P1Tests(unittest.TestCase):
             "controlled_delivery_service_boundary", "controlled_delivery_service_acceptance_tests",
             "delivery_broker_state_schema", "delivery_broker_receipt_schema",
             "delivery_broker_readiness_schema",
+            "s3_object_lock_store", "s3_object_lock_store_contract_test",
+            "s3_object_lock_store_config_schema", "s3_object_lock_store_readiness_schema",
         }
         self.assertLessEqual(required, set(P1.NATIVE_COMPONENTS))
         p1a = self.build()

@@ -3,6 +3,12 @@
   "components": {
     "classification": {"policy": {"closure": "INHERITED_V1_4", "role": "five_strata_classifier"}},
     "grouping": {"policy": {"closure": "INHERITED_V1_4", "role": "grouping_rule"}},
+    "immutable_store": {
+      "config_schema": {"closure": "NATIVE_V1_5", "role": "s3_object_lock_store_config_schema"},
+      "executable": {"closure": "NATIVE_V1_5", "role": "s3_object_lock_store"},
+      "readiness_schema": {"closure": "NATIVE_V1_5", "role": "s3_object_lock_store_readiness_schema"},
+      "test": {"closure": "NATIVE_V1_5", "role": "s3_object_lock_store_contract_test"}
+    },
     "checkpoint_runner": {
       "executable": {"closure": "NATIVE_V1_5", "role": "checkpoint_runner"},
       "gap_schema": {"closure": "NATIVE_V1_5", "role": "terminal_chronology_gap_certificate_schema"},

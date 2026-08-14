@@ -11,8 +11,18 @@
     "components": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["registry", "classification", "grouping", "syntax_pool", "provenance", "checkpoint_runner", "private_custody", "delivery_broker"],
+      "required": ["registry", "classification", "grouping", "syntax_pool", "provenance", "checkpoint_runner", "private_custody", "delivery_broker", "immutable_store"],
       "properties": {
+        "immutable_store": {
+          "type": "object", "additionalProperties": false,
+          "required": ["executable", "test", "config_schema", "readiness_schema"],
+          "properties": {
+            "executable": {"$ref": "#/definitions/native/s3_object_lock_store"},
+            "test": {"$ref": "#/definitions/native/s3_object_lock_store_contract_test"},
+            "config_schema": {"$ref": "#/definitions/native/s3_object_lock_store_config_schema"},
+            "readiness_schema": {"$ref": "#/definitions/native/s3_object_lock_store_readiness_schema"}
+          }
+        },
         "checkpoint_runner": {
           "type": "object", "additionalProperties": false,
           "required": ["executable", "test", "publication_schema", "private_input_schema", "gap_schema", "public_chain_verifier", "public_chain_proof_schema"],
@@ -157,6 +167,10 @@
       ,"delivery_broker_state_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "delivery_broker_state_schema"}}}]}
       ,"delivery_broker_receipt_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "delivery_broker_receipt_schema"}}}]}
       ,"delivery_broker_readiness_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "delivery_broker_readiness_schema"}}}]}
+      ,"s3_object_lock_store": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "s3_object_lock_store"}}}]}
+      ,"s3_object_lock_store_contract_test": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "s3_object_lock_store_contract_test"}}}]}
+      ,"s3_object_lock_store_config_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "s3_object_lock_store_config_schema"}}}]}
+      ,"s3_object_lock_store_readiness_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "s3_object_lock_store_readiness_schema"}}}]}
     },
     "inherited": {
       "five_strata_classifier": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "INHERITED_V1_4"}, "role": {"const": "five_strata_classifier"}}}]},

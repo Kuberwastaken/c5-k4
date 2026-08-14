@@ -58,6 +58,9 @@ class AggregateCertificateTests(unittest.TestCase):
             "delivery_broker": {key: dict(ref) for key in (
                 "executable", "test", "service", "service_test", "config_schema", "state_schema", "receipt_schema", "readiness_schema",
             )},
+            "immutable_store": {key: dict(ref) for key in (
+                "executable", "test", "config_schema", "readiness_schema",
+            )},
         }
         self.auth_patch = mock.patch.object(A, "authenticate_p1", return_value=({}, {}, binding))
         self.real_load_components = A.load_components
@@ -385,6 +388,10 @@ class AggregateCertificateTests(unittest.TestCase):
             "delivery_broker_state_schema": "schemas/benchmark-delivery-broker-state-v1.5.schema.json",
             "delivery_broker_receipt_schema": "schemas/benchmark-delivery-broker-receipt-v1.5.schema.json",
             "delivery_broker_readiness_schema": "schemas/benchmark-delivery-broker-readiness-v1.5.schema.json",
+            "s3_object_lock_store": "scripts/method_v15_s3_object_lock_store.py",
+            "s3_object_lock_store_contract_test": "scripts/test_method_v15_s3_object_lock_store.py",
+            "s3_object_lock_store_config_schema": "schemas/benchmark-s3-object-lock-store-config-v1.5.schema.json",
+            "s3_object_lock_store_readiness_schema": "schemas/benchmark-s3-object-lock-store-readiness-v1.5.schema.json",
         }
         inherited_paths = {
             "five_strata_classifier": "results/benchmark/v1.4-protocol/five-strata-classifier.json",
