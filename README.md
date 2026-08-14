@@ -257,6 +257,22 @@ factorization-coordinate test of the method, not another residue-cover retry;
 A067720 and A108569 are the ordered reserves. See the
 [current target ranking](results/expansion/live-search-2026-08-14/next-deepmind-rotation-after-a231201.md).
 
+That rotation has now completed its first frozen pass. Before execution, the
+factor defect `K(x)=sigma(x)+phi(x)-2x` proved two apparent directions
+impossible: `K=2` exactly characterizes squarefree semiprimes, so a semiprime
+cannot have a non-semiprime partner under the two target equalities; `K=1`
+similarly prunes prime squares. The replacement run then exhausted 2,599,809
+canonical states across repeated-power, squarefree-three-block, and pure-power
+slices, with 72/72 independently capped artifact replays and zero equation
+hits or certificates. This is a bounded method zero, not evidence for the full
+converse. Its useful output is a new near wall:
+`n=6*166666666667` and `n+12=6*166666666669` have signed residuals
+`(-8,12)` and `delta K=4`. The common-block line is itself theorem-blocked,
+so the next iteration must change the small factor block rather than merely
+move the terminal primes. See the
+[factor-defect theorem shadow](results/expansion/live-search-2026-08-14/oeis-a056777-theorem-shadow/result.md)
+and the [audited search result](results/expansion/live-search-2026-08-14/oeis-a056777-development/result.md).
+
 A subsequent live-arm pass over the newly merged OEIS cohort found one exact
 lower-endpoint failure: the formalized A109074 identity says `1 = 3` at
 `n=1`. Source reconciliation shows that this is an erratum rather than a new
