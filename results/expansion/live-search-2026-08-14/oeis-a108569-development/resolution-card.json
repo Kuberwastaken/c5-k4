@@ -1,0 +1,17 @@
+{
+  "schema": "resolution-card-v1",
+  "target": "OeisA108569.conjecture",
+  "logical_class": "FINITE_UNIVERSAL",
+  "target_negation": "there exist odd k>1 and i=Nat.count A k with A(k), a(i)=k, and i>0",
+  "mathematical_certificate": "odd k>1; complete ordered factorizations of k and k+phi(k); exact equal totients",
+  "exact_residual": "R(k)=phi(k+phi(k))-phi(k); crossing is R(k)=0 for odd k>1",
+  "enumeration_bridge": "i := Nat.count A k; Nat.nth_count yields a(i)=k; A(1) and 1<k yield i>0",
+  "finite_witness_suffices": true,
+  "answer_placeholder": false,
+  "eventual_quantifier": false,
+  "global_constant_quantifier": false,
+  "unbounded_auxiliary_search": false,
+  "semantic_candidate_without_bridge": "SEMANTIC_CANDIDATE_ONLY",
+  "reading": "UNAMBIGUOUS_WITH_ENUMERATION_BRIDGE",
+  "reviewed": true
+}
