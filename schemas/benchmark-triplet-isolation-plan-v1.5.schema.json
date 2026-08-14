@@ -1,0 +1,126 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-triplet-isolation-plan-v1.5.schema.json",
+  "title": "Method v1.5 PRE-P1 Linux triplet-tree isolation plan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema", "artifact_kind", "protocol_version", "status", "tree_id", "arm",
+    "argv", "cpu_affinity", "wall_cap_seconds", "namespaces", "network",
+    "root_filesystem", "allowed_roots", "forbidden_root_roles", "private_paths",
+    "environment", "escape_policy", "implementation", "plan_sha256"
+  ],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-triplet-isolation-plan-1.0"},
+    "artifact_kind": {"const": "PRIVATE_TREE_ISOLATION_PLAN"},
+    "protocol_version": {"const": "1.5"},
+    "status": {"const": "PRE_P1_TEST_ONLY_NOT_OPERATIONAL"},
+    "tree_id": {"type": "string", "pattern": "^(CATALOGUE|GENERIC|WALL_NAVIGATION)-[0-7]$"},
+    "arm": {"enum": ["CATALOGUE", "GENERIC", "WALL_NAVIGATION"]},
+    "argv": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "cpu_affinity": {"type": "integer", "minimum": 0},
+    "wall_cap_seconds": {"const": 60},
+    "namespaces": {
+      "type": "object", "additionalProperties": false,
+      "required": ["user", "mount", "network", "pid", "ipc", "uts", "map_root_user", "kill_child"],
+      "properties": {
+        "user": {"const": true}, "mount": {"const": true}, "network": {"const": true},
+        "pid": {"const": true}, "ipc": {"const": true}, "uts": {"const": true},
+        "map_root_user": {"const": true}, "kill_child": {"const": "KILL"}
+      }
+    },
+    "network": {
+      "type": "object", "additionalProperties": false,
+      "required": ["policy", "new_namespace", "interfaces_brought_up", "dns_files_mounted"],
+      "properties": {
+        "policy": {"const": "DENY"}, "new_namespace": {"const": true},
+        "interfaces_brought_up": {"type": "array", "maxItems": 0},
+        "dns_files_mounted": {"type": "array", "maxItems": 0}
+      }
+    },
+    "root_filesystem": {
+      "type": "object", "additionalProperties": false,
+      "required": ["kind", "host_root_visible", "runtime_roots", "proc_policy"],
+      "properties": {
+        "kind": {"const": "PRIVATE_TMPFS_CHROOT"},
+        "host_root_visible": {"const": false},
+        "runtime_roots": {
+          "type": "array", "uniqueItems": true,
+          "items": {"enum": ["/usr", "/bin", "/lib", "/lib64"]}
+        },
+        "proc_policy": {"const": "PRIVATE_PID_NAMESPACE_PROCFS"}
+      }
+    },
+    "allowed_roots": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": {"$ref": "#/definitions/rootGrant"}
+    },
+    "forbidden_root_roles": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "private_paths": {
+      "type": "object", "additionalProperties": false,
+      "required": ["sandbox_root", "output", "tmp", "home", "cache"],
+      "properties": {
+        "sandbox_root": {"type": "string", "pattern": "^/"},
+        "output": {"type": "string", "pattern": "^/"},
+        "tmp": {"type": "string", "pattern": "^/"},
+        "home": {"type": "string", "pattern": "^/"},
+        "cache": {"type": "string", "pattern": "^/"}
+      }
+    },
+    "environment": {
+      "type": "object", "additionalProperties": {"type": "string"},
+      "required": [
+        "PATH", "HOME", "TMPDIR", "XDG_CACHE_HOME", "XDG_CONFIG_HOME", "LANG",
+        "LC_ALL", "TZ", "PYTHONHASHSEED", "PYTHONNOUSERSITE",
+        "PYTHONDONTWRITEBYTECODE", "C5K4_BENCHMARK_VERSION", "C5K4_ARM",
+        "C5K4_TREE_ID", "C5K4_NETWORK_POLICY", "C5K4_OUTPUT_DIR"
+      ]
+    },
+    "escape_policy": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "symlinks_permitted", "hardlinked_regular_files_permitted", "device_nodes_permitted",
+        "fifos_permitted", "sockets_permitted", "source_destination_overlap_permitted",
+        "allowed_forbidden_overlap_permitted"
+      ],
+      "properties": {
+        "symlinks_permitted": {"const": false},
+        "hardlinked_regular_files_permitted": {"const": false},
+        "device_nodes_permitted": {"const": false},
+        "fifos_permitted": {"const": false},
+        "sockets_permitted": {"const": false},
+        "source_destination_overlap_permitted": {"const": false},
+        "allowed_forbidden_overlap_permitted": {"const": false}
+      }
+    },
+    "implementation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["backend", "target_launch_wired", "fd_pinned_mounts", "production_claim_permitted"],
+      "properties": {
+        "backend": {"const": "LINUX_UNSHARE_PRIVATE_ROOT_CONTRACT"},
+        "target_launch_wired": {"const": false},
+        "fd_pinned_mounts": {"const": false},
+        "production_claim_permitted": {"const": false}
+      }
+    },
+    "plan_sha256": {"$ref": "#/definitions/sha256"}
+  },
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "rootGrant": {
+      "type": "object", "additionalProperties": false,
+      "required": ["root_role", "source_path", "source_sha256", "sandbox_path", "mount", "writable"],
+      "properties": {
+        "root_role": {"type": "string", "minLength": 1},
+        "source_path": {"type": "string", "pattern": "^/"},
+        "source_sha256": {"$ref": "#/definitions/sha256"},
+        "sandbox_path": {"type": "string", "pattern": "^/inputs/[A-Z0-9_]+$"},
+        "mount": {"const": "BIND_REMOUNT_READ_ONLY_NODEV_NOSUID"},
+        "writable": {"const": false}
+      }
+    }
+  }
+}

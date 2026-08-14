@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-triplet-isolation-readiness-v1.5.schema.json",
+  "title": "Method v1.5 target-free PRE-P1 Linux isolation readiness",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema", "artifact_kind", "protocol_version", "status", "target_specific_fields_present",
+    "operational_ready", "activation_permitted", "launcher_wired", "required_tools",
+    "kernel_probes", "remaining_blocks", "readiness_sha256"
+  ],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-triplet-isolation-readiness-1.0"},
+    "artifact_kind": {"const": "TARGET_FREE_ISOLATION_READINESS"},
+    "protocol_version": {"const": "1.5"},
+    "status": {"const": "PRE_P1_ISOLATION_BACKEND_NOT_OPERATIONAL"},
+    "target_specific_fields_present": {"const": false},
+    "operational_ready": {"const": false},
+    "activation_permitted": {"const": false},
+    "launcher_wired": {"const": false},
+    "required_tools": {
+      "type": "object", "additionalProperties": false,
+      "required": ["unshare", "mount", "umount", "chroot", "taskset"],
+      "properties": {
+        "unshare": {"type": "boolean"}, "mount": {"type": "boolean"},
+        "umount": {"type": "boolean"}, "chroot": {"type": "boolean"},
+        "taskset": {"type": "boolean"}
+      }
+    },
+    "kernel_probes": {
+      "type": "object", "additionalProperties": false,
+      "required": ["user_mount_network_pid_namespaces", "private_tmpfs_mount"],
+      "properties": {
+        "user_mount_network_pid_namespaces": {"type": "boolean"},
+        "private_tmpfs_mount": {"type": "boolean"}
+      }
+    },
+    "remaining_blocks": {
+      "const": [
+        "NOT_WIRED_TO_TRIPLET_LAUNCHER",
+        "NO_FD_PINNED_OPEN_TREE_MOVE_MOUNT_IMPLEMENTATION",
+        "NO_PRODUCTION_ACCEPTANCE_ATTESTATION",
+        "NO_P1_ACTIVATION"
+      ]
+    },
+    "readiness_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

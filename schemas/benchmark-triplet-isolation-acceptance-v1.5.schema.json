@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-triplet-isolation-acceptance-v1.5.schema.json",
+  "title": "Method v1.5 PRE-P1 injected isolation acceptance record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema", "artifact_kind", "protocol_version", "status", "plan_sha256",
+    "accepted", "checks", "acceptance_sha256"
+  ],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-triplet-isolation-acceptance-1.0"},
+    "artifact_kind": {"const": "INJECTED_ISOLATION_ACCEPTANCE_RECORD"},
+    "protocol_version": {"const": "1.5"},
+    "status": {"const": "PRE_P1_FAKE_EXECUTOR_ACCEPTANCE_ONLY_NOT_OPERATIONAL"},
+    "plan_sha256": {"$ref": "#/definitions/sha256"},
+    "accepted": {"type": "boolean"},
+    "checks": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "user_namespace", "mount_namespace", "network_namespace", "pid_namespace",
+        "ipc_namespace", "uts_namespace", "host_root_absent", "allowed_roots_read_only_exact",
+        "forbidden_roots_absent", "private_paths_disjoint", "single_cpu_affinity",
+        "process_tree_killed_at_wall_cap", "fixed_environment_only", "secrets_absent",
+        "symlink_escape_blocked", "hardlink_escape_blocked", "device_escape_blocked"
+      ],
+      "properties": {
+        "user_namespace": {"type": "boolean"}, "mount_namespace": {"type": "boolean"},
+        "network_namespace": {"type": "boolean"}, "pid_namespace": {"type": "boolean"},
+        "ipc_namespace": {"type": "boolean"}, "uts_namespace": {"type": "boolean"},
+        "host_root_absent": {"type": "boolean"},
+        "allowed_roots_read_only_exact": {"type": "boolean"},
+        "forbidden_roots_absent": {"type": "boolean"},
+        "private_paths_disjoint": {"type": "boolean"},
+        "single_cpu_affinity": {"type": "boolean"},
+        "process_tree_killed_at_wall_cap": {"type": "boolean"},
+        "fixed_environment_only": {"type": "boolean"},
+        "secrets_absent": {"type": "boolean"},
+        "symlink_escape_blocked": {"type": "boolean"},
+        "hardlink_escape_blocked": {"type": "boolean"},
+        "device_escape_blocked": {"type": "boolean"}
+      }
+    },
+    "acceptance_sha256": {"$ref": "#/definitions/sha256"}
+  },
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}
