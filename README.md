@@ -251,6 +251,18 @@ The first cross-corpus equality round then stress-tested the method on current
 - **no applicable cyclic triple cover** for the chosen #141 wall, independently
   confirmed by an integer model and an exact finite-field CSP.
 
+A subsequent development trial deliberately left the DeepMind corpus and
+tested the still-open TxGraffiti regular-graph wall `i(G) <= mu*(G)`. Across
+137 exact connected regular graphs it found no crossing. The targeted arm did,
+however, place `21/37` rows on equality, versus `1/65` in the generic prefix.
+Its failure exposed a concrete flaw in the proposed graph move: destroying a
+parent's minimum independent dominating sets often creates smaller replacement
+sets in the child. The next arm must preserve a lower-bound certificate for
+`i(G)` or optimize a child-side relaxation; simply deepening the same switch
+tree is now ruled out. The frozen contract, durable ledgers, and full negative
+result are in
+[`txgraffiti-cc-result.md`](results/expansion/live-search-2026-08-14/txgraffiti-cc-result.md).
+
 No row in those rounds is a release candidate. The exact contracts, ledgers,
 corrections, stop reasons, and reports are under
 [`results/expansion/`](results/expansion/); the current portfolio and its
