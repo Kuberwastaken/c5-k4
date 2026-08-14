@@ -48,3 +48,22 @@ assert that for every `n > 3` at least one distinct value `k(n-k)-1` is prime.
   target residue classes where all small `k` are forced composite, rather than
   merely increasing the same prefix.
 
+## Direct exact checks on five further clusters
+
+All rows below were independent executable checks of the literal Lean
+definitions, not values copied from OEIS.
+
+| declaration cluster | exact frozen range | wall / result |
+|---|---|---|
+| A112521 NOR diagonal | `1 <= n <= 500`; direct alternating binomial sum versus a separately memoized two-dimensional `T(n,k)` recurrence | 6.3 s; equality throughout; `HOLD_BOUNDED` |
+| A112970 generalized Stern identities | all three declarations for `0 <= n <= 10,000`; memoized recurrence evaluated at the exponentially indexed arguments | 4.3 s; all equalities throughout; `HOLD_BOUNDED` |
+| A113250/A113252/A113255 odd-index squares | each recurrence through index 1,999, testing `0 <= n <= 999` by integer square root | 0.24 s; every odd term square; one correlated `HOLD_BOUNDED` family |
+| A110475 exceptional sums | exact characterization of `a(x)=1` from prime-factor exponent vectors, Boolean convolution through `m=1,000,000`, followed by direct witness replay | 11.7 s; exactly the nine stated exceptions; `HOLD_BOUNDED` |
+| A108866 prime congruence | incremental exact rational sum and reduced integer numerator for every `4 <= n <= 20,000`, compared with independent trial-division primality | 40.3 s; biconditional holds throughout; `HOLD_BOUNDED` |
+
+These rows exposed a useful selector rule: the three square declarations share
+one recurrence-family explanation and must count once, while the A112970
+exponential-looking indices remain computationally cheap because the recursive
+arguments contract immediately.  Parameter magnitude alone is therefore a
+poor budget proxy; recursion-state count and certificate shape should control
+the generic schedule.
