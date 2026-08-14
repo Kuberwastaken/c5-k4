@@ -73,11 +73,15 @@
       "properties": {
         "arm_execution": {
           "type": "object", "additionalProperties": false,
-          "required": ["capability_matrix", "capability_matrix_schema", "envelope_schema", "validator", "test"],
+          "required": ["capability_matrix", "capability_matrix_schema", "envelope_schema", "validator", "test", "triplet_launcher", "triplet_launcher_test", "triplet_claim_schema", "triplet_combined_record_schema"],
           "properties": {
             "capability_matrix": {"$ref": "#/definitions/artifactRef"},
             "capability_matrix_schema": {"$ref": "#/definitions/artifactRef"},
             "envelope_schema": {"$ref": "#/definitions/artifactRef"},
+            "triplet_launcher": {"$ref": "#/definitions/artifactRef"},
+            "triplet_launcher_test": {"$ref": "#/definitions/artifactRef"},
+            "triplet_claim_schema": {"$ref": "#/definitions/artifactRef"},
+            "triplet_combined_record_schema": {"$ref": "#/definitions/artifactRef"},
             "validator": {"$ref": "#/definitions/artifactRef"},
             "test": {"$ref": "#/definitions/artifactRef"}
           }

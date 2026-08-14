@@ -118,6 +118,8 @@ class P1Tests(unittest.TestCase):
             "broker_custody_compiler", "broker_custody_compiler_contract_test",
             "private_worm_object_inventory_schema", "private_broker_service_epoch_schema",
             "private_custody_compiler_output_schema",
+            "arm_triplet_launcher", "arm_triplet_launcher_contract_test",
+            "arm_triplet_claim_schema", "arm_triplet_combined_record_schema",
         }
         self.assertLessEqual(required, set(P1.NATIVE_COMPONENTS))
         p1a = self.build()

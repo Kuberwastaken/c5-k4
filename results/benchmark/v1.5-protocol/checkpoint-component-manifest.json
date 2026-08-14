@@ -5,6 +5,10 @@
       "capability_matrix": {"closure": "NATIVE_V1_5", "role": "arm_capability_matrix"},
       "capability_matrix_schema": {"closure": "NATIVE_V1_5", "role": "arm_capability_matrix_schema"},
       "envelope_schema": {"closure": "NATIVE_V1_5", "role": "arm_execution_envelope_schema"},
+      "triplet_claim_schema": {"closure": "NATIVE_V1_5", "role": "arm_triplet_claim_schema"},
+      "triplet_combined_record_schema": {"closure": "NATIVE_V1_5", "role": "arm_triplet_combined_record_schema"},
+      "triplet_launcher": {"closure": "NATIVE_V1_5", "role": "arm_triplet_launcher"},
+      "triplet_launcher_test": {"closure": "NATIVE_V1_5", "role": "arm_triplet_launcher_contract_test"},
       "test": {"closure": "NATIVE_V1_5", "role": "arm_execution_envelope_contract_test"},
       "validator": {"closure": "NATIVE_V1_5", "role": "arm_execution_envelope_validator"}
     },

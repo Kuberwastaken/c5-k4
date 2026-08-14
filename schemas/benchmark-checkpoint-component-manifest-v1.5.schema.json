@@ -15,11 +15,15 @@
       "properties": {
         "arm_execution": {
           "type": "object", "additionalProperties": false,
-          "required": ["capability_matrix", "capability_matrix_schema", "envelope_schema", "validator", "test"],
+          "required": ["capability_matrix", "capability_matrix_schema", "envelope_schema", "validator", "test", "triplet_launcher", "triplet_launcher_test", "triplet_claim_schema", "triplet_combined_record_schema"],
           "properties": {
             "capability_matrix": {"$ref": "#/definitions/native/arm_capability_matrix"},
             "capability_matrix_schema": {"$ref": "#/definitions/native/arm_capability_matrix_schema"},
             "envelope_schema": {"$ref": "#/definitions/native/arm_execution_envelope_schema"},
+            "triplet_launcher": {"$ref": "#/definitions/native/arm_triplet_launcher"},
+            "triplet_launcher_test": {"$ref": "#/definitions/native/arm_triplet_launcher_contract_test"},
+            "triplet_claim_schema": {"$ref": "#/definitions/native/arm_triplet_claim_schema"},
+            "triplet_combined_record_schema": {"$ref": "#/definitions/native/arm_triplet_combined_record_schema"},
             "validator": {"$ref": "#/definitions/native/arm_execution_envelope_validator"},
             "test": {"$ref": "#/definitions/native/arm_execution_envelope_contract_test"}
           }
@@ -217,6 +221,10 @@
       ,"private_worm_object_inventory_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "private_worm_object_inventory_schema"}}}]}
       ,"private_broker_service_epoch_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "private_broker_service_epoch_schema"}}}]}
       ,"private_custody_compiler_output_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "private_custody_compiler_output_schema"}}}]}
+      ,"arm_triplet_launcher": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "arm_triplet_launcher"}}}]}
+      ,"arm_triplet_launcher_contract_test": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "arm_triplet_launcher_contract_test"}}}]}
+      ,"arm_triplet_claim_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "arm_triplet_claim_schema"}}}]}
+      ,"arm_triplet_combined_record_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "arm_triplet_combined_record_schema"}}}]}
     },
     "inherited": {
       "five_strata_classifier": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "INHERITED_V1_4"}, "role": {"const": "five_strata_classifier"}}}]},

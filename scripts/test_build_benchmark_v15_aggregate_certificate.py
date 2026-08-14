@@ -46,6 +46,7 @@ class AggregateCertificateTests(unittest.TestCase):
         frozen = {
             "arm_execution": {key: dict(ref) for key in (
                 "capability_matrix", "capability_matrix_schema", "envelope_schema", "validator", "test",
+                "triplet_launcher", "triplet_launcher_test", "triplet_claim_schema", "triplet_combined_record_schema",
             )},
             "registry": {key: dict(ref) for key in ("executable", "policy", "schema", "invocation_contract")},
             "classification": {"policy": dict(ref)}, "grouping": {"policy": dict(ref)},
@@ -370,6 +371,10 @@ class AggregateCertificateTests(unittest.TestCase):
             "arm_execution_envelope_schema": "schemas/benchmark-execution-envelope-v1.5.schema.json",
             "arm_execution_envelope_validator": "scripts/validate_benchmark_v15_execution_envelope.py",
             "arm_execution_envelope_contract_test": "scripts/test_benchmark_v15_execution_envelope.py",
+            "arm_triplet_launcher": "scripts/run_benchmark_v15_triplet.py",
+            "arm_triplet_launcher_contract_test": "scripts/test_run_benchmark_v15_triplet.py",
+            "arm_triplet_claim_schema": "schemas/benchmark-triplet-claim-v1.5.schema.json",
+            "arm_triplet_combined_record_schema": "schemas/benchmark-triplet-combined-record-v1.5.schema.json",
             "runner_private_input_assembler": "scripts/build_benchmark_v15_runner_private_input.py",
             "runner_private_input_assembler_contract_test": "scripts/test_build_benchmark_v15_runner_private_input.py",
             "runner_private_input_assembly_schema": "schemas/benchmark-runner-private-input-assembly-v1.5.schema.json",
