@@ -14,8 +14,8 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
-UPSTREAM_COMMIT = "5a5af706fa5bef3f09606554d393c9170d2b27e8"
-UPSTREAM_TREE = "0ef534e06d27e22e68e4cfd5081f2a5e28ebe73a"
+UPSTREAM_COMMIT = "b5acb0ff13e38084105b7fe020ba0d59c1925bc5"
+UPSTREAM_TREE = "4f6c9bd17fdfdc264f54b26862ce768743da5d63"
 TARGET_PATH = "FormalConjectures/Arxiv/2606.03696/BondyLongestCycles.lean"
 TARGET_BLOB = "c4c5cb1983936860d5a4a7208b3f04bd201290d4"
 TARGET_SHA256 = "562fbbb0ec47041a61017bb85ec0c7e9aa6fc98cf132be3022268a7dc60e9004"
@@ -23,6 +23,8 @@ PAPER_SHA256 = "56213cd6384cc2111864d67150c41e1426608c59b1b009c6752acab9be3487fb
 KNOWN_ISSUE = 4858
 KNOWN_PR = 4879
 KNOWN_PREFLIGHT_COMMIT = "d22eb07173794848fd375b5675059946ee3860b5"
+KNOWN_REPIN_AUDIT_COMMIT = "e17905b1d62048f43bab89e06625aebdcf280faf"
+KNOWN_REPIN_AUDIT_PATH = "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/upstream-drift-repin-audit.md"
 SEARCH_QUERIES = (
     'repo:google-deepmind/formal-conjectures "bondy_conjecture"',
     'repo:google-deepmind/formal-conjectures "BondyLongestCycles"',
@@ -76,7 +78,14 @@ def validate_local_contamination(hits: list[str]) -> tuple[bool, list[dict[str, 
     for commit in hits:
         subject = git("show", "-s", "--format=%s", commit)
         paths = git("diff-tree", "--no-commit-id", "--name-only", "-r", commit).splitlines()
-        kind = "known_preflight" if commit == KNOWN_PREFLIGHT_COMMIT else "freeze_introducer"
+        if commit == KNOWN_PREFLIGHT_COMMIT:
+            kind = "known_preflight"
+        elif commit == KNOWN_REPIN_AUDIT_COMMIT:
+            kind = "known_repin_audit"
+            if subject != "research: audit Bondy upstream repin" or paths != [KNOWN_REPIN_AUDIT_PATH]:
+                return False, identities
+        else:
+            kind = "freeze_introducer"
         if kind == "freeze_introducer":
             freeze_introducers += 1
             if not paths or not all(any(path.startswith(root) for root in allowed_roots) for path in paths):
@@ -84,7 +93,7 @@ def validate_local_contamination(hits: list[str]) -> tuple[bool, list[dict[str, 
             if "scripts/prospective_bondy_gate.py" not in paths:
                 return False, identities
         identities.append({"commit": commit, "subject": subject, "paths": paths, "kind": kind})
-    return KNOWN_PREFLIGHT_COMMIT in hits and freeze_introducers <= 1, identities
+    return KNOWN_PREFLIGHT_COMMIT in hits and KNOWN_REPIN_AUDIT_COMMIT in hits and freeze_introducers <= 1, identities
 
 
 def atomic_json(path: Path, value: object) -> None:
@@ -259,7 +268,7 @@ def run(output: Path, token: str, paper: Path | None) -> dict[str, object]:
     if paper is not None:
         checks["paper_sha256"] = paper.is_file() and sha256(paper.read_bytes()) == PAPER_SHA256
     record = {
-        "schema": "bondy_source_status_duplicate_gate_bracketed_single_scan_v1",
+        "schema": "bondy_source_status_duplicate_gate_bracketed_single_scan_v2",
         "kind": "source_status_duplicate_gate",
         "status": "PASS" if all(checks.values()) else "GATE_FAIL",
         "checks": checks,

@@ -1,4 +1,4 @@
-name: Bondy longest cycles DEVELOPMENT (disabled)
+name: Bondy longest cycles DEVELOPMENT v2 (disabled by default)
 
 on:
   workflow_dispatch:
@@ -73,15 +73,18 @@ jobs:
           curl -fsSL https://arxiv.org/pdf/2606.03696v1 -o /tmp/2606.03696.pdf
           timeout --signal=TERM --kill-after=6s 60s python scripts/prospective_bondy_gate.py \
             --paper /tmp/2606.03696.pdf --output /tmp/source-status-attestation.json
-      - name: Frozen target process (manifest remains disabled)
+      - name: Frozen v2 target process (requires all explicit guards)
         id: target
         shell: bash
+        env:
+          CAMPAIGN_COMMIT: ${{ inputs.campaign_commit }}
+          ACTIVATION_TOKEN: ${{ inputs.activation_token }}
         run: |
           set +e
           timeout --signal=TERM --kill-after=6s 60s python scripts/prospective_bondy_search.py \
             --enable-target \
-            --campaign-commit '${{ inputs.campaign_commit }}' \
-            --activation-token '${{ inputs.activation_token }}' \
+            --campaign-commit "$CAMPAIGN_COMMIT" \
+            --activation-token "$ACTIVATION_TOKEN" \
             --source-attestation /tmp/source-status-attestation.json \
             --ledger /tmp/bondy-ledger.jsonl \
             --candidate /tmp/bondy-candidate.json \

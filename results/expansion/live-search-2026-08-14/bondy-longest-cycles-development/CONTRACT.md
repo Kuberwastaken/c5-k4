@@ -1,6 +1,6 @@
-# Bondy longest-cycles frozen DEVELOPMENT contract
+# Bondy longest-cycles frozen DEVELOPMENT contract v2
 
-**State:** prepared, target execution disabled, never dispatched
+**State:** superseding v2 guard hash sealed, disabled by default, never dispatched
 
 **Evidence class:** contaminated `DEVELOPMENT`, never held out
 
@@ -8,23 +8,34 @@
 
 **Only slice:** `k=4`, source parameter `t=4`, `n=24`
 
-This contract freezes a small balanced delete/add port-rewiring arm around the
-source sharpness graph `S(4,4)`. It does not authorize execution, publication,
-a release, an issue, or a pull request. The executable target path remains
-mechanically disabled in `manifest.json`; activation requires a later reviewed
-superseding contract because this prepared manifest provisions no activation
-token. Even then, the runner requires a workflow commit input equal to the
-checked-out `HEAD`, the exact workflow Boolean, a clean tree, and the exact
-token. `HEAD` is checked at runtime rather than embedded in its own tracked
-contents, avoiding a self-referential Git hash. The immutable content registry
-independently binds every executable and contract file. This prepared freeze
-cannot execute the target under any documented input.
+This v2 contract supersedes the prepared v1 seal while preserving its reports
+as historical records. It freezes the same small balanced delete/add port-
+rewiring arm around the source sharpness graph `S(4,4)`. This seal alone does not authorize execution,
+publication, a release, an issue, or a pull request.
+The workflow remains disabled by default. A target process can start only when
+an explicit dispatch supplies all of: `enable_target=true`, a campaign commit
+equal to the checked-out `HEAD`, a clean tree, and a guard whose SHA-256 is
+exactly `d061571de2bf737ce447b77ebe0e6c2d995d98ab3061f000d1db25fe161e69dc`.
+Only the hash is tracked; the guard preimage is deliberately absent from code,
+the manifest, and documentation. `HEAD` is checked at runtime rather than
+embedded in its own tracked contents, avoiding a self-referential Git hash.
+The immutable v2 content registry independently binds every executable and
+contract file. Before any target row, the runner also requires the full v2
+live-gate schema, the exact 16-check PASS set, equal bracket snapshots, exact
+identity/file bindings, and zero open-PR target-path matches; a minimal or
+forged `PASS` object is insufficient. Exact nonzero counts, key sets, PR-number
+order, sorted changed paths, per-PR path digests, and the complete checks,
+bracket, file-binding, and full-record digests are recomputed against the
+sealed compact v2 attestation before target evaluation.
+Workflow dispatch strings are mapped through step environment variables and
+expanded only as double-quoted arguments; no `${{ inputs.* }}` expression is
+interpolated into shell source, so quotes and newlines cannot create commands.
 
 ## Immutable source and formal shape
 
 The upstream lock is
-`google-deepmind/formal-conjectures@5a5af706fa5bef3f09606554d393c9170d2b27e8`,
-tree `0ef534e06d27e22e68e4cfd5081f2a5e28ebe73a`, file
+`google-deepmind/formal-conjectures@b5acb0ff13e38084105b7fe020ba0d59c1925bc5`,
+tree `4f6c9bd17fdfdc264f54b26862ce768743da5d63`, file
 `FormalConjectures/Arxiv/2606.03696/BondyLongestCycles.lean`, blob
 `c4c5cb1983936860d5a4a7208b3f04bd201290d4`, raw SHA-256
 `562fbbb0ec47041a61017bb85ec0c7e9aa6fc98cf132be3022268a7dc60e9004`.
@@ -55,7 +66,7 @@ Thus head/base/file-affecting updates and new/closed PRs fail closed without a
 second file scan. Any worker or pagination error also fails closed; scheduling
 cannot affect canonical order or hashes.
 Live records use schema
-`bondy_source_status_duplicate_gate_bracketed_single_scan_v1` and explicitly
+`bondy_source_status_duplicate_gate_bracketed_single_scan_v2` and explicitly
 require the file-binding identities to equal the complete before identity set.
 
 ## Source control and theorem subtraction

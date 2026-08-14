@@ -35,6 +35,50 @@ def pull_fixture(number: int, title: str | None = None) -> dict[str, object]:
     }
 
 
+def live_attestation_fixture(empty: bool = False, identity_only_binding: bool = False) -> dict[str, object]:
+    identities = [] if empty else [live_gate.pull_identity(pull_fixture(1))]
+    paths = ["FormalConjectures/Unrelated.lean"]
+    bindings = [] if empty else [{
+        **identities[0],
+        "changed_paths": paths,
+        "changed_paths_sha256": search.canonical_sha256(paths),
+    }]
+    if identity_only_binding:
+        bindings = [dict(identities[0])]
+    snapshot = {
+        "main": "pinned",
+        "searches": {},
+        "open_pulls": identities,
+        "repository_total_count": 0,
+    }
+    return {
+        "schema": "bondy_source_status_duplicate_gate_bracketed_single_scan_v2",
+        "kind": "source_status_duplicate_gate",
+        "status": "PASS",
+        "checks": {key: True for key in search.LIVE_GATE_CHECKS},
+        "upstream": {"commit": "pinned"},
+        "open_pr_target_path_matches": [],
+        "bracket_snapshot_before": snapshot,
+        "open_pr_file_bindings": bindings,
+        "bracket_snapshot_after": json.loads(json.dumps(snapshot)),
+        "local_history_hits": [],
+        "local_history_identities": [],
+    }
+
+
+def sealed_attestation_fixture(attestation: dict[str, object]) -> dict[str, object]:
+    identities = attestation["bracket_snapshot_before"]["open_pulls"]
+    bindings = attestation["open_pr_file_bindings"]
+    return {"gate": {
+        "checks_sha256": search.canonical_sha256(attestation["checks"]),
+        "bracket_snapshot_sha256": search.canonical_sha256(attestation["bracket_snapshot_before"]),
+        "file_bindings_sha256": search.canonical_sha256(bindings),
+        "full_record_sha256": __import__("hashlib").sha256(search.canonical_bytes(attestation)).hexdigest(),
+        "open_pr_identities": len(identities),
+        "file_bindings": len(bindings),
+    }}
+
+
 class SourceAndGrammarTests(unittest.TestCase):
     def test_s44_source_control_is_exact_minus_one(self) -> None:
         row = construct.source_control()
@@ -104,6 +148,48 @@ class SourceAndGrammarTests(unittest.TestCase):
 
 
 class TargetIsolationTests(unittest.TestCase):
+    def test_workflow_dispatch_strings_never_enter_shell_source(self) -> None:
+        workflow = (ROOT / ".github/workflows/bondy-longest-cycles-development.yml").read_text()
+        lines = workflow.splitlines()
+        run_bodies: list[str] = []
+        index = 0
+        while index < len(lines):
+            if lines[index].lstrip() == "run: |":
+                indentation = len(lines[index]) - len(lines[index].lstrip())
+                index += 1
+                body: list[str] = []
+                while index < len(lines) and (not lines[index].strip() or len(lines[index]) - len(lines[index].lstrip()) > indentation):
+                    body.append(lines[index])
+                    index += 1
+                run_bodies.append("\n".join(body))
+                continue
+            index += 1
+        shell_source = "\n".join(run_bodies)
+        self.assertNotIn("${{ inputs.", shell_source)
+        self.assertIn('--campaign-commit "$CAMPAIGN_COMMIT"', shell_source)
+        self.assertIn('--activation-token "$ACTIVATION_TOKEN"', shell_source)
+        self.assertIn("CAMPAIGN_COMMIT: ${{ inputs.campaign_commit }}", workflow)
+        self.assertIn("ACTIVATION_TOKEN: ${{ inputs.activation_token }}", workflow)
+
+        with tempfile.TemporaryDirectory() as directory:
+            marker = Path(directory) / "injected"
+            malicious = "bad'\nprintf injected > " + str(marker) + "\n"
+            environment = dict(os.environ, CAMPAIGN_COMMIT=malicious, ACTIVATION_TOKEN=malicious)
+            completed = subprocess.run(
+                [
+                    "bash",
+                    "-c",
+                    "python3 -c 'import json,sys; print(json.dumps(sys.argv[1:]))' "
+                    '--campaign-commit "$CAMPAIGN_COMMIT" --activation-token "$ACTIVATION_TOKEN"',
+                ],
+                env=environment,
+                text=True,
+                capture_output=True,
+                check=True,
+            )
+            self.assertEqual(json.loads(completed.stdout), ["--campaign-commit", malicious, "--activation-token", malicious])
+            self.assertFalse(marker.exists())
+
     def test_constructor_source_contains_no_target_evaluator(self) -> None:
         source = (ROOT / "scripts/prospective_bondy_construct.py").read_text()
         tree = ast.parse(source)
@@ -126,6 +212,30 @@ class TargetIsolationTests(unittest.TestCase):
         )
         with self.assertRaisesRegex(RuntimeError, "TARGET_EXECUTION_DISABLED"):
             search.unlock(args)
+
+    def test_v2_live_attestation_requires_full_bracket_and_bindings(self) -> None:
+        manifest = {
+            "live_gate": {"schema": "bondy_source_status_duplicate_gate_bracketed_single_scan_v2"},
+            "upstream": {"commit": "pinned"},
+        }
+        attestation = live_attestation_fixture()
+        sealed = sealed_attestation_fixture(attestation)
+        search.validate_live_attestation(attestation, manifest, sealed)
+        attestation["open_pr_file_bindings"][0]["head_sha"] = "mutated"
+        with self.assertRaisesRegex(RuntimeError, "missing or drifted"):
+            search.validate_live_attestation(attestation, manifest, sealed)
+
+    def test_forged_zero_identity_pass_is_rejected(self) -> None:
+        manifest = {"live_gate": {"schema": "bondy_source_status_duplicate_gate_bracketed_single_scan_v2"}, "upstream": {"commit": "pinned"}}
+        attestation = live_attestation_fixture(empty=True)
+        with self.assertRaisesRegex(RuntimeError, "nonempty sealed count drift"):
+            search.validate_live_attestation(attestation, manifest, sealed_attestation_fixture(attestation))
+
+    def test_forged_identity_only_file_binding_is_rejected(self) -> None:
+        manifest = {"live_gate": {"schema": "bondy_source_status_duplicate_gate_bracketed_single_scan_v2"}, "upstream": {"commit": "pinned"}}
+        attestation = live_attestation_fixture(identity_only_binding=True)
+        with self.assertRaisesRegex(RuntimeError, "file binding schema drift"):
+            search.validate_live_attestation(attestation, manifest, sealed_attestation_fixture(attestation))
 
     def test_ledger_cannot_append_after_seal(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -236,6 +346,27 @@ class TargetIsolationTests(unittest.TestCase):
 
 
 class LiveGateConcurrencyTests(unittest.TestCase):
+    def test_v2_local_history_accepts_only_exact_repin_audit(self) -> None:
+        freeze = "f" * 40
+        hits = [live_gate.KNOWN_REPIN_AUDIT_COMMIT, freeze, live_gate.KNOWN_PREFLIGHT_COMMIT]
+
+        def exact_git(*args: str) -> str:
+            commit = args[-1]
+            if args[0] == "show":
+                return "research: audit Bondy upstream repin" if commit == live_gate.KNOWN_REPIN_AUDIT_COMMIT else "freeze"
+            if args[0] == "diff-tree":
+                if commit == live_gate.KNOWN_REPIN_AUDIT_COMMIT:
+                    return live_gate.KNOWN_REPIN_AUDIT_PATH
+                if commit == freeze:
+                    return "scripts/prospective_bondy_gate.py"
+                return "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/preflight.md"
+            raise AssertionError(args)
+
+        with mock.patch.object(live_gate, "git", side_effect=exact_git):
+            accepted, identities = live_gate.validate_local_contamination(hits)
+        self.assertTrue(accepted)
+        self.assertEqual([row["kind"] for row in identities], ["known_repin_audit", "freeze_introducer", "known_preflight"])
+
     def test_open_pr_and_changed_file_pagination_are_complete(self) -> None:
         calls: list[str] = []
 
@@ -342,7 +473,7 @@ class LiveGateConcurrencyTests(unittest.TestCase):
                 with self.assertRaisesRegex(RuntimeError, "failed closed"):
                     live_gate.run(output, "token", None)
                 record = json.loads(output.read_text())
-                self.assertEqual(record["schema"], "bondy_source_status_duplicate_gate_bracketed_single_scan_v1")
+                self.assertEqual(record["schema"], "bondy_source_status_duplicate_gate_bracketed_single_scan_v2")
                 self.assertTrue(record["checks"]["file_bindings_exact"])
                 self.assertFalse(record["checks"]["bracket_snapshot_stable"])
                 self.assertNotEqual(record["bracket_snapshot_before"], record["bracket_snapshot_after"])

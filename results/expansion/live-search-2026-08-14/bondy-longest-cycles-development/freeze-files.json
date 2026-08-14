@@ -1,21 +1,23 @@
 {
-  "schema": "bondy-freeze-files-v1",
+  "schema": "bondy-freeze-files-v2",
   "sha256": {
-    ".github/workflows/bondy-longest-cycles-development.yml": "3161ee931f3d3a0fbb1a477fbfcaae25b3f6bf1eb5fce865a30faaa2243d97b2",
+    ".github/workflows/bondy-longest-cycles-development.yml": "eefd54cb1477dc4d08a8360981ee6a95b288c37c20e03f37fc392665c425af5e",
     "scripts/prospective_bondy_construct.py": "ac1fa82c60cdbbfcc6cb0dd343f9db78edc78d155e24926cefef93774cd38d4f",
-    "scripts/prospective_bondy_gate.py": "1ac538e97364e805c84c1a83072ff6f98f4a964e944de704932c1d206b6875bc",
-    "scripts/prospective_bondy_search.py": "ed8805ee30696d36382f313f087ff03392c99ff702c044076e9d4be7a8b1a5b5",
+    "scripts/prospective_bondy_gate.py": "d12cb7aff9d15043e5e0929ccff94ebcb95f456b06fb1b43164c149c0425a41d",
+    "scripts/prospective_bondy_search.py": "30dc12a2769f504b91d6451c89403fceddea00ec6a50e5717959755fcbdb5205",
     "scripts/prospective_bondy_replay.cpp": "edb7263ebba7cb426f4e1d808546310878d8e813e2abf709ac853c3fde422dfe",
     "scripts/prospective_bondy_verify.py": "beff5c6e2e9d128b62079f5eda542a0f91813f8e7dd3bd48bb6ace6961412e80",
-    "scripts/test_bondy_development.py": "3accdc1efd11b516411864341140a733cfdf457a6b6d6b638708e940ab720e84",
-    "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/CONTRACT.md": "14992025b43d5efbcab899466b2dd086c23f975bea8bf01d7b692b8ec1c24700",
-    "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/manifest.json": "c5ce6061cc3004f85af34d05b07a92c5d16f8756dc6582106c1d5be1d5348ce1",
-    "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/source-status-attestation.json": "8240699261a12c11f3ece3a6d6023e282fd495c22ac3c8c74e27742a710bf033",
-    "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/verify_freeze.py": "0ad338755addab38abfe8d4f6c83a6bee1e129ebfa2f4b3814907455137622be",
+    "scripts/test_bondy_development.py": "9e9efb421d1b1fed20b13474d8d444c9f320612580072dd2672d681ac75575cd",
+    "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/CONTRACT.md": "1975dd177176af4f8a14a276c7317c006978753d2c5300c256e4e811275518df",
+    "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/manifest.json": "359290817f8772e1ff9d308b77cd2da9595825864759e49d33e25e0a0c486d81",
+    "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/source-status-attestation.json": "30e13aad175a7ad9cdd99e515d37e59fd75103853636ab8c0f1b57adf69db2dc",
+    "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/verify_freeze.py": "a6b0a3ee2243f07093c72714ba2c00d91531f5225547430d073f217d9acb2690",
+    "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/activation-gate-validation.md": "5fb479e266e85512ffb9af3c6fea527b3b4caaadfa1bb1ffe09b8b68ffd0bbe4",
     "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/invalid-preactivation-gate-timeout.md": "067b2f18c0e2d63ca65516f04a02f567b8fd20fb99be7518711893e730ecfdf0",
     "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/parallel-live-gate-validation.md": "c9dd3dc5b347b4190be6319e07058649f40d59eba70ee9ecab860107fa07a464",
     "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/preflight.md": "8e7d64adbc21176549d1698fa4edf757f57286c06e1033fa49f558a3f49348f9",
     "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/math-audit.md": "c587b9aedc175c4301104608c954c1cbd3dfc1a2a8d9a785228cb8b52fc7bf19",
-    "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/q4-algorithm-design.md": "00e0c73cfdd24b31ed750dd9ff12ad45b0effeb2b544a6a8d9eb47173285f0dd"
+    "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/q4-algorithm-design.md": "00e0c73cfdd24b31ed750dd9ff12ad45b0effeb2b544a6a8d9eb47173285f0dd",
+    "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/upstream-drift-repin-audit.md": "a7e7a2f03f2873743aeea63a90e9ad785b8ccc56d26608ce6e0a58e1a6a07cfb"
   }
 }

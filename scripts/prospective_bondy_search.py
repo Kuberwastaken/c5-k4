@@ -31,10 +31,60 @@ MANIFEST = HERE / "manifest.json"
 INTERNAL_SEARCH_SECONDS = 48
 INTERNAL_FINALIZE_SECONDS = 54
 EXTERNAL_SECONDS = 60
+LIVE_GATE_CHECKS = {
+    "blob_sha1",
+    "bracket_snapshot_stable",
+    "category_open",
+    "exact_allowed_search_result_sets",
+    "exact_local_contamination_history",
+    "file_bindings_exact",
+    "known_ingestion_issue_exact",
+    "known_ingestion_pr_exact",
+    "main_commit",
+    "no_open_pr_touches_target",
+    "no_standalone_repository_hit",
+    "opaque_answer_wrapper",
+    "open_pr_set_stable",
+    "paper_sha256",
+    "target_sha256",
+    "tree",
+}
+LIVE_ATTESTATION_FIELDS = {
+    "schema",
+    "kind",
+    "status",
+    "checks",
+    "upstream",
+    "open_pr_target_path_matches",
+    "bracket_snapshot_before",
+    "open_pr_file_bindings",
+    "bracket_snapshot_after",
+    "local_history_hits",
+    "local_history_identities",
+}
+BRACKET_FIELDS = {"main", "searches", "open_pulls", "repository_total_count"}
+PULL_IDENTITY_FIELDS = {
+    "number",
+    "title",
+    "draft",
+    "updated_at",
+    "head_sha",
+    "head_ref",
+    "head_repo",
+    "base_sha",
+    "base_ref",
+    "base_repo",
+}
+PULL_BINDING_FIELDS = PULL_IDENTITY_FIELDS | {"changed_paths", "changed_paths_sha256"}
+FROZEN_TARGET_PATH = "FormalConjectures/Arxiv/2606.03696/BondyLongestCycles.lean"
 
 
 def canonical_bytes(value: object) -> bytes:
     return (json.dumps(value, sort_keys=True, separators=(",", ":")) + "\n").encode("ascii")
+
+
+def canonical_sha256(value: object) -> str:
+    return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(",", ":")).encode("ascii")).hexdigest()
 
 
 class DurableLedger:
@@ -120,6 +170,73 @@ def replay_path(graph: nx.Graph, path: Sequence[int]) -> bool:
 
 def file_sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def validate_live_attestation(
+    attestation: dict[str, object], manifest: dict[str, object], sealed: dict[str, object] | None = None
+) -> None:
+    if sealed is None:
+        sealed = json.loads((HERE / "source-status-attestation.json").read_text())
+    sealed_gate = sealed.get("gate")
+    checks = attestation.get("checks")
+    before = attestation.get("bracket_snapshot_before")
+    after = attestation.get("bracket_snapshot_after")
+    bindings = attestation.get("open_pr_file_bindings")
+    if (
+        set(attestation) != LIVE_ATTESTATION_FIELDS
+        or attestation.get("schema") != manifest["live_gate"]["schema"]
+        or attestation.get("kind") != "source_status_duplicate_gate"
+        or attestation.get("status") != "PASS"
+        or attestation.get("upstream") != manifest["upstream"]
+        or not isinstance(sealed_gate, dict)
+        or not isinstance(checks, dict)
+        or set(checks) != LIVE_GATE_CHECKS
+        or any(value is not True for value in checks.values())
+        or not isinstance(before, dict)
+        or set(before) != BRACKET_FIELDS
+        or before != after
+        or not isinstance(bindings, list)
+        or attestation.get("open_pr_target_path_matches") != []
+        or canonical_sha256(checks) != sealed_gate.get("checks_sha256")
+        or canonical_sha256(before) != sealed_gate.get("bracket_snapshot_sha256")
+        or canonical_sha256(bindings) != sealed_gate.get("file_bindings_sha256")
+        or hashlib.sha256(canonical_bytes(attestation)).hexdigest() != sealed_gate.get("full_record_sha256")
+    ):
+        raise RuntimeError("GATE_FAIL:source attestation missing or drifted")
+    identities = before.get("open_pulls")
+    expected_count = sealed_gate.get("open_pr_identities")
+    if (
+        isinstance(expected_count, bool)
+        or not isinstance(expected_count, int)
+        or expected_count <= 0
+        or sealed_gate.get("file_bindings") != expected_count
+        or not isinstance(identities, list)
+        or len(identities) != expected_count
+        or len(bindings) != expected_count
+    ):
+        raise RuntimeError("GATE_FAIL:source attestation nonempty sealed count drift")
+    numbers: list[int] = []
+    for identity, binding in zip(identities, bindings):
+        if not isinstance(identity, dict) or set(identity) != PULL_IDENTITY_FIELDS:
+            raise RuntimeError("GATE_FAIL:source attestation PR identity schema drift")
+        if not isinstance(binding, dict) or set(binding) != PULL_BINDING_FIELDS:
+            raise RuntimeError("GATE_FAIL:source attestation file binding schema drift")
+        number = identity.get("number")
+        paths = binding.get("changed_paths")
+        if (
+            isinstance(number, bool)
+            or not isinstance(number, int)
+            or {key: binding[key] for key in PULL_IDENTITY_FIELDS} != identity
+            or not isinstance(paths, list)
+            or not all(isinstance(path, str) and path for path in paths)
+            or paths != sorted(set(paths))
+            or binding.get("changed_paths_sha256") != canonical_sha256(paths)
+            or FROZEN_TARGET_PATH in paths
+        ):
+            raise RuntimeError("GATE_FAIL:source attestation file binding drift")
+        numbers.append(number)
+    if numbers != sorted(set(numbers)):
+        raise RuntimeError("GATE_FAIL:source attestation file binding drift")
 
 
 class EndpointPathCoverDP:
@@ -370,8 +487,7 @@ def independent_upper_replay(binary: Path, edges: Sequence[Sequence[int]], expec
 def run(args: argparse.Namespace) -> int:
     manifest = unlock(args)
     attestation = json.loads(args.source_attestation.read_text())
-    if attestation.get("status") != "PASS" or attestation.get("upstream") != manifest["upstream"]:
-        raise RuntimeError("GATE_FAIL:source attestation missing or drifted")
+    validate_live_attestation(attestation, manifest)
     started = time.monotonic()
     ledger = DurableLedger(args.ledger)
     ledger.append({"kind": "source_control", "record": construct.source_control()})

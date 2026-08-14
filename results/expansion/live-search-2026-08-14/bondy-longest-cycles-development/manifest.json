@@ -1,14 +1,17 @@
 {
   "campaign": "bondy-longest-cycles-development",
+  "seal_version": "bondy-longest-cycles-development-v2",
+  "supersedes": "bondy-longest-cycles-development-v1",
   "evidence_class": "CONTAMINATED_DEVELOPMENT",
   "target": "Arxiv.2606.03696.bondy_conjecture",
   "slice": {"k": 4, "t": 4, "h_order": 20, "g_order": 24, "large_graph_cutoff": 108},
   "caps": {"internal_search_seconds": 48, "internal_finalize_seconds": 54, "external_process_seconds": 60, "term_to_kill_seconds": 6, "independent_verify_seconds": 60},
   "runtime": {"python_version": "3.11.9", "networkx_version": "3.3", "discovery_algorithm": "python_endpoint_path_cover_dp_v1", "replay_algorithm": "cpp_endpoint_path_cover_dp_v1"},
-  "live_gate": {"schema": "bondy_source_status_duplicate_gate_bracketed_single_scan_v1", "snapshot_workers": 24, "open_pull_page_size": 100, "changed_file_page_size": 100, "changed_file_scans_per_pr": 1, "deterministic_order": ["pull_number", "changed_path"], "bracket_identity_snapshot_equality": true, "open_pr_set_equality": true, "file_binding_identity_equality": true},
+  "live_gate": {"schema": "bondy_source_status_duplicate_gate_bracketed_single_scan_v2", "snapshot_workers": 24, "open_pull_page_size": 100, "changed_file_page_size": 100, "changed_file_scans_per_pr": 1, "deterministic_order": ["pull_number", "changed_path"], "bracket_identity_snapshot_equality": true, "open_pr_set_equality": true, "file_binding_identity_equality": true},
+  "local_history": {"known_preflight_commit": "d22eb07173794848fd375b5675059946ee3860b5", "known_repin_audit_commit": "e17905b1d62048f43bab89e06625aebdcf280faf", "maximum_freeze_introducers": 1},
   "upstream": {
-    "commit": "5a5af706fa5bef3f09606554d393c9170d2b27e8",
-    "tree": "0ef534e06d27e22e68e4cfd5081f2a5e28ebe73a",
+    "commit": "b5acb0ff13e38084105b7fe020ba0d59c1925bc5",
+    "tree": "4f6c9bd17fdfdc264f54b26862ce768743da5d63",
     "path": "FormalConjectures/Arxiv/2606.03696/BondyLongestCycles.lean",
     "blob": "c4c5cb1983936860d5a4a7208b3f04bd201290d4"
   },
@@ -33,8 +36,8 @@
   "candidate": {"q4": 16, "Q_vertices": 4, "Q_subsets": 4845, "Q_path_may_have_chords": true, "deletion_upper_checks": 1351, "circumference": 20, "discovery_encoder": "python_endpoint_path_cover_dp_capped_at_5", "discovery_version": "python_endpoint_path_cover_dp_v1", "independent_encoder": "cpp_endpoint_path_cover_dp_capped_at_5", "independent_version": "cpp_endpoint_path_cover_dp_v1", "pc_table_bytes": 1048576, "required_graph_edge_lists": ["edges_h", "edges_g"], "upper_rejection_requires_cover_witness": true},
   "target_execution_lock": {
     "enabled_by_default": false,
-    "token_provisioned": false,
-    "activation_token_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
-    "state": "TARGET_DISABLED_NO_ACTIVATION_TOKEN_EXISTS"
+    "token_provisioned": true,
+    "activation_token_sha256": "d061571de2bf737ce447b77ebe0e6c2d995d98ab3061f000d1db25fe161e69dc",
+    "state": "V2_EXPLICIT_GUARD_HASH_PROVISIONED_DEFAULT_DISABLED"
   }
 }
