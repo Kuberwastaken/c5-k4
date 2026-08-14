@@ -15,7 +15,7 @@
   "classes": {
     "SEMANTIC_EXPOSURE": {
       "excluding": true,
-      "definition": "A target statement, mathematical meaning, status, residual, family, proof or disproof route, transformation, candidate, or target-specific result was delivered to or produced for a frozen experimental participant. Before C1 the frozen participants are machine-only; after C1 this includes each fresh isolated arm or verification context.",
+      "definition": "During the P1-through-pre-selection source interval, a target statement, mathematical meaning, status, residual, family, proof or disproof route, transformation, candidate, or target-specific result was delivered to or produced for a frozen experimental participant. Those pre-C1 participants are machine-only.",
       "examples": [
         "natural-language turn delivered into a post-C1 frozen arm or verifier",
         "manual target inspection that influences or controls the harness",
@@ -46,7 +46,7 @@
         "no pre-C1 human-facing or model-facing rendering occurred inside the participant boundary",
         "custody metadata itself contains no target semantics"
       ],
-      "note": "If source bytes reach a frozen arm, verifier, or other experimental participant semantically, the rendered unit is SEMANTIC_EXPOSURE even though the stored blob remains source custody. Independent delivery outside the boundary is irrelevant only when zero participant ingress is proved."
+      "note": "If source bytes reach a frozen pre-C1 participant semantically, the rendered unit is SEMANTIC_EXPOSURE even though the stored blob remains source custody. Independent delivery outside the boundary is irrelevant only when zero participant ingress is proved. Post-C1 target delivery is governed by the isolated arm protocol, not this pre-selection exclusion class."
     },
     "UNKNOWN": {
       "excluding": true,
