@@ -192,11 +192,22 @@ failed closed through every later stage, with zero assignments, adversary
 target calls, candidates, or final verifications. This is an
 [invalid operational run](results/expansion/live-search-2026-08-14/oeis-a231201-v2-development/result.md),
 not a bounded zero or mathematical result. The audit-clean v2.1 supersession
-replaces only that population-count operation and adds Python-3.9 smoke tests
-that execute all three constructor paths before dispatch; the arithmetic
-universe, exact gate, independent verifiers, and 54-second/60-second caps are
-unchanged. See the
-[v2.1 correction contract](results/expansion/live-search-2026-08-14/oeis-a231201-v21-development/CONTRACT.md).
+replaced only that population-count operation and added Python-3.9 smoke tests
+that execute all three constructor paths before dispatch. Its immutable run
+then emitted six complete 55-coordinate small-basis proposals, one in every
+`(a_2,a_3)` cell. The proposals remained unverified: each exact adversary
+processed complete refinement levels through prime 17 and then reached the
+outer process cap before writing a terminal, so the artifact gate rejected all
+six and every downstream path stopped. The
+[v2.1 result](results/expansion/live-search-2026-08-14/oeis-a231201-v21-development/result.md)
+is therefore another operational diagnosis, not a candidate or mathematical
+result. The v2.2 supersession retains those constructors but gives the exact
+adversary a six-second in-process finalization reserve and an incremental
+queue digest, eliminating the unbounded post-deadline sort/hash pass. A
+synthetic 200,000-state forced deadline now produces and verifies its terminal
+in under a second on Python 3.9. The arithmetic universe, exact gate,
+independent final verifier, and 60-second outer cap remain unchanged. See the
+[v2.2 correction contract](results/expansion/live-search-2026-08-14/oeis-a231201-v22-development/CONTRACT.md).
 
 A subsequent live-arm pass over the newly merged OEIS cohort found one exact
 lower-endpoint failure: the formalized A109074 identity says `1 = 3` at
