@@ -30,5 +30,8 @@
   },
   "public_status_audit_date": "2026-08-14",
   "public_prior_claim_found": false,
-  "release_pending": "repository release publication"
+  "release": "https://github.com/Kuberwastaken/c5-k4/releases/tag/graffiti3-conjecture2-double-star-v1",
+  "release_tag_object": "ba51d7bc7da5b0b372225363394b4cdf9387af30",
+  "release_target_commit": "332ec3dcbf74469754e53e09b22eb82977ff8507",
+  "release_pending": false
 }

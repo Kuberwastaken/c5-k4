@@ -39,5 +39,12 @@ Date: **2026-08-14 UTC**
 
 ## Release lock
 
-Lean CI passed. Pending final documentation commit, annotated tag, publication,
-and immutable-link readback.
+Release published and read back successfully:
+
+- URL: `https://github.com/Kuberwastaken/c5-k4/releases/tag/graffiti3-conjecture2-double-star-v1`
+- annotated tag object: `ba51d7bc7da5b0b372225363394b4cdf9387af30`
+- peeled target commit: `332ec3dcbf74469754e53e09b22eb82977ff8507`
+- published: `2026-08-14T10:02:37Z`
+- draft/prerelease: `false` / `false`
+- every immutable artifact link in the release body returned HTTP 200 at
+  readback.
