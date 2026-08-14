@@ -2,7 +2,7 @@
 """Frozen finite-prefix residue-cover development lane for A109908/A109909."""
 from __future__ import annotations
 
-import argparse, hashlib, json, math, os, pathlib, random, shutil, signal, subprocess
+import argparse, concurrent.futures, hashlib, json, math, os, pathlib, random, shutil, signal, subprocess
 import urllib.parse, urllib.request
 from contextlib import contextmanager
 
@@ -120,65 +120,174 @@ def parse_bfile(path: pathlib.Path, spec: dict) -> list[tuple[int,int]]:
 
 def api(url: str, token: str) -> object:
     req=urllib.request.Request(url,headers={"Accept":"application/vnd.github+json","Authorization":f"Bearer {token}","User-Agent":"c5-k4-a1099-gate"})
-    with urllib.request.urlopen(req,timeout=30) as response: return json.load(response)
+    with urllib.request.urlopen(req,timeout=15) as response: return json.load(response)
 
-def api_post(url: str, token: str, value: dict) -> object:
-    req=urllib.request.Request(url,data=json.dumps(value).encode(),headers={"Accept":"application/vnd.github+json","Authorization":f"Bearer {token}","User-Agent":"c5-k4-a1099-gate","Content-Type":"application/json"})
-    with urllib.request.urlopen(req,timeout=30) as response:return json.load(response)
+def _paged(url: str, token: str, identity) -> list[dict]:
+    """Read every REST page and fail closed on malformed or repeated records."""
+    rows=[];seen=set();page=1
+    while True:
+        separator="&" if "?" in url else "?"
+        batch=api(f"{url}{separator}per_page=100&page={page}",token)
+        if not isinstance(batch,list) or len(batch)>100:raise ValueError("REST pagination malformed/truncated")
+        for row in batch:
+            if not isinstance(row,dict):raise ValueError("REST pagination non-object row")
+            key=identity(row)
+            if key in seen:raise ValueError("REST pagination repeated/unstable record")
+            seen.add(key);rows.append(row)
+        if len(batch)<100:return rows
+        page+=1
+
+
+def _search_count(q: str, token: str) -> int:
+    result=api("https://api.github.com/search/issues?"+urllib.parse.urlencode({"q":q,"per_page":1}),token)
+    if not isinstance(result,dict) or result.get("incomplete_results") is not False:raise ValueError("search incomplete/truncated")
+    count=result.get("total_count")
+    if type(count)is not int or count<0:raise ValueError("search count malformed")
+    return count
+
+
+def _commit_identity(repo: str, token: str) -> dict:
+    row=api(f"https://api.github.com/repos/{repo}/commits/main",token)
+    return {"head":row["sha"],"tree":row["commit"]["tree"]["sha"]}
+
+
+def _ingestion_identity(token: str) -> dict:
+    row=api("https://api.github.com/repos/google-deepmind/formal-conjectures/pulls/4450",token)
+    return {"pull":row["number"],"state":"MERGED" if row["merged_at"] else row["state"].upper(),"merged_at":row["merged_at"],
+            "merge_commit":row["merge_commit_sha"],"head_commit":row["head"]["sha"]}
+
+
+def _open_pulls(token: str) -> list[dict]:
+    rows=_paged("https://api.github.com/repos/google-deepmind/formal-conjectures/pulls?state=open&sort=created&direction=asc",token,lambda x:x.get("number"))
+    answer=[]
+    for row in rows:
+        number=row.get("number");url=row.get("html_url");head=row.get("head",{}).get("sha");base=row.get("base",{}).get("sha")
+        base_ref=row.get("base",{}).get("ref");title=row.get("title");draft=row.get("draft");updated=row.get("updated_at")
+        if type(number)is not int or number<1 or not isinstance(url,str) or not isinstance(head,str) or not isinstance(base,str):
+            raise ValueError("open pull identity malformed")
+        if any(len(commit)!=40 or any(c not in "0123456789abcdef" for c in commit) for commit in (head,base)):
+            raise ValueError("open pull commit identity malformed")
+        if not isinstance(base_ref,str) or not isinstance(title,str) or type(draft)is not bool or not isinstance(updated,str):
+            raise ValueError("open pull metadata malformed")
+        answer.append({"number":number,"url":url,"head":head,"base":base,"base_ref":base_ref,
+                       "title":title,"draft":draft,"updated_at":updated})
+    return sorted(answer,key=lambda x:x["number"])
+
+
+def _release_identity(token: str) -> dict:
+    rows=_paged("https://api.github.com/repos/Kuberwastaken/c5-k4/releases",token,lambda x:x.get("id"))
+    matches=[]
+    for row in rows:
+        text="\n".join(str(row.get(key) or "") for key in ("name","tag_name","body"))
+        if "A109908" in text or "A109909" in text:matches.append({"tag":row["tag_name"],"url":row["html_url"]})
+    return {"count":len(rows),"matches":sorted(matches,key=lambda x:(x["tag"],x["url"]))}
+
+
+def _snapshot(token: str) -> dict:
+    searches=[f"repo:{owner} {seq}" for owner in ("google-deepmind/formal-conjectures","Kuberwastaken/c5-k4")
+              for seq in ("A109908","OeisA109908","A109909","OeisA109909")]
+    jobs={"formal":lambda:_commit_identity("google-deepmind/formal-conjectures",token),
+          "oeis":lambda:_commit_identity("oeis/oeisdata",token),"ingestion":lambda:_ingestion_identity(token),
+          "pulls":lambda:_open_pulls(token),"open_pr_count":lambda:_search_count("repo:google-deepmind/formal-conjectures is:pr is:open",token),
+          "releases":lambda:_release_identity(token)}
+    for q in searches:jobs["search:"+q]=lambda q=q:_search_count(q,token)
+    with concurrent.futures.ThreadPoolExecutor(max_workers=len(jobs),thread_name_prefix="a1099-audit") as pool:
+        futures={name:pool.submit(fn) for name,fn in jobs.items()}
+        values={name:future.result() for name,future in futures.items()}
+    if len(values["pulls"])!=values["open_pr_count"]:raise ValueError("open pull pagination/search-count mismatch")
+    return {"formal":values["formal"],"oeis":values["oeis"],"ingestion":values["ingestion"],
+            "pulls":values["pulls"],"releases":values["releases"],
+            "searches":{q:values["search:"+q] for q in searches}}
+
+
+def _pull_files(pull: dict, token: str) -> list[dict]:
+    detail=api(f"https://api.github.com/repos/google-deepmind/formal-conjectures/pulls/{pull['number']}",token)
+    changed=detail.get("changed_files")
+    if type(changed)is not int or changed<0:raise ValueError("open pull changed-file count malformed")
+    identity=(detail.get("number"),detail.get("html_url"),detail.get("head",{}).get("sha"),
+              detail.get("base",{}).get("sha"),detail.get("base",{}).get("ref"),detail.get("title"),
+              detail.get("draft"),detail.get("updated_at"))
+    expected=(pull["number"],pull["url"],pull["head"],pull["base"],pull["base_ref"],pull["title"],pull["draft"],pull["updated_at"])
+    if detail.get("state")!="open" or identity!=expected:
+        raise ValueError(f"pull {pull['number']} raced before file scan")
+    rows=_paged(f"https://api.github.com/repos/google-deepmind/formal-conjectures/pulls/{pull['number']}/files",token,
+                lambda x:(x.get("filename"),x.get("previous_filename"),x.get("status")))
+    if len(rows)!=changed:raise ValueError(f"pull {pull['number']} file pagination truncated/raced")
+    answer=[]
+    for row in rows:
+        filename=row.get("filename");previous=row.get("previous_filename");status=row.get("status")
+        if not isinstance(filename,str) or (previous is not None and not isinstance(previous,str)) or not isinstance(status,str):
+            raise ValueError("pull file identity malformed")
+        if status=="renamed" and not isinstance(previous,str):raise ValueError("renamed pull file lacks previous_filename")
+        answer.append({"filename":filename,"previous_filename":previous,"status":status})
+    return answer
+
+
+def _scan_pull_files(pulls: list[dict], token: str) -> list[dict]:
+    targets={x["path"] for x in M["formal_conjectures"]["targets"]}
+    with concurrent.futures.ThreadPoolExecutor(max_workers=16,thread_name_prefix="a1099-files") as pool:
+        futures={pull["number"]:pool.submit(_pull_files,pull,token) for pull in pulls}
+        files={number:future.result() for number,future in futures.items()}
+    touches=[]
+    for pull in sorted(pulls,key=lambda x:x["number"]):
+        if any(row["filename"] in targets or row["previous_filename"] in targets for row in files[pull["number"]]):
+            touches.append({"number":pull["number"],"url":pull["url"]})
+    return touches
+
+
+def verify_live_audit(path: pathlib.Path) -> dict:
+    raw=path.read_bytes();value=json.loads(raw)
+    if raw!=canonical(value):raise ValueError("live audit is not canonical JSON bytes")
+    required={"schema","method","head","tree","oeis_head","oeis_tree","open_pull_requests_scanned","searches",
+              "open_target_path_touches","known_ingestion","local_releases_scanned","local_release_matches","race_stable"}
+    if set(value)!=required or value.get("schema")!="oeis-a109908-a109909-live-audit-v1.1" or value.get("method")!="parallel-rest-double-snapshot-v1":
+        raise ValueError("live audit schema/method drift")
+    if value.get("race_stable") is not True:raise ValueError("live audit race status drift")
+    for key in ("head","tree","oeis_head","oeis_tree"):
+        item=value.get(key)
+        if not isinstance(item,str) or len(item)!=40 or any(c not in "0123456789abcdef" for c in item):raise ValueError("live audit source identity malformed")
+    if type(value.get("open_pull_requests_scanned"))is not int or value["open_pull_requests_scanned"]<0:raise ValueError("live audit pull coverage malformed")
+    if type(value.get("local_releases_scanned"))is not int or value["local_releases_scanned"]<0:raise ValueError("live audit release coverage malformed")
+    expected_searches={f"repo:{owner} {seq}" for owner in ("google-deepmind/formal-conjectures","Kuberwastaken/c5-k4")
+                       for seq in ("A109908","OeisA109908","A109909","OeisA109909")}
+    searches=value.get("searches")
+    if not isinstance(searches,dict) or set(searches)!=expected_searches or any(type(count)is not int or count<0 for count in searches.values()):
+        raise ValueError("live audit search coverage malformed")
+    touches=value.get("open_target_path_touches")
+    if not isinstance(touches,list) or any(set(row)!={"number","url"} or type(row["number"])is not int or not isinstance(row["url"],str) for row in touches):
+        raise ValueError("live audit target-touch coverage malformed")
+    if touches!=sorted(touches,key=lambda x:(x["number"],x["url"])) or len({(x["number"],x["url"]) for x in touches})!=len(touches):
+        raise ValueError("live audit target-touch ordering malformed")
+    ingestion=value.get("known_ingestion")
+    if not isinstance(ingestion,dict) or set(ingestion)!={"pull","state","merged_at","merge_commit","head_commit"} or type(ingestion["pull"])is not int:
+        raise ValueError("live audit ingestion identity malformed")
+    matches=value.get("local_release_matches")
+    if not isinstance(matches,list) or any(set(row)!={"tag","url"} or not isinstance(row["tag"],str) or not isinstance(row["url"],str) for row in matches):
+        raise ValueError("live audit release-match coverage malformed")
+    if matches!=sorted(matches,key=lambda x:(x["tag"],x["url"])) or len({(x["tag"],x["url"]) for x in matches})!=len(matches):
+        raise ValueError("live audit release-match ordering malformed")
+    return value
 
 
 def live_audit(path: pathlib.Path, token: str) -> None:
-    commit=api("https://api.github.com/repos/google-deepmind/formal-conjectures/commits/main",token)
-    oeis_commit=api("https://api.github.com/repos/oeis/oeisdata/commits/main",token)
-    searches={}
-    for owner in ("google-deepmind/formal-conjectures","Kuberwastaken/c5-k4"):
-        for seq in ("A109908","OeisA109908","A109909","OeisA109909"):
-            q=f"repo:{owner} {seq}"; result=api("https://api.github.com/search/issues?"+urllib.parse.urlencode({"q":q,"per_page":100}),token)
-            if result["incomplete_results"] or result["total_count"] != len(result["items"]): raise ValueError("search incomplete/truncated")
-            searches[q]=result["total_count"]
-    pulls=[]; touches=[]
-    targets={x["path"] for x in M["formal_conjectures"]["targets"]}
-    query='''query($cursor:String){repository(owner:"google-deepmind",name:"formal-conjectures"){pullRequests(states:OPEN,first:100,after:$cursor){nodes{number url files(first:100){nodes{path changeType} pageInfo{hasNextPage}}}pageInfo{hasNextPage endCursor}}}}'''
-    cursor=None
-    while True:
-        response=api_post("https://api.github.com/graphql",token,{"query":query,"variables":{"cursor":cursor}})
-        if response.get("errors"):raise ValueError("GraphQL race audit failed")
-        page=response["data"]["repository"]["pullRequests"];pulls.extend(page["nodes"])
-        if not page["pageInfo"]["hasNextPage"]:break
-        cursor=page["pageInfo"]["endCursor"]
-    for pull in pulls:
-        files=pull["files"]["nodes"]
-        if pull["files"]["pageInfo"]["hasNextPage"] or any(x.get("changeType")=="RENAMED" for x in files):
-            files=[];pageno=1
-            while True:
-                batch=api(f"https://api.github.com/repos/google-deepmind/formal-conjectures/pulls/{pull['number']}/files?per_page=100&page={pageno}",token);files.extend(batch)
-                if len(batch)<100:break
-                pageno+=1
-        if any(x.get("path") in targets or x.get("filename") in targets or x.get("previous_filename") in targets for x in files):
-            touches.append({"number":pull["number"],"url":pull["url"]})
-    ingestion=api("https://api.github.com/repos/google-deepmind/formal-conjectures/pulls/4450",token)
-    ingestion_identity={"number":ingestion["number"],"state":"MERGED" if ingestion["merged_at"] else ingestion["state"].upper(),"merged_at":ingestion["merged_at"],
-                        "merge_commit":ingestion["merge_commit_sha"],"head_commit":ingestion["head"]["sha"]}
-    releases=[];page_number=1
-    while True:
-        batch=api(f"https://api.github.com/repos/Kuberwastaken/c5-k4/releases?per_page=100&page={page_number}",token);releases.extend(batch)
-        if len(batch)<100:break
-        page_number+=1
-    release_matches=[]
-    for release in releases:
-        text="\n".join(str(release.get(key) or "") for key in ("name","tag_name","body"))
-        if "A109908" in text or "A109909" in text:release_matches.append({"tag":release["tag_name"],"url":release["html_url"]})
-    value={"schema":"oeis-a109908-a109909-live-audit-v1","head":commit["sha"],"tree":commit["commit"]["tree"]["sha"],
-           "oeis_head":oeis_commit["sha"],"oeis_tree":oeis_commit["commit"]["tree"]["sha"],
-           "open_pull_requests_scanned":len(pulls),"searches":searches,"open_target_path_touches":touches,
-           "known_ingestion":ingestion_identity,"local_releases_scanned":len(releases),"local_release_matches":release_matches}
-    atomic_json(path,value)
+    before=_snapshot(token)
+    touches=_scan_pull_files(before["pulls"],token)
+    after=_snapshot(token)
+    if canonical(before)!=canonical(after):raise ValueError("live source/status race detected")
+    value={"schema":"oeis-a109908-a109909-live-audit-v1.1","method":"parallel-rest-double-snapshot-v1",
+           "head":before["formal"]["head"],"tree":before["formal"]["tree"],
+           "oeis_head":before["oeis"]["head"],"oeis_tree":before["oeis"]["tree"],
+           "open_pull_requests_scanned":len(before["pulls"]),"searches":before["searches"],
+           "open_target_path_touches":touches,"known_ingestion":before["ingestion"],
+           "local_releases_scanned":before["releases"]["count"],"local_release_matches":before["releases"]["matches"],
+           "race_stable":True}
+    atomic_json(path,value);verify_live_audit(path)
 
 
 def prepare_gate(input_dir: pathlib.Path, output: pathlib.Path, commit: str) -> None:
     exact_commit(commit)
     if output.exists(): raise FileExistsError(output)
-    audit=json.loads((input_dir/"live-audit.json").read_text())
+    audit=verify_live_audit(input_dir/"live-audit.json")
     formal=M["formal_conjectures"]
     if (audit.get("head"),audit.get("tree"))!=(formal["commit"],formal["tree"]) or audit.get("open_target_path_touches"):
         raise ValueError("live source/race drift")

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Target-free and microfixture tests for the frozen A109908/A109909 lane."""
 import inspect,json,math,pathlib,tempfile,unittest
+from unittest import mock
 import prospective_oeis_a109908_a109909 as search
 import verify_oeis_a109908_a109909_artifacts as replay
 
@@ -68,5 +69,60 @@ class FreezeTests(unittest.TestCase):
     def test_exact_factor_replay(self):
         for n in (2,3,4,91,8051,99991):
             factors=search.factorint(n);self.assertTrue(replay.factor_ok(n,factors))
+
+    def test_live_audit_search_timeout_and_incomplete_fail_closed(self):
+        with mock.patch.object(search,"api",side_effect=TimeoutError("fixture timeout")):
+            with self.assertRaises(TimeoutError):search._search_count("target-free", "token")
+        with mock.patch.object(search,"api",side_effect=OSError("fixture API error")):
+            with self.assertRaises(OSError):search._search_count("target-free", "token")
+        with mock.patch.object(search,"api",return_value={"incomplete_results":True,"total_count":0,"items":[]}):
+            with self.assertRaisesRegex(ValueError,"incomplete/truncated"):search._search_count("target-free", "token")
+        with mock.patch.object(search,"api",return_value={"incomplete_results":False,"total_count":"0","items":[]}):
+            with self.assertRaisesRegex(ValueError,"count malformed"):search._search_count("target-free", "token")
+
+    def test_live_audit_pagination_omission_and_repetition_fail_closed(self):
+        pull={"number":7,"url":"https://example.invalid/7","head":"a"*40,"base":"b"*40,"base_ref":"main","title":"fixture","draft":False,"updated_at":"now"}
+        detail={"number":7,"state":"open","html_url":pull["url"],"head":{"sha":pull["head"]},"base":{"sha":pull["base"],"ref":"main"},"title":"fixture","draft":False,"updated_at":"now","changed_files":2}
+        one_file=[{"filename":"unrelated","previous_filename":None,"status":"modified"}]
+        with mock.patch.object(search,"api",side_effect=[detail,one_file]):
+            with self.assertRaisesRegex(ValueError,"pagination truncated/raced"):search._pull_files(pull,"token")
+        repeated={"id":1}
+        with mock.patch.object(search,"api",side_effect=[[repeated]*100,[repeated]]):
+            with self.assertRaisesRegex(ValueError,"repeated/unstable"):search._paged("https://example.invalid/items","token",lambda x:x["id"])
+
+    def test_live_audit_rename_touch_and_snapshot_race(self):
+        target=search.M["formal_conjectures"]["targets"][0]["path"]
+        pull={"number":8,"url":"https://example.invalid/8","head":"b"*40,"base":"c"*40,"base_ref":"main","title":"fixture","draft":False,"updated_at":"now"}
+        detail={"number":8,"state":"open","html_url":pull["url"],"head":{"sha":pull["head"]},"base":{"sha":pull["base"],"ref":"main"},"title":"fixture","draft":False,"updated_at":"now","changed_files":1}
+        renamed=[{"filename":"elsewhere.lean","previous_filename":target,"status":"renamed"}]
+        with mock.patch.object(search,"api",side_effect=[detail,renamed]):
+            self.assertEqual(search._pull_files(pull,"token"),renamed)
+        missing_previous=[{"filename":"elsewhere.lean","previous_filename":None,"status":"renamed"}]
+        with mock.patch.object(search,"api",side_effect=[detail,missing_previous]):
+            with self.assertRaisesRegex(ValueError,"lacks previous_filename"):search._pull_files(pull,"token")
+        with mock.patch.object(search,"_pull_files",return_value=renamed):
+            self.assertEqual(search._scan_pull_files([pull],"token"),[{"number":8,"url":pull["url"]}])
+        raced=dict(detail);raced["base"]={"sha":"d"*40,"ref":"main"}
+        with mock.patch.object(search,"api",side_effect=[raced]):
+            with self.assertRaisesRegex(ValueError,"raced before file scan"):search._pull_files(pull,"token")
+        before={"formal":{"head":"a","tree":"b"},"oeis":{"head":"c","tree":"d"},"ingestion":{},"pulls":[],"releases":{"count":0,"matches":[]},"searches":{}}
+        after=json.loads(json.dumps(before));after["formal"]["head"]="raced"
+        with tempfile.TemporaryDirectory() as td, mock.patch.object(search,"_snapshot",side_effect=[before,after]), mock.patch.object(search,"_scan_pull_files",return_value=[]):
+            with self.assertRaisesRegex(ValueError,"race detected"):search.live_audit(pathlib.Path(td)/"audit.json","token")
+
+    def test_live_audit_schema_and_canonical_bytes_fail_closed(self):
+        value={"schema":"oeis-a109908-a109909-live-audit-v1.1","method":"parallel-rest-double-snapshot-v1",
+               "head":"a"*40,"tree":"b"*40,"oeis_head":"c"*40,"oeis_tree":"d"*40,"open_pull_requests_scanned":0,
+               "searches":{f"repo:{owner} {seq}":0 for owner in ("google-deepmind/formal-conjectures","Kuberwastaken/c5-k4") for seq in ("A109908","OeisA109908","A109909","OeisA109909")},
+               "open_target_path_touches":[],"known_ingestion":{"pull":4450,"state":"MERGED","merged_at":"now","merge_commit":"e"*40,"head_commit":"f"*40},
+               "local_releases_scanned":0,"local_release_matches":[],"race_stable":True}
+        with tempfile.TemporaryDirectory() as td:
+            path=pathlib.Path(td)/"audit.json";path.write_bytes(search.canonical(value));self.assertEqual(search.verify_live_audit(path),value)
+            path.write_text(json.dumps(value,indent=2)+"\n")
+            with self.assertRaisesRegex(ValueError,"canonical"):search.verify_live_audit(path)
+            path.write_bytes(search.canonical({**value,"race_stable":False}))
+            with self.assertRaisesRegex(ValueError,"race status"):search.verify_live_audit(path)
+            path.write_bytes(search.canonical({**value,"open_target_path_touches":{}}))
+            with self.assertRaisesRegex(ValueError,"target-touch"):search.verify_live_audit(path)
 
 if __name__=="__main__":unittest.main()

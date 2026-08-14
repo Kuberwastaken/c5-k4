@@ -1,5 +1,5 @@
 {
-  "schema": "oeis-a109908-a109909-development-freeze-v1",
+  "schema": "oeis-a109908-a109909-development-freeze-v1.1",
   "development_only": true,
   "target_evaluation_requires_exact_campaign_commit": true,
   "local_parent_commit": "9307a5348d2351f517df6e715a93a4d16437abde",
@@ -9,6 +9,15 @@
   "internal_seconds": 48,
   "external_search_seconds": 54,
   "external_verify_seconds": 60,
+  "live_audit": {
+    "schema": "oeis-a109908-a109909-live-audit-v1.1",
+    "method": "parallel-rest-double-snapshot-v1",
+    "external_seconds": 60,
+    "open_pull_file_workers": 16,
+    "require_exact_changed_file_counts": true,
+    "require_rename_previous_filenames": true,
+    "require_stable_before_after_snapshot": true
+  },
   "checkpoint_profile_interval": 16,
   "shards": 16,
   "construction": {

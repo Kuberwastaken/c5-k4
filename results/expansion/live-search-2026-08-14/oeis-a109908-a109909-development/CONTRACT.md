@@ -1,4 +1,4 @@
-# OEIS A109908/A109909 finite-prefix-cover DEVELOPMENT freeze
+# OEIS A109908/A109909 finite-prefix-cover DEVELOPMENT freeze v1.1
 
 **State:** target unevaluated; exact committed-SHA unlock required
 
@@ -43,6 +43,22 @@ controls, and verifies that both half/full ranges have the same distinct prime
 set. The live workflow also requires the pinned upstream head/tree,
 byte-identical target files, and a fresh issue/PR/path race check. Any drift,
 new target touch, or mismatch fails before search.
+
+The v1.1 operational gate supersedes only the v1 transport that timed out at
+the immutable 60-second cap in workflow run `31835698077`; that run performed
+no target evaluation. Independent REST requests fetch source heads, all exact
+issue/PR searches, ingestion status, releases, and the complete open-PR list
+in parallel. The open-PR list is cross-checked against an independent GitHub
+search count and canonically binds every pull's number, URL, head SHA, base
+SHA/ref, title, draft state, and update time. Sixteen target-free workers then
+read each open PR's exact
+changed-file count and every paginated changed-file record, including
+`previous_filename` for renames. A second complete parallel snapshot must be
+byte-equivalent to the first, so a new, closed, rebased, edited, or retitled PR
+and any source/status change fails closed. Missing pages, repeated records,
+count mismatch, timeout, API error, incomplete search, or noncanonical output
+also fails before construction. Output is sorted canonically by query, pull
+number, tag, and URL. This changes no mathematical profile or search cap.
 
 OEIS links Niu and Zhang's 2024 *On Two Conjectures of A. Murthy*. Its claimed
 proof was audited and rejected: the `mu=0` stationary branch is feasible with

@@ -1,4 +1,4 @@
-name: OEIS A109908 A109909 finite-prefix DEVELOPMENT
+name: OEIS A109908 A109909 finite-prefix DEVELOPMENT v1.1
 
 on:
   workflow_dispatch:
@@ -62,7 +62,7 @@ jobs:
             curl --fail --location --retry 5 --retry-all-errors "https://raw.githubusercontent.com/oeis/oeisdata/main/seq/A109/A$n.seq" -o "$input/A$n-live.seq"
             curl --fail --location --retry 5 --retry-all-errors "https://oeis.org/A$n/b$n.txt" -o "$input/b$n.txt"
           done
-      - name: Fresh source status and race audit
+      - name: Fresh source status and race audit v1.1 (parallel exact REST)
         env: {GITHUB_TOKEN: "${{ github.token }}"}
         run: timeout --signal=TERM --kill-after=3s 60s python scripts/prospective_oeis_a109908_a109909.py live-audit "$RUNNER_TEMP/a1099-input/live-audit.json"
       - name: Prepare and verify exact database-sanity gate

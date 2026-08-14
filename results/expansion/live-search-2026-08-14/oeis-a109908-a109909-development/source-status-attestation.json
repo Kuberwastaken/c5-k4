@@ -1,5 +1,5 @@
 {
-  "schema": "oeis-a109908-a109909-source-status-v1",
+  "schema": "oeis-a109908-a109909-source-status-v1.1",
   "audit_time_utc": "2026-08-14T19:52:11Z",
   "local_project_commit": "9307a5348d2351f517df6e715a93a4d16437abde",
   "formal_conjectures_commit": "7eb70784eab1a3c6f4c3d99f8920b970cd7f68c4",
@@ -7,6 +7,8 @@
   "oeisdata_commit": "8872fa543438401edd424a57b67ad5e0737bebfb",
   "oeisdata_tree": "658cfbde8e997e6f9c82f774309cda85c9b1da3c",
   "open_pull_requests_scanned": 278,
+  "execution_audit_method": "parallel-rest-double-snapshot-v1",
+  "execution_audit_supersession": "v1 GraphQL all-open-PR file projection timed out at the immutable 60-second cap in run 31835698077 before target evaluation; v1.1 preserves exact path and rename coverage with paginated REST scans and fails closed on count, race, timeout, or API error",
   "exact_searches": {
     "repo:google-deepmind/formal-conjectures A109908": 0,
     "repo:google-deepmind/formal-conjectures OeisA109908": 0,
