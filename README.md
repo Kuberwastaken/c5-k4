@@ -312,6 +312,23 @@ independent verifier, source/status audit, and arithmetic Lean certificate are
 committed. The certificate passed warning-as-error external replay, and the
 result is published as a one-problem release.
 
+The next Graffiti³ arithmetic rotation found a second intended-source
+disproof, with an important methodological qualification. Conjecture 13 says
+that `phi(n)<=9n/19` excludes Fermat pseudoprimes to a fixed base, empirically
+base two. The known Poulet number
+`81,722,145=3*5*17*29*43*257` instead has
+`phi=38,535,168`, `2^(n-1) mod n=1`, and exact positive premise margin
+`9n-19phi=3,331,113`. The source-locked A001567 catalogue produced nine exact
+certificates, while 6,291,456 generic integers and the complete 10,107-number
+Carmichael/Korselt wall produced none. Thus this is a verified,
+apparently-unrecorded connection and a genuine program hit, but **not** a fifth
+successful wall-navigation transfer: the preregistered separating family
+stayed safe and the catalogue arm found the crossing. The
+[result](results/expansion/live-search-2026-08-14/graffiti3-conjecture13-result.md),
+candidate, independent replay, and standalone no-`sorry` Lean certificate are
+committed and published as a one-problem release; no global-minimality claim is
+made.
+
 Two subsequent fresh targets produced calibrated bounded zeroes. The
 tan--arctan campaign exhausted all 12 source-listed exceptional indices and
 checked 73 deterministic post-paper samples, while its wall predicate selected
@@ -349,6 +366,16 @@ non-scoring skips, and found no negative residual. Its
 [result](results/expansion/live-search-2026-08-14/solvable-cyclic-subgroups-result.md)
 records the bounded zero and preserves the distinction between an exhausted
 descriptor schedule and complete mathematical coverage.
+
+The DOI-qualified Graffiti³ Conjecture 23 p-group campaign also finished as a
+bounded zero after preserving two invalid-run corrections rather than pooling
+their rows. Its authoritative replay independently certified 4,315 exact group
+profiles with no crossing: 2,070 catalogue profiles at order 256, 2,143
+deterministic generic profiles at order 512, and all 102 frozen
+commutator-image wall lifts. The catalogue arm reached equality 12 times; the
+wall family moved strictly to the safe side with minimum residual 52.
+Forty-three separately capped GAP queries timed out and remain explicitly
+unevaluated. See the [C23 result](results/expansion/live-search-2026-08-14/graffiti3-conjecture23-result.md).
 
 The exact contracts, ledgers, corrections, stop reasons, and reports are under
 [`results/expansion/`](results/expansion/); the current portfolio and its
@@ -654,12 +681,15 @@ workflow.
 - [OEIS A113019: complete fixed-point classification `1, 32, 9^9`](https://github.com/Kuberwastaken/c5-k4/releases/tag/oeis-113019-fixed-points-v1)
 - [Bateman--Horn: certificate and audit of the counting-helper endpoint defect](https://github.com/Kuberwastaken/c5-k4/releases/tag/bateman-horn-count-endpoint-v1)
 - [Graffiti³ Conjecture 2: double-star counterexamples and formal arithmetic certificate](https://github.com/Kuberwastaken/c5-k4/releases/tag/graffiti3-conjecture2-double-star-v1)
+- [Graffiti³ Conjecture 13: base-two pseudoprime counterexample and standalone Lean certificate](https://github.com/Kuberwastaken/c5-k4/releases/tag/graffiti3-conjecture13-pseudoprime-v1)
 
 Among the OEIS and Bateman--Horn releases, only A113019 answers the intended
 mathematical source question. The other three preserve exact, formally
 certified defects in merged declarations or helper definitions and are
-excluded from the mathematical counterexample count. The Graffiti³ release is
-an intended-source disproof and is counted as a mathematical result.
+excluded from the mathematical counterexample count. Both Graffiti³ releases
+are intended-source disproofs and are counted as mathematical results. The
+Conjecture 13 witness number was previously known; the newly claimed item is
+its apparently-unrecorded connection to the printed Graffiti³ threshold.
 
 Known externally claimed results such as WOWII 64 and 309 remain fully
 formalized and credited in the repository, but are not republished as
