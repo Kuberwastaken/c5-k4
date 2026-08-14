@@ -1,8 +1,10 @@
 # Graffiti³ Conjecture 23: invalid first execution
 
 **GitHub Actions run:**
-[`31794768947`](https://github.com/Kuberwastaken/c5-k4/actions/runs/31794768947)  
-**Frozen commit:** `5e184e2df3aef55aa3e55d6f8ccbb1a0fd65d253`  
+[`31794768947`](https://github.com/Kuberwastaken/c5-k4/actions/runs/31794768947)
+
+**Frozen commit:** `5e184e2df3aef55aa3e55d6f8ccbb1a0fd65d253`
+
 **Classification:** `INVALID_RUN` — no mathematical inference
 
 The first execution exposed an operational defect in the mandatory database
