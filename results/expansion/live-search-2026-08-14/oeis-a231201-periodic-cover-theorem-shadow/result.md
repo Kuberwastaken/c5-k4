@@ -128,10 +128,21 @@ Observed replay: 0.04 seconds wall time and 15,800 KiB maximum RSS.  No target
 assignment search, ILP, candidate construction, primality scan, workflow, or
 network access was performed.
 
-## No-sorry Lean plan
+## Lean status and remaining plan
 
-The clean formalization should prove the generic lift lemma first rather than
-unroll 55 enormous finite sets.
+[`lean/PeriodicCoverLift.lean`](lean/PeriodicCoverLift.lean) gives a
+warning-clean, no-`sorry` formalization of the generic fiber-selection core.
+It proves that a nonconstant affine `Fin q -> ZMod q` fiber avoids any one
+forbidden residue, packages the selected natural lift while preserving its
+old congruence, specializes this to odd primes, and proves the abstract
+finite-list extension induction. It was checked with
+`-DwarningAsError=true`; its axiom audit contains no `sorryAx`.
+
+This is deliberately not labeled a complete Lean proof of the 55-prime
+theorem. The remaining bridge must formalize that `d*M` fixes the
+power-of-two term throughout each fiber, prove its nonzero residue modulo the
+fresh prime, and instantiate the list induction with the ascending frozen
+prime table. The clean completion path is:
 
 1. Work in `ZMod q` for an odd prime `q`.  Assume `q` does not divide `M`, set
    `o := orderOf (2 : ZMod q)` and `d := o / gcd M o`, and prove
