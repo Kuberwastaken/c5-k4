@@ -388,7 +388,10 @@ class RawBootstrapAcceptanceTests(unittest.TestCase):
             for path in base_paths:
                 source = ROOT / path; destination = repo / path
                 destination.parent.mkdir(parents=True, exist_ok=True); shutil.copyfile(source, destination)
-            helper.git("add", *sorted(base_paths)); helper.git("commit", "-qm", "exact protocol base")
+            # Under an exact-tip checkout these protocol files are already byte-for-byte
+            # identical to the clone.  The fixture still needs a distinct base commit so
+            # that the subsequent P0A/P0T/A0 chronology is exercised deterministically.
+            helper.git("add", *sorted(base_paths)); helper.git("commit", "--allow-empty", "-qm", "exact protocol base")
             helper.base = helper.git("rev-parse", "HEAD")
             helper.private_keys = [Ed25519PrivateKey.generate(), Ed25519PrivateKey.generate()]
             helper.authorities = []
