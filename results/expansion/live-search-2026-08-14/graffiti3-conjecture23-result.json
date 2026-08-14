@@ -1,0 +1,123 @@
+{
+  "schema": "c5k4-graffiti3-conjecture23-live-result-1.0",
+  "status": "PARTIAL_BOUNDED_ZERO_WITH_INVALID_ARMS",
+  "campaign_commit": "f8bd3ac25d4864fcabd0f35ed5ba5cd4ec1f8576",
+  "github_actions_run": "https://github.com/Kuberwastaken/c5-k4/actions/runs/31796237073",
+  "target": {
+    "source": "Graffiti3: Compact Theory Libraries for Automated Mathematical Discovery",
+    "doi": "10.21203/rs.3.rs-8493329/v1",
+    "conjecture": 23,
+    "source_pdf_sha256": "9758ec4530febf62bbcee35bd5804d2dda9e226a0878b082a25eaf1c7e4a9f7a",
+    "predicate": "W(G) = 2|G/G'| + |G| + 2|Z(G)| - 4k(G) >= 0",
+    "status_at_freeze": "source-listed open",
+    "formal_conjectures_target": false,
+    "written_on_the_wall_i_target": false
+  },
+  "audit": {
+    "exact_run_ref_verified": true,
+    "clean_detached_checkout_verified": true,
+    "assignment_pairs_expected": 72,
+    "assignment_pairs_found": 72,
+    "assignments_complete_and_unique": true,
+    "execution_status_bindings_replayed": 72,
+    "execution_status_all_exit_codes_zero": true,
+    "artifact_checksum_manifests_replayed": 73,
+    "worker_ledger_chains_replayed": 72,
+    "worker_ledger_rows_replayed": 4795,
+    "terminal_bindings_replayed": 72,
+    "gate_file_sha256": "14d7d5f4e563b708d7ce7af485423d37af939cabc0f4b74e2485d6da97d0d5d1",
+    "gate_preparation_sha256": "abfe2e18eabc341cd81535ce03f7a6f5c74961aebf7fe8a4951de6c4114dbba2",
+    "manifest_sha256": "b8ba29601a8e4a604f8e08e7408cb761fc625a6775b3f381cc13373988c5290f"
+  },
+  "database_gate": {
+    "disposition": "FINITE_SNAPSHOT_BOUNDED_ZERO",
+    "coordinate_count": 2732,
+    "chunk_count": 96,
+    "coordinate_domain_sha256": "f8b9dd3e7e7fad85cb054a813fb2eaa36ca93f7f08b41f3eb2e07ad5645bfd2d",
+    "rows_sha256": "75be812b137c4d5badf1462fe56c8b132253b3f60fe6085014d5f8c9174207a0",
+    "negative_residuals": 0,
+    "equalities": 558,
+    "d8_residual": 0,
+    "q8_residual": 0,
+    "scope_limitation": "trivial group and prime-power-order SmallGroups through order 128 only"
+  },
+  "totals": {
+    "proposed": 4579,
+    "exact_evaluated": 102,
+    "malformed": 4434,
+    "query_timeouts": 43,
+    "crossings": 0,
+    "certificates": 0
+  },
+  "arms": {
+    "CATALOGUE": {
+      "disposition": "INVALID_NO_INFERENCE",
+      "order": 256,
+      "shards": 24,
+      "proposed": 2292,
+      "exact_evaluated": 0,
+      "malformed": 2271,
+      "query_timeouts": 21,
+      "crossings": 0,
+      "certificates": 0,
+      "terminal_reasons": {
+        "DEADLINE_PREFIX": 24
+      },
+      "systematic_error": "expected one @@PROFILE@@ marker",
+      "mathematical_inference": "NONE"
+    },
+    "GENERIC": {
+      "disposition": "INVALID_NO_INFERENCE",
+      "order": 512,
+      "shards": 24,
+      "proposed": 2185,
+      "exact_evaluated": 0,
+      "malformed": 2163,
+      "query_timeouts": 22,
+      "crossings": 0,
+      "certificates": 0,
+      "terminal_reasons": {
+        "DEADLINE_PREFIX": 24
+      },
+      "systematic_error": "expected one @@PROFILE@@ marker",
+      "mathematical_inference": "NONE"
+    },
+    "WALL_NAVIGATION": {
+      "disposition": "FINITE_FAMILY_BOUNDED_ZERO",
+      "shards": 24,
+      "proposed": 102,
+      "exact_evaluated": 102,
+      "malformed": 0,
+      "query_timeouts": 0,
+      "crossings": 0,
+      "certificates": 0,
+      "terminal_reasons": {
+        "DOMAIN_EXHAUSTED": 24
+      },
+      "descriptor_domain_complete": true,
+      "dimension_6": {
+        "profiles": 24,
+        "order": 256,
+        "residual_distribution": {
+          "52": 18,
+          "88": 6
+        }
+      },
+      "dimension_8": {
+        "profiles": 78,
+        "order": 1024,
+        "residual_distribution": {
+          "244": 24,
+          "388": 18,
+          "424": 36
+        }
+      },
+      "residual_min": 52,
+      "residual_max": 424,
+      "scope_limitation": "the 102 frozen surjective class-two F2 central-extension descriptors only"
+    }
+  },
+  "candidate_found": false,
+  "certificate_found": false,
+  "publication_action": false
+}
