@@ -149,8 +149,18 @@ jobs:
 
           manifests = []
           for path in sorted(Path('results/benchmark').glob('**/*.json'), key=lambda item: item.as_posix()):
-              with path.open(encoding='utf-8') as stream:
-                  value = json.load(stream)
+              raw = path.read_bytes()
+              if raw.startswith(b'version https://git-lfs.github.com/spec/v1\n'):
+                  attribute = subprocess.run(
+                      ['git', 'check-attr', 'filter', '--', path.as_posix()],
+                      check=True,
+                      capture_output=True,
+                      text=True,
+                  )
+                  if not attribute.stdout.strip().endswith(': filter: lfs'):
+                      raise ValueError(f'unexpected untracked LFS pointer: {path.as_posix()}')
+                  continue
+              value = json.loads(raw)
               if isinstance(value, dict) and value.get('schema_version') == 'c5k4-benchmark-1.2':
                   manifests.append(path)
 
