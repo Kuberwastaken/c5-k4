@@ -1,0 +1,63 @@
+{
+  "arms": {
+    "CATALOGUE": {
+      "domain": "frozen named planar families, orders 8 through 32",
+      "seed": 0
+    },
+    "GENERIC": {
+      "domain": "1800 deterministic Apollonian-plus-deletion proposals, orders 8 through 32",
+      "seed": 320260313
+    },
+    "WALL_NAVIGATION": {
+      "domain": "frozen book-chain false-twin quotient family through order 36 plus books and double stars",
+      "seed": 0
+    }
+  },
+  "campaign_id": "graffiti3-energy-c3-development-v1",
+  "candidate_rule": "literal closed-d2 reading only; rational Sturm energy interval lies strictly inside rounding shelf k and rational radical lower bound is greater than k",
+  "database_gate": {
+    "atlas_connected_orders_2_through_7": 995,
+    "center_excluding_disposition": "DB_REJECTED",
+    "center_excluding_violation_graph6": [
+      "A_",
+      "Bw"
+    ],
+    "literal_expected_equalities": [],
+    "literal_expected_violations": 0,
+    "source_eligible_rows": 97,
+    "source_scalar_equality_ids": [
+      19,
+      33,
+      52,
+      65,
+      75,
+      159,
+      172,
+      174,
+      263
+    ],
+    "source_total_rows": 335
+  },
+  "d2_readings": {
+    "admitted": "closed distance-at-most-two ball, including center",
+    "audit_only": "center-excluding implementation reading; rejected by K2 and K3"
+  },
+  "external_wall_seconds": 60,
+  "frozen_files": {
+    ".github/workflows/graffiti3-energy-c3-development.yml": "9d19d2c0ad7b48d6e84107533dc9e054544a796ff93789662b8e1edf5a1b4bb2",
+    "results/expansion/live-search-2026-08-14/graffiti3-energy-c3-contract.md": "64ac92acd5e68f1e8827021429b21b00afd82e562ffc799d61f4f7caa852c612",
+    "results/expansion/live-search-2026-08-14/graffiti3-energy-c3-preparation.md": "1c7607b48a51dd54cab990d9de8bb2123d716fc6f7ea9044d352462d0b8dd39e",
+    "results/expansion/live-search-2026-08-14/graffiti3-energy-c3-source-status.md": "eb2d8ab9c5d0f72bf9a64e7564352a7ef55f5c9c1d80ad8852330aee89e176bd",
+    "scripts/search_graffiti3_energy_c3.py": "57270580b768b6221cb4e5c6520cf1de6b19e78a56816de5865daf01921d09a2",
+    "scripts/test_graffiti3_energy_c3.py": "00629ed9d9e2cfdfa852bdf2ef6e83924bc7aa998c5200b16744e2d2627d843d",
+    "scripts/verify_graffiti3_energy_c3.py": "2581b3e2236f83bb236b9d2c0bfefae881c345f56b6bb7474a98423f3766c976"
+  },
+  "internal_wall_seconds": 54,
+  "primary_source": "https://doi.org/10.21203/rs.3.rs-8493329/v1",
+  "rounding_discipline": "candidate energy interval strictly excludes both half-integer shelf boundaries; half-up and ties-to-even agree",
+  "schema": "c5k4-graffiti3-energy-c3-development-manifest-1.0",
+  "source_commit": "e37126da53b84150d142a5d61202b61f78521fcc",
+  "source_csv_sha256": "4f455fbfe1149c2ca952b429c7ca9d9c1aae192309fbb642be2b12a345526e97",
+  "status": "FROZEN_UNRUN_DEVELOPMENT",
+  "target": "round(Energy(G)) >= 3 sum_{uv in E(G)} 1/sqrt(d2_closed(u)d2_closed(v)) for nontrivial connected planar graphs of diameter at most 3"
+}
