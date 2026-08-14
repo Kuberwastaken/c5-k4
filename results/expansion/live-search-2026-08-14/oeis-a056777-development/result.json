@@ -1,0 +1,131 @@
+{
+  "schema": "oeis-a056777-development-result-v1",
+  "status": "VALID_COMPLETE_FROZEN_TUPLE_DOMAIN_EXHAUSTION_NO_COUNTEREXAMPLE",
+  "scope": "development_only_non_exhaustive_factor_shape_slices",
+  "mathematical_claim": "No A056777 counterexample occurs in any of the three frozen tuple domains; this is not exhaustion of the full integer interval or of every escape shape.",
+  "run": {
+    "repository": "Kuberwastaken/c5-k4",
+    "workflow": "OEIS A056777 escape-strata DEVELOPMENT search",
+    "run_id": 31818792815,
+    "run_attempt": 1,
+    "url": "https://github.com/Kuberwastaken/c5-k4/actions/runs/31818792815",
+    "event": "workflow_dispatch",
+    "campaign_commit": "e64fc4f8dc0c09d1f670fd0f72a84cb776d90dee",
+    "created_at_utc": "2026-08-14T16:19:35Z",
+    "completed_at_utc": "2026-08-14T16:22:40Z",
+    "conclusion": "success",
+    "jobs": 74,
+    "successful_jobs": 74
+  },
+  "artifact_audit": {
+    "artifacts_downloaded": 73,
+    "files_downloaded": 581,
+    "sha256sum_manifests_checked": 73,
+    "sha256sum_manifest_failures": 0,
+    "gate_attestation_sha256": "83a707f4887a2930543ae20779eeb8441f0a4f0bdc55c1484fd7d4b014d2112d",
+    "ordered_ledger_sha256_listing_sha256": "9adf2288b89ca00acf5e62790a05fd0ebe987f689260ff961f9025a3ad9222a9",
+    "source_gate_independently_verified": true,
+    "source_sha256": {
+      "56777.lean": "2539ce34a7417a5b482d3c6f21a8327198e4890df7f67e6458a522293b1d099c",
+      "A056777.seq": "67a9fd6b1b5114a4aa09f4d01967d15e54266dd09902699fe40ce4d8b9e54d63",
+      "b056777.txt": "8a4d205fea5761af6deac8c2bf23d709c4e7844e792f48bf8616135376835ccf"
+    }
+  },
+  "independent_replay": {
+    "lanes": 72,
+    "per_lane_cap_seconds": 60,
+    "passed": 72,
+    "failed": 0,
+    "timed_out": 0,
+    "terminal_reasons": {"DOMAIN_EXHAUSTED": 72},
+    "ledger_rows": 20411,
+    "states_evaluated": 2599809,
+    "equation_hits": 0,
+    "certificates": 0,
+    "worker_errors": 0,
+    "nonzero_execution_statuses": 0
+  },
+  "arms": [
+    {
+      "arm": "PURE_PRIME_POWER",
+      "lanes": 24,
+      "terminal_reason": "DOMAIN_EXHAUSTED",
+      "states_evaluated": 3970,
+      "visited_minimum": 165,
+      "visited_maximum": 166,
+      "visited_by_shard": [166,166,166,166,166,166,166,166,166,166,165,165,165,165,165,165,165,165,165,165,165,165,165,165],
+      "equation_hits": 0,
+      "certificates": 0,
+      "strict_best": {
+        "metrics": [10008,182109162712],
+        "n": 1002702430729,
+        "shard": 1,
+        "coordinate": {"global_ordinal": 1,"exponent": 3,"p_offset_in_root_interval": 1,"p": 10009},
+        "factors_n": [[10009,3]],
+        "factors_n_plus_12": [[11,1],[91154766431,1]],
+        "r_phi": -91054586360,
+        "r_sigma": 91054576352,
+        "delta_k": -10008
+      }
+    },
+    {
+      "arm": "REPEATED_POWER_SURGERY",
+      "lanes": 24,
+      "terminal_reason": "DOMAIN_EXHAUSTED",
+      "states_evaluated": 236543,
+      "visited_minimum": 9388,
+      "visited_maximum": 10129,
+      "visited_by_shard": [10129,10103,10102,10076,10069,10056,10048,10042,10038,10032,9950,9928,9894,9865,9844,9815,9783,9772,9642,9561,9520,9467,9419,9388],
+      "equation_hits": 0,
+      "certificates": 0,
+      "strict_best": {
+        "metrics": [162,10009036890],
+        "n": 1005735322561,
+        "shard": 3,
+        "coordinate": {"p_rank": 244,"p": 1549,"exponent": 2,"q_offset": 188,"q": 419161},
+        "factors_n": [[1549,2],[419161,1]],
+        "factors_n_plus_12": [[179,1],[31253,1],[179779,1]],
+        "r_phi": -5004518364,
+        "r_sigma": 5004518526,
+        "delta_k": 162
+      }
+    },
+    {
+      "arm": "SQUAREFREE_THREE_BLOCK",
+      "lanes": 24,
+      "terminal_reason": "DOMAIN_EXHAUSTED",
+      "states_evaluated": 2359296,
+      "visited_minimum": 98304,
+      "visited_maximum": 98304,
+      "visited_by_shard": [98304,98304,98304,98304,98304,98304,98304,98304,98304,98304,98304,98304,98304,98304,98304,98304,98304,98304,98304,98304,98304,98304,98304,98304],
+      "equation_hits": 0,
+      "certificates": 0,
+      "strict_best": {
+        "metrics": [4,20],
+        "n": 1000000000002,
+        "shard": 0,
+        "coordinate": {"p_rank": 1,"p": 2,"q_offset": 0,"q": 3,"r_offset": 0,"r": 166666666667},
+        "factors_n": [[2,1],[3,1],[166666666667,1]],
+        "factors_n_plus_12": [[2,1],[3,1],[166666666669,1]],
+        "phi_n": 333333333332,
+        "phi_n_plus_12": 333333333336,
+        "sigma_n": 2000000000016,
+        "sigma_n_plus_12": 2000000000040,
+        "k_n": 333333333344,
+        "k_n_plus_12": 333333333348,
+        "r_phi": -8,
+        "r_sigma": 12,
+        "delta_k": 4
+      },
+      "nearest_recorded_distinct_lane_minima": [
+        {"metrics":[4,20],"n":1000000000002,"shard":0,"r_phi":-8,"r_sigma":12,"delta_k":4,"factors_n":[[2,1],[3,1],[166666666667,1]],"factors_n_plus_12":[[2,1],[3,1],[166666666669,1]]},
+        {"metrics":[192,164269230696],"n":1000307012891,"shard":8,"r_phi":-82134615252,"r_sigma":82134615444,"delta_k":192,"factors_n":[[137,1],[613,1],[11911111,1]],"factors_n_plus_12":[[11,1],[7639,1],[11904307,1]]},
+        {"metrics":[192,277698513288],"n":1000404752111,"shard":20,"r_phi":-138849256740,"r_sigma":138849256548,"delta_k":-192,"factors_n":[[347,1],[829,1],[3477697,1]],"factors_n_plus_12":[[7,1],[41579,1],[3437191,1]]},
+        {"metrics":[200,273673447264],"n":1000329398819,"shard":11,"r_phi":-136836723532,"r_sigma":136836723732,"delta_k":200,"factors_n":[[281,1],[389,1],[9151391,1]],"factors_n_plus_12":[[7,1],[15641,1],[9136513,1]]},
+        {"metrics":[512,13830876712],"n":1001044392827,"shard":13,"r_phi":-6915438100,"r_sigma":6915438612,"delta_k":512,"factors_n":[[443,1],[683,1],[3308483,1]],"factors_n_plus_12":[[97,1],[3121,1],[3306647,1]]},
+        {"metrics":[624,175742400120],"n":1001398345067,"shard":19,"r_phi":-87871200372,"r_sigma":87871199748,"delta_k":-624,"factors_n":[[479,1],[911,1],[2294843,1]],"factors_n_plus_12":[[11,1],[40361,1],[2255549,1]]}
+      ],
+      "nearest_recorded_note": "These are distinct per-shard strict minima retained by the ledgers, not a proof that they are the global top six states."
+    }
+  ]
+}
