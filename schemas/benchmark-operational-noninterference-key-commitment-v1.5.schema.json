@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-operational-noninterference-key-commitment-v1.5.schema.json",
+  "title": "Method v1.5 future operational target-blind noninterference public-key commitment",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema", "status", "protocol_version", "host_id", "signing_key_id", "signature_algorithm", "verification_key_sha256", "operational", "activation_permitted", "target_specific", "commitment_sha256"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-operational-noninterference-key-commitment-1.0"},
+    "status": {"const": "FROZEN_P1_NONINTERFERENCE_KEY_COMMITTED"},
+    "protocol_version": {"const": "1.5"},
+    "host_id": {"const": "ai-vps-controlled-harness"},
+    "signing_key_id": {"$ref": "#/definitions/id"},
+    "signature_algorithm": {"const": "Ed25519"},
+    "verification_key_sha256": {"$ref": "#/definitions/sha256"},
+    "operational": {"const": true},
+    "activation_permitted": {"const": true},
+    "target_specific": {"const": false},
+    "commitment_sha256": {"$ref": "#/definitions/sha256"}
+  },
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"}
+  }
+}

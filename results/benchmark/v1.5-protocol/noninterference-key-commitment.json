@@ -1,0 +1,13 @@
+{
+  "schema": "c5k4-method-v1.5-noninterference-key-commitment-1.0",
+  "status": "PRE_P1_NONINTERFERENCE_KEY_NOT_COMMITTED",
+  "protocol_version": "1.5",
+  "host_id": "ai-vps-controlled-harness",
+  "signing_key_id": null,
+  "signature_algorithm": "Ed25519",
+  "verification_key_sha256": null,
+  "operational": false,
+  "activation_permitted": false,
+  "target_specific": false,
+  "commitment_sha256": "60b1f54ebb70ebd082119145e3a36ab3436d38b324864de164d4e9f6c0051043"
+}

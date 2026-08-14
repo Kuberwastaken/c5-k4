@@ -190,6 +190,31 @@ class ParticipantNoninterferenceTests(unittest.TestCase):
         Draft7Validator.check_schema(schema)
         self.assertFalse((PROTOCOL / "operational-noninterference-receipt.json").exists())
 
+    def test_pre_p1_key_commitment_is_target_blind_null_and_inert(self) -> None:
+        value = module.load_object(PROTOCOL / "noninterference-key-commitment.json")
+        schema = module.load_object(
+            ROOT / "schemas" / "benchmark-noninterference-key-commitment-v1.5.schema.json"
+        )
+        Draft7Validator.check_schema(schema)
+        Draft7Validator(schema).validate(value)
+        self.assertIsNone(value["verification_key_sha256"])
+        self.assertIsNone(value["signing_key_id"])
+        self.assertFalse(value["operational"])
+        self.assertFalse(value["activation_permitted"])
+        self.assertNotIn("verification_key", value)
+        unsigned = copy.deepcopy(value); unsigned.pop("commitment_sha256")
+        encoded = (json.dumps(unsigned, sort_keys=True, separators=(",", ":")) + "\n").encode()
+        self.assertEqual(value["commitment_sha256"], module.hashlib.sha256(encoded).hexdigest())
+
+    def test_future_key_commitment_schema_has_hash_but_never_raw_key_bytes(self) -> None:
+        schema = module.load_object(
+            ROOT / "schemas" / "benchmark-operational-noninterference-key-commitment-v1.5.schema.json"
+        )
+        Draft7Validator.check_schema(schema)
+        serialized = json.dumps(schema, sort_keys=True)
+        self.assertIn("verification_key_sha256", serialized)
+        self.assertNotIn('"verification_key"', serialized)
+
     def test_generated_future_operational_receipt_requires_authentic_signature(self) -> None:
         receipt, public_key = self.operational_fixture()
         result = module.verify_operational(self.ledger, "b" * 64, receipt, public_key)
