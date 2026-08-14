@@ -16,6 +16,7 @@
       "config_schema": {"closure": "NATIVE_V1_5", "role": "s3_object_lock_store_config_schema"},
       "executable": {"closure": "NATIVE_V1_5", "role": "s3_object_lock_store"},
       "private_object_reference_schema": {"closure": "NATIVE_V1_5", "role": "private_s3_object_reference_schema"},
+      "private_artifact_locator_schema": {"closure": "NATIVE_V1_5", "role": "private_artifact_locator_schema"},
       "readiness_schema": {"closure": "NATIVE_V1_5", "role": "s3_object_lock_store_readiness_schema"},
       "test": {"closure": "NATIVE_V1_5", "role": "s3_object_lock_store_contract_test"}
     },
@@ -23,6 +24,9 @@
       "executable": {"closure": "NATIVE_V1_5", "role": "checkpoint_runner"},
       "gap_schema": {"closure": "NATIVE_V1_5", "role": "terminal_chronology_gap_certificate_schema"},
       "private_input_schema": {"closure": "NATIVE_V1_5", "role": "checkpoint_runner_private_input_schema"},
+      "private_input_assembler": {"closure": "NATIVE_V1_5", "role": "runner_private_input_assembler"},
+      "private_input_assembler_test": {"closure": "NATIVE_V1_5", "role": "runner_private_input_assembler_contract_test"},
+      "private_input_assembly_schema": {"closure": "NATIVE_V1_5", "role": "runner_private_input_assembly_schema"},
       "publication_schema": {"closure": "NATIVE_V1_5", "role": "checkpoint_publication_manifest_schema"},
       "public_chain_proof_schema": {"closure": "NATIVE_V1_5", "role": "public_checkpoint_chain_proof_schema"},
       "public_chain_verifier": {"closure": "NATIVE_V1_5", "role": "public_checkpoint_chain_verifier"},
@@ -43,10 +47,17 @@
     },
     "private_custody": {
       "batch_schema": {"closure": "NATIVE_V1_5", "role": "private_custody_batch_schema"},
+      "compiler": {"closure": "NATIVE_V1_5", "role": "broker_custody_compiler"},
+      "compiler_output_schema": {"closure": "NATIVE_V1_5", "role": "private_custody_compiler_output_schema"},
+      "compiler_test": {"closure": "NATIVE_V1_5", "role": "broker_custody_compiler_contract_test"},
       "coverage_schema": {"closure": "NATIVE_V1_5", "role": "private_custody_coverage_certificate_schema"},
       "executable": {"closure": "NATIVE_V1_5", "role": "private_custody_verifier"},
       "public_binding_schema": {"closure": "NATIVE_V1_5", "role": "public_custody_sealed_binding_schema"},
+      "operational_evidence_schema": {"closure": "NATIVE_V1_5", "role": "operational_private_custody_evidence_schema"},
+      "private_artifact_locator_schema": {"closure": "NATIVE_V1_5", "role": "private_artifact_locator_schema"},
+      "service_epoch_schema": {"closure": "NATIVE_V1_5", "role": "private_broker_service_epoch_schema"},
       "test": {"closure": "NATIVE_V1_5", "role": "private_custody_verifier_contract_test"}
+      ,"worm_inventory_schema": {"closure": "NATIVE_V1_5", "role": "private_worm_object_inventory_schema"}
     },
     "provenance": {
       "classifier": {"closure": "NATIVE_V1_5", "role": "provenance_classifier"},

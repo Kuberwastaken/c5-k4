@@ -84,31 +84,40 @@
         },
         "immutable_store": {
           "type": "object", "additionalProperties": false,
-          "required": ["executable", "test", "broker_adapter", "broker_adapter_test", "private_object_reference_schema", "config_schema", "readiness_schema"],
+          "required": ["executable", "test", "broker_adapter", "broker_adapter_test", "private_object_reference_schema", "private_artifact_locator_schema", "config_schema", "readiness_schema"],
           "properties": {
             "executable": {"$ref": "#/definitions/artifactRef"}, "test": {"$ref": "#/definitions/artifactRef"},
             "broker_adapter": {"$ref": "#/definitions/artifactRef"}, "broker_adapter_test": {"$ref": "#/definitions/artifactRef"},
             "private_object_reference_schema": {"$ref": "#/definitions/artifactRef"},
+            "private_artifact_locator_schema": {"$ref": "#/definitions/artifactRef"},
             "config_schema": {"$ref": "#/definitions/artifactRef"}, "readiness_schema": {"$ref": "#/definitions/artifactRef"}
           }
         },
         "checkpoint_runner": {
           "type": "object", "additionalProperties": false,
-          "required": ["executable", "test", "publication_schema", "private_input_schema", "gap_schema", "public_chain_verifier", "public_chain_proof_schema"],
+          "required": ["executable", "test", "publication_schema", "private_input_schema", "private_input_assembler", "private_input_assembler_test", "private_input_assembly_schema", "gap_schema", "public_chain_verifier", "public_chain_proof_schema"],
           "properties": {
             "executable": {"$ref": "#/definitions/artifactRef"}, "test": {"$ref": "#/definitions/artifactRef"},
             "publication_schema": {"$ref": "#/definitions/artifactRef"}, "private_input_schema": {"$ref": "#/definitions/artifactRef"},
+            "private_input_assembler": {"$ref": "#/definitions/artifactRef"}, "private_input_assembler_test": {"$ref": "#/definitions/artifactRef"},
+            "private_input_assembly_schema": {"$ref": "#/definitions/artifactRef"},
             "gap_schema": {"$ref": "#/definitions/artifactRef"}, "public_chain_verifier": {"$ref": "#/definitions/artifactRef"},
             "public_chain_proof_schema": {"$ref": "#/definitions/artifactRef"}
           }
         },
         "private_custody": {
           "type": "object", "additionalProperties": false,
-          "required": ["executable", "test", "batch_schema", "coverage_schema", "public_binding_schema"],
+          "required": ["executable", "test", "compiler", "compiler_test", "batch_schema", "coverage_schema", "public_binding_schema", "operational_evidence_schema", "private_artifact_locator_schema", "worm_inventory_schema", "service_epoch_schema", "compiler_output_schema"],
           "properties": {
             "executable": {"$ref": "#/definitions/artifactRef"}, "test": {"$ref": "#/definitions/artifactRef"},
+            "compiler": {"$ref": "#/definitions/artifactRef"}, "compiler_test": {"$ref": "#/definitions/artifactRef"},
             "batch_schema": {"$ref": "#/definitions/artifactRef"}, "coverage_schema": {"$ref": "#/definitions/artifactRef"},
             "public_binding_schema": {"$ref": "#/definitions/artifactRef"}
+            ,"operational_evidence_schema": {"$ref": "#/definitions/artifactRef"}
+            ,"private_artifact_locator_schema": {"$ref": "#/definitions/artifactRef"}
+            ,"worm_inventory_schema": {"$ref": "#/definitions/artifactRef"}
+            ,"service_epoch_schema": {"$ref": "#/definitions/artifactRef"}
+            ,"compiler_output_schema": {"$ref": "#/definitions/artifactRef"}
           }
         },
         "delivery_broker": {

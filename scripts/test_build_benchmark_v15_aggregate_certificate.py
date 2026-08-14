@@ -52,11 +52,14 @@ class AggregateCertificateTests(unittest.TestCase):
             "syntax_pool": {"executable": dict(ref)},
             "provenance": {key: dict(ref) for key in ("classifier", "identity_join", "ontology", "ledger_schema", "content_pack_schema")},
             "checkpoint_runner": {key: dict(ref) for key in (
-                "executable", "test", "publication_schema", "private_input_schema", "gap_schema",
+                "executable", "test", "publication_schema", "private_input_schema", "private_input_assembler",
+                "private_input_assembler_test", "private_input_assembly_schema", "gap_schema",
                 "public_chain_verifier", "public_chain_proof_schema",
             )},
             "private_custody": {key: dict(ref) for key in (
                 "executable", "test", "batch_schema", "coverage_schema", "public_binding_schema",
+                "operational_evidence_schema", "private_artifact_locator_schema", "compiler", "compiler_test",
+                "worm_inventory_schema", "service_epoch_schema", "compiler_output_schema",
             )},
             "delivery_broker": {key: dict(ref) for key in (
                 "executable", "test", "service", "service_test", "immutable_store_adapter", "immutable_store_adapter_test",
@@ -64,7 +67,7 @@ class AggregateCertificateTests(unittest.TestCase):
             )},
             "immutable_store": {key: dict(ref) for key in (
                 "executable", "test", "broker_adapter", "broker_adapter_test", "private_object_reference_schema",
-                "config_schema", "readiness_schema",
+                "private_artifact_locator_schema", "config_schema", "readiness_schema",
             )},
         }
         self.auth_patch = mock.patch.object(A, "authenticate_p1", return_value=({}, {}, binding))
@@ -367,6 +370,16 @@ class AggregateCertificateTests(unittest.TestCase):
             "arm_execution_envelope_schema": "schemas/benchmark-execution-envelope-v1.5.schema.json",
             "arm_execution_envelope_validator": "scripts/validate_benchmark_v15_execution_envelope.py",
             "arm_execution_envelope_contract_test": "scripts/test_benchmark_v15_execution_envelope.py",
+            "runner_private_input_assembler": "scripts/build_benchmark_v15_runner_private_input.py",
+            "runner_private_input_assembler_contract_test": "scripts/test_build_benchmark_v15_runner_private_input.py",
+            "runner_private_input_assembly_schema": "schemas/benchmark-runner-private-input-assembly-v1.5.schema.json",
+            "private_artifact_locator_schema": "schemas/benchmark-private-artifact-locator-v1.5.schema.json",
+            "operational_private_custody_evidence_schema": "schemas/benchmark-operational-private-custody-evidence-v1.5.schema.json",
+            "broker_custody_compiler": "scripts/compile_benchmark_v15_broker_custody.py",
+            "broker_custody_compiler_contract_test": "scripts/test_compile_benchmark_v15_broker_custody.py",
+            "private_worm_object_inventory_schema": "schemas/benchmark-private-worm-object-inventory-v1.5.schema.json",
+            "private_broker_service_epoch_schema": "schemas/benchmark-private-broker-service-epoch-v1.5.schema.json",
+            "private_custody_compiler_output_schema": "schemas/benchmark-private-custody-compiler-output-v1.5.schema.json",
             "future_cohort_builder": "scripts/build_benchmark_v15_future_cohort.py",
             "future_cohort_rule": "results/benchmark/v1.5-protocol/future-cohort-rule.json",
             "future_registry_output_schema": "schemas/benchmark-future-registry-output-v1.5.schema.json",

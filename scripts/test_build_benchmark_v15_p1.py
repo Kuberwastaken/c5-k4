@@ -112,6 +112,12 @@ class P1Tests(unittest.TestCase):
             "arm_capability_matrix", "arm_capability_matrix_schema",
             "arm_execution_envelope_schema", "arm_execution_envelope_validator",
             "arm_execution_envelope_contract_test",
+            "runner_private_input_assembler", "runner_private_input_assembler_contract_test",
+            "runner_private_input_assembly_schema", "private_artifact_locator_schema",
+            "operational_private_custody_evidence_schema",
+            "broker_custody_compiler", "broker_custody_compiler_contract_test",
+            "private_worm_object_inventory_schema", "private_broker_service_epoch_schema",
+            "private_custody_compiler_output_schema",
         }
         self.assertLessEqual(required, set(P1.NATIVE_COMPONENTS))
         p1a = self.build()
