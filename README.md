@@ -266,6 +266,15 @@ retired. The next construction must structurally pin `mu*` while allowing
 and
 [`txgraffiti-cc-phase1-result.md`](results/expansion/live-search-2026-08-14/txgraffiti-cc-phase1-result.md).
 
+The next revision replaced witness preservation entirely with a cubic
+extremal-reservoir construction carrying a proof that `mu*=3t` for every
+generated graph. Its 98 exact rows also produced no crossing. More usefully,
+the live denominator caught an order-allocation defect: a raw-`i` tie-break
+sent 42 of 48 wall evaluations to `t=5`, starving the smaller equality-bearing
+coordinates. That beam is retired too; the next run must stratify by order and
+search the smallest wall before scaling. See
+[`txgraffiti-cc-phase2-result.md`](results/expansion/live-search-2026-08-14/txgraffiti-cc-phase2-result.md).
+
 No row in those rounds is a release candidate. The exact contracts, ledgers,
 corrections, stop reasons, and reports are under
 [`results/expansion/`](results/expansion/); the current portfolio and its
