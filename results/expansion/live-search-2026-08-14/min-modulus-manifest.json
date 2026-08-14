@@ -1,0 +1,84 @@
+{
+  "schema": "c5k4-min-modulus-live-manifest-1.0",
+  "evidence_split": "DEVELOPMENT",
+  "frozen_at_utc_date": "2026-08-14",
+  "upstream": {
+    "repository": "google-deepmind/formal-conjectures",
+    "commit": "942fb149e782a56c2719c543ab58e093f733acb4",
+    "path": "FormalConjectures/Arxiv/2607.08366/MinModulus.lean",
+    "declaration": "Arxiv.2607.08366.min_modulus",
+    "category_at_pin": "research open",
+    "statement_issue": 4811,
+    "statement_pull_request": 4829
+  },
+  "contract": {
+    "path": "results/expansion/live-search-2026-08-14/min-modulus-contract.md",
+    "sha256": "839e46d39fc867393a586e574ae2144fe3312350c620ec7cf56b18b395f40910"
+  },
+  "worker": "scripts/search_min_modulus_live.py",
+  "tests": "scripts/test_search_min_modulus_live.py",
+  "workflow": ".github/workflows/min-modulus-live.yml",
+  "artifacts": [
+    {
+      "path": "scripts/search_min_modulus_live.py",
+      "sha256": "166d670980166c62fe3eab077657826b5a09e755eb3d83de75d5081aae51ca78"
+    },
+    {
+      "path": "scripts/test_search_min_modulus_live.py",
+      "sha256": "441ec0c074b5cd0a860498931cff6afaa71877d51aebe4f68d5442d10b6bdf01"
+    },
+    {
+      "path": ".github/workflows/min-modulus-live.yml",
+      "sha256": "9e941afa8b5aeac1149dacf5dbeda487b0de29a5de77bee28cf819d5eb47d869"
+    }
+  ],
+  "arms": [
+    "CATALOGUE",
+    "GENERIC",
+    "WALL_NAVIGATION"
+  ],
+  "shards_per_arm": 8,
+  "external_wall_seconds": 60,
+  "internal_stop_seconds": 54,
+  "catalogue": {
+    "n_min": 2,
+    "n_max": 6,
+    "translation_normalized": true,
+    "unit_orbit_canonicalized": true,
+    "partition": "int(sha256(identity), 16) mod 8"
+  },
+  "generic": {
+    "n_min": 6,
+    "n_max": 11,
+    "base_seed": 84977241640772,
+    "seed_expression": "0x4D494E4D4F44 + shard",
+    "proposal_limit_per_shard": 200000,
+    "translation_normalized": true,
+    "unit_orbit_canonicalized": true
+  },
+  "wall_navigation": {
+    "n_min": 3,
+    "n_max": 12,
+    "beam_width": 128,
+    "max_depth": 6,
+    "unit_orbit_canonicalized": true,
+    "score": [
+      "collision_count",
+      "negative_modulus_gap",
+      "canonical_residues"
+    ]
+  },
+  "terminal_reasons": [
+    "DOMAIN_EXHAUSTED",
+    "PROPOSAL_LIMIT",
+    "SEARCH_EXHAUSTED",
+    "DEADLINE_PREFIX",
+    "CROSSING_VERIFIED",
+    "WORKER_ERROR"
+  ],
+  "candidate_policy": {
+    "predicate": "N < minModulus(n) and exact_collision_count(A,N) = 0",
+    "independent_replay_required": true,
+    "public_action": false
+  }
+}

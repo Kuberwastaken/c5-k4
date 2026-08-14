@@ -1,0 +1,132 @@
+name: Minimum-modulus exact DEVELOPMENT search
+
+on:
+  workflow_dispatch:
+    inputs:
+      campaign_commit:
+        description: Exact 40-hex c5-k4 commit containing the frozen contract
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  validate-frozen-harness:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Reject a movable execution ref
+        shell: bash
+        env:
+          CAMPAIGN_COMMIT: ${{ inputs.campaign_commit }}
+        run: |
+          set -euo pipefail
+          [[ "$CAMPAIGN_COMMIT" =~ ^[0-9a-f]{40}$ ]]
+
+      - name: Check out the exact frozen campaign commit
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ inputs.campaign_commit }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Verify exact clean checkout
+        shell: bash
+        env:
+          CAMPAIGN_COMMIT: ${{ inputs.campaign_commit }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$CAMPAIGN_COMMIT"
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+
+      - name: Set up pinned Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12.9'
+
+      - name: Validate frozen manifest and constructor-only helpers
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m py_compile scripts/search_min_modulus_live.py scripts/test_search_min_modulus_live.py
+          PYTHONPATH=scripts python -m unittest -v scripts/test_search_min_modulus_live.py
+
+  exact-shard:
+    needs: validate-frozen-harness
+    strategy:
+      fail-fast: false
+      max-parallel: 8
+      matrix:
+        arm: [CATALOGUE, GENERIC, WALL_NAVIGATION]
+        shard: [0, 1, 2, 3, 4, 5, 6, 7]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    env:
+      LC_ALL: C.UTF-8
+      PYTHONDONTWRITEBYTECODE: '1'
+      PYTHONHASHSEED: '0'
+      TZ: UTC
+    steps:
+      - name: Check out the exact frozen campaign commit
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ inputs.campaign_commit }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up pinned Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12.9'
+
+      - name: Run one exact arm shard under the hard process cap
+        id: search
+        shell: bash
+        env:
+          ARM: ${{ matrix.arm }}
+          SHARD: ${{ matrix.shard }}
+        run: |
+          set -uo pipefail
+          output="$RUNNER_TEMP/min-modulus/${ARM}-${SHARD}"
+          mkdir -p "$output"
+          /usr/bin/time -v -o "$output/resources.txt" \
+            timeout --signal=TERM --kill-after=5s 60s \
+              python scripts/search_min_modulus_live.py \
+                --arm "$ARM" \
+                --shard "$SHARD" \
+                --ledger "$output/ledger.jsonl" \
+                --terminal "$output/terminal.json" \
+              > "$output/stdout.txt" 2> "$output/stderr.txt"
+          code=$?
+          printf '{"campaign_commit":"%s","arm":"%s","shard":%s,"exit_code":%s}\n' \
+            '${{ inputs.campaign_commit }}' "$ARM" "$SHARD" "$code" \
+            > "$output/assignment.json"
+          if [[ -f "$output/terminal.json" ]]; then
+            python - "$output/terminal.json" <<'PY'
+          import json, sys
+          value = json.load(open(sys.argv[1], encoding="utf-8"))
+          allowed = {
+              "DOMAIN_EXHAUSTED", "PROPOSAL_LIMIT", "SEARCH_EXHAUSTED",
+              "DEADLINE_PREFIX", "CROSSING_VERIFIED", "WORKER_ERROR",
+          }
+          if value.get("terminal_reason") not in allowed:
+              raise SystemExit("invalid terminal reason")
+          PY
+          fi
+          (
+            cd "$output"
+            find . -maxdepth 1 -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS
+          )
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          exit "$code"
+
+      - name: Upload durable shard evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: min-modulus-${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.arm }}-${{ matrix.shard }}
+          path: ${{ runner.temp }}/min-modulus/
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 90
