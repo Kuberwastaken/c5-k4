@@ -1,0 +1,22 @@
+{
+  "schema": "c5k4-txgraffiti-cc-phase4-result-1.0",
+  "status": "DOMAIN_EXHAUSTED_ZERO",
+  "campaign_commit": "757f0883c97fbe67ec6f2a536979c3a797385b3a",
+  "github_actions_run": "https://github.com/Kuberwastaken/c5-k4/actions/runs/31789793381",
+  "construction_states": 5320,
+  "canonical_domain_identities": 4961,
+  "prior_scored_identities": 2575,
+  "newly_evaluated_identities": 2386,
+  "worker_terminal_reasons": {"DOMAIN_EXHAUSTED": 24},
+  "crossing_identities": [],
+  "aggregate_errors": [],
+  "domain_manifest_sha256": "79eced3111e78250cfe69d3a0683ec17c7427b676a4f337be9e879e1ef83d54c",
+  "selection_manifest_sha256": "92f73af269a1e40918235c9d827e5f5b2069f40b8c9da5c5d81d66a8e7cdb05d",
+  "rejected_predecessor_run": {
+    "url": "https://github.com/Kuberwastaken/c5-k4/actions/runs/31788725249",
+    "status": "INVALID_RUN",
+    "admitted_new_identities": 0,
+    "mathematical_inference_allowed": false
+  },
+  "publication_action": false
+}
