@@ -1,0 +1,67 @@
+{
+  "schema": "c5k4-graffiti3-conjecture23-manifest-1.0",
+  "evidence_split": "DEVELOPMENT",
+  "freeze_base_commit": "03c6deef4bde0234cfb6db20f7b37d60d15ba9de",
+  "source": {
+    "doi": "10.21203/rs.3.rs-8493329/v1",
+    "pdf_sha256": "9758ec4530febf62bbcee35bd5804d2dda9e226a0878b082a25eaf1c7e4a9f7a",
+    "conjecture": 23,
+    "snapshot_order_cutoff": 128
+  },
+  "formal_conjectures_audit_commit": "9a1636c4030039f70cf78b866c216d8b6c5f35b0",
+  "author_repository_commit": "e37126da53b84150d142a5d61202b61f78521fcc",
+  "arms": ["CATALOGUE", "GENERIC", "WALL_NAVIGATION"],
+  "shards_per_arm": 24,
+  "internal_stop_seconds": 54,
+  "external_stop_seconds": 60,
+  "per_gap_query_seconds": 4,
+  "gap_dependencies": {
+    "gap": "4.12.1",
+    "smallgrp": "1.5.3"
+  },
+  "catalogue": {"order": 256, "number_groups": 56092},
+  "generic": {
+    "order": 512,
+    "number_groups": 10494213,
+    "seed": "graffiti3-c23-generic-v1",
+    "proposal_limit_per_shard": 4096
+  },
+  "wall": {
+    "field": 2,
+    "central_dimension": 2,
+    "vector_dimensions": [6, 8],
+    "pair_output_masks": [1, 2, 3],
+    "require_surjective_commutator_image": true
+  },
+  "candidate_policy": {
+    "strict_residual": "W < 0",
+    "independent_multiplication_table_replay": true,
+    "public_action": false
+  },
+  "artifacts": [
+    {
+      "path": ".github/workflows/graffiti3-conjecture23-development.yml",
+      "sha256": "da367acb86bc3ceff1b96ea5ba71c5f0677beea90c15ccaa3a0d917bbbbe1813"
+    },
+    {
+      "path": "scripts/search_graffiti3_conjecture23.py",
+      "sha256": "90e276c7fc9004619b35231c5f522115335ef2328e361fbda742db8772696ccc"
+    },
+    {
+      "path": "scripts/verify_graffiti3_conjecture23_certificate.py",
+      "sha256": "78ba464feee01d008a4689251c4bbf5433d6b82b1e3b569640891a278ee56962"
+    },
+    {
+      "path": "scripts/test_graffiti3_conjecture23.py",
+      "sha256": "1dc8118942d31ef281933f025254f9f6cc30833b1eb587e3c6c6672ab441f9ae"
+    },
+    {
+      "path": "results/expansion/live-search-2026-08-14/graffiti3-conjecture23-source-status.md",
+      "sha256": "6cec70d42142275c3ad6cd3545f78f0379ab4338f882c312f745d5e38504c8f1"
+    },
+    {
+      "path": "results/expansion/live-search-2026-08-14/graffiti3-conjecture23-contract.md",
+      "sha256": "9f6211fb8a1a7302427f1ce01995ed84804e1e14a578d86dccba3e65424a9d40"
+    }
+  ]
+}

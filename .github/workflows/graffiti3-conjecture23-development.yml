@@ -1,0 +1,154 @@
+name: Graffiti3 Conjecture 23 DEVELOPMENT search
+
+on:
+  workflow_dispatch:
+    inputs:
+      campaign_commit:
+        description: Exact 40-hex c5-k4 commit containing the frozen lane
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  validate-frozen-harness:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Reject a movable execution ref
+        shell: bash
+        env:
+          CAMPAIGN_COMMIT: ${{ inputs.campaign_commit }}
+        run: |
+          set -euo pipefail
+          [[ "$CAMPAIGN_COMMIT" =~ ^[0-9a-f]{40}$ ]]
+
+      - name: Check out the exact frozen campaign commit
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ inputs.campaign_commit }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Verify exact clean checkout
+        shell: bash
+        env:
+          CAMPAIGN_COMMIT: ${{ inputs.campaign_commit }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$CAMPAIGN_COMMIT"
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+
+      - name: Set up pinned Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12.9'
+
+      - name: Run constructor-only validation
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m py_compile \
+            scripts/search_graffiti3_conjecture23.py \
+            scripts/verify_graffiti3_conjecture23_certificate.py \
+            scripts/test_graffiti3_conjecture23.py
+          PYTHONPATH=scripts python -m unittest -v scripts/test_graffiti3_conjecture23.py
+
+  exact-arm:
+    needs: validate-frozen-harness
+    strategy:
+      fail-fast: false
+      max-parallel: 24
+      matrix:
+        arm: [CATALOGUE, GENERIC, WALL_NAVIGATION]
+        shard: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      LC_ALL: C.UTF-8
+      PYTHONDONTWRITEBYTECODE: '1'
+      PYTHONHASHSEED: '0'
+      TZ: UTC
+    steps:
+      - name: Check out the exact frozen campaign commit
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ inputs.campaign_commit }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up pinned Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12.9'
+
+      - name: Install pinned GAP dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            gap=4.12.1-2build2 \
+            gap-smallgrp=1.5.3-1 \
+            gap-smallgrp-extra=1.5.3-1
+          test "$(dpkg-query -W -f='${Version}' gap)" = "4.12.1-2build2"
+          test "$(dpkg-query -W -f='${Version}' gap-smallgrp)" = "1.5.3-1"
+          test "$(dpkg-query -W -f='${Version}' gap-smallgrp-extra)" = "1.5.3-1"
+
+      - name: Run one frozen shard under the hard cap
+        id: search
+        shell: bash
+        env:
+          ARM: ${{ matrix.arm }}
+          SHARD: ${{ matrix.shard }}
+          CAMPAIGN_COMMIT: ${{ inputs.campaign_commit }}
+        run: |
+          set -uo pipefail
+          output="$RUNNER_TEMP/graffiti3-c23/$ARM/$SHARD"
+          mkdir -p "$output"
+          /usr/bin/time -v -o "$output/resources.txt" \
+            timeout --signal=TERM --kill-after=5s 60s \
+              python scripts/search_graffiti3_conjecture23.py \
+                --arm "$ARM" \
+                --shard "$SHARD" \
+                --campaign-commit "$CAMPAIGN_COMMIT" \
+                --gap gap \
+                --ledger "$output/ledger.jsonl" \
+                --terminal "$output/terminal.json" \
+                --certificate "$output/certificate.json" \
+              > "$output/stdout.txt" 2> "$output/stderr.txt"
+          code=$?
+          printf '{"campaign_commit":"%s","arm":"%s","shard":%s,"exit_code":%s}\n' \
+            "$CAMPAIGN_COMMIT" "$ARM" "$SHARD" "$code" > "$output/assignment.json"
+          if [[ -f "$output/certificate.json" ]]; then
+            python scripts/verify_graffiti3_conjecture23_certificate.py \
+              "$output/certificate.json" > "$output/independent-verification.json"
+          fi
+          if [[ -f "$output/terminal.json" ]]; then
+            python - "$output/terminal.json" <<'PY'
+          import json, sys
+          value = json.load(open(sys.argv[1], encoding="utf-8"))
+          allowed = {
+              "DOMAIN_EXHAUSTED", "PROPOSAL_LIMIT", "DEADLINE_PREFIX",
+              "CERTIFICATE_FOUND", "SANITY_GATE_FAILED", "WORKER_ERROR",
+          }
+          if value.get("terminal_reason") not in allowed:
+              raise SystemExit("invalid terminal reason")
+          PY
+          fi
+          (
+            cd "$output"
+            find . -maxdepth 1 -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS
+          )
+          exit "$code"
+
+      - name: Upload complete incremental shard evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: graffiti3-c23-${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.arm }}-${{ matrix.shard }}
+          path: ${{ runner.temp }}/graffiti3-c23/
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 90
