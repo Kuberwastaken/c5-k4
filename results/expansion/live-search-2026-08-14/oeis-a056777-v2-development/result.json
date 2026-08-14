@@ -1,0 +1,160 @@
+{
+  "schema": "oeis-a056777-v2-development-result-v1",
+  "status": "VALID_COMPLETE_FROZEN_TUPLE_DOMAIN_EXHAUSTION_NO_COUNTEREXAMPLE",
+  "scope": "development_only_two_mixed_square_triple_tuple_domains",
+  "mathematical_claim": "No A056777 counterexample occurs in either frozen mixed square/triple tuple domain; this is not exhaustion of the full integer interval or a proof of the converse.",
+  "run": {
+    "repository": "Kuberwastaken/c5-k4",
+    "workflow": "OEIS A056777 mixed-resonant-square-triple v2 DEVELOPMENT",
+    "run_id": 31822383549,
+    "run_attempt": 1,
+    "url": "https://github.com/Kuberwastaken/c5-k4/actions/runs/31822383549",
+    "event": "workflow_dispatch",
+    "campaign_commit": "7446588ddfce5b65993f34fbfc53e243a2179427",
+    "created_at_utc": "2026-08-14T17:05:29Z",
+    "completed_at_utc": "2026-08-14T17:07:29Z",
+    "conclusion": "success",
+    "jobs": 50,
+    "successful_jobs": 50
+  },
+  "artifact_audit": {
+    "artifacts_downloaded": 49,
+    "files_downloaded": 389,
+    "sha256sum_manifests_checked": 49,
+    "sha256sum_manifest_failures": 0,
+    "gate_attestation_file_sha256": "41ae3a315824aaa11f877905c6661b92bb81461c4a3eff827c0d4aa639055134",
+    "gate_internal_attestation_sha256": "b5374395b4b858595325f927670f447899b92b2e9aa3d339bc48a3eb13d625e8",
+    "ordered_ledger_sha256_listing_sha256": "4169b124c69be26f873f6a66789ed93e67b3b70a3498550b720280c8af98080a",
+    "source_gate_independently_verified": true,
+    "source_commit": "6b37c6ede7ccdee80826b8399a80ec010771d5d4",
+    "source_sha256": {
+      "56777.lean": "2539ce34a7417a5b482d3c6f21a8327198e4890df7f67e6458a522293b1d099c",
+      "A056777.seq": "67a9fd6b1b5114a4aa09f4d01967d15e54266dd09902699fe40ce4d8b9e54d63",
+      "b056777.txt": "8a4d205fea5761af6deac8c2bf23d709c4e7844e792f48bf8616135376835ccf"
+    },
+    "historical_table": {
+      "rows": 166,
+      "first": [1, 65],
+      "last": [166, 967164068009],
+      "exclusion_upper_inclusive": 1000000000000,
+      "verified_row_stream_sha256": "465052e43ec0cf2a977cecca73da7a01ce4f9c32c44220e14babcb66f6831830"
+    }
+  },
+  "independent_replay": {
+    "lanes": 48,
+    "per_lane_cap_seconds": 60,
+    "passed": 48,
+    "failed": 0,
+    "timed_out": 0,
+    "terminal_reasons": {
+      "DOMAIN_EXHAUSTED": 48
+    },
+    "ledger_rows": 12160,
+    "states_evaluated": 1547331,
+    "certificates": 0,
+    "survivors": 0,
+    "worker_errors": 0,
+    "deadlines": 0,
+    "nonzero_execution_statuses": 0,
+    "stop_counts": {
+      "ZERO_DENOMINATOR": 0,
+      "K_SIGN": 1017931,
+      "K_NONINTEGRAL": 529397,
+      "PARTNER_NONINTEGRAL": 0,
+      "PRODUCT_MISMATCH": 0,
+      "NONCANONICAL": 0,
+      "BAND": 2,
+      "NONPRIME": 1,
+      "PRIOR_FROZEN": 0,
+      "C_IDENTITY": 0,
+      "SURVIVOR": 0
+    }
+  },
+  "arms": [
+    {
+      "arm": "REPEATED_LOWER",
+      "shards": 24,
+      "terminal_reason": "DOMAIN_EXHAUSTED",
+      "states_evaluated": 773673,
+      "visited_minimum": 25290,
+      "visited_maximum": 39652,
+      "visited_by_shard": [39652, 38698, 37882, 37545, 37118, 36426, 35683, 35097, 34453, 33869, 33041, 32523, 32150, 31406, 30398, 29815, 29199, 28748, 28129, 27666, 26981, 26189, 25715, 25290],
+      "stop_counts": {
+        "ZERO_DENOMINATOR": 0,
+        "K_SIGN": 508972,
+        "K_NONINTEGRAL": 264700,
+        "PARTNER_NONINTEGRAL": 0,
+        "PRODUCT_MISMATCH": 0,
+        "NONCANONICAL": 0,
+        "BAND": 1,
+        "NONPRIME": 0,
+        "PRIOR_FROZEN": 0,
+        "C_IDENTITY": 0,
+        "SURVIVOR": 0
+      }
+    },
+    {
+      "arm": "REPEATED_UPPER",
+      "shards": 24,
+      "terminal_reason": "DOMAIN_EXHAUSTED",
+      "states_evaluated": 773658,
+      "visited_minimum": 25290,
+      "visited_maximum": 39651,
+      "visited_by_shard": [39651, 38698, 37882, 37545, 37118, 36426, 35683, 35097, 34451, 33866, 33040, 32523, 32149, 31406, 30396, 29813, 29199, 28747, 28129, 27666, 26981, 26187, 25715, 25290],
+      "stop_counts": {
+        "ZERO_DENOMINATOR": 0,
+        "K_SIGN": 508959,
+        "K_NONINTEGRAL": 264697,
+        "PARTNER_NONINTEGRAL": 0,
+        "PRODUCT_MISMATCH": 0,
+        "NONCANONICAL": 0,
+        "BAND": 1,
+        "NONPRIME": 1,
+        "PRIOR_FROZEN": 0,
+        "C_IDENTITY": 0,
+        "SURVIVOR": 0
+      }
+    }
+  ],
+  "rare_stop_diagnostics": [
+    {
+      "arm": "REPEATED_LOWER",
+      "shard": 14,
+      "coordinate": {"r_rank": 399, "r": 2731, "t_rank": 455, "t": 3217, "u_rank": 625, "u": 4637},
+      "p": 301433947,
+      "p_factors": [[2339, 1], [128873, 1]],
+      "q": 150711851,
+      "q_factors": [[17, 1], [8865403, 1]],
+      "n": 2248203194380867,
+      "n_plus_12": 2248203194380879,
+      "stop": "BAND",
+      "c_identity_gap": -360331510392
+    },
+    {
+      "arm": "REPEATED_UPPER",
+      "shard": 0,
+      "coordinate": {"r_rank": 385, "r": 2659, "t_rank": 493, "t": 3529, "u_rank": 553, "u": 4007},
+      "p": 489052841,
+      "p_factors": [[23, 1], [21263167, 1]],
+      "q": 978115435,
+      "q_factors": [[5, 1], [11, 1], [17783917, 1]],
+      "n": 6915550975887223,
+      "n_plus_12": 6915550975887235,
+      "stop": "BAND",
+      "c_identity_gap": 1084211280816
+    },
+    {
+      "arm": "REPEATED_UPPER",
+      "shard": 6,
+      "coordinate": {"r_rank": 415, "r": 2857, "t_rank": 536, "t": 3863, "u_rank": 580, "u": 4231},
+      "p": 4394003,
+      "p_factors": [[97, 2], [467, 1]],
+      "q": 8798479,
+      "q_factors": [[421, 1], [20899, 1]],
+      "n": 71817136115059,
+      "n_plus_12": 71817136115071,
+      "stop": "NONPRIME",
+      "c_identity_gap": 10431588444
+    }
+  ]
+}
