@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-c1-authority-receipt-v1.5.schema.json",
+  "title": "Method v1.5 signed C1 selection authority receipt",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema", "artifact_kind", "protocol_version", "status", "production_permitted", "c1t", "c0t_commit", "randomness_artifact_sha256", "sampler", "quotas", "ordered_selected_clusters_sha256", "selected_cluster_count", "authority_projection", "private_transition", "envelope_freeze_complete", "signature"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-c1-authority-receipt-1.0"}, "artifact_kind": {"const": "C1_AUTHORITY_RECEIPT"}, "protocol_version": {"const": "1.5"},
+    "status": {"const": "C1_SELECTION_SIGNED_AWAITING_ENVELOPE_FREEZE"}, "production_permitted": {"const": false},
+    "c1t": {"type": "object", "additionalProperties": false, "required": ["commit", "sha256"], "properties": {"commit": {"$ref": "#/definitions/oid"}, "sha256": {"$ref": "#/definitions/sha"}}},
+    "c0t_commit": {"$ref": "#/definitions/oid"}, "randomness_artifact_sha256": {"$ref": "#/definitions/sha"},
+    "sampler": {"type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": {"path": {"const": "scripts/select_benchmark_v14.py"}, "sha256": {"$ref": "#/definitions/sha"}}},
+    "quotas": {"type": "object", "additionalProperties": false, "required": ["GRAPH_SCALAR_INEQUALITY", "GRAPH_STRUCTURAL_PROPERTY", "FINITE_ALGEBRA_EQUATIONAL", "AUTOMATA_GAME_PROCESS", "FINITE_COMBINATORIAL"], "properties": {"GRAPH_SCALAR_INEQUALITY": {"const": 3}, "GRAPH_STRUCTURAL_PROPERTY": {"const": 3}, "FINITE_ALGEBRA_EQUATIONAL": {"const": 2}, "AUTOMATA_GAME_PROCESS": {"const": 2}, "FINITE_COMBINATORIAL": {"const": 2}}},
+    "ordered_selected_clusters_sha256": {"$ref": "#/definitions/sha"}, "selected_cluster_count": {"const": 12},
+    "authority_projection": {"$ref": "#/definitions/authorityProjection"},
+    "private_transition": {"type": "object", "additionalProperties": false, "required": ["transition_sha256", "selected_binding_sha256", "custody_binding_sha256", "immutable_acceptance_sha256", "authority_key_sha256"], "properties": {"transition_sha256": {"$ref": "#/definitions/sha"}, "selected_binding_sha256": {"$ref": "#/definitions/sha"}, "custody_binding_sha256": {"$ref": "#/definitions/sha"}, "immutable_acceptance_sha256": {"$ref": "#/definitions/sha"}, "authority_key_sha256": {"$ref": "#/definitions/sha"}}},
+    "envelope_freeze_complete": {"const": false},
+    "signature": {"type": "object", "additionalProperties": false, "required": ["algorithm", "key_sha256", "signature_base64"], "properties": {"algorithm": {"const": "Ed25519"}, "key_sha256": {"$ref": "#/definitions/sha"}, "signature_base64": {"type": "string", "pattern": "^[A-Za-z0-9+/]{86}==$"}}}
+  },
+  "definitions": {
+    "sha": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "oid": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "authorityProjection": {"type": "object", "additionalProperties": false, "required": ["source", "p1_readiness_package_sha256", "p1_operational_evidence_sha256", "authority_root", "authority_key_sha256", "custodian_key_sha256", "custody_locator", "immutable_locator", "custody_binding_sha256", "immutable_acceptance_sha256", "projection_sha256"], "properties": {
+      "source": {"const": "CANONICAL_C0_AUTHENTICATED_P1_READINESS"}, "p1_readiness_package_sha256": {"$ref": "#/definitions/sha"}, "p1_operational_evidence_sha256": {"$ref": "#/definitions/sha"},
+      "authority_root": {"type": "object", "additionalProperties": false, "required": ["commit", "root_tree", "path", "sha256"], "properties": {"commit": {"$ref": "#/definitions/oid"}, "root_tree": {"$ref": "#/definitions/oid"}, "path": {"type": "string", "minLength": 1}, "sha256": {"$ref": "#/definitions/sha"}}},
+      "authority_key_sha256": {"$ref": "#/definitions/sha"}, "custodian_key_sha256": {"$ref": "#/definitions/sha"}, "custody_locator": {"$ref": "#/definitions/immutableLocator"}, "immutable_locator": {"$ref": "#/definitions/immutableLocator"}, "custody_binding_sha256": {"$ref": "#/definitions/sha"}, "immutable_acceptance_sha256": {"$ref": "#/definitions/sha"}, "projection_sha256": {"$ref": "#/definitions/sha"}
+    }},
+    "immutableLocator": {"type": "object", "additionalProperties": false, "required": ["scheme", "bucket_arn", "object_key", "version_id", "object_sha256", "size_bytes", "retention_until_utc"], "properties": {"scheme": {"const": "S3_OBJECT_LOCK_VERSION"}, "bucket_arn": {"type": "string", "pattern": "^arn:aws:s3:::[A-Za-z0-9][A-Za-z0-9.-]{1,62}$"}, "object_key": {"type": "string", "minLength": 1}, "version_id": {"type": "string", "minLength": 1}, "object_sha256": {"$ref": "#/definitions/sha"}, "size_bytes": {"type": "integer", "minimum": 2}, "retention_until_utc": {"type": "string", "format": "date-time", "pattern": "Z$"}}}
+  }
+}

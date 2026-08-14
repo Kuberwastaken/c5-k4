@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-private-c1-transition-v1.5.schema.json",
+  "title": "Method v1.5 signed sealed private identity transition",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema", "status", "pool_sha256", "authority_projection_sha256", "custody_binding_sha256", "immutable_acceptance_sha256", "identities", "artifact_sha256", "signature"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-sealed-private-identity-transition-1.0"},
+    "status": {"const": "SEALED_PRE_C1_IDENTITY_MAP"},
+    "pool_sha256": {"$ref": "#/definitions/sha"},
+    "authority_projection_sha256": {"$ref": "#/definitions/sha"},
+    "custody_binding_sha256": {"$ref": "#/definitions/sha"},
+    "immutable_acceptance_sha256": {"$ref": "#/definitions/sha"},
+    "identities": {"type": "array", "minItems": 12, "items": {"type": "object", "additionalProperties": false, "required": ["cluster_id", "identity_sha256", "private_locator_sha256"], "properties": {"cluster_id": {"type": "string", "minLength": 1}, "identity_sha256": {"$ref": "#/definitions/sha"}, "private_locator_sha256": {"$ref": "#/definitions/sha"}}}},
+    "artifact_sha256": {"$ref": "#/definitions/sha"},
+    "signature": {"type": "object", "additionalProperties": false, "required": ["algorithm", "key_sha256", "signature_base64"], "properties": {"algorithm": {"const": "Ed25519"}, "key_sha256": {"$ref": "#/definitions/sha"}, "signature_base64": {"type": "string", "pattern": "^[A-Za-z0-9+/]{86}==$"}}}
+  },
+  "definitions": {"sha": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+}

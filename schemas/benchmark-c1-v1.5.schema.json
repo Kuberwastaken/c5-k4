@@ -1,0 +1,80 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-c1-v1.5.schema.json",
+  "title": "Method v1.5 future-drand C1 selection freeze",
+  "oneOf": [{"$ref": "#/definitions/c1a"}, {"$ref": "#/definitions/c1t"}],
+  "definitions": {
+    "sha": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "oid": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "time": {"type": "string", "format": "date-time", "pattern": "Z$"},
+    "path": {"type": "string", "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[^\\u0000]+$"},
+    "quotas": {
+      "type": "object", "additionalProperties": false,
+      "required": ["GRAPH_SCALAR_INEQUALITY", "GRAPH_STRUCTURAL_PROPERTY", "FINITE_ALGEBRA_EQUATIONAL", "AUTOMATA_GAME_PROCESS", "FINITE_COMBINATORIAL"],
+      "properties": {
+        "GRAPH_SCALAR_INEQUALITY": {"const": 3}, "GRAPH_STRUCTURAL_PROPERTY": {"const": 3},
+        "FINITE_ALGEBRA_EQUATIONAL": {"const": 2}, "AUTOMATA_GAME_PROCESS": {"const": 2},
+        "FINITE_COMBINATORIAL": {"const": 2}
+      }
+    },
+    "stratum": {"enum": ["GRAPH_SCALAR_INEQUALITY", "GRAPH_STRUCTURAL_PROPERTY", "FINITE_ALGEBRA_EQUATIONAL", "AUTOMATA_GAME_PROCESS", "FINITE_COMBINATORIAL"]},
+    "selected": {
+      "type": "object", "additionalProperties": false,
+      "required": ["cluster_id", "identity_sha256", "stratum", "shuffle_position"],
+      "properties": {
+        "cluster_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]{0,511}$"},
+        "identity_sha256": {"$ref": "#/definitions/sha"}, "stratum": {"$ref": "#/definitions/stratum"},
+        "shuffle_position": {"type": "integer", "minimum": 1}
+      }
+    },
+    "selected12": {"type": "array", "minItems": 12, "maxItems": 12, "uniqueItems": true, "items": {"$ref": "#/definitions/selected"}},
+    "privateTransition": {
+      "type": "object", "additionalProperties": false,
+      "required": ["artifact_sha256", "transition_sha256", "selected_binding_sha256", "private_locators_disclosed", "authority_projection_sha256", "custody_binding_sha256", "immutable_acceptance_sha256", "authority_key_sha256"],
+      "properties": {
+        "artifact_sha256": {"$ref": "#/definitions/sha"}, "transition_sha256": {"$ref": "#/definitions/sha"},
+        "selected_binding_sha256": {"$ref": "#/definitions/sha"}, "private_locators_disclosed": {"const": false}, "authority_projection_sha256": {"$ref": "#/definitions/sha"},
+        "custody_binding_sha256": {"$ref": "#/definitions/sha"}, "immutable_acceptance_sha256": {"$ref": "#/definitions/sha"}, "authority_key_sha256": {"$ref": "#/definitions/sha"}
+      }
+    },
+    "semanticBoundary": {
+      "type": "object", "additionalProperties": false,
+      "required": ["opaque_identities_only", "statement_text_present", "target_semantics_present", "outcomes_present"],
+      "properties": {
+        "opaque_identities_only": {"const": true}, "statement_text_present": {"const": false},
+        "target_semantics_present": {"const": false}, "outcomes_present": {"const": false}
+      }
+    },
+    "c1a": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema", "artifact_kind", "protocol_version", "status", "production_permitted", "c0t", "pre_entropy_pool", "inherited_sampler", "randomness", "quotas", "strata", "selected_clusters", "sealed_private_identity_transition", "publication_topology", "semantic_boundary", "artifact_sha256"],
+      "properties": {
+        "schema": {"const": "c5k4-method-v1.5-c1-1.0"}, "artifact_kind": {"const": "C1A"}, "protocol_version": {"const": "1.5"},
+        "status": {"const": "C1_SELECTION_COMPILED_AWAITING_ATTESTATION"}, "production_permitted": {"const": false},
+        "c0t": {"type": "object", "additionalProperties": false, "required": ["commit", "sha256"], "properties": {"commit": {"$ref": "#/definitions/oid"}, "sha256": {"$ref": "#/definitions/sha"}}},
+        "pre_entropy_pool": {"type": "object", "additionalProperties": false, "required": ["pool_sha256", "canonical_sha256", "cluster_count"], "properties": {"pool_sha256": {"$ref": "#/definitions/sha"}, "canonical_sha256": {"$ref": "#/definitions/sha"}, "cluster_count": {"type": "integer", "minimum": 12}}},
+        "inherited_sampler": {"type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": {"path": {"const": "scripts/select_benchmark_v14.py"}, "sha256": {"$ref": "#/definitions/sha"}}},
+        "randomness": {"type": "object", "additionalProperties": false, "required": ["artifact_sha256", "round", "round_closes_at_utc", "randomness_sha256", "inherited_drand_verifier", "offline_replay"], "properties": {"artifact_sha256": {"$ref": "#/definitions/sha"}, "round": {"type": "integer", "minimum": 1}, "round_closes_at_utc": {"$ref": "#/definitions/time"}, "randomness_sha256": {"$ref": "#/definitions/sha"}, "inherited_drand_verifier": {"type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": {"path": {"const": "tools/benchmark-drand/fetch-and-verify-v14.mjs"}, "sha256": {"$ref": "#/definitions/sha"}}}, "offline_replay": {"type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": {"path": {"const": "tools/benchmark-drand/verify-v15-artifact.mjs"}, "sha256": {"$ref": "#/definitions/sha"}}}}},
+        "quotas": {"$ref": "#/definitions/quotas"},
+        "strata": {"type": "array", "minItems": 5, "maxItems": 5, "items": {"type": "object", "additionalProperties": false, "required": ["stratum", "quota", "eligible_count", "entropy_consumption"], "properties": {"stratum": {"$ref": "#/definitions/stratum"}, "quota": {"type": "integer", "minimum": 2, "maximum": 3}, "eligible_count": {"type": "integer", "minimum": 2}, "entropy_consumption": {"type": "object", "additionalProperties": false, "required": ["sha256_blocks_consumed", "u64_words_consumed", "u64_words_rejected"], "properties": {"sha256_blocks_consumed": {"type": "integer", "minimum": 0}, "u64_words_consumed": {"type": "integer", "minimum": 0}, "u64_words_rejected": {"type": "integer", "minimum": 0}}}}}},
+        "selected_clusters": {"$ref": "#/definitions/selected12"},
+        "sealed_private_identity_transition": {"$ref": "#/definitions/privateTransition"},
+        "publication_topology": {"type": "object", "additionalProperties": false, "required": ["c0t_commit", "c1a_path", "c1t_path", "c1a_change", "c1t_change", "merge_commits_permitted"], "properties": {"c0t_commit": {"$ref": "#/definitions/oid"}, "c1a_path": {"$ref": "#/definitions/path"}, "c1t_path": {"$ref": "#/definitions/path"}, "c1a_change": {"const": "ADD_EXACTLY_ONE_C1A_PATH"}, "c1t_change": {"const": "ADD_EXACTLY_ONE_C1T_PATH"}, "merge_commits_permitted": {"const": false}}},
+        "semantic_boundary": {"$ref": "#/definitions/semanticBoundary"}, "artifact_sha256": {"$ref": "#/definitions/sha"}
+      }
+    },
+    "c1t": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema", "artifact_kind", "protocol_version", "status", "production_permitted", "c1a", "c0t_commit", "quotas", "selected_clusters", "sealed_private_identity_transition", "attestation_policy", "semantic_boundary", "artifact_sha256"],
+      "properties": {
+        "schema": {"const": "c5k4-method-v1.5-c1-1.0"}, "artifact_kind": {"const": "C1T"}, "protocol_version": {"const": "1.5"},
+        "status": {"const": "C1_FROZEN_TWELVE_CLUSTER_SELECTION"}, "production_permitted": {"const": false},
+        "c1a": {"type": "object", "additionalProperties": false, "required": ["commit", "sha256"], "properties": {"commit": {"$ref": "#/definitions/oid"}, "sha256": {"$ref": "#/definitions/sha"}}},
+        "c0t_commit": {"$ref": "#/definitions/oid"}, "quotas": {"$ref": "#/definitions/quotas"}, "selected_clusters": {"$ref": "#/definitions/selected12"},
+        "sealed_private_identity_transition": {"$ref": "#/definitions/privateTransition"},
+        "attestation_policy": {"type": "object", "additionalProperties": false, "required": ["c1a_direct_parent_required", "nonmerge_required", "c1a_bytes_immutable", "allowed_c1t_changed_paths"], "properties": {"c1a_direct_parent_required": {"const": true}, "nonmerge_required": {"const": true}, "c1a_bytes_immutable": {"const": true}, "allowed_c1t_changed_paths": {"type": "array", "minItems": 1, "maxItems": 1, "items": {"$ref": "#/definitions/path"}}}},
+        "semantic_boundary": {"$ref": "#/definitions/semanticBoundary"}, "artifact_sha256": {"$ref": "#/definitions/sha"}
+      }
+    }
+  }
+}

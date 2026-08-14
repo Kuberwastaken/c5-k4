@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-c1-envelope-freeze-v1.5.schema.json",
+  "title": "Method v1.5 twelve-envelope freeze closure",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema", "status", "protocol_version", "production_permitted", "c1_authority_receipt_sha256", "c1t_commit", "run_freeze_commit", "envelope_closure_commit", "authority_projection", "ordered_selected_clusters_sha256", "capability_matrix", "private_custodian_receipt_sha256", "envelopes", "envelope_count", "all_envelopes_non_executable", "artifact_sha256"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-c1-envelope-freeze-1.0"}, "status": {"const": "TWELVE_EXECUTION_ENVELOPES_BOUND_AWAITING_OPERATIONAL_ACCEPTANCE"}, "protocol_version": {"const": "1.5"}, "production_permitted": {"const": false},
+    "c1_authority_receipt_sha256": {"$ref": "#/definitions/sha"}, "c1t_commit": {"$ref": "#/definitions/oid"}, "run_freeze_commit": {"$ref": "#/definitions/oid"}, "envelope_closure_commit": {"$ref": "#/definitions/oid"}, "authority_projection": {"$ref": "#/definitions/authorityProjection"}, "ordered_selected_clusters_sha256": {"$ref": "#/definitions/sha"},
+    "capability_matrix": {"$ref": "#/definitions/ref"}, "private_custodian_receipt_sha256": {"$ref": "#/definitions/sha"},
+    "envelopes": {"type": "array", "minItems": 12, "maxItems": 12, "items": {"type": "object", "additionalProperties": false, "required": ["cluster_id", "path", "file_sha256", "envelope_sha256"], "properties": {"cluster_id": {"type": "string", "minLength": 1}, "path": {"$ref": "#/definitions/path"}, "file_sha256": {"$ref": "#/definitions/sha"}, "envelope_sha256": {"$ref": "#/definitions/sha"}}}},
+    "envelope_count": {"const": 12}, "all_envelopes_non_executable": {"const": true}, "artifact_sha256": {"$ref": "#/definitions/sha"}
+  },
+  "definitions": {
+    "sha": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "oid": {"type": "string", "pattern": "^[0-9a-f]{40}$"}, "path": {"type": "string", "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[^\\u0000]+$"},
+    "ref": {"type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": {"path": {"$ref": "#/definitions/path"}, "sha256": {"$ref": "#/definitions/sha"}}},
+    "authorityProjection": {"type": "object", "additionalProperties": false, "required": ["source", "p1_readiness_package_sha256", "p1_operational_evidence_sha256", "authority_root", "authority_key_sha256", "custodian_key_sha256", "custody_locator", "immutable_locator", "custody_binding_sha256", "immutable_acceptance_sha256", "projection_sha256"], "properties": {
+      "source": {"const": "CANONICAL_C0_AUTHENTICATED_P1_READINESS"}, "p1_readiness_package_sha256": {"$ref": "#/definitions/sha"}, "p1_operational_evidence_sha256": {"$ref": "#/definitions/sha"},
+      "authority_root": {"type": "object", "additionalProperties": false, "required": ["commit", "root_tree", "path", "sha256"], "properties": {"commit": {"$ref": "#/definitions/oid"}, "root_tree": {"$ref": "#/definitions/oid"}, "path": {"$ref": "#/definitions/path"}, "sha256": {"$ref": "#/definitions/sha"}}},
+      "authority_key_sha256": {"$ref": "#/definitions/sha"}, "custodian_key_sha256": {"$ref": "#/definitions/sha"}, "custody_locator": {"$ref": "#/definitions/immutableLocator"}, "immutable_locator": {"$ref": "#/definitions/immutableLocator"}, "custody_binding_sha256": {"$ref": "#/definitions/sha"}, "immutable_acceptance_sha256": {"$ref": "#/definitions/sha"}, "projection_sha256": {"$ref": "#/definitions/sha"}
+    }},
+    "immutableLocator": {"type": "object", "additionalProperties": false, "required": ["scheme", "bucket_arn", "object_key", "version_id", "object_sha256", "size_bytes", "retention_until_utc"], "properties": {"scheme": {"const": "S3_OBJECT_LOCK_VERSION"}, "bucket_arn": {"type": "string", "pattern": "^arn:aws:s3:::[A-Za-z0-9][A-Za-z0-9.-]{1,62}$"}, "object_key": {"type": "string", "minLength": 1}, "version_id": {"type": "string", "minLength": 1}, "object_sha256": {"$ref": "#/definitions/sha"}, "size_bytes": {"type": "integer", "minimum": 2}, "retention_until_utc": {"type": "string", "format": "date-time", "pattern": "Z$"}}}
+  }
+}
