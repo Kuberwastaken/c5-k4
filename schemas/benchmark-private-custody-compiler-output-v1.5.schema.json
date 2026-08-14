@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-private-custody-compiler-output-v1.5.schema.json",
+  "title": "Method v1.5 PRE-P1 private broker-to-custody compiler output",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema", "status", "protocol_version", "visibility", "broker_binding",
+    "object_inventory_sha256", "record_bindings", "custody_batches",
+    "coverage_certificate", "compiler_output_sha256", "signature_algorithm", "signature"
+  ],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-private-custody-compiler-output-1.0"},
+    "status": {"const": "PRE_P1_PRIVATE_CUSTODY_NOT_OPERATIONAL"},
+    "protocol_version": {"const": "1.5"},
+    "visibility": {"const": "PRIVATE_TARGET_BEARING"},
+    "broker_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "host_id", "signing_key_id", "signature_algorithm", "broker_config_sha256",
+        "broker_verification_key_sha256", "broker_state_sha256", "boot_id",
+        "first_broker_sequence", "last_broker_sequence", "broker_receipt_count",
+        "broker_chain_tip_sha256"
+      ],
+      "properties": {
+        "host_id": {"$ref": "#/definitions/id"},
+        "signing_key_id": {"$ref": "#/definitions/id"},
+        "signature_algorithm": {"const": "Ed25519"},
+        "broker_config_sha256": {"$ref": "#/definitions/sha256"},
+        "broker_verification_key_sha256": {"$ref": "#/definitions/sha256"},
+        "broker_state_sha256": {"$ref": "#/definitions/sha256"},
+        "boot_id": {"$ref": "#/definitions/id"},
+        "first_broker_sequence": {"const": 0},
+        "last_broker_sequence": {"$ref": "#/definitions/sequence"},
+        "broker_receipt_count": {"type": "integer", "minimum": 1, "maximum": 100000},
+        "broker_chain_tip_sha256": {"$ref": "#/definitions/sha256"}
+      }
+    },
+    "object_inventory_sha256": {"$ref": "#/definitions/sha256"},
+    "record_bindings": {
+      "type": "array", "minItems": 1, "maxItems": 100000,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": [
+          "custody_record_sequence", "custody_event_kind", "custody_receipt_sha256",
+          "broker_sequence_number", "broker_event_kind", "broker_receipt_sha256"
+        ],
+        "properties": {
+          "custody_record_sequence": {"$ref": "#/definitions/sequence"},
+          "custody_event_kind": {"enum": ["HEARTBEAT", "DELIVERY", "ABANDONED_PARTIAL"]},
+          "custody_receipt_sha256": {"$ref": "#/definitions/sha256"},
+          "broker_sequence_number": {"$ref": "#/definitions/sequence"},
+          "broker_event_kind": {"enum": ["HEARTBEAT", "DELIVER", "ABORT"]},
+          "broker_receipt_sha256": {"$ref": "#/definitions/sha256"}
+        }
+      }
+    },
+    "custody_batches": {
+      "type": "array", "minItems": 1, "maxItems": 1,
+      "items": {"$ref": "benchmark-private-custody-batch-v1.5.schema.json"}
+    },
+    "coverage_certificate": {"$ref": "benchmark-private-custody-coverage-certificate-v1.5.schema.json"},
+    "compiler_output_sha256": {"$ref": "#/definitions/sha256"},
+    "signature_algorithm": {"const": "Ed25519"},
+    "signature": {"type": "string", "pattern": "^[A-Za-z0-9+/]{86}==$"}
+  },
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"},
+    "sequence": {"type": "integer", "minimum": 0, "maximum": 9223372036854775807}
+  }
+}

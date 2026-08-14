@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-private-broker-service-epoch-v1.5.schema.json",
+  "title": "Method v1.5 PRE-P1 private signed broker service epoch binding",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema", "status", "protocol_version", "visibility", "host_id",
+    "signing_key_id", "signature_algorithm", "service_epoch_id",
+    "broker_config_sha256", "broker_verification_key_sha256",
+    "first_broker_sequence", "last_broker_sequence", "broker_receipt_count",
+    "first_broker_receipt_sha256", "last_broker_receipt_sha256",
+    "opened_at_utc", "sealed_at_utc", "binding_sha256", "signature"
+  ],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-private-broker-service-epoch-1.0"},
+    "status": {"const": "PRE_P1_PRIVATE_CUSTODY_NOT_OPERATIONAL"},
+    "protocol_version": {"const": "1.5"},
+    "visibility": {"const": "PRIVATE_TARGET_BEARING"},
+    "host_id": {"$ref": "#/definitions/id"},
+    "signing_key_id": {"$ref": "#/definitions/id"},
+    "signature_algorithm": {"const": "Ed25519"},
+    "service_epoch_id": {"type": "string", "pattern": "^[0-9a-f]{32}$"},
+    "broker_config_sha256": {"$ref": "#/definitions/sha256"},
+    "broker_verification_key_sha256": {"$ref": "#/definitions/sha256"},
+    "first_broker_sequence": {"const": 0},
+    "last_broker_sequence": {"$ref": "#/definitions/sequence"},
+    "broker_receipt_count": {"type": "integer", "minimum": 1, "maximum": 100000},
+    "first_broker_receipt_sha256": {"$ref": "#/definitions/sha256"},
+    "last_broker_receipt_sha256": {"$ref": "#/definitions/sha256"},
+    "opened_at_utc": {"$ref": "#/definitions/timestamp"},
+    "sealed_at_utc": {"$ref": "#/definitions/timestamp"},
+    "binding_sha256": {"$ref": "#/definitions/sha256"},
+    "signature": {"type": "string", "pattern": "^[A-Za-z0-9+/]{86}==$"}
+  },
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "timestamp": {"type": "string", "format": "date-time", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"},
+    "sequence": {"type": "integer", "minimum": 0, "maximum": 9223372036854775807},
+    "id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"}
+  }
+}
