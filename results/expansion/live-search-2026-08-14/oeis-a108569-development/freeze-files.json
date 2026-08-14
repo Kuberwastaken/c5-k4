@@ -1,18 +1,18 @@
 {
   "schema": "oeis-a108569-frozen-files-v1",
   "sha256": {
-    ".github/workflows/oeis-a108569-development.yml": "6849a658e263d7e503040231a6c4a8f8dd3a54d15647bd31d682a15286a5c17f",
+    ".github/workflows/oeis-a108569-development.yml": "8880ee5c7e738c9c212f7f4631944f2020a5f95b4ea7b44f2fb44f81b8a60561",
     "lean/Oeis108569EnumerationBridge.lean": "f04975ea522a36681a2a467ec0e8c0d65d41689f8b96699654b41aa07ba0a2bd",
-    "results/expansion/live-search-2026-08-14/oeis-a108569-development/CONTRACT.md": "6c19e529ddd10eb540a5a5872fa278d3d0d224163faf250ea9d43fb28b3df463",
-    "results/expansion/live-search-2026-08-14/oeis-a108569-development/duplicate-scan.json": "2ada004fe731933819aa6d8595c9efd138e56e602587bcb8dc2cc36974e17a81",
-    "results/expansion/live-search-2026-08-14/oeis-a108569-development/manifest.json": "798c27886b45ee6729ee7eac89fbc2d670b592121d2eda0a67a6597e86102232",
+    "results/expansion/live-search-2026-08-14/oeis-a108569-development/CONTRACT.md": "c23fd614de287d1c01ad68a2f214f9f7a792d5a3678396d7b7634469c5370609",
+    "results/expansion/live-search-2026-08-14/oeis-a108569-development/duplicate-scan.json": "17dc0032751fe2b01df28fca9f9e8f286ba6fc27ab5eafad619a0df75c493978",
+    "results/expansion/live-search-2026-08-14/oeis-a108569-development/manifest.json": "af327f5dfe40cade302217dccca54a3b93a3cf21b584182d2869defa66c75d78",
     "results/expansion/live-search-2026-08-14/oeis-a108569-development/method-wall-certificate.json": "c1da8c61701a5e627284e64ca0340d12ad821711eca29ea6b278ed36b54d7e7b",
     "results/expansion/live-search-2026-08-14/oeis-a108569-development/resolution-card.json": "9292256516281509e35fdb25d61da29926b73289347fddbf2911f6962da1b141",
-    "results/expansion/live-search-2026-08-14/oeis-a108569-development/source-status-attestation.json": "d074da30a8f971dee22c8eb8e33c447c214b45521adba6c4207a8c5a3906cd05",
-    "results/expansion/live-search-2026-08-14/oeis-a108569-development/verify_freeze.py": "01423f3e07c414a96854655a5fe97e6ade4614f98e7921eb1c320bb6803abac6",
-    "scripts/prepare_oeis_a108569_gate.py": "dd33389fd3b8242f338627804c32c630c013b267f963e2c8f292b1bfbe39f41e",
+    "results/expansion/live-search-2026-08-14/oeis-a108569-development/source-status-attestation.json": "e1c644687b18df2ca3d4ea0da4c3e3b6b281daeb9956fa91d4438eef97df8b69",
+    "results/expansion/live-search-2026-08-14/oeis-a108569-development/verify_freeze.py": "5629e5f6d314a2a46974607bddc58a58340d245c89a738bfc874571b2226f1de",
+    "scripts/prepare_oeis_a108569_gate.py": "36cde3a9ac32ee654123223fed03d07a39dcb71ab5996de51c4140247b43dbc9",
     "scripts/search_oeis_a108569.py": "f9a21a96b82c4633ac71e0e5d0ce76d460d3793ba509d522f97a4b407a2c26ba",
-    "scripts/test_oeis_a108569_development.py": "7750233ba9fd79fe5da3d876137f0555d402bab9c57f999e419c98d63b51c0af",
+    "scripts/test_oeis_a108569_development.py": "18dd84cec920a4e2b4b68c0dd15eaa136dcc9f49846ea69073dc01f0905cb6bf",
     "scripts/verify_oeis_a108569_candidate.py": "10a12dd8fcd7daf7e908693ee7aa31511182c331606f22c82204e2585bea108b"
   }
 }

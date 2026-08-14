@@ -1,9 +1,9 @@
 # OEIS A108569 odd-core DEVELOPMENT freeze
 
-**State:** frozen harness, not evaluated, not dispatched
+**State:** refreshed after one fail-closed pre-evaluation dispatch; not evaluated
 
 **Target:** `OeisA108569.conjecture` at
-`google-deepmind/formal-conjectures@8d3eaa0412f65db0c983b006dd3a44075c0d7965`
+`google-deepmind/formal-conjectures@6c0950bec7743f5098c0196c6aee7b22c1ec8005`
 
 This is a development-set trial under `METHOD.md`. It is not held out. The
 complete source gate, profile catalogues, ownership, ordering, shards, evidence
@@ -11,9 +11,16 @@ transaction, verifier, and 48/54/60-second caps are frozen before any target
 coordinate is constructed or any equality is evaluated.
 
 The local pre-freeze history boundary is
-`c5-k4@ccc510285d57dc51cc32ff9074c476fd89dc113a`; the eventual freeze commit
+`c5-k4@cc2c4927e414e4c2799fa308a7b865be90e79574`; the refreshed freeze commit
 must be its direct non-merge child. The boundary includes the completed
 A067720 result and contains no A108569 target evaluation or claim.
+
+The first dispatch, [run 31830066668](https://github.com/Kuberwastaken/c5-k4/actions/runs/31830066668)
+at `bf8ed2e`, passed both frozen-harness validators and then failed closed in
+the source/status gate because upstream advanced by one unrelated
+Barker-sequence file. Every target worker was skipped, so no target coordinate
+was evaluated. This refresh advances only the immutable upstream/status and
+local-parent pins; the target blob and frozen search domains are unchanged.
 
 ## Literal certificate and enumeration bridge
 
@@ -62,7 +69,7 @@ of open-PR changed files including `previous_filename`, exact target content
 for any touch, and every page of local releases. Any new target path touch,
 claim, incomplete/truncated response, source/hash/status drift, or #4450
 identity drift is `GATE_FAIL` before construction. The freeze expects exactly
-280 open PRs at the final 2026-08-14T18:31:12Z replay and exact full-file pagination receipts for
+279 open PRs at the final 2026-08-14T18:51:17Z replay and exact full-file pagination receipts for
 `3422,4004,4198,4356,4417,4428,4496,4576,4688`; any count, membership, or page-size
 drift stops the lane.
 
@@ -120,5 +127,5 @@ oddness, source exclusion, and the exact symbolic count/nth bridge schema plus
 its numeric preconditions. Python does not prove the Lean bridge: public
 eligibility additionally requires a compiled, no-`sorry` Lean lemma.
 
-This freeze authorizes no target evaluation, dispatch, issue, pull request,
+This file by itself authorizes no target evaluation, dispatch, issue, pull request,
 release, README edit, tag, or publication.

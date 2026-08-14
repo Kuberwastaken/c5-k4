@@ -95,7 +95,7 @@ class A108569FreezeTests(unittest.TestCase):
     def test_live_audit_accepts_exact_frozen_surface(self):
         with tempfile.TemporaryDirectory() as directory:
             path=pathlib.Path(directory)/"live.json"; path.write_bytes(prep.canonical(self.live_fixture()))
-            self.assertEqual(prep.verify_live_audit(path)["open_pull_requests_scanned"],280)
+            self.assertEqual(prep.verify_live_audit(path)["open_pull_requests_scanned"],279)
 
     def test_live_audit_rejects_pagination_omission_and_zero_forgery(self):
         self.assert_live_rejected(lambda x:x["pulls_requiring_full_file_pagination"].pop(),"pagination")

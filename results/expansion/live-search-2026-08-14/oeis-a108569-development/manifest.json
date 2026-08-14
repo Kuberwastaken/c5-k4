@@ -1,7 +1,7 @@
 {
   "schema": "oeis-a108569-development-freeze-v1",
   "development_only": true,
-  "local_parent_commit": "ccc510285d57dc51cc32ff9074c476fd89dc113a",
+  "local_parent_commit": "cc2c4927e414e4c2799fa308a7b865be90e79574",
   "shards": 24,
   "internal_seconds": 48,
   "external_search_seconds": 54,
@@ -11,14 +11,14 @@
   "k_maximum": 2000000000,
   "endpoint_exclusive_maximum": 4000000000,
   "formal_conjectures": {
-    "commit": "8d3eaa0412f65db0c983b006dd3a44075c0d7965",
-    "tree": "4e397bf82a9bc768cd63fceaf74802fc2561029c",
+    "commit": "6c0950bec7743f5098c0196c6aee7b22c1ec8005",
+    "tree": "5af0d2a3a319ee2458f8cd061db7c49aeba1b35e",
     "path": "FormalConjectures/OEIS/108569.lean",
     "blob_sha1": "daf4427246c28b56a429646958a2c38ca4cf04fa",
     "sha256": "0e62b2d15f41a2b2dbcc568a63abd3644e8429fa7befdec7cc2d0e96cc6244f8",
     "declaration": "OeisA108569.conjecture",
     "category": "research open",
-    "url": "https://raw.githubusercontent.com/google-deepmind/formal-conjectures/8d3eaa0412f65db0c983b006dd3a44075c0d7965/FormalConjectures/OEIS/108569.lean"
+    "url": "https://raw.githubusercontent.com/google-deepmind/formal-conjectures/6c0950bec7743f5098c0196c6aee7b22c1ec8005/FormalConjectures/OEIS/108569.lean"
   },
   "oeis_source": {
     "commit": "8872fa543438401edd424a57b67ad5e0737bebfb",

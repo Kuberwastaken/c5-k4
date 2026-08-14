@@ -40,7 +40,7 @@ jobs:
         run: |
           set -euo pipefail
           test "$(git rev-parse HEAD)" = "$CAMPAIGN_COMMIT"
-          test "$(git show -s --format=%P HEAD)" = "ccc510285d57dc51cc32ff9074c476fd89dc113a"
+          test "$(git show -s --format=%P HEAD)" = "cc2c4927e414e4c2799fa308a7b865be90e79574"
           test -z "$(git status --porcelain=v1 --untracked-files=all)"
           python -m py_compile scripts/*oeis_a108569*.py
           python results/expansion/live-search-2026-08-14/oeis-a108569-development/verify_freeze.py
@@ -144,7 +144,7 @@ jobs:
         run: |
           set -euo pipefail
           input="$RUNNER_TEMP/a108569-input"; mkdir -p "$input"
-          curl --fail --location --retry 5 --retry-all-errors --connect-timeout 15 'https://raw.githubusercontent.com/google-deepmind/formal-conjectures/8d3eaa0412f65db0c983b006dd3a44075c0d7965/FormalConjectures/OEIS/108569.lean' --output "$input/108569.lean"
+          curl --fail --location --retry 5 --retry-all-errors --connect-timeout 15 'https://raw.githubusercontent.com/google-deepmind/formal-conjectures/6c0950bec7743f5098c0196c6aee7b22c1ec8005/FormalConjectures/OEIS/108569.lean' --output "$input/108569.lean"
           curl --fail --location --retry 5 --retry-all-errors --connect-timeout 15 'https://raw.githubusercontent.com/google-deepmind/formal-conjectures/main/FormalConjectures/OEIS/108569.lean' --output "$input/108569-live.lean"
           curl --fail --location --retry 5 --retry-all-errors --connect-timeout 15 'https://raw.githubusercontent.com/oeis/oeisdata/8872fa543438401edd424a57b67ad5e0737bebfb/seq/A108/A108569.seq' --output "$input/A108569.seq"
           curl --fail --location --retry 5 --retry-all-errors --connect-timeout 15 'https://oeis.org/A108569/b108569.txt' --output "$input/b108569.txt"

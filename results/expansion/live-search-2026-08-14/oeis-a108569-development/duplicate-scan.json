@@ -1,7 +1,7 @@
 {
   "schema": "oeis-a108569-duplicate-scan-v1",
-  "audited_at_utc": "2026-08-14T18:31:12Z",
-  "local_project_commit": "ccc510285d57dc51cc32ff9074c476fd89dc113a",
+  "audited_at_utc": "2026-08-14T18:51:17Z",
+  "local_project_commit": "cc2c4927e414e4c2799fa308a7b865be90e79574",
   "local_history_scope": "commits, messages, tags, release names/bodies, and committed result text through local_project_commit",
   "queries": [
     "repo:google-deepmind/formal-conjectures \"A108569\"",
@@ -18,7 +18,7 @@
   },
   "exact_path_history_after_ingestion": [],
   "open_upstream_target_path_matches": [],
-  "open_pull_requests_scanned": 280,
+  "open_pull_requests_scanned": 279,
   "full_file_pagination_pulls": [3422,4004,4198,4356,4417,4428,4496,4576,4688],
   "upstream_issue_pr_claims": [],
   "local_issue_pr_claims": [],

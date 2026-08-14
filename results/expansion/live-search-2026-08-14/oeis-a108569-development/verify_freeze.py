@@ -36,7 +36,7 @@ if manifest["shards"]!=24 or manifest["k_maximum"]!=2_000_000_000 or manifest["e
     raise SystemExit("domain drift")
 formal=manifest["formal_conjectures"]
 if (formal["commit"],formal["tree"],formal["path"],formal["blob_sha1"],formal["sha256"],formal["declaration"],formal["category"])!=(
-"8d3eaa0412f65db0c983b006dd3a44075c0d7965","4e397bf82a9bc768cd63fceaf74802fc2561029c",
+"6c0950bec7743f5098c0196c6aee7b22c1ec8005","5af0d2a3a319ee2458f8cd061db7c49aeba1b35e",
 "FormalConjectures/OEIS/108569.lean","daf4427246c28b56a429646958a2c38ca4cf04fa",
 "0e62b2d15f41a2b2dbcc568a63abd3644e8429fa7befdec7cc2d0e96cc6244f8",
 "OeisA108569.conjecture","research open"): raise SystemExit("formal pin drift")
@@ -56,7 +56,7 @@ if (spec["catalogue_only_benchmark_elapsed_seconds"],spec["catalogue_only_benchm
     raise SystemExit("benchmark pin drift")
 if set(manifest["arms"])!={"CATALOGUE_LIFT_CONTROL","ODD_CORE_PROFILES","ODD_COLLISION_WALL"}:
     raise SystemExit("arm drift")
-if manifest.get("local_parent_commit")!="ccc510285d57dc51cc32ff9074c476fd89dc113a":
+if manifest.get("local_parent_commit")!="cc2c4927e414e4c2799fa308a7b865be90e79574":
     raise SystemExit("local parent boundary drift")
 status=json.loads((HERE/"source-status-attestation.json").read_text())
 duplicate=json.loads((HERE/"duplicate-scan.json").read_text())
@@ -71,7 +71,7 @@ workflow=(ROOT/".github/workflows/oeis-a108569-development.yml").read_text()
 contract=(HERE/"CONTRACT.md").read_text()
 for source,name in ((prepare,"prepare"),(search,"search"),(verifier,"verifier")):
     ast.parse(source,filename=name)
-for token in ("OPEN_PULL_COUNT = 280","FULL_FILE_PAGE_SIZES","INGESTION_TARGET_FILE","previous_filename",
+for token in ("OPEN_PULL_COUNT = 279","FULL_FILE_PAGE_SIZES","INGESTION_TARGET_FILE","previous_filename",
               "upstream_release_page_sizes","SOPHIE_GERMAIN_CONTROLS","verify_catalogue","live upstream head/tree drift"):
     if token not in prepare: raise SystemExit(f"gate token absent: {token}")
 for token in ("TARGET_ARMS = (\"ODD_CORE_PROFILES\", \"ODD_COLLISION_WALL\")","SUPPORT_RHO_MISMATCH",
@@ -89,7 +89,7 @@ for token in ("workflow_dispatch:","54s python scripts/search_oeis_a108569.py",
               "60s python scripts/verify_oeis_a108569_candidate.py candidate",
               "60s python scripts/verify_oeis_a108569_candidate.py terminal","if: always()",
               "arm: [ODD_CORE_PROFILES, ODD_COLLISION_WALL]","final_code=0",
-              "test \"$(git show -s --format=%P HEAD)\" = \"ccc510285d57dc51cc32ff9074c476fd89dc113a\"",
+              "test \"$(git show -s --format=%P HEAD)\" = \"cc2c4927e414e4c2799fa308a7b865be90e79574\"",
               "validate-lean-bridge:","ref: a3a10db0e9d66acbebf76c5e6a135066525ac900",
               "240s lake exe cache get","180s lake env lean -DwarningAsError=true",
               "#print axioms A108569EnumerationBridge.exists_pos_index_of_member",
@@ -97,7 +97,7 @@ for token in ("workflow_dispatch:","54s python scripts/search_oeis_a108569.py",
     if token not in workflow: raise SystemExit(f"workflow safety token absent: {token}")
 for forbidden in ("pull_request:","push:","repository_dispatch","gh issue","gh pr","gh release"):
     if forbidden in workflow: raise SystemExit(f"forbidden workflow authority: {forbidden}")
-for token in ("not evaluated, not dispatched","880,891","13.56 seconds","no target evaluation, dispatch",
+for token in ("fail-closed pre-evaluation dispatch","31830066668","880,891","13.56 seconds","no target evaluation, dispatch",
               "compiled, no-`sorry` Lean lemma"):
     if token not in contract: raise SystemExit(f"contract token absent: {token}")
 print("A108569 DEVELOPMENT freeze verified")
