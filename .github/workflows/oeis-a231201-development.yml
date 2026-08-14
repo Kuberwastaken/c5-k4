@@ -1,0 +1,151 @@
+name: OEIS A231201 contaminated DEVELOPMENT freeze
+
+on:
+  workflow_dispatch:
+    inputs:
+      campaign_commit:
+        description: Exact 40-hex c5-k4 commit containing the frozen A231201 lane
+        required: true
+        type: string
+
+permissions: {contents: read}
+env:
+  LC_ALL: C.UTF-8
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONHASHSEED: '0'
+  TZ: UTC
+
+jobs:
+  validate-frozen-harness:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Reject movable execution ref
+        shell: bash
+        env: {CAMPAIGN_COMMIT: "${{ inputs.campaign_commit }}"}
+        run: |
+          set -euo pipefail
+          [[ "$CAMPAIGN_COMMIT" =~ ^[0-9a-f]{40}$ ]]
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with: {ref: "${{ inputs.campaign_commit }}", fetch-depth: 0, persist-credentials: false}
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with: {python-version: '3.9.23'}
+      - name: Compile, freeze-check, and run constructor-only tests
+        shell: bash
+        env: {CAMPAIGN_COMMIT: "${{ inputs.campaign_commit }}"}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$CAMPAIGN_COMMIT"
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+          python -m py_compile scripts/*oeis_a231201*.py
+          python results/expansion/live-search-2026-08-14/oeis-a231201-development/verify_freeze.py
+          PYTHONPATH=scripts python -m unittest -v scripts/test_oeis_a231201_development.py
+
+  prepare-database-gate:
+    needs: validate-frozen-harness
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with: {ref: "${{ inputs.campaign_commit }}", persist-credentials: false}
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with: {python-version: '3.9.23'}
+      - name: Download immutable sources and contamination controls
+        shell: bash
+        run: |
+          set -euo pipefail
+          input="$RUNNER_TEMP/a231201-input"; gate="$RUNNER_TEMP/a231201-gate"; mkdir -p "$input" "$gate"
+          python - "$gate/diagnostic-attestation.json" "${{ inputs.campaign_commit }}" <<'PY'
+          import json,os,pathlib,sys
+          p=pathlib.Path(sys.argv[1]); q=p.with_suffix('.tmp'); value={"schema":"oeis-a231201-gate-diagnostic-v1","campaign_commit":sys.argv[2],"status":"INITIALIZED","stage":"SOURCE_ACQUISITION"}
+          with q.open('x',encoding='ascii') as f: json.dump(value,f,sort_keys=True,separators=(',',':')); f.write('\n'); f.flush(); os.fsync(f.fileno())
+          os.replace(q,p)
+          PY
+          curl --fail --location --retry 5 --retry-all-errors --connect-timeout 15 'https://raw.githubusercontent.com/google-deepmind/formal-conjectures/4010c1f1b811be0b0f95c9cf8bc084d72cea2a88/FormalConjectures/OEIS/231201.lean' -o "$input/231201.lean"
+          curl --fail --location --retry 5 --retry-all-errors --connect-timeout 15 'https://raw.githubusercontent.com/oeis/oeisdata/8872fa543438401edd424a57b67ad5e0737bebfb/seq/A231/A231201.seq' -o "$input/A231201.seq"
+          curl --fail --location --retry 5 --retry-all-errors --connect-timeout 15 'https://oeis.org/A231201/b231201.txt' -o "$input/b231201.txt"
+          curl --fail --location --retry 5 --retry-all-errors --connect-timeout 15 'https://raw.githubusercontent.com/txmy/ultra-mathematician/d52f81ad64dfc77e9a89dee8ae97db983ac6d5f7/runs/run-2026-07-26-002/tasks/solve-a231201-covering/cover-results.json' -o "$input/prior-covering.json"
+      - name: Run exact stratified sanity gate under hard cap
+        shell: bash
+        env: {CAMPAIGN_COMMIT: "${{ inputs.campaign_commit }}"}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$CAMPAIGN_COMMIT"
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+          input="$RUNNER_TEMP/a231201-input"
+          timeout --signal=TERM --kill-after=6s 60s python scripts/prepare_oeis_a231201_gate.py prepare "$input/231201.lean" "$input/A231201.seq" "$input/b231201.txt" "results/expansion/live-search-2026-08-14/oeis-a231201-development/contamination-control-l327.json" "$input/prior-covering.json" "$RUNNER_TEMP/a231201-gate" --campaign-commit "$CAMPAIGN_COMMIT"
+          python scripts/prepare_oeis_a231201_gate.py verify "$RUNNER_TEMP/a231201-gate" --campaign-commit "$CAMPAIGN_COMMIT"
+          (cd "$RUNNER_TEMP/a231201-gate" && find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS)
+      - name: Upload complete gate evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: oeis-a231201-gate-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/a231201-gate/
+          if-no-files-found: error
+          retention-days: 90
+
+  cegar-shard:
+    needs: [validate-frozen-harness, prepare-database-gate]
+    strategy:
+      fail-fast: false
+      matrix:
+        arm: [A2_EQ_0, A2_EQ_1]
+        shard: [0, 1, 2]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with: {ref: "${{ inputs.campaign_commit }}", persist-credentials: false}
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with: {python-version: '3.9.23'}
+      - name: Install exact solver
+        run: python -m pip install --disable-pip-version-check 'ortools==9.15.6755'
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        with:
+          name: oeis-a231201-gate-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/a231201-gate
+      - name: Execute one disjoint CEGAR shard and independent replay
+        shell: bash
+        env: {ARM: "${{ matrix.arm }}", SHARD: "${{ matrix.shard }}", CAMPAIGN_COMMIT: "${{ inputs.campaign_commit }}"}
+        run: |
+          set +e
+          set -uo pipefail
+          test "$(git rev-parse HEAD)" = "$CAMPAIGN_COMMIT" || exit 90
+          test -z "$(git status --porcelain=v1 --untracked-files=all)" || exit 91
+          output="$RUNNER_TEMP/a231201-output/$ARM/$SHARD"; work="$output/work"; mkdir -p "$work"
+          (cd "$RUNNER_TEMP/a231201-gate" && sha256sum --check SHA256SUMS) >"$output/gate-check.txt" 2>&1; gate_code=$?
+          search_code=20
+          if [[ "$gate_code" -eq 0 ]]; then
+            timeout --signal=TERM --kill-after=6s 60s python scripts/search_oeis_a231201.py --arm "$ARM" --shard "$SHARD" --campaign-commit "$CAMPAIGN_COMMIT" --gate-bundle "$RUNNER_TEMP/a231201-gate" --work "$work" --ledger "$output/master-ledger.jsonl" --terminal "$output/terminal.json" --candidate "$output/candidate-pending.json" >"$output/stdout.txt" 2>"$output/stderr.txt"
+            search_code=$?
+          fi
+          artifact_code=1; candidate='-'; [[ -f "$output/candidate-pending.json" ]] && candidate="$output/candidate-pending.json"
+          if [[ -f "$output/terminal.json" && -f "$output/master-ledger.jsonl" ]]; then
+            python scripts/verify_oeis_a231201_artifacts.py "$output/master-ledger.jsonl" "$output/terminal.json" "$candidate" "$work" "$RUNNER_TEMP/a231201-gate" --campaign-commit "$CAMPAIGN_COMMIT" --arm "$ARM" --shard "$SHARD" >"$output/artifact-verification.txt" 2>&1; artifact_code=$?
+          fi
+          final_code=0
+          if [[ -f "$output/candidate-pending.json" ]]; then
+            timeout --signal=TERM --kill-after=6s 60s python scripts/verify_oeis_a231201_coverage.py final "$output/candidate-pending.json" "$output/final-ledger.jsonl" "$output/final-verification.json" "$RUNNER_TEMP/a231201-gate" --campaign-commit "$CAMPAIGN_COMMIT" >"$output/final-stdout.txt" 2>"$output/final-stderr.txt"; final_code=$?
+          fi
+          python - "$output/execution-status.json" "$CAMPAIGN_COMMIT" "$ARM" "$SHARD" "$gate_code" "$search_code" "$artifact_code" "$final_code" <<'PY'
+          import json,os,pathlib,sys
+          path,commit,arm,shard,gate,search,artifact,final=sys.argv[1:]
+          value={"campaign_commit":commit,"arm":arm,"shard":int(shard),"gate_exit_code":int(gate),"search_exit_code":int(search),"artifact_exit_code":int(artifact),"final_verifier_exit_code":int(final)}
+          p=pathlib.Path(path); q=p.with_suffix('.tmp')
+          with q.open('w',encoding='ascii') as f: json.dump(value,f,sort_keys=True,separators=(',',':')); f.write('\n'); f.flush(); os.fsync(f.fileno())
+          os.replace(q,p)
+          PY
+          status_code=$?
+          (cd "$output" && find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS); sums_code=$?
+          result=0
+          for code in "$gate_code" "$search_code" "$artifact_code" "$final_code" "$status_code" "$sums_code"; do if [[ "$result" -eq 0 && "$code" -ne 0 ]]; then result=$code; fi; done
+          exit "$result"
+      - name: Upload incremental evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: oeis-a231201-${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.arm }}-${{ matrix.shard }}
+          path: ${{ runner.temp }}/a231201-output/
+          if-no-files-found: error
+          retention-days: 90

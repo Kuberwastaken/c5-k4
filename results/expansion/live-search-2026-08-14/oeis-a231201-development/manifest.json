@@ -1,0 +1,58 @@
+{
+  "schema": "oeis-a231201-contaminated-development-freeze-v1",
+  "classification": "CONTAMINATED_DEVELOPMENT",
+  "internal_seconds": 54,
+  "external_seconds": 60,
+  "external_kill_after_seconds": 6,
+  "gate_chunks": 8,
+  "gate_exact_prefix": 72,
+  "resumable": false,
+  "initial_exponents": {"lo": 1, "hi": 4096},
+  "solver": {"package": "ortools", "version": "9.15.6755", "workers": 1, "random_seed": 0, "objective": null},
+  "formal_conjectures": {
+    "commit": "4010c1f1b811be0b0f95c9cf8bc084d72cea2a88",
+    "path": "FormalConjectures/OEIS/231201.lean",
+    "blob_sha1": "2fc0d6bf46e910481242688c713985eb4d26e972",
+    "sha256": "3cfc75e1613477cd4087e6fe9406658e27981abc2c0834958a311e9551bc8fa1",
+    "url": "https://raw.githubusercontent.com/google-deepmind/formal-conjectures/4010c1f1b811be0b0f95c9cf8bc084d72cea2a88/FormalConjectures/OEIS/231201.lean",
+    "declaration": "OeisA231201.conjecture",
+    "category": "research open"
+  },
+  "oeis_source": {
+    "repository_commit": "8872fa543438401edd424a57b67ad5e0737bebfb",
+    "path": "seq/A231/A231201.seq",
+    "sha256": "f32bbcf524babe35878ac88d69bfb6a048eed0b7e461b2b5738d6bc3e93df129",
+    "revision": "#95 May 22 2026 10:08:41",
+    "url": "https://raw.githubusercontent.com/oeis/oeisdata/8872fa543438401edd424a57b67ad5e0737bebfb/seq/A231/A231201.seq"
+  },
+  "oeis_bfile": {
+    "url": "https://oeis.org/A231201/b231201.txt",
+    "sha256": "5e4e34c5132b40f4666ed04000615b4d652a6af46c9a2ad5022c725d293e5ace",
+    "rows": 10000,
+    "offset": [1, 5],
+    "prior_boundary": 10000000
+  },
+  "primes": [2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101,103,107,109,113,127,131,137,139,149,151,157,163,167,173,179,181,191,193,197,199,211,223,227,229,233,239,241,251,257],
+  "combined_period": "249728679334046128590697275594786190851950664265138725258656853072581268625525551538208526056090039506543200",
+  "partition": {
+    "description": "six disjoint exhaustive assignment shards fixed by (a_2,a_3)",
+    "arms": {"A2_EQ_0": 0, "A2_EQ_1": 1},
+    "shards": [0,1,2]
+  },
+  "contamination_controls": {
+    "breakthrough_commit": "62c190b23cdc8c03e6fd65f11c7ae28a5d8258d5",
+    "breakthrough_certificate_sha256": "8d1e10af9c9abe39261678bd03c623af62ceecd92af8f79e3f753cca605a08a6",
+    "breakthrough_certificate_local": "results/expansion/live-search-2026-08-14/oeis-a231201-development/contamination-control-l327.json",
+    "breakthrough_provenance": "Kuberwastaken/breakthroughmaxxing@62c190b23cdc8c03e6fd65f11c7ae28a5d8258d5/06-bigger/oeis231201-first-over64/results/certificate.json (private repository; exact local snapshot frozen)",
+    "covering_commit": "d52f81ad64dfc77e9a89dee8ae97db983ac6d5f7",
+    "covering_results_sha256": "7f63751848aa14a1cf302a7709073d0df0090c1f447d3cd0dd94e7d58b60becf",
+    "covering_results_url": "https://raw.githubusercontent.com/txmy/ultra-mathematician/d52f81ad64dfc77e9a89dee8ae97db983ac6d5f7/runs/run-2026-07-26-002/tasks/solve-a231201-covering/cover-results.json",
+    "covering_expected": [[7,420,"INFEASIBLE"],[11,4620,"INFEASIBLE"],[13,60060,"INFEASIBLE"]]
+  },
+  "pre_freeze_correction": {
+    "issue": "canonical r=0 is not a valid periodic representative for 2^x modulo 2",
+    "positive_representative": "r if r>0 else m_q",
+    "x_zero": "removed because x=0 is outside the source domain and can exclude valid positive-exponent covers",
+    "gate_scope": "all 10000 rows are content-locked; exact count recomputation is frozen to n=1..72, where every tested integer is below the deterministic Miller-Rabin bound, plus named source and contamination controls"
+  }
+}
