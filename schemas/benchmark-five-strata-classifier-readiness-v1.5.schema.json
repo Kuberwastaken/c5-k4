@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-five-strata-classifier-readiness-v1.5.schema.json",
+  "title": "Method v1.5 target-blind PRE-P1 classifier closure readiness",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "status",
+    "target_data_read",
+    "real_registry_access",
+    "model_or_human_classification",
+    "entropy_used",
+    "selection_performed",
+    "contract_sha256",
+    "classifier_sha256",
+    "builder_sha256",
+    "positive_vector_count",
+    "positive_counts",
+    "negative_property_count",
+    "receipt_sha256"
+  ],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-five-strata-classifier-readiness-1.0"},
+    "status": {"const": "PRE_P1_TARGET_BLIND_CLASSIFIER_CLOSURE_READY"},
+    "target_data_read": {"const": false},
+    "real_registry_access": {"const": false},
+    "model_or_human_classification": {"const": false},
+    "entropy_used": {"const": false},
+    "selection_performed": {"const": false},
+    "contract_sha256": {"$ref": "#/definitions/sha256"},
+    "classifier_sha256": {"$ref": "#/definitions/sha256"},
+    "builder_sha256": {"$ref": "#/definitions/sha256"},
+    "positive_vector_count": {"const": 12},
+    "positive_counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "GRAPH_SCALAR_INEQUALITY",
+        "GRAPH_STRUCTURAL_PROPERTY",
+        "FINITE_ALGEBRA_EQUATIONAL",
+        "AUTOMATA_GAME_PROCESS",
+        "FINITE_COMBINATORIAL"
+      ],
+      "properties": {
+        "GRAPH_SCALAR_INEQUALITY": {"const": 3},
+        "GRAPH_STRUCTURAL_PROPERTY": {"const": 3},
+        "FINITE_ALGEBRA_EQUATIONAL": {"const": 2},
+        "AUTOMATA_GAME_PROCESS": {"const": 2},
+        "FINITE_COMBINATORIAL": {"const": 2}
+      }
+    },
+    "negative_property_count": {"const": 6},
+    "receipt_sha256": {"$ref": "#/definitions/sha256"}
+  },
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}
