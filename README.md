@@ -286,9 +286,21 @@ closes the frozen rank-one direction, not the full conjecture, and argues
 against merely widening the same value band. See the
 [v2 result](results/expansion/live-search-2026-08-14/oeis-a056777-v2-development/result.md).
 
-The next independent DeepMind rotation is therefore A067720, with A108569 as
-reserve. Its profile-construction freeze is under audit and has not been
-evaluated.
+The next independent DeepMind rotation, A067720, has now completed as another
+prospective DEVELOPMENT bounded zero. Its two frozen composite-successor
+profile arms exhausted 270,767 states across 48 independently replayed shards.
+There were 134 translated endpoint matches: the known `k=8` equality control
+and 133 nonzero residuals, with no survivor or certificate. The closest
+noncontrols, `R(3)=-2`, `R(5)=+2`, and `R(9)=+4`, confirm that the construction
+reached a nearby equality wall without crossing it. This exhausts only the
+frozen factor-profile catalogues, not all `k` or the conjecture. See the
+[A067720 result](results/expansion/live-search-2026-08-14/oeis-a067720-development/result.md).
+
+A108569 is now the active independent rotation. Its source/status and
+resolution-shape preflight passed; the remaining pre-freeze requirement is a
+target-free odd-support catalogue benchmark under the 48-second cap. No
+A108569 target coordinate has been evaluated.
+
 The [post-A056777 ranking](results/expansion/live-search-2026-08-14/next-deepmind-rotation-after-a056777.md)
 records the current source/status, duplicate, certificate-shape, and stop-rule
 audit. Written on the Wall I is not part of DeepMind's corpus and is excluded
