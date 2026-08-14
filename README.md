@@ -168,6 +168,11 @@ The [certificate](results/expansion/live-search-2026-08-14/bateman-horn-count-en
 also proves why this finite discrepancy is asymptotically inert and therefore
 not a counterexample to Bateman--Horn.
 
+The complete [live-loop comparison](results/expansion/live-search-2026-08-14/empirical-loop.md)
+records every arm win, bounded zero, failed proxy, status rejection, and the
+resulting next-iteration rules. It treats these adaptive runs as development
+evidence, not as the still-needed held-out success-rate experiment.
+
 The prospective benchmark record is deliberately fail-closed. Method v1.1
 terminated `NO_ELIGIBLE_BENCHMARK`; it never selected a target. Its corrected
 chronology successor, [Method v1.2](METHOD_V1_2_BENCHMARK.md), published P0 and
