@@ -15,10 +15,13 @@
       "properties": {
         "immutable_store": {
           "type": "object", "additionalProperties": false,
-          "required": ["executable", "test", "config_schema", "readiness_schema"],
+          "required": ["executable", "test", "broker_adapter", "broker_adapter_test", "private_object_reference_schema", "config_schema", "readiness_schema"],
           "properties": {
             "executable": {"$ref": "#/definitions/native/s3_object_lock_store"},
             "test": {"$ref": "#/definitions/native/s3_object_lock_store_contract_test"},
+            "broker_adapter": {"$ref": "#/definitions/native/s3_delivery_broker_adapter"},
+            "broker_adapter_test": {"$ref": "#/definitions/native/s3_delivery_broker_adapter_contract_test"},
+            "private_object_reference_schema": {"$ref": "#/definitions/native/private_s3_object_reference_schema"},
             "config_schema": {"$ref": "#/definitions/native/s3_object_lock_store_config_schema"},
             "readiness_schema": {"$ref": "#/definitions/native/s3_object_lock_store_readiness_schema"}
           }
@@ -49,12 +52,15 @@
         },
         "delivery_broker": {
           "type": "object", "additionalProperties": false,
-          "required": ["executable", "test", "service", "service_test", "config_schema", "state_schema", "receipt_schema", "readiness_schema"],
+          "required": ["executable", "test", "service", "service_test", "immutable_store_adapter", "immutable_store_adapter_test", "private_object_reference_schema", "config_schema", "state_schema", "receipt_schema", "readiness_schema"],
           "properties": {
             "executable": {"$ref": "#/definitions/native/delivery_broker"},
             "test": {"$ref": "#/definitions/native/delivery_broker_contract_test"},
             "service": {"$ref": "#/definitions/native/controlled_delivery_service_boundary"},
             "service_test": {"$ref": "#/definitions/native/controlled_delivery_service_acceptance_tests"},
+            "immutable_store_adapter": {"$ref": "#/definitions/native/s3_delivery_broker_adapter"},
+            "immutable_store_adapter_test": {"$ref": "#/definitions/native/s3_delivery_broker_adapter_contract_test"},
+            "private_object_reference_schema": {"$ref": "#/definitions/native/private_s3_object_reference_schema"},
             "config_schema": {"$ref": "#/definitions/native/delivery_broker_config_schema"},
             "state_schema": {"$ref": "#/definitions/native/delivery_broker_state_schema"},
             "receipt_schema": {"$ref": "#/definitions/native/delivery_broker_receipt_schema"},
@@ -171,6 +177,9 @@
       ,"s3_object_lock_store_contract_test": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "s3_object_lock_store_contract_test"}}}]}
       ,"s3_object_lock_store_config_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "s3_object_lock_store_config_schema"}}}]}
       ,"s3_object_lock_store_readiness_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "s3_object_lock_store_readiness_schema"}}}]}
+      ,"s3_delivery_broker_adapter": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "s3_delivery_broker_adapter"}}}]}
+      ,"s3_delivery_broker_adapter_contract_test": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "s3_delivery_broker_adapter_contract_test"}}}]}
+      ,"private_s3_object_reference_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "private_s3_object_reference_schema"}}}]}
     },
     "inherited": {
       "five_strata_classifier": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "INHERITED_V1_4"}, "role": {"const": "five_strata_classifier"}}}]},

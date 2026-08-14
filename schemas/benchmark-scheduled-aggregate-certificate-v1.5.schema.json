@@ -73,9 +73,11 @@
       "properties": {
         "immutable_store": {
           "type": "object", "additionalProperties": false,
-          "required": ["executable", "test", "config_schema", "readiness_schema"],
+          "required": ["executable", "test", "broker_adapter", "broker_adapter_test", "private_object_reference_schema", "config_schema", "readiness_schema"],
           "properties": {
             "executable": {"$ref": "#/definitions/artifactRef"}, "test": {"$ref": "#/definitions/artifactRef"},
+            "broker_adapter": {"$ref": "#/definitions/artifactRef"}, "broker_adapter_test": {"$ref": "#/definitions/artifactRef"},
+            "private_object_reference_schema": {"$ref": "#/definitions/artifactRef"},
             "config_schema": {"$ref": "#/definitions/artifactRef"}, "readiness_schema": {"$ref": "#/definitions/artifactRef"}
           }
         },
@@ -100,10 +102,12 @@
         },
         "delivery_broker": {
           "type": "object", "additionalProperties": false,
-          "required": ["executable", "test", "service", "service_test", "config_schema", "state_schema", "receipt_schema", "readiness_schema"],
+          "required": ["executable", "test", "service", "service_test", "immutable_store_adapter", "immutable_store_adapter_test", "private_object_reference_schema", "config_schema", "state_schema", "receipt_schema", "readiness_schema"],
           "properties": {
             "executable": {"$ref": "#/definitions/artifactRef"}, "test": {"$ref": "#/definitions/artifactRef"},
             "service": {"$ref": "#/definitions/artifactRef"}, "service_test": {"$ref": "#/definitions/artifactRef"},
+            "immutable_store_adapter": {"$ref": "#/definitions/artifactRef"}, "immutable_store_adapter_test": {"$ref": "#/definitions/artifactRef"},
+            "private_object_reference_schema": {"$ref": "#/definitions/artifactRef"},
             "config_schema": {"$ref": "#/definitions/artifactRef"}, "state_schema": {"$ref": "#/definitions/artifactRef"},
             "receipt_schema": {"$ref": "#/definitions/artifactRef"}, "readiness_schema": {"$ref": "#/definitions/artifactRef"}
           }

@@ -56,10 +56,12 @@ class AggregateCertificateTests(unittest.TestCase):
                 "executable", "test", "batch_schema", "coverage_schema", "public_binding_schema",
             )},
             "delivery_broker": {key: dict(ref) for key in (
-                "executable", "test", "service", "service_test", "config_schema", "state_schema", "receipt_schema", "readiness_schema",
+                "executable", "test", "service", "service_test", "immutable_store_adapter", "immutable_store_adapter_test",
+                "private_object_reference_schema", "config_schema", "state_schema", "receipt_schema", "readiness_schema",
             )},
             "immutable_store": {key: dict(ref) for key in (
-                "executable", "test", "config_schema", "readiness_schema",
+                "executable", "test", "broker_adapter", "broker_adapter_test", "private_object_reference_schema",
+                "config_schema", "readiness_schema",
             )},
         }
         self.auth_patch = mock.patch.object(A, "authenticate_p1", return_value=({}, {}, binding))
@@ -392,6 +394,9 @@ class AggregateCertificateTests(unittest.TestCase):
             "s3_object_lock_store_contract_test": "scripts/test_method_v15_s3_object_lock_store.py",
             "s3_object_lock_store_config_schema": "schemas/benchmark-s3-object-lock-store-config-v1.5.schema.json",
             "s3_object_lock_store_readiness_schema": "schemas/benchmark-s3-object-lock-store-readiness-v1.5.schema.json",
+            "s3_delivery_broker_adapter": "scripts/method_v15_s3_delivery_broker_adapter.py",
+            "s3_delivery_broker_adapter_contract_test": "scripts/test_method_v15_s3_delivery_broker_adapter.py",
+            "private_s3_object_reference_schema": "schemas/benchmark-private-s3-object-reference-v1.5.schema.json",
         }
         inherited_paths = {
             "five_strata_classifier": "results/benchmark/v1.4-protocol/five-strata-classifier.json",

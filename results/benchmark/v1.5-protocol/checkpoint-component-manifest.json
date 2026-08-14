@@ -4,8 +4,11 @@
     "classification": {"policy": {"closure": "INHERITED_V1_4", "role": "five_strata_classifier"}},
     "grouping": {"policy": {"closure": "INHERITED_V1_4", "role": "grouping_rule"}},
     "immutable_store": {
+      "broker_adapter": {"closure": "NATIVE_V1_5", "role": "s3_delivery_broker_adapter"},
+      "broker_adapter_test": {"closure": "NATIVE_V1_5", "role": "s3_delivery_broker_adapter_contract_test"},
       "config_schema": {"closure": "NATIVE_V1_5", "role": "s3_object_lock_store_config_schema"},
       "executable": {"closure": "NATIVE_V1_5", "role": "s3_object_lock_store"},
+      "private_object_reference_schema": {"closure": "NATIVE_V1_5", "role": "private_s3_object_reference_schema"},
       "readiness_schema": {"closure": "NATIVE_V1_5", "role": "s3_object_lock_store_readiness_schema"},
       "test": {"closure": "NATIVE_V1_5", "role": "s3_object_lock_store_contract_test"}
     },
@@ -21,6 +24,9 @@
     "delivery_broker": {
       "config_schema": {"closure": "NATIVE_V1_5", "role": "delivery_broker_config_schema"},
       "executable": {"closure": "NATIVE_V1_5", "role": "delivery_broker"},
+      "immutable_store_adapter": {"closure": "NATIVE_V1_5", "role": "s3_delivery_broker_adapter"},
+      "immutable_store_adapter_test": {"closure": "NATIVE_V1_5", "role": "s3_delivery_broker_adapter_contract_test"},
+      "private_object_reference_schema": {"closure": "NATIVE_V1_5", "role": "private_s3_object_reference_schema"},
       "service": {"closure": "NATIVE_V1_5", "role": "controlled_delivery_service_boundary"},
       "service_test": {"closure": "NATIVE_V1_5", "role": "controlled_delivery_service_acceptance_tests"},
       "readiness_schema": {"closure": "NATIVE_V1_5", "role": "delivery_broker_readiness_schema"},
