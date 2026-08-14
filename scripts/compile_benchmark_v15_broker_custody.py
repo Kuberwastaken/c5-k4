@@ -108,6 +108,11 @@ def verify_compiler_output(output: dict[str, Any], broker_verification_key: byte
         raise CompilerError("compiler output hash mismatch")
     if output["broker_binding"]["broker_verification_key_sha256"] != sha256(broker_verification_key):
         raise CompilerError("compiler output is bound to another broker key")
+    certificate = output["coverage_certificate"]
+    if any(certificate.get(key) != value for key, value in output["scope_bindings"].items()):
+        raise CompilerError("compiler scope bindings differ from custody coverage")
+    if output["broker_binding"]["host_id"] != "ai-vps-controlled-harness":
+        raise CompilerError("compiler output is not bound to the controlled harness")
     try:
         Ed25519PublicKey.from_public_bytes(broker_verification_key).verify(
             base64.b64decode(output["signature"], validate=True),
@@ -237,6 +242,7 @@ def compile_private_custody(
     custody_signing_key: Ed25519PrivateKey,
     required_from_utc: str,
     required_through_utc: str,
+    scope_bindings: dict[str, str],
     read_object: Callable[[dict[str, Any]], bytes],
 ) -> dict[str, Any]:
     """Compile one complete broker chain into one private custody batch/certificate."""
@@ -261,6 +267,18 @@ def compile_private_custody(
     required_through = _time(required_through_utc, "required_through_utc")
     if required_from >= required_through:
         raise CompilerError("required custody interval must be nonempty")
+    required_scope = {
+        "participant_ledger_sha256", "source_boundary_sha256",
+        "noninterference_receipt_sha256", "store_acceptance_sha256",
+        "service_epoch_binding_sha256",
+    }
+    if set(scope_bindings) != required_scope or any(
+        not isinstance(value, str)
+        or len(value) != 64
+        or any(character not in "0123456789abcdef" for character in value)
+        for value in scope_bindings.values()
+    ):
+        raise CompilerError("custody scope bindings must be five exact SHA-256 digests")
     receipt_refs, payload_refs, epoch_ref = _verify_inventory(inventory, store_config, required_through_utc)
 
     receipts: list[dict[str, Any]] = []
@@ -298,6 +316,8 @@ def compile_private_custody(
     actual_epoch = digest(_without(epoch, "binding_sha256", "signature"))
     if epoch["binding_sha256"] != actual_epoch:
         raise CompilerError("service-epoch binding hash mismatch")
+    if scope_bindings["service_epoch_binding_sha256"] != epoch["binding_sha256"]:
+        raise CompilerError("custody scope is bound to another service epoch")
     try:
         verification_key.verify(
             base64.b64decode(epoch["signature"], validate=True), bytes.fromhex(actual_epoch)
@@ -461,6 +481,7 @@ def compile_private_custody(
         [broker_config["host_id"]],
         required_from_utc,
         required_through_utc,
+        scope_bindings=scope_bindings,
     )
     output: dict[str, Any] = {
         "schema": OUTPUT_SCHEMA,
@@ -481,6 +502,7 @@ def compile_private_custody(
             "broker_chain_tip_sha256": receipts[-1]["receipt_sha256"],
         },
         "object_inventory_sha256": inventory["inventory_sha256"],
+        "scope_bindings": dict(scope_bindings),
         "record_bindings": bindings,
         "custody_batches": [batch],
         "coverage_certificate": certificate,

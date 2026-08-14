@@ -6,7 +6,7 @@
   "additionalProperties": false,
   "required": [
     "schema", "status", "protocol_version", "visibility", "broker_binding",
-    "object_inventory_sha256", "record_bindings", "custody_batches",
+    "object_inventory_sha256", "scope_bindings", "record_bindings", "custody_batches",
     "coverage_certificate", "compiler_output_sha256", "signature_algorithm", "signature"
   ],
   "properties": {
@@ -38,6 +38,22 @@
       }
     },
     "object_inventory_sha256": {"$ref": "#/definitions/sha256"},
+    "scope_bindings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "participant_ledger_sha256", "source_boundary_sha256",
+        "noninterference_receipt_sha256", "store_acceptance_sha256",
+        "service_epoch_binding_sha256"
+      ],
+      "properties": {
+        "participant_ledger_sha256": {"$ref": "#/definitions/sha256"},
+        "source_boundary_sha256": {"$ref": "#/definitions/sha256"},
+        "noninterference_receipt_sha256": {"$ref": "#/definitions/sha256"},
+        "store_acceptance_sha256": {"$ref": "#/definitions/sha256"},
+        "service_epoch_binding_sha256": {"$ref": "#/definitions/sha256"}
+      }
+    },
     "record_bindings": {
       "type": "array", "minItems": 1, "maxItems": 100000,
       "items": {

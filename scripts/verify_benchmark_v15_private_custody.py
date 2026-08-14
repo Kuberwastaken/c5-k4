@@ -207,10 +207,23 @@ def verify_coverage(
     required_hosts: list[str],
     required_from_utc: str,
     required_through_utc: str,
+    *,
+    scope_bindings: dict[str, str],
 ) -> dict[str, Any]:
     """Verify all required host chains and return a private certificate."""
-    if len(set(required_hosts)) != len(required_hosts) or not required_hosts:
-        raise CustodyError("required hosts must be a nonempty unique list")
+    if required_hosts != ["ai-vps-controlled-harness"]:
+        raise CustodyError("custody scope must be the single ai-vps controlled harness")
+    required_scope = {
+        "participant_ledger_sha256", "source_boundary_sha256",
+        "noninterference_receipt_sha256", "store_acceptance_sha256",
+        "service_epoch_binding_sha256",
+    }
+    if set(scope_bindings) != required_scope or any(
+        not isinstance(value, str) or len(value) != 64
+        or any(char not in "0123456789abcdef" for char in value)
+        for value in scope_bindings.values()
+    ):
+        raise CustodyError("custody scope bindings are incomplete or malformed")
     required_from = parse_time(required_from_utc)
     required_through = parse_time(required_through_utc)
     if required_from >= required_through:
@@ -237,6 +250,7 @@ def verify_coverage(
         "status": "PRE_P1_VERIFIED_CONTRACT_NOT_OPERATIONAL",
         "protocol_version": "1.5",
         "verification_mode": "TARGET_BLIND_METADATA_ONLY",
+        **scope_bindings,
         "required_from_utc": required_from_utc,
         "required_through_utc": required_through_utc,
         "maximum_heartbeat_interval_seconds": 300,
@@ -264,6 +278,11 @@ def public_sealed_binding(certificate: dict[str, Any], sealed_private_bundle: by
         "sealed_private_bundle_sha256": hashlib.sha256(sealed_private_bundle).hexdigest(),
         "sealed_private_bundle_byte_count": len(sealed_private_bundle),
         "private_coverage_certificate_sha256": certificate["certificate_sha256"],
+        "participant_ledger_sha256": certificate["participant_ledger_sha256"],
+        "source_boundary_sha256": certificate["source_boundary_sha256"],
+        "noninterference_receipt_sha256": certificate["noninterference_receipt_sha256"],
+        "store_acceptance_sha256": certificate["store_acceptance_sha256"],
+        "service_epoch_binding_sha256": certificate["service_epoch_binding_sha256"],
         "required_host_count": len(certificate["required_hosts"]),
         "required_from_utc": certificate["required_from_utc"],
         "required_through_utc": certificate["required_through_utc"],

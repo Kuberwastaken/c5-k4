@@ -19,6 +19,14 @@ import verify_benchmark_v15_private_custody as custody
 
 
 START = datetime(2026, 8, 13, 0, 0, tzinfo=timezone.utc)
+HOST = "ai-vps-controlled-harness"
+SCOPE = {
+    "participant_ledger_sha256": "1" * 64,
+    "source_boundary_sha256": "2" * 64,
+    "noninterference_receipt_sha256": "3" * 64,
+    "store_acceptance_sha256": "4" * 64,
+    "service_epoch_binding_sha256": "5" * 64,
+}
 
 
 def timestamp(seconds: int) -> str:
@@ -28,7 +36,7 @@ def timestamp(seconds: int) -> str:
 class Fixture:
     def __init__(self) -> None:
         self.keys = {
-            host: Ed25519PrivateKey.generate() for host in ("companion-mac", "ai-vps")
+            host: Ed25519PrivateKey.generate() for host in (HOST, "other-host")
         }
         self.blob = b"opaque delivered byte stream"
         self.blob_sha = hashlib.sha256(self.blob).hexdigest()
@@ -104,14 +112,15 @@ class Fixture:
         return [self.batch(host, 0, None, [first, second])]
 
     def valid(self) -> tuple[list[dict], dict]:
-        batches = self.host_batches("companion-mac") + self.host_batches("ai-vps")
+        batches = self.host_batches(HOST)
         certificate = custody.verify_coverage(
             batches,
             self.public_keys(),
             self.blobs,
-            ["companion-mac", "ai-vps"],
+            [HOST],
             timestamp(0),
             timestamp(240),
+            scope_bindings=SCOPE,
         )
         return batches, certificate
 
@@ -128,53 +137,53 @@ class CustodyContractTests(unittest.TestCase):
 
     def test_chain_splice_or_rewrite_is_rejected_even_when_resigned(self) -> None:
         fixture = Fixture()
-        batches = fixture.host_batches("companion-mac")
+        batches = fixture.host_batches(HOST)
         first = batches[0]["records"][0]
         batches[0]["records"][1]["previous_receipt_sha256"] = "0" * 64
         batches[0]["records"][1]["receipt_sha256"] = custody.record_digest(batches[0]["records"][1])
-        batches[0] = fixture.batch("companion-mac", 0, None, batches[0]["records"])
+        batches[0] = fixture.batch(HOST, 0, None, batches[0]["records"])
         with self.assertRaisesRegex(custody.CustodyError, "chain splice"):
-            custody.verify_coverage(batches, fixture.public_keys(), fixture.blobs, ["companion-mac"], timestamp(0), timestamp(240))
+            custody.verify_coverage(batches, fixture.public_keys(), fixture.blobs, [HOST], timestamp(0), timestamp(240), scope_bindings=SCOPE)
         self.assertIsNotNone(first)
 
     def test_missing_sequence_and_heartbeat_gap_are_rejected(self) -> None:
         fixture = Fixture()
         first = fixture.record(0, None, 0)
         skipped = fixture.record(2, first["receipt_sha256"], 240)
-        batch = fixture.batch("ai-vps", 0, None, [first, skipped])
+        batch = fixture.batch(HOST, 0, None, [first, skipped])
         with self.assertRaisesRegex(custody.CustodyError, "record sequence"):
-            custody.verify_coverage([batch], fixture.public_keys(), fixture.blobs, ["ai-vps"], timestamp(0), timestamp(240))
+            custody.verify_coverage([batch], fixture.public_keys(), fixture.blobs, [HOST], timestamp(0), timestamp(240), scope_bindings=SCOPE)
 
         late = fixture.record(1, first["receipt_sha256"], 301)
-        batch = fixture.batch("ai-vps", 0, None, [first, late])
+        batch = fixture.batch(HOST, 0, None, [first, late])
         with self.assertRaisesRegex(custody.CustodyError, "heartbeat"):
-            custody.verify_coverage([batch], fixture.public_keys(), fixture.blobs, ["ai-vps"], timestamp(0), timestamp(301))
+            custody.verify_coverage([batch], fixture.public_keys(), fixture.blobs, [HOST], timestamp(0), timestamp(301), scope_bindings=SCOPE)
 
     def test_sequence_overflow_and_unmarked_restart_are_rejected(self) -> None:
         fixture = Fixture()
         first = fixture.record(0, None, 0)
         overflow = fixture.record(custody.MAX_SEQUENCE, first["receipt_sha256"], 240)
-        batch = fixture.batch("ai-vps", 0, None, [first, overflow])
+        batch = fixture.batch(HOST, 0, None, [first, overflow])
         with self.assertRaisesRegex(custody.CustodyError, "sequence"):
-            custody.verify_coverage([batch], fixture.public_keys(), fixture.blobs, ["ai-vps"], timestamp(0), timestamp(240))
+            custody.verify_coverage([batch], fixture.public_keys(), fixture.blobs, [HOST], timestamp(0), timestamp(240), scope_bindings=SCOPE)
 
-        first_batch = fixture.batch("ai-vps", 0, None, [first])
+        first_batch = fixture.batch(HOST, 0, None, [first])
         changed_boot = fixture.record(1, first["receipt_sha256"], 240, boot="boot-b")
-        second_batch = fixture.batch("ai-vps", 1, first_batch["batch_sha256"], [changed_boot])
+        second_batch = fixture.batch(HOST, 1, first_batch["batch_sha256"], [changed_boot])
         with self.assertRaisesRegex(custody.CustodyError, "without an explicit restart"):
-            custody.verify_coverage([first_batch, second_batch], fixture.public_keys(), fixture.blobs, ["ai-vps"], timestamp(0), timestamp(240))
+            custody.verify_coverage([first_batch, second_batch], fixture.public_keys(), fixture.blobs, [HOST], timestamp(0), timestamp(240), scope_bindings=SCOPE)
 
     def test_payload_blob_mismatch_is_rejected(self) -> None:
         fixture = Fixture()
-        batches = fixture.host_batches("ai-vps")
+        batches = fixture.host_batches(HOST)
         with self.assertRaisesRegex(custody.CustodyError, "payload blob mismatch"):
-            custody.verify_coverage(batches, fixture.public_keys(), {fixture.blob_sha: b"wrong"}, ["ai-vps"], timestamp(0), timestamp(240))
+            custody.verify_coverage(batches, fixture.public_keys(), {fixture.blob_sha: b"wrong"}, [HOST], timestamp(0), timestamp(240), scope_bindings=SCOPE)
 
     def test_cross_host_coverage_gap_is_rejected(self) -> None:
         fixture = Fixture()
-        batches = fixture.host_batches("companion-mac") + fixture.host_batches("ai-vps", late=True)
+        batches = fixture.host_batches(HOST, late=True)
         with self.assertRaisesRegex(custody.CustodyError, "does not cover"):
-            custody.verify_coverage(batches, fixture.public_keys(), fixture.blobs, ["companion-mac", "ai-vps"], timestamp(0), timestamp(240))
+            custody.verify_coverage(batches, fixture.public_keys(), fixture.blobs, [HOST], timestamp(0), timestamp(240), scope_bindings=SCOPE)
 
     def test_forbidden_private_fields_cannot_enter_public_binding(self) -> None:
         fixture = Fixture()

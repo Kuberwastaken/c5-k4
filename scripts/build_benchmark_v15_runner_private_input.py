@@ -32,6 +32,7 @@ import build_benchmark_v15_future_cohort as future  # noqa: E402
 import build_benchmark_v15_identity_hits as identity_hits  # noqa: E402
 import build_benchmark_v15_vendor_bases as vendor  # noqa: E402
 import method_v15_s3_object_lock_store as s3_store  # noqa: E402
+import resolve_benchmark_v15_p1_roles as p1_roles  # noqa: E402
 import verify_benchmark_v15_private_custody as custody  # noqa: E402
 
 
@@ -53,6 +54,11 @@ STAGED_NAMES = {
     "public_custody_sealed_binding": "public-custody-sealed-binding.json",
     "primary_private_registry": "private-registry.json",
     "provenance_content_pack": "provenance-content-pack.json",
+}
+P1_SCOPE_ROLES = {
+    "participant_ledger": "participant_ledger",
+    "source_boundary": "source_boundary",
+    "noninterference_receipt": "noninterference_receipt",
 }
 
 
@@ -180,6 +186,53 @@ def validate_request(value: dict[str, Any]) -> None:
         raise AssemblyError("accepted retention does not cover the custody interval")
 
 
+def _validate_p1_scope(request: dict[str, Any], raw: dict[str, bytes | list[bytes]]) -> dict[str, Any]:
+    """Authenticate caller scope against exact native bytes resolved by P1A."""
+    scope = request["p1_scope"]
+    if scope["required_host_id"] != "ai-vps-controlled-harness":
+        raise AssemblyError("runner custody is not scoped to the controlled harness")
+    try:
+        resolution = p1_roles.resolve_published_roles(
+            ROOT, scope["p1t_commit"], scope["p1t_path"]
+        )
+    except Exception as exc:
+        raise AssemblyError("P1 scope closure is unavailable") from exc
+    resolution_raw = raw["p1_role_resolution"]
+    assert isinstance(resolution_raw, bytes)
+    if (
+        canonical_json(resolution) != resolution_raw
+        or resolution.get("resolution_sha256") != scope["role_resolution_sha256"]
+        or resolution.get("status") != "AUTHENTICATED_PUBLISHED_P1_ROLE_CLOSURE"
+        or resolution.get("operational") is not True
+    ):
+        raise AssemblyError("stored and live P1 role resolutions differ")
+    components = {
+        row["role"]: row for row in resolution.get("resolved_roles", [])
+        if row.get("closure") == "NATIVE_V1_5"
+    }
+    for artifact, role in P1_SCOPE_ROLES.items():
+        row = components.get(role)
+        value = raw[artifact]
+        assert isinstance(value, bytes)
+        expected = scope[artifact + "_sha256"]
+        if not isinstance(row, dict) or row.get("sha256") != expected or sha256(value) != expected:
+            raise AssemblyError(f"{artifact} does not resolve through exact P1 native bytes")
+    participant = _json(raw["participant_ledger"])  # type: ignore[arg-type]
+    boundary = _json(raw["source_boundary"])  # type: ignore[arg-type]
+    receipt = _json(raw["noninterference_receipt"])  # type: ignore[arg-type]
+    if (
+        participant.get("host_id") != "ai-vps-controlled-harness"
+        or receipt.get("host_id") != "ai-vps-controlled-harness"
+        or receipt.get("participant_ledger_sha256") != scope["participant_ledger_sha256"]
+        or receipt.get("source_boundary_sha256") != scope["source_boundary_sha256"]
+        or receipt.get("scope_complete") is not True
+        or receipt.get("unjournaled_delivery_detected") is not False
+        or boundary.get("status") != "FROZEN_P1_EXECUTABLE"
+    ):
+        raise AssemblyError("authenticated P1 scope/noninterference receipt is not operational")
+    return receipt
+
+
 def fetch_artifacts(
     request: dict[str, Any], fetch: Callable[[dict[str, Any]], bytes]
 ) -> dict[str, bytes | list[bytes]]:
@@ -216,6 +269,7 @@ def fetch_artifacts(
 def _validate_custody(
     request: dict[str, Any], raw: dict[str, bytes | list[bytes]]
 ) -> None:
+    noninterference = _validate_p1_scope(request, raw)
     coverage = _json(raw["custody_coverage_certificate"])  # type: ignore[arg-type]
     binding = _json(raw["public_custody_sealed_binding"])  # type: ignore[arg-type]
     _validate(coverage, CUSTODY_SCHEMA)
@@ -260,6 +314,23 @@ def _validate_custody(
         != coverage["certificate_sha256"]
     ):
         raise AssemblyError("custody interval or seal binding mismatch")
+    scope = request["p1_scope"]
+    expected_scope = {
+        "participant_ledger_sha256": scope["participant_ledger_sha256"],
+        "source_boundary_sha256": scope["source_boundary_sha256"],
+        "noninterference_receipt_sha256": scope["noninterference_receipt_sha256"],
+        "store_acceptance_sha256": request["store_acceptance"]["acceptance_sha256"],
+        "service_epoch_binding_sha256": noninterference["service_epoch_binding_sha256"],
+    }
+    if any(coverage.get(key) != value or binding.get(key) != value for key, value in expected_scope.items()):
+        raise AssemblyError("custody evidence scope differs from P1/noninterference bindings")
+    host = chains[0]
+    if (
+        coverage["required_hosts"] != ["ai-vps-controlled-harness"]
+        or host["host_id"] != "ai-vps-controlled-harness"
+        or host["signing_key_id"] != noninterference["signing_key_id"]
+    ):
+        raise AssemblyError("custody host/key differs from frozen noninterference scope")
     sealed = raw["sealed_private_custody_bundle"]
     assert isinstance(sealed, bytes)
     if (
@@ -492,7 +563,13 @@ def assemble(
                 "path": str(staged["public_custody_sealed_binding"]),
                 "sha256": sha256_file(staged["public_custody_sealed_binding"]),
             },
-            "source_boundary_status": "FROZEN_P1_EXECUTABLE",
+            "participant_ledger_sha256": request["p1_scope"]["participant_ledger_sha256"],
+            "source_boundary_sha256": request["p1_scope"]["source_boundary_sha256"],
+            "noninterference_receipt_sha256": request["p1_scope"]["noninterference_receipt_sha256"],
+            "host_id": "ai-vps-controlled-harness",
+            "signing_key_id": _json(raw["noninterference_receipt"])["signing_key_id"],  # type: ignore[arg-type]
+            "service_epoch_binding_sha256": _json(raw["noninterference_receipt"])["service_epoch_binding_sha256"],  # type: ignore[arg-type]
+            "store_acceptance_sha256": request["store_acceptance"]["acceptance_sha256"],
         },
         "registry": {
             "private_registry": {

@@ -47,6 +47,7 @@ class Fixture:
         self.root = Path(self.temp.name)
         self.key = Ed25519PrivateKey.generate()
         self.config = broker.test_config(self.root, "broker-test-key")
+        self.config["host_id"] = "ai-vps-controlled-harness"
         self.store_config = store_config()
         self.secret = b"TOP SECRET target: conjecture 999"
         self.abandoned = b"PRIVATE partial response"
@@ -138,17 +139,29 @@ class Fixture:
         return self.objects[(ref["bucket"], ref["key"], ref["version_id"])]
 
     def compile(self, *, inventory: dict | None = None, state: dict | None = None, key: bytes | None = None) -> dict:
+        selected_inventory = inventory or self.inventory
         return compiler.compile_private_custody(
             broker_config=deepcopy(self.config),
             broker_state=deepcopy(state or self.instance.state),
             store_config=deepcopy(self.store_config),
-            inventory=deepcopy(inventory or self.inventory),
+            inventory=deepcopy(selected_inventory),
             broker_verification_key=key or self.public_key,
             custody_signing_key=self.key,
             required_from_utc=TIMES[0],
             required_through_utc=TIMES[4] if self.instance.state["last_heartbeat_utc"] == TIMES[4] else TIMES[1],
+            scope_bindings={
+                "participant_ledger_sha256": "1" * 64,
+                "source_boundary_sha256": "2" * 64,
+                "noninterference_receipt_sha256": "3" * 64,
+                "store_acceptance_sha256": "4" * 64,
+                "service_epoch_binding_sha256": self._service_epoch_binding_sha256(selected_inventory),
+            },
             read_object=self.read,
         )
+
+    def _service_epoch_binding_sha256(self, inventory: dict | None = None) -> str:
+        ref = next(row for row in (inventory or self.inventory)["objects"] if row["role"] == "SERVICE_EPOCH_BINDING")
+        return json.loads(self.read(ref))["binding_sha256"]
 
     def rewritten_inventory(self, mutation) -> dict:
         rows = self._receipt_rows()

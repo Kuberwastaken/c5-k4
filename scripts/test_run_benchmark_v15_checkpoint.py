@@ -60,7 +60,13 @@ class RunnerBoundaryTests(unittest.TestCase):
             "custody": {
                 "coverage_certificate": self.ref(files[0]),
                 "public_sealed_binding": self.ref(files[1]),
-                "source_boundary_status": "FROZEN_P1_EXECUTABLE",
+                "participant_ledger_sha256": "1" * 64,
+                "source_boundary_sha256": "2" * 64,
+                "noninterference_receipt_sha256": "3" * 64,
+                "host_id": "ai-vps-controlled-harness",
+                "signing_key_id": "key-1",
+                "service_epoch_binding_sha256": "4" * 64,
+                "store_acceptance_sha256": "5" * 64,
             },
             "registry": {
                 "private_registry": self.ref(files[2]),

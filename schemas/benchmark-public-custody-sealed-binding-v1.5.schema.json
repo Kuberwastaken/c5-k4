@@ -4,7 +4,7 @@
   "title": "Method v1.5 PRE-P1 public target-blind sealed custody binding",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema", "status", "protocol_version", "disclosure", "seal_algorithm", "sealed_private_bundle_sha256", "sealed_private_bundle_byte_count", "private_coverage_certificate_sha256", "required_host_count", "required_from_utc", "required_through_utc", "binding_sha256"],
+  "required": ["schema", "status", "protocol_version", "disclosure", "seal_algorithm", "sealed_private_bundle_sha256", "sealed_private_bundle_byte_count", "private_coverage_certificate_sha256", "participant_ledger_sha256", "source_boundary_sha256", "noninterference_receipt_sha256", "store_acceptance_sha256", "service_epoch_binding_sha256", "required_host_count", "required_from_utc", "required_through_utc", "binding_sha256"],
   "properties": {
     "schema": {"const": "c5k4-method-v1.5-public-custody-sealed-binding-1.0"},
     "status": {"const": "PRE_P1_PUBLIC_BINDING_NOT_OPERATIONAL"},
@@ -14,7 +14,12 @@
     "sealed_private_bundle_sha256": {"$ref": "#/definitions/sha256"},
     "sealed_private_bundle_byte_count": {"type": "integer", "minimum": 1, "maximum": 9223372036854775807},
     "private_coverage_certificate_sha256": {"$ref": "#/definitions/sha256"},
-    "required_host_count": {"type": "integer", "minimum": 1},
+    "participant_ledger_sha256": {"$ref": "#/definitions/sha256"},
+    "source_boundary_sha256": {"$ref": "#/definitions/sha256"},
+    "noninterference_receipt_sha256": {"$ref": "#/definitions/sha256"},
+    "store_acceptance_sha256": {"$ref": "#/definitions/sha256"},
+    "service_epoch_binding_sha256": {"$ref": "#/definitions/sha256"},
+    "required_host_count": {"const": 1},
     "required_from_utc": {"$ref": "#/definitions/timestamp"},
     "required_through_utc": {"$ref": "#/definitions/timestamp"},
     "binding_sha256": {"$ref": "#/definitions/sha256"}

@@ -32,6 +32,7 @@ ROOT = Path(__file__).resolve().parents[1]
 CONTRACT_SCHEMA = "c5k4-method-v1.5-checkpoint-invocation-contract-1.0"
 MANIFEST_SCHEMA = "c5k4-method-v1.5-checkpoint-publication-manifest-1.0"
 PRIVATE_INPUT_SCHEMA = "c5k4-method-v1.5-checkpoint-runner-private-input-1.0"
+CUSTODY_EVIDENCE_SCHEMA = "benchmark-operational-private-custody-evidence-v1.5.schema.json"
 GAP_SCHEMA = "c5k4-method-v1.5-terminal-chronology-gap-certificate-1.0"
 PUBLIC_FILES = ("publication-manifest.json", "quota-certificate.json", "receipt.json")
 FORBIDDEN_KEYS = {
@@ -244,8 +245,36 @@ def validate_private_input(path: Path, scheduled_for: str, proof: dict[str, Any]
     # this runner can consume their contents.
     coverage = load_json(Path(value["custody"]["coverage_certificate"]["path"]), "custody coverage")
     binding = load_json(Path(value["custody"]["public_sealed_binding"]["path"]), "custody binding")
+    validate_schema(coverage, CUSTODY_EVIDENCE_SCHEMA, "custody coverage")
+    validate_schema(binding, CUSTODY_EVIDENCE_SCHEMA, "custody binding")
     if coverage.get("status") != "FROZEN_P1_CUSTODY_COVERAGE_VALID" or binding.get("status") != "FROZEN_P1_PUBLIC_BINDING_VALID":
         raise RunnerError("private custody evidence is not operationally frozen")
+    if (
+        coverage["certificate_sha256"] != content_digest(coverage, "certificate_sha256")
+        or binding["binding_sha256"] != content_digest(binding, "binding_sha256")
+        or binding["private_coverage_certificate_sha256"] != coverage["certificate_sha256"]
+    ):
+        raise RunnerError("private custody evidence digest binding is invalid")
+    custody_scope = value["custody"]
+    digest_fields = (
+        "participant_ledger_sha256", "source_boundary_sha256",
+        "noninterference_receipt_sha256", "service_epoch_binding_sha256",
+        "store_acceptance_sha256",
+    )
+    if any(
+        coverage[field] != custody_scope[field]
+        or binding[field] != custody_scope[field]
+        for field in digest_fields
+    ):
+        raise RunnerError("private custody evidence is bound to another P1 scope")
+    chains = coverage["host_chains"]
+    if (
+        coverage["required_hosts"] != ["ai-vps-controlled-harness"]
+        or len(chains) != 1
+        or chains[0]["host_id"] != custody_scope["host_id"]
+        or chains[0]["signing_key_id"] != custody_scope["signing_key_id"]
+    ):
+        raise RunnerError("private custody evidence is bound to another host or key")
     return value
 
 

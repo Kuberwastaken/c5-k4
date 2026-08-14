@@ -28,11 +28,17 @@
     },
     "custody": {
       "type": "object", "additionalProperties": false,
-      "required": ["coverage_certificate", "public_sealed_binding", "source_boundary_status"],
+      "required": ["coverage_certificate", "public_sealed_binding", "participant_ledger_sha256", "source_boundary_sha256", "noninterference_receipt_sha256", "host_id", "signing_key_id", "service_epoch_binding_sha256", "store_acceptance_sha256"],
       "properties": {
         "coverage_certificate": {"$ref": "#/definitions/privateFile"},
         "public_sealed_binding": {"$ref": "#/definitions/privateFile"},
-        "source_boundary_status": {"const": "FROZEN_P1_EXECUTABLE"}
+        "participant_ledger_sha256": {"$ref": "#/definitions/sha"},
+        "source_boundary_sha256": {"$ref": "#/definitions/sha"},
+        "noninterference_receipt_sha256": {"$ref": "#/definitions/sha"},
+        "host_id": {"const": "ai-vps-controlled-harness"},
+        "signing_key_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"},
+        "service_epoch_binding_sha256": {"$ref": "#/definitions/sha"},
+        "store_acceptance_sha256": {"$ref": "#/definitions/sha"}
       }
     },
     "registry": {
