@@ -26,6 +26,7 @@ import socket
 import stat
 import subprocess
 import sys
+import tempfile
 import time
 from typing import Any, Mapping
 
@@ -236,19 +237,34 @@ def clone_read_only_mount(source_fd: int, destination_parent_fd: int, destinatio
     """
 
     destination_fd = openat2_beneath(destination_parent_fd, destination_name, os.O_PATH)
-    source_mount_fd = -1
+    source_mount_fd = scratch_fd = tree_fd = -1
+    scratch_root: Path | None = None
+    scratch_identity: tuple[int, int] | None = None
     try:
         # Turn the pinned source inode into a detached mount.  The temporary
         # source is a descriptor reference, not its original path; therefore
         # a post-validation rename/symlink swap cannot affect this operation.
-        source_mount_fd = os.open("/tmp", os.O_PATH | os.O_DIRECTORY | os.O_CLOEXEC)
-        scratch_name = f".c5k4-source-{os.getpid()}-{source_fd}"
+        scratch_root = Path(tempfile.mkdtemp(prefix=".c5k4-mount-clone-", dir="/tmp"))
+        scratch_root.chmod(0o700)
+        root_metadata = scratch_root.lstat()
+        if not stat.S_ISDIR(root_metadata.st_mode) or root_metadata.st_uid != os.getuid():
+            raise IsolationAcceptanceError("mount-clone scratch root is not descriptor-owned")
+        scratch_identity = (root_metadata.st_dev, root_metadata.st_ino)
+        _mount("tmpfs", str(scratch_root), "tmpfs", MS_NODEV | MS_NOSUID | MS_NOEXEC, "size=1m,mode=0700")
+        source_mount_fd = os.open(scratch_root, os.O_PATH | os.O_DIRECTORY | os.O_CLOEXEC | os.O_NOFOLLOW)
+        scratch_name = "source"
         source_metadata = os.fstat(source_fd)
-        scratch = Path("/tmp", scratch_name)
+        scratch = scratch_root / scratch_name
         if stat.S_ISDIR(source_metadata.st_mode):
-            scratch.mkdir(mode=0o700)
+            os.mkdir(scratch_name, mode=0o700, dir_fd=source_mount_fd)
         else:
-            scratch.touch(mode=0o600)
+            created = os.open(
+                scratch_name,
+                os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW | os.O_CLOEXEC,
+                0o600,
+                dir_fd=source_mount_fd,
+            )
+            os.close(created)
         scratch_fd = openat2_beneath(source_mount_fd, scratch_name, os.O_PATH)
         result = libc.mount(
             _c(f"/proc/self/fd/{source_fd}"), _c(f"/proc/self/fd/{scratch_fd}"),
@@ -272,10 +288,30 @@ def clone_read_only_mount(source_fd: int, destination_parent_fd: int, destinatio
             MOVE_MOUNT_F_EMPTY_PATH,
         )
         os.close(tree_fd)
+        tree_fd = -1
     finally:
+        primary_failure_active = sys.exc_info()[0] is not None
+        cleanup_failure: IsolationAcceptanceError | None = None
+        for fd in (scratch_fd, tree_fd):
+            if fd >= 0:
+                os.close(fd)
         if source_mount_fd >= 0:
             os.close(source_mount_fd)
+        if scratch_root is not None:
+            libc.umount2(_c(str(scratch_root)), 2)
+            try:
+                metadata = scratch_root.lstat()
+                if scratch_identity != (metadata.st_dev, metadata.st_ino):
+                    cleanup_failure = IsolationAcceptanceError("mount-clone scratch ownership changed")
+                else:
+                    scratch_root.rmdir()
+            except FileNotFoundError:
+                cleanup_failure = IsolationAcceptanceError("mount-clone scratch root disappeared")
         os.close(destination_fd)
+        # Cleanup anomalies still fail closed, but do not obscure the primary
+        # syscall/validation error that already prevents acceptance.
+        if cleanup_failure is not None and not primary_failure_active:
+            raise cleanup_failure
 
 
 def _mount(source: str, target: str, filesystem: str, flags: int, data: str = "") -> None:

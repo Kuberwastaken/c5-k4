@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Method v1.5 target-free production isolation attestation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "artifact_kind", "protocol_version", "status", "tree_id", "arm", "plan_sha256", "session_nonce_sha256", "host_fingerprint_sha256", "implementation", "kernel_acceptance_passed", "checks", "capture", "activation_permitted", "attestation_sha256"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-production-isolation-attestation-1.0"},
+    "artifact_kind": {"const": "TARGET_FREE_SAME_HOST_ISOLATION_ATTESTATION"},
+    "protocol_version": {"const": "1.5"},
+    "status": {"const": "PRE_P1_PRODUCTION_ADAPTER_ACCEPTANCE_NOT_OPERATIONAL"},
+    "tree_id": {"type": "string", "pattern": "^(CATALOGUE|GENERIC|WALL_NAVIGATION)-[0-7]$"},
+    "arm": {"enum": ["CATALOGUE", "GENERIC", "WALL_NAVIGATION"]},
+    "plan_sha256": {"$ref": "#/definitions/sha256"},
+    "session_nonce_sha256": {"$ref": "#/definitions/sha256"},
+    "host_fingerprint_sha256": {"$ref": "#/definitions/sha256"},
+    "implementation": {"$ref": "#/definitions/implementation"},
+    "kernel_acceptance_passed": {"type": "boolean"},
+    "checks": {"type": "object", "additionalProperties": {"type": "boolean"}},
+    "capture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["exit_code", "timed_out", "wall_cap_seconds", "stdout", "stderr", "capture_limit_bytes_per_stream", "semantic_parsing_performed"],
+      "properties": {
+        "exit_code": {"type": ["integer", "null"]},
+        "timed_out": {"type": "boolean"},
+        "wall_cap_seconds": {"const": 60},
+        "stdout": {"$ref": "#/definitions/bytes"},
+        "stderr": {"$ref": "#/definitions/bytes"},
+        "capture_limit_bytes_per_stream": {"const": 65536},
+        "semantic_parsing_performed": {"const": false}
+      }
+    },
+    "activation_permitted": {"const": false},
+    "attestation_sha256": {"$ref": "#/definitions/sha256"}
+  },
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "bytes": {"type": "object", "additionalProperties": false, "required": ["byte_count", "sha256"], "properties": {"byte_count": {"type": "integer", "minimum": 0, "maximum": 65536}, "sha256": {"$ref": "#/definitions/sha256"}}},
+    "implementation": {"type": "object", "additionalProperties": false, "required": ["plan_backend_sha256", "linux_executor_sha256", "adapter_sha256", "fixture_executable_sha256"], "properties": {"plan_backend_sha256": {"$ref": "#/definitions/sha256"}, "linux_executor_sha256": {"$ref": "#/definitions/sha256"}, "adapter_sha256": {"$ref": "#/definitions/sha256"}, "fixture_executable_sha256": {"$ref": "#/definitions/sha256"}}}
+  }
+}
