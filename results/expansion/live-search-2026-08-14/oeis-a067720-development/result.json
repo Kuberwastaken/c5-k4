@@ -1,0 +1,164 @@
+{
+  "schema": "oeis-a067720-development-result-v1",
+  "status": "VALID_COMPLETE_FROZEN_PROFILE_DOMAIN_EXHAUSTION_NO_COUNTEREXAMPLE",
+  "scope": "development_only_finite_algebraic_profile_domains",
+  "mathematical_claim": "No counterexample to OeisA67720.prime_add_one_of_a occurs in either frozen composite-successor profile domain; this is not exhaustion of all k, all composite successors, or all translated endpoint factorizations.",
+  "evidence_split": "DEVELOPMENT",
+  "prospective_target_specific_trial": true,
+  "held_out_trial": false,
+  "publication_action": false,
+  "run": {
+    "repository": "Kuberwastaken/c5-k4",
+    "workflow": "OEIS A067720 profile-wall DEVELOPMENT search",
+    "run_id": 31825942865,
+    "run_attempt": 1,
+    "url": "https://github.com/Kuberwastaken/c5-k4/actions/runs/31825942865",
+    "event": "workflow_dispatch",
+    "campaign_commit": "ec0ea9cc070072979a08d4da80ffd8cc901311ef",
+    "created_at_utc": "2026-08-14T17:51:36Z",
+    "completed_at_utc": "2026-08-14T17:54:30Z",
+    "conclusion": "success",
+    "jobs": 50,
+    "successful_jobs": 50
+  },
+  "artifact_audit": {
+    "artifacts_expected": 49,
+    "artifacts_downloaded": 49,
+    "files_downloaded": 391,
+    "artifact_identities_complete_and_unique": true,
+    "sha256sum_manifests_checked": 49,
+    "sha256sum_manifest_failures": 0,
+    "nonmanifest_files_checksum_replayed": 342,
+    "source_gate_independently_verified": true,
+    "gate_attestation_file_sha256": "e671a5687e30c449234637b391d762d6bb8bd6cebd754f8c469250147f705622",
+    "gate_attestation_self_hash": "c67abba8a39c2e4b0e1d6cc434f02c4847d5a891943608449d7baede05d924a4",
+    "gate_sha256sum_manifest_sha256": "bd2cb3b2dae2a82f2fd8a8b56e383318b223cfb0307c1700b817280083086969",
+    "ordered_ledger_sha256_listing_sha256": "c4d56024cbf96d53c9e1857c1d635ea507795a9fce5f7b15d56e30394e6f87a6",
+    "terminal_ledger_pairs_expected": 48,
+    "terminal_ledger_pairs_found": 48,
+    "terminal_ledger_pairs_independently_replayed": 48,
+    "terminal_replay_failures": 0,
+    "assignment_pairs_complete_and_unique": true,
+    "execution_statuses_checked": 48,
+    "execution_statuses_with_nonzero_code": 0,
+    "worker_errors": 0,
+    "candidate_files": 0,
+    "certificate_files": 0
+  },
+  "gate": {
+    "schema": "oeis-a067720-gate-v1",
+    "manifest_sha256": "537b44076ff4323cc541f94233f1e963fc1c25b2ff8ee2b243139ccd42f56d5d",
+    "source_commit": "05ea0345d09375efac830fac93bf083b654e317e",
+    "source_status_at_run": "research open",
+    "lean_sha256": "af8ae5ba8ebed4d7252b9cee3d6cb7e304f7971282db7f8954ce2f0da99d249e",
+    "live_lean_sha256": "af8ae5ba8ebed4d7252b9cee3d6cb7e304f7971282db7f8954ce2f0da99d249e",
+    "oeis_source_sha256": "13c478e7850f14ecf1f3ed5a78a28ffee42ef6429539943b87a068fe3c761aa4",
+    "oeis_bfile_sha256": "c50d6120a72dfda1f6bf82642407007ea68604c76788a8e98c2f43cfeb9bb928",
+    "live_duplicate_audit_sha256": "1b5a201cc7a7297c33b2d78ac1bbd26991f3628333acce3d84019a6a819603ea",
+    "open_pull_requests_scanned": 282,
+    "catalogue_rows": 10000,
+    "catalogue_first": [1, 1],
+    "catalogue_last": [10000, 1548870],
+    "catalogue_prime_prime_rows": 9999,
+    "catalogue_composite_successor_controls": [[5, 8]],
+    "catalogue_verified_row_stream_sha256": "30cc177f5518e8b68d4a29fb3630506094b5813a169da38a92d608518779ab7c"
+  },
+  "independent_replay": {
+    "lanes": 48,
+    "passed": 48,
+    "failed": 0,
+    "terminal_reasons": {
+      "DOMAIN_EXHAUSTED": 48
+    },
+    "ledger_rows": 2184,
+    "ledger_bytes": 1592613,
+    "profiles_visited": 270767,
+    "stop_counts": {
+      "NO_TRANSLATED_ENDPOINT_PROFILE": 270633,
+      "RESIDUAL_NONZERO": 133,
+      "KNOWN_EXCEPTION_CONTROL": 1,
+      "CATALOGUE_CONTROL": 0,
+      "SURVIVOR": 0
+    },
+    "translated_endpoint_profile_matches": 134,
+    "noncontrol_translated_matches": 133,
+    "noncontrol_residual_signs": {
+      "negative": 7,
+      "positive": 126
+    },
+    "known_exception_control": {
+      "k": 8,
+      "residual": 0,
+      "occurrences": 1
+    },
+    "nearest_noncontrol_residuals": [
+      {
+        "k": 3,
+        "residual": -2,
+        "arm": "SUCCESSOR_PROFILE_SURGERY",
+        "successor_profile_ordinal": 0,
+        "successor_factors": [[2, 2]],
+        "endpoint_factors": [[2, 1], [5, 1]]
+      },
+      {
+        "k": 5,
+        "residual": 2,
+        "arm": "TOTIENT_RATIO_WALL",
+        "successor_profile_ordinal": 0,
+        "successor_factors": [[2, 1], [3, 1]],
+        "endpoint_factors": [[2, 1], [13, 1]]
+      },
+      {
+        "k": 9,
+        "residual": 4,
+        "arm": "TOTIENT_RATIO_WALL",
+        "successor_profile_ordinal": 6,
+        "successor_factors": [[2, 1], [5, 1]],
+        "endpoint_factors": [[2, 1], [41, 1]]
+      }
+    ]
+  },
+  "arms": [
+    {
+      "arm": "SUCCESSOR_PROFILE_SURGERY",
+      "lanes": 24,
+      "terminal_reason": "DOMAIN_EXHAUSTED",
+      "profiles_visited": 824,
+      "visited_minimum": 34,
+      "visited_maximum": 35,
+      "visited_by_shard": [35, 35, 35, 35, 35, 35, 35, 35, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34],
+      "ledger_rows": 48,
+      "stop_counts": {
+        "NO_TRANSLATED_ENDPOINT_PROFILE": 814,
+        "RESIDUAL_NONZERO": 9,
+        "KNOWN_EXCEPTION_CONTROL": 1,
+        "CATALOGUE_CONTROL": 0,
+        "SURVIVOR": 0
+      }
+    },
+    {
+      "arm": "TOTIENT_RATIO_WALL",
+      "lanes": 24,
+      "terminal_reason": "DOMAIN_EXHAUSTED",
+      "profiles_visited": 269943,
+      "visited_minimum": 11247,
+      "visited_maximum": 11248,
+      "visited_by_shard": [11248, 11248, 11248, 11248, 11248, 11248, 11248, 11248, 11248, 11248, 11248, 11248, 11248, 11248, 11248, 11247, 11247, 11247, 11247, 11247, 11247, 11247, 11247, 11247],
+      "ledger_rows": 2136,
+      "stop_counts": {
+        "NO_TRANSLATED_ENDPOINT_PROFILE": 269819,
+        "RESIDUAL_NONZERO": 124,
+        "KNOWN_EXCEPTION_CONTROL": 0,
+        "CATALOGUE_CONTROL": 0,
+        "SURVIVOR": 0
+      }
+    }
+  ],
+  "novelty_and_source_caveats": [
+    "The result is a prospective target-specific DEVELOPMENT trial, not a held-out result.",
+    "The exact source/status/duplicate gate passed at run time and found the declaration research open, the pinned and live Lean bytes identical, only the two frozen non-resolving target-path maintenance pull requests, and no local exact-search or release match; this bounded repository audit is not a global literature novelty proof.",
+    "The OEIS b-file exclusion and database-sanity control covers exactly 10000 rows through value 1548870 at the frozen hashes, not all possible prior computations or unpublished work.",
+    "Domain exhaustion means only the two immutable successor-profile catalogues and the frozen endpoint-factor catalogue were exhausted. It does not cover all k up to 2000000000, all composite values of k+1, all factorizations of k^2+1, or the unbounded conjecture.",
+    "No issue, pull request, release, README claim, tag, or publication follows from this bounded zero."
+  ]
+}
