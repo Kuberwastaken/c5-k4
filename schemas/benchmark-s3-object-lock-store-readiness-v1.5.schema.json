@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-s3-object-lock-store-readiness-v1.5.schema.json",
+  "title": "Method v1.5 target-blind PRE-P1 S3 store diagnostic",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema", "status", "operational", "checked_at_utc", "config_sha256",
+    "backend_environment_verified", "target_bytes_publicly_exposed", "reasons"
+  ],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-s3-object-lock-store-readiness-1.0"},
+    "status": {"const": "PRE_P1_STORE_ADAPTER_NOT_OPERATIONAL"},
+    "operational": {"const": false},
+    "checked_at_utc": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"},
+    "config_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "backend_environment_verified": {"type": "boolean"},
+    "target_bytes_publicly_exposed": {"const": false},
+    "reasons": {
+      "type": "array", "minItems": 3, "uniqueItems": true,
+      "items": {
+        "enum": [
+          "BACKEND_ENVIRONMENT_UNVERIFIED", "BROKER_INTEGRATION_NOT_FROZEN",
+          "LIVE_ACCEPTANCE_NOT_RUN", "P1_NOT_FROZEN"
+        ]
+      }
+    }
+  }
+}
