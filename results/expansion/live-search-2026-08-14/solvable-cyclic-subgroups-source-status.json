@@ -1,0 +1,28 @@
+{
+  "schema": "c5k4-source-status-attestation-1.0",
+  "status_checked_utc": "2026-08-14",
+  "upstream_repository": "google-deepmind/formal-conjectures",
+  "upstream_commit": "942fb149e782a56c2719c543ab58e093f733acb4",
+  "upstream_path": "FormalConjectures/Arxiv/2604.08040/Conjecture5_5.lean",
+  "upstream_blob": "cb099f09a40eab0149b3332979d92e190ef44def",
+  "upstream_file_sha256": "26669f9461c5c65d8bd69469825057a2210eebee05f2e3a0ff3fedcfb57fc28a",
+  "declaration": "Arxiv.«2604.08040».solvable_of_cyc_lt",
+  "category_at_pin": "research open",
+  "source": "arXiv:2604.08040v1, Group Structure via Subgroup Counts, Conjecture 5.5",
+  "source_revision": "v1 submitted 2026-04-09; no later arXiv revision present at the check",
+  "source_status": "OPEN",
+  "formal_history": [
+    "issue 4844 closed because the statement was formalized, not mathematically resolved",
+    "PR 4848 merged the first statement formalization at d98f14ed02e28348f57f7b8c99a4aff196645769",
+    "PR 4865 merged the renamed/revised formalization at the pinned main commit and removed SubgroupCounts.lean"
+  ],
+  "duplicate_searches": [
+    "all-state formal-conjectures issue and PR searches for 2604.08040",
+    "all-state searches for solvable_of_cyc_lt, Conjecture 5.5, cyclic subgroup count, and OpenConjecture 1512",
+    "exact-formula and paper-title web searches",
+    "c5-k4 git-log -S and result-inventory searches"
+  ],
+  "duplicate_result": "NO_PROOF_COUNTEREXAMPLE_OR_ERRATUM_FOUND",
+  "local_exposure": "The benchmark registry semantically exposed the module but did not select it; no target evaluation exists. This lane is DEVELOPMENT, not held-out evidence.",
+  "limitations": "Negative public search cannot exclude private, unindexed, or newly posted work. Recheck before any candidate promotion."
+}

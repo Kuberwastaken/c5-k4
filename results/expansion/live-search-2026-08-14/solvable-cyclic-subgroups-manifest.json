@@ -1,0 +1,84 @@
+{
+  "schema": "c5k4-solvable-cyclic-subgroups-manifest-1.0",
+  "evidence_split": "DEVELOPMENT",
+  "frozen_at_utc_date": "2026-08-14",
+  "freeze_base_commit": "b9bb628abc8458188f9995c2613d27465e53639c",
+  "upstream": {
+    "repository": "google-deepmind/formal-conjectures",
+    "commit": "942fb149e782a56c2719c543ab58e093f733acb4",
+    "path": "FormalConjectures/Arxiv/2604.08040/Conjecture5_5.lean",
+    "blob": "cb099f09a40eab0149b3332979d92e190ef44def",
+    "file_sha256": "26669f9461c5c65d8bd69469825057a2210eebee05f2e3a0ff3fedcfb57fc28a",
+    "declaration": "Arxiv.«2604.08040».solvable_of_cyc_lt",
+    "category_at_pin": "research open",
+    "source": "arXiv:2604.08040v1, Conjecture 5.5"
+  },
+  "gap_dependencies": {
+    "gap": "4.12.1",
+    "smallgrp": "1.5.3",
+    "primgrp": "3.4.4"
+  },
+  "arms": ["CATALOGUE", "GENERIC", "WALL_NAVIGATION"],
+  "internal_stop_seconds": 54,
+  "external_stop_seconds": 60,
+  "per_gap_query_max_seconds": 8,
+  "catalogue": {
+    "order_min": 60,
+    "order_max": 255,
+    "population": "all nonsolvable GAP SmallGroups",
+    "order": "increasing (group order, SmallGroup id)"
+  },
+  "generic": {
+    "order_min": 256,
+    "order_max": 2000,
+    "seed": "cb099f09a40eab0149b3332979d92e190ef44def",
+    "per_order_limit": 4,
+    "global_limit": 1024,
+    "ranking": "sha256(seed:order:id)"
+  },
+  "wall_navigation": {
+    "coordinate": "cyc(G) / 2^pi(G)",
+    "crossing_threshold": 4,
+    "simple_bases": ["A5", "A6", "A7", "A8", "M11", "J1", "PSU(3,4)", "Sz(8)"],
+    "psl2_prime_powers": [7, 8, 11, 13, 16, 17, 19, 23, 25, 27, 29, 31, 32, 37, 41, 43, 47, 49, 53, 59, 61, 64],
+    "include_automorphism_endpoints": true,
+    "calibration_only": ["A5 x C7", "A5 x C11", "A5 x C13"]
+  },
+  "terminal_reasons": [
+    "DOMAIN_EXHAUSTED", "PROPOSAL_LIMIT", "SEARCH_EXHAUSTED",
+    "DEADLINE_PREFIX", "CERTIFICATE_FOUND", "SANITY_GATE_FAILED", "WORKER_ERROR"
+  ],
+  "candidate_policy": {
+    "predicate": "not IsSolvableGroup(G) and cyc(G) - 2^(pi(G)+2) < 0",
+    "primary_method": "element-order histogram over GAP conjugacy classes",
+    "independent_method": "cyclic subgroup conjugacy classes and class sizes",
+    "independent_replay_required": true,
+    "public_action": false
+  },
+  "artifacts": [
+    {
+      "path": "results/expansion/live-search-2026-08-14/solvable-cyclic-subgroups-contract.md",
+      "sha256": "cc0952de1c9c1a23536a184b300d5b632b7bf05ed32299a6b492d0cdf6bd8239"
+    },
+    {
+      "path": "results/expansion/live-search-2026-08-14/solvable-cyclic-subgroups-source-status.json",
+      "sha256": "bec418b691d9b82087b13a1ddef3b30a5cbe1df5ef55e17795e64c124e2b6ae5"
+    },
+    {
+      "path": "scripts/search_solvable_cyclic_subgroups_live.py",
+      "sha256": "033b3183f92554839466714ebdba878d3bb754701fc96aeebcd7e69517df1767"
+    },
+    {
+      "path": "scripts/verify_solvable_cyclic_subgroups_certificate.py",
+      "sha256": "24e25363c74123d815e38b9f3b81c23a8892d2996f59fbd8d322d49d5991b915"
+    },
+    {
+      "path": "scripts/test_search_solvable_cyclic_subgroups_live.py",
+      "sha256": "7fc12142c456fa7ddc5ac5316f1c412266f7bee58623cc18a6ca2423d9e58c56"
+    },
+    {
+      "path": ".github/workflows/solvable-cyclic-subgroups-development.yml",
+      "sha256": "2b1911fc0229d698dde35f5f6c31d4a0e2e137482c0db3e81a8ba758dc6a3932"
+    }
+  ]
+}
