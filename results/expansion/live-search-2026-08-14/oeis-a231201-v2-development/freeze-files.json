@@ -1,0 +1,22 @@
+{
+  "schema": "oeis-a231201-v2-frozen-files-v1",
+  "sha256": {
+    ".github/workflows/oeis-a231201-v2-development.yml": "d31152cb3749c956b24a8ad5958b44049b3b598729610f715ba9587c62ff9ddb",
+    "results/expansion/live-search-2026-08-14/oeis-a231201-v2-design-scout.md": "0ba0bb7bdb47e26dd4345303b61c1d777210a3a51426bb34b9c0e0d742c3d431",
+    "results/expansion/live-search-2026-08-14/oeis-a231201-v2-development/CONTRACT.md": "df681d7bce9b632aa794295585b48808b7ac7b6cae25fc1f9c2462a4cd32a56c",
+    "results/expansion/live-search-2026-08-14/oeis-a231201-v2-development/CORRECTION.md": "99d3e06c0526e58b7f0062497ab4b9396b064caf69d4d6b1897788f4fccb2280",
+    "results/expansion/live-search-2026-08-14/oeis-a231201-v2-development/V1_RESULT_ADDENDUM.md": "587865e4bbd8dbf3cc2a0304eaaa82908a55ed24bd9a0eaf1188fa90476cdc65",
+    "results/expansion/live-search-2026-08-14/oeis-a231201-v2-development/manifest.json": "064a07d90a497de08ea026171b6e1351975955ea5cc679d04a4093b50af31a7b",
+    "results/expansion/live-search-2026-08-14/oeis-a231201-v2-development/source-status-attestation.json": "510d645c4701ed9fe5b28c4aa8bbaa233d06054f82a262a9ee0c5e4afd96bc83",
+    "results/expansion/live-search-2026-08-14/oeis-a231201-v2-development/verify_freeze.py": "cdde3cb97a3b7416040ae92f2a8df181975c87e378dedb963c5e860b706a5104",
+    "scripts/adversary_oeis_a231201_v2.py": "75dd1bdd64d11a68d77e687292edca67527f3990c2dc1d7d15ad873f68209de4",
+    "scripts/construct_oeis_a231201_v2.py": "7bbe6cfb814f56ea963f090c52703a621eb927d1b8f6cd65fba00dda5ad81684",
+    "scripts/oeis_a231201_v2_common.py": "e8b6d3622d4989852e26d478f4e215274614d7ec32ce18e65b490677bf06f2ad",
+    "scripts/prepare_oeis_a231201_v2_gate.py": "eec0bcc6fa597fe0fde02c4d20352ef7149690b0f2e02d6769ab61ad26c1e55d",
+    "scripts/record_oeis_a231201_v2_execution.py": "bded4e627f27fa17c6d7d950fadea35d0ddef42a19c4a8666e5cbbd5896caa1e",
+    "scripts/test_oeis_a231201_v2_constructors.py": "8e19e9b07f8883834a300e33848c55c5ee83e7caf09d22371afc136b3487f256",
+    "scripts/verify_oeis_a231201_v2_artifacts.py": "9b47fb7f71a2f166a63a3ef8f23691884adbfbfe66bd64bd56d03464a77f2beb",
+    "scripts/verify_oeis_a231201_v2_execution.py": "aaabac8b2c350333d19d816e3b0835fb72a18c7a2ca57adbe6fb91bfca691d79",
+    "scripts/verify_oeis_a231201_v2_final.py": "cbffa6c58049120ef1b20c2b344662d6a7e65a9c34cf77b4c2b31c154a706b50"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "schema": "oeis-a231201-contaminated-development-freeze-v2",
+  "classification": "CONTAMINATED_DEVELOPMENT",
+  "inherits_v1_manifest_sha256": "bed3cb25993017d044ecb8559a7f84125479f171ad1e1ff4057c4026f3614f2b",
+  "internal_seconds": 54,
+  "external_seconds": 60,
+  "external_kill_after_seconds": 6,
+  "finalization_reserve_seconds": 5,
+  "cp_slice_seconds": 12,
+  "cp_slices_per_construction": 3,
+  "construction_rounds": 3,
+  "assignment_slots_per_round": 1,
+  "resumable": false,
+  "seed": {"lo": 1, "hi": 4096},
+  "arms": ["COMPRESSED_SET_COVER_CP", "DETERMINISTIC_GREEDY_REPAIR", "SMALL_BASIS_CEGAR"],
+  "partition_cells": [{"a2":0,"a3":0},{"a2":0,"a3":1},{"a2":0,"a3":2},{"a2":1,"a3":0},{"a2":1,"a3":1},{"a2":1,"a3":2}],
+  "solver": {"package":"ortools","version":"9.15.6755","workers":1,"random_seed":0,"objective":null},
+  "small_basis": {"initial_rows":192,"growth_rows":64,"growth_every_rounds":4,"permutation":"sort x=1..4096 by (12-bit reversal of x-1, x)","salt":"A231201-v2-low-discrepancy-2026-08-14"},
+  "greedy": {"max_moves":20000,"perturbation_period":53},
+  "primes": [2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101,103,107,109,113,127,131,137,139,149,151,157,163,167,173,179,181,191,193,197,199,211,223,227,229,233,239,241,251,257],
+  "combined_period": "249728679334046128590697275594786190851950664265138725258656853072581268625525551538208526056090039506543200",
+  "source_locks": {"formal_conjectures_commit":"4010c1f1b811be0b0f95c9cf8bc084d72cea2a88","formal_conjectures_sha256":"3cfc75e1613477cd4087e6fe9406658e27981abc2c0834958a311e9551bc8fa1","oeis_repository_commit":"8872fa543438401edd424a57b67ad5e0737bebfb","oeis_source_sha256":"f32bbcf524babe35878ac88d69bfb6a048eed0b7e461b2b5738d6bc3e93df129","oeis_bfile_sha256":"5e4e34c5132b40f4666ed04000615b4d652a6af46c9a2ad5022c725d293e5ace","gate_exact_prefix":72,"gate_chunks":8},
+  "terminal_vocabularies": {
+    "construction":["PREREQUISITE_NOT_RUN","ASSIGNMENT_EMITTED","BASIS_INFEASIBLE_UNVERIFIED","CAP_EXHAUSTED_AFTER_ASSIGNMENTS","CAP_EXHAUSTED_NO_ASSIGNMENT","WORKER_ERROR"],
+    "adversary":["NOT_RUN","PREREQUISITE_NOT_RUN","COVER_FOUND_PENDING_VERIFY","UNCOVERED_CLASS","ADVERSARY_DEADLINE","WORKER_ERROR"],
+    "final":["NOT_RUN","PREREQUISITE_NOT_RUN","VERIFIED_COUNTEREXAMPLE","VERIFICATION_FAILED_UNCOVERED_CLASS","FINAL_VERIFIER_DEADLINE","WORKER_ERROR"]
+  },
+  "forbidden_statuses": ["NO_COMPLETE_COVER"]
+}
