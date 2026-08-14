@@ -172,6 +172,16 @@ fractions can therefore approach the wall but cannot cross it. This is a
 not a completed proof of the exact Lean declaration: source-to-definition and
 finite-cutoff bridge lemmas remain to be formalized.
 
+The subsequent joint A109908/A109909 DEVELOPMENT trial tested the equivalent
+quadratic-prime declarations through a compact finite-prefix cover rather than
+independent integer scans. After an initial dispatch failed closed before any
+shard ran, the superseding content-locked run passed its live race gate and
+exhausted all 16 frozen shards. Independent replay verified all 17 artifact
+bundles and all 22 admissible profiles: 15 ended at a composite escape and
+seven at a prime escape, with zero full covers, candidates, errors, or reached
+deadlines. This is a [bounded zero](results/expansion/live-search-2026-08-14/oeis-a109908-a109909-development/result.md),
+not a proof of either conjecture and not a release-worthy result.
+
 The executable rotation preceding A056777 was OEIS A231201, explicitly as a
 **contaminated DEVELOPMENT** continuation rather than a held-out trial. Both
 the exact predicate and the residue-cover idea had prior target-specific
