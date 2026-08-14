@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-operational-destructive-gap-acceptance-v1.5.schema.json",
+  "title": "Method v1.5 compiled destructive-gap acceptance",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema", "status", "committed_plan_sha256", "service_epoch_binding_sha256", "signing_key_id", "verification_key_sha256", "evidence_bundle_sha256", "tests", "evidence_sha256", "all_passed", "operational", "activation_permitted", "acceptance_sha256"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-operational-destructive-gap-acceptance-1.0"},
+    "status": {"enum": ["OPERATIONAL_DESTRUCTIVE_GAP_ACCEPTANCE_PASSED", "FIXTURE_DESTRUCTIVE_GAP_EVIDENCE_VERIFIED_NONOPERATIONAL"]},
+    "committed_plan_sha256": {"$ref": "#/definitions/sha256"},
+    "service_epoch_binding_sha256": {"$ref": "#/definitions/sha256"},
+    "signing_key_id": {"$ref": "#/definitions/id"},
+    "verification_key_sha256": {"$ref": "#/definitions/sha256"},
+    "evidence_bundle_sha256": {"$ref": "#/definitions/sha256"},
+    "tests": {"const": ["DESTRUCTIVE_WRITE", "TRUNCATION", "SERVICE_RESTART", "OFFLINE_GAP", "SEQUENCE_CONFLICT", "UNEXPECTED_INGRESS"]},
+    "evidence_sha256": {
+      "type": "object", "additionalProperties": false,
+      "required": ["DESTRUCTIVE_WRITE", "TRUNCATION", "SERVICE_RESTART", "OFFLINE_GAP", "SEQUENCE_CONFLICT", "UNEXPECTED_INGRESS"],
+      "properties": {
+        "DESTRUCTIVE_WRITE": {"$ref": "#/definitions/sha256"}, "TRUNCATION": {"$ref": "#/definitions/sha256"},
+        "SERVICE_RESTART": {"$ref": "#/definitions/sha256"}, "OFFLINE_GAP": {"$ref": "#/definitions/sha256"},
+        "SEQUENCE_CONFLICT": {"$ref": "#/definitions/sha256"}, "UNEXPECTED_INGRESS": {"$ref": "#/definitions/sha256"}
+      }
+    },
+    "all_passed": {"type": "boolean"}, "operational": {"type": "boolean"},
+    "activation_permitted": {"type": "boolean"}, "acceptance_sha256": {"$ref": "#/definitions/sha256"}
+  },
+  "allOf": [
+    {"if": {"properties": {"status": {"const": "OPERATIONAL_DESTRUCTIVE_GAP_ACCEPTANCE_PASSED"}}}, "then": {"properties": {"all_passed": {"const": true}, "operational": {"const": true}, "activation_permitted": {"const": true}}}},
+    {"if": {"properties": {"status": {"const": "FIXTURE_DESTRUCTIVE_GAP_EVIDENCE_VERIFIED_NONOPERATIONAL"}}}, "then": {"properties": {"operational": {"const": false}, "activation_permitted": {"const": false}}}}
+  ],
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"}
+  }
+}
