@@ -6,6 +6,7 @@ on:
 
 permissions:
   contents: write
+  id-token: write
 
 concurrency:
   group: method-v15-checkpoint-publication
@@ -74,11 +75,6 @@ jobs:
           expected_workflow=$(jq -er '.frozen.workflow_sha256' "$CONTRACT_PATH")
           actual_workflow=$(sha256sum .github/workflows/method-v15-checkpoint.yml | awk '{print $1}')
           test "$actual_workflow" = "$expected_workflow"
-          runner_path=$(jq -er '.runner.path' "$CONTRACT_PATH")
-          expected_runner=$(jq -er '.runner.sha256' "$CONTRACT_PATH")
-          test -f "$runner_path"
-          test "$(sha256sum "$runner_path" | awk '{print $1}')" = "$expected_runner"
-
           chain_proof="$RUNNER_TEMP/method-v15-public-chain-proof.json"
           python3 scripts/verify_benchmark_v15_public_checkpoint_chain.py \
             --repository "$GITHUB_WORKSPACE" --ref "$public_ref" \
@@ -113,54 +109,106 @@ jobs:
             echo "u1_receipt=$checkpoint_tree/$u1_path"
             echo "scheduled_for=$scheduled_for"
             echo "destination=$destination"
-            echo "runner_path=$runner_path"
             echo "chain_proof=$chain_proof"
             echo "chain_tip=$chain_tip"
             echo "checkpoint_mode=$checkpoint_mode"
           } >> "$GITHUB_OUTPUT"
 
-      - name: Produce one bounded checkpoint publication
+      - name: Request one bounded publication from the controlled harness
         if: steps.chain.outputs.terminal == 'false'
         shell: bash
         env:
-          U1_RECEIPT: ${{ steps.chain.outputs.u1_receipt }}
           SCHEDULED_FOR: ${{ steps.chain.outputs.scheduled_for }}
-          RUNNER_PATH: ${{ steps.chain.outputs.runner_path }}
-          EVENT_NAME: ${{ github.event_name }}
           RUN_ATTEMPT: ${{ github.run_attempt }}
           PUBLIC_CHAIN_PROOF: ${{ steps.chain.outputs.chain_proof }}
+          CHAIN_TIP: ${{ steps.chain.outputs.chain_tip }}
+          FROZEN_COMMIT: ${{ steps.chain.outputs.frozen_commit }}
           CHECKPOINT_MODE: ${{ steps.chain.outputs.checkpoint_mode }}
         run: |
           set -euo pipefail
           output="$RUNNER_TEMP/method-v15-publication"
           mkdir -p "$output"
-          args=(
-            --contract "$CONTRACT_PATH"
-            --u1-receipt "$U1_RECEIPT"
-            --scheduled-for-utc "$SCHEDULED_FOR"
-            --event-name "$EVENT_NAME"
-            --run-attempt "$RUN_ATTEMPT"
-            --public-chain-proof "$PUBLIC_CHAIN_PROOF"
-            --public-repository "$GITHUB_WORKSPACE"
-            --output "$output"
-          )
-          if [[ "$CHECKPOINT_MODE" = TERMINAL_CHRONOLOGY_GAP ]]; then
-            args+=(--terminal-chronology-gap)
-          elif [[ "$CHECKPOINT_MODE" = CAPTURE ]]; then
-            private_relative=$(jq -er '.runner.private_input.runner_temp_relative_path' "$CONTRACT_PATH")
-            private_input="$RUNNER_TEMP/$private_relative"
-            test -f "$private_input"
-            args+=(--private-input "$private_input")
-          else
+          if [[ "$CHECKPOINT_MODE" != CAPTURE && "$CHECKPOINT_MODE" != TERMINAL_CHRONOLOGY_GAP ]]; then
             echo 'Unrecognized frozen checkpoint mode.' >&2
             exit 2
           fi
-          if ! python3 "$RUNNER_PATH" "${args[@]}" \
-            >"$RUNNER_TEMP/method-v15-runner.stdout" \
-            2>"$RUNNER_TEMP/method-v15-runner.stderr"; then
-            echo 'The frozen checkpoint runner failed closed; private diagnostics were not published.' >&2
+
+          request="$RUNNER_TEMP/method-v15-target-blind-request.json"
+          python3 - "$PUBLIC_CHAIN_PROOF" "$request" <<'PY'
+          import json, os, sys
+          from pathlib import Path
+
+          proof = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
+          request = {
+              "schema": "c5k4-method-v1.5-target-blind-checkpoint-request-1.0",
+              "protocol_version": "1.5",
+              "scheduled_for_utc": os.environ["SCHEDULED_FOR"],
+              "mode": os.environ["CHECKPOINT_MODE"],
+              "public_chain_proof_sha256": proof["proof_sha256"],
+              "public_tip_commit": os.environ["CHAIN_TIP"],
+              "p1t_commit": os.environ["FROZEN_COMMIT"],
+              "workflow_run_id": os.environ["GITHUB_RUN_ID"],
+              "run_attempt": int(os.environ["RUN_ATTEMPT"]),
+          }
+          raw = (json.dumps(request, sort_keys=True, separators=(",", ":")) + "\n").encode()
+          Path(sys.argv[2]).write_bytes(raw)
+          PY
+          request_sha=$(sha256sum "$request" | awk '{print $1}')
+          harness_url=$(jq -er '.controlled_harness.https_endpoint' "$CONTRACT_PATH")
+          harness_pin=$(jq -er '.controlled_harness.tls_spki_sha256' "$CONTRACT_PATH")
+          audience_prefix=$(jq -er '.controlled_harness.oidc_audience_prefix' "$CONTRACT_PATH")
+          audience="${audience_prefix}:${request_sha}"
+          encoded_audience=$(python3 - "$audience" <<'PY'
+          import sys, urllib.parse
+          print(urllib.parse.quote(sys.argv[1], safe=""))
+          PY
+          )
+          oidc_response="$RUNNER_TEMP/method-v15-oidc-response.json"
+          curl --fail --silent --show-error \
+            -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+            "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=${encoded_audience}" \
+            -o "$oidc_response" 2>"$RUNNER_TEMP/method-v15-oidc.stderr"
+          oidc_token=$(jq -er '.value' "$oidc_response")
+          response="$RUNNER_TEMP/method-v15-bounded-response.json"
+          max_response_bytes=$(jq -er '.controlled_harness.max_response_bytes' "$CONTRACT_PATH")
+          max_response_seconds=$(jq -er '.controlled_harness.max_response_seconds' "$CONTRACT_PATH")
+          if ! curl --fail --silent --show-error --pinnedpubkey "$harness_pin" \
+            --max-filesize "$max_response_bytes" --max-time "$max_response_seconds" \
+            -H "Authorization: Bearer $oidc_token" \
+            -H 'Content-Type: application/json' \
+            -H "X-C5K4-Request-SHA256: $request_sha" \
+            --data-binary "@$request" "$harness_url" -o "$response" \
+            2>"$RUNNER_TEMP/method-v15-harness.stderr"; then
+            echo 'The controlled checkpoint harness failed closed; diagnostics were not published.' >&2
             exit 2
           fi
+          python3 - "$response" "$output" "$request_sha" <<'PY'
+          import json, sys
+          from pathlib import Path
+
+          response = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
+          names = ["publication-manifest.json", "quota-certificate.json", "receipt.json"]
+          if not isinstance(response, dict) or sorted(response) != sorted(names):
+              raise SystemExit("controlled harness response is not the exact bounded triplet")
+          forbidden = {"cluster_id", "declarations", "records", "statement", "statement_text", "target_identity"}
+          def check(value):
+              if isinstance(value, dict):
+                  if forbidden.intersection(value):
+                      raise SystemExit("controlled harness response contains target-bearing data")
+                  for child in value.values(): check(child)
+              elif isinstance(value, list):
+                  for child in value: check(child)
+          manifest = response["publication-manifest.json"]
+          if manifest.get("request_sha256") != sys.argv[3]:
+              raise SystemExit("bounded response is not bound to the signed request")
+          for name in names:
+              value = response[name]
+              check(value)
+              (Path(sys.argv[2]) / name).write_text(
+                  json.dumps(value, ensure_ascii=False, sort_keys=True, indent=2) + "\n",
+                  encoding="utf-8",
+              )
+          PY
 
       - name: Validate and append the bounded publication
         if: steps.chain.outputs.terminal == 'false'

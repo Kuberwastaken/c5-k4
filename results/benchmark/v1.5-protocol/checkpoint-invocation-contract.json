@@ -21,33 +21,43 @@
   "runner": {
     "path": "scripts/run_benchmark_v15_checkpoint.py",
     "sha256": null,
-    "invocation_contract": {
-      "common_required_arguments": [
-        "--contract",
-        "--u1-receipt",
-        "--scheduled-for-utc",
-        "--event-name",
-        "--run-attempt",
-        "--public-chain-proof",
-        "--public-repository",
-        "--output"
-      ],
-      "capture_required_argument": "--private-input",
-      "terminal_gap_required_argument": "--terminal-chronology-gap",
-      "capture_without_private_input_permitted": false,
-      "terminal_gap_with_private_input_permitted": false,
-      "unknown_arguments_permitted": false
-    },
-    "private_input": {
-      "schema_path": "schemas/benchmark-checkpoint-runner-private-input-v1.5.schema.json",
-      "schema_sha256": null,
-      "runner_temp_relative_path": "method-v15-private-input/private-input.json",
-      "path_source": "FROZEN_CAPTURE_ADAPTER_STAGING_ONLY",
-      "workflow_download_or_discovery_permitted": false,
-      "terminal_gap_read_permitted": false
-    },
+    "execution_location": "DEDICATED_CONTROLLED_HARNESS_ONLY",
+    "github_hosted_execution_permitted": false,
+    "github_hosted_private_input_permitted": false,
     "stdout_publication_permitted": false,
     "stderr_publication_permitted": false
+  },
+  "controlled_harness": {
+    "status": "PRE_P1_ENDPOINT_NOT_CONFIGURED",
+    "https_endpoint": null,
+    "tls_spki_sha256": null,
+    "authentication": "GITHUB_ACTIONS_OIDC_TOKEN",
+    "oidc_audience_prefix": null,
+    "request_schema": "c5k4-method-v1.5-target-blind-checkpoint-request-1.0",
+    "request_signature_binding": "OIDC_AUDIENCE_SUFFIX_IS_SHA256_OF_CANONICAL_REQUEST_BYTES",
+    "request_fields": [
+      "schema",
+      "protocol_version",
+      "scheduled_for_utc",
+      "mode",
+      "public_chain_proof_sha256",
+      "public_tip_commit",
+      "p1t_commit",
+      "workflow_run_id",
+      "run_attempt"
+    ],
+    "target_identities_permitted_in_request": false,
+    "statement_text_permitted_in_request": false,
+    "response_shape": "EXACT_THREE_FILE_JSON_OBJECT",
+    "response_files": [
+      "publication-manifest.json",
+      "quota-certificate.json",
+      "receipt.json"
+    ],
+    "response_manifest_must_bind_request_sha256": true,
+    "response_logs_permitted": false,
+    "max_response_bytes": 1048576,
+    "max_response_seconds": 300
   },
   "inputs": {
     "u1_receipt_path": "u1/chronology-receipt.json",
@@ -128,7 +138,9 @@
     "valid_u1_receipt_required": true,
     "workflow_sha256_required": true,
     "runner_sha256_required": true,
-    "private_input_schema_sha256_required": true,
+    "controlled_harness_endpoint_required": true,
+    "controlled_harness_tls_spki_pin_required": true,
+    "controlled_harness_oidc_audience_required": true,
     "all_bound_digest_values_required": true
   }
 }

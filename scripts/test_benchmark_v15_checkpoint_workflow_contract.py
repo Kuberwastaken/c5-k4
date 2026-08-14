@@ -36,6 +36,8 @@ def validate(workflow: Path, contract_path: Path, *, runtime: bool = False) -> N
             raise ValueError(f"forbidden workflow trigger: {forbidden}")
     if "group: method-v15-checkpoint-publication" not in text or "cancel-in-progress: false" not in text:
         raise ValueError("checkpoint publication is not serialized without cancellation")
+    if "contents: write" not in text or "id-token: write" not in text:
+        raise ValueError("scheduler lacks bounded publication or signed-request permission")
     runtime_gate = text.find("--runtime >/dev/null 2>&1")
     if runtime_gate < 0 or runtime_gate > text.find("git fetch --no-tags origin"):
         raise ValueError("pre-P1 silent fail-closed gate does not precede publication-chain access")
@@ -43,10 +45,11 @@ def validate(workflow: Path, contract_path: Path, *, runtime: bool = False) -> N
         "github.event_name", "github.run_attempt", "sha256sum .github/workflows/method-v15-checkpoint.yml",
         "git checkout --detach \"$frozen_commit\"", "git push --atomic origin \"HEAD:refs/heads/",
         "verify_benchmark_v15_public_checkpoint_chain.py",
-        "--public-chain-proof \"$PUBLIC_CHAIN_PROOF\"",
-        "TERMINAL_CHRONOLOGY_GAP", "--terminal-chronology-gap",
-        "elif [[ \"$CHECKPOINT_MODE\" = CAPTURE ]]", "args+=(--private-input \"$private_input\")",
-        "test -f \"$private_input\"",
+        "TERMINAL_CHRONOLOGY_GAP", "c5k4-method-v1.5-target-blind-checkpoint-request-1.0",
+        "ACTIONS_ID_TOKEN_REQUEST_TOKEN", "ACTIONS_ID_TOKEN_REQUEST_URL",
+        "X-C5K4-Request-SHA256", "--pinnedpubkey \"$harness_pin\"",
+        "--max-filesize \"$max_response_bytes\"", "--max-time \"$max_response_seconds\"",
+        "controlled harness response is not the exact bounded triplet",
         "jq -er '.next_checkpoint.scheduled_for_utc'",
         "test \"$(git rev-parse HEAD)\" = \"$CHAIN_TIP\"",
         "test ! -e \"$checkpoint_tree/$destination\"",
@@ -88,27 +91,40 @@ def validate(workflow: Path, contract_path: Path, *, runtime: bool = False) -> N
     runner = contract.get("runner", {})
     if runner.get("path") != "scripts/run_benchmark_v15_checkpoint.py":
         raise ValueError("runner path contract is not exact")
-    invocation = runner.get("invocation_contract", {})
-    if invocation.get("capture_required_argument") != "--private-input" or invocation.get("capture_without_private_input_permitted") is not False:
-        raise ValueError("CAPTURE does not require the private input argument")
-    if invocation.get("terminal_gap_required_argument") != "--terminal-chronology-gap" or invocation.get("terminal_gap_with_private_input_permitted") is not False:
-        raise ValueError("terminal gap does not forbid private input")
-    private_input = runner.get("private_input", {})
-    if private_input.get("schema_path") != "schemas/benchmark-checkpoint-runner-private-input-v1.5.schema.json":
-        raise ValueError("private-input schema path is not exact")
-    if private_input.get("runner_temp_relative_path") != "method-v15-private-input/private-input.json":
-        raise ValueError("private-input staging path is not exact")
-    if private_input.get("workflow_download_or_discovery_permitted") is not False or private_input.get("terminal_gap_read_permitted") is not False:
-        raise ValueError("private-input custody boundary is not fail-closed")
-    production = text.split("if [[ \"$CHECKPOINT_MODE\" = TERMINAL_CHRONOLOGY_GAP ]]", 1)
-    if len(production) != 2:
-        raise ValueError("workflow lacks the terminal/CAPTURE mode split")
-    terminal_body, capture_tail = production[1].split("elif [[ \"$CHECKPOINT_MODE\" = CAPTURE ]]", 1)
-    capture_body = capture_tail.split("else", 1)[0]
-    if "--private-input" in terminal_body or "private_input" in terminal_body:
-        raise ValueError("terminal gap receives or reads private input")
-    if "args+=(--private-input \"$private_input\")" not in capture_body:
-        raise ValueError("CAPTURE does not pass the private input")
+    if runner.get("execution_location") != "DEDICATED_CONTROLLED_HARNESS_ONLY" or runner.get("github_hosted_execution_permitted") is not False:
+        raise ValueError("checkpoint runner is not confined to the controlled harness")
+    if runner.get("github_hosted_private_input_permitted") is not False:
+        raise ValueError("GitHub-hosted execution permits private target-bearing input")
+    harness = contract.get("controlled_harness", {})
+    if harness.get("authentication") != "GITHUB_ACTIONS_OIDC_TOKEN":
+        raise ValueError("controlled harness request is not GitHub-signed")
+    if harness.get("request_signature_binding") != "OIDC_AUDIENCE_SUFFIX_IS_SHA256_OF_CANONICAL_REQUEST_BYTES":
+        raise ValueError("signed request is not bound to canonical request bytes")
+    if harness.get("target_identities_permitted_in_request") is not False or harness.get("statement_text_permitted_in_request") is not False:
+        raise ValueError("controlled-harness request is not target-blind")
+    if harness.get("response_shape") != "EXACT_THREE_FILE_JSON_OBJECT" or harness.get("response_files") != publication.get("files"):
+        raise ValueError("controlled harness response is not the exact publication triplet")
+    if harness.get("response_manifest_must_bind_request_sha256") is not True or harness.get("response_logs_permitted") is not False:
+        raise ValueError("controlled harness response is not request-bound and log-free")
+    if harness.get("max_response_bytes") != 1048576 or harness.get("max_response_seconds") != 300:
+        raise ValueError("controlled harness response is not bounded")
+    if harness.get("request_fields") != [
+        "schema", "protocol_version", "scheduled_for_utc", "mode",
+        "public_chain_proof_sha256", "public_tip_commit", "p1t_commit",
+        "workflow_run_id", "run_attempt",
+    ]:
+        raise ValueError("target-blind request shape is not exact")
+    forbidden_workflow_terms = ("--private-input", "private_input", "runner_temp_relative_path")
+    if any(term in text for term in forbidden_workflow_terms):
+        raise ValueError("GitHub-hosted workflow handles target-bearing private input")
+    if 'python3 "$RUNNER_PATH"' in text or 'python "$RUNNER_PATH"' in text:
+        raise ValueError("GitHub-hosted workflow executes the controlled-harness runner")
+    request_literal = text.split("          request = {", 1)
+    if len(request_literal) != 2:
+        raise ValueError("target-blind request literal is absent")
+    request_literal = request_literal[1].split("          }", 1)[0]
+    if any(term in request_literal for term in ("cluster_id", "declarations", "records", "statement_text", "target_identity")):
+        raise ValueError("signed scheduler request contains target-bearing data")
     certificate = contract.get("aggregate_certificate", {})
     if certificate.get("identity_rows_permitted") is not False or certificate.get("statement_text_permitted") is not False:
         raise ValueError("aggregate certificate permits target-bearing content")
@@ -132,10 +148,11 @@ def validate(workflow: Path, contract_path: Path, *, runtime: bool = False) -> N
             raise ValueError("active contract does not bind the exact workflow bytes")
         if not isinstance(runner_sha, str) or HEX64.fullmatch(runner_sha) is None:
             raise ValueError("active contract does not bind the checkpoint runner")
-        private_schema_sha = private_input.get("schema_sha256")
-        private_schema_path = ROOT / private_input["schema_path"]
-        if not isinstance(private_schema_sha, str) or HEX64.fullmatch(private_schema_sha) is None or digest(private_schema_path) != private_schema_sha:
-            raise ValueError("active contract does not bind the private-input schema")
+        for key in ("https_endpoint", "tls_spki_sha256", "oidc_audience_prefix"):
+            if not isinstance(harness.get(key), str) or not harness[key]:
+                raise ValueError("active contract does not bind the controlled harness")
+        if not harness["https_endpoint"].startswith("https://") or not harness["tls_spki_sha256"].startswith("sha256//"):
+            raise ValueError("active controlled harness transport is not HTTPS and SPKI-pinned")
     elif runtime:
         raise ValueError("pre-P1 checkpoint scaffold is intentionally non-executable")
 
@@ -201,27 +218,36 @@ class WorkflowContractMutationTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "exact workflow bytes"):
                 validate(workflow, contract_path)
 
-    def test_capture_private_input_argument_is_required(self) -> None:
+    def test_github_workflow_cannot_stage_private_input(self) -> None:
         temporary, workflow, contract = self.fixture()
         with temporary:
             workflow.write_text(
-                workflow.read_text(encoding="utf-8").replace(
-                    "            args+=(--private-input \"$private_input\")\n", "", 1
-                ), encoding="utf-8",
+                workflow.read_text(encoding="utf-8") + "\n# --private-input secret\n",
+                encoding="utf-8",
             )
-            with self.assertRaisesRegex(ValueError, "missing required frozen behavior|does not pass"):
+            with self.assertRaisesRegex(ValueError, "target-bearing private input"):
                 validate(workflow, contract)
 
-    def test_terminal_gap_cannot_receive_private_input(self) -> None:
+    def test_unsigned_harness_request_is_rejected(self) -> None:
+        temporary, workflow, contract = self.fixture()
+        with temporary:
+            value = json.loads(contract.read_text(encoding="utf-8"))
+            value["controlled_harness"]["authentication"] = "NONE"
+            contract.write_text(json.dumps(value), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "not GitHub-signed"):
+                validate(workflow, contract)
+
+    def test_target_identity_cannot_enter_signed_request(self) -> None:
         temporary, workflow, contract = self.fixture()
         with temporary:
             workflow.write_text(
                 workflow.read_text(encoding="utf-8").replace(
-                    "            args+=(--terminal-chronology-gap)\n",
-                    "            args+=(--terminal-chronology-gap --private-input secret)\n", 1,
+                    '              "protocol_version": "1.5",\n',
+                    '              "protocol_version": "1.5",\n              "cluster_id": "secret",\n',
+                    1,
                 ), encoding="utf-8",
             )
-            with self.assertRaisesRegex(ValueError, "terminal gap receives"):
+            with self.assertRaisesRegex(ValueError, "signed scheduler request contains"):
                 validate(workflow, contract)
 
 
