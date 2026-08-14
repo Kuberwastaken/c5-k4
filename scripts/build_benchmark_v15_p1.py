@@ -234,7 +234,26 @@ NATIVE_COMPONENTS = (
     "p1r_publication_observer_validator_contract_test",
     "c0_observer_workflow",
     "c0_observer_workflow_contract_test",
+    "c0_publication_verifier",
+    "c0_publication_verifier_contract_test",
+    "c0_publication_observation_schema",
+    "c0_pass_pool_replay_input_schema",
 )
+
+# Security-critical C0 roles are path-frozen as well as digest-frozen.  This
+# prevents a caller from satisfying the closed role names with an alternate
+# verifier, schema, workflow, or test at P1 assembly time.
+EXACT_NATIVE_PATHS = {
+    "c0_v15_builder": "scripts/build_benchmark_v15_c0.py",
+    "c0_v15_schema": "schemas/benchmark-v1.5-c0.schema.json",
+    "c0_v15_builder_contract_test": "scripts/test_build_benchmark_v15_c0.py",
+    "c0_observer_workflow": ".github/workflows/method-v15-c0a-publication-observer.yml",
+    "c0_observer_workflow_contract_test": "scripts/test_verify_benchmark_v15_c0_publication.py",
+    "c0_publication_verifier": "scripts/verify_benchmark_v15_c0_publication.py",
+    "c0_publication_verifier_contract_test": "scripts/test_verify_benchmark_v15_c0_publication.py",
+    "c0_publication_observation_schema": "schemas/benchmark-c0-publication-observation-v1.5.schema.json",
+    "c0_pass_pool_replay_input_schema": "schemas/benchmark-c0-pass-pool-replay-input-v1.5.schema.json",
+}
 
 # The assembler selects these records from the authenticated P0A.  A caller
 # cannot supply, replace, or hand-copy their digests.  These are the scientific
@@ -399,6 +418,9 @@ def repo_relative(path: Path, *, role: str) -> str:
 def file_digest(value: Any, *, role: str) -> dict[str, str]:
     if not isinstance(value, dict) or set(value) != {"path", "sha256"}:
         raise P1Error(f"{role} must contain exactly path and sha256")
+    expected_path = EXACT_NATIVE_PATHS.get(role)
+    if expected_path is not None and value.get("path") != expected_path:
+        raise P1Error(f"{role} must use exact tracked path {expected_path!r}")
     path = repo_path(value["path"])
     expected = value["sha256"]
     if not isinstance(expected, str) or HEX_SHA256.fullmatch(expected) is None:

@@ -59,6 +59,9 @@ class P1Tests(unittest.TestCase):
                 "path": "_test_fixture/" + path.relative_to(self.root).as_posix(),
                 "sha256": P1.sha256_file(path),
             }
+        for role, recorded in P1.EXACT_NATIVE_PATHS.items():
+            actual = P1.ROOT / recorded
+            self.refs[role] = {"path": recorded, "sha256": P1.sha256_file(actual)}
         self.config = {
             "schema_version": P1.CONFIG_VERSION,
             "authority": "AUTHORITATIVE_P1",
@@ -227,6 +230,8 @@ class P1Tests(unittest.TestCase):
             "p1t_publication_observer_validator_contract_test", "p1r_publication_observer_workflow",
             "p1r_publication_observer_workflow_contract_test", "p1r_publication_observer_validator",
             "p1r_publication_observer_validator_contract_test", "c0_observer_workflow", "c0_observer_workflow_contract_test",
+            "c0_publication_verifier", "c0_publication_verifier_contract_test",
+            "c0_publication_observation_schema", "c0_pass_pool_replay_input_schema",
         }
         self.assertLessEqual(required, set(P1.NATIVE_COMPONENTS))
         p1a = self.build()

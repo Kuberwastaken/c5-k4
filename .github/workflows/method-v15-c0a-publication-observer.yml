@@ -1,0 +1,40 @@
+name: Method v1.5 C0A publication observer
+
+on:
+  push:
+    branches:
+      - method-v1.5-c0
+    paths:
+      - results/benchmark/v1.5-protocol/C0A.json
+
+permissions:
+  contents: read
+
+jobs:
+  observe-exact-c0a-publication:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 2
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12.9'
+      - name: Install pinned schema verifier dependencies
+        shell: bash
+        run: |
+          python -m pip install --disable-pip-version-check \
+            attrs==24.2.0 \
+            jsonschema==3.2.0 \
+            pyrsistent==0.20.0 \
+            setuptools==75.8.0 \
+            six==1.16.0
+      - name: Validate exact target-blind C0A push without minting a receipt
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_RUN_ATTEMPT" = "1"
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          python3 scripts/verify_benchmark_v15_c0_publication.py observe-c0a \
+            --commit "$GITHUB_SHA"

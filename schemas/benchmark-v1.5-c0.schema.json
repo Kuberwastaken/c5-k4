@@ -47,7 +47,7 @@
         "repository": {"const": "https://github.com/Kuberwastaken/c5-k4"},
         "ref": {"const": "refs/heads/method-v1.5-c0"},
         "terminal_u2_commit": {"$ref": "#/definitions/gitOid"},
-        "c0a_path": {"$ref": "#/definitions/path"}, "c0t_path": {"$ref": "#/definitions/path"},
+        "c0a_path": {"const": "results/benchmark/v1.5-protocol/C0A.json"}, "c0t_path": {"const": "results/benchmark/v1.5-protocol/C0T.json"},
         "c0a_change": {"const": "ADD_EXACTLY_ONE_C0A_PATH"},
         "c0t_change": {"const": "ADD_EXACTLY_ONE_C0T_PATH"},
         "merge_commits_permitted": {"const": false}
@@ -146,14 +146,14 @@
         },
         "randomness_contract": {"$ref": "#/definitions/randomnessContract"},
         "publication_topology": {"$ref": "#/definitions/topologyPlan"},
-        "publication_observation": {"$ref": "#/definitions/observation"},
+        "publication_observation": {"$ref": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-c0-publication-observation-v1.5.schema.json"},
         "attestation_policy": {
           "type": "object", "additionalProperties": false,
           "required": ["c0a_direct_parent_required", "nonmerge_required", "c0a_bytes_immutable", "allowed_c0t_changed_paths"],
           "properties": {
             "c0a_direct_parent_required": {"const": true}, "nonmerge_required": {"const": true},
             "c0a_bytes_immutable": {"const": true},
-            "allowed_c0t_changed_paths": {"type": "array", "minItems": 1, "maxItems": 1, "items": {"$ref": "#/definitions/path"}}
+            "allowed_c0t_changed_paths": {"const": ["results/benchmark/v1.5-protocol/C0T.json"]}
           }
         },
         "publication_boundary": {"$ref": "#/definitions/boundary"},

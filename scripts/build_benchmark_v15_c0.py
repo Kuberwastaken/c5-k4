@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
-"""Compile Method v1.5 C0A/C0T without exposing targets or fetching entropy.
+"""Compile Method v1.5 C0A and provide canonical C0 structure helpers.
 
 C0A is deliberately non-authoritative.  It is assembled only after replaying
 the complete pass-pool source gate and embeds that canonical object verbatim.
-C0T additionally requires a direct GitHub Actions API observation of the C0A
-push; caller-authored observation files and timestamps are not accepted.
+C0T public authority is intentionally delegated to the strict repository-only
+adapter in ``verify_benchmark_v15_c0_publication.py``.  The compatibility
+functions here are exercised by unit tests but the CLI cannot mint or accept a
+C0T without that adapter's run-listing, public-ref, source-replay, and exact
+commit gates.
 """
 
 from __future__ import annotations
@@ -13,16 +16,14 @@ import argparse
 import copy
 import hashlib
 import json
-import os
 import re
 import subprocess
 import sys
-import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path, PurePosixPath
 from typing import Any, Callable
 
-from jsonschema import Draft7Validator, FormatChecker
+from jsonschema import Draft7Validator, FormatChecker, RefResolver
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import build_benchmark_v15_pass_pool as pass_pool  # noqa: E402
@@ -30,7 +31,9 @@ import build_benchmark_v15_pass_pool as pass_pool  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = ROOT / "schemas/benchmark-v1.5-c0.schema.json"
+OBSERVATION_SCHEMA_PATH = ROOT / "schemas/benchmark-c0-publication-observation-v1.5.schema.json"
 SCHEMA = "c5k4-method-v1.5-c0-1.0"
+OBSERVATION_SCHEMA = "c5k4-method-v1.5-c0a-publication-observation-1.0"
 REPOSITORY = "https://github.com/Kuberwastaken/c5-k4"
 REPOSITORY_SLUG = "Kuberwastaken/c5-k4"
 PUBLICATION_REF = "refs/heads/method-v1.5-c0"
@@ -47,6 +50,8 @@ FORBIDDEN_KEYS = {
 ApiFetch = Callable[[str], bytes]
 ActivationVerifier = Callable[[dict[str, Any]], dict[str, Any]]
 P1R_PATH = "results/benchmark/v1.5-protocol/P1R.json"
+C0A_PATH = "results/benchmark/v1.5-protocol/C0A.json"
+C0T_PATH = "results/benchmark/v1.5-protocol/C0T.json"
 
 
 class C0Error(ValueError):
@@ -65,6 +70,12 @@ def artifact_digest(value: dict[str, Any]) -> str:
     unsigned = copy.deepcopy(value)
     unsigned.pop("artifact_sha256", None)
     return sha256_bytes(canonical_json(unsigned))
+
+
+def observation_digest(value: dict[str, Any]) -> str:
+    unsigned = copy.deepcopy(value)
+    unsigned.pop("receipt_sha256", None)
+    return sha256_bytes(OBSERVATION_SCHEMA.encode("ascii") + b"\0" + canonical_json(unsigned))
 
 
 def _strict_pairs(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
@@ -95,8 +106,10 @@ def load_json(path: Path, label: str) -> dict[str, Any]:
 
 def schema_validate(value: dict[str, Any]) -> None:
     schema = load_json(SCHEMA_PATH, "C0 schema")
+    observation_schema = load_json(OBSERVATION_SCHEMA_PATH, "C0 observation schema")
+    resolver = RefResolver.from_schema(schema, store={observation_schema["$id"]: observation_schema})
     errors = sorted(
-        Draft7Validator(schema, format_checker=FormatChecker()).iter_errors(value),
+        Draft7Validator(schema, resolver=resolver, format_checker=FormatChecker()).iter_errors(value),
         key=lambda error: list(error.absolute_path),
     )
     if errors:
@@ -318,102 +331,23 @@ def validate_c0a_commit(c0a: dict[str, Any], c0a_commit: str, artifact_path: Pat
         raise C0Error("committed C0A bytes differ from the supplied artifact")
 
 
-def live_github_fetch(url: str) -> bytes:
-    headers = {"Accept": "application/vnd.github+json", "User-Agent": "c5k4-method-v1.5-c0"}
-    token = os.environ.get("GITHUB_TOKEN")
-    if token:
-        headers["Authorization"] = f"Bearer {token}"
-    request = urllib.request.Request(url, headers=headers)
-    try:
-        with urllib.request.urlopen(request, timeout=30) as response:
-            raw = response.read(2_000_001)
-    except OSError as exc:
-        raise C0Error(f"live GitHub Actions observation failed: {exc}") from exc
-    if len(raw) > 2_000_000:
-        raise C0Error("GitHub Actions run response exceeds the frozen size cap")
-    return raw
-
-
 def authenticate_run(
     raw: bytes, *, run_id: int, c0a: dict[str, Any], c0a_commit: str,
 ) -> dict[str, Any]:
-    run = strict_json(raw, "GitHub Actions run response")
-    workflow_path = c0a["workflow_binding"]["path"]
-    run_path = run.get("path")
-    if isinstance(run_path, str):
-        run_path = run_path.split("@", 1)[0]
-    repository = run.get("repository")
-    repository_name = repository.get("full_name") if isinstance(repository, dict) else None
-    expected = {
-        "id": run_id, "event": "push", "status": "completed", "conclusion": "success",
-        "head_sha": c0a_commit, "head_branch": PUBLICATION_BRANCH,
-    }
-    for key, wanted in expected.items():
-        if run.get(key) != wanted:
-            raise C0Error(f"GitHub Actions run {key} does not match C0A publication")
-    if repository_name != REPOSITORY_SLUG or run_path != workflow_path:
-        raise C0Error("GitHub Actions run repository/workflow does not match the frozen binding")
-    started = run.get("run_started_at")
-    completed = run.get("updated_at")
-    start_time = parse_time(started, "GitHub server run start")
-    complete_time = parse_time(completed, "GitHub server run completion")
-    if start_time > complete_time:
-        raise C0Error("GitHub server run completion precedes its start")
-    if complete_time >= parse_time(c0a["randomness_contract"]["round_closes_at_utc"], "drand round close"):
-        raise C0Error("GitHub Actions completion must precede drand close")
-    workflow_raw = commit_file(c0a_commit, workflow_path)
-    workflow_sha = sha256_bytes(workflow_raw)
-    if workflow_sha != c0a["workflow_binding"]["sha256"]:
-        raise C0Error("committed GitHub Actions workflow differs from C0A binding")
-    return {
-        "source": "GITHUB_ACTIONS_PUSH_RUN_OBSERVATION", "authority": "LIVE_GITHUB_API_FETCH",
-        "repository": REPOSITORY_SLUG, "event": "push", "status": "completed", "conclusion": "success",
-        "run_id": run_id, "head_sha": c0a_commit, "head_branch": PUBLICATION_BRANCH,
-        "workflow": {"path": workflow_path, "committed_sha256": workflow_sha},
-        "github_server_started_at_utc": started, "github_server_completed_at_utc": completed,
-        "captured_run_object_sha256": sha256_bytes(raw),
-    }
+    raise C0Error(
+        "weak single-run authentication is forbidden; use "
+        "scripts/verify_benchmark_v15_c0_publication.py"
+    )
 
 
 def assemble_c0t(
-    c0a_path: Path, c0a_commit: str, run_id: int, *, api_fetch: ApiFetch = live_github_fetch,
+    c0a_path: Path, c0a_commit: str, run_id: int, *, api_fetch: ApiFetch | None = None,
     activation_verifier: ActivationVerifier | None = None,
 ) -> dict[str, Any]:
-    c0a = load_json(c0a_path, "C0A")
-    validate_c0a_commit(c0a, c0a_commit, c0a_path)
-    p1_activation = _require_p1_activation(c0a["pass_pool"], activation_verifier)
-    if p1_activation != c0a["p1_activation"]:
-        raise C0Error("C0A binds a different public P1R activation boundary")
-    url = f"https://api.github.com/repos/{REPOSITORY_SLUG}/actions/runs/{run_id}"
-    raw = api_fetch(url)
-    observation = authenticate_run(raw, run_id=run_id, c0a=c0a, c0a_commit=c0a_commit)
-    topology = copy.deepcopy(c0a["publication_topology"])
-    c0t = {
-        "schema": SCHEMA, "artifact_kind": "C0T", "protocol_version": "1.5",
-        "status": "C0_FROZEN_PRE_ENTROPY_ATTESTED", "authority": "LIVE_GITHUB_ACTIONS_OBSERVATION",
-        "c0a": {
-            "path": c0a_path.resolve().relative_to(ROOT).as_posix(),
-            "sha256": sha256_bytes(c0a_path.read_bytes()),
-        },
-        "c0a_commit": c0a_commit,
-        "p1_activation": copy.deepcopy(p1_activation),
-        "pass_pool_binding": {
-            "canonical_object_sha256": c0a["pass_pool_binding"]["canonical_object_sha256"],
-            "pool_sha256": c0a["pass_pool_binding"]["pool_sha256"], "pass_pool_bound": True,
-        },
-        "randomness_contract": copy.deepcopy(c0a["randomness_contract"]),
-        "publication_topology": topology, "publication_observation": observation,
-        "attestation_policy": {
-            "c0a_direct_parent_required": True, "nonmerge_required": True,
-            "c0a_bytes_immutable": True, "allowed_c0t_changed_paths": [topology["c0t_path"]],
-        },
-        "publication_boundary": _boundary(),
-    }
-    c0t["artifact_sha256"] = artifact_digest(c0t)
-    validate_c0t(
-        c0t, observed_run_raw=raw, activation_verifier=activation_verifier,
+    raise C0Error(
+        "C0T compilation requires the strict repository/run-list/rules/ancestry adapter: "
+        "scripts/verify_benchmark_v15_c0_publication.py compile-c0t"
     )
-    return c0t
 
 
 def _require_p1_activation(
@@ -454,56 +388,14 @@ def _require_p1_activation(
 
 def validate_c0t(
     value: dict[str, Any], *, observed_run_raw: bytes | None = None,
-    api_fetch: ApiFetch = live_github_fetch, c0t_commit: str | None = None,
+    api_fetch: ApiFetch | None = None, c0t_commit: str | None = None,
     artifact_path: Path | None = None,
     activation_verifier: ActivationVerifier | None = None,
 ) -> None:
-    schema_validate(value)
-    if value.get("artifact_kind") != "C0T":
-        raise C0Error("expected C0T")
-    if value.get("artifact_sha256") != artifact_digest(value):
-        raise C0Error("C0T self-digest is invalid")
-    _scan_forbidden(value)
-    c0a_raw = commit_file(value["c0a_commit"], value["c0a"]["path"])
-    if sha256_bytes(c0a_raw) != value["c0a"]["sha256"]:
-        raise C0Error("C0T does not authenticate exact committed C0A bytes")
-    c0a = strict_json(c0a_raw, "committed C0A")
-    validate_c0a(c0a)
-    p1_activation = _require_p1_activation(c0a["pass_pool"], activation_verifier)
-    if p1_activation != c0a["p1_activation"] or value["p1_activation"] != p1_activation:
-        raise C0Error("C0T does not preserve the authenticated public P1R boundary")
-    if (
-        value["pass_pool_binding"] != {
-            "canonical_object_sha256": c0a["pass_pool_binding"]["canonical_object_sha256"],
-            "pool_sha256": c0a["pass_pool_binding"]["pool_sha256"], "pass_pool_bound": True,
-        }
-        or value["randomness_contract"] != c0a["randomness_contract"]
-        or value["publication_topology"] != c0a["publication_topology"]
-    ):
-        raise C0Error("C0T changed the C0A pool, randomness, or topology binding")
-    observation = value["publication_observation"]
-    if observed_run_raw is None:
-        url = f"https://api.github.com/repos/{REPOSITORY_SLUG}/actions/runs/{observation['run_id']}"
-        observed_run_raw = api_fetch(url)
-    expected_observation = authenticate_run(
-        observed_run_raw, run_id=observation["run_id"], c0a=c0a, c0a_commit=value["c0a_commit"],
+    raise C0Error(
+        "commit-optional C0T validation is forbidden; use "
+        "scripts/verify_benchmark_v15_c0_publication.py verify-c0t --commit <exact-oid>"
     )
-    if observation != expected_observation:
-        raise C0Error("C0T publication observation differs from direct GitHub API replay")
-    if c0t_commit is None:
-        return
-    if artifact_path is None:
-        raise C0Error("committed C0T validation requires its artifact path")
-    exact_commit(c0t_commit)
-    if parents(c0t_commit) != [value["c0a_commit"]]:
-        raise C0Error("C0T must be a direct nonmerge child of C0A")
-    c0t_path = artifact_path.resolve().relative_to(ROOT).as_posix()
-    if c0t_path != value["publication_topology"]["c0t_path"]:
-        raise C0Error("C0T file path differs from frozen topology")
-    if changed_paths(c0t_commit) != [c0t_path]:
-        raise C0Error("C0T commit must add exactly its one frozen path")
-    if commit_file(c0t_commit, c0t_path) != artifact_path.read_bytes():
-        raise C0Error("committed C0T bytes differ from supplied artifact")
 
 
 def write_json(path: Path, value: dict[str, Any]) -> None:
@@ -562,14 +454,15 @@ def main() -> int:
             )
             write_json(args.output.resolve(), value)
         elif args.command == "build-c0t":
-            value = assemble_c0t(
-                args.c0a.resolve(), args.c0a_commit, args.github_actions_run_id,
+            raise C0Error(
+                "C0T authority requires scripts/verify_benchmark_v15_c0_publication.py compile-c0t"
             )
-            write_json(args.output.resolve(), value)
         elif args.command == "validate-c0a":
             validate_c0a(load_json(args.c0a.resolve(), "C0A"))
         else:
-            validate_c0t(load_json(args.c0t.resolve(), "C0T"))
+            raise C0Error(
+                "C0T authority requires scripts/verify_benchmark_v15_c0_publication.py verify-c0t"
+            )
     except (OSError, C0Error) as exc:
         print(f"INVALID_C0: {exc}", file=sys.stderr)
         return 2

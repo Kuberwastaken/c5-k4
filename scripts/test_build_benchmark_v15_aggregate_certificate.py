@@ -400,6 +400,14 @@ class AggregateCertificateTests(unittest.TestCase):
     def test_selector_manifest_resolves_only_authenticated_p1_roles(self) -> None:
         manifest_path = A.ROOT / "results/benchmark/v1.5-protocol/checkpoint-component-manifest.json"
         native_paths = {
+            "c0_v15_builder": "scripts/build_benchmark_v15_c0.py",
+            "c0_v15_schema": "schemas/benchmark-v1.5-c0.schema.json",
+            "c0_publication_observation_schema": "schemas/benchmark-c0-publication-observation-v1.5.schema.json",
+            "c0_pass_pool_replay_input_schema": "schemas/benchmark-c0-pass-pool-replay-input-v1.5.schema.json",
+            "c0_publication_verifier": "scripts/verify_benchmark_v15_c0_publication.py",
+            "c0_publication_verifier_contract_test": "scripts/test_verify_benchmark_v15_c0_publication.py",
+            "c0_observer_workflow": ".github/workflows/method-v15-c0a-publication-observer.yml",
+            "c0_observer_workflow_contract_test": "scripts/test_verify_benchmark_v15_c0_publication.py",
             "arm_capability_matrix": "results/benchmark/v1.5-protocol/arm-capability-matrix.json",
             "arm_capability_matrix_schema": "schemas/benchmark-arm-capability-matrix-v1.5.schema.json",
             "arm_execution_envelope_schema": "schemas/benchmark-execution-envelope-v1.5.schema.json",

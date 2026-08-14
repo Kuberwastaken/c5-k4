@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-c0-pass-pool-replay-input-v1.5.schema.json",
+  "title": "Method v1.5 exact C0 pass-pool replay input",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "protocol_version", "producer", "private_registry", "aggregate_certificate", "replay_attestation", "pass_receipt", "prior_public_chain_proof", "pass_public_chain_proof", "p1a", "p1t", "p1r", "validation_input", "public_repository"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-c0-pass-pool-replay-input-1.0"},
+    "protocol_version": {"const": "1.5"},
+    "producer": {"allOf": [{"$ref": "#/definitions/file"}, {"properties": {"path": {"const": "scripts/build_benchmark_v15_pass_pool.py"}}}]},
+    "private_registry": {"$ref": "#/definitions/file"}, "aggregate_certificate": {"$ref": "#/definitions/file"},
+    "replay_attestation": {"$ref": "#/definitions/file"}, "pass_receipt": {"$ref": "#/definitions/file"},
+    "prior_public_chain_proof": {"$ref": "#/definitions/file"}, "pass_public_chain_proof": {"$ref": "#/definitions/file"},
+    "p1a": {"$ref": "#/definitions/file"}, "p1t": {"$ref": "#/definitions/file"}, "p1r": {"$ref": "#/definitions/file"},
+    "validation_input": {"$ref": "#/definitions/file"},
+    "public_repository": {"type": "string", "minLength": 1}
+  },
+  "definitions": {
+    "file": {
+      "type": "object", "additionalProperties": false, "required": ["path", "sha256"],
+      "properties": {"path": {"type": "string", "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[^\\u0000]+$"}, "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+    }
+  }
+}

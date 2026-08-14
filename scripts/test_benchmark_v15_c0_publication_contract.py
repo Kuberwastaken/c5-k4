@@ -31,6 +31,10 @@ class ContractTests(unittest.TestCase):
         self.assertFalse(self.contract["c0_authority_available"])
         self.assertFalse(self.contract["planned_c0t"]["current_artifact_permitted"])
         self.assertFalse(self.contract["planned_c0a"]["may_claim_frozen"])
+        self.assertIn(
+            "AUTHENTICATED_C0_BRANCH_NO_DELETE_AND_NO_FORCE_PUSH_RULES_NOT_PRESENT",
+            self.contract["current_blockers"],
+        )
 
     def test_pass_pool_gate_precedes_every_c0_artifact(self) -> None:
         lifecycle = self.contract["required_lifecycle"]
@@ -61,9 +65,24 @@ class ContractTests(unittest.TestCase):
         self.assertIn("AUTHENTICATE_PUBLIC_P1R_ACTIVATION_BOUNDARY", self.contract["required_lifecycle"])
         self.assertTrue(self.contract["prohibited"]["bare_p1t_as_activation_authority"])
         observation = self.contract["publication_observation"]
-        self.assertEqual(observation["source"], "GITHUB_ACTIONS_PUSH_RUN_OBSERVATION")
+        self.assertEqual(observation["source"], "GITHUB_ACTIONS_RUN_LISTING_AND_REF_REPLAY")
         self.assertFalse(observation["caller_supplied_timestamp_is_authority"])
+        self.assertFalse(observation["caller_selected_run_is_authority"])
+        self.assertTrue(observation["authenticated_live_observer_required"])
+        self.assertNotIn("live_or_injected_authenticated_observer_required", observation)
         self.assertTrue(observation["completion_must_precede_drand_close"])
+        self.assertTrue(observation["unique_exact_head_run_required"])
+        self.assertTrue(observation["exact_head_sha_global_query_required"])
+        self.assertTrue(observation["all_run_listing_pages_required"])
+        self.assertTrue(observation["current_public_ref_exact_tip_required"])
+        self.assertEqual(observation["pinned_github_api_version"], "2022-11-28")
+        self.assertTrue(observation["frozen_repository_numeric_identity_required"])
+        self.assertTrue(observation["effective_no_delete_rule_required"])
+        self.assertTrue(observation["effective_no_force_push_rule_required"])
+        self.assertTrue(observation["canonical_full_projection_digests_required"])
+        self.assertTrue(observation["github_compare_ancestry_audit_required"])
+        self.assertTrue(observation["independent_pass_pool_replay_required"])
+        self.assertTrue(observation["c0t_commit_verification_mandatory"])
 
     def test_authority_cannot_be_enabled_by_editing_one_flag(self) -> None:
         bad = copy.deepcopy(self.contract)

@@ -1,14 +1,15 @@
 {
   "schema": "c5k4-method-v1.5-c0-publication-contract-1.0",
   "protocol_version": "1.5",
-  "status": "BLOCKED_AWAITING_P1R_VERIFIER_AND_C0_OBSERVER",
+  "status": "READY_FAIL_CLOSED_AWAITING_EXACT_UPSTREAM_AND_PUBLICATION",
   "c0_authority_available": false,
   "current_blockers": [
-    "PUBLIC_P1R_SCHEMA_NOT_FROZEN",
-    "PUBLIC_P1R_VERIFIER_NOT_FROZEN",
-    "PUBLIC_P1R_VERIFIER_CONTRACT_TEST_NOT_FROZEN",
-    "C0_GITHUB_ACTIONS_OBSERVER_NOT_FROZEN",
-    "C0_GITHUB_ACTIONS_OBSERVER_CONTRACT_TEST_NOT_FROZEN"
+    "EXACT_P1R_ACTIVATION_RECEIPT_NOT_PRESENT",
+    "EXACT_U1_U2_PASS_POOL_REPLAY_INPUT_NOT_PRESENT",
+    "AUTHENTICATED_C0_BRANCH_NO_DELETE_AND_NO_FORCE_PUSH_RULES_NOT_PRESENT",
+    "EXACT_C0A_COMMIT_NOT_PRESENT",
+    "UNIQUE_FIRST_ATTEMPT_C0A_OBSERVER_RUN_NOT_PRESENT",
+    "EXACT_C0T_COMMIT_NOT_PRESENT"
   ],
   "required_lifecycle": [
     "AUTHENTICATE_PUBLISHED_P1_ROLE_CLOSURE",
@@ -79,7 +80,7 @@
     "merge_commits_permitted": false
   },
   "publication_observation": {
-    "source": "GITHUB_ACTIONS_PUSH_RUN_OBSERVATION",
+    "source": "GITHUB_ACTIONS_RUN_LISTING_AND_REF_REPLAY",
     "event": "push",
     "required_conclusion": "success",
     "head_sha_must_equal_c0a_commit": true,
@@ -89,7 +90,22 @@
     "captured_run_object_sha256_required": true,
     "completion_must_precede_drand_close": true,
     "caller_supplied_timestamp_is_authority": false,
-    "live_or_injected_authenticated_observer_required": true
+    "authenticated_live_observer_required": true,
+    "workflow_run_listing_required": true,
+    "unique_exact_head_run_required": true,
+    "exact_head_sha_global_query_required": true,
+    "all_run_listing_pages_required": true,
+    "first_attempt_required": true,
+    "current_public_ref_exact_tip_required": true,
+    "pinned_github_api_version": "2022-11-28",
+    "frozen_repository_numeric_identity_required": true,
+    "effective_no_delete_rule_required": true,
+    "effective_no_force_push_rule_required": true,
+    "canonical_full_projection_digests_required": true,
+    "github_compare_ancestry_audit_required": true,
+    "independent_pass_pool_replay_required": true,
+    "c0t_commit_verification_mandatory": true,
+    "caller_selected_run_is_authority": false
   },
   "prohibited": {
     "legacy_v1_4_p0_s0_authority": true,
@@ -115,6 +131,10 @@
     "v15_c0_schema",
     "v15_c0_bridge_contract_test",
     "v15_c0_github_actions_observer",
-    "v15_c0_github_actions_observer_contract_test"
+    "v15_c0_github_actions_observer_contract_test",
+    "v15_c0_publication_observation_schema",
+    "v15_c0_pass_pool_replay_input_schema",
+    "v15_c0_publication_verifier",
+    "v15_c0_publication_verifier_contract_test"
   ]
 }

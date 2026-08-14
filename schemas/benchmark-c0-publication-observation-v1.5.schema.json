@@ -1,0 +1,122 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-c0-publication-observation-v1.5.schema.json",
+  "title": "Method v1.5 GitHub-server C0A publication observation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "artifact_kind", "protocol_version", "status", "authority", "repository", "ref", "api_contract", "repository_identity", "c0a", "chronology", "pass_pool", "workflow", "github_run", "server_evidence", "randomness", "publication_boundary", "receipt_sha256"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-c0a-publication-observation-1.0"},
+    "artifact_kind": {"const": "C0A_PUBLICATION_OBSERVATION"},
+    "protocol_version": {"const": "1.5"},
+    "status": {"const": "C0A_PUBLICATION_AUTHENTICATED_PRE_DRAND_CLOSE"},
+    "authority": {"const": "GITHUB_SERVER_ACTIONS_RUN_REPLAY"},
+    "repository": {"const": "Kuberwastaken/c5-k4"},
+    "ref": {"const": "refs/heads/method-v1.5-c0"},
+    "api_contract": {
+      "type": "object", "additionalProperties": false,
+      "required": ["accept", "version", "authentication", "read_only"],
+      "properties": {
+        "accept": {"const": "application/vnd.github+json"},
+        "version": {"const": "2022-11-28"},
+        "authentication": {"const": "GITHUB_TOKEN_BEARER_REQUIRED"},
+        "read_only": {"const": true}
+      }
+    },
+    "repository_identity": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "node_id", "full_name"],
+      "properties": {
+        "id": {"const": 1331829034},
+        "node_id": {"const": "R_kgDOT2IZKg"},
+        "full_name": {"const": "Kuberwastaken/c5-k4"}
+      }
+    },
+    "c0a": {
+      "type": "object", "additionalProperties": false,
+      "required": ["path", "commit", "sha256"],
+      "properties": {"path": {"$ref": "#/definitions/path"}, "commit": {"$ref": "#/definitions/oid"}, "sha256": {"$ref": "#/definitions/sha"}}
+    },
+    "chronology": {
+      "type": "object", "additionalProperties": false,
+      "required": ["p1r_commit", "p1r_activation_receipt_sha256", "u1_commit", "u1_tree", "u2_commit", "u2_tree", "pass_publication_commit", "c0a_parent_commit"],
+      "properties": {
+        "p1r_commit": {"$ref": "#/definitions/oid"}, "p1r_activation_receipt_sha256": {"$ref": "#/definitions/sha"},
+        "u1_commit": {"$ref": "#/definitions/oid"}, "u1_tree": {"$ref": "#/definitions/oid"},
+        "u2_commit": {"$ref": "#/definitions/oid"}, "u2_tree": {"$ref": "#/definitions/oid"},
+        "pass_publication_commit": {"$ref": "#/definitions/oid"}, "c0a_parent_commit": {"$ref": "#/definitions/oid"}
+      }
+    },
+    "pass_pool": {
+      "type": "object", "additionalProperties": false,
+      "required": ["pool_sha256", "canonical_object_sha256"],
+      "properties": {"pool_sha256": {"$ref": "#/definitions/sha"}, "canonical_object_sha256": {"$ref": "#/definitions/sha"}}
+    },
+    "workflow": {
+      "type": "object", "additionalProperties": false,
+      "required": ["path", "ref", "committed_sha256"],
+      "properties": {
+        "path": {"const": ".github/workflows/method-v15-c0a-publication-observer.yml"},
+        "ref": {"const": ".github/workflows/method-v15-c0a-publication-observer.yml@refs/heads/method-v1.5-c0"},
+        "committed_sha256": {"$ref": "#/definitions/sha"}
+      }
+    },
+    "github_run": {
+      "type": "object", "additionalProperties": false,
+      "required": ["run_id", "run_attempt", "event", "status", "conclusion", "head_sha", "head_branch", "created_at_utc", "started_at_utc", "completed_at_utc", "api_url", "html_url", "captured_run_object_sha256"],
+      "properties": {
+        "run_id": {"type": "integer", "minimum": 1}, "run_attempt": {"const": 1},
+        "event": {"const": "push"}, "status": {"const": "completed"}, "conclusion": {"const": "success"},
+        "head_sha": {"$ref": "#/definitions/oid"}, "head_branch": {"const": "method-v1.5-c0"},
+        "created_at_utc": {"$ref": "#/definitions/time"}, "started_at_utc": {"$ref": "#/definitions/time"}, "completed_at_utc": {"$ref": "#/definitions/time"},
+        "api_url": {"type": "string", "pattern": "^https://api\\.github\\.com/repos/Kuberwastaken/c5-k4/actions/runs/[1-9][0-9]*$"},
+        "html_url": {"type": "string", "pattern": "^https://github\\.com/Kuberwastaken/c5-k4/actions/runs/[1-9][0-9]*$"},
+        "captured_run_object_sha256": {"$ref": "#/definitions/sha"}
+      }
+    },
+    "server_evidence": {
+      "type": "object", "additionalProperties": false,
+      "required": ["repository_id", "repository_node_id", "repository_projection_sha256", "ref_projection_sha256", "protection_source", "protection_projection_sha256", "no_force_push", "no_delete", "ancestry_base_commit", "ancestry_tip_commit", "ancestry_commits", "ancestry_projection_sha256", "run_object_projection_sha256", "run_listing_projection_sha256"],
+      "properties": {
+        "repository_id": {"const": 1331829034},
+        "repository_node_id": {"const": "R_kgDOT2IZKg"},
+        "repository_projection_sha256": {"$ref": "#/definitions/sha"},
+        "ref_projection_sha256": {"$ref": "#/definitions/sha"},
+        "protection_source": {"const": "GITHUB_EFFECTIVE_BRANCH_RULES_API"},
+        "protection_projection_sha256": {"$ref": "#/definitions/sha"},
+        "no_force_push": {"const": true},
+        "no_delete": {"const": true},
+        "ancestry_base_commit": {"$ref": "#/definitions/oid"},
+        "ancestry_tip_commit": {"$ref": "#/definitions/oid"},
+        "ancestry_commits": {"type": "array", "minItems": 1, "maxItems": 2, "uniqueItems": true, "items": {"$ref": "#/definitions/oid"}},
+        "ancestry_projection_sha256": {"$ref": "#/definitions/sha"},
+        "run_object_projection_sha256": {"$ref": "#/definitions/sha"},
+        "run_listing_projection_sha256": {"$ref": "#/definitions/sha"}
+      }
+    },
+    "randomness": {
+      "type": "object", "additionalProperties": false,
+      "required": ["chain_hash", "round", "round_closes_at_utc", "value"],
+      "properties": {
+        "chain_hash": {"const": "8990e7a9aaed2ffed73dbd7092123d6f289930540d7651336225dc172e51b2ce"},
+        "round": {"type": "integer", "minimum": 1}, "round_closes_at_utc": {"$ref": "#/definitions/time"}, "value": {"type": "null"}
+      }
+    },
+    "publication_boundary": {"$ref": "#/definitions/boundary"},
+    "receipt_sha256": {"$ref": "#/definitions/sha"}
+  },
+  "definitions": {
+    "oid": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "sha": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "time": {"type": "string", "format": "date-time", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"},
+    "path": {"type": "string", "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[^\\u0000]+$"},
+    "boundary": {
+      "type": "object", "additionalProperties": false,
+      "required": ["target_blind", "entropy_present", "selection_present", "ranking_present", "statement_text_present", "target_semantics_present", "outcomes_present"],
+      "properties": {
+        "target_blind": {"const": true}, "entropy_present": {"const": false}, "selection_present": {"const": false},
+        "ranking_present": {"const": false}, "statement_text_present": {"const": false}, "target_semantics_present": {"const": false}, "outcomes_present": {"const": false}
+      }
+    }
+  }
+}

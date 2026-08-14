@@ -99,6 +99,16 @@
       "public_chain_verifier": {"closure": "NATIVE_V1_5", "role": "public_checkpoint_chain_verifier"},
       "test": {"closure": "NATIVE_V1_5", "role": "checkpoint_runner_contract_test"}
     },
+    "c0_publication": {
+      "canonical_builder": {"closure": "NATIVE_V1_5", "role": "c0_v15_builder"},
+      "canonical_schema": {"closure": "NATIVE_V1_5", "role": "c0_v15_schema"},
+      "observation_schema": {"closure": "NATIVE_V1_5", "role": "c0_publication_observation_schema"},
+      "pass_pool_replay_input_schema": {"closure": "NATIVE_V1_5", "role": "c0_pass_pool_replay_input_schema"},
+      "verifier": {"closure": "NATIVE_V1_5", "role": "c0_publication_verifier"},
+      "verifier_test": {"closure": "NATIVE_V1_5", "role": "c0_publication_verifier_contract_test"},
+      "workflow": {"closure": "NATIVE_V1_5", "role": "c0_observer_workflow"},
+      "workflow_test": {"closure": "NATIVE_V1_5", "role": "c0_observer_workflow_contract_test"}
+    },
     "delivery_broker": {
       "config_schema": {"closure": "NATIVE_V1_5", "role": "delivery_broker_config_schema"},
       "executable": {"closure": "NATIVE_V1_5", "role": "delivery_broker"},

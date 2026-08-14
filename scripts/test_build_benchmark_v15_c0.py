@@ -31,13 +31,22 @@ class C0BridgeTests(unittest.TestCase):
         self.fixture = PT.PassPoolTests("test_builds_complete_target_blind_embeddable_pool")
         self.fixture.setUp()
         self.pool = self.fixture.build()
-        self.temp = tempfile.TemporaryDirectory(prefix="v15-c0-test-", dir=C0.ROOT / "results" / "benchmark")
-        self.root = Path(self.temp.name)
-        self.pool_path = self.root / "pool.json"
+        self.source_root = C0.ROOT
+        self.temp = tempfile.TemporaryDirectory(prefix="v15-c0-test-")
+        self.root = Path(self.temp.name) / "repository"
+        workflow_source = self.source_root / ".github/workflows/method-v15-c0a-publication-observer.yml"
+        workflow_target = self.root / ".github/workflows/method-v15-c0a-publication-observer.yml"
+        workflow_target.parent.mkdir(parents=True)
+        workflow_target.write_bytes(workflow_source.read_bytes())
+        self.root_patch = mock.patch.object(C0, "ROOT", self.root)
+        self.root_patch.start()
+        self.pool_path = self.root / "results/benchmark/fixture-pool.json"
+        self.pool_path.parent.mkdir(parents=True)
         self.pool_path.write_bytes(C0.canonical_json(self.pool))
-        self.c0a_path = self.root / "c0a.json"
-        self.c0t_path = self.root / "c0t.json"
-        self.workflow_path = ".github/workflows/method-v15-infrastructure-validation.yml"
+        self.c0a_path = C0.ROOT / C0.C0A_PATH
+        self.c0t_path = C0.ROOT / C0.C0T_PATH
+        self.workflow_path = ".github/workflows/method-v15-c0a-publication-observer.yml"
+        self.c0a_path.parent.mkdir(parents=True)
         self.sources = {
             name: self.root / f"unused-{name}.json" for name in (
                 "private_registry", "aggregate_certificate", "replay_attestation", "pass_receipt",
@@ -56,6 +65,7 @@ class C0BridgeTests(unittest.TestCase):
         }
 
     def tearDown(self) -> None:
+        self.root_patch.stop()
         self.temp.cleanup()
         self.fixture.tearDown()
 
@@ -86,9 +96,12 @@ class C0BridgeTests(unittest.TestCase):
 
     def run_object(self, **updates) -> bytes:
         value = {
-            "id": self.run_id, "event": "push", "status": "completed", "conclusion": "success",
+            "id": self.run_id, "run_attempt": 1, "event": "push", "status": "completed", "conclusion": "success",
             "head_sha": self.c0a_commit, "head_branch": C0.PUBLICATION_BRANCH,
             "path": self.workflow_path + "@refs/heads/method-v1.5-c0",
+            "url": f"https://api.github.com/repos/{C0.REPOSITORY_SLUG}/actions/runs/{self.run_id}",
+            "html_url": f"https://github.com/{C0.REPOSITORY_SLUG}/actions/runs/{self.run_id}",
+            "created_at": "2026-08-20T00:00:00Z",
             "run_started_at": "2026-08-20T00:00:00Z", "updated_at": "2026-08-20T00:01:00Z",
             "repository": {"full_name": C0.REPOSITORY_SLUG},
         }
@@ -201,99 +214,23 @@ class C0BridgeTests(unittest.TestCase):
             with self.assertRaisesRegex(C0.C0Error, "exactly its one frozen path"):
                 C0.validate_c0a_commit(c0a, self.c0a_commit, self.c0a_path)
 
-    def test_c0t_uses_live_run_and_freezes_no_entropy(self) -> None:
-        value, raw, c0a = self.build_c0t()
-        observation = value["publication_observation"]
-        self.assertEqual(observation["authority"], "LIVE_GITHUB_API_FETCH")
-        self.assertEqual(observation["captured_run_object_sha256"], C0.sha256_bytes(raw))
-        self.assertEqual(observation["head_sha"], self.c0a_commit)
-        self.assertEqual(value["pass_pool_binding"]["pool_sha256"], self.pool["pool_sha256"])
-        self.assertIsNone(value["randomness_contract"]["value"])
-        with mock.patch.object(C0, "commit_file", side_effect=lambda commit, path: self.committed_file(c0a, commit, path)):
-            C0.validate_c0t(
-                value, api_fetch=lambda _url: raw,
-                activation_verifier=self.activation_stub,
+    def test_legacy_builder_cannot_mint_or_accept_c0t(self) -> None:
+        with self.assertRaisesRegex(C0.C0Error, "strict repository/run-list/rules/ancestry adapter"):
+            C0.assemble_c0t(
+                self.c0a_path, self.c0a_commit, self.run_id,
+                api_fetch=lambda _url: self.run_object(), activation_verifier=self.activation_stub,
             )
-
-    def test_c0t_cannot_activate_from_bare_p1_or_caller_boolean(self) -> None:
-        c0a = self.install_c0a()
-        raw = self.run_object()
-        parent_patch, paths_patch, file_patch = self.c0a_git(c0a)
-        with parent_patch, paths_patch, file_patch:
-            with self.assertRaisesRegex(C0.C0Error, "bare P1A/P1T"):
-                C0.assemble_c0t(
-                    self.c0a_path, self.c0a_commit, self.run_id,
-                    api_fetch=lambda _url: raw,
-                )
-        parent_patch, paths_patch, file_patch = self.c0a_git(c0a)
-        with parent_patch, paths_patch, file_patch:
-            with self.assertRaisesRegex(C0.C0Error, "caller booleans"):
-                C0.assemble_c0t(
-                    self.c0a_path, self.c0a_commit, self.run_id,
-                    api_fetch=lambda _url: raw, activation_verifier=True,  # type: ignore[arg-type]
-                )
-
-    def test_caller_forged_observation_is_rejected_by_live_replay(self) -> None:
-        value, raw, c0a = self.build_c0t()
-        value["publication_observation"]["github_server_completed_at_utc"] = "2026-08-20T00:00:30Z"
-        value["artifact_sha256"] = C0.artifact_digest(value)
-        with mock.patch.object(C0, "commit_file", side_effect=lambda commit, path: self.committed_file(c0a, commit, path)):
-            with self.assertRaisesRegex(C0.C0Error, "direct GitHub API replay"):
-                C0.validate_c0t(
-                    value, api_fetch=lambda _url: raw,
-                    activation_verifier=self.activation_stub,
-                )
-
-    def test_wrong_run_identity_or_late_completion_is_rejected(self) -> None:
-        for raw, message in (
-            (self.run_object(event="workflow_dispatch"), "event"),
-            (self.run_object(head_sha="f" * 40), "head_sha"),
-            (self.run_object(conclusion="failure"), "conclusion"),
-            (self.run_object(updated_at=C0.close_time(self.round)), "precede drand close"),
-        ):
-            with self.subTest(message=message):
-                with self.assertRaisesRegex(C0.C0Error, message):
-                    self.build_c0t(raw)
+        with self.assertRaisesRegex(C0.C0Error, "commit-optional C0T validation is forbidden"):
+            C0.validate_c0t({}, c0t_commit=self.c0t_commit, artifact_path=self.c0t_path)
 
     def test_duplicate_json_keys_are_rejected(self) -> None:
-        duplicate_run = self.run_object().replace(b'"event": "push"', b'"event": "push", "event": "push"')
-        with self.assertRaisesRegex(C0.C0Error, "duplicate JSON key"):
-            self.build_c0t(duplicate_run)
         duplicate_c0a = b'{"schema":"x","schema":"x"}\n'
         self.c0a_path.write_bytes(duplicate_c0a)
         with self.assertRaisesRegex(C0.C0Error, "duplicate JSON key"):
             C0.load_json(self.c0a_path, "duplicate C0A")
 
-    def test_c0t_commit_must_be_direct_one_path_child(self) -> None:
-        value, raw, c0a = self.build_c0t()
-        self.c0t_path.write_bytes(C0.canonical_json(value))
-        def files(commit: str, path: str) -> bytes:
-            if commit == self.c0t_commit:
-                return self.c0t_path.read_bytes()
-            return self.committed_file(c0a, commit, path)
-        with mock.patch.object(C0, "commit_file", side_effect=files), \
-             mock.patch.object(C0, "exact_commit", return_value=None), \
-             mock.patch.object(C0, "parents", return_value=["f" * 40]), \
-             mock.patch.object(C0, "changed_paths", return_value=[value["publication_topology"]["c0t_path"]]):
-            with self.assertRaisesRegex(C0.C0Error, "direct nonmerge child"):
-                C0.validate_c0t(
-                    value, observed_run_raw=raw, c0t_commit=self.c0t_commit,
-                    artifact_path=self.c0t_path,
-                    activation_verifier=self.activation_stub,
-                )
-        with mock.patch.object(C0, "commit_file", side_effect=files), \
-             mock.patch.object(C0, "exact_commit", return_value=None), \
-             mock.patch.object(C0, "parents", return_value=[self.c0a_commit]), \
-             mock.patch.object(C0, "changed_paths", return_value=["extra", value["publication_topology"]["c0t_path"]]):
-            with self.assertRaisesRegex(C0.C0Error, "exactly its one frozen path"):
-                C0.validate_c0t(
-                    value, observed_run_raw=raw, c0t_commit=self.c0t_commit,
-                    artifact_path=self.c0t_path,
-                    activation_verifier=self.activation_stub,
-                )
-
     def test_contract_requires_exact_embedded_pool_and_one_path_bridge(self) -> None:
-        contract = json.loads((C0.ROOT / "results/benchmark/v1.5-protocol/c0-publication-contract.json").read_text())
+        contract = json.loads((self.source_root / "results/benchmark/v1.5-protocol/c0-publication-contract.json").read_text())
         self.assertTrue(contract["pass_pool_gate"]["canonical_object_sha256_required"])
         self.assertEqual(contract["publication_topology"]["c0a_change"], "ADD_EXACTLY_ONE_C0A_PATH")
         self.assertEqual(contract["publication_topology"]["c0t_change"], "ADD_EXACTLY_ONE_C0T_PATH")

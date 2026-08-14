@@ -11,8 +11,22 @@
     "components": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["registry", "classification", "grouping", "syntax_pool", "provenance", "checkpoint_runner", "private_custody", "delivery_broker", "immutable_store", "arm_execution", "participant_scope", "controlled_harness"],
+      "required": ["registry", "classification", "grouping", "syntax_pool", "provenance", "checkpoint_runner", "c0_publication", "private_custody", "delivery_broker", "immutable_store", "arm_execution", "participant_scope", "controlled_harness"],
       "properties": {
+        "c0_publication": {
+          "type": "object", "additionalProperties": false,
+          "required": ["canonical_builder", "canonical_schema", "observation_schema", "pass_pool_replay_input_schema", "verifier", "verifier_test", "workflow", "workflow_test"],
+          "properties": {
+            "canonical_builder": {"$ref": "#/definitions/native/c0_v15_builder"},
+            "canonical_schema": {"$ref": "#/definitions/native/c0_v15_schema"},
+            "observation_schema": {"$ref": "#/definitions/native/c0_publication_observation_schema"},
+            "pass_pool_replay_input_schema": {"$ref": "#/definitions/native/c0_pass_pool_replay_input_schema"},
+            "verifier": {"$ref": "#/definitions/native/c0_publication_verifier"},
+            "verifier_test": {"$ref": "#/definitions/native/c0_publication_verifier_contract_test"},
+            "workflow": {"$ref": "#/definitions/native/c0_observer_workflow"},
+            "workflow_test": {"$ref": "#/definitions/native/c0_observer_workflow_contract_test"}
+          }
+        },
         "controlled_harness": {
           "type": "object", "additionalProperties": false,
           "required": ["contract", "contract_schema", "request_schema", "response_schema", "service", "test", "activation_schema", "activation_continuity_verifier", "activation_continuity_test", "unit_schema", "unit_generator", "unit_generator_test", "deployment_contract", "deployment_contract_schema", "deployment_verifier", "deployment_test", "systemd_unit", "sysusers_asset", "tmpfiles_asset", "network_policy", "destructive_gap_plan", "https_daemon_contract", "https_daemon_contract_schema", "https_daemon", "https_daemon_test"],
@@ -377,6 +391,14 @@
       ,"classifier_readiness_receipt": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "classifier_readiness_receipt"}}}]}
       ,"classifier_runtime_binding_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "classifier_runtime_binding_schema"}}}]}
       ,"classifier_runtime_verifier": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "classifier_runtime_verifier"}}}]}
+      ,"c0_v15_builder": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "c0_v15_builder"}}}]}
+      ,"c0_v15_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "c0_v15_schema"}}}]}
+      ,"c0_publication_observation_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "c0_publication_observation_schema"}}}]}
+      ,"c0_pass_pool_replay_input_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "c0_pass_pool_replay_input_schema"}}}]}
+      ,"c0_publication_verifier": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "c0_publication_verifier"}}}]}
+      ,"c0_publication_verifier_contract_test": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "c0_publication_verifier_contract_test"}}}]}
+      ,"c0_observer_workflow": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "c0_observer_workflow"}}}]}
+      ,"c0_observer_workflow_contract_test": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "c0_observer_workflow_contract_test"}}}]}
     },
     "inherited": {
       "five_strata_classifier": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "INHERITED_V1_4"}, "role": {"const": "five_strata_classifier"}}}]},
