@@ -141,16 +141,12 @@ independently and checks all 3,970 tuples.
 ## Lean status
 
 [`lean/FactorDefect.lean`](lean/FactorDefect.lean) is a warning-clean,
-no-`sorry` formalization of the forward algebraic core. It proves defect
-preservation from both A056777 equalities, `K(pq)=2` for distinct primes,
-`K(p^2)=1`, and the packaged semiprime-forward result. Its axiom audit uses
-only standard Lean/mathlib foundations.
-
-The converse characterizations `K(x)=2 -> x=pq` and
-`K(x)=1 -> x=p^2` are not yet formalized in Lean. Their complete elementary
-prime-power-block proof is given above and replayed certificate-side, so this
-artifact is intentionally described as a partial formalization rather than a
-complete proof-assistant certificate of the theorem shadow.
+no-`sorry` formalization of the complete algebraic theorem shadow. It proves
+defect preservation from both A056777 equalities, the coprime-product defect
+recurrence, the exact prime-power formula, and the full small-defect
+classification. In particular, it proves both converse characterizations:
+`K(x)=2` forces a product of two distinct primes, while `K(x)=1` forces a
+prime square. Its axiom audit uses only standard Lean/mathlib foundations.
 
 ## Limitations
 
