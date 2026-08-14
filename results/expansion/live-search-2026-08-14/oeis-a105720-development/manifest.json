@@ -1,0 +1,27 @@
+{
+  "schema": "oeis-a105720-development-freeze-v1",
+  "shards": 24,
+  "internal_seconds": 54,
+  "external_seconds": 60,
+  "child_seconds": 4,
+  "known_square_indices": [3, 6, 4072],
+  "formal_conjectures": {
+    "commit": "942fb149e782a56c2719c543ab58e093f733acb4",
+    "path": "FormalConjectures/OEIS/105720.lean",
+    "blob_sha1": "c5f760ccfa563547224b6140ea8aa64eed03977e",
+    "sha256": "2ee734da9e2c90fefaa889b5d3eedd4c48bff96cffe24f5b478c593466bcbdf8",
+    "url": "https://raw.githubusercontent.com/google-deepmind/formal-conjectures/942fb149e782a56c2719c543ab58e093f733acb4/FormalConjectures/OEIS/105720.lean"
+  },
+  "oeis_bfile": {
+    "url": "https://oeis.org/A105720/b105720.txt",
+    "sha256": "b89ca17a684da7b6200d0e862409269ef51d5d7e0ac9a2da2958eee64cfe7e4d",
+    "rows": 1000
+  },
+  "controls": {"1": 5, "2": 15, "3": 36, "4": 67, "6": 169, "4072": 247590225},
+  "prime_count": 500040,
+  "arms": {
+    "CATALOGUE": {"lo": 21, "hi": 20020},
+    "WALL_NAVIGATION": {"lo": 20021, "hi": 120020, "moduli": [64, 63, 65, 11]},
+    "GENERIC": {"lo": 120021, "width": 130000, "count": 96000, "multiplier": 65537, "offset": 17389}
+  }
+}
