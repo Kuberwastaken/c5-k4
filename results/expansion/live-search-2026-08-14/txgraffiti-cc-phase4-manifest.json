@@ -39,7 +39,7 @@
     "scripts/aggregate_txgraffiti_cc_phase4.py": "bc77c64adba7a1eae24bad2a59a1275f1ae3d3c485acd36e0769d93168b6cf4b",
     "scripts/test_txgraffiti_cc_phase4.py": "71c39c3c48b4c937533c6dcc4a035c5f9dae3ad13248de8b43e78a6034c92ca0",
     "scripts/test_txgraffiti_cc_phase4_workflow.py": "e9e96e0fb888e421c6aeb1382021405a4db33e3c603805fd75b724e86fad6924",
-    ".github/workflows/txgraffiti-cc-phase4.yml": "b821407291b03ce5482dede520822b1ef8f76bb30813e371c7f8ff88b65d6c40",
+    ".github/workflows/txgraffiti-cc-phase4.yml": "1b42d72c7e523f114799321e0c29722772be904b00b836d8f9ee9a0763666acf",
     "results/expansion/live-search-2026-08-14/txgraffiti-cc-phase4.md": "1835cbf50abdec0c702198b439259597acf72e369114be937fd9f9e7af2090a4"
   }
 }
