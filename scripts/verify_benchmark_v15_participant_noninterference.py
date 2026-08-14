@@ -4,12 +4,15 @@
 from __future__ import annotations
 
 import argparse
+import base64
 import copy
 import hashlib
 import json
 from pathlib import Path
 from typing import Any
 
+from cryptography.exceptions import InvalidSignature
+from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PublicKey
 from jsonschema import Draft7Validator
 
 
@@ -95,6 +98,52 @@ def verify(ledger: dict[str, Any], receipt: dict[str, Any]) -> dict[str, Any]:
         "activation_permitted": False,
         "participant_ledger_sha256": ledger_digest,
         "noninterference_receipt_sha256": receipt_digest,
+    }
+
+
+def operational_receipt_digest(receipt: dict[str, Any]) -> str:
+    unsigned = copy.deepcopy(receipt)
+    unsigned.pop("receipt_sha256", None)
+    unsigned.pop("signature", None)
+    encoded = json.dumps(unsigned, sort_keys=True, separators=(",", ":"), ensure_ascii=True).encode()
+    return hashlib.sha256(encoded).hexdigest()
+
+
+def verify_operational(
+    ledger: dict[str, Any],
+    expected_source_boundary_sha256: str,
+    receipt: dict[str, Any],
+    verification_key: bytes,
+) -> dict[str, Any]:
+    """Verify a future operational receipt; no such artifact exists pre-P1."""
+    validate_schema(ledger, "benchmark-participant-ledger-v1.5.schema.json")
+    validate_schema(receipt, "benchmark-operational-noninterference-receipt-v1.5.schema.json")
+    reject_target_material(ledger)
+    reject_target_material(receipt)
+    ledger_digest = canonical_digest(ledger, "ledger_sha256")
+    if ledger["ledger_sha256"] != ledger_digest:
+        raise BoundaryError("participant ledger self-digest mismatch")
+    if receipt["participant_ledger_sha256"] != ledger_digest:
+        raise BoundaryError("operational receipt participant-ledger binding mismatch")
+    if receipt["source_boundary_sha256"] != expected_source_boundary_sha256:
+        raise BoundaryError("operational receipt source-boundary binding mismatch")
+    if hashlib.sha256(verification_key).hexdigest() != receipt["verification_key_sha256"]:
+        raise BoundaryError("operational receipt verification-key binding mismatch")
+    actual = operational_receipt_digest(receipt)
+    if receipt["receipt_sha256"] != actual:
+        raise BoundaryError("operational receipt self-digest mismatch")
+    try:
+        signature = base64.b64decode(receipt["signature"], validate=True)
+        Ed25519PublicKey.from_public_bytes(verification_key).verify(signature, bytes.fromhex(actual))
+    except (ValueError, InvalidSignature) as exc:
+        raise BoundaryError("operational receipt signature mismatch") from exc
+    return {
+        "valid": True,
+        "status": receipt["status"],
+        "activation_permitted": True,
+        "participant_ledger_sha256": ledger_digest,
+        "source_boundary_sha256": expected_source_boundary_sha256,
+        "noninterference_receipt_sha256": actual,
     }
 
 

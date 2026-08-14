@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import base64
 import copy
 import importlib.util
 import json
@@ -11,6 +12,10 @@ import subprocess
 import sys
 import tempfile
 import unittest
+
+from cryptography.hazmat.primitives import serialization
+from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
+from jsonschema import Draft7Validator
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -37,6 +42,48 @@ class ParticipantNoninterferenceTests(unittest.TestCase):
 
     def mutate(self) -> tuple[dict, dict]:
         return copy.deepcopy(self.ledger), copy.deepcopy(self.receipt)
+
+    def operational_fixture(self) -> tuple[dict, bytes]:
+        private_key = Ed25519PrivateKey.generate()
+        public_key = private_key.public_key().public_bytes(
+            encoding=serialization.Encoding.Raw,
+            format=serialization.PublicFormat.Raw,
+        )
+        receipt = {
+            "schema": "c5k4-method-v1.5-operational-noninterference-receipt-1.0",
+            "status": "FROZEN_P1_NONINTERFERENCE_LIVE_ACCEPTED",
+            "protocol_version": "1.5",
+            "host_id": "ai-vps-controlled-harness",
+            "participant_ledger_sha256": self.ledger["ledger_sha256"],
+            "source_boundary_sha256": "b" * 64,
+            "signing_key_id": "future-target-blind-key-1",
+            "service_epoch_binding_sha256": "c" * 64,
+            "verification_key_sha256": module.hashlib.sha256(public_key).hexdigest(),
+            "signature_algorithm": "Ed25519",
+            "unjournaled_delivery_detected": False,
+            "proofs": {
+                "dedicated_nonlogin_identity": True,
+                "root_owned_read_only_p1_checkout": True,
+                "private_root_permissions": True,
+                "private_socket_permissions": True,
+                "credential_isolation": True,
+                "network_default_deny": True,
+                "allowed_endpoint_enforcement": True,
+                "excluded_process_denial": True,
+                "unbroken_ingress_custody": True,
+                "destructive_gap_acceptance": True,
+            },
+            "blockers": [],
+            "scope_complete": True,
+            "operational_ready": True,
+            "activation_permitted": True,
+            "claims": {"p1_frozen": True, "operational_capture": True, "production_ready": True, "target_specific": False},
+        }
+        receipt["receipt_sha256"] = module.operational_receipt_digest(receipt)
+        receipt["signature"] = base64.b64encode(
+            private_key.sign(bytes.fromhex(receipt["receipt_sha256"]))
+        ).decode()
+        return receipt, public_key
 
     def test_committed_artifacts_are_valid_but_inert(self) -> None:
         result = module.verify(self.ledger, self.receipt)
@@ -135,6 +182,46 @@ class ParticipantNoninterferenceTests(unittest.TestCase):
             self.assertEqual(completed.returncode, 2)
             self.assertEqual(completed.stdout, "")
             self.assertEqual(completed.stderr, "")
+
+    def test_future_operational_schema_is_valid_but_has_no_committed_artifact(self) -> None:
+        schema = module.load_object(
+            ROOT / "schemas" / "benchmark-operational-noninterference-receipt-v1.5.schema.json"
+        )
+        Draft7Validator.check_schema(schema)
+        self.assertFalse((PROTOCOL / "operational-noninterference-receipt.json").exists())
+
+    def test_generated_future_operational_receipt_requires_authentic_signature(self) -> None:
+        receipt, public_key = self.operational_fixture()
+        result = module.verify_operational(self.ledger, "b" * 64, receipt, public_key)
+        self.assertTrue(result["activation_permitted"])
+        tampered = copy.deepcopy(receipt)
+        tampered["service_epoch_binding_sha256"] = "d" * 64
+        with self.assertRaises(module.BoundaryError):
+            module.verify_operational(self.ledger, "b" * 64, tampered, public_key)
+        wrong_key = Ed25519PrivateKey.generate().public_key().public_bytes(
+            encoding=serialization.Encoding.Raw, format=serialization.PublicFormat.Raw
+        )
+        with self.assertRaises(module.BoundaryError):
+            module.verify_operational(self.ledger, "b" * 64, receipt, wrong_key)
+
+    def test_future_operational_receipt_fails_closed_on_every_readiness_relaxation(self) -> None:
+        receipt, public_key = self.operational_fixture()
+        for field in receipt["proofs"]:
+            mutated = copy.deepcopy(receipt)
+            mutated["proofs"][field] = False
+            with self.assertRaises(module.BoundaryError):
+                module.verify_operational(self.ledger, "b" * 64, mutated, public_key)
+        for field, value in (
+            ("blockers", ["NOT_READY"]),
+            ("scope_complete", False),
+            ("operational_ready", False),
+            ("activation_permitted", False),
+            ("unjournaled_delivery_detected", True),
+        ):
+            mutated = copy.deepcopy(receipt)
+            mutated[field] = value
+            with self.assertRaises(module.BoundaryError):
+                module.verify_operational(self.ledger, "b" * 64, mutated, public_key)
 
 
 if __name__ == "__main__":

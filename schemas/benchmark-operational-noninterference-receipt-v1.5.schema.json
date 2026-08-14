@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-operational-noninterference-receipt-v1.5.schema.json",
+  "title": "Method v1.5 future operational target-blind noninterference receipt",
+  "type": "object", "additionalProperties": false,
+  "required": [
+    "schema", "status", "protocol_version", "host_id",
+    "participant_ledger_sha256", "source_boundary_sha256", "signing_key_id",
+    "service_epoch_binding_sha256", "verification_key_sha256",
+    "signature_algorithm", "unjournaled_delivery_detected", "proofs", "blockers",
+    "scope_complete", "operational_ready", "activation_permitted", "claims",
+    "receipt_sha256", "signature"
+  ],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-operational-noninterference-receipt-1.0"},
+    "status": {"const": "FROZEN_P1_NONINTERFERENCE_LIVE_ACCEPTED"},
+    "protocol_version": {"const": "1.5"},
+    "host_id": {"const": "ai-vps-controlled-harness"},
+    "participant_ledger_sha256": {"$ref": "#/definitions/sha256"},
+    "source_boundary_sha256": {"$ref": "#/definitions/sha256"},
+    "signing_key_id": {"$ref": "#/definitions/id"},
+    "service_epoch_binding_sha256": {"$ref": "#/definitions/sha256"},
+    "verification_key_sha256": {"$ref": "#/definitions/sha256"},
+    "signature_algorithm": {"const": "Ed25519"},
+    "unjournaled_delivery_detected": {"const": false},
+    "proofs": {"const": {
+      "dedicated_nonlogin_identity": true,
+      "root_owned_read_only_p1_checkout": true,
+      "private_root_permissions": true,
+      "private_socket_permissions": true,
+      "credential_isolation": true,
+      "network_default_deny": true,
+      "allowed_endpoint_enforcement": true,
+      "excluded_process_denial": true,
+      "unbroken_ingress_custody": true,
+      "destructive_gap_acceptance": true
+    }},
+    "blockers": {"const": []},
+    "scope_complete": {"const": true},
+    "operational_ready": {"const": true},
+    "activation_permitted": {"const": true},
+    "claims": {"const": {"p1_frozen": true, "operational_capture": true, "production_ready": true, "target_specific": false}},
+    "receipt_sha256": {"$ref": "#/definitions/sha256"},
+    "signature": {"type": "string", "pattern": "^[A-Za-z0-9+/]{86}==$"}
+  },
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"}
+  }
+}
