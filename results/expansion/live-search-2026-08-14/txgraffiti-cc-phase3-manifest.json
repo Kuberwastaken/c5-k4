@@ -1,0 +1,30 @@
+{
+  "schema": "c5k4-live-development-manifest-1.0",
+  "target": "TxGraffiti C-C: connected regular i(G) <= mu*(G)",
+  "evidence_split": "DEVELOPMENT",
+  "predecessor": "txgraffiti-cc-phase2-result.md",
+  "source_and_status_contract": "txgraffiti-cc-phase0.md",
+  "construction_contract": "txgraffiti-cc-phase2.md",
+  "process_wall_cap_seconds": 60,
+  "solver_cap_seconds": 4,
+  "internal_stop_seconds": 54,
+  "coordinate_t": 2,
+  "order": 20,
+  "certified_minimum_maximal_matching": 6,
+  "exact_objective": "6 - i(G)",
+  "scratch_and_phase2_reuse_disclosed": true,
+  "bases_graph6": ["Gs@ipo", "GsOiho", "GtPHOk", "Gv?IXW", "GtP@Ww"],
+  "pairings_per_base_before_quotient": 10395,
+  "pairing_orbits_per_base": [278, 697, 2658, 768, 919],
+  "total_construction_states": 5320,
+  "construction_order": "SHA-256(base graph6 || '|' || repr(pairing orbit representative))",
+  "arms": {
+    "CATALOGUE": {"canonical_sha256_residue_mod_3": 0},
+    "GENERIC": {"canonical_sha256_residue_mod_3": 1},
+    "WALL_NAVIGATION": {"canonical_sha256_residue_mod_3": 2}
+  },
+  "partitions_are_disjoint_by": "exact frozen-nauty canonical graph SHA-256 modulo 3",
+  "canonicalization": "frozen nauty labelg only",
+  "candidate_replay": "phase-two independent CaDiCaL IDS lower-bound replay plus structural mu*=6 replay",
+  "pre_freeze_target_evaluations_allowed": false
+}
