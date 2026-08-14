@@ -325,6 +325,22 @@ identified a more important method defect: a merely greedy Cartesian
 total-domination witness can conceal a crossing, so the next revision must
 certify or descend that side before expanding the same prefixes.
 
+The following rotation tested two more invariant clusters. The DOI-qualified
+Graffiti³ energy campaign first rejected the source table's center-excluding
+`d₂` implementation reading because `K₂` and `K₃` already refute it, then
+exhausted three literal closed-ball domains: 3,808 unique planar graphs, 2,863
+applicable, zero crossings. The best residual was still `2.375`, so its named,
+Apollonian-deletion, and book/false-twin constructors are retired; see the
+[energy result](results/expansion/live-search-2026-08-14/graffiti3-energy-c3-result.md).
+The current DeepMind finite-group declaration `solvable_of_cyc_lt` supplied a
+fresh `A₅` equality wall. After two explicitly invalid execution attempts
+forced stronger GAP framing and descriptor-error receipts, the valid run
+scored 65 nonsolvable groups, consumed all 63 wall descriptors with three
+non-scoring skips, and found no negative residual. Its
+[result](results/expansion/live-search-2026-08-14/solvable-cyclic-subgroups-result.md)
+records the bounded zero and preserves the distinction between an exhausted
+descriptor schedule and complete mathematical coverage.
+
 The exact contracts, ledgers, corrections, stop reasons, and reports are under
 [`results/expansion/`](results/expansion/); the current portfolio and its
 scope limits are summarized in [`OVERARCHING_PLAN.md`](OVERARCHING_PLAN.md).
