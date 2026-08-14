@@ -164,6 +164,22 @@ fractions can therefore approach the wall but cannot cross it. This is a
 not a completed proof of the exact Lean declaration: source-to-definition and
 finite-cutoff bridge lemmas remain to be formalized.
 
+The current executable rotation is OEIS A231201, explicitly as a
+**contaminated DEVELOPMENT** continuation rather than a held-out trial. Both
+the exact predicate and the residue-cover idea had prior target-specific
+computational exposure, so this run cannot measure independent method
+efficacy. Its frozen
+55-prime CEGAR/CRT universe nevertheless tests a stronger exact construction.
+Pre-dispatch audit removed an out-of-domain `x=0` constraint, corrected the
+prime-two periodic class, replaced an infeasible 10,000-row recomputation with
+a content lock plus an exact deterministic-primality prefix, separated
+deadline and verification-failure terminals, and removed an inaccessible
+private-repository dependency. Six disjoint `(a_2,a_3)` shards are running
+from immutable commit `7669f2260b2dc1f05cf4aeb389f80d3c7c37b86a`; no outcome
+is claimed before independent artifact replay. See the
+[freeze contract](results/expansion/live-search-2026-08-14/oeis-a231201-development/CONTRACT.md)
+and [preflight correction](results/expansion/live-search-2026-08-14/oeis-a231201-heldout-preflight-strict-stop.md).
+
 A subsequent live-arm pass over the newly merged OEIS cohort found one exact
 lower-endpoint failure: the formalized A109074 identity says `1 = 3` at
 `n=1`. Source reconciliation shows that this is an erratum rather than a new
