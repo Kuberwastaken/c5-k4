@@ -243,6 +243,22 @@ The repository currently contains and tests:
 - a dedicated-VPS controlled-delivery prototype and adversarial tests for
   signed receipt sequencing, content-before-delivery custody, crash ambiguity,
   store failure, heartbeat expiry, and stdin/stdout/stderr capture;
+- a PRE-P1 S3 Object Lock adapter contract that verifies COMPLIANCE retention,
+  an exact KMS key and bucket-policy digest, deletion denial, a single
+  version/no-delete-marker inventory, and version-pinned bytes, plus a
+  remote-authoritative broker bridge whose local CAS is only a cache;
+- a signed broker-to-custody compiler with an authenticated single-service
+  epoch, and an inert private-input assembler that accepts only version-pinned
+  WORM locators, replays the registry against two distinct acquisitions, and
+  writes its private manifest atomically last;
+- a target-free three-arm capability matrix and execution-envelope validator
+  that deny wall data to both baselines, enforce the all-PENDING/equal-budget
+  barrier, and embargo every arm result until the complete triplet terminates;
+- a test-only sealed triplet-launch skeleton that exercises one-shot claiming,
+  deterministic balanced scheduling of all 24 trees, capability-minimal
+  inputs, and combined-only result records. It remains explicitly
+  non-operational because production mount/network isolation is not yet
+  implemented;
 - an offline validation workflow; and
 - the scheduled checkpoint workflow in an intentionally inert state. Its
   invocation contract remains `PRE_P1_SCAFFOLD_NOT_EXECUTABLE`, with null
@@ -250,20 +266,23 @@ The repository currently contains and tests:
 
 The following are operational blockers, not completed artifacts:
 
-1. compose the existing builders behind the checkpoint runner, promote the
-   controlled-delivery prototype into an accepted single-writer service, and
-   validate the complete private CAPTURE path without leaking identities or
-   diagnostics;
-2. install and acceptance-test the Mac and VPS signed delivery-journal daemons,
-   freeze their keys and participant/model endpoint ledger, and provision the
-   authenticated immutable private content store with retention and inventory
-   proofs;
-3. bind the final workflow, runner, custody, source, schema, and executable
-   digests in the closed P1 component set and change the invocation contract to
-   executable only after every activation requirement passes;
-4. create and publish the sole-purpose `P1A` and immediate one-path `P1T`
+1. finish the production CAPTURE orchestrator around the implemented custody
+   compiler and private-input assembler, including authenticated P1 role
+   resolution and the final aggregate/finalization handoff;
+2. provision and live-accept the private Object Lock bucket, KMS key, deletion
+   policy, least-privilege role, host signing key, and continuously supervised
+   single-writer service; freeze the scientifically defensible participant and
+   delivery-channel scope after its two-host versus VPS-only review;
+3. implement and acceptance-test the real triplet isolation backend: user,
+   mount, PID, and network namespaces; exact read-only capability mounts;
+   disjoint private writable roots; CPU affinity; and 60-second process-tree
+   termination. The injected test kernel is not a substitute for this gate;
+4. bind the final workflow, runner, custody, source, isolation, schema, and
+   executable digests in the closed P1 component set and change the invocation
+   contract to executable only after every activation requirement passes;
+5. create and publish the sole-purpose `P1A` and immediate one-path `P1T`
    commits and verify the public P1T receipt; and
-5. only then perform the one-shot U1 capture and create the public checkpoint
+6. only then perform the one-shot U1 capture and create the public checkpoint
    branch genesis.
 
 No P1A, P1T, readiness receipt, U1/U2 receipt, operational private store,
