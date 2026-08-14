@@ -1,0 +1,219 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-execution-envelope-v1.5.schema.json",
+  "title": "Method v1.5 three-arm execution envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema", "artifact_kind", "protocol_version", "status",
+    "target_specific_fields_present", "capability_matrix", "fixed_rules",
+    "target_execution", "envelope_sha256"
+  ],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-execution-envelope-1.0"},
+    "artifact_kind": {"const": "THREE_ARM_EXECUTION_ENVELOPE"},
+    "protocol_version": {"const": "1.5"},
+    "status": {
+      "enum": ["PRE_P1_SCAFFOLD_NOT_EXECUTABLE", "POST_C1_RUN_FREEZE_DRAFT_NOT_EXECUTABLE"]
+    },
+    "target_specific_fields_present": {"type": "boolean"},
+    "capability_matrix": {"$ref": "#/definitions/fileDigest"},
+    "fixed_rules": {"$ref": "#/definitions/fixedRules"},
+    "target_execution": {
+      "oneOf": [{"type": "null"}, {"$ref": "#/definitions/targetExecution"}]
+    },
+    "envelope_sha256": {"$ref": "#/definitions/sha256"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "PRE_P1_SCAFFOLD_NOT_EXECUTABLE"}}},
+      "then": {
+        "properties": {
+          "target_specific_fields_present": {"const": false},
+          "target_execution": {"type": "null"}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"status": {"const": "POST_C1_RUN_FREEZE_DRAFT_NOT_EXECUTABLE"}}},
+      "then": {
+        "properties": {
+          "target_specific_fields_present": {"const": true},
+          "target_execution": {"$ref": "#/definitions/targetExecution"}
+        }
+      }
+    }
+  ],
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "gitOid": {"type": "string", "pattern": "^[0-9a-f]{40,64}$"},
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+    },
+    "fileDigest": {
+      "type": "object", "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/definitions/sha256"}
+      }
+    },
+    "fixedRules": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "arms", "all_three_pending_barrier", "validate_complete_triplet_before_claim",
+        "equal_discovery_budget", "baseline_contract_precommit_before_wall_analysis",
+        "no_adaptation", "cross_arm_result_inputs", "continue_after_crossing",
+        "result_reveal", "intermediate_result_delivery_permitted", "one_shot_claim_required",
+        "claim_update_rule", "network_policy", "filesystem_isolation",
+        "shared_writable_root_permitted", "target_process_launching_implemented"
+      ],
+      "properties": {
+        "arms": {"const": ["CATALOGUE", "GENERIC", "WALL_NAVIGATION"]},
+        "all_three_pending_barrier": {"const": true},
+        "validate_complete_triplet_before_claim": {"const": true},
+        "equal_discovery_budget": {
+          "type": "object", "additionalProperties": false,
+          "required": ["process_trees_per_arm", "wall_seconds_per_tree", "cpu_seconds_per_arm_max"],
+          "properties": {
+            "process_trees_per_arm": {"const": 8},
+            "wall_seconds_per_tree": {"const": 60},
+            "cpu_seconds_per_arm_max": {"const": 480}
+          }
+        },
+        "baseline_contract_precommit_before_wall_analysis": {"const": true},
+        "no_adaptation": {"const": true},
+        "cross_arm_result_inputs": {"type": "array", "maxItems": 0},
+        "continue_after_crossing": {"const": true},
+        "result_reveal": {"const": "ONLY_AFTER_ALL_THREE_ARMS_TERMINATE"},
+        "intermediate_result_delivery_permitted": {"const": false},
+        "one_shot_claim_required": {"const": true},
+        "claim_update_rule": {"const": "APPEND_ONLY_ATOMIC_NORMAL_FAST_FORWARD"},
+        "network_policy": {"const": "DENY"},
+        "filesystem_isolation": {"const": "SEPARATE_READ_ONLY_INPUT_AND_PRIVATE_WRITABLE_MOUNT_NAMESPACES"},
+        "shared_writable_root_permitted": {"const": false},
+        "target_process_launching_implemented": {"const": false}
+      }
+    },
+    "digestRoot": {
+      "type": "object", "additionalProperties": false,
+      "required": ["root_role", "path", "sha256", "access"],
+      "properties": {
+        "root_role": {"enum": [
+          "COMMON_TARGET_BUNDLE", "LITERAL_EVALUATOR", "CANDIDATE_CANONICALIZER",
+          "CATALOGUE_LIBRARY", "CATALOGUE_CONTRACT", "CATALOGUE_SEED_AND_SIZE_CEILING",
+          "GENERIC_GRAMMAR_AND_SCHEDULE", "GENERIC_CONTRACT", "GENERIC_SEED",
+          "WALL_ANALYSIS", "WALL_EFFECT_FORECAST", "WALL_TRANSFORMATION_AND_GRID",
+          "WALL_CONTRACT", "WALL_SEED", "CATALOGUE_RESULT", "GENERIC_RESULT",
+          "WALL_NAVIGATION_RESULT"
+        ]},
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"oneOf": [{"$ref": "#/definitions/sha256"}, {"type": "null"}]},
+        "access": {"enum": ["READ_ONLY_INPUT", "PRIVATE_RESULT_OUTPUT"]}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"access": {"const": "READ_ONLY_INPUT"}}},
+          "then": {"properties": {"sha256": {"$ref": "#/definitions/sha256"}}}
+        },
+        {
+          "if": {"properties": {"access": {"const": "PRIVATE_RESULT_OUTPUT"}}},
+          "then": {"properties": {"sha256": {"type": "null"}}}
+        }
+      ]
+    },
+    "arm": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "status", "contract", "seed", "parameter_grid", "transformation_id",
+        "process_tree_count", "process_tree_wall_cap_seconds", "cpu_budget_seconds",
+        "no_adaptation", "continue_after_crossing", "cross_arm_result_inputs",
+        "allowed_digest_root_roles", "forbidden_digest_root_roles", "writable_root"
+      ],
+      "properties": {
+        "status": {"const": "PENDING"},
+        "contract": {"$ref": "#/definitions/fileDigest"},
+        "seed": {"type": ["string", "integer"]},
+        "parameter_grid": {"type": "object"},
+        "transformation_id": {"type": "string", "minLength": 1},
+        "process_tree_count": {"const": 8},
+        "process_tree_wall_cap_seconds": {"const": 60},
+        "cpu_budget_seconds": {"const": 480},
+        "no_adaptation": {"const": true},
+        "continue_after_crossing": {"const": true},
+        "cross_arm_result_inputs": {"type": "array", "maxItems": 0},
+        "allowed_digest_root_roles": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": {"type": "string"}
+        },
+        "forbidden_digest_root_roles": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": {"type": "string"}
+        },
+        "writable_root": {"type": "string", "pattern": "^/"}
+      }
+    },
+    "targetExecution": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "benchmark_id", "cluster_id", "campaign_checkout", "c1_attestation_commit",
+        "run_freeze_commit", "digest_roots", "baseline_contract_precommit",
+        "wall_analysis_first_delivered_at_utc", "arms", "one_shot_claim", "reveal"
+      ],
+      "properties": {
+        "benchmark_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$"},
+        "cluster_id": {"type": "string", "minLength": 1},
+        "campaign_checkout": {"type": "string", "pattern": "^/"},
+        "c1_attestation_commit": {"$ref": "#/definitions/gitOid"},
+        "run_freeze_commit": {"$ref": "#/definitions/gitOid"},
+        "digest_roots": {
+          "type": "array", "minItems": 17, "maxItems": 17,
+          "items": {"$ref": "#/definitions/digestRoot"}
+        },
+        "baseline_contract_precommit": {
+          "type": "object", "additionalProperties": false,
+          "required": ["commit", "recorded_at_utc", "CATALOGUE", "GENERIC"],
+          "properties": {
+            "commit": {"$ref": "#/definitions/gitOid"},
+            "recorded_at_utc": {"$ref": "#/definitions/timestamp"},
+            "CATALOGUE": {"$ref": "#/definitions/fileDigest"},
+            "GENERIC": {"$ref": "#/definitions/fileDigest"}
+          }
+        },
+        "wall_analysis_first_delivered_at_utc": {"$ref": "#/definitions/timestamp"},
+        "arms": {
+          "type": "object", "additionalProperties": false,
+          "required": ["CATALOGUE", "GENERIC", "WALL_NAVIGATION"],
+          "properties": {
+            "CATALOGUE": {"$ref": "#/definitions/arm"},
+            "GENERIC": {"$ref": "#/definitions/arm"},
+            "WALL_NAVIGATION": {"$ref": "#/definitions/arm"}
+          }
+        },
+        "one_shot_claim": {
+          "type": "object", "additionalProperties": false,
+          "required": ["state", "claim_ref", "claim_nonce_sha256", "prior_claims_permitted", "update_rule"],
+          "properties": {
+            "state": {"const": "UNCLAIMED"},
+            "claim_ref": {"type": "string", "pattern": "^refs/heads/"},
+            "claim_nonce_sha256": {"$ref": "#/definitions/sha256"},
+            "prior_claims_permitted": {"const": false},
+            "update_rule": {"const": "APPEND_ONLY_ATOMIC_NORMAL_FAST_FORWARD"}
+          }
+        },
+        "reveal": {
+          "type": "object", "additionalProperties": false,
+          "required": ["condition", "intermediate_logs_permitted", "intermediate_artifacts_permitted", "combined_record_only"],
+          "properties": {
+            "condition": {"const": "ALL_THREE_ARMS_TERMINATED"},
+            "intermediate_logs_permitted": {"const": false},
+            "intermediate_artifacts_permitted": {"const": false},
+            "combined_record_only": {"const": true}
+          }
+        }
+      }
+    }
+  }
+}

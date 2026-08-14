@@ -1,0 +1,115 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-arm-capability-matrix-v1.5.schema.json",
+  "title": "Method v1.5 target-free discovery-arm capability matrix",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema", "artifact_kind", "protocol_version", "status",
+    "target_specific_fields_present", "arms", "root_roles", "capabilities",
+    "all_result_root_roles", "enforcement", "matrix_sha256"
+  ],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-arm-capability-matrix-1.0"},
+    "artifact_kind": {"const": "TARGET_FREE_ARM_CAPABILITY_MATRIX"},
+    "protocol_version": {"const": "1.5"},
+    "status": {"const": "PRE_P1_SCAFFOLD_NOT_EXECUTABLE"},
+    "target_specific_fields_present": {"const": false},
+    "arms": {"const": ["CATALOGUE", "GENERIC", "WALL_NAVIGATION"]},
+    "root_roles": {
+      "const": [
+        "COMMON_TARGET_BUNDLE", "LITERAL_EVALUATOR", "CANDIDATE_CANONICALIZER",
+        "CATALOGUE_LIBRARY", "CATALOGUE_CONTRACT", "CATALOGUE_SEED_AND_SIZE_CEILING",
+        "GENERIC_GRAMMAR_AND_SCHEDULE", "GENERIC_CONTRACT", "GENERIC_SEED",
+        "WALL_ANALYSIS", "WALL_EFFECT_FORECAST", "WALL_TRANSFORMATION_AND_GRID",
+        "WALL_CONTRACT", "WALL_SEED", "CATALOGUE_RESULT", "GENERIC_RESULT",
+        "WALL_NAVIGATION_RESULT"
+      ]
+    },
+    "capabilities": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["CATALOGUE", "GENERIC", "WALL_NAVIGATION"],
+      "properties": {
+        "CATALOGUE": {"$ref": "#/definitions/catalogue"},
+        "GENERIC": {"$ref": "#/definitions/generic"},
+        "WALL_NAVIGATION": {"$ref": "#/definitions/wall"}
+      }
+    },
+    "all_result_root_roles": {
+      "const": ["CATALOGUE_RESULT", "GENERIC_RESULT", "WALL_NAVIGATION_RESULT"]
+    },
+    "enforcement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "default_for_unspecified_root", "allowed_roots_are_exact_digest_closure",
+        "forbidden_roots_must_be_absent", "result_roots_forbidden_as_inputs",
+        "writable_roots_pairwise_disjoint", "writable_roots_outside_campaign_checkout",
+        "shared_writable_cache_permitted", "agent_context_inheritance_permitted"
+      ],
+      "properties": {
+        "default_for_unspecified_root": {"const": "DENY"},
+        "allowed_roots_are_exact_digest_closure": {"const": true},
+        "forbidden_roots_must_be_absent": {"const": true},
+        "result_roots_forbidden_as_inputs": {"const": true},
+        "writable_roots_pairwise_disjoint": {"const": true},
+        "writable_roots_outside_campaign_checkout": {"const": true},
+        "shared_writable_cache_permitted": {"const": false},
+        "agent_context_inheritance_permitted": {"const": false}
+      }
+    },
+    "matrix_sha256": {"$ref": "#/definitions/sha256"}
+  },
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "catalogue": {
+      "type": "object", "additionalProperties": false,
+      "required": ["allowed_root_roles", "forbidden_root_roles"],
+      "properties": {
+        "allowed_root_roles": {"const": [
+          "COMMON_TARGET_BUNDLE", "LITERAL_EVALUATOR", "CANDIDATE_CANONICALIZER",
+          "CATALOGUE_LIBRARY", "CATALOGUE_CONTRACT", "CATALOGUE_SEED_AND_SIZE_CEILING"
+        ]},
+        "forbidden_root_roles": {"const": [
+          "GENERIC_GRAMMAR_AND_SCHEDULE", "GENERIC_CONTRACT", "GENERIC_SEED",
+          "WALL_ANALYSIS", "WALL_EFFECT_FORECAST", "WALL_TRANSFORMATION_AND_GRID",
+          "WALL_CONTRACT", "WALL_SEED", "CATALOGUE_RESULT", "GENERIC_RESULT",
+          "WALL_NAVIGATION_RESULT"
+        ]}
+      }
+    },
+    "generic": {
+      "type": "object", "additionalProperties": false,
+      "required": ["allowed_root_roles", "forbidden_root_roles"],
+      "properties": {
+        "allowed_root_roles": {"const": [
+          "COMMON_TARGET_BUNDLE", "LITERAL_EVALUATOR", "CANDIDATE_CANONICALIZER",
+          "GENERIC_GRAMMAR_AND_SCHEDULE", "GENERIC_CONTRACT", "GENERIC_SEED"
+        ]},
+        "forbidden_root_roles": {"const": [
+          "CATALOGUE_LIBRARY", "CATALOGUE_CONTRACT", "CATALOGUE_SEED_AND_SIZE_CEILING",
+          "WALL_ANALYSIS", "WALL_EFFECT_FORECAST", "WALL_TRANSFORMATION_AND_GRID",
+          "WALL_CONTRACT", "WALL_SEED", "CATALOGUE_RESULT", "GENERIC_RESULT",
+          "WALL_NAVIGATION_RESULT"
+        ]}
+      }
+    },
+    "wall": {
+      "type": "object", "additionalProperties": false,
+      "required": ["allowed_root_roles", "forbidden_root_roles"],
+      "properties": {
+        "allowed_root_roles": {"const": [
+          "COMMON_TARGET_BUNDLE", "LITERAL_EVALUATOR", "CANDIDATE_CANONICALIZER",
+          "WALL_ANALYSIS", "WALL_EFFECT_FORECAST", "WALL_TRANSFORMATION_AND_GRID",
+          "WALL_CONTRACT", "WALL_SEED"
+        ]},
+        "forbidden_root_roles": {"const": [
+          "CATALOGUE_LIBRARY", "CATALOGUE_CONTRACT", "CATALOGUE_SEED_AND_SIZE_CEILING",
+          "GENERIC_GRAMMAR_AND_SCHEDULE", "GENERIC_CONTRACT", "GENERIC_SEED",
+          "CATALOGUE_RESULT", "GENERIC_RESULT", "WALL_NAVIGATION_RESULT"
+        ]}
+      }
+    }
+  }
+}

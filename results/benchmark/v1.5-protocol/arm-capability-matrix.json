@@ -1,0 +1,66 @@
+{
+  "schema": "c5k4-method-v1.5-arm-capability-matrix-1.0",
+  "artifact_kind": "TARGET_FREE_ARM_CAPABILITY_MATRIX",
+  "protocol_version": "1.5",
+  "status": "PRE_P1_SCAFFOLD_NOT_EXECUTABLE",
+  "target_specific_fields_present": false,
+  "arms": ["CATALOGUE", "GENERIC", "WALL_NAVIGATION"],
+  "root_roles": [
+    "COMMON_TARGET_BUNDLE", "LITERAL_EVALUATOR", "CANDIDATE_CANONICALIZER",
+    "CATALOGUE_LIBRARY", "CATALOGUE_CONTRACT", "CATALOGUE_SEED_AND_SIZE_CEILING",
+    "GENERIC_GRAMMAR_AND_SCHEDULE", "GENERIC_CONTRACT", "GENERIC_SEED",
+    "WALL_ANALYSIS", "WALL_EFFECT_FORECAST", "WALL_TRANSFORMATION_AND_GRID",
+    "WALL_CONTRACT", "WALL_SEED", "CATALOGUE_RESULT", "GENERIC_RESULT",
+    "WALL_NAVIGATION_RESULT"
+  ],
+  "capabilities": {
+    "CATALOGUE": {
+      "allowed_root_roles": [
+        "COMMON_TARGET_BUNDLE", "LITERAL_EVALUATOR", "CANDIDATE_CANONICALIZER",
+        "CATALOGUE_LIBRARY", "CATALOGUE_CONTRACT", "CATALOGUE_SEED_AND_SIZE_CEILING"
+      ],
+      "forbidden_root_roles": [
+        "GENERIC_GRAMMAR_AND_SCHEDULE", "GENERIC_CONTRACT", "GENERIC_SEED",
+        "WALL_ANALYSIS", "WALL_EFFECT_FORECAST", "WALL_TRANSFORMATION_AND_GRID",
+        "WALL_CONTRACT", "WALL_SEED", "CATALOGUE_RESULT", "GENERIC_RESULT",
+        "WALL_NAVIGATION_RESULT"
+      ]
+    },
+    "GENERIC": {
+      "allowed_root_roles": [
+        "COMMON_TARGET_BUNDLE", "LITERAL_EVALUATOR", "CANDIDATE_CANONICALIZER",
+        "GENERIC_GRAMMAR_AND_SCHEDULE", "GENERIC_CONTRACT", "GENERIC_SEED"
+      ],
+      "forbidden_root_roles": [
+        "CATALOGUE_LIBRARY", "CATALOGUE_CONTRACT", "CATALOGUE_SEED_AND_SIZE_CEILING",
+        "WALL_ANALYSIS", "WALL_EFFECT_FORECAST", "WALL_TRANSFORMATION_AND_GRID",
+        "WALL_CONTRACT", "WALL_SEED", "CATALOGUE_RESULT", "GENERIC_RESULT",
+        "WALL_NAVIGATION_RESULT"
+      ]
+    },
+    "WALL_NAVIGATION": {
+      "allowed_root_roles": [
+        "COMMON_TARGET_BUNDLE", "LITERAL_EVALUATOR", "CANDIDATE_CANONICALIZER",
+        "WALL_ANALYSIS", "WALL_EFFECT_FORECAST", "WALL_TRANSFORMATION_AND_GRID",
+        "WALL_CONTRACT", "WALL_SEED"
+      ],
+      "forbidden_root_roles": [
+        "CATALOGUE_LIBRARY", "CATALOGUE_CONTRACT", "CATALOGUE_SEED_AND_SIZE_CEILING",
+        "GENERIC_GRAMMAR_AND_SCHEDULE", "GENERIC_CONTRACT", "GENERIC_SEED",
+        "CATALOGUE_RESULT", "GENERIC_RESULT", "WALL_NAVIGATION_RESULT"
+      ]
+    }
+  },
+  "all_result_root_roles": ["CATALOGUE_RESULT", "GENERIC_RESULT", "WALL_NAVIGATION_RESULT"],
+  "enforcement": {
+    "default_for_unspecified_root": "DENY",
+    "allowed_roots_are_exact_digest_closure": true,
+    "forbidden_roots_must_be_absent": true,
+    "result_roots_forbidden_as_inputs": true,
+    "writable_roots_pairwise_disjoint": true,
+    "writable_roots_outside_campaign_checkout": true,
+    "shared_writable_cache_permitted": false,
+    "agent_context_inheritance_permitted": false
+  },
+  "matrix_sha256": "4fb70461b4d472cf2b1bcb63acb14cc5279317615a2e22781be553490530ae2c"
+}
