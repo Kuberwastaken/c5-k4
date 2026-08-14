@@ -1,7 +1,8 @@
 # Catch-Up N=24 parity-packed DEVELOPMENT freeze
 
-**State:** prepared and target-unevaluated  
-**Evidence split:** development only  
+**State:** prepared and target-unevaluated
+
+**Evidence split:** development only
 **Literal target:** `CatchUp.value_of_even_mul_succ_self_div_two` at `N=24`
 
 This is a versioned successor to the completed flat-hash Catch-Up trial. It
