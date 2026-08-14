@@ -143,6 +143,19 @@ bounded zero and search-arm calibration, not support for the structural
 transfer thesis or for the universal conjecture. See the
 [A105720 result](results/expansion/live-search-2026-08-14/oeis-a105720-development/result.md).
 
+The next prospective arithmetic wall trial targeted OEIS A063880 through its
+exact multiplicative coordinate
+`sigma(n)/usigma(n)=prod R(p,e)=2`, after removing exponent-one factors that
+contribute identically one. A content-locked 10,000-row source gate passed,
+and 72 isolated meet-in-the-middle workers exhausted all three frozen
+powerful-core domains between `10^18` and `10^36`. Their only raw equality was
+the known historical control `108=2^2*3^3`, encountered once per operational
+arm but rejected before candidate acceptance; there were zero eligible
+matches, candidates, or certificates. This is a genuine target-specific
+structural trial and a finite DEVELOPMENT bounded zero, not evidence that
+either open declaration is true and not a release. See the
+[A063880 result](results/expansion/live-search-2026-08-14/oeis-a063880-development/result.md).
+
 A subsequent live-arm pass over the newly merged OEIS cohort found one exact
 lower-endpoint failure: the formalized A109074 identity says `1 = 3` at
 `n=1`. Source reconciliation shows that this is an erratum rather than a new
