@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-production-campaign-receipt-v1.5.schema.json",
+  "title": "Method v1.5 signed immutable production campaign receipt",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema", "status", "protocol_version", "activation_sha256", "c1_attestation_commit", "run_freeze_commit", "git_ancestry_verified", "git_ancestry_evidence_locator", "triplet_count", "arm_count", "process_tree_count", "budget", "network_policy", "target_output_revealed", "journal_root", "journal", "triplets", "receipt_sha256", "signature"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-production-campaign-receipt-1.0"},
+    "status": {"enum": ["PRODUCTION_CAMPAIGN_TERMINATED", "PRODUCTION_CAMPAIGN_REJECTED_AFTER_COMPLETE_BARRIERS"]},
+    "protocol_version": {"const": "1.5"}, "activation_sha256": {"$ref": "#/definitions/sha256"},
+    "c1_attestation_commit": {"$ref": "#/definitions/gitOid"}, "run_freeze_commit": {"$ref": "#/definitions/gitOid"},
+    "git_ancestry_verified": {"const": true}, "git_ancestry_evidence_locator": {"$ref": "#/definitions/locator"},
+    "triplet_count": {"const": 12}, "arm_count": {"const": 36}, "process_tree_count": {"const": 288},
+    "budget": {"type": "object", "additionalProperties": false, "required": ["trees_per_arm", "wall_seconds_per_tree", "cpu_seconds_per_arm_max", "ilp_cap_seconds"], "properties": {"trees_per_arm": {"const": 8}, "wall_seconds_per_tree": {"const": 60}, "cpu_seconds_per_arm_max": {"const": 480}, "ilp_cap_seconds": {"const": 60}}},
+    "network_policy": {"const": "DENY"}, "target_output_revealed": {"const": false},
+    "journal_root": {"$ref": "#/definitions/locator"},
+    "journal": {"type": "object", "additionalProperties": false, "required": ["entry_count", "entries"], "properties": {"entry_count": {"const": 578}, "entries": {"type": "array", "minItems": 578, "maxItems": 578, "items": {"$ref": "#/definitions/journalEntry"}}}},
+    "triplets": {"type": "array", "minItems": 12, "maxItems": 12, "items": {"$ref": "#/definitions/triplet"}},
+    "receipt_sha256": {"$ref": "#/definitions/sha256"}, "signature": {"$ref": "#/definitions/signature"}
+  },
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "gitOid": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "signature": {"type": "object", "additionalProperties": false, "required": ["signer_id", "key_sha256", "algorithm", "signature_base64"], "properties": {"signer_id": {"const": "CONTROLLED_HARNESS_AUTHORITY"}, "key_sha256": {"$ref": "#/definitions/sha256"}, "algorithm": {"const": "Ed25519"}, "signature_base64": {"type": "string", "pattern": "^[A-Za-z0-9+/]{86}==$"}}},
+    "locator": {"type": "object", "additionalProperties": false, "required": ["backend", "bucket_sha256", "key_sha256", "version_id_sha256", "object_sha256", "retention_mode", "signed_journal_entry_sha256"], "properties": {"backend": {"const": "AWS_S3_OBJECT_LOCK_COMPLIANCE"}, "bucket_sha256": {"$ref": "#/definitions/sha256"}, "key_sha256": {"$ref": "#/definitions/sha256"}, "version_id_sha256": {"$ref": "#/definitions/sha256"}, "object_sha256": {"$ref": "#/definitions/sha256"}, "retention_mode": {"const": "COMPLIANCE"}, "signed_journal_entry_sha256": {"$ref": "#/definitions/sha256"}}},
+    "journalEntry": {"type": "object", "additionalProperties": false, "required": ["sequence", "state", "triplet_index", "tree_id", "prior_entry_sha256", "payload_sha256", "entry_sha256", "locator", "signature"], "properties": {"sequence": {"type": "integer", "minimum": 0, "maximum": 577}, "state": {"enum": ["PREPARE", "START", "COMPLETE", "FINALIZE"]}, "triplet_index": {"type": ["integer", "null"], "minimum": 0, "maximum": 11}, "tree_id": {"type": ["string", "null"], "pattern": "^(CATALOGUE|GENERIC|WALL_NAVIGATION)-[0-7]$"}, "prior_entry_sha256": {"$ref": "#/definitions/sha256"}, "payload_sha256": {"$ref": "#/definitions/sha256"}, "entry_sha256": {"$ref": "#/definitions/sha256"}, "locator": {"$ref": "#/definitions/locator"}, "signature": {"$ref": "#/definitions/signature"}}},
+    "tree": {
+      "type": "object", "additionalProperties": false,
+      "required": ["tree_id", "invocation", "invocation_sha256", "completion_sha256", "accepted", "returncode", "timed_out", "network_denied", "descriptor_pinned_inputs", "whole_tree_cgroup_killed_or_reaped", "setsid_escape_contained", "descriptor_manifest_sha256", "namespace_inode_set_sha256", "process_tree_audit_sha256", "cgroup_v2_sha256", "cpu_usec", "wall_milliseconds", "ilp_cap_seconds", "stdout_sha256", "stderr_sha256", "artifact_sha256", "evidence_locators", "journal_locator", "signature"],
+      "properties": {
+        "tree_id": {"type": "string", "pattern": "^(CATALOGUE|GENERIC|WALL_NAVIGATION)-[0-7]$"},
+        "invocation": {
+          "type": "object", "additionalProperties": false,
+          "required": ["cluster_id_sha256", "envelope_sha256", "arm", "tree_index", "wall_cap_seconds", "ilp_cap_seconds", "network_policy", "executor_binary_sha256", "argv_sha256", "allowed_root_manifest_sha256", "private_root_sha256"],
+          "properties": {"cluster_id_sha256": {"$ref": "#/definitions/sha256"}, "envelope_sha256": {"$ref": "#/definitions/sha256"}, "arm": {"enum": ["CATALOGUE", "GENERIC", "WALL_NAVIGATION"]}, "tree_index": {"type": "integer", "minimum": 0, "maximum": 7}, "wall_cap_seconds": {"const": 60}, "ilp_cap_seconds": {"type": ["integer", "null"]}, "network_policy": {"const": "DENY"}, "executor_binary_sha256": {"$ref": "#/definitions/sha256"}, "argv_sha256": {"$ref": "#/definitions/sha256"}, "allowed_root_manifest_sha256": {"$ref": "#/definitions/sha256"}, "private_root_sha256": {"$ref": "#/definitions/sha256"}}
+        },
+        "invocation_sha256": {"$ref": "#/definitions/sha256"}, "completion_sha256": {"$ref": "#/definitions/sha256"},
+        "accepted": {"type": "boolean"}, "returncode": {"type": ["integer", "null"]}, "timed_out": {"type": "boolean"}, "network_denied": {"type": "boolean"},
+        "descriptor_pinned_inputs": {"type": "boolean"}, "whole_tree_cgroup_killed_or_reaped": {"type": "boolean"}, "setsid_escape_contained": {"type": "boolean"},
+        "descriptor_manifest_sha256": {"$ref": "#/definitions/sha256"}, "namespace_inode_set_sha256": {"$ref": "#/definitions/sha256"}, "process_tree_audit_sha256": {"$ref": "#/definitions/sha256"},
+        "cgroup_v2_sha256": {"$ref": "#/definitions/sha256"}, "cpu_usec": {"type": "integer", "minimum": 0, "maximum": 60000000},
+        "wall_milliseconds": {"type": "integer", "minimum": 0, "maximum": 60000}, "ilp_cap_seconds": {"type": ["integer", "null"]},
+        "stdout_sha256": {"$ref": "#/definitions/sha256"}, "stderr_sha256": {"$ref": "#/definitions/sha256"}, "artifact_sha256": {"$ref": "#/definitions/sha256"},
+        "evidence_locators": {"type": "object", "additionalProperties": false, "required": ["descriptor_manifest", "namespace_inode_set", "process_tree_audit", "cgroup_v2"], "properties": {"descriptor_manifest": {"$ref": "#/definitions/locator"}, "namespace_inode_set": {"$ref": "#/definitions/locator"}, "process_tree_audit": {"$ref": "#/definitions/locator"}, "cgroup_v2": {"$ref": "#/definitions/locator"}}},
+        "journal_locator": {"$ref": "#/definitions/locator"}, "signature": {"$ref": "#/definitions/signature"}
+      },
+      "allOf": [{"if": {"properties": {"accepted": {"const": true}}}, "then": {"properties": {"returncode": {"type": "integer", "const": 0}, "timed_out": {"const": false}, "network_denied": {"const": true}, "descriptor_pinned_inputs": {"const": true}, "whole_tree_cgroup_killed_or_reaped": {"const": true}, "setsid_escape_contained": {"const": true}}}}]
+    },
+    "triplet": {
+      "type": "object", "additionalProperties": false,
+      "required": ["cluster_id_sha256", "envelope_sha256", "tree_count", "trees", "accepted"],
+      "properties": {"cluster_id_sha256": {"$ref": "#/definitions/sha256"}, "envelope_sha256": {"$ref": "#/definitions/sha256"}, "tree_count": {"const": 24}, "trees": {"type": "array", "minItems": 24, "maxItems": 24, "items": {"$ref": "#/definitions/tree"}}, "accepted": {"type": "boolean"}}
+    }
+  }
+}

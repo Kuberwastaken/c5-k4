@@ -1,0 +1,168 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-production-campaign-activation-v1.5.schema.json",
+  "title": "Method v1.5 post-C1 production campaign activation bundle",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "status", "protocol_version", "c1", "freeze", "private_targets", "harness", "activation_sha256"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-production-campaign-activation-1.0"},
+    "status": {"const": "POST_C1_PRODUCTION_CAMPAIGN_AUTHORIZED"},
+    "protocol_version": {"const": "1.5"},
+    "c1": {"$ref": "#/definitions/c1Receipt"},
+    "freeze": {"$ref": "#/definitions/freezeReceipt"},
+    "private_targets": {"$ref": "#/definitions/privateTargetReceipt"},
+    "harness": {"$ref": "#/definitions/harnessReceipt"},
+    "activation_sha256": {"$ref": "#/definitions/sha256"}
+  },
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "gitOid": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "clusterId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"},
+    "signature": {
+      "type": "object", "additionalProperties": false,
+      "required": ["signer_id", "key_sha256", "algorithm", "signature_base64"],
+      "properties": {
+        "signer_id": {"enum": ["C1_SELECTION_AUTHORITY", "RUN_FREEZE_AUTHORITY", "PRIVATE_TARGET_CUSTODIAN", "CONTROLLED_HARNESS_AUTHORITY"]},
+        "key_sha256": {"$ref": "#/definitions/sha256"},
+        "algorithm": {"const": "Ed25519"},
+        "signature_base64": {"type": "string", "pattern": "^[A-Za-z0-9+/]{86}==$"}
+      }
+    },
+    "triplet": {
+      "type": "object", "additionalProperties": false,
+      "required": ["cluster_id", "envelope_path", "envelope_sha256"],
+      "properties": {
+        "cluster_id": {"$ref": "#/definitions/clusterId"},
+        "envelope_path": {"type": "string", "pattern": "^/"},
+        "envelope_sha256": {"$ref": "#/definitions/sha256"}
+      }
+    },
+    "target": {
+      "type": "object", "additionalProperties": false,
+      "required": ["cluster_id", "path", "sha256", "argv_by_arm", "allowed_roots_by_arm", "private_roots_by_arm", "uses_ilp", "ilp_cap_seconds"],
+      "properties": {
+        "cluster_id": {"$ref": "#/definitions/clusterId"},
+        "path": {"type": "string", "pattern": "^/"},
+        "sha256": {"$ref": "#/definitions/sha256"},
+        "argv_by_arm": {
+          "type": "object", "additionalProperties": false,
+          "required": ["CATALOGUE", "GENERIC", "WALL_NAVIGATION"],
+          "properties": {
+            "CATALOGUE": {"$ref": "#/definitions/argv"},
+            "GENERIC": {"$ref": "#/definitions/argv"},
+            "WALL_NAVIGATION": {"$ref": "#/definitions/argv"}
+          }
+        },
+        "allowed_roots_by_arm": {
+          "type": "object", "additionalProperties": false, "required": ["CATALOGUE", "GENERIC", "WALL_NAVIGATION"],
+          "properties": {"CATALOGUE": {"$ref": "#/definitions/rootSpecs"}, "GENERIC": {"$ref": "#/definitions/rootSpecs"}, "WALL_NAVIGATION": {"$ref": "#/definitions/rootSpecs"}}
+        },
+        "private_roots_by_arm": {
+          "type": "object", "additionalProperties": false, "required": ["CATALOGUE", "GENERIC", "WALL_NAVIGATION"],
+          "properties": {"CATALOGUE": {"$ref": "#/definitions/privateRoot"}, "GENERIC": {"$ref": "#/definitions/privateRoot"}, "WALL_NAVIGATION": {"$ref": "#/definitions/privateRoot"}}
+        },
+        "uses_ilp": {"type": "boolean"},
+        "ilp_cap_seconds": {"type": ["integer", "null"]}
+      },
+      "allOf": [
+        {"if": {"properties": {"uses_ilp": {"const": true}}}, "then": {"properties": {"ilp_cap_seconds": {"const": 60}}}},
+        {"if": {"properties": {"uses_ilp": {"const": false}}}, "then": {"properties": {"ilp_cap_seconds": {"type": "null"}}}}
+      ]
+    },
+    "argv": {"type": "array", "minItems": 1, "maxItems": 64, "items": {"type": "string", "minLength": 1, "maxLength": 4096}},
+    "rootSpecs": {"type": "array", "minItems": 1, "maxItems": 32, "uniqueItems": true, "items": {"type": "object", "additionalProperties": false, "required": ["root_role", "path", "sha256", "uid", "gid", "mode"], "properties": {"root_role": {"type": "string", "pattern": "^[A-Z][A-Z0-9_]{0,63}$"}, "path": {"type": "string", "pattern": "^/"}, "sha256": {"$ref": "#/definitions/sha256"}, "uid": {"type": "integer", "minimum": 0}, "gid": {"type": "integer", "minimum": 0}, "mode": {"type": "integer", "minimum": 0, "maximum": 4095}}}},
+    "privateRoot": {"type": "object", "additionalProperties": false, "required": ["path", "uid", "gid", "mode"], "properties": {"path": {"type": "string", "pattern": "^/"}, "uid": {"type": "integer", "minimum": 0}, "gid": {"type": "integer", "minimum": 0}, "mode": {"const": 448}}},
+    "c1Receipt": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "repository_path", "repository_uid", "repository_gid", "repository_mode", "c1_attestation_commit", "selected_cluster_ids", "selection_sha256", "signature"],
+      "properties": {
+        "status": {"const": "VERIFIED_C1_TWELVE_CLUSTER_SELECTION"},
+        "repository_path": {"type": "string", "pattern": "^/"},
+        "repository_uid": {"type": "integer", "minimum": 0}, "repository_gid": {"type": "integer", "minimum": 0}, "repository_mode": {"type": "integer", "minimum": 0, "maximum": 4095},
+        "c1_attestation_commit": {"$ref": "#/definitions/gitOid"},
+        "selected_cluster_ids": {"type": "array", "minItems": 12, "maxItems": 12, "uniqueItems": true, "items": {"$ref": "#/definitions/clusterId"}},
+        "selection_sha256": {"$ref": "#/definitions/sha256"},
+        "signature": {"$ref": "#/definitions/signature"}
+      }
+    },
+    "freezeReceipt": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "repository_path", "repository_uid", "repository_gid", "repository_mode", "c1_attestation_commit", "run_freeze_commit", "triplets", "signature"],
+      "properties": {
+        "status": {"const": "TWELVE_EXECUTION_ENVELOPES_FROZEN"},
+        "repository_path": {"type": "string", "pattern": "^/"},
+        "repository_uid": {"type": "integer", "minimum": 0}, "repository_gid": {"type": "integer", "minimum": 0}, "repository_mode": {"type": "integer", "minimum": 0, "maximum": 4095},
+        "c1_attestation_commit": {"$ref": "#/definitions/gitOid"},
+        "run_freeze_commit": {"$ref": "#/definitions/gitOid"},
+        "triplets": {"type": "array", "minItems": 12, "maxItems": 12, "items": {"$ref": "#/definitions/triplet"}},
+        "signature": {"$ref": "#/definitions/signature"}
+      }
+    },
+    "privateTargetReceipt": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "private_only", "targets", "signature"],
+      "properties": {
+        "status": {"const": "SEALED_PRIVATE_TARGET_BUNDLE_VERIFIED"},
+        "private_only": {"const": true},
+        "targets": {"type": "array", "minItems": 12, "maxItems": 12, "items": {"$ref": "#/definitions/target"}},
+        "signature": {"$ref": "#/definitions/signature"}
+      }
+    },
+    "harnessReceipt": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "host_id", "host_fingerprint_sha256", "runtime_sha256", "executor_binary_path", "executor_binary_sha256", "fixture_runtime_sha256", "production_runtime_distinct", "network_default_deny", "target_output_private", "authority_key_digests", "implementation_closure", "executor_acceptance", "journal_acceptance", "accepted_at_utc", "signature"],
+      "properties": {
+        "status": {"const": "CONTROLLED_HARNESS_PRODUCTION_ACCEPTED"},
+        "host_id": {"const": "ai-vps-controlled-harness"},
+        "host_fingerprint_sha256": {"$ref": "#/definitions/sha256"},
+        "runtime_sha256": {"$ref": "#/definitions/sha256"},
+        "executor_binary_path": {"const": "/opt/c5k4-benchmark-v15/p1/bin/c5k4-triplet-tree-executor"},
+        "executor_binary_sha256": {"$ref": "#/definitions/sha256"},
+        "fixture_runtime_sha256": {"$ref": "#/definitions/sha256"},
+        "production_runtime_distinct": {"const": true},
+        "network_default_deny": {"const": true},
+        "target_output_private": {"const": true},
+        "authority_key_digests": {
+          "type": "object", "additionalProperties": false,
+          "required": ["c1", "freeze", "private_targets", "harness"],
+          "properties": {"c1": {"$ref": "#/definitions/sha256"}, "freeze": {"$ref": "#/definitions/sha256"}, "private_targets": {"$ref": "#/definitions/sha256"}, "harness": {"$ref": "#/definitions/sha256"}}
+        },
+        "implementation_closure": {
+          "type": "object", "additionalProperties": false,
+          "required": ["launcher", "runtime", "triplet", "adapter", "v14_runner", "activation_schema", "receipt_schema"],
+          "properties": {
+            "launcher": {"$ref": "#/definitions/immutableFile"}, "runtime": {"$ref": "#/definitions/immutableFile"},
+            "triplet": {"$ref": "#/definitions/immutableFile"}, "adapter": {"$ref": "#/definitions/immutableFile"},
+            "v14_runner": {"$ref": "#/definitions/immutableFile"}, "activation_schema": {"$ref": "#/definitions/immutableFile"},
+            "receipt_schema": {"$ref": "#/definitions/immutableFile"}
+          }
+        },
+        "executor_acceptance": {
+          "type": "object", "additionalProperties": false,
+          "required": ["binary_path", "binary_sha256", "descriptor_pinned_inputs", "network_namespace_default_deny", "cgroup_v2_cpu_accounting", "whole_tree_cgroup_kill", "setsid_escape_contained", "wall_cap_seconds", "ilp_cap_seconds"],
+          "properties": {
+            "binary_path": {"const": "/opt/c5k4-benchmark-v15/p1/bin/c5k4-triplet-tree-executor"}, "binary_sha256": {"$ref": "#/definitions/sha256"},
+            "descriptor_pinned_inputs": {"const": true}, "network_namespace_default_deny": {"const": true},
+            "cgroup_v2_cpu_accounting": {"const": true}, "whole_tree_cgroup_kill": {"const": true},
+            "setsid_escape_contained": {"const": true}, "wall_cap_seconds": {"const": 60}, "ilp_cap_seconds": {"const": 60}
+          }
+        },
+        "journal_acceptance": {
+          "type": "object", "additionalProperties": false,
+          "required": ["backend", "append_only", "signed_entries", "crash_recovery", "caller_deletion_can_reauthorize", "acceptance_sha256"],
+          "properties": {
+            "backend": {"const": "AWS_S3_OBJECT_LOCK_COMPLIANCE"}, "append_only": {"const": true}, "signed_entries": {"const": true},
+            "crash_recovery": {"const": "RESUME_OR_TERMINAL_REJECT"}, "caller_deletion_can_reauthorize": {"const": false}, "acceptance_sha256": {"$ref": "#/definitions/sha256"}
+          }
+        },
+        "accepted_at_utc": {"type": "string", "format": "date-time", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"},
+        "signature": {"$ref": "#/definitions/signature"}
+      }
+    },
+    "immutableFile": {
+      "type": "object", "additionalProperties": false, "required": ["path", "sha256"],
+      "properties": {"path": {"type": "string", "pattern": "^/"}, "sha256": {"$ref": "#/definitions/sha256"}}
+    }
+  }
+}
