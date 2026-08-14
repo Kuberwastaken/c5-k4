@@ -551,6 +551,15 @@ workflow.
 - [WOWII 176: barbell-family counterexample and formal certificate](https://github.com/Kuberwastaken/c5-k4/releases/tag/wowii-176-v1)
 - [WOWII 430a: nonuniform path-blow-up counterexample and formal certificate](https://github.com/Kuberwastaken/c5-k4/releases/tag/wowii-430a-v1)
 - [WOWII 181: formalized square-degree reading counterexample and formal certificate](https://github.com/Kuberwastaken/c5-k4/releases/tag/wowii-181-v1)
+- [OEIS A109074: certificate and audit of the merged indexing/formalization defect](https://github.com/Kuberwastaken/c5-k4/releases/tag/oeis-109074-formalization-v1)
+- [OEIS A111291: certificate and audit of the merged real-domain defect](https://github.com/Kuberwastaken/c5-k4/releases/tag/oeis-111291-formalization-v1)
+- [OEIS A113019: complete fixed-point classification `1, 32, 9^9`](https://github.com/Kuberwastaken/c5-k4/releases/tag/oeis-113019-fixed-points-v1)
+- [Bateman--Horn: certificate and audit of the counting-helper endpoint defect](https://github.com/Kuberwastaken/c5-k4/releases/tag/bateman-horn-count-endpoint-v1)
+
+Only A113019 in this second group answers the intended mathematical source
+question. The other three releases preserve exact, formally certified defects
+in merged declarations or helper definitions and are excluded from the
+mathematical counterexample count.
 
 Known externally claimed results such as WOWII 64 and 309 remain fully
 formalized and credited in the repository, but are not republished as
