@@ -13,11 +13,10 @@ import argparse
 import hashlib
 import importlib.util
 import json
-import os
 from pathlib import Path, PurePosixPath
 import re
 import subprocess
-from typing import Any, Callable
+from typing import Any
 
 import jsonschema
 
@@ -189,14 +188,10 @@ def _selectors(value: Any, trail: tuple[str, ...] = ()) -> list[tuple[str, str, 
     return rows
 
 
-def resolve_published_roles(repository: Path, p1t_commit: str, p1t_path: str,
-                            *, expected_origin: str = PUBLIC_ORIGIN,
-                            publication_ref: str = PUBLIC_REF) -> dict[str, Any]:
-    """Authenticate and resolve the target-blind role map.
-
-    The keyword overrides exist only for hermetic contract tests.  The CLI does
-    not expose them and always pins the public origin/ref constants.
-    """
+def _resolve_published_roles(repository: Path, p1t_commit: str, p1t_path: str,
+                             *, expected_origin: str,
+                             publication_ref: str) -> dict[str, Any]:
+    """Hermetic implementation; origin/ref injection is contract-test-only."""
     repo = GitRepo(repository)
     p1t_commit = repo.exact_commit(p1t_commit, "P1T commit")
     p1t_path = normalized_path(p1t_path)
@@ -322,6 +317,15 @@ def resolve_published_roles(repository: Path, p1t_commit: str, p1t_path: str,
     }
     proof["resolution_sha256"] = sha256(canonical_json(proof))
     return proof
+
+
+def resolve_published_roles(repository: Path, p1t_commit: str,
+                            p1t_path: str) -> dict[str, Any]:
+    """Resolve roles against the non-overridable production origin/ref."""
+    return _resolve_published_roles(
+        repository, p1t_commit, p1t_path,
+        expected_origin=PUBLIC_ORIGIN, publication_ref=PUBLIC_REF,
+    )
 
 
 def readiness() -> dict[str, Any]:

@@ -148,9 +148,10 @@ class Fixture:
         }
 
     def resolve(self) -> dict:
-        return resolver.resolve_published_roles(
+        return resolver._resolve_published_roles(
             self.root, self.p1t_commit, "results/P1T.json",
             expected_origin="https://example.invalid/test.git",
+            publication_ref=resolver.PUBLIC_REF,
         )
 
 
@@ -243,7 +244,11 @@ class RoleResolutionTests(unittest.TestCase):
         commit = self.fx.git("rev-parse", "HEAD").strip()
         self.fx.git("update-ref", "refs/remotes/origin/main", commit)
         with self.assertRaisesRegex(resolver.RoleResolutionError, "duplicate JSON key"):
-            resolver.resolve_published_roles(self.fx.root, commit, "results/P1T2.json", expected_origin="https://example.invalid/test.git")
+            resolver._resolve_published_roles(
+                self.fx.root, commit, "results/P1T2.json",
+                expected_origin="https://example.invalid/test.git",
+                publication_ref=resolver.PUBLIC_REF,
+            )
 
     def test_digest_substitution_is_refused(self) -> None:
         self.fx.p1a["components"]["runner"]["sha256"] = "f" * 64
@@ -270,9 +275,10 @@ class RoleResolutionTests(unittest.TestCase):
         self.fx.git("update-ref", "refs/remotes/origin/main", self.fx.p1t_commit)
         # resolve() uses the original path; update it for replacement cases.
         original = self.fx.resolve
-        self.fx.resolve = lambda: resolver.resolve_published_roles(
+        self.fx.resolve = lambda: resolver._resolve_published_roles(
             self.fx.root, self.fx.p1t_commit, "results/P1T2.json",
             expected_origin="https://example.invalid/test.git",
+            publication_ref=resolver.PUBLIC_REF,
         )
 
 
