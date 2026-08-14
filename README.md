@@ -325,6 +325,15 @@ identified a more important method defect: a merely greedy Cartesian
 total-domination witness can conceal a crossing, so the next revision must
 certify or descend that side before expanding the same prefixes.
 
+That correction has now been executed as TxGraffiti product v2. It replaces
+the greedy-only Cartesian value with monotone exact-size descent and admits a
+direct-product value only after exhaustive lower-cardinality absence. All 293
+pairs in the deliberately smaller revised domains were independently replayed
+with exact values for both parameters; 225 are equalities, 68 lie strictly on
+the safe side, and none crosses. This closes the v1 false-negative ambiguity
+for those domains while remaining a bounded zero; see the
+[v2 result](results/expansion/live-search-2026-08-14/txgraffiti-product-v2-development/result.md).
+
 The following rotation tested two more invariant clusters. The DOI-qualified
 Graffiti³ energy campaign first rejected the source table's center-excluding
 `d₂` implementation reading because `K₂` and `K₃` already refute it, then
