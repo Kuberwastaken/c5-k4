@@ -1,0 +1,284 @@
+{
+  "schema": "c5k4-method-v1.5-aws-github-bootstrap-contract-1.0",
+  "status": "PRE_P1_ZERO_CURRENT_BOOTSTRAP_AUTHORITY",
+  "protocol_version": "1.5",
+  "artifact_class": "TARGET_BLIND_NORMATIVE_EXTERNAL_BOOTSTRAP_CONTRACT",
+  "scope": {
+    "normative_only": true,
+    "external_mutation_authorized": false,
+    "provisioning_performed": false,
+    "live_acceptance_claimed": false,
+    "credential_possession_claimed": false,
+    "target_data_permitted": false,
+    "target_specific": false
+  },
+  "repository_identity": {
+    "owner_login": "Kuberwastaken",
+    "owner_id": 97027230,
+    "repository_name": "c5-k4",
+    "repository_id": 1331829034,
+    "default_branch": "main",
+    "environment": "benchmark-v15-production",
+    "immutable_oidc_subject": "repo:Kuberwastaken@97027230/c5-k4@1331829034:environment:benchmark-v15-production",
+    "oidc_audience": "sts.amazonaws.com",
+    "oidc_issuer": "https://token.actions.githubusercontent.com"
+  },
+  "immutable_subject_prerequisite": {
+    "status": "EXTERNAL_OPT_IN_REQUIRED",
+    "required_before_role_creation": true,
+    "github_api_operation": "CONFIGURE_REPOSITORY_OIDC_SUBJECT_CUSTOMIZATION_TO_INCLUDE_IMMUTABLE_OWNER_AND_REPOSITORY_IDENTIFIERS",
+    "accepted_subject": "repo:Kuberwastaken@97027230/c5-k4@1331829034:environment:benchmark-v15-production",
+    "mutable_name_only_subject_forbidden": true,
+    "operator_assertion_is_evidence": false,
+    "live_api_receipt_required": true
+  },
+  "principals": {
+    "immutable_store_deployer": {
+      "github_variable": "BENCHMARK_V15_AWS_ROLE_ARN",
+      "role_name": "c5k4-v15-immutable-store-deployer",
+      "role_path": "/c5k4/v1.5/bootstrap/",
+      "trust": {
+        "principal_type": "FEDERATED_GITHUB_OIDC_ONLY",
+        "provider_arn_template": "arn:${AWS_PARTITION}:iam::${AWS_ACCOUNT_ID}:oidc-provider/token.actions.githubusercontent.com",
+        "action": "sts:AssumeRoleWithWebIdentity",
+        "conditions": {
+          "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
+          "token.actions.githubusercontent.com:sub": "repo:Kuberwastaken@97027230/c5-k4@1331829034:environment:benchmark-v15-production"
+        },
+        "max_session_seconds": 1800,
+        "role_chaining_permitted": false
+      },
+      "least_privilege": {
+        "cloudformation_actions": [
+          "cloudformation:CreateChangeSet",
+          "cloudformation:DescribeChangeSet",
+          "cloudformation:DescribeStacks",
+          "cloudformation:ExecuteChangeSet",
+          "cloudformation:GetTemplateSummary",
+          "cloudformation:ValidateTemplate"
+        ],
+        "iam_actions": [
+          "iam:CreateRole",
+          "iam:GetRole",
+          "iam:GetRolePolicy",
+          "iam:PutRolePolicy",
+          "iam:TagRole"
+        ],
+        "kms_actions": [
+          "kms:CreateKey",
+          "kms:DescribeKey",
+          "kms:EnableKeyRotation",
+          "kms:GetKeyPolicy",
+          "kms:GetKeyRotationStatus",
+          "kms:ListResourceTags",
+          "kms:PutKeyPolicy",
+          "kms:TagResource"
+        ],
+        "s3_actions": [
+          "s3:CreateBucket",
+          "s3:GetBucketLocation",
+          "s3:GetBucketObjectLockConfiguration",
+          "s3:GetBucketPolicy",
+          "s3:GetBucketPublicAccessBlock",
+          "s3:GetBucketTagging",
+          "s3:GetBucketVersioning",
+          "s3:PutBucketEncryption",
+          "s3:PutBucketObjectLockConfiguration",
+          "s3:PutBucketOwnershipControls",
+          "s3:PutBucketPolicy",
+          "s3:PutBucketPublicAccessBlock",
+          "s3:PutBucketTagging",
+          "s3:PutBucketVersioning"
+        ],
+        "explicitly_forbidden_actions": [
+          "iam:PassRole",
+          "sts:AssumeRole",
+          "cloudformation:UpdateStack",
+          "cloudformation:DeleteStack",
+          "s3:DeleteBucket",
+          "s3:DeleteObject",
+          "kms:ScheduleKeyDeletion",
+          "kms:DisableKey"
+        ],
+        "stack_mode": "CREATE_ONLY_EXACT_TEMPLATE_AND_PARAMETERS",
+        "wildcard_administrator_policy_forbidden": true
+      },
+      "custody_writer_creation": {
+        "role_identity": "IMMUTABLE_STORE_STACK_CUSTODY_WRITER_RESOURCE",
+        "created_only_by_immutable_store_stack": true,
+        "permissions_boundary": {
+          "name": "c5k4-v1-5-custody-writer-boundary",
+          "arn_template": "arn:${AWS_PARTITION}:iam::${AWS_ACCOUNT_ID}:policy/c5k4-v1-5-custody-writer-boundary",
+          "must_preexist": true,
+          "bootstrap_may_create_or_modify": false,
+          "live_digest_receipt_required": true
+        },
+        "trust_principal": "EXACT_CONTROLLED_HARNESS_ROLE_ARN",
+        "trust_action": "sts:AssumeRole",
+        "external_id_policy": "SHA256(candidate_commit:template_sha256:stack_name:harness_principal_arn)",
+        "only_permitted_assume_role_hop": true
+      }
+    },
+    "controlled_host_deployer": {
+      "github_variable": "BENCHMARK_V15_HOST_AWS_ROLE_ARN",
+      "role_name": "c5k4-v15-controlled-host-deployer",
+      "role_path": "/c5k4/v1.5/bootstrap/",
+      "trust": {
+        "principal_type": "FEDERATED_GITHUB_OIDC_ONLY",
+        "provider_arn_template": "arn:${AWS_PARTITION}:iam::${AWS_ACCOUNT_ID}:oidc-provider/token.actions.githubusercontent.com",
+        "action": "sts:AssumeRoleWithWebIdentity",
+        "conditions": {
+          "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
+          "token.actions.githubusercontent.com:sub": "repo:Kuberwastaken@97027230/c5-k4@1331829034:environment:benchmark-v15-production"
+        },
+        "max_session_seconds": 1800,
+        "role_chaining_permitted": false
+      },
+      "least_privilege": {
+        "cloudformation_actions": [
+          "cloudformation:CreateChangeSet",
+          "cloudformation:DescribeChangeSet",
+          "cloudformation:DescribeStacks",
+          "cloudformation:ExecuteChangeSet",
+          "cloudformation:GetTemplateSummary",
+          "cloudformation:ValidateTemplate"
+        ],
+        "ec2_actions": [
+          "ec2:AssociateRouteTable",
+          "ec2:AuthorizeSecurityGroupEgress",
+          "ec2:CreateTags",
+          "ec2:CreateRouteTable",
+          "ec2:CreateSecurityGroup",
+          "ec2:CreateSubnet",
+          "ec2:CreateVpc",
+          "ec2:DescribeAvailabilityZones",
+          "ec2:DescribeImages",
+          "ec2:DescribeInstanceAttribute",
+          "ec2:DescribeInstances",
+          "ec2:DescribeRouteTables",
+          "ec2:DescribeSecurityGroups",
+          "ec2:DescribeSubnets",
+          "ec2:DescribeVolumes",
+          "ec2:DescribeVpcs",
+          "ec2:ModifyInstanceAttribute",
+          "ec2:ModifyVpcAttribute",
+          "ec2:MonitorInstances",
+          "ec2:RevokeSecurityGroupEgress",
+          "ec2:RunInstances"
+        ],
+        "iam_actions": [
+          "iam:GetInstanceProfile",
+          "iam:GetRole",
+          "iam:PassRole"
+        ],
+        "iam_pass_role_constraint": "EXACT_CONTROLLED_HARNESS_INSTANCE_ROLE_TO_EC2_ONLY",
+        "iam_pass_role_resource": "EXACT_BENCHMARK_V15_HARNESS_PRINCIPAL_ARN",
+        "iam_pass_role_condition": {"iam:PassedToService": "ec2.amazonaws.com"},
+        "explicitly_forbidden_actions": [
+          "sts:AssumeRole",
+          "ec2:TerminateInstances",
+          "ec2:CreateImage",
+          "ec2:ModifyInstanceAttribute",
+          "iam:AttachRolePolicy",
+          "iam:CreatePolicyVersion",
+          "iam:SetDefaultPolicyVersion",
+          "cloudformation:UpdateStack",
+          "cloudformation:DeleteStack"
+        ],
+        "stack_mode": "CREATE_ONLY_EXACT_TEMPLATE_AND_PARAMETERS",
+        "wildcard_administrator_policy_forbidden": true
+      }
+    },
+    "controlled_harness_instance": {
+      "role_name": "c5k4-v15-controlled-harness",
+      "instance_profile_name": "c5k4-v15-controlled-harness",
+      "trust_principal": "ec2.amazonaws.com",
+      "trust_action": "sts:AssumeRole",
+      "role_and_instance_profile_must_preexist": true,
+      "role_and_instance_profile_names_must_match": true,
+      "host_stack_consumes_preexisting_profile_name_only": true,
+      "human_or_github_assumption_permitted": false,
+      "unscoped_role_chaining_permitted": false,
+      "inline_sts_assume_role_policy": "EXACT_CUSTODY_WRITER_ROLE_WITH_FROZEN_EXTERNAL_ID_ONLY",
+      "custody_access_model": "SINGLE_EXTERNAL_ID_BOUND_CUSTODY_WRITER_ASSUME_ROLE_HOP"
+    }
+  },
+  "principal_separation": {
+    "all_role_arns_pairwise_distinct": true,
+    "deployer_roles_may_be_instance_profile_roles": false,
+    "github_oidc_roles_may_be_harness_runtime_role": false,
+    "shared_principal_permitted": false,
+    "unscoped_role_chaining_permitted": false,
+    "only_permitted_assume_role_edge": "CONTROLLED_HARNESS_TO_CUSTODY_WRITER_WITH_EXACT_EXTERNAL_ID",
+    "long_lived_aws_access_keys_permitted": false
+  },
+  "github_environment": {
+    "name": "benchmark-v15-production",
+    "protected": true,
+    "deployment_branch_policy": "SELECTED_BRANCHES_ONLY",
+    "allowed_branch": "main",
+    "tags_permitted": false,
+    "required_reviewer_count_minimum": 1,
+    "prevent_self_review": true,
+    "environment_secrets": [],
+    "repository_secrets_consumed": [],
+    "oidc_only": true,
+    "administrator_bypass_accepted_as_protocol_authority": false
+  },
+  "github_variables": {
+    "existing_activation_variables": [
+      "BENCHMARK_V15_AWS_REGION",
+      "BENCHMARK_V15_TEMPLATE_SHA256",
+      "BENCHMARK_V15_STACK_NAME",
+      "BENCHMARK_V15_AWS_ROLE_ARN",
+      "BENCHMARK_V15_HARNESS_PRINCIPAL_ARN"
+    ],
+    "proposed_host_bootstrap_variables": [
+      "BENCHMARK_V15_HOST_STACK_NAME",
+      "BENCHMARK_V15_HOST_TEMPLATE_SHA256",
+      "BENCHMARK_V15_HOST_AMI_ID",
+      "BENCHMARK_V15_HOST_AMI_MEASUREMENTS_SHA256",
+      "BENCHMARK_V15_HOST_AWS_ROLE_ARN"
+    ],
+    "runtime_evidence_variables_forbidden_before_create": [
+      "BENCHMARK_V15_HARNESS_INSTANCE_ID",
+      "BENCHMARK_V15_HARNESS_ENDPOINT",
+      "BENCHMARK_V15_HARNESS_ATTESTATION_SHA256"
+    ],
+    "values_recorded_in_contract": false,
+    "secrets_permitted_as_variables": false
+  },
+  "current_external_state": {
+    "observation_class": "DISCLOSED_READ_ONLY_POINT_IN_TIME_NOT_CONTINUING_AUTHORITY",
+    "observed_at_utc": "2026-08-14T00:00:00Z",
+    "github_repository_variable_count": 0,
+    "github_environment_count": 0,
+    "aws_credentials_available_to_session": false,
+    "aws_oidc_provider_verified": false,
+    "immutable_subject_opt_in_verified": false,
+    "deployer_roles_verified": false,
+    "harness_role_and_profile_verified": false,
+    "custody_boundary_verified": false,
+    "authority_accepted": false,
+    "activation_permitted": false
+  },
+  "immutable_store_alignment": {
+    "custody_writer_created_by_immutable_store_stack": true,
+    "preexisting_permissions_boundary_required": true,
+    "harness_to_custody_writer_external_id_hop_required": true,
+    "any_other_assume_role_hop_permitted": false,
+    "static_contract_is_live_acceptance": false,
+    "separate_live_acceptance_required": true
+  },
+  "failure_policy": {
+    "mutable_oidc_subject": "FAIL_CLOSED",
+    "missing_subject_customization_receipt": "FAIL_CLOSED",
+    "shared_or_chained_principal": "FAIL_CLOSED",
+    "missing_preexisting_boundary": "FAIL_CLOSED",
+    "environment_not_main_only_or_without_independent_reviewer": "FAIL_CLOSED",
+    "secret_or_long_lived_credential": "FAIL_CLOSED",
+    "unexpected_existing_authority": "REQUIRE_NEW_SIGNED_RECONCILIATION_BEFORE_ANY_MUTATION",
+    "target_or_statement_data_present": "FAIL_CLOSED_PROTOCOL_INVALID"
+  },
+  "contract_sha256": "1ce293ed61f60d695a850abd31ab68e115110480b455e98a97c109dfdd3b0d05"
+}
