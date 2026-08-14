@@ -33,7 +33,20 @@ Date: **2026-08-14 UTC**
   repository's Latest release.
 - No generated binary assets.
 
-## Release lock and publication readback
+## Release lock
 
-Pending creation of the preflight commit and release.  A follow-up commit will
-record the exact tag target and readback.
+The annotated tag dereferences locally and remotely to
+`49aa82ff3c22c038f4166612933664e7386a3b86`.  The tag object is
+`4e3a9e4a908be7218f0ba429d69bcdd691f5a622`.
+
+## Publication readback
+
+- Release:
+  <https://github.com/Kuberwastaken/c5-k4/releases/tag/bateman-horn-count-endpoint-v1>.
+- GitHub confirms the intended title, non-draft and non-prerelease state,
+  publication at `2026-08-14T07:07:03Z`, and zero binary assets.
+- `--latest=false` was honored: A113019 remains the Latest release.
+- Every immutable audit, certificate, verifier, and frozen-upstream link
+  returned HTTP 200.
+- The release opening excludes the finding from the conjecture-kill count and
+  states that the discrepancy is asymptotically inert.
