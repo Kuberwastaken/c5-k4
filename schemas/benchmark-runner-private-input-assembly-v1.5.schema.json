@@ -31,11 +31,14 @@
     },
     "p1_scope": {
       "type": "object", "additionalProperties": false,
-      "required": ["p1t_commit", "p1t_path", "role_resolution_sha256", "participant_ledger_sha256", "participant_ledger_artifact_sha256", "source_boundary_sha256", "noninterference_receipt_sha256", "noninterference_receipt_schema_sha256", "noninterference_verifier_sha256", "operational_noninterference_key_commitment_sha256", "operational_noninterference_key_commitment_schema_sha256", "classifier_readiness_receipt_sha256", "classifier_runtime_binding_schema_sha256", "classifier_runtime_verifier_sha256", "required_host_id"],
+      "required": ["p1t_commit", "p1t_path", "role_resolution_sha256", "assembler_sha256", "source_policy_sha256", "invocation_contract_sha256", "participant_ledger_sha256", "participant_ledger_artifact_sha256", "source_boundary_sha256", "noninterference_receipt_sha256", "noninterference_receipt_schema_sha256", "noninterference_verifier_sha256", "operational_noninterference_key_commitment_sha256", "operational_noninterference_key_commitment_schema_sha256", "classifier_readiness_receipt_sha256", "classifier_runtime_binding_schema_sha256", "classifier_runtime_verifier_sha256", "required_host_id"],
       "properties": {
         "p1t_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
         "p1t_path": {"type": "string", "pattern": "^[^/][^\\u0000]*\\.json$"},
         "role_resolution_sha256": {"$ref": "#/definitions/sha256"},
+        "assembler_sha256": {"$ref": "#/definitions/sha256"},
+        "source_policy_sha256": {"$ref": "#/definitions/sha256"},
+        "invocation_contract_sha256": {"$ref": "#/definitions/sha256"},
         "participant_ledger_sha256": {"$ref": "#/definitions/sha256"},
         "participant_ledger_artifact_sha256": {"$ref": "#/definitions/sha256"},
         "source_boundary_sha256": {"$ref": "#/definitions/sha256"},

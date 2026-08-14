@@ -51,7 +51,6 @@ STATUS = "FROZEN_P1_PRIVATE_INPUT_ASSEMBLY_READY"
 SOURCE_BOUNDARY = ROOT / "results/benchmark/v1.5-protocol/source-boundary.json"
 SOURCE_POLICY = ROOT / "results/benchmark/v1.5-protocol/source-path-purpose-policy.json"
 INVOCATION_CONTRACT = ROOT / "results/benchmark/v1.5-protocol/checkpoint-invocation-contract.json"
-COMPONENT_MANIFEST = ROOT / "results/benchmark/v1.5-protocol/checkpoint-component-manifest.json"
 ASSEMBLER_ROLE = "runner_private_input_assembler"
 STAGED_NAMES = {
     "custody_coverage_certificate": "custody-coverage-certificate.json",
@@ -147,22 +146,55 @@ def _self_digest(value: dict[str, Any], field: str) -> str:
     return sha256(canonical_json(unsigned))
 
 
-def require_repo_activation() -> None:
-    """Refuse before reading any caller-selected private artifact.
+def require_repo_activation(request: dict[str, Any]) -> dict[str, Any]:
+    """Authenticate exact executing bytes through published P1T/P1A roles.
 
-    Caller-authored ``FROZEN_P1_*`` strings are not authority.  The repository
-    must first activate source custody and the scheduled runner, and the
-    checkpoint component manifest must select this exact executable through a
-    native P1 role.  That selector deliberately does not exist in the PRE-P1
-    repository, so the current production entrypoint is unconditionally inert.
+    The caller supplies only the P1T identity to resolve.  Authority comes from
+    the frozen public ref and P1T's authenticated sole-parent P1A closure, never
+    from request status strings or a command-line activation override.
     """
+    scope = request["p1_scope"]
     try:
+        resolution = p1_roles.resolve_published_roles(
+            ROOT, scope["p1t_commit"], scope["p1t_path"]
+        )
         boundary = _json(SOURCE_BOUNDARY.read_bytes())
         policy = _json(SOURCE_POLICY.read_bytes())
         invocation = _json(INVOCATION_CONTRACT.read_bytes())
-        components = _json(COMPONENT_MANIFEST.read_bytes())
     except Exception as exc:
         raise AssemblyError("repository activation evidence is unavailable") from exc
+    if (
+        resolution.get("status") != "AUTHENTICATED_PUBLISHED_P1_ROLE_CLOSURE"
+        or resolution.get("operational") is not True
+        or resolution.get("resolution_sha256") != scope["role_resolution_sha256"]
+        or resolution.get("p1", {}).get("p1t_commit") != scope["p1t_commit"]
+        or resolution.get("p1", {}).get("p1t_path") != scope["p1t_path"]
+    ):
+        raise AssemblyError("published P1 role resolution differs from request scope")
+    roles = {
+        row.get("role"): row
+        for row in resolution.get("resolved_roles", [])
+        if isinstance(row, dict) and row.get("closure") == "NATIVE_V1_5"
+    }
+    required = {
+        ASSEMBLER_ROLE: (Path(__file__).resolve(), scope["assembler_sha256"]),
+        "source_boundary": (SOURCE_BOUNDARY, scope["source_boundary_sha256"]),
+        "source_path_policy": (SOURCE_POLICY, scope["source_policy_sha256"]),
+        "checkpoint_invocation_contract": (
+            INVOCATION_CONTRACT, scope["invocation_contract_sha256"]
+        ),
+    }
+    for role, (path, expected) in required.items():
+        row = roles.get(role)
+        if (
+            not isinstance(row, dict)
+            or row.get("path") != path.relative_to(ROOT).as_posix()
+            or row.get("sha256") != expected
+            or sha256_file(path) != expected
+        ):
+            raise AssemblyError(f"activated {role} bytes do not resolve through P1")
+    if scope["assembler_sha256"] != request["runner_contract"]["assembly_executable_sha256"]:
+        raise AssemblyError("request assembler digest differs from activated P1 role")
     readiness = boundary.get("operational_readiness")
     if (
         boundary.get("status") != "FROZEN_P1_EXECUTABLE"
@@ -174,17 +206,7 @@ def require_repo_activation() -> None:
         or invocation.get("status") != "FROZEN_P1_EXECUTABLE"
     ):
         raise AssemblyError("repository source/runner boundary is not activated")
-    selector = (
-        components.get("components", {})
-        .get("checkpoint_runner", {})
-        .get("private_input_assembler")
-    )
-    if selector != {"closure": "NATIVE_V1_5", "role": ASSEMBLER_ROLE}:
-        raise AssemblyError("private assembler is absent from the P1 selector closure")
-    # This exact role must also be present in authenticated P1A.  The future
-    # activation change must replace this deliberate refusal with validation
-    # through build_benchmark_v15_p1 + P1T/U1, never with a caller-owned flag.
-    raise AssemblyError("authenticated P1 assembler-role resolution is not implemented")
+    return resolution
 
 
 def validate_request(value: dict[str, Any]) -> None:
@@ -673,11 +695,11 @@ def _stage_private(
 def assemble(
     request: dict[str, Any], fetch: Callable[[dict[str, Any]], bytes],
     stage: Path, output: Path, *,
-    activation_guard: Callable[[], None] = require_repo_activation,
+    activation_guard: Callable[[dict[str, Any]], Any] = require_repo_activation,
 ) -> None:
     """Create the existing runner-input manifest last, or create nothing public."""
-    activation_guard()
     validate_request(request)
+    activation_guard(request)
     if output.exists() or os.path.lexists(stage):
         raise AssemblyError("assembly destinations must be previously absent")
     raw = fetch_artifacts(request, fetch)
@@ -774,10 +796,12 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
 def main(argv: list[str] | None = None) -> int:
     try:
         args = parse_args(argv)
-        # The repo-authenticated gate precedes request/config parsing, network
-        # clients, private fetches, staging, and output creation.
-        require_repo_activation()
         request = _json(args.request.read_bytes())
+        validate_request(request)
+        # Public request scope is the only caller input read before the
+        # repo-authenticated gate.  No config, client, private fetch or output
+        # path is touched until exact published P1 roles authenticate it.
+        require_repo_activation(request)
         config_raw = args.store_config.read_bytes()
         config = _json(config_raw)
         validate_request(request)
@@ -785,7 +809,7 @@ def main(argv: list[str] | None = None) -> int:
             raise AssemblyError("store configuration differs from accepted bytes")
         assemble(
             request, _s3_fetcher(config), args.private_stage.resolve(),
-            args.output.resolve(), activation_guard=lambda: None,
+            args.output.resolve(), activation_guard=lambda _request: None,
         )
     except Exception:
         return 2

@@ -34,6 +34,9 @@ SCOPE = {
     "service_epoch_binding_sha256": FIVE,
 }
 P1_SCOPE_EXTRA = {
+    "assembler_sha256": A.sha256_file(Path(A.__file__)),
+    "source_policy_sha256": "f" * 64,
+    "invocation_contract_sha256": "0" * 64,
     "participant_ledger_artifact_sha256": "6" * 64,
     "noninterference_receipt_schema_sha256": "7" * 64,
     "noninterference_verifier_sha256": "8" * 64,
@@ -218,6 +221,9 @@ class PrivateAssemblerContractTests(unittest.TestCase):
         participant = json.loads(
             (A.ROOT / "results/benchmark/v1.5-protocol/participant-ledger.json").read_text()
         )
+        participant["ledger_sha256"] = A.noninterference_verifier.canonical_digest(
+            participant, "ledger_sha256"
+        )
         boundary_raw = b'{"status":"FROZEN_P1_EXECUTABLE"}\n'
         receipt = {
             "schema": "c5k4-method-v1.5-operational-noninterference-receipt-1.0",
@@ -358,6 +364,65 @@ class PrivateAssemblerContractTests(unittest.TestCase):
             self.assertEqual(called, 0)
             self.assertFalse((root / "stage").exists())
             self.assertFalse((root / "out").exists())
+
+    def test_forged_p1t_and_caller_scope_cannot_cross_prefetch_gate(self) -> None:
+        value = request()
+        forged = {
+            "status": "AUTHENTICATED_PUBLISHED_P1_ROLE_CLOSURE",
+            "operational": True,
+            "resolution_sha256": value["p1_scope"]["role_resolution_sha256"],
+            "p1": {
+                "p1t_commit": "b" * 40,
+                "p1t_path": value["p1_scope"]["p1t_path"],
+            },
+            "resolved_roles": [],
+        }
+        with mock.patch.object(A.p1_roles, "resolve_published_roles", return_value=forged):
+            with self.assertRaisesRegex(A.AssemblyError, "differs from request scope"):
+                A.require_repo_activation(value)
+
+        called = 0
+        def fetch(_locator: dict) -> bytes:
+            nonlocal called
+            called += 1
+            return b"{}\n"
+        with tempfile.TemporaryDirectory() as temporary, \
+                mock.patch.object(A.p1_roles, "resolve_published_roles", return_value=forged):
+            root = Path(temporary)
+            with self.assertRaises(A.AssemblyError):
+                A.assemble(value, fetch, root / "stage", root / "output")
+            self.assertEqual(called, 0)
+            self.assertFalse((root / "stage").exists())
+            self.assertFalse((root / "output").exists())
+
+    def test_published_p1_roles_authenticate_exact_activation_bytes(self) -> None:
+        value = request()
+        scope = value["p1_scope"]
+        bindings = {
+            A.ASSEMBLER_ROLE: (Path(A.__file__).resolve(), scope["assembler_sha256"]),
+            "source_boundary": (A.SOURCE_BOUNDARY, scope["source_boundary_sha256"]),
+            "source_path_policy": (A.SOURCE_POLICY, scope["source_policy_sha256"]),
+            "checkpoint_invocation_contract": (A.INVOCATION_CONTRACT, scope["invocation_contract_sha256"]),
+        }
+        resolution = {
+            "status": "AUTHENTICATED_PUBLISHED_P1_ROLE_CLOSURE", "operational": True,
+            "resolution_sha256": scope["role_resolution_sha256"],
+            "p1": {"p1t_commit": scope["p1t_commit"], "p1t_path": scope["p1t_path"]},
+            "resolved_roles": [
+                {"closure": "NATIVE_V1_5", "role": role,
+                 "path": path.relative_to(A.ROOT).as_posix(), "sha256": digest}
+                for role, (path, digest) in bindings.items()
+            ],
+        }
+        boundary = {
+            "status": "FROZEN_P1_EXECUTABLE", "executable": True,
+            "operational_readiness": {"fail_closed": True, "executable": True},
+        }
+        digests = {path.resolve(): digest for path, digest in bindings.values()}
+        with mock.patch.object(A.p1_roles, "resolve_published_roles", return_value=resolution), \
+                mock.patch.object(A, "_json", side_effect=[boundary, {"status": "FROZEN_P1_EXECUTABLE"}, {"status": "FROZEN_P1_EXECUTABLE"}]), \
+                mock.patch.object(A, "sha256_file", side_effect=lambda path: digests[path.resolve()]):
+            self.assertIs(A.require_repo_activation(value), resolution)
 
     def test_locator_is_closed_and_has_no_local_path(self) -> None:
         value = locator(accepted_store())
