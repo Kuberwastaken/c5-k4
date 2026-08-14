@@ -8,14 +8,18 @@ import hashlib
 import itertools
 import json
 import os
+import signal
 import subprocess
 import tempfile
+import time
 from pathlib import Path
 from typing import Sequence
 
 import networkx as nx
 
 import prospective_bondy_construct as construct
+
+ROOT = Path(__file__).resolve().parents[1]
 
 ALLOWED_TERMINALS = {
     "CANDIDATE_FOUND",
@@ -190,10 +194,12 @@ def validate_upper_rejection(graph: nx.Graph, result: dict[str, object]) -> dict
 
 
 def verify_ledger_semantics(records: list[dict[str, object]], artifact: dict[str, object]) -> dict[str, object]:
-    if not records or semantic_payload(records[0]) != {"kind": "source_control", "record": construct.source_control()}:
+    if len(records) < 2 or semantic_payload(records[0]) != {"kind": "campaign_handoff", "handoff": artifact.get("handoff")}:
+        raise RuntimeError("ledger does not begin with exact campaign handoff")
+    if semantic_payload(records[1]) != {"kind": "source_control", "record": construct.source_control()}:
         raise RuntimeError("ledger does not begin with exact S(4,4) source control")
     expected_rows = list(construct.generate(construct.ROW_LIMIT))
-    cursor = 1
+    cursor = 2
     constructor_count = 0
     applicable = 0
     evaluated = 0
@@ -280,12 +286,44 @@ def replay_cycle(graph: nx.Graph, cycle: Sequence[int]) -> bool:
     )
 
 
-def compile_replay(work: Path) -> tuple[Path, dict[str, object]]:
+def deadline_timeout(deadline: float, cap: float = 10.0) -> float:
+    remaining = deadline - time.monotonic()
+    if remaining <= 0.25:
+        raise TimeoutError("independent verifier internal deadline")
+    return min(cap, remaining)
+
+
+def terminate_and_reap(process: subprocess.Popen[str]) -> str:
+    if process.poll() is None:
+        try:
+            os.killpg(process.pid, signal.SIGTERM)
+        except ProcessLookupError:
+            pass
+    try:
+        output, _ = process.communicate(timeout=0.2)
+    except subprocess.TimeoutExpired:
+        if process.poll() is None:
+            try:
+                os.killpg(process.pid, signal.SIGKILL)
+            except ProcessLookupError:
+                pass
+        output, _ = process.communicate()
+    finally:
+        if process.poll() is None:
+            try:
+                os.killpg(process.pid, signal.SIGKILL)
+            except ProcessLookupError:
+                pass
+            process.wait()
+    return output
+
+
+def compile_replay(work: Path, deadline: float) -> tuple[Path, dict[str, object]]:
     source = Path(__file__).with_name("prospective_bondy_replay.cpp")
     binary = work / "prospective_bondy_replay"
     compiler = subprocess.check_output(["g++", "--version"], text=True).splitlines()[0]
     command = ["g++", "-std=c++17", "-O2", "-Wall", "-Wextra", "-Werror", str(source), "-o", str(binary)]
-    completed = subprocess.run(command, text=True, capture_output=True, timeout=60)
+    completed = subprocess.run(command, text=True, capture_output=True, timeout=deadline_timeout(deadline))
     if completed.returncode != 0:
         raise RuntimeError("independent replay compilation failed: " + completed.stdout + completed.stderr)
     provenance = {
@@ -297,26 +335,54 @@ def compile_replay(work: Path) -> tuple[Path, dict[str, object]]:
     return binary, provenance
 
 
-def verify_candidate(candidate: dict[str, object], work: Path) -> dict[str, object]:
-    if candidate.get("status") != "CANDIDATE_FOUND":
+def validate_search_replay_audit(prior_upper: object) -> dict[str, object]:
+    if not isinstance(prior_upper, dict):
+        raise RuntimeError("candidate lacks bound pre-publication independent upper replay")
+    prior_process = prior_upper.get("process_audit", {})
+    prior_record = prior_upper.get("record", {})
+    expected_prior_stdout = b'{"status":"Q4_UPPER_BOUND_VERIFIED","deletion_sets":1351,"pc_table_bytes":1048576}\n'
+    if (
+        set(prior_upper) != {"record", "pc_table_sha256", "process_audit"}
+        or prior_record != {"status": "Q4_UPPER_BOUND_VERIFIED", "deletion_sets": 1351, "pc_table_bytes": 1048576}
+        or set(prior_process) != {"pid", "returncode", "timed_out", "elapsed_seconds_millis", "process_group_isolated", "process_group_reaped", "binary_sha256", "source_sha256", "stdout_sha256", "reported_status"}
+        or prior_process.get("returncode") != 0
+        or prior_process.get("timed_out") is not False
+        or prior_process.get("process_group_isolated") is not True
+        or prior_process.get("process_group_reaped") is not True
+        or prior_process.get("reported_status") != "Q4_UPPER_BOUND_VERIFIED"
+        or prior_process.get("source_sha256") != hashlib.sha256(Path(__file__).with_name("prospective_bondy_replay.cpp").read_bytes()).hexdigest()
+        or prior_process.get("stdout_sha256") != hashlib.sha256(expected_prior_stdout).hexdigest()
+        or isinstance(prior_process.get("pid"), bool) or not isinstance(prior_process.get("pid"), int) or prior_process["pid"] <= 0
+        or any(not isinstance(prior_process.get(key), str) or len(prior_process[key]) != 64 or any(c not in "0123456789abcdef" for c in prior_process[key]) for key in ("binary_sha256", "source_sha256", "stdout_sha256"))
+        or isinstance(prior_process.get("elapsed_seconds_millis"), bool) or not isinstance(prior_process.get("elapsed_seconds_millis"), int) or prior_process["elapsed_seconds_millis"] < 0
+    ):
+        raise RuntimeError("candidate pre-publication replay provenance drift")
+    return prior_process
+
+
+def require_replay_binary_binding(prior_process: dict[str, object], build: dict[str, object]) -> None:
+    if build.get("binary_sha256") != prior_process.get("binary_sha256"):
+        raise RuntimeError("search-time and verification replay binary drift")
+
+
+def verify_candidate(candidate: dict[str, object], work: Path, deadline: float) -> dict[str, object]:
+    if set(candidate) != {
+        "schema", "kind", "status", "handoff", "row", "edges_g", "evaluation", "q4_upper_certificate_obligation",
+        "independent_upper_replay", "provenance", "ledger_head",
+    } or candidate.get("schema") != "bondy_candidate_v3" or candidate.get("kind") != "candidate" or candidate.get("status") != "CANDIDATE_FOUND":
         raise RuntimeError("candidate file is not CANDIDATE_FOUND")
     row = candidate["row"]
     evaluation = candidate["evaluation"]
     prior_upper = candidate.get("independent_upper_replay", {})
     if prior_upper.get("record", {}).get("status") != "Q4_UPPER_BOUND_VERIFIED" or prior_upper.get("pc_table_sha256") != evaluation.get("dp_digests", {}).get("pc_table_sha256"):
         raise RuntimeError("candidate lacks bound pre-publication independent upper replay")
-    prior_process = prior_upper.get("process_audit", {})
-    if (
-        prior_process.get("returncode") != 0
-        or prior_process.get("timed_out") is not False
-        or prior_process.get("reported_status") != "Q4_UPPER_BOUND_VERIFIED"
-        or prior_process.get("source_sha256") != hashlib.sha256(Path(__file__).with_name("prospective_bondy_replay.cpp").read_bytes()).hexdigest()
-    ):
-        raise RuntimeError("candidate pre-publication replay provenance drift")
+    prior_process = validate_search_replay_audit(prior_upper)
     provenance = candidate.get("provenance", {})
     expected_caps = {"search": 48, "finalize": 54, "external": 60}
     if (
-        provenance.get("search_algorithm") != "python_endpoint_path_cover_dp_v1"
+        set(provenance) != {"search_algorithm", "replay_algorithm", "python_version", "networkx_version", "search_elapsed_seconds_millis", "caps_seconds", "search_source_sha256", "replay_source_sha256"}
+        or candidate.get("q4_upper_certificate_obligation") != "for_all_X_card_lt_4_pc_H_minus_X_gt_4"
+        or provenance.get("search_algorithm") != "python_endpoint_path_cover_dp_v1"
         or provenance.get("replay_algorithm") != "cpp_endpoint_path_cover_dp_v1"
         or provenance.get("python_version") != EXPECTED_PYTHON_VERSION
         or provenance.get("networkx_version") != EXPECTED_NETWORKX_VERSION
@@ -371,11 +437,26 @@ def verify_candidate(candidate: dict[str, object], work: Path) -> dict[str, obje
     edge_file = work / "candidate-H.edges"
     pc_table = work / "pc-table.bin"
     edge_file.write_text("".join(f"{u} {v}\n" for u, v in construct.edge_list(peripheral)), encoding="ascii")
-    replay_binary, build = compile_replay(work)
-    replay = subprocess.run([str(replay_binary), str(edge_file), str(pc_table)], text=True, capture_output=True, timeout=60, start_new_session=True)
-    if replay.returncode != 0:
-        raise RuntimeError("independent q4 upper replay rejected or timed out: " + replay.stdout + replay.stderr)
-    replay_record = json.loads(replay.stdout)
+    replay_binary, build = compile_replay(work, deadline)
+    require_replay_binary_binding(prior_process, build)
+    child = subprocess.Popen(
+        [str(replay_binary), str(edge_file), str(pc_table)], text=True, stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT, start_new_session=True,
+    )
+    output = ""
+    timed_out = False
+    try:
+        output, _ = child.communicate(timeout=deadline_timeout(deadline, 44.0))
+    except (subprocess.TimeoutExpired, TimeoutError):
+        timed_out = True
+        output = terminate_and_reap(child)
+    except BaseException:
+        terminate_and_reap(child)
+        raise
+    process_audit = {"pid": child.pid, "returncode": child.returncode, "timed_out": timed_out, "process_group_isolated": True, "process_group_reaped": child.poll() is not None}
+    if timed_out or child.returncode != 0:
+        raise RuntimeError("independent q4 upper replay rejected or timed out: " + output)
+    replay_record = json.loads(output)
     if replay_record.get("status") != "Q4_UPPER_BOUND_VERIFIED" or replay_record.get("deletion_sets") != 1351:
         raise RuntimeError("independent q4 upper replay terminal drift")
     pc_table_sha256 = hashlib.sha256(pc_table.read_bytes()).hexdigest()
@@ -391,12 +472,18 @@ def verify_candidate(candidate: dict[str, object], work: Path) -> dict[str, obje
         "independent_replay": replay_record,
         "pc_table_sha256": pc_table_sha256,
         "independent_build": build,
+        "independent_process_audit": process_audit,
     }
 
 
 def verify_terminal(terminal: dict[str, object]) -> dict[str, object]:
     status = terminal.get("status")
-    if status not in ALLOWED_TERMINALS - {"CANDIDATE_FOUND"}:
+    if (
+        set(terminal) != {"schema", "kind", "status", "handoff", "applicable", "evaluated", "ledger_head"}
+        or terminal.get("schema") != "bondy_terminal_v3"
+        or terminal.get("kind") != "terminal"
+        or status not in ALLOWED_TERMINALS - {"CANDIDATE_FOUND", "GATE_FAIL"}
+    ):
         raise RuntimeError("unknown or misplaced terminal")
     if status == "CAP_PREFIX" and "evaluated" not in terminal:
         raise RuntimeError("CAP_PREFIX lacks exact evaluated prefix")
@@ -406,29 +493,47 @@ def verify_terminal(terminal: dict[str, object]) -> dict[str, object]:
 
 
 def main() -> int:
-    verification_started = __import__("time").monotonic()
+    verification_started = time.monotonic()
+    verifier_deadline = verification_started + 54.0
+    signal.signal(signal.SIGTERM, lambda *_: (_ for _ in ()).throw(TimeoutError("external verifier TERM")))
     parser = argparse.ArgumentParser()
     parser.add_argument("mode", choices=("candidate", "terminal"))
     parser.add_argument("artifact", type=Path)
     parser.add_argument("--ledger", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--source-attestation", type=Path, required=True)
+    parser.add_argument("--campaign-commit", required=True)
     args = parser.parse_args()
     records, head = verify_ledger(args.ledger)
     artifact = read_canonical_json(args.artifact)
+    attestation_raw = args.source_attestation.read_bytes()
+    attestation = json.loads(attestation_raw)
+    if attestation_raw != canonical_bytes(attestation):
+        raise RuntimeError("source attestation is not canonical")
+    handoff = {
+        "schema": "bondy_campaign_handoff_v1",
+        "campaign_commit": args.campaign_commit,
+        "source_attestation_sha256": hashlib.sha256(attestation_raw).hexdigest(),
+    }
+    checked_out = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
+    if artifact.get("handoff") != handoff or checked_out != args.campaign_commit:
+        raise RuntimeError("artifact campaign/source-attestation handoff drift")
     if artifact.get("ledger_head") != head and artifact.get("status") != "GATE_FAIL":
         raise RuntimeError("terminal/candidate does not bind exact ledger head")
     semantic = verify_ledger_semantics(records, artifact)
     if args.mode == "candidate":
         with tempfile.TemporaryDirectory(prefix="bondy-replay-") as directory:
-            result = verify_candidate(artifact, Path(directory))
+            result = verify_candidate(artifact, Path(directory), verifier_deadline)
     else:
         result = verify_terminal(artifact)
     result.update({
+        "schema": "bondy_verification_v3",
+        "handoff": handoff,
         "ledger_rows": len(records),
         "ledger_head": head,
         "semantic_replay": semantic,
         "verifier_version": "bondy_artifact_verifier_v1",
-        "verification_seconds_millis": round((__import__("time").monotonic() - verification_started) * 1000),
+        "verification_seconds_millis": round((time.monotonic() - verification_started) * 1000),
         "verifier_source_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
     })
     atomic_json(args.output, result)

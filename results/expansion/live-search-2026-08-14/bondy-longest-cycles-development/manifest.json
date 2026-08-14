@@ -1,14 +1,15 @@
 {
   "campaign": "bondy-longest-cycles-development",
-  "seal_version": "bondy-longest-cycles-development-v2",
-  "supersedes": "bondy-longest-cycles-development-v1",
+  "seal_version": "bondy-longest-cycles-development-v3",
+  "supersedes": "bondy-longest-cycles-development-v2",
   "evidence_class": "CONTAMINATED_DEVELOPMENT",
   "target": "Arxiv.2606.03696.bondy_conjecture",
   "slice": {"k": 4, "t": 4, "h_order": 20, "g_order": 24, "large_graph_cutoff": 108},
   "caps": {"internal_search_seconds": 48, "internal_finalize_seconds": 54, "external_process_seconds": 60, "term_to_kill_seconds": 6, "independent_verify_seconds": 60},
   "runtime": {"python_version": "3.11.9", "networkx_version": "3.3", "discovery_algorithm": "python_endpoint_path_cover_dp_v1", "replay_algorithm": "cpp_endpoint_path_cover_dp_v1"},
-  "live_gate": {"schema": "bondy_source_status_duplicate_gate_bracketed_single_scan_v2", "snapshot_workers": 24, "open_pull_page_size": 100, "changed_file_page_size": 100, "changed_file_scans_per_pr": 1, "deterministic_order": ["pull_number", "changed_path"], "bracket_identity_snapshot_equality": true, "open_pr_set_equality": true, "file_binding_identity_equality": true},
-  "local_history": {"known_preflight_commit": "d22eb07173794848fd375b5675059946ee3860b5", "known_repin_audit_commit": "e17905b1d62048f43bab89e06625aebdcf280faf", "maximum_freeze_introducers": 1},
+  "live_gate": {"schema": "bondy_source_status_duplicate_gate_tip_continuity_v3", "snapshot_workers": 24, "open_pull_page_size": 100, "changed_file_page_size": 100, "complete_file_bindings_in_both_brackets": true, "identity_only_stabilization_pass": true, "whole_gate_seconds": 58, "rename_previous_path_required": true},
+  "local_history": {"known_preflight_commit": "d22eb07173794848fd375b5675059946ee3860b5", "known_repin_audit_commit": "e17905b1d62048f43bab89e06625aebdcf280faf", "known_continuity_audit_commit": "c4d327479110cf51f2aae126d12e2fbc609c0921", "maximum_freeze_introducers": 2},
+  "semantic_closure": {"path": "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/semantic-closure-v3.json", "count": 168, "sha256": "06f205b34dc84a04c0d46d718c0a1fe46b5634f76f39343e51dd132d43dfdbb7", "toolchain_sha256": "3221ee3df4f1c1a23f5eddcddb22cce96a00543c432f7310366b88444406e0c6", "external_revisions_sha256": "4baee9cf677780f654f3d1e4413346482853ad52874add3a7cecf6ed04a4bfe6"},
   "upstream": {
     "commit": "b5acb0ff13e38084105b7fe020ba0d59c1925bc5",
     "tree": "4f6c9bd17fdfdc264f54b26862ce768743da5d63",
@@ -38,6 +39,6 @@
     "enabled_by_default": false,
     "token_provisioned": true,
     "activation_token_sha256": "d061571de2bf737ce447b77ebe0e6c2d995d98ab3061f000d1db25fe161e69dc",
-    "state": "V2_EXPLICIT_GUARD_HASH_PROVISIONED_DEFAULT_DISABLED"
+    "state": "V3_TIP_CONTINUITY_GUARD_HASH_PROVISIONED_DEFAULT_DISABLED"
   }
 }

@@ -36,47 +36,95 @@ def pull_fixture(number: int, title: str | None = None) -> dict[str, object]:
 
 
 def live_attestation_fixture(empty: bool = False, identity_only_binding: bool = False) -> dict[str, object]:
-    identities = [] if empty else [live_gate.pull_identity(pull_fixture(1))]
+    pinned = "1" * 40
+    pinned_tree = "2" * 40
+    live = "3" * 40
+    live_tree = "4" * 40
+    identity = {**live_gate.pull_identity(pull_fixture(1)), "node_id": "PR_1", "state": "OPEN", "changed_files": 1}
+    identity.update({"head_sha": "a" * 40, "base_sha": "b" * 40})
     paths = ["FormalConjectures/Unrelated.lean"]
     bindings = [] if empty else [{
-        **identities[0],
+        **identity,
         "changed_paths": paths,
         "changed_paths_sha256": search.canonical_sha256(paths),
     }]
     if identity_only_binding:
-        bindings = [dict(identities[0])]
+        bindings = [dict(identity)]
+    closure_entries = [{"path": live_gate.TARGET_PATH}, {"path": "FormalConjectures/Imported.lean"}]
+    toolchain = [{"path": "lean-toolchain"}]
+    external = [{"name": "mathlib", "rev": "r"}]
+    raw_sha = __import__("hashlib").sha256(b"frozen").hexdigest()
+    declaration = {"declaration_count": 1, "exact_open_attribute_count": 1, "answer_wrapper_count": 1, "exact_by_sorry_block_count": 1}
+    continuity = {
+        "pinned": {"commit": pinned, "tree": pinned_tree},
+        "live": {"commit": live, "tree": live_tree},
+        "merge_base": pinned, "ancestor_verified": True,
+        "commits": [{"commit": live, "parents": [pinned], "tree": live_tree, "subject": "unrelated", "changed_paths": ["unrelated"]}],
+        "delta": [{"status": "M", "path": "unrelated"}],
+        "delta_sha256": search.canonical_sha256([{"status": "M", "path": "unrelated"}]),
+        "target": {"path": live_gate.TARGET_PATH, "mode": "100644", "type": "blob", "blob": "blob", "bytes": 6, "sha256": raw_sha},
+        "target_raw_utf8": "frozen", "declaration": declaration,
+        "closure_count": 2, "closure_sha256": search.canonical_sha256(closure_entries), "closure_entries": closure_entries,
+        "toolchain_sha256": search.canonical_sha256(toolchain), "toolchain": toolchain,
+        "external_revisions_sha256": search.canonical_sha256(external), "external_revisions": external,
+        "protected_paths": sorted([live_gate.TARGET_PATH, "FormalConjectures/Imported.lean", "lean-toolchain"]),
+    }
     snapshot = {
-        "main": "pinned",
-        "searches": {},
-        "open_pulls": identities,
+        "main": continuity["live"],
+        "continuity": {
+            "canonical_sha256": search.canonical_sha256(continuity), "live": continuity["live"],
+            "target": continuity["target"], "target_raw_bytes": 6, "target_raw_sha256": raw_sha,
+            "declaration": declaration, "closure_count": 2, "closure_sha256": continuity["closure_sha256"],
+            "toolchain_sha256": continuity["toolchain_sha256"], "external_revisions_sha256": continuity["external_revisions_sha256"],
+        },
+        "known_issue": {"number": 4858, "state": "closed", "state_reason": "completed", "title": "i", "author": "a", "created_at": "t", "updated_at": "t", "closed_at": "2026-08-14T20:25:51Z", "node_id": "I", "is_pull_request": False},
+        "known_pr": {"number": 4879, "state": "closed", "draft": False, "merged": True, "merged_at": "2026-08-14T20:25:50Z", "merge_commit_sha": "8781428a922a53914450550218bf14be703d8d69", "title": "p", "author": "a", "head_sha": "a" * 40, "base_sha": "b" * 40, "updated_at": "t", "node_id": "P"},
+        "searches": {
+            'repo:google-deepmind/formal-conjectures "bondy_conjecture"': [4879],
+            'repo:google-deepmind/formal-conjectures "BondyLongestCycles"': [],
+            'repo:google-deepmind/formal-conjectures "2606.03696"': [4879],
+        },
+        "open_pull_binding_surface": {"total_count": len(bindings), "bindings": bindings},
         "repository_total_count": 0,
     }
+    local_identities = [
+        {"commit": live_gate.KNOWN_CONTINUITY_AUDIT_COMMIT, "subject": "research: define Bondy tip continuity gate", "paths": [live_gate.KNOWN_CONTINUITY_AUDIT_PATH], "kind": "known_continuity_audit"},
+        {"commit": live_gate.KNOWN_REPIN_AUDIT_COMMIT, "subject": "research: audit Bondy upstream repin", "paths": [live_gate.KNOWN_REPIN_AUDIT_PATH], "kind": "known_repin_audit"},
+        {"commit": "e" * 40, "subject": "freeze", "paths": ["scripts/prospective_bondy_gate.py"], "kind": "freeze_introducer"},
+        {"commit": live_gate.KNOWN_PREFLIGHT_COMMIT, "subject": "preflight", "paths": ["results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/preflight.md"], "kind": "known_preflight"},
+    ]
     return {
-        "schema": "bondy_source_status_duplicate_gate_bracketed_single_scan_v2",
+        "schema": "bondy_source_status_duplicate_gate_tip_continuity_v3",
         "kind": "source_status_duplicate_gate",
         "status": "PASS",
         "checks": {key: True for key in search.LIVE_GATE_CHECKS},
-        "upstream": {"commit": "pinned"},
-        "open_pr_target_path_matches": [],
+        "campaign": {"commit": "c" * 40, "tree": "d" * 40},
+        "pinned_upstream": {"commit": pinned, "tree": pinned_tree, "path": live_gate.TARGET_PATH, "blob": "blob"},
+        "live_upstream": continuity["live"], "continuity": continuity,
+        "open_pr_protected_path_matches": [],
         "bracket_snapshot_before": snapshot,
-        "open_pr_file_bindings": bindings,
         "bracket_snapshot_after": json.loads(json.dumps(snapshot)),
-        "local_history_hits": [],
-        "local_history_identities": [],
+        "graphql_rate_limit_observations": {
+            "before": [{"cost": 1, "remaining": 100, "reset_at": "t"}],
+            "after": [{"cost": 1, "remaining": 90, "reset_at": "t"}],
+        },
+        "local_history_hits": [row["commit"] for row in local_identities],
+        "local_history_identities": local_identities,
     }
 
 
 def sealed_attestation_fixture(attestation: dict[str, object]) -> dict[str, object]:
-    identities = attestation["bracket_snapshot_before"]["open_pulls"]
-    bindings = attestation["open_pr_file_bindings"]
-    return {"gate": {
-        "checks_sha256": search.canonical_sha256(attestation["checks"]),
-        "bracket_snapshot_sha256": search.canonical_sha256(attestation["bracket_snapshot_before"]),
-        "file_bindings_sha256": search.canonical_sha256(bindings),
-        "full_record_sha256": __import__("hashlib").sha256(search.canonical_bytes(attestation)).hexdigest(),
-        "open_pr_identities": len(identities),
-        "file_bindings": len(bindings),
-    }}
+    continuity = attestation["continuity"]
+    return {
+        "live_gate": {"schema": "bondy_source_status_duplicate_gate_tip_continuity_v3"},
+        "upstream": attestation["pinned_upstream"],
+        "source_sha256": attestation["continuity"]["target"]["sha256"],
+        "semantic_closure": {
+            "count": continuity["closure_count"], "sha256": continuity["closure_sha256"],
+            "toolchain_sha256": continuity["toolchain_sha256"],
+            "external_revisions_sha256": continuity["external_revisions_sha256"],
+        },
+    }
 
 
 class SourceAndGrammarTests(unittest.TestCase):
@@ -168,6 +216,15 @@ class TargetIsolationTests(unittest.TestCase):
         self.assertNotIn("${{ inputs.", shell_source)
         self.assertIn('--campaign-commit "$CAMPAIGN_COMMIT"', shell_source)
         self.assertIn('--activation-token "$ACTIVATION_TOKEN"', shell_source)
+        self.assertIn("fetch-depth: 0", workflow)
+        self.assertIn('if test "$target_code" -ne 0 || test "$final_code" -ne 0 || test -z "$expected_status"; then', workflow)
+        self.assertIn('if test "$accepted_status" != "$expected_status"; then', workflow)
+        self.assertEqual(workflow.count("scripts/prospective_bondy_gate.py"), 1)
+        self.assertEqual(workflow.count("--source-attestation /tmp/source-status-attestation.json --campaign-commit"), 2)
+        self.assertIn("bondy_enabled_evidence_manifest_v1", workflow)
+        self.assertIn("if-no-files-found: error", workflow)
+        freeze_verifier = (ROOT / "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/verify_freeze.py").read_text()
+        self.assertIn('if set(registry.get("sha256", {})) != REQUIRED_FREEZE_PATHS:', freeze_verifier)
         self.assertIn("CAMPAIGN_COMMIT: ${{ inputs.campaign_commit }}", workflow)
         self.assertIn("ACTIVATION_TOKEN: ${{ inputs.activation_token }}", workflow)
 
@@ -188,7 +245,13 @@ class TargetIsolationTests(unittest.TestCase):
                 check=True,
             )
             self.assertEqual(json.loads(completed.stdout), ["--campaign-commit", malicious, "--activation-token", malicious])
-            self.assertFalse(marker.exists())
+        self.assertFalse(marker.exists())
+
+        failed = subprocess.run(
+            ["bash", "-c", 'set +e; target_code=124; final_code=0; expected_status=TERMINAL_VERIFIED; if test "$target_code" -ne 0 || test "$final_code" -ne 0 || test -z "$expected_status"; then exit 1; fi; exit 0'],
+            check=False,
+        )
+        self.assertEqual(failed.returncode, 1)
 
     def test_constructor_source_contains_no_target_evaluator(self) -> None:
         source = (ROOT / "scripts/prospective_bondy_construct.py").read_text()
@@ -213,29 +276,174 @@ class TargetIsolationTests(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError, "TARGET_EXECUTION_DISABLED"):
             search.unlock(args)
 
-    def test_v2_live_attestation_requires_full_bracket_and_bindings(self) -> None:
-        manifest = {
-            "live_gate": {"schema": "bondy_source_status_duplicate_gate_bracketed_single_scan_v2"},
-            "upstream": {"commit": "pinned"},
-        }
+    def test_v3_live_attestation_requires_full_bracket_and_bindings(self) -> None:
         attestation = live_attestation_fixture()
-        sealed = sealed_attestation_fixture(attestation)
-        search.validate_live_attestation(attestation, manifest, sealed)
-        attestation["open_pr_file_bindings"][0]["head_sha"] = "mutated"
+        manifest = sealed_attestation_fixture(attestation)
+        search.validate_live_attestation(attestation, manifest)
+        attestation["bracket_snapshot_before"]["open_pull_binding_surface"]["bindings"][0]["head_sha"] = "mutated"
         with self.assertRaisesRegex(RuntimeError, "missing or drifted"):
-            search.validate_live_attestation(attestation, manifest, sealed)
+            search.validate_live_attestation(attestation, manifest)
 
-    def test_forged_zero_identity_pass_is_rejected(self) -> None:
-        manifest = {"live_gate": {"schema": "bondy_source_status_duplicate_gate_bracketed_single_scan_v2"}, "upstream": {"commit": "pinned"}}
+    def test_structurally_complete_zero_open_set_is_accepted(self) -> None:
         attestation = live_attestation_fixture(empty=True)
-        with self.assertRaisesRegex(RuntimeError, "nonempty sealed count drift"):
-            search.validate_live_attestation(attestation, manifest, sealed_attestation_fixture(attestation))
+        search.validate_live_attestation(attestation, sealed_attestation_fixture(attestation))
 
     def test_forged_identity_only_file_binding_is_rejected(self) -> None:
-        manifest = {"live_gate": {"schema": "bondy_source_status_duplicate_gate_bracketed_single_scan_v2"}, "upstream": {"commit": "pinned"}}
         attestation = live_attestation_fixture(identity_only_binding=True)
         with self.assertRaisesRegex(RuntimeError, "file binding schema drift"):
-            search.validate_live_attestation(attestation, manifest, sealed_attestation_fixture(attestation))
+            search.validate_live_attestation(attestation, sealed_attestation_fixture(attestation))
+
+    def test_v1_and_v2_attestations_are_rejected(self) -> None:
+        for schema in ("bondy_source_status_attestation_v1", "bondy_source_status_duplicate_gate_bracketed_single_scan_v2"):
+            attestation = live_attestation_fixture()
+            attestation["schema"] = schema
+            with self.assertRaisesRegex(RuntimeError, "missing or drifted"):
+                search.validate_live_attestation(attestation, sealed_attestation_fixture(attestation))
+
+    def test_forged_empty_protected_paths_is_rejected_before_target(self) -> None:
+        attestation = live_attestation_fixture()
+        attestation["continuity"]["protected_paths"] = []
+        attestation["bracket_snapshot_before"]["continuity"]["canonical_sha256"] = search.canonical_sha256(attestation["continuity"])
+        attestation["bracket_snapshot_after"] = json.loads(json.dumps(attestation["bracket_snapshot_before"]))
+        with self.assertRaisesRegex(RuntimeError, "delta or binding completeness"):
+            search.validate_live_attestation(attestation, sealed_attestation_fixture(attestation))
+
+    def test_binding_identity_state_oid_count_and_campaign_are_strict(self) -> None:
+        mutations = (("number", 0), ("state", "CLOSED"), ("node_id", ""), ("head_sha", "abc"), ("changed_files", 999))
+        for key, value in mutations:
+            attestation = live_attestation_fixture()
+            attestation["bracket_snapshot_before"]["open_pull_binding_surface"]["bindings"][0][key] = value
+            attestation["bracket_snapshot_after"] = json.loads(json.dumps(attestation["bracket_snapshot_before"]))
+            with self.assertRaisesRegex(RuntimeError, "file binding drift"):
+                search.validate_live_attestation(attestation, sealed_attestation_fixture(attestation))
+        attestation = live_attestation_fixture()
+        attestation["campaign"]["tree"] = "short"
+        with self.assertRaisesRegex(RuntimeError, "missing or drifted"):
+            search.validate_live_attestation(attestation, sealed_attestation_fixture(attestation))
+
+    def test_run_rejects_attestation_campaign_tree_before_target(self) -> None:
+        attestation = live_attestation_fixture()
+        manifest = sealed_attestation_fixture(attestation)
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory) / "source.json"
+            search.atomic_json(source, attestation)
+            args = types.SimpleNamespace(source_attestation=source, campaign_commit="c" * 40)
+            with mock.patch.object(search, "unlock", return_value=manifest), mock.patch.object(search, "git", return_value="e" * 40), mock.patch.object(
+                search, "target_evaluate", side_effect=AssertionError("target called")
+            ):
+                with self.assertRaisesRegex(RuntimeError, "campaign commit/tree drift"):
+                    search.run(args)
+
+    def test_run_rejects_bad_duplicate_and_unsorted_delta_before_target(self) -> None:
+        variants = (
+            [{"status": "NOT_A_GIT_STATUS", "path": "unrelated"}],
+            [{"status": "M", "path": "unrelated"}, {"status": "M", "path": "unrelated"}],
+            [{"status": "M", "path": "z"}, {"status": "A", "path": "a"}],
+        )
+        for delta in variants:
+            attestation = live_attestation_fixture()
+            attestation["continuity"]["delta"] = delta
+            attestation["continuity"]["delta_sha256"] = search.canonical_sha256(delta)
+            attestation["continuity"]["commits"][0]["changed_paths"] = sorted({row["path"] for row in delta})
+            attestation["bracket_snapshot_before"]["continuity"]["canonical_sha256"] = search.canonical_sha256(attestation["continuity"])
+            attestation["bracket_snapshot_after"] = json.loads(json.dumps(attestation["bracket_snapshot_before"]))
+            manifest = sealed_attestation_fixture(attestation)
+            with tempfile.TemporaryDirectory() as directory:
+                source = Path(directory) / "source.json"
+                search.atomic_json(source, attestation)
+                args = types.SimpleNamespace(source_attestation=source, campaign_commit="c" * 40)
+                with mock.patch.object(search, "unlock", return_value=manifest), mock.patch.object(search, "git", return_value="d" * 40), mock.patch.object(
+                    search, "target_evaluate", side_effect=AssertionError("target called")
+                ):
+                    with self.assertRaisesRegex(RuntimeError, "delta or binding completeness"):
+                        search.run(args)
+
+    def test_run_rejects_invalid_pr_number_and_local_history_before_target(self) -> None:
+        for mutation in ("number", "history"):
+            attestation = live_attestation_fixture()
+            if mutation == "number":
+                attestation["bracket_snapshot_before"]["open_pull_binding_surface"]["bindings"][0]["number"] = 0
+                attestation["bracket_snapshot_after"] = json.loads(json.dumps(attestation["bracket_snapshot_before"]))
+            else:
+                attestation["local_history_hits"] = None
+                attestation["local_history_identities"] = "bogus"
+            manifest = sealed_attestation_fixture(attestation)
+            with tempfile.TemporaryDirectory() as directory:
+                source = Path(directory) / "source.json"
+                search.atomic_json(source, attestation)
+                args = types.SimpleNamespace(source_attestation=source, campaign_commit="c" * 40)
+                with mock.patch.object(search, "unlock", return_value=manifest), mock.patch.object(search, "git", return_value="d" * 40), mock.patch.object(
+                    search, "target_evaluate", side_effect=AssertionError("target called")
+                ):
+                    with self.assertRaisesRegex(RuntimeError, "file binding drift|local contamination"):
+                        search.run(args)
+
+    def test_stale_output_prevents_target_evaluation(self) -> None:
+        attestation = live_attestation_fixture()
+        manifest = sealed_attestation_fixture(attestation)
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "source.json"
+            search.atomic_json(source, attestation)
+            ledger = root / "ledger.jsonl"
+            ledger.write_text("stale-unverifiable-ledger", encoding="ascii")
+            args = types.SimpleNamespace(
+                source_attestation=source, campaign_commit="c" * 40, ledger=ledger,
+                candidate=root / "candidate.json", terminal=root / "terminal.json",
+            )
+            with mock.patch.object(search, "unlock", return_value=manifest), mock.patch.object(search, "git", return_value="d" * 40), mock.patch.object(
+                search, "target_evaluate", side_effect=AssertionError("target called")
+            ):
+                with self.assertRaisesRegex(RuntimeError, "output path already exists"):
+                    search.run(args)
+            ledger.unlink()
+            args.candidate = ledger
+            with mock.patch.object(search, "unlock", return_value=manifest), mock.patch.object(search, "git", return_value="d" * 40), mock.patch.object(
+                search, "target_evaluate", side_effect=AssertionError("target called")
+            ):
+                with self.assertRaisesRegex(RuntimeError, "not distinct"):
+                    search.run(args)
+
+    def test_changed_file_expansion_bound_and_quota_order_are_strict(self) -> None:
+        attestation = live_attestation_fixture()
+        binding = attestation["bracket_snapshot_before"]["open_pull_binding_surface"]["bindings"][0]
+        binding["changed_paths"] = [f"p/{index}" for index in range(3)]
+        binding["changed_paths_sha256"] = search.canonical_sha256(binding["changed_paths"])
+        attestation["bracket_snapshot_after"] = json.loads(json.dumps(attestation["bracket_snapshot_before"]))
+        with self.assertRaisesRegex(RuntimeError, "file binding drift"):
+            search.validate_live_attestation(attestation, sealed_attestation_fixture(attestation))
+        attestation = live_attestation_fixture()
+        attestation["graphql_rate_limit_observations"]["before"] = [
+            {"cost": 1, "remaining": 100, "reset_at": "t"}, {"cost": 1, "remaining": 90, "reset_at": "t"}
+        ]
+        with self.assertRaisesRegex(RuntimeError, "noncanonical order"):
+            search.validate_live_attestation(attestation, sealed_attestation_fixture(attestation))
+
+    def test_terminal_schema_rejects_extra_fields(self) -> None:
+        terminal = {"schema": "bondy_terminal_v3", "kind": "terminal", "status": "CAP_PREFIX", "handoff": {}, "applicable": 0, "evaluated": 0, "ledger_head": "0" * 64, "extra": True}
+        with self.assertRaisesRegex(RuntimeError, "unknown or misplaced"):
+            verify.verify_terminal(terminal)
+
+    def test_search_replay_stdout_and_binary_hashes_are_recomputed(self) -> None:
+        record = {"status": "Q4_UPPER_BOUND_VERIFIED", "deletion_sets": 1351, "pc_table_bytes": 1048576}
+        stdout = b'{"status":"Q4_UPPER_BOUND_VERIFIED","deletion_sets":1351,"pc_table_bytes":1048576}\n'
+        source_sha = __import__("hashlib").sha256((ROOT / "scripts/prospective_bondy_replay.cpp").read_bytes()).hexdigest()
+        audit = {
+            "record": record, "pc_table_sha256": "c" * 64,
+            "process_audit": {
+                "pid": 7, "returncode": 0, "timed_out": False, "elapsed_seconds_millis": 1,
+                "process_group_isolated": True, "process_group_reaped": True, "binary_sha256": "b" * 64,
+                "source_sha256": source_sha, "stdout_sha256": __import__("hashlib").sha256(stdout).hexdigest(),
+                "reported_status": "Q4_UPPER_BOUND_VERIFIED",
+            },
+        }
+        process = verify.validate_search_replay_audit(audit)
+        verify.require_replay_binary_binding(process, {"binary_sha256": "b" * 64})
+        audit["process_audit"]["stdout_sha256"] = "0" * 64
+        with self.assertRaisesRegex(RuntimeError, "provenance drift"):
+            verify.validate_search_replay_audit(audit)
+        with self.assertRaisesRegex(RuntimeError, "binary drift"):
+            verify.require_replay_binary_binding(process, {"binary_sha256": "0" * 64})
 
     def test_ledger_cannot_append_after_seal(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -287,6 +495,16 @@ class TargetIsolationTests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError, "nonzero logical/internal exit"):
                 search.independent_upper_replay(Path("/bin/true"), [], "0" * 64, 1.0)
 
+    def test_process_group_exit_race_is_always_reaped(self) -> None:
+        for helper in (search.terminate_and_reap, verify.terminate_and_reap):
+            process = mock.Mock()
+            process.pid = 123
+            process.poll.side_effect = [None, 0]
+            process.communicate.return_value = ("done", None)
+            with mock.patch.object(os, "killpg", side_effect=ProcessLookupError):
+                self.assertEqual(helper(process), "done")
+            process.communicate.assert_called_once()
+
     def test_synthetic_upper_rejection_counter_witness_replays(self) -> None:
         graph = nx.path_graph(20)
         kept = list(range(1, 20))
@@ -307,6 +525,8 @@ class TargetIsolationTests(unittest.TestCase):
     def test_full_ledger_rejects_unrecognized_fake_target_result(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             ledger = search.DurableLedger(Path(directory) / "ledger.jsonl")
+            handoff = {"schema": "bondy_campaign_handoff_v1", "campaign_commit": "c" * 40, "source_attestation_sha256": "a" * 64}
+            ledger.append({"kind": "campaign_handoff", "handoff": handoff})
             ledger.append({"kind": "source_control", "record": construct.source_control()})
             applicable = 0
             for row in construct.generate(construct.ROW_LIMIT):
@@ -333,6 +553,7 @@ class TargetIsolationTests(unittest.TestCase):
                 "applicable": applicable,
                 "evaluated": applicable,
                 "ledger_head": head,
+                "handoff": handoff,
             }
             with self.assertRaisesRegex(RuntimeError, "missing or unknown target evaluation classification"):
                 verify.verify_ledger_semantics(records, artifact)
@@ -346,17 +567,23 @@ class TargetIsolationTests(unittest.TestCase):
 
 
 class LiveGateConcurrencyTests(unittest.TestCase):
-    def test_v2_local_history_accepts_only_exact_repin_audit(self) -> None:
+    def test_v3_local_history_accepts_exact_continuity_and_repin_audits(self) -> None:
         freeze = "f" * 40
-        hits = [live_gate.KNOWN_REPIN_AUDIT_COMMIT, freeze, live_gate.KNOWN_PREFLIGHT_COMMIT]
+        hits = [live_gate.KNOWN_CONTINUITY_AUDIT_COMMIT, live_gate.KNOWN_REPIN_AUDIT_COMMIT, freeze, live_gate.KNOWN_PREFLIGHT_COMMIT]
 
         def exact_git(*args: str) -> str:
             commit = args[-1]
             if args[0] == "show":
-                return "research: audit Bondy upstream repin" if commit == live_gate.KNOWN_REPIN_AUDIT_COMMIT else "freeze"
+                if commit == live_gate.KNOWN_REPIN_AUDIT_COMMIT:
+                    return "research: audit Bondy upstream repin"
+                if commit == live_gate.KNOWN_CONTINUITY_AUDIT_COMMIT:
+                    return "research: define Bondy tip continuity gate"
+                return "freeze"
             if args[0] == "diff-tree":
                 if commit == live_gate.KNOWN_REPIN_AUDIT_COMMIT:
                     return live_gate.KNOWN_REPIN_AUDIT_PATH
+                if commit == live_gate.KNOWN_CONTINUITY_AUDIT_COMMIT:
+                    return live_gate.KNOWN_CONTINUITY_AUDIT_PATH
                 if commit == freeze:
                     return "scripts/prospective_bondy_gate.py"
                 return "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/preflight.md"
@@ -365,7 +592,7 @@ class LiveGateConcurrencyTests(unittest.TestCase):
         with mock.patch.object(live_gate, "git", side_effect=exact_git):
             accepted, identities = live_gate.validate_local_contamination(hits)
         self.assertTrue(accepted)
-        self.assertEqual([row["kind"] for row in identities], ["known_repin_audit", "freeze_introducer", "known_preflight"])
+        self.assertEqual([row["kind"] for row in identities], ["known_continuity_audit", "known_repin_audit", "freeze_introducer", "known_preflight"])
 
     def test_open_pr_and_changed_file_pagination_are_complete(self) -> None:
         calls: list[str] = []
@@ -419,66 +646,145 @@ class LiveGateConcurrencyTests(unittest.TestCase):
                     "token", live_gate.open_pull_identities([pull_fixture(2), pull_fixture(5), pull_fixture(9)])
                 )
 
-    def test_head_base_update_and_open_close_races_fail_bracket(self) -> None:
-        target = "@[category research open, AMS 5]\nanswer(sorry) ↔ True\n".encode("utf-8")
-        before = {
-            "main": live_gate.UPSTREAM_COMMIT,
-            "searches": live_gate.ALLOWED_SEARCH_RESULTS,
-            "open_pulls": [live_gate.pull_identity(pull_fixture(12, "before"))],
-            "repository_total_count": 0,
+    def test_non_ancestor_is_a_strict_stop(self) -> None:
+        completed = types.SimpleNamespace(returncode=1)
+        with mock.patch.object(live_gate.subprocess, "run", return_value=completed):
+            with self.assertRaisesRegex(RuntimeError, "not an ancestor"):
+                live_gate.require_ancestor(Path("/tmp/repo"), "pin", "live")
+
+    def test_declaration_shape_rejects_duplicate_category_wrapper_and_sorry_drift(self) -> None:
+        exact = b"@[category research open, AMS 5]\ntheorem bondy_conjecture : answer(sorry) \xe2\x86\x94 True := by\n  sorry\n"
+        self.assertEqual(live_gate.exact_declaration_shape(exact)["declaration_count"], 1)
+        variants = (
+            exact + exact,
+            exact.replace(b"research open", b"research solved"),
+            exact.replace(b"answer(sorry)", b"answer(False)"),
+            exact.replace(b"  sorry", b"  trivial"),
+        )
+        for variant in variants:
+            with self.assertRaisesRegex(RuntimeError, "shape drift"):
+                live_gate.exact_declaration_shape(variant)
+
+    @staticmethod
+    def graphql_page(rows: list[dict[str, object]], total: int) -> dict[str, object]:
+        return {
+            "repository": {"pullRequests": {"totalCount": total, "pageInfo": {"hasNextPage": False, "endCursor": None}, "nodes": rows}},
+            "rateLimit": {"cost": 1, "remaining": 999, "resetAt": "2026-08-14T00:00:00Z"},
         }
 
-        def exact_api(path: str, token: str) -> object:
-            if "/git/commits/" in path:
-                return {"tree": {"sha": live_gate.UPSTREAM_TREE}}
-            if "/git/blobs/" in path:
-                return {"sha": live_gate.TARGET_BLOB}
-            if path.endswith(f"/issues/{live_gate.KNOWN_ISSUE}"):
-                return {"number": live_gate.KNOWN_ISSUE, "state": "closed"}
-            if path.endswith(f"/pulls/{live_gate.KNOWN_PR}"):
-                return {"number": live_gate.KNOWN_PR, "state": "closed", "merged_at": "2026-08-14T20:25:50Z"}
-            raise AssertionError(path)
+    def test_graphql_zero_set_is_complete_and_truncation_is_rejected(self) -> None:
+        zero = self.graphql_page([], 0)
+        with mock.patch.object(live_gate, "graphql", side_effect=[zero, zero]):
+            self.assertEqual(live_gate.graphql_open_pull_bindings("token")["total_count"], 0)
+        truncated = self.graphql_page([], 1)
+        with mock.patch.object(live_gate, "graphql", return_value=truncated):
+            with self.assertRaisesRegex(RuntimeError, "truncated"):
+                live_gate.graphql_open_pull_bindings("token")
 
-        def exact_git(*args: str) -> str:
-            if args[0] == "log":
-                return live_gate.KNOWN_PREFLIGHT_COMMIT
-            if args[0] == "show":
-                return "known preflight"
-            if args[0] == "diff-tree":
-                return "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/preflight.md"
-            raise AssertionError(args)
+    def test_graphql_identity_mutation_including_small_pr_is_rejected(self) -> None:
+        row = {
+            "id": "PR_7", "number": 7, "state": "OPEN", "title": "x", "isDraft": False, "updatedAt": "t", "headRefOid": "a" * 40,
+            "headRefName": "r", "headRepository": {"nameWithOwner": "f/r"},
+            "baseRefName": "main", "baseRepository": {"nameWithOwner": "g/f"}, "changedFiles": 1, "baseRefOid": "b" * 40,
+            "files": {"totalCount": 1, "pageInfo": {"hasNextPage": False, "endCursor": None}, "nodes": [{"path": "x", "changeType": "MODIFIED"}]},
+        }
+        final = dict(row)
+        final.pop("files")
+        final["headRefOid"] = "c" * 40
+        with mock.patch.object(live_gate, "graphql", side_effect=[self.graphql_page([row], 1), self.graphql_page([final], 1)]):
+            with self.assertRaisesRegex(RuntimeError, "mutated"):
+                live_gate.graphql_open_pull_bindings("token")
 
-        mutations = {}
-        for name, field in (("head", "head_sha"), ("base", "base_sha"), ("updated", "updated_at")):
-            mutated = json.loads(json.dumps(before))
-            mutated["open_pulls"][0][field] += "-mutated"
-            mutations[name] = mutated
-        closed = json.loads(json.dumps(before))
-        closed["open_pulls"] = []
-        mutations["open_close"] = closed
+    def test_graphql_null_identity_bad_change_type_and_low_quota_fail_closed(self) -> None:
+        row = {
+            "id": "PR_8", "number": 8, "state": "OPEN", "title": "x", "isDraft": False,
+            "updatedAt": "t", "headRefOid": "a" * 40, "headRefName": "r", "headRepository": None,
+            "baseRefOid": "b" * 40, "baseRefName": "main", "baseRepository": {"nameWithOwner": "g/f"},
+            "changedFiles": 1,
+            "files": {"totalCount": 1, "pageInfo": {"hasNextPage": False, "endCursor": None}, "nodes": [{"path": "x", "changeType": "UNKNOWN"}]},
+        }
+        malformed = json.loads(json.dumps(row))
+        malformed["id"] = None
+        malformed["files"]["nodes"][0]["changeType"] = "MODIFIED"
+        with mock.patch.object(live_gate, "graphql", return_value=self.graphql_page([malformed], 1)):
+            with self.assertRaisesRegex(RuntimeError, "type/null/state"):
+                live_gate.graphql_open_pull_bindings("token")
+        with mock.patch.object(live_gate, "graphql", return_value=self.graphql_page([row], 1)):
+            with self.assertRaisesRegex(RuntimeError, "path/changeType"):
+                live_gate.graphql_open_pull_bindings("token")
+        attestation = live_attestation_fixture()
+        attestation["graphql_rate_limit_observations"]["before"][0]["remaining"] = 1
+        with self.assertRaisesRegex(RuntimeError, "quota reserve"):
+            search.validate_live_attestation(attestation, sealed_attestation_fixture(attestation))
 
-        for name, after in mutations.items():
-            with self.subTest(name=name), tempfile.TemporaryDirectory() as directory, mock.patch.object(
-                live_gate, "bracket_snapshot", side_effect=[before, after]
-            ), mock.patch.object(live_gate, "bind_changed_paths", return_value=[{
-                **before["open_pulls"][0],
-                "changed_paths": ["unrelated.lean"],
-                "changed_paths_sha256": live_gate.canonical_sha256(["unrelated.lean"]),
-            }]), mock.patch.object(live_gate, "api", side_effect=exact_api), mock.patch.object(
-                live_gate, "get_bytes", return_value=target
-            ), mock.patch.object(live_gate, "git", side_effect=exact_git), mock.patch.object(
-                live_gate, "TARGET_SHA256", live_gate.sha256(target)
-            ):
-                output = Path(directory) / "must-fail.json"
-                with self.assertRaisesRegex(RuntimeError, "failed closed"):
-                    live_gate.run(output, "token", None)
-                record = json.loads(output.read_text())
-                self.assertEqual(record["schema"], "bondy_source_status_duplicate_gate_bracketed_single_scan_v2")
-                self.assertTrue(record["checks"]["file_bindings_exact"])
-                self.assertFalse(record["checks"]["bracket_snapshot_stable"])
-                self.assertNotEqual(record["bracket_snapshot_before"], record["bracket_snapshot_after"])
-                if name == "open_close":
-                    self.assertFalse(record["checks"]["open_pr_set_stable"])
+    def test_issue_search_count_schema_and_uniqueness_are_strict(self) -> None:
+        malformed = (
+            {"incomplete_results": False, "total_count": 1, "items": []},
+            {"incomplete_results": False, "total_count": 1, "items": [{"number": None}]},
+            {"incomplete_results": False, "total_count": 2, "items": [{"number": 7}, {"number": 7}]},
+        )
+        for response in malformed:
+            with mock.patch.object(live_gate, "api", return_value=response):
+                with self.assertRaises(RuntimeError):
+                    live_gate.issue_search("token", "q")
+
+    def test_repeated_cursor_is_rejected_and_file_order_is_canonicalized(self) -> None:
+        repeated = {
+            "repository": {"pullRequests": {"totalCount": 0, "pageInfo": {"hasNextPage": True, "endCursor": "same"}, "nodes": []}},
+            "rateLimit": {"cost": 1, "remaining": 999, "resetAt": "t"},
+        }
+        with mock.patch.object(live_gate, "graphql", side_effect=[repeated, repeated]):
+            with self.assertRaisesRegex(RuntimeError, "repeated"):
+                live_gate.graphql_open_pull_bindings("token")
+        row = {
+            "id": "PR_9", "number": 9, "state": "OPEN", "title": "x", "isDraft": False,
+            "updatedAt": "t", "headRefOid": "a" * 40, "headRefName": "r", "headRepository": None,
+            "baseRefOid": "b" * 40, "baseRefName": "main", "baseRepository": {"nameWithOwner": "g/f"},
+            "changedFiles": 2,
+            "files": {"totalCount": 2, "pageInfo": {"hasNextPage": False, "endCursor": None}, "nodes": [{"path": "z", "changeType": "MODIFIED"}, {"path": "a", "changeType": "ADDED"}]},
+        }
+        final = dict(row)
+        final.pop("files")
+        with mock.patch.object(live_gate, "graphql", side_effect=[self.graphql_page([row], 1), self.graphql_page([final], 1)]):
+            result = live_gate.graphql_open_pull_bindings("token")
+        self.assertEqual(result["bindings"][0]["changed_paths"], ["a", "z"])
+
+    def test_graphql_rest_rename_classification_must_be_one_to_one(self) -> None:
+        row = {
+            "id": "PR_10", "number": 10, "state": "OPEN", "title": "x", "isDraft": False,
+            "updatedAt": "t", "headRefOid": "a" * 40, "headRefName": "r", "headRepository": None,
+            "baseRefOid": "b" * 40, "baseRefName": "main", "baseRepository": {"nameWithOwner": "g/f"},
+            "changedFiles": 1,
+            "files": {"totalCount": 1, "pageInfo": {"hasNextPage": False, "endCursor": None}, "nodes": [{"path": "new", "changeType": "RENAMED"}]},
+        }
+        final = dict(row)
+        final.pop("files")
+        with mock.patch.object(live_gate, "graphql", side_effect=[self.graphql_page([row], 1), self.graphql_page([final], 1)]), mock.patch.object(
+            live_gate, "api", return_value=[{"filename": "new", "status": "modified"}]
+        ):
+            with self.assertRaisesRegex(RuntimeError, "classification mismatch"):
+                live_gate.graphql_open_pull_bindings("token")
+
+    def test_pagination_ambiguity_and_protected_delta_are_rejected(self) -> None:
+        with self.assertRaisesRegex(RuntimeError, "ambiguity"):
+            live_gate.page_info({"nodes": [], "pageInfo": {"hasNextPage": True, "endCursor": None}}, "fixture")
+        for protected in (live_gate.TARGET_PATH, "FormalConjectures/Imported.lean", "lean-toolchain"):
+            attestation = live_attestation_fixture()
+            attestation["continuity"]["delta"] = [{"status": "M", "path": protected}]
+            attestation["continuity"]["delta_sha256"] = search.canonical_sha256(attestation["continuity"]["delta"])
+            attestation["continuity"]["commits"][0]["changed_paths"] = [protected]
+            attestation["bracket_snapshot_before"]["continuity"]["canonical_sha256"] = search.canonical_sha256(attestation["continuity"])
+            attestation["bracket_snapshot_after"] = json.loads(json.dumps(attestation["bracket_snapshot_before"]))
+            with self.assertRaisesRegex(RuntimeError, "delta"):
+                search.validate_live_attestation(attestation, sealed_attestation_fixture(attestation))
+
+    def test_merge_provenance_is_rejected_by_v3_consumer(self) -> None:
+        attestation = live_attestation_fixture()
+        attestation["continuity"]["commits"][0]["parents"] = ["1" * 40, "5" * 40]
+        attestation["bracket_snapshot_before"]["continuity"]["canonical_sha256"] = search.canonical_sha256(attestation["continuity"])
+        attestation["bracket_snapshot_after"] = json.loads(json.dumps(attestation["bracket_snapshot_before"]))
+        with self.assertRaisesRegex(RuntimeError, "commit chain"):
+            search.validate_live_attestation(attestation, sealed_attestation_fixture(attestation))
 
 
 def main() -> int:

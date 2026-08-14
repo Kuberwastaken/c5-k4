@@ -32,39 +32,45 @@ INTERNAL_SEARCH_SECONDS = 48
 INTERNAL_FINALIZE_SECONDS = 54
 EXTERNAL_SECONDS = 60
 LIVE_GATE_CHECKS = {
-    "blob_sha1",
     "bracket_snapshot_stable",
-    "category_open",
+    "complete_delta_disjoint",
+    "complete_open_pr_bindings",
+    "declaration_shape_exact",
     "exact_allowed_search_result_sets",
     "exact_local_contamination_history",
-    "file_bindings_exact",
+    "frozen_commit_is_live_ancestor",
+    "historical_anchor_exact",
     "known_ingestion_issue_exact",
     "known_ingestion_pr_exact",
-    "main_commit",
-    "no_open_pr_touches_target",
+    "live_main_stable",
+    "live_target_exact",
+    "no_open_pr_touches_protected_paths",
     "no_standalone_repository_hit",
-    "opaque_answer_wrapper",
-    "open_pr_set_stable",
     "paper_sha256",
-    "target_sha256",
-    "tree",
+    "semantic_closure_exact",
+    "toolchain_and_external_revisions_exact",
 }
 LIVE_ATTESTATION_FIELDS = {
     "schema",
     "kind",
     "status",
     "checks",
-    "upstream",
-    "open_pr_target_path_matches",
+    "campaign",
+    "pinned_upstream",
+    "live_upstream",
+    "continuity",
+    "open_pr_protected_path_matches",
     "bracket_snapshot_before",
-    "open_pr_file_bindings",
     "bracket_snapshot_after",
+    "graphql_rate_limit_observations",
     "local_history_hits",
     "local_history_identities",
 }
-BRACKET_FIELDS = {"main", "searches", "open_pulls", "repository_total_count"}
+BRACKET_FIELDS = {"main", "continuity", "known_issue", "known_pr", "searches", "open_pull_binding_surface", "repository_total_count"}
 PULL_IDENTITY_FIELDS = {
+    "node_id",
     "number",
+    "state",
     "title",
     "draft",
     "updated_at",
@@ -74,9 +80,19 @@ PULL_IDENTITY_FIELDS = {
     "base_sha",
     "base_ref",
     "base_repo",
+    "changed_files",
 }
 PULL_BINDING_FIELDS = PULL_IDENTITY_FIELDS | {"changed_paths", "changed_paths_sha256"}
 FROZEN_TARGET_PATH = "FormalConjectures/Arxiv/2606.03696/BondyLongestCycles.lean"
+CONTINUITY_FIELDS = {
+    "pinned", "live", "merge_base", "ancestor_verified", "commits", "delta", "delta_sha256",
+    "target", "target_raw_utf8", "declaration", "closure_count", "closure_sha256", "closure_entries",
+    "toolchain_sha256", "toolchain", "external_revisions_sha256", "external_revisions", "protected_paths",
+}
+CONTINUITY_SURFACE_FIELDS = {
+    "canonical_sha256", "live", "target", "target_raw_bytes", "target_raw_sha256", "declaration",
+    "closure_count", "closure_sha256", "toolchain_sha256", "external_revisions_sha256",
+}
 
 
 def canonical_bytes(value: object) -> bytes:
@@ -91,6 +107,8 @@ class DurableLedger:
     def __init__(self, path: Path) -> None:
         self.path = path
         self.path.parent.mkdir(parents=True, exist_ok=True)
+        with self.path.open("xb", buffering=0) as handle:
+            os.fsync(handle.fileno())
         self.previous = "0" * 64
         self.index = 0
         self.closed = False
@@ -172,71 +190,234 @@ def file_sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def validate_live_attestation(
-    attestation: dict[str, object], manifest: dict[str, object], sealed: dict[str, object] | None = None
-) -> None:
-    if sealed is None:
-        sealed = json.loads((HERE / "source-status-attestation.json").read_text())
-    sealed_gate = sealed.get("gate")
+def validate_live_attestation(attestation: dict[str, object], manifest: dict[str, object]) -> None:
     checks = attestation.get("checks")
     before = attestation.get("bracket_snapshot_before")
     after = attestation.get("bracket_snapshot_after")
-    bindings = attestation.get("open_pr_file_bindings")
+    continuity = attestation.get("continuity")
     if (
         set(attestation) != LIVE_ATTESTATION_FIELDS
-        or attestation.get("schema") != manifest["live_gate"]["schema"]
+        or manifest.get("live_gate", {}).get("schema") != "bondy_source_status_duplicate_gate_tip_continuity_v3"
+        or attestation.get("schema") != "bondy_source_status_duplicate_gate_tip_continuity_v3"
         or attestation.get("kind") != "source_status_duplicate_gate"
         or attestation.get("status") != "PASS"
-        or attestation.get("upstream") != manifest["upstream"]
-        or not isinstance(sealed_gate, dict)
+        or attestation.get("pinned_upstream") != manifest["upstream"]
+        or not isinstance(attestation.get("campaign"), dict) or set(attestation["campaign"]) != {"commit", "tree"}
+        or not all(isinstance(attestation["campaign"].get(key), str) and len(attestation["campaign"][key]) == 40 for key in ("commit", "tree"))
         or not isinstance(checks, dict)
         or set(checks) != LIVE_GATE_CHECKS
         or any(value is not True for value in checks.values())
         or not isinstance(before, dict)
         or set(before) != BRACKET_FIELDS
         or before != after
-        or not isinstance(bindings, list)
-        or attestation.get("open_pr_target_path_matches") != []
-        or canonical_sha256(checks) != sealed_gate.get("checks_sha256")
-        or canonical_sha256(before) != sealed_gate.get("bracket_snapshot_sha256")
-        or canonical_sha256(bindings) != sealed_gate.get("file_bindings_sha256")
-        or hashlib.sha256(canonical_bytes(attestation)).hexdigest() != sealed_gate.get("full_record_sha256")
+        or not isinstance(continuity, dict)
+        or set(continuity) != CONTINUITY_FIELDS
+        or attestation.get("open_pr_protected_path_matches") != []
     ):
         raise RuntimeError("GATE_FAIL:source attestation missing or drifted")
-    identities = before.get("open_pulls")
-    expected_count = sealed_gate.get("open_pr_identities")
+    frozen = manifest.get("semantic_closure")
+    surface = before.get("continuity")
+    binding_surface = before.get("open_pull_binding_surface")
     if (
-        isinstance(expected_count, bool)
-        or not isinstance(expected_count, int)
-        or expected_count <= 0
-        or sealed_gate.get("file_bindings") != expected_count
-        or not isinstance(identities, list)
-        or len(identities) != expected_count
-        or len(bindings) != expected_count
+        not isinstance(frozen, dict) or not isinstance(surface, dict) or set(surface) != CONTINUITY_SURFACE_FIELDS
+        or surface.get("canonical_sha256") != canonical_sha256(continuity)
+        or surface.get("live") != continuity.get("live")
+        or surface.get("target") != continuity.get("target")
+        or surface.get("declaration") != continuity.get("declaration")
+        or surface.get("closure_count") != continuity.get("closure_count")
+        or surface.get("closure_sha256") != continuity.get("closure_sha256")
+        or surface.get("toolchain_sha256") != continuity.get("toolchain_sha256")
+        or surface.get("external_revisions_sha256") != continuity.get("external_revisions_sha256")
+        or continuity.get("pinned") != {"commit": manifest["upstream"]["commit"], "tree": manifest["upstream"]["tree"]}
+        or continuity.get("live") != attestation.get("live_upstream")
+        or continuity.get("live") != before.get("main")
+        or continuity.get("merge_base") != manifest["upstream"]["commit"]
+        or continuity.get("ancestor_verified") is not True
+        or continuity.get("closure_count") != frozen.get("count")
+        or continuity.get("closure_sha256") != frozen.get("sha256")
+        or canonical_sha256(continuity.get("closure_entries")) != frozen.get("sha256")
+        or continuity.get("toolchain_sha256") != frozen.get("toolchain_sha256")
+        or canonical_sha256(continuity.get("toolchain")) != frozen.get("toolchain_sha256")
+        or continuity.get("external_revisions_sha256") != frozen.get("external_revisions_sha256")
+        or canonical_sha256(continuity.get("external_revisions")) != frozen.get("external_revisions_sha256")
+        or not isinstance(continuity.get("target_raw_utf8"), str)
+        or surface.get("target_raw_bytes") != len(continuity["target_raw_utf8"].encode("utf-8"))
+        or surface.get("target_raw_sha256") != hashlib.sha256(continuity["target_raw_utf8"].encode("utf-8")).hexdigest()
+        or surface.get("target_raw_sha256") != manifest.get("source_sha256")
+        or continuity.get("target", {}).get("path") != manifest["upstream"]["path"]
+        or set(continuity.get("target", {})) != {"path", "mode", "type", "blob", "bytes", "sha256"}
+        or continuity.get("target", {}).get("mode") != "100644"
+        or continuity.get("target", {}).get("type") != "blob"
+        or continuity.get("target", {}).get("bytes") != surface.get("target_raw_bytes")
+        or continuity.get("target", {}).get("blob") != manifest["upstream"]["blob"]
+        or continuity.get("target", {}).get("sha256") != manifest.get("source_sha256")
+        or continuity.get("declaration") != {"declaration_count": 1, "exact_open_attribute_count": 1, "answer_wrapper_count": 1, "exact_by_sorry_block_count": 1}
+        or not isinstance(binding_surface, dict) or set(binding_surface) != {"total_count", "bindings"}
+        or not isinstance(before.get("main"), dict) or set(before["main"]) != {"commit", "tree"}
+        or not all(isinstance(before["main"].get(key), str) and len(before["main"][key]) == 40 for key in ("commit", "tree"))
+        or any(any(c not in "0123456789abcdef" for c in before["main"][key]) for key in ("commit", "tree"))
+        or not isinstance(before.get("known_issue"), dict)
+        or set(before["known_issue"]) != {"number", "state", "state_reason", "title", "author", "created_at", "updated_at", "closed_at", "node_id", "is_pull_request"}
+        or not isinstance(before.get("known_pr"), dict)
+        or set(before["known_pr"]) != {"number", "state", "draft", "merged", "merged_at", "merge_commit_sha", "title", "author", "head_sha", "base_sha", "updated_at", "node_id"}
     ):
-        raise RuntimeError("GATE_FAIL:source attestation nonempty sealed count drift")
+        raise RuntimeError("GATE_FAIL:v3 continuity binding drift")
+    protected = continuity.get("protected_paths")
+    closure_entries = continuity.get("closure_entries")
+    toolchain_entries = continuity.get("toolchain")
+    delta = continuity.get("delta")
+    bindings = binding_surface.get("bindings")
+    expected_count = binding_surface.get("total_count")
+    canonical_delta = sorted(delta, key=lambda row: (row.get("path", ""), row.get("status", ""))) if isinstance(delta, list) and all(isinstance(row, dict) for row in delta) else None
+    if (
+        not isinstance(closure_entries, list) or not isinstance(toolchain_entries, list)
+        or any(not isinstance(entry, dict) or not isinstance(entry.get("path"), str) or not entry["path"] for entry in closure_entries + toolchain_entries)
+        or not isinstance(protected, list)
+        or protected != sorted({entry["path"] for entry in closure_entries + toolchain_entries})
+        or not all(isinstance(path, str) and path for path in protected)
+        or not isinstance(delta, list) or continuity.get("delta_sha256") != canonical_sha256(delta)
+        or any(
+            not isinstance(row, dict) or set(row) != {"status", "path"}
+            or row.get("status") not in {"A", "M", "D", "T", "U"}
+            or not isinstance(row.get("path"), str) or not row["path"]
+            or row["path"] in protected for row in delta
+        )
+        or delta != canonical_delta
+        or len({(row["status"], row["path"]) for row in delta}) != len(delta)
+        or isinstance(expected_count, bool) or not isinstance(expected_count, int) or expected_count < 0
+        or not isinstance(bindings, list) or len(bindings) != expected_count
+        or before.get("repository_total_count") != 0
+        or before.get("searches") != {
+            'repo:google-deepmind/formal-conjectures "bondy_conjecture"': [4879],
+            'repo:google-deepmind/formal-conjectures "BondyLongestCycles"': [],
+            'repo:google-deepmind/formal-conjectures "2606.03696"': [4879],
+        }
+        or before.get("known_issue", {}).get("number") != 4858
+        or before.get("known_issue", {}).get("state") != "closed"
+        or before.get("known_issue", {}).get("state_reason") != "completed"
+        or before.get("known_issue", {}).get("closed_at") != "2026-08-14T20:25:51Z"
+        or before.get("known_issue", {}).get("is_pull_request") is not False
+        or any(not isinstance(before["known_issue"].get(key), str) or not before["known_issue"][key] for key in ("title", "author", "created_at", "updated_at", "node_id"))
+        or before.get("known_pr", {}).get("number") != 4879
+        or before.get("known_pr", {}).get("state") != "closed"
+        or before.get("known_pr", {}).get("draft") is not False
+        or before.get("known_pr", {}).get("merged") is not True
+        or before.get("known_pr", {}).get("merged_at") != "2026-08-14T20:25:50Z"
+        or before.get("known_pr", {}).get("merge_commit_sha") != "8781428a922a53914450550218bf14be703d8d69"
+        or any(not isinstance(before["known_pr"].get(key), str) or not before["known_pr"][key] for key in ("title", "author", "head_sha", "base_sha", "updated_at", "node_id"))
+        or any(len(before["known_pr"][key]) != 40 or any(c not in "0123456789abcdef" for c in before["known_pr"][key]) for key in ("head_sha", "base_sha"))
+    ):
+        raise RuntimeError("GATE_FAIL:v3 delta or binding completeness drift")
     numbers: list[int] = []
-    for identity, binding in zip(identities, bindings):
-        if not isinstance(identity, dict) or set(identity) != PULL_IDENTITY_FIELDS:
-            raise RuntimeError("GATE_FAIL:source attestation PR identity schema drift")
+    for binding in bindings:
         if not isinstance(binding, dict) or set(binding) != PULL_BINDING_FIELDS:
             raise RuntimeError("GATE_FAIL:source attestation file binding schema drift")
-        number = identity.get("number")
+        number = binding.get("number")
         paths = binding.get("changed_paths")
+        changed_files = binding.get("changed_files")
         if (
             isinstance(number, bool)
             or not isinstance(number, int)
-            or {key: binding[key] for key in PULL_IDENTITY_FIELDS} != identity
+            or number <= 0
             or not isinstance(paths, list)
             or not all(isinstance(path, str) and path for path in paths)
             or paths != sorted(set(paths))
             or binding.get("changed_paths_sha256") != canonical_sha256(paths)
-            or FROZEN_TARGET_PATH in paths
+            or bool(set(paths).intersection(protected))
+            or not isinstance(binding.get("node_id"), str) or not binding["node_id"]
+            or binding.get("state") != "OPEN"
+            or any(not isinstance(binding.get(key), str) or not binding[key] for key in ("title", "updated_at", "head_ref", "base_ref", "base_repo"))
+            or any(not isinstance(binding.get(key), str) or len(binding[key]) != 40 or any(c not in "0123456789abcdef" for c in binding[key]) for key in ("head_sha", "base_sha"))
+            or (binding.get("head_repo") is not None and (not isinstance(binding["head_repo"], str) or not binding["head_repo"]))
+            or not isinstance(binding.get("draft"), bool)
+            or isinstance(changed_files, bool) or not isinstance(changed_files, int) or changed_files < 0 or changed_files > len(paths)
+            or len(paths) > 2 * changed_files
+            or (changed_files == 0 and paths != [])
         ):
             raise RuntimeError("GATE_FAIL:source attestation file binding drift")
         numbers.append(number)
     if numbers != sorted(set(numbers)):
         raise RuntimeError("GATE_FAIL:source attestation file binding drift")
+    commits = continuity.get("commits")
+    if not isinstance(commits, list) or (continuity["live"]["commit"] != continuity["pinned"]["commit"] and not commits):
+        raise RuntimeError("GATE_FAIL:continuity commit provenance missing")
+    previous = continuity["pinned"]["commit"]
+    commit_paths: set[str] = set()
+    commit_oids: set[str] = set()
+    for row in commits:
+        if (
+            not isinstance(row, dict) or set(row) != {"commit", "parents", "tree", "subject", "changed_paths"}
+            or row.get("parents") != [previous]
+            or any(not isinstance(row.get(key), str) or len(row[key]) != 40 or any(c not in "0123456789abcdef" for c in row[key]) for key in ("commit", "tree"))
+            or not isinstance(row.get("subject"), str) or not isinstance(row.get("changed_paths"), list)
+            or not row["changed_paths"] or row["changed_paths"] != sorted(set(row["changed_paths"]))
+            or not all(isinstance(path, str) and path for path in row["changed_paths"])
+        ):
+            raise RuntimeError("GATE_FAIL:continuity commit chain drift")
+        previous = row["commit"]
+        if previous in commit_oids:
+            raise RuntimeError("GATE_FAIL:duplicate continuity commit provenance")
+        commit_oids.add(previous)
+        commit_paths.update(row["changed_paths"])
+    if previous != continuity["live"]["commit"] or (commits and commits[-1]["tree"] != continuity["live"]["tree"]) or any(row["path"] not in commit_paths for row in delta):
+        raise RuntimeError("GATE_FAIL:continuity commit/delta provenance drift")
+    telemetry = attestation.get("graphql_rate_limit_observations")
+    if not isinstance(telemetry, dict) or set(telemetry) != {"before", "after"}:
+        raise RuntimeError("GATE_FAIL:GraphQL quota audit missing")
+    for rows in telemetry.values():
+        if not isinstance(rows, list) or any(
+            not isinstance(row, dict) or set(row) != {"cost", "remaining", "reset_at"}
+            or isinstance(row["cost"], bool) or not isinstance(row["cost"], int)
+            or isinstance(row["remaining"], bool) or not isinstance(row["remaining"], int)
+            or row["cost"] <= 0 or row["remaining"] < 0
+            or not isinstance(row["reset_at"], str) or not row["reset_at"] for row in rows
+        ):
+            raise RuntimeError("GATE_FAIL:GraphQL quota audit drift")
+        if rows != sorted(rows, key=lambda row: (row["remaining"], row["cost"], row["reset_at"])):
+            raise RuntimeError("GATE_FAIL:GraphQL quota audit noncanonical order")
+    before_rate = telemetry["before"]
+    after_rate = telemetry["after"]
+    before_cost = sum(row["cost"] for row in before_rate)
+    if (
+        not before_rate or not after_rate
+        or min(row["remaining"] for row in before_rate) < before_cost + 25
+        or min(row["remaining"] for row in after_rate) < 25
+    ):
+        raise RuntimeError("GATE_FAIL:GraphQL quota reserve drift")
+    hits = attestation.get("local_history_hits")
+    identities = attestation.get("local_history_identities")
+    if (
+        not isinstance(hits, list) or hits != list(dict.fromkeys(hits))
+        or not all(isinstance(commit, str) and len(commit) == 40 and all(c in "0123456789abcdef" for c in commit) for commit in hits)
+        or not isinstance(identities, list) or len(identities) != len(hits)
+        or [row.get("commit") if isinstance(row, dict) else None for row in identities] != hits
+    ):
+        raise RuntimeError("GATE_FAIL:local contamination evidence drift")
+    allowed_kinds = {"known_preflight", "known_repin_audit", "known_continuity_audit", "freeze_introducer"}
+    for row in identities:
+        if (
+            not isinstance(row, dict) or set(row) != {"commit", "subject", "paths", "kind"}
+            or row.get("kind") not in allowed_kinds or not isinstance(row.get("subject"), str) or not row["subject"]
+            or not isinstance(row.get("paths"), list) or not row["paths"] or row["paths"] != sorted(set(row["paths"]))
+            or not all(isinstance(path, str) and path for path in row["paths"])
+        ):
+            raise RuntimeError("GATE_FAIL:local contamination identity schema drift")
+    by_kind = {row["kind"]: row for row in identities if row["kind"] != "freeze_introducer"}
+    freeze_roots = (
+        "scripts/prospective_bondy_", "scripts/test_bondy_",
+        "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/",
+        ".github/workflows/bondy-longest-cycles-development.yml",
+    )
+    freeze_rows = [row for row in identities if row["kind"] == "freeze_introducer"]
+    if (
+        any(sum(row["kind"] == kind for row in identities) != 1 for kind in ("known_preflight", "known_repin_audit", "known_continuity_audit"))
+        or by_kind.get("known_preflight", {}).get("commit") != "d22eb07173794848fd375b5675059946ee3860b5"
+        or by_kind.get("known_repin_audit") != {"commit": "e17905b1d62048f43bab89e06625aebdcf280faf", "subject": "research: audit Bondy upstream repin", "paths": ["results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/upstream-drift-repin-audit.md"], "kind": "known_repin_audit"}
+        or by_kind.get("known_continuity_audit") != {"commit": "c4d327479110cf51f2aae126d12e2fbc609c0921", "subject": "research: define Bondy tip continuity gate", "paths": ["results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/tip-continuity-policy-audit.md"], "kind": "known_continuity_audit"}
+        or len(freeze_rows) > 2
+        or any("scripts/prospective_bondy_gate.py" not in row["paths"] or not all(any(path.startswith(root) for root in freeze_roots) for path in row["paths"]) for row in freeze_rows)
+    ):
+        raise RuntimeError("GATE_FAIL:local contamination exact history drift")
 
 
 class EndpointPathCoverDP:
@@ -447,14 +628,12 @@ def independent_upper_replay(binary: Path, edges: Sequence[Sequence[int]], expec
         timed_out = False
         try:
             output, _ = process.communicate(timeout=child_seconds)
-        except subprocess.TimeoutExpired:
+        except (subprocess.TimeoutExpired, TimeoutError):
             timed_out = True
-            os.killpg(process.pid, signal.SIGTERM)
-            try:
-                output, _ = process.communicate(timeout=0.2)
-            except subprocess.TimeoutExpired:
-                os.killpg(process.pid, signal.SIGKILL)
-                output, _ = process.communicate()
+            output = terminate_and_reap(process)
+        except BaseException:
+            terminate_and_reap(process)
+            raise
         audit = {
             "pid": process.pid,
             "returncode": process.returncode,
@@ -484,19 +663,62 @@ def independent_upper_replay(binary: Path, edges: Sequence[Sequence[int]], expec
         return {"record": record, "pc_table_sha256": pc_sha256, "process_audit": audit}
 
 
+def terminate_and_reap(process: subprocess.Popen[str]) -> str:
+    if process.poll() is None:
+        try:
+            os.killpg(process.pid, signal.SIGTERM)
+        except ProcessLookupError:
+            pass
+    try:
+        output, _ = process.communicate(timeout=0.2)
+    except subprocess.TimeoutExpired:
+        if process.poll() is None:
+            try:
+                os.killpg(process.pid, signal.SIGKILL)
+            except ProcessLookupError:
+                pass
+        output, _ = process.communicate()
+    finally:
+        if process.poll() is None:
+            try:
+                os.killpg(process.pid, signal.SIGKILL)
+            except ProcessLookupError:
+                pass
+            process.wait()
+    return output
+
+
 def run(args: argparse.Namespace) -> int:
     manifest = unlock(args)
-    attestation = json.loads(args.source_attestation.read_text())
+    attestation_bytes = args.source_attestation.read_bytes()
+    attestation = json.loads(attestation_bytes)
+    if attestation_bytes != canonical_bytes(attestation):
+        raise RuntimeError("GATE_FAIL:source attestation is not canonical JSON")
     validate_live_attestation(attestation, manifest)
+    checked_campaign = {"commit": args.campaign_commit, "tree": git("show", "-s", "--format=%T", "HEAD")}
+    if attestation["campaign"] != checked_campaign:
+        raise RuntimeError("GATE_FAIL:live attestation campaign commit/tree drift")
+    output_paths = (args.ledger, args.candidate, args.terminal)
+    if len({path.resolve() for path in output_paths}) != len(output_paths):
+        raise RuntimeError("GATE_FAIL:target output paths are not distinct")
+    stale_outputs = [path for path in output_paths if path.exists()]
+    if stale_outputs:
+        raise RuntimeError("GATE_FAIL:target output path already exists:" + ",".join(str(path) for path in stale_outputs))
+    handoff = {
+        "schema": "bondy_campaign_handoff_v1",
+        "campaign_commit": args.campaign_commit,
+        "source_attestation_sha256": hashlib.sha256(attestation_bytes).hexdigest(),
+    }
     started = time.monotonic()
     ledger = DurableLedger(args.ledger)
+    ledger.append({"kind": "campaign_handoff", "handoff": handoff})
     ledger.append({"kind": "source_control", "record": construct.source_control()})
     applicable = 0
     evaluated = 0
     for row in construct.generate(manifest["grammar"]["row_limit"]):
         now = time.monotonic()
         if now - started >= INTERNAL_SEARCH_SECONDS:
-            terminal = {"kind": "terminal", "status": "CAP_PREFIX", "applicable": applicable, "evaluated": evaluated, "ledger_head": ledger.previous}
+            terminal = {"schema": "bondy_terminal_v3", "kind": "terminal", "status": "CAP_PREFIX", "handoff": handoff, "applicable": applicable, "evaluated": evaluated, "ledger_head": ledger.previous}
             ledger.seal()
             atomic_json(args.terminal, terminal)
             return 0
@@ -507,7 +729,7 @@ def run(args: argparse.Namespace) -> int:
         try:
             evaluation = target_evaluate(row, INTERNAL_SEARCH_SECONDS - (time.monotonic() - started))
         except TimeoutError:
-            terminal = {"kind": "terminal", "status": "CAP_PREFIX", "applicable": applicable, "evaluated": evaluated, "ledger_head": ledger.previous}
+            terminal = {"schema": "bondy_terminal_v3", "kind": "terminal", "status": "CAP_PREFIX", "handoff": handoff, "applicable": applicable, "evaluated": evaluated, "ledger_head": ledger.previous}
             ledger.seal()
             atomic_json(args.terminal, terminal)
             return 0
@@ -522,13 +744,15 @@ def run(args: argparse.Namespace) -> int:
                     INTERNAL_FINALIZE_SECONDS - (time.monotonic() - started),
                 )
             except TimeoutError:
-                terminal = {"kind": "terminal", "status": "CAP_PREFIX", "applicable": applicable, "evaluated": evaluated, "ledger_head": ledger.previous}
+                terminal = {"schema": "bondy_terminal_v3", "kind": "terminal", "status": "CAP_PREFIX", "handoff": handoff, "applicable": applicable, "evaluated": evaluated, "ledger_head": ledger.previous}
                 ledger.seal()
                 atomic_json(args.terminal, terminal)
                 return 0
             candidate = {
-                "kind": "terminal",
+                "schema": "bondy_candidate_v3",
+                "kind": "candidate",
                 "status": "CANDIDATE_FOUND",
+                "handoff": handoff,
                 "row": row,
                 "edges_g": construct.edge_list(construct.join_separator(construct.graph_from_edges(construct.H_ORDER, row["edges_h"]))),
                 "evaluation": evaluation,
@@ -557,7 +781,7 @@ def run(args: argparse.Namespace) -> int:
         status = "NO_TARGET_RAISING_CANDIDATES"
     else:
         status = "DOMAIN_EXHAUSTED"
-    terminal = {"kind": "terminal", "status": status, "applicable": applicable, "evaluated": evaluated, "ledger_head": ledger.previous}
+    terminal = {"schema": "bondy_terminal_v3", "kind": "terminal", "status": status, "handoff": handoff, "applicable": applicable, "evaluated": evaluated, "ledger_head": ledger.previous}
     ledger.seal()
     atomic_json(args.terminal, terminal)
     return 0

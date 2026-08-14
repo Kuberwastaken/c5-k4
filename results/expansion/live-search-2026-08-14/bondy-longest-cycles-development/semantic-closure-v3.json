@@ -1,0 +1,1483 @@
+{
+  "closure_count": 168,
+  "closure_sha256": "06f205b34dc84a04c0d46d718c0a1fe46b5634f76f39343e51dd132d43dfdbb7",
+  "entries": [
+    {
+      "blob": "c4c5cb1983936860d5a4a7208b3f04bd201290d4",
+      "bytes": 4786,
+      "mode": "100644",
+      "path": "FormalConjectures/Arxiv/2606.03696/BondyLongestCycles.lean",
+      "sha256": "562fbbb0ec47041a61017bb85ec0c7e9aa6fc98cf132be3022268a7dc60e9004",
+      "type": "blob"
+    },
+    {
+      "blob": "b88c5cb7fb282f9adf154c56787b0959bc3aa094",
+      "bytes": 11718,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib.lean",
+      "sha256": "4a0e9f3f55cfcd6cb2d5ff1947e665b5cd7917b155564a125fc6333a3fb1341d",
+      "type": "blob"
+    },
+    {
+      "blob": "63f3a0b1b160c5adce0d59399d87cc3f94b88c35",
+      "bytes": 983,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Algebra/GCDMonoid/Finset.lean",
+      "sha256": "e9dfc19d93ba0af97fdd36184cd46367229dd32426291b551496f8be5a4900e3",
+      "type": "blob"
+    },
+    {
+      "blob": "c25b08930bf7df5bf56da02f447923e341bf59bf",
+      "bytes": 926,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Algebra/Group/Action/Pointwise/Set/Basic.lean",
+      "sha256": "bcff743a1778e3b882c8d3520df8fae6b83590c00fa0de6ce89f93866413ca8e",
+      "type": "blob"
+    },
+    {
+      "blob": "bafb0486fa781170d7f085a1125606d79397311b",
+      "bytes": 6638,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Algebra/Group/GrowthFunction.lean",
+      "sha256": "464ee8683206de8ba8bd12cfbf1eeed7cb6cc0fd5c841321dc0fc9c6123cd7c6",
+      "type": "blob"
+    },
+    {
+      "blob": "9da52a928d03864f4b012662c0941b40e4888946",
+      "bytes": 945,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Algebra/Group/Indicator.lean",
+      "sha256": "f675aa653ef59073ac26946b612c91fb91463c5175434f24cc342c044face2be",
+      "type": "blob"
+    },
+    {
+      "blob": "b8c0f9eadab242dfae5f6c0c8c5f5191e8b37593",
+      "bytes": 1201,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Algebra/Order/Group/Pointwise/Interval.lean",
+      "sha256": "0313d4a48ffd5a88d22586be2439c2a999d8d6795720d3696c49355f7c2a4122",
+      "type": "blob"
+    },
+    {
+      "blob": "9804f3481fd940c543aaa1e0cb573945cf5bd632",
+      "bytes": 1278,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Algebra/Polynomial/Algebra.lean",
+      "sha256": "fc6fbcd42a43b536ede05e4e9b3cbc258dcaab9005489e77270d1baa0048ffcb",
+      "type": "blob"
+    },
+    {
+      "blob": "ed2c3e20ccc55990bef8b1ae00427754eaadcd06",
+      "bytes": 1597,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Algebra/Polynomial/Basic.lean",
+      "sha256": "29ac7e354f2593e13c717fc5c5040bed1525b92da3965f271c3766a93a9fcf53",
+      "type": "blob"
+    },
+    {
+      "blob": "e5ff4b780c8423ba4847eb7d6a61379da24a8a63",
+      "bytes": 937,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Algebra/Polynomial/HasseDeriv.lean",
+      "sha256": "e188b6d76bcf942569b4a5cccf051bd5ea946d36130bfa1b4b486703a6b9aee5",
+      "type": "blob"
+    },
+    {
+      "blob": "97076106207796ee2e8239b9e03e8614ede6571e",
+      "bytes": 2547,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Algebra/Powerfree.lean",
+      "sha256": "da8ed069a0cdb2226224f65344223bca63cb1e1005985c01a3bd3d2e68cb60cb",
+      "type": "blob"
+    },
+    {
+      "blob": "91726db9279733603fec75c5168395a8f6f71a3a",
+      "bytes": 2104,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Algebra/QuadraticAlgebra/Basic.lean",
+      "sha256": "28e3fdd74eef7ce857cdfc98de184cb0d180d9997484a26bdcc4aad2dfaa9838",
+      "type": "blob"
+    },
+    {
+      "blob": "4f5dba9d47bc2f8b06534c500d207eac1c525e05",
+      "bytes": 2387,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Algebra/QuadraticAlgebra/Instances.lean",
+      "sha256": "13acb24a8b1e81587840347cf28c0023b5c5ae5693fe104c5cb0e30b6c37b201",
+      "type": "blob"
+    },
+    {
+      "blob": "ad41cba4168ebc6f27f0eb040c79428dddbdfa1a",
+      "bytes": 1511,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/AlgebraicGeometry/ProjectiveSpace.lean",
+      "sha256": "0fa8f5422e2a59864c6e7aefb092c70ce8435dbf6f1c6a52393cec1cf2a35559",
+      "type": "blob"
+    },
+    {
+      "blob": "5adebdd73d836d9b00b6aee989a1d3db7f6e771f",
+      "bytes": 2499,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/AlgebraicGeometry/VectorBundle.lean",
+      "sha256": "744427d28b3f1e4f72be4015d966839752662d3a59382e4bc6e5773c9fcf670e",
+      "type": "blob"
+    },
+    {
+      "blob": "b35c05ceb64b72b098ddc01bdb9d90f813773b59",
+      "bytes": 896,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Analysis/Asymptotics/Basic.lean",
+      "sha256": "575587f1e453476ac68dd3939614f70be912084a150a3a7803089ba72dbe4c30",
+      "type": "blob"
+    },
+    {
+      "blob": "36656105f1a80e74bfe461fb98df0c02aefc2a89",
+      "bytes": 1552,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Analysis/Equidistribution/ModOne.lean",
+      "sha256": "e46c23754a6b12b9449008990d94e38b6111c24117925a01b6199f5138ae63e3",
+      "type": "blob"
+    },
+    {
+      "blob": "372112f6bd41ce94459840fea46e94f83b07b621",
+      "bytes": 3939,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Analysis/Fourier/SpectralSets.lean",
+      "sha256": "14c9f22d1c1a032bfee5c517f0f9d550ede40f9de7ac34dbe20541bb2712f2ca",
+      "type": "blob"
+    },
+    {
+      "blob": "9e417ea87f7cc04b88e7e509d35db0f19eba90fb",
+      "bytes": 3082,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Analysis/HasGaps.lean",
+      "sha256": "e22f087a0ca571e6e65a4c0bd3716c8f4f144405856c4a2bbc564a444bc8db83",
+      "type": "blob"
+    },
+    {
+      "blob": "685727c64d987ec4fecd5a3a20fec4aa01085bf6",
+      "bytes": 872,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Analysis/Matrix/Spectrum.lean",
+      "sha256": "3ed624c5a34068e4cedf5b5c68ab49a8e56c592ab11a2a25eb610d25196ca924",
+      "type": "blob"
+    },
+    {
+      "blob": "d71c1218c3e27a43f49340274de2f6004505b6b2",
+      "bytes": 696,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Analysis/Real/Cardinality.lean",
+      "sha256": "2cbe7a7130c486516c9b8aa7ca8e62a453bc43a801cde45fdf5e833dceaecfad",
+      "type": "blob"
+    },
+    {
+      "blob": "c1fa4a4fb951b735910d93b1948724df9498b893",
+      "bytes": 964,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Analysis/SpecialFunctions/AdditiveCharacter.lean",
+      "sha256": "013ffc1b25e06980ed7303726b0e73fee1a0d0c27262597940d6bb2f6c1cf5d0",
+      "type": "blob"
+    },
+    {
+      "blob": "96fd15d64d4560376effba4e185901bbc9bd448e",
+      "bytes": 2624,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Analysis/SpecialFunctions/Log/Basic.lean",
+      "sha256": "3b29fb4c42afc4c894efefea317b00f238add57212a3e1a32167e67a995e6656",
+      "type": "blob"
+    },
+    {
+      "blob": "f9f7b227b23706c75ad8020d459cd92af27d2907",
+      "bytes": 4097,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Analysis/SpecialFunctions/NthRoot.lean",
+      "sha256": "138a0c3b7a3564284c41c948d5214607813ee0d1e6af3a78bc79ecbb08b5e799",
+      "type": "blob"
+    },
+    {
+      "blob": "c081b077c0faaaa69dd9d4d8e993766bb0254d0c",
+      "bytes": 10583,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/AP/Basic.lean",
+      "sha256": "62f0a0987d49c5dbfd7b4f82a4f3dd4faba7ad545c676df06d0cda009567b5c3",
+      "type": "blob"
+    },
+    {
+      "blob": "d9e74a9734ed4cb4841bf1d7b907668bd27b2714",
+      "bytes": 9743,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/Additive/Basis.lean",
+      "sha256": "bb19f89769a8eeab616a6bb6e164f776acb9129239240af38cf73817de57caee",
+      "type": "blob"
+    },
+    {
+      "blob": "cb534ea66bd32dca892aa972e72b1bea83e58554",
+      "bytes": 2199,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/Additive/Convolution.lean",
+      "sha256": "c8faa99c2645b3a2abede7fb2bc354ffeb5b878c60a760e6b555cf79ba66fc65",
+      "type": "blob"
+    },
+    {
+      "blob": "894cc1ca19b2c3e110b35258bdcef2e35a41f0c4",
+      "bytes": 867,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/Additive/Coset.lean",
+      "sha256": "d811fb4523087aa2b8ce16e23012304cff43694425bc304120b5e88240466261",
+      "type": "blob"
+    },
+    {
+      "blob": "cae205b80108b5857a96fd3e15ac43f82756b204",
+      "bytes": 3615,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/Additive/DifferenceBasis.lean",
+      "sha256": "eff73033ed42ffe6c5a0dca10e1b96bce2286ce1fd42d293032bec5151920121",
+      "type": "blob"
+    },
+    {
+      "blob": "36ea99a7025cc9040c6987506ac0502668d3da68",
+      "bytes": 1148,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/Additive/RestrictedSumset.lean",
+      "sha256": "395c4ebf6f56e58cf93cfcf95a500a1a74ce97c58ef5ac045fba4a01d8f2f2bb",
+      "type": "blob"
+    },
+    {
+      "blob": "1945f2a5a9d42f3fbfa7c62b667508e3fe23673a",
+      "bytes": 5559,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/Additive/VCDim.lean",
+      "sha256": "400c00651b52c7d0268eafa05ed6b7709b58aa4a8fd1cc1580d2af2dd110f77c",
+      "type": "blob"
+    },
+    {
+      "blob": "53f41a248cfc6381d6389b4c0f10bb5a6a48fe5a",
+      "bytes": 10984,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/Basic.lean",
+      "sha256": "4be64805a44ad40a80946323ae95596b0337ed1456feaabd3d5244c3cdbd6696",
+      "type": "blob"
+    },
+    {
+      "blob": "e54a6e1ca8e8cdc6f70aa458d3c752e567d69345",
+      "bytes": 6530,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/Hypergraph/ThreeUniform.lean",
+      "sha256": "b68617bb9621090d92a94a36d3d45d83d4c11df42bc1e1a348bfdb6a3cea3867",
+      "type": "blob"
+    },
+    {
+      "blob": "b5b577fd83695fa6ca3c0ec67c4760f722aa3f96",
+      "bytes": 2948,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/LatinSquare.lean",
+      "sha256": "cf74e18be5e926a27f9bbf775bb715256b87d1b6b50b9e8915390cf185cf47eb",
+      "type": "blob"
+    },
+    {
+      "blob": "b427594cfd9e18ddf33ab2eee9c9a76f0dd3527d",
+      "bytes": 2549,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/Ramsey.lean",
+      "sha256": "e0dd00c6849d434f87bea2204443f3dec2e2f3e74133098be9385e35b12e5c0c",
+      "type": "blob"
+    },
+    {
+      "blob": "213fa99c5e55a5d06923b75489684aff5c8fcc2b",
+      "bytes": 15498,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/Ramsey/Diagonal.lean",
+      "sha256": "e1edec69a761c66343c8a783c3be3512634652125b6f9d670a9c7e9928e92ebf",
+      "type": "blob"
+    },
+    {
+      "blob": "45a5695fe3e94fc9339324891b6d15e9d61a4fd5",
+      "bytes": 1272,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SetFamily/PropertyB.lean",
+      "sha256": "a3ce287d6da47ccb9454ac93b4da8e74d034a572c97afeb1d462f53ae9b062f5",
+      "type": "blob"
+    },
+    {
+      "blob": "1c7d5058f0e34b44403f347bdc204941195def33",
+      "bytes": 1682,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SetFamily/Sunflower.lean",
+      "sha256": "dfdfd880c578f4e75936080a2645042dcaf899affac1b4bc74e254a18bd733ec",
+      "type": "blob"
+    },
+    {
+      "blob": "8b8bc2a2255c8bc23ecdd72c2973c978094d2e5b",
+      "bytes": 1535,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SetFamily/UnionFree.lean",
+      "sha256": "ae31200190f9aa8985b35333757b1be5907b2cdddfb9512e77928c48ed9e7f03",
+      "type": "blob"
+    },
+    {
+      "blob": "c093d086cf060a3e7e60e185093d6324e66d0c17",
+      "bytes": 3803,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SetFamily/VCDim.lean",
+      "sha256": "9cf441c18ed15bce77019c91dba9a2cedaf89c039ff433fb1040a6f6dfc746df",
+      "type": "blob"
+    },
+    {
+      "blob": "7c2ec922dbf4aaf95ae9212e100368d608b53cc0",
+      "bytes": 2187,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SetTheory/PartitionRelation.lean",
+      "sha256": "ea55d830b0411c4436ff4be4fe29e26e66a9bb14558593081887a1fc76c03337",
+      "type": "blob"
+    },
+    {
+      "blob": "c1648bc6b43195495d8cbe39ee00dd75d207d78a",
+      "bytes": 2875,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SimpleGraph/AnnihilationNumber.lean",
+      "sha256": "a15dd8645d5bffab9bc921dec0dfec1fbc4048dc40fdb10deed65f8d52b9bd2f",
+      "type": "blob"
+    },
+    {
+      "blob": "422ba22c8abe03525559b147f70a2fcbc0b09953",
+      "bytes": 1191,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SimpleGraph/Balanced.lean",
+      "sha256": "9b3db6a32ffa3f1d77159b7954e6a47d5d5b4282c18aa01cea70b751f86e72d0",
+      "type": "blob"
+    },
+    {
+      "blob": "d6c71c75b23c30778e6e6832ca944a2d8b4af8f0",
+      "bytes": 1207,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SimpleGraph/Circumference.lean",
+      "sha256": "e02a572fcdf56108dc6baabbc8e59dc5b71961261d35af5667fd9c4fffb963f4",
+      "type": "blob"
+    },
+    {
+      "blob": "cb50337539bb774b130d42315b794203a614e012",
+      "bytes": 2184,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SimpleGraph/Clique.lean",
+      "sha256": "2773977ef2ecc759e0b5dc15c692e80de14d2f9db37ba28b8f692cc078a4dd53",
+      "type": "blob"
+    },
+    {
+      "blob": "290c7583cce5aaaab0ed140f7a59949483806850",
+      "bytes": 7579,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SimpleGraph/Coloring.lean",
+      "sha256": "4e4895743efb4a828fdd7ffb8ce601cd8932d433e9fe43527890f10a8c6046bc",
+      "type": "blob"
+    },
+    {
+      "blob": "83ec4afc372e1044f6d5ea72a28e908e5fc5b07d",
+      "bytes": 1549,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SimpleGraph/CompleteGraphEdgeCount.lean",
+      "sha256": "bed2d1d569d2c48064bc52f68fcf21a4ffc7b310029ea5a5665e114f46f21480",
+      "type": "blob"
+    },
+    {
+      "blob": "b0ca5f605fd601c24ef43ab5a0bdaa8b5050e926",
+      "bytes": 2180,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SimpleGraph/Connectivity.lean",
+      "sha256": "fc6e2fe5a6df2646000c0385ad8bd51cd21beddeeed8c1372bcfd4a8cef83d81",
+      "type": "blob"
+    },
+    {
+      "blob": "e40a3121359d027eeabbba11eb8bfe949e026d66",
+      "bytes": 1660,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SimpleGraph/Cvetkovic.lean",
+      "sha256": "b5de7de36857e054aa2401d8ee37d64911e35fef776b568980a76cf2c38ab06e",
+      "type": "blob"
+    },
+    {
+      "blob": "0a1116dfd3276587bd73f3cb44cfc0e3dee9b6fb",
+      "bytes": 1982,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SimpleGraph/Cycle.lean",
+      "sha256": "0a7924508a6fb54f939bf3e2bbf16b4735555734b4e3212cd0057295aab36939",
+      "type": "blob"
+    },
+    {
+      "blob": "ebbba38c6933137d4398ef774fca8e05ca21b7fc",
+      "bytes": 1067,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SimpleGraph/CycleRank.lean",
+      "sha256": "618769858fcc6e0fb8c862f463cabae43971121a054e942c536ae0f048c6a15d",
+      "type": "blob"
+    },
+    {
+      "blob": "872b67c9a0de6802efc454ca1fcb35253413e2fa",
+      "bytes": 4363,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SimpleGraph/Degrees.lean",
+      "sha256": "edfefa82021a0c2380bba049d8bd813c6577724b634bc53bc7e3eb138640fe2d",
+      "type": "blob"
+    },
+    {
+      "blob": "3824b03a3ab8224e1572e1d70abb6cc9034e1318",
+      "bytes": 1459,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SimpleGraph/DiamExtra.lean",
+      "sha256": "53257b2b2055464aad01e097534932161d45e6e08895deffb0266ff5a5c48488",
+      "type": "blob"
+    },
+    {
+      "blob": "bd4d34573d0b2ceb9c37b5c3e4a9ec8c9251f4cb",
+      "bytes": 6024,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SimpleGraph/Domination.lean",
+      "sha256": "0ebfe5b1bd26584586c55c509605748bbefde617f2d0ad7cbedf128772238f4c",
+      "type": "blob"
+    },
+    {
+      "blob": "343973abcddff9bfe8990a37c96b1c22a4f5c56a",
+      "bytes": 4514,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SimpleGraph/Eccentricity.lean",
+      "sha256": "4511407283fa18e5aedee6ac70549783ffa0c800b821abe2d1253a6ab75a25d6",
+      "type": "blob"
+    },
+    {
+      "blob": "d54e0ca04ad088f3fa23d5c5520860e56be6e2af",
+      "bytes": 2277,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SimpleGraph/EdgeColouring.lean",
+      "sha256": "18bc2b81cdd1592b7e5e082e7ee88c903413419cc98f3939589a679d893c5e03",
+      "type": "blob"
+    },
+    {
+      "blob": "90fc609f2c48d277f0413cd5bb7003ef4b368d48",
+      "bytes": 1264,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SimpleGraph/FractionalAlpha.lean",
+      "sha256": "06f4d6a6f707a18a9746ea11f0ae393560eda4f61cb3b39552ac18b05a5c61d2",
+      "type": "blob"
+    },
+    {
+      "blob": "de362e1c823f812e5a5a9907be80cc6f4af3ba1e",
+      "bytes": 3278,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SimpleGraph/HomDensity.lean",
+      "sha256": "582adea40b49c426f23623f50b649018294936e61c0d280af2027f288bd34330",
+      "type": "blob"
+    },
+    {
+      "blob": "82c6cce79a71db26163c76d219e16ed68e5a8482",
+      "bytes": 1454,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SimpleGraph/Hypercube.lean",
+      "sha256": "9adf5e00d48c868f9036e9df1ea93a33a2278c0304aef3d20be149f3b550a7ac",
+      "type": "blob"
+    },
+    {
+      "blob": "37d3fdbc30887e81d9d219b6dc6e276f4edee1bf",
+      "bytes": 4327,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SimpleGraph/Independence.lean",
+      "sha256": "fa524270090a541db307fc13b50b013b0e50cd2169c4ec6d1ab67844db4c9e1f",
+      "type": "blob"
+    },
+    {
+      "blob": "25bc70efc6476cbc19529ea591cc986aa7713288",
+      "bytes": 3473,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SimpleGraph/Induced.lean",
+      "sha256": "2c515ac1926e524b2b7e28cc65481b4bf28ee274a26e29491d8cb8612cf83c7a",
+      "type": "blob"
+    },
+    {
+      "blob": "dab09e0a9906906b8a5d6b9eb6344fa79405a71e",
+      "bytes": 1959,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SimpleGraph/Johnson.lean",
+      "sha256": "c21ebefcc8bfc29bb33a921eae8db713a876c8a6da94807838990838ba850783",
+      "type": "blob"
+    },
+    {
+      "blob": "8ebf4c98a8ddab62003d24d6588fe3839c596e5b",
+      "bytes": 1352,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SimpleGraph/LargestInducedTree.lean",
+      "sha256": "77046b0094f8f57c8828abc6d84a5f529f156ac046489b54c362c2c390be3023",
+      "type": "blob"
+    },
+    {
+      "blob": "bad4ef57efd6d341df5b90bce9bd4d9f9a69f0ea",
+      "bytes": 1495,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SimpleGraph/LovaszTheta.lean",
+      "sha256": "35ab0a6550ca60934eadc186c2a77e9b0f3246a4d42cfe6039d71ee636f33cd3",
+      "type": "blob"
+    },
+    {
+      "blob": "91e10278967c1f9e59ce878be5eeccecb1a0965d",
+      "bytes": 2540,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SimpleGraph/Matching.lean",
+      "sha256": "2b06514a64960def98bf1e5bf56ff05c3b8efb38dbbbbb8bd7641e23bc99840f",
+      "type": "blob"
+    },
+    {
+      "blob": "6c9cd38a18ee260aee9625f09559f84598d915e2",
+      "bytes": 1346,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SimpleGraph/PathCover.lean",
+      "sha256": "d193dd6a91f859793333d6c1f2458349fea4d18b9753053b88329c31acaf4e8c",
+      "type": "blob"
+    },
+    {
+      "blob": "3ed50bd5aa1689bd6b46b8e4046249e5418c8cbb",
+      "bytes": 1086,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SimpleGraph/QuasiLineGraph.lean",
+      "sha256": "09bfd4ecc2993ac5b8c7158b6352d54b20e977e7b94f09a92411b75f5af68a70",
+      "type": "blob"
+    },
+    {
+      "blob": "ef3c9f50045ed55c5fc3932531fa4844f07efa0f",
+      "bytes": 2831,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SimpleGraph/Ramsey.lean",
+      "sha256": "f59179fd664c9e9af399c9e49686bb77651c7a46d97880013cd5e62de39aadc3",
+      "type": "blob"
+    },
+    {
+      "blob": "34785a81d5f02b6238a65f47ba4ff355bfcf1621",
+      "bytes": 3499,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SimpleGraph/Residue.lean",
+      "sha256": "c704a79fdea5d44398fed71a2adda0ce86c768fb6c2ac2847012708d624bf1f8",
+      "type": "blob"
+    },
+    {
+      "blob": "142aac36c17d12d351b8a9b5ed2efc1f157bda45",
+      "bytes": 2117,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SimpleGraph/SizeRamsey.lean",
+      "sha256": "8481a9dd2dc98ba46d616d8d7f399aa9bedf210275973dc11b139eb540704788",
+      "type": "blob"
+    },
+    {
+      "blob": "1551a913b1df2237a25df081fe2ca5f6c0b78213",
+      "bytes": 1331,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SimpleGraph/SpanningTree.lean",
+      "sha256": "5f22910a6b0c9277fa3c6fd105460bedc93cea25472450880e3baeec8d873834",
+      "type": "blob"
+    },
+    {
+      "blob": "c9724c0f88922ef8d3f90c86c05bbff692450878",
+      "bytes": 1575,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SimpleGraph/SubgraphIsomorphism.lean",
+      "sha256": "592b49a9144151c2084c685036ee8de4275ed0600e1a443ac89d91000539ebb1",
+      "type": "blob"
+    },
+    {
+      "blob": "eb0edcfffcae7193b2be072ebd1040f845cf019d",
+      "bytes": 3531,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SimpleGraph/SzegedIndex.lean",
+      "sha256": "c72f91bb54c431e840a1a5df3158282ad4138edf7a3cf91d83e3023393ebd3ab",
+      "type": "blob"
+    },
+    {
+      "blob": "43e5bb72cb880176a3c82a4b5ae558268da03cab",
+      "bytes": 1304,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SimpleGraph/Temperature.lean",
+      "sha256": "6d652878c0b59ca8dc172312fbe2db7c70b37e7c47ced970d0947e06ccd5dc9d",
+      "type": "blob"
+    },
+    {
+      "blob": "db24b83c1698bb6686b561e19b4f74b7bfe6c759",
+      "bytes": 2416,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SimpleGraph/UnitDistancePlaneGraph.lean",
+      "sha256": "6d8c8a8e7b93830a6bcb0793fd4cce34b4b33b74782d7b98ac85082e4c2ba506",
+      "type": "blob"
+    },
+    {
+      "blob": "e6d32e4f71d4e387a8fb4ed61a661d54d0f19e26",
+      "bytes": 16396,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SimpleGraph/VertexDistance.lean",
+      "sha256": "1cc338e5885ae84e69d72d28c7c64fdab4876c1a61dbe20b11a9ee97b6808181",
+      "type": "blob"
+    },
+    {
+      "blob": "547e65f25f1cf07f0385cc6bb88014904aee20fb",
+      "bytes": 2431,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SimpleGraph/WellTotallyDominated.lean",
+      "sha256": "c9e6c9a65beabbafbd76978b60c95910bd71bff1d867b4984db8714644836b27",
+      "type": "blob"
+    },
+    {
+      "blob": "36424647e521103b75d7e5bfd958e4d271e161cd",
+      "bytes": 4556,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/SimpleGraph/WienerIndex.lean",
+      "sha256": "9a4ab6d486fefa00687b98d146f1e33aae34d4e1dbaa535b5b2b3847bf976f3d",
+      "type": "blob"
+    },
+    {
+      "blob": "d3c23948ad14a13a24859f2528aaf08bb6759030",
+      "bytes": 1264,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Combinatorics/YoungDiagram.lean",
+      "sha256": "91c7fe18522d4b67aec3d7b94f43ba02bba7dad829e70bb1db2986f9745cd48c",
+      "type": "blob"
+    },
+    {
+      "blob": "3b3fad10f812917285136b9f22dcf84480bcaea6",
+      "bytes": 2740,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Computability/DFA.lean",
+      "sha256": "09118d64cbc9431cd5b47b3c1fc95f0fc393e60f9a1c1efca1d212ae9ac20da2",
+      "type": "blob"
+    },
+    {
+      "blob": "984fbbae61764f13e26ba57f1afd1c78f630b968",
+      "bytes": 2354,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Computability/Encoding.lean",
+      "sha256": "b803455dca64f129d9a636edbd55e02b6de49756ba7b03bad2cee8efcc8eea0a",
+      "type": "blob"
+    },
+    {
+      "blob": "bd7724757f8b9b02d1188fbf05a0c5df78059bc1",
+      "bytes": 8419,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Computability/TuringMachine/BusyBeavers.lean",
+      "sha256": "96cd5cccecefe41e44ea784050b762b667d8eca813a840426438c9f09497c18a",
+      "type": "blob"
+    },
+    {
+      "blob": "bd2fb970256e1ed8da59d40323f4c4a9a5470eed",
+      "bytes": 10262,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Computability/TuringMachine/Notation.lean",
+      "sha256": "0bdbd7c5f979d0383c6dc3ff7f06360914c1e4ed6fabab8b2a1c34dfbffa96ab",
+      "type": "blob"
+    },
+    {
+      "blob": "14bdd5cd7fced9165c96e08747e52665073a60bb",
+      "bytes": 3248,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Computability/TuringMachine/PostTuringMachine.lean",
+      "sha256": "42580af812b5dea81c4d6af0b126cc3871f196de6fe239cf988dcf44968a7062",
+      "type": "blob"
+    },
+    {
+      "blob": "1818b7747fbf20a38adbf39804e285467b034b09",
+      "bytes": 848,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Data/Finset/Card.lean",
+      "sha256": "4b4a4545af9dd28605e489819a25270175162a0b791f1de077d4cd852fff624b",
+      "type": "blob"
+    },
+    {
+      "blob": "31de78d5f36778f424529eccecc69b73b387bd35",
+      "bytes": 1131,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Data/Finset/Powerset.lean",
+      "sha256": "234eaecc47daf1d238c2bc214103cadc77204e6edfc7f247e45af07d8ba1b08d",
+      "type": "blob"
+    },
+    {
+      "blob": "2d37d200b85358562fcd9e0efc0cd50870cc5f37",
+      "bytes": 893,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Data/Finset/ReciprocalSum.lean",
+      "sha256": "02d567d07cf5810dc429d8108bf8e95fec467ece4acf8cecedad6faddb7b86f5",
+      "type": "blob"
+    },
+    {
+      "blob": "a528e4c08c46e97170662358ac9d0685926c2f85",
+      "bytes": 1857,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Data/Int/IntermediateValue.lean",
+      "sha256": "9fd90a1edfeef71636a7caac6f9098929ae07c2758709815ebe51ec2b82e8050",
+      "type": "blob"
+    },
+    {
+      "blob": "8c886836d7781ff9b26acbc1780da6e8f35421a5",
+      "bytes": 1223,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Data/Nat/Factorization/Basic.lean",
+      "sha256": "78f3ac75d4ba139bc44f3e1e4b7f72c7f127fe09c345d6132c3f5d7ddd23fba4",
+      "type": "blob"
+    },
+    {
+      "blob": "0da384d02fcb76f05322988f30d69ceb205269f5",
+      "bytes": 3154,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Data/Nat/Full.lean",
+      "sha256": "1f6d4d485543acd3c0d127ac0b4a43d0574e51d2e9b9ec36a26a721294d95ae6",
+      "type": "blob"
+    },
+    {
+      "blob": "7ec2d56e70aace8fe6ecfbacc80d674bc4a9abdb",
+      "bytes": 2174,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Data/Nat/Init.lean",
+      "sha256": "6298a0db0677e70ab6ae30e773a14f99a9048bbec3dd8468dbb81c145ea921f7",
+      "type": "blob"
+    },
+    {
+      "blob": "3d3caf4227962cac229e31c19a7e16e5ab151f53",
+      "bytes": 2579,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Data/Nat/MaxPrimeFac.lean",
+      "sha256": "05712ea7a3e7e0cd450780c626df67600487b4af6760b2773b3a520098868807",
+      "type": "blob"
+    },
+    {
+      "blob": "df5a44f988a067850f48fe44ba118e9e9935e17f",
+      "bytes": 6343,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Data/Nat/PerfectPower.lean",
+      "sha256": "fd5dda002499ae3d1232b9ee10a2e1b91f8d4da2034cfc74e0d9fde03d9c744a",
+      "type": "blob"
+    },
+    {
+      "blob": "11eab3a333e56f6a20e9447e7334350c7a3329f4",
+      "bytes": 717,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Data/Nat/Prime/Composite.lean",
+      "sha256": "2863dd196d1207569df4557a1f504e6bfb538a7c82b1955529b4a312f0f7106e",
+      "type": "blob"
+    },
+    {
+      "blob": "de5e0661ab1b3d98894abc7642cb6b065eebc9f7",
+      "bytes": 930,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Data/Nat/Prime/Defs.lean",
+      "sha256": "9ae39c473bdc9c2c26e683a698cf6dfa2cea6fbc9675868e8efd5c926b02643a",
+      "type": "blob"
+    },
+    {
+      "blob": "59d7a2737f49ce0807d3d11c0dc7040b5f36dc70",
+      "bytes": 1106,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Data/Nat/Prime/Finset.lean",
+      "sha256": "e2aebf6f2be4c919d989e70934ccf3454b72d7a929c18a72bfcb748aaf316f08",
+      "type": "blob"
+    },
+    {
+      "blob": "bbb6a006c0a00a9c53259a1ab4ae6f169077b929",
+      "bytes": 4476,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Data/Nat/Squarefree.lean",
+      "sha256": "a80044b510129323a37c96de344e12396809ac4eba5ce03bf4dc9696dd0f7306",
+      "type": "blob"
+    },
+    {
+      "blob": "36f1d870f574a43ecac22831f1ce69a9625cd943",
+      "bytes": 1228,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Data/Real/Constants.lean",
+      "sha256": "244fefbd26feca7c448cd13f3798064a134bc7ffcae7266fcee87fe45da395de",
+      "type": "blob"
+    },
+    {
+      "blob": "29915c86970d34ff854b9541675ae55b1462486d",
+      "bytes": 1023,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Data/Real/NearestInt.lean",
+      "sha256": "d35d2f8f5a2fd808ced27a3087acec881a3436bf112164d3d2dd60f3fa3e4364",
+      "type": "blob"
+    },
+    {
+      "blob": "b9431a6adfabd275d399206ba162bfb08d2c5482",
+      "bytes": 9780,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Data/Set/Density.lean",
+      "sha256": "c44ef3838254124089f55fe4652339bae76c6bb415c6a5a54ea051696dad5af4",
+      "type": "blob"
+    },
+    {
+      "blob": "96bc0d84f7cbeb2bc1b4ffffe7696e31850a47a7",
+      "bytes": 1017,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Data/Set/Interval.lean",
+      "sha256": "9aa590957e048ac10e84970f12733a155a710b5b8fccd40694edae9251da74ba",
+      "type": "blob"
+    },
+    {
+      "blob": "2740d1811fd8942bde932526c39172322336da75",
+      "bytes": 5107,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Data/Set/Triplewise.lean",
+      "sha256": "1a178d9e4f78193648101365c015e3c3e72491f4a34aa8080c691b5c4bd2e07e",
+      "type": "blob"
+    },
+    {
+      "blob": "11093a06782c8b66c381a09228d9569e451caf70",
+      "bytes": 1394,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Data/ZMod/Fp.lean",
+      "sha256": "036919b7bf24cc6fcad83f7ed9696635f6caa2c0e246a21b979e9e5c85bd3ea8",
+      "type": "blob"
+    },
+    {
+      "blob": "630d5db812e31c5d298fd88605b3f8f77b5f185b",
+      "bytes": 940,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Data/ZMod/PerfectDifferenceSet.lean",
+      "sha256": "004071df8324a7f852960b1cd8a86bb2704c34e7a23e539bc5269da98573a686",
+      "type": "blob"
+    },
+    {
+      "blob": "0cb5be72c92943a8b95db0ed0e8a838e1ddbcf40",
+      "bytes": 1347,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/FieldTheory/MvRatFunc/Defs.lean",
+      "sha256": "9912ca21d9e751ed3733f643e10ed004d9a401c91116716047b9a0ade18af092",
+      "type": "blob"
+    },
+    {
+      "blob": "928880b71b4fee557a0833ec35e08990cc734bb8",
+      "bytes": 745,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Geometry/Euclidean.lean",
+      "sha256": "c3c0615b00271717acd12d0b294e54bd7b1b8b5b3d63b482d3822d0bdb923ed8",
+      "type": "blob"
+    },
+    {
+      "blob": "70a54b57c7f056e0c8f7dd6f9bb4f66a1c4cf94c",
+      "bytes": 1386,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Geometry/Metric.lean",
+      "sha256": "80dce5aa51e2092ae7fa81437e5c56f77b2a2f9e55479fd639b0151cd73bd41a",
+      "type": "blob"
+    },
+    {
+      "blob": "d7b0da4675dceddd5bd4d529bfc53b38c254b060",
+      "bytes": 1295,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Lean/Elab/InfoTree/Util.lean",
+      "sha256": "e5504c0cfa42e1e06e08ab0c2fd5d0e1b70941195844d381432cfa4cd3183bd5",
+      "type": "blob"
+    },
+    {
+      "blob": "28f533332909436dbfaa0182eea52d93887d7789",
+      "bytes": 969,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/LinearAlgebra/AffineSpace/Simplex/Basic.lean",
+      "sha256": "7df5379ec50859d897d12ce6d9b124bf1be278d2560372a059da8d5768606f7b",
+      "type": "blob"
+    },
+    {
+      "blob": "b263fd5fb804f1979597ce40581c74efe3428d2d",
+      "bytes": 1413,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/LinearAlgebra/GeneralLinearGroup.lean",
+      "sha256": "1a17f5d57545fc252246ee12e5de10a7a566f0121aa5e988443971f8d0bc6a32",
+      "type": "blob"
+    },
+    {
+      "blob": "bb1a37b1bf81b4744fd4de52ba529beb7b098dfa",
+      "bytes": 1045,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/LinearAlgebra/SpecialLinearGroup.lean",
+      "sha256": "de6e86bb1ac02b88c62e3bc01e195b3a7935878d1c2460e13a0c9f6a9fcda66a",
+      "type": "blob"
+    },
+    {
+      "blob": "c4b247c4bbf35cce39648259127a1bce256bc294",
+      "bytes": 850,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Logic/Equiv/Fin/Rotate.lean",
+      "sha256": "e47a656f3d95587502dac7f039754cc4941fb8c54cc3d7b7c2c4f66783e88516",
+      "type": "blob"
+    },
+    {
+      "blob": "d2c1a870879c159835537e57393e07b58257d299",
+      "bytes": 7784,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/NumberTheory/AdditionChain.lean",
+      "sha256": "cf325e385e1d9d3e1ff4591058874e6cceaf0b34a6f3c00c0335e9b1c9bbd7d5",
+      "type": "blob"
+    },
+    {
+      "blob": "21c342c15c51e19a0564732b51ebe27f0c75634c",
+      "bytes": 1299,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/NumberTheory/AdditiveComplement.lean",
+      "sha256": "e1639e2705e269bba89b677e8232b9285c1beae1f00723468637cbf272e3496e",
+      "type": "blob"
+    },
+    {
+      "blob": "155cfdb789cf44d4ea14f6952a465f0fce23cb8b",
+      "bytes": 4198,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/NumberTheory/AdditivelyComplete.lean",
+      "sha256": "06bddf7abb7401cbfdd68cd8c3657b939f2fa27bd15d1aa26fb9d197f9020908",
+      "type": "blob"
+    },
+    {
+      "blob": "6645fdc25ac4c536078251fd30c3b76b50866ddd",
+      "bytes": 1063,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/NumberTheory/Amicable.lean",
+      "sha256": "abebfc90a769b99992e266718b3b8990737e63fd1b83b7db8db58d8a1191e11a",
+      "type": "blob"
+    },
+    {
+      "blob": "5c65f6bda0b3dc8f473be157036a5d04a24b3393",
+      "bytes": 2748,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/NumberTheory/BeurlingPrimes.lean",
+      "sha256": "5b8da7bb2043d14dd8332928a03e11035e38feefb193906959cab6f70b7bfefe",
+      "type": "blob"
+    },
+    {
+      "blob": "7aced0bab7030696d08a040e33e6b8881fa30ea9",
+      "bytes": 1021,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/NumberTheory/Carmichael.lean",
+      "sha256": "ba4b97709516e66296b989b826d1d3f4e2989ba0ebce323f25d3baefd2c0ad51",
+      "type": "blob"
+    },
+    {
+      "blob": "c80959436e91f9f8e6dc923f6a9b2892254f3199",
+      "bytes": 2143,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/NumberTheory/CoveringSystem.lean",
+      "sha256": "53632b1bf174607dddb33fc31a1a5693d46097c5062631353f83d10c06627288",
+      "type": "blob"
+    },
+    {
+      "blob": "f8018669776701eee06cde9e06554a19faa51115",
+      "bytes": 1512,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/NumberTheory/DiophantineApproximation/ZNumber.lean",
+      "sha256": "338a13436da0b5fbf30a3fbf73de08cfb036b9fa3e5ce57d8c6f92102ea97fca",
+      "type": "blob"
+    },
+    {
+      "blob": "86e1f6690ee0602fca58859905d19d724b1c5dee",
+      "bytes": 1053,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/NumberTheory/DirichletCharacter/Basic.lean",
+      "sha256": "24bf2d92cd01f10e6d9c7eee36b14d13041b248a861a5c0c1206cf86df678432",
+      "type": "blob"
+    },
+    {
+      "blob": "1a7f02d662523e3c353dc161cbb17c89f3e4f4a2",
+      "bytes": 1985,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/NumberTheory/Divisors.lean",
+      "sha256": "fa08f1c3f50688bc9eaccc8265a865d0b47ea1c220aaa7466f217a811b05dfa2",
+      "type": "blob"
+    },
+    {
+      "blob": "989b2f2611733bd9449b6c70379c218281634fb7",
+      "bytes": 2319,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/NumberTheory/Harmonic.lean",
+      "sha256": "4013f2744a92878869b6ead41efe86354d20e8ecfb25c8e3619f9365fc10f21a",
+      "type": "blob"
+    },
+    {
+      "blob": "88273948c12c0af08c4248dc8728b89360590b2d",
+      "bytes": 2162,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/NumberTheory/Lacunary.lean",
+      "sha256": "998231cfefe88a270c08eaf7c16203d433f8cc6486246f64fa193bd9dbb2ca47",
+      "type": "blob"
+    },
+    {
+      "blob": "9ace07ef290d82b8d00dce1c076566b3af715543",
+      "bytes": 760,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/NumberTheory/LegendreSymbol/Basic.lean",
+      "sha256": "d21636c7b211bb5c80c7aed9be8f13e417cbcbe4c99d238dd7e58c987dc49241",
+      "type": "blob"
+    },
+    {
+      "blob": "226674045919d07eb4b34e5a9ce5c372fef800d6",
+      "bytes": 2526,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/NumberTheory/NormalNumber.lean",
+      "sha256": "440cd7f03f72dd0e4928daff472dc6a2186bde52a3f925de7c90baeb8640fb39",
+      "type": "blob"
+    },
+    {
+      "blob": "2b037a5e824463fbf5bdb0745591012fde9bf738",
+      "bytes": 1682,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/NumberTheory/NumberField/Quadratic.lean",
+      "sha256": "5b57c21a76855f3ef1c2953bdb87019ea83fef47cf0057df3b0f04e2dfac4f3c",
+      "type": "blob"
+    },
+    {
+      "blob": "16a81ed2b1bb1328408ea96cc20228d955e60647",
+      "bytes": 3989,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/NumberTheory/PisotNumber.lean",
+      "sha256": "6c053aa1edcce5debf02cf769cbd9458eeae5e6870789884f9780aa8824fe910",
+      "type": "blob"
+    },
+    {
+      "blob": "5232acfb635006def7014d7863612d1f1eaaaefb",
+      "bytes": 1461,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/NumberTheory/PracticalNumbers.lean",
+      "sha256": "064cd856e8b92836e64c026cff28007bfb61a40b81ca2472a7827dcb2f79a404",
+      "type": "blob"
+    },
+    {
+      "blob": "81fa618bd2241aadd88666383c9f53139455ded3",
+      "bytes": 854,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/NumberTheory/PrimeGap.lean",
+      "sha256": "d7786ac52630d6350571adfbd5b58867ceb01d6e10cac8ded6b9a62fd85dbdd1",
+      "type": "blob"
+    },
+    {
+      "blob": "373d04f45c7db9afbef77d6e5a588d9d0b478762",
+      "bytes": 3682,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/NumberTheory/Primitive.lean",
+      "sha256": "67d49585e0e09935b420c124bec7ae30c02619693f66e5a0767f7373d2da7b94",
+      "type": "blob"
+    },
+    {
+      "blob": "2c8238faddb8aae2bfa4200051cd1ce81938710e",
+      "bytes": 1481,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/NumberTheory/Semiprime.lean",
+      "sha256": "5d45be0a99637b96a3470c6f20a8f630880c641de1da2b89b0c316ffabb4461f",
+      "type": "blob"
+    },
+    {
+      "blob": "7aac83c82866c250de0db4adf66fd66069f5d208",
+      "bytes": 1425,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/NumberTheory/SierpinskiNumber.lean",
+      "sha256": "3c5fab88f882907e267d568a2e7446eab3b8402c3b3b101ea2ea7d6bf4e7eda8",
+      "type": "blob"
+    },
+    {
+      "blob": "85312047bc6853019b7f8a17d863730b022a88d1",
+      "bytes": 1083,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/NumberTheory/SmoothScale.lean",
+      "sha256": "f4f4c53fe698f5096b7d32e5e1783596a76d69178d017bc01e704400e667d70d",
+      "type": "blob"
+    },
+    {
+      "blob": "3c9e0d06cc7704b6b78b191cb38c62a9b04a0cfb",
+      "bytes": 2721,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/NumberTheory/WallSunSunPrimes.lean",
+      "sha256": "a1aac947cf536c3b41a3cf0a83ccf42e260ec8e332f3d79be94d2fa1451322b5",
+      "type": "blob"
+    },
+    {
+      "blob": "b88c30ffd1277cc841f046720dd19dfc8c8fbb13",
+      "bytes": 2401,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Order/Filter/Cofinite.lean",
+      "sha256": "617156f7f2cf11b943146f4460edc423f991906f7231a29460f5c39ab19649d4",
+      "type": "blob"
+    },
+    {
+      "blob": "b878cd4e0066cf054675e06fa5373218077ae280",
+      "bytes": 1111,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Order/Filter/atTopBot/Finset.lean",
+      "sha256": "26e4af1ea59d4a945e4d80e0ed72e731ccf33c3c0b5680796f5502b2ee564e91",
+      "type": "blob"
+    },
+    {
+      "blob": "6d49f2b85afedcfdd7c5630d5cabd0541c002ede",
+      "bytes": 1634,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Order/Interval/Finset/Basic.lean",
+      "sha256": "54d97e60dac76fa82225f887333087853480c9b33b7a9767eb886913633a02de",
+      "type": "blob"
+    },
+    {
+      "blob": "9a802d15c341eb49472f1402e33c0c4fe8551f94",
+      "bytes": 840,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Order/Interval/Finset/Nat.lean",
+      "sha256": "c591ba3b7f2bd34a5a8bf7989a9c72471876d5d51e41ecc58d4ee15a105dde81",
+      "type": "blob"
+    },
+    {
+      "blob": "a6fff209049aad18e348a0d28bae053e5aebd22a",
+      "bytes": 1102,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Order/Unimodular.lean",
+      "sha256": "d4a030cd23aff515614cbf69fcda1d21e7720a9d22d1e0692e8d2bab74ea8305",
+      "type": "blob"
+    },
+    {
+      "blob": "0ae3673d859bf171404116950a6cabb648235a5f",
+      "bytes": 3653,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Probability/FiniteMethod.lean",
+      "sha256": "b084624263e0a4a88c74a16159f3ca4f6fe0afa3469eeeb0a91a915680011b12",
+      "type": "blob"
+    },
+    {
+      "blob": "b6913ef15a930c8a19ec6972e57a5d006f67fdd5",
+      "bytes": 1630,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/SetTheory/Cardinal/Arithmetic.lean",
+      "sha256": "16f9835b536304108b49ec71c87feda66a10aca4a12b6450c7627df0a7179c1a",
+      "type": "blob"
+    },
+    {
+      "blob": "b593700724e21cbfb02832b5b8a5d00731dbe2ce",
+      "bytes": 709,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/SetTheory/Cardinal/Continuum.lean",
+      "sha256": "127ed3f7c48cfd359f615a3ae5b1b8a3370adf7a6cd775b08b377cba8fe4b6cb",
+      "type": "blob"
+    },
+    {
+      "blob": "be4caae06a2ab3c550899be1bae4539097b0dc15",
+      "bytes": 1378,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/SetTheory/Cardinal/SimpleGraph.lean",
+      "sha256": "b73bc9815de5b98d3c5d9afcab8b01f1f7eb9210cf17d4fb05fca2e26ca3b00c",
+      "type": "blob"
+    },
+    {
+      "blob": "34a7ca1d39072553fbfe747ce8dbd52d41733353",
+      "bytes": 3653,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Tactic/Linter/Term.lean",
+      "sha256": "89f5a995d89d172ea7eb30af76b1b518ebccd2b00350a41abb7110377c35f58f",
+      "type": "blob"
+    },
+    {
+      "blob": "9aacc3c750b4d986e717b907ccc9bbd89761c505",
+      "bytes": 1537,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Topology/AbsoluteNeighborhoodRetract.lean",
+      "sha256": "623faf9b3e253834e26dc7a7d740c4add48556d136663c0cbdeb0b9e434604d8",
+      "type": "blob"
+    },
+    {
+      "blob": "6b44e01467d19bd656c386cf1e65ca1c06f36c4b",
+      "bytes": 1224,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Topology/Algebra/InfiniteSum/Group.lean",
+      "sha256": "490ca98d64a935081c7b344157a3055e510195ca46e1c62f472f477b9907a48f",
+      "type": "blob"
+    },
+    {
+      "blob": "8de1bd155a57448a7efad733fffb51147c04ef3b",
+      "bytes": 1256,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Topology/Algebra/InfiniteSum/Order.lean",
+      "sha256": "fe1696e3eae6965009005020da53cc16a66d69a5f21be64003a0555b7d2a89a4",
+      "type": "blob"
+    },
+    {
+      "blob": "ceaccdc50bd206ead6377832996c49663242cb34",
+      "bytes": 1643,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Topology/Algebra/InfiniteSum/Real.lean",
+      "sha256": "4bb4da1a4b79a6d6e9e5a46d0a0ec602710b9804158a3c33c8f524282eee7add",
+      "type": "blob"
+    },
+    {
+      "blob": "f83a40d222d88a1883fb626386ea06478243abfd",
+      "bytes": 1327,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Topology/Discrete.lean",
+      "sha256": "0d0187df8583d4fac35cf46bbbef6ae760b75e0b7a3cb2e7cd6f0bb5cb9e1ba2",
+      "type": "blob"
+    },
+    {
+      "blob": "dfc2bb2e2d37af16096743105a1ec39404075c73",
+      "bytes": 1089,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Topology/GDelta.lean",
+      "sha256": "92a9e36ba871a01dbf54df6b107e59b7efe71bdfa11b16034a3f3ded99c490fd",
+      "type": "blob"
+    },
+    {
+      "blob": "58d54a4adfaaf2b63683e246e5c1cfb67900664a",
+      "bytes": 906,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Topology/Homogeneous.lean",
+      "sha256": "35a2b39c5a4974a602d2cde3410a6c5ad81248a02469f84e0c2d9f00a63136d7",
+      "type": "blob"
+    },
+    {
+      "blob": "7b5562fe8d28b9615b72c2eb93d27110d8d5d839",
+      "bytes": 1623,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Topology/LebesgueCoveringDimension.lean",
+      "sha256": "5b6f6496d6bb0b1f98f628249231f75a9bcbb264617d7f9706587640d35dd204",
+      "type": "blob"
+    },
+    {
+      "blob": "a6469c9b57749615d0b9bae33b04e9964ab7ab03",
+      "bytes": 1120,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Topology/MetricSpace/MetricSeparated.lean",
+      "sha256": "2920a3786e10a18b0a9ddc8ded12c87b94aeeab62250a6a4dca6a41235717813",
+      "type": "blob"
+    },
+    {
+      "blob": "289dac2bff380128c4735eeb796126b9d827df52",
+      "bytes": 1450,
+      "mode": "100644",
+      "path": "FormalConjecturesUtil.lean",
+      "sha256": "6ac02d329e286524df0c0839753f035d741a2ba8d0755f84e11ca52196412ad3",
+      "type": "blob"
+    },
+    {
+      "blob": "1ef64b8c99fa0af0a89cb02100da3df2b25eaf91",
+      "bytes": 6914,
+      "mode": "100644",
+      "path": "FormalConjecturesUtil/Answer.lean",
+      "sha256": "c8b3b31e9bb25c511e577b1812159a210e9346720f19ec6c6b30905a0802db7a",
+      "type": "blob"
+    },
+    {
+      "blob": "38e18bccdccfceec42bd50c94a79cdf980b45468",
+      "bytes": 853,
+      "mode": "100644",
+      "path": "FormalConjecturesUtil/Answer/Syntax.lean",
+      "sha256": "4572fc294df840c091b79350951760f742eb26f890b48cd329a19995a1e2344c",
+      "type": "blob"
+    },
+    {
+      "blob": "f5362d9976d26574631774cc34b7e9e1bddbb16f",
+      "bytes": 21590,
+      "mode": "100644",
+      "path": "FormalConjecturesUtil/Attributes/Basic.lean",
+      "sha256": "5728a3dc7f4406242031afd7fa821eef7bf91c7a763bfa20e2fa93eba03759b8",
+      "type": "blob"
+    },
+    {
+      "blob": "7c357d27c6a982ebf43687cabd6e3b455faf750a",
+      "bytes": 4225,
+      "mode": "100644",
+      "path": "FormalConjecturesUtil/Linters/AMSLinter.lean",
+      "sha256": "69761e4d16173a6bcbb4ec312ba903756ed35738791f9b4530869c051d02136e",
+      "type": "blob"
+    },
+    {
+      "blob": "475987b89e935c27f7e3f70d23569688f7819236",
+      "bytes": 2571,
+      "mode": "100644",
+      "path": "FormalConjecturesUtil/Linters/AnswerLinter.lean",
+      "sha256": "039aeb275dcee81fed88b2eb212082fc36a66d10322618ffbb832569433c948d",
+      "type": "blob"
+    },
+    {
+      "blob": "6985154c3e6970aa42c9d4b8dbf36207257767f3",
+      "bytes": 3170,
+      "mode": "100644",
+      "path": "FormalConjecturesUtil/Linters/CategoryDocstringLinter.lean",
+      "sha256": "39d5e79a7085cc5d1092782f2f62c82ec4797ebc1c89e68a078fb06068b8f0fe",
+      "type": "blob"
+    },
+    {
+      "blob": "d2a3aa7ee02e570334d733839ef360090d018e13",
+      "bytes": 5903,
+      "mode": "100644",
+      "path": "FormalConjecturesUtil/Linters/CategoryLinter.lean",
+      "sha256": "78a9e07c031fd2583e00dde93fe507e1888be2099dad2c09af2179bcbd0e74e8",
+      "type": "blob"
+    },
+    {
+      "blob": "7678afaebec4b0bdbb9c1b8523c1de141b26d27e",
+      "bytes": 3396,
+      "mode": "100644",
+      "path": "FormalConjecturesUtil/Linters/CopyrightLinter.lean",
+      "sha256": "b5654e78a75a46c4b4acf2cfd9381e6e4b1814d369b3936e6e93ec7a4b4c0d23",
+      "type": "blob"
+    },
+    {
+      "blob": "d678ddf604f1d9e9922c910aa296958f506ade71",
+      "bytes": 3735,
+      "mode": "100644",
+      "path": "FormalConjecturesUtil/Linters/ExistsImplicationLinter.lean",
+      "sha256": "1cff361f1479489756fd6d9c978a6f542883ba273f8e4bd62e0a9186471d3cef",
+      "type": "blob"
+    },
+    {
+      "blob": "64f3485f5f01b0709fba72597da0dc430c55e796",
+      "bytes": 3049,
+      "mode": "100644",
+      "path": "FormalConjecturesUtil/Linters/FormalProofLinter.lean",
+      "sha256": "49c5c8adf3f9079af061b207b12fde8c1c5da43ce9a540bd21e1231b8bfaaa28",
+      "type": "blob"
+    },
+    {
+      "blob": "0ffd77d1aacb2c9c165fae9c939f8835e3017777",
+      "bytes": 2248,
+      "mode": "100644",
+      "path": "FormalConjecturesUtil/Linters/LatexDocstringLinter.lean",
+      "sha256": "6d5980b0bf1bb8e9cc2fa404ccdf0883096ddca6db2584a63b4871b0d7ebef37",
+      "type": "blob"
+    },
+    {
+      "blob": "0461229292921489f3f5d80f8cacd928d9d81e4a",
+      "bytes": 2905,
+      "mode": "100644",
+      "path": "FormalConjecturesUtil/Linters/ModuleDocstringLinter.lean",
+      "sha256": "5a3cd58dc976a3bc160712c3075c9a1f27f03bef741c77da9379826f1cf03918",
+      "type": "blob"
+    },
+    {
+      "blob": "4373f0f420a8c1f8a41546bd9d44382b70745c29",
+      "bytes": 2117,
+      "mode": "100644",
+      "path": "FormalConjecturesUtil/Linters/NamespaceLinter.lean",
+      "sha256": "3b04b8c5ecb1b02991119da6d43cc55a8023ba9659df2b4e59c0eff80063666e",
+      "type": "blob"
+    }
+  ],
+  "external_revisions": [
+    {
+      "configFile": "lakefile.toml",
+      "inputRev": "v4.27.0",
+      "name": "Cli",
+      "rev": "55c37290ff6186e2e965d68cf853a57c0702db82",
+      "scope": "leanprover",
+      "subDir": null,
+      "type": "git",
+      "url": "https://github.com/leanprover/lean4-cli"
+    },
+    {
+      "configFile": "lakefile.toml",
+      "inputRev": "main",
+      "name": "LeanSearchClient",
+      "rev": "5ce7f0a355f522a952a3d678d696bd563bb4fd28",
+      "scope": "leanprover-community",
+      "subDir": null,
+      "type": "git",
+      "url": "https://github.com/leanprover-community/LeanSearchClient"
+    },
+    {
+      "configFile": "lakefile.toml",
+      "inputRev": "master",
+      "name": "Qq",
+      "rev": "bd58c9efe2086d56ca361807014141a860ddbf8c",
+      "scope": "leanprover-community",
+      "subDir": null,
+      "type": "git",
+      "url": "https://github.com/leanprover-community/quote4"
+    },
+    {
+      "configFile": "lakefile.toml",
+      "inputRev": "master",
+      "name": "aesop",
+      "rev": "cb837cc26236ada03c81837bebe0acd9c70ced7d",
+      "scope": "leanprover-community",
+      "subDir": null,
+      "type": "git",
+      "url": "https://github.com/leanprover-community/aesop"
+    },
+    {
+      "configFile": "lakefile.toml",
+      "inputRev": "main",
+      "name": "batteries",
+      "rev": "b25b36a7caf8e237e7d1e6121543078a06777c8a",
+      "scope": "leanprover-community",
+      "subDir": null,
+      "type": "git",
+      "url": "https://github.com/leanprover-community/batteries"
+    },
+    {
+      "configFile": "lakefile.toml",
+      "inputRev": "main",
+      "name": "importGraph",
+      "rev": "8f497d55985a189cea8020d9dc51260af1e41ad2",
+      "scope": "leanprover-community",
+      "subDir": null,
+      "type": "git",
+      "url": "https://github.com/leanprover-community/import-graph"
+    },
+    {
+      "configFile": "lakefile.lean",
+      "inputRev": "v4.27.0",
+      "name": "mathlib",
+      "rev": "a3a10db0e9d66acbebf76c5e6a135066525ac900",
+      "scope": "leanprover-community",
+      "subDir": null,
+      "type": "git",
+      "url": "https://github.com/leanprover-community/mathlib4"
+    },
+    {
+      "configFile": "lakefile.toml",
+      "inputRev": "main",
+      "name": "plausible",
+      "rev": "009dc1e6f2feb2c96c081537d80a0905b2c6498f",
+      "scope": "leanprover-community",
+      "subDir": null,
+      "type": "git",
+      "url": "https://github.com/leanprover-community/plausible"
+    },
+    {
+      "configFile": "lakefile.lean",
+      "inputRev": "v0.0.85",
+      "name": "proofwidgets",
+      "rev": "c04225ee7c0585effbd933662b3151f01b600e40",
+      "scope": "leanprover-community",
+      "subDir": null,
+      "type": "git",
+      "url": "https://github.com/leanprover-community/ProofWidgets4"
+    }
+  ],
+  "external_revisions_sha256": "4baee9cf677780f654f3d1e4413346482853ad52874add3a7cecf6ed04a4bfe6",
+  "pinned_commit": "b5acb0ff13e38084105b7fe020ba0d59c1925bc5",
+  "pinned_tree": "4f6c9bd17fdfdc264f54b26862ce768743da5d63",
+  "resolution": {
+    "external_import_prefixes": [
+      "Mathlib",
+      "Lean"
+    ],
+    "module_to_path": "dot_to_slash_plus_dot_lean",
+    "syntax": "exact_single_module_import_per_line"
+  },
+  "root": "FormalConjectures/Arxiv/2606.03696/BondyLongestCycles.lean",
+  "schema": "bondy_semantic_closure_v3",
+  "toolchain": [
+    {
+      "blob": "13a1771e215c0200be3db3d1d6881017a1f5d179",
+      "bytes": 3129,
+      "mode": "100644",
+      "path": "lake-manifest.json",
+      "sha256": "5b99b5f4f807cbba67bbcd22e5e486c17d6a8d970ea218de08d05830ab350c26",
+      "type": "blob"
+    },
+    {
+      "blob": "91acb1dc7496b69cf56e07f0f5b9e9deb6f9ea2e",
+      "bytes": 2672,
+      "mode": "100644",
+      "path": "lakefile.toml",
+      "sha256": "9bb6b973c3bacd0930e4f9aeb459c05de6f476135795f8d6956b04402e9899bb",
+      "type": "blob"
+    },
+    {
+      "blob": "2bb276aae9b280aaa44fa3c21d2be1d4bc0c9862",
+      "bytes": 24,
+      "mode": "100644",
+      "path": "lean-toolchain",
+      "sha256": "e695e6e5d8e7a8be4d6cf159dfb995847993d26c6cc450353a86f387279025b9",
+      "type": "blob"
+    }
+  ],
+  "toolchain_count": 3,
+  "toolchain_sha256": "3221ee3df4f1c1a23f5eddcddb22cce96a00543c432f7310366b88444406e0c6"
+}

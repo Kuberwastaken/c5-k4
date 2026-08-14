@@ -1,6 +1,6 @@
-# Bondy longest-cycles frozen DEVELOPMENT contract v2
+# Bondy longest-cycles frozen DEVELOPMENT contract v3
 
-**State:** superseding v2 guard hash sealed, disabled by default, never dispatched
+**State:** v3 tip-continuity policy sealed, disabled by default, never dispatched
 
 **Evidence class:** contaminated `DEVELOPMENT`, never held out
 
@@ -8,8 +8,8 @@
 
 **Only slice:** `k=4`, source parameter `t=4`, `n=24`
 
-This v2 contract supersedes the prepared v1 seal while preserving its reports
-as historical records. It freezes the same small balanced delete/add port-
+This v3 contract supersedes v2 while preserving all v1/v2 reports as
+historical records. It freezes the same small balanced delete/add port-
 rewiring arm around the source sharpness graph `S(4,4)`. This seal alone does not authorize execution,
 publication, a release, an issue, or a pull request.
 The workflow remains disabled by default. A target process can start only when
@@ -19,14 +19,11 @@ exactly `d061571de2bf737ce447b77ebe0e6c2d995d98ab3061f000d1db25fe161e69dc`.
 Only the hash is tracked; the guard preimage is deliberately absent from code,
 the manifest, and documentation. `HEAD` is checked at runtime rather than
 embedded in its own tracked contents, avoiding a self-referential Git hash.
-The immutable v2 content registry independently binds every executable and
-contract file. Before any target row, the runner also requires the full v2
-live-gate schema, the exact 16-check PASS set, equal bracket snapshots, exact
-identity/file bindings, and zero open-PR target-path matches; a minimal or
-forged `PASS` object is insufficient. Exact nonzero counts, key sets, PR-number
-order, sorted changed paths, per-PR path digests, and the complete checks,
-bracket, file-binding, and full-record digests are recomputed against the
-sealed compact v2 attestation before target evaluation.
+The immutable v3 content registry independently binds every executable and
+contract file. Before any target row, the runner accepts only the exact
+`bondy_source_status_duplicate_gate_tip_continuity_v3` schema and recomputes
+its ancestry, complete-delta, closure, toolchain, declaration, bracket, and
+open-PR bindings. A v1, v2, incomplete, or forged `PASS` object is rejected.
 Workflow dispatch strings are mapped through step environment variables and
 expanded only as double-quoted arguments; no `${{ inputs.* }}` expression is
 interpolated into shell source, so quotes and newlines cannot create commands.
@@ -50,24 +47,24 @@ A later formal correction must replace the placeholder with `answer(False)`
 and discharge the outer equivalence (for example via `true_iff`/`false_iff`
 after selecting the answer). No result may blur this answer-wrapper caveat.
 
-The live gate rechecks current `main`, commit/tree/blob/content hashes, exact
-open status, all open-PR changed-file lists, exact-name/path/paper-ID issue and
-PR searches, standalone repositories, local project history, and the paper
-hash. Any drift is `GATE_FAIL`; there is no repin inside this trial.
+The historical anchor remains exactly `b5ac...` and is never silently repinned.
+Live `main` may advance only when that anchor is its merge base and ancestor,
+the complete NUL-delimited local Git diff is enumerated, and the delta is
+disjoint from all 168 recursively resolved Lean closure paths plus the exact
+toolchain and dependency locks. The audited `b5ac...2411` delta consists only
+of unrelated `AUTHORS`, Erdos problem 506, and WrittenOnTheWallII files; this
+observation is not a reusable PASS and remains subject to a fresh live gate.
 
-Authenticated REST collection uses bounded 24-worker pools. The gate first
-captures a complete canonical bracket snapshot of main, exact searches,
-standalone repositories, and all open-PR identities (number, title, draft,
-updated time, and head/base SHA/ref/repository). It then fetches each frozen
-identity's fully paginated changed-file list exactly once, sorts and digest-
-binds the list to that identity, and finally repeats the complete identity
-snapshot. The before/after snapshots and open-PR number sets must be equal.
-Thus head/base/file-affecting updates and new/closed PRs fail closed without a
-second file scan. Any worker or pagination error also fails closed; scheduling
-cannot affect canonical order or hashes.
-Live records use schema
-`bondy_source_status_duplicate_gate_bracketed_single_scan_v2` and explicitly
-require the file-binding identities to equal the complete before identity set.
+Each of two full brackets binds live main/tree, the exact target and declaration
+shape, the canonical continuity object, issue #4858, PR #4879, all frozen
+searches, and every open PR's completely paginated changed paths. A bounded
+24-worker GraphQL collector validates connection totals, stabilizes the whole
+identity set with an identity-only second pass, and uses REST only to recover
+renamed-away paths. Both full binding surfaces must be byte-equal. Rate limits,
+timeouts, ambiguity, merges without parent-indexed provenance, protected-path
+touches, or any dependency drift are strict stops. The current GitHub rate-limit
+caveat means there is no v3 PASS record yet; target execution stays unavailable
+until a fresh complete stable bracket succeeds.
 
 ## Source control and theorem subtraction
 

@@ -1,35 +1,24 @@
 {
-  "schema": "bondy_source_status_attestation_v2",
-  "seal_version": "bondy-longest-cycles-development-v2",
-  "supersedes": "bondy-longest-cycles-development-v1",
-  "status": "PASS",
+  "schema": "bondy_source_status_attestation_v3",
+  "seal_version": "bondy-longest-cycles-development-v3",
+  "supersedes": "bondy-longest-cycles-development-v2",
+  "status": "PENDING_AUTHENTICATED_LIVE_GATE_RATE_LIMITED",
   "audit_date_utc": "2026-08-14",
-  "gate": {
-    "schema": "bondy_source_status_duplicate_gate_bracketed_single_scan_v2",
-    "elapsed_seconds": "32.11",
-    "checks_passed": 16,
-    "checks_total": 16,
-    "checks_sha256": "b155d2a968daf76bdf7373fb61b5c81fdb3036a6ed0c025d781a761090b04349",
-    "bracket_snapshot_sha256": "464f336c716dece4a1d1883911cafd64d51bbd6de668856b3366e82cd4b50e27",
-    "bracket_snapshots_equal": true,
-    "open_pr_identities": 274,
-    "file_bindings": 274,
-    "file_bindings_sha256": "19aad1c4f6b9895e7161ffd50d6eb3d77f0d14e19334aa0faa3945b2b82ba33f",
-    "full_record_bytes": 570433,
-    "full_record_sha256": "b7ee1272920e87f12aec46275f5436736c815bbb7263cc32ef4b041d010cbf96"
-  },
-  "upstream": {
+  "live_gate_schema": "bondy_source_status_duplicate_gate_tip_continuity_v3",
+  "historical_upstream": {
     "commit": "b5acb0ff13e38084105b7fe020ba0d59c1925bc5",
     "tree": "4f6c9bd17fdfdc264f54b26862ce768743da5d63",
     "path": "FormalConjectures/Arxiv/2606.03696/BondyLongestCycles.lean",
     "blob": "c4c5cb1983936860d5a4a7208b3f04bd201290d4"
   },
-  "source_sha256": "562fbbb0ec47041a61017bb85ec0c7e9aa6fc98cf132be3022268a7dc60e9004",
-  "primary_pdf_sha256": "56213cd6384cc2111864d67150c41e1426608c59b1b009c6752acab9be3487fb",
-  "category": "research open",
-  "known_ingestion_issue": 4858,
-  "known_ingestion_pr": 4879,
-  "activation_token_sha256": "d061571de2bf737ce447b77ebe0e6c2d995d98ab3061f000d1db25fe161e69dc",
+  "last_audited_live_upstream": {
+    "commit": "2411d22e1bd550d050d0eac6c1fb379a76a3e7c5",
+    "tree": "f6b52f1d3f63b365d6f8c405623d5f7a4e674efc"
+  },
+  "semantic_closure_sha256": "06f205b34dc84a04c0d46d718c0a1fe46b5634f76f39343e51dd132d43dfdbb7",
+  "toolchain_sha256": "3221ee3df4f1c1a23f5eddcddb22cce96a00543c432f7310366b88444406e0c6",
+  "external_revisions_sha256": "4baee9cf677780f654f3d1e4413346482853ad52874add3a7cecf6ed04a4bfe6",
+  "rate_limit_caveat": "No v3 PASS attestation exists; a fresh complete stable live bracket is mandatory.",
   "workflow_enabled_by_default": false,
   "target_evaluated": false
 }
