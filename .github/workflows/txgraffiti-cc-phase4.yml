@@ -1,0 +1,311 @@
+name: TxGraffiti C-C phase-four completion
+
+on:
+  workflow_dispatch:
+    inputs:
+      campaign_commit:
+        description: Exact 40-hex commit containing the frozen phase-four contract
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  prepare-domain:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    outputs:
+      artifact_name: ${{ steps.identity.outputs.artifact_name }}
+    env:
+      LC_ALL: C.UTF-8
+      PYTHONDONTWRITEBYTECODE: '1'
+      PYTHONHASHSEED: '0'
+      TZ: UTC
+    steps:
+      - name: Reject a movable execution ref
+        shell: bash
+        env:
+          CAMPAIGN_COMMIT: ${{ inputs.campaign_commit }}
+        run: |
+          set -euo pipefail
+          [[ "$CAMPAIGN_COMMIT" =~ ^[0-9a-f]{40}$ ]]
+
+      - name: Check out the exact frozen campaign commit
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ inputs.campaign_commit }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Verify exact clean checkout
+        shell: bash
+        env:
+          CAMPAIGN_COMMIT: ${{ inputs.campaign_commit }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$CAMPAIGN_COMMIT"
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+
+      - name: Set up pinned Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12.9'
+
+      - name: Install pinned constructor dependencies
+        shell: bash
+        run: |
+          python -m pip install --disable-pip-version-check \
+            networkx==3.2.1 numpy==1.26.4 scipy==1.12.0 python-sat==1.9.dev7
+
+      - name: Validate the frozen constructor and workflow contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/test_txgraffiti_cc_phase4.py
+          python scripts/test_txgraffiti_cc_phase4_workflow.py
+
+      - name: Build the pinned nauty identity authority
+        shell: bash
+        run: |
+          set -euo pipefail
+          archive="$RUNNER_TEMP/nauty2_8_9.tar.gz"
+          curl --fail --show-error --location --retry 5 --retry-all-errors \
+            https://users.cecs.anu.edu.au/~bdm/nauty/nauty2_8_9.tar.gz \
+            --output "$archive"
+          echo 'c97ab42bf48796a86a598bce3e9269047ca2b32c14fc23e07208a244fe52c4ee  '"$archive" \
+            | sha256sum --check
+          tar -xzf "$archive" -C "$RUNNER_TEMP"
+          cd "$RUNNER_TEMP/nauty2_8_9"
+          ./configure
+          make -j2 labelg
+          test -x labelg
+
+      - name: Precompute and audit the complete target-blind domain
+        shell: bash
+        run: |
+          set -euo pipefail
+          bundle="$RUNNER_TEMP/phase4-bundle"
+          mkdir -p "$bundle/bin"
+          cp "$RUNNER_TEMP/nauty2_8_9/labelg" "$bundle/bin/labelg"
+          timeout --signal=TERM --kill-after=5s 180s \
+            python scripts/txgraffiti_cc_phase4_domain.py build \
+              --output "$bundle/domain" --labelg "$bundle/bin/labelg"
+          mapfile -t prior_ledgers < <(
+            find results/expansion/live-search-2026-08-14/txgraffiti-cc-phase3-ledgers \
+              -maxdepth 1 -type f -name '*.jsonl' -print | LC_ALL=C sort
+          )
+          (( ${#prior_ledgers[@]} == 3 ))
+          for ledger in "${prior_ledgers[@]}"; do
+            python scripts/lint_method_v15_live_search_output.py "$ledger" \
+              --labelg "$bundle/bin/labelg"
+          done
+          selector=(python scripts/txgraffiti_cc_phase4_domain.py select
+            --domain "$bundle/domain" --output "$bundle/selection")
+          for ledger in "${prior_ledgers[@]}"; do
+            selector+=(--scored-ledger "$ledger")
+          done
+          "${selector[@]}"
+          python scripts/txgraffiti_cc_phase4_domain.py verify \
+            --domain "$bundle/domain" --selection "$bundle/selection"
+          printf '%s\n' '${{ inputs.campaign_commit }}' > "$bundle/campaign-commit.txt"
+          (
+            cd "$bundle"
+            find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS
+          )
+
+      - name: Name the immutable domain artifact
+        id: identity
+        shell: bash
+        run: |
+          echo "artifact_name=txgraffiti-cc-phase4-domain-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}" >> "$GITHUB_OUTPUT"
+
+      - name: Upload target-blind domain and unscored worklists
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: ${{ steps.identity.outputs.artifact_name }}
+          path: ${{ runner.temp }}/phase4-bundle/
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 90
+
+  evaluate-partition:
+    needs: prepare-domain
+    strategy:
+      fail-fast: false
+      max-parallel: 8
+      matrix:
+        partition: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    env:
+      LC_ALL: C.UTF-8
+      PYTHONDONTWRITEBYTECODE: '1'
+      PYTHONHASHSEED: '0'
+      TZ: UTC
+    steps:
+      - name: Check out the exact frozen campaign commit
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ inputs.campaign_commit }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up pinned Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12.9'
+
+      - name: Install pinned exact-worker dependencies
+        shell: bash
+        run: |
+          python -m pip install --disable-pip-version-check \
+            networkx==3.2.1 numpy==1.26.4 scipy==1.12.0 python-sat==1.9.dev7
+
+      - name: Download the immutable domain artifact
+        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        with:
+          name: ${{ needs.prepare-domain.outputs.artifact_name }}
+          path: ${{ runner.temp }}/phase4-bundle
+
+      - name: Verify domain authority and assignment
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP/phase4-bundle"
+          sha256sum --check SHA256SUMS
+          test "$(cat campaign-commit.txt)" = '${{ inputs.campaign_commit }}'
+          chmod 0555 bin/labelg
+          python "$GITHUB_WORKSPACE/scripts/txgraffiti_cc_phase4_domain.py" verify \
+            --domain domain --selection selection
+
+      - name: Run only this partition's unscored identities under the hard cap
+        id: exact
+        shell: bash
+        env:
+          PARTITION: ${{ matrix.partition }}
+        run: |
+          set -uo pipefail
+          printf -v partition_label '%02d' "$PARTITION"
+          output="$RUNNER_TEMP/phase4-worker/partition-${partition_label}"
+          mkdir -p "$output"
+          read -r arm tree < <(python - "$PARTITION" <<'PY'
+          import sys
+          arms = ('CATALOGUE', 'GENERIC', 'WALL_NAVIGATION')
+          value = int(sys.argv[1])
+          print(arms[value // 8], value % 8)
+          PY
+          )
+          /usr/bin/time -v -o "$output/resources.txt" \
+            python scripts/method_v15_live_search_runtime.py run \
+              --arm "$arm" --tree-index "$tree" \
+              --output "$output/ledger.jsonl" \
+              --labelg "$RUNNER_TEMP/phase4-bundle/bin/labelg" \
+              --wall-seconds 60 -- \
+              python scripts/search_txgraffiti_cc_phase4.py \
+                --partition "$PARTITION" \
+                --worklist "$RUNNER_TEMP/phase4-bundle/selection/work-partition-${partition_label}.jsonl" \
+                --terminal "$output/terminal.json" \
+                --labelg "$RUNNER_TEMP/phase4-bundle/bin/labelg" \
+              > "$output/wrapper-report.json" 2> "$output/wrapper-stderr.txt"
+          code=$?
+          printf '{"campaign_commit":"%s","partition":%s,"arm":"%s","tree_index":%s,"wrapper_exit_code":%s}\n' \
+            '${{ inputs.campaign_commit }}' "$PARTITION" "$arm" "$tree" "$code" \
+            > "$output/assignment.json"
+          (
+            cd "$output"
+            find . -maxdepth 1 -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS
+          )
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          exit "$code"
+
+      - name: Upload complete partition record
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: txgraffiti-cc-phase4-partition-${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.partition }}
+          path: ${{ runner.temp }}/phase4-worker/
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 90
+
+  aggregate:
+    if: always()
+    needs: [prepare-domain, evaluate-partition]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - name: Check out the exact frozen campaign commit
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ inputs.campaign_commit }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up pinned Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12.9'
+
+      - name: Install pinned audit dependencies
+        shell: bash
+        run: |
+          python -m pip install --disable-pip-version-check \
+            networkx==3.2.1 numpy==1.26.4 scipy==1.12.0 python-sat==1.9.dev7
+
+      - name: Download domain authority
+        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        with:
+          name: txgraffiti-cc-phase4-domain-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/phase4-bundle
+
+      - name: Download every available worker artifact
+        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        with:
+          pattern: txgraffiti-cc-phase4-partition-${{ github.run_id }}-${{ github.run_attempt }}-*
+          path: ${{ runner.temp }}/phase4-downloads
+
+      - name: Assemble and audit the exact denominator
+        id: audit
+        shell: bash
+        run: |
+          set +e
+          assembled="$RUNNER_TEMP/phase4-workers"
+          aggregate="$RUNNER_TEMP/phase4-aggregate"
+          mkdir -p "$assembled" "$aggregate"
+          for artifact in "$RUNNER_TEMP"/phase4-downloads/*; do
+            [[ -d "$artifact" ]] || continue
+            find "$artifact" -mindepth 1 -maxdepth 1 -type d -name 'partition-*' \
+              -exec cp -a '{}' "$assembled/" ';'
+          done
+          chmod 0555 "$RUNNER_TEMP/phase4-bundle/bin/labelg"
+          python scripts/aggregate_txgraffiti_cc_phase4.py \
+            --domain "$RUNNER_TEMP/phase4-bundle/domain" \
+            --selection "$RUNNER_TEMP/phase4-bundle/selection" \
+            --workers "$assembled" \
+            --labelg "$RUNNER_TEMP/phase4-bundle/bin/labelg" \
+            --output-json "$aggregate/aggregate.json" \
+            --output-markdown "$aggregate/aggregate.md"
+          code=$?
+          (
+            cd "$aggregate"
+            find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS
+          )
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          cat "$aggregate/aggregate.md" >> "$GITHUB_STEP_SUMMARY"
+          exit 0
+
+      - name: Upload content-addressed aggregate
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: txgraffiti-cc-phase4-aggregate-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/phase4-aggregate/
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 90
+
+      - name: Enforce the final aggregate gate
+        if: always()
+        shell: bash
+        run: exit '${{ steps.audit.outputs.exit_code }}'

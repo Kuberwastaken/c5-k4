@@ -1,0 +1,45 @@
+{
+  "schema": "c5k4-live-development-manifest-1.0",
+  "target": "TxGraffiti C-C: connected regular i(G) <= mu*(G)",
+  "evidence_split": "DEVELOPMENT",
+  "predecessor": "txgraffiti-cc-phase3-result.md",
+  "contract": "txgraffiti-cc-phase4.md",
+  "pre_freeze_target_evaluations_allowed": false,
+  "coordinate_t": 2,
+  "order": 20,
+  "certified_minimum_maximal_matching": 6,
+  "construction_states": 5320,
+  "partition_count": 24,
+  "partition_rule": "int(canonical_sha256,16) mod 24",
+  "canonicalization": {
+    "tool": "nauty labelg 2.8.9",
+    "source_url": "https://users.cecs.anu.edu.au/~bdm/nauty/nauty2_8_9.tar.gz",
+    "source_sha256": "c97ab42bf48796a86a598bce3e9269047ca2b32c14fc23e07208a244fe52c4ee"
+  },
+  "caps_seconds": {
+    "process_group": 60,
+    "internal_stop": 54,
+    "exact_milp": 4
+  },
+  "worker_terminal_reasons": [
+    "DOMAIN_EXHAUSTED",
+    "DEADLINE_PREFIX",
+    "SOLVER_INCOMPLETE",
+    "CROSSING_VERIFIED"
+  ],
+  "aggregate_statuses": [
+    "DOMAIN_EXHAUSTED_ZERO",
+    "BOUNDED_PREFIX_ZERO",
+    "VERIFIED_CROSSING",
+    "INVALID_RUN"
+  ],
+  "frozen_files": {
+    "scripts/txgraffiti_cc_phase4_domain.py": "977f91255949613d9f009f06164c5294e3528b1fa91f92bf7ae712dd775da5e9",
+    "scripts/search_txgraffiti_cc_phase4.py": "75165eefa6a7da183546c5c8c69c5662651a55d3ec247515bad99746f25d530b",
+    "scripts/aggregate_txgraffiti_cc_phase4.py": "bc77c64adba7a1eae24bad2a59a1275f1ae3d3c485acd36e0769d93168b6cf4b",
+    "scripts/test_txgraffiti_cc_phase4.py": "71c39c3c48b4c937533c6dcc4a035c5f9dae3ad13248de8b43e78a6034c92ca0",
+    "scripts/test_txgraffiti_cc_phase4_workflow.py": "e9e96e0fb888e421c6aeb1382021405a4db33e3c603805fd75b724e86fad6924",
+    ".github/workflows/txgraffiti-cc-phase4.yml": "b821407291b03ce5482dede520822b1ef8f76bb30813e371c7f8ff88b65d6c40",
+    "results/expansion/live-search-2026-08-14/txgraffiti-cc-phase4.md": "1835cbf50abdec0c702198b439259597acf72e369114be937fd9f9e7af2090a4"
+  }
+}
