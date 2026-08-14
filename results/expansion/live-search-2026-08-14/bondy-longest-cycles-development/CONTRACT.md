@@ -44,6 +44,20 @@ open status, all open-PR changed-file lists, exact-name/path/paper-ID issue and
 PR searches, standalone repositories, local project history, and the paper
 hash. Any drift is `GATE_FAIL`; there is no repin inside this trial.
 
+Authenticated REST collection uses bounded 24-worker pools. The gate first
+captures a complete canonical bracket snapshot of main, exact searches,
+standalone repositories, and all open-PR identities (number, title, draft,
+updated time, and head/base SHA/ref/repository). It then fetches each frozen
+identity's fully paginated changed-file list exactly once, sorts and digest-
+binds the list to that identity, and finally repeats the complete identity
+snapshot. The before/after snapshots and open-PR number sets must be equal.
+Thus head/base/file-affecting updates and new/closed PRs fail closed without a
+second file scan. Any worker or pagination error also fails closed; scheduling
+cannot affect canonical order or hashes.
+Live records use schema
+`bondy_source_status_duplicate_gate_bracketed_single_scan_v1` and explicitly
+require the file-binding identities to equal the complete before identity set.
+
 ## Source control and theorem subtraction
 
 For

@@ -17,10 +17,22 @@ from unittest import mock
 import networkx as nx
 
 import prospective_bondy_construct as construct
+import prospective_bondy_gate as live_gate
 import prospective_bondy_search as search
 import prospective_bondy_verify as verify
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def pull_fixture(number: int, title: str | None = None) -> dict[str, object]:
+    return {
+        "number": number,
+        "title": title or f"pull {number}",
+        "draft": False,
+        "updated_at": "2026-08-14T00:00:00Z",
+        "head": {"sha": f"head-{number}", "ref": f"head/{number}", "repo": {"full_name": "fork/repo"}},
+        "base": {"sha": f"base-{number}", "ref": "main", "repo": {"full_name": "google-deepmind/formal-conjectures"}},
+    }
 
 
 class SourceAndGrammarTests(unittest.TestCase):
@@ -221,6 +233,121 @@ class TargetIsolationTests(unittest.TestCase):
         edges_g = construct.edge_list(joined)
         self.assertEqual(len(edges_g), 126)
         self.assertEqual(construct.edge_list(construct.graph_from_edges(24, edges_g)), edges_g)
+
+
+class LiveGateConcurrencyTests(unittest.TestCase):
+    def test_open_pr_and_changed_file_pagination_are_complete(self) -> None:
+        calls: list[str] = []
+
+        def fake_api(path: str, token: str) -> object:
+            self.assertEqual(token, "token")
+            calls.append(path)
+            if "/pulls?state=open" in path:
+                page = int(path.rsplit("page=", 1)[1])
+                return [pull_fixture(i) for i in range(1, 101)] if page == 1 else [pull_fixture(101)]
+            if "/pulls/7/files" in path:
+                page = int(path.rsplit("page=", 1)[1])
+                return [{"filename": f"p/{i:03d}"} for i in range(100)] if page == 1 else [{"filename": "p/100"}]
+            raise AssertionError(path)
+
+        with mock.patch.object(live_gate, "api", side_effect=fake_api):
+            self.assertEqual(len(live_gate.all_open_pulls("token")), 101)
+            self.assertEqual(live_gate.changed_paths("token", 7), [f"p/{i:03d}" for i in range(101)])
+        self.assertTrue(any("pulls?state=open&per_page=100&page=2" in path for path in calls))
+        self.assertTrue(any("pulls/7/files?per_page=100&page=2" in path for path in calls))
+
+    def test_single_file_binding_has_deterministic_order(self) -> None:
+        pulls = [pull_fixture(9), pull_fixture(2), pull_fixture(5)]
+        paths = {9: ["z", "a"], 2: ["d", "c"], 5: ["m", "b"]}
+        first_identities = live_gate.open_pull_identities(pulls)
+        second_identities = live_gate.open_pull_identities(list(reversed(pulls)))
+        with mock.patch.object(live_gate, "changed_paths", side_effect=lambda token, number: paths[number]):
+            first = live_gate.bind_changed_paths("token", first_identities)
+            second = live_gate.bind_changed_paths("token", second_identities)
+        self.assertEqual(first, second)
+        self.assertEqual([row["number"] for row in first], [2, 5, 9])
+        self.assertEqual([row["changed_paths"] for row in first], [["c", "d"], ["b", "m"], ["a", "z"]])
+
+    def test_each_open_pr_file_catalogue_is_fetched_exactly_once(self) -> None:
+        identities = live_gate.open_pull_identities([pull_fixture(2), pull_fixture(5), pull_fixture(9)])
+        with mock.patch.object(live_gate, "changed_paths", return_value=["x"]) as scan:
+            bindings = live_gate.bind_changed_paths("token", identities)
+        self.assertEqual(len(bindings), 3)
+        self.assertEqual(sorted(call.args[1] for call in scan.call_args_list), [2, 5, 9])
+        self.assertEqual(scan.call_count, 3)
+
+    def test_parallel_pull_worker_error_propagates_fail_closed(self) -> None:
+        def paths(token: str, number: int) -> list[str]:
+            if number == 5:
+                raise RuntimeError("synthetic paginated API failure")
+            return [str(number)]
+
+        with mock.patch.object(live_gate, "changed_paths", side_effect=paths):
+            with self.assertRaisesRegex(RuntimeError, "synthetic paginated API failure"):
+                live_gate.bind_changed_paths(
+                    "token", live_gate.open_pull_identities([pull_fixture(2), pull_fixture(5), pull_fixture(9)])
+                )
+
+    def test_head_base_update_and_open_close_races_fail_bracket(self) -> None:
+        target = "@[category research open, AMS 5]\nanswer(sorry) ↔ True\n".encode("utf-8")
+        before = {
+            "main": live_gate.UPSTREAM_COMMIT,
+            "searches": live_gate.ALLOWED_SEARCH_RESULTS,
+            "open_pulls": [live_gate.pull_identity(pull_fixture(12, "before"))],
+            "repository_total_count": 0,
+        }
+
+        def exact_api(path: str, token: str) -> object:
+            if "/git/commits/" in path:
+                return {"tree": {"sha": live_gate.UPSTREAM_TREE}}
+            if "/git/blobs/" in path:
+                return {"sha": live_gate.TARGET_BLOB}
+            if path.endswith(f"/issues/{live_gate.KNOWN_ISSUE}"):
+                return {"number": live_gate.KNOWN_ISSUE, "state": "closed"}
+            if path.endswith(f"/pulls/{live_gate.KNOWN_PR}"):
+                return {"number": live_gate.KNOWN_PR, "state": "closed", "merged_at": "2026-08-14T20:25:50Z"}
+            raise AssertionError(path)
+
+        def exact_git(*args: str) -> str:
+            if args[0] == "log":
+                return live_gate.KNOWN_PREFLIGHT_COMMIT
+            if args[0] == "show":
+                return "known preflight"
+            if args[0] == "diff-tree":
+                return "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/preflight.md"
+            raise AssertionError(args)
+
+        mutations = {}
+        for name, field in (("head", "head_sha"), ("base", "base_sha"), ("updated", "updated_at")):
+            mutated = json.loads(json.dumps(before))
+            mutated["open_pulls"][0][field] += "-mutated"
+            mutations[name] = mutated
+        closed = json.loads(json.dumps(before))
+        closed["open_pulls"] = []
+        mutations["open_close"] = closed
+
+        for name, after in mutations.items():
+            with self.subTest(name=name), tempfile.TemporaryDirectory() as directory, mock.patch.object(
+                live_gate, "bracket_snapshot", side_effect=[before, after]
+            ), mock.patch.object(live_gate, "bind_changed_paths", return_value=[{
+                **before["open_pulls"][0],
+                "changed_paths": ["unrelated.lean"],
+                "changed_paths_sha256": live_gate.canonical_sha256(["unrelated.lean"]),
+            }]), mock.patch.object(live_gate, "api", side_effect=exact_api), mock.patch.object(
+                live_gate, "get_bytes", return_value=target
+            ), mock.patch.object(live_gate, "git", side_effect=exact_git), mock.patch.object(
+                live_gate, "TARGET_SHA256", live_gate.sha256(target)
+            ):
+                output = Path(directory) / "must-fail.json"
+                with self.assertRaisesRegex(RuntimeError, "failed closed"):
+                    live_gate.run(output, "token", None)
+                record = json.loads(output.read_text())
+                self.assertEqual(record["schema"], "bondy_source_status_duplicate_gate_bracketed_single_scan_v1")
+                self.assertTrue(record["checks"]["file_bindings_exact"])
+                self.assertFalse(record["checks"]["bracket_snapshot_stable"])
+                self.assertNotEqual(record["bracket_snapshot_before"], record["bracket_snapshot_after"])
+                if name == "open_close":
+                    self.assertFalse(record["checks"]["open_pr_set_stable"])
 
 
 def main() -> int:

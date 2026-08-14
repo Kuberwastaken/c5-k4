@@ -5,6 +5,7 @@
   "slice": {"k": 4, "t": 4, "h_order": 20, "g_order": 24, "large_graph_cutoff": 108},
   "caps": {"internal_search_seconds": 48, "internal_finalize_seconds": 54, "external_process_seconds": 60, "term_to_kill_seconds": 6, "independent_verify_seconds": 60},
   "runtime": {"python_version": "3.11.9", "networkx_version": "3.3", "discovery_algorithm": "python_endpoint_path_cover_dp_v1", "replay_algorithm": "cpp_endpoint_path_cover_dp_v1"},
+  "live_gate": {"schema": "bondy_source_status_duplicate_gate_bracketed_single_scan_v1", "snapshot_workers": 24, "open_pull_page_size": 100, "changed_file_page_size": 100, "changed_file_scans_per_pr": 1, "deterministic_order": ["pull_number", "changed_path"], "bracket_identity_snapshot_equality": true, "open_pr_set_equality": true, "file_binding_identity_equality": true},
   "upstream": {
     "commit": "5a5af706fa5bef3f09606554d393c9170d2b27e8",
     "tree": "0ef534e06d27e22e68e4cfd5081f2a5e28ebe73a",

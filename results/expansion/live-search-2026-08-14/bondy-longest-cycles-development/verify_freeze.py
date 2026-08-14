@@ -36,6 +36,8 @@ if manifest["caps"] != {"internal_search_seconds": 48, "internal_finalize_second
     raise SystemExit("48/54/60 process cap drift")
 if manifest["runtime"] != {"python_version": "3.11.9", "networkx_version": "3.3", "discovery_algorithm": "python_endpoint_path_cover_dp_v1", "replay_algorithm": "cpp_endpoint_path_cover_dp_v1"}:
     raise SystemExit("runtime/algorithm provenance drift")
+if manifest["live_gate"] != {"schema": "bondy_source_status_duplicate_gate_bracketed_single_scan_v1", "snapshot_workers": 24, "open_pull_page_size": 100, "changed_file_page_size": 100, "changed_file_scans_per_pr": 1, "deterministic_order": ["pull_number", "changed_path"], "bracket_identity_snapshot_equality": True, "open_pr_set_equality": True, "file_binding_identity_equality": True}:
+    raise SystemExit("parallel live-gate contract drift")
 if manifest["target_execution_lock"] != {
     "enabled_by_default": False,
     "token_provisioned": False,
@@ -108,8 +110,15 @@ for token in (
     "ALLOWED_SEARCH_RESULTS",
     "all_open_pulls",
     "incomplete_results",
-    "race_snapshot_stable",
-    "open_pull_snapshot",
+    "bracket_snapshot_stable",
+    "open_pr_set_stable",
+    "file_bindings_exact",
+    "bondy_source_status_duplicate_gate_bracketed_single_scan_v1",
+    "bracket_snapshot",
+    "bind_changed_paths",
+    "SNAPSHOT_WORKERS = 24",
+    "ThreadPoolExecutor",
+    "cancel_futures=True",
     "changed_paths_sha256",
     "head_sha",
     "base_sha",
@@ -131,6 +140,11 @@ for token in (
     "test_synthetic_upper_rejection_counter_witness_replays",
     "test_complete_joined_edge_list_round_trips_without_target_evaluation",
     "test_full_ledger_rejects_unrecognized_fake_target_result",
+    "test_open_pr_and_changed_file_pagination_are_complete",
+    "test_single_file_binding_has_deterministic_order",
+    "test_each_open_pr_file_catalogue_is_fetched_exactly_once",
+    "test_parallel_pull_worker_error_propagates_fail_closed",
+    "test_head_base_update_and_open_close_races_fail_bracket",
 ):
     if token not in tests:
         raise SystemExit(f"target-free test token absent: {token}")
@@ -170,6 +184,7 @@ for token in (
     "does not authorize execution",
     "CPython `3.11.9`",
     "NetworkX `3.3`",
+    "bounded 24-worker pool",
 ):
     if token not in contract:
         raise SystemExit(f"contract requirement absent: {token}")

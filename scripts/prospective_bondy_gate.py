@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import concurrent.futures
 import hashlib
 import json
 import os
@@ -32,6 +33,7 @@ ALLOWED_SEARCH_RESULTS = {
     SEARCH_QUERIES[1]: [],
     SEARCH_QUERIES[2]: [4879],
 }
+SNAPSHOT_WORKERS = 24
 
 
 def api(path: str, token: str) -> object:
@@ -131,38 +133,78 @@ def canonical_sha256(value: object) -> str:
     return hashlib.sha256(data).hexdigest()
 
 
-def open_pull_snapshot(token: str) -> list[dict[str, object]]:
+def pull_identity(pull: dict[str, object]) -> dict[str, object]:
+    return {
+        "number": int(pull["number"]),
+        "title": str(pull["title"]),
+        "draft": bool(pull.get("draft", False)),
+        "updated_at": str(pull["updated_at"]),
+        "head_sha": str(pull["head"]["sha"]),
+        "head_ref": str(pull["head"]["ref"]),
+        "head_repo": pull["head"].get("repo", {}).get("full_name") if pull["head"].get("repo") else None,
+        "base_sha": str(pull["base"]["sha"]),
+        "base_ref": str(pull["base"]["ref"]),
+        "base_repo": pull["base"].get("repo", {}).get("full_name") if pull["base"].get("repo") else None,
+    }
+
+
+def open_pull_identities(pulls: list[dict[str, object]]) -> list[dict[str, object]]:
+    ordered = sorted(pulls, key=lambda row: int(row["number"]))
+    if len({int(pull["number"]) for pull in ordered}) != len(ordered):
+        raise RuntimeError("duplicate open-pull identity")
+    return [pull_identity(pull) for pull in ordered]
+
+
+def bind_changed_paths(
+    token: str,
+    identities: list[dict[str, object]],
+    executor: concurrent.futures.Executor | None = None,
+) -> list[dict[str, object]]:
+    ordered = sorted(identities, key=lambda row: int(row["number"]))
+    if ordered != identities or len({int(pull["number"]) for pull in ordered}) != len(ordered):
+        raise RuntimeError("changed paths require canonical open-pull identities")
+    owned = executor is None
+    pool = executor or concurrent.futures.ThreadPoolExecutor(max_workers=SNAPSHOT_WORKERS)
+    futures = {int(pull["number"]): pool.submit(changed_paths, token, int(pull["number"])) for pull in ordered}
     snapshot: list[dict[str, object]] = []
-    for pull in sorted(all_open_pulls(token), key=lambda row: int(row["number"])):
-        paths = sorted(changed_paths(token, int(pull["number"])))
-        snapshot.append({
-            "number": int(pull["number"]),
-            "title": str(pull["title"]),
-            "draft": bool(pull.get("draft", False)),
-            "updated_at": str(pull["updated_at"]),
-            "head_sha": str(pull["head"]["sha"]),
-            "head_ref": str(pull["head"]["ref"]),
-            "head_repo": pull["head"].get("repo", {}).get("full_name") if pull["head"].get("repo") else None,
-            "base_sha": str(pull["base"]["sha"]),
-            "base_ref": str(pull["base"]["ref"]),
-            "base_repo": pull["base"].get("repo", {}).get("full_name") if pull["base"].get("repo") else None,
-            "changed_paths": paths,
-            "changed_paths_sha256": canonical_sha256(paths),
-        })
-    return snapshot
+    try:
+        # Resolve by PR number rather than completion order, so scheduling can
+        # never affect canonical attestation bytes. Worker errors propagate.
+        for pull in ordered:
+            paths = sorted(futures[int(pull["number"])].result())
+            snapshot.append({**pull, "changed_paths": paths, "changed_paths_sha256": canonical_sha256(paths)})
+        return snapshot
+    finally:
+        if owned:
+            pool.shutdown(wait=True, cancel_futures=True)
 
 
-def race_snapshot(token: str) -> dict[str, object]:
+def issue_search(token: str, query: str) -> list[int]:
+    result = api("/search/issues?q=" + urllib.parse.quote(query) + "&per_page=100", token)
+    if not isinstance(result, dict) or result.get("incomplete_results") is not False or int(result.get("total_count", -1)) > 100:
+        raise RuntimeError("incomplete or unexpectedly large issue/PR search")
+    return sorted(int(item["number"]) for item in result.get("items", []))
+
+
+def bracket_snapshot(token: str) -> dict[str, object]:
     repo = "/repos/google-deepmind/formal-conjectures"
-    main = api(repo + "/commits/main", token)
-    searches: dict[str, list[int]] = {}
-    for query in SEARCH_QUERIES:
-        result = api("/search/issues?q=" + urllib.parse.quote(query) + "&per_page=100", token)
-        if result.get("incomplete_results") is not False or int(result.get("total_count", -1)) > 100:
-            raise RuntimeError("incomplete or unexpectedly large issue/PR search")
-        searches[query] = sorted(int(item["number"]) for item in result.get("items", []))
-    pulls = open_pull_snapshot(token)
-    repositories = api("/search/repositories?q=" + urllib.parse.quote('"Bondy" "longest cycles" counterexample') + "&per_page=100", token)
+    with concurrent.futures.ThreadPoolExecutor(max_workers=SNAPSHOT_WORKERS) as pool:
+        main_future = pool.submit(api, repo + "/commits/main", token)
+        search_futures = {query: pool.submit(issue_search, token, query) for query in SEARCH_QUERIES}
+        pulls_future = pool.submit(all_open_pulls, token)
+        repositories_future = pool.submit(
+            api,
+            "/search/repositories?q=" + urllib.parse.quote('"Bondy" "longest cycles" counterexample') + "&per_page=100",
+            token,
+        )
+        pulls = open_pull_identities(pulls_future.result())
+        main = main_future.result()
+        searches = {query: search_futures[query].result() for query in SEARCH_QUERIES}
+        repositories = repositories_future.result()
+    if not isinstance(main, dict):
+        raise RuntimeError("main-commit response is not an object")
+    if not isinstance(repositories, dict):
+        raise RuntimeError("repository-search response is not an object")
     if repositories.get("incomplete_results") is not False:
         raise RuntimeError("incomplete standalone-repository search")
     return {
@@ -177,21 +219,30 @@ def run(output: Path, token: str, paper: Path | None) -> dict[str, object]:
     if not token:
         raise RuntimeError("GH_TOKEN is required; source/status gate fails closed")
     repo = "/repos/google-deepmind/formal-conjectures"
-    before = race_snapshot(token)
+    before = bracket_snapshot(token)
+    file_bindings = bind_changed_paths(token, before["open_pulls"])
     commit = api(repo + "/git/commits/" + UPSTREAM_COMMIT, token)
     target = get_bytes(
         "https://raw.githubusercontent.com/google-deepmind/formal-conjectures/"
         + UPSTREAM_COMMIT + "/" + TARGET_PATH
     )
     blob = api(repo + "/git/blobs/" + TARGET_BLOB, token)
-    touching = [int(pull["number"]) for pull in before["open_pulls"] if TARGET_PATH in pull["changed_paths"]]
+    touching = [int(pull["number"]) for pull in file_bindings if TARGET_PATH in pull["changed_paths"]]
     issue = api(repo + f"/issues/{KNOWN_ISSUE}", token)
     pull = api(repo + f"/pulls/{KNOWN_PR}", token)
     local_hits = git("log", "--all", "--format=%H", "-Sbondy_conjecture", "--", ".").splitlines()
     local_ok, local_identities = validate_local_contamination(local_hits)
-    after = race_snapshot(token)
+    after = bracket_snapshot(token)
+    before_numbers = [int(pull["number"]) for pull in before["open_pulls"]]
+    after_numbers = [int(pull["number"]) for pull in after["open_pulls"]]
+    binding_identities = [
+        {key: value for key, value in pull.items() if key not in ("changed_paths", "changed_paths_sha256")}
+        for pull in file_bindings
+    ]
     checks = {
-        "race_snapshot_stable": before == after,
+        "bracket_snapshot_stable": before == after,
+        "open_pr_set_stable": before_numbers == after_numbers,
+        "file_bindings_exact": binding_identities == before["open_pulls"],
         "main_commit": before["main"] == UPSTREAM_COMMIT,
         "tree": commit.get("tree", {}).get("sha") == UPSTREAM_TREE,
         "target_sha256": sha256(target) == TARGET_SHA256,
@@ -208,13 +259,15 @@ def run(output: Path, token: str, paper: Path | None) -> dict[str, object]:
     if paper is not None:
         checks["paper_sha256"] = paper.is_file() and sha256(paper.read_bytes()) == PAPER_SHA256
     record = {
+        "schema": "bondy_source_status_duplicate_gate_bracketed_single_scan_v1",
         "kind": "source_status_duplicate_gate",
         "status": "PASS" if all(checks.values()) else "GATE_FAIL",
         "checks": checks,
         "upstream": {"commit": UPSTREAM_COMMIT, "tree": UPSTREAM_TREE, "path": TARGET_PATH, "blob": TARGET_BLOB},
         "open_pr_target_path_matches": touching,
-        "race_snapshot_before": before,
-        "race_snapshot_after": after,
+        "bracket_snapshot_before": before,
+        "open_pr_file_bindings": file_bindings,
+        "bracket_snapshot_after": after,
         "local_history_hits": local_hits,
         "local_history_identities": local_identities,
     }
