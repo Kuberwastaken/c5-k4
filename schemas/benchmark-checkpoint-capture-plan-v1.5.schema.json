@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-checkpoint-capture-plan-v1.5.schema.json",
+  "title": "Method v1.5 PRE-P1 checkpoint CAPTURE orchestration plan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema", "artifact_kind", "protocol_version", "status",
+    "execution_permitted", "stage_order", "role_references", "invariants",
+    "plan_sha256"
+  ],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-checkpoint-capture-plan-1.0"},
+    "artifact_kind": {"const": "PRIVATE_CHECKPOINT_CAPTURE_PLAN"},
+    "protocol_version": {"const": "1.5"},
+    "status": {"const": "PRE_P1_CAPTURE_ORCHESTRATOR_NOT_OPERATIONAL"},
+    "execution_permitted": {"const": false},
+    "stage_order": {
+      "const": [
+        "PUBLIC_CHAIN_VERIFY",
+        "U2_PRIMARY_ACQUIRE",
+        "U2_PRIMARY_WORM_COMMIT",
+        "U2_PRIMARY_DELIVER",
+        "PROVENANCE_SOURCE_SNAPSHOT",
+        "FUTURE_REGISTRY_PRIMARY",
+        "U2_REPLAY_ACQUIRE",
+        "U2_REPLAY_WORM_COMMIT",
+        "U2_REPLAY_DELIVER",
+        "FUTURE_REGISTRY_REPLAY",
+        "BROKER_CUSTODY_COMPILE",
+        "RUNNER_PRIVATE_INPUT_ASSEMBLE",
+        "AGGREGATE_FINALIZE_HANDOFF",
+        "PUBLICATION_MANIFEST_BUILD"
+      ]
+    },
+    "role_references": {
+      "type": "array",
+      "minItems": 12,
+      "maxItems": 12,
+      "items": {"$ref": "#/definitions/roleReference"}
+    },
+    "invariants": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "p1_role_authentication_required", "fresh_acquisition_count",
+        "distinct_acquisitions_required", "exact_registry_replay_required",
+        "worm_commit_before_delivery_required", "manifest_built_last",
+        "retry_permitted", "terminal_failure_sticky",
+        "target_bearing_public_return_permitted", "production_claim_permitted"
+      ],
+      "properties": {
+        "p1_role_authentication_required": {"const": true},
+        "fresh_acquisition_count": {"const": 2},
+        "distinct_acquisitions_required": {"const": true},
+        "exact_registry_replay_required": {"const": true},
+        "worm_commit_before_delivery_required": {"const": true},
+        "manifest_built_last": {"const": true},
+        "retry_permitted": {"const": false},
+        "terminal_failure_sticky": {"const": true},
+        "target_bearing_public_return_permitted": {"const": false},
+        "production_claim_permitted": {"const": false}
+      }
+    },
+    "plan_sha256": {"$ref": "#/definitions/sha256"}
+  },
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "roleReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "binding"],
+      "properties": {
+        "role": {
+          "enum": [
+            "public_checkpoint_chain_verifier",
+            "vendor_base_builder",
+            "delivery_broker",
+            "s3_object_lock_store",
+            "broker_custody_compiler",
+            "source_snapshot_builder",
+            "provenance_classifier",
+            "future_cohort_builder",
+            "runner_private_input_assembler",
+            "aggregate_certificate_builder",
+            "checkpoint_runner",
+            "checkpoint_publication_manifest_schema"
+          ]
+        },
+        "binding": {"const": "AUTHENTICATED_P1_ROLE_REQUIRED"}
+      }
+    }
+  }
+}

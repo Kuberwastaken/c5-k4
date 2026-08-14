@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-checkpoint-capture-readiness-v1.5.schema.json",
+  "title": "Method v1.5 PRE-P1 checkpoint CAPTURE orchestrator readiness",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema", "artifact_kind", "protocol_version", "status", "executable",
+    "network_client_constructed", "filesystem_mutation_permitted",
+    "p1_role_closure_authenticated", "source_custody_operational",
+    "worm_store_operational", "triplet_isolation_operational",
+    "production_claim_permitted", "blockers", "readiness_sha256"
+  ],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-checkpoint-capture-readiness-1.0"},
+    "artifact_kind": {"const": "CHECKPOINT_CAPTURE_READINESS"},
+    "protocol_version": {"const": "1.5"},
+    "status": {"const": "PRE_P1_CAPTURE_ORCHESTRATOR_NOT_OPERATIONAL"},
+    "executable": {"const": false},
+    "network_client_constructed": {"const": false},
+    "filesystem_mutation_permitted": {"const": false},
+    "p1_role_closure_authenticated": {"const": false},
+    "source_custody_operational": {"const": false},
+    "worm_store_operational": {"const": false},
+    "triplet_isolation_operational": {"const": false},
+    "production_claim_permitted": {"const": false},
+    "blockers": {
+      "const": [
+        "P1_ROLE_CLOSURE_NOT_FROZEN",
+        "SOURCE_CUSTODY_NOT_OPERATIONAL",
+        "WORM_STORE_NOT_LIVE_ACCEPTED",
+        "TRIPLET_ISOLATION_NOT_OPERATIONAL",
+        "CAPTURE_ORCHESTRATOR_NOT_P1_ACTIVATED"
+      ]
+    },
+    "readiness_sha256": {"$ref": "#/definitions/sha256"}
+  },
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}
