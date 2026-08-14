@@ -10,6 +10,8 @@ verification, but cannot be emitted as operational acceptance by the CLI.
 from __future__ import annotations
 
 import argparse
+import base64
+import copy
 from datetime import datetime, timezone
 import hashlib
 import json
@@ -18,8 +20,11 @@ import re
 from typing import Any, Mapping
 
 import jsonschema
+from cryptography.exceptions import InvalidSignature
+from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PublicKey
 
 import verify_benchmark_v15_immutable_infrastructure as infra
+import resolve_benchmark_v15_p1_roles as p1_roles
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -29,6 +34,7 @@ STORE_CONFIG_SCHEMA = ROOT / "schemas" / "benchmark-s3-object-lock-store-config-
 PLAN = SLICE / "plan.json"
 TEMPLATE = SLICE / "cloudformation.json"
 TARGET_FIELDS = {"target", "target_id", "target_identity", "cluster_id", "conjecture", "conjecture_id", "statement_text", "record_id"}
+SIGNATURE_DOMAIN = b"c5k4-method-v1.5-immutable-live-evidence-1.1\0"
 
 
 class LiveAcceptanceError(ValueError):
@@ -45,6 +51,47 @@ def digest(value: object) -> str:
 
 def self_digest(value: Mapping[str, Any], field: str) -> str:
     return digest({key: child for key, child in value.items() if key != field})
+
+
+def receipt_payload_sha256(value: Mapping[str, Any]) -> str:
+    unsigned = copy.deepcopy(dict(value))
+    unsigned.pop("receipt_sha256", None)
+    authentication = unsigned.get("receipt_authentication")
+    if not isinstance(authentication, dict):
+        raise LiveAcceptanceError("receipt authentication is absent")
+    authentication.pop("signed_payload_sha256", None)
+    authentication.pop("signature_base64", None)
+    return digest(unsigned)
+
+
+def receipt_signing_payload(receipt_sha256: str) -> bytes:
+    try:
+        raw = bytes.fromhex(receipt_sha256)
+    except ValueError as exc:
+        raise LiveAcceptanceError("receipt digest is malformed") from exc
+    if len(raw) != 32:
+        raise LiveAcceptanceError("receipt digest is malformed")
+    return SIGNATURE_DOMAIN + raw
+
+
+def verify_receipt_signature(value: Mapping[str, Any], verification_key: bytes) -> None:
+    if not isinstance(verification_key, bytes) or len(verification_key) != 32:
+        raise LiveAcceptanceError("receipt verification key must be raw Ed25519 bytes")
+    authentication = value["receipt_authentication"]
+    expected = receipt_payload_sha256(value)
+    if value["receipt_sha256"] != expected or authentication["signed_payload_sha256"] != expected:
+        raise LiveAcceptanceError("authenticated receipt payload digest mismatch")
+    if authentication["verification_key_sha256"] != hashlib.sha256(verification_key).hexdigest():
+        raise LiveAcceptanceError("receipt is bound to another verification key")
+    try:
+        signature = base64.b64decode(authentication["signature_base64"], validate=True)
+        if len(signature) != 64:
+            raise ValueError("wrong signature length")
+        Ed25519PublicKey.from_public_bytes(verification_key).verify(
+            signature, receipt_signing_payload(expected)
+        )
+    except (InvalidSignature, ValueError) as exc:
+        raise LiveAcceptanceError("receipt Ed25519 signature is invalid") from exc
 
 
 def parse_utc(value: str) -> datetime:
@@ -207,6 +254,11 @@ def verify_s3(evidence: Mapping[str, Any], template: Mapping[str, Any], store: M
         raise LiveAcceptanceError("live bucket policy differs from committed rendered policy")
     if s3["tags"] != [{"Key": "c5k4:protocol", "Value": "v1.5"}, {"Key": "c5k4:activation", "Value": "PRE-P1"}]:
         raise LiveAcceptanceError("live bucket tags differ")
+    canary = s3["probe_canary"]
+    if canary["exists"] is not True or canary["delete_marker_present"] is not False:
+        raise LiveAcceptanceError("retained acceptance canary is absent or delete-marked")
+    if parse_utc(canary["retain_until_utc"]) < parse_utc(store["retention_through_utc"]):
+        raise LiveAcceptanceError("acceptance canary retention does not cover store horizon")
     acquired = parse_utc(evidence["acquired_at_utc"])
     if add_years(acquired, s3["retention_years"]) < parse_utc(store["retention_through_utc"]):
         raise LiveAcceptanceError("live default retention does not cover store horizon")
@@ -255,31 +307,71 @@ def verify_iam(evidence: Mapping[str, Any], template: Mapping[str, Any]) -> None
         raise LiveAcceptanceError("writer role has additional policy paths")
 
 
-def verify_probes(evidence: Mapping[str, Any]) -> None:
-    expected = {
-        "DELETE_OBJECT": ("CUSTODY_WRITER", "AccessDenied"),
-        "DELETE_OBJECT_VERSION": ("CUSTODY_WRITER", "AccessDenied"),
-        "SUSPEND_VERSIONING": ("CUSTODY_WRITER", "AccessDenied"),
-        "CHANGE_OBJECT_LOCK": ("CUSTODY_WRITER", "AccessDenied"),
-        "CHANGE_ENCRYPTION": ("CUSTODY_WRITER", "AccessDenied"),
-        "DISABLE_KMS_KEY": ("CUSTODY_WRITER", "AccessDeniedException"),
-        "SCHEDULE_KMS_KEY_DELETION": ("CUSTODY_WRITER", "AccessDeniedException"),
-        "PUT_OUTSIDE_PREFIX": ("CUSTODY_WRITER", "AccessDenied"),
-        "PUT_AS_NONWRITER": ("NON_WRITER_ACCOUNT_PRINCIPAL", "AccessDenied"),
+def probe_state(evidence: Mapping[str, Any]) -> dict[str, Any]:
+    return {
+        "schema": "c5k4-method-v1.5-immutable-store-probe-state-1.0",
+        "stack_sha256": digest(evidence["stack"]),
+        "s3_sha256": digest(evidence["s3"]),
+        "kms_sha256": digest(evidence["kms"]),
+        "iam_sha256": digest(evidence["iam"]),
     }
-    observed: dict[str, tuple[str, str]] = {}
+
+
+def expected_probe_requests(evidence: Mapping[str, Any]) -> dict[str, tuple[str, str, dict[str, Any]]]:
+    ids = evidence["resource_identities"]
+    canary = evidence["s3"]["probe_canary"]
+    bucket = ids["bucket"]
+    return {
+        "DELETE_OBJECT": ("CUSTODY_WRITER", "s3:DeleteObject", {"Bucket": bucket, "Key": canary["key"]}),
+        "DELETE_OBJECT_VERSION": ("CUSTODY_WRITER", "s3:DeleteObject", {"Bucket": bucket, "Key": canary["key"], "VersionId": canary["version_id"]}),
+        "SUSPEND_VERSIONING": ("CUSTODY_WRITER", "s3:PutBucketVersioning", {"Bucket": bucket, "VersioningConfiguration": {"Status": "Suspended"}}),
+        "CHANGE_OBJECT_LOCK": ("CUSTODY_WRITER", "s3:PutObjectLockConfiguration", {"Bucket": bucket, "ObjectLockConfiguration": {"ObjectLockEnabled": "Enabled", "Rule": {"DefaultRetention": {"Mode": "GOVERNANCE", "Years": 1}}}}),
+        "CHANGE_ENCRYPTION": ("CUSTODY_WRITER", "s3:PutBucketEncryption", {"Bucket": bucket, "ServerSideEncryptionConfiguration": [{"ApplyServerSideEncryptionByDefault": {"SSEAlgorithm": "AES256"}}]}),
+        "DISABLE_KMS_KEY": ("CUSTODY_WRITER", "kms:DisableKey", {"KeyId": ids["kms_key_arn"]}),
+        "SCHEDULE_KMS_KEY_DELETION": ("CUSTODY_WRITER", "kms:ScheduleKeyDeletion", {"KeyId": ids["kms_key_arn"], "PendingWindowInDays": 7}),
+        "PUT_OUTSIDE_PREFIX": ("CUSTODY_WRITER", "s3:PutObject", {"Bucket": bucket, "Key": "acceptance/outside-private-prefix-canary", "BodySHA256": canary["sha256"]}),
+        "PUT_AS_NONWRITER": ("NON_WRITER_ACCOUNT_PRINCIPAL", "s3:PutObject", {"Bucket": bucket, "Key": "private/c5k4/v1.5/acceptance/nonwriter-canary", "BodySHA256": canary["sha256"]}),
+    }
+
+
+def verify_probes(evidence: Mapping[str, Any]) -> None:
+    expected = expected_probe_requests(evidence)
+    expected_state = probe_state(evidence)
+    observed: set[str] = set()
     request_ids: set[str] = set()
     for row in evidence["destructive_probes"]:
         operation = row["operation"]
-        if operation in observed:
-            raise LiveAcceptanceError("duplicate destructive probe")
-        if row["http_status"] != 403 or row["explicit_deny"] is not True or row["state_unchanged"] is not True:
-            raise LiveAcceptanceError("destructive mutation was not explicitly rejected without state change")
-        if row["aws_request_id"] in request_ids:
+        if operation in observed or operation not in expected:
+            raise LiveAcceptanceError("duplicate or unknown destructive probe")
+        observed.add(operation)
+        caller, api, parameters = expected[operation]
+        request = row["request"]
+        if request != {"service": api.split(":", 1)[0].upper(), "api": api, "caller": caller, "parameters": parameters} or row["caller"] != caller:
+            raise LiveAcceptanceError("destructive probe raw request differs from exact operation")
+        if row["request_sha256"] != digest(request):
+            raise LiveAcceptanceError("destructive probe request digest mismatch")
+        result = row["result"]
+        code = "AccessDeniedException" if api.startswith("kms:") else "AccessDenied"
+        if set(result) != {"Error", "ResponseMetadata"}:
+            raise LiveAcceptanceError("destructive probe raw result shape differs")
+        error = result["Error"]
+        metadata = result["ResponseMetadata"]
+        if set(error) != {"Code", "Message"} or error["Code"] != code or not isinstance(error["Message"], str) or not 1 <= len(error["Message"]) <= 4096:
+            raise LiveAcceptanceError("destructive probe did not return exact access denial")
+        expected_status = 400 if api.startswith("kms:") else 403
+        if set(metadata) != {"HTTPStatusCode", "RequestId"} or metadata["HTTPStatusCode"] != expected_status or not re.fullmatch(r"[A-Za-z0-9-]{16,128}", str(metadata["RequestId"])):
+            raise LiveAcceptanceError("destructive probe response metadata differs")
+        if metadata["RequestId"] in request_ids:
             raise LiveAcceptanceError("destructive probes reuse an AWS request ID")
-        request_ids.add(row["aws_request_id"])
-        observed[operation] = (row["caller"], row["error_code"])
-    if observed != expected:
+        request_ids.add(metadata["RequestId"])
+        if row["result_sha256"] != digest(result):
+            raise LiveAcceptanceError("destructive probe result digest mismatch")
+        for phase in ("pre", "post"):
+            if row[f"{phase}_state"] != expected_state or row[f"{phase}_state_sha256"] != digest(row[f"{phase}_state"]):
+                raise LiveAcceptanceError("destructive probe state transcript differs")
+        if row["pre_state_sha256"] != row["post_state_sha256"]:
+            raise LiveAcceptanceError("destructive mutation changed authenticated state")
+    if observed != set(expected):
         raise LiveAcceptanceError("destructive probe closure is incomplete")
 
 
@@ -297,11 +389,10 @@ def verify_store_config(evidence: Mapping[str, Any], raw: bytes) -> dict[str, An
     return store
 
 
-def verify(evidence: Mapping[str, Any], store_config_raw: bytes) -> dict[str, Any]:
+def verify(evidence: Mapping[str, Any], store_config_raw: bytes, verification_key: bytes) -> dict[str, Any]:
     validate_schema(evidence, EVIDENCE_SCHEMA, "live evidence")
     reject_target_fields(evidence)
-    if evidence["receipt_sha256"] != self_digest(evidence, "receipt_sha256"):
-        raise LiveAcceptanceError("live evidence receipt self-digest mismatch")
+    verify_receipt_signature(evidence, verification_key)
     plan = infra.load_object(PLAN)
     template = infra.load_object(TEMPLATE)
     infra.verify(plan, template)
@@ -320,6 +411,9 @@ def verify(evidence: Mapping[str, Any], store_config_raw: bytes) -> dict[str, An
     verify_probes(evidence)
     return {
         "verified": True, "source": evidence["source"],
+        "signature_authenticated": True,
+        "signing_key_id": evidence["receipt_authentication"]["signing_key_id"],
+        "verification_key_sha256": evidence["receipt_authentication"]["verification_key_sha256"],
         "template_sha256": plan["template_sha256"],
         "store_config_sha256": evidence["bindings"]["store_config_sha256"],
         "evidence_receipt_sha256": evidence["receipt_sha256"],
@@ -327,11 +421,14 @@ def verify(evidence: Mapping[str, Any], store_config_raw: bytes) -> dict[str, An
     }
 
 
-def compile_acceptance_bundle(proof: Mapping[str, Any], *, allow_test_fixture: bool = False) -> dict[str, Any]:
-    if proof.get("verified") is not True:
-        raise LiveAcceptanceError("acceptance compiler requires verified evidence")
-    if proof.get("source") != "AWS_CLI_READONLY_CAPTURE" and not allow_test_fixture:
+def _require_live_proof(proof: Mapping[str, Any]) -> None:
+    if proof.get("verified") is not True or proof.get("signature_authenticated") is not True:
+        raise LiveAcceptanceError("acceptance compiler requires signature-authenticated evidence")
+    if proof.get("source") != "AWS_MIXED_READ_PROBE_CAPTURE":
         raise LiveAcceptanceError("injected fixture cannot produce operational acceptance")
+
+
+def _activation_acceptance(proof: Mapping[str, Any]) -> dict[str, Any]:
     worm = {
         "schema": "c5k4-method-v1.5-operational-worm-acceptance-1.0",
         "status": "OPERATIONAL_WORM_ACCEPTANCE_PASSED",
@@ -340,6 +437,16 @@ def compile_acceptance_bundle(proof: Mapping[str, Any], *, allow_test_fixture: b
         "operational": True, "activation_permitted": True,
     }
     worm["acceptance_sha256"] = digest(worm)
+    return worm
+
+
+def compile_activation_worm_acceptance(proof: Mapping[str, Any]) -> dict[str, Any]:
+    """Compile PRE-P1 activation readiness from a real signed live receipt."""
+    _require_live_proof(proof)
+    return _activation_acceptance(proof)
+
+
+def _runner_acceptance(proof: Mapping[str, Any]) -> dict[str, Any]:
     runner = {
         "schema": "c5k4-method-v1.5-worm-store-acceptance-1.0",
         "status": "FROZEN_P1_WORM_STORE_ACCEPTED", "operational": True,
@@ -348,35 +455,99 @@ def compile_acceptance_bundle(proof: Mapping[str, Any], *, allow_test_fixture: b
         "retention_through_utc": proof["retention_through_utc"], "private_only": True,
     }
     runner["acceptance_sha256"] = digest(runner)
-    bundle = {
-        "schema": "c5k4-method-v1.5-worm-live-acceptance-binding-1.0",
-        "status": "OPERATIONAL_WORM_INTERFACES_COMPILED",
-        "template_sha256": proof["template_sha256"],
-        "store_config_sha256": proof["store_config_sha256"],
-        "evidence_receipt_sha256": proof["evidence_receipt_sha256"],
-        "activation_worm_acceptance": worm, "runner_store_acceptance": runner,
-        "target_specific": False,
+    return runner
+
+
+def authorize_p1_resolution(
+    resolution: Mapping[str, Any], verification_key: bytes,
+    reader: Any = None,
+) -> dict[str, Any]:
+    """Prove the exact live verifier/schema/key commitment selected by P1."""
+    if resolution.get("status") != "AUTHENTICATED_PUBLISHED_P1_ROLE_CLOSURE" or resolution.get("operational") is not True:
+        raise LiveAcceptanceError("P1 role resolution is not authenticated and operational")
+    rows = {
+        (row.get("closure"), row.get("role")): row
+        for row in resolution.get("resolved_roles", []) if isinstance(row, dict)
     }
-    bundle["binding_sha256"] = digest(bundle)
-    return bundle
+    required = {
+        "immutable_live_acceptance_verifier",
+        "immutable_live_acceptance_evidence_schema",
+        "noninterference_key_commitment",
+        "operational_noninterference_key_commitment_schema",
+    }
+    if any(("NATIVE_V1_5", role) not in rows for role in required):
+        raise LiveAcceptanceError("P1 omits an immutable-acceptance authority role")
+    read = reader or (lambda path: (ROOT / path).read_bytes())
+    def role_bytes(role: str) -> bytes:
+        row = rows[("NATIVE_V1_5", role)]
+        raw = read(row["path"])
+        if not isinstance(raw, bytes) or hashlib.sha256(raw).hexdigest() != row["sha256"]:
+            raise LiveAcceptanceError(f"P1 role bytes differ for {role}")
+        return raw
+    verifier_row = rows[("NATIVE_V1_5", "immutable_live_acceptance_verifier")]
+    schema_row = rows[("NATIVE_V1_5", "immutable_live_acceptance_evidence_schema")]
+    if verifier_row["path"] != Path(__file__).resolve().relative_to(ROOT).as_posix() or role_bytes("immutable_live_acceptance_verifier") != Path(__file__).resolve().read_bytes():
+        raise LiveAcceptanceError("executing acceptance verifier differs from P1")
+    if schema_row["path"] != EVIDENCE_SCHEMA.relative_to(ROOT).as_posix() or role_bytes("immutable_live_acceptance_evidence_schema") != EVIDENCE_SCHEMA.read_bytes():
+        raise LiveAcceptanceError("executing acceptance schema differs from P1")
+    commitment_raw = role_bytes("noninterference_key_commitment")
+    commitment_schema_raw = role_bytes("operational_noninterference_key_commitment_schema")
+    try:
+        commitment = json.loads(commitment_raw)
+        commitment_schema = json.loads(commitment_schema_raw)
+        jsonschema.Draft7Validator(commitment_schema).validate(commitment)
+    except (UnicodeDecodeError, json.JSONDecodeError, jsonschema.ValidationError) as exc:
+        raise LiveAcceptanceError("P1 key commitment is not exact operational JSON") from exc
+    if commitment["commitment_sha256"] != digest({key: value for key, value in commitment.items() if key != "commitment_sha256"}):
+        raise LiveAcceptanceError("P1 key commitment self-digest mismatch")
+    if not isinstance(verification_key, bytes) or len(verification_key) != 32 or commitment["verification_key_sha256"] != hashlib.sha256(verification_key).hexdigest():
+        raise LiveAcceptanceError("P1 key commitment selects another Ed25519 key")
+    return {
+        "p1t_commit": resolution["p1"]["p1t_commit"],
+        "resolution_sha256": resolution["resolution_sha256"],
+        "signing_key_id": commitment["signing_key_id"],
+        "verification_key_sha256": commitment["verification_key_sha256"],
+    }
 
 
-def verify_acceptance_bundle(bundle: Mapping[str, Any], proof: Mapping[str, Any]) -> None:
-    expected = compile_acceptance_bundle(proof, allow_test_fixture=True)
-    if bundle != expected or bundle.get("binding_sha256") != self_digest(bundle, "binding_sha256"):
-        raise LiveAcceptanceError("acceptance bundle differs from deterministic evidence mapping")
+def compile_runner_store_acceptance(
+    proof: Mapping[str, Any], verification_key: bytes, p1t_commit: str, p1t_path: str,
+) -> dict[str, Any]:
+    """Compile FROZEN_P1 runner acceptance only through published P1 roles."""
+    _require_live_proof(proof)
+    try:
+        resolution = p1_roles.resolve_published_roles(ROOT, p1t_commit, p1t_path)
+    except Exception as exc:
+        raise LiveAcceptanceError("published P1 role resolution failed") from exc
+    authority = authorize_p1_resolution(resolution, verification_key)
+    if authority["signing_key_id"] != proof["signing_key_id"] or authority["verification_key_sha256"] != proof["verification_key_sha256"]:
+        raise LiveAcceptanceError("P1 key commitment differs from signed evidence")
+    return _runner_acceptance(proof)
 
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(add_help=False)
     parser.add_argument("--evidence", type=Path, required=True)
     parser.add_argument("--store-config", type=Path, required=True)
-    parser.add_argument("--emit-acceptance-bundle", action="store_true")
+    parser.add_argument("--verification-key", type=Path, required=True)
+    outputs = parser.add_mutually_exclusive_group()
+    outputs.add_argument("--emit-activation-acceptance", action="store_true")
+    outputs.add_argument("--emit-runner-acceptance", action="store_true")
+    parser.add_argument("--p1t-commit")
+    parser.add_argument("--p1t-path")
     args = parser.parse_args(argv)
     try:
-        proof = verify(infra.load_object(args.evidence), args.store_config.read_bytes())
-        if args.emit_acceptance_bundle:
-            print(json.dumps(compile_acceptance_bundle(proof), sort_keys=True, separators=(",", ":")))
+        verification_key = args.verification_key.read_bytes()
+        proof = verify(infra.load_object(args.evidence), args.store_config.read_bytes(), verification_key)
+        output = None
+        if args.emit_activation_acceptance:
+            output = compile_activation_worm_acceptance(proof)
+        elif args.emit_runner_acceptance:
+            if not args.p1t_commit or not args.p1t_path:
+                raise LiveAcceptanceError("runner acceptance requires exact P1T inputs")
+            output = compile_runner_store_acceptance(proof, verification_key, args.p1t_commit, args.p1t_path)
+        if output is not None:
+            print(json.dumps(output, sort_keys=True, separators=(",", ":")))
     except (LiveAcceptanceError, infra.InfrastructurePlanError, OSError, json.JSONDecodeError, KeyError, TypeError):
         return 2
     return 0
