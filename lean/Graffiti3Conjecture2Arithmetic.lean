@@ -42,14 +42,14 @@ namespace Graffiti3.Conjecture2
 lemma sqrt_thirteen_mul_twenty_five :
     Real.sqrt ((13 : ℝ) * 25) = 5 * Real.sqrt 13 := by
   rw [Real.sqrt_mul (by positivity : (0 : ℝ) ≤ 13)]
-  norm_num <;> ring
+  norm_num; ring
 
 /-- The right spoke radical reduces from `sqrt (14 * 25)` to `5 * sqrt 14`. -/
 @[category test, AMS 5]
 lemma sqrt_fourteen_mul_twenty_five :
     Real.sqrt ((14 : ℝ) * 25) = 5 * Real.sqrt 14 := by
   rw [Real.sqrt_mul (by positivity : (0 : ℝ) ≤ 14)]
-  norm_num <;> ring
+  norm_num; ring
 
 /-- The three edge classes of the `(11, 12)` double star give the displayed
 closed form: one center edge, eleven left spokes, and twelve right spokes. -/
@@ -60,7 +60,7 @@ lemma edge_class_decomposition :
         12 * (2 * Real.sqrt ((14 : ℝ) * 25) / (14 + 25)) =
       1 + 55 * Real.sqrt 13 / 19 + 40 * Real.sqrt 14 / 13 := by
   rw [sqrt_thirteen_mul_twenty_five, sqrt_fourteen_mul_twenty_five]
-  norm_num <;> ring
+  norm_num; ring
 
 /-- Exact strict arithmetic certificate for the candidate's RGA2 value. -/
 @[category test, AMS 5]
@@ -109,7 +109,7 @@ lemma sqrt_fourteen_mul_twenty_six :
     Real.sqrt ((14 : ℝ) * 26) = 2 * Real.sqrt 91 := by
   rw [show (14 : ℝ) * 26 = 4 * 91 by norm_num,
     Real.sqrt_mul (by positivity : (0 : ℝ) ≤ 4)]
-  norm_num <;> ring
+  norm_num
 
 /-- The center edge and 24 spokes of the balanced `(12, 12)` double star
 reduce to a particularly short closed form. -/
@@ -119,7 +119,7 @@ lemma balanced_edge_class_decomposition :
         24 * (2 * Real.sqrt ((14 : ℝ) * 26) / (14 + 26)) =
       1 + 12 * Real.sqrt 91 / 5 := by
   rw [sqrt_fourteen_mul_twenty_six]
-  norm_num <;> ring
+  norm_num; ring
 
 /-- A second arithmetic certificate from the balanced `(12, 12)` double star.
 Its 24 leaves are independent and its exact RGA2 value is below 24. -/
