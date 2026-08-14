@@ -1,0 +1,74 @@
+{
+  "schema": "catchup-n24-parity-packed-development-v1",
+  "development_only": true,
+  "target_evaluated_at_freeze": false,
+  "pre_freeze_local_commit": "d9ae09fe54af131790e72d12ad8b438a4b1fd9f6",
+  "campaign_commit_binding": "workflow_dispatch exact 40-hex commit equals checked-out HEAD",
+  "design_inputs": {
+    "current_status_audit": {
+      "path": "results/expansion/live-search-2026-08-14/catchup-n24-current-status-audit.md",
+      "sha256": "7643189b9dfc16a5c824fe32fb93c14ceedca5851cc0520923e42c1483069ec7"
+    },
+    "parity_packed_scout": {
+      "path": "results/expansion/live-search-2026-08-14/catchup-n24-parity-packed-scout.md",
+      "sha256": "50c9ea39967e32c36cfa22b126878e0a66c0274fb686fdcb17d9d89467cc7049"
+    }
+  },
+  "formal_conjectures": {
+    "commit": "6c0950bec7743f5098c0196c6aee7b22c1ec8005",
+    "tree": "5af0d2a3a319ee2458f8cd061db7c49aeba1b35e",
+    "path": "FormalConjectures/Paper/CatchUpConjecture.lean",
+    "blob_sha1": "ce8251a228ea79a6b2f8414e9eb6b5291a640677",
+    "sha256": "7e940f2e37a1794e98fc21454096429da13243669a432b9239743aaf46f1d3c0",
+    "declaration": "CatchUp.value_of_even_mul_succ_self_div_two",
+    "category": "research open"
+  },
+  "target": {
+    "n": 24,
+    "triangular_sum": 300,
+    "premise_even": true,
+    "literal_counterexample_values": [-1, 1],
+    "draw_disposition": "HOLD_BOUNDED",
+    "non_result_disposition": "TIMEOUT_BRACKET"
+  },
+  "representation": {
+    "mask_bits": 24,
+    "word_type": "uint32_t",
+    "bytes_per_mask": 4,
+    "memo_bytes_at_n24": 67108864,
+    "codes": {"unknown": 0, "loss": 1, "draw": 2, "win": 3},
+    "slot": "deficit >> 1",
+    "shift": "2 * slot",
+    "reachable_invariants": ["0 <= deficit <= N", "(deficit + remaining_sum) mod 2 = triangular_sum mod 2"],
+    "move_order": "ascending set-bit extraction"
+  },
+  "source_controls": [3, 4, 7, 8, 11, 12, 15, 16, 19, 20],
+  "target_free_strategy_controls": {"win_n": 1, "loss_n": 9},
+  "known_upstream_issue_pr_ids": [1324, 1325, 4834],
+  "n23_gate": {
+    "value": 0,
+    "value_name": "draw",
+    "memo_states": 95451689,
+    "calls": 826741149,
+    "maximum_solver_seconds": 38,
+    "prefreeze_vps_seconds": 10.08,
+    "prefreeze_vps_peak_rss_kib": 36328
+  },
+  "caps": {
+    "n23_internal_seconds": 38,
+    "n23_external_seconds": 43,
+    "n24_internal_seconds": 54,
+    "n24_external_seconds": 60,
+    "verifier_external_seconds": 60
+  },
+  "activation": {
+    "default_authorize_n24": false,
+    "required_token": "AUTHORIZE_FROZEN_CATCHUP_N24_V1",
+    "generic_n24_cli_available": false
+  },
+  "incremental_checkpoint_memo_states": 1000000,
+  "controlled_signals": [2, 15],
+  "certificate_publication": "write .partial then atomically rename only after complete flush",
+  "non_draw_certificate": "complete independently replayed strategy DAG",
+  "public_action_authorized": false
+}
