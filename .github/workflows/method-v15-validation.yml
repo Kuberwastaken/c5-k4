@@ -63,6 +63,7 @@ jobs:
             attrs==24.2.0 \
             cryptography==44.0.1 \
             jsonschema==3.2.0 \
+            networkx==3.2.1 \
             pyrsistent==0.20.0 \
             PyYAML==6.0.2 \
             setuptools==75.8.0 \
