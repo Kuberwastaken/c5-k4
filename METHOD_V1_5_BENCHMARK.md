@@ -283,6 +283,11 @@ The repository currently contains and tests:
   an exact KMS key and bucket-policy digest, deletion denial, a single
   version/no-delete-marker inventory, and version-pinned bytes, plus a
   remote-authoritative broker bridge whose local CAS is only a cache;
+- an inert, target-blind CloudFormation plan for the future private store. Its
+  static verifier closes the five-resource S3 Object Lock/KMS/single-writer
+  IAM set, exact policy commitments, universal destructive/out-of-prefix
+  denies, retention on replacement/deletion, and zero public outputs. It makes
+  no AWS call and is not live acceptance;
 - a signed broker-to-custody compiler with an authenticated single-service
   epoch, and an inert private-input assembler that accepts only version-pinned
   WORM locators, replays the registry against two distinct acquisitions, and
@@ -307,6 +312,13 @@ The repository currently contains and tests:
   roots, no network, one CPU, and a 60-second process-tree cap. Target-free
   acceptance passes on a supported Linux host, but the adapter remains
   nonactivated and has consumed no target;
+- an inert Amazon Linux 2023 deployment scaffold and read-only host verifier,
+  plus a future operational-unit generator that binds root-owned P1/service
+  bytes, offline-verified TLS certificate/key identity, systemd credential
+  delivery, the exact scheduled-workflow OIDC identity, pinned endpoint
+  resolution, WORM/noninterference/destructive-gap acceptances, and required
+  namespace capabilities. Generated units remain uninstalled, inactive, and
+  unauthorized for activation;
 - an offline validation workflow; and
 - a target-blind scheduled checkpoint workflow and bounded publisher in an
   intentionally inert state. Its invocation contract remains
