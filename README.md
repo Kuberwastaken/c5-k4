@@ -51,7 +51,7 @@ tight as **local maps of conjecture space**:
    independent exact recomputation, source recovery, and a no-`sorry` Lean
    certificate.
 
-That procedure has now produced three prospective structural transfers and one
+That procedure has now produced four prospective structural transfers and one
 prospective theorem recovery, not merely retrospective explanations of the
 original four kills:
 
@@ -60,6 +60,7 @@ original four kills:
 | `C₅[K_m]` on the `L_s+b` frontier | `α=λ_max` prevents #181 from crossing | triangular graphs `T(n)` | #181 under the formalized square-degree reading |
 | diameter-two equality wall around #176 | the selected square-degree vertices cannot separate in the original metric | two triangles joined by a long path (`D_L`) | #176, then adjacent #172 |
 | regular clique blow-ups in the independent-domination cluster | center geometry and the Caro--Wei correction move together | nonuniform `P₇` clique blow-ups | #430a |
+| stars on the Graffiti³ closed-distance-two GA wall | one hub keeps every spoke term at equality | split the hub into adjacent unequal centers (double stars) | Graffiti³ Conjecture 2; `DS(k,k)` fails for every `k>=12` |
 | repeated equality in #438b | matching edges seem able to evade both induced-subgraph corrections | low-degree false-twin layer | no crossing: the attempted separation yields a stronger arbitrary-subset theorem proving #438b |
 
 The `P₇` crossing is especially important: it is the second instance in a
@@ -283,30 +284,33 @@ deadline. The result is reported as a bounded prefix, and the next pass must
 precompute canonical identities and log an explicit terminal reason. See
 [`txgraffiti-cc-phase3-result.md`](results/expansion/live-search-2026-08-14/txgraffiti-cc-phase3-result.md).
 
-That completion pass is now frozen and running as phase four. It enumerates
-the 5,320 construction states without reading the objective, canonicalizes
-them once with pinned nauty, subtracts the phase-three identities, and assigns
-the remaining denominator to 24 disjoint workers. Each worker retains the
-four-second exact-ILP cap inside a 54-second internal and 60-second external
-wall, and can report `DOMAIN_EXHAUSTED` only through an aggregate coverage
-proof. The [contract](results/expansion/live-search-2026-08-14/txgraffiti-cc-phase4.md)
-and [manifest](results/expansion/live-search-2026-08-14/txgraffiti-cc-phase4-manifest.json)
-are public before the rerun; no mathematical conclusion is inferred until its
-content-addressed artifacts pass the aggregate gate.
+Phase four has now closed that ambiguity. Its target-blind constructor reduced
+5,320 construction states to 4,961 canonical identities; 24 disjoint workers
+scored every identity omitted by phase three. All workers terminated
+`DOMAIN_EXHAUSTED`, the aggregate coverage proof replayed with zero audit
+errors, and no crossing exists in the complete frozen domain. This is a
+finished negative family result, not a proof for all connected regular graphs.
+See the [phase-four result](results/expansion/live-search-2026-08-14/txgraffiti-cc-phase4-result.md).
 
-The live loop has also rotated beyond previously mined statements. Two fresh
-development campaigns are frozen independently: Graffiti³ Conjecture 2 is
-being attacked from its exact star equality wall with rigorous radical upper
-bounds, while the current DeepMind `min_modulus` declaration is being searched
-through exact multiset-collision counts and an independent composition replay.
-Both use three separately attributable arms, mandatory sanity gates,
-incremental hash-chained output, and 60-second worker caps. Their
-[Graffiti³ contract](results/expansion/live-search-2026-08-14/graffiti3-conjecture2-contract.md)
-and [minimum-modulus contract](results/expansion/live-search-2026-08-14/min-modulus-contract.md)
-are prospective development records, not results or release claims.
+The live loop also rotated beyond previously mined statements. The exact
+minimum-modulus campaign scored 53,677 canonical multisets across 24 isolated
+jobs and found no crossing; deadline-limited shards make this a bounded zero,
+not a universal proof. Its
+[result](results/expansion/live-search-2026-08-14/min-modulus-result.md)
+recommends changing the collision structure rather than extending the same
+prefixes.
 
-No row in those rounds is a release candidate. The exact contracts, ledgers,
-corrections, stop reasons, and reports are under
+The separately frozen Graffiti³ Conjecture 2 campaign did cross its exact star
+equality wall. Splitting one hub into adjacent unequal centers produced the
+25-vertex double star `DS(11,12)`, for which
+`RGA²=22.949914...<23=alpha`; catalogue and wall-navigation arms reached the
+same canonical graph independently. Balanced `DS(k,k)` supplies an infinite
+counterexample family for every `k>=12`. The exact
+[result](results/expansion/live-search-2026-08-14/graffiti3-conjecture2-result.md),
+independent verifier, source/status audit, and arithmetic Lean certificate are
+committed; warning-clean external Lean replay is the final release gate.
+
+The exact contracts, ledgers, corrections, stop reasons, and reports are under
 [`results/expansion/`](results/expansion/); the current portfolio and its
 scope limits are summarized in [`OVERARCHING_PLAN.md`](OVERARCHING_PLAN.md).
 
