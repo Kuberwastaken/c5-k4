@@ -1,6 +1,6 @@
-# Bondy longest-cycles frozen DEVELOPMENT contract v3
+# Bondy longest-cycles frozen DEVELOPMENT contract v3.1
 
-**State:** v3 tip-continuity policy sealed, disabled by default, never dispatched
+**State:** v3.1 REST-shape correction sealed, disabled by default, never dispatched
 
 **Evidence class:** contaminated `DEVELOPMENT`, never held out
 
@@ -8,20 +8,20 @@
 
 **Only slice:** `k=4`, source parameter `t=4`, `n=24`
 
-This v3 contract supersedes v2 while preserving all v1/v2 reports as
+This v3.1 contract supersedes v3 while preserving all v1/v2/v3 reports as
 historical records. It freezes the same small balanced delete/add port-
 rewiring arm around the source sharpness graph `S(4,4)`. This seal alone does not authorize execution,
 publication, a release, an issue, or a pull request.
 The workflow remains disabled by default. A target process can start only when
 an explicit dispatch supplies all of: `enable_target=true`, a campaign commit
 equal to the checked-out `HEAD`, a clean tree, and a guard whose SHA-256 is
-exactly `d061571de2bf737ce447b77ebe0e6c2d995d98ab3061f000d1db25fe161e69dc`.
+exactly `09d64624c2861b21d5883cfd276ce49eebce7d9c6f61e47193d50bf894be8e51`.
 Only the hash is tracked; the guard preimage is deliberately absent from code,
 the manifest, and documentation. `HEAD` is checked at runtime rather than
 embedded in its own tracked contents, avoiding a self-referential Git hash.
-The immutable v3 content registry independently binds every executable and
+The immutable v3.1 content registry independently binds every executable and
 contract file. Before any target row, the runner accepts only the exact
-`bondy_source_status_duplicate_gate_tip_continuity_v3` schema and recomputes
+`bondy_source_status_duplicate_gate_tip_continuity_v3_1` schema and recomputes
 its ancestry, complete-delta, closure, toolchain, declaration, bracket, and
 open-PR bindings. A v1, v2, incomplete, or forged `PASS` object is rejected.
 Workflow dispatch strings are mapped through step environment variables and
@@ -48,6 +48,13 @@ and discharge the outer equivalence (for example via `true_iff`/`false_iff`
 after selecting the answer). No result may blur this answer-wrapper caveat.
 
 The historical anchor remains exactly `b5ac...` and is never silently repinned.
+Version 3.1 corrects live-main REST parsing: the commit is exactly `.sha` and
+the root tree is exactly `.commit.tree.sha`; a missing nested field or an
+ambiguous top-level `.tree` is a strict stop. The superseded v3 parser expected
+a nonexistent top-level tree and therefore could not produce a valid live PASS.
+The v3.1 correction deliberately adds one `bondy_conjecture` pickaxe marker;
+the local contamination gate therefore requires exactly three freeze-introducer
+commits rather than accepting a loose upper bound.
 Live `main` may advance only when that anchor is its merge base and ancestor,
 the complete NUL-delimited local Git diff is enumerated, and the delta is
 disjoint from all 168 recursively resolved Lean closure paths plus the exact
@@ -63,7 +70,7 @@ identity set with an identity-only second pass, and uses REST only to recover
 renamed-away paths. Both full binding surfaces must be byte-equal. Rate limits,
 timeouts, ambiguity, merges without parent-indexed provenance, protected-path
 touches, or any dependency drift are strict stops. The current GitHub rate-limit
-caveat means there is no v3 PASS record yet; target execution stays unavailable
+caveat means there is no v3.1 PASS record yet; target execution stays unavailable
 until a fresh complete stable bracket succeeds.
 
 ## Source control and theorem subtraction

@@ -1,10 +1,10 @@
 {
-  "schema": "bondy_source_status_attestation_v3",
-  "seal_version": "bondy-longest-cycles-development-v3",
-  "supersedes": "bondy-longest-cycles-development-v2",
-  "status": "PENDING_AUTHENTICATED_LIVE_GATE_RATE_LIMITED",
+  "schema": "bondy_source_status_attestation_v3_1",
+  "seal_version": "bondy-longest-cycles-development-v3.1",
+  "supersedes": "bondy-longest-cycles-development-v3",
+  "status": "PENDING_AUTHENTICATED_LIVE_GATE_V31",
   "audit_date_utc": "2026-08-14",
-  "live_gate_schema": "bondy_source_status_duplicate_gate_tip_continuity_v3",
+  "live_gate_schema": "bondy_source_status_duplicate_gate_tip_continuity_v3_1",
   "historical_upstream": {
     "commit": "b5acb0ff13e38084105b7fe020ba0d59c1925bc5",
     "tree": "4f6c9bd17fdfdc264f54b26862ce768743da5d63",
@@ -18,7 +18,8 @@
   "semantic_closure_sha256": "06f205b34dc84a04c0d46d718c0a1fe46b5634f76f39343e51dd132d43dfdbb7",
   "toolchain_sha256": "3221ee3df4f1c1a23f5eddcddb22cce96a00543c432f7310366b88444406e0c6",
   "external_revisions_sha256": "4baee9cf677780f654f3d1e4413346482853ad52874add3a7cecf6ed04a4bfe6",
-  "rate_limit_caveat": "No v3 PASS attestation exists; a fresh complete stable live bracket is mandatory.",
+  "activation_token_sha256": "09d64624c2861b21d5883cfd276ce49eebce7d9c6f61e47193d50bf894be8e51",
+  "live_gate_caveat": "No v3.1 PASS attestation exists; a fresh complete stable live bracket using exact REST .sha and .commit.tree.sha is mandatory.",
   "workflow_enabled_by_default": false,
   "target_evaluated": false
 }

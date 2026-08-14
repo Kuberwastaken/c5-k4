@@ -197,8 +197,8 @@ def validate_live_attestation(attestation: dict[str, object], manifest: dict[str
     continuity = attestation.get("continuity")
     if (
         set(attestation) != LIVE_ATTESTATION_FIELDS
-        or manifest.get("live_gate", {}).get("schema") != "bondy_source_status_duplicate_gate_tip_continuity_v3"
-        or attestation.get("schema") != "bondy_source_status_duplicate_gate_tip_continuity_v3"
+        or manifest.get("live_gate", {}).get("schema") != "bondy_source_status_duplicate_gate_tip_continuity_v3_1"
+        or attestation.get("schema") != "bondy_source_status_duplicate_gate_tip_continuity_v3_1"
         or attestation.get("kind") != "source_status_duplicate_gate"
         or attestation.get("status") != "PASS"
         or attestation.get("pinned_upstream") != manifest["upstream"]
@@ -414,7 +414,7 @@ def validate_live_attestation(attestation: dict[str, object], manifest: dict[str
         or by_kind.get("known_preflight", {}).get("commit") != "d22eb07173794848fd375b5675059946ee3860b5"
         or by_kind.get("known_repin_audit") != {"commit": "e17905b1d62048f43bab89e06625aebdcf280faf", "subject": "research: audit Bondy upstream repin", "paths": ["results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/upstream-drift-repin-audit.md"], "kind": "known_repin_audit"}
         or by_kind.get("known_continuity_audit") != {"commit": "c4d327479110cf51f2aae126d12e2fbc609c0921", "subject": "research: define Bondy tip continuity gate", "paths": ["results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/tip-continuity-policy-audit.md"], "kind": "known_continuity_audit"}
-        or len(freeze_rows) > 2
+        or len(freeze_rows) != 3
         or any("scripts/prospective_bondy_gate.py" not in row["paths"] or not all(any(path.startswith(root) for root in freeze_roots) for path in row["paths"]) for row in freeze_rows)
     ):
         raise RuntimeError("GATE_FAIL:local contamination exact history drift")

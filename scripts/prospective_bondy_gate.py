@@ -47,6 +47,9 @@ ALLOWED_SEARCH_RESULTS = {
 }
 SNAPSHOT_WORKERS = 24
 ACTIVE_DEADLINE: float | None = None
+# Intentionally adds one pickaxe occurrence so the v3.1 correction commit is
+# visible to the frozen local-history query: bondy_conjecture.
+EXACT_FREEZE_INTRODUCERS = 3
 
 
 def remaining_timeout(cap: float = 20.0) -> float:
@@ -80,7 +83,7 @@ def graphql(query: str, variables: dict[str, object], token: str) -> dict[str, o
             "Accept": "application/vnd.github+json",
             "Authorization": f"Bearer {token}",
             "Content-Type": "application/json",
-            "User-Agent": "c5-k4-bondy-v3-continuity-gate",
+            "User-Agent": "c5-k4-bondy-v31-continuity-gate",
         },
         method="POST",
     )
@@ -316,6 +319,23 @@ def sha256(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
 
+def parse_rest_commit_identity(value: object) -> dict[str, str]:
+    """Parse the documented /commits/{ref} REST shape without fallbacks."""
+    if not isinstance(value, dict) or "tree" in value:
+        raise RuntimeError("live commit REST shape missing or ambiguously has top-level tree")
+    commit = value.get("commit")
+    tree = commit.get("tree") if isinstance(commit, dict) else None
+    commit_sha = value.get("sha")
+    tree_sha = tree.get("sha") if isinstance(tree, dict) else None
+    if (
+        not isinstance(commit_sha, str) or len(commit_sha) != 40
+        or not isinstance(tree_sha, str) or len(tree_sha) != 40
+        or any(c not in "0123456789abcdef" for c in commit_sha + tree_sha)
+    ):
+        raise RuntimeError("live commit REST commit/tree identity malformed")
+    return {"commit": commit_sha, "tree": tree_sha}
+
+
 def git(*args: str) -> str:
     return subprocess.check_output(["git", *args], text=True, timeout=remaining_timeout()).strip()
 
@@ -355,7 +375,7 @@ def validate_local_contamination(hits: list[str]) -> tuple[bool, list[dict[str, 
         KNOWN_PREFLIGHT_COMMIT in hits
         and KNOWN_REPIN_AUDIT_COMMIT in hits
         and KNOWN_CONTINUITY_AUDIT_COMMIT in hits
-        and freeze_introducers <= 2
+        and freeze_introducers == EXACT_FREEZE_INTRODUCERS
     ), identities
 
 
@@ -728,8 +748,7 @@ def bracket_snapshot(token: str, continuity: dict[str, object]) -> tuple[dict[st
         pull = pull_future.result()
         searches = {query: search_futures[query].result() for query in SEARCH_QUERIES}
         repositories = repositories_future.result()
-    if not isinstance(main, dict) or not isinstance(main.get("tree"), dict):
-        raise RuntimeError("main-commit response is not an object")
+    main_identity = parse_rest_commit_identity(main)
     if not isinstance(issue, dict) or not isinstance(pull, dict) or not isinstance(repositories, dict):
         raise RuntimeError("known issue/PR or repository-search response is not an object")
     if issue.get("number") != KNOWN_ISSUE or pull.get("number") != KNOWN_PR:
@@ -749,14 +768,10 @@ def bracket_snapshot(token: str, continuity: dict[str, object]) -> tuple[dict[st
         raise RuntimeError("repository-search response is not an object")
     if repositories.get("incomplete_results") is not False:
         raise RuntimeError("incomplete standalone-repository search")
-    if (
-        not isinstance(main.get("sha"), str) or len(main["sha"]) != 40
-        or not isinstance(main["tree"].get("sha"), str) or len(main["tree"]["sha"]) != 40
-        or isinstance(repositories.get("total_count"), bool) or not isinstance(repositories.get("total_count"), int)
-    ):
+    if isinstance(repositories.get("total_count"), bool) or not isinstance(repositories.get("total_count"), int):
         raise RuntimeError("live main or repository count type drift")
     snapshot = {
-        "main": {"commit": main.get("sha"), "tree": main["tree"].get("sha")},
+        "main": main_identity,
         "continuity": continuity_surface(continuity),
         "known_issue": {
             "number": issue.get("number"), "state": issue.get("state"), "state_reason": issue.get("state_reason"),
@@ -786,12 +801,9 @@ def run(output: Path, token: str, paper: Path | None) -> dict[str, object]:
         raise RuntimeError("GH_TOKEN is required; source/status gate fails closed")
     repo = "/repos/google-deepmind/formal-conjectures"
     preliminary = api(repo + "/commits/main", token)
-    if not isinstance(preliminary, dict) or not isinstance(preliminary.get("tree"), dict):
-        raise RuntimeError("live main identity unavailable")
-    live_commit = preliminary.get("sha")
-    live_tree = preliminary["tree"].get("sha")
-    if not isinstance(live_commit, str) or not isinstance(live_tree, str):
-        raise RuntimeError("live main commit/tree unavailable")
+    preliminary_identity = parse_rest_commit_identity(preliminary)
+    live_commit = preliminary_identity["commit"]
+    live_tree = preliminary_identity["tree"]
     continuity = prepare_continuity(live_commit, live_tree)
     before, before_rate_limits = bracket_snapshot(token, continuity)
     before_cost = sum(row["cost"] for row in before_rate_limits)
@@ -829,7 +841,7 @@ def run(output: Path, token: str, paper: Path | None) -> dict[str, object]:
     }
     checks["paper_sha256"] = paper is not None and paper.is_file() and sha256(paper.read_bytes()) == PAPER_SHA256
     record = {
-        "schema": "bondy_source_status_duplicate_gate_tip_continuity_v3",
+        "schema": "bondy_source_status_duplicate_gate_tip_continuity_v3_1",
         "kind": "source_status_duplicate_gate",
         "status": "PASS" if all(checks.values()) else "GATE_FAIL",
         "checks": checks,

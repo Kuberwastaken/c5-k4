@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Static, target-free integrity verifier for the Bondy v3 freeze."""
+"""Static, target-free integrity verifier for the Bondy v3.1 freeze."""
 
 from __future__ import annotations
 
@@ -24,8 +24,8 @@ def canonical_sha256(value: object) -> str:
 
 
 registry = json.loads((HERE / "freeze-files.json").read_text())
-if registry.get("schema") != "bondy-freeze-files-v3":
-    raise SystemExit("v3 freeze registry schema drift")
+if registry.get("schema") != "bondy-freeze-files-v3.1":
+    raise SystemExit("v3.1 freeze registry schema drift")
 REQUIRED_FREEZE_PATHS = {
     ".github/workflows/bondy-longest-cycles-development.yml",
     "scripts/prospective_bondy_construct.py", "scripts/prospective_bondy_gate.py",
@@ -35,6 +35,7 @@ REQUIRED_FREEZE_PATHS = {
     "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/activation-gate-validation.md",
     "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/invalid-preactivation-gate-timeout.md",
     "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/invalid-run-31845837185.md",
+    "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/invalid-run-31849777027.md",
     "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/manifest.json",
     "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/math-audit.md",
     "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/parallel-live-gate-validation.md",
@@ -47,17 +48,44 @@ REQUIRED_FREEZE_PATHS = {
     "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/verify_freeze.py",
 }
 if set(registry.get("sha256", {})) != REQUIRED_FREEZE_PATHS:
-    raise SystemExit("v3 freeze registry exact protected-path set drift")
+    raise SystemExit("v3.1 freeze registry exact protected-path set drift")
 for relative, expected in registry.get("sha256", {}).items():
     path = ROOT / relative
     if not path.is_file() or digest(path) != expected:
         raise SystemExit(f"freeze content drift: {relative}")
 
 manifest = json.loads((HERE / "manifest.json").read_text())
-if manifest.get("seal_version") != "bondy-longest-cycles-development-v3" or manifest.get("supersedes") != "bondy-longest-cycles-development-v2":
-    raise SystemExit("v3 seal identity drift")
-if manifest.get("live_gate", {}).get("schema") != "bondy_source_status_duplicate_gate_tip_continuity_v3":
-    raise SystemExit("v3-only live gate drift")
+if manifest.get("seal_version") != "bondy-longest-cycles-development-v3.1" or manifest.get("supersedes") != "bondy-longest-cycles-development-v3":
+    raise SystemExit("v3.1 seal identity drift")
+if manifest.get("live_gate") != {
+    "schema": "bondy_source_status_duplicate_gate_tip_continuity_v3_1",
+    "main_rest_identity_paths": ["sha", "commit.tree.sha"],
+    "reject_top_level_tree": True,
+    "snapshot_workers": 24,
+    "open_pull_page_size": 100,
+    "changed_file_page_size": 100,
+    "complete_file_bindings_in_both_brackets": True,
+    "identity_only_stabilization_pass": True,
+    "whole_gate_seconds": 58,
+    "rename_previous_path_required": True,
+}:
+    raise SystemExit("v3.1-only live gate drift")
+if manifest.get("local_history") != {
+    "known_preflight_commit": "d22eb07173794848fd375b5675059946ee3860b5",
+    "known_repin_audit_commit": "e17905b1d62048f43bab89e06625aebdcf280faf",
+    "known_continuity_audit_commit": "c4d327479110cf51f2aae126d12e2fbc609c0921",
+    "pickaxe": "bondy_conjecture",
+    "exact_freeze_introducers": 3,
+}:
+    raise SystemExit("v3.1 exact local-history policy drift")
+activation_hash = "09d64624c2861b21d5883cfd276ce49eebce7d9c6f61e47193d50bf894be8e51"
+if manifest.get("target_execution_lock") != {
+    "enabled_by_default": False,
+    "token_provisioned": True,
+    "activation_token_sha256": activation_hash,
+    "state": "V31_REPLACEMENT_GUARD_HASH_PROVISIONED_DEFAULT_DISABLED",
+}:
+    raise SystemExit("v3.1 target execution lock drift")
 if manifest.get("upstream") != {
     "commit": "b5acb0ff13e38084105b7fe020ba0d59c1925bc5",
     "tree": "4f6c9bd17fdfdc264f54b26862ce768743da5d63",
@@ -88,15 +116,17 @@ if (
 
 attestation = json.loads((HERE / "source-status-attestation.json").read_text())
 if (
-    attestation.get("schema") != "bondy_source_status_attestation_v3"
+    attestation.get("schema") != "bondy_source_status_attestation_v3_1"
     or attestation.get("seal_version") != manifest["seal_version"]
-    or attestation.get("status") != "PENDING_AUTHENTICATED_LIVE_GATE_RATE_LIMITED"
+    or attestation.get("supersedes") != manifest["supersedes"]
+    or attestation.get("status") != "PENDING_AUTHENTICATED_LIVE_GATE_V31"
     or attestation.get("live_gate_schema") != manifest["live_gate"]["schema"]
     or attestation.get("historical_upstream") != manifest["upstream"]
+    or attestation.get("activation_token_sha256") != activation_hash
     or attestation.get("workflow_enabled_by_default") is not False
     or attestation.get("target_evaluated") is not False
 ):
-    raise SystemExit("pending v3 source/status record drift")
+    raise SystemExit("pending v3.1 source/status record drift")
 
 grammar = manifest["grammar"]
 if grammar["row_limit"] != construct.ROW_LIMIT or construct.source_control()["scaled_degree_residual"] != -1:
@@ -109,25 +139,29 @@ gate = (ROOT / "scripts/prospective_bondy_gate.py").read_text()
 search = (ROOT / "scripts/prospective_bondy_search.py").read_text()
 workflow = (ROOT / ".github/workflows/bondy-longest-cycles-development.yml").read_text()
 for token in (
-    "bondy_source_status_duplicate_gate_tip_continuity_v3", "semantic-closure-v3.json",
+    "bondy_source_status_duplicate_gate_tip_continuity_v3_1", "parse_rest_commit_identity", "semantic-closure-v3.json",
     "merge-base", "--is-ancestor", "--name-status", "OPEN_PULL_IDENTITY_QUERY",
     "changeType", "previous_filename", "whole-gate monotonic deadline",
+    "EXACT_FREEZE_INTRODUCERS = 3", "freeze_introducers == EXACT_FREEZE_INTRODUCERS",
 ):
     if token not in gate:
-        raise SystemExit(f"v3 gate token absent: {token}")
-for token in ("bondy_source_status_duplicate_gate_tip_continuity_v3", "canonical JSON", "protected_paths", "validate_live_attestation"):
+        raise SystemExit(f"v3.1 gate token absent: {token}")
+for token in (
+    "bondy_source_status_duplicate_gate_tip_continuity_v3_1", "canonical JSON", "protected_paths", "validate_live_attestation",
+    "len(freeze_rows) != 3",
+):
     if token not in search:
-        raise SystemExit(f"v3 search-lock token absent: {token}")
+        raise SystemExit(f"v3.1 search-lock token absent: {token}")
 for forbidden in ("bracketed_single_scan_v2", "bondy_source_status_attestation_v2"):
     if forbidden in gate or forbidden in search:
         raise SystemExit(f"legacy attestation path remains reachable: {forbidden}")
-for token in ("fetch-depth: 0", "One complete v3 live continuity gate", "inputs.enable_target == true", "if: always()"):
+for token in ("fetch-depth: 0", "One complete v3.1 live continuity gate", "inputs.enable_target == true", "if: always()"):
     if token not in workflow:
-        raise SystemExit(f"v3 workflow token absent: {token}")
+        raise SystemExit(f"v3.1 workflow token absent: {token}")
 if workflow.count("scripts/prospective_bondy_gate.py") != 1:
     raise SystemExit("workflow must execute the quota-expensive live gate exactly once")
 for forbidden in ("gh release", "gh issue", "gh pr", "git push", "create-release"):
     if forbidden in workflow:
         raise SystemExit(f"forbidden publication token present: {forbidden}")
 
-print("BONDY_V3_FREEZE_VERIFIED_TARGET_DISABLED")
+print("BONDY_V31_FREEZE_VERIFIED_TARGET_DISABLED")

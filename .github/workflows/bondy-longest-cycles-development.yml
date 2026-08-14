@@ -1,4 +1,4 @@
-name: Bondy longest cycles DEVELOPMENT v3 (disabled by default)
+name: Bondy longest cycles DEVELOPMENT v3.1 (disabled by default)
 
 on:
   workflow_dispatch:
@@ -37,7 +37,7 @@ jobs:
           python-version: "3.11.9"
       - name: Install frozen Python dependencies
         run: python -m pip install 'networkx==3.3'
-      - name: Verify immutable v3 freeze
+      - name: Verify immutable v3.1 freeze
         run: python results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/verify_freeze.py
       - name: Run target-free constructor and adversarial gate tests
         run: timeout --signal=TERM --kill-after=6s 60s python scripts/test_bondy_development.py --target-free
@@ -45,14 +45,14 @@ jobs:
         run: timeout --signal=TERM --kill-after=6s 60s python scripts/prospective_bondy_construct.py --source-control
       - name: Compile independent replay without executing a candidate
         run: g++ -std=c++17 -O2 -Wall -Wextra -Werror scripts/prospective_bondy_replay.cpp -o /tmp/prospective_bondy_replay
-      - name: One complete v3 live continuity gate
+      - name: One complete v3.1 live continuity gate
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           curl -fsSL https://arxiv.org/pdf/2606.03696v1 -o /tmp/2606.03696.pdf
           timeout --signal=TERM --kill-after=6s 60s python scripts/prospective_bondy_gate.py \
             --paper /tmp/2606.03696.pdf --output /tmp/source-status-attestation.json
-      - name: Frozen v3 target process (requires all explicit guards)
+      - name: Frozen v3.1 target process (requires all explicit guards)
         if: ${{ inputs.enable_target == true }}
         id: target
         shell: bash
@@ -126,13 +126,13 @@ jobs:
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
-          name: bondy-longest-cycles-development-v3-gate-evidence
+          name: bondy-longest-cycles-development-v31-gate-evidence
           if-no-files-found: warn
           path: /tmp/source-status-attestation.json
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: ${{ always() && inputs.enable_target == true }}
         with:
-          name: bondy-longest-cycles-development-v3-enabled-evidence
+          name: bondy-longest-cycles-development-v31-enabled-evidence
           if-no-files-found: error
           path: |
             /tmp/source-status-attestation.json

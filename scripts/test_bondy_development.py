@@ -90,11 +90,13 @@ def live_attestation_fixture(empty: bool = False, identity_only_binding: bool = 
     local_identities = [
         {"commit": live_gate.KNOWN_CONTINUITY_AUDIT_COMMIT, "subject": "research: define Bondy tip continuity gate", "paths": [live_gate.KNOWN_CONTINUITY_AUDIT_PATH], "kind": "known_continuity_audit"},
         {"commit": live_gate.KNOWN_REPIN_AUDIT_COMMIT, "subject": "research: audit Bondy upstream repin", "paths": [live_gate.KNOWN_REPIN_AUDIT_PATH], "kind": "known_repin_audit"},
-        {"commit": "e" * 40, "subject": "freeze", "paths": ["scripts/prospective_bondy_gate.py"], "kind": "freeze_introducer"},
+        {"commit": "e" * 40, "subject": "freeze v1", "paths": ["scripts/prospective_bondy_gate.py"], "kind": "freeze_introducer"},
+        {"commit": "f" * 40, "subject": "freeze v3", "paths": ["scripts/prospective_bondy_gate.py"], "kind": "freeze_introducer"},
+        {"commit": "8" * 40, "subject": "freeze v3.1", "paths": ["scripts/prospective_bondy_gate.py"], "kind": "freeze_introducer"},
         {"commit": live_gate.KNOWN_PREFLIGHT_COMMIT, "subject": "preflight", "paths": ["results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/preflight.md"], "kind": "known_preflight"},
     ]
     return {
-        "schema": "bondy_source_status_duplicate_gate_tip_continuity_v3",
+        "schema": "bondy_source_status_duplicate_gate_tip_continuity_v3_1",
         "kind": "source_status_duplicate_gate",
         "status": "PASS",
         "checks": {key: True for key in search.LIVE_GATE_CHECKS},
@@ -116,7 +118,7 @@ def live_attestation_fixture(empty: bool = False, identity_only_binding: bool = 
 def sealed_attestation_fixture(attestation: dict[str, object]) -> dict[str, object]:
     continuity = attestation["continuity"]
     return {
-        "live_gate": {"schema": "bondy_source_status_duplicate_gate_tip_continuity_v3"},
+        "live_gate": {"schema": "bondy_source_status_duplicate_gate_tip_continuity_v3_1"},
         "upstream": attestation["pinned_upstream"],
         "source_sha256": attestation["continuity"]["target"]["sha256"],
         "semantic_closure": {
@@ -378,6 +380,30 @@ class TargetIsolationTests(unittest.TestCase):
                     with self.assertRaisesRegex(RuntimeError, "file binding drift|local contamination"):
                         search.run(args)
 
+    def test_run_rejects_too_few_or_too_many_freeze_introducers_before_target(self) -> None:
+        for count in (2, 4):
+            attestation = live_attestation_fixture()
+            identities = attestation["local_history_identities"]
+            freeze_indexes = [index for index, row in enumerate(identities) if row["kind"] == "freeze_introducer"]
+            if count == 2:
+                del identities[freeze_indexes[-1]]
+            else:
+                identities.insert(
+                    freeze_indexes[-1] + 1,
+                    {"commit": "9" * 40, "subject": "forged extra freeze", "paths": ["scripts/prospective_bondy_gate.py"], "kind": "freeze_introducer"},
+                )
+            attestation["local_history_hits"] = [row["commit"] for row in identities]
+            manifest = sealed_attestation_fixture(attestation)
+            with tempfile.TemporaryDirectory() as directory:
+                source = Path(directory) / "source.json"
+                search.atomic_json(source, attestation)
+                args = types.SimpleNamespace(source_attestation=source, campaign_commit="c" * 40)
+                with mock.patch.object(search, "unlock", return_value=manifest), mock.patch.object(search, "git", return_value="d" * 40), mock.patch.object(
+                    search, "target_evaluate", side_effect=AssertionError("target called")
+                ):
+                    with self.assertRaisesRegex(RuntimeError, "local contamination exact history"):
+                        search.run(args)
+
     def test_stale_output_prevents_target_evaluation(self) -> None:
         attestation = live_attestation_fixture()
         manifest = sealed_attestation_fixture(attestation)
@@ -567,9 +593,28 @@ class TargetIsolationTests(unittest.TestCase):
 
 
 class LiveGateConcurrencyTests(unittest.TestCase):
-    def test_v3_local_history_accepts_exact_continuity_and_repin_audits(self) -> None:
-        freeze = "f" * 40
-        hits = [live_gate.KNOWN_CONTINUITY_AUDIT_COMMIT, live_gate.KNOWN_REPIN_AUDIT_COMMIT, freeze, live_gate.KNOWN_PREFLIGHT_COMMIT]
+    def test_rest_commit_identity_uses_exact_documented_shape(self) -> None:
+        real_shape = {"sha": "a" * 40, "commit": {"tree": {"sha": "b" * 40}}, "url": "ignored REST metadata"}
+        self.assertEqual(live_gate.parse_rest_commit_identity(real_shape), {"commit": "a" * 40, "tree": "b" * 40})
+        malformed = (
+            {"sha": "a" * 40, "tree": {"sha": "b" * 40}},
+            {"sha": "a" * 40, "commit": {}},
+            {"sha": "a" * 40, "commit": {"tree": {"sha": "short"}}},
+            {"sha": "a" * 40, "commit": {"tree": {"sha": "b" * 40}}, "tree": {"sha": "b" * 40}},
+        )
+        for value in malformed:
+            with self.assertRaisesRegex(RuntimeError, "REST"):
+                live_gate.parse_rest_commit_identity(value)
+
+    def test_v31_local_history_requires_exact_freeze_introducer_count(self) -> None:
+        freezes = [character * 40 for character in "fba"]
+        extra_freeze = "9" * 40
+        hits = [
+            live_gate.KNOWN_CONTINUITY_AUDIT_COMMIT,
+            live_gate.KNOWN_REPIN_AUDIT_COMMIT,
+            *freezes,
+            live_gate.KNOWN_PREFLIGHT_COMMIT,
+        ]
 
         def exact_git(*args: str) -> str:
             commit = args[-1]
@@ -584,15 +629,22 @@ class LiveGateConcurrencyTests(unittest.TestCase):
                     return live_gate.KNOWN_REPIN_AUDIT_PATH
                 if commit == live_gate.KNOWN_CONTINUITY_AUDIT_COMMIT:
                     return live_gate.KNOWN_CONTINUITY_AUDIT_PATH
-                if commit == freeze:
+                if commit in freezes or commit == extra_freeze:
                     return "scripts/prospective_bondy_gate.py"
                 return "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/preflight.md"
             raise AssertionError(args)
 
         with mock.patch.object(live_gate, "git", side_effect=exact_git):
             accepted, identities = live_gate.validate_local_contamination(hits)
+            too_few, _ = live_gate.validate_local_contamination(hits[:2] + hits[3:])
+            too_many, _ = live_gate.validate_local_contamination(hits[:2] + [extra_freeze] + hits[2:])
         self.assertTrue(accepted)
-        self.assertEqual([row["kind"] for row in identities], ["known_continuity_audit", "known_repin_audit", "freeze_introducer", "known_preflight"])
+        self.assertFalse(too_few)
+        self.assertFalse(too_many)
+        self.assertEqual(
+            [row["kind"] for row in identities],
+            ["known_continuity_audit", "known_repin_audit", "freeze_introducer", "freeze_introducer", "freeze_introducer", "known_preflight"],
+        )
 
     def test_open_pr_and_changed_file_pagination_are_complete(self) -> None:
         calls: list[str] = []
