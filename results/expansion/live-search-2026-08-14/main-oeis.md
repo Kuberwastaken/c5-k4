@@ -67,3 +67,13 @@ exponential-looking indices remain computationally cheap because the recursive
 arguments contract immediately.  Parameter magnitude alone is therefore a
 poor budget proxy; recursion-state count and certificate shape should control
 the generic schedule.
+
+## Candidate gate: A109074
+
+A literal lower-endpoint check found that the merged A109074 declaration is
+false at `n=1`: its `frac 1` is `1`, while `b 2 / b 1` is `3`.  Source
+reconciliation then found both an index shift in the printed OEIS ratio and an
+incorrect local definition of A005156.  This is classified as a
+**formalization/source erratum, not a mathematical-conjecture disproof**.  The
+complete audit and exact certificate are recorded in
+[`oeis-109074.md`](oeis-109074.md).
