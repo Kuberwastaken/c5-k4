@@ -1,0 +1,50 @@
+{
+  "schema": "c5k4-tan-arctan-sum-live-manifest-1.0",
+  "frozen_at_utc": "2026-08-14T00:00:00Z",
+  "evidence_split": "DEVELOPMENT",
+  "freeze_base_commit": "c936765104ee4354e7e1c0809a32761e2c377ecb",
+  "upstream": {
+    "repository": "google-deepmind/formal-conjectures",
+    "commit": "942fb149e782a56c2719c543ab58e093f733acb4",
+    "blob": "7ddef467be2c61f20e99945685fe9e2e6bbe2be8",
+    "path": "FormalConjectures/Arxiv/2607.05739/TanArctanSum.lean",
+    "declaration": "Arxiv.«2607.05739».tan_arctan_sum_not_integer",
+    "category": "research open"
+  },
+  "arms": [
+    "CATALOGUE",
+    "GENERIC",
+    "WALL_NAVIGATION"
+  ],
+  "internal_stop_seconds": 54,
+  "external_stop_seconds": 60,
+  "target_domain_minimum_n": 5,
+  "paper_catalogue_maximum_n": 60000,
+  "post_paper_search_minimum_n": 60001,
+  "post_paper_search_maximum_n": 250000,
+  "candidate_policy": {
+    "terminal_reason": "CERTIFICATE_FOUND",
+    "public_action": false,
+    "requires_independent_replay": true,
+    "requires_fresh_status_review": true,
+    "requires_separate_formal_certificate": true
+  },
+  "artifacts": [
+    {
+      "path": "scripts/search_tan_arctan_sum_live.py",
+      "sha256": "ac0de662cc0ab042756f3b67d0b5173b99e6bb8ecfcd80ed8f35394bbb144c46"
+    },
+    {
+      "path": "scripts/test_search_tan_arctan_sum_live.py",
+      "sha256": "685eda9e99b5253aec77da7fe4890a0214911d95298ae76c6089448bc2b26315"
+    },
+    {
+      "path": ".github/workflows/tan-arctan-sum-development.yml",
+      "sha256": "c3ea980127574a1db81a1c295bf21c54d6316897a9c1f09ea6cfcc1d5d77eb32"
+    },
+    {
+      "path": "results/expansion/live-search-2026-08-14/tan-arctan-sum-contract.md",
+      "sha256": "897598a43b27f96537626c3fb2cd9f448bf61c11a51594cd2082fe6d1e65ab2f"
+    }
+  ]
+}
