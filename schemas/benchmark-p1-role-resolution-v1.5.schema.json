@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-p1-role-resolution-v1.5.schema.json",
+  "title": "Method v1.5 authenticated published P1 role resolution",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "status", "operational", "target_data_present", "publication", "p1", "manifest", "resolved_role_count", "resolved_roles", "resolution_sha256"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-p1-role-resolution-1.0"},
+    "status": {"const": "AUTHENTICATED_PUBLISHED_P1_ROLE_CLOSURE"},
+    "operational": {"const": true},
+    "target_data_present": {"const": false},
+    "publication": {
+      "type": "object", "additionalProperties": false,
+      "required": ["repository", "ref", "published_tip_commit"],
+      "properties": {
+        "repository": {"const": "https://github.com/Kuberwastaken/c5-k4.git"},
+        "ref": {"const": "refs/remotes/origin/main"},
+        "published_tip_commit": {"$ref": "#/definitions/oid"}
+      }
+    },
+    "p1": {
+      "type": "object", "additionalProperties": false,
+      "required": ["p1a_commit", "p1a_path", "p1a_sha256", "p1t_commit", "p1t_path", "p1t_sha256"],
+      "properties": {
+        "p1a_commit": {"$ref": "#/definitions/oid"}, "p1a_path": {"$ref": "#/definitions/path"}, "p1a_sha256": {"$ref": "#/definitions/sha"},
+        "p1t_commit": {"$ref": "#/definitions/oid"}, "p1t_path": {"$ref": "#/definitions/path"}, "p1t_sha256": {"$ref": "#/definitions/sha"}
+      }
+    },
+    "manifest": {"$ref": "#/definitions/ref"},
+    "resolved_role_count": {"type": "integer", "minimum": 1},
+    "resolved_roles": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["closure", "role", "path", "sha256", "content_class", "selector_paths"],
+        "properties": {
+          "closure": {"enum": ["NATIVE_V1_5", "INHERITED_V1_4"]},
+          "role": {"type": "string", "minLength": 1}, "path": {"$ref": "#/definitions/path"}, "sha256": {"$ref": "#/definitions/sha"},
+          "content_class": {"enum": ["V1_5_PROTOCOL_ONLY_NO_TARGET_DATA", "INHERITED_V1_4_EXACT"]},
+          "selector_paths": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+        }
+      }
+    },
+    "resolution_sha256": {"$ref": "#/definitions/sha"}
+  },
+  "definitions": {
+    "oid": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "sha": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "path": {"type": "string", "minLength": 1, "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"},
+    "ref": {"type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": {"path": {"$ref": "#/definitions/path"}, "sha256": {"$ref": "#/definitions/sha"}}}
+  }
+}

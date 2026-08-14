@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-p1-role-resolution-readiness-v1.5.schema.json",
+  "title": "Method v1.5 PRE-P1 role-resolution readiness",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "status", "operational", "caller_operational_override_accepted", "target_data_present", "required_binding"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-p1-role-resolution-readiness-1.0"},
+    "status": {"const": "PRE_P1_NO_AUTHENTIC_PUBLISHED_BINDING"},
+    "operational": {"const": false},
+    "caller_operational_override_accepted": {"const": false},
+    "target_data_present": {"const": false},
+    "required_binding": {"const": "EXACT_PUBLIC_P1T_TO_SOLE_PARENT_P1A_COMPONENT_CLOSURE"}
+  }
+}
