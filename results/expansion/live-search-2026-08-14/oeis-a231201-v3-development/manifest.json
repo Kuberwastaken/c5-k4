@@ -1,0 +1,31 @@
+{
+  "schema": "oeis-a231201-contaminated-development-freeze-v3-constructor-only",
+  "classification": "CONTAMINATED_DEVELOPMENT",
+  "phase": "CONSTRUCTOR_DIAGNOSTIC_ONLY",
+  "inherits_v22_manifest_sha256": "fe9341e7db1e10d5a25697e99ebe146e691d2bca2e2fcfd7e32185c3df5af30d",
+  "observed_design_report_sha256": "9e64132f60ba7973577a45a75b41b6521a4315c71dc29f65a20bc415b93619eb",
+  "input_run_id": 31812806288,
+  "input_campaign_commit": "74f904b66edcb191f2172eaf04c303b438648b74",
+  "python": "3.9.23",
+  "search_seconds": 48,
+  "internal_seconds": 54,
+  "external_seconds": 60,
+  "external_kill_after_seconds": 6,
+  "construction_rounds": 3,
+  "arms": [
+    "COMPRESSED_SET_COVER_CP",
+    "DETERMINISTIC_GREEDY_REPAIR",
+    "SMALL_BASIS_CEGAR"
+  ],
+  "partition_cells": 6,
+  "small_basis_initial_rows_by_round": [192, 256, 320],
+  "cegar_feedback": "lexicographic-least-uncovered-active-x-in-1-through-4096",
+  "max_cegar_iterations_per_construction": 4096,
+  "full_seed_required_before_proposal": true,
+  "target_promotion_authorized": false,
+  "mathematical_result_claimed": false,
+  "periodic_cover_backend_present": false,
+  "bounded_x_lt_n_backend_present": false,
+  "frozen_target_domain_evaluated_by_smoke_tests": false,
+  "resumable": false
+}

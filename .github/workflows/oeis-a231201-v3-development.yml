@@ -1,0 +1,131 @@
+name: OEIS A231201 v3 constructor-only DEVELOPMENT freeze
+
+on:
+  workflow_dispatch:
+    inputs:
+      campaign_commit:
+        description: Exact 40-hex c5-k4 commit containing the frozen v3 lane
+        required: true
+        type: string
+
+permissions: {contents: read}
+env: {LC_ALL: C.UTF-8, PYTHONDONTWRITEBYTECODE: '1', PYTHONHASHSEED: '0', TZ: UTC}
+
+jobs:
+  validate-frozen-harness:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Reject movable execution ref
+        shell: bash
+        env: {CAMPAIGN_COMMIT: "${{ inputs.campaign_commit }}"}
+        run: |
+          set -euo pipefail
+          [[ "$CAMPAIGN_COMMIT" =~ ^[0-9a-f]{40}$ ]]
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with: {ref: "${{ inputs.campaign_commit }}", fetch-depth: 0, persist-credentials: false}
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with: {python-version: '3.9.23'}
+      - name: Compile, freeze-check, and run target-free tests
+        env: {CAMPAIGN_COMMIT: "${{ inputs.campaign_commit }}"}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$CAMPAIGN_COMMIT"
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+          python -m py_compile scripts/construct_oeis_a231201_v3.py scripts/verify_oeis_a231201_v3_artifacts.py scripts/test_oeis_a231201_v3_seed_cegar.py
+          python results/expansion/live-search-2026-08-14/oeis-a231201-v22-development/verify_freeze.py
+          python results/expansion/live-search-2026-08-14/oeis-a231201-v3-development/verify_freeze.py
+          PYTHONPATH=scripts python -m unittest -v scripts/test_oeis_a231201_v3_seed_cegar.py
+
+  prepare-database-gate:
+    needs: validate-frozen-harness
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with: {ref: "${{ inputs.campaign_commit }}", persist-credentials: false}
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with: {python-version: '3.9.23'}
+      - name: Acquire immutable inputs and run unchanged exact gate
+        env: {CAMPAIGN_COMMIT: "${{ inputs.campaign_commit }}"}
+        run: |
+          set -euo pipefail
+          input="$RUNNER_TEMP/a231201-v3-input"; gate="$RUNNER_TEMP/a231201-v3-gate"; mkdir -p "$input" "$gate"
+          curl --fail --location --retry 5 --retry-all-errors --connect-timeout 15 'https://raw.githubusercontent.com/google-deepmind/formal-conjectures/4010c1f1b811be0b0f95c9cf8bc084d72cea2a88/FormalConjectures/OEIS/231201.lean' -o "$input/231201.lean"
+          curl --fail --location --retry 5 --retry-all-errors --connect-timeout 15 'https://raw.githubusercontent.com/oeis/oeisdata/8872fa543438401edd424a57b67ad5e0737bebfb/seq/A231/A231201.seq' -o "$input/A231201.seq"
+          curl --fail --location --retry 5 --retry-all-errors --connect-timeout 15 'https://oeis.org/A231201/b231201.txt' -o "$input/b231201.txt"
+          curl --fail --location --retry 5 --retry-all-errors --connect-timeout 15 'https://raw.githubusercontent.com/txmy/ultra-mathematician/d52f81ad64dfc77e9a89dee8ae97db983ac6d5f7/runs/run-2026-07-26-002/tasks/solve-a231201-covering/cover-results.json' -o "$input/prior-covering.json"
+          timeout --signal=TERM --kill-after=6s 60s python scripts/prepare_oeis_a231201_v2_gate.py prepare "$input/231201.lean" "$input/A231201.seq" "$input/b231201.txt" results/expansion/live-search-2026-08-14/oeis-a231201-development/contamination-control-l327.json "$input/prior-covering.json" "$gate" --campaign-commit "$CAMPAIGN_COMMIT"
+          timeout --signal=TERM --kill-after=6s 60s python scripts/prepare_oeis_a231201_v2_gate.py verify "$gate" --campaign-commit "$CAMPAIGN_COMMIT"
+          (cd "$gate" && find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS)
+      - name: Upload gate evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with: {name: "oeis-a231201-v3-gate-${{ github.run_id }}-${{ github.run_attempt }}", path: "${{ runner.temp }}/a231201-v3-gate/", if-no-files-found: error, retention-days: 90}
+
+  construct-diagnostic:
+    needs: [validate-frozen-harness, prepare-database-gate]
+    if: always()
+    strategy:
+      fail-fast: false
+      matrix:
+        arm: [COMPRESSED_SET_COVER_CP, DETERMINISTIC_GREEDY_REPAIR, SMALL_BASIS_CEGAR]
+        cell: ['0_0', '0_1', '0_2', '1_0', '1_1', '1_2']
+        round: [0, 1, 2]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - name: Initialize diagnostic evidence
+        shell: bash
+        run: |
+          mkdir -p "$RUNNER_TEMP/out"
+          python3 - <<'PY'
+          import json,os,pathlib
+          path=pathlib.Path(os.environ['RUNNER_TEMP'])/'out/stage-diagnostic-terminal.json'
+          with path.open('x') as f:
+              json.dump({'schema':'oeis-a231201-v3-stage-diagnostic-v1','status':'INITIALIZED','diagnostic_only':True},f,sort_keys=True,separators=(',',':')); f.write('\n'); f.flush(); os.fsync(f.fileno())
+          PY
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with: {ref: "${{ inputs.campaign_commit }}", persist-credentials: false}
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with: {python-version: '3.9.23'}
+      - run: python -m pip install --disable-pip-version-check 'ortools==9.15.6755'
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        continue-on-error: true
+        with: {name: "oeis-a231201-v3-gate-${{ github.run_id }}-${{ github.run_attempt }}", path: "${{ runner.temp }}/gate"}
+      - name: Construct bounded full-seed diagnostic proposal
+        if: always()
+        shell: bash
+        env: {ARM: "${{ matrix.arm }}", CELL: "${{ matrix.cell }}", ROUND: "${{ matrix.round }}", CAMPAIGN_COMMIT: "${{ inputs.campaign_commit }}"}
+        run: |
+          set +e; set -uo pipefail
+          out="$RUNNER_TEMP/out"; mkdir -p "$out/work"; prereq_code=0
+          (cd "$RUNNER_TEMP/gate" && sha256sum --check SHA256SUMS) >"$out/prerequisite-check.txt" 2>&1 || prereq_code=92
+          timeout --signal=TERM --kill-after=6s 60s python scripts/construct_oeis_a231201_v3.py --prerequisite-check-exit-code "$prereq_code" --arm "$ARM" --cell "$CELL" --round "$ROUND" --campaign-commit "$CAMPAIGN_COMMIT" --gate "$RUNNER_TEMP/gate" --work "$out/work" --ledger "$out/construction-ledger.jsonl" --terminal "$out/construction-terminal.json" --proposal "$out/full-seed-proposal-0.json"
+          stage_code=$?; artifact_code=1
+          if [[ -f "$out/construction-terminal.json" && -f "$out/construction-ledger.jsonl" ]]; then
+            timeout --signal=TERM --kill-after=6s 60s python scripts/verify_oeis_a231201_v3_artifacts.py "$out/construction-ledger.jsonl" "$out/construction-terminal.json" "$out/full-seed-proposal-0.json" "$out/work" --gate "$RUNNER_TEMP/gate" --campaign-commit "$CAMPAIGN_COMMIT" --arm "$ARM" --cell "$CELL" --round "$ROUND" >"$out/artifact-verification.txt" 2>&1
+            artifact_code=$?
+          fi
+          python scripts/record_oeis_a231201_v2_execution.py "$out/execution-status.json" --stage construction-diagnostic --campaign-commit "$CAMPAIGN_COMMIT" --arm "$ARM" --cell "$CELL" --round "$ROUND" --prerequisite-check-exit-code "$prereq_code" --stage-exit-code "$stage_code" --artifact-verifier-exit-code "$artifact_code"; result=$?
+          (cd "$out" && find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS)
+          exit "$result"
+      - name: Finalize diagnostic receipt
+        if: always()
+        shell: bash
+        env: {ARM: "${{ matrix.arm }}", CELL: "${{ matrix.cell }}", ROUND: "${{ matrix.round }}"}
+        run: |
+          out="$RUNNER_TEMP/out"; mkdir -p "$out"
+          python3 - <<'PY'
+          import json,os,pathlib
+          root=pathlib.Path(os.environ['RUNNER_TEMP'])/'out'; present=(root/'construction-terminal.json').is_file()
+          value={'schema':'oeis-a231201-v3-stage-diagnostic-v1','status':'STAGE_TERMINAL_PRESENT' if present else 'STAGE_TERMINAL_UNAVAILABLE','arm':os.environ['ARM'],'cell':os.environ['CELL'],'round':int(os.environ['ROUND']),'diagnostic_only':True}
+          temp=root/'stage-diagnostic-terminal.json.tmp'; path=root/'stage-diagnostic-terminal.json'
+          with temp.open('w') as f:
+              json.dump(value,f,sort_keys=True,separators=(',',':')); f.write('\n'); f.flush(); os.fsync(f.fileno())
+          os.replace(temp,path)
+          PY
+          (cd "$out" && find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS)
+      - if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with: {name: "oeis-a231201-v3-c-r${{ matrix.round }}-${{ matrix.arm }}-${{ matrix.cell }}-${{ github.run_id }}-${{ github.run_attempt }}", path: "${{ runner.temp }}/out/", if-no-files-found: error, retention-days: 90}
