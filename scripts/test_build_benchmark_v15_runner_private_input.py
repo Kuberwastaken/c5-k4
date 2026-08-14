@@ -13,6 +13,8 @@ import tempfile
 import unittest
 from unittest import mock
 
+from cryptography.hazmat.primitives import serialization
+from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from jsonschema import Draft7Validator, ValidationError
 
 import build_benchmark_v15_runner_private_input as A
@@ -30,6 +32,13 @@ SCOPE = {
     "source_boundary_sha256": TWO,
     "noninterference_receipt_sha256": THREE,
     "service_epoch_binding_sha256": FIVE,
+}
+P1_SCOPE_EXTRA = {
+    "participant_ledger_artifact_sha256": "6" * 64,
+    "noninterference_receipt_schema_sha256": "7" * 64,
+    "noninterference_verifier_sha256": "8" * 64,
+    "operational_noninterference_key_commitment_sha256": "9" * 64,
+    "operational_noninterference_key_commitment_schema_sha256": "a" * 64,
 }
 
 
@@ -73,7 +82,11 @@ def request() -> dict:
         "custody_coverage_certificate", "public_custody_sealed_binding",
         "sealed_private_custody_bundle", "primary_acquisition_receipt",
         "p1_role_resolution", "participant_ledger", "source_boundary",
-        "noninterference_receipt", "service_epoch_binding",
+        "noninterference_receipt", "noninterference_receipt_schema",
+        "noninterference_verifier", "noninterference_verification_key",
+        "operational_noninterference_key_commitment",
+        "operational_noninterference_key_commitment_schema",
+        "service_epoch_binding",
         "replay_acquisition_receipt", "primary_private_registry",
         "replayed_private_registry",
     )
@@ -107,6 +120,7 @@ def request() -> dict:
                 "participant_ledger_sha256", "source_boundary_sha256",
                 "noninterference_receipt_sha256",
             )},
+            **P1_SCOPE_EXTRA,
             "required_host_id": HOST,
         },
         "store_acceptance": acceptance,
@@ -174,8 +188,112 @@ class PrivateAssemblerContractTests(unittest.TestCase):
         Draft7Validator(self.schema(name)).validate(value)
 
     def test_new_schemas_are_valid_draft7(self) -> None:
-        for name in (A.LOCATOR_SCHEMA, A.REQUEST_SCHEMA, A.CUSTODY_SCHEMA):
+        for name in (A.LOCATOR_SCHEMA, A.REQUEST_SCHEMA, A.CUSTODY_SCHEMA, A.NONINTERFERENCE_SCHEMA):
             Draft7Validator.check_schema(self.schema(name))
+
+    def test_request_requires_worm_operational_receipt_verifier_and_raw_key(self) -> None:
+        value = request()
+        self.validate(value, A.REQUEST_SCHEMA)
+        for artifact in (
+            "noninterference_receipt_schema", "noninterference_verifier",
+            "noninterference_verification_key", "operational_noninterference_key_commitment",
+            "operational_noninterference_key_commitment_schema",
+        ):
+            mutated = copy.deepcopy(value)
+            del mutated["artifacts"][artifact]
+            with self.assertRaises(ValidationError):
+                self.validate(mutated, A.REQUEST_SCHEMA)
+
+    def test_scope_gate_cryptographically_verifies_operational_receipt(self) -> None:
+        value = request()
+        private_key = Ed25519PrivateKey.generate()
+        public_key = private_key.public_key().public_bytes(
+            serialization.Encoding.Raw, serialization.PublicFormat.Raw
+        )
+        participant = json.loads(
+            (A.ROOT / "results/benchmark/v1.5-protocol/participant-ledger.json").read_text()
+        )
+        boundary_raw = b'{"status":"FROZEN_P1_EXECUTABLE"}\n'
+        receipt = {
+            "schema": "c5k4-method-v1.5-operational-noninterference-receipt-1.0",
+            "status": "FROZEN_P1_NONINTERFERENCE_LIVE_ACCEPTED",
+            "protocol_version": "1.5", "host_id": HOST,
+            "participant_ledger_sha256": participant["ledger_sha256"],
+            "source_boundary_sha256": A.sha256(boundary_raw),
+            "signing_key_id": "key-1", "service_epoch_binding_sha256": FIVE,
+            "verification_key_sha256": A.sha256(public_key),
+            "signature_algorithm": "Ed25519", "unjournaled_delivery_detected": False,
+            "proofs": {key: True for key in (
+                "dedicated_nonlogin_identity", "root_owned_read_only_p1_checkout",
+                "private_root_permissions", "private_socket_permissions",
+                "credential_isolation", "network_default_deny",
+                "allowed_endpoint_enforcement", "excluded_process_denial",
+                "unbroken_ingress_custody", "destructive_gap_acceptance",
+            )},
+            "blockers": [], "scope_complete": True, "operational_ready": True,
+            "activation_permitted": True,
+            "claims": {"p1_frozen": True, "operational_capture": True, "production_ready": True, "target_specific": False},
+        }
+        receipt["receipt_sha256"] = A.noninterference_verifier.operational_receipt_digest(receipt)
+        import base64
+        receipt["signature"] = base64.b64encode(
+            private_key.sign(bytes.fromhex(receipt["receipt_sha256"]))
+        ).decode()
+        commitment = {
+            "schema": "c5k4-method-v1.5-operational-noninterference-key-commitment-1.0",
+            "status": "FROZEN_P1_NONINTERFERENCE_KEY_COMMITTED",
+            "protocol_version": "1.5", "host_id": HOST,
+            "signing_key_id": receipt["signing_key_id"],
+            "signature_algorithm": "Ed25519",
+            "verification_key_sha256": A.sha256(public_key),
+            "operational": True, "activation_permitted": True, "target_specific": False,
+        }
+        commitment["commitment_sha256"] = A._self_digest(commitment, "commitment_sha256")
+        raw = {
+            "participant_ledger": A.canonical_json(participant),
+            "source_boundary": boundary_raw,
+            "noninterference_receipt": A.canonical_json(receipt),
+            "noninterference_receipt_schema": (A.ROOT / "schemas" / A.NONINTERFERENCE_SCHEMA).read_bytes(),
+            "noninterference_verifier": Path(A.noninterference_verifier.__file__).read_bytes(),
+            "noninterference_verification_key": public_key,
+            "operational_noninterference_key_commitment": A.canonical_json(commitment),
+            "operational_noninterference_key_commitment_schema": (A.ROOT / "schemas" / A.NONINTERFERENCE_KEY_COMMITMENT_SCHEMA).read_bytes(),
+            "p1_role_resolution": b"placeholder",
+        }
+        value["p1_scope"].update({
+            "participant_ledger_sha256": participant["ledger_sha256"],
+            "participant_ledger_artifact_sha256": A.sha256(raw["participant_ledger"]),
+            "source_boundary_sha256": A.sha256(boundary_raw),
+            "noninterference_receipt_sha256": A.sha256(raw["noninterference_receipt"]),
+            "noninterference_receipt_schema_sha256": A.sha256(raw["noninterference_receipt_schema"]),
+            "noninterference_verifier_sha256": A.sha256(raw["noninterference_verifier"]),
+            "operational_noninterference_key_commitment_sha256": A.sha256(raw["operational_noninterference_key_commitment"]),
+            "operational_noninterference_key_commitment_schema_sha256": A.sha256(raw["operational_noninterference_key_commitment_schema"]),
+        })
+        roles = []
+        for artifact, (role, scope_key) in A.P1_SCOPE_ROLES.items():
+            roles.append({"role": role, "closure": "NATIVE_V1_5", "sha256": value["p1_scope"][scope_key]})
+        resolution = {"status": "AUTHENTICATED_PUBLISHED_P1_ROLE_CLOSURE", "operational": True, "resolved_roles": roles}
+        resolution["resolution_sha256"] = "r" * 64
+        value["p1_scope"]["role_resolution_sha256"] = "r" * 64
+        raw["p1_role_resolution"] = A.canonical_json(resolution)
+        with mock.patch.object(A.p1_roles, "resolve_published_roles", return_value=resolution):
+            self.assertEqual(A._validate_p1_scope(value, raw)["receipt_sha256"], receipt["receipt_sha256"])
+            original_key = raw["noninterference_verification_key"]
+            raw["noninterference_verification_key"] = b"x" * 32
+            with self.assertRaises(A.AssemblyError): A._validate_p1_scope(value, raw)
+            raw["noninterference_verification_key"] = original_key
+            forged = copy.deepcopy(receipt); forged["signature"] = "A" * 86 + "=="
+            raw["noninterference_receipt"] = A.canonical_json(forged)
+            value["p1_scope"]["noninterference_receipt_sha256"] = A.sha256(raw["noninterference_receipt"])
+            for row in resolution["resolved_roles"]:
+                if row["role"] == "noninterference_receipt": row["sha256"] = value["p1_scope"]["noninterference_receipt_sha256"]
+            with self.assertRaises(A.AssemblyError): A._validate_p1_scope(value, raw)
+        for field in P1_SCOPE_EXTRA:
+            mutated = copy.deepcopy(value)
+            del mutated["p1_scope"][field]
+            with self.assertRaises(ValidationError):
+                self.validate(mutated, A.REQUEST_SCHEMA)
 
     def test_forged_operational_cli_is_silent_and_inert(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

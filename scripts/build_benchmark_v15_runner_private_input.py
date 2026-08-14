@@ -34,12 +34,15 @@ import build_benchmark_v15_vendor_bases as vendor  # noqa: E402
 import method_v15_s3_object_lock_store as s3_store  # noqa: E402
 import resolve_benchmark_v15_p1_roles as p1_roles  # noqa: E402
 import verify_benchmark_v15_private_custody as custody  # noqa: E402
+import verify_benchmark_v15_participant_noninterference as noninterference_verifier  # noqa: E402
 
 
 ROOT = Path(__file__).resolve().parents[1]
 REQUEST_SCHEMA = "benchmark-runner-private-input-assembly-v1.5.schema.json"
 LOCATOR_SCHEMA = "benchmark-private-artifact-locator-v1.5.schema.json"
 CUSTODY_SCHEMA = "benchmark-operational-private-custody-evidence-v1.5.schema.json"
+NONINTERFERENCE_SCHEMA = "benchmark-operational-noninterference-receipt-v1.5.schema.json"
+NONINTERFERENCE_KEY_COMMITMENT_SCHEMA = "benchmark-operational-noninterference-key-commitment-v1.5.schema.json"
 OUTPUT_SCHEMA = "benchmark-checkpoint-runner-private-input-v1.5.schema.json"
 UPSTREAM = "https://github.com/google-deepmind/formal-conjectures.git"
 UPSTREAM_REF = "refs/heads/main"
@@ -56,9 +59,13 @@ STAGED_NAMES = {
     "provenance_content_pack": "provenance-content-pack.json",
 }
 P1_SCOPE_ROLES = {
-    "participant_ledger": "participant_ledger",
-    "source_boundary": "source_boundary",
-    "noninterference_receipt": "noninterference_receipt",
+    "participant_ledger": ("participant_ledger", "participant_ledger_artifact_sha256"),
+    "source_boundary": ("source_boundary", "source_boundary_sha256"),
+    "noninterference_receipt": ("noninterference_receipt", "noninterference_receipt_sha256"),
+    "noninterference_receipt_schema": ("operational_noninterference_receipt_schema", "noninterference_receipt_schema_sha256"),
+    "noninterference_verifier": ("participant_noninterference_verifier", "noninterference_verifier_sha256"),
+    "operational_noninterference_key_commitment": ("operational_noninterference_key_commitment", "operational_noninterference_key_commitment_sha256"),
+    "operational_noninterference_key_commitment_schema": ("operational_noninterference_key_commitment_schema", "operational_noninterference_key_commitment_schema_sha256"),
 }
 
 
@@ -210,21 +217,60 @@ def _validate_p1_scope(request: dict[str, Any], raw: dict[str, bytes | list[byte
         row["role"]: row for row in resolution.get("resolved_roles", [])
         if row.get("closure") == "NATIVE_V1_5"
     }
-    for artifact, role in P1_SCOPE_ROLES.items():
+    for artifact, (role, scope_key) in P1_SCOPE_ROLES.items():
         row = components.get(role)
         value = raw[artifact]
         assert isinstance(value, bytes)
-        expected = scope[artifact + "_sha256"]
+        expected = scope[scope_key]
         if not isinstance(row, dict) or row.get("sha256") != expected or sha256(value) != expected:
             raise AssemblyError(f"{artifact} does not resolve through exact P1 native bytes")
     participant = _json(raw["participant_ledger"])  # type: ignore[arg-type]
     boundary = _json(raw["source_boundary"])  # type: ignore[arg-type]
     receipt = _json(raw["noninterference_receipt"])  # type: ignore[arg-type]
+    receipt_schema_raw = raw["noninterference_receipt_schema"]
+    verifier_raw = raw["noninterference_verifier"]
+    verification_key = raw["noninterference_verification_key"]
+    key_commitment = _json(raw["operational_noninterference_key_commitment"])  # type: ignore[arg-type]
+    key_commitment_schema_raw = raw["operational_noninterference_key_commitment_schema"]
+    assert isinstance(receipt_schema_raw, bytes)
+    assert isinstance(verifier_raw, bytes)
+    assert isinstance(verification_key, bytes)
+    assert isinstance(key_commitment_schema_raw, bytes)
+    if len(verification_key) != 32:
+        raise AssemblyError("noninterference verification key is not raw Ed25519")
+    if (
+        receipt_schema_raw != (ROOT / "schemas" / NONINTERFERENCE_SCHEMA).read_bytes()
+        or verifier_raw != Path(noninterference_verifier.__file__).resolve().read_bytes()
+        or key_commitment_schema_raw != (ROOT / "schemas" / NONINTERFERENCE_KEY_COMMITMENT_SCHEMA).read_bytes()
+    ):
+        raise AssemblyError("noninterference schema/verifier differs from P1 native bytes")
+    _validate(key_commitment, NONINTERFERENCE_KEY_COMMITMENT_SCHEMA)
+    if (
+        key_commitment["commitment_sha256"] != _self_digest(key_commitment, "commitment_sha256")
+        or key_commitment["verification_key_sha256"] != sha256(verification_key)
+        or key_commitment["signing_key_id"] != receipt.get("signing_key_id")
+        or key_commitment["host_id"] != receipt.get("host_id")
+        or key_commitment["verification_key_sha256"] != receipt.get("verification_key_sha256")
+    ):
+        raise AssemblyError("operational key commitment does not bind receipt and WORM key")
+    try:
+        noninterference_verifier.verify_operational(
+            participant,
+            scope["source_boundary_sha256"],
+            receipt,
+            verification_key,
+        )
+    except Exception as exc:
+        raise AssemblyError("operational noninterference receipt verification failed") from exc
     if (
         participant.get("host_id") != "ai-vps-controlled-harness"
+        or participant.get("ledger_sha256") != scope["participant_ledger_sha256"]
         or receipt.get("host_id") != "ai-vps-controlled-harness"
         or receipt.get("participant_ledger_sha256") != scope["participant_ledger_sha256"]
         or receipt.get("source_boundary_sha256") != scope["source_boundary_sha256"]
+        or sha256(receipt_schema_raw) != scope["noninterference_receipt_schema_sha256"]
+        or sha256(verifier_raw) != scope["noninterference_verifier_sha256"]
+        or sha256(key_commitment_schema_raw) != scope["operational_noninterference_key_commitment_schema_sha256"]
         or receipt.get("scope_complete") is not True
         or receipt.get("unjournaled_delivery_detected") is not False
         or boundary.get("status") != "FROZEN_P1_EXECUTABLE"
