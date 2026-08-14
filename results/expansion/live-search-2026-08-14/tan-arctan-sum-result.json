@@ -1,0 +1,42 @@
+{
+  "schema": "c5k4-tan-arctan-sum-live-result-1.0",
+  "status": "BOUNDED_ZERO",
+  "campaign_commit": "5496aa36a17feebf3377406db1a2f2aeadbc91cb",
+  "github_actions_run": "https://github.com/Kuberwastaken/c5-k4/actions/runs/31790686819",
+  "upstream_commit": "942fb149e782a56c2719c543ab58e093f733acb4",
+  "artifact_checksum_manifests_replayed": 3,
+  "ledger_chains_replayed": 3,
+  "terminal_bindings_replayed": 3,
+  "exact_divisibility_tests": 85,
+  "certificates": 0,
+  "arms": {
+    "CATALOGUE": {
+      "recurrence_steps": 44088,
+      "proposals": 12,
+      "exact_divisibility_tests": 12,
+      "terminal_reason": "DOMAIN_EXHAUSTED",
+      "cursor": {"catalogue_size": 12},
+      "final_row_sha256": "51f65518f3da4ae7da5b41b17fb4dfdba313c1645c230f46feb8418fbbee54c2"
+    },
+    "GENERIC": {
+      "recurrence_steps": 60980,
+      "proposals": 73,
+      "exact_divisibility_tests": 73,
+      "first_evaluated_n": 60039,
+      "last_evaluated_n": 60980,
+      "terminal_reason": "DEADLINE_PREFIX",
+      "cursor": {"next_n": 60981, "reached_n": 60980},
+      "final_row_sha256": "7dc1e8dfd176e3bd812bd1d2c89f45deccfdcb30fb5cf99091a0f84805e48bf9"
+    },
+    "WALL_NAVIGATION": {
+      "recurrence_steps": 155802,
+      "proposals": 0,
+      "exact_divisibility_tests": 0,
+      "exact_wall_indices_in_preserved_range": 0,
+      "terminal_reason": "DEADLINE_PREFIX",
+      "cursor": {"next_n": 155803, "reached_n": 155802},
+      "final_row_sha256": "f05dd10202ba22d8ea310bd5212df398de1fd0dee3bb03801d90fe8d0bed1319"
+    }
+  },
+  "publication_action": false
+}
