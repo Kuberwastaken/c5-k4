@@ -2,7 +2,7 @@
 
 **Audit date:** 2026-08-14 UTC
 **Held-out disposition:** `STRICT_STOP_NOT_HELD_OUT_EXISTING_TARGET_SPECIFIC_EXPOSURE`
-**Development disposition:** `FREEZE_ELIGIBLE_CONTAMINATED_NOT_AUTHORIZED`
+**Development disposition:** `CORRECTION_REQUIRED_BEFORE_CONTAMINATED_FREEZE`
 **Target evaluated in this preflight:** no
 **Search authorized or dispatched:** no
 
@@ -14,8 +14,32 @@ target-specific computational exposure.
 
 Contamination does not make the mathematics or certificate shape unsuitable
 for the separately labelled DEVELOPMENT loop. The finite residue-cover design
-below is sound enough to freeze as a contaminated development continuation;
-it is not authorized for execution by this preflight.
+below was initially judged suitable for such a continuation, but a subsequent
+pre-evaluation audit found defects that must be corrected before it is frozen.
+It is not authorized for execution by this preflight.
+
+## Post-preflight correction: do not execute the draft unchanged
+
+No target model was evaluated under the draft. Before any DEVELOPMENT freeze,
+the operative contract must supersede four parts of the design below:
+
+1. Coverage is over positive exponents only. It must use the least-positive
+   representative of each periodic class, particularly for `q=2`; canonical
+   exponent zero has the wrong modular value there.
+2. The out-of-domain `x=0` seed must be removed, because requiring it can
+   discard a cover of every required `x>=1`. A positive seed such as
+   `x=1,...,4096` preserves the declared assignment universe.
+3. Replaying all 10,000 b-file counts by roughly 50 million large primality
+   tests is not a credible capped gate. The final contract must freeze a
+   feasible exact source-prefix/control gate while retaining a content hash of
+   the complete table.
+4. Explicit generalized-CRT state refinement is only a bounded construction
+   attempt unless it has exact resumable cursors and a genuinely independent
+   proof-trace checker. An uncovered class is a verification failure, not a
+   deadline, and `DOMAIN_EXHAUSTED` remains level-local.
+
+The committed executable freeze and its correction record, not the draft
+details below, are authoritative if this DEVELOPMENT continuation proceeds.
 
 ## Current upstream statement and status
 
@@ -156,10 +180,10 @@ development use:     possible only if explicitly relabelled contaminated
 
 ## Corrected exact design (development-only, not authorized)
 
-The following freezes the scout's suggested extension precisely enough to
-avoid a post-result change of universe. It is recorded only as a
-**contaminated DEVELOPMENT continuation**. This preflight does not authorize
-implementing or running it.
+The following records the scout's draft extension. It remains useful as the
+origin of the 55-prime assignment universe, but the post-preflight correction
+above is mandatory. It is recorded only as a **contaminated DEVELOPMENT**
+proposal. This preflight does not authorize implementing or running it.
 
 ### Frozen residue universe
 
@@ -204,8 +228,9 @@ experiment.
 1. Recompute primality of `P`, each `o_q`, `m_q`, and the combined period with
    plain integer arithmetic. Any mismatch is `PREPARATION_FAILED`.
 2. Use Python 3.9 and `ortools==9.15.6755`, one CP-SAT worker and random seed
-   zero. The master has exactly-one constraints for every `a_q`. It begins
-   with exponent representatives `x=0,...,4095` and lexicographically adds
+   zero. The master has exactly-one constraints for every `a_q`. The corrected
+   contract must begin with positive exponent representatives (not the draft
+   `x=0,...,4095`) and lexicographically adds
    one uncovered generalized-CRT class returned by the verifier per
    iteration. Variable order is ascending `(q,a)`; no objective is used.
 3. For a proposed assignment, the independent verifier does not import the
@@ -275,8 +300,8 @@ missing contamination control, or cap expiry terminates
 - Prior target-specific evaluation: present and public.
 - Prior residue-cover construction: present and public.
 - Held-out prospective lane: **ineligible**.
-- Contaminated DEVELOPMENT freeze: **eligible on the exact design above, but
-  not authorized or dispatched here**.
+- Contaminated DEVELOPMENT freeze: **correction required; eligible only after
+  the executable contract closes the post-preflight blockers above**.
 - Search contract, candidate evaluation, Actions dispatch, README edit,
   commit, push, release, issue, PR, or other outward action: **none**.
 
