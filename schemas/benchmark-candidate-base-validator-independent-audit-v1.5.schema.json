@@ -1,0 +1,187 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-candidate-base-validator-independent-audit-v1.5.schema.json",
+  "title": "Method v1.5 target-blind non-authoritative independent candidate validator audit",
+  "type": "object",
+  "additionalProperties": false,
+  "definitions": {
+    "finding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "severity", "observation", "risk", "required_remediation"],
+      "properties": {
+        "id": {"type": "string"},
+        "severity": {"const": "BLOCKING"},
+        "observation": {"type": "string", "minLength": 32},
+        "risk": {"type": "string", "minLength": 32},
+        "required_remediation": {"type": "string", "minLength": 32}
+      }
+    },
+    "stage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stage", "role", "scientific_activation_boundary"],
+      "properties": {
+        "stage": {"type": "string"},
+        "role": {"type": "string", "minLength": 32},
+        "scientific_activation_boundary": {"type": "boolean"}
+      }
+    }
+  },
+  "required": [
+    "schema",
+    "status",
+    "protocol_version",
+    "artifact_class",
+    "scope",
+    "audit_conclusion",
+    "findings",
+    "required_remediation_topology",
+    "activation_gate",
+    "non_authority",
+    "failure_policy",
+    "audit_sha256"
+  ],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-candidate-base-validator-independent-audit-1.0"},
+    "status": {"const": "BLOCKED_REDESIGN_REQUIRED"},
+    "protocol_version": {"const": "1.5"},
+    "artifact_class": {"const": "TARGET_BLIND_NON_AUTHORITATIVE_INDEPENDENT_DESIGN_AUDIT"},
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["target_blind", "target_data_consumed", "target_data_present", "candidate_identities_recorded", "statement_text_recorded", "live_readiness_claimed", "operational_authority_claimed", "implementation_acceptance_claimed", "audit_subject", "audit_subject_is_frozen_revision"],
+      "properties": {
+        "target_blind": {"const": true},
+        "target_data_consumed": {"const": false},
+        "target_data_present": {"const": false},
+        "candidate_identities_recorded": {"const": false},
+        "statement_text_recorded": {"const": false},
+        "live_readiness_claimed": {"const": false},
+        "operational_authority_claimed": {"const": false},
+        "implementation_acceptance_claimed": {"const": false},
+        "audit_subject": {"const": "RUNNING_CANDIDATE_BASE_AND_P1_VALIDATOR_DESIGN"},
+        "audit_subject_is_frozen_revision": {"const": false}
+      }
+    },
+    "audit_conclusion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["candidate_base_readiness_accepted", "p1_publication_readiness_accepted", "scientific_activation_permitted", "reason", "finding_count", "blocking_finding_count"],
+      "properties": {
+        "candidate_base_readiness_accepted": {"const": false},
+        "p1_publication_readiness_accepted": {"const": false},
+        "scientific_activation_permitted": {"const": false},
+        "reason": {"const": "THE_RUNNING_VALIDATOR_DESIGN_DOES_NOT_YET_PRODUCE_A_REPLAYABLE_INDEPENDENTLY_ANCHORED_SIGNED_AUTHORITY_CHAIN"},
+        "finding_count": {"const": 10},
+        "blocking_finding_count": {"const": 10}
+      }
+    },
+    "findings": {
+      "type": "array",
+      "minItems": 10,
+      "maxItems": 10,
+      "additionalItems": false,
+      "items": [
+        {"allOf": [{"$ref": "#/definitions/finding"}, {"properties": {"id": {"const": "MISSING_TWO_INDEPENDENT_RECOMPILES"}}}]},
+        {"allOf": [{"$ref": "#/definitions/finding"}, {"properties": {"id": {"const": "OPERATIONAL_EVIDENCE_HASHES_NOT_VALIDATED"}}}]},
+        {"allOf": [{"$ref": "#/definitions/finding"}, {"properties": {"id": {"const": "CANDIDATE_SELECTED_UNANCHORED_OVERLAPPING_KEYS"}}}]},
+        {"allOf": [{"$ref": "#/definitions/finding"}, {"properties": {"id": {"const": "P1A_P1T_LACK_REPLAYABLE_SIGNED_AUTHORITY"}}}]},
+        {"allOf": [{"$ref": "#/definitions/finding"}, {"properties": {"id": {"const": "LOCAL_O_EXCL_NOT_PUBLIC_APPEND_ONLY"}}}]},
+        {"allOf": [{"$ref": "#/definitions/finding"}, {"properties": {"id": {"const": "UNANCHORED_LOCAL_P0_CHAIN"}}}]},
+        {"allOf": [{"$ref": "#/definitions/finding"}, {"properties": {"id": {"const": "RUNNING_VALIDATOR_DRIFT"}}}]},
+        {"allOf": [{"$ref": "#/definitions/finding"}, {"properties": {"id": {"const": "FRESHNESS_GAP"}}}]},
+        {"allOf": [{"$ref": "#/definitions/finding"}, {"properties": {"id": {"const": "OVERSTRONG_TARGET_AUDIT"}}}]},
+        {"allOf": [{"$ref": "#/definitions/finding"}, {"properties": {"id": {"const": "CANDIDATE_CONTROLLED_BOOTSTRAP"}}}]}
+      ]
+    },
+    "required_remediation_topology": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["exact_sequence", "edge_rule", "stages", "p1r_must_bind"],
+      "properties": {
+        "exact_sequence": {"const": ["P0A", "P0T", "A0", "C", "P1A", "P1T", "P1R"]},
+        "edge_rule": {"const": "P0A_TO_P0T_TO_A0_TO_C_TO_P1A_TO_P1T_TO_P1R_WITH_NO_SKIPS_REORDERING_OR_SAME_STAGE_BOOTSTRAP"},
+        "stages": {
+          "type": "array",
+          "minItems": 7,
+          "maxItems": 7,
+          "additionalItems": false,
+          "items": [
+            {"allOf": [{"$ref": "#/definitions/stage"}, {"properties": {"stage": {"const": "P0A"}, "scientific_activation_boundary": {"const": false}}}]},
+            {"allOf": [{"$ref": "#/definitions/stage"}, {"properties": {"stage": {"const": "P0T"}, "scientific_activation_boundary": {"const": false}}}]},
+            {"allOf": [{"$ref": "#/definitions/stage"}, {"properties": {"stage": {"const": "A0"}, "scientific_activation_boundary": {"const": false}}}]},
+            {"allOf": [{"$ref": "#/definitions/stage"}, {"properties": {"stage": {"const": "C"}, "scientific_activation_boundary": {"const": false}}}]},
+            {"allOf": [{"$ref": "#/definitions/stage"}, {"properties": {"stage": {"const": "P1A"}, "scientific_activation_boundary": {"const": false}}}]},
+            {"allOf": [{"$ref": "#/definitions/stage"}, {"properties": {"stage": {"const": "P1T"}, "scientific_activation_boundary": {"const": false}}}]},
+            {"allOf": [{"$ref": "#/definitions/stage"}, {"properties": {"stage": {"const": "P1R"}, "scientific_activation_boundary": {"const": true}}}]}
+          ]
+        },
+        "p1r_must_bind": {
+          "type": "array",
+          "minItems": 9,
+          "maxItems": 9,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 24}
+        }
+      }
+    },
+    "activation_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["activation_boundary", "before_valid_p1r", "p1a_is_activation", "p1t_is_activation", "local_receipt_is_activation", "schema_conformance_is_activation", "operator_override_permitted", "transition_rule"],
+      "properties": {
+        "activation_boundary": {"const": "P1R"},
+        "before_valid_p1r": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["u1_capture_permitted", "checkpoint_capture_permitted", "entropy_permitted", "selection_permitted", "target_semantic_inspection_permitted"],
+          "properties": {
+            "u1_capture_permitted": {"const": false},
+            "checkpoint_capture_permitted": {"const": false},
+            "entropy_permitted": {"const": false},
+            "selection_permitted": {"const": false},
+            "target_semantic_inspection_permitted": {"const": false}
+          }
+        },
+        "p1a_is_activation": {"const": false},
+        "p1t_is_activation": {"const": false},
+        "local_receipt_is_activation": {"const": false},
+        "schema_conformance_is_activation": {"const": false},
+        "operator_override_permitted": {"const": false},
+        "transition_rule": {"const": "ONLY_A_VALID_PUBLIC_P1R_REPLAYED_FROM_THE_EXACT_P0A_THROUGH_P1T_CHAIN_CAN_OPEN_THE_SCIENTIFIC_PROTOCOL"}
+      }
+    },
+    "non_authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["this_audit_is_live_readiness", "this_audit_is_operational_acceptance", "this_audit_is_implementation_acceptance", "this_audit_is_a_p1r_receipt", "this_audit_can_clear_existing_gaps", "this_audit_can_authorize_publication", "this_audit_can_authorize_target_access", "supersession_requires_new_implementation_and_separate_signed_public_receipts"],
+      "properties": {
+        "this_audit_is_live_readiness": {"const": false},
+        "this_audit_is_operational_acceptance": {"const": false},
+        "this_audit_is_implementation_acceptance": {"const": false},
+        "this_audit_is_a_p1r_receipt": {"const": false},
+        "this_audit_can_clear_existing_gaps": {"const": false},
+        "this_audit_can_authorize_publication": {"const": false},
+        "this_audit_can_authorize_target_access": {"const": false},
+        "supersession_requires_new_implementation_and_separate_signed_public_receipts": {"const": true}
+      }
+    },
+    "failure_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["missing_stage_or_skipped_edge", "missing_or_overlapping_authority", "unreplayed_evidence_hash", "mutable_runtime_validator", "stale_or_unchallenged_receipt", "unbounded_target_absence_claim", "candidate_defined_trust_root", "activation_without_valid_p1r"],
+      "properties": {
+        "missing_stage_or_skipped_edge": {"const": "FAIL_CLOSED"},
+        "missing_or_overlapping_authority": {"const": "FAIL_CLOSED"},
+        "unreplayed_evidence_hash": {"const": "FAIL_CLOSED"},
+        "mutable_runtime_validator": {"const": "FAIL_CLOSED"},
+        "stale_or_unchallenged_receipt": {"const": "FAIL_CLOSED"},
+        "unbounded_target_absence_claim": {"const": "FAIL_CLOSED"},
+        "candidate_defined_trust_root": {"const": "FAIL_CLOSED"},
+        "activation_without_valid_p1r": {"const": "PROTOCOL_INVALID"}
+      }
+    },
+    "audit_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

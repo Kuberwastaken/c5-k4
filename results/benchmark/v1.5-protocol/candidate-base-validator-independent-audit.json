@@ -1,0 +1,195 @@
+{
+  "schema": "c5k4-method-v1.5-candidate-base-validator-independent-audit-1.0",
+  "status": "BLOCKED_REDESIGN_REQUIRED",
+  "protocol_version": "1.5",
+  "artifact_class": "TARGET_BLIND_NON_AUTHORITATIVE_INDEPENDENT_DESIGN_AUDIT",
+  "scope": {
+    "target_blind": true,
+    "target_data_consumed": false,
+    "target_data_present": false,
+    "candidate_identities_recorded": false,
+    "statement_text_recorded": false,
+    "live_readiness_claimed": false,
+    "operational_authority_claimed": false,
+    "implementation_acceptance_claimed": false,
+    "audit_subject": "RUNNING_CANDIDATE_BASE_AND_P1_VALIDATOR_DESIGN",
+    "audit_subject_is_frozen_revision": false
+  },
+  "audit_conclusion": {
+    "candidate_base_readiness_accepted": false,
+    "p1_publication_readiness_accepted": false,
+    "scientific_activation_permitted": false,
+    "reason": "THE_RUNNING_VALIDATOR_DESIGN_DOES_NOT_YET_PRODUCE_A_REPLAYABLE_INDEPENDENTLY_ANCHORED_SIGNED_AUTHORITY_CHAIN",
+    "finding_count": 10,
+    "blocking_finding_count": 10
+  },
+  "findings": [
+    {
+      "id": "MISSING_TWO_INDEPENDENT_RECOMPILES",
+      "severity": "BLOCKING",
+      "observation": "THE_DESIGN_DOES_NOT_REQUIRE_TWO_INDEPENDENT_RECOMPILATIONS_FROM_THE_EXACT_PUBLIC_CANDIDATE_BASE_AND_CLOSED_SOURCE_INPUTS",
+      "risk": "A_SINGLE_COMPILER_RUN_OR_SHARED_FAILURE_MODE_CAN AUTHORIZE_A_NON_REPRODUCIBLE_CANDIDATE_BASE",
+      "required_remediation": "REQUIRE_TWO_SEPARATELY_EXECUTED_SIGNED_RECOMPILE_RECEIPTS_WITH_DISTINCT_AUTHORITY_IDENTITIES_AND_BYTE_IDENTICAL_OUTPUT_CLOSURES"
+    },
+    {
+      "id": "OPERATIONAL_EVIDENCE_HASHES_NOT_VALIDATED",
+      "severity": "BLOCKING",
+      "observation": "OPERATIONAL_EVIDENCE_VALUES_ARE_HASH_REFERENCES_BUT_THE_REFERENCED_BYTES_SCHEMAS_SIGNATURES_AND_SEMANTICS_ARE_NOT REPLAYED BY_THE_ACCEPTANCE_PATH",
+      "risk": "OPAQUE_OR_UNRELATED_BYTES_CAN SATISFY_A_HASH_SHAPED_FIELD_WITHOUT_PROVING_OPERATIONAL_AUTHORITY",
+      "required_remediation": "REPLAY_EVERY_OPERATIONAL_EVIDENCE_OBJECT_FROM_CONTENT_ADDRESSED_BYTES_AND_VALIDATE_ITS_SCHEMA_SIGNATURE_IDENTITY_POLICY_AND_BOUND_CANDIDATE_BASE"
+    },
+    {
+      "id": "CANDIDATE_SELECTED_UNANCHORED_OVERLAPPING_KEYS",
+      "severity": "BLOCKING",
+      "observation": "THE_CANDIDATE_PATH_CAN SUPPLY_SIGNING_KEYS_WITHOUT_A_PRIOR_PUBLIC_KEY_ROOT_AND_DOES_NOT_PROVE_THAT_REQUIRED_SIGNER_CLASSES_ARE_DISTINCT",
+      "risk": "THE_CANDIDATE_CAN CHOOSE_OR_REUSE_KEYS_AND_SIMULATE_NOMINALLY_INDEPENDENT_APPROVALS",
+      "required_remediation": "FREEZE_KEYS_AND_SIGNER_CLASS_SEPARATION_IN_PUBLIC_A0_AFTER_AUTHENTICATED_P0T_AND_BEFORE_C_AND_REJECT_DUPLICATE_KEY_IDS_PUBLIC_KEYS_OR_AUTHORITY_IDENTITIES"
+    },
+    {
+      "id": "P1A_P1T_LACK_REPLAYABLE_SIGNED_AUTHORITY",
+      "severity": "BLOCKING",
+      "observation": "P1A_AND_P1T_CAN BIND_DIGESTS_WITHOUT_CONTAINING_A_COMPLETE_REPLAYABLE_SIGNED_AUTHORITY_DECISION_OVER_THE_EXACT_CHAIN_AND_EVIDENCE",
+      "risk": "PUBLICATION_CAN LOOK_TERMINAL_WHILE_ITS_READINESS_DECISION_REMAINS_OFF_CHAIN_OR_UNVERIFIABLE",
+      "required_remediation": "ADD_A_SEPARATE_P1R_RECEIPT_SIGNED_BY_PRECOMMITTED_DISTINCT_AUTHORITIES_AND_REPLAYABLE_FROM_P0A_THROUGH_P1T"
+    },
+    {
+      "id": "LOCAL_O_EXCL_NOT_PUBLIC_APPEND_ONLY",
+      "severity": "BLOCKING",
+      "observation": "LOCAL_EXCLUSIVE_FILE_CREATION_ONLY_PREVENTS_ONE_PATH_CREATION_RACES_ON_ONE_FILESYSTEM_AND_IS_NOT_A_PUBLIC_APPEND_ONLY_PUBLICATION_GUARANTEE",
+      "risk": "A_LOCAL_OPERATOR_CAN REMOVE_REPLACE_OR_RECREATE_THE_ARTIFACT_WITHOUT_A_PUBLICLY_REPLAYABLE_HISTORY",
+      "required_remediation": "PUBLISH_EACH_AUTHORITY_STAGE_TO_A_PUBLIC_ONE_PARENT_ONE_PATH_CHAIN_WHOSE_WRITER_CANNOT_REWRITE_DELETE_OR_FORCE_PUSH"
+    },
+    {
+      "id": "UNANCHORED_LOCAL_P0_CHAIN",
+      "severity": "BLOCKING",
+      "observation": "THE_REQUEST_SUPPLIED_P0A_AND_P0T_OBJECTS_ARE_NOT_REQUIRED_TO_BE_ROOTED_IN_AN_EXACT_ADVERTISED_PUBLIC_TERMINAL_COMMIT_OR_ANCESTOR_CHAIN",
+      "risk": "THE_BOOTSTRAP_HISTORY_CAN_BE_REBUILT_AFTER_THE_CANDIDATE_OR_AFTER_LATER_EVIDENCE_IS_KNOWN",
+      "required_remediation": "CREATE_P0A_AND_TERMINATE_IT_AS_PUBLIC_P0T_BEFORE_A0_OR_C_AND_REQUIRE_ALL_LATER_STAGES_TO_REPLAY_THAT_EXACT_ROOT"
+    },
+    {
+      "id": "RUNNING_VALIDATOR_DRIFT",
+      "severity": "BLOCKING",
+      "observation": "THE_VALIDATOR_CAN EXECUTE_FROM_MUTABLE_RUNNING_WORKTREE_BYTES_RATHER_THAN_ONLY_THE_EXACT_VALIDATOR_BLOB_RECORDED_BY_THE_CANDIDATE_BASE",
+      "risk": "VALIDATION_SEMANTICS_CAN_CHANGE_BETWEEN_PREPARATION_REVIEW_EXECUTION_AND_REPLAY",
+      "required_remediation": "EXECUTE_AND_REPLAY_THE_VALIDATOR_FROM_AN_EXACT_PUBLIC_COMMIT_AND_BIND_ITS_TRANSITIVE_SOURCE_SCHEMA_AND_TEST_CLOSURE"
+    },
+    {
+      "id": "FRESHNESS_GAP",
+      "severity": "BLOCKING",
+      "observation": "THE_DESIGN_DOES_NOT_PROVE_THAT_OPERATIONAL_AND_RECOMPILE_EVIDENCE_WAS_CREATED_AFTER_THE_RELEVANT_TERMINAL_COMMIT_AND_WITHIN_A_FROZEN_ACCEPTANCE_WINDOW",
+      "risk": "STALE_PRECOMPUTED_OR_REPLAYED_EVIDENCE_CAN_BE_ATTACHED_TO_A_NEW_CANDIDATE_OR_P1_PUBLICATION",
+      "required_remediation": "BIND_SIGNED_CHALLENGES_TERMINAL_COMMIT_IDS_MONOTONIC_SEQUENCE_VALUES_AND_FROZEN_MAXIMUM_AGES_IN_A0_AND_P1R"
+    },
+    {
+      "id": "OVERSTRONG_TARGET_AUDIT",
+      "severity": "BLOCKING",
+      "observation": "THE_ZERO_TARGET_AUDIT_ASSERTS_ABSENCE_BEYOND_WHAT_ITS_ENUMERATED_PATHS_AND_PARSERS_CAN_OBSERVE",
+      "risk": "AN_UNCHECKED_ENCODING_PATH_OR_EXTERNAL_INPUT_CAN INVALIDATE_THE_TARGET_BLINDNESS_CLAIM_WHILE_THE_AUDIT_REPORTS_SUCCESS",
+      "required_remediation": "LIMIT_THE_CLAIM_TO_AN_EXPLICIT_CLOSED_BYTE_AND_INPUT_BOUNDARY_OR_ADD_A_COMPLETE_FAIL_CLOSED_INFORMATION_FLOW_AUDIT_FOR_EVERY_ALLOWED_INPUT"
+    },
+    {
+      "id": "CANDIDATE_CONTROLLED_BOOTSTRAP",
+      "severity": "BLOCKING",
+      "observation": "BOOTSTRAP_AUTHORITY_MATERIAL_CAN_BE_CREATED_OR_SELECTED_IN_THE_SAME_CANDIDATE_CONTROLLED_FLOW_THAT_IT_IS_MEANT_TO_AUTHORIZE",
+      "risk": "THE_AUTHORIZATION_IS_CIRCULAR_BECAUSE_THE_OBJECT_UNDER_REVIEW_CAN_DEFINE_ITS_OWN_TRUST_ROOT_AND_ACCEPTANCE_RULES",
+      "required_remediation": "COMPLETE_PUBLIC_P0T_AND_SEPARATE_LIVE_A0_ACCEPTANCE_BEFORE_COMPILING_C_THEN_FORBID_C_FROM_ADDING_REPLACING_OR_REINTERPRETING_BOOTSTRAP_AUTHORITIES"
+    }
+  ],
+  "required_remediation_topology": {
+    "exact_sequence": [
+      "P0A",
+      "P0T",
+      "A0",
+      "C",
+      "P1A",
+      "P1T",
+      "P1R"
+    ],
+    "edge_rule": "P0A_TO_P0T_TO_A0_TO_C_TO_P1A_TO_P1T_TO_P1R_WITH_NO_SKIPS_REORDERING_OR_SAME_STAGE_BOOTSTRAP",
+    "stages": [
+      {
+        "stage": "P0A",
+        "role": "AUTHENTICATED_TARGET_BLIND_PROTOCOL_SOURCE_AND_COMPLETE_V1_4_COMPONENT_CLOSURE_WITHOUT_LIVE_READINESS_AUTHORITY",
+        "scientific_activation_boundary": false
+      },
+      {
+        "stage": "P0T",
+        "role": "PUBLIC_ONE_PARENT_ONE_PATH_TERMINAL_COMMIT_FOR_THE_EXACT_P0A_BYTES",
+        "scientific_activation_boundary": false
+      },
+      {
+        "stage": "A0",
+        "role": "PUBLIC_PRE_C_READINESS_AUTHORITY_ROOT_FREEZING_DISTINCT_SIGNER_CLASSES_KEYS_EVIDENCE_ISSUERS_RECOMPILERS_AND_FRESHNESS_POLICY",
+        "scientific_activation_boundary": false
+      },
+      {
+        "stage": "C",
+        "role": "EXACT_PUBLIC_CANDIDATE_BASE_COMMIT_AND_ROOT_TREE_COMPILED_UNDER_P0T_AND_A0",
+        "scientific_activation_boundary": false
+      },
+      {
+        "stage": "P1A",
+        "role": "PUBLIC_APPEND_ONLY_P1_DRAFT_BINDING_C_THE_CLOSED_COMPONENT_GRAPH_C_BOUND_OPERATIONAL_EVIDENCE_AND_TWO_INDEPENDENT_RECOMPILE_RECEIPTS",
+        "scientific_activation_boundary": false
+      },
+      {
+        "stage": "P1T",
+        "role": "PUBLIC_ONE_PARENT_ONE_PATH_TERMINAL_COMMIT_FOR_THE_EXACT_P1A_BYTES",
+        "scientific_activation_boundary": false
+      },
+      {
+        "stage": "P1R",
+        "role": "FRESH_REPLAYABLE_MULTI_AUTHORITY_SIGNED_READINESS_RECEIPT_OVER_THE_COMPLETE_P0A_THROUGH_P1T_CHAIN",
+        "scientific_activation_boundary": true
+      }
+    ],
+    "p1r_must_bind": [
+      "EXACT_P0A_AND_P0T_COMMITS_TREES_AND_ARTIFACT_BYTES",
+      "EXACT_A0_PUBLIC_AUTHORITY_ROOT_PLUS_C_BOUND_SIGNED_OPERATIONAL_EVIDENCE_BYTES_AND_FRESHNESS_CHALLENGE",
+      "EXACT_C_COMMIT_ROOT_TREE_AND_CLOSED_INPUT_GRAPH",
+      "TWO_DISTINCT_INDEPENDENT_SIGNED_RECOMPILE_RECEIPTS",
+      "EXACT_P1A_AND_P1T_COMMITS_TREES_AND_ARTIFACT_BYTES",
+      "EXACT_VALIDATOR_SCHEMA_TEST_AND_TRANSITIVE_RUNTIME_CLOSURE",
+      "DISTINCT_PRECOMMITTED_SIGNER_IDENTITIES_AND_PUBLIC_KEYS",
+      "PUBLIC_APPEND_ONLY_CHAIN_REPLAY_AND_FRESHNESS_WINDOW",
+      "BOUNDED_TARGET_BLINDNESS_CLAIM_AND_ITS_COMPLETE_OBSERVATION_DOMAIN"
+    ]
+  },
+  "activation_gate": {
+    "activation_boundary": "P1R",
+    "before_valid_p1r": {
+      "u1_capture_permitted": false,
+      "checkpoint_capture_permitted": false,
+      "entropy_permitted": false,
+      "selection_permitted": false,
+      "target_semantic_inspection_permitted": false
+    },
+    "p1a_is_activation": false,
+    "p1t_is_activation": false,
+    "local_receipt_is_activation": false,
+    "schema_conformance_is_activation": false,
+    "operator_override_permitted": false,
+    "transition_rule": "ONLY_A_VALID_PUBLIC_P1R_REPLAYED_FROM_THE_EXACT_P0A_THROUGH_P1T_CHAIN_CAN_OPEN_THE_SCIENTIFIC_PROTOCOL"
+  },
+  "non_authority": {
+    "this_audit_is_live_readiness": false,
+    "this_audit_is_operational_acceptance": false,
+    "this_audit_is_implementation_acceptance": false,
+    "this_audit_is_a_p1r_receipt": false,
+    "this_audit_can_clear_existing_gaps": false,
+    "this_audit_can_authorize_publication": false,
+    "this_audit_can_authorize_target_access": false,
+    "supersession_requires_new_implementation_and_separate_signed_public_receipts": true
+  },
+  "failure_policy": {
+    "missing_stage_or_skipped_edge": "FAIL_CLOSED",
+    "missing_or_overlapping_authority": "FAIL_CLOSED",
+    "unreplayed_evidence_hash": "FAIL_CLOSED",
+    "mutable_runtime_validator": "FAIL_CLOSED",
+    "stale_or_unchallenged_receipt": "FAIL_CLOSED",
+    "unbounded_target_absence_claim": "FAIL_CLOSED",
+    "candidate_defined_trust_root": "FAIL_CLOSED",
+    "activation_without_valid_p1r": "PROTOCOL_INVALID"
+  },
+  "audit_sha256": "a6597e9c2595ad75ba722ecb9bbae5afc3f8ecce9a8e040e418bbeec0cf6cbb9"
+}
