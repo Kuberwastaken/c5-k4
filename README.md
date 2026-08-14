@@ -164,20 +164,24 @@ fractions can therefore approach the wall but cannot cross it. This is a
 not a completed proof of the exact Lean declaration: source-to-definition and
 finite-cutoff bridge lemmas remain to be formalized.
 
-The current executable rotation is OEIS A231201, explicitly as a
+The latest executable rotation is OEIS A231201, explicitly as a
 **contaminated DEVELOPMENT** continuation rather than a held-out trial. Both
 the exact predicate and the residue-cover idea had prior target-specific
-computational exposure, so this run cannot measure independent method
-efficacy. Its frozen
-55-prime CEGAR/CRT universe nevertheless tests a stronger exact construction.
+computational exposure, so it cannot measure independent method efficacy. Its
+frozen 55-prime CEGAR/CRT universe nevertheless tests a stronger exact
+construction.
 Pre-dispatch audit removed an out-of-domain `x=0` constraint, corrected the
 prime-two periodic class, replaced an infeasible 10,000-row recomputation with
 a content lock plus an exact deterministic-primality prefix, separated
 deadline and verification-failure terminals, and removed an inaccessible
-private-repository dependency. Six disjoint `(a_2,a_3)` shards are running
-from immutable commit `7669f2260b2dc1f05cf4aeb389f80d3c7c37b86a`; no outcome
-is claimed before independent artifact replay. See the
-[freeze contract](results/expansion/live-search-2026-08-14/oeis-a231201-development/CONTRACT.md)
+private-repository dependency. In the first immutable execution, all six
+`(a_2,a_3)` shards reached the 54-second deadline while CP-SAT remained
+`UNKNOWN`; zero assignments reached the exact adversary. This is a valid
+bounded operational result with no mathematical conclusion, infeasibility,
+or exhaustion claim. It motivates solver/constraint-arm redesign rather than
+more time on the identical model. See the
+[result](results/expansion/live-search-2026-08-14/oeis-a231201-development/result.md),
+[freeze contract](results/expansion/live-search-2026-08-14/oeis-a231201-development/CONTRACT.md),
 and [preflight correction](results/expansion/live-search-2026-08-14/oeis-a231201-heldout-preflight-strict-stop.md).
 
 A subsequent live-arm pass over the newly merged OEIS cohort found one exact
