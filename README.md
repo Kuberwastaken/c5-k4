@@ -161,6 +161,18 @@ measure arm efficacy; it establishes that the current locally accumulated
 research corpus cannot serve as an uncontaminated held-out test under the
 frozen exclusion rule.
 
+[Method v1.5](METHOD_V1_5_BENCHMARK.md) therefore moves the same preregistered
+twelve-cluster, three-arm experiment to a genuinely future DeepMind
+`formal-conjectures` cohort introduced after a new public P1 freeze. Its
+target-blind machinery now includes an authenticated component closure, exact
+CAPTURE orchestration, controlled-harness request verification, a pre-registry
+classifier runtime gate, and a production 24-tree Linux isolation adapter.
+The real isolation path passes target-free acceptance on a supported Linux
+host; no target has been consumed. V1.5 is still PRE-P1 and non-operational:
+live Object Lock/KMS/IAM, signing and TLS/OIDC service infrastructure,
+operational noninterference/custody receipts, final end-to-end acceptance, and
+the P1A/P1T and U1 publications remain outstanding.
+
 The development record also publishes its zeroes. Method v0.2 found no
 crossing for #382e after 212,502 wall-directed substitutions, all connected
 order-eight graphs, and 20,000 unrestricted-weight samples; and no crossing

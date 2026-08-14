@@ -1,12 +1,15 @@
 # Method v1.5 future-cohort benchmark (pre-P1 protocol)
 
 **Status:** pre-P1 implementation and validation. The deterministic builders,
-bounded schemas, custody verifiers, private identity join, aggregate/replay
-certificates, P1 assembler, public-chain verifier, fail-closed checkpoint
-runner, controlled-delivery prototype, and inert scheduled workflow exist and
-have contract tests. They are not an operational benchmark yet. No P1 freeze,
-U1 capture, future-cohort observation, entropy, selection, or target-semantic
-inspection has occurred.
+bounded schemas, authenticated P1 component closure, exact CAPTURE DAG,
+custody and noninterference verifiers, private identity join,
+aggregate/replay certificates, public-chain verifier, fail-closed checkpoint
+runner, target-blind scheduler and controlled-harness verifier, classifier
+closure/runtime gate, and production target-free Linux isolation adapter exist
+and have contract tests. They are not an operational benchmark yet: no live
+listener, production WORM/KMS/signing infrastructure, or accepted operational
+receipts exist. No P1 freeze, U1 capture, future-cohort observation, entropy,
+selection, or target-semantic inspection has occurred.
 
 **Purpose:** run the unchanged twelve-cluster, three-arm DeepMind experiment on
 a genuinely prospective population: question clusters first introduced on
@@ -164,13 +167,15 @@ which the frozen exact join binds it.
 The implemented custody contracts specify signed per-host hash/sequence
 chains, five-minute heartbeat bounds, content-addressed payload verification,
 restart and gap handling, private coverage certificates, and a public sealed
-binding that cannot disclose private record metadata. The dedicated VPS-only
-prototype exercises durable `PREPARE -> START -> DELIVER/ABORT` transitions,
-Ed25519 receipt chaining, a 240-second heartbeat, sticky invalidation, crash
-recovery, and wrapped subprocess standard streams. It is deliberately fixed to
-`PRE_P1_NOT_OPERATIONAL`: it is not a production capture daemon, immutable
-remote store, accepted host key, or proof of noninterference from stock Codex,
-Claude, Mac, tmux, the local relay, or general VPS delivery paths.
+binding that cannot disclose private record metadata. The broker,
+remote-authoritative WORM bridge, custody compiler, private-input assembler,
+participant ledger, and noninterference key/receipt contracts exercise durable
+`PREPARE -> START -> DELIVER/ABORT` transitions, Ed25519 receipt chaining, a
+240-second heartbeat, sticky invalidation, crash recovery, and wrapped
+subprocess standard streams. They are deliberately fixed to
+`PRE_P1_NOT_OPERATIONAL`: there is no live production daemon, immutable remote
+store, accepted host key, or operational proof of noninterference from stock
+Codex, Claude, Mac, tmux, the local relay, or general VPS delivery paths.
 
 After C1, target semantics may enter only fresh isolated arm and independent-
 verification processes or model contexts. No arm inherits a prior chat,
@@ -269,8 +274,8 @@ The repository currently contains and tests:
   registry artifacts, and P1 assembly;
 - a fail-closed checkpoint runner that authenticates its prospective
   P1/component and public-chain inputs, constrains publication to three
-  schema-bounded public files, and refuses CAPTURE while custody and the
-  execution adapter remain unfrozen;
+  schema-bounded public files, and refuses CAPTURE while the invocation and
+  operational-evidence gates remain PRE-P1;
 - a dedicated-VPS controlled-delivery prototype and adversarial tests for
   signed receipt sequencing, content-before-delivery custody, crash ambiguity,
   store failure, heartbeat expiry, and stdin/stdout/stderr capture;
@@ -282,50 +287,60 @@ The repository currently contains and tests:
   epoch, and an inert private-input assembler that accepts only version-pinned
   WORM locators, replays the registry against two distinct acquisitions, and
   writes its private manifest atomically last;
+- an exact fourteen-stage CAPTURE orchestrator, authenticated P1 role
+  resolution, and target-blind controlled-harness request verifier with
+  durable replay reservation and a bounded three-file response;
+- a machine-only participant ledger plus signed noninterference receipt and
+  public-key commitment contracts; raw verification-key bytes remain private
+  WORM input and are not repository roles;
+- a target-free classifier closure receipt and runtime gate that authenticate
+  the exact classifier, syntax-pool builder, schemas, and executing verifier
+  before any future-registry row may be read;
 - a target-free three-arm capability matrix and execution-envelope validator
   that deny wall data to both baselines, enforce the all-PENDING/equal-budget
   barrier, and embargo every arm result until the complete triplet terminates;
 - a test-only sealed triplet-launch skeleton that exercises one-shot claiming,
   deterministic balanced scheduling of all 24 trees, capability-minimal
-  inputs, and combined-only result records. It remains explicitly
-  non-operational because production mount/network isolation is not yet
-  implemented;
+  inputs, and combined-only result records;
+- a descriptor-pinned Linux isolation path and production 24-tree adapter with
+  six namespaces, read-only capability mounts, disjoint private writable
+  roots, no network, one CPU, and a 60-second process-tree cap. Target-free
+  acceptance passes on a supported Linux host, but the adapter remains
+  nonactivated and has consumed no target;
 - an offline validation workflow; and
-- the scheduled checkpoint workflow in an intentionally inert state. Its
-  invocation contract remains `PRE_P1_SCAFFOLD_NOT_EXECUTABLE`, with null
-  workflow and runner digests, so scheduled jobs must refuse to capture.
+- a target-blind scheduled checkpoint workflow and bounded publisher in an
+  intentionally inert state. Its invocation contract remains
+  `PRE_P1_SCAFFOLD_NOT_EXECUTABLE`, with null workflow and runner digests, so
+  scheduled jobs must refuse to capture.
 
-The current hosted scheduled workflow is not yet connected to the dedicated
-harness. It must remain target-blind: finding a private input in hosted
-`RUNNER_TEMP` is not custody or delivery proof.
+The hosted scheduled workflow is not yet connected to a deployed dedicated
+harness. The production endpoint, listener, TLS/OIDC deployment, and
+operational receipts remain unset. The hosted side must remain target-blind:
+finding a private input in hosted `RUNNER_TEMP` is not custody or delivery
+proof.
 
 The following are operational blockers, not completed artifacts:
 
-1. finish the production CAPTURE orchestrator around the implemented custody
-   compiler and private-input assembler, including authenticated P1 role
-   resolution and the final aggregate/finalization handoff;
-2. provision and live-accept the private Object Lock bucket, KMS key, deletion
-   policy, least-privilege role, host signing key, and continuously supervised
-   single-writer service; freeze the machine-only
-   `ai-vps-controlled-harness` participant and delivery-channel scope, prove
-   zero ingress from Mac, humans, stock Codex/Claude, tmux, general sessions,
-   agent-sync, and the local relay, and bind the exact filesystem, process,
+1. provision and live-accept the private Object Lock bucket, KMS key, deletion
+   policy, least-privilege role, host signing key, TLS/OIDC endpoint, and
+   continuously supervised single-writer service;
+2. produce and verify operational custody, participant, and noninterference
+   evidence for the machine-only `ai-vps-controlled-harness`, including zero
+   ingress from Mac, humans, stock Codex/Claude, tmux, general sessions,
+   agent-sync, and the local relay, and bind its exact filesystem, process,
    network, environment, secret, and control-input isolation;
-3. implement and acceptance-test the real triplet isolation backend: user,
-   mount, PID, and network namespaces; exact read-only capability mounts;
-   disjoint private writable roots; CPU affinity; and 60-second process-tree
-   termination. The injected test kernel is not a substitute for this gate;
+3. run the complete target-free CAPTURE and 24-tree triplet path on the chosen
+   production host, accept its real kernel/WORM/broker evidence, and freeze the
+   exact workflow, runner, custody, source, isolation, schema, and executable
+   digests in the closed P1 component set;
 4. freeze experimenter identities, upstream abstention, and deterministic
-   conflict exclusion, and connect hosted Actions only as a target-blind
-   scheduler and bounded publisher for the controlled harness;
-5. bind the final workflow, runner, custody, source, isolation, schema, and
-   executable digests in the closed P1 component set and change the invocation
-   contract to executable only after every activation requirement passes;
-6. create and publish the sole-purpose `P1A` and immediate one-path `P1T`
+   conflict exclusion, then change the invocation contract to executable only
+   after every activation requirement passes;
+5. create and publish the sole-purpose `P1A` and immediate one-path `P1T`
    commits and verify the public P1T receipt; and
-7. only then perform the one-shot U1 capture and create the public checkpoint
+6. only then perform the one-shot U1 capture and create the public checkpoint
    branch genesis.
 
-No P1A, P1T, readiness receipt, U1/U2 receipt, operational private store,
-future registry, entropy value, selection, target identity publication, or
-benchmark outcome exists today.
+No P1A, P1T, operational custody/noninterference receipt, U1/U2 receipt,
+operational private store, future registry, entropy value, selection, target
+identity publication, or benchmark outcome exists today.
