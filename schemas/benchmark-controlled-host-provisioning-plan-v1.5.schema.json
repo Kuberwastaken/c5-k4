@@ -1,0 +1,110 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-controlled-host-provisioning-plan-v1.5.schema.json",
+  "title": "Method v1.5 controlled-host provisioning plan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "status", "protocol_version", "target_specific", "deployment", "host", "daemon", "bootstrap_projection", "external_prerequisites", "prohibited", "plan_sha256"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-controlled-host-provisioning-plan-1.0"},
+    "status": {"const": "PRE_A0_CONTROLLED_HOST_PLAN_NOT_DEPLOYED"},
+    "protocol_version": {"const": "1.5"},
+    "target_specific": {"const": false},
+    "deployment": {
+      "const": {
+        "executed": false,
+        "operationally_accepted": false,
+        "activation_permitted": false,
+        "create_only": true,
+        "plan_metadata_only": true,
+        "apply_repository_gate": "BLOCKED_AWAITING_VERIFIER_AUTHENTICATED_BOOTSTRAP_ACCEPTANCE",
+        "role_assumption_is_authority_acceptance": false,
+        "ami_metadata_is_measurement_acceptance": false,
+        "region": "ap-south-1",
+        "protected_environment": "benchmark-v15-production",
+        "template": "infra/benchmark-v1.5/controlled-host/cloudformation.json",
+        "template_sha256": "0af41e32554089c8fc48b30d84b442b6f6b3cca576b38014d1542dcd62e950f1"
+      }
+    },
+    "host": {
+      "const": {
+        "os": "Amazon Linux 2023",
+        "architecture": "x86_64",
+        "attestable_ami_required": true,
+        "nitro_tpm": "v2.0",
+        "boot_mode": "uefi",
+        "persistent_encrypted_ebs": true,
+        "imds_v2_required": true,
+        "selinux": "enforcing",
+        "inbound_listener_permitted": false,
+        "ssh_permitted": false,
+        "ssm_permitted": false,
+        "ec2_instance_connect_permitted": false,
+        "github_actions_runner_permitted": false
+      }
+    },
+    "daemon": {
+      "const": {
+        "executable": "/usr/bin/docker",
+        "rootless": false,
+        "user_namespace_mode": "daemon-userns-remap",
+        "security_options": ["name=cgroupns", "name=seccomp,profile=builtin", "name=userns"],
+        "cgroup_version": "2",
+        "cgroup_driver": "systemd",
+        "default_runtime": "runc",
+        "persistent_engine_id_required": true,
+        "runtime_image_reference": "docker.io/library/python:3.13.7-slim-bookworm@sha256:781449467ffb6f04218f09b1ecdcdc7d22b289ee5da9ec498b024e24ad7a6db7",
+        "runtime_image_manifest_sha256": "781449467ffb6f04218f09b1ecdcdc7d22b289ee5da9ec498b024e24ad7a6db7",
+        "runtime_image_id": "sha256:444ec9cb9b03c3be7c8b18d4a5e82e7cc908e2c0032c0a6e759338a48250b4de",
+        "implicit_pull_permitted": false
+      }
+    },
+    "bootstrap_projection": {
+      "const": {
+        "signing_algorithm": "Ed25519",
+        "private_key_storage": "NITROTPM_PCR_SEALED_ON_HOST_ONLY",
+        "a0_binding": "CONTROLLED_HARNESS_READINESS_KEY",
+        "domain": "c5k4-method-v1.5-isolated-runner-daemon-attestation-1.0",
+        "target_data_permitted": false,
+        "only_permitted_egress_payload": "CANONICAL_SIGNED_DAEMON_BOOTSTRAP_PROJECTION",
+        "raw_private_key_egress_permitted": false,
+        "automatic_a0_claim_permitted": false
+      }
+    },
+    "external_prerequisites": {
+      "type": "array",
+      "const": [
+        "FRESH_PRIVATE_AWS_ACCOUNT_OR_EQUIVALENT_BOUNDARY",
+        "GITHUB_IMMUTABLE_OIDC_SUBJECT_ENABLED_FOR_REPOSITORY_IDS_97027230_AND_1331829034",
+        "PROTECTED_BENCHMARK_V15_PRODUCTION_ENVIRONMENT_WITH_MAIN_ONLY_REVIEW",
+        "EXTERNALLY_BOOTSTRAPPED_GITHUB_OIDC_DEPLOYER_ROLE",
+        "DISTINCT_PREEXISTING_HARNESS_ROLE_AND_SAME_NAMED_INSTANCE_PROFILE",
+        "IMMUTABLE_STORE_REMAINS_A_SEPARATE_LATER_ACCEPTANCE_GATE_NOT_A_HOST_BOOTSTRAP_PREREQUISITE",
+        "VERIFIER_AUTHENTICATED_IMMUTABLE_OIDC_AND_DEPLOYER_BOOTSTRAP_ACCEPTANCE_NOT_YET_FROZEN",
+        "INDEPENDENT_ATTESTABLE_AMI_MEASUREMENT_ACCEPTANCE_NOT_YET_AUTHENTICATED",
+        "BOUNDED_BOOTSTRAP_PROGRAM_FROZEN_IN_ATTESTABLE_AMI",
+        "LIVE_NITROTPM_AND_DAEMON_ATTESTATION_NOT_YET_CAPTURED"
+      ]
+    },
+    "prohibited": {
+      "type": "array",
+      "const": [
+        "UPDATE_OR_DELETE_EXISTING_STACK",
+        "APPLY_BEFORE_VERIFIER_AUTHENTICATED_BOOTSTRAP_ACCEPTANCE",
+        "OIDC_ROLE_ASSUMPTION_TREATED_AS_NARROW_TRUST_ACCEPTANCE",
+        "DESCRIBE_IMAGES_METADATA_TREATED_AS_AMI_MEASUREMENT_ACCEPTANCE",
+        "LONG_LIVED_AWS_SECRET_IN_GITHUB",
+        "FABRICATED_AWS_ROLE_OR_AMI_AUTHORITY",
+        "PUBLIC_IP_OR_INBOUND_SECURITY_GROUP_RULE",
+        "INTERNET_GATEWAY_NAT_OR_GENERAL_EGRESS",
+        "SSH_SSM_OR_EC2_INSTANCE_CONNECT",
+        "SELF_HOSTED_GITHUB_ACTIONS_RUNNER",
+        "ROOTLESS_DOCKER_OR_PRIVILEGED_DIND",
+        "TARGET_DATA_IN_USER_DATA_TAGS_LOGS_OR_BOOTSTRAP_PROJECTION",
+        "RAW_ED25519_PRIVATE_KEY_OUTSIDE_NITROTPM_BOUND_HOST"
+      ]
+    },
+    "plan_sha256": {"$ref": "#/definitions/sha256"}
+  },
+  "definitions": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+}

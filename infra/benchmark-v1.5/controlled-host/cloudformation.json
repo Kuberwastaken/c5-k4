@@ -1,0 +1,169 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "C5K4 Method v1.5 target-blind controlled-host scaffold; inert and nonoperational until separately attested and accepted",
+  "Parameters": {
+    "AttestableAmiId": {
+      "Type": "AWS::EC2::Image::Id",
+      "Description": "Externally accepted Amazon Linux 2023 Attestable AMI with NitroTPM v2.0 and the frozen bootstrap program"
+    },
+    "AttestableAmiMeasurementsSha256": {
+      "Type": "String",
+      "AllowedPattern": "^[0-9a-f]{64}$",
+      "Description": "Independent reference-measurement bundle digest; this template does not claim to verify it"
+    },
+    "ProtocolScaffoldCommit": {
+      "Type": "String",
+      "AllowedPattern": "^[0-9a-f]{40}$",
+      "Description": "Non-authoritative pre-A0 host-plan commit; never a claim about future candidate C"
+    },
+    "HarnessInstanceProfileName": {
+      "Type": "String",
+      "AllowedPattern": "^[A-Za-z0-9+=,.@_-]{1,64}$",
+      "Description": "Pre-existing instance profile whose name equals the distinct externally bootstrapped harness role name"
+    }
+  },
+  "Resources": {
+    "ControlledVpc": {
+      "Type": "AWS::EC2::VPC",
+      "DeletionPolicy": "Retain",
+      "UpdateReplacePolicy": "Retain",
+      "Properties": {
+        "CidrBlock": "10.77.0.0/24",
+        "EnableDnsHostnames": false,
+        "EnableDnsSupport": true,
+        "InstanceTenancy": "default",
+        "Tags": [
+          {"Key": "Name", "Value": "c5k4-v15-controlled-host"},
+          {"Key": "c5k4:protocol", "Value": "v1.5"},
+          {"Key": "c5k4:target-specific", "Value": "false"}
+        ]
+      }
+    },
+    "ControlledSubnet": {
+      "Type": "AWS::EC2::Subnet",
+      "DeletionPolicy": "Retain",
+      "UpdateReplacePolicy": "Retain",
+      "Properties": {
+        "AssignIpv6AddressOnCreation": false,
+        "AvailabilityZone": {"Fn::Select": [0, {"Fn::GetAZs": ""}]},
+        "CidrBlock": "10.77.0.0/28",
+        "MapPublicIpOnLaunch": false,
+        "VpcId": {"Ref": "ControlledVpc"},
+        "Tags": [
+          {"Key": "Name", "Value": "c5k4-v15-controlled-host-private"},
+          {"Key": "c5k4:protocol", "Value": "v1.5"}
+        ]
+      }
+    },
+    "ControlledRouteTable": {
+      "Type": "AWS::EC2::RouteTable",
+      "DeletionPolicy": "Retain",
+      "UpdateReplacePolicy": "Retain",
+      "Properties": {
+        "VpcId": {"Ref": "ControlledVpc"},
+        "Tags": [{"Key": "c5k4:protocol", "Value": "v1.5"}]
+      }
+    },
+    "ControlledSubnetRouteTableAssociation": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "DeletionPolicy": "Retain",
+      "UpdateReplacePolicy": "Retain",
+      "Properties": {
+        "RouteTableId": {"Ref": "ControlledRouteTable"},
+        "SubnetId": {"Ref": "ControlledSubnet"}
+      }
+    },
+    "ControlledSecurityGroup": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "DeletionPolicy": "Retain",
+      "UpdateReplacePolicy": "Retain",
+      "Properties": {
+        "GroupDescription": "No ingress and no general egress during target-blind controlled-host bootstrap",
+        "SecurityGroupIngress": [],
+        "SecurityGroupEgress": [
+          {"Description": "Explicitly replace AWS default egress with unreachable loopback-only destination", "IpProtocol": "-1", "CidrIp": "127.0.0.1/32"}
+        ],
+        "VpcId": {"Ref": "ControlledVpc"},
+        "Tags": [
+          {"Key": "Name", "Value": "c5k4-v15-controlled-host-deny"},
+          {"Key": "c5k4:protocol", "Value": "v1.5"}
+        ]
+      }
+    },
+    "ControlledHost": {
+      "Type": "AWS::EC2::Instance",
+      "DeletionPolicy": "Retain",
+      "UpdateReplacePolicy": "Retain",
+      "DependsOn": ["ControlledSubnetRouteTableAssociation"],
+      "Properties": {
+        "AvailabilityZone": {"Fn::Select": [0, {"Fn::GetAZs": ""}]},
+        "BlockDeviceMappings": [
+          {
+            "DeviceName": "/dev/xvda",
+            "Ebs": {
+              "DeleteOnTermination": false,
+              "Encrypted": true,
+              "VolumeSize": 40,
+              "VolumeType": "gp3"
+            }
+          }
+        ],
+        "DisableApiTermination": true,
+        "EbsOptimized": true,
+        "IamInstanceProfile": {"Ref": "HarnessInstanceProfileName"},
+        "ImageId": {"Ref": "AttestableAmiId"},
+        "InstanceInitiatedShutdownBehavior": "stop",
+        "InstanceType": "m6i.large",
+        "MetadataOptions": {
+          "HttpEndpoint": "enabled",
+          "HttpProtocolIpv6": "disabled",
+          "HttpPutResponseHopLimit": 1,
+          "HttpTokens": "required",
+          "InstanceMetadataTags": "disabled"
+        },
+        "Monitoring": true,
+        "NetworkInterfaces": [
+          {
+            "AssociatePublicIpAddress": false,
+            "DeleteOnTermination": false,
+            "DeviceIndex": "0",
+            "GroupSet": [{"Ref": "ControlledSecurityGroup"}],
+            "SubnetId": {"Ref": "ControlledSubnet"}
+          }
+        ],
+        "PropagateTagsToVolumeOnCreation": true,
+        "SourceDestCheck": true,
+        "Tags": [
+          {"Key": "Name", "Value": "c5k4-v15-controlled-host"},
+          {"Key": "c5k4:protocol", "Value": "v1.5"},
+          {"Key": "c5k4:phase", "Value": "PRE-A0"},
+          {"Key": "c5k4:target-specific", "Value": "false"},
+          {"Key": "c5k4:managed-access", "Value": "forbidden"}
+        ],
+        "Tenancy": "dedicated",
+        "UserData": {
+          "Fn::Base64": {
+            "Fn::Join": [
+              "",
+              [
+                "#!/bin/bash\nset -euo pipefail\numask 077\n",
+                "/usr/local/sbin/c5k4-v15-controlled-host-bootstrap \\\n",
+                "  --protocol-scaffold-commit '", {"Ref": "ProtocolScaffoldCommit"}, "' \\\n",
+                "  --ami-measurements-sha256 '", {"Ref": "AttestableAmiMeasurementsSha256"}, "' \\\n",
+                "  --docker-executable /usr/bin/docker \\\n",
+                "  --docker-security-options name=cgroupns,name=seccomp,profile=builtin,name=userns \\\n",
+                "  --docker-cgroup-version 2 --docker-cgroup-driver systemd --docker-runtime runc \\\n",
+                "  --runtime-image 'docker.io/library/python:3.13.7-slim-bookworm@sha256:781449467ffb6f04218f09b1ecdcdc7d22b289ee5da9ec498b024e24ad7a6db7' \\\n",
+                "  --runtime-image-id 'sha256:444ec9cb9b03c3be7c8b18d4a5e82e7cc908e2c0032c0a6e759338a48250b4de' \\\n",
+                "  --key-policy NITROTPM_PCR_SEALED_ED25519 \\\n",
+                "  --projection-policy CANONICAL_TARGET_FREE_SIGNED_LOCAL_ONLY \\\n",
+                "  --output /var/lib/c5k4-benchmark-v15/bootstrap-projection.json\n"
+              ]
+            ]
+          }
+        }
+      }
+    }
+  },
+  "Outputs": {}
+}

@@ -7,6 +7,17 @@ on:
     paths:
       - .github/workflows/method-v15-infrastructure-validation.yml
       - infra/benchmark-v1.5/immutable-store/**
+      - infra/benchmark-v1.5/controlled-host/**
+      - .github/workflows/method-v15-controlled-host-activation.yml
+      - results/benchmark/v1.5-protocol/aws-github-bootstrap-contract.json
+      - results/benchmark/v1.5-protocol/controlled-host-provisioning-plan.json
+      - schemas/benchmark-aws-github-bootstrap-contract-v1.5.schema.json
+      - schemas/benchmark-controlled-host-provisioning-plan-v1.5.schema.json
+      - scripts/verify_benchmark_v15_aws_github_bootstrap_contract.py
+      - scripts/test_verify_benchmark_v15_aws_github_bootstrap_contract.py
+      - scripts/verify_benchmark_v15_controlled_host_infrastructure.py
+      - scripts/test_verify_benchmark_v15_controlled_host_infrastructure.py
+      - scripts/test_benchmark_v15_controlled_host_activation_workflow.py
       - scripts/*benchmark_v15_immutable*.py
       - scripts/method_v15_s3_object_lock_store.py
       - scripts/test_method_v15_s3_object_lock_store.py
@@ -18,6 +29,17 @@ on:
     paths:
       - .github/workflows/method-v15-infrastructure-validation.yml
       - infra/benchmark-v1.5/immutable-store/**
+      - infra/benchmark-v1.5/controlled-host/**
+      - .github/workflows/method-v15-controlled-host-activation.yml
+      - results/benchmark/v1.5-protocol/aws-github-bootstrap-contract.json
+      - results/benchmark/v1.5-protocol/controlled-host-provisioning-plan.json
+      - schemas/benchmark-aws-github-bootstrap-contract-v1.5.schema.json
+      - schemas/benchmark-controlled-host-provisioning-plan-v1.5.schema.json
+      - scripts/verify_benchmark_v15_aws_github_bootstrap_contract.py
+      - scripts/test_verify_benchmark_v15_aws_github_bootstrap_contract.py
+      - scripts/verify_benchmark_v15_controlled_host_infrastructure.py
+      - scripts/test_verify_benchmark_v15_controlled_host_infrastructure.py
+      - scripts/test_benchmark_v15_controlled_host_activation_workflow.py
       - scripts/*benchmark_v15_immutable*.py
       - scripts/method_v15_s3_object_lock_store.py
       - scripts/test_method_v15_s3_object_lock_store.py
@@ -78,6 +100,16 @@ jobs:
           python scripts/test_verify_benchmark_v15_immutable_live_acceptance.py
           python scripts/test_method_v15_s3_object_lock_store.py
 
+      - name: Verify bootstrap authority and controlled-host plans without accepting live authority
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/verify_benchmark_v15_aws_github_bootstrap_contract.py
+          python scripts/test_verify_benchmark_v15_aws_github_bootstrap_contract.py
+          python scripts/verify_benchmark_v15_controlled_host_infrastructure.py
+          python scripts/test_verify_benchmark_v15_controlled_host_infrastructure.py
+          python scripts/test_benchmark_v15_controlled_host_activation_workflow.py
+
       - name: Parse JSON and validate the exact infrastructure schemas
         shell: bash
         run: |
@@ -94,10 +126,19 @@ jobs:
               Path('schemas/benchmark-operational-controlled-harness-activation-v1.5.schema.json'),
               Path('schemas/benchmark-runner-private-input-assembly-v1.5.schema.json'),
               Path('infra/benchmark-v1.5/immutable-store/live-acceptance-evidence.schema.json'),
+              Path('schemas/benchmark-aws-github-bootstrap-contract-v1.5.schema.json'),
+              Path('schemas/benchmark-controlled-host-provisioning-plan-v1.5.schema.json'),
+          ]
+          additional_json_paths = [
+              Path('results/benchmark/v1.5-protocol/aws-github-bootstrap-contract.json'),
+              Path('results/benchmark/v1.5-protocol/controlled-host-provisioning-plan.json'),
+              Path('infra/benchmark-v1.5/controlled-host/cloudformation.json'),
           ]
           if len(json_paths) != 3 or any(not path.is_file() for path in schema_paths):
               raise SystemExit('immutable infrastructure JSON/schema closure is incomplete')
-          for path in json_paths:
+          if any(not path.is_file() for path in additional_json_paths):
+              raise SystemExit('bootstrap/controlled-host JSON closure is incomplete')
+          for path in [*json_paths, *additional_json_paths]:
               json.loads(path.read_text(encoding='utf-8'))
           for path in schema_paths:
               Draft7Validator.check_schema(json.loads(path.read_text(encoding='utf-8')))
@@ -126,7 +167,13 @@ jobs:
               elif isinstance(value, list):
                   for child in value:
                       walk(child, path)
-          for path in sorted(Path('infra/benchmark-v1.5/immutable-store').glob('*.json')):
+          paths = [
+              *sorted(Path('infra/benchmark-v1.5/immutable-store').glob('*.json')),
+              Path('infra/benchmark-v1.5/controlled-host/cloudformation.json'),
+              Path('results/benchmark/v1.5-protocol/aws-github-bootstrap-contract.json'),
+              Path('results/benchmark/v1.5-protocol/controlled-host-provisioning-plan.json'),
+          ]
+          for path in paths:
               walk(json.loads(path.read_text(encoding='utf-8')), path)
           PY
 

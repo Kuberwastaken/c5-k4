@@ -1,0 +1,148 @@
+name: Method v1.5 controlled-host read-only plan
+
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: Read-only PLAN; APPLY is fail-closed until a verifier-authenticated bootstrap acceptance is committed
+        required: true
+        type: choice
+        default: PLAN
+        options:
+          - PLAN
+          - APPLY
+      confirmation:
+        description: Must be empty; no APPLY confirmation is currently accepted
+        required: false
+        type: string
+        default: ''
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: method-v15-controlled-host-${{ vars.BENCHMARK_V15_HOST_STACK_NAME }}
+  cancel-in-progress: false
+
+jobs:
+  plan-only:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    environment:
+      name: benchmark-v15-production
+    steps:
+      - name: Check out the exact protocol scaffold without retained credentials
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Validate frozen authority inputs and exact scaffold
+        id: authority
+        shell: bash
+        env:
+          OPERATION: ${{ github.event.inputs.operation }}
+          CONFIRMATION: ${{ github.event.inputs.confirmation }}
+          ROLE_ARN: ${{ vars.BENCHMARK_V15_HOST_AWS_ROLE_ARN }}
+          HARNESS_PRINCIPAL_ARN: ${{ vars.BENCHMARK_V15_HARNESS_PRINCIPAL_ARN }}
+          AWS_REGION: ${{ vars.BENCHMARK_V15_AWS_REGION }}
+          STACK_NAME: ${{ vars.BENCHMARK_V15_HOST_STACK_NAME }}
+          TEMPLATE_DIGEST: ${{ vars.BENCHMARK_V15_HOST_TEMPLATE_SHA256 }}
+          AMI_ID: ${{ vars.BENCHMARK_V15_HOST_AMI_ID }}
+          AMI_MEASUREMENTS_SHA256: ${{ vars.BENCHMARK_V15_HOST_AMI_MEASUREMENTS_SHA256 }}
+        run: |
+          set -euo pipefail
+          [[ "$GITHUB_EVENT_NAME" == workflow_dispatch ]]
+          [[ "$GITHUB_REF" == refs/heads/main ]]
+          [[ "$GITHUB_SHA" =~ ^[0-9a-f]{40}$ ]]
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          [[ "$ROLE_ARN" =~ ^arn:aws:iam::[0-9]{12}:role/[A-Za-z0-9+=,.@_/-]+$ ]]
+          [[ "$HARNESS_PRINCIPAL_ARN" =~ ^arn:aws:iam::[0-9]{12}:role/[A-Za-z0-9+=,.@_/-]+$ ]]
+          test "$HARNESS_PRINCIPAL_ARN" != "$ROLE_ARN"
+          [[ "$AWS_REGION" == ap-south-1 ]]
+          [[ "$STACK_NAME" =~ ^[A-Za-z][-A-Za-z0-9]{0,127}$ ]]
+          [[ "$TEMPLATE_DIGEST" =~ ^[0-9a-f]{64}$ ]]
+          [[ "$AMI_ID" =~ ^ami-[0-9a-f]{8,17}$ ]]
+          [[ "$AMI_MEASUREMENTS_SHA256" =~ ^[0-9a-f]{64}$ ]]
+          template=infra/benchmark-v1.5/controlled-host/cloudformation.json
+          test "$(sha256sum "$template" | awk '{print $1}')" = "$TEMPLATE_DIGEST"
+          test "$(jq -er '.deployment.template_sha256' results/benchmark/v1.5-protocol/controlled-host-provisioning-plan.json)" = "$TEMPLATE_DIGEST"
+          python3 scripts/verify_benchmark_v15_controlled_host_infrastructure.py
+          harness_role_name=${HARNESS_PRINCIPAL_ARN##*/}
+          [[ "$harness_role_name" =~ ^[A-Za-z0-9+=,.@_-]{1,64}$ ]]
+          deployer_account_id=$(cut -d: -f5 <<<"$ROLE_ARN")
+          [[ "$deployer_account_id" =~ ^[0-9]{12}$ ]]
+          case "$OPERATION" in
+            PLAN) test -z "$CONFIRMATION" ;;
+            APPLY)
+              echo 'APPLY is blocked: no committed verifier-authenticated immutable-OIDC/deployer bootstrap acceptance exists.' >&2
+              exit 2
+              ;;
+            *) exit 2 ;;
+          esac
+          echo "harness_role_name=$harness_role_name" >> "$GITHUB_OUTPUT"
+          echo "deployer_account_id=$deployer_account_id" >> "$GITHUB_OUTPUT"
+
+      - name: Acquire the configured short-lived role for read-only PLAN without accepting its trust policy
+        uses: aws-actions/configure-aws-credentials@61815dcd50bd041e203e49132bacad1fd04d2708 # v5.1.1
+        with:
+          role-to-assume: ${{ vars.BENCHMARK_V15_HOST_AWS_ROLE_ARN }}
+          aws-region: ${{ vars.BENCHMARK_V15_AWS_REGION }}
+          role-session-name: c5k4-v15-controlled-host-${{ github.run_id }}
+          output-credentials: false
+          mask-aws-account-id: true
+
+      - name: Inspect AMI and harness metadata without making an authority or measurement-acceptance claim
+        shell: bash
+        env:
+          AWS_REGION: ${{ vars.BENCHMARK_V15_AWS_REGION }}
+          AMI_ID: ${{ vars.BENCHMARK_V15_HOST_AMI_ID }}
+          HARNESS_PRINCIPAL_ARN: ${{ vars.BENCHMARK_V15_HARNESS_PRINCIPAL_ARN }}
+          HARNESS_ROLE_NAME: ${{ steps.authority.outputs.harness_role_name }}
+          AMI_OWNER_ACCOUNT_ID: ${{ steps.authority.outputs.deployer_account_id }}
+        run: |
+          set -euo pipefail
+          aws ec2 describe-images --region "$AWS_REGION" --image-ids "$AMI_ID" >"$RUNNER_TEMP/ami.json"
+          python3 - "$RUNNER_TEMP/ami.json" "$AMI_ID" "$AMI_OWNER_ACCOUNT_ID" <<'PY'
+          import json, sys
+          value = json.load(open(sys.argv[1], encoding='utf-8'))
+          images = value.get('Images')
+          if not isinstance(images, list) or len(images) != 1:
+              raise SystemExit(2)
+          image = images[0]
+          expected = {
+              'ImageId': sys.argv[2], 'State': 'available', 'Architecture': 'x86_64',
+              'RootDeviceType': 'ebs', 'BootMode': 'uefi', 'TpmSupport': 'v2.0', 'OwnerId': sys.argv[3],
+          }
+          if any(image.get(key) != item for key, item in expected.items()):
+              raise SystemExit(2)
+          if image.get('Public') is not False or image.get('PlatformDetails') != 'Linux/UNIX':
+              raise SystemExit(2)
+          if image.get('DeprecationTime') not in (None, ''):
+              raise SystemExit(2)
+          PY
+          aws iam get-role --role-name "$HARNESS_ROLE_NAME" >"$RUNNER_TEMP/harness-role.json"
+          test "$(jq -er '.Role.Arn' "$RUNNER_TEMP/harness-role.json")" = "$HARNESS_PRINCIPAL_ARN"
+          aws iam get-instance-profile --instance-profile-name "$HARNESS_ROLE_NAME" >"$RUNNER_TEMP/harness-profile.json"
+          test "$(jq -er '.InstanceProfile.InstanceProfileName' "$RUNNER_TEMP/harness-profile.json")" = "$HARNESS_ROLE_NAME"
+          test "$(jq -er '.InstanceProfile.Roles | length' "$RUNNER_TEMP/harness-profile.json")" = 1
+          test "$(jq -er '.InstanceProfile.Roles[0].Arn' "$RUNNER_TEMP/harness-profile.json")" = "$HARNESS_PRINCIPAL_ARN"
+
+      - name: Validate the template and observe whether the proposed stack name already exists
+        id: plan
+        shell: bash
+        env:
+          AWS_REGION: ${{ vars.BENCHMARK_V15_AWS_REGION }}
+          STACK_NAME: ${{ vars.BENCHMARK_V15_HOST_STACK_NAME }}
+        run: |
+          set -euo pipefail
+          template=infra/benchmark-v1.5/controlled-host/cloudformation.json
+          aws cloudformation validate-template --region "$AWS_REGION" --template-body "file://$template" >"$RUNNER_TEMP/validate-template.json"
+          stack_exists=false
+          if aws cloudformation describe-stacks --region "$AWS_REGION" --stack-name "$STACK_NAME" >"$RUNNER_TEMP/current-stack.json" 2>"$RUNNER_TEMP/describe-stack.stderr"; then
+            stack_exists=true
+          elif ! grep -Fq 'does not exist' "$RUNNER_TEMP/describe-stack.stderr"; then
+            exit 2
+          fi
+          echo "stack_exists=$stack_exists" >> "$GITHUB_OUTPUT"
