@@ -3,6 +3,30 @@
   "components": {
     "classification": {"policy": {"closure": "INHERITED_V1_4", "role": "five_strata_classifier"}},
     "grouping": {"policy": {"closure": "INHERITED_V1_4", "role": "grouping_rule"}},
+    "checkpoint_runner": {
+      "executable": {"closure": "NATIVE_V1_5", "role": "checkpoint_runner"},
+      "gap_schema": {"closure": "NATIVE_V1_5", "role": "terminal_chronology_gap_certificate_schema"},
+      "private_input_schema": {"closure": "NATIVE_V1_5", "role": "checkpoint_runner_private_input_schema"},
+      "publication_schema": {"closure": "NATIVE_V1_5", "role": "checkpoint_publication_manifest_schema"},
+      "public_chain_proof_schema": {"closure": "NATIVE_V1_5", "role": "public_checkpoint_chain_proof_schema"},
+      "public_chain_verifier": {"closure": "NATIVE_V1_5", "role": "public_checkpoint_chain_verifier"},
+      "test": {"closure": "NATIVE_V1_5", "role": "checkpoint_runner_contract_test"}
+    },
+    "delivery_broker": {
+      "config_schema": {"closure": "NATIVE_V1_5", "role": "delivery_broker_config_schema"},
+      "executable": {"closure": "NATIVE_V1_5", "role": "delivery_broker"},
+      "readiness_schema": {"closure": "NATIVE_V1_5", "role": "delivery_broker_readiness_schema"},
+      "receipt_schema": {"closure": "NATIVE_V1_5", "role": "delivery_broker_receipt_schema"},
+      "state_schema": {"closure": "NATIVE_V1_5", "role": "delivery_broker_state_schema"},
+      "test": {"closure": "NATIVE_V1_5", "role": "delivery_broker_contract_test"}
+    },
+    "private_custody": {
+      "batch_schema": {"closure": "NATIVE_V1_5", "role": "private_custody_batch_schema"},
+      "coverage_schema": {"closure": "NATIVE_V1_5", "role": "private_custody_coverage_certificate_schema"},
+      "executable": {"closure": "NATIVE_V1_5", "role": "private_custody_verifier"},
+      "public_binding_schema": {"closure": "NATIVE_V1_5", "role": "public_custody_sealed_binding_schema"},
+      "test": {"closure": "NATIVE_V1_5", "role": "private_custody_verifier_contract_test"}
+    },
     "provenance": {
       "classifier": {"closure": "NATIVE_V1_5", "role": "provenance_classifier"},
       "content_pack_schema": {"closure": "NATIVE_V1_5", "role": "provenance_content_pack_schema"},

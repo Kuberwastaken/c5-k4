@@ -48,6 +48,16 @@ class AggregateCertificateTests(unittest.TestCase):
             "classification": {"policy": dict(ref)}, "grouping": {"policy": dict(ref)},
             "syntax_pool": {"executable": dict(ref)},
             "provenance": {key: dict(ref) for key in ("classifier", "identity_join", "ontology", "ledger_schema", "content_pack_schema")},
+            "checkpoint_runner": {key: dict(ref) for key in (
+                "executable", "test", "publication_schema", "private_input_schema", "gap_schema",
+                "public_chain_verifier", "public_chain_proof_schema",
+            )},
+            "private_custody": {key: dict(ref) for key in (
+                "executable", "test", "batch_schema", "coverage_schema", "public_binding_schema",
+            )},
+            "delivery_broker": {key: dict(ref) for key in (
+                "executable", "test", "config_schema", "state_schema", "receipt_schema", "readiness_schema",
+            )},
         }
         self.auth_patch = mock.patch.object(A, "authenticate_p1", return_value=({}, {}, binding))
         self.real_load_components = A.load_components
@@ -355,6 +365,24 @@ class AggregateCertificateTests(unittest.TestCase):
             "provenance_content_pack_schema": "schemas/benchmark-private-provenance-content-pack-v1.5.schema.json",
             "checkpoint_component_manifest": "results/benchmark/v1.5-protocol/checkpoint-component-manifest.json",
             "checkpoint_component_manifest_schema": "schemas/benchmark-checkpoint-component-manifest-v1.5.schema.json",
+            "checkpoint_runner": "scripts/run_benchmark_v15_checkpoint.py",
+            "checkpoint_runner_contract_test": "scripts/test_run_benchmark_v15_checkpoint.py",
+            "checkpoint_publication_manifest_schema": "schemas/benchmark-checkpoint-publication-manifest-v1.5.schema.json",
+            "checkpoint_runner_private_input_schema": "schemas/benchmark-checkpoint-runner-private-input-v1.5.schema.json",
+            "terminal_chronology_gap_certificate_schema": "schemas/benchmark-terminal-chronology-gap-certificate-v1.5.schema.json",
+            "public_checkpoint_chain_verifier": "scripts/verify_benchmark_v15_public_checkpoint_chain.py",
+            "public_checkpoint_chain_proof_schema": "schemas/benchmark-public-checkpoint-chain-proof-v1.5.schema.json",
+            "private_custody_verifier": "scripts/verify_benchmark_v15_private_custody.py",
+            "private_custody_verifier_contract_test": "scripts/test_verify_benchmark_v15_private_custody.py",
+            "private_custody_batch_schema": "schemas/benchmark-private-custody-batch-v1.5.schema.json",
+            "private_custody_coverage_certificate_schema": "schemas/benchmark-private-custody-coverage-certificate-v1.5.schema.json",
+            "public_custody_sealed_binding_schema": "schemas/benchmark-public-custody-sealed-binding-v1.5.schema.json",
+            "delivery_broker": "scripts/method_v15_delivery_broker.py",
+            "delivery_broker_contract_test": "scripts/test_method_v15_delivery_broker.py",
+            "delivery_broker_config_schema": "schemas/benchmark-delivery-broker-config-v1.5.schema.json",
+            "delivery_broker_state_schema": "schemas/benchmark-delivery-broker-state-v1.5.schema.json",
+            "delivery_broker_receipt_schema": "schemas/benchmark-delivery-broker-receipt-v1.5.schema.json",
+            "delivery_broker_readiness_schema": "schemas/benchmark-delivery-broker-readiness-v1.5.schema.json",
         }
         inherited_paths = {
             "five_strata_classifier": "results/benchmark/v1.4-protocol/five-strata-classifier.json",

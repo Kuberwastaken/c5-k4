@@ -69,8 +69,36 @@
     "component_manifest": {"$ref": "#/definitions/artifactRef"},
     "frozen_components": {
       "type": "object", "additionalProperties": false,
-      "required": ["registry", "classification", "grouping", "syntax_pool", "provenance"],
+      "required": ["registry", "classification", "grouping", "syntax_pool", "provenance", "checkpoint_runner", "private_custody", "delivery_broker"],
       "properties": {
+        "checkpoint_runner": {
+          "type": "object", "additionalProperties": false,
+          "required": ["executable", "test", "publication_schema", "private_input_schema", "gap_schema", "public_chain_verifier", "public_chain_proof_schema"],
+          "properties": {
+            "executable": {"$ref": "#/definitions/artifactRef"}, "test": {"$ref": "#/definitions/artifactRef"},
+            "publication_schema": {"$ref": "#/definitions/artifactRef"}, "private_input_schema": {"$ref": "#/definitions/artifactRef"},
+            "gap_schema": {"$ref": "#/definitions/artifactRef"}, "public_chain_verifier": {"$ref": "#/definitions/artifactRef"},
+            "public_chain_proof_schema": {"$ref": "#/definitions/artifactRef"}
+          }
+        },
+        "private_custody": {
+          "type": "object", "additionalProperties": false,
+          "required": ["executable", "test", "batch_schema", "coverage_schema", "public_binding_schema"],
+          "properties": {
+            "executable": {"$ref": "#/definitions/artifactRef"}, "test": {"$ref": "#/definitions/artifactRef"},
+            "batch_schema": {"$ref": "#/definitions/artifactRef"}, "coverage_schema": {"$ref": "#/definitions/artifactRef"},
+            "public_binding_schema": {"$ref": "#/definitions/artifactRef"}
+          }
+        },
+        "delivery_broker": {
+          "type": "object", "additionalProperties": false,
+          "required": ["executable", "test", "config_schema", "state_schema", "receipt_schema", "readiness_schema"],
+          "properties": {
+            "executable": {"$ref": "#/definitions/artifactRef"}, "test": {"$ref": "#/definitions/artifactRef"},
+            "config_schema": {"$ref": "#/definitions/artifactRef"}, "state_schema": {"$ref": "#/definitions/artifactRef"},
+            "receipt_schema": {"$ref": "#/definitions/artifactRef"}, "readiness_schema": {"$ref": "#/definitions/artifactRef"}
+          }
+        },
         "registry": {
           "type": "object", "additionalProperties": false,
           "required": ["executable", "policy", "schema", "invocation_contract"],

@@ -11,8 +11,44 @@
     "components": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["registry", "classification", "grouping", "syntax_pool", "provenance"],
+      "required": ["registry", "classification", "grouping", "syntax_pool", "provenance", "checkpoint_runner", "private_custody", "delivery_broker"],
       "properties": {
+        "checkpoint_runner": {
+          "type": "object", "additionalProperties": false,
+          "required": ["executable", "test", "publication_schema", "private_input_schema", "gap_schema", "public_chain_verifier", "public_chain_proof_schema"],
+          "properties": {
+            "executable": {"$ref": "#/definitions/native/checkpoint_runner"},
+            "test": {"$ref": "#/definitions/native/checkpoint_runner_contract_test"},
+            "publication_schema": {"$ref": "#/definitions/native/checkpoint_publication_manifest_schema"},
+            "private_input_schema": {"$ref": "#/definitions/native/checkpoint_runner_private_input_schema"},
+            "gap_schema": {"$ref": "#/definitions/native/terminal_chronology_gap_certificate_schema"},
+            "public_chain_verifier": {"$ref": "#/definitions/native/public_checkpoint_chain_verifier"},
+            "public_chain_proof_schema": {"$ref": "#/definitions/native/public_checkpoint_chain_proof_schema"}
+          }
+        },
+        "private_custody": {
+          "type": "object", "additionalProperties": false,
+          "required": ["executable", "test", "batch_schema", "coverage_schema", "public_binding_schema"],
+          "properties": {
+            "executable": {"$ref": "#/definitions/native/private_custody_verifier"},
+            "test": {"$ref": "#/definitions/native/private_custody_verifier_contract_test"},
+            "batch_schema": {"$ref": "#/definitions/native/private_custody_batch_schema"},
+            "coverage_schema": {"$ref": "#/definitions/native/private_custody_coverage_certificate_schema"},
+            "public_binding_schema": {"$ref": "#/definitions/native/public_custody_sealed_binding_schema"}
+          }
+        },
+        "delivery_broker": {
+          "type": "object", "additionalProperties": false,
+          "required": ["executable", "test", "config_schema", "state_schema", "receipt_schema", "readiness_schema"],
+          "properties": {
+            "executable": {"$ref": "#/definitions/native/delivery_broker"},
+            "test": {"$ref": "#/definitions/native/delivery_broker_contract_test"},
+            "config_schema": {"$ref": "#/definitions/native/delivery_broker_config_schema"},
+            "state_schema": {"$ref": "#/definitions/native/delivery_broker_state_schema"},
+            "receipt_schema": {"$ref": "#/definitions/native/delivery_broker_receipt_schema"},
+            "readiness_schema": {"$ref": "#/definitions/native/delivery_broker_readiness_schema"}
+          }
+        },
         "registry": {
           "type": "object", "additionalProperties": false,
           "required": ["executable", "policy", "schema", "invocation_contract"],
@@ -99,6 +135,24 @@
       "provenance_ontology": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "provenance_ontology"}}}]},
       "provenance_ledger_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "provenance_ledger_schema"}}}]},
       "provenance_content_pack_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "provenance_content_pack_schema"}}}]}
+      ,"checkpoint_runner": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "checkpoint_runner"}}}]}
+      ,"checkpoint_runner_contract_test": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "checkpoint_runner_contract_test"}}}]}
+      ,"checkpoint_publication_manifest_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "checkpoint_publication_manifest_schema"}}}]}
+      ,"checkpoint_runner_private_input_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "checkpoint_runner_private_input_schema"}}}]}
+      ,"terminal_chronology_gap_certificate_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "terminal_chronology_gap_certificate_schema"}}}]}
+      ,"public_checkpoint_chain_verifier": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "public_checkpoint_chain_verifier"}}}]}
+      ,"public_checkpoint_chain_proof_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "public_checkpoint_chain_proof_schema"}}}]}
+      ,"private_custody_verifier": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "private_custody_verifier"}}}]}
+      ,"private_custody_verifier_contract_test": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "private_custody_verifier_contract_test"}}}]}
+      ,"private_custody_batch_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "private_custody_batch_schema"}}}]}
+      ,"private_custody_coverage_certificate_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "private_custody_coverage_certificate_schema"}}}]}
+      ,"public_custody_sealed_binding_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "public_custody_sealed_binding_schema"}}}]}
+      ,"delivery_broker": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "delivery_broker"}}}]}
+      ,"delivery_broker_contract_test": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "delivery_broker_contract_test"}}}]}
+      ,"delivery_broker_config_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "delivery_broker_config_schema"}}}]}
+      ,"delivery_broker_state_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "delivery_broker_state_schema"}}}]}
+      ,"delivery_broker_receipt_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "delivery_broker_receipt_schema"}}}]}
+      ,"delivery_broker_readiness_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "delivery_broker_readiness_schema"}}}]}
     },
     "inherited": {
       "five_strata_classifier": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "INHERITED_V1_4"}, "role": {"const": "five_strata_classifier"}}}]},

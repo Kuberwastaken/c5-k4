@@ -93,6 +93,22 @@ class P1Tests(unittest.TestCase):
         ))
         P1.validate_p1a(p1a)
 
+    def test_pre_p1_closure_includes_runner_custody_and_delivery_boundary(self) -> None:
+        required = {
+            "checkpoint_runner", "checkpoint_runner_contract_test",
+            "checkpoint_publication_manifest_schema", "checkpoint_runner_private_input_schema",
+            "terminal_chronology_gap_certificate_schema", "public_checkpoint_chain_verifier",
+            "public_checkpoint_chain_proof_schema", "private_custody_verifier",
+            "private_custody_verifier_contract_test", "private_custody_batch_schema",
+            "private_custody_coverage_certificate_schema", "public_custody_sealed_binding_schema",
+            "delivery_broker", "delivery_broker_contract_test", "delivery_broker_config_schema",
+            "delivery_broker_state_schema", "delivery_broker_receipt_schema",
+            "delivery_broker_readiness_schema",
+        }
+        self.assertLessEqual(required, set(P1.NATIVE_COMPONENTS))
+        p1a = self.build()
+        self.assertLessEqual(required, set(p1a["components"]))
+
     def test_missing_or_extra_native_role_fails_closed(self) -> None:
         del self.config["components"][P1.NATIVE_COMPONENTS[-1]]
         with self.assertRaisesRegex(P1.P1Error, "missing"):
