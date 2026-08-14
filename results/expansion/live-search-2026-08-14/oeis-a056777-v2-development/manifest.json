@@ -1,0 +1,56 @@
+{
+  "schema": "oeis-a056777-v2-development-freeze-v1",
+  "shards": 24,
+  "internal_seconds": 48,
+  "external_search_seconds": 54,
+  "external_verify_seconds": 60,
+  "historical_exclusion_upper_inclusive": 1000000000000,
+  "value_minimum": 1000000000001,
+  "value_maximum": 100000000000000,
+  "checkpoint_interval": 128,
+  "formal_conjectures": {
+    "commit": "6b37c6ede7ccdee80826b8399a80ec010771d5d4",
+    "path": "FormalConjectures/OEIS/56777.lean",
+    "blob_sha1": "a6dd44fb981be19a5a8bc19de54ef8e533519627",
+    "sha256": "2539ce34a7417a5b482d3c6f21a8327198e4890df7f67e6458a522293b1d099c",
+    "url": "https://raw.githubusercontent.com/google-deepmind/formal-conjectures/6b37c6ede7ccdee80826b8399a80ec010771d5d4/FormalConjectures/OEIS/56777.lean",
+    "declaration": "OeisA56777.comesFromPrimeQuadruple_of_a",
+    "category": "research open"
+  },
+  "oeis_source": {
+    "url": "https://raw.githubusercontent.com/oeis/oeisdata/main/seq/A056/A056777.seq",
+    "sha256": "67a9fd6b1b5114a4aa09f4d01967d15e54266dd09902699fe40ce4d8b9e54d63",
+    "revision": "#28 Jun 13 2026 17:40:34"
+  },
+  "oeis_bfile": {
+    "url": "https://oeis.org/A056777/b056777.txt",
+    "sha256": "8a4d205fea5761af6deac8c2bf23d709c4e7844e792f48bf8616135376835ccf",
+    "rows": 166,
+    "last_index": 166,
+    "last_value": 967164068009
+  },
+  "prior_freeze": {
+    "manifest_sha256": "5c7c4fb1153f365ecaac7b5309c5ed4f96bf3db7c64078e344d8f2b3aaa43b7c",
+    "repeated_power_base_rank_last": 384,
+    "squarefree_smallest_rank_last": 96,
+    "squarefree_middle_prime_offsets": 96,
+    "squarefree_terminal_prime_offsets": 256,
+    "pure_prime_power_covered": true
+  },
+  "arms": {
+    "REPEATED_LOWER": {
+      "shape": "r^2*p -> t*u*q",
+      "orientation": "repeated-square lower, squarefree-triple upper"
+    },
+    "REPEATED_UPPER": {
+      "shape": "t*u*p -> r^2*q",
+      "orientation": "squarefree-triple lower, repeated-square upper"
+    }
+  },
+  "r_rank_first": 385,
+  "r_rank_last": 640,
+  "block_prime_rank_first": 1,
+  "block_prime_rank_last": 640,
+  "block_order": "t_rank < u_rank",
+  "enumeration": "semiprime Q=t*u index, bisected to a conservative band-implied denominator window about 2*r^2; exact tuple stops follow"
+}

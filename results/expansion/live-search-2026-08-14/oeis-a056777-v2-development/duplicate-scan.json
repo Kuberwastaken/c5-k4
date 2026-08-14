@@ -1,0 +1,15 @@
+{
+  "schema": "oeis-a056777-v2-duplicate-scan-v1",
+  "audited_at_utc": "2026-08-14T00:00:00Z",
+  "inherited_v1_duplicate_scan_sha256": "1d5e3c4c0618a6681b5c1df5097768518afad50c26945273cad2ee716a51f363",
+  "repository_workflow_duplicate_found": true,
+  "repository_duplicate_path": "oeis-a056777-development",
+  "repository_release_or_certificate_duplicate_found": false,
+  "provenance_database_match_found": true,
+  "matched_external_package": "breakthroughmaxxing/06-bigger/oeis56777-equivalence-1m",
+  "matched_package_result": "exact bounded equivalence through 1000000; five members; no counterexample",
+  "registry_cluster": "fc-module:FormalConjectures/OEIS/56777",
+  "registry_classification": "AMBIGUOUS_EXCLUDE",
+  "registry_contamination": "semantic exposure, prior worktree package, and prior executable v1 lane recorded",
+  "novelty_claim_permitted": false
+}

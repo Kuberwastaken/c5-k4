@@ -1,0 +1,22 @@
+{
+  "schema": "oeis-a056777-v2-denominator-window-proof-v1",
+  "surgery_note_sha256": "e41c1069f7a89f7a7d96ec23339a41f9cc1749ce8ec8c0ff9906a92fc4d71d4c",
+  "prime_count": 640,
+  "semiprime_block_count": 204480,
+  "first_r_rank": 385,
+  "first_r": 2659,
+  "last_r_rank": 640,
+  "last_r": 4751,
+  "q_max": 22486483,
+  "t_plus_u_min": 5,
+  "t_plus_u_max": 9484,
+  "proof": [
+    "Every candidate has D*p=N with positive in-band p.",
+    "REPEATED_LOWER has p>=ceil(L/r^2) and |N|<=24+Q_max*max(|2*T_min-2*r-1|,|2*T_max-2*r-1|).",
+    "REPEATED_UPPER has p>=ceil(L/Q_max) and |N|<=max(|12+r^2*(2*r+1-2*T_min)|,|12+r^2*(2*r+1-2*T_max)|).",
+    "Therefore |D|=|N|/p<=N_bound/p_min<floor(N_bound/p_min)+1, so bisecting Q in 2*r^2 plus or minus that integer width cannot omit an in-band algebraic tuple."
+  ],
+  "repeated_lower_width_first_last": [2169983, 4818279],
+  "repeated_upper_width_first_last": [2169956, 4818223],
+  "target_values_evaluated_to_prepare_certificate": 0
+}
