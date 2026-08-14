@@ -45,20 +45,29 @@ the harness.
 
 ## P1, scheduled checkpoints, and the fixed observation horizon
 
-P1 has two public commits. `P1A` freezes the complete executable protocol,
+P1 has three public commits plus a replayed activation receipt. `P1A` freezes
+the complete executable protocol,
 schemas, source boundary, provenance rules, checkpoint invocation, and exact
 component digests. Native v1.5 roles come from a closed role map; unchanged
 scientific roles are selected by name and derived from the authenticated v1.4
 P0A/P0T closure rather than copied from caller input. Runtime components are
 resolved through exact `{closure, role}` selectors in the P1-bound checkpoint
 component manifest. `P1T` must be the sole-parent child of `P1A` and change
-only its one attestation artifact. Neither commit may contain candidate
-identities, statement text, target rankings, or target analysis.
+only its one attestation artifact. The nonauthoritative `P1R` draft must be the
+sole-parent, one-path child of `P1T`; a pinned GitHub Actions observer then
+records its exact successful first-attempt publication. None of these commits
+may contain candidate identities, statement text, target rankings, or target
+analysis. Structural `P1R` validation is not activation authority: only the
+full exact-C validator may emit the rich, self-digested public P1R activation
+receipt that binds the exact validation input, diagnostic, validator, P1R
+bytes and commit, and server-authenticated observer event.
 
-After the public remote is proven to contain `P1T`, the chronology capture
-records the then-current upstream `main` tip as `U1`. Publication of `P1T`
-must precede the observation of `U1`. The exact `P1T`, public receipt, `U1`
-commit and tree, command transcript, and UTC times are content-addressed.
+Only after that rich public P1R activation receipt validates may the chronology
+capture record the then-current upstream `main` tip as `U1`. The observer's
+GitHub server completion time must precede the start of the U1 capture. The
+exact P1A/P1T/P1R chain, full activation receipt and both of its distinct
+digests, U1 commit and tree, command transcript, and UTC times are
+content-addressed.
 
 After U1, a public GitHub Actions schedule starts one machine-only checkpoint
 at **00:17 UTC every day**. The hosted job is a target-blind scheduler and
@@ -73,9 +82,9 @@ bounded chronology-failure terminal bundle. Target identities remain private
 until a passing pool is frozen in the separate pre-entropy phase.
 
 The public checkpoint history is a Git-authenticated chain, not a mutable
-directory convention. Its genesis must be a sole-parent child of exact `P1T`
-that adds only the U1 receipt. Each checkpoint must be a sole-parent,
-add-only commit from the verified public tip and add exactly
+directory convention. Its genesis must be a sole-parent child of the exact
+authenticated `P1R` commit that adds only the U1 receipt. Each checkpoint must
+be a sole-parent, add-only commit from the verified public tip and add exactly
 `publication-manifest.json`, `quota-certificate.json`, and `receipt.json`
 under its scheduled-tick path. The verifier derives the prior receipt from
 ancestry; a caller-supplied predecessor is not authoritative. Publication is
@@ -231,7 +240,8 @@ an executable freeze.
 
 Each scheduled registry checkpoint keeps schema-bounded identities private and
 emits only bounded aggregate evidence until the quota gate passes. The
-certificate builder authenticates P1A/P1T, resolves grouping, classification,
+certificate builder authenticates P1A/P1T/P1R and the full public activation
+receipt, resolves grouping, classification,
 registry, provenance, and schemas through the exact P1 component selectors,
 binds the chronology receipt and private runtime inputs, recomputes counts and
 deficits from records, and seals the private-registry digest. The replay step
@@ -266,7 +276,7 @@ The repository currently contains and tests:
   checkpoint-invocation contracts;
 - strict schemas for registries, source/provenance/custody evidence, aggregate
   certificates, replay attestations, public-chain proofs, component manifests,
-  and P1A/P1T;
+  and P1A/P1T/P1R plus the rich activation receipt;
 - builders/verifiers for authenticated vendor bases, Git provenance
   partitioning, source snapshots, provenance classification, the private
   identity join, future-cohort construction, aggregate extraction and exact
@@ -348,11 +358,14 @@ The following are operational blockers, not completed artifacts:
 4. freeze experimenter identities, upstream abstention, and deterministic
    conflict exclusion, then change the invocation contract to executable only
    after every activation requirement passes;
-5. create and publish the sole-purpose `P1A` and immediate one-path `P1T`
-   commits and verify the public P1T receipt; and
+5. create and publish the sole-purpose `P1A`, immediate one-path `P1T`, and
+   nonauthoritative one-path `P1R` commits; authenticate the pinned P1R
+   publication observer; and replay the full exact-C validator to obtain the
+   rich public P1R activation receipt; and
 6. only then perform the one-shot U1 capture and create the public checkpoint
    branch genesis.
 
-No P1A, P1T, operational custody/noninterference receipt, U1/U2 receipt,
+No P1A, P1T, P1R, rich activation receipt, operational
+custody/noninterference receipt, U1/U2 receipt,
 operational private store, future registry, entropy value, selection, target
 identity publication, or benchmark outcome exists today.

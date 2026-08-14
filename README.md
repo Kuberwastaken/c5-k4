@@ -171,7 +171,7 @@ The real isolation path passes target-free acceptance on a supported Linux
 host; no target has been consumed. V1.5 is still PRE-P1 and non-operational:
 live Object Lock/KMS/IAM, signing and TLS/OIDC service infrastructure,
 operational noninterference/custody receipts, final end-to-end acceptance, and
-the P1A/P1T and U1 publications remain outstanding.
+the P1A/P1T/P1R activation chain and U1 publication remain outstanding.
 
 The development record also publishes its zeroes. Method v0.2 found no
 crossing for #382e after 212,502 wall-directed substitutions, all connected
