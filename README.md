@@ -252,16 +252,19 @@ The first cross-corpus equality round then stress-tested the method on current
   confirmed by an integer model and an exact finite-field CSP.
 
 A subsequent development trial deliberately left the DeepMind corpus and
-tested the still-open TxGraffiti regular-graph wall `i(G) <= mu*(G)`. Across
-137 exact connected regular graphs it found no crossing. The targeted arm did,
-however, place `21/37` rows on equality, versus `1/65` in the generic prefix.
-Its failure exposed a concrete flaw in the proposed graph move: destroying a
-parent's minimum independent dominating sets often creates smaller replacement
-sets in the child. The next arm must preserve a lower-bound certificate for
-`i(G)` or optimize a child-side relaxation; simply deepening the same switch
-tree is now ruled out. The frozen contract, durable ledgers, and full negative
-result are in
-[`txgraffiti-cc-result.md`](results/expansion/live-search-2026-08-14/txgraffiti-cc-result.md).
+tested the still-open TxGraffiti regular-graph wall `i(G) <= mu*(G)`. Its first
+phase placed `21/37` targeted rows on equality, versus `1/65` in the generic
+prefix, but exposed replacement-set collapse: destroying a parent's minimum
+independent dominating sets often creates smaller ones in the child. A frozen
+child-side correction then evaluated 160 more graphs. It removed that scoring
+error, but none of 115 exact two-switch children raised `i`, and 5,200 signed-
+cover proposals collapsed to only 42 canonical classes. After 297 exact rows
+and zero crossings, both the old local move and further two-lift sampling are
+retired. The next construction must structurally pin `mu*` while allowing
+`i` to vary globally. The contracts, ledgers, and full negative reports are in
+[`txgraffiti-cc-result.md`](results/expansion/live-search-2026-08-14/txgraffiti-cc-result.md)
+and
+[`txgraffiti-cc-phase1-result.md`](results/expansion/live-search-2026-08-14/txgraffiti-cc-phase1-result.md).
 
 No row in those rounds is a release candidate. The exact contracts, ledgers,
 corrections, stop reasons, and reports are under
