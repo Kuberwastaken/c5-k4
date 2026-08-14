@@ -1,0 +1,56 @@
+{
+  "schema": "oeis-a063880-development-freeze-v1",
+  "shards": 24,
+  "internal_seconds": 54,
+  "external_seconds": 60,
+  "child_seconds": 4,
+  "historical_exclusion_upper_exclusive": 1000000000000000000,
+  "formal_conjectures": {
+    "commit": "942fb149e782a56c2719c543ab58e093f733acb4",
+    "path": "FormalConjectures/OEIS/63880.lean",
+    "blob_sha1": "0aa326a3062c646f0347506ea3979f8892e430c7",
+    "sha256": "b50d00e13735613cbe37bd3a25c19130874e8f036ca2a0e3c1aceb177a33c683",
+    "url": "https://raw.githubusercontent.com/google-deepmind/formal-conjectures/942fb149e782a56c2719c543ab58e093f733acb4/FormalConjectures/OEIS/63880.lean",
+    "declarations": ["mod_216_of_a", "unique_primitive_108"]
+  },
+  "oeis_source": {
+    "url": "https://raw.githubusercontent.com/oeis/oeisdata/main/seq/A063/A063880.seq",
+    "sha256": "9beab80f0dce23835cd26015df59848a13b9f07e41df142305efca75bd2dd20c",
+    "revision": "#39 Aug 31 2024 04:33:09"
+  },
+  "oeis_bfile": {
+    "url": "https://oeis.org/A063880/b063880.txt",
+    "sha256": "015517f2a16615e0c9ac93931b4f798040b6693cdf10afeb39408829bca417b9",
+    "rows": 10000,
+    "last_index": 10000,
+    "last_value": 3554388
+  },
+  "universe": {
+    "minimum_core": 1000000000000000000,
+    "maximum_core": 1000000000000000000000000000000000000,
+    "minimum_factors": 2
+  },
+  "arms": {
+    "CATALOGUE": {
+      "primes": [2,3,5,7,11,13,17,19,23,29],
+      "exponents": [2,3,4,5,6,7,8,9,10,11,12],
+      "maximum_factors": 4,
+      "maximum_prime_min": 2,
+      "maximum_prime_max": 29
+    },
+    "GENERIC": {
+      "primes": [2,3,5,7,11,31,37,41,43],
+      "exponents": [2,3,4,5,6,7,8],
+      "maximum_factors": 5,
+      "maximum_prime_min": 31,
+      "maximum_prime_max": 43
+    },
+    "WALL_NAVIGATION": {
+      "primes": [2,3,5,7,11,13,47,53,59,61,67,71],
+      "exponents": [2,3,4,5,6],
+      "maximum_factors": 6,
+      "maximum_prime_min": 47,
+      "maximum_prime_max": 71
+    }
+  }
+}
