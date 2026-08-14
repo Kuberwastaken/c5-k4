@@ -77,6 +77,8 @@ NATIVE_COMPONENTS = (
     "public_custody_sealed_binding_schema",
     "delivery_broker",
     "delivery_broker_contract_test",
+    "controlled_delivery_service_boundary",
+    "controlled_delivery_service_acceptance_tests",
     "delivery_broker_config_schema",
     "delivery_broker_state_schema",
     "delivery_broker_receipt_schema",

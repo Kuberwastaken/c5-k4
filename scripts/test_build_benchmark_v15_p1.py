@@ -102,6 +102,7 @@ class P1Tests(unittest.TestCase):
             "private_custody_verifier_contract_test", "private_custody_batch_schema",
             "private_custody_coverage_certificate_schema", "public_custody_sealed_binding_schema",
             "delivery_broker", "delivery_broker_contract_test", "delivery_broker_config_schema",
+            "controlled_delivery_service_boundary", "controlled_delivery_service_acceptance_tests",
             "delivery_broker_state_schema", "delivery_broker_receipt_schema",
             "delivery_broker_readiness_schema",
         }

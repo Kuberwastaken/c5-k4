@@ -39,10 +39,12 @@
         },
         "delivery_broker": {
           "type": "object", "additionalProperties": false,
-          "required": ["executable", "test", "config_schema", "state_schema", "receipt_schema", "readiness_schema"],
+          "required": ["executable", "test", "service", "service_test", "config_schema", "state_schema", "receipt_schema", "readiness_schema"],
           "properties": {
             "executable": {"$ref": "#/definitions/native/delivery_broker"},
             "test": {"$ref": "#/definitions/native/delivery_broker_contract_test"},
+            "service": {"$ref": "#/definitions/native/controlled_delivery_service_boundary"},
+            "service_test": {"$ref": "#/definitions/native/controlled_delivery_service_acceptance_tests"},
             "config_schema": {"$ref": "#/definitions/native/delivery_broker_config_schema"},
             "state_schema": {"$ref": "#/definitions/native/delivery_broker_state_schema"},
             "receipt_schema": {"$ref": "#/definitions/native/delivery_broker_receipt_schema"},
@@ -149,6 +151,8 @@
       ,"public_custody_sealed_binding_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "public_custody_sealed_binding_schema"}}}]}
       ,"delivery_broker": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "delivery_broker"}}}]}
       ,"delivery_broker_contract_test": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "delivery_broker_contract_test"}}}]}
+      ,"controlled_delivery_service_boundary": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "controlled_delivery_service_boundary"}}}]}
+      ,"controlled_delivery_service_acceptance_tests": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "controlled_delivery_service_acceptance_tests"}}}]}
       ,"delivery_broker_config_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "delivery_broker_config_schema"}}}]}
       ,"delivery_broker_state_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "delivery_broker_state_schema"}}}]}
       ,"delivery_broker_receipt_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "delivery_broker_receipt_schema"}}}]}

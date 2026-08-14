@@ -56,7 +56,7 @@ class AggregateCertificateTests(unittest.TestCase):
                 "executable", "test", "batch_schema", "coverage_schema", "public_binding_schema",
             )},
             "delivery_broker": {key: dict(ref) for key in (
-                "executable", "test", "config_schema", "state_schema", "receipt_schema", "readiness_schema",
+                "executable", "test", "service", "service_test", "config_schema", "state_schema", "receipt_schema", "readiness_schema",
             )},
         }
         self.auth_patch = mock.patch.object(A, "authenticate_p1", return_value=({}, {}, binding))
@@ -379,6 +379,8 @@ class AggregateCertificateTests(unittest.TestCase):
             "public_custody_sealed_binding_schema": "schemas/benchmark-public-custody-sealed-binding-v1.5.schema.json",
             "delivery_broker": "scripts/method_v15_delivery_broker.py",
             "delivery_broker_contract_test": "scripts/test_method_v15_delivery_broker.py",
+            "controlled_delivery_service_boundary": "scripts/method_v15_delivery_broker_service.py",
+            "controlled_delivery_service_acceptance_tests": "scripts/test_method_v15_delivery_broker_service.py",
             "delivery_broker_config_schema": "schemas/benchmark-delivery-broker-config-v1.5.schema.json",
             "delivery_broker_state_schema": "schemas/benchmark-delivery-broker-state-v1.5.schema.json",
             "delivery_broker_receipt_schema": "schemas/benchmark-delivery-broker-receipt-v1.5.schema.json",

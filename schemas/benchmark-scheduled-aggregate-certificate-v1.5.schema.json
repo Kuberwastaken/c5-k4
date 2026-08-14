@@ -92,9 +92,10 @@
         },
         "delivery_broker": {
           "type": "object", "additionalProperties": false,
-          "required": ["executable", "test", "config_schema", "state_schema", "receipt_schema", "readiness_schema"],
+          "required": ["executable", "test", "service", "service_test", "config_schema", "state_schema", "receipt_schema", "readiness_schema"],
           "properties": {
             "executable": {"$ref": "#/definitions/artifactRef"}, "test": {"$ref": "#/definitions/artifactRef"},
+            "service": {"$ref": "#/definitions/artifactRef"}, "service_test": {"$ref": "#/definitions/artifactRef"},
             "config_schema": {"$ref": "#/definitions/artifactRef"}, "state_schema": {"$ref": "#/definitions/artifactRef"},
             "receipt_schema": {"$ref": "#/definitions/artifactRef"}, "readiness_schema": {"$ref": "#/definitions/artifactRef"}
           }
