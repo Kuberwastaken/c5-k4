@@ -84,3 +84,11 @@ the step-counting function is `1`, while `x/(2 log x)>1`.  Exact integer
 calibration found no failure through one million, so this is classified as a
 real-domain formalization error rather than a refactorable-number disproof.
 See [`oeis-111291.md`](oeis-111291.md).
+
+Finally, a fresh wall-navigation arm answered A113019's intended fixed-point
+question.  Flat catalogue and random searches missed beyond the known `1,32`,
+but reducing a fixed point to `n=d^r` exposed
+`387420489=9^9`.  Exact reduction shows that `1`, `32`, and `9^9` are the
+complete fixed-point set.  This is a source-answer correction, not a refutation
+of the declaration's opaque `answer(sorry)` wrapper.  See
+[`oeis-113019.md`](oeis-113019.md).
