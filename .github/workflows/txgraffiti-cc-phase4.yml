@@ -78,9 +78,10 @@ jobs:
             | sha256sum --check
           tar -xzf "$archive" -C "$RUNNER_TEMP"
           cd "$RUNNER_TEMP/nauty2_8_9"
-          ./configure
+          ./configure --enable-generic --disable-popcnt --disable-clz
           make -j2 labelg
           test -x labelg
+          test "$(printf 'Dhc\n' | ./labelg -q)" = DqK
 
       - name: Precompute and audit the complete target-blind domain
         shell: bash
@@ -177,6 +178,7 @@ jobs:
           sha256sum --check SHA256SUMS
           test "$(cat campaign-commit.txt)" = '${{ inputs.campaign_commit }}'
           chmod 0555 bin/labelg
+          test "$(printf 'Dhc\n' | bin/labelg -q)" = DqK
           python "$GITHUB_WORKSPACE/scripts/txgraffiti_cc_phase4_domain.py" verify \
             --domain domain --selection selection
 
@@ -270,7 +272,7 @@ jobs:
         id: audit
         shell: bash
         run: |
-          set +e
+          set -euo pipefail
           assembled="$RUNNER_TEMP/phase4-workers"
           aggregate="$RUNNER_TEMP/phase4-aggregate"
           mkdir -p "$assembled" "$aggregate"
@@ -280,6 +282,8 @@ jobs:
               -exec cp -a '{}' "$assembled/" ';'
           done
           chmod 0555 "$RUNNER_TEMP/phase4-bundle/bin/labelg"
+          test "$(printf 'Dhc\n' | "$RUNNER_TEMP/phase4-bundle/bin/labelg" -q)" = DqK
+          set +e
           python scripts/aggregate_txgraffiti_cc_phase4.py \
             --domain "$RUNNER_TEMP/phase4-bundle/domain" \
             --selection "$RUNNER_TEMP/phase4-bundle/selection" \

@@ -11,9 +11,35 @@ change the graph family, objective, source reading, exact solver, structural
 only how the finite order-20 domain is identified, assigned, resumed, and
 declared complete.
 
-No phase-four target value may be evaluated before this contract is frozen.
+The original phase-four contract was frozen before its first target execution.
 Constructor counts, source parsing, exact canonicalization, manifest audits,
-workflow parsing, and unit tests are the only permitted pre-execution checks.
+workflow parsing, and unit tests were its only pre-execution checks.
+
+## Post-failure infrastructure chronology
+
+The first frozen dispatch, GitHub Actions run
+[`31788725249`](https://github.com/Kuberwastaken/c5-k4/actions/runs/31788725249),
+is **`INVALID_RUN`** and supplies no mathematical evidence. The preparation
+runner built nauty with its automatically selected `-march=native` flag and
+then uploaded that CPU-specific binary to unrelated runners. Eighteen of the
+24 workers passed the database gate but stopped with an illegal-instruction
+failure at their first canonicalization. Six workers happened to run on
+compatible CPUs, but the independent aggregate runner was incompatible and
+could not replay even those ledgers. The aggregate therefore correctly
+admitted zero new identities and reported 24 audit errors.
+
+This revision is solely a post-failure infrastructure replay. It does not use
+any residual, objective, witness, or apparent zero from run `31788725249` to
+alter the target, construction family, identity partition, prior-score set,
+or proposal order. No theorem, counterexample, bounded-zero result, or other
+mathematical inference may be drawn from that run.
+
+The replay builds nauty with
+`--enable-generic --disable-popcnt --disable-clz`, preventing host-specific
+instructions from entering the transported binary. Preparation, every exact
+worker, and aggregation must each canonicalize the fixed graph6 input `Dhc`
+to `DqK` before trusting `labelg`. A failed smoke gate invalidates the run
+before mathematical evidence can be admitted.
 
 ## Target-blind domain authority
 
@@ -78,7 +104,8 @@ or unauthenticated evidence is `INVALID_RUN`.
 
 [`txgraffiti-cc-phase4.yml`](../../../.github/workflows/txgraffiti-cc-phase4.yml)
 is a manual, read-only workflow pinned to an exact 40-hex campaign commit. It
-builds nauty 2.8.9 from a SHA-256-pinned source archive, uploads one immutable
+builds generic-portable nauty 2.8.9 from a SHA-256-pinned source archive,
+smoke-tests it at every execution boundary, uploads one immutable
 domain artifact, runs the 24 exact partitions with at most eight concurrent
 runners, and always attempts a content-addressed aggregate. It has no write
 token, release step, AWS dependency, scheduled trigger, or public mutation.

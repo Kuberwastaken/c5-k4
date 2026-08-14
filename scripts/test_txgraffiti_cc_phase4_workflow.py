@@ -38,6 +38,23 @@ class Phase4WorkflowTests(unittest.TestCase):
         self.assertIn("github.run_attempt", text)
         self.assertNotIn("contents: write", text)
 
+    def test_nauty_binary_is_portable_and_smoked_at_each_trust_boundary(self) -> None:
+        text = WORKFLOW.read_text()
+        self.assertIn(
+            "./configure --enable-generic --disable-popcnt --disable-clz",
+            text,
+        )
+        self.assertNotIn("\n          ./configure\n", text)
+        self.assertEqual(text.count("printf 'Dhc\\n'"), 3)
+        self.assertEqual(text.count(")\" = DqK"), 3)
+
+        manifest = json.loads(MANIFEST.read_text())
+        chronology = manifest["campaign_chronology"]
+        self.assertEqual(chronology["invalid_run_id"], 31788725249)
+        self.assertEqual(chronology["invalid_run_status"], "INVALID_RUN")
+        self.assertIs(chronology["mathematical_inference_allowed"], False)
+        self.assertIs(manifest["post_failure_infrastructure_replay"], True)
+
     def test_domain_is_built_once_and_workers_consume_worklists(self) -> None:
         text = WORKFLOW.read_text()
         self.assertEqual(text.count("txgraffiti_cc_phase4_domain.py build"), 1)

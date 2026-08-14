@@ -5,6 +5,16 @@
   "predecessor": "txgraffiti-cc-phase3-result.md",
   "contract": "txgraffiti-cc-phase4.md",
   "pre_freeze_target_evaluations_allowed": false,
+  "post_failure_infrastructure_replay": true,
+  "campaign_chronology": {
+    "invalid_run_id": 31788725249,
+    "invalid_run_status": "INVALID_RUN",
+    "failure_class": "CPU-specific nauty binary transported across heterogeneous runners",
+    "cause": "nauty configure selected -march=native on the preparation runner",
+    "admitted_new_identities": 0,
+    "mathematical_inference_allowed": false,
+    "replay_changes_only_infrastructure": true
+  },
   "coordinate_t": 2,
   "order": 20,
   "certified_minimum_maximal_matching": 6,
@@ -14,7 +24,11 @@
   "canonicalization": {
     "tool": "nauty labelg 2.8.9",
     "source_url": "https://users.cecs.anu.edu.au/~bdm/nauty/nauty2_8_9.tar.gz",
-    "source_sha256": "c97ab42bf48796a86a598bce3e9269047ca2b32c14fc23e07208a244fe52c4ee"
+    "source_sha256": "c97ab42bf48796a86a598bce3e9269047ca2b32c14fc23e07208a244fe52c4ee",
+    "configure_flags": ["--enable-generic", "--disable-popcnt", "--disable-clz"],
+    "transport_smoke_input_graph6": "Dhc",
+    "transport_smoke_expected_graph6": "DqK",
+    "transport_smoke_boundaries": ["prepare", "worker", "aggregate"]
   },
   "caps_seconds": {
     "process_group": 60,
@@ -38,8 +52,8 @@
     "scripts/search_txgraffiti_cc_phase4.py": "75165eefa6a7da183546c5c8c69c5662651a55d3ec247515bad99746f25d530b",
     "scripts/aggregate_txgraffiti_cc_phase4.py": "bc77c64adba7a1eae24bad2a59a1275f1ae3d3c485acd36e0769d93168b6cf4b",
     "scripts/test_txgraffiti_cc_phase4.py": "71c39c3c48b4c937533c6dcc4a035c5f9dae3ad13248de8b43e78a6034c92ca0",
-    "scripts/test_txgraffiti_cc_phase4_workflow.py": "e9e96e0fb888e421c6aeb1382021405a4db33e3c603805fd75b724e86fad6924",
-    ".github/workflows/txgraffiti-cc-phase4.yml": "1b42d72c7e523f114799321e0c29722772be904b00b836d8f9ee9a0763666acf",
-    "results/expansion/live-search-2026-08-14/txgraffiti-cc-phase4.md": "1835cbf50abdec0c702198b439259597acf72e369114be937fd9f9e7af2090a4"
+    "scripts/test_txgraffiti_cc_phase4_workflow.py": "0c4cc07289e5832a6db13e79fab0f3482bdd8c1a9771527c10baa60ee38560c1",
+    ".github/workflows/txgraffiti-cc-phase4.yml": "4aeee2e8ccd1361aaa8376199504c6367f87d9eda614d4842f125581fef902c4",
+    "results/expansion/live-search-2026-08-14/txgraffiti-cc-phase4.md": "f8f12d315fd8addf5be5ae6264917d910dc23596ba565dfaed9c37e9fa816396"
   }
 }
