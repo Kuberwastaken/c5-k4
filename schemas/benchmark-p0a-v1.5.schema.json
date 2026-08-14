@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-p0a-v1.5.schema.json",
+  "title": "Method v1.5 target-blind P0A protocol freeze",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema", "artifact_kind", "status", "protocol_version", "target_specific", "protocol_base_commit", "components", "components_sha256", "target_data_audit", "authority_policy", "chronology_policy", "activation_policy", "p0a_sha256"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-p0a-1.0"}, "artifact_kind": {"const": "P0A"},
+    "status": {"const": "AUTHORITATIVE_TARGET_BLIND_PROTOCOL_FREEZE_NO_OPERATIONAL_AUTHORITY"},
+    "protocol_version": {"const": "1.5"}, "target_specific": {"const": false},
+    "protocol_base_commit": {"$ref": "#/definitions/oid"},
+    "components": {"type": "array", "minItems": 1, "items": {"$ref": "#/definitions/component"}},
+    "components_sha256": {"$ref": "#/definitions/sha256"},
+    "target_data_audit": {"type": "object", "additionalProperties": false, "required": ["algorithm", "json_component_count", "populated_target_data_fields_detected", "free_text_or_python_semantic_audit_claimed"], "properties": {"algorithm": {"const": "STRUCTURAL_JSON_KEY_AUDIT_V1_5"}, "json_component_count": {"type": "integer", "minimum": 8}, "populated_target_data_fields_detected": {"const": 0}, "free_text_or_python_semantic_audit_claimed": {"const": false}}},
+    "authority_policy": {
+      "type": "object", "additionalProperties": false,
+      "required": ["required_independent_signature_count", "independent_authorities", "authority_roster_sha256", "attestable_ami_authority_binding_policy_sha256", "harness_key_policy"],
+      "properties": {
+        "required_independent_signature_count": {"type": "integer", "minimum": 2},
+        "independent_authorities": {"type": "array", "minItems": 2, "items": {"$ref": "#/definitions/authority"}},
+        "authority_roster_sha256": {"$ref": "#/definitions/sha256"},
+        "attestable_ami_authority_binding_policy_sha256": {"$ref": "#/definitions/sha256"},
+        "harness_key_policy": {"const": {"algorithm": "Ed25519", "storage": "NITROTPM_PCR_SEALED_ON_CONTROLLED_HOST_ONLY", "verification_key_hash_known_at_p0a": false, "raw_private_key_egress_permitted": false}}
+      }
+    },
+    "chronology_policy": {"const": {"p0a_commit_changes_only_p0a": true, "p0t_must_be_sole_parent_child": true, "a0_must_be_sole_parent_child_of_p0t": true, "post_hoc_component_substitution_permitted": false}},
+    "activation_policy": {
+      "type": "object", "additionalProperties": false,
+      "required": ["operational_authority", "a0_draft_is_activation", "external_nitrotpm_harness_key_hash_required", "independent_authority_signatures_required", "repository_builder_may_mint_authoritative_a0"],
+      "properties": {
+        "operational_authority": {"const": false}, "a0_draft_is_activation": {"const": false},
+        "external_nitrotpm_harness_key_hash_required": {"const": true},
+        "independent_authority_signatures_required": {"type": "integer", "minimum": 2},
+        "repository_builder_may_mint_authoritative_a0": {"const": false}
+      }
+    },
+    "p0a_sha256": {"$ref": "#/definitions/sha256"}
+  },
+  "definitions": {
+    "oid": {"type": "string", "pattern": "^[0-9a-f]{40}$"}, "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "path": {"type": "string", "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[^\\u0000]+$"},
+    "component": {"type": "object", "additionalProperties": false, "required": ["path", "blob_oid", "sha256"], "properties": {"path": {"$ref": "#/definitions/path"}, "blob_oid": {"$ref": "#/definitions/oid"}, "sha256": {"$ref": "#/definitions/sha256"}}},
+    "authority": {"type": "object", "additionalProperties": false, "required": ["authority_id", "verification_key_sha256", "key_origin"], "properties": {"authority_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:@+-]{0,127}$"}, "verification_key_sha256": {"$ref": "#/definitions/sha256"}, "key_origin": {"const": "EXTERNAL_PUBLIC_KEY_HASH_FROZEN_BEFORE_P0A"}}}
+  }
+}

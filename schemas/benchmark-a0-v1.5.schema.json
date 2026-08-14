@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-a0-v1.5.schema.json",
+  "title": "Method v1.5 fail-closed A0 draft or externally authorized activation",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema", "artifact_kind", "status", "protocol_version", "target_specific", "p0t", "p0t_publication_receipt", "a0_authorized_at_utc", "ami_authority_binding_contract", "external_harness_authority", "independent_authority_signatures", "activation_policy", "topology_policy", "a0_payload_sha256", "a0_sha256"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-a0-1.0"}, "artifact_kind": {"const": "A0"}, "protocol_version": {"const": "1.5"}, "target_specific": {"const": false},
+    "status": {"enum": ["NONAUTHORITATIVE_DRAFT_AWAITING_EXTERNAL_NITROTPM_KEY_AND_SIGNATURES", "EXTERNALLY_AUTHORIZED_A0"]},
+    "p0t": {"$ref": "#/definitions/binding"}, "p0t_publication_receipt": {"$ref": "benchmark-p0-publication-receipt-v1.5.schema.json"},
+    "a0_authorized_at_utc": {"oneOf": [{"type": "null"}, {"$ref": "#/definitions/time"}]},
+    "ami_authority_binding_contract": {"type": "object", "additionalProperties": false, "required": ["policy_template_sha256", "components", "future_live_binding_sha256"], "properties": {"policy_template_sha256": {"$ref": "#/definitions/sha256"}, "components": {"type": "array", "minItems": 5, "maxItems": 5, "items": {"$ref": "#/definitions/component"}}, "future_live_binding_sha256": {"type": "null"}}},
+    "external_harness_authority": {"oneOf": [{"type": "null"}, {"$ref": "#/definitions/harness"}]},
+    "independent_authority_signatures": {"type": "array", "items": {"$ref": "#/definitions/signature"}},
+    "activation_policy": {"type": "object"},
+    "topology_policy": {"const": {"parent_must_be_exact_p0t": true, "allowed_changed_paths": ["results/benchmark/v1.5-p0-a0/A0.json"]}},
+    "a0_payload_sha256": {"$ref": "#/definitions/sha256"}, "a0_sha256": {"$ref": "#/definitions/sha256"}
+  },
+  "oneOf": [
+    {
+      "properties": {
+        "status": {"const": "NONAUTHORITATIVE_DRAFT_AWAITING_EXTERNAL_NITROTPM_KEY_AND_SIGNATURES"},
+        "external_harness_authority": {"type": "null"}, "independent_authority_signatures": {"maxItems": 0},
+        "a0_authorized_at_utc": {"type": "null"},
+        "activation_policy": {"const": {"activation_authority": false, "fail_closed": true, "nitrotpm_sealed_verification_key_hash_present": false, "required_independent_signatures_present": false, "external_activation_ceremony_required": true, "repository_builder_can_activate": false, "local_preview_only": true, "publication_permitted": false}}
+      }
+    },
+    {
+      "properties": {
+        "status": {"const": "EXTERNALLY_AUTHORIZED_A0"},
+        "external_harness_authority": {"$ref": "#/definitions/harness"}, "independent_authority_signatures": {"minItems": 2},
+        "a0_authorized_at_utc": {"$ref": "#/definitions/time"},
+        "activation_policy": {"const": {"activation_authority": true, "fail_closed": true, "nitrotpm_sealed_verification_key_hash_present": true, "required_independent_signatures_present": true, "external_activation_ceremony_required": true, "repository_builder_can_activate": false, "local_preview_only": false, "publication_permitted": true}}
+      }
+    }
+  ],
+  "definitions": {
+    "oid": {"type": "string", "pattern": "^[0-9a-f]{40}$"}, "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "time": {"type": "string", "format": "date-time", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?Z$"},
+    "binding": {"type": "object", "additionalProperties": false, "required": ["path", "commit", "sha256", "canonical_sha256"], "properties": {"path": {"const": "results/benchmark/v1.5-p0-a0/P0T.json"}, "commit": {"$ref": "#/definitions/oid"}, "sha256": {"$ref": "#/definitions/sha256"}, "canonical_sha256": {"$ref": "#/definitions/sha256"}}},
+    "component": {"type": "object", "additionalProperties": false, "required": ["path", "blob_oid", "sha256"], "properties": {"path": {"type": "string", "minLength": 1}, "blob_oid": {"$ref": "#/definitions/oid"}, "sha256": {"$ref": "#/definitions/sha256"}}},
+    "harness": {"type": "object", "additionalProperties": false, "required": ["algorithm", "key_policy", "verification_key_sha256", "nitrotpm_key_generation_attestation_sha256", "attestable_ami_authority_binding_policy_sha256", "generated_externally", "raw_private_key_published"], "properties": {"algorithm": {"const": "Ed25519"}, "key_policy": {"const": "NITROTPM_PCR_SEALED_ON_CONTROLLED_HOST_ONLY"}, "verification_key_sha256": {"$ref": "#/definitions/sha256"}, "nitrotpm_key_generation_attestation_sha256": {"$ref": "#/definitions/sha256"}, "attestable_ami_authority_binding_policy_sha256": {"$ref": "#/definitions/sha256"}, "generated_externally": {"const": true}, "raw_private_key_published": {"const": false}}},
+    "signature": {"type": "object", "additionalProperties": false, "required": ["authority_id", "verification_key_sha256", "algorithm", "signed_payload_sha256", "signature_base64"], "properties": {"authority_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:@+-]{0,127}$"}, "verification_key_sha256": {"$ref": "#/definitions/sha256"}, "algorithm": {"const": "Ed25519"}, "signed_payload_sha256": {"$ref": "#/definitions/sha256"}, "signature_base64": {"type": "string", "pattern": "^[A-Za-z0-9+/]{86}==$"}}}
+  }
+}

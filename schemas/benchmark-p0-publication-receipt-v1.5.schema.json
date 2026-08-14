@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-p0-publication-receipt-v1.5.schema.json",
+  "title": "Method v1.5 externally captured GitHub Actions P0 publication receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "source", "subject", "actions_run", "capture", "receipt_sha256"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-p0-publication-receipt-1.0"},
+    "source": {"const": "LIVE_GITHUB_SERVER_ACTIONS_REPLAY"},
+    "subject": {
+      "type": "object", "additionalProperties": false,
+      "required": ["artifact_kind", "path", "commit", "sha256"],
+      "properties": {
+        "artifact_kind": {"enum": ["P0A", "P0T", "A0"]},
+        "path": {"enum": ["results/benchmark/v1.5-p0-a0/P0A.json", "results/benchmark/v1.5-p0-a0/P0T.json", "results/benchmark/v1.5-p0-a0/A0.json"]},
+        "commit": {"$ref": "#/definitions/oid"}, "sha256": {"$ref": "#/definitions/sha256"}
+      }
+    },
+    "actions_run": {
+      "type": "object", "additionalProperties": false,
+      "required": ["repository", "repository_id", "api_version", "workflow_path", "workflow_commit", "workflow_blob_sha256", "event", "branch", "ref", "head_sha", "run_id", "run_attempt", "status", "conclusion", "created_at_utc", "run_started_at_utc", "updated_at_utc", "captured_run_object_sha256", "captured_listing_sha256", "captured_ref_sha256", "api_projection_sha256"],
+      "properties": {
+        "repository": {"const": "Kuberwastaken/c5-k4"}, "repository_id": {"const": 1331829034},
+        "api_version": {"const": "2022-11-28"},
+        "workflow_path": {"const": ".github/workflows/method-v15-p0-publication-observer.yml"},
+        "workflow_commit": {"$ref": "#/definitions/oid"}, "workflow_blob_sha256": {"$ref": "#/definitions/sha256"},
+        "event": {"const": "push"}, "branch": {"const": "method-v1.5-p0"}, "ref": {"const": "refs/heads/method-v1.5-p0"},
+        "head_sha": {"$ref": "#/definitions/oid"}, "run_id": {"type": "integer", "minimum": 1},
+        "run_attempt": {"const": 1}, "status": {"const": "completed"}, "conclusion": {"const": "success"},
+        "created_at_utc": {"$ref": "#/definitions/time"}, "run_started_at_utc": {"$ref": "#/definitions/time"}, "updated_at_utc": {"$ref": "#/definitions/time"},
+        "captured_run_object_sha256": {"$ref": "#/definitions/sha256"}, "captured_listing_sha256": {"$ref": "#/definitions/sha256"}, "captured_ref_sha256": {"$ref": "#/definitions/sha256"},
+        "api_projection_sha256": {"$ref": "#/definitions/sha256"}
+      }
+    },
+    "capture": {
+      "const": {
+        "authenticated_by": "scripts/verify_benchmark_v15_p0_a0_publication.py",
+        "network_fetch_performed_by_builder": true,
+        "credentials_embedded": false,
+        "raw_api_response_published": false,
+        "server_observation_claim_requires_independent_validation": true,
+        "live_replay_required_by_builder": true
+      }
+    },
+    "receipt_sha256": {"$ref": "#/definitions/sha256"}
+  },
+  "definitions": {
+    "oid": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "time": {"type": "string", "format": "date-time", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?Z$"}
+  }
+}

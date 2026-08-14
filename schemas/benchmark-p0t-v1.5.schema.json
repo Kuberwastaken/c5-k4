@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-p0t-v1.5.schema.json",
+  "title": "Method v1.5 exact P0A publication attestation",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema", "artifact_kind", "status", "protocol_version", "target_specific", "p0a", "p0a_publication_receipt", "topology_policy", "activation_authority", "p0t_sha256"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-p0t-1.0"}, "artifact_kind": {"const": "P0T"},
+    "status": {"const": "P0A_PUBLICATION_ATTESTED_NO_OPERATIONAL_AUTHORITY"}, "protocol_version": {"const": "1.5"}, "target_specific": {"const": false},
+    "p0a": {"$ref": "#/definitions/binding"},
+    "p0a_publication_receipt": {"$ref": "benchmark-p0-publication-receipt-v1.5.schema.json"},
+    "topology_policy": {"const": {"parent_must_be_exact_p0a": true, "allowed_changed_paths": ["results/benchmark/v1.5-p0-a0/P0T.json"]}},
+    "activation_authority": {"const": false}, "p0t_sha256": {"$ref": "#/definitions/sha256"}
+  },
+  "definitions": {
+    "oid": {"type": "string", "pattern": "^[0-9a-f]{40}$"}, "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "binding": {"type": "object", "additionalProperties": false, "required": ["path", "commit", "sha256", "canonical_sha256"], "properties": {"path": {"const": "results/benchmark/v1.5-p0-a0/P0A.json"}, "commit": {"$ref": "#/definitions/oid"}, "sha256": {"$ref": "#/definitions/sha256"}, "canonical_sha256": {"$ref": "#/definitions/sha256"}}}
+  }
+}

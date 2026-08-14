@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-attestable-ami-receipt-v1.5.schema.json",
+  "title": "Method v1.5 independently measured attestable AMI acceptance receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "status", "protocol_version", "target_specific", "plan_sha256", "prebuild_authorization_sha256", "postmeasurement_acceptance_sha256", "build", "measurement", "transition", "accepted_at_utc", "receipt_sha256"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-attestable-ami-acceptance-receipt-1.0"},
+    "status": {"const": "INDEPENDENTLY_MEASURED_AMI_ACCEPTED_FOR_CREATE_ONLY_TRANSITION"},
+    "protocol_version": {"const": "1.5"},
+    "target_specific": {"const": false},
+    "plan_sha256": {"$ref": "#/definitions/sha256"},
+    "prebuild_authorization_sha256": {"$ref": "#/definitions/sha256"},
+    "postmeasurement_acceptance_sha256": {"$ref": "#/definitions/sha256"},
+    "build": {"$ref": "#/definitions/build"},
+    "measurement": {"$ref": "#/definitions/measurement"},
+    "transition": {"const": {"operation": "ACCEPT_NEWLY_CREATED_AMI", "existing_ami_mutated": false, "delete_or_deregister_permitted": false, "launch_or_activation_authorized": false}},
+    "accepted_at_utc": {"type": "string", "format": "date-time"},
+    "receipt_sha256": {"$ref": "#/definitions/sha256"}
+  },
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "account": {"type": "string", "pattern": "^[0-9]{12}$"},
+    "ami": {"type": "string", "pattern": "^ami-[0-9a-f]{8,17}$"},
+    "signature": {"type": "object", "additionalProperties": false, "required": ["signer_id", "key_sha256", "algorithm", "signed_payload_sha256", "signature_base64"], "properties": {"signer_id": {"type": "string", "pattern": "^[A-Za-z0-9._:@/-]{3,128}$"}, "key_sha256": {"$ref": "#/definitions/sha256"}, "algorithm": {"const": "Ed25519"}, "signed_payload_sha256": {"$ref": "#/definitions/sha256"}, "signature_base64": {"type": "string", "pattern": "^[A-Za-z0-9+/]{86}==$"}}},
+    "policyBinding": {"type": "object", "additionalProperties": false, "required": ["plan_sha256", "receipt_schema", "policy_version"], "properties": {"plan_sha256": {"$ref": "#/definitions/sha256"}, "receipt_schema": {"const": "c5k4-method-v1.5-attestable-ami-acceptance-receipt-1.0"}, "policy_version": {"const": "c5k4-method-v1.5-attestable-ami-acceptance-policy-1.0"}}},
+    "build": {"type": "object", "additionalProperties": false, "required": ["binding", "ami", "source", "bootstrap", "runtime", "cloudtrail_builder_start", "built_at_utc", "signature"], "properties": {
+      "binding": {"$ref": "#/definitions/policyBinding"},
+      "ami": {"type": "object", "additionalProperties": false, "required": ["ami_id", "owner_account_id", "region", "image_creation_date", "architecture", "boot_mode", "tpm_support", "virtualization_type", "hypervisor", "root_device_type", "public", "root_volume_encrypted"], "properties": {"ami_id": {"$ref": "#/definitions/ami"}, "owner_account_id": {"$ref": "#/definitions/account"}, "region": {"type": "string", "pattern": "^[a-z]{2}-[a-z]+-[0-9]$"}, "image_creation_date": {"type": "string", "format": "date-time"}, "architecture": {"const": "x86_64"}, "boot_mode": {"const": "uefi"}, "tpm_support": {"const": "v2.0"}, "virtualization_type": {"const": "hvm"}, "hypervisor": {"const": "nitro"}, "root_device_type": {"const": "ebs"}, "public": {"const": false}, "root_volume_encrypted": {"const": true}}},
+      "source": {"type": "object", "additionalProperties": false, "required": ["family", "source_ami_id", "source_owner_account_id", "source_release", "source_region", "source_image_creation_date", "source_image_sha256"], "properties": {"family": {"const": "Amazon Linux 2023"}, "source_ami_id": {"$ref": "#/definitions/ami"}, "source_owner_account_id": {"$ref": "#/definitions/account"}, "source_release": {"type": "string", "pattern": "^2023\\.[0-9]+\\.[0-9]+$"}, "source_region": {"type": "string"}, "source_image_creation_date": {"type": "string", "format": "date-time"}, "source_image_sha256": {"$ref": "#/definitions/sha256"}}},
+      "bootstrap": {"type": "object", "additionalProperties": false, "required": ["artifact_sha256", "artifact_size_bytes", "installed_path", "network_fetch_during_first_boot"], "properties": {"artifact_sha256": {"$ref": "#/definitions/sha256"}, "artifact_size_bytes": {"type": "integer", "minimum": 1, "maximum": 1048576}, "installed_path": {"const": "/usr/local/sbin/c5k4-v15-controlled-host-bootstrap"}, "network_fetch_during_first_boot": {"const": false}}},
+      "runtime": {"type": "object", "additionalProperties": false, "required": ["image_reference", "manifest_sha256", "image_id", "daemon_config", "daemon_config_sha256"], "properties": {"image_reference": {"type": "string"}, "manifest_sha256": {"$ref": "#/definitions/sha256"}, "image_id": {"type": "string"}, "daemon_config": {"type": "object"}, "daemon_config_sha256": {"$ref": "#/definitions/sha256"}}},
+      "cloudtrail_builder_start": {"type": "object", "additionalProperties": false, "required": ["event_id", "event_name", "event_time_utc", "aws_account_id", "region", "prebuild_authorization_sha256", "request_parameters_sha256", "digest_chain", "log_file"], "properties": {
+        "event_id": {"type": "string", "pattern": "^[0-9a-f-]{36}$"}, "event_name": {"const": "RunInstances"}, "event_time_utc": {"type": "string", "format": "date-time"}, "aws_account_id": {"$ref": "#/definitions/account"}, "region": {"type": "string", "pattern": "^[a-z]{2}-[a-z]+-[0-9]$"}, "prebuild_authorization_sha256": {"$ref": "#/definitions/sha256"}, "request_parameters_sha256": {"$ref": "#/definitions/sha256"},
+        "digest_chain": {"type": "array", "minItems": 2, "maxItems": 168, "items": {"type": "object", "additionalProperties": false, "required": ["s3_bucket", "s3_object", "uncompressed_base64", "uncompressed_sha256", "signature_hex", "signature_algorithm", "signature_source"], "properties": {"s3_bucket": {"type": "string", "minLength": 3}, "s3_object": {"type": "string", "minLength": 1}, "uncompressed_base64": {"type": "string"}, "uncompressed_sha256": {"$ref": "#/definitions/sha256"}, "signature_hex": {"type": "string", "pattern": "^[0-9a-f]+$", "minLength": 512}, "signature_algorithm": {"const": "SHA256withRSA"}, "signature_source": {"enum": ["S3_X_AMZ_META_SIGNATURE", "SUCCESSOR_PREVIOUS_DIGEST_SIGNATURE"]}}}},
+        "log_file": {"type": "object", "additionalProperties": false, "required": ["s3_bucket", "s3_object", "uncompressed_base64", "uncompressed_sha256"], "properties": {"s3_bucket": {"type": "string", "minLength": 3}, "s3_object": {"type": "string", "minLength": 1}, "uncompressed_base64": {"type": "string"}, "uncompressed_sha256": {"$ref": "#/definitions/sha256"}}}
+      }},
+      "built_at_utc": {"type": "string", "format": "date-time"}, "signature": {"$ref": "#/definitions/signature"}
+    }},
+    "measurement": {"type": "object", "additionalProperties": false, "required": ["binding", "ami_id", "owner_account_id", "region", "fresh_boot", "tpm_event_log_sha256", "hash_bank", "pcrs", "reference_bundle_format", "reference_bundle_sha256", "remeasurement_reproduced", "measured_at_utc", "signature"], "properties": {"binding": {"$ref": "#/definitions/policyBinding"}, "ami_id": {"$ref": "#/definitions/ami"}, "owner_account_id": {"$ref": "#/definitions/account"}, "region": {"type": "string"}, "fresh_boot": {"const": true}, "tpm_event_log_sha256": {"$ref": "#/definitions/sha256"}, "hash_bank": {"const": "sha256"}, "pcrs": {"type": "object", "additionalProperties": false, "required": ["0", "1", "2", "3", "4", "5", "7", "8", "9", "10"], "properties": {"0": {"$ref": "#/definitions/sha256"}, "1": {"$ref": "#/definitions/sha256"}, "2": {"$ref": "#/definitions/sha256"}, "3": {"$ref": "#/definitions/sha256"}, "4": {"$ref": "#/definitions/sha256"}, "5": {"$ref": "#/definitions/sha256"}, "7": {"$ref": "#/definitions/sha256"}, "8": {"$ref": "#/definitions/sha256"}, "9": {"$ref": "#/definitions/sha256"}, "10": {"$ref": "#/definitions/sha256"}}}, "reference_bundle_format": {"const": "c5k4-method-v1.5-al2023-reference-measurements-1.0"}, "reference_bundle_sha256": {"$ref": "#/definitions/sha256"}, "remeasurement_reproduced": {"const": true}, "measured_at_utc": {"type": "string", "format": "date-time"}, "signature": {"$ref": "#/definitions/signature"}}}
+  }
+}
