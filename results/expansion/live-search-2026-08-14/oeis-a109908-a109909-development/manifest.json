@@ -1,0 +1,60 @@
+{
+  "schema": "oeis-a109908-a109909-development-freeze-v1",
+  "development_only": true,
+  "target_evaluation_requires_exact_campaign_commit": true,
+  "local_parent_commit": "9307a5348d2351f517df6e715a93a4d16437abde",
+  "historical_verified_through_n": 1000000000,
+  "candidate_n_minimum": 1000000001,
+  "candidate_n_maximum": 1500000000,
+  "internal_seconds": 48,
+  "external_search_seconds": 54,
+  "external_verify_seconds": 60,
+  "checkpoint_profile_interval": 16,
+  "shards": 16,
+  "construction": {
+    "kind": "finite-prefix-residue-cover",
+    "divisor_primes": [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43],
+    "divisor_lcm": 13082761331670030,
+    "profile_minimum_depth": 10,
+    "beam_width": 256,
+    "construction_prefix_k": 262144,
+    "maximum_trials_per_shard": 4096,
+    "coverage_block_size": 1048576,
+    "ordering": "depth, descending first-uncovered, descending covered-count, CRT residue, residue tuple",
+    "ownership": "canonical profile ordinal modulo 16"
+  },
+  "formal_conjectures": {
+    "commit": "7eb70784eab1a3c6f4c3d99f8920b970cd7f68c4",
+    "tree": "98d5a3b3c3fe79873d5d420446e89e7430c54425",
+    "category": "research open",
+    "ingestion_pull": 4450,
+    "targets": [
+      {
+        "sequence": "A109908",
+        "path": "FormalConjectures/OEIS/109908.lean",
+        "blob_sha1": "79f24ed3f20108f908be7144915e4bc81faedad4",
+        "sha256": "518c786ad769b81fb2495c0edf6d496205d304aa4fcca064ad94e5c0224afc96",
+        "declaration": "OeisA109908.conjecture"
+      },
+      {
+        "sequence": "A109909",
+        "path": "FormalConjectures/OEIS/109909.lean",
+        "blob_sha1": "f4328ad6def541b625aa9cb287cb898bb1431753",
+        "sha256": "bb91d62d701549ae907e5f35a81c1c9bb0ba5ff4d7a5446eae643a0e5cf6ba47",
+        "declaration": "OeisA109909.conjecture"
+      }
+    ]
+  },
+  "oeis_source": {
+    "commit": "8872fa543438401edd424a57b67ad5e0737bebfb",
+    "tree": "658cfbde8e997e6f9c82f774309cda85c9b1da3c",
+    "targets": [
+      {"sequence": "A109908", "path": "seq/A109/A109908.seq", "sha256": "e4620604bc977981e6233a970a105027ab34cdc03d9f0f07166a2c685e091aba"},
+      {"sequence": "A109909", "path": "seq/A109/A109909.seq", "sha256": "8ba71aab83ac2d1cf7a6843ab5c5fcc0d15796e07b27a70c216ef3ed56adc44b"}
+    ],
+    "bfiles": [
+      {"sequence": "A109908", "filename": "b109908.txt", "sha256": "503319894a82a66bac3a690c8742e22e840df1d09c8c49b8486fe8b5e5d3b15b", "rows": 10000, "last_index": 10000},
+      {"sequence": "A109909", "filename": "b109909.txt", "sha256": "66ddc2f4d51edd1ebe7698923147e3a2d5631db88c3b5c096588aebaf8add64b", "rows": 93, "last_index": 93}
+    ]
+  }
+}

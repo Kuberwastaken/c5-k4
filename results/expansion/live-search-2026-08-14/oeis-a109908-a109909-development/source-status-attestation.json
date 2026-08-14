@@ -1,0 +1,39 @@
+{
+  "schema": "oeis-a109908-a109909-source-status-v1",
+  "audit_time_utc": "2026-08-14T19:52:11Z",
+  "local_project_commit": "9307a5348d2351f517df6e715a93a4d16437abde",
+  "formal_conjectures_commit": "7eb70784eab1a3c6f4c3d99f8920b970cd7f68c4",
+  "formal_conjectures_tree": "98d5a3b3c3fe79873d5d420446e89e7430c54425",
+  "oeisdata_commit": "8872fa543438401edd424a57b67ad5e0737bebfb",
+  "oeisdata_tree": "658cfbde8e997e6f9c82f774309cda85c9b1da3c",
+  "open_pull_requests_scanned": 278,
+  "exact_searches": {
+    "repo:google-deepmind/formal-conjectures A109908": 0,
+    "repo:google-deepmind/formal-conjectures OeisA109908": 0,
+    "repo:google-deepmind/formal-conjectures A109909": 0,
+    "repo:google-deepmind/formal-conjectures OeisA109909": 0,
+    "repo:Kuberwastaken/c5-k4 A109908": 0,
+    "repo:Kuberwastaken/c5-k4 OeisA109908": 0,
+    "repo:Kuberwastaken/c5-k4 A109909": 0,
+    "repo:Kuberwastaken/c5-k4 OeisA109909": 0
+  },
+  "open_target_path_touches": [],
+  "known_ingestion": {
+    "pull": 4450,
+    "state": "MERGED",
+    "merged_at": "2026-08-13T12:46:43Z",
+    "merge_commit": "d7032450c559849f2a345f80582688c76b25ffcb",
+    "head_commit": "3bd4f0260009869c95d02bfb143e08b82a2aa43d"
+  },
+  "oeis_status": "both entries still state the conjecture and verification through 10^9",
+  "linked_public_proof_claim": {
+    "title": "On Two Conjectures of A. Murthy",
+    "authors": "Pengcheng Niu and Junli Zhang",
+    "doi": "10.13140/RG.2.2.16430.11848",
+    "audit": "PUBLIC_PROOF_CLAIM_AUDITED_INVALID",
+    "decisive_defect": "the mu=0 stationary branch is feasible with f=-l/4, so it cannot be a global maximum and the asserted positive minimum does not follow",
+    "effect_on_status": "does not establish either conjecture"
+  },
+  "fresh_race_check_required_at_execution": true,
+  "classification": "UNAMBIGUOUS_CURRENT_OPEN_DEVELOPMENT_TARGET"
+}

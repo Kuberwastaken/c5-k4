@@ -1,0 +1,138 @@
+name: OEIS A109908 A109909 finite-prefix DEVELOPMENT
+
+on:
+  workflow_dispatch:
+    inputs:
+      campaign_commit:
+        description: Exact 40-hex c5-k4 commit containing the frozen joint lane
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  issues: read
+  pull-requests: read
+
+env:
+  LC_ALL: C.UTF-8
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONHASHSEED: '0'
+  TZ: UTC
+
+jobs:
+  validate-frozen-harness:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Reject movable execution ref
+        env: {CAMPAIGN_COMMIT: "${{ inputs.campaign_commit }}"}
+        run: '[[ "$CAMPAIGN_COMMIT" =~ ^[0-9a-f]{40}$ ]]'
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with: {ref: "${{ inputs.campaign_commit }}", fetch-depth: 0, persist-credentials: false}
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with: {python-version: '3.12.9'}
+      - name: Verify exact immutable freeze without target evaluation
+        env: {CAMPAIGN_COMMIT: "${{ inputs.campaign_commit }}"}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$CAMPAIGN_COMMIT"
+          git merge-base --is-ancestor 9307a5348d2351f517df6e715a93a4d16437abde "$CAMPAIGN_COMMIT"
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+          python -m py_compile scripts/prospective_oeis_a109908_a109909.py scripts/verify_oeis_a109908_a109909_artifacts.py scripts/test_prospective_oeis_a109908_a109909.py
+          python results/expansion/live-search-2026-08-14/oeis-a109908-a109909-development/verify_freeze.py
+          PYTHONPATH=scripts timeout --signal=TERM --kill-after=3s 60s python -m unittest -v scripts/test_prospective_oeis_a109908_a109909.py
+
+  prepare-source-status-gate:
+    needs: validate-frozen-harness
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with: {ref: "${{ inputs.campaign_commit }}", persist-credentials: false}
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with: {python-version: '3.12.9'}
+      - name: Download exact pinned and live sources
+        run: |
+          set -euo pipefail
+          input="$RUNNER_TEMP/a1099-input"; mkdir -p "$input"
+          for n in 109908 109909; do
+            curl --fail --location --retry 5 --retry-all-errors "https://raw.githubusercontent.com/google-deepmind/formal-conjectures/7eb70784eab1a3c6f4c3d99f8920b970cd7f68c4/FormalConjectures/OEIS/$n.lean" -o "$input/$n.lean"
+            curl --fail --location --retry 5 --retry-all-errors "https://raw.githubusercontent.com/google-deepmind/formal-conjectures/main/FormalConjectures/OEIS/$n.lean" -o "$input/$n-live.lean"
+            curl --fail --location --retry 5 --retry-all-errors "https://raw.githubusercontent.com/oeis/oeisdata/8872fa543438401edd424a57b67ad5e0737bebfb/seq/A109/A$n.seq" -o "$input/A$n.seq"
+            curl --fail --location --retry 5 --retry-all-errors "https://raw.githubusercontent.com/oeis/oeisdata/main/seq/A109/A$n.seq" -o "$input/A$n-live.seq"
+            curl --fail --location --retry 5 --retry-all-errors "https://oeis.org/A$n/b$n.txt" -o "$input/b$n.txt"
+          done
+      - name: Fresh source status and race audit
+        env: {GITHUB_TOKEN: "${{ github.token }}"}
+        run: timeout --signal=TERM --kill-after=3s 60s python scripts/prospective_oeis_a109908_a109909.py live-audit "$RUNNER_TEMP/a1099-input/live-audit.json"
+      - name: Prepare and verify exact database-sanity gate
+        env: {CAMPAIGN_COMMIT: "${{ inputs.campaign_commit }}"}
+        run: |
+          set -euo pipefail
+          timeout --signal=TERM --kill-after=3s 60s python scripts/prospective_oeis_a109908_a109909.py prepare-gate "$RUNNER_TEMP/a1099-input" "$RUNNER_TEMP/a1099-gate" --campaign-commit "$CAMPAIGN_COMMIT"
+          timeout --signal=TERM --kill-after=3s 60s python scripts/prospective_oeis_a109908_a109909.py verify-gate "$RUNNER_TEMP/a1099-gate" --campaign-commit "$CAMPAIGN_COMMIT"
+          (cd "$RUNNER_TEMP/a1099-gate" && find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS)
+      - name: Upload content-addressed gate
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: oeis-a109908-a109909-gate-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/a1099-gate/
+          if-no-files-found: error
+          retention-days: 90
+
+  finite-prefix-cover:
+    needs: [validate-frozen-harness, prepare-source-status-gate]
+    strategy:
+      fail-fast: false
+      max-parallel: 16
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with: {ref: "${{ inputs.campaign_commit }}", persist-credentials: false}
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with: {python-version: '3.12.9'}
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        with:
+          name: oeis-a109908-a109909-gate-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/a1099-gate
+      - name: Construct one frozen CRT-profile prefix and independently replay
+        env: {CAMPAIGN_COMMIT: "${{ inputs.campaign_commit }}", SHARD: "${{ matrix.shard }}"}
+        run: |
+          set +e
+          set -uo pipefail
+          output="$RUNNER_TEMP/a1099-output/$SHARD"; mkdir -p "$(dirname "$output")"
+          (cd "$RUNNER_TEMP/a1099-gate" && sha256sum --check SHA256SUMS); gate_code=$?
+          search_code=20; verify_code=20
+          if [[ "$gate_code" -eq 0 ]]; then
+            timeout --signal=TERM --kill-after=3s 54s python scripts/prospective_oeis_a109908_a109909.py search --campaign-commit "$CAMPAIGN_COMMIT" --gate-bundle "$RUNNER_TEMP/a1099-gate" --shard "$SHARD" --output "$output"
+            search_code=$?
+          fi
+          if [[ -f "$output/terminal.json" && -f "$output/ledger.jsonl" ]]; then
+            timeout --signal=TERM --kill-after=3s 60s python scripts/verify_oeis_a109908_a109909_artifacts.py "$output" "$RUNNER_TEMP/a1099-gate" --campaign-commit "$CAMPAIGN_COMMIT" --shard "$SHARD" >"$output/independent-verification.txt" 2>&1
+            verify_code=$?
+          fi
+          python - "$output" "$gate_code" "$search_code" "$verify_code" <<'PY'
+          import json,os,pathlib,sys
+          out=pathlib.Path(sys.argv[1]);out.mkdir(parents=True,exist_ok=True)
+          target=out/'execution-status.json';tmp=target.with_suffix('.tmp')
+          value={'gate_checksum_exit_code':int(sys.argv[2]),'search_exit_code':int(sys.argv[3]),'verifier_exit_code':int(sys.argv[4])}
+          with tmp.open('w') as f: json.dump(value,f,sort_keys=True,separators=(',',':'));f.write('\n');f.flush();os.fsync(f.fileno())
+          os.replace(tmp,target)
+          PY
+          status_code=$?
+          (cd "$output" && find . -maxdepth 1 -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS); sums_code=$?
+          final=0
+          for code in "$gate_code" "$search_code" "$verify_code" "$status_code" "$sums_code"; do [[ "$final" -ne 0 || "$code" -eq 0 ]] || final="$code"; done
+          exit "$final"
+      - name: Upload complete incremental evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: oeis-a109908-a109909-${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.shard }}
+          path: ${{ runner.temp }}/a1099-output/
+          if-no-files-found: error
+          retention-days: 90

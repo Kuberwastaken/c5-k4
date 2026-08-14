@@ -1,0 +1,14 @@
+{
+  "schema": "resolution-card-v1",
+  "logical_class": "FINITE_UNIVERSAL",
+  "targets": ["OeisA109908.conjecture", "OeisA109909.conjecture"],
+  "target_negation": "there exists n>3 for which every k in 1..floor(n/2) has nonprime k*(n-k)-1",
+  "negation_certificate": "n, selected modulus residues/root classes, and an exact independently replayed interval-cover digest",
+  "finite_witness_suffices": true,
+  "exact_residual": "A109908 residual = max of the prime-valued image (default 0); A109909 residual = cardinality of that image; the shared negation certificate proves both are 0",
+  "answer_placeholder": false,
+  "eventual_quantifier": false,
+  "global_constant_quantifier": false,
+  "unbounded_auxiliary_search": false,
+  "correlated_cluster_count": 1
+}
