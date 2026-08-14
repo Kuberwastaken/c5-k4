@@ -11,6 +11,7 @@ AWS, GitHub, P1-freeze, listener, or target-execution operation.
 from __future__ import annotations
 
 import argparse
+import base64
 import hashlib
 import ipaddress
 import json
@@ -254,7 +255,7 @@ def derive_tls_spki(certificate: Path, private_key: Path, listener_endpoint: str
     if not hostname:
         raise UnitContractError("listener endpoint has no TLS hostname")
     openssl(["x509", "-in", str(certificate), "-checkhost", hostname, "-noout"])
-    return hashlib.sha256(certificate_public_der).hexdigest()
+    return "sha256//" + base64.b64encode(hashlib.sha256(certificate_public_der).digest()).decode("ascii")
 
 
 def render_unit(value: dict[str, Any], cidrs: list[str]) -> str:
@@ -274,7 +275,7 @@ def render_unit(value: dict[str, Any], cidrs: list[str]) -> str:
         "Type=exec",
         "User=c5k4-benchmark-v15",
         "Group=c5k4-benchmark-v15",
-        f"ExecStart={service['binary_path']} --activation-binding={service['activation_binding_path']} --expected-binding-sha256={binding} --control-socket={service['control_socket_path']} --tls-certificate={value['tls']['certificate_path']} --tls-private-key=%d/tls-private-key",
+        f"ExecStart={service['binary_path']} --activation-binding={service['activation_binding_path']} --expected-binding-sha256={binding} --daemon-contract={service['daemon_contract_path']} --control-socket={service['control_socket_path']} --tls-certificate={value['tls']['certificate_path']} --tls-private-key=%d/tls-private-key",
         f"LoadCredential=tls-private-key:{value['tls']['private_key_path']}",
         "WorkingDirectory=/var/lib/c5k4-benchmark-v15",
         "UMask=0077",
@@ -331,6 +332,7 @@ def generate(value: dict[str, Any], filesystem_root: Path = Path("/")) -> dict[s
     if tree_sha256(p1_path, root_owned=production_root) != value["p1"]["tree_sha256"]:
         raise UnitContractError("P1 tree digest mismatch")
     exact_regular_file(filesystem_root, value["service"]["binary_path"], value["service"]["binary_sha256"], executable=True, root_owned=production_root)
+    exact_regular_file(filesystem_root, value["service"]["daemon_contract_path"], value["service"]["daemon_contract_sha256"], root_owned=production_root)
     certificate = exact_regular_file(filesystem_root, value["tls"]["certificate_path"], value["tls"]["certificate_sha256"], root_owned=production_root)
     private_key = exact_regular_file(filesystem_root, value["tls"]["private_key_path"], value["tls"]["private_key_sha256"], private=True, root_owned=production_root)
     tls_spki_sha256 = derive_tls_spki(certificate, private_key, value["listener"]["https_endpoint"])
@@ -379,6 +381,7 @@ def generate(value: dict[str, Any], filesystem_root: Path = Path("/")) -> dict[s
             "noninterference_key_commitment_sha256": value["noninterference_key_commitment"]["commitment_sha256"],
             "worm_acceptance_sha256": value["worm_acceptance"]["acceptance_sha256"],
             "destructive_gap_acceptance_sha256": value["destructive_gap_acceptance"]["acceptance_sha256"],
+            "daemon_contract_sha256": value["service"]["daemon_contract_sha256"],
             "tls_spki_sha256": tls_spki_sha256,
             "oidc_config_sha256": hashlib.sha256(canonical_bytes(value["oidc"])).hexdigest(),
         },

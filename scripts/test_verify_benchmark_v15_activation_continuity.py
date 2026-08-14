@@ -156,10 +156,7 @@ class ActivationContinuityTests(unittest.TestCase):
             "run_attempt": "1",
         }
         service = {"transport": {"https_endpoint": endpoint}, "oidc": oidc}
-        activation = {
-            "listener": {"https_endpoint": endpoint},
-            "oidc": {**{key: value for key, value in oidc.items() if key != "audience_prefix"}, "audience": "c5k4-method-v1.5:" + "a" * 64},
-        }
+        activation = {"listener": {"https_endpoint": endpoint}, "oidc": dict(oidc)}
         unit = {
             "network_policy": {"listener": {"https_endpoint": endpoint}},
             "bound_acceptances": {"oidc_config_sha256": module.hashlib.sha256(module.canonical_bytes(activation["oidc"])).hexdigest()},
@@ -184,7 +181,7 @@ class ActivationContinuityTests(unittest.TestCase):
 
     def test_audience_prefix_and_endpoint_path_splits_fail(self) -> None:
         invocation, service, activation, unit = self.interface_fixture()
-        activation["oidc"]["audience"] = "c5k4-v15-checkpoint:" + "a" * 64
+        activation["oidc"]["audience_prefix"] = "c5k4-v15-checkpoint"
         with self.assertRaisesRegex(module.ContinuityError, "audience prefix differs"):
             module.check_request_interface_continuity(invocation, service, activation, unit, require_operational=True, workflow_bytes=(ROOT / ".github/workflows/method-v15-checkpoint.yml").read_bytes())
         invocation, service, activation, unit = self.interface_fixture()

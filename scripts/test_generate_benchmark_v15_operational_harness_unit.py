@@ -89,15 +89,18 @@ class OperationalHarnessUnitTests(unittest.TestCase):
         resolution = self.fs / "etc/c5k4-benchmark-v15/credentials/pinned-hosts"
         resolution.write_text("".join(f"{cidr.split('/')[0]} {host}\n" for _, _, host, cidr in endpoint_specs), encoding="ascii")
         resolution.chmod(0o444)
+        daemon_contract = self.fs / "etc/c5k4-benchmark-v15/credentials/https-daemon-contract.json"
+        daemon_contract.write_text('{"status":"FROZEN_P1_EXECUTABLE"}\n', encoding="ascii")
+        daemon_contract.chmod(0o444)
         self.value = {
             "schema": "c5k4-method-v1.5-operational-controlled-harness-activation-inputs-1.0",
             "status": "P1_OPERATIONAL_ACTIVATION_INPUTS_COMPLETE", "protocol_version": "1.5",
             "host_id": "ai-vps-controlled-harness",
             "p1": {"tree_path": "/opt/c5k4-benchmark-v15/p1", "tree_sha256": module.tree_sha256(self.fs / "opt/c5k4-benchmark-v15/p1"), "commit": "a" * 40},
-            "service": {"binary_path": "/opt/c5k4-benchmark-v15/p1/bin/c5k4-controlled-harness", "binary_sha256": module.file_sha256(binary), "activation_binding_path": "/etc/c5k4-benchmark-v15/OPERATIONAL-ACTIVATION.json", "control_socket_path": "/run/c5k4-benchmark-v15/control.sock"},
+            "service": {"binary_path": "/opt/c5k4-benchmark-v15/p1/bin/c5k4-controlled-harness", "binary_sha256": module.file_sha256(binary), "activation_binding_path": "/etc/c5k4-benchmark-v15/OPERATIONAL-ACTIVATION.json", "daemon_contract_path": "/etc/c5k4-benchmark-v15/credentials/https-daemon-contract.json", "daemon_contract_sha256": module.file_sha256(daemon_contract), "control_socket_path": "/run/c5k4-benchmark-v15/control.sock"},
             "listener": {"https_endpoint": "https://harness.example.org:443/v1/checkpoint", "bind_address": "13.200.253.63", "port": 443},
             "tls": {"certificate_path": "/etc/c5k4-benchmark-v15/credentials/tls/fullchain.pem", "certificate_sha256": module.file_sha256(cert), "private_key_path": "/etc/c5k4-benchmark-v15/credentials/tls/private-key.pem", "private_key_sha256": module.file_sha256(key), "minimum_version": "TLSv1.3", "client_certificate_policy": "OIDC_BEARER_REQUIRED_NO_CLIENT_CERT"},
-            "oidc": {"issuer": "https://token.actions.githubusercontent.com", "audience": f"c5k4-method-v1.5:{'b' * 64}", "repository": "Kuberwastaken/c5-k4", "ref": "refs/heads/main", "workflow_ref": "Kuberwastaken/c5-k4/.github/workflows/method-v15-checkpoint.yml@refs/heads/main", "event_name": "schedule", "run_attempt": "1"},
+            "oidc": {"issuer": "https://token.actions.githubusercontent.com", "audience_prefix": "c5k4-method-v1.5", "repository": "Kuberwastaken/c5-k4", "ref": "refs/heads/main", "workflow_ref": "Kuberwastaken/c5-k4/.github/workflows/method-v15-checkpoint.yml@refs/heads/main", "event_name": "schedule", "run_attempt": "1"},
             "noninterference_key_commitment": key_commitment, "worm_acceptance": worm,
             "destructive_gap_acceptance": gap,
             "network": {"default_deny": True, "unlisted_egress_forbidden": True, "dns_policy": "ALLOWLIST_ONLY_PINNED_RESOLUTION", "aws_region": "ap-south-1", "resolution_artifact_path": "/etc/c5k4-benchmark-v15/credentials/pinned-hosts", "resolution_artifact_sha256": module.file_sha256(resolution), "allowed_endpoints": endpoints},
@@ -206,7 +209,7 @@ class OperationalHarnessUnitTests(unittest.TestCase):
 
     def test_tls_spki_is_derived_and_mismatched_key_fails(self) -> None:
         bundle = module.generate(self.value, self.fs)
-        self.assertEqual(len(bundle["bound_acceptances"]["tls_spki_sha256"]), 64)
+        self.assertRegex(bundle["bound_acceptances"]["tls_spki_sha256"], r"^sha256//[A-Za-z0-9+/]{43}=$")
         self.assertNotIn("spki_sha256", self.value["tls"])
         foreign_key = self.fs / "foreign-key.pem"
         foreign_cert = self.fs / "foreign-cert.pem"
@@ -233,8 +236,8 @@ class OperationalHarnessUnitTests(unittest.TestCase):
         mutated = copy.deepcopy(self.value); mutated["target_id"] = "hidden"; self.reseal(mutated)
         with self.assertRaisesRegex(module.UnitContractError, "schema failure"):
             module.generate(mutated, self.fs)
-        mutated = copy.deepcopy(self.value); mutated["oidc"]["audience"] = f"c5k4-method-v1.5:{'c' * 64}"
-        with self.assertRaisesRegex(module.UnitContractError, "activation inputs self-digest"):
+        mutated = copy.deepcopy(self.value); mutated["oidc"]["audience_prefix"] = "c5k4-v15-checkpoint"
+        with self.assertRaisesRegex(module.UnitContractError, "schema failure"):
             module.generate(mutated, self.fs)
 
     def test_cli_is_deterministic_and_never_writes_or_activates(self) -> None:

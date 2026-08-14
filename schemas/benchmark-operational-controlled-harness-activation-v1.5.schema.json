@@ -26,11 +26,13 @@
     },
     "service": {
       "type": "object", "additionalProperties": false,
-      "required": ["binary_path", "binary_sha256", "activation_binding_path", "control_socket_path"],
+      "required": ["binary_path", "binary_sha256", "activation_binding_path", "daemon_contract_path", "daemon_contract_sha256", "control_socket_path"],
       "properties": {
         "binary_path": {"const": "/opt/c5k4-benchmark-v15/p1/bin/c5k4-controlled-harness"},
         "binary_sha256": {"$ref": "#/definitions/sha256"},
         "activation_binding_path": {"const": "/etc/c5k4-benchmark-v15/OPERATIONAL-ACTIVATION.json"},
+        "daemon_contract_path": {"const": "/etc/c5k4-benchmark-v15/credentials/https-daemon-contract.json"},
+        "daemon_contract_sha256": {"$ref": "#/definitions/sha256"},
         "control_socket_path": {"const": "/run/c5k4-benchmark-v15/control.sock"}
       }
     },
@@ -57,10 +59,10 @@
     },
     "oidc": {
       "type": "object", "additionalProperties": false,
-      "required": ["issuer", "audience", "repository", "ref", "workflow_ref", "event_name", "run_attempt"],
+      "required": ["issuer", "audience_prefix", "repository", "ref", "workflow_ref", "event_name", "run_attempt"],
       "properties": {
         "issuer": {"const": "https://token.actions.githubusercontent.com"},
-        "audience": {"type": "string", "pattern": "^c5k4-method-v1\\.5:[0-9a-f]{64}$"},
+        "audience_prefix": {"const": "c5k4-method-v1.5"},
         "repository": {"const": "Kuberwastaken/c5-k4"},
         "ref": {"const": "refs/heads/main"},
         "workflow_ref": {"const": "Kuberwastaken/c5-k4/.github/workflows/method-v15-checkpoint.yml@refs/heads/main"},

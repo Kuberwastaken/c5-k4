@@ -69,10 +69,10 @@
     },
     "bound_acceptances": {
       "type": "object", "additionalProperties": false,
-      "required": ["noninterference_key_commitment_sha256", "worm_acceptance_sha256", "destructive_gap_acceptance_sha256", "tls_spki_sha256", "oidc_config_sha256"],
+      "required": ["noninterference_key_commitment_sha256", "worm_acceptance_sha256", "destructive_gap_acceptance_sha256", "daemon_contract_sha256", "tls_spki_sha256", "oidc_config_sha256"],
       "properties": {
         "noninterference_key_commitment_sha256": {"$ref": "#/definitions/sha256"}, "worm_acceptance_sha256": {"$ref": "#/definitions/sha256"},
-        "destructive_gap_acceptance_sha256": {"$ref": "#/definitions/sha256"}, "tls_spki_sha256": {"$ref": "#/definitions/sha256"}, "oidc_config_sha256": {"$ref": "#/definitions/sha256"}
+        "destructive_gap_acceptance_sha256": {"$ref": "#/definitions/sha256"}, "daemon_contract_sha256": {"$ref": "#/definitions/sha256"}, "tls_spki_sha256": {"type": "string", "pattern": "^sha256//[A-Za-z0-9+/]{43}=$"}, "oidc_config_sha256": {"$ref": "#/definitions/sha256"}
       }
     },
     "namespace_capabilities": {"const": ["user", "mount", "network", "pid", "ipc", "uts", "cgroup"]},

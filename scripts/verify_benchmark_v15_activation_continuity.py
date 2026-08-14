@@ -186,11 +186,7 @@ def check_request_interface_continuity(
     invocation_harness = invocation["controlled_harness"]
     service_transport = service_contract["transport"]
     service_oidc = service_contract["oidc"]
-    audience = activation["oidc"]["audience"]
-    match = re.fullmatch(r"(.+):([0-9a-f]{64})", audience)
-    if match is None:
-        raise ContinuityError("activation OIDC audience is not prefix:request-sha256")
-    activation_prefix = match.group(1)
+    activation_prefix = activation["oidc"].get("audience_prefix")
     prefixes = [
         invocation_harness.get("oidc_audience_prefix"),
         service_oidc.get("audience_prefix"),
@@ -317,6 +313,7 @@ def verify_operational_closure(
         "noninterference_key_commitment_sha256": activation["noninterference_key_commitment"]["commitment_sha256"],
         "worm_acceptance_sha256": activation["worm_acceptance"]["acceptance_sha256"],
         "destructive_gap_acceptance_sha256": activation["destructive_gap_acceptance"]["acceptance_sha256"],
+        "daemon_contract_sha256": activation["service"]["daemon_contract_sha256"],
     }
     for key, digest in expected.items():
         if bindings[key] != digest:
@@ -369,9 +366,8 @@ def verify_committed_pre_p1_continuity() -> None:
     unit_schema = load_object(SCHEMAS / "benchmark-operational-controlled-harness-unit-v1.5.schema.json")
     Draft7Validator.check_schema(activation_schema)
     Draft7Validator.check_schema(unit_schema)
-    expected_audience_pattern = r"^c5k4-method-v1\.5:[0-9a-f]{64}$"
-    actual_audience_pattern = activation_schema["properties"]["oidc"]["properties"]["audience"]["pattern"]
-    if actual_audience_pattern != expected_audience_pattern:
+    actual_audience_prefix = activation_schema["properties"]["oidc"]["properties"]["audience_prefix"].get("const")
+    if actual_audience_prefix != CANONICAL_AUDIENCE_PREFIX:
         raise ContinuityError("operational activation schema freezes a different OIDC audience prefix")
     expected_endpoint_pattern = r"^https://[a-z0-9][a-z0-9.-]{0,252}:443/v1/checkpoint$"
     activation_endpoint_pattern = activation_schema["properties"]["listener"]["properties"]["https_endpoint"]["pattern"]
