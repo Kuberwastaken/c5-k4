@@ -59,7 +59,7 @@
           "type": "object", "additionalProperties": false,
           "required": ["https_endpoint", "bind_address", "port"],
           "properties": {
-            "https_endpoint": {"type": "string", "pattern": "^https://[a-z0-9][a-z0-9.-]{0,252}:443/$"},
+            "https_endpoint": {"type": "string", "pattern": "^https://[a-z0-9][a-z0-9.-]{0,252}:443/v1/checkpoint$"},
             "bind_address": {"type": "string", "format": "ipv4"},
             "port": {"const": 443}
           }

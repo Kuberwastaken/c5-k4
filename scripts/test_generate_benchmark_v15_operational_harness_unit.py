@@ -95,7 +95,7 @@ class OperationalHarnessUnitTests(unittest.TestCase):
             "host_id": "ai-vps-controlled-harness",
             "p1": {"tree_path": "/opt/c5k4-benchmark-v15/p1", "tree_sha256": module.tree_sha256(self.fs / "opt/c5k4-benchmark-v15/p1"), "commit": "a" * 40},
             "service": {"binary_path": "/opt/c5k4-benchmark-v15/p1/bin/c5k4-controlled-harness", "binary_sha256": module.file_sha256(binary), "activation_binding_path": "/etc/c5k4-benchmark-v15/OPERATIONAL-ACTIVATION.json", "control_socket_path": "/run/c5k4-benchmark-v15/control.sock"},
-            "listener": {"https_endpoint": "https://harness.example.org:443/", "bind_address": "13.200.253.63", "port": 443},
+            "listener": {"https_endpoint": "https://harness.example.org:443/v1/checkpoint", "bind_address": "13.200.253.63", "port": 443},
             "tls": {"certificate_path": "/etc/c5k4-benchmark-v15/credentials/tls/fullchain.pem", "certificate_sha256": module.file_sha256(cert), "private_key_path": "/etc/c5k4-benchmark-v15/credentials/tls/private-key.pem", "private_key_sha256": module.file_sha256(key), "minimum_version": "TLSv1.3", "client_certificate_policy": "OIDC_BEARER_REQUIRED_NO_CLIENT_CERT"},
             "oidc": {"issuer": "https://token.actions.githubusercontent.com", "audience": f"c5k4-method-v1.5:{'b' * 64}", "repository": "Kuberwastaken/c5-k4", "ref": "refs/heads/main", "workflow_ref": "Kuberwastaken/c5-k4/.github/workflows/method-v15-checkpoint.yml@refs/heads/main", "event_name": "schedule", "run_attempt": "1"},
             "noninterference_key_commitment": key_commitment, "worm_acceptance": worm,
