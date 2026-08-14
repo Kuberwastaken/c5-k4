@@ -106,10 +106,15 @@ The protocol and exact audit are in [`METHOD.md`](METHOD.md) and
 The first certificate-gated non-graph exact trial is also public. A normalized
 solver reproducing the current Catch-Up declaration passed source calibration
 through `N=20` and an independent recurrence audit. Under isolated 60-second
-GitHub Actions jobs, `N=23` is an exact draw after 95,451,689 memo states;
-`N=24` remains an explicit timeout bracket. This is a method result—not a
-counterexample or release—and its raw incremental evidence is preserved in
-[`catchup_n23_n24_report.md`](results/expansion/catchup_n23_n24_report.md).
+GitHub Actions jobs, `N=23` is an exact draw after 95,451,689 memo states. A
+subsequent parity-packed representation then closed the old `N=24` timeout
+bracket: independent artifact replay verifies an exact draw after 199,721,295
+memo states and 1,845,920,291 calls in 21.00 seconds. This is a bounded method
+result—not a proof of the universal conjecture, counterexample, or release.
+The original bracket is preserved in
+[`catchup_n23_n24_report.md`](results/expansion/catchup_n23_n24_report.md), and
+the superseding evidence is in the
+[`N=24 result`](results/expansion/live-search-2026-08-14/catchup-n24-parity-packed-development/result.md).
 
 The order-15 Latin Tableau zero has likewise been converted into theorem work:
 warning-clean Lean now proves the profile telescoping, binary-change,
