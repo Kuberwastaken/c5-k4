@@ -1,0 +1,268 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-pass-pool-v1.5.schema.json",
+  "title": "Method v1.5 first-pass pre-entropy eligible identity pool",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema", "artifact_kind", "protocol_version", "authority",
+    "publication_boundary", "checkpoint", "upstream", "p1_binding",
+    "public_chain", "source_bindings", "replay", "selection_contract",
+    "clusters", "pool_sha256"
+  ],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-pass-pool-1.0"},
+    "artifact_kind": {"const": "FIRST_PASS_PRE_ENTROPY_ELIGIBLE_IDENTITY_POOL"},
+    "protocol_version": {"const": "1.5"},
+    "authority": {"const": "FIRST_SCHEDULED_QUOTA_PASS_U2_ONLY"},
+    "publication_boundary": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "eligible_identities_present", "excluded_identities_present",
+        "statement_text_present", "target_semantics_present", "outcomes_present",
+        "ranking_present", "entropy_present", "selection_present",
+        "standalone_publication_claimed", "c0a_embedding_required",
+        "canonical_embedding_bytes_required"
+      ],
+      "properties": {
+        "eligible_identities_present": {"const": true},
+        "excluded_identities_present": {"const": false},
+        "statement_text_present": {"const": false},
+        "target_semantics_present": {"const": false},
+        "outcomes_present": {"const": false},
+        "ranking_present": {"const": false},
+        "entropy_present": {"const": false},
+        "selection_present": {"const": false},
+        "standalone_publication_claimed": {"const": false},
+        "c0a_embedding_required": {"const": true},
+        "canonical_embedding_bytes_required": {"const": true}
+      }
+    },
+    "checkpoint": {
+      "type": "object", "additionalProperties": false,
+      "required": ["ordinal", "scheduled_for_utc", "status", "first_passing_checkpoint"],
+      "properties": {
+        "ordinal": {"type": "integer", "minimum": 1},
+        "scheduled_for_utc": {"$ref": "#/definitions/tick"},
+        "status": {"const": "QUOTA_PASS_U2"},
+        "first_passing_checkpoint": {"const": true}
+      }
+    },
+    "upstream": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "repository", "u1_commit", "u1_tree", "u2_commit", "u2_tree",
+        "u2_formal_conjectures_tree", "ancestry_interval"
+      ],
+      "properties": {
+        "repository": {"const": "https://github.com/google-deepmind/formal-conjectures.git"},
+        "u1_commit": {"$ref": "#/definitions/gitOid"},
+        "u1_tree": {"$ref": "#/definitions/gitOid"},
+        "u2_commit": {"$ref": "#/definitions/gitOid"},
+        "u2_tree": {"$ref": "#/definitions/gitOid"},
+        "u2_formal_conjectures_tree": {"$ref": "#/definitions/gitOid"},
+        "ancestry_interval": {"type": "string", "pattern": "^[0-9a-f]{40}\\.\\.[0-9a-f]{40}$"}
+      }
+    },
+    "p1_binding": {
+      "type": "object", "additionalProperties": false,
+      "required": ["p1a", "p1t", "p1a_commit", "p1t_commit"],
+      "properties": {
+        "p1a": {"$ref": "#/definitions/artifactRef"},
+        "p1t": {"$ref": "#/definitions/artifactRef"},
+        "p1a_commit": {"$ref": "#/definitions/gitOid"},
+        "p1t_commit": {"$ref": "#/definitions/gitOid"}
+      }
+    },
+    "public_chain": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "prior_proof_role", "prior_proof_file_sha256", "prior_proof_sha256",
+        "prior_public_tip_commit", "pass_proof_role", "pass_proof_file_sha256",
+        "pass_proof_sha256", "pass_public_tip_commit",
+        "pass_publication_commit", "checkpoint_count", "earlier_checkpoint_status",
+        "proof_status"
+      ],
+      "properties": {
+        "prior_proof_role": {"const": "PRE_U2_PUBLIC_CHECKPOINT_CHAIN_PROOF"},
+        "prior_proof_file_sha256": {"$ref": "#/definitions/sha256"},
+        "prior_proof_sha256": {"$ref": "#/definitions/sha256"},
+        "prior_public_tip_commit": {"$ref": "#/definitions/gitOid"},
+        "pass_proof_role": {"const": "POST_PASS_PUBLIC_CHECKPOINT_CHAIN_PROOF"},
+        "pass_proof_file_sha256": {"$ref": "#/definitions/sha256"},
+        "pass_proof_sha256": {"$ref": "#/definitions/sha256"},
+        "pass_public_tip_commit": {"$ref": "#/definitions/gitOid"},
+        "pass_publication_commit": {"$ref": "#/definitions/gitOid"},
+        "checkpoint_count": {"type": "integer", "minimum": 1},
+        "earlier_checkpoint_status": {"const": "ALL_QUOTA_FAIL"},
+        "proof_status": {"const": "FIRST_SCHEDULED_QUOTA_PASS_AUTHENTICATED"}
+      }
+    },
+    "source_bindings": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "private_registry", "aggregate_certificate", "replay_attestation",
+        "pass_receipt"
+      ],
+      "properties": {
+        "private_registry": {
+          "type": "object", "additionalProperties": false,
+          "required": ["role", "file_sha256", "registry_sha256"],
+          "properties": {
+            "role": {"const": "PRIVATE_FIRST_PASS_REGISTRY"},
+            "file_sha256": {"$ref": "#/definitions/sha256"},
+            "registry_sha256": {"$ref": "#/definitions/sha256"}
+          }
+        },
+        "aggregate_certificate": {
+          "type": "object", "additionalProperties": false,
+          "required": ["role", "file_sha256", "certificate_sha256"],
+          "properties": {
+            "role": {"const": "PUBLIC_FIRST_PASS_AGGREGATE_CERTIFICATE"},
+            "file_sha256": {"$ref": "#/definitions/sha256"},
+            "certificate_sha256": {"$ref": "#/definitions/sha256"}
+          }
+        },
+        "replay_attestation": {
+          "type": "object", "additionalProperties": false,
+          "required": ["role", "file_sha256", "attestation_sha256"],
+          "properties": {
+            "role": {"const": "PRIVATE_INDEPENDENT_REPLAY_ATTESTATION"},
+            "file_sha256": {"$ref": "#/definitions/sha256"},
+            "attestation_sha256": {"$ref": "#/definitions/sha256"}
+          }
+        },
+        "pass_receipt": {
+          "type": "object", "additionalProperties": false,
+          "required": ["role", "committed_public_path", "publication_commit", "file_sha256"],
+          "properties": {
+            "role": {"const": "PUBLIC_QUOTA_PASS_U2_RECEIPT"},
+            "committed_public_path": {"type": "string", "pattern": "^checkpoints/[0-9]{4}-[0-9]{2}-[0-9]{2}T00-17-00Z/receipt\\.json$"},
+            "publication_commit": {"$ref": "#/definitions/gitOid"},
+            "file_sha256": {"$ref": "#/definitions/sha256"}
+          }
+        }
+      }
+    },
+    "replay": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "source_record_count", "included_record_count", "excluded_record_count",
+        "eligible_by_stratum", "quotas", "deficits", "candidate_count",
+        "pool_cluster_count", "complete_pool_match", "aggregate_match",
+        "private_registry_exact_byte_bound", "independent_replay_attested"
+      ],
+      "properties": {
+        "source_record_count": {"type": "integer", "minimum": 0},
+        "included_record_count": {"type": "integer", "minimum": 12},
+        "excluded_record_count": {"type": "integer", "minimum": 0},
+        "eligible_by_stratum": {"$ref": "#/definitions/fiveCounts"},
+        "quotas": {"$ref": "#/definitions/fiveQuotas"},
+        "deficits": {"$ref": "#/definitions/fiveZeros"},
+        "candidate_count": {"type": "integer", "minimum": 12},
+        "pool_cluster_count": {"type": "integer", "minimum": 12},
+        "complete_pool_match": {"const": true},
+        "aggregate_match": {"const": true},
+        "private_registry_exact_byte_bound": {"const": true},
+        "independent_replay_attested": {"const": true}
+      }
+    },
+    "selection_contract": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "sampling_unit", "target_cluster_count", "quotas", "no_backfill",
+        "relaxed_exclusion", "entropy_required_after_public_pool_commit",
+        "selection_permitted"
+      ],
+      "properties": {
+        "sampling_unit": {"const": "QUESTION_CLUSTER"},
+        "target_cluster_count": {"const": 12},
+        "quotas": {"$ref": "#/definitions/fiveQuotas"},
+        "no_backfill": {"const": true},
+        "relaxed_exclusion": {"const": false},
+        "entropy_required_after_public_pool_commit": {"const": true},
+        "selection_permitted": {"const": false}
+      }
+    },
+    "clusters": {
+      "type": "array", "minItems": 12,
+      "items": {"$ref": "#/definitions/cluster"}
+    },
+    "pool_sha256": {"$ref": "#/definitions/sha256"}
+  },
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "gitOid": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "tick": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T00:17:00Z$"},
+    "artifactRef": {
+      "type": "object", "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "pattern": "^(scripts|schemas|results/benchmark/v1\\.5-[A-Za-z0-9._/-]+|results/benchmark/v1\\.5-protocol)/[^\\u0000]*$"},
+        "sha256": {"$ref": "#/definitions/sha256"}
+      }
+    },
+    "stratum": {
+      "enum": [
+        "GRAPH_SCALAR_INEQUALITY", "GRAPH_STRUCTURAL_PROPERTY",
+        "FINITE_ALGEBRA_EQUATIONAL", "AUTOMATA_GAME_PROCESS",
+        "FINITE_COMBINATORIAL"
+      ]
+    },
+    "cluster": {
+      "type": "object", "additionalProperties": false,
+      "required": ["cluster_id", "identity_sha256", "stratum", "eligible"],
+      "properties": {
+        "cluster_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]{0,511}$"},
+        "identity_sha256": {"$ref": "#/definitions/sha256"},
+        "stratum": {"$ref": "#/definitions/stratum"},
+        "eligible": {"const": true}
+      }
+    },
+    "fiveCounts": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "GRAPH_SCALAR_INEQUALITY", "GRAPH_STRUCTURAL_PROPERTY",
+        "FINITE_ALGEBRA_EQUATIONAL", "AUTOMATA_GAME_PROCESS",
+        "FINITE_COMBINATORIAL"
+      ],
+      "properties": {
+        "GRAPH_SCALAR_INEQUALITY": {"type": "integer", "minimum": 0},
+        "GRAPH_STRUCTURAL_PROPERTY": {"type": "integer", "minimum": 0},
+        "FINITE_ALGEBRA_EQUATIONAL": {"type": "integer", "minimum": 0},
+        "AUTOMATA_GAME_PROCESS": {"type": "integer", "minimum": 0},
+        "FINITE_COMBINATORIAL": {"type": "integer", "minimum": 0}
+      }
+    },
+    "fiveQuotas": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "GRAPH_SCALAR_INEQUALITY", "GRAPH_STRUCTURAL_PROPERTY",
+        "FINITE_ALGEBRA_EQUATIONAL", "AUTOMATA_GAME_PROCESS",
+        "FINITE_COMBINATORIAL"
+      ],
+      "properties": {
+        "GRAPH_SCALAR_INEQUALITY": {"const": 3},
+        "GRAPH_STRUCTURAL_PROPERTY": {"const": 3},
+        "FINITE_ALGEBRA_EQUATIONAL": {"const": 2},
+        "AUTOMATA_GAME_PROCESS": {"const": 2},
+        "FINITE_COMBINATORIAL": {"const": 2}
+      }
+    },
+    "fiveZeros": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "GRAPH_SCALAR_INEQUALITY", "GRAPH_STRUCTURAL_PROPERTY",
+        "FINITE_ALGEBRA_EQUATIONAL", "AUTOMATA_GAME_PROCESS",
+        "FINITE_COMBINATORIAL"
+      ],
+      "properties": {
+        "GRAPH_SCALAR_INEQUALITY": {"const": 0},
+        "GRAPH_STRUCTURAL_PROPERTY": {"const": 0},
+        "FINITE_ALGEBRA_EQUATIONAL": {"const": 0},
+        "AUTOMATA_GAME_PROCESS": {"const": 0},
+        "FINITE_COMBINATORIAL": {"const": 0}
+      }
+    }
+  }
+}
