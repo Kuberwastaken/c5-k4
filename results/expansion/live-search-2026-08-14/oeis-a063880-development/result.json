@@ -1,0 +1,130 @@
+{
+  "schema": "oeis-a063880-development-result-v1",
+  "status": "FINITE_FROZEN_MITM_DOMAINS_EXHAUSTED_NO_CANDIDATE",
+  "evidence_split": "DEVELOPMENT",
+  "prospective_target_specific_trial": true,
+  "held_out_trial": false,
+  "method_evidence": true,
+  "positive_method_crossing": false,
+  "campaign_commit": "9b00f90f55147e3365346ae5b72649cd7ea9af1f",
+  "github_actions_run": "https://github.com/Kuberwastaken/c5-k4/actions/runs/31801225563",
+  "target": {
+    "declarations": [
+      "OeisA63880.mod_216_of_a",
+      "OeisA63880.unique_primitive_108"
+    ],
+    "formal_conjectures_commit": "942fb149e782a56c2719c543ab58e093f733acb4",
+    "formal_conjectures_status_at_freeze": "research open",
+    "predicate": "sigma(n) = 2 * usigma(n)",
+    "resolution_shape": "a member off residue 108 modulo 216, or a primitive member other than 108"
+  },
+  "historical_boundary": {
+    "source_claim": "108 is the only primitive term strictly below 10^18",
+    "upper_exclusive": 1000000000000000000,
+    "frozen_minimum_core": 1000000000000000000,
+    "equality_covered_by_source": false,
+    "residue_observation_confirmed_through": 10000000
+  },
+  "audit": {
+    "run_success_verified": true,
+    "run_head_verified": true,
+    "workflow_jobs_expected": 74,
+    "workflow_jobs_found": 74,
+    "workflow_jobs_successful": 74,
+    "artifact_count_expected": 73,
+    "artifact_count_found": 73,
+    "artifact_identities_complete_and_unique": true,
+    "artifact_metadata_attestation_verified": 73,
+    "artifact_checksum_manifests_replayed": 73,
+    "artifact_files_checksum_replayed": 548,
+    "assignment_pairs_expected": 72,
+    "assignment_pairs_found": 72,
+    "assignments_complete_and_unique": true,
+    "gate_chunks_replayed": 40,
+    "gate_rows_recomputed": 10000,
+    "ledger_chains_replayed": 72,
+    "ledger_rows_replayed": 147554,
+    "terminal_bindings_replayed": 72,
+    "execution_status_bindings_replayed": 72,
+    "execution_status_all_exit_codes_zero": true,
+    "exact_rational_domain_replays": 72,
+    "worker_error_rows": 0
+  },
+  "gate": {
+    "gate_attestation_file_sha256": "b7bd94825c44515118049ab52fcf89f703756dcc1009d8a40582e0b80cdb0b75",
+    "gate_attestation_self_hash": "ad4434efae1f7e9444dcb5325309dcbbc0e744a5413e828e84e28e01744d6ab3",
+    "manifest_sha256": "4330c9fc726fa00ceba60535e8738fd1f02e03fff3c27a9c446b29436ccfed9a",
+    "source_status_attestation_sha256": "f8c5b12988a47c0bf54c66923e733a53f204ebb7227bb92d7d8645db0be3d9d1",
+    "lean_sha256": "b50d00e13735613cbe37bd3a25c19130874e8f036ca2a0e3c1aceb177a33c683",
+    "lean_git_blob_sha1": "0aa326a3062c646f0347506ea3979f8892e430c7",
+    "oeis_source_sha256": "9beab80f0dce23835cd26015df59848a13b9f07e41df142305efca75bd2dd20c",
+    "oeis_bfile_sha256": "015517f2a16615e0c9ac93931b4f798040b6693cdf10afeb39408829bca417b9",
+    "oeis_bfile_rows": 10000,
+    "oeis_bfile_last": [10000, 3554388],
+    "all_rows_sigma_equals_twice_usigma": true,
+    "all_rows_mod_216": 108,
+    "all_rows_powerful_core": 108
+  },
+  "totals": {
+    "right_states": 95934,
+    "left_states": 138530,
+    "ledger_rows": 147554,
+    "raw_exact_ratio_matches": 3,
+    "unique_raw_exact_cores": 1,
+    "candidate_eligible_matches": 0,
+    "crossings": 0,
+    "candidates": 0,
+    "certificates": 0,
+    "terminal_reasons": {
+      "DOMAIN_EXHAUSTED": 72,
+      "DEADLINE_PREFIX": 0
+    }
+  },
+  "raw_exact_control": {
+    "n": 108,
+    "factors": [[2, 2], [3, 3]],
+    "euler_factors": [[7, 5], [10, 7]],
+    "product": [2, 1],
+    "operational_occurrences": 3,
+    "historically_excluded": true,
+    "candidate_eligible": false
+  },
+  "arms": {
+    "CATALOGUE": {
+      "right_states": 49395,
+      "left_states": 87778,
+      "shards": 24,
+      "ledger_rows": 92410,
+      "raw_exact_ratio_matches": 1,
+      "raw_exact_match": 108,
+      "candidate_eligible_matches": 0,
+      "terminal_reasons": {"DOMAIN_EXHAUSTED": 24},
+      "domain_exhausted": true
+    },
+    "GENERIC": {
+      "right_states": 21883,
+      "left_states": 4096,
+      "shards": 24,
+      "ledger_rows": 6160,
+      "raw_exact_ratio_matches": 1,
+      "raw_exact_match": 108,
+      "candidate_eligible_matches": 0,
+      "terminal_reasons": {"DOMAIN_EXHAUSTED": 24},
+      "domain_exhausted": true
+    },
+    "WALL_NAVIGATION": {
+      "right_states": 24656,
+      "left_states": 46656,
+      "shards": 24,
+      "ledger_rows": 48984,
+      "raw_exact_ratio_matches": 1,
+      "raw_exact_match": 108,
+      "candidate_eligible_matches": 0,
+      "terminal_reasons": {"DOMAIN_EXHAUSTED": 24},
+      "domain_exhausted": true
+    }
+  },
+  "candidate_found": false,
+  "certificate_found": false,
+  "publication_action": false
+}
