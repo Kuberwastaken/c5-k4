@@ -1,0 +1,55 @@
+{
+  "schema": "c5k4-graffiti3-conjecture13-manifest-1.0",
+  "evidence_split": "DEVELOPMENT",
+  "freeze_base_commit": "5e184e2df3aef55aa3e55d6f8ccbb1a0fd65d253",
+  "source": {
+    "doi": "10.21203/rs.3.rs-8493329/v1",
+    "pdf_url": "https://www.researchsquare.com/article/rs-8493329/v1.pdf?c=1768828987000",
+    "pdf_sha256": "9758ec4530febf62bbcee35bd5804d2dda9e226a0878b082a25eaf1c7e4a9f7a",
+    "snapshot_max_n": 2000000
+  },
+  "oeis": {
+    "A001567": {
+      "url": "https://oeis.org/A001567/b001567.txt",
+      "sha256": "c190db43de620d035cdc7c771772ba295b7222f615434bde43829f39d09c667c",
+      "rows": 101629,
+      "last_index": 101629,
+      "last_value": 999986341201
+    },
+    "A002997": {
+      "url": "https://oeis.org/A002997/b002997.txt",
+      "sha256": "359e29f997dbd96829e6adfd34300a37eaf3814186942cac965d0dc92a90b0e0",
+      "rows": 10000,
+      "last_index": 10000,
+      "last_value": 1713045574801
+    }
+  },
+  "gate": {
+    "min_n": 2,
+    "max_n": 2000000,
+    "chunk_size": 50000,
+    "child_cap_seconds": 4,
+    "controls": [341, 561]
+  },
+  "arms": ["CATALOGUE", "GENERIC", "WALL_NAVIGATION"],
+  "shards_per_arm": 24,
+  "internal_stop_seconds": 54,
+  "external_stop_seconds": 60,
+  "catalogue_limit": 100000,
+  "generic": {
+    "seed": "graffiti3-c13-generic-v1",
+    "block_width": 262144,
+    "upper_exclusive": 1099511627776
+  },
+  "wall": {"extension_depth": 2, "max_n_exclusive": 18446744073709551616},
+  "candidate_policy": {"strict": "pow(2,n-1,n)=1 and 19*phi(n)<=9*n", "public_action": false},
+  "artifacts": [
+    {"path": ".github/workflows/graffiti3-conjecture13-development.yml", "sha256": "a147b0ff9a7da8e1dcc4dfa15e318f97b642647ad029184f819bdbe59e3c2b51"},
+    {"path": "results/expansion/live-search-2026-08-14/graffiti3-conjecture13-contract.md", "sha256": "fbc3007009db09a38a379af99727b3d8f0581f44a17cce9b96f30df057d5a85a"},
+    {"path": "results/expansion/live-search-2026-08-14/graffiti3-conjecture13-source-status.md", "sha256": "f2719c4fe9c235d355fe646591475f6eb19725d35fcaddd0abbf099496d4841c"},
+    {"path": "scripts/prepare_graffiti3_conjecture13_gate.py", "sha256": "b91715700f4d1c128b5b01ba67a398e1cc3ecc81522ab1b2be5f6ff49761e249"},
+    {"path": "scripts/search_graffiti3_conjecture13.py", "sha256": "d142648beb067e3a87cd7396d89127efcb1c3afb53aa433db341cb038292176e"},
+    {"path": "scripts/verify_graffiti3_conjecture13_candidate.py", "sha256": "80f1805e3698249006fc6c2926f01557556038afbd12f99e9cf775c355516dab"},
+    {"path": "scripts/test_graffiti3_conjecture13.py", "sha256": "ac998fe38cfbb816e1de26c71774814f9092d01c8bf9fac5248ee8eb898e8c2d"}
+  ]
+}
