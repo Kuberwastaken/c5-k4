@@ -222,7 +222,7 @@
       "kind": "HOST_SESSION_DELIVERY_JOURNAL",
       "locator": "pre-p1-unset:ai-vps-controlled-harness",
       "session_endpoints": [
-        "/run/c5k4-v15/broker.sock"
+        "/run/c5k4-benchmark-v15/control.sock"
       ],
       "coverage": "ALL_PRE_C1_MACHINE_PARTICIPANT_INGRESS_AND_EGRESS_IN_AI_VPS_CONTROLLED_HARNESS",
       "origin_values_allowed": [

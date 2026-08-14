@@ -17,24 +17,38 @@
   "roots": [
     {
       "id": "frozen-protocol-checkout",
-      "absolute_path": "/opt/c5k4-v15/protocol",
+      "absolute_path": "/opt/c5k4-benchmark-v15/p1",
       "decision": "INCLUDE",
       "purpose": "P1_EXACT_READ_ONLY_PROTOCOL_CHECKOUT",
       "capture_profile": "AUTHENTICATED_GIT_TREE_READ_ONLY_NO_POST_P1_OVERLAY"
     },
     {
       "id": "private-harness-state",
-      "absolute_path": "/var/lib/c5k4-v15",
+      "absolute_path": "/var/lib/c5k4-benchmark-v15",
       "decision": "INCLUDE",
       "purpose": "PRIVATE_BROKERED_UPSTREAM_CUSTODY_REPLAY_AND_STAGING",
       "capture_profile": "SIGNED_CONTROLLED_DELIVERY_PLUS_CONTENT_ADDRESSED_WORM_CUSTODY"
+    },
+    {
+      "id": "private-harness-cache",
+      "absolute_path": "/var/cache/c5k4-benchmark-v15",
+      "decision": "INCLUDE",
+      "purpose": "PRIVATE_REPLAY_CACHE_NO_CROSS_PARTICIPANT_SHARING",
+      "capture_profile": "SIGNED_CONTROLLED_DELIVERY_PLUS_CONTENT_ADDRESSED_WORM_CUSTODY"
+    },
+    {
+      "id": "harness-credential-root",
+      "absolute_path": "/etc/c5k4-benchmark-v15/credentials",
+      "decision": "INCLUDE",
+      "purpose": "ROOT_OWNED_HARNESS_CREDENTIAL_AND_PINNED_RESOLUTION_INPUTS",
+      "capture_profile": "ROOT_OWNED_READ_ONLY_TO_SERVICE_SYSTEMD_CREDENTIAL_DELIVERY"
     }
   ],
   "participant_delivery_endpoints": [
     {
       "id": "controlled-delivery-broker",
       "host_id": "ai-vps-controlled-harness",
-      "absolute_path": "/run/c5k4-v15/broker.sock",
+      "absolute_path": "/run/c5k4-benchmark-v15/control.sock",
       "format": "signed-controlled-delivery-receipt"
     }
   ],
@@ -44,7 +58,7 @@
     "tmux, interactive shells, and general agent processes",
     "agent-sync and synchronized chat archives",
     "local OpenAI-compatible relay at 127.0.0.1:8402",
-    "all project worktrees outside /opt/c5k4-v15/protocol and /var/lib/c5k4-v15"
+    "all project worktrees outside /opt/c5k4-benchmark-v15/p1; /var/lib/c5k4-benchmark-v15, /var/cache/c5k4-benchmark-v15, and /etc/c5k4-benchmark-v15/credentials are dedicated harness roots, not general worktrees"
   ],
   "operational_constraints": [
     "Before C1 there are no human participants and no model endpoints; only P1-frozen machine executables inside ai-vps-controlled-harness may consume cohort bytes.",

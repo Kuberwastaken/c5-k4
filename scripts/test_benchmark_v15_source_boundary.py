@@ -175,7 +175,7 @@ class SourceBoundaryTests(unittest.TestCase):
         self.assertEqual(policy["manual_exemption"], "FORBIDDEN")
         self.assertEqual(policy["target_identity_based_reclassification"], "FORBIDDEN")
 
-    def test_path_policy_uses_only_two_explicit_controlled_harness_roots(self) -> None:
+    def test_path_policy_uses_only_ledger_explicit_controlled_harness_roots(self) -> None:
         policy = self.policy
         self.assertEqual(policy["schema"], "c5k4-source-path-purpose-policy-1.6")
         self.assertEqual(policy["status"], "PRE_P1_CAPTURE_NOT_OPERATIONAL")
@@ -187,8 +187,10 @@ class SourceBoundaryTests(unittest.TestCase):
         self.assertEqual(
             {row["absolute_path"] for row in roots},
             {
-                "/opt/c5k4-v15/protocol",
-                "/var/lib/c5k4-v15",
+                "/opt/c5k4-benchmark-v15/p1",
+                "/var/lib/c5k4-benchmark-v15",
+                "/var/cache/c5k4-benchmark-v15",
+                "/etc/c5k4-benchmark-v15/credentials",
             },
         )
         self.assertEqual(len({row["id"] for row in roots}), len(roots))
@@ -201,7 +203,7 @@ class SourceBoundaryTests(unittest.TestCase):
             [(row["host_id"], row["format"]) for row in endpoints],
             [("ai-vps-controlled-harness", "signed-controlled-delivery-receipt")],
         )
-        self.assertEqual([row["absolute_path"] for row in endpoints], ["/run/c5k4-v15/broker.sock"])
+        self.assertEqual([row["absolute_path"] for row in endpoints], ["/run/c5k4-benchmark-v15/control.sock"])
         constraints = " ".join(self.policy["operational_constraints"])
         self.assertIn("PROTOCOL_INVALID", constraints)
         self.assertIn("signed broker", constraints)

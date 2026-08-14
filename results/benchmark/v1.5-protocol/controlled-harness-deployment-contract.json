@@ -2,19 +2,21 @@
   "schema": "c5k4-method-v1.5-controlled-harness-deployment-contract-1.0",
   "status": "PRE_P1_DEDICATED_AL2023_HOST_NOT_PROVISIONED",
   "platform": {"id": "amzn", "version_id": "2023", "init": "systemd", "selinux": "enforcing"},
-  "identity": {"user": "c5k4-harness", "group": "c5k4-harness", "system_uid_required": true, "login_shell": "/sbin/nologin", "home": "/var/lib/c5k4-harness"},
+  "identity": {"user": "c5k4-benchmark-v15", "group": "c5k4-benchmark-v15", "system_uid_required": true, "login_shell": "/sbin/nologin", "home": "/var/lib/c5k4-benchmark-v15"},
   "paths": {
-    "p1_checkout": {"path": "/opt/c5k4/p1", "state": "ABSENT_UNTIL_P1", "future_owner": "root", "future_group": "root", "future_mode": "0555", "expected_tree_sha256": null},
-    "private_state": {"path": "/var/lib/c5k4-harness", "owner": "c5k4-harness", "group": "c5k4-harness", "mode": "0700"},
-    "runtime": {"path": "/run/c5k4-harness", "owner": "c5k4-harness", "group": "c5k4-harness", "mode": "0700"},
-    "configuration": {"path": "/etc/c5k4-harness", "owner": "root", "group": "root", "mode": "0755"},
-    "activation_marker": "/etc/c5k4-harness/ACTIVATED",
-    "listener_socket": "/run/c5k4-harness/harness.sock"
+    "p1_checkout": {"path": "/opt/c5k4-benchmark-v15/p1", "state": "ABSENT_UNTIL_P1", "future_owner": "root", "future_group": "root", "future_mode": "0555", "expected_tree_sha256": null},
+    "private_state": {"path": "/var/lib/c5k4-benchmark-v15", "owner": "c5k4-benchmark-v15", "group": "c5k4-benchmark-v15", "mode": "0700"},
+    "private_cache": {"path": "/var/cache/c5k4-benchmark-v15", "owner": "c5k4-benchmark-v15", "group": "c5k4-benchmark-v15", "mode": "0700"},
+    "runtime": {"path": "/run/c5k4-benchmark-v15", "owner": "c5k4-benchmark-v15", "group": "c5k4-benchmark-v15", "mode": "0700"},
+    "configuration": {"path": "/etc/c5k4-benchmark-v15", "owner": "root", "group": "root", "mode": "0755"},
+    "credential_root": {"path": "/etc/c5k4-benchmark-v15/credentials", "owner": "root", "group": "root", "mode": "0700"},
+    "activation_marker": "/etc/c5k4-benchmark-v15/ACTIVATED",
+    "listener_socket": "/run/c5k4-benchmark-v15/control.sock"
   },
   "assets": {
-    "systemd_unit": "deployment/benchmark-v15-controlled-harness/c5k4-harness.service",
-    "sysusers": "deployment/benchmark-v15-controlled-harness/c5k4-harness.sysusers",
-    "tmpfiles": "deployment/benchmark-v15-controlled-harness/c5k4-harness.tmpfiles",
+    "systemd_unit": "deployment/benchmark-v15-controlled-harness/c5k4-benchmark-v15.service",
+    "sysusers": "deployment/benchmark-v15-controlled-harness/c5k4-benchmark-v15.sysusers",
+    "tmpfiles": "deployment/benchmark-v15-controlled-harness/c5k4-benchmark-v15.tmpfiles",
     "network_policy": "deployment/benchmark-v15-controlled-harness/network-policy.json",
     "destructive_gap_plan": "deployment/benchmark-v15-controlled-harness/destructive-gap-plan.json"
   },

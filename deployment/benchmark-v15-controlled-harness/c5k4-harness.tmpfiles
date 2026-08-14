@@ -1,4 +1,0 @@
-d /etc/c5k4-harness 0755 root root -
-d /opt/c5k4 0755 root root -
-d /var/lib/c5k4-harness 0700 c5k4-harness c5k4-harness -
-d /run/c5k4-harness 0700 c5k4-harness c5k4-harness -

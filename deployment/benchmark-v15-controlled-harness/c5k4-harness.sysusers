@@ -1,3 +1,0 @@
-u c5k4-harness - "C5-K4 v1.5 controlled harness" /var/lib/c5k4-harness /sbin/nologin
-g c5k4-harness -
-m c5k4-harness c5k4-harness

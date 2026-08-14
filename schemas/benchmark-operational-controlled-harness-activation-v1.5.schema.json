@@ -19,18 +19,19 @@
       "type": "object", "additionalProperties": false,
       "required": ["tree_path", "tree_sha256", "commit"],
       "properties": {
-        "tree_path": {"const": "/opt/c5k4/p1"},
+        "tree_path": {"const": "/opt/c5k4-benchmark-v15/p1"},
         "tree_sha256": {"$ref": "#/definitions/sha256"},
         "commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"}
       }
     },
     "service": {
       "type": "object", "additionalProperties": false,
-      "required": ["binary_path", "binary_sha256", "activation_binding_path"],
+      "required": ["binary_path", "binary_sha256", "activation_binding_path", "control_socket_path"],
       "properties": {
-        "binary_path": {"const": "/opt/c5k4/p1/bin/c5k4-controlled-harness"},
+        "binary_path": {"const": "/opt/c5k4-benchmark-v15/p1/bin/c5k4-controlled-harness"},
         "binary_sha256": {"$ref": "#/definitions/sha256"},
-        "activation_binding_path": {"const": "/etc/c5k4-harness/OPERATIONAL-ACTIVATION.json"}
+        "activation_binding_path": {"const": "/etc/c5k4-benchmark-v15/OPERATIONAL-ACTIVATION.json"},
+        "control_socket_path": {"const": "/run/c5k4-benchmark-v15/control.sock"}
       }
     },
     "listener": {
@@ -46,9 +47,9 @@
       "type": "object", "additionalProperties": false,
       "required": ["certificate_path", "certificate_sha256", "private_key_path", "private_key_sha256", "minimum_version", "client_certificate_policy"],
       "properties": {
-        "certificate_path": {"const": "/etc/c5k4-harness/tls/fullchain.pem"},
+        "certificate_path": {"const": "/etc/c5k4-benchmark-v15/credentials/tls/fullchain.pem"},
         "certificate_sha256": {"$ref": "#/definitions/sha256"},
-        "private_key_path": {"const": "/etc/c5k4-harness/tls/private-key.pem"},
+        "private_key_path": {"const": "/etc/c5k4-benchmark-v15/credentials/tls/private-key.pem"},
         "private_key_sha256": {"$ref": "#/definitions/sha256"},
         "minimum_version": {"const": "TLSv1.3"},
         "client_certificate_policy": {"const": "OIDC_BEARER_REQUIRED_NO_CLIENT_CERT"}
@@ -78,7 +79,7 @@
         "unlisted_egress_forbidden": {"const": true},
         "dns_policy": {"const": "ALLOWLIST_ONLY_PINNED_RESOLUTION"},
         "aws_region": {"const": "ap-south-1"},
-        "resolution_artifact_path": {"const": "/etc/c5k4-harness/pinned-hosts"},
+        "resolution_artifact_path": {"const": "/etc/c5k4-benchmark-v15/credentials/pinned-hosts"},
         "resolution_artifact_sha256": {"$ref": "#/definitions/sha256"},
         "allowed_endpoints": {
           "type": "array", "minItems": 5, "maxItems": 5,

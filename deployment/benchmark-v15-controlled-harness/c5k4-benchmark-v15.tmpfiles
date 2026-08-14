@@ -1,0 +1,6 @@
+d /etc/c5k4-benchmark-v15 0755 root root -
+d /etc/c5k4-benchmark-v15/credentials 0700 root root -
+d /opt/c5k4-benchmark-v15 0755 root root -
+d /var/lib/c5k4-benchmark-v15 0700 c5k4-benchmark-v15 c5k4-benchmark-v15 -
+d /var/cache/c5k4-benchmark-v15 0700 c5k4-benchmark-v15 c5k4-benchmark-v15 -
+d /run/c5k4-benchmark-v15 0700 c5k4-benchmark-v15 c5k4-benchmark-v15 -

@@ -1,0 +1,3 @@
+u c5k4-benchmark-v15 - "C5-K4 v1.5 controlled harness" /var/lib/c5k4-benchmark-v15 /sbin/nologin
+g c5k4-benchmark-v15 -
+m c5k4-benchmark-v15 c5k4-benchmark-v15

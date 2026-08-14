@@ -34,8 +34,8 @@ class FakeInspector(module.HostInspector):
         self.ownership: dict[str, tuple[int, int]] = {}
         self.responses = {
             ("getenforce",): subprocess.CompletedProcess([], 0, "Enforcing\n", ""),
-            ("systemctl", "is-active", "c5k4-harness.service"): subprocess.CompletedProcess([], 3, "inactive\n", ""),
-            ("systemctl", "is-enabled", "c5k4-harness.service"): subprocess.CompletedProcess([], 0, "static\n", ""),
+            ("systemctl", "is-active", "c5k4-benchmark-v15.service"): subprocess.CompletedProcess([], 3, "inactive\n", ""),
+            ("systemctl", "is-enabled", "c5k4-benchmark-v15.service"): subprocess.CompletedProcess([], 0, "static\n", ""),
             ("ss", "-H", "-lntup"): subprocess.CompletedProcess([], 0, "", ""),
             ("ss", "-H", "-lxnp"): subprocess.CompletedProcess([], 0, "", ""),
         }
@@ -72,24 +72,26 @@ class HarnessDeploymentTests(unittest.TestCase):
         directory("/etc/systemd/system", 0o755, 0, 0)
         directory("/usr/lib/sysusers.d", 0o755, 0, 0)
         directory("/usr/lib/tmpfiles.d", 0o755, 0, 0)
-        directory("/etc/c5k4-harness", 0o755, 0, 0)
-        directory("/opt/c5k4", 0o755, 0, 0)
-        directory("/var/lib/c5k4-harness", 0o700, 988, 988)
-        directory("/run/c5k4-harness", 0o700, 988, 988)
+        directory("/etc/c5k4-benchmark-v15", 0o755, 0, 0)
+        directory("/etc/c5k4-benchmark-v15/credentials", 0o700, 0, 0)
+        directory("/opt/c5k4-benchmark-v15", 0o755, 0, 0)
+        directory("/var/lib/c5k4-benchmark-v15", 0o700, 988, 988)
+        directory("/var/cache/c5k4-benchmark-v15", 0o700, 988, 988)
+        directory("/run/c5k4-benchmark-v15", 0o700, 988, 988)
         (self.root / "etc/os-release").write_text('ID="amzn"\nVERSION_ID="2023"\n', encoding="utf-8")
         (self.root / "etc/passwd").write_text(
             "root:x:0:0:root:/root:/bin/bash\n"
-            "c5k4-harness:x:988:988:C5-K4 harness:/var/lib/c5k4-harness:/sbin/nologin\n",
+            "c5k4-benchmark-v15:x:988:988:C5-K4 harness:/var/lib/c5k4-benchmark-v15:/sbin/nologin\n",
             encoding="utf-8",
         )
-        (self.root / "etc/group").write_text("root:x:0:\nc5k4-harness:x:988:\n", encoding="utf-8")
+        (self.root / "etc/group").write_text("root:x:0:\nc5k4-benchmark-v15:x:988:\n", encoding="utf-8")
 
         installed = {
-            "/etc/systemd/system/c5k4-harness.service": "systemd_unit",
-            "/usr/lib/sysusers.d/c5k4-harness.conf": "sysusers",
-            "/usr/lib/tmpfiles.d/c5k4-harness.conf": "tmpfiles",
-            "/etc/c5k4-harness/network-policy.json": "network_policy",
-            "/etc/c5k4-harness/destructive-gap-plan.json": "destructive_gap_plan",
+            "/etc/systemd/system/c5k4-benchmark-v15.service": "systemd_unit",
+            "/usr/lib/sysusers.d/c5k4-benchmark-v15.conf": "sysusers",
+            "/usr/lib/tmpfiles.d/c5k4-benchmark-v15.conf": "tmpfiles",
+            "/etc/c5k4-benchmark-v15/network-policy.json": "network_policy",
+            "/etc/c5k4-benchmark-v15/destructive-gap-plan.json": "destructive_gap_plan",
         }
         for destination, key in installed.items():
             target = module.rooted(self.root, destination)
@@ -128,55 +130,55 @@ class HarnessDeploymentTests(unittest.TestCase):
     def test_login_root_or_regular_uid_identity_fails(self) -> None:
         for uid, shell in ((0, "/sbin/nologin"), (1000, "/sbin/nologin"), (988, "/bin/bash")):
             (self.root / "etc/passwd").write_text(
-                f"c5k4-harness:x:{uid}:988:harness:/var/lib/c5k4-harness:{shell}\n", encoding="utf-8"
+                f"c5k4-benchmark-v15:x:{uid}:988:harness:/var/lib/c5k4-benchmark-v15:{shell}\n", encoding="utf-8"
             )
             with self.assertRaisesRegex(module.DeploymentError, "nonlogin system identity"):
                 self.verify()
 
     def test_identity_group_ambiguity_or_mismatch_fails(self) -> None:
-        (self.root / "etc/group").write_text("c5k4-harness:x:987:\n", encoding="utf-8")
+        (self.root / "etc/group").write_text("c5k4-benchmark-v15:x:987:\n", encoding="utf-8")
         with self.assertRaisesRegex(module.DeploymentError, "group mismatch"):
             self.verify()
-        (self.root / "etc/group").write_text("c5k4-harness:x:988:\nc5k4-harness:x:988:\n", encoding="utf-8")
+        (self.root / "etc/group").write_text("c5k4-benchmark-v15:x:988:\nc5k4-benchmark-v15:x:988:\n", encoding="utf-8")
         with self.assertRaisesRegex(module.DeploymentError, "absent or ambiguous"):
             self.verify()
 
     def test_private_path_mode_and_ownership_relaxations_fail(self) -> None:
-        path = self.root / "var/lib/c5k4-harness"
+        path = self.root / "var/lib/c5k4-benchmark-v15"
         path.chmod(0o750)
         with self.assertRaisesRegex(module.DeploymentError, "mode"):
             self.verify()
         path.chmod(0o700)
-        self.inspector.ownership["/var/lib/c5k4-harness"] = (0, 0)
+        self.inspector.ownership["/var/lib/c5k4-benchmark-v15"] = (0, 0)
         with self.assertRaisesRegex(module.DeploymentError, "ownership"):
             self.verify()
 
     def test_p1_parent_must_remain_root_owned_and_nonwritable(self) -> None:
-        path = self.root / "opt/c5k4"
+        path = self.root / "opt/c5k4-benchmark-v15"
         path.chmod(0o775)
         with self.assertRaisesRegex(module.DeploymentError, "mode"):
             self.verify()
         path.chmod(0o755)
-        self.inspector.ownership["/opt/c5k4"] = (988, 988)
+        self.inspector.ownership["/opt/c5k4-benchmark-v15"] = (988, 988)
         with self.assertRaisesRegex(module.DeploymentError, "root-owned"):
             self.verify()
 
     def test_installed_asset_mode_ownership_or_bytes_tampering_fails(self) -> None:
-        path = self.root / "etc/systemd/system/c5k4-harness.service"
+        path = self.root / "etc/systemd/system/c5k4-benchmark-v15.service"
         path.chmod(0o644)
         with self.assertRaisesRegex(module.DeploymentError, "mode"):
             self.verify()
         path.chmod(0o444)
-        self.inspector.ownership["/etc/systemd/system/c5k4-harness.service"] = (988, 988)
+        self.inspector.ownership["/etc/systemd/system/c5k4-benchmark-v15.service"] = (988, 988)
         with self.assertRaisesRegex(module.DeploymentError, "root-owned"):
             self.verify()
-        self.inspector.ownership["/etc/systemd/system/c5k4-harness.service"] = (0, 0)
+        self.inspector.ownership["/etc/systemd/system/c5k4-benchmark-v15.service"] = (0, 0)
         path.chmod(0o644); path.write_text("tampered\n", encoding="utf-8"); path.chmod(0o444)
         with self.assertRaisesRegex(module.DeploymentError, "differs"):
             self.verify()
 
     def test_symlinked_installed_asset_fails(self) -> None:
-        path = self.root / "etc/c5k4-harness/network-policy.json"
+        path = self.root / "etc/c5k4-benchmark-v15/network-policy.json"
         path.unlink()
         path.symlink_to(ROOT / self.contract["assets"]["network_policy"])
         with self.assertRaises(module.DeploymentError):
@@ -184,9 +186,9 @@ class HarnessDeploymentTests(unittest.TestCase):
 
     def test_premature_checkout_activation_or_socket_fails(self) -> None:
         cases = (
-            ("/opt/c5k4/p1", "P1 checkout"),
-            ("/etc/c5k4-harness/ACTIVATED", "activation marker"),
-            ("/run/c5k4-harness/harness.sock", "listener socket"),
+            ("/opt/c5k4-benchmark-v15/p1", "P1 checkout"),
+            ("/etc/c5k4-benchmark-v15/ACTIVATED", "activation marker"),
+            ("/run/c5k4-benchmark-v15/control.sock", "listener socket"),
         )
         for absolute, message in cases:
             target = module.rooted(self.root, absolute)
@@ -197,20 +199,20 @@ class HarnessDeploymentTests(unittest.TestCase):
             target.rmdir() if target.is_dir() else target.unlink()
 
     def test_active_or_enabled_service_fails(self) -> None:
-        self.inspector.responses[("systemctl", "is-active", "c5k4-harness.service")] = subprocess.CompletedProcess([], 0, "active\n", "")
+        self.inspector.responses[("systemctl", "is-active", "c5k4-benchmark-v15.service")] = subprocess.CompletedProcess([], 0, "active\n", "")
         with self.assertRaisesRegex(module.DeploymentError, "active"):
             self.verify()
-        self.inspector.responses[("systemctl", "is-active", "c5k4-harness.service")] = subprocess.CompletedProcess([], 3, "inactive\n", "")
-        self.inspector.responses[("systemctl", "is-enabled", "c5k4-harness.service")] = subprocess.CompletedProcess([], 0, "enabled\n", "")
+        self.inspector.responses[("systemctl", "is-active", "c5k4-benchmark-v15.service")] = subprocess.CompletedProcess([], 3, "inactive\n", "")
+        self.inspector.responses[("systemctl", "is-enabled", "c5k4-benchmark-v15.service")] = subprocess.CompletedProcess([], 0, "enabled\n", "")
         with self.assertRaisesRegex(module.DeploymentError, "enabled"):
             self.verify()
 
     def test_listener_or_unprovable_listener_absence_fails(self) -> None:
-        self.inspector.responses[("ss", "-H", "-lntup")] = subprocess.CompletedProcess([], 0, 'users:(("c5k4-harness",pid=8,fd=3))\n', "")
+        self.inspector.responses[("ss", "-H", "-lntup")] = subprocess.CompletedProcess([], 0, 'users:(("c5k4-benchmark-v15",pid=8,fd=3))\n', "")
         with self.assertRaisesRegex(module.DeploymentError, "listener exists"):
             self.verify()
         self.inspector.responses[("ss", "-H", "-lntup")] = subprocess.CompletedProcess([], 0, "", "")
-        self.inspector.responses[("ss", "-H", "-lxnp")] = subprocess.CompletedProcess([], 0, 'u_str LISTEN users:(("c5k4-harness",pid=8,fd=3))\n', "")
+        self.inspector.responses[("ss", "-H", "-lxnp")] = subprocess.CompletedProcess([], 0, 'u_str LISTEN users:(("c5k4-benchmark-v15",pid=8,fd=3))\n', "")
         with self.assertRaisesRegex(module.DeploymentError, "listener exists"):
             self.verify()
         self.inspector.responses[("ss", "-H", "-lxnp")] = subprocess.CompletedProcess([], 0, "", "")

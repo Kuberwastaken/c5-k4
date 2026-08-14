@@ -114,10 +114,11 @@ def verify_repo_assets(contract: dict[str, Any]) -> None:
 
     unit = (ROOT / contract["assets"]["systemd_unit"]).read_text(encoding="utf-8")
     required = (
-        "ConditionPathExists=/etc/c5k4-harness/ACTIVATED",
-        "RefuseManualStart=yes", "User=c5k4-harness", "Group=c5k4-harness",
+        "ConditionPathExists=/etc/c5k4-benchmark-v15/ACTIVATED",
+        "RefuseManualStart=yes", "User=c5k4-benchmark-v15", "Group=c5k4-benchmark-v15",
         "ExecStart=/bin/false",
-        "ProtectSystem=strict", "ReadOnlyPaths=/opt/c5k4/p1 /etc/c5k4-harness",
+        "ProtectSystem=strict", "ReadOnlyPaths=/opt/c5k4-benchmark-v15/p1 /etc/c5k4-benchmark-v15",
+        "ReadWritePaths=/var/lib/c5k4-benchmark-v15 /var/cache/c5k4-benchmark-v15 /run/c5k4-benchmark-v15",
         "IPAddressDeny=any", "NoNewPrivileges=yes", "RestrictNamespaces=no",
     )
     if any(item not in unit for item in required):
@@ -158,11 +159,11 @@ def verify_host(contract: dict[str, Any], inspector: HostInspector) -> dict[str,
         raise DeploymentError("service identity is not a dedicated nonlogin system identity")
 
     path_specs = contract["paths"]
-    p1_parent = inspector.stat("/opt/c5k4")
+    p1_parent = inspector.stat("/opt/c5k4-benchmark-v15")
     if not stat.S_ISDIR(p1_parent.st_mode) or (p1_parent.st_uid, p1_parent.st_gid) != (0, 0):
         raise DeploymentError("P1 checkout parent is not a root-owned directory")
     exact_mode(p1_parent, 0o755, "P1 checkout parent")
-    for key, expected_type in (("private_state", stat.S_ISDIR), ("runtime", stat.S_ISDIR), ("configuration", stat.S_ISDIR)):
+    for key, expected_type in (("private_state", stat.S_ISDIR), ("private_cache", stat.S_ISDIR), ("runtime", stat.S_ISDIR), ("configuration", stat.S_ISDIR), ("credential_root", stat.S_ISDIR)):
         spec = path_specs[key]
         info = inspector.stat(spec["path"])
         if not expected_type(info.st_mode):
@@ -174,11 +175,11 @@ def verify_host(contract: dict[str, Any], inspector: HostInspector) -> dict[str,
         exact_mode(info, int(spec["mode"], 8), key)
 
     installed = {
-        "/etc/systemd/system/c5k4-harness.service": contract["assets"]["systemd_unit"],
-        "/usr/lib/sysusers.d/c5k4-harness.conf": contract["assets"]["sysusers"],
-        "/usr/lib/tmpfiles.d/c5k4-harness.conf": contract["assets"]["tmpfiles"],
-        "/etc/c5k4-harness/network-policy.json": contract["assets"]["network_policy"],
-        "/etc/c5k4-harness/destructive-gap-plan.json": contract["assets"]["destructive_gap_plan"],
+        "/etc/systemd/system/c5k4-benchmark-v15.service": contract["assets"]["systemd_unit"],
+        "/usr/lib/sysusers.d/c5k4-benchmark-v15.conf": contract["assets"]["sysusers"],
+        "/usr/lib/tmpfiles.d/c5k4-benchmark-v15.conf": contract["assets"]["tmpfiles"],
+        "/etc/c5k4-benchmark-v15/network-policy.json": contract["assets"]["network_policy"],
+        "/etc/c5k4-benchmark-v15/destructive-gap-plan.json": contract["assets"]["destructive_gap_plan"],
     }
     for destination, source in installed.items():
         info = inspector.stat(destination)
@@ -195,10 +196,10 @@ def verify_host(contract: dict[str, Any], inspector: HostInspector) -> dict[str,
     if inspector.exists(path_specs["listener_socket"]):
         raise DeploymentError("controlled-harness listener socket exists in PRE-P1 state")
 
-    active = inspector.command(["systemctl", "is-active", "c5k4-harness.service"])
+    active = inspector.command(["systemctl", "is-active", "c5k4-benchmark-v15.service"])
     if active.stdout.strip() != "inactive" or active.returncode == 0:
         raise DeploymentError("controlled harness is active before P1")
-    enabled = inspector.command(["systemctl", "is-enabled", "c5k4-harness.service"])
+    enabled = inspector.command(["systemctl", "is-enabled", "c5k4-benchmark-v15.service"])
     if enabled.stdout.strip() not in ("disabled", "static"):
         raise DeploymentError("controlled harness is enabled before P1")
     internet_sockets = inspector.command(["ss", "-H", "-lntup"])
@@ -206,7 +207,7 @@ def verify_host(contract: dict[str, Any], inspector: HostInspector) -> dict[str,
     if internet_sockets.returncode != 0 or unix_sockets.returncode != 0:
         raise DeploymentError("cannot prove listener absence")
     listeners = internet_sockets.stdout + unix_sockets.stdout
-    if "c5k4-harness" in listeners or "/run/c5k4-harness/harness.sock" in listeners:
+    if "c5k4-benchmark-v15" in listeners or "/run/c5k4-benchmark-v15/control.sock" in listeners:
         raise DeploymentError("controlled-harness listener exists before P1")
 
     return {

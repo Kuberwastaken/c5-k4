@@ -34,13 +34,13 @@ class OperationalHarnessUnitTests(unittest.TestCase):
         temporary = tempfile.TemporaryDirectory()
         self.addCleanup(temporary.cleanup)
         self.fs = Path(temporary.name)
-        binary = self.fs / "opt/c5k4/p1/bin/c5k4-controlled-harness"
+        binary = self.fs / "opt/c5k4-benchmark-v15/p1/bin/c5k4-controlled-harness"
         binary.parent.mkdir(parents=True)
         binary.write_bytes(b"#!/bin/sh\nexit 2\n")
         binary.chmod(0o555)
-        (self.fs / "opt/c5k4/p1").chmod(0o555)
-        (self.fs / "opt/c5k4/p1/bin").chmod(0o555)
-        tls = self.fs / "etc/c5k4-harness/tls"
+        (self.fs / "opt/c5k4-benchmark-v15/p1").chmod(0o555)
+        (self.fs / "opt/c5k4-benchmark-v15/p1/bin").chmod(0o555)
+        tls = self.fs / "etc/c5k4-benchmark-v15/credentials/tls"
         tls.mkdir(parents=True)
         cert = tls / "fullchain.pem"; key = tls / "private-key.pem"
         generated = subprocess.run([
@@ -86,21 +86,21 @@ class OperationalHarnessUnitTests(unittest.TestCase):
              "protocol": "HTTPS", "tls_sni_required": True, "pinned_cidrs": [cidr]}
             for provider, service, host, cidr in endpoint_specs
         ]
-        resolution = self.fs / "etc/c5k4-harness/pinned-hosts"
+        resolution = self.fs / "etc/c5k4-benchmark-v15/credentials/pinned-hosts"
         resolution.write_text("".join(f"{cidr.split('/')[0]} {host}\n" for _, _, host, cidr in endpoint_specs), encoding="ascii")
         resolution.chmod(0o444)
         self.value = {
             "schema": "c5k4-method-v1.5-operational-controlled-harness-activation-inputs-1.0",
             "status": "P1_OPERATIONAL_ACTIVATION_INPUTS_COMPLETE", "protocol_version": "1.5",
             "host_id": "ai-vps-controlled-harness",
-            "p1": {"tree_path": "/opt/c5k4/p1", "tree_sha256": module.tree_sha256(self.fs / "opt/c5k4/p1"), "commit": "a" * 40},
-            "service": {"binary_path": "/opt/c5k4/p1/bin/c5k4-controlled-harness", "binary_sha256": module.file_sha256(binary), "activation_binding_path": "/etc/c5k4-harness/OPERATIONAL-ACTIVATION.json"},
+            "p1": {"tree_path": "/opt/c5k4-benchmark-v15/p1", "tree_sha256": module.tree_sha256(self.fs / "opt/c5k4-benchmark-v15/p1"), "commit": "a" * 40},
+            "service": {"binary_path": "/opt/c5k4-benchmark-v15/p1/bin/c5k4-controlled-harness", "binary_sha256": module.file_sha256(binary), "activation_binding_path": "/etc/c5k4-benchmark-v15/OPERATIONAL-ACTIVATION.json", "control_socket_path": "/run/c5k4-benchmark-v15/control.sock"},
             "listener": {"https_endpoint": "https://harness.example.org:443/", "bind_address": "13.200.253.63", "port": 443},
-            "tls": {"certificate_path": "/etc/c5k4-harness/tls/fullchain.pem", "certificate_sha256": module.file_sha256(cert), "private_key_path": "/etc/c5k4-harness/tls/private-key.pem", "private_key_sha256": module.file_sha256(key), "minimum_version": "TLSv1.3", "client_certificate_policy": "OIDC_BEARER_REQUIRED_NO_CLIENT_CERT"},
+            "tls": {"certificate_path": "/etc/c5k4-benchmark-v15/credentials/tls/fullchain.pem", "certificate_sha256": module.file_sha256(cert), "private_key_path": "/etc/c5k4-benchmark-v15/credentials/tls/private-key.pem", "private_key_sha256": module.file_sha256(key), "minimum_version": "TLSv1.3", "client_certificate_policy": "OIDC_BEARER_REQUIRED_NO_CLIENT_CERT"},
             "oidc": {"issuer": "https://token.actions.githubusercontent.com", "audience": f"c5k4-method-v1.5:{'b' * 64}", "repository": "Kuberwastaken/c5-k4", "ref": "refs/heads/main", "workflow_ref": "Kuberwastaken/c5-k4/.github/workflows/method-v15-checkpoint.yml@refs/heads/main", "event_name": "schedule", "run_attempt": "1"},
             "noninterference_key_commitment": key_commitment, "worm_acceptance": worm,
             "destructive_gap_acceptance": gap,
-            "network": {"default_deny": True, "unlisted_egress_forbidden": True, "dns_policy": "ALLOWLIST_ONLY_PINNED_RESOLUTION", "aws_region": "ap-south-1", "resolution_artifact_path": "/etc/c5k4-harness/pinned-hosts", "resolution_artifact_sha256": module.file_sha256(resolution), "allowed_endpoints": endpoints},
+            "network": {"default_deny": True, "unlisted_egress_forbidden": True, "dns_policy": "ALLOWLIST_ONLY_PINNED_RESOLUTION", "aws_region": "ap-south-1", "resolution_artifact_path": "/etc/c5k4-benchmark-v15/credentials/pinned-hosts", "resolution_artifact_sha256": module.file_sha256(resolution), "allowed_endpoints": endpoints},
             "target_specific": False, "activation_inputs_sha256": module.ZERO,
         }
         seal(self.value, "activation_inputs_sha256")
@@ -109,7 +109,7 @@ class OperationalHarnessUnitTests(unittest.TestCase):
         return seal(value, "activation_inputs_sha256")
 
     def test_complete_inputs_generate_inert_bound_successor(self) -> None:
-        key_path = self.fs / "etc/c5k4-harness/tls/private-key.pem"
+        key_path = self.fs / "etc/c5k4-benchmark-v15/credentials/tls/private-key.pem"
         key_mode_before = key_path.stat().st_mode & 0o777
         bundle = module.generate(self.value, self.fs)
         self.assertEqual(bundle["p1_tree_sha256"], self.value["p1"]["tree_sha256"])
@@ -119,15 +119,16 @@ class OperationalHarnessUnitTests(unittest.TestCase):
         self.assertFalse(bundle["installed"]); self.assertFalse(bundle["active"]); self.assertFalse(bundle["activation_permitted"])
         self.assertIn("RestrictNamespaces=user mnt net pid ipc uts cgroup", bundle["unit"]["content"])
         self.assertIn("IPAddressDeny=any", bundle["unit"]["content"])
-        self.assertIn("BindReadOnlyPaths=/etc/c5k4-harness/pinned-hosts:/etc/hosts", bundle["unit"]["content"])
-        self.assertIn("LoadCredential=tls-private-key:/etc/c5k4-harness/tls/private-key.pem", bundle["unit"]["content"])
+        self.assertIn("BindReadOnlyPaths=/etc/c5k4-benchmark-v15/credentials/pinned-hosts:/etc/hosts", bundle["unit"]["content"])
+        self.assertIn("LoadCredential=tls-private-key:/etc/c5k4-benchmark-v15/credentials/tls/private-key.pem", bundle["unit"]["content"])
         self.assertIn("--tls-private-key=%d/tls-private-key", bundle["unit"]["content"])
-        self.assertIn("--tls-certificate=/etc/c5k4-harness/tls/fullchain.pem", bundle["unit"]["content"])
-        self.assertNotIn("--tls-private-key=/etc/c5k4-harness/tls/private-key.pem", bundle["unit"]["content"])
+        self.assertIn("--control-socket=/run/c5k4-benchmark-v15/control.sock", bundle["unit"]["content"])
+        self.assertIn("--tls-certificate=/etc/c5k4-benchmark-v15/credentials/tls/fullchain.pem", bundle["unit"]["content"])
+        self.assertNotIn("--tls-private-key=/etc/c5k4-benchmark-v15/credentials/tls/private-key.pem", bundle["unit"]["content"])
         self.assertEqual(bundle["tls_material"], {
-            "certificate_source": "/etc/c5k4-harness/tls/fullchain.pem",
+            "certificate_source": "/etc/c5k4-benchmark-v15/credentials/tls/fullchain.pem",
             "certificate_sha256": self.value["tls"]["certificate_sha256"],
-            "private_key_source": "/etc/c5k4-harness/tls/private-key.pem",
+            "private_key_source": "/etc/c5k4-benchmark-v15/credentials/tls/private-key.pem",
             "private_key_sha256": self.value["tls"]["private_key_sha256"],
             "private_key_runtime_credential": "%d/tls-private-key",
             "credential_loader": "systemd LoadCredential",
@@ -181,7 +182,7 @@ class OperationalHarnessUnitTests(unittest.TestCase):
                 module.generate(mutated, self.fs)
 
     def test_tls_key_permissions_fail_closed(self) -> None:
-        key = self.fs / "etc/c5k4-harness/tls/private-key.pem"; key.chmod(0o644)
+        key = self.fs / "etc/c5k4-benchmark-v15/credentials/tls/private-key.pem"; key.chmod(0o644)
         with self.assertRaisesRegex(module.UnitContractError, "private TLS key permissions"):
             module.generate(self.value, self.fs)
 
@@ -197,9 +198,9 @@ class OperationalHarnessUnitTests(unittest.TestCase):
             module.generate(mutated, self.fs)
 
     def test_symlinked_immutable_parent_fails_closed(self) -> None:
-        real = self.fs / "etc/c5k4-harness/tls-real"
-        (self.fs / "etc/c5k4-harness/tls").rename(real)
-        (self.fs / "etc/c5k4-harness/tls").symlink_to(real)
+        real = self.fs / "etc/c5k4-benchmark-v15/credentials/tls-real"
+        (self.fs / "etc/c5k4-benchmark-v15/credentials/tls").rename(real)
+        (self.fs / "etc/c5k4-benchmark-v15/credentials/tls").symlink_to(real)
         with self.assertRaisesRegex(module.UnitContractError, "symlinked parent"):
             module.generate(self.value, self.fs)
 
@@ -215,14 +216,14 @@ class OperationalHarnessUnitTests(unittest.TestCase):
             "-subj", "/CN=harness.example.org",
         ], text=True, capture_output=True)
         self.assertEqual(generated.returncode, 0, generated.stderr)
-        target = self.fs / "etc/c5k4-harness/tls/private-key.pem"
+        target = self.fs / "etc/c5k4-benchmark-v15/credentials/tls/private-key.pem"
         target.chmod(0o600); target.write_bytes(foreign_key.read_bytes()); target.chmod(0o400)
         mutated = copy.deepcopy(self.value); mutated["tls"]["private_key_sha256"] = module.file_sha256(target); self.reseal(mutated)
         with self.assertRaisesRegex(module.UnitContractError, "does not match"):
             module.generate(mutated, self.fs)
 
     def test_resolution_artifact_is_exact_and_digest_bound(self) -> None:
-        path = self.fs / "etc/c5k4-harness/pinned-hosts"
+        path = self.fs / "etc/c5k4-benchmark-v15/credentials/pinned-hosts"
         path.chmod(0o644); path.write_text(path.read_text() + "1.1.1.1 example.org\n", encoding="ascii"); path.chmod(0o444)
         mutated = copy.deepcopy(self.value); mutated["network"]["resolution_artifact_sha256"] = module.file_sha256(path); self.reseal(mutated)
         with self.assertRaisesRegex(module.UnitContractError, "does not exactly bind"):
@@ -244,7 +245,7 @@ class OperationalHarnessUnitTests(unittest.TestCase):
         self.assertEqual(first.returncode, 0); self.assertEqual(first.stderr, ""); self.assertEqual(first.stdout, second.stdout)
         bundle = json.loads(first.stdout)
         self.assertFalse(bundle["installed"]); self.assertFalse(bundle["active"]); self.assertFalse(bundle["activation_permitted"])
-        self.assertFalse((self.fs / "etc/c5k4-harness/OPERATIONAL-ACTIVATION.json").exists())
+        self.assertFalse((self.fs / "etc/c5k4-benchmark-v15/OPERATIONAL-ACTIVATION.json").exists())
 
     def test_cli_invalid_input_fails_closed_and_silent(self) -> None:
         inputs = self.fs / "bad.json"; inputs.write_text("{}\n", encoding="utf-8")

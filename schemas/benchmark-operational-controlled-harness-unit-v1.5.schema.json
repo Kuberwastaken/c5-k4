@@ -21,15 +21,15 @@
     },
     "unit": {
       "type": "object", "additionalProperties": false, "required": ["name", "content", "sha256"],
-      "properties": {"name": {"const": "c5k4-harness.service"}, "content": {"type": "string", "minLength": 512, "maxLength": 16384}, "sha256": {"$ref": "#/definitions/sha256"}}
+      "properties": {"name": {"const": "c5k4-benchmark-v15.service"}, "content": {"type": "string", "minLength": 512, "maxLength": 16384}, "sha256": {"$ref": "#/definitions/sha256"}}
     },
     "tls_material": {
       "type": "object", "additionalProperties": false,
       "required": ["certificate_source", "certificate_sha256", "private_key_source", "private_key_sha256", "private_key_runtime_credential", "credential_loader", "source_permissions_widened"],
       "properties": {
-        "certificate_source": {"const": "/etc/c5k4-harness/tls/fullchain.pem"},
+        "certificate_source": {"const": "/etc/c5k4-benchmark-v15/credentials/tls/fullchain.pem"},
         "certificate_sha256": {"$ref": "#/definitions/sha256"},
-        "private_key_source": {"const": "/etc/c5k4-harness/tls/private-key.pem"},
+        "private_key_source": {"const": "/etc/c5k4-benchmark-v15/credentials/tls/private-key.pem"},
         "private_key_sha256": {"$ref": "#/definitions/sha256"},
         "private_key_runtime_credential": {"const": "%d/tls-private-key"},
         "credential_loader": {"const": "systemd LoadCredential"},
@@ -42,7 +42,7 @@
       "properties": {
         "default_deny": {"const": true}, "unlisted_egress_forbidden": {"const": true},
         "dns_policy": {"const": "ALLOWLIST_ONLY_PINNED_RESOLUTION"},
-        "resolution_artifact_path": {"const": "/etc/c5k4-harness/pinned-hosts"},
+        "resolution_artifact_path": {"const": "/etc/c5k4-benchmark-v15/credentials/pinned-hosts"},
         "resolution_artifact_sha256": {"$ref": "#/definitions/sha256"},
         "allowed_endpoints": {
           "type": "array", "minItems": 5, "maxItems": 5,
