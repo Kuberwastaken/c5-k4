@@ -209,6 +209,23 @@ in under a second on Python 3.9. The arithmetic universe, exact gate,
 independent final verifier, and 60-second outer cap remain unchanged. See the
 [v2.2 correction contract](results/expansion/live-search-2026-08-14/oeis-a231201-v22-development/CONTRACT.md).
 
+The immutable v2.2 run then produced the first valid execution of that full
+loop: the same six round-zero proposals each terminated with an honest,
+independently verified 48-second adversary deadline at prime 19. Their partial
+frontiers contained 13.1--18.1 million states; no complete cover, candidate,
+or final verification resulted. The
+[v2.2 result](results/expansion/live-search-2026-08-14/oeis-a231201-v22-development/result.md)
+is a bounded search observation, not a zero or conjecture result. More
+importantly, a capped diagnostic found that those expensive proposals already
+missed the tiny exponents `3,5,29,6,6,22`. The next iteration therefore moves
+from dispersed-basis/full-period coverage toward **least-escape CEGAR**: close
+the cheap contiguous seed first, feed the lexicographically least miss back to
+the constructor, and reserve symbolic bounded-minimum escape for proposals
+that survive. Dynamic prime ordering remains only a pressure-reducing
+fallback, since it cannot change the final uncovered set. The exact observed
+design and stop rules are in the
+[v3 report](results/expansion/live-search-2026-08-14/oeis-a231201-v3-observed-design.md).
+
 A subsequent live-arm pass over the newly merged OEIS cohort found one exact
 lower-endpoint failure: the formalized A109074 identity says `1 = 3` at
 `n=1`. Source reconciliation shows that this is an erratum rather than a new
