@@ -1,0 +1,87 @@
+{
+  "schema": "c5k4-graffiti3-energy-c3-result-1.0",
+  "status": "DOMAIN_EXHAUSTED_ZERO",
+  "campaign_commit": "58c1cee3927d6c973e20a1fff918bfb591c8777d",
+  "doi": "10.21203/rs.3.rs-8493329/v1",
+  "github_actions_run": "https://github.com/Kuberwastaken/c5-k4/actions/runs/31793052228",
+  "admitted_reading": "LITERAL_CLOSED_D2",
+  "center_excluding_reading": {
+    "disposition": "DB_REJECTED",
+    "atlas_violation_graph6": [
+      "A_",
+      "Bw"
+    ],
+    "atlas_violation_names": [
+      "K2",
+      "K3"
+    ]
+  },
+  "source_gate": {
+    "csv_sha256": "4f455fbfe1149c2ca952b429c7ca9d9c1aae192309fbb642be2b12a345526e97",
+    "rows": 335,
+    "eligible_rows": 97,
+    "scalar_violations": 0,
+    "scalar_equality_ids": [19, 33, 52, 65, 75, 159, 172, 174, 263]
+  },
+  "atlas_gate": {
+    "connected_graphs_orders_2_through_7": 995,
+    "literal_violations": 0,
+    "literal_equalities": 0,
+    "least_literal_gap": 0.5,
+    "least_literal_gap_graph6": "A_"
+  },
+  "audit": {
+    "artifact_checksum_manifests_replayed": 3,
+    "ledger_chains_replayed": 3,
+    "terminal_bindings_replayed": 3,
+    "assignments_exit_zero": 3,
+    "evaluation_rows_independently_recomputed": 3808,
+    "evaluation_mismatches": 0,
+    "candidate_files": 0,
+    "candidate_binding_rows": 0
+  },
+  "totals": {
+    "proposed": 3823,
+    "canonical_unique": 3808,
+    "evaluated": 3808,
+    "applicable": 2863,
+    "not_applicable": 945,
+    "crossings": 0
+  },
+  "arms": {
+    "CATALOGUE": {
+      "terminal_reason": "DOMAIN_EXHAUSTED",
+      "proposed": 950,
+      "canonical_unique": 938,
+      "evaluated": 938,
+      "applicable": 875,
+      "minimum_literal_residual": 2.375,
+      "minimum_name": "star:8",
+      "minimum_graph6": "GsaCC?",
+      "ledger_sha256": "e5ed00e64a9fd73ae312c03b25bc7679e50aa19e389b1c18d1ee8c52eb31a918"
+    },
+    "GENERIC": {
+      "terminal_reason": "DOMAIN_EXHAUSTED",
+      "proposed": 1800,
+      "canonical_unique": 1797,
+      "evaluated": 1797,
+      "applicable": 915,
+      "minimum_literal_residual": 6.09464882278818,
+      "minimum_name": "apollonian-delete:50:8:6024732370486810781:0",
+      "minimum_graph6": "G~^SkK",
+      "ledger_sha256": "958db9e99d4a97e4bd1f587eaeedf2d047913948f47dbf4447fe2227074363bd"
+    },
+    "WALL_NAVIGATION": {
+      "terminal_reason": "DOMAIN_EXHAUSTED",
+      "proposed": 1073,
+      "canonical_unique": 1073,
+      "evaluated": 1073,
+      "applicable": 1073,
+      "minimum_literal_residual": 3.125,
+      "minimum_name": "book-pages:6",
+      "minimum_graph6": "G}rEE?",
+      "ledger_sha256": "240dd76850d36f6465d363062494b691347237df153b831fe57d23c5f9a20904"
+    }
+  },
+  "publication_action": false
+}
