@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-c0-publication-contract-v1.5.schema.json",
+  "title": "Method v1.5 C0 publication activation contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "protocol_version", "status", "c0_authority_available", "current_blockers", "required_lifecycle", "public_checkpoint_gate", "pass_pool_gate", "planned_c0a", "planned_c0t", "publication_topology", "publication_observation", "prohibited", "native_roles_required_before_activation"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-c0-publication-contract-1.0"},
+    "protocol_version": {"const": "1.5"},
+    "status": {"const": "BLOCKED_AWAITING_PUBLIC_PASS_POOL_COMPILER"},
+    "c0_authority_available": {"const": false},
+    "current_blockers": {"const": ["PUBLIC_PASS_POOL_SCHEMA_NOT_FROZEN", "PUBLIC_PASS_POOL_COMPILER_NOT_FROZEN", "PUBLIC_PASS_POOL_CONTRACT_TEST_NOT_FROZEN"]},
+    "required_lifecycle": {"const": [
+      "AUTHENTICATE_PUBLISHED_P1_ROLE_CLOSURE", "REPLAY_PUBLIC_U1_TO_FIRST_QUOTA_PASS_U2_CHAIN",
+      "AUTHENTICATE_EXACT_U1_RECEIPT_SHAPE_AND_COMMITTED_BYTES", "AUTHENTICATE_EXACT_U2_RECEIPT_MANIFEST_CERTIFICATE_TRIPLET",
+      "REPLAY_U2_AGGREGATE_COUNTS_AND_ALL_CROSS_BINDINGS", "COMPILE_AND_PUBLISH_EXACT_ELIGIBLE_PASS_POOL_BEFORE_ENTROPY",
+      "REPLAY_PASS_POOL_SCHEMA_DIGEST_COUNTS_AND_U2_BINDING", "COMPILE_C0A_WITH_STATUS_AWAITING_C0_PUBLICATION_ATTESTATION",
+      "COMMIT_C0A_AS_NONMERGE_SOLE_CHILD_OF_TERMINAL_U2_ON_FROZEN_C0_REF", "OBSERVE_EXACT_C0A_PUSH_WITH_FROZEN_GITHUB_ACTIONS_WORKFLOW",
+      "COMPLETE_GITHUB_SERVER_OBSERVATION_STRICTLY_BEFORE_DRAND_CLOSE", "COMMIT_C0T_AS_NONMERGE_SOLE_CHILD_OF_C0A_ADDING_EXACTLY_ONE_PATH",
+      "VERIFY_EXACT_COMMITTED_C0T_BYTES"
+    ]},
+    "public_checkpoint_gate": {"$ref": "#/definitions/publicCheckpointGate"},
+    "pass_pool_gate": {"$ref": "#/definitions/passPoolGate"},
+    "planned_c0a": {"$ref": "#/definitions/plannedC0a"},
+    "planned_c0t": {"$ref": "#/definitions/plannedC0t"},
+    "publication_topology": {"$ref": "#/definitions/topology"},
+    "publication_observation": {"$ref": "#/definitions/observation"},
+    "prohibited": {"$ref": "#/definitions/prohibited"},
+    "native_roles_required_before_activation": {"const": ["v15_public_pass_pool_compiler", "v15_public_pass_pool_schema", "v15_public_pass_pool_contract_test", "v15_c0_bridge", "v15_c0_schema", "v15_c0_bridge_contract_test", "v15_c0_github_actions_observer", "v15_c0_github_actions_observer_contract_test"]}
+  },
+  "definitions": {
+    "publicCheckpointGate": {"type": "object", "additionalProperties": false, "required": ["preterminal_statuses_allowed", "terminal_status_required", "first_pass_required", "u1_full_shape_and_raw_digest_required", "u2_receipt_full_shape_and_raw_digest_required", "u2_publication_manifest_schema_self_digest_and_artifact_digests_required", "u2_aggregate_schema_self_digest_arithmetic_and_cross_bindings_required", "u2_public_triplet_same_commit_required", "private_replay_attestation_bytes_claimed_public"], "properties": {
+      "preterminal_statuses_allowed": {"const": ["QUOTA_FAIL"]}, "terminal_status_required": {"const": "QUOTA_PASS_U2"}, "first_pass_required": {"const": true}, "u1_full_shape_and_raw_digest_required": {"const": true}, "u2_receipt_full_shape_and_raw_digest_required": {"const": true}, "u2_publication_manifest_schema_self_digest_and_artifact_digests_required": {"const": true}, "u2_aggregate_schema_self_digest_arithmetic_and_cross_bindings_required": {"const": true}, "u2_public_triplet_same_commit_required": {"const": true}, "private_replay_attestation_bytes_claimed_public": {"const": false}
+    }},
+    "passPoolGate": {"type": "object", "additionalProperties": false, "required": ["separate_pre_entropy_artifact_required", "exact_public_schema_required", "exact_committed_file_sha256_required", "canonical_object_sha256_required", "eligible_records_required", "stratum_counts_must_replay", "candidate_count_must_replay", "u2_certificate_binding_required", "selection_ready_before_gate"], "properties": {
+      "separate_pre_entropy_artifact_required": {"const": true}, "exact_public_schema_required": {"const": true}, "exact_committed_file_sha256_required": {"const": true}, "canonical_object_sha256_required": {"const": true}, "eligible_records_required": {"const": true}, "stratum_counts_must_replay": {"const": true}, "candidate_count_must_replay": {"const": true}, "u2_certificate_binding_required": {"const": true}, "selection_ready_before_gate": {"const": false}
+    }},
+    "plannedC0a": {"type": "object", "additionalProperties": false, "required": ["artifact_kind", "status", "may_claim_frozen", "must_bind_authenticated_pass_pool", "entropy_value_permitted", "selection_permitted"], "properties": {
+      "artifact_kind": {"const": "C0A"}, "status": {"const": "AWAITING_C0_PUBLICATION_ATTESTATION"}, "may_claim_frozen": {"const": false}, "must_bind_authenticated_pass_pool": {"const": true}, "entropy_value_permitted": {"const": false}, "selection_permitted": {"const": false}
+    }},
+    "plannedC0t": {"type": "object", "additionalProperties": false, "required": ["artifact_kind", "status_after_all_gates", "current_artifact_permitted", "pass_pool_bound_must_be_true", "entropy_value_permitted", "selection_performed"], "properties": {
+      "artifact_kind": {"const": "C0T"}, "status_after_all_gates": {"const": "C0_FROZEN_PRE_ENTROPY_ATTESTED"}, "current_artifact_permitted": {"const": false}, "pass_pool_bound_must_be_true": {"const": true}, "entropy_value_permitted": {"const": false}, "selection_performed": {"const": false}
+    }},
+    "topology": {"type": "object", "additionalProperties": false, "required": ["repository", "ref", "root_parent", "c0a_parent", "c0a_change", "c0t_parent", "c0t_change", "merge_commits_permitted"], "properties": {
+      "repository": {"const": "https://github.com/Kuberwastaken/c5-k4"}, "ref": {"const": "refs/heads/method-v1.5-c0"}, "root_parent": {"const": "TERMINAL_FIRST_PASS_U2_COMMIT"}, "c0a_parent": {"const": "TERMINAL_FIRST_PASS_U2_COMMIT"}, "c0a_change": {"const": "ADD_EXACTLY_ONE_C0A_PATH"}, "c0t_parent": {"const": "EXACT_C0A_COMMIT"}, "c0t_change": {"const": "ADD_EXACTLY_ONE_C0T_PATH"}, "merge_commits_permitted": {"const": false}
+    }},
+    "observation": {"type": "object", "additionalProperties": false, "required": ["source", "event", "required_conclusion", "head_sha_must_equal_c0a_commit", "frozen_workflow_path_and_sha_required", "run_id_required", "github_server_started_and_completed_timestamps_required", "captured_run_object_sha256_required", "completion_must_precede_drand_close", "caller_supplied_timestamp_is_authority", "live_or_injected_authenticated_observer_required"], "properties": {
+      "source": {"const": "GITHUB_ACTIONS_PUSH_RUN_OBSERVATION"}, "event": {"const": "push"}, "required_conclusion": {"const": "success"}, "head_sha_must_equal_c0a_commit": {"const": true}, "frozen_workflow_path_and_sha_required": {"const": true}, "run_id_required": {"const": true}, "github_server_started_and_completed_timestamps_required": {"const": true}, "captured_run_object_sha256_required": {"const": true}, "completion_must_precede_drand_close": {"const": true}, "caller_supplied_timestamp_is_authority": {"const": false}, "live_or_injected_authenticated_observer_required": {"const": true}
+    }},
+    "prohibited": {"type": "object", "additionalProperties": false, "required": ["legacy_v1_4_p0_s0_authority", "pre_u2_c0a", "counts_only_u2_as_complete_c0", "c0_without_authenticated_pass_pool", "bare_c0a_frozen_claim", "entropy_fetch_before_valid_c0t", "randomness_value_in_c0", "selection_or_ranking_in_c0", "caller_selected_publication_observation", "merge_or_multi_path_c0_commits"], "properties": {
+      "legacy_v1_4_p0_s0_authority": {"const": true}, "pre_u2_c0a": {"const": true}, "counts_only_u2_as_complete_c0": {"const": true}, "c0_without_authenticated_pass_pool": {"const": true}, "bare_c0a_frozen_claim": {"const": true}, "entropy_fetch_before_valid_c0t": {"const": true}, "randomness_value_in_c0": {"const": true}, "selection_or_ranking_in_c0": {"const": true}, "caller_selected_publication_observation": {"const": true}, "merge_or_multi_path_c0_commits": {"const": true}
+    }}
+  }
+}

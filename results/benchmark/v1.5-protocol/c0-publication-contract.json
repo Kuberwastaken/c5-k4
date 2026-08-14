@@ -1,0 +1,109 @@
+{
+  "schema": "c5k4-method-v1.5-c0-publication-contract-1.0",
+  "protocol_version": "1.5",
+  "status": "BLOCKED_AWAITING_PUBLIC_PASS_POOL_COMPILER",
+  "c0_authority_available": false,
+  "current_blockers": [
+    "PUBLIC_PASS_POOL_SCHEMA_NOT_FROZEN",
+    "PUBLIC_PASS_POOL_COMPILER_NOT_FROZEN",
+    "PUBLIC_PASS_POOL_CONTRACT_TEST_NOT_FROZEN"
+  ],
+  "required_lifecycle": [
+    "AUTHENTICATE_PUBLISHED_P1_ROLE_CLOSURE",
+    "REPLAY_PUBLIC_U1_TO_FIRST_QUOTA_PASS_U2_CHAIN",
+    "AUTHENTICATE_EXACT_U1_RECEIPT_SHAPE_AND_COMMITTED_BYTES",
+    "AUTHENTICATE_EXACT_U2_RECEIPT_MANIFEST_CERTIFICATE_TRIPLET",
+    "REPLAY_U2_AGGREGATE_COUNTS_AND_ALL_CROSS_BINDINGS",
+    "COMPILE_AND_PUBLISH_EXACT_ELIGIBLE_PASS_POOL_BEFORE_ENTROPY",
+    "REPLAY_PASS_POOL_SCHEMA_DIGEST_COUNTS_AND_U2_BINDING",
+    "COMPILE_C0A_WITH_STATUS_AWAITING_C0_PUBLICATION_ATTESTATION",
+    "COMMIT_C0A_AS_NONMERGE_SOLE_CHILD_OF_TERMINAL_U2_ON_FROZEN_C0_REF",
+    "OBSERVE_EXACT_C0A_PUSH_WITH_FROZEN_GITHUB_ACTIONS_WORKFLOW",
+    "COMPLETE_GITHUB_SERVER_OBSERVATION_STRICTLY_BEFORE_DRAND_CLOSE",
+    "COMMIT_C0T_AS_NONMERGE_SOLE_CHILD_OF_C0A_ADDING_EXACTLY_ONE_PATH",
+    "VERIFY_EXACT_COMMITTED_C0T_BYTES"
+  ],
+  "public_checkpoint_gate": {
+    "preterminal_statuses_allowed": ["QUOTA_FAIL"],
+    "terminal_status_required": "QUOTA_PASS_U2",
+    "first_pass_required": true,
+    "u1_full_shape_and_raw_digest_required": true,
+    "u2_receipt_full_shape_and_raw_digest_required": true,
+    "u2_publication_manifest_schema_self_digest_and_artifact_digests_required": true,
+    "u2_aggregate_schema_self_digest_arithmetic_and_cross_bindings_required": true,
+    "u2_public_triplet_same_commit_required": true,
+    "private_replay_attestation_bytes_claimed_public": false
+  },
+  "pass_pool_gate": {
+    "separate_pre_entropy_artifact_required": true,
+    "exact_public_schema_required": true,
+    "exact_committed_file_sha256_required": true,
+    "canonical_object_sha256_required": true,
+    "eligible_records_required": true,
+    "stratum_counts_must_replay": true,
+    "candidate_count_must_replay": true,
+    "u2_certificate_binding_required": true,
+    "selection_ready_before_gate": false
+  },
+  "planned_c0a": {
+    "artifact_kind": "C0A",
+    "status": "AWAITING_C0_PUBLICATION_ATTESTATION",
+    "may_claim_frozen": false,
+    "must_bind_authenticated_pass_pool": true,
+    "entropy_value_permitted": false,
+    "selection_permitted": false
+  },
+  "planned_c0t": {
+    "artifact_kind": "C0T",
+    "status_after_all_gates": "C0_FROZEN_PRE_ENTROPY_ATTESTED",
+    "current_artifact_permitted": false,
+    "pass_pool_bound_must_be_true": true,
+    "entropy_value_permitted": false,
+    "selection_performed": false
+  },
+  "publication_topology": {
+    "repository": "https://github.com/Kuberwastaken/c5-k4",
+    "ref": "refs/heads/method-v1.5-c0",
+    "root_parent": "TERMINAL_FIRST_PASS_U2_COMMIT",
+    "c0a_parent": "TERMINAL_FIRST_PASS_U2_COMMIT",
+    "c0a_change": "ADD_EXACTLY_ONE_C0A_PATH",
+    "c0t_parent": "EXACT_C0A_COMMIT",
+    "c0t_change": "ADD_EXACTLY_ONE_C0T_PATH",
+    "merge_commits_permitted": false
+  },
+  "publication_observation": {
+    "source": "GITHUB_ACTIONS_PUSH_RUN_OBSERVATION",
+    "event": "push",
+    "required_conclusion": "success",
+    "head_sha_must_equal_c0a_commit": true,
+    "frozen_workflow_path_and_sha_required": true,
+    "run_id_required": true,
+    "github_server_started_and_completed_timestamps_required": true,
+    "captured_run_object_sha256_required": true,
+    "completion_must_precede_drand_close": true,
+    "caller_supplied_timestamp_is_authority": false,
+    "live_or_injected_authenticated_observer_required": true
+  },
+  "prohibited": {
+    "legacy_v1_4_p0_s0_authority": true,
+    "pre_u2_c0a": true,
+    "counts_only_u2_as_complete_c0": true,
+    "c0_without_authenticated_pass_pool": true,
+    "bare_c0a_frozen_claim": true,
+    "entropy_fetch_before_valid_c0t": true,
+    "randomness_value_in_c0": true,
+    "selection_or_ranking_in_c0": true,
+    "caller_selected_publication_observation": true,
+    "merge_or_multi_path_c0_commits": true
+  },
+  "native_roles_required_before_activation": [
+    "v15_public_pass_pool_compiler",
+    "v15_public_pass_pool_schema",
+    "v15_public_pass_pool_contract_test",
+    "v15_c0_bridge",
+    "v15_c0_schema",
+    "v15_c0_bridge_contract_test",
+    "v15_c0_github_actions_observer",
+    "v15_c0_github_actions_observer_contract_test"
+  ]
+}
