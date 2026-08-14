@@ -129,6 +129,17 @@ sequence. Two independent encodings reproduce length 14 under 24 seconds. It
 is another bounded equality, not evidence for the universal statement; the
 next brute-force length is outside the frozen contract.
 
+A subsequent live-arm pass over the newly merged OEIS cohort found one exact
+lower-endpoint failure: the formalized A109074 identity says `1 = 3` at
+`n=1`. Source reconciliation shows that this is an erratum rather than a new
+number-theory disproof: the displayed A005156 ratio is shifted by one index,
+and the Lean module also defines the referenced sequence incorrectly. The
+[audit and certificate](results/expansion/live-search-2026-08-14/oeis-109074.md)
+therefore remain explicitly outside the mathematical-kill count. This result
+adds two cheap front-door gates to the search loop: evaluate every universal
+claim at its literal boundary, and replay the first authoritative terms of
+every locally redefined reference sequence before allocating search time.
+
 The prospective benchmark record is deliberately fail-closed. Method v1.1
 terminated `NO_ELIGIBLE_BENCHMARK`; it never selected a target. Its corrected
 chronology successor, [Method v1.2](METHOD_V1_2_BENCHMARK.md), published P0 and
