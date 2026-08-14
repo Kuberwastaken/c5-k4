@@ -237,6 +237,26 @@ ruling out further investment in full-period enumeration. See the
 [periodic-lift theorem and replayable certificate](results/expansion/live-search-2026-08-14/oeis-a231201-periodic-cover-theorem-shadow/result.md)
 and the exact observed [v3 design and stop rules](results/expansion/live-search-2026-08-14/oeis-a231201-v3-observed-design.md).
 
+V3 then executed all 54 frozen constructor diagnostics. Its 18
+small-basis jobs made 57 independently replayed least-escape updates across
+112 CP slices, but every round still escaped between `x=3` and `x=87`; no
+cell closed the active seed through 4096 and no proposal was emitted. The two
+full-seed arms were lower-information caps because their preliminary greedy
+hint consumed the search budget before substantive CP/repair work. All
+artifacts and verifiers passed, so this is a valid negative method observation
+rather than an infrastructure failure. Under the frozen stop rule, A231201
+now pauses instead of receiving another post-result universe expansion. The
+[v3 result](results/expansion/live-search-2026-08-14/oeis-a231201-v3-development/result.md)
+records the full evidence.
+
+The next current-DeepMind rotation is OEIS A056777. There the squarefree
+semiprime equality wall algebraically collapses to the known prime-quadruple
+family, so the prospective search deliberately separates factor shape using
+repeated prime powers and three-or-more-prime endpoints. That is a new
+factorization-coordinate test of the method, not another residue-cover retry;
+A067720 and A108569 are the ordered reserves. See the
+[current target ranking](results/expansion/live-search-2026-08-14/next-deepmind-rotation-after-a231201.md).
+
 A subsequent live-arm pass over the newly merged OEIS cohort found one exact
 lower-endpoint failure: the formalized A109074 identity says `1 = 3` at
 `n=1`. Source reconciliation shows that this is an erratum rather than a new
