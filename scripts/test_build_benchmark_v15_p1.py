@@ -120,6 +120,9 @@ class P1Tests(unittest.TestCase):
             "private_custody_compiler_output_schema",
             "arm_triplet_launcher", "arm_triplet_launcher_contract_test",
             "arm_triplet_claim_schema", "arm_triplet_combined_record_schema",
+            "triplet_isolation_backend", "triplet_isolation_backend_contract_test",
+            "triplet_isolation_plan_schema", "triplet_isolation_acceptance_schema",
+            "triplet_isolation_readiness_schema",
         }
         self.assertLessEqual(required, set(P1.NATIVE_COMPONENTS))
         p1a = self.build()

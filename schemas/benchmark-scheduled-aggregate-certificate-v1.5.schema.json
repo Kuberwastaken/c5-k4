@@ -73,7 +73,7 @@
       "properties": {
         "arm_execution": {
           "type": "object", "additionalProperties": false,
-          "required": ["capability_matrix", "capability_matrix_schema", "envelope_schema", "validator", "test", "triplet_launcher", "triplet_launcher_test", "triplet_claim_schema", "triplet_combined_record_schema"],
+          "required": ["capability_matrix", "capability_matrix_schema", "envelope_schema", "validator", "test", "triplet_launcher", "triplet_launcher_test", "triplet_claim_schema", "triplet_combined_record_schema", "triplet_isolation_backend", "triplet_isolation_backend_test", "triplet_isolation_plan_schema", "triplet_isolation_acceptance_schema", "triplet_isolation_readiness_schema"],
           "properties": {
             "capability_matrix": {"$ref": "#/definitions/artifactRef"},
             "capability_matrix_schema": {"$ref": "#/definitions/artifactRef"},
@@ -82,6 +82,11 @@
             "triplet_launcher_test": {"$ref": "#/definitions/artifactRef"},
             "triplet_claim_schema": {"$ref": "#/definitions/artifactRef"},
             "triplet_combined_record_schema": {"$ref": "#/definitions/artifactRef"},
+            "triplet_isolation_backend": {"$ref": "#/definitions/artifactRef"},
+            "triplet_isolation_backend_test": {"$ref": "#/definitions/artifactRef"},
+            "triplet_isolation_plan_schema": {"$ref": "#/definitions/artifactRef"},
+            "triplet_isolation_acceptance_schema": {"$ref": "#/definitions/artifactRef"},
+            "triplet_isolation_readiness_schema": {"$ref": "#/definitions/artifactRef"},
             "validator": {"$ref": "#/definitions/artifactRef"},
             "test": {"$ref": "#/definitions/artifactRef"}
           }
