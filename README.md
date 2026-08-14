@@ -283,6 +283,28 @@ deadline. The result is reported as a bounded prefix, and the next pass must
 precompute canonical identities and log an explicit terminal reason. See
 [`txgraffiti-cc-phase3-result.md`](results/expansion/live-search-2026-08-14/txgraffiti-cc-phase3-result.md).
 
+That completion pass is now frozen and running as phase four. It enumerates
+the 5,320 construction states without reading the objective, canonicalizes
+them once with pinned nauty, subtracts the phase-three identities, and assigns
+the remaining denominator to 24 disjoint workers. Each worker retains the
+four-second exact-ILP cap inside a 54-second internal and 60-second external
+wall, and can report `DOMAIN_EXHAUSTED` only through an aggregate coverage
+proof. The [contract](results/expansion/live-search-2026-08-14/txgraffiti-cc-phase4.md)
+and [manifest](results/expansion/live-search-2026-08-14/txgraffiti-cc-phase4-manifest.json)
+are public before the rerun; no mathematical conclusion is inferred until its
+content-addressed artifacts pass the aggregate gate.
+
+The live loop has also rotated beyond previously mined statements. Two fresh
+development campaigns are frozen independently: Graffiti³ Conjecture 2 is
+being attacked from its exact star equality wall with rigorous radical upper
+bounds, while the current DeepMind `min_modulus` declaration is being searched
+through exact multiset-collision counts and an independent composition replay.
+Both use three separately attributable arms, mandatory sanity gates,
+incremental hash-chained output, and 60-second worker caps. Their
+[Graffiti³ contract](results/expansion/live-search-2026-08-14/graffiti3-conjecture2-contract.md)
+and [minimum-modulus contract](results/expansion/live-search-2026-08-14/min-modulus-contract.md)
+are prospective development records, not results or release claims.
+
 No row in those rounds is a release candidate. The exact contracts, ledgers,
 corrections, stop reasons, and reports are under
 [`results/expansion/`](results/expansion/); the current portfolio and its
