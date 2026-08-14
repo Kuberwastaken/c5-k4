@@ -51,6 +51,7 @@ jobs:
           set -euo pipefail
           python -m pip install --disable-pip-version-check \
             attrs==24.2.0 \
+            cryptography==44.0.1 \
             jsonschema==3.2.0 \
             pyrsistent==0.20.0 \
             PyYAML==6.0.2 \

@@ -29,6 +29,9 @@ REQUIRED_PATHS = {
     "schemas/benchmark-runner-private-input-assembly-v1.5.schema.json",
 }
 REQUIRED_COMMANDS = {
+    "cryptography==44.0.1",
+    "jsonschema==3.2.0",
+    "PyYAML==6.0.2",
     "python scripts/test_benchmark_v15_infrastructure_validation_workflow.py",
     "python scripts/verify_benchmark_v15_immutable_infrastructure.py",
     "python scripts/test_verify_benchmark_v15_immutable_infrastructure.py",
