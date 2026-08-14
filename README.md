@@ -131,6 +131,18 @@ sequence. Two independent encodings reproduce length 14 under 24 seconds. It
 is another bounded equality, not evidence for the universal statement; the
 next brute-force length is outside the frozen contract.
 
+A later current-main comparator tested DeepMind's open OEIS A105720
+prime-window square declaration without promoting interval scanning to
+wall-navigation evidence. Its content-locked gate reconstructed 500,040
+primes, then 72 isolated workers exhausted 216,000 frozen indices. The only
+square recovered was the published control `n=4072`; there were zero extra
+squares or certificates. The complete 20,000-index catalogue prefix, the
+100,000-index losslessly residue-screened interval, and all 96,000 selected
+generic points terminated `DOMAIN_EXHAUSTED`. This is a finite DEVELOPMENT
+bounded zero and search-arm calibration, not support for the structural
+transfer thesis or for the universal conjecture. See the
+[A105720 result](results/expansion/live-search-2026-08-14/oeis-a105720-development/result.md).
+
 A subsequent live-arm pass over the newly merged OEIS cohort found one exact
 lower-endpoint failure: the formalized A109074 identity says `1 = 3` at
 `n=1`. Source reconciliation shows that this is an erratum rather than a new
