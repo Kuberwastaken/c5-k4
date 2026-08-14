@@ -64,6 +64,30 @@ class ProductionTripletAdapterTests(unittest.TestCase):
     def reseal(self, value: dict) -> None:
         value["attestation_sha256"] = adapter.digest_object(value, "attestation_sha256")
 
+    def kernel_preflight(self) -> tuple[bool, str]:
+        readiness = adapter.isolation.readiness()
+        probes = readiness["kernel_probes"]
+        supported = (
+            all(readiness["required_tools"].values())
+            and probes["user_mount_network_pid_namespaces"]
+            and probes["private_tmpfs_mount"]
+        )
+        return supported, json.dumps(
+            {"required_tools": readiness["required_tools"], "kernel_probes": probes},
+            sort_keys=True,
+        )
+
+    def fresh_trees(self, name: str) -> list[adapter.SealedTreePlan]:
+        private = self.fixture.root / name
+        private.mkdir(mode=0o700)
+        _, _, trees = adapter.build_sealed_tree_plans(
+            self.fixture.envelope_path,
+            self.fixture.matrix_path,
+            private,
+            cpus=sorted(os.sched_getaffinity(0))[:2],
+        )
+        return trees
+
     def test_maps_complete_schedule_to_exact_capabilities_and_equal_limits(self) -> None:
         self.assertEqual(len(self.trees), 24)
         self.assertEqual(len({tree.tree_id for tree in self.trees}), 24)
@@ -135,18 +159,48 @@ class ProductionTripletAdapterTests(unittest.TestCase):
         with self.assertRaisesRegex(adapter.AdapterError, "did not pass"):
             adapter.certify_complete_triplet(self.trees, rows, NONCE)
 
+    def test_injected_unsupported_host_fails_closed_and_cannot_certify(self) -> None:
+        failed = adapter.LinuxProductionAcceptanceExecutor(lambda _: {
+            "status": "PRE_P1_TARGET_FREE_KERNEL_ACCEPTANCE_NOT_OPERATIONAL",
+            "kernel_acceptance_passed": False,
+            "activation_permitted": False,
+            "target_specific_fields_present": False,
+            "checks": {},
+            "remaining_blocks": ["HOST_NAMESPACE_POLICY_DENIED"],
+        }).attest(self.trees[0], NONCE)
+        self.assertFalse(failed["kernel_acceptance_passed"])
+        self.assertFalse(failed["activation_permitted"])
+        rows = self.attestations()
+        rows[0] = failed
+        with self.assertRaisesRegex(adapter.AdapterError, "did not pass kernel acceptance"):
+            adapter.certify_complete_triplet(self.trees, rows, NONCE)
+
     def test_real_non_target_fixture_is_bounded_and_still_not_activated(self) -> None:
         row = adapter.LinuxProductionAcceptanceExecutor().attest(self.trees[0], NONCE)
-        self.assertTrue(row["kernel_acceptance_passed"])
         self.assertFalse(row["activation_permitted"])
         self.assertEqual(row["capture"]["wall_cap_seconds"], 60)
         self.assertLessEqual(row["capture"]["stdout"]["byte_count"], adapter.MAX_CAPTURE_BYTES)
         self.assertLessEqual(row["capture"]["stderr"]["byte_count"], adapter.MAX_CAPTURE_BYTES)
         self.assertFalse(row["capture"]["semantic_parsing_performed"])
+        supported, reason = self.kernel_preflight()
+        if not supported:
+            self.assertFalse(row["kernel_acceptance_passed"])
+            self.skipTest("host correctly fails closed: " + reason)
+        self.assertTrue(row["kernel_acceptance_passed"])
 
     def test_real_complete_24_tree_acceptance_still_cannot_launch(self) -> None:
+        supported, reason = self.kernel_preflight()
+        probe = adapter.LinuxProductionAcceptanceExecutor().attest(self.trees[0], NONCE)
+        self.assertFalse(probe["activation_permitted"])
+        if not supported:
+            self.assertFalse(probe["kernel_acceptance_passed"])
+            self.skipTest("host correctly fails closed: " + reason)
+        # The supported-host probe must itself pass.  A fresh root avoids
+        # treating a repeated fixture directory as a host capability result.
+        self.assertTrue(probe["kernel_acceptance_passed"])
+        trees = self.fresh_trees("production-isolation-full-24")
         rows, certificate = adapter.attest_all(
-            self.trees, adapter.LinuxProductionAcceptanceExecutor(), NONCE
+            trees, adapter.LinuxProductionAcceptanceExecutor(), NONCE
         )
         self.assertEqual(len(rows), 24)
         self.assertTrue(all(row["kernel_acceptance_passed"] for row in rows))
@@ -159,8 +213,13 @@ class ProductionTripletAdapterTests(unittest.TestCase):
         old.write_bytes(b"attacker-owned-sentinel")
         self.addCleanup(old.unlink, missing_ok=True)
         row = adapter.LinuxProductionAcceptanceExecutor().attest(self.trees[0], NONCE)
-        self.assertTrue(row["kernel_acceptance_passed"])
+        self.assertFalse(row["activation_permitted"])
         self.assertEqual(old.read_bytes(), b"attacker-owned-sentinel")
+        supported, reason = self.kernel_preflight()
+        if not supported:
+            self.assertFalse(row["kernel_acceptance_passed"])
+            self.skipTest("host correctly fails closed: " + reason)
+        self.assertTrue(row["kernel_acceptance_passed"])
 
     def test_public_adapter_entrypoint_is_inert(self) -> None:
         self.assertEqual(adapter.main(), 2)
