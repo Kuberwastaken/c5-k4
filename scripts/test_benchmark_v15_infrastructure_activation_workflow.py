@@ -4,8 +4,13 @@
 from __future__ import annotations
 
 import copy
+import hashlib
+import json
 from pathlib import Path
 import re
+import subprocess
+import sys
+import tempfile
 import unittest
 
 import yaml
@@ -13,6 +18,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 WORKFLOW = ROOT / ".github/workflows/method-v15-infrastructure-activation.yml"
+WORKFLOW_SHA256 = "b0f1656e6f2dbcb3884f0000cce171bc77afd775df531128b157a3f42cff4ea1"
 PINS = [
     ("actions/checkout", "d23441a48e516b6c34aea4fa41551a30e30af803"),
     ("aws-actions/configure-aws-credentials", "61815dcd50bd041e203e49132bacad1fd04d2708"),
@@ -39,6 +45,7 @@ REQUIRED = {
     "aws cloudformation describe-stacks",
     "aws cloudformation create-change-set",
     "aws cloudformation describe-change-set",
+    'python3 - "$RUNNER_TEMP/change-set.json" <<\'PY\'',
     "aws cloudformation execute-change-set",
     "steps.plan.outputs.create_permitted == 'true'",
     "--change-set-type CREATE --client-token",
@@ -135,9 +142,17 @@ def validate(value: dict, raw: str) -> None:
         "aws iam ", "aws kms ", "set -x", "::debug", "tojson(", "target_id",
         "cluster_id", "statement_text", "cat $runner_temp", "tee ",
         "change-set-type update", "stack-update-complete",
+        "value.get('clienttoken')", 'change-set.json" "$client_token"',
     )
     if any(token in raw.casefold() for token in forbidden):
         raise ActivationWorkflowError("destruction, target fields, or provider logging found")
+
+
+def change_set_inspection_script(raw: str) -> str:
+    match = re.search(r'python3 - "\$RUNNER_TEMP/change-set\.json" <<\'PY\'\n(.*?)\n          PY', raw, re.DOTALL)
+    if match is None:
+        raise ActivationWorkflowError("change-set inspection script is absent")
+    return "\n".join(line.removeprefix("          ") for line in match.group(1).splitlines()) + "\n"
 
 
 class InfrastructureActivationWorkflowTests(unittest.TestCase):
@@ -147,6 +162,7 @@ class InfrastructureActivationWorkflowTests(unittest.TestCase):
 
     def test_committed_workflow_is_manual_oidc_and_fail_closed(self) -> None:
         validate(copy.deepcopy(self.value), self.raw)
+        self.assertEqual(hashlib.sha256(self.raw.encode()).hexdigest(), WORKFLOW_SHA256)
 
     def test_any_automatic_trigger_or_secret_fails(self) -> None:
         for mutation in ("push", "schedule", "secret"):
@@ -215,6 +231,19 @@ class InfrastructureActivationWorkflowTests(unittest.TestCase):
                     break
             with self.subTest(required=required), self.assertRaises(ActivationWorkflowError):
                 validate(value, self.raw)
+
+    def test_documented_describe_change_set_shape_never_uses_synthetic_client_token(self) -> None:
+        script = change_set_inspection_script(self.raw)
+        self.assertNotIn("ClientToken", script)
+        changes = [{"Type": "Resource", "ResourceChange": {"Action": "Add", "LogicalResourceId": logical}} for logical in (
+            "CustodyBucket", "CustodyBucketPolicy", "CustodyKey", "CustodyWriterPolicy", "CustodyWriterRole",
+        )]
+        documented = {"Status": "CREATE_COMPLETE", "ExecutionStatus": "AVAILABLE", "ChangeSetType": "CREATE", "Capabilities": ["CAPABILITY_IAM"], "Changes": changes}
+        for payload in (documented, {**documented, "ClientToken": "synthetic-untrusted-echo"}):
+            with self.subTest(synthetic_echo="ClientToken" in payload), tempfile.TemporaryDirectory() as directory:
+                path = Path(directory) / "describe-change-set.json"; path.write_text(json.dumps(payload))
+                result = subprocess.run([sys.executable, "-", str(path)], input=script, text=True, capture_output=True, check=False)
+                self.assertEqual(result.returncode, 0, result.stderr)
 
     def test_delete_broad_aws_target_or_logging_command_fails(self) -> None:
         for command in ("aws cloudformation delete-stack", "aws s3 ls", "aws ec2 describe-instances", "set -x", "echo target_id", "cat $RUNNER_TEMP/change-set.json"):

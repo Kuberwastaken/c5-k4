@@ -1,0 +1,96 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-aws-github-bootstrap-acceptance-v1.5.schema.json",
+  "title": "Method v1.5 raw-transcript AWS/GitHub bootstrap prerequisite acceptance",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "status", "protocol_version", "target_specific", "scope", "frozen_bindings", "a0_identity", "p0_publication_replay", "transcript", "authentication"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-aws-github-bootstrap-acceptance-2.0"},
+    "status": {"const": "AUTHENTICATED_LIVE_BOOTSTRAP_PREREQUISITE_SATISFIED"},
+    "protocol_version": {"const": "1.5"},
+    "target_specific": {"const": false},
+    "scope": {"const": {"raw_server_responses_only": true, "signed_summaries_permitted": false, "operator_assertion_is_evidence": false, "external_mutation_authorized_by_artifact": false, "long_lived_credentials_present": false, "bootstrap_prerequisite_satisfied": true, "ami_acceptance_separate_and_required": true, "controlled_host_apply_permitted_by_this_artifact_alone": false}},
+    "frozen_bindings": {
+      "type": "object", "additionalProperties": false,
+      "required": ["bootstrap_contract_commit", "bootstrap_contract_file_sha256", "bootstrap_contract_canonical_sha256", "controlled_host_preflight_commit", "controlled_host_plan_file_sha256", "immutable_store_template_sha256", "controlled_host_template_sha256", "acceptance_schema_sha256", "acceptance_verifier_sha256", "infrastructure_activation_workflow_sha256", "p0_verifier_sha256", "p0_schema_sha256"],
+      "properties": {
+        "bootstrap_contract_commit": {"const": "b8eacd7fdbfecafa7f215a4f19fba950fb3d4e81"},
+        "bootstrap_contract_file_sha256": {"const": "aa7dae771b48c131b2b98db0a773daeadedfdf8441e89d2a57b74d590983de38"},
+        "bootstrap_contract_canonical_sha256": {"const": "af54cd80ba257cad9d990238e513284276c8b67ca44aefb5fe18116c3fef1352"},
+        "controlled_host_preflight_commit": {"const": "4b6f23c79a4bee891cc74de98faf412d95f12e08"},
+        "controlled_host_plan_file_sha256": {"const": "966f48ad4228f98c384a14a2096236fac717ca28d87d9a1c8c91cce75de4df7d"},
+        "immutable_store_template_sha256": {"const": "08486d446a67f627ce88a859c6c70518d1ef5ccb40aca7ccbb8bf03715614d89"},
+        "controlled_host_template_sha256": {"const": "0af41e32554089c8fc48b30d84b442b6f6b3cca576b38014d1542dcd62e950f1"},
+        "acceptance_schema_sha256": {"$ref": "#/definitions/sha256"},
+        "acceptance_verifier_sha256": {"$ref": "#/definitions/sha256"},
+        "infrastructure_activation_workflow_sha256": {"const": "b0f1656e6f2dbcb3884f0000cce171bc77afd775df531128b157a3f42cff4ea1"},
+        "p0_verifier_sha256": {"$ref": "#/definitions/sha256"},
+        "p0_schema_sha256": {
+          "type": "object", "additionalProperties": false,
+          "required": ["schemas/benchmark-p0a-v1.5.schema.json", "schemas/benchmark-p0t-v1.5.schema.json", "schemas/benchmark-a0-v1.5.schema.json", "schemas/benchmark-p0-publication-receipt-v1.5.schema.json"],
+          "properties": {
+            "schemas/benchmark-p0a-v1.5.schema.json": {"$ref": "#/definitions/sha256"},
+            "schemas/benchmark-p0t-v1.5.schema.json": {"$ref": "#/definitions/sha256"},
+            "schemas/benchmark-a0-v1.5.schema.json": {"$ref": "#/definitions/sha256"},
+            "schemas/benchmark-p0-publication-receipt-v1.5.schema.json": {"$ref": "#/definitions/sha256"}
+          }
+        }
+      }
+    },
+    "a0_identity": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema", "commit", "root_tree", "artifact", "authority_roster_sha256", "ami_authority_binding_policy_template_sha256", "external_harness_verification_key_sha256", "nitrotpm_key_generation_attestation_sha256", "nitrotpm_key_policy", "a0_authorized_at_utc", "a0_publication_observed_at_utc", "a0_publication_run_id", "github_server_replay", "status", "activation_authority"],
+      "properties": {
+        "schema": {"const": "c5k4-method-v1.5-validated-a0-identity-1.0"}, "commit": {"$ref": "#/definitions/oid"}, "root_tree": {"$ref": "#/definitions/oid"},
+        "artifact": {"type": "object", "additionalProperties": false, "required": ["path", "sha256", "canonical_sha256"], "properties": {"path": {"const": "results/benchmark/v1.5-p0-a0/A0.json"}, "sha256": {"$ref": "#/definitions/sha256"}, "canonical_sha256": {"$ref": "#/definitions/sha256"}}},
+        "authority_roster_sha256": {"$ref": "#/definitions/sha256"}, "ami_authority_binding_policy_template_sha256": {"$ref": "#/definitions/sha256"},
+        "external_harness_verification_key_sha256": {"$ref": "#/definitions/sha256"},
+        "nitrotpm_key_generation_attestation_sha256": {"$ref": "#/definitions/sha256"},
+        "nitrotpm_key_policy": {"const": "NITROTPM_PCR_SEALED_ON_CONTROLLED_HOST_ONLY"},
+        "a0_authorized_at_utc": {"$ref": "#/definitions/time"}, "a0_publication_observed_at_utc": {"$ref": "#/definitions/time"},
+        "a0_publication_run_id": {"type": "integer", "minimum": 1},
+        "github_server_replay": {
+          "type": "object", "additionalProperties": false, "required": ["api_version", "p0a", "p0t", "a0"],
+          "properties": {"api_version": {"const": "2022-11-28"}, "p0a": {"$ref": "#/definitions/replay_projection"}, "p0t": {"$ref": "#/definitions/replay_projection"}, "a0": {"$ref": "#/definitions/replay_projection"}}
+        },
+        "status": {"const": "EXTERNALLY_AUTHORIZED_A0"}, "activation_authority": {"const": true}
+      }
+    },
+    "p0_publication_replay": {
+      "type": "object", "additionalProperties": false, "required": ["a0_publication_receipt", "raw_api_responses"],
+      "properties": {
+        "a0_publication_receipt": {"type": "object"},
+        "raw_api_responses": {"type": "array", "minItems": 7, "maxItems": 7, "items": {"type": "object", "additionalProperties": false, "required": ["url", "body_base64"], "properties": {"url": {"type": "string", "pattern": "^https://api\\.github\\.com/"}, "body_base64": {"$ref": "#/definitions/b64"}}}}
+      }
+    },
+    "transcript": {"type": "array", "minItems": 32, "maxItems": 32, "items": {"$ref": "#/definitions/exchange"}},
+    "authentication": {
+      "type": "object", "additionalProperties": false, "required": ["payload_sha256", "signatures"],
+      "properties": {"payload_sha256": {"$ref": "#/definitions/sha256"}, "signatures": {"type": "array", "minItems": 2, "items": {"$ref": "#/definitions/signature"}}}
+    }
+  },
+  "definitions": {
+    "oid": {"type": "string", "pattern": "^[0-9a-f]{40}$"}, "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "time": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"},
+    "b64": {"type": "string", "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$"},
+    "replay_projection": {
+      "type": "object", "additionalProperties": false,
+      "required": ["run_id", "head_sha", "created_at_utc", "run_started_at_utc", "updated_at_utc", "captured_run_object_sha256", "captured_listing_sha256", "captured_ref_sha256", "api_projection_sha256"],
+      "properties": {"run_id": {"type": "integer", "minimum": 1}, "head_sha": {"$ref": "#/definitions/oid"}, "created_at_utc": {"$ref": "#/definitions/time"}, "run_started_at_utc": {"$ref": "#/definitions/time"}, "updated_at_utc": {"$ref": "#/definitions/time"}, "captured_run_object_sha256": {"$ref": "#/definitions/sha256"}, "captured_listing_sha256": {"$ref": "#/definitions/sha256"}, "captured_ref_sha256": {"$ref": "#/definitions/sha256"}, "api_projection_sha256": {"$ref": "#/definitions/sha256"}}
+    },
+    "exchange": {
+      "type": "object", "additionalProperties": false, "required": ["id", "request", "response"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z][a-z0-9_]{2,95}$"},
+        "request": {"type": "object", "additionalProperties": false, "required": ["provider", "service", "operation", "method", "url", "headers_base64", "body_base64"], "properties": {"provider": {"enum": ["GITHUB", "AWS"]}, "service": {"type": "string"}, "operation": {"type": "string"}, "method": {"enum": ["GET", "POST"]}, "url": {"type": "string", "pattern": "^https://"}, "headers_base64": {"$ref": "#/definitions/b64"}, "body_base64": {"$ref": "#/definitions/b64"}}},
+        "response": {"type": "object", "additionalProperties": false, "required": ["status", "headers_base64", "body_base64"], "properties": {"status": {"const": 200}, "headers_base64": {"$ref": "#/definitions/b64"}, "body_base64": {"$ref": "#/definitions/b64"}}}
+      }
+    },
+    "signature": {
+      "type": "object", "additionalProperties": false,
+      "required": ["authority_id", "verification_key_sha256", "algorithm", "signed_payload_sha256", "signature_base64", "signed_at_utc"],
+      "properties": {"authority_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:@+-]{0,127}$"}, "verification_key_sha256": {"$ref": "#/definitions/sha256"}, "algorithm": {"const": "Ed25519"}, "signed_payload_sha256": {"$ref": "#/definitions/sha256"}, "signature_base64": {"type": "string", "pattern": "^[A-Za-z0-9+/]{86}==$"}, "signed_at_utc": {"$ref": "#/definitions/time"}}
+    }
+  }
+}

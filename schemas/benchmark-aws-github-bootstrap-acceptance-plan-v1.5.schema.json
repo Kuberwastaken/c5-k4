@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-aws-github-bootstrap-acceptance-plan-v1.5.schema.json",
+  "title": "Method v1.5 nonauthoritative raw bootstrap transcript capture plan",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema", "status", "protocol_version", "target_specific", "scope", "publication", "capture", "custody_reconciliation", "gate", "plan_sha256"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-aws-github-bootstrap-acceptance-plan-2.0"},
+    "status": {"const": "NONAUTHORITATIVE_PLAN_AWAITING_RAW_LIVE_TRANSCRIPT_AND_A0_ROOT"},
+    "protocol_version": {"const": "1.5"}, "target_specific": {"const": false},
+    "scope": {"const": {"capture_only": true, "external_mutation_authorized": false, "credentials_or_secrets_recorded": false, "live_acceptance_claimed": false, "signed_normalized_summaries_permitted": false}},
+    "publication": {"const": {"artifact_path": "results/benchmark/v1.5-bootstrap-acceptance/acceptance.json", "must_be_one_path_sole_parent_child_of_authoritative_a0": true, "full_p0a_p0t_a0_validator_required": true, "explicit_a0_publication_receipt_and_raw_replay_inputs_required": true, "p0_verifier_and_schemas_pinned_to_p0a_and_a0_parent_before_import": true, "infrastructure_activation_workflow_bytes_bound_across_candidate_and_a0_parent": true, "offline_verification_performs_no_network": true, "caller_selected_p0a_or_a0_permitted": false, "schema_and_verifier_must_preexist_unchanged_at_a0": true}},
+    "capture": {"const": {"github_raw_exchanges": 8, "aws_raw_exchanges": 24, "raw_request_headers_without_credentials": true, "github_api_version_and_stable_headers_pinned": true, "raw_request_body": true, "raw_response_headers": true, "raw_response_body": true, "per_response_server_date_and_request_id": true, "exact_service_xml_namespace_required_for_every_descendant": true, "exact_service_mime_types": true, "pagination_must_be_closed": true, "maximum_observation_window_seconds": 300, "exact_api_allowlist": true, "all_live_state_decoded_only_from_raw_responses": true}},
+    "custody_reconciliation": {"const": {"immutable_store_template_modified": false, "strategy": "SIGNED_PRE_EXECUTION_CHANGE_SET_AND_POST_EXECUTION_STACK_RECONCILIATION", "pre_execution_describe_change_set_create_complete_available_required": true, "describe_change_set_client_token_echo_is_undocumented_and_forbidden": true, "pre_execution_exact_five_add_resource_change_structure_required": true, "pre_execution_description_parameters_sha256_must_equal_recomputed_frozen_deployment_parameters": true, "post_execution_exact_stack_arn_and_change_set_id_linkage_required": true, "pre_execution_capture_must_precede_post_execution_capture": true, "harness_external_id_stack_parameter_must_be_noecho_masked": true, "external_id_formula": "SHA256(candidate_commit:template_sha256:stack_name:harness_principal_arn)", "describe_stack_resources_required": true, "generated_custody_role_must_match_get_role_trust_boundary_and_policy": true, "harness_single_hop_must_match_exact_custody_arn_and_external_id": true}},
+    "gate": {"const": {"current_state": "BLOCKED", "bootstrap_prerequisite_satisfied": false, "controlled_host_apply_permitted": false, "separate_authenticated_ami_acceptance_required": true, "role_assumption_alone_is_acceptance": false, "unsigned_fixture_or_summary_is_acceptance": false}},
+    "plan_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

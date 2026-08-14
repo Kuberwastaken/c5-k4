@@ -188,12 +188,12 @@ jobs:
           aws cloudformation describe-change-set --region "$AWS_REGION" \
             --stack-name "$STACK_NAME" --change-set-name "$change_set" \
             >"$RUNNER_TEMP/change-set.json" 2>"$RUNNER_TEMP/change-set.stderr"
-          python3 - "$RUNNER_TEMP/change-set.json" "$client_token" <<'PY'
+          python3 - "$RUNNER_TEMP/change-set.json" <<'PY'
           import json, sys
           value = json.load(open(sys.argv[1], encoding='utf-8'))
           if value.get('Status') != 'CREATE_COMPLETE' or value.get('ExecutionStatus') != 'AVAILABLE':
               raise SystemExit(2)
-          if value.get('ChangeSetType') != 'CREATE' or value.get('ClientToken') != sys.argv[2]:
+          if value.get('ChangeSetType') != 'CREATE':
               raise SystemExit(2)
           if set(value.get('Capabilities', [])) != {'CAPABILITY_IAM'}:
               raise SystemExit(2)
