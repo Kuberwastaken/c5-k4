@@ -30,7 +30,9 @@
         "syntax_pool_builder",
         "classifier_closure_contract",
         "classifier_closure_validator",
-        "classifier_closure_readiness_schema"
+        "classifier_closure_readiness_schema",
+        "classifier_runtime_binding_schema",
+        "classifier_runtime_verifier"
       ],
       "properties": {
         "five_strata_classifier": {"$ref": "#/definitions/component"},
@@ -38,6 +40,8 @@
         "classifier_closure_contract": {"$ref": "#/definitions/component"},
         "classifier_closure_validator": {"$ref": "#/definitions/component"},
         "classifier_closure_readiness_schema": {"$ref": "#/definitions/component"}
+        ,"classifier_runtime_binding_schema": {"$ref": "#/definitions/component"},
+        "classifier_runtime_verifier": {"$ref": "#/definitions/component"}
       }
     }
   },

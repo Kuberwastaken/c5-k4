@@ -26,6 +26,8 @@ COMPONENT_PATHS = {
     "classifier_closure_contract": "results/benchmark/v1.5-protocol/five-strata-classifier-contract.json",
     "classifier_closure_validator": "scripts/validate_benchmark_v15_classifier_closure.py",
     "classifier_closure_readiness_schema": "schemas/benchmark-five-strata-classifier-readiness-v1.5.schema.json",
+    "classifier_runtime_binding_schema": "schemas/benchmark-classifier-runtime-binding-v1.5.schema.json",
+    "classifier_runtime_verifier": "scripts/verify_benchmark_v15_classifier_runtime.py",
 }
 
 

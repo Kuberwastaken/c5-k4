@@ -33,6 +33,8 @@ EXPECTED_COMPONENTS = {
     "classifier_closure_contract": ("NATIVE_V1_5", "classifier_closure_contract"),
     "classifier_closure_validator": ("NATIVE_V1_5", "classifier_closure_validator"),
     "classifier_closure_readiness_schema": ("NATIVE_V1_5", "classifier_closure_readiness_schema"),
+    "classifier_runtime_binding_schema": ("NATIVE_V1_5", "classifier_runtime_binding_schema"),
+    "classifier_runtime_verifier": ("NATIVE_V1_5", "classifier_runtime_verifier"),
 }
 
 
@@ -176,6 +178,11 @@ def verify(binding_path: Path) -> dict[str, Any]:
         actual_validator = actual_validator.with_suffix(".py")
     if actual_validator != component_paths["classifier_closure_validator"] or sha256(actual_validator.read_bytes()) != binding["components"]["classifier_closure_validator"]["sha256"]:
         raise RuntimeBindingError("executing classifier closure validator bytes are not P1-authenticated")
+    actual_verifier = Path(__file__).resolve()
+    if actual_verifier != component_paths["classifier_runtime_verifier"] or sha256(actual_verifier.read_bytes()) != binding["components"]["classifier_runtime_verifier"]["sha256"]:
+        raise RuntimeBindingError("executing classifier runtime verifier bytes are not P1-authenticated")
+    if BINDING_SCHEMA.resolve() != component_paths["classifier_runtime_binding_schema"] or sha256(BINDING_SCHEMA.read_bytes()) != binding["components"]["classifier_runtime_binding_schema"]["sha256"]:
+        raise RuntimeBindingError("classifier runtime binding schema bytes are not P1-authenticated")
 
     _, readiness_raw = load_ref(binding["classifier_readiness_receipt"], "classifier readiness receipt")
     readiness = strict_json(readiness_raw, "classifier readiness receipt")
