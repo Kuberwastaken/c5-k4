@@ -1,0 +1,82 @@
+{
+  "schema": "c5k4-txgraffiti-product-development-result-1.0",
+  "status": "BOUNDED_ZERO",
+  "campaign_commit": "b9bb628abc8458188f9995c2613d27465e53639c",
+  "github_actions_run": "https://github.com/Kuberwastaken/c5-k4/actions/runs/31790804083",
+  "target": "gamma_t(G square H) >= gamma(G direct H)",
+  "artifact_checksum_manifests_replayed": 3,
+  "ledger_chains_replayed": 3,
+  "ledger_rows_replayed": 807,
+  "terminal_bindings_replayed": 3,
+  "crossings": 0,
+  "certificates": 0,
+  "totals": {
+    "proposed": 803,
+    "durably_evaluated": 801
+  },
+  "arms": {
+    "CATALOGUE": {
+      "proposed": 706,
+      "durably_evaluated": 705,
+      "ledger_rows": 707,
+      "terminal_reason": "DEADLINE_PREFIX",
+      "domain_exhausted": false,
+      "crossings": 0
+    },
+    "GENERIC": {
+      "proposed": 25,
+      "durably_evaluated": 24,
+      "ledger_rows": 26,
+      "terminal_reason": "DEADLINE_PREFIX",
+      "domain_exhausted": false,
+      "crossings": 0
+    },
+    "WALL_NAVIGATION": {
+      "proposed": 72,
+      "durably_evaluated": 72,
+      "ledger_rows": 74,
+      "terminal_reason": "DOMAIN_EXHAUSTED",
+      "domain_exhausted": true,
+      "crossings": 0
+    }
+  },
+  "independent_exact_samples": [
+    {
+      "arm": "CATALOGUE",
+      "name": "atlas:0:0",
+      "product_order": 4,
+      "gamma_t_cartesian": 2,
+      "gamma_direct": 2
+    },
+    {
+      "arm": "CATALOGUE",
+      "name": "atlas:15:22",
+      "product_order": 25,
+      "gamma_t_cartesian": 6,
+      "gamma_direct": 6
+    },
+    {
+      "arm": "GENERIC",
+      "name": "generic:12:4:4:0.0:0.0",
+      "product_order": 16,
+      "gamma_t_cartesian": 6,
+      "gamma_direct": 4
+    },
+    {
+      "arm": "WALL_NAVIGATION",
+      "name": "tight:K2,K3",
+      "product_order": 6,
+      "gamma_t_cartesian": 2,
+      "gamma_direct": 2
+    },
+    {
+      "arm": "WALL_NAVIGATION",
+      "name": "tight:K2,K3:both:parity-path-2:parity-path-2",
+      "product_order": 20,
+      "gamma_t_cartesian": 6,
+      "gamma_direct": 4
+    }
+  ],
+  "method_implication": "Replace or descend the greedy Cartesian total-dominating upper bound before extending the same deadline prefixes; a nonoptimal k can conceal a crossing.",
+  "publication_action": false
+}
