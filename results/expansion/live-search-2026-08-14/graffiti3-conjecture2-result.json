@@ -1,0 +1,32 @@
+{
+  "schema": "c5k4-graffiti3-conjecture2-result-1.0",
+  "status": "VERIFIED_COUNTEREXAMPLE_FORMAL_CERTIFICATE_PENDING",
+  "source": "https://doi.org/10.21203/rs.3.rs-8493329/v1",
+  "corrected_campaign_commit": "79e9e0dc6790489f2e168a46661a0c971fe1191c",
+  "corrected_run": "https://github.com/Kuberwastaken/c5-k4/actions/runs/31789142496",
+  "rejected_first_run": "https://github.com/Kuberwastaken/c5-k4/actions/runs/31788835531",
+  "rejected_first_run_reason": "integer-keyed d2 objects made internal ledger hashes non-replayable after JSON parsing",
+  "witness": {
+    "family": "double star",
+    "parameters": [11, 12],
+    "vertices": 25,
+    "edges": 24,
+    "independence_number": 23,
+    "d2_centers": 25,
+    "d2_left_leaves": 13,
+    "d2_right_leaves": 14,
+    "rga2_expression": "1 + 55*sqrt(13)/19 + 40*sqrt(14)/13",
+    "rga2_decimal": "22.9499140724896671968578633311821136473856360494379899646916",
+    "rational_upper_bound": "566921/24700",
+    "certified_gap_below_23": "1179/24700",
+    "canonical_sha256": "fb3eae0090ebf8e06828c3ff4e87c7eb3738b0d4f78cf3e43d8a20defda30e90"
+  },
+  "corrected_arm_results": {
+    "CATALOGUE": {"proposed": 99, "canonical_unique": 99, "evaluated": 99, "terminal_reason": "CANDIDATE_FOUND"},
+    "GENERIC": {"proposed": 6000, "canonical_unique": 5818, "evaluated": 5818, "terminal_reason": "DOMAIN_EXHAUSTED"},
+    "WALL_NAVIGATION": {"proposed": 443, "canonical_unique": 85, "evaluated": 85, "terminal_reason": "CANDIDATE_FOUND"}
+  },
+  "public_status_audit_date": "2026-08-14",
+  "public_prior_claim_found": false,
+  "release_pending": "warning-clean no-sorry Lean arithmetic certificate"
+}
