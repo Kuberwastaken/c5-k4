@@ -1,0 +1,14 @@
+{
+  "schema": "oeis-a231201-v22-frozen-files-v1",
+  "sha256": {
+    ".github/workflows/oeis-a231201-v22-development.yml": "c6075055b6bc0ec355b967540a35fea28acab15bc120be9b163617cd55ce8460",
+    "results/expansion/live-search-2026-08-14/oeis-a231201-v22-development/CONTRACT.md": "f25ca26a7031fa76a500cbb4b3c3d5ba2c62702feaae1e3eb63f511bf1593cc9",
+    "results/expansion/live-search-2026-08-14/oeis-a231201-v22-development/CORRECTION.md": "af5a954e71ee4eec3f37718aaf0137085d8461cbcd3adc4ce06654bed4625d88",
+    "results/expansion/live-search-2026-08-14/oeis-a231201-v22-development/manifest.json": "fe9341e7db1e10d5a25697e99ebe146e691d2bca2e2fcfd7e32185c3df5af30d",
+    "results/expansion/live-search-2026-08-14/oeis-a231201-v22-development/source-status-attestation.json": "40043eb6e5dead54c7dcd0fbc4184e4fd7fc27433038137e432edd41b5af26bb",
+    "results/expansion/live-search-2026-08-14/oeis-a231201-v22-development/verify_freeze.py": "bee72e04b7a81c96a340f9aabaf62a1b33286fffbb851d365bd23b6497525419",
+    "scripts/adversary_oeis_a231201_v22.py": "708a909666c37e3371091a9a2a28b9d94af40d0346edf7f75682773a743fcb8c",
+    "scripts/test_oeis_a231201_v22_adversary_deadline.py": "dd60788bc78e896a7889dfc126fd34082dde681e77415ed29176e52147f266c9",
+    "scripts/verify_oeis_a231201_v22_artifacts.py": "08f9c6e98158859de68253be5c29f36033ca45cf22c7e8db49431c8ed04356f8"
+  }
+}

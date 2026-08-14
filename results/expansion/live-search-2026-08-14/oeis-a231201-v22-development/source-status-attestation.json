@@ -1,0 +1,9 @@
+{
+  "schema": "oeis-a231201-v22-source-status-attestation-v1",
+  "classification": "CONTAMINATED_DEVELOPMENT",
+  "inherits_v21_source_status_attestation_sha256": "6436e9b3d9003438aaaab33c817c9616ec955dba4aaa3ab254a149e37d10a75e",
+  "source_or_status_change": false,
+  "operational_correction_only": true,
+  "failed_v21_run_id": 31811239530,
+  "counterexample_claimed": false
+}

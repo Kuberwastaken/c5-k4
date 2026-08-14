@@ -1,0 +1,26 @@
+{
+  "schema": "oeis-a231201-contaminated-development-freeze-v2.2",
+  "classification": "CONTAMINATED_DEVELOPMENT",
+  "supersedes_operational_version": "v2.1",
+  "failed_v21_run_id": 31811239530,
+  "failed_v21_freeze_commit": "8c1046821df46d141c1c83f32cb6209262df4eb2",
+  "correction": "reserve finalization time and update an insertion-order queue digest incrementally",
+  "python": "3.9.23",
+  "search_seconds": 48,
+  "internal_seconds": 54,
+  "finalization_reserve_seconds": 6,
+  "external_seconds": 60,
+  "external_kill_after_seconds": 6,
+  "queue_hash_scheme": "ascii-r-comma-m-newline-insertion-order-v1",
+  "deduplicates_states": false,
+  "arms": [
+    "COMPRESSED_SET_COVER_CP",
+    "DETERMINISTIC_GREEDY_REPAIR",
+    "SMALL_BASIS_CEGAR"
+  ],
+  "partition_cells": 6,
+  "construction_rounds": 3,
+  "synthetic_deadline_frontier_minimum": 199000,
+  "frozen_target_domain_evaluated_by_smoke_tests": false,
+  "resumable": false
+}

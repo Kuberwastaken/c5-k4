@@ -1,0 +1,372 @@
+name: OEIS A231201 v2.2 contaminated DEVELOPMENT freeze
+
+on:
+  workflow_dispatch:
+    inputs:
+      campaign_commit:
+        description: Exact 40-hex c5-k4 commit containing the frozen v2.2 lane
+        required: true
+        type: string
+
+permissions: {contents: read}
+env: {LC_ALL: C.UTF-8, PYTHONDONTWRITEBYTECODE: '1', PYTHONHASHSEED: '0', TZ: UTC}
+
+jobs:
+  validate-frozen-harness:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Reject movable execution ref
+        shell: bash
+        env: {CAMPAIGN_COMMIT: "${{ inputs.campaign_commit }}"}
+        run: |
+          set -euo pipefail
+          [[ "$CAMPAIGN_COMMIT" =~ ^[0-9a-f]{40}$ ]]
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with: {ref: "${{ inputs.campaign_commit }}", fetch-depth: 0, persist-credentials: false}
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with: {python-version: '3.9.23'}
+      - name: Compile, freeze-check, and run constructor-only tests
+        env: {CAMPAIGN_COMMIT: "${{ inputs.campaign_commit }}"}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$CAMPAIGN_COMMIT"
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+          python -m py_compile scripts/*oeis_a231201_v2*.py
+          python results/expansion/live-search-2026-08-14/oeis-a231201-development/verify_freeze.py
+          python results/expansion/live-search-2026-08-14/oeis-a231201-v22-development/verify_freeze.py
+          PYTHONPATH=scripts python -m unittest -v scripts/test_oeis_a231201_v21_constructor_paths.py
+          PYTHONPATH=scripts python -m unittest -v scripts/test_oeis_a231201_v22_adversary_deadline.py
+
+  prepare-database-gate:
+    needs: validate-frozen-harness
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with: {ref: "${{ inputs.campaign_commit }}", persist-credentials: false}
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with: {python-version: '3.9.23'}
+      - name: Acquire immutable inputs and run unchanged gate
+        env: {CAMPAIGN_COMMIT: "${{ inputs.campaign_commit }}"}
+        run: |
+          set -euo pipefail
+          input="$RUNNER_TEMP/a231201-v22-input"; gate="$RUNNER_TEMP/a231201-v22-gate"; mkdir -p "$input" "$gate"
+          curl --fail --location --retry 5 --retry-all-errors --connect-timeout 15 'https://raw.githubusercontent.com/google-deepmind/formal-conjectures/4010c1f1b811be0b0f95c9cf8bc084d72cea2a88/FormalConjectures/OEIS/231201.lean' -o "$input/231201.lean"
+          curl --fail --location --retry 5 --retry-all-errors --connect-timeout 15 'https://raw.githubusercontent.com/oeis/oeisdata/8872fa543438401edd424a57b67ad5e0737bebfb/seq/A231/A231201.seq' -o "$input/A231201.seq"
+          curl --fail --location --retry 5 --retry-all-errors --connect-timeout 15 'https://oeis.org/A231201/b231201.txt' -o "$input/b231201.txt"
+          curl --fail --location --retry 5 --retry-all-errors --connect-timeout 15 'https://raw.githubusercontent.com/txmy/ultra-mathematician/d52f81ad64dfc77e9a89dee8ae97db983ac6d5f7/runs/run-2026-07-26-002/tasks/solve-a231201-covering/cover-results.json' -o "$input/prior-covering.json"
+          timeout --signal=TERM --kill-after=6s 60s python scripts/prepare_oeis_a231201_v2_gate.py prepare "$input/231201.lean" "$input/A231201.seq" "$input/b231201.txt" results/expansion/live-search-2026-08-14/oeis-a231201-development/contamination-control-l327.json "$input/prior-covering.json" "$gate" --campaign-commit "$CAMPAIGN_COMMIT"
+          python scripts/prepare_oeis_a231201_v2_gate.py verify "$gate" --campaign-commit "$CAMPAIGN_COMMIT"
+          (cd "$gate" && find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS)
+      - name: Upload gate evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with: {name: "oeis-a231201-v22-gate-${{ github.run_id }}-${{ github.run_attempt }}", path: "${{ runner.temp }}/a231201-v22-gate/", if-no-files-found: error, retention-days: 90}
+
+  construct-r0:
+    needs: [validate-frozen-harness, prepare-database-gate]
+    if: always()
+    strategy: &fixed_matrix
+      fail-fast: false
+      matrix:
+        arm: [COMPRESSED_SET_COVER_CP, DETERMINISTIC_GREEDY_REPAIR, SMALL_BASIS_CEGAR]
+        cell: ['0_0', '0_1', '0_2', '1_0', '1_1', '1_2']
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps: &construct_r0_steps
+      - &initialize_evidence
+        name: Initialize stage evidence
+        shell: bash
+        run: |
+          mkdir -p "$RUNNER_TEMP/out"
+          python3 - <<'PY'
+          import json,os,pathlib
+          p=pathlib.Path(os.environ['RUNNER_TEMP'])/'out/stage-diagnostic-terminal.json'
+          with p.open('x') as f: json.dump({'schema':'oeis-a231201-v2-stage-diagnostic-v1','status':'INITIALIZED'},f,sort_keys=True,separators=(',',':')); f.write('\n'); f.flush(); os.fsync(f.fileno())
+          PY
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with: {ref: "${{ inputs.campaign_commit }}", persist-credentials: false}
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with: {python-version: '3.9.23'}
+      - run: python -m pip install --disable-pip-version-check 'ortools==9.15.6755'
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        continue-on-error: true
+        with: {name: "oeis-a231201-v22-gate-${{ github.run_id }}-${{ github.run_attempt }}", path: "${{ runner.temp }}/gate"}
+      - name: Construct round 0
+        if: always()
+        shell: bash
+        env: {ARM: "${{ matrix.arm }}", CELL: "${{ matrix.cell }}", CAMPAIGN_COMMIT: "${{ inputs.campaign_commit }}"}
+        run: |
+          set +e; set -uo pipefail
+          out="$RUNNER_TEMP/out"; mkdir -p "$out/work"
+          prereq_code=0; (cd "$RUNNER_TEMP/gate" && sha256sum --check SHA256SUMS) >"$out/prerequisite-check.txt" 2>&1 || prereq_code=92
+          timeout --signal=TERM --kill-after=6s 60s python scripts/construct_oeis_a231201_v21.py --prerequisite-check-exit-code "$prereq_code" --arm "$ARM" --cell "$CELL" --round 0 --campaign-commit "$CAMPAIGN_COMMIT" --gate "$RUNNER_TEMP/gate" --work "$out/work" --ledger "$out/construction-ledger.jsonl" --terminal "$out/construction-terminal.json" --assignment "$out/assignment-0.json"
+          stage_code=$?; artifact_code=1
+          if [[ -f "$out/construction-terminal.json" && -f "$out/construction-ledger.jsonl" ]]; then python scripts/verify_oeis_a231201_v22_artifacts.py construction "$out/construction-ledger.jsonl" "$out/construction-terminal.json" "$out/assignment-0.json" "$out/work" --gate "$RUNNER_TEMP/gate" --candidate "$out/candidate-pending.json" --campaign-commit "$CAMPAIGN_COMMIT" --arm "$ARM" --cell "$CELL" --round 0 >"$out/artifact-verification.txt" 2>&1; artifact_code=$?; fi
+          python scripts/record_oeis_a231201_v2_execution.py "$out/execution-status.json" --stage construction --campaign-commit "$CAMPAIGN_COMMIT" --arm "$ARM" --cell "$CELL" --round 0 --prerequisite-check-exit-code "$prereq_code" --stage-exit-code "$stage_code" --artifact-verifier-exit-code "$artifact_code"; result=$?
+          (cd "$out" && find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS)
+          exit "$result"
+      - &finalize_diagnostic
+        name: Finalize stage diagnostic and checksums
+        if: always()
+        shell: bash
+        env: {ARM: "${{ matrix.arm }}", CELL: "${{ matrix.cell }}", JOB: "${{ github.job }}"}
+        run: |
+          out="$RUNNER_TEMP/out"; mkdir -p "$out"
+          python3 - <<'PY'
+          import json,os,pathlib
+          root=pathlib.Path(os.environ['RUNNER_TEMP'])/'out'; final=any((root/name).is_file() for name in ('construction-terminal.json','adversary-terminal.json','final-terminal.json'))
+          value={'schema':'oeis-a231201-v2-stage-diagnostic-v1','status':'STAGE_TERMINAL_PRESENT' if final else 'STAGE_TERMINAL_UNAVAILABLE','job':os.environ['JOB'],'arm':os.environ['ARM'],'cell':os.environ['CELL']}
+          p=root/'stage-diagnostic-terminal.json'; q=root/'stage-diagnostic-terminal.json.tmp'
+          with q.open('w') as f: json.dump(value,f,sort_keys=True,separators=(',',':')); f.write('\n'); f.flush(); os.fsync(f.fileno())
+          os.replace(q,p)
+          PY
+          (cd "$out" && find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS)
+      - if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with: {name: "oeis-a231201-v22-c-r0-${{ matrix.arm }}-${{ matrix.cell }}-${{ github.run_id }}-${{ github.run_attempt }}", path: "${{ runner.temp }}/out/", if-no-files-found: error, retention-days: 90}
+
+  adversary-r0:
+    needs: construct-r0
+    if: always()
+    strategy: *fixed_matrix
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - *initialize_evidence
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with: {ref: "${{ inputs.campaign_commit }}", persist-credentials: false}
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with: {python-version: '3.9.23'}
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        continue-on-error: true
+        with: {name: "oeis-a231201-v22-c-r0-${{ matrix.arm }}-${{ matrix.cell }}-${{ github.run_id }}-${{ github.run_attempt }}", path: "${{ runner.temp }}/construction"}
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        continue-on-error: true
+        with: {name: "oeis-a231201-v22-gate-${{ github.run_id }}-${{ github.run_attempt }}", path: "${{ runner.temp }}/gate"}
+      - name: Exact adversary round 0
+        if: always()
+        shell: bash
+        env: {ARM: "${{ matrix.arm }}", CELL: "${{ matrix.cell }}", CAMPAIGN_COMMIT: "${{ inputs.campaign_commit }}"}
+        run: |
+          set +e; set -uo pipefail
+          out="$RUNNER_TEMP/out"; mkdir -p "$out"; prereq_code=0
+          (cd "$RUNNER_TEMP/construction" && sha256sum --check SHA256SUMS) >"$out/construction-check.txt" 2>&1 || prereq_code=92
+          (cd "$RUNNER_TEMP/gate" && sha256sum --check SHA256SUMS) >"$out/gate-check.txt" 2>&1 || prereq_code=93
+          python scripts/verify_oeis_a231201_v2_execution.py "$RUNNER_TEMP/construction/execution-status.json" --terminal "$RUNNER_TEMP/construction/construction-terminal.json" --stage construction --campaign-commit "$CAMPAIGN_COMMIT" --arm "$ARM" --cell "$CELL" --round 0 >"$out/construction-execution-check.txt" 2>&1 || prereq_code=94
+          timeout --signal=TERM --kill-after=6s 60s python scripts/adversary_oeis_a231201_v22.py --prerequisite-check-exit-code "$prereq_code" --assignment "$RUNNER_TEMP/construction/assignment-0.json" --ledger "$out/adversary-ledger.jsonl" --output "$out/adversary-terminal.json" --candidate "$out/candidate-pending.json" --gate "$RUNNER_TEMP/gate" --campaign-commit "$CAMPAIGN_COMMIT" --arm "$ARM" --cell "$CELL" --round 0 --slot 0
+          stage_code=$?; artifact_code=1; if [[ -f "$out/adversary-terminal.json" ]]; then python scripts/verify_oeis_a231201_v22_artifacts.py adversary "$out/adversary-ledger.jsonl" "$out/adversary-terminal.json" "$RUNNER_TEMP/construction/assignment-0.json" "$out" --gate "$RUNNER_TEMP/gate" --candidate "$out/candidate-pending.json" --campaign-commit "$CAMPAIGN_COMMIT" --arm "$ARM" --cell "$CELL" --round 0 >"$out/artifact-verification.txt" 2>&1; artifact_code=$?; fi
+          python scripts/record_oeis_a231201_v2_execution.py "$out/execution-status.json" --stage adversary --campaign-commit "$CAMPAIGN_COMMIT" --arm "$ARM" --cell "$CELL" --round 0 --prerequisite-check-exit-code "$prereq_code" --stage-exit-code "$stage_code" --artifact-verifier-exit-code "$artifact_code"; result=$?
+          (cd "$out" && find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS); exit "$result"
+      - *finalize_diagnostic
+      - if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with: {name: "oeis-a231201-v22-a-r0-${{ matrix.arm }}-${{ matrix.cell }}-${{ github.run_id }}-${{ github.run_attempt }}", path: "${{ runner.temp }}/out/", if-no-files-found: error, retention-days: 90}
+
+  construct-r1:
+    needs: adversary-r0
+    if: always()
+    strategy: *fixed_matrix
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - *initialize_evidence
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with: {ref: "${{ inputs.campaign_commit }}", persist-credentials: false}
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with: {python-version: '3.9.23'}
+      - run: python -m pip install --disable-pip-version-check 'ortools==9.15.6755'
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        continue-on-error: true
+        with: {name: "oeis-a231201-v22-gate-${{ github.run_id }}-${{ github.run_attempt }}", path: "${{ runner.temp }}/gate"}
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        continue-on-error: true
+        with: {name: "oeis-a231201-v22-c-r0-${{ matrix.arm }}-${{ matrix.cell }}-${{ github.run_id }}-${{ github.run_attempt }}", path: "${{ runner.temp }}/c0"}
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        continue-on-error: true
+        with: {name: "oeis-a231201-v22-a-r0-${{ matrix.arm }}-${{ matrix.cell }}-${{ github.run_id }}-${{ github.run_attempt }}", path: "${{ runner.temp }}/a0"}
+      - name: Construct round 1
+        if: always()
+        shell: bash
+        env: {ARM: "${{ matrix.arm }}", CELL: "${{ matrix.cell }}", CAMPAIGN_COMMIT: "${{ inputs.campaign_commit }}"}
+        run: |
+          set +e; set -uo pipefail; out="$RUNNER_TEMP/out"; mkdir -p "$out/work"; prereq_code=0
+          (cd "$RUNNER_TEMP/gate" && sha256sum --check SHA256SUMS) >"$out/gate-check.txt" 2>&1 || prereq_code=91
+          (cd "$RUNNER_TEMP/c0" && sha256sum --check SHA256SUMS) >"$out/construction-r0-check.txt" 2>&1 || prereq_code=92
+          (cd "$RUNNER_TEMP/a0" && sha256sum --check SHA256SUMS) >"$out/adversary-r0-check.txt" 2>&1 || prereq_code=93
+          python scripts/verify_oeis_a231201_v2_execution.py "$RUNNER_TEMP/c0/execution-status.json" --terminal "$RUNNER_TEMP/c0/construction-terminal.json" --stage construction --campaign-commit "$CAMPAIGN_COMMIT" --arm "$ARM" --cell "$CELL" --round 0 >"$out/construction-r0-execution-check.txt" 2>&1 || prereq_code=94
+          python scripts/verify_oeis_a231201_v2_execution.py "$RUNNER_TEMP/a0/execution-status.json" --terminal "$RUNNER_TEMP/a0/adversary-terminal.json" --stage adversary --campaign-commit "$CAMPAIGN_COMMIT" --arm "$ARM" --cell "$CELL" --round 0 >"$out/adversary-r0-execution-check.txt" 2>&1 || prereq_code=95
+          timeout --signal=TERM --kill-after=6s 60s python scripts/construct_oeis_a231201_v21.py --prerequisite-check-exit-code "$prereq_code" --arm "$ARM" --cell "$CELL" --round 1 --campaign-commit "$CAMPAIGN_COMMIT" --gate "$RUNNER_TEMP/gate" --work "$out/work" --ledger "$out/construction-ledger.jsonl" --terminal "$out/construction-terminal.json" --assignment "$out/assignment-0.json" --prior-assignment "$RUNNER_TEMP/c0/assignment-0.json" --prior-receipt "$RUNNER_TEMP/a0/adversary-terminal.json"
+          stage_code=$?; artifact_code=1; if [[ -f "$out/construction-terminal.json" ]]; then python scripts/verify_oeis_a231201_v22_artifacts.py construction "$out/construction-ledger.jsonl" "$out/construction-terminal.json" "$out/assignment-0.json" "$out/work" --gate "$RUNNER_TEMP/gate" --candidate "$out/candidate-pending.json" --campaign-commit "$CAMPAIGN_COMMIT" --arm "$ARM" --cell "$CELL" --round 1 >"$out/artifact-verification.txt" 2>&1; artifact_code=$?; fi
+          python scripts/record_oeis_a231201_v2_execution.py "$out/execution-status.json" --stage construction --campaign-commit "$CAMPAIGN_COMMIT" --arm "$ARM" --cell "$CELL" --round 1 --prerequisite-check-exit-code "$prereq_code" --stage-exit-code "$stage_code" --artifact-verifier-exit-code "$artifact_code"; result=$?
+          (cd "$out" && find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS); exit "$result"
+      - *finalize_diagnostic
+      - if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with: {name: "oeis-a231201-v22-c-r1-${{ matrix.arm }}-${{ matrix.cell }}-${{ github.run_id }}-${{ github.run_attempt }}", path: "${{ runner.temp }}/out/", if-no-files-found: error, retention-days: 90}
+
+  adversary-r1:
+    needs: construct-r1
+    if: always()
+    strategy: *fixed_matrix
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - *initialize_evidence
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with: {ref: "${{ inputs.campaign_commit }}", persist-credentials: false}
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with: {python-version: '3.9.23'}
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        continue-on-error: true
+        with: {name: "oeis-a231201-v22-c-r1-${{ matrix.arm }}-${{ matrix.cell }}-${{ github.run_id }}-${{ github.run_attempt }}", path: "${{ runner.temp }}/construction"}
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        continue-on-error: true
+        with: {name: "oeis-a231201-v22-gate-${{ github.run_id }}-${{ github.run_attempt }}", path: "${{ runner.temp }}/gate"}
+      - name: Exact adversary round 1
+        if: always()
+        shell: bash
+        env: {ARM: "${{ matrix.arm }}", CELL: "${{ matrix.cell }}", CAMPAIGN_COMMIT: "${{ inputs.campaign_commit }}"}
+        run: |
+          set +e; set -uo pipefail; out="$RUNNER_TEMP/out"; mkdir -p "$out"; prereq_code=0
+          (cd "$RUNNER_TEMP/construction" && sha256sum --check SHA256SUMS) >"$out/construction-check.txt" 2>&1 || prereq_code=92
+          (cd "$RUNNER_TEMP/gate" && sha256sum --check SHA256SUMS) >"$out/gate-check.txt" 2>&1 || prereq_code=93
+          python scripts/verify_oeis_a231201_v2_execution.py "$RUNNER_TEMP/construction/execution-status.json" --terminal "$RUNNER_TEMP/construction/construction-terminal.json" --stage construction --campaign-commit "$CAMPAIGN_COMMIT" --arm "$ARM" --cell "$CELL" --round 1 >"$out/construction-execution-check.txt" 2>&1 || prereq_code=94
+          timeout --signal=TERM --kill-after=6s 60s python scripts/adversary_oeis_a231201_v22.py --prerequisite-check-exit-code "$prereq_code" --assignment "$RUNNER_TEMP/construction/assignment-0.json" --ledger "$out/adversary-ledger.jsonl" --output "$out/adversary-terminal.json" --candidate "$out/candidate-pending.json" --gate "$RUNNER_TEMP/gate" --campaign-commit "$CAMPAIGN_COMMIT" --arm "$ARM" --cell "$CELL" --round 1 --slot 0
+          stage_code=$?; artifact_code=1; if [[ -f "$out/adversary-terminal.json" ]]; then python scripts/verify_oeis_a231201_v22_artifacts.py adversary "$out/adversary-ledger.jsonl" "$out/adversary-terminal.json" "$RUNNER_TEMP/construction/assignment-0.json" "$out" --gate "$RUNNER_TEMP/gate" --candidate "$out/candidate-pending.json" --campaign-commit "$CAMPAIGN_COMMIT" --arm "$ARM" --cell "$CELL" --round 1 >"$out/artifact-verification.txt" 2>&1; artifact_code=$?; fi
+          python scripts/record_oeis_a231201_v2_execution.py "$out/execution-status.json" --stage adversary --campaign-commit "$CAMPAIGN_COMMIT" --arm "$ARM" --cell "$CELL" --round 1 --prerequisite-check-exit-code "$prereq_code" --stage-exit-code "$stage_code" --artifact-verifier-exit-code "$artifact_code"; result=$?
+          (cd "$out" && find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS); exit "$result"
+      - *finalize_diagnostic
+      - if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with: {name: "oeis-a231201-v22-a-r1-${{ matrix.arm }}-${{ matrix.cell }}-${{ github.run_id }}-${{ github.run_attempt }}", path: "${{ runner.temp }}/out/", if-no-files-found: error, retention-days: 90}
+
+  construct-r2:
+    needs: adversary-r1
+    if: always()
+    strategy: *fixed_matrix
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - *initialize_evidence
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with: {ref: "${{ inputs.campaign_commit }}", persist-credentials: false}
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with: {python-version: '3.9.23'}
+      - run: python -m pip install --disable-pip-version-check 'ortools==9.15.6755'
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        continue-on-error: true
+        with: {name: "oeis-a231201-v22-gate-${{ github.run_id }}-${{ github.run_attempt }}", path: "${{ runner.temp }}/gate"}
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        continue-on-error: true
+        with: {name: "oeis-a231201-v22-c-r1-${{ matrix.arm }}-${{ matrix.cell }}-${{ github.run_id }}-${{ github.run_attempt }}", path: "${{ runner.temp }}/c1"}
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        continue-on-error: true
+        with: {name: "oeis-a231201-v22-a-r1-${{ matrix.arm }}-${{ matrix.cell }}-${{ github.run_id }}-${{ github.run_attempt }}", path: "${{ runner.temp }}/a1"}
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        continue-on-error: true
+        with: {name: "oeis-a231201-v22-c-r0-${{ matrix.arm }}-${{ matrix.cell }}-${{ github.run_id }}-${{ github.run_attempt }}", path: "${{ runner.temp }}/c0"}
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        continue-on-error: true
+        with: {name: "oeis-a231201-v22-a-r0-${{ matrix.arm }}-${{ matrix.cell }}-${{ github.run_id }}-${{ github.run_attempt }}", path: "${{ runner.temp }}/a0"}
+      - name: Construct round 2
+        if: always()
+        shell: bash
+        env: {ARM: "${{ matrix.arm }}", CELL: "${{ matrix.cell }}", CAMPAIGN_COMMIT: "${{ inputs.campaign_commit }}"}
+        run: |
+          set +e; set -uo pipefail; out="$RUNNER_TEMP/out"; mkdir -p "$out/work"; prereq_code=0
+          (cd "$RUNNER_TEMP/gate" && sha256sum --check SHA256SUMS) >"$out/gate-check.txt" 2>&1 || prereq_code=91
+          (cd "$RUNNER_TEMP/c1" && sha256sum --check SHA256SUMS) >"$out/construction-r1-check.txt" 2>&1 || prereq_code=92
+          (cd "$RUNNER_TEMP/a1" && sha256sum --check SHA256SUMS) >"$out/adversary-r1-check.txt" 2>&1 || prereq_code=93
+          (cd "$RUNNER_TEMP/c0" && sha256sum --check SHA256SUMS) >"$out/construction-r0-check.txt" 2>&1 || prereq_code=94
+          (cd "$RUNNER_TEMP/a0" && sha256sum --check SHA256SUMS) >"$out/adversary-r0-check.txt" 2>&1 || prereq_code=95
+          python scripts/verify_oeis_a231201_v2_execution.py "$RUNNER_TEMP/c1/execution-status.json" --terminal "$RUNNER_TEMP/c1/construction-terminal.json" --stage construction --campaign-commit "$CAMPAIGN_COMMIT" --arm "$ARM" --cell "$CELL" --round 1 >"$out/construction-r1-execution-check.txt" 2>&1 || prereq_code=96
+          python scripts/verify_oeis_a231201_v2_execution.py "$RUNNER_TEMP/a1/execution-status.json" --terminal "$RUNNER_TEMP/a1/adversary-terminal.json" --stage adversary --campaign-commit "$CAMPAIGN_COMMIT" --arm "$ARM" --cell "$CELL" --round 1 >"$out/adversary-r1-execution-check.txt" 2>&1 || prereq_code=97
+          python scripts/verify_oeis_a231201_v2_execution.py "$RUNNER_TEMP/c0/execution-status.json" --terminal "$RUNNER_TEMP/c0/construction-terminal.json" --stage construction --campaign-commit "$CAMPAIGN_COMMIT" --arm "$ARM" --cell "$CELL" --round 0 >"$out/construction-r0-execution-check.txt" 2>&1 || prereq_code=98
+          python scripts/verify_oeis_a231201_v2_execution.py "$RUNNER_TEMP/a0/execution-status.json" --terminal "$RUNNER_TEMP/a0/adversary-terminal.json" --stage adversary --campaign-commit "$CAMPAIGN_COMMIT" --arm "$ARM" --cell "$CELL" --round 0 >"$out/adversary-r0-execution-check.txt" 2>&1 || prereq_code=99
+          timeout --signal=TERM --kill-after=6s 60s python scripts/construct_oeis_a231201_v21.py --prerequisite-check-exit-code "$prereq_code" --arm "$ARM" --cell "$CELL" --round 2 --campaign-commit "$CAMPAIGN_COMMIT" --gate "$RUNNER_TEMP/gate" --work "$out/work" --ledger "$out/construction-ledger.jsonl" --terminal "$out/construction-terminal.json" --assignment "$out/assignment-0.json" --prior-assignment "$RUNNER_TEMP/c0/assignment-0.json" --prior-receipt "$RUNNER_TEMP/a0/adversary-terminal.json" --prior-assignment "$RUNNER_TEMP/c1/assignment-0.json" --prior-receipt "$RUNNER_TEMP/a1/adversary-terminal.json"
+          stage_code=$?; artifact_code=1; if [[ -f "$out/construction-terminal.json" ]]; then python scripts/verify_oeis_a231201_v22_artifacts.py construction "$out/construction-ledger.jsonl" "$out/construction-terminal.json" "$out/assignment-0.json" "$out/work" --gate "$RUNNER_TEMP/gate" --candidate "$out/candidate-pending.json" --campaign-commit "$CAMPAIGN_COMMIT" --arm "$ARM" --cell "$CELL" --round 2 >"$out/artifact-verification.txt" 2>&1; artifact_code=$?; fi
+          python scripts/record_oeis_a231201_v2_execution.py "$out/execution-status.json" --stage construction --campaign-commit "$CAMPAIGN_COMMIT" --arm "$ARM" --cell "$CELL" --round 2 --prerequisite-check-exit-code "$prereq_code" --stage-exit-code "$stage_code" --artifact-verifier-exit-code "$artifact_code"; result=$?
+          (cd "$out" && find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS); exit "$result"
+      - *finalize_diagnostic
+      - if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with: {name: "oeis-a231201-v22-c-r2-${{ matrix.arm }}-${{ matrix.cell }}-${{ github.run_id }}-${{ github.run_attempt }}", path: "${{ runner.temp }}/out/", if-no-files-found: error, retention-days: 90}
+
+  adversary-r2:
+    needs: construct-r2
+    if: always()
+    strategy: *fixed_matrix
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - *initialize_evidence
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with: {ref: "${{ inputs.campaign_commit }}", persist-credentials: false}
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with: {python-version: '3.9.23'}
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        continue-on-error: true
+        with: {name: "oeis-a231201-v22-c-r2-${{ matrix.arm }}-${{ matrix.cell }}-${{ github.run_id }}-${{ github.run_attempt }}", path: "${{ runner.temp }}/construction"}
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        continue-on-error: true
+        with: {name: "oeis-a231201-v22-gate-${{ github.run_id }}-${{ github.run_attempt }}", path: "${{ runner.temp }}/gate"}
+      - name: Exact adversary round 2
+        if: always()
+        shell: bash
+        env: {ARM: "${{ matrix.arm }}", CELL: "${{ matrix.cell }}", CAMPAIGN_COMMIT: "${{ inputs.campaign_commit }}"}
+        run: |
+          set +e; set -uo pipefail; out="$RUNNER_TEMP/out"; mkdir -p "$out"; prereq_code=0
+          (cd "$RUNNER_TEMP/construction" && sha256sum --check SHA256SUMS) >"$out/construction-check.txt" 2>&1 || prereq_code=92
+          (cd "$RUNNER_TEMP/gate" && sha256sum --check SHA256SUMS) >"$out/gate-check.txt" 2>&1 || prereq_code=93
+          python scripts/verify_oeis_a231201_v2_execution.py "$RUNNER_TEMP/construction/execution-status.json" --terminal "$RUNNER_TEMP/construction/construction-terminal.json" --stage construction --campaign-commit "$CAMPAIGN_COMMIT" --arm "$ARM" --cell "$CELL" --round 2 >"$out/construction-execution-check.txt" 2>&1 || prereq_code=94
+          timeout --signal=TERM --kill-after=6s 60s python scripts/adversary_oeis_a231201_v22.py --prerequisite-check-exit-code "$prereq_code" --assignment "$RUNNER_TEMP/construction/assignment-0.json" --ledger "$out/adversary-ledger.jsonl" --output "$out/adversary-terminal.json" --candidate "$out/candidate-pending.json" --gate "$RUNNER_TEMP/gate" --campaign-commit "$CAMPAIGN_COMMIT" --arm "$ARM" --cell "$CELL" --round 2 --slot 0
+          stage_code=$?; artifact_code=1; if [[ -f "$out/adversary-terminal.json" ]]; then python scripts/verify_oeis_a231201_v22_artifacts.py adversary "$out/adversary-ledger.jsonl" "$out/adversary-terminal.json" "$RUNNER_TEMP/construction/assignment-0.json" "$out" --gate "$RUNNER_TEMP/gate" --candidate "$out/candidate-pending.json" --campaign-commit "$CAMPAIGN_COMMIT" --arm "$ARM" --cell "$CELL" --round 2 >"$out/artifact-verification.txt" 2>&1; artifact_code=$?; fi
+          python scripts/record_oeis_a231201_v2_execution.py "$out/execution-status.json" --stage adversary --campaign-commit "$CAMPAIGN_COMMIT" --arm "$ARM" --cell "$CELL" --round 2 --prerequisite-check-exit-code "$prereq_code" --stage-exit-code "$stage_code" --artifact-verifier-exit-code "$artifact_code"; result=$?
+          (cd "$out" && find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS); exit "$result"
+      - *finalize_diagnostic
+      - if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with: {name: "oeis-a231201-v22-a-r2-${{ matrix.arm }}-${{ matrix.cell }}-${{ github.run_id }}-${{ github.run_attempt }}", path: "${{ runner.temp }}/out/", if-no-files-found: error, retention-days: 90}
+
+  independent-final:
+    needs: [prepare-database-gate, adversary-r0, adversary-r1, adversary-r2]
+    if: always()
+    strategy:
+      fail-fast: false
+      matrix:
+        arm: [COMPRESSED_SET_COVER_CP, DETERMINISTIC_GREEDY_REPAIR, SMALL_BASIS_CEGAR]
+        cell: ['0_0', '0_1', '0_2', '1_0', '1_1', '1_2']
+        round: [0, 1, 2]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - *initialize_evidence
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with: {ref: "${{ inputs.campaign_commit }}", persist-credentials: false}
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with: {python-version: '3.9.23'}
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        continue-on-error: true
+        with: {name: "oeis-a231201-v22-gate-${{ github.run_id }}-${{ github.run_attempt }}", path: "${{ runner.temp }}/gate"}
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        continue-on-error: true
+        with: {name: "oeis-a231201-v22-a-r${{ matrix.round }}-${{ matrix.arm }}-${{ matrix.cell }}-${{ github.run_id }}-${{ github.run_attempt }}", path: "${{ runner.temp }}/adversary"}
+      - name: Independently replay pending cover
+        if: always()
+        shell: bash
+        env: {ARM: "${{ matrix.arm }}", CELL: "${{ matrix.cell }}", ROUND: "${{ matrix.round }}", CAMPAIGN_COMMIT: "${{ inputs.campaign_commit }}"}
+        run: |
+          set +e; set -uo pipefail; out="$RUNNER_TEMP/out"; mkdir -p "$out"; prereq_code=0
+          (cd "$RUNNER_TEMP/adversary" && sha256sum --check SHA256SUMS) >"$out/adversary-check.txt" 2>&1 || prereq_code=92
+          (cd "$RUNNER_TEMP/gate" && sha256sum --check SHA256SUMS) >"$out/gate-check.txt" 2>&1 || prereq_code=93
+          python scripts/verify_oeis_a231201_v2_execution.py "$RUNNER_TEMP/adversary/execution-status.json" --terminal "$RUNNER_TEMP/adversary/adversary-terminal.json" --stage adversary --campaign-commit "$CAMPAIGN_COMMIT" --arm "$ARM" --cell "$CELL" --round "$ROUND" >"$out/adversary-execution-check.txt" 2>&1 || prereq_code=94
+          timeout --signal=TERM --kill-after=6s 60s python scripts/verify_oeis_a231201_v2_final.py --prerequisite-check-exit-code "$prereq_code" --candidate "$RUNNER_TEMP/adversary/candidate-pending.json" --ledger "$out/final-ledger.jsonl" --output "$out/final-terminal.json" --gate "$RUNNER_TEMP/gate" --campaign-commit "$CAMPAIGN_COMMIT" --arm "$ARM" --cell "$CELL" --round "$ROUND" --slot 0
+          stage_code=$?; artifact_code=1; if [[ -f "$out/final-terminal.json" ]]; then python scripts/verify_oeis_a231201_v22_artifacts.py final "$out/final-ledger.jsonl" "$out/final-terminal.json" "$RUNNER_TEMP/adversary/candidate-pending.json" "$out" --gate "$RUNNER_TEMP/gate" --candidate "$RUNNER_TEMP/adversary/candidate-pending.json" --campaign-commit "$CAMPAIGN_COMMIT" --arm "$ARM" --cell "$CELL" --round "$ROUND" >"$out/artifact-verification.txt" 2>&1; artifact_code=$?; fi
+          python scripts/record_oeis_a231201_v2_execution.py "$out/execution-status.json" --stage final --campaign-commit "$CAMPAIGN_COMMIT" --arm "$ARM" --cell "$CELL" --round "$ROUND" --prerequisite-check-exit-code "$prereq_code" --stage-exit-code "$stage_code" --artifact-verifier-exit-code "$artifact_code"; result=$?
+          (cd "$out" && find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS); exit "$result"
+      - *finalize_diagnostic
+      - if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with: {name: "oeis-a231201-v22-f-r${{ matrix.round }}-${{ matrix.arm }}-${{ matrix.cell }}-${{ github.run_id }}-${{ github.run_attempt }}", path: "${{ runner.temp }}/out/", if-no-files-found: error, retention-days: 90}
