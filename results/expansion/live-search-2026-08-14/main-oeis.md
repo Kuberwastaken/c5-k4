@@ -77,3 +77,10 @@ incorrect local definition of A005156.  This is classified as a
 **formalization/source erratum, not a mathematical-conjecture disproof**.  The
 complete audit and exact certificate are recorded in
 [`oeis-109074.md`](oeis-109074.md).
+
+The same boundary gate then found a second, qualitatively different erratum in
+A111291.  Its formal statement quantifies over every real `x>1`; at `x=3/2`
+the step-counting function is `1`, while `x/(2 log x)>1`.  Exact integer
+calibration found no failure through one million, so this is classified as a
+real-domain formalization error rather than a refactorable-number disproof.
+See [`oeis-111291.md`](oeis-111291.md).
