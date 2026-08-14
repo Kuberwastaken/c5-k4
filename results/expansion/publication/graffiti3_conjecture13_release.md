@@ -51,4 +51,14 @@ Date: **2026-08-14 UTC**
 
 ## Release lock
 
-Pending final tag/release preflight and publication readback.
+Release published and read back successfully:
+
+- URL: `https://github.com/Kuberwastaken/c5-k4/releases/tag/graffiti3-conjecture13-pseudoprime-v1`
+- annotated tag object: `4722a0bb59fe8bd3364b91a16fc6b34d47c9f2d3`
+- peeled target commit: `8a3a3aeff7328066a841c76df0e9b91d43ae7097`
+- published: `2026-08-14T12:02:32Z`
+- draft/prerelease: `false` / `false`
+- all immutable repository artifact links and the Actions run returned HTTP
+  200 at preflight and release readback; OEIS separately served the cited
+  record to the browser audit while rejecting the command-line probe with its
+  normal bot-protection response.
