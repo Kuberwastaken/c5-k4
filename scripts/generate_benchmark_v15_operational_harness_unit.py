@@ -316,6 +316,10 @@ def generate(value: dict[str, Any], filesystem_root: Path = Path("/")) -> dict[s
     validate_self_digest(value["noninterference_key_commitment"], "commitment_sha256", "noninterference key commitment")
     validate_self_digest(value["worm_acceptance"], "acceptance_sha256", "WORM acceptance")
     validate_self_digest(value["destructive_gap_acceptance"], "acceptance_sha256", "destructive-gap acceptance")
+    gap = value["destructive_gap_acceptance"]
+    key = value["noninterference_key_commitment"]
+    if gap["signing_key_id"] != key["signing_key_id"] or gap["verification_key_sha256"] != key["verification_key_sha256"]:
+        raise UnitContractError("destructive-gap acceptance uses a different noninterference key")
 
     try:
         production_root = filesystem_root.resolve(strict=True) == Path("/") and filesystem_root.absolute() == Path("/")

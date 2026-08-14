@@ -326,6 +326,13 @@ def verify_operational_closure(
         raise ContinuityError("receipt verification key differs from activation commitment")
     if receipt["service_epoch_binding_sha256"] != expected_service_epoch_binding_sha256:
         raise ContinuityError("receipt is bound to another service epoch")
+    if activation["destructive_gap_acceptance"]["service_epoch_binding_sha256"] != expected_service_epoch_binding_sha256:
+        raise ContinuityError("destructive-gap acceptance is bound to another service epoch")
+    if (
+        activation["destructive_gap_acceptance"]["signing_key_id"] != key_commitment["signing_key_id"]
+        or activation["destructive_gap_acceptance"]["verification_key_sha256"] != key_commitment["verification_key_sha256"]
+    ):
+        raise ContinuityError("destructive-gap acceptance key differs from activation commitment")
     try:
         verified = noninterference.verify_operational(
             ledger, expected_source_boundary_sha256, receipt, verification_key

@@ -71,6 +71,9 @@ class OperationalHarnessUnitTests(unittest.TestCase):
             "schema": "c5k4-method-v1.5-operational-destructive-gap-acceptance-1.0",
             "status": "OPERATIONAL_DESTRUCTIVE_GAP_ACCEPTANCE_PASSED", "tests": tests,
             "evidence_sha256": {name: format(index + 3, "x") * 64 for index, name in enumerate(tests)},
+            "committed_plan_sha256": "a" * 64, "service_epoch_binding_sha256": "b" * 64,
+            "signing_key_id": "p1-key-1", "verification_key_sha256": "1" * 64,
+            "evidence_bundle_sha256": "c" * 64,
             "all_passed": True, "operational": True, "activation_permitted": True,
             "acceptance_sha256": module.ZERO,
         }, "acceptance_sha256")
@@ -171,6 +174,20 @@ class OperationalHarnessUnitTests(unittest.TestCase):
         mutated = copy.deepcopy(self.value); mutated["worm_acceptance"]["store_config_sha256"] = "f" * 64; self.reseal(mutated)
         with self.assertRaisesRegex(module.UnitContractError, "WORM acceptance self-digest"):
             module.generate(mutated, self.fs)
+
+    def test_destructive_gap_acceptance_must_use_committed_key(self) -> None:
+        for field, value in (
+            ("signing_key_id", "foreign-key"),
+            ("verification_key_sha256", "f" * 64),
+        ):
+            mutated = copy.deepcopy(self.value)
+            mutated["destructive_gap_acceptance"][field] = value
+            mutated["destructive_gap_acceptance"]["acceptance_sha256"] = module.digest_object(
+                mutated["destructive_gap_acceptance"], "acceptance_sha256"
+            )
+            self.reseal(mutated)
+            with self.assertRaisesRegex(module.UnitContractError, "different noninterference key"):
+                module.generate(mutated, self.fs)
 
     def test_p1_binary_and_tls_bytes_are_verified(self) -> None:
         cases = [
