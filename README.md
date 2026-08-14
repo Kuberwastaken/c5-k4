@@ -148,6 +148,16 @@ again classify this as an endpoint formalization erratum, not a mathematical
 kill. An exhaustive integer calibration through one million found no failure,
 which sharply separates the domain bug from the intended discrete phenomenon.
 
+The same live cohort then produced a non-erratum result. A wall arm reduced
+A113019 fixed points to `n=d^r`, where `d` is the decimal digit count and `r`
+the digital root. It found `387420489=9^9`; an exact reduction proves the full
+fixed-point set is `1,32,9^9`. The
+[result and Lean witness](results/expansion/live-search-2026-08-14/oeis-113019.md)
+answer the intended source question while carefully avoiding the incorrect
+claim that an opaque `answer(sorry)` biconditional was itself refuted. This is
+the second wave's direct evidence that structured wall coordinates outperform
+flat catalogue and random search even outside the original graph setting.
+
 The prospective benchmark record is deliberately fail-closed. Method v1.1
 terminated `NO_ELIGIBLE_BENCHMARK`; it never selected a target. Its corrected
 chronology successor, [Method v1.2](METHOD_V1_2_BENCHMARK.md), published P0 and
