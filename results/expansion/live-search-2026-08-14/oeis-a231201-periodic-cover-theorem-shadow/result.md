@@ -138,16 +138,20 @@ old congruence, specializes this to odd primes, and proves the abstract
 finite-list extension induction. It was checked with
 `-DwarningAsError=true`; its axiom audit contains no `sorryAx`.
 
-This is deliberately not labeled a complete Lean proof of the 55-prime
-theorem. The remaining bridge must formalize that `d*M` fixes the
-power-of-two term throughout each fiber, prove its nonzero residue modulo the
-fresh prime, and instantiate the list induction with the ascending frozen
-prime table. The clean completion path is:
+The follow-up theorem `fresh_prime_order_fiber_has_allowed_lift` now proves
+the arithmetic bridge as well: with
+`d = orderOf(2) / gcd(M, orderOf(2))`, the shift `d*M` preserves the
+power-of-two term, is a unit modulo a fresh odd prime, preserves the old
+residue modulo `M`, and yields a lift avoiding the actual expression
+`x-2^x`. This is still deliberately not labeled a complete Lean proof of the
+55-prime theorem. The remaining work is to instantiate the abstract list
+induction with an evolving modulus invariant for the ascending frozen prime
+table. The completed bridge and remaining instantiation decompose as:
 
-1. Work in `ZMod q` for an odd prime `q`.  Assume `q` does not divide `M`, set
+1. **Formalized:** work in `ZMod q` for an odd prime `q`. Assume `q` does not divide `M`, set
    `o := orderOf (2 : ZMod q)` and `d := o / gcd M o`, and prove
    `o | d*M` using the standard gcd quotient lemma.
-2. For a prior natural representative `r` and assigned residue `a : ZMod q`,
+2. **Formalized:** for a prior natural representative `r` and assigned residue `a : ZMod q`,
    consider `r+k*d*M`, `k : Fin q`.  `pow_eq_pow_mod_orderOf` (or the
    corresponding `orderOf` divisibility lemma) makes the power-of-two term
    constant over this fiber.  Multiplication by the unit `d*M` permutes

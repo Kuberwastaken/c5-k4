@@ -1,4 +1,5 @@
 import Mathlib.Data.ZMod.Basic
+import Mathlib.FieldTheory.Finite.Basic
 import Mathlib.Tactic.Ring
 
 /-!
@@ -14,6 +15,81 @@ The second theorem packages the result for the natural-number lifts
 -/
 
 namespace OeisA231201
+
+/-- The quotient by the gcd supplies exactly the missing factor needed to
+make the shift a multiple of the multiplicative order. -/
+theorem order_dvd_quotient_gcd_mul (M order : ℕ) :
+    order ∣ (order / M.gcd order) * M := by
+  let g := M.gcd order
+  change order ∣ (order / g) * M
+  have hgM : g ∣ M := Nat.gcd_dvd_left M order
+  have hgOrder : g ∣ order := Nat.gcd_dvd_right M order
+  obtain ⟨c, hc⟩ := hgM
+  refine ⟨c, ?_⟩
+  calc
+    (order / g) * M = (order / g) * (g * c) := by rw [hc]
+    _ = ((order / g) * g) * c := by
+      rw [Nat.mul_assoc]
+    _ = order * c := by rw [Nat.div_mul_cancel hgOrder]
+
+/-- Shifting an exponent by any multiple of
+`(orderOf 2 / gcd M (orderOf 2)) * M` preserves its power of two modulo `q`. -/
+theorem pow_two_add_order_gcd_shift
+    {q : ℕ} [NeZero q] (M r k : ℕ) :
+    let order := orderOf (2 : ZMod q)
+    let d := order / M.gcd order
+    (2 : ZMod q) ^ (r + k * (d * M)) = (2 : ZMod q) ^ r := by
+  dsimp only
+  rw [pow_add]
+  have horder : orderOf (2 : ZMod q) ∣
+      k * ((orderOf (2 : ZMod q) / M.gcd (orderOf (2 : ZMod q))) * M) := by
+    obtain ⟨c, hc⟩ := order_dvd_quotient_gcd_mul M (orderOf (2 : ZMod q))
+    refine ⟨k * c, ?_⟩
+    rw [hc]
+    ac_rfl
+  rw [orderOf_dvd_iff_pow_eq_one.mp horder, mul_one]
+
+/-- For a fresh prime `q > 2`, the order/gcd step is nonzero, and indeed a
+unit, modulo `q`.  Freshness is exactly the condition `q ∤ M`. -/
+theorem order_gcd_step_nonzero_and_isUnit
+    {q M : ℕ} (hqPrime : q.Prime) (hqTwo : 2 < q) (hFresh : ¬q ∣ M) :
+    let order : ℕ := orderOf (2 : ZMod q)
+    let d : ℕ := order / M.gcd order
+    ((d * M : ℕ) : ZMod q) ≠ 0 ∧ IsUnit (((d * M : ℕ) : ZMod q)) := by
+  letI : NeZero q := ⟨hqPrime.ne_zero⟩
+  letI : Fact q.Prime := ⟨hqPrime⟩
+  dsimp only
+  have htwo : (2 : ZMod q) ≠ 0 := by
+    intro htwoZero
+    have hqDvdTwo : q ∣ 2 :=
+      (ZMod.natCast_eq_zero_iff 2 q).mp htwoZero
+    exact (Nat.not_le_of_lt hqTwo) (Nat.le_of_dvd (by decide) hqDvdTwo)
+  have horderDvd : orderOf (2 : ZMod q) ∣ q - 1 :=
+    ZMod.orderOf_dvd_card_sub_one htwo
+  have hqSubPos : 0 < q - 1 :=
+    Nat.sub_pos_of_lt (lt_trans Nat.one_lt_two hqTwo)
+  have horderPos : 0 < orderOf (2 : ZMod q) :=
+    Nat.pos_of_dvd_of_pos horderDvd hqSubPos
+  have horderLt : orderOf (2 : ZMod q) < q :=
+    lt_of_le_of_lt (Nat.le_of_dvd hqSubPos horderDvd)
+      (Nat.sub_lt hqPrime.pos Nat.zero_lt_one)
+  have hgcdPos : 0 < M.gcd (orderOf (2 : ZMod q)) :=
+    Nat.gcd_pos_of_pos_right M horderPos
+  have hdPos : 0 < orderOf (2 : ZMod q) / M.gcd (orderOf (2 : ZMod q)) :=
+    Nat.div_pos (Nat.gcd_le_right M horderPos) hgcdPos
+  have hdLt : orderOf (2 : ZMod q) / M.gcd (orderOf (2 : ZMod q)) < q :=
+    lt_of_le_of_lt (Nat.div_le_self _ _) horderLt
+  have hqNotDvdD : ¬q ∣ orderOf (2 : ZMod q) / M.gcd (orderOf (2 : ZMod q)) :=
+    Nat.not_dvd_of_pos_of_lt hdPos hdLt
+  have hqNotDvdStep :
+      ¬q ∣ (orderOf (2 : ZMod q) / M.gcd (orderOf (2 : ZMod q))) * M :=
+    hqPrime.not_dvd_mul hqNotDvdD hFresh
+  have hstep :
+      (((orderOf (2 : ZMod q) / M.gcd (orderOf (2 : ZMod q))) * M : ℕ) :
+        ZMod q) ≠ 0 := by
+    rw [ne_eq, ZMod.natCast_eq_zero_iff]
+    exact hqNotDvdStep
+  exact ⟨hstep, isUnit_iff_ne_zero.mpr hstep⟩
 
 /-- An affine fiber in `ZMod q` with nonzero step contains a point avoiding
 any one forbidden residue.  The hypothesis `2 ≤ q` supplies distinct indices
@@ -73,6 +149,37 @@ theorem odd_prime_fiber_has_allowed_lift
     hqPrime.two_le
     power forbidden hstep
 
+/-- The complete one-prime arithmetic bridge used by the periodic-cover
+induction.  For a fresh prime `q > 2`, set
+`d = orderOf(2) / gcd M (orderOf(2))`.  Some lift in the canonical `q`-fiber
+preserves the old residue modulo `M`, has the same power of two as `r`, and
+avoids the assigned residue for the actual expression `x - 2^x`.  The fiber
+step is additionally certified to be a unit modulo `q`. -/
+theorem fresh_prime_order_fiber_has_allowed_lift
+    {q M r : ℕ} (hqPrime : q.Prime) (hqTwo : 2 < q) (hFresh : ¬q ∣ M)
+    (forbidden : ZMod q) :
+    let order : ℕ := orderOf (2 : ZMod q)
+    let d : ℕ := order / M.gcd order
+    ∃ k : Fin q,
+      (r + k.val * (d * M)) % M = r % M ∧
+      (2 : ZMod q) ^ (r + k.val * (d * M)) = (2 : ZMod q) ^ r ∧
+      (((r + k.val * (d * M) : ℕ) : ZMod q) -
+        (2 : ZMod q) ^ (r + k.val * (d * M)) ≠ forbidden) ∧
+      IsUnit (((d * M : ℕ) : ZMod q)) := by
+  letI : NeZero q := ⟨hqPrime.ne_zero⟩
+  have hstep := order_gcd_step_nonzero_and_isUnit hqPrime hqTwo hFresh
+  dsimp only at hstep ⊢
+  obtain ⟨k, hmod, havoid⟩ := exists_natural_lift_avoiding
+    (q := q) (M := M)
+    (d := orderOf (2 : ZMod q) / M.gcd (orderOf (2 : ZMod q))) (r := r)
+    hqPrime.two_le ((2 : ZMod q) ^ r) forbidden (by
+      simpa only [Nat.cast_mul] using hstep.1)
+  have hpow := pow_two_add_order_gcd_shift (q := q) M r k.val
+  dsimp only at hpow
+  refine ⟨k, hmod, hpow, ?_, hstep.2⟩
+  rw [hpow]
+  exact havoid
+
 /-- Finite-list existence induction for an abstract lift operation.
 
 `holds state constraint` says that a state avoids one constraint.  If lifting
@@ -104,8 +211,12 @@ theorem finite_list_avoiding_of_extension
       · exact preserves_old state new constraint (hstate constraint hrest)
 
 #print axioms exists_fin_affine_avoiding
+#print axioms order_dvd_quotient_gcd_mul
+#print axioms pow_two_add_order_gcd_shift
+#print axioms order_gcd_step_nonzero_and_isUnit
 #print axioms exists_natural_lift_avoiding
 #print axioms odd_prime_fiber_has_allowed_lift
+#print axioms fresh_prime_order_fiber_has_allowed_lift
 #print axioms finite_list_avoiding_of_extension
 
 end OeisA231201
