@@ -1,0 +1,40 @@
+{
+  "schema": "c5k4-min-modulus-live-result-1.0",
+  "status": "BOUNDED_ZERO",
+  "campaign_commit": "200de6f3c7bd136db2c3fa4c6c42f124218c2d03",
+  "github_actions_run": "https://github.com/Kuberwastaken/c5-k4/actions/runs/31788882575",
+  "upstream_commit": "942fb149e782a56c2719c543ab58e093f733acb4",
+  "receipts": 24,
+  "artifact_checksum_manifests_replayed": 24,
+  "ledger_chains_replayed": 24,
+  "crossings": 0,
+  "totals": {
+    "proposed": 308867,
+    "canonical_unique": 54551,
+    "hypothesis_survivor": 53677,
+    "exact_evaluated": 53677,
+    "objective_scored": 53677
+  },
+  "arms": {
+    "CATALOGUE": {
+      "proposed": 258953,
+      "canonical_unique": 4686,
+      "exact_evaluated": 4686,
+      "terminal_reasons": {"DEADLINE_PREFIX": 8}
+    },
+    "GENERIC": {
+      "proposed": 18998,
+      "canonical_unique": 18949,
+      "exact_evaluated": 18949,
+      "terminal_reasons": {"DEADLINE_PREFIX": 8}
+    },
+    "WALL_NAVIGATION": {
+      "proposed": 30916,
+      "canonical_unique": 30916,
+      "hypothesis_survivor": 30042,
+      "exact_evaluated": 30042,
+      "terminal_reasons": {"DEADLINE_PREFIX": 5, "SEARCH_EXHAUSTED": 3}
+    }
+  },
+  "publication_action": false
+}
