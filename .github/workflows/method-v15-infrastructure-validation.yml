@@ -1,0 +1,166 @@
+name: Validate Method v1.5 immutable infrastructure offline
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/method-v15-infrastructure-validation.yml
+      - infra/benchmark-v1.5/immutable-store/**
+      - scripts/*benchmark_v15_immutable*.py
+      - scripts/method_v15_s3_object_lock_store.py
+      - scripts/test_method_v15_s3_object_lock_store.py
+      - scripts/test_benchmark_v15_infrastructure_validation_workflow.py
+      - schemas/benchmark-s3-object-lock-store-*.schema.json
+      - schemas/benchmark-operational-controlled-harness-activation-v1.5.schema.json
+      - schemas/benchmark-runner-private-input-assembly-v1.5.schema.json
+  pull_request:
+    paths:
+      - .github/workflows/method-v15-infrastructure-validation.yml
+      - infra/benchmark-v1.5/immutable-store/**
+      - scripts/*benchmark_v15_immutable*.py
+      - scripts/method_v15_s3_object_lock_store.py
+      - scripts/test_method_v15_s3_object_lock_store.py
+      - scripts/test_benchmark_v15_infrastructure_validation_workflow.py
+      - schemas/benchmark-s3-object-lock-store-*.schema.json
+      - schemas/benchmark-operational-controlled-harness-activation-v1.5.schema.json
+      - schemas/benchmark-runner-private-input-assembly-v1.5.schema.json
+
+permissions:
+  contents: read
+
+jobs:
+  offline-validation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out without retaining credentials
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Set up pinned Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12.9'
+
+      - name: Install pinned offline-verifier dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check \
+            attrs==24.2.0 \
+            jsonschema==3.2.0 \
+            pyrsistent==0.20.0 \
+            PyYAML==6.0.2 \
+            setuptools==75.8.0 \
+            six==1.16.0
+
+      - name: Validate the workflow's offline security contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/test_benchmark_v15_infrastructure_validation_workflow.py
+
+      - name: Verify the committed immutable infrastructure plan statically
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/verify_benchmark_v15_immutable_infrastructure.py
+
+      - name: Run immutable-store static and live-evidence adversarial tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/test_verify_benchmark_v15_immutable_infrastructure.py
+          python scripts/test_verify_benchmark_v15_immutable_live_acceptance.py
+          python scripts/test_method_v15_s3_object_lock_store.py
+
+      - name: Parse JSON and validate the exact infrastructure schemas
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from jsonschema import Draft7Validator
+
+          json_paths = sorted(Path('infra/benchmark-v1.5/immutable-store').glob('*.json'))
+          schema_paths = [
+              Path('schemas/benchmark-s3-object-lock-store-config-v1.5.schema.json'),
+              Path('schemas/benchmark-s3-object-lock-store-readiness-v1.5.schema.json'),
+              Path('schemas/benchmark-operational-controlled-harness-activation-v1.5.schema.json'),
+              Path('schemas/benchmark-runner-private-input-assembly-v1.5.schema.json'),
+              Path('infra/benchmark-v1.5/immutable-store/live-acceptance-evidence.schema.json'),
+          ]
+          if len(json_paths) != 3 or any(not path.is_file() for path in schema_paths):
+              raise SystemExit('immutable infrastructure JSON/schema closure is incomplete')
+          for path in json_paths:
+              json.loads(path.read_text(encoding='utf-8'))
+          for path in schema_paths:
+              Draft7Validator.check_schema(json.loads(path.read_text(encoding='utf-8')))
+          PY
+
+      - name: Reject target-bearing fields from infrastructure artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          forbidden = {
+              'target', 'target_id', 'target_identity', 'cluster', 'cluster_id',
+              'conjecture', 'conjecture_id', 'statement_text',
+              'record_id', 'record_url', 'outcome', 'ranking',
+          }
+          def walk(value, path):
+              if isinstance(value, dict):
+                  overlap = forbidden.intersection(key.casefold().replace('-', '_') for key in value)
+                  if overlap:
+                      raise SystemExit(f"target-bearing field in {path}: {sorted(overlap)[0]}")
+                  for child in value.values():
+                      walk(child, path)
+              elif isinstance(value, list):
+                  for child in value:
+                      walk(child, path)
+          for path in sorted(Path('infra/benchmark-v1.5/immutable-store').glob('*.json')):
+              walk(json.loads(path.read_text(encoding='utf-8')), path)
+          PY
+
+      - name: Recompute exact template and policy commitments
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+
+          root = Path('infra/benchmark-v1.5/immutable-store')
+          plan = json.loads((root / 'plan.json').read_text(encoding='utf-8'))
+          template_path = root / 'cloudformation.json'
+          template = json.loads(template_path.read_text(encoding='utf-8'))
+          digest = lambda value: hashlib.sha256(json.dumps(value, sort_keys=True, separators=(',', ':'), ensure_ascii=False).encode()).hexdigest()
+          if hashlib.sha256(template_path.read_bytes()).hexdigest() != plan['template_sha256']:
+              raise SystemExit('CloudFormation template digest mismatch')
+          resources = template['Resources']
+          expected = {
+              'kms_key_policy_sha256': digest(resources['CustodyKey']['Properties']['KeyPolicy']),
+              'bucket_policy_sha256': digest(resources['CustodyBucketPolicy']['Properties']['PolicyDocument']),
+              'writer_policy_sha256': digest(resources['CustodyWriterPolicy']['Properties']['PolicyDocument']),
+          }
+          if plan['commitments'] != expected:
+              raise SystemExit('immutable policy commitment mismatch')
+          PY
+
+      - name: Confirm offline validation leaves the checkout unchanged
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -n "$(git status --porcelain=v1 --untracked-files=all)" ]]; then
+            git status --short
+            echo 'offline infrastructure validation modified the checkout' >&2
+            exit 2
+          fi
