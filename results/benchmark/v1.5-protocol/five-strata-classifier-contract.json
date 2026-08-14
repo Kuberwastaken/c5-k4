@@ -1,0 +1,71 @@
+{
+  "schema": "c5k4-method-v1.5-five-strata-classifier-contract-1.0",
+  "status": "PRE_P1_TARGET_BLIND_CLASSIFIER_CLOSURE",
+  "surface": "TARGET_BLIND_SYNTHETIC_ONLY",
+  "classifier": {
+    "closure": "INHERITED_V1_4",
+    "role": "five_strata_classifier",
+    "accepted_schema": "c5k4-five-strata-classifier-1.4",
+    "required_sections": [
+      "domain_signals",
+      "graph_scalar_signal",
+      "finite_signal",
+      "classification_algorithm",
+      "parser_contract",
+      "cluster_rule",
+      "output_policy"
+    ]
+  },
+  "builder": {
+    "closure": "INHERITED_V1_4",
+    "role": "syntax_pool_builder",
+    "path": "scripts/build_benchmark_v14_pool.py",
+    "required_callables": [
+      "declaration_conclusion",
+      "has_outer_ordered_relation",
+      "syntax_metadata",
+      "classify",
+      "extract",
+      "build_inventory",
+      "build_pool"
+    ]
+  },
+  "strata_and_quotas": {
+    "GRAPH_SCALAR_INEQUALITY": 3,
+    "GRAPH_STRUCTURAL_PROPERTY": 3,
+    "FINITE_ALGEBRA_EQUATIONAL": 2,
+    "AUTOMATA_GAME_PROCESS": 2,
+    "FINITE_COMBINATORIAL": 2
+  },
+  "synthetic_conformance": {
+    "fixture_source": "IN_PROCESS_CONSTANTS_IN_VALIDATOR",
+    "real_registry_access": false,
+    "future_target_identifiers": false,
+    "model_or_human_classification": false,
+    "required_positive_vector_counts": {
+      "GRAPH_SCALAR_INEQUALITY": 3,
+      "GRAPH_STRUCTURAL_PROPERTY": 3,
+      "FINITE_ALGEBRA_EQUATIONAL": 2,
+      "AUTOMATA_GAME_PROCESS": 2,
+      "FINITE_COMBINATORIAL": 2
+    },
+    "required_negative_properties": [
+      "MULTIPLE_DOMAIN_SIGNALS",
+      "GRAPH_WITHOUT_FINITE_SIGNAL",
+      "ALGEBRA_WITHOUT_FINITE_SIGNAL",
+      "UNCLASSIFIED_WITHOUT_FINITE_SIGNAL",
+      "ORDERED_PREMISE_IS_NOT_SCALAR",
+      "NESTED_ORDERED_TERM_IS_NOT_SCALAR"
+    ]
+  },
+  "prohibitions": {
+    "real_future_target_read": true,
+    "target_identity": true,
+    "statement_text_output": true,
+    "semantic_or_outcome_input": true,
+    "manual_override": true,
+    "model_endpoint": true,
+    "randomness": true,
+    "ranking_or_selection": true
+  }
+}

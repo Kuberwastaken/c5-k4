@@ -1,0 +1,135 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-five-strata-classifier-contract-v1.5.schema.json",
+  "title": "Method v1.5 target-blind PRE-P1 executable classifier closure contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "status",
+    "surface",
+    "classifier",
+    "builder",
+    "strata_and_quotas",
+    "synthetic_conformance",
+    "prohibitions"
+  ],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-five-strata-classifier-contract-1.0"},
+    "status": {"const": "PRE_P1_TARGET_BLIND_CLASSIFIER_CLOSURE"},
+    "surface": {"const": "TARGET_BLIND_SYNTHETIC_ONLY"},
+    "classifier": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["closure", "role", "accepted_schema", "required_sections"],
+      "properties": {
+        "closure": {"const": "INHERITED_V1_4"},
+        "role": {"const": "five_strata_classifier"},
+        "accepted_schema": {"const": "c5k4-five-strata-classifier-1.4"},
+        "required_sections": {
+          "const": [
+            "domain_signals",
+            "graph_scalar_signal",
+            "finite_signal",
+            "classification_algorithm",
+            "parser_contract",
+            "cluster_rule",
+            "output_policy"
+          ]
+        }
+      }
+    },
+    "builder": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["closure", "role", "path", "required_callables"],
+      "properties": {
+        "closure": {"const": "INHERITED_V1_4"},
+        "role": {"const": "syntax_pool_builder"},
+        "path": {"const": "scripts/build_benchmark_v14_pool.py"},
+        "required_callables": {
+          "const": [
+            "declaration_conclusion",
+            "has_outer_ordered_relation",
+            "syntax_metadata",
+            "classify",
+            "extract",
+            "build_inventory",
+            "build_pool"
+          ]
+        }
+      }
+    },
+    "strata_and_quotas": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "GRAPH_SCALAR_INEQUALITY",
+        "GRAPH_STRUCTURAL_PROPERTY",
+        "FINITE_ALGEBRA_EQUATIONAL",
+        "AUTOMATA_GAME_PROCESS",
+        "FINITE_COMBINATORIAL"
+      ],
+      "properties": {
+        "GRAPH_SCALAR_INEQUALITY": {"const": 3},
+        "GRAPH_STRUCTURAL_PROPERTY": {"const": 3},
+        "FINITE_ALGEBRA_EQUATIONAL": {"const": 2},
+        "AUTOMATA_GAME_PROCESS": {"const": 2},
+        "FINITE_COMBINATORIAL": {"const": 2}
+      }
+    },
+    "synthetic_conformance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fixture_source",
+        "real_registry_access",
+        "future_target_identifiers",
+        "model_or_human_classification",
+        "required_positive_vector_counts",
+        "required_negative_properties"
+      ],
+      "properties": {
+        "fixture_source": {"const": "IN_PROCESS_CONSTANTS_IN_VALIDATOR"},
+        "real_registry_access": {"const": false},
+        "future_target_identifiers": {"const": false},
+        "model_or_human_classification": {"const": false},
+        "required_positive_vector_counts": {"$ref": "#/properties/strata_and_quotas"},
+        "required_negative_properties": {
+          "const": [
+            "MULTIPLE_DOMAIN_SIGNALS",
+            "GRAPH_WITHOUT_FINITE_SIGNAL",
+            "ALGEBRA_WITHOUT_FINITE_SIGNAL",
+            "UNCLASSIFIED_WITHOUT_FINITE_SIGNAL",
+            "ORDERED_PREMISE_IS_NOT_SCALAR",
+            "NESTED_ORDERED_TERM_IS_NOT_SCALAR"
+          ]
+        }
+      }
+    },
+    "prohibitions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "real_future_target_read",
+        "target_identity",
+        "statement_text_output",
+        "semantic_or_outcome_input",
+        "manual_override",
+        "model_endpoint",
+        "randomness",
+        "ranking_or_selection"
+      ],
+      "properties": {
+        "real_future_target_read": {"const": true},
+        "target_identity": {"const": true},
+        "statement_text_output": {"const": true},
+        "semantic_or_outcome_input": {"const": true},
+        "manual_override": {"const": true},
+        "model_endpoint": {"const": true},
+        "randomness": {"const": true},
+        "ranking_or_selection": {"const": true}
+      }
+    }
+  }
+}
