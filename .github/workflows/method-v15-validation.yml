@@ -8,6 +8,7 @@ on:
       - .github/workflows/method-v15-*.yml
       - METHOD_V1_5_BENCHMARK.md
       - schemas/*v1.5*.json
+      - infra/benchmark-v1.5/**
       - scripts/*v15*.py
       - results/benchmark/v1.5-*/**
       - results/benchmark/v1.4-p0/P0A.json
@@ -18,6 +19,7 @@ on:
       - .github/workflows/method-v15-*.yml
       - METHOD_V1_5_BENCHMARK.md
       - schemas/*v1.5*.json
+      - infra/benchmark-v1.5/**
       - scripts/*v15*.py
       - results/benchmark/v1.5-*/**
       - results/benchmark/v1.4-p0/P0A.json
@@ -107,13 +109,14 @@ jobs:
 
           paths = set(Path('schemas').glob('*v1.5*.json'))
           paths.update(Path('results/benchmark').glob('v1.5*/**/*.json'))
+          paths.update(Path('infra/benchmark-v1.5').glob('**/*.json'))
           if not paths:
               raise SystemExit('no Method v1.5 JSON artifacts found')
           schema_count = 0
           for path in sorted(paths, key=lambda item: item.as_posix()):
               with path.open(encoding='utf-8') as stream:
                   value = json.load(stream)
-              if path.parent == Path('schemas'):
+              if path.parent == Path('schemas') or path.name.endswith('.schema.json'):
                   Draft7Validator.check_schema(value)
                   schema_count += 1
               print(path.as_posix())
