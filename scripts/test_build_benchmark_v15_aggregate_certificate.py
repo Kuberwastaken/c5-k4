@@ -44,6 +44,9 @@ class AggregateCertificateTests(unittest.TestCase):
         ref = A.relative_ref(self.manifest_path, "fixture")
         binding = {"p1a": ref, "p1t": ref, "p1a_commit": self.commit, "p1t_commit": self.commit}
         frozen = {
+            "arm_execution": {key: dict(ref) for key in (
+                "capability_matrix", "capability_matrix_schema", "envelope_schema", "validator", "test",
+            )},
             "registry": {key: dict(ref) for key in ("executable", "policy", "schema", "invocation_contract")},
             "classification": {"policy": dict(ref)}, "grouping": {"policy": dict(ref)},
             "syntax_pool": {"executable": dict(ref)},
@@ -359,6 +362,11 @@ class AggregateCertificateTests(unittest.TestCase):
     def test_selector_manifest_resolves_only_authenticated_p1_roles(self) -> None:
         manifest_path = A.ROOT / "results/benchmark/v1.5-protocol/checkpoint-component-manifest.json"
         native_paths = {
+            "arm_capability_matrix": "results/benchmark/v1.5-protocol/arm-capability-matrix.json",
+            "arm_capability_matrix_schema": "schemas/benchmark-arm-capability-matrix-v1.5.schema.json",
+            "arm_execution_envelope_schema": "schemas/benchmark-execution-envelope-v1.5.schema.json",
+            "arm_execution_envelope_validator": "scripts/validate_benchmark_v15_execution_envelope.py",
+            "arm_execution_envelope_contract_test": "scripts/test_benchmark_v15_execution_envelope.py",
             "future_cohort_builder": "scripts/build_benchmark_v15_future_cohort.py",
             "future_cohort_rule": "results/benchmark/v1.5-protocol/future-cohort-rule.json",
             "future_registry_output_schema": "schemas/benchmark-future-registry-output-v1.5.schema.json",

@@ -11,8 +11,19 @@
     "components": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["registry", "classification", "grouping", "syntax_pool", "provenance", "checkpoint_runner", "private_custody", "delivery_broker", "immutable_store"],
+      "required": ["registry", "classification", "grouping", "syntax_pool", "provenance", "checkpoint_runner", "private_custody", "delivery_broker", "immutable_store", "arm_execution"],
       "properties": {
+        "arm_execution": {
+          "type": "object", "additionalProperties": false,
+          "required": ["capability_matrix", "capability_matrix_schema", "envelope_schema", "validator", "test"],
+          "properties": {
+            "capability_matrix": {"$ref": "#/definitions/native/arm_capability_matrix"},
+            "capability_matrix_schema": {"$ref": "#/definitions/native/arm_capability_matrix_schema"},
+            "envelope_schema": {"$ref": "#/definitions/native/arm_execution_envelope_schema"},
+            "validator": {"$ref": "#/definitions/native/arm_execution_envelope_validator"},
+            "test": {"$ref": "#/definitions/native/arm_execution_envelope_contract_test"}
+          }
+        },
         "immutable_store": {
           "type": "object", "additionalProperties": false,
           "required": ["executable", "test", "broker_adapter", "broker_adapter_test", "private_object_reference_schema", "config_schema", "readiness_schema"],
@@ -180,6 +191,11 @@
       ,"s3_delivery_broker_adapter": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "s3_delivery_broker_adapter"}}}]}
       ,"s3_delivery_broker_adapter_contract_test": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "s3_delivery_broker_adapter_contract_test"}}}]}
       ,"private_s3_object_reference_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "private_s3_object_reference_schema"}}}]}
+      ,"arm_capability_matrix": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "arm_capability_matrix"}}}]}
+      ,"arm_capability_matrix_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "arm_capability_matrix_schema"}}}]}
+      ,"arm_execution_envelope_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "arm_execution_envelope_schema"}}}]}
+      ,"arm_execution_envelope_validator": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "arm_execution_envelope_validator"}}}]}
+      ,"arm_execution_envelope_contract_test": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "arm_execution_envelope_contract_test"}}}]}
     },
     "inherited": {
       "five_strata_classifier": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "INHERITED_V1_4"}, "role": {"const": "five_strata_classifier"}}}]},

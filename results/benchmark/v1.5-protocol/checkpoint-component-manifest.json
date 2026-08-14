@@ -1,6 +1,13 @@
 {
   "authority": "RESOLVE_ONLY_THROUGH_AUTHENTICATED_P1",
   "components": {
+    "arm_execution": {
+      "capability_matrix": {"closure": "NATIVE_V1_5", "role": "arm_capability_matrix"},
+      "capability_matrix_schema": {"closure": "NATIVE_V1_5", "role": "arm_capability_matrix_schema"},
+      "envelope_schema": {"closure": "NATIVE_V1_5", "role": "arm_execution_envelope_schema"},
+      "test": {"closure": "NATIVE_V1_5", "role": "arm_execution_envelope_contract_test"},
+      "validator": {"closure": "NATIVE_V1_5", "role": "arm_execution_envelope_validator"}
+    },
     "classification": {"policy": {"closure": "INHERITED_V1_4", "role": "five_strata_classifier"}},
     "grouping": {"policy": {"closure": "INHERITED_V1_4", "role": "grouping_rule"}},
     "immutable_store": {

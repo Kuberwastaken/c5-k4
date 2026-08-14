@@ -69,8 +69,19 @@
     "component_manifest": {"$ref": "#/definitions/artifactRef"},
     "frozen_components": {
       "type": "object", "additionalProperties": false,
-      "required": ["registry", "classification", "grouping", "syntax_pool", "provenance", "checkpoint_runner", "private_custody", "delivery_broker", "immutable_store"],
+      "required": ["registry", "classification", "grouping", "syntax_pool", "provenance", "checkpoint_runner", "private_custody", "delivery_broker", "immutable_store", "arm_execution"],
       "properties": {
+        "arm_execution": {
+          "type": "object", "additionalProperties": false,
+          "required": ["capability_matrix", "capability_matrix_schema", "envelope_schema", "validator", "test"],
+          "properties": {
+            "capability_matrix": {"$ref": "#/definitions/artifactRef"},
+            "capability_matrix_schema": {"$ref": "#/definitions/artifactRef"},
+            "envelope_schema": {"$ref": "#/definitions/artifactRef"},
+            "validator": {"$ref": "#/definitions/artifactRef"},
+            "test": {"$ref": "#/definitions/artifactRef"}
+          }
+        },
         "immutable_store": {
           "type": "object", "additionalProperties": false,
           "required": ["executable", "test", "broker_adapter", "broker_adapter_test", "private_object_reference_schema", "config_schema", "readiness_schema"],
