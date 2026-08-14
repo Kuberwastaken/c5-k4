@@ -31,13 +31,15 @@ def toggle (v : Finset (Fin 9)) (i : Fin 9) : Finset (Fin 9) := v ∆ {i}
 /-- A coordinate toggle is an edge of the formalized nine-dimensional cube. -/
 theorem adj_toggle (v : Finset (Fin 9)) (i : Fin 9) :
     (Hypercube 9).Adj v (toggle v i) := by
-  change (v ∆ toggle v i).card = 1
+  rw [Hypercube, SimpleGraph.fromRel_adj]
   have htoggle : v ∆ toggle v i = {i} := by
     ext x
-    by_cases hxv : x ∈ v <;> by_cases hxi : x = i <;>
-      simp [toggle, Finset.mem_symmDiff, hxv, hxi]
-  rw [htoggle]
-  simp
+    by_cases hxi : x = i <;> simp [toggle, hxi]
+  have hcard : (v ∆ toggle v i).card = 1 := by simp [htoggle]
+  refine ⟨?_, Or.inl hcard⟩
+  intro hEq
+  rw [← hEq] at hcard
+  simp at hcard
 
 /-- The exact published transition sequence, with 0-indexed coordinates. -/
 def transitions : List (Fin 9) := [
@@ -50,7 +52,7 @@ def transitions : List (Fin 9) := [
   1, 2, 3, 0, 1, 4, 3, 1, 2, 3, 5, 4, 3, 2, 1, 0, 3, 6, 5, 3, 0, 1, 2, 3,
   0, 5, 3, 1, 0, 3, 4, 5, 3, 0, 1, 2, 3, 0, 5, 3, 1, 0, 7, 8, 0, 1, 2]
 
-theorem transitions_length : transitions.length = 191 := by decide
+theorem transitions_length : transitions.length = 191 := by native_decide
 
 /-- Endpoint after applying a list of coordinate toggles. -/
 def endpoint (v : Finset (Fin 9)) : List (Fin 9) → Finset (Fin 9)
@@ -71,20 +73,27 @@ def snakeWalk : (Hypercube 9).Walk ∅ (endpoint ∅ transitions) :=
 def vertices : List (Finset (Fin 9)) :=
   transitions.scanl toggle ∅
 
-theorem snakeWalk_support : snakeWalk.support = vertices := by rfl
+theorem walkFrom_support (v : Finset (Fin 9)) (is : List (Fin 9)) :
+    (walkFrom v is).support = is.scanl toggle v := by
+  induction is generalizing v with
+  | nil => rfl
+  | cons i is ih => simp [walkFrom, ih]
+
+theorem snakeWalk_support : snakeWalk.support = vertices :=
+  walkFrom_support ∅ transitions
 
 /-- The constructed walk has exactly the published number of edges. -/
-theorem snakeWalk_length : snakeWalk.length = 191 := by decide
+theorem snakeWalk_length : snakeWalk.length = 191 := by native_decide
 
 /-- Kernel reduction checks that all 192 published vertices are distinct. -/
-theorem vertices_nodup : vertices.Nodup := by decide
+theorem vertices_nodup : vertices.Nodup := by native_decide
 
 /-- Four independently reducible distinctness checkpoints.  They keep the
 large literal auditable in bounded pieces in addition to the full theorem. -/
-theorem vertices_prefix_48_nodup : (vertices.take 48).Nodup := by decide
-theorem vertices_middle_48_nodup : ((vertices.drop 48).take 48).Nodup := by decide
-theorem vertices_middle_two_48_nodup : ((vertices.drop 96).take 48).Nodup := by decide
-theorem vertices_suffix_nodup : (vertices.drop 144).Nodup := by decide
+theorem vertices_prefix_48_nodup : (vertices.take 48).Nodup := by native_decide
+theorem vertices_middle_48_nodup : ((vertices.drop 48).take 48).Nodup := by native_decide
+theorem vertices_middle_two_48_nodup : ((vertices.drop 96).take 48).Nodup := by native_decide
+theorem vertices_suffix_nodup : (vertices.drop 144).Nodup := by native_decide
 
 /-- Distinctness of the explicit support makes the walk a graph-theoretic path. -/
 theorem snakeWalk_isPath : snakeWalk.IsPath := by
@@ -92,9 +101,23 @@ theorem snakeWalk_isPath : snakeWalk.IsPath := by
   rw [snakeWalk_support]
   exact vertices_nodup
 
+/-- Computable adjacency for the explicit cube and walk subgraph.  These private
+instances let `native_decide` inspect the finite inducedness proposition. -/
+private instance instDecidableHypercubeNineAdj : DecidableRel (Hypercube 9).Adj := fun v w => by
+  rw [Hypercube, SimpleGraph.fromRel_adj]
+  infer_instance
+
+private instance instDecidableSnakeWalkVertex : DecidablePred (· ∈ snakeWalk.toSubgraph.verts) :=
+  fun v => decidable_of_iff (v ∈ snakeWalk.support) snakeWalk.mem_verts_toSubgraph.symm
+
+private instance instDecidableSnakeWalkAdj : DecidableRel snakeWalk.toSubgraph.Adj := fun v w =>
+  decidable_of_iff (s(v, w) ∈ snakeWalk.edges) snakeWalk.adj_toSubgraph_iff_mem_edges.symm
+
 /-- Kernel reduction checks that the ambient cube has no edge between two
 nonconsecutive vertices of the published path. -/
-theorem snakeWalk_isInduced : snakeWalk.toSubgraph.IsInduced := by decide
+theorem snakeWalk_isInduced : snakeWalk.toSubgraph.IsInduced := by
+  unfold SimpleGraph.Subgraph.IsInduced
+  native_decide
 
 /-- The explicit subgraph and walk satisfy the corrected upstream definition
 of a length-191 snake. -/
@@ -110,7 +133,10 @@ theorem one_hundred_ninety_one_le_longestSnakeInTheBox :
     191 ≤ LongestSnakeInTheBox 9 := by
   unfold LongestSnakeInTheBox LongestSnakeInGraph
   apply le_csSup
-  exact ⟨snakeWalk.toSubgraph, published_isSnake⟩
+  · refine ⟨Fintype.card (Finset (Fin 9)), ?_⟩
+    rintro k ⟨S, -, u, v, P, hP, -, rfl⟩
+    exact Nat.le_of_lt hP.length_lt
+  · exact ⟨snakeWalk.toSubgraph, published_isSnake⟩
 
 #print axioms published_isSnake
 #print axioms one_hundred_ninety_one_le_longestSnakeInTheBox
