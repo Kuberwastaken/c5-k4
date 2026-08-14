@@ -23,8 +23,8 @@ from typing import Iterable, Iterator, Sequence
 import networkx as nx
 
 
-SCHEMA = "c5k4-graffiti3-conjecture2-ledger-1.0"
-TERMINAL_SCHEMA = "c5k4-graffiti3-conjecture2-terminal-1.0"
+SCHEMA = "c5k4-graffiti3-conjecture2-ledger-1.1"
+TERMINAL_SCHEMA = "c5k4-graffiti3-conjecture2-terminal-1.1"
 INTERNAL_SECONDS = 54.0
 RADICAL_BITS = 96
 ARMS = ("CATALOGUE", "GENERIC", "WALL_NAVIGATION")
@@ -328,6 +328,8 @@ class Ledger:
     def append(self, row: dict[str, object]) -> None:
         payload = {"schema": SCHEMA, "sequence": self.sequence, "previous_row_sha256": self.previous, **row}
         raw_without_hash = canonical_json(payload)
+        if canonical_json(json.loads(raw_without_hash)) != raw_without_hash:
+            raise SearchError("ledger payload is not stable under a JSON round trip")
         digest = hashlib.sha256(raw_without_hash).hexdigest()
         payload["row_sha256"] = digest
         self.path.parent.mkdir(parents=True, exist_ok=True)
@@ -400,7 +402,8 @@ def run(arm: str, output: Path, terminal: Path, seconds: float = INTERNAL_SECOND
                 "residual_upper_minus_independent": [
                     (upper - len(witness)).numerator, (upper - len(witness)).denominator
                 ],
-                "d2": d2_values(graph), "crossing": crossing,
+                "d2": [[vertex, value] for vertex, value in sorted(d2_values(graph).items())],
+                "crossing": crossing,
             }
             if crossing:
                 row["radical_term_certificates"] = terms

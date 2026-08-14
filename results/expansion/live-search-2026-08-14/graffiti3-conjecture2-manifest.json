@@ -14,7 +14,7 @@
     }
   },
   "candidate_rule": "explicit independent set I and rigorous rational upper bound RGA2_upper < |I|",
-  "campaign_id": "graffiti3-conjecture2-development-v1",
+  "campaign_id": "graffiti3-conjecture2-development-v1.1-serialization-replay",
   "database_gate": {
     "atlas_connected_nontrivial_orders_2_through_7": 995,
     "expected_equality_graphs": ["K1,1", "K1,2", "K1,3", "K1,4", "K1,5", "K1,6"],
@@ -24,13 +24,14 @@
   "external_wall_seconds": 60,
   "frozen_files": {
     ".github/workflows/graffiti3-conjecture2-development.yml": "e7e61199c536c5b4a64b69960530b883911bb9cef5cce1e751e68124470765e4",
-    "results/expansion/live-search-2026-08-14/graffiti3-conjecture2-contract.md": "09ee8656fbb7e655c64161682c4bff2130866ce5450a53ec6e25ebb0a5f6c9b3",
-    "scripts/search_graffiti3_conjecture2.py": "308cd613dd6743cb752bc349fe39661f819cef35e6624b4df5fe8e7242f3650b",
-    "scripts/test_graffiti3_conjecture2.py": "99fae483299d24836ed49041fcd3a83091a2cdcc8397014833f6a10c039e36cd"
+    "results/expansion/live-search-2026-08-14/graffiti3-conjecture2-contract.md": "a36fdac4f748bd523bac24cdc132e8fd4070ff8d422e4a7b1c0fd50d6f1b0998",
+    "scripts/search_graffiti3_conjecture2.py": "757a65d455740ba2fe9a15fe52ff4a605f381fec399de89fadcb544537c82c49",
+    "scripts/test_graffiti3_conjecture2.py": "6e3c84521a81a8564cf5df9d848c09249f15c8c38c92db7c58a838257da521c2"
   },
   "internal_wall_seconds": 54,
   "primary_source": "https://doi.org/10.21203/rs.3.rs-8493329/v1",
-  "schema": "c5k4-graffiti3-conjecture2-development-manifest-1.0",
-  "status": "FROZEN_NOT_RUN",
+  "predecessor_run": "https://github.com/Kuberwastaken/c5-k4/actions/runs/31788835531",
+  "schema": "c5k4-graffiti3-conjecture2-development-manifest-1.1",
+  "status": "FROZEN_POST_SIGNAL_SERIALIZATION_REPLAY",
   "target": "alpha(G) <= sum_{uv in E(G)} 2 sqrt(d2(u)d2(v))/(d2(u)+d2(v)) for nontrivial connected finite simple G"
 }

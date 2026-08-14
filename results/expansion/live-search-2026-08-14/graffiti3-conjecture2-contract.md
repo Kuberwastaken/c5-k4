@@ -1,10 +1,20 @@
 # Graffiti³ Conjecture 2: frozen development-search contract
 
-Status: **FROZEN, NOT YET RUN**
+Status: **FROZEN SERIALIZATION REPLAY**
 
 Freeze date: 2026-08-14 UTC
 
 Scope: development evidence only; not a held-out benchmark and not a release.
+
+The first execution at commit `b168383` found a candidate in two arms, but its
+ledger used integer-keyed `d₂` objects. JSON parsing turns those keys into
+strings, changing canonical sort order for two-digit labels and making the
+internal row hashes unreplayable. Artifact-level checksums remain valid, but
+that execution cannot supply the promised chain evidence. Version 1.1 changes
+only the ledger schema and serializes `d₂` as sorted `[vertex,value]` pairs;
+the frozen proposal order, graph constructors, objective, arithmetic, sanity
+gate, seeds, and caps are unchanged. This is an explicitly post-signal replay,
+not a second prospective trial.
 
 ## Source and exact reading
 

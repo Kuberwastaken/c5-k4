@@ -76,6 +76,17 @@ class ConstructorTests(unittest.TestCase):
                 search.write_terminal(path, "CATALOGUE", reason, 3, 2, 2)
                 self.assertIs(json.loads(path.read_text())["domain_exhausted"], exhausted)
 
+    def test_ledger_chain_replays_after_json_round_trip(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            path = Path(raw) / "ledger.jsonl"
+            ledger = search.Ledger(path)
+            ledger.append({"kind": "control", "d2": [[0, 3], [10, 7]]})
+            row = json.loads(path.read_text())
+            claimed = row.pop("row_sha256")
+            self.assertEqual(
+                hashlib.sha256(search.canonical_json(row)).hexdigest(), claimed
+            )
+
 
 if __name__ == "__main__":
     unittest.main()
