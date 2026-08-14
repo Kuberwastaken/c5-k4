@@ -276,11 +276,19 @@ and the [audited search result](results/expansion/live-search-2026-08-14/oeis-a0
 
 The theorem shadow is now fully formalized in warning-clean, no-`sorry` Lean:
 the formal proof includes the coprime-product recurrence, the prime-power
-formula, and both small-defect converses. A rank-one algebraic surgery workflow
-is under freeze audit against the newly isolated repeated-square versus
-squarefree-triple wall; it has not yet been evaluated. If that workflow does
-not pass its predeclared freeze gate, or after its single frozen execution,
-the next independent DeepMind rotation is A067720, with A108569 as reserve.
+formula, and both small-defect converses. The follow-up rank-one algebraic
+surgery then exhausted both repeated-square versus squarefree-triple
+orientations: 48/48 independently replayed shards covered 1,547,331 states
+with zero survivors, certificates, deadlines, or errors. More than 99.999%
+of states stopped at the sign or integrality gates; the only three later
+states had composite derived partners and large final identity gaps. This
+closes the frozen rank-one direction, not the full conjecture, and argues
+against merely widening the same value band. See the
+[v2 result](results/expansion/live-search-2026-08-14/oeis-a056777-v2-development/result.md).
+
+The next independent DeepMind rotation is therefore A067720, with A108569 as
+reserve. Its profile-construction freeze is under audit and has not been
+evaluated.
 The [post-A056777 ranking](results/expansion/live-search-2026-08-14/next-deepmind-rotation-after-a056777.md)
 records the current source/status, duplicate, certificate-shape, and stop-rule
 audit. Written on the Wall I is not part of DeepMind's corpus and is excluded
