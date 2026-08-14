@@ -184,6 +184,20 @@ more time on the identical model. See the
 [freeze contract](results/expansion/live-search-2026-08-14/oeis-a231201-development/CONTRACT.md),
 and [preflight correction](results/expansion/live-search-2026-08-14/oeis-a231201-heldout-preflight-strict-stop.md).
 
+The resulting three-arm v2 redesign was then exercised on the declared
+Python 3.9 runner. Its source/database gate passed, but all 18 first-round
+constructors exposed a frozen-harness portability defect before target
+evaluation: Python 3.9 does not provide `int.bit_count()`. The evidence chain
+failed closed through every later stage, with zero assignments, adversary
+target calls, candidates, or final verifications. This is an
+[invalid operational run](results/expansion/live-search-2026-08-14/oeis-a231201-v2-development/result.md),
+not a bounded zero or mathematical result. The audit-clean v2.1 supersession
+replaces only that population-count operation and adds Python-3.9 smoke tests
+that execute all three constructor paths before dispatch; the arithmetic
+universe, exact gate, independent verifiers, and 54-second/60-second caps are
+unchanged. See the
+[v2.1 correction contract](results/expansion/live-search-2026-08-14/oeis-a231201-v21-development/CONTRACT.md).
+
 A subsequent live-arm pass over the newly merged OEIS cohort found one exact
 lower-endpoint failure: the formalized A109074 identity says `1 = 3` at
 `n=1`. Source reconciliation shows that this is an erratum rather than a new
