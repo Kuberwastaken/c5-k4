@@ -1,0 +1,216 @@
+name: Method v1.5 immutable infrastructure manual activation
+
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: Read-only PLAN, or guarded APPLY after protected-environment approval
+        required: true
+        type: choice
+        default: PLAN
+        options:
+          - PLAN
+          - APPLY
+      confirmation:
+        description: For APPLY only, type APPLY:<candidate-commit>:<template-sha256>:<parameters-sha256>
+        required: false
+        type: string
+        default: ''
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: method-v15-infrastructure-activation-${{ vars.BENCHMARK_V15_STACK_NAME }}
+  cancel-in-progress: false
+
+jobs:
+  plan-and-apply:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    environment:
+      name: benchmark-v15-production
+    steps:
+      - name: Check out the exact candidate base without retained credentials
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Fail closed unless repository authority and typed operation are exact
+        id: authority
+        shell: bash
+        env:
+          OPERATION: ${{ github.event.inputs.operation }}
+          CONFIRMATION: ${{ github.event.inputs.confirmation }}
+          ROLE_ARN: ${{ vars.BENCHMARK_V15_AWS_ROLE_ARN }}
+          HARNESS_PRINCIPAL_ARN: ${{ vars.BENCHMARK_V15_HARNESS_PRINCIPAL_ARN }}
+          AWS_REGION: ${{ vars.BENCHMARK_V15_AWS_REGION }}
+          STACK_NAME: ${{ vars.BENCHMARK_V15_STACK_NAME }}
+          TEMPLATE_DIGEST: ${{ vars.BENCHMARK_V15_TEMPLATE_SHA256 }}
+        run: |
+          set -euo pipefail
+          [[ "$GITHUB_EVENT_NAME" == workflow_dispatch ]]
+          [[ "$GITHUB_SHA" =~ ^[0-9a-f]{40}$ ]]
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          [[ "$ROLE_ARN" =~ ^arn:aws:iam::[0-9]{12}:role/[A-Za-z0-9+=,.@_/-]+$ ]]
+          [[ "$HARNESS_PRINCIPAL_ARN" =~ ^arn:aws:iam::[0-9]{12}:role/[A-Za-z0-9+=,.@_/-]+$ ]]
+          test "$HARNESS_PRINCIPAL_ARN" != "$ROLE_ARN"
+          [[ "$AWS_REGION" == ap-south-1 ]]
+          [[ "$STACK_NAME" =~ ^[A-Za-z][-A-Za-z0-9]{0,127}$ ]]
+          [[ "$TEMPLATE_DIGEST" =~ ^[0-9a-f]{64}$ ]]
+          template=infra/benchmark-v1.5/immutable-store/cloudformation.json
+          plan=infra/benchmark-v1.5/immutable-store/plan.json
+          test "$(sha256sum "$template" | awk '{print $1}')" = "$TEMPLATE_DIGEST"
+          test "$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["template_sha256"])' "$plan")" = "$TEMPLATE_DIGEST"
+          python3 scripts/verify_benchmark_v15_immutable_infrastructure.py
+          parameters="$RUNNER_TEMP/deployment-parameters.json"
+          python3 - "$parameters" "$HARNESS_PRINCIPAL_ARN" "$AWS_REGION" "$STACK_NAME" "$GITHUB_SHA" "$TEMPLATE_DIGEST" <<'PY'
+          import hashlib, json, sys
+          from pathlib import Path
+          policy = 'SHA256(candidate_commit:template_sha256:stack_name:harness_principal_arn)'
+          external = hashlib.sha256(':'.join(sys.argv[5:7] + [sys.argv[4], sys.argv[2]]).encode()).hexdigest()
+          value = {
+              'aws_region': sys.argv[3],
+              'harness_external_id': external,
+              'harness_external_id_policy': policy,
+              'harness_principal_arn': sys.argv[2],
+              'private_prefix': 'private/c5k4/v1.5',
+              'retention_years': 3,
+              'stack_name': sys.argv[4],
+          }
+          raw = json.dumps(value, sort_keys=True, separators=(',', ':'), ensure_ascii=True).encode()
+          Path(sys.argv[1]).write_bytes(raw + b'\n')
+          Path(sys.argv[1]).chmod(0o600)
+          PY
+          PARAMETERS_SHA256=$(python3 -c 'import hashlib,sys; raw=open(sys.argv[1],"rb").read().removesuffix(b"\n"); print(hashlib.sha256(raw).hexdigest())' "$parameters")
+          expected="APPLY:${GITHUB_SHA}:${TEMPLATE_DIGEST}:${PARAMETERS_SHA256}"
+          case "$OPERATION" in
+            PLAN) test -z "$CONFIRMATION" ;;
+            APPLY) test "$CONFIRMATION" = "$expected" ;;
+            *) exit 2 ;;
+          esac
+          echo "parameters_sha256=$PARAMETERS_SHA256" >> "$GITHUB_OUTPUT"
+
+      - name: Acquire the exact short-lived deployment role through OIDC
+        uses: aws-actions/configure-aws-credentials@61815dcd50bd041e203e49132bacad1fd04d2708 # v5.1.1
+        with:
+          role-to-assume: ${{ vars.BENCHMARK_V15_AWS_ROLE_ARN }}
+          aws-region: ${{ vars.BENCHMARK_V15_AWS_REGION }}
+          role-session-name: c5k4-v15-infrastructure-${{ github.run_id }}
+          output-credentials: false
+          mask-aws-account-id: true
+
+      - name: Build a read-only candidate plan without publishing provider output
+        id: plan
+        shell: bash
+        env:
+          AWS_REGION: ${{ vars.BENCHMARK_V15_AWS_REGION }}
+          STACK_NAME: ${{ vars.BENCHMARK_V15_STACK_NAME }}
+          TEMPLATE_DIGEST: ${{ vars.BENCHMARK_V15_TEMPLATE_SHA256 }}
+          PARAMETERS_SHA256: ${{ steps.authority.outputs.parameters_sha256 }}
+        run: |
+          set -euo pipefail
+          template=infra/benchmark-v1.5/immutable-store/cloudformation.json
+          plan_path="$RUNNER_TEMP/read-only-plan.json"
+          aws cloudformation validate-template --region "$AWS_REGION" \
+            --template-body "file://$template" >"$RUNNER_TEMP/validate-template.json" 2>"$RUNNER_TEMP/validate-template.stderr"
+          aws cloudformation get-template-summary --region "$AWS_REGION" \
+            --template-body "file://$template" >"$RUNNER_TEMP/template-summary.json" 2>"$RUNNER_TEMP/template-summary.stderr"
+          stack_exists=false
+          if aws cloudformation describe-stacks --region "$AWS_REGION" --stack-name "$STACK_NAME" \
+            >"$RUNNER_TEMP/current-stack.json" 2>"$RUNNER_TEMP/describe-stack.stderr"; then
+            stack_exists=true
+          elif ! grep -Fq 'does not exist' "$RUNNER_TEMP/describe-stack.stderr"; then
+            exit 2
+          fi
+          python3 - "$stack_exists" "$GITHUB_SHA" "$TEMPLATE_DIGEST" "$PARAMETERS_SHA256" "$plan_path" <<'PY'
+          import hashlib, json, sys
+          from pathlib import Path
+          exists = sys.argv[1] == 'true'
+          canonical = lambda value: json.dumps(value, sort_keys=True, separators=(',', ':'), ensure_ascii=False).encode()
+          plan = {
+              'schema': 'c5k4-method-v1.5-read-only-cloudformation-plan-1.0',
+              'candidate_commit': sys.argv[2],
+              'template_sha256': sys.argv[3],
+              'parameters_sha256': sys.argv[4],
+              'stack_exists': exists,
+              'create_permitted': not exists,
+              'target_specific': False,
+          }
+          plan['plan_sha256'] = hashlib.sha256(canonical(plan)).hexdigest()
+          Path(sys.argv[5]).write_bytes(canonical(plan) + b'\n')
+          PY
+          create_permitted=$(python3 -c 'import json,sys; print(str(json.load(open(sys.argv[1]))["create_permitted"]).lower())' "$plan_path")
+          echo "stack_exists=$stack_exists" >> "$GITHUB_OUTPUT"
+          echo "create_permitted=$create_permitted" >> "$GITHUB_OUTPUT"
+
+      - name: Fail closed when APPLY is not an authenticated first creation
+        if: github.event.inputs.operation == 'APPLY' && steps.plan.outputs.create_permitted != 'true'
+        shell: bash
+        run: exit 2
+
+      - name: Create, inspect, and execute one exact change set
+        if: github.event.inputs.operation == 'APPLY' && steps.plan.outputs.create_permitted == 'true'
+        shell: bash
+        env:
+          ROLE_ARN: ${{ vars.BENCHMARK_V15_AWS_ROLE_ARN }}
+          HARNESS_PRINCIPAL_ARN: ${{ vars.BENCHMARK_V15_HARNESS_PRINCIPAL_ARN }}
+          AWS_REGION: ${{ vars.BENCHMARK_V15_AWS_REGION }}
+          STACK_NAME: ${{ vars.BENCHMARK_V15_STACK_NAME }}
+          TEMPLATE_DIGEST: ${{ vars.BENCHMARK_V15_TEMPLATE_SHA256 }}
+          PARAMETERS_SHA256: ${{ steps.authority.outputs.parameters_sha256 }}
+        run: |
+          set -euo pipefail
+          template=infra/benchmark-v1.5/immutable-store/cloudformation.json
+          parameters="$RUNNER_TEMP/deployment-parameters.json"
+          test "$(python3 -c 'import hashlib,sys; raw=open(sys.argv[1],"rb").read().removesuffix(b"\n"); print(hashlib.sha256(raw).hexdigest())' "$parameters")" = "$PARAMETERS_SHA256"
+          test "$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["harness_principal_arn"])' "$parameters")" = "$HARNESS_PRINCIPAL_ARN"
+          external_id=$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["harness_external_id"])' "$parameters")
+          change_set="c5k4-v15-${PARAMETERS_SHA256:0:16}-${GITHUB_RUN_ID}"
+          client_token="c5k4-${PARAMETERS_SHA256}"
+          aws cloudformation create-change-set --region "$AWS_REGION" \
+            --stack-name "$STACK_NAME" --change-set-name "$change_set" \
+            --change-set-type CREATE --client-token "$client_token" \
+            --description "candidate=$GITHUB_SHA template=$TEMPLATE_DIGEST parameters=$PARAMETERS_SHA256" \
+            --template-body "file://$template" \
+            --capabilities CAPABILITY_IAM \
+            --parameters \
+              "ParameterKey=HarnessPrincipalArn,ParameterValue=$HARNESS_PRINCIPAL_ARN" \
+              "ParameterKey=HarnessExternalId,ParameterValue=$external_id" \
+              'ParameterKey=PrivatePrefix,ParameterValue=private/c5k4/v1.5' \
+              'ParameterKey=RetentionYears,ParameterValue=3' \
+            >"$RUNNER_TEMP/create-change-set.json" 2>"$RUNNER_TEMP/create-change-set.stderr"
+          aws cloudformation wait change-set-create-complete --region "$AWS_REGION" \
+            --stack-name "$STACK_NAME" --change-set-name "$change_set" \
+            >"$RUNNER_TEMP/wait-change-set.stdout" 2>"$RUNNER_TEMP/wait-change-set.stderr"
+          aws cloudformation describe-change-set --region "$AWS_REGION" \
+            --stack-name "$STACK_NAME" --change-set-name "$change_set" \
+            >"$RUNNER_TEMP/change-set.json" 2>"$RUNNER_TEMP/change-set.stderr"
+          python3 - "$RUNNER_TEMP/change-set.json" "$client_token" <<'PY'
+          import json, sys
+          value = json.load(open(sys.argv[1], encoding='utf-8'))
+          if value.get('Status') != 'CREATE_COMPLETE' or value.get('ExecutionStatus') != 'AVAILABLE':
+              raise SystemExit(2)
+          if value.get('ChangeSetType') != 'CREATE' or value.get('ClientToken') != sys.argv[2]:
+              raise SystemExit(2)
+          if set(value.get('Capabilities', [])) != {'CAPABILITY_IAM'}:
+              raise SystemExit(2)
+          changes = value.get('Changes')
+          expected_resources = {'CustodyBucket', 'CustodyBucketPolicy', 'CustodyKey', 'CustodyWriterPolicy', 'CustodyWriterRole'}
+          resources = {row.get('ResourceChange', {}).get('LogicalResourceId') for row in changes} if isinstance(changes, list) else set()
+          if resources != expected_resources:
+              raise SystemExit(2)
+          for row in changes:
+              change = row.get('ResourceChange', {})
+              if change.get('Action') != 'Add':
+                  raise SystemExit(2)
+              if change.get('Replacement') is not None:
+                  raise SystemExit(2)
+          PY
+          aws cloudformation execute-change-set --region "$AWS_REGION" \
+            --stack-name "$STACK_NAME" --change-set-name "$change_set" \
+            >"$RUNNER_TEMP/execute-change-set.json" 2>"$RUNNER_TEMP/execute-change-set.stderr"
+          aws cloudformation wait stack-create-complete --region "$AWS_REGION" --stack-name "$STACK_NAME" \
+            >"$RUNNER_TEMP/wait-stack.stdout" 2>"$RUNNER_TEMP/wait-stack.stderr"
