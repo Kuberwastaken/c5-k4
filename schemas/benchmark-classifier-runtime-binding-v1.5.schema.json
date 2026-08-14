@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-classifier-runtime-binding-v1.5.schema.json",
+  "title": "Method v1.5 pre-registry classifier runtime binding",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "status",
+    "target_data_access_permitted",
+    "future_registry_invocation_started",
+    "p1_role_resolution",
+    "classifier_readiness_receipt",
+    "consumed_classifier",
+    "components"
+  ],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-classifier-runtime-binding-1.0"},
+    "status": {"const": "FROZEN_P1_PRE_REGISTRY_CLASSIFIER_BINDING"},
+    "target_data_access_permitted": {"const": false},
+    "future_registry_invocation_started": {"const": false},
+    "p1_role_resolution": {"$ref": "#/definitions/runtimeFile"},
+    "classifier_readiness_receipt": {"$ref": "#/definitions/runtimeFile"},
+    "consumed_classifier": {"$ref": "#/definitions/runtimeFile"},
+    "components": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "five_strata_classifier",
+        "syntax_pool_builder",
+        "classifier_closure_contract",
+        "classifier_closure_validator",
+        "classifier_closure_readiness_schema"
+      ],
+      "properties": {
+        "five_strata_classifier": {"$ref": "#/definitions/component"},
+        "syntax_pool_builder": {"$ref": "#/definitions/component"},
+        "classifier_closure_contract": {"$ref": "#/definitions/component"},
+        "classifier_closure_validator": {"$ref": "#/definitions/component"},
+        "classifier_closure_readiness_schema": {"$ref": "#/definitions/component"}
+      }
+    }
+  },
+  "definitions": {
+    "sha": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "runtimeFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1, "pattern": "^[^\\u0000]+$"},
+        "sha256": {"$ref": "#/definitions/sha"}
+      }
+    },
+    "component": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["closure", "role", "path", "sha256"],
+      "properties": {
+        "closure": {"enum": ["NATIVE_V1_5", "INHERITED_V1_4"]},
+        "role": {"type": "string", "minLength": 1},
+        "path": {"type": "string", "minLength": 1, "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[^\\u0000]+$"},
+        "sha256": {"$ref": "#/definitions/sha"}
+      }
+    }
+  }
+}
