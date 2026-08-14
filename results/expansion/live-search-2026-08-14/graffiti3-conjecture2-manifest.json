@@ -1,0 +1,36 @@
+{
+  "arms": {
+    "CATALOGUE": {
+      "domain": "connected Atlas gate followed by frozen named-family constructors through order 30",
+      "seed": 0
+    },
+    "GENERIC": {
+      "domain": "6000 deterministic connected G(n,p) proposals, orders 8 through 30",
+      "seed": 320260119
+    },
+    "WALL_NAVIGATION": {
+      "domain": "frozen single-move perturbations of equality stars K1,m, 2 <= m <= 29",
+      "seed": 0
+    }
+  },
+  "candidate_rule": "explicit independent set I and rigorous rational upper bound RGA2_upper < |I|",
+  "campaign_id": "graffiti3-conjecture2-development-v1",
+  "database_gate": {
+    "atlas_connected_nontrivial_orders_2_through_7": 995,
+    "expected_equality_graphs": ["K1,1", "K1,2", "K1,3", "K1,4", "K1,5", "K1,6"],
+    "expected_violations": 0
+  },
+  "d2_convention": "cardinality of the closed distance-at-most-two ball, including the vertex itself",
+  "external_wall_seconds": 60,
+  "frozen_files": {
+    ".github/workflows/graffiti3-conjecture2-development.yml": "e7e61199c536c5b4a64b69960530b883911bb9cef5cce1e751e68124470765e4",
+    "results/expansion/live-search-2026-08-14/graffiti3-conjecture2-contract.md": "09ee8656fbb7e655c64161682c4bff2130866ce5450a53ec6e25ebb0a5f6c9b3",
+    "scripts/search_graffiti3_conjecture2.py": "308cd613dd6743cb752bc349fe39661f819cef35e6624b4df5fe8e7242f3650b",
+    "scripts/test_graffiti3_conjecture2.py": "99fae483299d24836ed49041fcd3a83091a2cdcc8397014833f6a10c039e36cd"
+  },
+  "internal_wall_seconds": 54,
+  "primary_source": "https://doi.org/10.21203/rs.3.rs-8493329/v1",
+  "schema": "c5k4-graffiti3-conjecture2-development-manifest-1.0",
+  "status": "FROZEN_NOT_RUN",
+  "target": "alpha(G) <= sum_{uv in E(G)} 2 sqrt(d2(u)d2(v))/(d2(u)+d2(v)) for nontrivial connected finite simple G"
+}
