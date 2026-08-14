@@ -156,6 +156,14 @@ structural trial and a finite DEVELOPMENT bounded zero, not evidence that
 either open declaration is true and not a release. See the
 [A063880 result](results/expansion/live-search-2026-08-14/oeis-a063880-development/result.md).
 
+The adjacent A105565 reserve was stopped before candidate evaluation. Its
+published rotation formula telescopes the proposed strip residual to a
+fractional part, and an irrationality argument prevents equality; continued
+fractions can therefore approach the wall but cannot cross it. This is a
+[theorem-shadow diagnosis](results/expansion/live-search-2026-08-14/oeis-a105565-heldout-theorem-shadow-preflight-20260814.md),
+not a completed proof of the exact Lean declaration: source-to-definition and
+finite-cutoff bridge lemmas remain to be formalized.
+
 A subsequent live-arm pass over the newly merged OEIS cohort found one exact
 lower-endpoint failure: the formalized A109074 identity says `1 = 3` at
 `n=1`. Source reconciliation shows that this is an erratum rather than a new
