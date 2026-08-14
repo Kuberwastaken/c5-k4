@@ -1,0 +1,50 @@
+{
+  "schema": "c5k4-txgraffiti-product-v2-development-manifest-1.0",
+  "campaign_id": "txgraffiti-product-conjecture-development-v2",
+  "status": "FROZEN_UNEXECUTED_DEVELOPMENT",
+  "frozen_utc": "2026-08-14",
+  "campaign_commit": null,
+  "target": "For connected G,H with n(G),n(H)>=2, gamma_t(G square H) >= gamma(G direct H)",
+  "method_revision": "exact Cartesian upper-bound descent and exact direct-product domination",
+  "primary_source": "https://arxiv.org/abs/2409.19379v2",
+  "source_revision_date": "2026-05-11",
+  "source_conjecture_number": 3,
+  "domains": {
+    "CATALOGUE": 69,
+    "GENERIC": 192,
+    "WALL_NAVIGATION": 32
+  },
+  "hard_subproblem_seconds": 4,
+  "internal_wall_seconds": 54,
+  "external_wall_seconds": 60,
+  "candidate_rule": "exact gamma(G direct H) is strictly greater than an explicit monotonically descended total-domination upper bound for G square H",
+  "database_gate": {
+    "connected_atlas_orders_2_through_7": 995,
+    "counts_by_order": {
+      "2": 1,
+      "3": 2,
+      "4": 6,
+      "5": 21,
+      "6": 112,
+      "7": 853
+    },
+    "ordered_labelled_graph6_sha256": "1cfb1c9688917d79dc59a9e9fc529af2780b9bceaa39f25bb61672c4ad4e72c3"
+  },
+  "terminal_reasons": [
+    "CANDIDATE_FOUND",
+    "DOMAIN_EXHAUSTED",
+    "DEADLINE_PREFIX",
+    "DB_SOURCE_GATE_FAILED",
+    "CERTIFICATE_FAILED",
+    "ERROR"
+  ],
+  "frozen_files": {
+    "scripts/search_txgraffiti_product_conjecture_v2.py": "c58e1efa8a2f6fc4cf371320fa8caf59a189d57cdabbb233000685766bf26055",
+    "scripts/test_txgraffiti_product_conjecture_v2.py": "8464089711987273688584f4a3b04dae467089786125c7d62d2848514ca3811b",
+    "scripts/verify_txgraffiti_product_v2_certificate.py": "df5ecd19c1f7caa11d999959b54388db32ffafb102928250b132a96d4965ab0b",
+    ".github/workflows/txgraffiti-product-conjecture-v2-development.yml": "9547b766c5dcd3d9e6d5415b6a3fa4a5340e642fa6104949904f1c1286f8cedf",
+    "results/expansion/live-search-2026-08-14/txgraffiti-product-v2-development/source-status-attestation.json": "20d0fee491c2a46f08960b2502776c49e2b19e33d2f43a029a0446b558547587",
+    "results/expansion/live-search-2026-08-14/txgraffiti-product-v2-development/CONTRACT.md": "5e42580c972bba5d785415c65ebbd996f64dceb577f5a81a46a5013a4e202cf7",
+    "results/expansion/live-search-2026-08-14/txgraffiti-product-v2-development/verify_freeze.py": "5abaffbc4d67b6b102f632ca473a50ebfb60ed311ad401e0bee44b440a5b2a7b"
+  }
+}

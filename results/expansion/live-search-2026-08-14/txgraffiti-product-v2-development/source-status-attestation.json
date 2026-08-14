@@ -1,0 +1,18 @@
+{
+  "arxiv_id": "2409.19379v2",
+  "source_revision_date": "2026-05-11",
+  "conjecture_number": 3,
+  "statement_ascii": "For connected G,H with n(G),n(H)>=2, gamma_t(G square H) >= gamma(G direct H).",
+  "cartesian_definition": "(g,h)~(g',h') iff [g=g' and hh' in E(H)] or [h=h' and gg' in E(G)]",
+  "direct_definition": "(g,h)~(g',h') iff gg' in E(G) and hh' in E(H)",
+  "gamma_definition": "minimum cardinality of a set whose closed neighborhoods cover every vertex",
+  "gamma_t_definition": "minimum cardinality of a set whose open neighborhoods cover every vertex, including every selected vertex",
+  "public_status": "OPEN_NO_PUBLIC_RESOLUTION_FOUND",
+  "status_checked_utc": "2026-08-14",
+  "status_basis": [
+    "arXiv v2 still labels the statement Conjecture 3 and calls it table-true with many sharp instances",
+    "exact-statement, formula, product-name, and title searches found no indexed proof or counterexample",
+    "the v1 local campaign found no certificate and did not resolve the conjecture"
+  ],
+  "limitations": "This carries forward the v1 freeze-date negative public search. Recheck source status and priority before interpreting any candidate."
+}
