@@ -283,14 +283,17 @@ second candidate-only acyclic degree-two branch-and-bound check may be retained
 as defense in depth, but it should not be the sole upper-bound verifier under
 the 60-second cap.
 
-## Current-code observations
+## Superseded pre-freeze observations
 
-These observations refer to the prospective scripts as inspected without
-executing target rows.
+The observations below describe an intermediate, unsealed implementation that
+was inspected without executing target rows. They are preserved as design
+history only and do **not** describe the frozen code. The freeze subsequently
+removed CBC and the repeated branch-and-bound verifier in favor of independent
+endpoint subset-DP implementations.
 
-### CBC discovery path
+### Removed CBC discovery path
 
-`prospective_bondy_search.py` now isolates CBC children and directly replays a
+The intermediate `prospective_bondy_search.py` isolated CBC children and replayed a
 feasible assignment. That makes a reported positive assignment usable as an
 existence witness. Negative conclusions, however, still depend on parsing the
 literal CBC text `Problem proven infeasible`, and every child is capped at two
@@ -298,16 +301,16 @@ seconds. In the worst case the evaluator can launch a solver child for each of
 4,845 `Q` sets. This remains slower and more status-sensitive than the single
 subset DP.
 
-The current flow also stops at the first `Q` whose complement has a cover and
-then invokes the upper replay. If that replay finds `q_4(H)>16`, its nonzero
-rejection exit is currently converted to `TimeoutError` and then to
+That intermediate flow also stopped at the first `Q` whose complement had a
+cover and then invoked the upper replay. If that replay found `q_4(H)>16`, its
+nonzero rejection exit was converted to `TimeoutError` and then to
 `CAP_PREFIX`. A proved upper-bound counterexample is neither a timeout nor a
 gate failure. It should carry the removed mask and reconstructed cover, mark
 the row noncandidate, and allow the search to continue.
 
-### Existing independent branch-and-bound
+### Removed independent branch-and-bound
 
-`prospective_bondy_replay.cpp` separately tests each of the 1,351 deletion
+The intermediate `prospective_bondy_replay.cpp` separately tested each of the 1,351 deletion
 sets by branching over active edges with a rollback DSU. Its encoding is
 sound: selecting `|S|-4` acyclic degree-at-most-two edges gives a spanning
 linear forest with at most four components. Its worst-case search tree is
@@ -324,21 +327,19 @@ answer unsound:
   the next search order. The state is reset before DFS, so this affects search
   order and timing rather than logical correctness.
 
-The parser also stops at the first failed integer extraction and therefore
-should explicitly reject malformed trailing content. The endpoint DP avoids
-the branch-order and repeated-search issues altogether.
+The intermediate parser also stopped at the first failed integer extraction.
+The frozen parser now rejects malformed or trailing content before allocating
+the DP tables, and the endpoint DP avoids the branch-order and repeated-search
+issues altogether.
 
-## Recommended integration shape
+## Integrated frozen shape
 
-- Use a native endpoint-DP evaluator for each applicable `H`.
-- Reject immediately and normally when its exact `q4` is greater than 16.
-- Only when `q4=16`, enumerate the 4,845 `Q` sets and recover the least
-  positive witness from the same table.
-- Before publishing a candidate, run a separately written independent checker
-  that rebuilds the table, checks all deletion sets, and replays every explicit
-  path and cycle.
-- Preserve fail-closed deadline handling, but never translate a mathematically
-  proved noncandidate into `CAP_PREFIX`.
+The frozen implementation now uses a native Python endpoint-DP evaluator for
+each applicable `H`, checks all 1,351 deletion masks, and enumerates all 4,845
+`Q` sets when the upper bound survives. A separately written C++ endpoint DP
+rebuilds the complete path-cover table; acceptance requires the two table
+SHA-256 digests to match before explicit paths and the stitched cycle replay.
+Fail-closed deadlines remain distinct from exact noncandidate rows.
 
 This makes every accepted result exact and replayable while eliminating CBC
 termination semantics from the `q_4` decision.
