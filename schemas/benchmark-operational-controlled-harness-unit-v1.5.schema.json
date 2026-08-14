@@ -1,0 +1,105 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-operational-controlled-harness-unit-v1.5.schema.json",
+  "title": "Method v1.5 generated future operational controlled-harness unit bundle",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema", "status", "protocol_version", "host_id", "activation_inputs_sha256", "p1_tree_sha256", "service_binary_sha256", "validation_environment", "unit", "tls_material", "network_policy", "bound_acceptances", "namespace_capabilities", "target_specific", "installed", "active", "activation_permitted", "bundle_sha256"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-operational-controlled-harness-unit-bundle-1.0"},
+    "status": {"enum": ["FUTURE_OPERATIONAL_UNIT_GENERATED_NOT_INSTALLED", "FIXTURE_UNIT_GENERATED_NONOPERATIONAL"]}, "protocol_version": {"const": "1.5"},
+    "host_id": {"const": "ai-vps-controlled-harness"}, "activation_inputs_sha256": {"$ref": "#/definitions/sha256"},
+    "p1_tree_sha256": {"$ref": "#/definitions/sha256"}, "service_binary_sha256": {"$ref": "#/definitions/sha256"},
+    "validation_environment": {
+      "type": "object", "additionalProperties": false,
+      "required": ["filesystem_scope", "production_root_ownership_proven", "pinned_resolution_artifact_verified", "runnable_candidate"],
+      "properties": {
+        "filesystem_scope": {"enum": ["PRODUCTION_ROOT", "FIXTURE_ROOT"]},
+        "production_root_ownership_proven": {"type": "boolean"},
+        "pinned_resolution_artifact_verified": {"const": true},
+        "runnable_candidate": {"type": "boolean"}
+      }
+    },
+    "unit": {
+      "type": "object", "additionalProperties": false, "required": ["name", "content", "sha256"],
+      "properties": {"name": {"const": "c5k4-harness.service"}, "content": {"type": "string", "minLength": 512, "maxLength": 16384}, "sha256": {"$ref": "#/definitions/sha256"}}
+    },
+    "tls_material": {
+      "type": "object", "additionalProperties": false,
+      "required": ["certificate_source", "certificate_sha256", "private_key_source", "private_key_sha256", "private_key_runtime_credential", "credential_loader", "source_permissions_widened"],
+      "properties": {
+        "certificate_source": {"const": "/etc/c5k4-harness/tls/fullchain.pem"},
+        "certificate_sha256": {"$ref": "#/definitions/sha256"},
+        "private_key_source": {"const": "/etc/c5k4-harness/tls/private-key.pem"},
+        "private_key_sha256": {"$ref": "#/definitions/sha256"},
+        "private_key_runtime_credential": {"const": "%d/tls-private-key"},
+        "credential_loader": {"const": "systemd LoadCredential"},
+        "source_permissions_widened": {"const": false}
+      }
+    },
+    "network_policy": {
+      "type": "object", "additionalProperties": false,
+      "required": ["default_deny", "unlisted_egress_forbidden", "dns_policy", "resolution_artifact_path", "resolution_artifact_sha256", "allowed_endpoints", "listener", "sha256"],
+      "properties": {
+        "default_deny": {"const": true}, "unlisted_egress_forbidden": {"const": true},
+        "dns_policy": {"const": "ALLOWLIST_ONLY_PINNED_RESOLUTION"},
+        "resolution_artifact_path": {"const": "/etc/c5k4-harness/pinned-hosts"},
+        "resolution_artifact_sha256": {"$ref": "#/definitions/sha256"},
+        "allowed_endpoints": {
+          "type": "array", "minItems": 5, "maxItems": 5,
+          "items": [
+            {"$ref": "#/definitions/githubOidcEndpoint"},
+            {"$ref": "#/definitions/githubApiEndpoint"},
+            {"$ref": "#/definitions/awsS3Endpoint"},
+            {"$ref": "#/definitions/awsKmsEndpoint"},
+            {"$ref": "#/definitions/awsStsEndpoint"}
+          ],
+          "additionalItems": false
+        },
+        "listener": {
+          "type": "object", "additionalProperties": false,
+          "required": ["https_endpoint", "bind_address", "port"],
+          "properties": {
+            "https_endpoint": {"type": "string", "pattern": "^https://[a-z0-9][a-z0-9.-]{0,252}:443/$"},
+            "bind_address": {"type": "string", "format": "ipv4"},
+            "port": {"const": 443}
+          }
+        },
+        "sha256": {"$ref": "#/definitions/sha256"}
+      }
+    },
+    "bound_acceptances": {
+      "type": "object", "additionalProperties": false,
+      "required": ["noninterference_key_commitment_sha256", "worm_acceptance_sha256", "destructive_gap_acceptance_sha256", "tls_spki_sha256", "oidc_config_sha256"],
+      "properties": {
+        "noninterference_key_commitment_sha256": {"$ref": "#/definitions/sha256"}, "worm_acceptance_sha256": {"$ref": "#/definitions/sha256"},
+        "destructive_gap_acceptance_sha256": {"$ref": "#/definitions/sha256"}, "tls_spki_sha256": {"$ref": "#/definitions/sha256"}, "oidc_config_sha256": {"$ref": "#/definitions/sha256"}
+      }
+    },
+    "namespace_capabilities": {"const": ["user", "mount", "network", "pid", "ipc", "uts", "cgroup"]},
+    "target_specific": {"const": false}, "installed": {"const": false}, "active": {"const": false},
+    "activation_permitted": {"const": false}, "bundle_sha256": {"$ref": "#/definitions/sha256"}
+  },
+  "allOf": [
+    {"if": {"properties": {"status": {"const": "FUTURE_OPERATIONAL_UNIT_GENERATED_NOT_INSTALLED"}}}, "then": {"properties": {"validation_environment": {"properties": {"filesystem_scope": {"const": "PRODUCTION_ROOT"}, "production_root_ownership_proven": {"const": true}, "runnable_candidate": {"const": true}}}}}},
+    {"if": {"properties": {"status": {"const": "FIXTURE_UNIT_GENERATED_NONOPERATIONAL"}}}, "then": {"properties": {"validation_environment": {"properties": {"filesystem_scope": {"const": "FIXTURE_ROOT"}, "production_root_ownership_proven": {"const": false}, "runnable_candidate": {"const": false}}}}}}
+  ],
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "cidrs": {"type": "array", "minItems": 1, "maxItems": 16, "uniqueItems": true, "items": {"type": "string", "pattern": "^[0-9a-fA-F:.]+/(32|128)$"}},
+    "endpointBase": {
+      "type": "object", "additionalProperties": false,
+      "required": ["provider", "service", "hostname", "port", "protocol", "tls_sni_required", "pinned_cidrs"],
+      "properties": {
+        "provider": {"enum": ["GITHUB", "AWS"]}, "service": {"type": "string"},
+        "hostname": {"type": "string"}, "port": {"const": 443},
+        "protocol": {"const": "HTTPS"}, "tls_sni_required": {"const": true},
+        "pinned_cidrs": {"$ref": "#/definitions/cidrs"}
+      }
+    },
+    "githubOidcEndpoint": {"allOf": [{"$ref": "#/definitions/endpointBase"}, {"properties": {"provider": {"const": "GITHUB"}, "service": {"const": "OIDC_JWKS"}, "hostname": {"const": "token.actions.githubusercontent.com"}}}]},
+    "githubApiEndpoint": {"allOf": [{"$ref": "#/definitions/endpointBase"}, {"properties": {"provider": {"const": "GITHUB"}, "service": {"const": "PUBLIC_CHAIN_API"}, "hostname": {"const": "api.github.com"}}}]},
+    "awsS3Endpoint": {"allOf": [{"$ref": "#/definitions/endpointBase"}, {"properties": {"provider": {"const": "AWS"}, "service": {"const": "S3_OBJECT_LOCK"}, "hostname": {"const": "s3.ap-south-1.amazonaws.com"}}}]},
+    "awsKmsEndpoint": {"allOf": [{"$ref": "#/definitions/endpointBase"}, {"properties": {"provider": {"const": "AWS"}, "service": {"const": "KMS"}, "hostname": {"const": "kms.ap-south-1.amazonaws.com"}}}]},
+    "awsStsEndpoint": {"allOf": [{"$ref": "#/definitions/endpointBase"}, {"properties": {"provider": {"const": "AWS"}, "service": {"const": "STS"}, "hostname": {"const": "sts.ap-south-1.amazonaws.com"}}}]}
+  }
+}

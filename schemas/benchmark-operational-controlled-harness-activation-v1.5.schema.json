@@ -1,0 +1,162 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-operational-controlled-harness-activation-v1.5.schema.json",
+  "title": "Method v1.5 future operational controlled-harness activation inputs",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema", "status", "protocol_version", "host_id", "p1", "service",
+    "listener", "tls", "oidc", "noninterference_key_commitment",
+    "worm_acceptance", "destructive_gap_acceptance", "network",
+    "target_specific", "activation_inputs_sha256"
+  ],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-operational-controlled-harness-activation-inputs-1.0"},
+    "status": {"const": "P1_OPERATIONAL_ACTIVATION_INPUTS_COMPLETE"},
+    "protocol_version": {"const": "1.5"},
+    "host_id": {"const": "ai-vps-controlled-harness"},
+    "p1": {
+      "type": "object", "additionalProperties": false,
+      "required": ["tree_path", "tree_sha256", "commit"],
+      "properties": {
+        "tree_path": {"const": "/opt/c5k4/p1"},
+        "tree_sha256": {"$ref": "#/definitions/sha256"},
+        "commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"}
+      }
+    },
+    "service": {
+      "type": "object", "additionalProperties": false,
+      "required": ["binary_path", "binary_sha256", "activation_binding_path"],
+      "properties": {
+        "binary_path": {"const": "/opt/c5k4/p1/bin/c5k4-controlled-harness"},
+        "binary_sha256": {"$ref": "#/definitions/sha256"},
+        "activation_binding_path": {"const": "/etc/c5k4-harness/OPERATIONAL-ACTIVATION.json"}
+      }
+    },
+    "listener": {
+      "type": "object", "additionalProperties": false,
+      "required": ["https_endpoint", "bind_address", "port"],
+      "properties": {
+        "https_endpoint": {"type": "string", "pattern": "^https://[a-z0-9][a-z0-9.-]{0,252}:443/$"},
+        "bind_address": {"type": "string", "format": "ipv4"},
+        "port": {"const": 443}
+      }
+    },
+    "tls": {
+      "type": "object", "additionalProperties": false,
+      "required": ["certificate_path", "certificate_sha256", "private_key_path", "private_key_sha256", "minimum_version", "client_certificate_policy"],
+      "properties": {
+        "certificate_path": {"const": "/etc/c5k4-harness/tls/fullchain.pem"},
+        "certificate_sha256": {"$ref": "#/definitions/sha256"},
+        "private_key_path": {"const": "/etc/c5k4-harness/tls/private-key.pem"},
+        "private_key_sha256": {"$ref": "#/definitions/sha256"},
+        "minimum_version": {"const": "TLSv1.3"},
+        "client_certificate_policy": {"const": "OIDC_BEARER_REQUIRED_NO_CLIENT_CERT"}
+      }
+    },
+    "oidc": {
+      "type": "object", "additionalProperties": false,
+      "required": ["issuer", "audience", "repository", "ref", "workflow_ref", "event_name", "run_attempt"],
+      "properties": {
+        "issuer": {"const": "https://token.actions.githubusercontent.com"},
+        "audience": {"type": "string", "pattern": "^c5k4-method-v1\\.5:[0-9a-f]{64}$"},
+        "repository": {"const": "Kuberwastaken/c5-k4"},
+        "ref": {"const": "refs/heads/main"},
+        "workflow_ref": {"const": "Kuberwastaken/c5-k4/.github/workflows/method-v15-checkpoint.yml@refs/heads/main"},
+        "event_name": {"const": "schedule"},
+        "run_attempt": {"const": "1"}
+      }
+    },
+    "noninterference_key_commitment": {"$ref": "#/definitions/keyCommitment"},
+    "worm_acceptance": {"$ref": "#/definitions/wormAcceptance"},
+    "destructive_gap_acceptance": {"$ref": "#/definitions/gapAcceptance"},
+    "network": {
+      "type": "object", "additionalProperties": false,
+      "required": ["default_deny", "unlisted_egress_forbidden", "dns_policy", "aws_region", "resolution_artifact_path", "resolution_artifact_sha256", "allowed_endpoints"],
+      "properties": {
+        "default_deny": {"const": true},
+        "unlisted_egress_forbidden": {"const": true},
+        "dns_policy": {"const": "ALLOWLIST_ONLY_PINNED_RESOLUTION"},
+        "aws_region": {"const": "ap-south-1"},
+        "resolution_artifact_path": {"const": "/etc/c5k4-harness/pinned-hosts"},
+        "resolution_artifact_sha256": {"$ref": "#/definitions/sha256"},
+        "allowed_endpoints": {
+          "type": "array", "minItems": 5, "maxItems": 5,
+          "items": [
+            {"$ref": "#/definitions/githubOidcEndpoint"},
+            {"$ref": "#/definitions/githubApiEndpoint"},
+            {"$ref": "#/definitions/awsS3Endpoint"},
+            {"$ref": "#/definitions/awsKmsEndpoint"},
+            {"$ref": "#/definitions/awsStsEndpoint"}
+          ],
+          "additionalItems": false
+        }
+      }
+    },
+    "target_specific": {"const": false},
+    "activation_inputs_sha256": {"$ref": "#/definitions/sha256"}
+  },
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"},
+    "cidrs": {"type": "array", "minItems": 1, "maxItems": 16, "uniqueItems": true, "items": {"type": "string", "pattern": "^[0-9a-fA-F:.]+/(32|128)$"}},
+    "endpointBase": {
+      "type": "object", "additionalProperties": false,
+      "required": ["provider", "service", "hostname", "port", "protocol", "tls_sni_required", "pinned_cidrs"],
+      "properties": {
+        "provider": {"enum": ["GITHUB", "AWS"]}, "service": {"type": "string"},
+        "hostname": {"type": "string"}, "port": {"const": 443},
+        "protocol": {"const": "HTTPS"}, "tls_sni_required": {"const": true},
+        "pinned_cidrs": {"$ref": "#/definitions/cidrs"}
+      }
+    },
+    "githubOidcEndpoint": {"allOf": [{"$ref": "#/definitions/endpointBase"}, {"properties": {"provider": {"const": "GITHUB"}, "service": {"const": "OIDC_JWKS"}, "hostname": {"const": "token.actions.githubusercontent.com"}}}]},
+    "githubApiEndpoint": {"allOf": [{"$ref": "#/definitions/endpointBase"}, {"properties": {"provider": {"const": "GITHUB"}, "service": {"const": "PUBLIC_CHAIN_API"}, "hostname": {"const": "api.github.com"}}}]},
+    "awsS3Endpoint": {"allOf": [{"$ref": "#/definitions/endpointBase"}, {"properties": {"provider": {"const": "AWS"}, "service": {"const": "S3_OBJECT_LOCK"}, "hostname": {"const": "s3.ap-south-1.amazonaws.com"}}}]},
+    "awsKmsEndpoint": {"allOf": [{"$ref": "#/definitions/endpointBase"}, {"properties": {"provider": {"const": "AWS"}, "service": {"const": "KMS"}, "hostname": {"const": "kms.ap-south-1.amazonaws.com"}}}]},
+    "awsStsEndpoint": {"allOf": [{"$ref": "#/definitions/endpointBase"}, {"properties": {"provider": {"const": "AWS"}, "service": {"const": "STS"}, "hostname": {"const": "sts.ap-south-1.amazonaws.com"}}}]},
+    "keyCommitment": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema", "status", "protocol_version", "host_id", "signing_key_id", "signature_algorithm", "verification_key_sha256", "operational", "activation_permitted", "target_specific", "commitment_sha256"],
+      "properties": {
+        "schema": {"const": "c5k4-method-v1.5-operational-noninterference-key-commitment-1.0"},
+        "status": {"const": "FROZEN_P1_NONINTERFERENCE_KEY_COMMITTED"}, "protocol_version": {"const": "1.5"},
+        "host_id": {"const": "ai-vps-controlled-harness"}, "signing_key_id": {"$ref": "#/definitions/id"},
+        "signature_algorithm": {"const": "Ed25519"}, "verification_key_sha256": {"$ref": "#/definitions/sha256"},
+        "operational": {"const": true}, "activation_permitted": {"const": true}, "target_specific": {"const": false},
+        "commitment_sha256": {"$ref": "#/definitions/sha256"}
+      }
+    },
+    "wormAcceptance": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema", "status", "store_config_sha256", "object_lock_mode", "versioning_enabled", "retention_verified", "destructive_write_rejected", "operational", "activation_permitted", "acceptance_sha256"],
+      "properties": {
+        "schema": {"const": "c5k4-method-v1.5-operational-worm-acceptance-1.0"},
+        "status": {"const": "OPERATIONAL_WORM_ACCEPTANCE_PASSED"}, "store_config_sha256": {"$ref": "#/definitions/sha256"},
+        "object_lock_mode": {"const": "COMPLIANCE"}, "versioning_enabled": {"const": true},
+        "retention_verified": {"const": true}, "destructive_write_rejected": {"const": true},
+        "operational": {"const": true}, "activation_permitted": {"const": true}, "acceptance_sha256": {"$ref": "#/definitions/sha256"}
+      }
+    },
+    "gapAcceptance": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema", "status", "tests", "evidence_sha256", "all_passed", "operational", "activation_permitted", "acceptance_sha256"],
+      "properties": {
+        "schema": {"const": "c5k4-method-v1.5-operational-destructive-gap-acceptance-1.0"},
+        "status": {"const": "OPERATIONAL_DESTRUCTIVE_GAP_ACCEPTANCE_PASSED"},
+        "tests": {"const": ["DESTRUCTIVE_WRITE", "TRUNCATION", "SERVICE_RESTART", "OFFLINE_GAP", "SEQUENCE_CONFLICT", "UNEXPECTED_INGRESS"]},
+        "evidence_sha256": {
+          "type": "object", "additionalProperties": false,
+          "required": ["DESTRUCTIVE_WRITE", "TRUNCATION", "SERVICE_RESTART", "OFFLINE_GAP", "SEQUENCE_CONFLICT", "UNEXPECTED_INGRESS"],
+          "properties": {
+            "DESTRUCTIVE_WRITE": {"$ref": "#/definitions/sha256"}, "TRUNCATION": {"$ref": "#/definitions/sha256"},
+            "SERVICE_RESTART": {"$ref": "#/definitions/sha256"}, "OFFLINE_GAP": {"$ref": "#/definitions/sha256"},
+            "SEQUENCE_CONFLICT": {"$ref": "#/definitions/sha256"}, "UNEXPECTED_INGRESS": {"$ref": "#/definitions/sha256"}
+          }
+        },
+        "all_passed": {"const": true}, "operational": {"const": true}, "activation_permitted": {"const": true},
+        "acceptance_sha256": {"$ref": "#/definitions/sha256"}
+      }
+    }
+  }
+}
