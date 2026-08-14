@@ -1,0 +1,18 @@
+{
+  "schema": "c5k4-method-v1.5-destructive-gap-plan-1.0",
+  "status": "PRE_P1_TARGET_BLIND_PLAN_NOT_EXECUTED",
+  "tests": [
+    "DESTRUCTIVE_WRITE",
+    "TRUNCATION",
+    "SERVICE_RESTART",
+    "OFFLINE_GAP",
+    "SEQUENCE_CONFLICT",
+    "UNEXPECTED_INGRESS"
+  ],
+  "requires_fresh_disposable_host": true,
+  "requires_live_immutable_store": true,
+  "requires_operational_signing_key": true,
+  "executed": false,
+  "passed": false,
+  "activation_permitted": false
+}

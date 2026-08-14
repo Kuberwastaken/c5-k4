@@ -1,0 +1,41 @@
+[Unit]
+Description=C5-K4 Method v1.5 controlled harness (PRE-P1 inert scaffold)
+ConditionPathExists=/etc/c5k4-harness/ACTIVATED
+RefuseManualStart=yes
+RefuseManualStop=yes
+
+[Service]
+Type=exec
+User=c5k4-harness
+Group=c5k4-harness
+# A future P1-frozen operational unit must replace this guaranteed-failing
+# command.  Merely creating the activation marker cannot run the harness.
+ExecStart=/bin/false
+WorkingDirectory=/var/lib/c5k4-harness
+UMask=0077
+NoNewPrivileges=yes
+PrivateDevices=yes
+PrivateTmp=yes
+ProtectClock=yes
+ProtectControlGroups=yes
+ProtectHome=yes
+ProtectHostname=yes
+ProtectKernelLogs=yes
+ProtectKernelModules=yes
+ProtectKernelTunables=yes
+ProtectSystem=strict
+ReadOnlyPaths=/opt/c5k4/p1 /etc/c5k4-harness
+ReadWritePaths=/var/lib/c5k4-harness /run/c5k4-harness
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+# The frozen triplet backend itself creates user, mount, PID, network, IPC,
+# UTS, and cgroup namespaces.  The service unit must not disable that backend.
+RestrictNamespaces=no
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+IPAddressDeny=any
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+SystemCallArchitectures=native
+
+# Deliberately no [Install] section.  The PRE-P1 unit cannot be enabled or
+# started.  A future P1-frozen operational unit must replace this scaffold.

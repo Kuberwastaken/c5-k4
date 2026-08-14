@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-controlled-harness-deployment-contract-v1.5.schema.json",
+  "title": "Method v1.5 PRE-P1 dedicated Amazon Linux 2023 harness deployment contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "status", "platform", "identity", "paths", "assets", "pre_p1_required_state", "destructive_gap_acceptance_required_before_activation", "target_specific", "operational_ready", "activation_permitted"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-controlled-harness-deployment-contract-1.0"},
+    "status": {"const": "PRE_P1_DEDICATED_AL2023_HOST_NOT_PROVISIONED"},
+    "platform": {"const": {"id": "amzn", "version_id": "2023", "init": "systemd", "selinux": "enforcing"}},
+    "identity": {
+      "const": {"user": "c5k4-harness", "group": "c5k4-harness", "system_uid_required": true, "login_shell": "/sbin/nologin", "home": "/var/lib/c5k4-harness"}
+    },
+    "paths": {
+      "type": "object", "additionalProperties": false,
+      "required": ["p1_checkout", "private_state", "runtime", "configuration", "activation_marker", "listener_socket"],
+      "properties": {
+        "p1_checkout": {"const": {"path": "/opt/c5k4/p1", "state": "ABSENT_UNTIL_P1", "future_owner": "root", "future_group": "root", "future_mode": "0555", "expected_tree_sha256": null}},
+        "private_state": {"$ref": "#/definitions/private_path"},
+        "runtime": {"$ref": "#/definitions/private_path"},
+        "configuration": {"const": {"path": "/etc/c5k4-harness", "owner": "root", "group": "root", "mode": "0755"}},
+        "activation_marker": {"const": "/etc/c5k4-harness/ACTIVATED"},
+        "listener_socket": {"const": "/run/c5k4-harness/harness.sock"}
+      }
+    },
+    "assets": {
+      "const": {
+        "systemd_unit": "deployment/benchmark-v15-controlled-harness/c5k4-harness.service",
+        "sysusers": "deployment/benchmark-v15-controlled-harness/c5k4-harness.sysusers",
+        "tmpfiles": "deployment/benchmark-v15-controlled-harness/c5k4-harness.tmpfiles",
+        "network_policy": "deployment/benchmark-v15-controlled-harness/network-policy.json",
+        "destructive_gap_plan": "deployment/benchmark-v15-controlled-harness/destructive-gap-plan.json"
+      }
+    },
+    "pre_p1_required_state": {"const": {"service_active": false, "service_enabled": false, "listener_count": 0, "activation_marker_present": false, "p1_checkout_present": false}},
+    "destructive_gap_acceptance_required_before_activation": {"const": true},
+    "target_specific": {"const": false},
+    "operational_ready": {"const": false},
+    "activation_permitted": {"const": false}
+  },
+  "definitions": {
+    "private_path": {
+      "type": "object", "additionalProperties": false,
+      "required": ["path", "owner", "group", "mode"],
+      "properties": {
+        "path": {"enum": ["/var/lib/c5k4-harness", "/run/c5k4-harness"]},
+        "owner": {"const": "c5k4-harness"}, "group": {"const": "c5k4-harness"}, "mode": {"const": "0700"}
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "schema": "c5k4-method-v1.5-pre-p1-network-policy-1.0",
+  "status": "PRE_P1_DEFAULT_DENY_NO_ENDPOINTS",
+  "default_deny": true,
+  "dns_allowed": false,
+  "allowed_endpoints": [],
+  "listener_endpoints": [],
+  "activation_permitted": false
+}
