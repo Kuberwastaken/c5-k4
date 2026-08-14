@@ -1,0 +1,65 @@
+{
+  "schema": "oeis-a109908-a109909-development-result-v1",
+  "classification": "BOUNDED_ZERO",
+  "terminal_classification": "DOMAIN_EXHAUSTED",
+  "conjecture_resolution": false,
+  "run": {
+    "id": 31836896948,
+    "attempt": 1,
+    "url": "https://github.com/Kuberwastaken/c5-k4/actions/runs/31836896948",
+    "conclusion": "success",
+    "head_sha": "8237b76485e4578a9dbd9a65c4e1e73d8200cfe1",
+    "campaign_commit": "8237b76485e4578a9dbd9a65c4e1e73d8200cfe1"
+  },
+  "gate": {
+    "status": "VERIFIED",
+    "artifact_count": 17,
+    "artifact_checksum_bundles_passed": 17,
+    "artifact_checksum_failures": 0
+  },
+  "environments": {
+    "workflow_python": "3.12.9",
+    "independent_replay_python": "3.12.13",
+    "replay_note": "The unchanged verifier committed at the campaign SHA passed under Python 3.12; the VPS default Python 3.9 lacks int.bit_count and is not a supported replay environment for this artifact version."
+  },
+  "shards": [
+    {"shard": 0, "ledger_rows": 2, "terminal": "DOMAIN_EXHAUSTED", "candidate_present": false, "execution_codes": [0, 0, 0]},
+    {"shard": 1, "ledger_rows": 2, "terminal": "DOMAIN_EXHAUSTED", "candidate_present": false, "execution_codes": [0, 0, 0]},
+    {"shard": 2, "ledger_rows": 1, "terminal": "DOMAIN_EXHAUSTED", "candidate_present": false, "execution_codes": [0, 0, 0]},
+    {"shard": 3, "ledger_rows": 1, "terminal": "DOMAIN_EXHAUSTED", "candidate_present": false, "execution_codes": [0, 0, 0]},
+    {"shard": 4, "ledger_rows": 2, "terminal": "DOMAIN_EXHAUSTED", "candidate_present": false, "execution_codes": [0, 0, 0]},
+    {"shard": 5, "ledger_rows": 1, "terminal": "DOMAIN_EXHAUSTED", "candidate_present": false, "execution_codes": [0, 0, 0]},
+    {"shard": 6, "ledger_rows": 1, "terminal": "DOMAIN_EXHAUSTED", "candidate_present": false, "execution_codes": [0, 0, 0]},
+    {"shard": 7, "ledger_rows": 2, "terminal": "DOMAIN_EXHAUSTED", "candidate_present": false, "execution_codes": [0, 0, 0]},
+    {"shard": 8, "ledger_rows": 1, "terminal": "DOMAIN_EXHAUSTED", "candidate_present": false, "execution_codes": [0, 0, 0]},
+    {"shard": 9, "ledger_rows": 1, "terminal": "DOMAIN_EXHAUSTED", "candidate_present": false, "execution_codes": [0, 0, 0]},
+    {"shard": 10, "ledger_rows": 2, "terminal": "DOMAIN_EXHAUSTED", "candidate_present": false, "execution_codes": [0, 0, 0]},
+    {"shard": 11, "ledger_rows": 1, "terminal": "DOMAIN_EXHAUSTED", "candidate_present": false, "execution_codes": [0, 0, 0]},
+    {"shard": 12, "ledger_rows": 1, "terminal": "DOMAIN_EXHAUSTED", "candidate_present": false, "execution_codes": [0, 0, 0]},
+    {"shard": 13, "ledger_rows": 0, "terminal": "DOMAIN_EXHAUSTED", "candidate_present": false, "execution_codes": [0, 0, 0]},
+    {"shard": 14, "ledger_rows": 2, "terminal": "DOMAIN_EXHAUSTED", "candidate_present": false, "execution_codes": [0, 0, 0]},
+    {"shard": 15, "ledger_rows": 2, "terminal": "DOMAIN_EXHAUSTED", "candidate_present": false, "execution_codes": [0, 0, 0]}
+  ],
+  "aggregate": {
+    "shards": 16,
+    "domain_exhausted_terminals": 16,
+    "profiles_visited": 22,
+    "ledger_rows": 22,
+    "outcomes": {
+      "COMPOSITE_ESCAPE": 15,
+      "PRIME_ESCAPE": 7,
+      "CAP_PREFIX": 0,
+      "FULL_COVER": 0,
+      "WORKER_ERROR": 0
+    },
+    "n_range": {"minimum": 1014990500, "maximum": 1461176240},
+    "first_uncovered_k_range": {"minimum": 66, "maximum": 96},
+    "candidates": 0,
+    "worker_errors": 0,
+    "deadlines_reached": 0,
+    "independent_replays_passed": 16,
+    "independent_replays_failed": 0,
+    "independent_replay_seconds": {"minimum": 8.254, "maximum": 8.511, "cap": 60}
+  },
+  "standing": "The exact frozen profile domain was exhausted with no candidate; this is not a proof or disproof of either conjecture."
+}
