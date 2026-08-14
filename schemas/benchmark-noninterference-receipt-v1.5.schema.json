@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-noninterference-receipt-v1.5.schema.json",
+  "title": "Method v1.5 PRE-P1 target-blind noninterference readiness receipt",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema", "status", "protocol_version", "host_id", "participant_ledger_sha256", "proofs", "blockers", "scope_complete", "operational_ready", "activation_permitted", "claims", "receipt_sha256"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-noninterference-receipt-1.0"},
+    "status": {"const": "PRE_P1_NONINTERFERENCE_NOT_OPERATIONAL"},
+    "protocol_version": {"const": "1.5"},
+    "host_id": {"const": "ai-vps-controlled-harness"},
+    "participant_ledger_sha256": {"$ref": "#/definitions/sha256"},
+    "proofs": {"const": {
+      "dedicated_nonlogin_identity": false,
+      "root_owned_read_only_p1_checkout": false,
+      "private_root_permissions": false,
+      "private_socket_permissions": false,
+      "credential_isolation": false,
+      "network_default_deny": false,
+      "allowed_endpoint_enforcement": false,
+      "excluded_process_denial": false,
+      "unbroken_ingress_custody": false,
+      "destructive_gap_acceptance": false
+    }},
+    "blockers": {"const": ["DEDICATED_SERVICE_IDENTITY_NOT_PROVISIONED", "ROOT_OWNED_P1_CHECKOUT_NOT_FROZEN", "PRIVATE_FILESYSTEM_BOUNDARY_NOT_ACCEPTED", "NETWORK_ALLOWLIST_NOT_ENFORCED", "EXCLUDED_PROCESS_NONINTERFERENCE_NOT_PROVED", "INGRESS_CUSTODY_CHAIN_NOT_LIVE_ACCEPTED", "DESTRUCTIVE_GAP_TEST_NOT_PASSED"]},
+    "scope_complete": {"const": false},
+    "operational_ready": {"const": false},
+    "activation_permitted": {"const": false},
+    "claims": {"const": {"p1_frozen": false, "operational_capture": false, "production_ready": false, "target_specific": false}},
+    "receipt_sha256": {"$ref": "#/definitions/sha256"}
+  },
+  "definitions": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+}
