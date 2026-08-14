@@ -144,6 +144,8 @@ class P1Tests(unittest.TestCase):
             "five_strata_classifier_closure_contract_test",
             "immutable_infrastructure_plan", "immutable_infrastructure_cloudformation",
             "immutable_infrastructure_verifier", "immutable_infrastructure_contract_test",
+            "immutable_live_acceptance_evidence_schema", "immutable_live_acceptance_verifier",
+            "immutable_live_acceptance_contract_test",
             "operational_controlled_harness_activation_schema", "operational_controlled_harness_unit_schema",
             "operational_harness_unit_generator", "operational_harness_unit_generator_contract_test",
             "controlled_harness_deployment_contract", "controlled_harness_deployment_contract_schema",
@@ -151,6 +153,11 @@ class P1Tests(unittest.TestCase):
             "controlled_harness_systemd_unit", "controlled_harness_sysusers_asset",
             "controlled_harness_tmpfiles_asset", "controlled_harness_network_policy",
             "controlled_harness_destructive_gap_plan",
+            "controlled_harness_activation_continuity_verifier",
+            "controlled_harness_activation_continuity_contract_test",
+            "controlled_harness_https_daemon_contract",
+            "controlled_harness_https_daemon_contract_schema",
+            "controlled_harness_https_daemon", "controlled_harness_https_daemon_contract_test",
         }
         self.assertLessEqual(required, set(P1.NATIVE_COMPONENTS))
         p1a = self.build()
