@@ -66,12 +66,16 @@
     },
     "p1_binding": {
       "type": "object", "additionalProperties": false,
-      "required": ["p1a", "p1t", "p1a_commit", "p1t_commit"],
+      "required": ["p1a", "p1t", "p1r", "p1a_commit", "p1t_commit", "p1r_commit", "p1r_activation_sha256", "activation_boundary"],
       "properties": {
         "p1a": {"$ref": "#/definitions/artifactRef"},
         "p1t": {"$ref": "#/definitions/artifactRef"},
+        "p1r": {"$ref": "#/definitions/artifactRef"},
         "p1a_commit": {"$ref": "#/definitions/gitOid"},
-        "p1t_commit": {"$ref": "#/definitions/gitOid"}
+        "p1t_commit": {"$ref": "#/definitions/gitOid"},
+        "p1r_commit": {"$ref": "#/definitions/gitOid"},
+        "p1r_activation_sha256": {"$ref": "#/definitions/sha256"},
+        "activation_boundary": {"const": "PUBLIC_AUTHENTICATED_P1R"}
       }
     },
     "public_chain": {

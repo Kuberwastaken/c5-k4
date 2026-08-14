@@ -29,14 +29,48 @@ class PublicChainTests(unittest.TestCase):
         self.git("config", "user.email", "test@example.invalid")
         self.git("remote", "add", "origin", C.PUBLIC_REPOSITORY)
         self.write("protocol.txt", b"P1 frozen\n")
-        self.git("add", "protocol.txt")
-        self.git("commit", "-qm", "P1T")
-        self.p1t = self.oid("HEAD")
+        self.p1r_raw = self.write_json(C.P1R_PATH, {"artifact_kind": "P1R"})
+        self.git("add", "protocol.txt", C.P1R_PATH)
+        self.git("commit", "-qm", "P1R activation")
+        self.p1r = self.oid("HEAD")
+        self.validation_input = self.repo / "validation-input.json"
+        self.validation_input.write_bytes(b'{"frozen":true}\n')
+        validation_sha = C.sha256(self.validation_input.read_bytes())
+        activation = {
+            "schema": C.P1R_RECEIPT_DOMAIN.decode(),
+            "p1r": {"path": C.P1R_PATH, "sha256": C.sha256(self.p1r_raw)},
+            "p1r_commit": self.p1r,
+            "activation_boundary": "PUBLIC_AUTHENTICATED_P1R",
+            "public_observation": {
+                "workflow_repository": "Kuberwastaken/c5-k4",
+                "workflow_path": ".github/workflows/method-v15-p1r-publication-observer.yml",
+                "workflow_blob_sha256": "a" * 64,
+                "workflow_ref": ".github/workflows/method-v15-p1r-publication-observer.yml@refs/heads/method-v1.5-p1r",
+                "run_id": 1, "run_attempt": 1,
+                "server_observed_at_utc": "2026-08-16T19:00:00Z",
+                "actions_run_projection_sha256": "b" * 64,
+            },
+            "validation_inputs_sha256": validation_sha,
+            "validation_diagnostic_sha256": "c" * 64,
+            "validator": {"path": "scripts/validate_benchmark_v15_candidate_base.py", "sha256": "d" * 64},
+        }
+        activation["receipt_sha256"] = C.sha256(
+            C.P1R_RECEIPT_DOMAIN + b"\0" + C.canonical_json(activation)
+        )
         self.primary_branch = self.git("branch", "--show-current").decode().strip()
         self.u1_receipt = {
             "schema": C.RECEIPT_SCHEMA, "artifact_kind": "U1_CHRONOLOGY_RECEIPT",
             "protocol_version": "1.5", "status": "VALID_U1",
-            "p1": {"p1t_commit": self.p1t},
+            "p1": {
+                "p1r_commit": self.p1r,
+                "p1r_artifact": {"path": C.P1R_PATH, "sha256": C.sha256(self.p1r_raw)},
+                "activation_receipt": activation,
+                "p1r_activation_sha256": C.sha256(C.canonical_json(activation)),
+                "validation_input": {
+                    "path": "results/benchmark/v1.5-protocol/validation-input.json",
+                    "sha256": validation_sha,
+                },
+            },
             "upstream": {"capture_completed_at_utc": "2026-08-16T20:00:00Z"},
         }
         self.write_json(C.U1_PATH, self.u1_receipt)
@@ -108,7 +142,48 @@ class PublicChainTests(unittest.TestCase):
         return commit, receipt, raw
 
     def verify(self) -> dict:
-        return C.verify_chain(self.repo, C.PUBLICATION_REF, self.p1t)
+        activation = self.u1_receipt["p1"]["activation_receipt"]
+        return C.verify_chain(
+            self.repo, C.PUBLICATION_REF, self.p1r,
+            activation_verifier=lambda *_: activation,
+            validation_input_path=self.validation_input,
+        )
+
+    def test_bare_p1r_structure_without_full_verifier_fails_closed(self) -> None:
+        with self.assertRaisesRegex(C.PublicChainError, "not wired"):
+            C.verify_chain(self.repo, C.PUBLICATION_REF, self.p1r)
+
+    def test_u1_activation_receipt_must_match_full_verifier(self) -> None:
+        forged_u1 = json.loads(json.dumps(self.u1_receipt))
+        forged_u1["p1"]["activation_receipt"]["activation_boundary"] = "FORGED"
+        with self.assertRaisesRegex(C.PublicChainError, "exact authenticated P1R"):
+            C._validate_u1(
+                forged_u1, self.p1r,
+                self.u1_receipt["p1"]["activation_receipt"],
+            )
+
+    def test_rich_activation_receipt_and_canonical_digest_are_not_downgradable(self) -> None:
+        activation = self.u1_receipt["p1"]["activation_receipt"]
+        C.validate_p1r_activation_receipt(
+            activation, self.p1r, C.sha256(self.p1r_raw),
+            C.sha256(self.validation_input.read_bytes()),
+        )
+        for mutate in (
+            lambda row: row.pop("validator"),
+            lambda row: row["public_observation"].__setitem__("run_attempt", 2),
+            lambda row: row.__setitem__("receipt_sha256", "0" * 64),
+        ):
+            forged = json.loads(json.dumps(activation))
+            mutate(forged)
+            with self.assertRaises(C.PublicChainError):
+                C.validate_p1r_activation_receipt(
+                    forged, self.p1r, C.sha256(self.p1r_raw),
+                    C.sha256(self.validation_input.read_bytes()),
+                )
+        forged_u1 = json.loads(json.dumps(self.u1_receipt))
+        forged_u1["p1"]["p1r_activation_sha256"] = "0" * 64
+        with self.assertRaisesRegex(C.PublicChainError, "canonical P1R activation digest"):
+            C._validate_u1(forged_u1, self.p1r, activation)
 
     def test_valid_chain_derives_public_previous_blob_commit_and_next_tick(self) -> None:
         first, _, raw = self.append_checkpoint(1, "2026-08-17T00:17:00Z")
@@ -148,7 +223,7 @@ class PublicChainTests(unittest.TestCase):
         with self.assertRaisesRegex(C.PublicChainError, "exactly three"):
             self.verify()
 
-    def test_merge_commit_and_ref_not_descending_from_p1t_fail_closed(self) -> None:
+    def test_merge_commit_and_ref_not_descending_from_p1r_fail_closed(self) -> None:
         self.append_checkpoint(1, "2026-08-17T00:17:00Z")
         self.git("checkout", "-qb", "side", self.genesis)
         self.write("side.txt", b"side\n")

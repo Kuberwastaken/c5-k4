@@ -14,7 +14,7 @@
     "cancel_in_progress": false
   },
   "frozen": {
-    "protocol_commit_source": "U1_RECEIPT.p1.p1t_commit",
+    "protocol_commit_source": "U1_RECEIPT.p1.p1r_commit",
     "workflow_path": ".github/workflows/method-v15-checkpoint.yml",
     "workflow_sha256": null
   },
@@ -42,7 +42,8 @@
       "mode",
       "public_chain_proof_sha256",
       "public_tip_commit",
-      "p1t_commit",
+      "p1r_commit",
+      "p1r_activation_sha256",
       "workflow_run_id",
       "run_attempt"
     ],
@@ -64,7 +65,8 @@
     "previous_receipt_rule": "DERIVED_ONLY_BY_GIT_AUTHENTICATED_PUBLIC_CHAIN_PROOF",
     "public_chain_verifier": "scripts/verify_benchmark_v15_public_checkpoint_chain.py",
     "public_chain_proof_schema": "schemas/benchmark-public-checkpoint-chain-proof-v1.5.schema.json",
-    "publication_genesis": "SOLE_PARENT_P1T_ADD_ONLY_U1_RECEIPT",
+    "p1r_validation_input_source": "U1_RECEIPT.p1.validation_input",
+    "publication_genesis": "SOLE_PARENT_AUTHENTICATED_P1R_ADD_ONLY_U1_RECEIPT",
     "checkpoint_commit_rule": "SOLE_PARENT_PRIOR_PUBLIC_TIP_ADD_ONLY_EXACT_THREE_ARTIFACTS",
     "tick_derivation": "FIRST_DAILY_00_17_UTC_TICK_STRICTLY_AFTER_U1_OR_PREVIOUS_TICK_PLUS_ONE_DAY",
     "expired_unpublished_tick_rule": "FIRST_DETECTABLE_GAP_PUBLISHES_BOUNDED_TERMINAL_INVALID_CHRONOLOGY_CAPTURE",
@@ -134,7 +136,10 @@
     "expired_gap_terminal_status": "INVALID_CHRONOLOGY_CAPTURE"
   },
   "activation_requirements": {
-    "p1t_receipt_required": true,
+    "p1r_activation_receipt_required": true,
+    "full_candidate_activation_adapter_required": true,
+    "immutable_validation_input_required": true,
+    "bare_p1t_authority_forbidden": true,
     "valid_u1_receipt_required": true,
     "workflow_sha256_required": true,
     "runner_sha256_required": true,

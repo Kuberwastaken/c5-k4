@@ -81,7 +81,8 @@ def validate_contract(contract: dict[str, Any], *, require_operational: bool) ->
     if operational:
         transport = contract["transport"]
         oidc = contract["oidc"]
-        p1t = contract["binding"]["p1t_commit"]
+        binding = contract["binding"]
+        p1r = binding["p1r_commit"]
         if transport["listener_permitted"] is not True:
             raise HarnessError("operational contract does not permit its listener")
         if not isinstance(transport["https_endpoint"], str) or not transport["https_endpoint"].startswith("https://"):
@@ -92,8 +93,14 @@ def validate_contract(contract: dict[str, Any], *, require_operational: bool) ->
             raise HarnessError("OIDC audience prefix is not frozen")
         if not isinstance(oidc["workflow_ref"], str) or not oidc["workflow_ref"]:
             raise HarnessError("workflow OIDC claim is not frozen")
-        if not isinstance(p1t, str) or len(p1t) != 40 or any(c not in "0123456789abcdef" for c in p1t):
-            raise HarnessError("P1T binding is not frozen")
+        if not isinstance(p1r, str) or len(p1r) != 40 or any(c not in "0123456789abcdef" for c in p1r):
+            raise HarnessError("P1R activation binding is not frozen")
+        for key in ("p1r_artifact_sha256", "p1r_activation_receipt_self_sha256", "p1r_activation_sha256"):
+            digest = binding[key]
+            if not isinstance(digest, str) or len(digest) != 64 or any(c not in "0123456789abcdef" for c in digest):
+                raise HarnessError(f"authenticated P1R binding lacks exact {key}")
+        if binding["activation_boundary"] != "PUBLIC_AUTHENTICATED_P1R":
+            raise HarnessError("service activation boundary is not authenticated P1R")
 
 
 def parse_request(raw: bytes, contract: dict[str, Any]) -> tuple[dict[str, Any], str]:
@@ -139,13 +146,14 @@ def verify_claims(
 
 def verify_public_binding(request: dict[str, Any], binding: dict[str, Any], contract: dict[str, Any]) -> None:
     exact_keys = {
-        "p1t_commit", "public_chain_proof_sha256", "public_tip_commit",
+        "p1r_commit", "p1r_activation_sha256", "public_chain_proof_sha256", "public_tip_commit",
         "scheduled_for_utc", "mode", "chain_terminal",
     }
     if not isinstance(binding, dict) or set(binding) != exact_keys:
         raise HarnessError("public-chain binding shape is not exact")
     expected = {
-        "p1t_commit": request["p1t_commit"],
+        "p1r_commit": request["p1r_commit"],
+        "p1r_activation_sha256": request["p1r_activation_sha256"],
         "public_chain_proof_sha256": request["public_chain_proof_sha256"],
         "public_tip_commit": request["public_tip_commit"],
         "scheduled_for_utc": request["scheduled_for_utc"],
@@ -154,8 +162,10 @@ def verify_public_binding(request: dict[str, Any], binding: dict[str, Any], cont
     for key, value in expected.items():
         if binding.get(key) != value:
             raise HarnessError(f"public-chain binding mismatch: {key}")
-    if request["p1t_commit"] != contract["binding"]["p1t_commit"]:
-        raise HarnessError("request is not bound to frozen P1T")
+    if request["p1r_commit"] != contract["binding"]["p1r_commit"]:
+        raise HarnessError("request is not bound to authenticated P1R")
+    if request["p1r_activation_sha256"] != contract["binding"]["p1r_activation_sha256"]:
+        raise HarnessError("request is not bound to the full authenticated P1R activation receipt")
     if binding["chain_terminal"] is not False:
         raise HarnessError("public checkpoint chain is already terminal")
 

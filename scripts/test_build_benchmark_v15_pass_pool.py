@@ -30,6 +30,30 @@ AGG_SPEC.loader.exec_module(AF)
 
 
 class PassPoolTests(unittest.TestCase):
+    def activation(self) -> dict:
+        value = {
+            "schema": P.public_chain.P1R_RECEIPT_DOMAIN.decode(),
+            "p1r": {"path": P.public_chain.P1R_PATH, "sha256": "7" * 64},
+            "p1r_commit": self.p1r_commit,
+            "activation_boundary": "PUBLIC_AUTHENTICATED_P1R",
+            "public_observation": {
+                "workflow_repository": "Kuberwastaken/c5-k4",
+                "workflow_path": ".github/workflows/method-v15-p1r-publication-observer.yml",
+                "workflow_blob_sha256": "4" * 64,
+                "workflow_ref": ".github/workflows/method-v15-p1r-publication-observer.yml@refs/heads/method-v1.5-p1r",
+                "run_id": 1, "run_attempt": 1,
+                "server_observed_at_utc": "2026-08-16T19:00:00Z",
+                "actions_run_projection_sha256": "5" * 64,
+            },
+            "validation_inputs_sha256": "6" * 64,
+            "validation_diagnostic_sha256": "9" * 64,
+            "validator": {"path": "scripts/validate_benchmark_v15_candidate_base.py", "sha256": "a" * 64},
+        }
+        value["receipt_sha256"] = P.sha256_bytes(
+            P.public_chain.P1R_RECEIPT_DOMAIN + b"\0" + P.canonical_json(value)
+        )
+        return value
+
     def setUp(self) -> None:
         self.source = AF.AggregateCertificateTests(
             "test_pass_certificate_is_aggregate_only_and_pool_is_separate"
@@ -37,6 +61,7 @@ class PassPoolTests(unittest.TestCase):
         self.source.setUp()
         self.root = self.source.root
         self.p1t_commit = self.source.commit
+        self.p1r_commit = self.source.commit
         self.genesis_commit = "b" * 40
         self.pass_commit = "c" * 40
         self.prior_proof_path = self.write("prior-proof.json", self.prior_proof())
@@ -48,6 +73,9 @@ class PassPoolTests(unittest.TestCase):
                 "sha256": "8" * 64,
                 "commit": self.source.commit,
                 "publication_commit": self.genesis_commit,
+                "p1r_commit": self.p1r_commit,
+                "p1r_activation_sha256": P.sha256_bytes(P.canonical_json(self.activation())),
+                "activation_boundary": "PUBLIC_AUTHENTICATED_P1R",
             },
             "previous_checkpoint": None,
             "public_chain_proof": {
@@ -88,11 +116,13 @@ class PassPoolTests(unittest.TestCase):
             "schema": P.public_chain.PROOF_SCHEMA,
             "repository": P.public_chain.PUBLIC_REPOSITORY,
             "ref": P.public_chain.PUBLICATION_REF,
-            "p1t_commit": self.p1t_commit,
+            "p1r_commit": self.p1r_commit,
+            "p1r_activation": self.activation(),
+            "p1r_activation_sha256": P.sha256_bytes(P.canonical_json(self.activation())),
             "public_tip_commit": self.genesis_commit,
             "genesis": {
                 "commit": self.genesis_commit,
-                "parent_commit": self.p1t_commit,
+                "parent_commit": self.p1r_commit,
                 "u1_path": P.public_chain.U1_PATH,
                 "u1_blob_sha256": "8" * 64,
             },
@@ -148,6 +178,9 @@ class PassPoolTests(unittest.TestCase):
                     "sha256": "8" * 64,
                     "commit": self.registry["upstream"]["u1_commit"],
                     "publication_commit": self.genesis_commit,
+                    "p1r_commit": self.p1r_commit,
+                    "p1r_activation_sha256": P.sha256_bytes(P.canonical_json(self.activation())),
+                    "activation_boundary": "PUBLIC_AUTHENTICATED_P1R",
                 },
                 "previous_checkpoint": None,
                 "public_chain_proof": {
@@ -198,7 +231,9 @@ class PassPoolTests(unittest.TestCase):
             "schema": P.public_chain.PROOF_SCHEMA,
             "repository": P.public_chain.PUBLIC_REPOSITORY,
             "ref": P.public_chain.PUBLICATION_REF,
-            "p1t_commit": self.p1t_commit,
+            "p1r_commit": self.p1r_commit,
+            "p1r_activation": prior["p1r_activation"],
+            "p1r_activation_sha256": prior["p1r_activation_sha256"],
             "public_tip_commit": self.pass_commit,
             "genesis": prior["genesis"],
             "checkpoint_count": 1,
@@ -215,7 +250,7 @@ class PassPoolTests(unittest.TestCase):
         binding = self.certificate["p1_binding"] if auth_binding is None else auth_binding
         final = self.pass_proof if replayed is None else replayed
         with mock.patch.object(
-            P.aggregate, "authenticate_p1", return_value=({}, {}, binding)
+            P.aggregate, "authenticate_p1", return_value=({}, {}, {}, binding)
         ), mock.patch.object(P.public_chain, "verify_chain", return_value=final):
             return P.build_pool(
                 self.source.registry_path,
@@ -224,6 +259,7 @@ class PassPoolTests(unittest.TestCase):
                 self.receipt_path,
                 self.prior_proof_path,
                 self.pass_proof_path,
+                self.source.manifest_path,
                 self.source.manifest_path,
                 self.source.manifest_path,
                 self.source.repo,
@@ -328,7 +364,7 @@ class PassPoolTests(unittest.TestCase):
             attestation_path.write_bytes(self.attestation_path.read_bytes())
             with mock.patch.object(
                 P.aggregate, "authenticate_p1",
-                return_value=({}, {}, self.certificate["p1_binding"]),
+                return_value=({}, {}, {}, self.certificate["p1_binding"]),
             ), mock.patch.object(
                 P.public_chain, "verify_chain", return_value=self.pass_proof,
             ):
@@ -339,6 +375,7 @@ class PassPoolTests(unittest.TestCase):
                     self.receipt_path,
                     self.prior_proof_path,
                     self.pass_proof_path,
+                    self.source.manifest_path,
                     self.source.manifest_path,
                     self.source.manifest_path,
                     self.source.repo,

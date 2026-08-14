@@ -32,6 +32,37 @@ class FutureCohortTests(unittest.TestCase):
         self.git_run("config", "user.email", "future@example.invalid")
         self.classifier = json.loads(CLASSIFIER_PATH.read_text())
         self.grouping = json.loads(GROUPING_PATH.read_text())
+        self.p1r_commit = "f" * 40
+        self.activation_receipt = {
+            "schema": future.P1R_ACTIVATION_DOMAIN,
+            "p1r": {
+                "path": "results/benchmark/v1.5-protocol/P1R.json",
+                "sha256": "1" * 64,
+            },
+            "p1r_commit": self.p1r_commit,
+            "activation_boundary": "PUBLIC_AUTHENTICATED_P1R",
+            "public_observation": {
+                "workflow_repository": "Kuberwastaken/c5-k4",
+                "workflow_path": ".github/workflows/method-v15-p1r-publication-observer.yml",
+                "workflow_blob_sha256": "2" * 64,
+                "workflow_ref": ".github/workflows/method-v15-p1r-publication-observer.yml@refs/heads/method-v1.5-p1r",
+                "run_id": 1, "run_attempt": 1,
+                "server_observed_at_utc": "2026-08-14T00:00:00Z",
+                "actions_run_projection_sha256": "3" * 64,
+            },
+            "validation_inputs_sha256": "4" * 64,
+            "validation_diagnostic_sha256": "5" * 64,
+            "validator": {
+                "path": "scripts/validate_benchmark_v15_candidate_base.py",
+                "sha256": future.sha256_file(future.P1R_VALIDATOR),
+            },
+        }
+        self.activation_receipt["receipt_sha256"] = future.p1r_receipt_digest(
+            self.activation_receipt
+        )
+        self.activation_receipt_sha256 = future.sha256(
+            future.p1r_receipt_bytes(self.activation_receipt)
+        )
 
     def tearDown(self) -> None:
         self.temp.cleanup()
@@ -64,6 +95,9 @@ class FutureCohortTests(unittest.TestCase):
         value = {
             "checkpoint_count": len(checkpoints), "checkpoints": checkpoints,
             "terminal": False, "public_tip_commit": "a" * 40,
+            "p1r_commit": self.p1r_commit,
+            "p1r_activation": self.activation_receipt,
+            "p1r_activation_sha256": self.activation_receipt_sha256,
             "next_checkpoint": {"ordinal": ordinal, "scheduled_for_utc": scheduled},
         }
         value["proof_sha256"] = future.sha256(future.canonical_json(value))
@@ -81,10 +115,21 @@ class FutureCohortTests(unittest.TestCase):
             "root_tree": self.git_run("rev-parse", f"{commit}^{{tree}}"),
             "checkpoint_ordinal": ordinal,
             "scheduled_for_utc": scheduled,
+            "p1": {
+                "p1r_commit": self.p1r_commit,
+                "activation_receipt": self.activation_receipt,
+                "p1r_activation_sha256": self.activation_receipt_sha256,
+            },
             "basis": {"previous_checkpoint": None, "public_chain_proof": {
                 "proof_sha256": proof["proof_sha256"],
                 "public_tip_commit": proof["public_tip_commit"],
             }},
+        }
+
+    def input_digests(self, **values: str) -> dict[str, str]:
+        return {
+            **values,
+            "p1r_activation_receipt_sha256": self.activation_receipt_sha256,
         }
 
     def v14(self, rows: list[dict] | None = None) -> dict:
@@ -108,7 +153,7 @@ class FutureCohortTests(unittest.TestCase):
     def build(self, u1: str, u2: str, excluded: list[dict] | None = None) -> dict:
         return future.build(
             self.receipt(u1), self.receipt(u2), self.v14(excluded), self.grouping,
-            self.classifier, CLASSIFIER_PATH, input_digests={"fixture_sha256": "0" * 64},
+            self.classifier, CLASSIFIER_PATH, input_digests=self.input_digests(fixture_sha256="0" * 64),
             provenance_ledgers=[self.ledger()],
             public_chain_proof=self.public_chain_proof(),
         )
@@ -222,6 +267,41 @@ class FutureCohortTests(unittest.TestCase):
         with self.assertRaisesRegex(future.FutureCohortError, "every prior checkpoint failed"):
             future.checkpoint_context(receipt, proof)
 
+    def test_naked_p1t_or_mismatched_p1r_receipt_cannot_authorize_registry(self) -> None:
+        u1 = {
+            "p1": {
+                "p1t_commit": "a" * 40,
+                "p1r_commit": self.p1r_commit,
+                "activation_receipt": self.activation_receipt,
+                "p1r_activation_sha256": self.activation_receipt_sha256,
+            }
+        }
+        proof = self.public_chain_proof()
+        digests = self.input_digests()
+        self.assertEqual(
+            future.authenticate_p1r_scope(u1, proof, digests),
+            self.activation_receipt,
+        )
+        naked = {"p1": {"p1t_commit": "a" * 40}}
+        with self.assertRaisesRegex(future.FutureCohortError, "P1R"):
+            future.authenticate_p1r_scope(naked, proof, digests)
+        forged = json.loads(json.dumps(proof))
+        forged["p1r_activation"]["validation_diagnostic_sha256"] = "0" * 64
+        with self.assertRaisesRegex(future.FutureCohortError, "one exact P1R"):
+            future.authenticate_p1r_scope(u1, forged, digests)
+        missing_digest = dict(digests)
+        del missing_digest["p1r_activation_receipt_sha256"]
+        with self.assertRaisesRegex(future.FutureCohortError, "one exact P1R"):
+            future.authenticate_p1r_scope(u1, proof, missing_digest)
+        missing_u1_field = json.loads(json.dumps(u1))
+        del missing_u1_field["p1"]["p1r_activation_sha256"]
+        with self.assertRaisesRegex(future.FutureCohortError, "one exact P1R"):
+            future.authenticate_p1r_scope(missing_u1_field, proof, digests)
+        forged_proof_field = json.loads(json.dumps(proof))
+        forged_proof_field["p1r_activation_sha256"] = "0" * 64
+        with self.assertRaisesRegex(future.FutureCohortError, "one exact P1R"):
+            future.authenticate_p1r_scope(u1, forged_proof_field, digests)
+
     def test_chronology_nested_receipt_crosses_registry_and_strict_schema(self) -> None:
         self.write("FormalConjectures/Base.lean", "def base : True := True.intro\n")
         u1 = self.commit("U1")
@@ -230,7 +310,14 @@ class FutureCohortTests(unittest.TestCase):
             "@[category research open]\ntheorem graph_fresh_schema (G : SimpleGraph (Fin 4)) : G.edgeSet.ncard ≤ 6 := by sorry\n",
         )
         u2 = self.commit("U2")
-        nested_u1 = {"upstream": {"commit": u1, "root_tree": self.git_run("rev-parse", f"{u1}^{{tree}}")}}
+        nested_u1 = {
+            "upstream": {"commit": u1, "root_tree": self.git_run("rev-parse", f"{u1}^{{tree}}")},
+            "p1": {
+                "p1r_commit": self.p1r_commit,
+                "activation_receipt": self.activation_receipt,
+                "p1r_activation_sha256": self.activation_receipt_sha256,
+            },
+        }
         nested_u2 = {
             "checkpoint_ordinal": 1,
             "scheduled_for_utc": "2026-08-17T00:17:00Z",
@@ -247,7 +334,7 @@ class FutureCohortTests(unittest.TestCase):
         } for i in range(728)]
         output = future.build(
             nested_u1, nested_u2, self.v14(excluded), self.grouping, self.classifier,
-            CLASSIFIER_PATH, input_digests={"fixture_sha256": "0" * 64}, repository=self.repo,
+            CLASSIFIER_PATH, input_digests=self.input_digests(fixture_sha256="0" * 64), repository=self.repo,
             provenance_ledgers=[self.ledger()],
             public_chain_proof=self.public_chain_proof(),
         )
@@ -271,7 +358,7 @@ class FutureCohortTests(unittest.TestCase):
         }
         output = future.build(
             self.receipt(u1), self.receipt(u2), self.v14(), self.grouping,
-            self.classifier, CLASSIFIER_PATH, input_digests={"provenance_ledger_sha256": "1" * 64},
+            self.classifier, CLASSIFIER_PATH, input_digests=self.input_digests(provenance_ledger_sha256="1" * 64),
             provenance_ledgers=[self.ledger([unit])],
             provenance_contents={unit["content_sha256"]: path.encode()},
             public_chain_proof=self.public_chain_proof(),
@@ -281,14 +368,14 @@ class FutureCohortTests(unittest.TestCase):
         with self.assertRaisesRegex(future.FutureCohortError, "failed closed"):
             future.build(
                 self.receipt(u1), self.receipt(u2), self.v14(), self.grouping,
-                self.classifier, CLASSIFIER_PATH, input_digests={"provenance_ledger_sha256": "3" * 64},
+                self.classifier, CLASSIFIER_PATH, input_digests=self.input_digests(provenance_ledger_sha256="3" * 64),
                 provenance_ledgers=[self.ledger([unit])], provenance_contents={},
                 public_chain_proof=self.public_chain_proof(),
             )
         unit["provenance_class"] = "UNKNOWN"
         output = future.build(
             self.receipt(u1), self.receipt(u2), self.v14(), self.grouping,
-            self.classifier, CLASSIFIER_PATH, input_digests={"provenance_ledger_sha256": "2" * 64},
+            self.classifier, CLASSIFIER_PATH, input_digests=self.input_digests(provenance_ledger_sha256="2" * 64),
             provenance_ledgers=[self.ledger([unit])],
             provenance_contents={unit["content_sha256"]: path.encode()},
             public_chain_proof=self.public_chain_proof(),
@@ -354,7 +441,7 @@ class FutureCohortTests(unittest.TestCase):
                     {"checkpoint_ordinal": 1, "checkpoint_label": "first", "capture_status": "CAPTURED", "terminal_horizon": False, "receipt": self.receipt(u2a, 1, first_scheduled), "public_chain_proof": self.public_chain_proof(1, first_scheduled)},
                     {"checkpoint_ordinal": 2, "checkpoint_label": "second", "capture_status": "CAPTURED", "terminal_horizon": False, "receipt": self.receipt(u2b, 2, second_scheduled), "public_chain_proof": self.public_chain_proof(2, second_scheduled)},
                 ], self.v14(), self.grouping, self.classifier, CLASSIFIER_PATH,
-                input_digests={"fixture_sha256": "0" * 64},
+                input_digests=self.input_digests(fixture_sha256="0" * 64),
                 provenance_ledgers=[self.ledger()],
             )
         finally:

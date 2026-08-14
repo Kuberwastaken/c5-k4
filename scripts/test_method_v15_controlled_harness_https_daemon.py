@@ -47,7 +47,8 @@ class FixtureProviders:
         self.binding_calls += 1
         request = json.loads(raw_request)
         return {
-            "p1t_commit": request["p1t_commit"],
+            "p1r_commit": request["p1r_commit"],
+            "p1r_activation_sha256": request["p1r_activation_sha256"],
             "public_chain_proof_sha256": request["public_chain_proof_sha256"],
             "public_tip_commit": request["public_tip_commit"],
             "scheduled_for_utc": request["scheduled_for_utc"],
@@ -81,17 +82,83 @@ class DaemonTests(unittest.TestCase):
         self.service = D.SERVICE.load_object(D.SERVICE.CONTRACT_PATH, "contract")
         self.service["transport"]["tls_spki_sha256"] = "sha256//fixture"
         self.service["oidc"]["workflow_ref"] = self.workflow_ref
-        self.service["binding"]["p1t_commit"] = OID
+        self.service["binding"]["p1r_artifact_sha256"] = "e" * 64
+        self.service["binding"]["p1r_commit"] = OID
+        self.service["binding"]["p1r_activation_receipt_self_sha256"] = "f" * 64
+        self.service["binding"]["p1r_activation_sha256"] = "9" * 64
+        self.service["binding"]["activation_boundary"] = "PUBLIC_AUTHENTICATED_P1R"
         self.audiences: list[str] = []
         self.requests_by_digest: dict[str, dict] = {}
         self.providers = FixtureProviders(self)
         self.adapter = D.HTTPSAdapter(daemon_contract=self.daemon, service_contract=self.service, providers=self.providers, replay_ledger=MemoryLedger())
 
+    def p1r_fixture(self, root: Path) -> tuple[dict, Path]:
+        value = {
+            "schema_version": "c5k4-method-v1.5-p1r-1.0", "artifact_kind": "P1R",
+            "status": "NONAUTHORITATIVE_DRAFT_AWAITING_FULL_EXACT_C_REPLAY", "protocol_version": "1.5",
+            "p1t": {"path": "results/benchmark/v1.5-protocol/P1T.json", "sha256": "d" * 64},
+            "p1t_commit": "b" * 40,
+            "observation": {
+                "public_remote_url": "https://github.com/Kuberwastaken/c5-k4",
+                "authority_root": {"ref": "refs/tags/method-v1.5-a0", "commit": "1" * 40},
+                "v1_4_p0t": {"ref": "refs/tags/method-v1.4-p0t", "commit": "2" * 40},
+                "candidate_c": {"ref": "refs/tags/method-v1.5-c", "commit": "3" * 40},
+                "p1t": {"ref": "refs/heads/method-v1.5-p1", "commit": "b" * 40},
+                "observed_at_utc": "2026-08-15T00:00:00Z", "ls_remote_stdout_sha256": "e" * 64,
+                "observer": {
+                    "workflow_repository": "Kuberwastaken/c5-k4",
+                    "workflow_path": ".github/workflows/method-v15-p1t-publication-observer.yml",
+                    "workflow_ref": ".github/workflows/method-v15-p1t-publication-observer.yml@refs/heads/main",
+                    "workflow_blob_sha256": "f" * 64, "run_id": 1, "run_attempt": 1,
+                    "actions_run_projection_sha256": "9" * 64,
+                },
+            },
+            "activation_policy": {
+                "structural_draft_only": True, "p1r_is_activation_boundary": False,
+                "p1t_alone_is_activation_boundary": False, "full_exact_c_replay_required": True,
+                "p1r_parent_must_be_exact_p1t": True,
+                "allowed_p1r_changed_paths": ["results/benchmark/v1.5-protocol/P1R.json"],
+                "public_p1r_ref_required": True,
+            },
+        }
+        path = root / "P1R.json"; path.write_bytes(D.canonical_json(value))
+        checkout_root = root / "checkout"
+        checkout_path = checkout_root / "results/benchmark/v1.5-protocol/P1R.json"
+        checkout_path.parent.mkdir(parents=True); checkout_path.write_bytes(path.read_bytes())
+        activation = {
+            "p1": {"tree_path": str(checkout_root), "checkout_commit": OID},
+            "p1r_activation": {
+                "installed_artifact_path": str(path),
+                "receipt": {
+                    "schema": "c5k4-method-v1.5-public-p1r-activation-receipt-1.0",
+                    "p1r": {"path": "results/benchmark/v1.5-protocol/P1R.json", "sha256": hashlib.sha256(path.read_bytes()).hexdigest()},
+                    "p1r_commit": OID, "activation_boundary": "PUBLIC_AUTHENTICATED_P1R",
+                    "public_observation": {
+                        "workflow_repository": "Kuberwastaken/c5-k4",
+                        "workflow_path": ".github/workflows/method-v15-p1r-publication-observer.yml",
+                        "workflow_blob_sha256": "4" * 64,
+                        "workflow_ref": ".github/workflows/method-v15-p1r-publication-observer.yml@refs/heads/method-v1.5-p1r",
+                        "run_id": 2, "run_attempt": 1, "server_observed_at_utc": "2026-08-15T01:00:00Z",
+                        "actions_run_projection_sha256": "5" * 64,
+                    },
+                    "validation_inputs_sha256": "6" * 64, "validation_diagnostic_sha256": "7" * 64,
+                    "validator": {"path": "scripts/validate_benchmark_v15_candidate_base.py", "sha256": "8" * 64},
+                    "receipt_sha256": "0" * 64,
+                },
+            },
+        }
+        receipt = activation["p1r_activation"]["receipt"]
+        receipt["receipt_sha256"] = hashlib.sha256(
+            D.P1R_RECEIPT_DOMAIN + b"\0" + D.canonical_json({key: item for key, item in receipt.items() if key != "receipt_sha256"})
+        ).hexdigest()
+        return activation, path
+
     def request(self, *, tick: str = "2026-08-15T00:17:00Z", run_id: str = "123456789") -> tuple[dict, bytes, str]:
         value = {
             "schema": "c5k4-method-v1.5-target-blind-checkpoint-request-1.0", "protocol_version": "1.5",
             "scheduled_for_utc": tick, "mode": "CAPTURE", "public_chain_proof_sha256": PROOF,
-            "public_tip_commit": TIP, "p1t_commit": OID, "workflow_run_id": run_id, "run_attempt": 1,
+            "public_tip_commit": TIP, "p1r_commit": OID, "workflow_run_id": run_id, "run_attempt": 1,
+            "p1r_activation_sha256": "9" * 64,
         }
         raw = D.SERVICE.canonical_json(value)
         digest = D.SERVICE.sha256(raw)
@@ -161,6 +228,27 @@ class DaemonTests(unittest.TestCase):
             serve.assert_not_called()
             ledger.assert_not_called()
             self.assertFalse(replay_parent.exists())
+
+    def test_p1r_activation_requires_exact_artifact_and_receipt(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            activation, path = self.p1r_fixture(Path(directory))
+            value, receipt_sha = D.authenticate_p1r_artifact(activation)
+            self.assertEqual(value["artifact_kind"], "P1R")
+            self.assertEqual(receipt_sha, activation["p1r_activation"]["receipt"]["receipt_sha256"])
+            for label, mutate in (
+                ("digest", lambda item: item["p1r_activation"]["receipt"]["p1r"].__setitem__("sha256", "0" * 64)),
+                ("boundary", lambda item: item["p1r_activation"]["receipt"].__setitem__("activation_boundary", "P1T")),
+            ):
+                forged = copy.deepcopy(activation); mutate(forged)
+                with self.subTest(label=label), self.assertRaises(D.DaemonError):
+                    D.authenticate_p1r_artifact(forged)
+            wrong_checkout = copy.deepcopy(activation)
+            wrong_checkout["p1"]["checkout_commit"] = "b" * 40
+            with self.assertRaisesRegex(D.DaemonError, "checkout"):
+                D.authenticate_p1r_artifact(wrong_checkout)
+            path.write_bytes(b"{}\n")
+            with self.assertRaisesRegex(D.DaemonError, "digest mismatch"):
+                D.authenticate_p1r_artifact(activation)
 
     def test_canonical_paths_path_tls_and_audience_are_exact(self) -> None:
         committed = D.load_contract()

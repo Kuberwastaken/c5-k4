@@ -190,11 +190,14 @@ def authenticate_p1_and_components(u1_path: Path, contract_path: Path) -> tuple[
         raise RunnerError("U1 authentication failed") from exc
     p1t_ref = u1.get("p1", {}).get("p1t_artifact")
     p1t_path = exact_file(p1t_ref, "P1T")
+    p1r_ref = u1.get("p1", {}).get("p1r_artifact")
+    p1r_path = exact_file(p1r_ref, "P1R")
     p1t = load_json(p1t_path, "P1T")
     p1a_path = repo_file(p1t.get("p1a", {}).get("path"), "P1A")
     try:
-        p1a, _p1t, _binding = aggregate.authenticate_p1(
-            p1a_path, p1t_path, u1["p1"]["p1t_commit"]
+        p1a, _p1t, _p1r, _binding = aggregate.authenticate_p1(
+            p1a_path, p1t_path, u1["p1"]["p1t_commit"],
+            p1r_path, u1["p1"]["p1r_commit"],
         )
         components, runtime = aggregate.load_components(
             ROOT / "results/benchmark/v1.5-protocol/checkpoint-component-manifest.json", p1a
@@ -217,7 +220,7 @@ def validate_chain(
     try:
         proof = chronology.validate_public_chain_proof(
             proof_path, repository.resolve(), chronology.public_chain.PUBLICATION_REF,
-            u1["p1"]["p1t_commit"],
+            u1["p1"]["p1r_commit"],
         )
         chronology.checkpoint_position(u1, proof, scheduled_for)
     except chronology.ChronologyError as exc:

@@ -98,26 +98,38 @@ def validate_schema(value: dict[str, Any], schema_path: Path, label: str) -> Non
 
 def authenticate_p1(
     p1a_path: Path, p1t_path: Path, p1t_commit: str,
-) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
-    """Return the only component closure an aggregate certificate may trust."""
+    p1r_path: Path, p1r_commit: str,
+) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any], dict[str, Any]]:
+    """Bind the exact P1A -> P1T -> P1R structure.
+
+    This is deliberately not the scientific activation authority.  That
+    authority is the full public P1R verifier whose receipt is sealed into U1.
+    """
     p1a_value = load_json(p1a_path, "P1A")
     p1t_value = load_json(p1t_path, "P1T")
+    p1r_value = load_json(p1r_path, "P1R")
     try:
         p1.validate_p1a(p1a_value)
         p1.validate_p1t(p1t_value, p1t_commit=p1t_commit, artifact_path=p1t_path)
+        p1.validate_p1r(p1r_value, p1r_commit=p1r_commit, artifact_path=p1r_path)
     except p1.P1Error as exc:
         raise CertificateError(f"P1A/P1T authentication failed: {exc}") from exc
     if p1t_value["p1a"]["path"] != relative_ref(p1a_path, "P1A")["path"]:
         raise CertificateError("P1T authenticates a different P1A path")
     if p1t_value["p1a"]["sha256"] != sha256_file(p1a_path):
         raise CertificateError("P1T authenticates different P1A bytes")
+    if p1r_value.get("p1t_commit") != p1t_commit or p1r_value.get("p1t") != relative_ref(p1t_path, "P1T"):
+        raise CertificateError("P1R authenticates a different P1T")
     binding = {
         "p1a": relative_ref(p1a_path, "P1A"),
         "p1t": relative_ref(p1t_path, "P1T"),
+        "p1r": relative_ref(p1r_path, "P1R"),
         "p1a_commit": p1t_value["p1a_commit"],
         "p1t_commit": p1t_commit,
+        "p1r_commit": p1r_commit,
+        "activation_boundary": "PUBLIC_AUTHENTICATED_P1R",
     }
-    return p1a_value, p1t_value, binding
+    return p1a_value, p1t_value, p1r_value, binding
 
 
 def _resolve_selector(selector: Any, p1a_value: dict[str, Any], label: str) -> dict[str, str]:
@@ -288,11 +300,23 @@ def attestation_digest(attestation: dict[str, Any]) -> str:
 def build_certificate(
     chronology_path: Path, registry_path: Path, manifest_path: Path,
     p1a_path: Path, p1t_path: Path, p1t_commit: str,
+    p1r_path: Path, p1r_commit: str,
     provenance_ledger_paths: list[Path], provenance_content_pack_path: Path,
 ) -> dict[str, Any]:
-    p1a_value, _p1t_value, p1_binding = authenticate_p1(p1a_path, p1t_path, p1t_commit)
+    p1a_value, _p1t_value, _p1r_value, p1_binding = authenticate_p1(
+        p1a_path, p1t_path, p1t_commit, p1r_path, p1r_commit,
+    )
     frozen_components, runtime_contract = load_components(manifest_path, p1a_value)
     chronology = load_json(chronology_path, "chronology receipt")
+    chronology_u1 = chronology.get("basis", {}).get("u1_receipt", {})
+    if (
+        chronology_u1.get("activation_boundary") != "PUBLIC_AUTHENTICATED_P1R"
+        or chronology_u1.get("p1r_commit") != p1r_commit
+        or not isinstance(chronology_u1.get("p1r_activation_sha256"), str)
+        or re.fullmatch(r"[0-9a-f]{64}", chronology_u1["p1r_activation_sha256"]) is None
+    ):
+        raise CertificateError("checkpoint chronology is not bound to authenticated exact P1R")
+    p1_binding["p1r_activation_sha256"] = chronology_u1["p1r_activation_sha256"]
     internal = load_json(registry_path, "private registry")
     validate_schema(internal, REGISTRY_SCHEMA_PATH, "private registry")
     expected_registry_digest = future_registry.registry_digest(internal)
@@ -418,9 +442,10 @@ def replay_certificate(
     """
     validate_certificate(certificate)
     p1_binding = certificate["p1_binding"]
-    p1a_value, _p1t_value, replayed_p1_binding = authenticate_p1(
+    p1a_value, _p1t_value, _p1r_value, replayed_p1_binding = authenticate_p1(
         ROOT / p1_binding["p1a"]["path"], ROOT / p1_binding["p1t"]["path"],
-        p1_binding["p1t_commit"],
+        p1_binding["p1t_commit"], ROOT / p1_binding["p1r"]["path"],
+        p1_binding["p1r_commit"],
     )
     if replayed_p1_binding != p1_binding:
         raise CertificateError("replayed P1 binding differs from aggregate certificate")
@@ -493,6 +518,8 @@ def main() -> int:
     build.add_argument("--p1a", type=Path, required=True)
     build.add_argument("--p1t", type=Path, required=True)
     build.add_argument("--p1t-commit", required=True)
+    build.add_argument("--p1r", type=Path, required=True)
+    build.add_argument("--p1r-commit", required=True)
     build.add_argument("--provenance-ledger", type=Path, action="append", required=True)
     build.add_argument("--provenance-content-pack", type=Path, required=True)
     build.add_argument("--output", type=Path, required=True)
@@ -513,6 +540,7 @@ def main() -> int:
                 args.chronology_receipt.resolve(), args.private_registry.resolve(),
                 args.component_manifest.resolve(),
                 args.p1a.resolve(), args.p1t.resolve(), args.p1t_commit,
+                args.p1r.resolve(), args.p1r_commit,
                 [path.resolve() for path in args.provenance_ledger],
                 args.provenance_content_pack.resolve(),
             )

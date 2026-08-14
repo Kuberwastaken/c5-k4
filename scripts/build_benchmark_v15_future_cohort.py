@@ -25,6 +25,8 @@ import subprocess
 import sys
 from typing import Any
 
+from jsonschema import Draft7Validator, FormatChecker
+
 
 ROOT = Path(__file__).parents[1].resolve()
 sys.path.insert(0, str(ROOT / "scripts"))
@@ -34,6 +36,9 @@ import build_benchmark_v15_identity_hits as identity_hits  # noqa: E402
 
 SCHEMA_VERSION = "c5k4-future-cohort-registry-1.5"
 CHECKPOINT_CHAIN_SCHEMA_VERSION = "c5k4-future-cohort-checkpoint-chain-1.5"
+P1R_ACTIVATION_SCHEMA = "benchmark-public-p1r-activation-receipt-v1.5.schema.json"
+P1R_ACTIVATION_DOMAIN = "c5k4-method-v1.5-public-p1r-activation-receipt-1.0"
+P1R_VALIDATOR = ROOT / "scripts/validate_benchmark_v15_candidate_base.py"
 STRATA = (
     "GRAPH_SCALAR_INEQUALITY", "GRAPH_STRUCTURAL_PROPERTY",
     "FINITE_ALGEBRA_EQUATIONAL", "AUTOMATA_GAME_PROCESS", "FINITE_COMBINATORIAL",
@@ -85,6 +90,56 @@ def sha256(raw: bytes) -> str:
 
 def sha256_file(path: Path) -> str:
     return sha256(path.read_bytes())
+
+
+def p1r_receipt_bytes(value: dict[str, Any]) -> bytes:
+    return canonical_json(value) + b"\n"
+
+
+def p1r_receipt_digest(value: dict[str, Any]) -> str:
+    unsigned = dict(value)
+    unsigned.pop("receipt_sha256", None)
+    return sha256(
+        P1R_ACTIVATION_DOMAIN.encode("ascii") + b"\0" + p1r_receipt_bytes(unsigned)
+    )
+
+
+def authenticate_p1r_scope(
+    u1_receipt: dict[str, Any], public_chain_proof: dict[str, Any],
+    input_digests: dict[str, str],
+) -> dict[str, Any]:
+    """Bind registry execution to one complete authenticated P1R receipt."""
+    p1 = u1_receipt.get("p1")
+    if not isinstance(p1, dict):
+        raise FutureCohortError("U1 has no authenticated P1R scope")
+    receipt = p1.get("activation_receipt")
+    if not isinstance(receipt, dict):
+        raise FutureCohortError("U1 has no full P1R activation receipt")
+    try:
+        schema = json.loads((ROOT / "schemas" / P1R_ACTIVATION_SCHEMA).read_text())
+        Draft7Validator(schema, format_checker=FormatChecker()).validate(receipt)
+    except Exception as exc:
+        raise FutureCohortError("U1 P1R activation receipt is invalid") from exc
+    if receipt.get("receipt_sha256") != p1r_receipt_digest(receipt):
+        raise FutureCohortError("P1R activation receipt self-digest is invalid")
+    if receipt.get("validator") != {
+        "path": P1R_VALIDATOR.relative_to(ROOT).as_posix(),
+        "sha256": sha256_file(P1R_VALIDATOR),
+    }:
+        raise FutureCohortError("P1R receipt does not bind the executing validator")
+    full_digest = sha256(p1r_receipt_bytes(receipt))
+    if (
+        input_digests.get("p1r_activation_receipt_sha256") != full_digest
+        or p1.get("p1r_commit") != receipt.get("p1r_commit")
+        or p1.get("p1r_activation_sha256") != full_digest
+        or public_chain_proof.get("p1r_commit") != receipt.get("p1r_commit")
+        or public_chain_proof.get("p1r_activation") != receipt
+        or public_chain_proof.get("p1r_activation_sha256") != full_digest
+    ):
+        raise FutureCohortError(
+            "U1, registry inputs, and public chain do not bind one exact P1R receipt"
+        )
+    return receipt
 
 
 def registry_digest(output: dict[str, Any]) -> str:
@@ -404,6 +459,9 @@ def build(
     validate_policies(grouping, classifier)
     ledgers = provenance_ledgers or []
     validate_provenance_ledgers(ledgers)
+    if public_chain_proof is None:
+        raise FutureCohortError("authenticated public checkpoint-chain proof is required")
+    authenticate_p1r_scope(u1_receipt, public_chain_proof, input_digests)
     u1 = authenticate_receipt(u1_receipt, "U1", repository)
     u2 = authenticate_receipt(u2_receipt, "U2", repository)
     if not reachable(u2["repo"], u1["commit"], u2["commit"]):
@@ -512,8 +570,6 @@ def build(
         stratum: max(0, QUOTAS[stratum] - eligible_by_stratum[stratum])
         for stratum in STRATA
     }
-    if public_chain_proof is None:
-        raise FutureCohortError("authenticated public checkpoint-chain proof is required")
     checkpoint = checkpoint_context(u2_receipt, public_chain_proof)
     output["quota_certificate"] = {
         "checkpoint_ordinal": checkpoint["ordinal"],
@@ -634,6 +690,7 @@ def main() -> int:
     parser.add_argument("--provenance-ledger", type=Path, action="append", required=True)
     parser.add_argument("--provenance-content-pack", type=Path, required=True)
     parser.add_argument("--public-chain-proof", type=Path, required=True)
+    parser.add_argument("--p1r-activation-receipt", type=Path, required=True)
     parser.add_argument(
         "--repository", type=Path,
         help="ephemeral authenticated U2 object store containing U1 ancestry",
@@ -648,12 +705,15 @@ def main() -> int:
         "classifier": args.classifier.resolve(),
         "provenance_content_pack": args.provenance_content_pack.resolve(),
         "public_chain_proof": args.public_chain_proof.resolve(),
+        "p1r_activation_receipt": args.p1r_activation_receipt.resolve(),
     }
     for index, ledger_path in enumerate(args.provenance_ledger):
         paths[f"provenance_ledger_{index}"] = ledger_path.resolve()
     if args.output.exists():
         raise FutureCohortError("output already exists; overwrite is forbidden")
     values = {name: load_object(path, name) for name, path in paths.items()}
+    if values["u1_receipt"].get("p1", {}).get("activation_receipt") != values["p1r_activation_receipt"]:
+        raise FutureCohortError("supplied P1R activation receipt differs from U1")
     output = build(
         values["u1_receipt"], values["u2_receipt"], values["v14_exclusion"],
         values["grouping_rule"], values["classifier"], paths["classifier"],

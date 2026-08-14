@@ -5,7 +5,7 @@
   "upstream_ref": "refs/heads/main",
   "sampling_unit": "CONSERVATIVE_QUESTION_CLUSTER",
   "future_boundary": {
-    "lower_tip": "U1_CAPTURED_STRICTLY_AFTER_PUBLIC_P1T_RECEIPT",
+    "lower_tip": "U1_CAPTURED_STRICTLY_AFTER_PUBLIC_AUTHENTICATED_P1R_RECEIPT",
     "upper_tip": "FIRST_VALID_QUOTA_PASS_CHECKPOINT_OR_FIXED_HORIZON",
     "history_interval": "U1..U2",
     "require_u2_descendant_of_u1": true,

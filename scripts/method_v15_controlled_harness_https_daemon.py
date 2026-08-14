@@ -30,6 +30,9 @@ ROOT = Path(__file__).resolve().parents[1]
 DAEMON_CONTRACT = ROOT / "results/benchmark/v1.5-protocol/controlled-harness-https-daemon-contract.json"
 DAEMON_SCHEMA = ROOT / "schemas/benchmark-controlled-harness-https-daemon-contract-v1.5.schema.json"
 ACTIVATION_SCHEMA = ROOT / "schemas/benchmark-operational-controlled-harness-activation-v1.5.schema.json"
+P1R_SCHEMA = ROOT / "schemas/benchmark-p1r-v1.5.schema.json"
+P1R_RECEIPT_SCHEMA = ROOT / "schemas/benchmark-public-p1r-activation-receipt-v1.5.schema.json"
+P1R_RECEIPT_DOMAIN = b"c5k4-method-v1.5-public-p1r-activation-receipt-1.0"
 SERVICE_PATH = Path(__file__).with_name("method_v15_controlled_harness_service.py")
 _SPEC = importlib.util.spec_from_file_location("method_v15_controlled_harness_service", SERVICE_PATH)
 assert _SPEC is not None and _SPEC.loader is not None
@@ -112,7 +115,7 @@ def object_digest(value: Mapping[str, Any], digest_key: str) -> str:
 
 
 def authenticate_activation(path: Path, expected_sha256: str) -> dict[str, Any]:
-    """Authenticate canonical activation bytes against the P1-frozen unit digest."""
+    """Authenticate canonical activation bytes against the unit-frozen digest."""
     if len(expected_sha256) != 64 or any(character not in "0123456789abcdef" for character in expected_sha256):
         raise DaemonError("invalid expected activation digest")
     try:
@@ -135,6 +138,58 @@ def authenticate_activation(path: Path, expected_sha256: str) -> dict[str, Any]:
     return value
 
 
+def authenticate_p1r_artifact(activation: dict[str, Any]) -> tuple[dict[str, Any], str]:
+    """Bind startup to the exact P1R artifact named by its activation receipt."""
+    binding = activation["p1r_activation"]
+    receipt = binding["receipt"]
+    try:
+        receipt_schema = json.loads(P1R_RECEIPT_SCHEMA.read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+        raise DaemonError("public P1R activation receipt schema is unavailable") from exc
+    if list(Draft7Validator(receipt_schema, format_checker=FormatChecker()).iter_errors(receipt)):
+        raise DaemonError("public P1R activation receipt schema failure")
+    expected_receipt_sha256 = hashlib.sha256(
+        P1R_RECEIPT_DOMAIN + b"\0" + canonical_json({key: item for key, item in receipt.items() if key != "receipt_sha256"})
+    ).hexdigest()
+    if receipt["receipt_sha256"] != expected_receipt_sha256:
+        raise DaemonError("public P1R activation receipt self-digest mismatch")
+    if activation["p1"]["checkout_commit"] != receipt["p1r_commit"]:
+        raise DaemonError("installed P1 checkout is not the authenticated P1R commit")
+    artifact = receipt["p1r"]
+    path = Path(binding["installed_artifact_path"])
+    checkout_path = Path(activation["p1"]["tree_path"]) / artifact["path"]
+    try:
+        raw = path.read_bytes()
+        value = json.loads(raw.decode("utf-8"))
+        schema = json.loads(P1R_SCHEMA.read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+        raise DaemonError("authenticated P1R artifact is unavailable") from exc
+    if not isinstance(value, dict) or canonical_json(value) != raw:
+        raise DaemonError("authenticated P1R artifact is not canonical")
+    if hashlib.sha256(raw).hexdigest() != artifact["sha256"]:
+        raise DaemonError("authenticated P1R artifact digest mismatch")
+    verified_file(checkout_path, artifact["sha256"], "P1R checkout artifact")
+    errors = sorted(
+        Draft7Validator(schema, format_checker=FormatChecker()).iter_errors(value),
+        key=lambda error: list(error.absolute_path),
+    )
+    if errors:
+        raise DaemonError("authenticated P1R artifact schema failure")
+    policy = value["activation_policy"]
+    if (
+        value["artifact_kind"] != "P1R"
+        or value["status"] != "NONAUTHORITATIVE_DRAFT_AWAITING_FULL_EXACT_C_REPLAY"
+        or policy["structural_draft_only"] is not True
+        or policy["p1r_is_activation_boundary"] is not False
+        or policy["p1t_alone_is_activation_boundary"] is not False
+        or policy["full_exact_c_replay_required"] is not True
+        or policy["public_p1r_ref_required"] is not True
+        or receipt["activation_boundary"] != "PUBLIC_AUTHENTICATED_P1R"
+    ):
+        raise DaemonError("P1R artifact does not assert the exact activation semantics")
+    return value, receipt["receipt_sha256"]
+
+
 def activated_contract(policy: dict[str, Any], activation: dict[str, Any]) -> dict[str, Any]:
     """Derive the operational policy; no caller-supplied FROZEN daemon contract exists."""
     if policy["status"] != "PRE_P1_NONOPERATIONAL_NO_LISTENER" or policy["transport"]["listener_permitted"] is not False:
@@ -153,10 +208,18 @@ def activated_contract(policy: dict[str, Any], activation: dict[str, Any]) -> di
 
 
 def activated_service_contract(daemon_contract: dict[str, Any], activation: dict[str, Any], tls_spki_sha256: str) -> dict[str, Any]:
+    _p1r, receipt_sha256 = authenticate_p1r_artifact(activation)
+    receipt = activation["p1r_activation"]["receipt"]
     selected = SERVICE.load_object(SERVICE.CONTRACT_PATH, "P1 service contract")
     selected["transport"]["tls_spki_sha256"] = tls_spki_sha256
     selected["oidc"]["workflow_ref"] = activation["oidc"]["workflow_ref"]
-    selected["binding"]["p1t_commit"] = activation["p1"]["commit"]
+    selected["binding"].update({
+        "p1r_artifact_sha256": receipt["p1r"]["sha256"],
+        "p1r_commit": receipt["p1r_commit"],
+        "p1r_activation_receipt_self_sha256": receipt_sha256,
+        "p1r_activation_sha256": hashlib.sha256(canonical_json(receipt)).hexdigest(),
+        "activation_boundary": receipt["activation_boundary"],
+    })
     return operational_service_contract(daemon_contract, selected)
 
 

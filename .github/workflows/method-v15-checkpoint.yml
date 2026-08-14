@@ -67,7 +67,7 @@ jobs:
           git worktree add --detach "$checkpoint_tree" "$public_ref" >/dev/null
           test -f "$checkpoint_tree/$u1_path"
 
-          frozen_commit=$(jq -er '.p1.p1t_commit' "$checkpoint_tree/$u1_path")
+          frozen_commit=$(jq -er '.p1.p1r_commit' "$checkpoint_tree/$u1_path")
           [[ "$frozen_commit" =~ ^[0-9a-f]{40}$ ]]
           git checkout --detach "$frozen_commit" >/dev/null
           test "$(git rev-parse HEAD)" = "$frozen_commit"
@@ -76,9 +76,20 @@ jobs:
           actual_workflow=$(sha256sum .github/workflows/method-v15-checkpoint.yml | awk '{print $1}')
           test "$actual_workflow" = "$expected_workflow"
           chain_proof="$RUNNER_TEMP/method-v15-public-chain-proof.json"
+          validation_input_path=$(jq -er '.p1.validation_input.path' "$checkpoint_tree/$u1_path")
+          validation_input_sha256=$(jq -er '.p1.validation_input.sha256' "$checkpoint_tree/$u1_path")
+          [[ "$validation_input_sha256" =~ ^[0-9a-f]{64}$ ]]
+          test -f "$GITHUB_WORKSPACE/$validation_input_path"
+          validation_input="$RUNNER_TEMP/method-v15-candidate-validation-input.json"
+          cp --no-preserve=mode,ownership "$GITHUB_WORKSPACE/$validation_input_path" "$validation_input"
+          chmod 0444 "$validation_input"
+          test "$(sha256sum "$validation_input" | awk '{print $1}')" = "$validation_input_sha256"
           python3 scripts/verify_benchmark_v15_public_checkpoint_chain.py \
             --repository "$GITHUB_WORKSPACE" --ref "$public_ref" \
-            --p1t-commit "$frozen_commit" --output "$chain_proof"
+            --p1r-commit "$frozen_commit" \
+            --validation-input "$validation_input" \
+            --validation-input-sha256 "$validation_input_sha256" \
+            --output "$chain_proof"
           chain_tip=$(jq -er '.public_tip_commit' "$chain_proof")
           test "$(git -C "$checkpoint_tree" rev-parse HEAD)" = "$chain_tip"
           if [[ "$(jq -er '.terminal' "$chain_proof")" = true ]]; then
@@ -146,7 +157,8 @@ jobs:
               "mode": os.environ["CHECKPOINT_MODE"],
               "public_chain_proof_sha256": proof["proof_sha256"],
               "public_tip_commit": os.environ["CHAIN_TIP"],
-              "p1t_commit": os.environ["FROZEN_COMMIT"],
+              "p1r_commit": os.environ["FROZEN_COMMIT"],
+              "p1r_activation_sha256": proof["p1r_activation_sha256"],
               "workflow_run_id": os.environ["GITHUB_RUN_ID"],
               "run_attempt": int(os.environ["RUN_ATTEMPT"]),
           }

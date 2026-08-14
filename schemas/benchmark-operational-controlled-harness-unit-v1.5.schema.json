@@ -69,8 +69,13 @@
     },
     "bound_acceptances": {
       "type": "object", "additionalProperties": false,
-      "required": ["noninterference_key_commitment_sha256", "worm_acceptance_sha256", "destructive_gap_acceptance_sha256", "daemon_contract_sha256", "tls_spki_sha256", "oidc_config_sha256"],
+      "required": ["p1r_artifact_sha256", "p1r_commit", "p1r_activation_receipt_self_sha256", "p1r_activation_sha256", "activation_boundary", "noninterference_key_commitment_sha256", "worm_acceptance_sha256", "destructive_gap_acceptance_sha256", "daemon_contract_sha256", "tls_spki_sha256", "oidc_config_sha256"],
       "properties": {
+        "p1r_artifact_sha256": {"$ref": "#/definitions/sha256"},
+        "p1r_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "p1r_activation_receipt_self_sha256": {"$ref": "#/definitions/sha256"},
+        "p1r_activation_sha256": {"$ref": "#/definitions/sha256"},
+        "activation_boundary": {"const": "PUBLIC_AUTHENTICATED_P1R"},
         "noninterference_key_commitment_sha256": {"$ref": "#/definitions/sha256"}, "worm_acceptance_sha256": {"$ref": "#/definitions/sha256"},
         "destructive_gap_acceptance_sha256": {"$ref": "#/definitions/sha256"}, "daemon_contract_sha256": {"$ref": "#/definitions/sha256"}, "tls_spki_sha256": {"type": "string", "pattern": "^sha256//[A-Za-z0-9+/]{43}=$"}, "oidc_config_sha256": {"$ref": "#/definitions/sha256"}
       }

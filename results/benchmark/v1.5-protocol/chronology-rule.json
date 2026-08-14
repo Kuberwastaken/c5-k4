@@ -14,38 +14,43 @@
     },
     {
       "order": 3,
-      "name": "U1_CAPTURE",
-      "requirement": "Only after the public P1T receipt, execute the single frozen baseline capture of upstream main and bind its commit and trees."
+      "name": "P1R_PUBLIC_AUTHENTICATION",
+      "requirement": "Publish a sole-parent one-path child of exact P1T and accept it only through the separately replayable full public multi-authority readiness verifier. P1T, structural P1R validation, and a bare remote observation are not activation authority."
     },
     {
       "order": 4,
+      "name": "U1_CAPTURE",
+      "requirement": "Only after an authenticated public P1R activation receipt, execute the single frozen baseline capture of upstream main and bind its commit and trees."
+    },
+    {
+      "order": 5,
       "name": "SCHEDULED_ACCUMULATION_CHECKPOINTS",
       "requirement": "At 00:17 UTC daily, a schedule-triggered GitHub Actions run captures canonical upstream main and emits identity-only receipts, hashes, aggregate stratum counts, and a quota certificate. Manual dispatches and reruns are not checkpoints. If the oldest unpublished tick is detected at or after its 06:00 UTC deadline, publish only a bounded INVALID_CHRONOLOGY_CAPTURE terminal bundle; catch-up and later target capture are forbidden."
     },
     {
-      "order": 5,
+      "order": 6,
       "name": "FIRST_PASS_OR_FIXED_HORIZON",
       "last_scheduled_checkpoint_utc": "2027-08-15T00:17:00Z",
       "capture_start_deadline_utc": "2027-08-15T06:00:00Z",
       "requirement": "The first scheduled checkpoint whose aggregate counts meet every quota becomes U2. If none passes, the fixed last checkpoint terminates for quota deficit or chronology failure."
     },
     {
-      "order": 6,
+      "order": 7,
       "name": "U2_CAPTURE_AND_HISTORY_REPLAY",
       "requirement": "Bind U2, prove U1 ancestry and that no prior valid checkpoint passed, and deterministically compute first introductions in U1..U2."
     },
     {
-      "order": 7,
+      "order": 8,
       "name": "PRE_SELECTION_SOURCE_CUTOFF",
       "requirement": "Acquire and classify every frozen semantic source from P1 through cutoff; semantic or unknown contact excludes the whole cluster."
     },
     {
-      "order": 8,
+      "order": 9,
       "name": "QUOTA_GATE",
       "requirement": "Recompute the future cohort and exact 3/3/2/2/2 counts before entropy."
     },
     {
-      "order": 9,
+      "order": 10,
       "name": "ENTROPY_AND_SELECTION_IF_GATE_PASSES",
       "requirement": "Freeze the eligible pool publicly, then use the inherited future drand selector; otherwise terminate without entropy."
     }
@@ -67,15 +72,16 @@
     "manual_dispatch_is_checkpoint": false,
     "rerun_is_checkpoint": false,
     "append_only_checkpoint_branch": true,
-    "publication_genesis": "A sole-parent child of exact P1T adding only u1/chronology-receipt.json",
+    "publication_genesis": "A sole-parent child of exact authenticated P1R adding only u1/chronology-receipt.json",
     "checkpoint_commit_shape": "Each checkpoint is one sole-parent add-only commit adding exactly the three frozen artifacts under its tick path",
     "previous_receipt_authority": "Derived from the exact public Git ref ancestry, including introducing commit, path, and blob digest; caller-selected predecessor bytes are not authoritative",
-    "public_ref_rewrite_policy": "Every accepted chain is anchored at P1T and every publication uses a normal atomic fast-forward push from the verified tip",
+    "public_ref_rewrite_policy": "Every accepted chain is anchored at authenticated P1R and every publication uses a normal atomic fast-forward push from the verified tip",
     "expired_tick_policy": "The first expired unpublished tick terminates as INVALID_CHRONOLOGY_CAPTURE; it is never reconstructed and the workflow never advances to a later tick",
     "published_content": "IDENTITY_RECEIPTS_HASHES_AGGREGATE_COUNTS_AND_QUOTA_CERTIFICATE_ONLY"
   },
   "capture_rules": {
-    "u1_after_public_p1t": true,
+    "u1_after_public_p1r": true,
+    "bare_p1t_activation_forbidden": true,
     "u2_is_first_valid_passing_checkpoint_or_fixed_terminal_checkpoint": true,
     "last_checkpoint_must_start_before_fixed_deadline": true,
     "one_capture_per_scheduled_checkpoint": true,

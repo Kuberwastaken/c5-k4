@@ -4,12 +4,36 @@
   "title": "Method v1.5 Git-authenticated public checkpoint chain proof",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema", "repository", "ref", "p1t_commit", "public_tip_commit", "genesis", "checkpoint_count", "checkpoints", "previous_checkpoint", "next_checkpoint", "terminal", "normal_push_must_use_lease_tip", "proof_sha256"],
+  "required": ["schema", "repository", "ref", "p1r_commit", "p1r_activation", "p1r_activation_sha256", "public_tip_commit", "genesis", "checkpoint_count", "checkpoints", "previous_checkpoint", "next_checkpoint", "terminal", "normal_push_must_use_lease_tip", "proof_sha256"],
   "properties": {
     "schema": {"const": "c5k4-method-v1.5-public-checkpoint-chain-proof-1.0"},
     "repository": {"const": "https://github.com/Kuberwastaken/c5-k4.git"},
     "ref": {"const": "refs/remotes/origin/method-v1.5-checkpoints"},
-    "p1t_commit": {"$ref": "#/definitions/oid"},
+    "p1r_commit": {"$ref": "#/definitions/oid"},
+    "p1r_activation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema", "p1r", "p1r_commit", "activation_boundary", "public_observation", "validation_inputs_sha256", "validation_diagnostic_sha256", "validator", "receipt_sha256"],
+      "properties": {
+        "schema": {"const": "c5k4-method-v1.5-public-p1r-activation-receipt-1.0"},
+        "p1r": {"type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": {"path": {"const": "results/benchmark/v1.5-protocol/P1R.json"}, "sha256": {"$ref": "#/definitions/sha"}}},
+        "p1r_commit": {"$ref": "#/definitions/oid"},
+        "activation_boundary": {"const": "PUBLIC_AUTHENTICATED_P1R"},
+        "public_observation": {"type": "object", "additionalProperties": false, "required": ["workflow_repository", "workflow_path", "workflow_blob_sha256", "workflow_ref", "run_id", "run_attempt", "server_observed_at_utc", "actions_run_projection_sha256"], "properties": {
+          "workflow_repository": {"const": "Kuberwastaken/c5-k4"},
+          "workflow_path": {"const": ".github/workflows/method-v15-p1r-publication-observer.yml"},
+          "workflow_blob_sha256": {"$ref": "#/definitions/sha"},
+          "workflow_ref": {"const": ".github/workflows/method-v15-p1r-publication-observer.yml@refs/heads/method-v1.5-p1r"},
+          "run_id": {"type": "integer", "minimum": 1}, "run_attempt": {"const": 1},
+          "server_observed_at_utc": {"type": "string", "format": "date-time", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?Z$"},
+          "actions_run_projection_sha256": {"$ref": "#/definitions/sha"}
+        }},
+        "validation_inputs_sha256": {"$ref": "#/definitions/sha"},
+        "validation_diagnostic_sha256": {"$ref": "#/definitions/sha"},
+        "validator": {"type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": {"path": {"const": "scripts/validate_benchmark_v15_candidate_base.py"}, "sha256": {"$ref": "#/definitions/sha"}}},
+        "receipt_sha256": {"$ref": "#/definitions/sha"}
+      }
+    },
+    "p1r_activation_sha256": {"$ref": "#/definitions/sha"},
     "public_tip_commit": {"$ref": "#/definitions/oid"},
     "genesis": {
       "type": "object", "additionalProperties": false,

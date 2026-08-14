@@ -57,9 +57,9 @@ class SourceBoundaryTests(unittest.TestCase):
         self.assertEqual(value["schema"], "c5k4-method-v1.5-source-boundary-1.2")
         self.assertEqual(value["status"], "PRE_P1_CAPTURE_NOT_OPERATIONAL")
         self.assertFalse(value["executable"])
-        self.assertEqual(value["scope"]["lower_endpoint"], "PUBLIC_P1T_RECEIPT")
+        self.assertEqual(value["scope"]["lower_endpoint"], "PUBLIC_AUTHENTICATED_P1R_ACTIVATION_RECEIPT")
         self.assertEqual(value["scope"]["upper_endpoint"], "PRE_SELECTION_SOURCE_CUTOFF")
-        self.assertEqual(value["scope"]["interval"], "P1T_EXCLUSIVE_CUTOFF_INCLUSIVE")
+        self.assertEqual(value["scope"]["interval"], "P1R_ACTIVATION_EXCLUSIVE_CUTOFF_INCLUSIVE")
         self.assertEqual(
             value["scope"]["boundary_principle"],
             "ACTUAL_AUTHENTICATED_DELIVERY_NOT_GLOBAL_PUBLIC_AVAILABILITY",

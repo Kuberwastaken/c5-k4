@@ -38,8 +38,32 @@ class ChronologyTests(unittest.TestCase):
     def tearDown(self) -> None:
         self.temp.cleanup()
 
+    def activation(self, path: str = "results/benchmark/v1.5-protocol/P1R.json", sha: str = "e" * 64) -> dict:
+        value = {
+            "schema": "c5k4-method-v1.5-public-p1r-activation-receipt-1.0",
+            "p1r": {"path": path, "sha256": sha}, "p1r_commit": OID_D,
+            "activation_boundary": "PUBLIC_AUTHENTICATED_P1R",
+            "public_observation": {
+                "workflow_repository": "Kuberwastaken/c5-k4",
+                "workflow_path": ".github/workflows/method-v15-p1r-publication-observer.yml",
+                "workflow_blob_sha256": "a" * 64,
+                "workflow_ref": ".github/workflows/method-v15-p1r-publication-observer.yml@refs/heads/method-v1.5-p1r",
+                "run_id": 1, "run_attempt": 1,
+                "server_observed_at_utc": "2026-08-16T19:00:00Z",
+                "actions_run_projection_sha256": "b" * 64,
+            },
+            "validation_inputs_sha256": "c" * 64,
+            "validation_diagnostic_sha256": "d" * 64,
+            "validator": {"path": "scripts/validate_benchmark_v15_candidate_base.py", "sha256": "f" * 64},
+        }
+        value["receipt_sha256"] = C.sha256_bytes(
+            b"c5k4-method-v1.5-public-p1r-activation-receipt-1.0\0" + C.canonical_json(value)
+        )
+        return value
+
     def u1(self, completed: str = "2026-08-16T20:00:00Z") -> dict:
         _, rule_sha = C.load_rule()
+        activation = self.activation()
         return {
             "schema": C.SCHEMA,
             "artifact_kind": "U1_CHRONOLOGY_RECEIPT",
@@ -51,12 +75,11 @@ class ChronologyTests(unittest.TestCase):
             "p1": {
                 "p1a_commit": OID_A,
                 "p1t_commit": OID_B,
-                "public_receipt": {
-                    "repository": C.PROTOCOL_PUBLIC_REPOSITORY,
-                    "ref": C.PROTOCOL_PUBLIC_REF,
-                    "observed_tip": OID_B,
-                    "verification_completed_at_utc": "2026-08-16T19:00:00Z",
-                },
+                "p1r_commit": OID_D,
+                "p1r_artifact": {"path": "results/benchmark/v1.5-protocol/P1R.json", "sha256": "e" * 64},
+                "validation_input": {"path": "results/benchmark/v1.5-protocol/validation-input.json", "sha256": "c" * 64},
+                "activation_receipt": activation,
+                "p1r_activation_sha256": C.sha256_bytes(C.canonical_json(activation)),
             },
             "upstream": {
                 "repository": C.UPSTREAM_REPOSITORY,
@@ -131,20 +154,42 @@ class ChronologyTests(unittest.TestCase):
             with self.assertRaisesRegex(C.ChronologyError, "sole parent"):
                 C.validate_p1t(p1t_path, OID_B)
 
-    def test_public_receipt_requires_canonical_main_equal_exact_p1t(self) -> None:
-        completed = subprocess.CompletedProcess([], 0, f"{OID_B}\t{C.PROTOCOL_PUBLIC_REF}\n".encode(), b"")
-        with mock.patch.object(C, "_run", return_value=completed), mock.patch.object(
-            C, "_now", side_effect=[utc("2026-08-16T18:00:00Z"), utc("2026-08-16T18:00:01Z")]
-        ):
-            receipt = C.verify_public_p1t(OID_B)
-        self.assertEqual(receipt["repository"], C.PROTOCOL_PUBLIC_REPOSITORY)
-        self.assertEqual(receipt["ref"], "refs/heads/main")
-        bad = subprocess.CompletedProcess([], 0, f"{OID_C}\t{C.PROTOCOL_PUBLIC_REF}\n".encode(), b"")
-        with mock.patch.object(C, "_run", return_value=bad), mock.patch.object(
-            C, "_now", side_effect=[utc("2026-08-16T18:00:00Z"), utc("2026-08-16T18:00:01Z")]
-        ):
-            with self.assertRaisesRegex(C.ChronologyError, "does not resolve exactly"):
-                C.verify_public_p1t(OID_B)
+    def test_u1_requires_full_public_p1r_verifier_and_exact_receipt(self) -> None:
+        p1r_path = self.root / "p1r.json"
+        p1r_path.write_text("{}\n", encoding="utf-8")
+        validation_input = self.write("validation-input.json", {"frozen": True})
+        with self.assertRaisesRegex(C.ChronologyError, "not wired"):
+            C.require_public_p1r_activation(p1r_path, OID_D, None)
+        expected = self.activation(p1r_path.relative_to(C.ROOT).as_posix(), C.sha256_file(p1r_path))
+        expected["validation_inputs_sha256"] = C.sha256_file(validation_input)
+        expected["receipt_sha256"] = C.sha256_bytes(
+            b"c5k4-method-v1.5-public-p1r-activation-receipt-1.0\0"
+            + C.canonical_json({k: v for k, v in expected.items() if k != "receipt_sha256"})
+        )
+        self.assertEqual(
+            C.require_public_p1r_activation(
+                p1r_path, OID_D, lambda *_, **__: expected,
+                validation_input_path=validation_input,
+            ),
+            expected,
+        )
+        with self.assertRaisesRegex(C.ChronologyError, "exact P1R"):
+            C.require_public_p1r_activation(
+                p1r_path, OID_D,
+                lambda *_, **__: {**expected, "activation_boundary": "BARE_P1T"},
+                validation_input_path=validation_input,
+            )
+
+    def test_structural_p1r_or_bare_p1t_cannot_authorize_u1_capture(self) -> None:
+        with mock.patch.object(C, "validate_p1r_structure", return_value=({}, {})), mock.patch.object(
+            C, "capture_upstream"
+        ) as capture:
+            with self.assertRaisesRegex(C.ChronologyError, "not wired"):
+                C.build_u1(
+                    self.root / "p1t.json", OID_B, self.root / "p1r.json", OID_D,
+                    self.root / "bare", activation_verifier=None,
+                )
+        capture.assert_not_called()
 
     def test_capture_is_one_atomic_no_retry_fetch_of_canonical_main(self) -> None:
         destination = self.root / "upstream.git"
@@ -189,16 +234,47 @@ class ChronologyTests(unittest.TestCase):
         self.assertEqual(receipt["fetch_count"], 1)
         self.assertEqual(receipt["retry_count"], 0)
 
-    def test_u1_capture_must_start_strictly_after_public_p1t_verification(self) -> None:
+    def test_u1_capture_must_start_strictly_after_public_p1r_activation(self) -> None:
         p1t = {"p1a_commit": OID_A, "p1a_published_at_utc": "2026-08-16T18:00:00Z"}
-        public = {
-            "verification_started_at_utc": "2026-08-16T18:30:00Z",
-            "verification_completed_at_utc": "2026-08-16T18:30:01Z",
-        }
+        activation = self.activation("p1r.json")
         upstream = {"capture_started_at_utc": "2026-08-16T18:30:01Z"}
-        with mock.patch.object(C, "validate_p1t", return_value=p1t), mock.patch.object(C, "verify_public_p1t", return_value=public), mock.patch.object(C, "capture_upstream", return_value=upstream):
+        with mock.patch.object(C, "validate_p1r_structure", return_value=(p1t, {})), mock.patch.object(
+            C, "require_public_p1r_activation", return_value=activation
+        ), mock.patch.object(C, "capture_upstream", return_value=upstream):
             with self.assertRaisesRegex(C.ChronologyError, "strictly after"):
-                C.build_u1(self.root / "p1t.json", OID_B, self.root / "bare")
+                C.build_u1(
+                    self.root / "p1t.json", OID_B, self.root / "p1r.json", OID_D,
+                    self.root / "bare", activation_verifier=lambda *_: activation,
+                )
+
+    def test_u1_uses_public_server_time_and_seals_full_receipt_digest(self) -> None:
+        validation_input = self.write("sealed-validation-input.json", {"frozen": True})
+        p1t_path = self.write("p1t.json", {"artifact_kind": "P1T"})
+        p1r_path = self.write("p1r.json", {"artifact_kind": "P1R"})
+        activation = self.activation("p1r.json")
+        activation["validation_inputs_sha256"] = C.sha256_file(validation_input)
+        activation["receipt_sha256"] = C.sha256_bytes(
+            b"c5k4-method-v1.5-public-p1r-activation-receipt-1.0\0"
+            + C.canonical_json({k: v for k, v in activation.items() if k != "receipt_sha256"})
+        )
+        upstream = {
+            "capture_started_at_utc": "2026-08-16T19:00:01Z",
+            "capture_completed_at_utc": "2026-08-16T19:00:02Z",
+        }
+        with mock.patch.object(C, "validate_p1r_structure", return_value=({"p1a_commit": OID_A}, {})), mock.patch.object(
+            C, "require_public_p1r_activation", return_value=activation
+        ), mock.patch.object(C, "capture_upstream", return_value=upstream):
+            value = C.build_u1(
+                p1t_path, OID_B, p1r_path, OID_D,
+                self.root / "bare", activation_verifier=lambda *_: activation,
+                validation_input_path=validation_input,
+            )
+        self.assertNotIn("activation_verified_at_utc", value["p1"])
+        self.assertEqual(value["p1"]["activation_receipt"], activation)
+        self.assertEqual(
+            value["p1"]["p1r_activation_sha256"],
+            C.sha256_bytes(C.canonical_json(activation)),
+        )
 
     def test_position_is_derived_only_from_authenticated_chain_proof(self) -> None:
         u1 = self.u1()

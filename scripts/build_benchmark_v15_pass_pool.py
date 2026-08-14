@@ -103,17 +103,24 @@ def validate_public_chain_pair(
     prior: dict[str, Any], final: dict[str, Any], receipt: dict[str, Any],
     certificate: dict[str, Any], repository: Path, *, prior_proof_file_sha256: str,
     receipt_file_sha256: str,
+    validation_input_path: Path | None = None,
 ) -> None:
     """Authenticate the pre-U2 proof and its unique PASS extension."""
     _validate_proof_digest(prior, "pre-pass public-chain proof")
     _validate_proof_digest(final, "pass public-chain proof")
-    p1t_commit = certificate["p1_binding"]["p1t_commit"]
+    p1r_commit = certificate["p1_binding"]["p1r_commit"]
     for label, proof in (("pre-pass", prior), ("pass", final)):
-        if proof["p1t_commit"] != p1t_commit:
-            raise PassPoolError(f"{label} public-chain proof is not anchored at exact P1T")
+        if (
+            proof["p1r_commit"] != p1r_commit
+            or proof["p1r_activation_sha256"]
+            != certificate["p1_binding"]["p1r_activation_sha256"]
+        ):
+            raise PassPoolError(f"{label} public-chain proof is not anchored at exact P1R")
     try:
         replayed = public_chain.verify_chain(
-            repository.resolve(), public_chain.PUBLICATION_REF, p1t_commit,
+            repository.resolve(), public_chain.PUBLICATION_REF, p1r_commit,
+            activation_verifier=public_chain.candidate_activation_adapter,
+            validation_input_path=validation_input_path,
         )
     except public_chain.PublicChainError as exc:
         raise PassPoolError(f"public checkpoint-chain replay failed: {exc}") from exc
@@ -155,6 +162,8 @@ def validate_public_chain_pair(
         or final["checkpoint_count"] != ordinal
         or len(final_rows) != ordinal
         or final["genesis"] != prior["genesis"]
+        or final["p1r_activation"] != prior["p1r_activation"]
+        or final["p1r_activation_sha256"] != prior["p1r_activation_sha256"]
         or final_rows[:-1] != prior_rows
     ):
         raise PassPoolError("pass proof is not the unique one-checkpoint extension of the prior proof")
@@ -197,9 +206,15 @@ def validate_pass_receipt(
         "PASS receipt basis",
     )
     u1 = _exact_dict(
-        basis.get("u1_receipt"), {"path", "sha256", "commit", "publication_commit"},
+        basis.get("u1_receipt"), {"path", "sha256", "commit", "publication_commit", "p1r_commit", "p1r_activation_sha256", "activation_boundary"},
         "PASS receipt U1 binding",
     )
+    if (
+        u1["p1r_commit"] != certificate["p1_binding"]["p1r_commit"]
+        or u1["p1r_activation_sha256"] != certificate["p1_binding"]["p1r_activation_sha256"]
+        or u1["activation_boundary"] != "PUBLIC_AUTHENTICATED_P1R"
+    ):
+        raise PassPoolError("PASS receipt U1 binding is not anchored at authenticated exact P1R")
     if u1["commit"] != registry["upstream"]["u1_commit"]:
         raise PassPoolError("PASS receipt and private registry bind different U1 commits")
     _exact_dict(
@@ -321,7 +336,8 @@ def validate_pool(pool: dict[str, Any]) -> None:
 def build_pool(
     private_registry_path: Path, certificate_path: Path, attestation_path: Path,
     pass_receipt_path: Path, prior_proof_path: Path, pass_proof_path: Path,
-    p1a_path: Path, p1t_path: Path, public_repository: Path,
+    p1a_path: Path, p1t_path: Path, p1r_path: Path, public_repository: Path,
+    *, validation_input_path: Path | None = None,
 ) -> dict[str, Any]:
     registry = load_json(private_registry_path, "private registry")
     certificate = load_json(certificate_path, "aggregate certificate")
@@ -379,13 +395,14 @@ def build_pool(
     ):
         raise PassPoolError("replay attestation does not bind this exact registry/certificate/U2")
     try:
-        _p1a, _p1t, p1_binding = aggregate.authenticate_p1(
+        _p1a, _p1t, _p1r, p1_binding = aggregate.authenticate_p1(
             p1a_path, p1t_path, certificate["p1_binding"]["p1t_commit"],
+            p1r_path, certificate["p1_binding"]["p1r_commit"],
         )
     except aggregate.CertificateError as exc:
         raise PassPoolError(f"P1 authentication failed: {exc}") from exc
     if p1_binding != certificate["p1_binding"]:
-        raise PassPoolError("aggregate certificate does not bind the supplied exact P1A/P1T")
+        raise PassPoolError("aggregate certificate does not bind the supplied exact P1A/P1T/P1R")
 
     validate_pass_receipt(
         receipt, certificate, attestation, registry, certificate_path, attestation_path,
@@ -394,6 +411,7 @@ def build_pool(
         prior_proof, pass_proof, receipt, certificate, public_repository,
         prior_proof_file_sha256=sha256_file(prior_proof_path),
         receipt_file_sha256=sha256_file(pass_receipt_path),
+        validation_input_path=validation_input_path,
     )
 
     clusters = _eligible_clusters(registry)
@@ -529,7 +547,9 @@ def main() -> int:
     build.add_argument("--pass-public-chain-proof", type=Path, required=True)
     build.add_argument("--p1a", type=Path, required=True)
     build.add_argument("--p1t", type=Path, required=True)
+    build.add_argument("--p1r", type=Path, required=True)
     build.add_argument("--public-repository", type=Path, required=True)
+    build.add_argument("--validation-input", type=Path, required=True)
     build.add_argument("--output", type=Path, required=True)
     check = sub.add_parser("validate")
     check.add_argument("--pool", type=Path, required=True)
@@ -541,7 +561,8 @@ def main() -> int:
                 args.replay_attestation.resolve(), args.pass_receipt.resolve(),
                 args.prior_public_chain_proof.resolve(),
                 args.pass_public_chain_proof.resolve(), args.p1a.resolve(),
-                args.p1t.resolve(), args.public_repository.resolve(),
+                args.p1t.resolve(), args.p1r.resolve(), args.public_repository.resolve(),
+                validation_input_path=args.validation_input.resolve(),
             )
             write_json(args.output.resolve(), pool)
         else:

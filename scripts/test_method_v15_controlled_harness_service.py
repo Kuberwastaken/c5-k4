@@ -45,7 +45,11 @@ class HarnessTests(unittest.TestCase):
         }
         self.contract["oidc"]["audience_prefix"] = "c5k4-v15-checkpoint"
         self.contract["oidc"]["workflow_ref"] = "Kuberwastaken/c5-k4/.github/workflows/method-v15-checkpoint.yml@refs/heads/main"
-        self.contract["binding"]["p1t_commit"] = OID
+        self.contract["binding"]["p1r_artifact_sha256"] = "e" * 64
+        self.contract["binding"]["p1r_commit"] = OID
+        self.contract["binding"]["p1r_activation_receipt_self_sha256"] = "f" * 64
+        self.contract["binding"]["p1r_activation_sha256"] = "9" * 64
+        self.contract["binding"]["activation_boundary"] = "PUBLIC_AUTHENTICATED_P1R"
         self.request = {
             "schema": "c5k4-method-v1.5-target-blind-checkpoint-request-1.0",
             "protocol_version": "1.5",
@@ -53,14 +57,16 @@ class HarnessTests(unittest.TestCase):
             "mode": "CAPTURE",
             "public_chain_proof_sha256": PROOF,
             "public_tip_commit": TIP,
-            "p1t_commit": OID,
+            "p1r_commit": OID,
+            "p1r_activation_sha256": "9" * 64,
             "workflow_run_id": "123456789",
             "run_attempt": 1,
         }
         self.raw = H.canonical_json(self.request)
         self.request_sha = H.sha256(self.raw)
         self.binding = {
-            "p1t_commit": OID,
+            "p1r_commit": OID,
+            "p1r_activation_sha256": "9" * 64,
             "public_chain_proof_sha256": PROOF,
             "public_tip_commit": TIP,
             "scheduled_for_utc": TICK,
@@ -151,11 +157,25 @@ class HarnessTests(unittest.TestCase):
             self.invoke(verifier=bad_verifier)
 
     def test_p1_chain_tip_proof_tick_and_mode_are_exact(self) -> None:
-        for key in ("p1t_commit", "public_chain_proof_sha256", "public_tip_commit", "scheduled_for_utc", "mode"):
+        for key in ("p1r_commit", "p1r_activation_sha256", "public_chain_proof_sha256", "public_tip_commit", "scheduled_for_utc", "mode"):
             binding = dict(self.binding)
             binding[key] = ("d" * 40 if "commit" in key else "wrong")
             with self.subTest(key=key), self.assertRaisesRegex(H.HarnessError, key):
                 self.invoke(public_binding=binding)
+
+    def test_operational_contract_requires_full_authenticated_p1r_receipt(self) -> None:
+        for key in ("p1r_artifact_sha256", "p1r_commit", "p1r_activation_receipt_self_sha256", "p1r_activation_sha256", "activation_boundary"):
+            contract = copy.deepcopy(self.contract)
+            contract["binding"][key] = None
+            with self.subTest(key=key), self.assertRaises(H.HarnessError):
+                H.validate_contract(contract, require_operational=True)
+        request = copy.deepcopy(self.request)
+        request["p1r_activation_sha256"] = "8" * 64
+        with self.assertRaisesRegex(H.HarnessError, "full authenticated P1R"):
+            self.invoke(
+                raw_request=H.canonical_json(request),
+                public_binding={**self.binding, "p1r_activation_sha256": "8" * 64},
+            )
         binding = dict(self.binding); binding["chain_terminal"] = True
         with self.assertRaisesRegex(H.HarnessError, "already terminal"):
             self.invoke(public_binding=binding)

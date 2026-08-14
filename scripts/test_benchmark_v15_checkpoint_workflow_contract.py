@@ -45,6 +45,9 @@ def validate(workflow: Path, contract_path: Path, *, runtime: bool = False) -> N
         "github.event_name", "github.run_attempt", "sha256sum .github/workflows/method-v15-checkpoint.yml",
         "git checkout --detach \"$frozen_commit\"", "git push --atomic origin \"HEAD:refs/heads/",
         "verify_benchmark_v15_public_checkpoint_chain.py",
+        "--validation-input \"$validation_input\"",
+        "--validation-input-sha256 \"$validation_input_sha256\"",
+        "chmod 0444 \"$validation_input\"",
         "TERMINAL_CHRONOLOGY_GAP", "c5k4-method-v1.5-target-blind-checkpoint-request-1.0",
         "ACTIONS_ID_TOKEN_REQUEST_TOKEN", "ACTIONS_ID_TOKEN_REQUEST_URL",
         "X-C5K4-Request-SHA256", "--pinnedpubkey \"$harness_pin\"",
@@ -84,8 +87,10 @@ def validate(workflow: Path, contract_path: Path, *, runtime: bool = False) -> N
     inputs = contract.get("inputs", {})
     if inputs.get("previous_receipt_rule") != "DERIVED_ONLY_BY_GIT_AUTHENTICATED_PUBLIC_CHAIN_PROOF":
         raise ValueError("previous receipt is not derived from authenticated Git ancestry")
-    if inputs.get("publication_genesis") != "SOLE_PARENT_P1T_ADD_ONLY_U1_RECEIPT":
-        raise ValueError("publication genesis is not anchored directly to P1T")
+    if inputs.get("publication_genesis") != "SOLE_PARENT_AUTHENTICATED_P1R_ADD_ONLY_U1_RECEIPT":
+        raise ValueError("publication genesis is not anchored directly to authenticated P1R")
+    if inputs.get("p1r_validation_input_source") != "U1_RECEIPT.p1.validation_input":
+        raise ValueError("public P1R replay does not derive its frozen validation input from U1")
     if publication.get("server_update_rule") != "ATOMIC_NORMAL_FAST_FORWARD_PUSH_FROM_VERIFIED_PUBLIC_TIP":
         raise ValueError("publication does not require an atomic normal fast-forward push")
     runner = contract.get("runner", {})
@@ -110,8 +115,8 @@ def validate(workflow: Path, contract_path: Path, *, runtime: bool = False) -> N
         raise ValueError("controlled harness response is not bounded")
     if harness.get("request_fields") != [
         "schema", "protocol_version", "scheduled_for_utc", "mode",
-        "public_chain_proof_sha256", "public_tip_commit", "p1t_commit",
-        "workflow_run_id", "run_attempt",
+        "public_chain_proof_sha256", "public_tip_commit", "p1r_commit",
+        "p1r_activation_sha256", "workflow_run_id", "run_attempt",
     ]:
         raise ValueError("target-blind request shape is not exact")
     forbidden_workflow_terms = ("--private-input", "private_input", "runner_temp_relative_path")
@@ -125,6 +130,8 @@ def validate(workflow: Path, contract_path: Path, *, runtime: bool = False) -> N
     request_literal = request_literal[1].split("          }", 1)[0]
     if any(term in request_literal for term in ("cluster_id", "declarations", "records", "statement_text", "target_identity")):
         raise ValueError("signed scheduler request contains target-bearing data")
+    if '"p1r_activation_sha256": proof["p1r_activation_sha256"]' not in request_literal:
+        raise ValueError("signed scheduler request is not bound to the full public P1R activation receipt")
     certificate = contract.get("aggregate_certificate", {})
     if certificate.get("identity_rows_permitted") is not False or certificate.get("statement_text_permitted") is not False:
         raise ValueError("aggregate certificate permits target-bearing content")
@@ -139,6 +146,9 @@ def validate(workflow: Path, contract_path: Path, *, runtime: bool = False) -> N
     }
     if set(certificate.get("must_bind", [])) != required_bindings:
         raise ValueError("aggregate certificate binding set is incomplete or unbounded")
+    activation = contract.get("activation_requirements", {})
+    if activation.get("full_candidate_activation_adapter_required") is not True or activation.get("immutable_validation_input_required") is not True:
+        raise ValueError("checkpoint chain may bypass full immutable-input P1R replay")
 
     expected = contract.get("frozen", {}).get("workflow_sha256")
     runner_sha = contract.get("runner", {}).get("sha256")

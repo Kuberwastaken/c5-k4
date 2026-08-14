@@ -7,8 +7,8 @@
   "properties": {
     "schema_version": {"const": "c5k4-future-registry-input-1.5"}, "authority": {"const": "P1_FROZEN_SCHEDULED_CHECKPOINT"}, "protocol_version": {"const": "1.5"},
     "checkpoint": {"$ref": "#/definitions/checkpoint"},
-    "chronology": {"type": "object", "additionalProperties": false, "required": ["p1t_commit", "u1_commit", "u1_tree", "prior_checkpoint_chain_sha256", "prior_valid_checkpoint_count", "all_prior_valid_checkpoints_failed_quota_gate"], "properties": {
-      "p1t_commit": {"$ref": "#/definitions/gitOid"}, "u1_commit": {"$ref": "#/definitions/gitOid"}, "u1_tree": {"$ref": "#/definitions/gitOid"},
+    "chronology": {"type": "object", "additionalProperties": false, "required": ["p1t_commit", "p1r_commit", "activation_boundary", "u1_commit", "u1_tree", "prior_checkpoint_chain_sha256", "prior_valid_checkpoint_count", "all_prior_valid_checkpoints_failed_quota_gate"], "properties": {
+      "p1t_commit": {"$ref": "#/definitions/gitOid"}, "p1r_commit": {"$ref": "#/definitions/gitOid"}, "activation_boundary": {"const": "PUBLIC_AUTHENTICATED_P1R"}, "u1_commit": {"$ref": "#/definitions/gitOid"}, "u1_tree": {"$ref": "#/definitions/gitOid"},
       "prior_checkpoint_chain_sha256": {"$ref": "#/definitions/sha256"}, "prior_valid_checkpoint_count": {"type": "integer", "minimum": 0},
       "all_prior_valid_checkpoints_failed_quota_gate": {"const": true}
     }},

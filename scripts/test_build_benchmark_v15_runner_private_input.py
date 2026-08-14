@@ -48,6 +48,35 @@ P1_SCOPE_EXTRA = {
 }
 
 
+def p1r_activation_receipt() -> dict:
+    value = {
+        "schema": "c5k4-method-v1.5-public-p1r-activation-receipt-1.0",
+        "p1r": {
+            "path": "results/benchmark/v1.5-protocol/P1R.json",
+            "sha256": "e" * 64,
+        },
+        "p1r_commit": "f" * 40,
+        "activation_boundary": "PUBLIC_AUTHENTICATED_P1R",
+        "public_observation": {
+            "workflow_repository": "Kuberwastaken/c5-k4",
+            "workflow_path": ".github/workflows/method-v15-p1r-publication-observer.yml",
+            "workflow_blob_sha256": "1" * 64,
+            "workflow_ref": ".github/workflows/method-v15-p1r-publication-observer.yml@refs/heads/method-v1.5-p1r",
+            "run_id": 1, "run_attempt": 1,
+            "server_observed_at_utc": "2026-08-14T00:00:00Z",
+            "actions_run_projection_sha256": "2" * 64,
+        },
+        "validation_inputs_sha256": "3" * 64,
+        "validation_diagnostic_sha256": "4" * 64,
+        "validator": {
+            "path": "scripts/validate_benchmark_v15_candidate_base.py",
+            "sha256": A.sha256_file(A.P1R_VALIDATOR),
+        },
+    }
+    value["receipt_sha256"] = A._domain_digest(value["schema"], value)
+    return value
+
+
 def accepted_store() -> dict:
     value = {
         "schema": "c5k4-method-v1.5-worm-store-acceptance-1.0",
@@ -87,7 +116,7 @@ def request() -> dict:
         "classifier", "public_chain_proof", "provenance_content_pack",
         "custody_coverage_certificate", "public_custody_sealed_binding",
         "sealed_private_custody_bundle", "primary_acquisition_receipt",
-        "p1_role_resolution", "participant_ledger", "source_boundary",
+        "p1_role_resolution", "p1r_activation_receipt", "participant_ledger", "source_boundary",
         "noninterference_receipt", "noninterference_receipt_schema",
         "noninterference_verifier", "noninterference_verification_key",
         "operational_noninterference_key_commitment",
@@ -122,6 +151,10 @@ def request() -> dict:
         "p1_scope": {
             "p1t_commit": "a" * 40,
             "p1t_path": "results/benchmark/v1.5-protocol/p1t.json",
+            "p1r_commit": "f" * 40,
+            "p1r_activation_receipt_sha256": A.sha256(
+                A.canonical_json(p1r_activation_receipt())
+            ),
             "role_resolution_sha256": FOUR,
             **{key: SCOPE[key] for key in (
                 "participant_ledger_sha256", "source_boundary_sha256",
@@ -195,7 +228,7 @@ class PrivateAssemblerContractTests(unittest.TestCase):
         Draft7Validator(self.schema(name)).validate(value)
 
     def test_new_schemas_are_valid_draft7(self) -> None:
-        for name in (A.LOCATOR_SCHEMA, A.REQUEST_SCHEMA, A.CUSTODY_SCHEMA, A.NONINTERFERENCE_SCHEMA):
+        for name in (A.LOCATOR_SCHEMA, A.REQUEST_SCHEMA, A.CUSTODY_SCHEMA, A.NONINTERFERENCE_SCHEMA, A.P1R_ACTIVATION_SCHEMA):
             Draft7Validator.check_schema(self.schema(name))
 
     def test_request_requires_worm_operational_receipt_verifier_and_raw_key(self) -> None:
@@ -205,12 +238,60 @@ class PrivateAssemblerContractTests(unittest.TestCase):
             "noninterference_receipt_schema", "noninterference_verifier",
             "noninterference_verification_key", "operational_noninterference_key_commitment",
             "operational_noninterference_key_commitment_schema",
-            "classifier_readiness_receipt",
+            "classifier_readiness_receipt", "p1r_activation_receipt",
         ):
             mutated = copy.deepcopy(value)
             del mutated["artifacts"][artifact]
             with self.assertRaises(ValidationError):
                 self.validate(mutated, A.REQUEST_SCHEMA)
+
+    def test_full_p1r_receipt_is_required_and_cross_bound_to_u1_and_chain(self) -> None:
+        value = request()
+        receipt = p1r_activation_receipt()
+        receipt_raw = A.canonical_json(receipt)
+        u1 = {
+            "p1": {
+                "p1r_commit": receipt["p1r_commit"],
+                "activation_receipt": receipt,
+                "p1r_activation_sha256": value["p1_scope"]["p1r_activation_receipt_sha256"],
+            }
+        }
+        proof = {
+            "p1r_commit": receipt["p1r_commit"],
+            "p1r_activation": receipt,
+            "p1r_activation_sha256": value["p1_scope"]["p1r_activation_receipt_sha256"],
+        }
+        raw = {
+            "p1r_activation_receipt": receipt_raw,
+            "u1_receipt": A.canonical_json(u1),
+            "public_chain_proof": A.canonical_json(proof),
+        }
+        self.assertEqual(A._validate_p1r_activation(value, raw), receipt)
+
+        for mutation in (
+            lambda r: r["p1r_activation_receipt"].__setitem__(
+                "activation_boundary", "P1T"
+            ),
+            lambda r: r["u1_receipt"]["p1"].__setitem__(
+                "activation_receipt", {"activation_boundary": "PUBLIC_AUTHENTICATED_P1R"}
+            ),
+            lambda r: r["public_chain_proof"].__setitem__(
+                "p1r_commit", "0" * 40
+            ),
+            lambda r: r["u1_receipt"]["p1"].__setitem__(
+                "p1r_activation_sha256", "0" * 64
+            ),
+            lambda r: r["public_chain_proof"].pop("p1r_activation_sha256"),
+        ):
+            objects = {
+                "p1r_activation_receipt": copy.deepcopy(receipt),
+                "u1_receipt": copy.deepcopy(u1),
+                "public_chain_proof": copy.deepcopy(proof),
+            }
+            mutation(objects)
+            encoded = {key: A.canonical_json(item) for key, item in objects.items()}
+            with self.assertRaises(A.AssemblyError):
+                A._validate_p1r_activation(value, encoded)
 
     def test_scope_gate_cryptographically_verifies_operational_receipt(self) -> None:
         value = request()
@@ -540,6 +621,7 @@ class PrivateAssemblerContractTests(unittest.TestCase):
             "primary_acquisition_receipt": b"{}",
             "replay_acquisition_receipt": b"{}",
             "p1_role_resolution": b"{}",
+            "p1r_activation_receipt": A.canonical_json(p1r_activation_receipt()),
             "classifier_readiness_receipt": b"{}",
         }
         repos = (Path("/private/primary.git"), Path("/private/replay.git"))
@@ -547,6 +629,7 @@ class PrivateAssemblerContractTests(unittest.TestCase):
                 mock.patch.object(A, "_validate"), \
                 mock.patch.object(A, "_validate_acquisitions", return_value=repos), \
                 mock.patch.object(A.identity_hits, "load_content_pack", return_value={}), \
+                mock.patch.object(A, "_validate_p1r_activation"), \
                 mock.patch.object(A, "_verify_classifier_runtime"), \
                 mock.patch.object(A.future, "build", side_effect=[result, result]) as build:
             A.verify_private_replay(request(), raw, Path(temporary))
@@ -572,6 +655,7 @@ class PrivateAssemblerContractTests(unittest.TestCase):
             return {}
 
         with tempfile.TemporaryDirectory() as temporary, \
+                mock.patch.object(A, "_validate_p1r_activation"), \
                 mock.patch.object(A, "_verify_classifier_runtime", side_effect=refuse_gate), \
                 mock.patch.object(A, "_json", side_effect=parsed), \
                 mock.patch.object(A.future, "build") as build, \

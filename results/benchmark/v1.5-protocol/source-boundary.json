@@ -3,9 +3,9 @@
   "status": "PRE_P1_CAPTURE_NOT_OPERATIONAL",
   "executable": false,
   "scope": {
-    "lower_endpoint": "PUBLIC_P1T_RECEIPT",
+    "lower_endpoint": "PUBLIC_AUTHENTICATED_P1R_ACTIVATION_RECEIPT",
     "upper_endpoint": "PRE_SELECTION_SOURCE_CUTOFF",
-    "interval": "P1T_EXCLUSIVE_CUTOFF_INCLUSIVE",
+    "interval": "P1R_ACTIVATION_EXCLUSIVE_CUTOFF_INCLUSIVE",
     "boundary_principle": "ACTUAL_AUTHENTICATED_DELIVERY_NOT_GLOBAL_PUBLIC_AVAILABILITY",
     "candidate_identity_joined": false,
     "candidate_semantics_inspected": false,

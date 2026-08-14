@@ -28,10 +28,13 @@ from jsonschema import Draft7Validator, FormatChecker
 ROOT = Path(__file__).resolve().parents[1]
 INPUT_SCHEMA = ROOT / "schemas/benchmark-operational-controlled-harness-activation-v1.5.schema.json"
 OUTPUT_SCHEMA = ROOT / "schemas/benchmark-operational-controlled-harness-unit-v1.5.schema.json"
+P1R_SCHEMA = ROOT / "schemas/benchmark-p1r-v1.5.schema.json"
+P1R_RECEIPT_SCHEMA = ROOT / "schemas/benchmark-public-p1r-activation-receipt-v1.5.schema.json"
 ZERO = "0" * 64
 NAMESPACES = ("user", "mount", "network", "pid", "ipc", "uts", "cgroup")
 SYSTEMD_NAMESPACES = "user mnt net pid ipc uts cgroup"
 FORBIDDEN_KEYS = frozenset({"target_id", "cluster_id", "conjecture", "statement", "statement_text", "semantic_text"})
+P1R_RECEIPT_DOMAIN = b"c5k4-method-v1.5-public-p1r-activation-receipt-1.0"
 
 
 class UnitContractError(ValueError):
@@ -185,6 +188,43 @@ def validate_self_digest(value: dict[str, Any], key: str, label: str) -> None:
         raise UnitContractError(f"{label} self-digest mismatch")
 
 
+def validate_p1r_activation(value: dict[str, Any], filesystem_root: Path, *, root_owned: bool) -> str:
+    """Verify the installed P1R bytes and exact public activation receipt."""
+    binding = value["p1r_activation"]
+    receipt = binding["receipt"]
+    validate_schema(receipt, P1R_RECEIPT_SCHEMA, "public P1R activation receipt")
+    expected_receipt_sha256 = hashlib.sha256(
+        P1R_RECEIPT_DOMAIN + b"\0" + canonical_bytes({key: item for key, item in receipt.items() if key != "receipt_sha256"})
+    ).hexdigest()
+    if receipt["receipt_sha256"] != expected_receipt_sha256:
+        raise UnitContractError("public P1R activation receipt self-digest mismatch")
+    if value["p1"]["checkout_commit"] != receipt["p1r_commit"]:
+        raise UnitContractError("installed P1 checkout is not the authenticated P1R commit")
+    artifact_path = exact_regular_file(
+        filesystem_root, binding["installed_artifact_path"], receipt["p1r"]["sha256"],
+        root_owned=root_owned,
+    )
+    checkout_artifact = str(Path(value["p1"]["tree_path"]) / receipt["p1r"]["path"])
+    exact_regular_file(filesystem_root, checkout_artifact, receipt["p1r"]["sha256"], root_owned=root_owned)
+    p1r = load_object(artifact_path)
+    if canonical_bytes(p1r) != artifact_path.read_bytes():
+        raise UnitContractError("authenticated P1R artifact bytes are not canonical")
+    validate_schema(p1r, P1R_SCHEMA, "authenticated P1R artifact")
+    policy = p1r["activation_policy"]
+    if (
+        p1r["artifact_kind"] != "P1R"
+        or p1r["status"] != "NONAUTHORITATIVE_DRAFT_AWAITING_FULL_EXACT_C_REPLAY"
+        or policy["structural_draft_only"] is not True
+        or policy["p1r_is_activation_boundary"] is not False
+        or policy["p1t_alone_is_activation_boundary"] is not False
+        or policy["full_exact_c_replay_required"] is not True
+        or policy["public_p1r_ref_required"] is not True
+        or receipt["activation_boundary"] != "PUBLIC_AUTHENTICATED_P1R"
+    ):
+        raise UnitContractError("P1R artifact does not assert the exact public activation boundary")
+    return receipt["receipt_sha256"]
+
+
 def validate_network(value: dict[str, Any], listener_address: str) -> tuple[list[str], set[tuple[str, str]]]:
     listener = ipaddress.ip_address(listener_address)
     if listener.is_unspecified or listener.is_multicast:
@@ -335,6 +375,7 @@ def generate(value: dict[str, Any], filesystem_root: Path = Path("/")) -> dict[s
                 raise UnitContractError("production P1 tree has a mutable or non-root parent")
     if tree_sha256(p1_path, root_owned=production_root) != value["p1"]["tree_sha256"]:
         raise UnitContractError("P1 tree digest mismatch")
+    p1r_receipt_sha256 = validate_p1r_activation(value, filesystem_root, root_owned=production_root)
     exact_regular_file(filesystem_root, value["service"]["binary_path"], value["service"]["binary_sha256"], executable=True, root_owned=production_root)
     exact_regular_file(filesystem_root, value["service"]["daemon_contract_path"], value["service"]["daemon_contract_sha256"], root_owned=production_root)
     certificate = exact_regular_file(filesystem_root, value["tls"]["certificate_path"], value["tls"]["certificate_sha256"], root_owned=production_root)
@@ -382,6 +423,11 @@ def generate(value: dict[str, Any], filesystem_root: Path = Path("/")) -> dict[s
         },
         "network_policy": network_policy,
         "bound_acceptances": {
+            "p1r_artifact_sha256": value["p1r_activation"]["receipt"]["p1r"]["sha256"],
+            "p1r_commit": value["p1r_activation"]["receipt"]["p1r_commit"],
+            "p1r_activation_receipt_self_sha256": p1r_receipt_sha256,
+            "p1r_activation_sha256": hashlib.sha256(canonical_bytes(value["p1r_activation"]["receipt"])).hexdigest(),
+            "activation_boundary": value["p1r_activation"]["receipt"]["activation_boundary"],
             "noninterference_key_commitment_sha256": value["noninterference_key_commitment"]["commitment_sha256"],
             "worm_acceptance_sha256": value["worm_acceptance"]["acceptance_sha256"],
             "destructive_gap_acceptance_sha256": value["destructive_gap_acceptance"]["acceptance_sha256"],

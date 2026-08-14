@@ -44,6 +44,8 @@ LOCATOR_SCHEMA = "benchmark-private-artifact-locator-v1.5.schema.json"
 CUSTODY_SCHEMA = "benchmark-operational-private-custody-evidence-v1.5.schema.json"
 NONINTERFERENCE_SCHEMA = "benchmark-operational-noninterference-receipt-v1.5.schema.json"
 NONINTERFERENCE_KEY_COMMITMENT_SCHEMA = "benchmark-operational-noninterference-key-commitment-v1.5.schema.json"
+P1R_ACTIVATION_SCHEMA = "benchmark-public-p1r-activation-receipt-v1.5.schema.json"
+P1R_VALIDATOR = ROOT / "scripts/validate_benchmark_v15_candidate_base.py"
 OUTPUT_SCHEMA = "benchmark-checkpoint-runner-private-input-v1.5.schema.json"
 UPSTREAM = "https://github.com/google-deepmind/formal-conjectures.git"
 UPSTREAM_REF = "refs/heads/main"
@@ -146,12 +148,15 @@ def _self_digest(value: dict[str, Any], field: str) -> str:
     return sha256(canonical_json(unsigned))
 
 
-def require_repo_activation(request: dict[str, Any]) -> dict[str, Any]:
-    """Authenticate exact executing bytes through published P1T/P1A roles.
+def _domain_digest(domain: str, value: dict[str, Any]) -> str:
+    return sha256(domain.encode("ascii") + b"\0" + canonical_json(value))
 
-    The caller supplies only the P1T identity to resolve.  Authority comes from
-    the frozen public ref and P1T's authenticated sole-parent P1A closure, never
-    from request status strings or a command-line activation override.
+
+def require_repo_activation(request: dict[str, Any]) -> dict[str, Any]:
+    """Resolve exact executing components through published P1T/P1A roles.
+
+    P1T supplies component identity only.  The separate full P1R receipt is
+    replayed after WORM fetch and is the sole activation authority.
     """
     scope = request["p1_scope"]
     try:
@@ -162,7 +167,7 @@ def require_repo_activation(request: dict[str, Any]) -> dict[str, Any]:
         policy = _json(SOURCE_POLICY.read_bytes())
         invocation = _json(INVOCATION_CONTRACT.read_bytes())
     except Exception as exc:
-        raise AssemblyError("repository activation evidence is unavailable") from exc
+        raise AssemblyError("repository component-role evidence is unavailable") from exc
     if (
         resolution.get("status") != "AUTHENTICATED_PUBLISHED_P1_ROLE_CLOSURE"
         or resolution.get("operational") is not True
@@ -192,7 +197,7 @@ def require_repo_activation(request: dict[str, Any]) -> dict[str, Any]:
             or row.get("sha256") != expected
             or sha256_file(path) != expected
         ):
-            raise AssemblyError(f"activated {role} bytes do not resolve through P1")
+            raise AssemblyError(f"resolved {role} bytes do not match P1 components")
     if scope["assembler_sha256"] != request["runner_contract"]["assembly_executable_sha256"]:
         raise AssemblyError("request assembler digest differs from activated P1 role")
     readiness = boundary.get("operational_readiness")
@@ -320,6 +325,57 @@ def _validate_p1_scope(request: dict[str, Any], raw: dict[str, bytes | list[byte
         or boundary.get("status") != "FROZEN_P1_EXECUTABLE"
     ):
         raise AssemblyError("authenticated P1 scope/noninterference receipt is not operational")
+    return receipt
+
+
+def _validate_p1r_activation(
+    request: dict[str, Any], raw: dict[str, bytes | list[bytes]]
+) -> dict[str, Any]:
+    """Replay the full public P1R receipt against U1 and the chain proof.
+
+    P1T remains the component-role closure only.  The nine-field public P1R
+    receipt is the activation authority, and its complete canonical bytes are
+    content-addressed by the private request before any target-bearing input is
+    parsed.
+    """
+    receipt_raw = raw["p1r_activation_receipt"]
+    u1_raw = raw["u1_receipt"]
+    proof_raw = raw["public_chain_proof"]
+    assert isinstance(receipt_raw, bytes)
+    assert isinstance(u1_raw, bytes)
+    assert isinstance(proof_raw, bytes)
+    receipt = _json(receipt_raw)
+    _validate(receipt, P1R_ACTIVATION_SCHEMA)
+    if canonical_json(receipt) != receipt_raw:
+        raise AssemblyError("P1R activation receipt is not canonical JSON")
+    unsigned = dict(receipt)
+    recorded_receipt_sha256 = unsigned.pop("receipt_sha256", None)
+    if recorded_receipt_sha256 != _domain_digest(receipt["schema"], unsigned):
+        raise AssemblyError("P1R activation receipt self-digest is invalid")
+    scope = request["p1_scope"]
+    if (
+        sha256(receipt_raw) != scope["p1r_activation_receipt_sha256"]
+        or receipt["p1r_commit"] != scope["p1r_commit"]
+        or receipt["activation_boundary"] != "PUBLIC_AUTHENTICATED_P1R"
+        or receipt["validator"] != {
+            "path": P1R_VALIDATOR.relative_to(ROOT).as_posix(),
+            "sha256": sha256_file(P1R_VALIDATOR),
+        }
+    ):
+        raise AssemblyError("full P1R activation receipt differs from request scope")
+    u1 = _json(u1_raw)
+    proof = _json(proof_raw)
+    if (
+        u1.get("p1", {}).get("p1r_commit") != scope["p1r_commit"]
+        or u1.get("p1", {}).get("activation_receipt") != receipt
+        or u1.get("p1", {}).get("p1r_activation_sha256")
+        != scope["p1r_activation_receipt_sha256"]
+        or proof.get("p1r_commit") != scope["p1r_commit"]
+        or proof.get("p1r_activation") != receipt
+        or proof.get("p1r_activation_sha256")
+        != scope["p1r_activation_receipt_sha256"]
+    ):
+        raise AssemblyError("U1/public-chain proof does not bind the exact P1R receipt")
     return receipt
 
 
@@ -466,6 +522,7 @@ def _registry_inputs(raw: dict[str, bytes | list[bytes]]) -> dict[str, str]:
     names = (
         "u1_receipt", "checkpoint_capture", "v14_exclusion", "grouping_rule",
         "classifier", "provenance_content_pack", "public_chain_proof",
+        "p1r_activation_receipt",
     )
     values = {
         ("u2_receipt" if name == "checkpoint_capture" else name) + "_sha256":
@@ -483,6 +540,7 @@ def verify_private_replay(
     request: dict[str, Any], raw: dict[str, bytes | list[bytes]], work: Path
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     """Re-execute the frozen registry against two distinct isolated stores."""
+    _validate_p1r_activation(request, raw)
     _verify_classifier_runtime(raw, work)
     u1 = _json(raw["u1_receipt"])  # type: ignore[arg-type]
     capture = _json(raw["checkpoint_capture"])  # type: ignore[arg-type]

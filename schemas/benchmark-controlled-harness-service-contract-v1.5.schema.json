@@ -44,9 +44,13 @@
     },
     "binding": {
       "type": "object", "additionalProperties": false,
-      "required": ["p1t_commit", "authenticated_binding_provider_required", "public_chain_proof_required", "exact_next_tick_required", "exact_public_tip_required"],
+      "required": ["p1r_artifact_sha256", "p1r_commit", "p1r_activation_receipt_self_sha256", "p1r_activation_sha256", "activation_boundary", "authenticated_binding_provider_required", "public_chain_proof_required", "exact_next_tick_required", "exact_public_tip_required"],
       "properties": {
-        "p1t_commit": {"type": ["string", "null"]},
+        "p1r_artifact_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+        "p1r_commit": {"type": ["string", "null"], "pattern": "^[0-9a-f]{40}$"},
+        "p1r_activation_receipt_self_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+        "p1r_activation_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+        "activation_boundary": {"enum": [null, "PUBLIC_AUTHENTICATED_P1R"]},
         "authenticated_binding_provider_required": {"const": true},
         "public_chain_proof_required": {"const": true},
         "exact_next_tick_required": {"const": true},

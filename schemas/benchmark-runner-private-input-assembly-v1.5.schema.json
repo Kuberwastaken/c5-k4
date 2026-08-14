@@ -31,10 +31,12 @@
     },
     "p1_scope": {
       "type": "object", "additionalProperties": false,
-      "required": ["p1t_commit", "p1t_path", "role_resolution_sha256", "assembler_sha256", "source_policy_sha256", "invocation_contract_sha256", "participant_ledger_sha256", "participant_ledger_artifact_sha256", "source_boundary_sha256", "noninterference_receipt_sha256", "noninterference_receipt_schema_sha256", "noninterference_verifier_sha256", "operational_noninterference_key_commitment_sha256", "operational_noninterference_key_commitment_schema_sha256", "classifier_readiness_receipt_sha256", "classifier_runtime_binding_schema_sha256", "classifier_runtime_verifier_sha256", "required_host_id"],
+      "required": ["p1t_commit", "p1t_path", "p1r_commit", "p1r_activation_receipt_sha256", "role_resolution_sha256", "assembler_sha256", "source_policy_sha256", "invocation_contract_sha256", "participant_ledger_sha256", "participant_ledger_artifact_sha256", "source_boundary_sha256", "noninterference_receipt_sha256", "noninterference_receipt_schema_sha256", "noninterference_verifier_sha256", "operational_noninterference_key_commitment_sha256", "operational_noninterference_key_commitment_schema_sha256", "classifier_readiness_receipt_sha256", "classifier_runtime_binding_schema_sha256", "classifier_runtime_verifier_sha256", "required_host_id"],
       "properties": {
         "p1t_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
         "p1t_path": {"type": "string", "pattern": "^[^/][^\\u0000]*\\.json$"},
+        "p1r_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "p1r_activation_receipt_sha256": {"$ref": "#/definitions/sha256"},
         "role_resolution_sha256": {"$ref": "#/definitions/sha256"},
         "assembler_sha256": {"$ref": "#/definitions/sha256"},
         "source_policy_sha256": {"$ref": "#/definitions/sha256"},
@@ -75,7 +77,7 @@
         "classifier", "public_chain_proof", "provenance_content_pack",
         "provenance_ledgers", "custody_coverage_certificate",
         "public_custody_sealed_binding", "sealed_private_custody_bundle",
-        "p1_role_resolution", "participant_ledger", "source_boundary", "noninterference_receipt", "noninterference_receipt_schema", "noninterference_verifier", "operational_noninterference_key_commitment", "operational_noninterference_key_commitment_schema", "noninterference_verification_key", "classifier_readiness_receipt", "service_epoch_binding",
+        "p1_role_resolution", "p1r_activation_receipt", "participant_ledger", "source_boundary", "noninterference_receipt", "noninterference_receipt_schema", "noninterference_verifier", "operational_noninterference_key_commitment", "operational_noninterference_key_commitment_schema", "noninterference_verification_key", "classifier_readiness_receipt", "service_epoch_binding",
         "primary_acquisition_receipt", "replay_acquisition_receipt",
         "primary_private_registry", "replayed_private_registry"
       ],
@@ -92,6 +94,7 @@
         "public_custody_sealed_binding": {"$ref": "#/definitions/locator"},
         "sealed_private_custody_bundle": {"$ref": "#/definitions/locator"},
         "p1_role_resolution": {"$ref": "#/definitions/locator"},
+        "p1r_activation_receipt": {"$ref": "#/definitions/locator"},
         "participant_ledger": {"$ref": "#/definitions/locator"},
         "source_boundary": {"$ref": "#/definitions/locator"},
         "noninterference_receipt": {"$ref": "#/definitions/locator"},

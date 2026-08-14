@@ -24,7 +24,11 @@
     "target_blind": true
   },
   "binding": {
-    "p1t_commit": null,
+    "p1r_artifact_sha256": null,
+    "p1r_commit": null,
+    "p1r_activation_receipt_self_sha256": null,
+    "p1r_activation_sha256": null,
+    "activation_boundary": null,
     "authenticated_binding_provider_required": true,
     "public_chain_proof_required": true,
     "exact_next_tick_required": true,

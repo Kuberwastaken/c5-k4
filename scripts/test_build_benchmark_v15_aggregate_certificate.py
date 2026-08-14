@@ -42,7 +42,12 @@ class AggregateCertificateTests(unittest.TestCase):
         self.registry_path = self.write("private-registry.json", self.registry())
         self.manifest_path = self.write("components.json", self.manifest())
         ref = A.relative_ref(self.manifest_path, "fixture")
-        binding = {"p1a": ref, "p1t": ref, "p1a_commit": self.commit, "p1t_commit": self.commit}
+        binding = {
+            "p1a": ref, "p1t": ref, "p1r": ref,
+            "p1a_commit": self.commit, "p1t_commit": self.commit,
+            "p1r_commit": self.commit,
+            "activation_boundary": "PUBLIC_AUTHENTICATED_P1R",
+        }
         frozen = {
             "arm_execution": {key: dict(ref) for key in (
                 "capability_matrix", "capability_matrix_schema", "envelope_schema", "validator", "test",
@@ -99,7 +104,7 @@ class AggregateCertificateTests(unittest.TestCase):
                 "operational_noninterference_key_commitment_schema",
             )},
         }
-        self.auth_patch = mock.patch.object(A, "authenticate_p1", return_value=({}, {}, binding))
+        self.auth_patch = mock.patch.object(A, "authenticate_p1", return_value=({}, {}, {}, binding))
         self.real_load_components = A.load_components
         self.components_patch = mock.patch.object(A, "load_components", return_value=(frozen, {}))
         self.real_bind_runtime_inputs = A.bind_runtime_inputs
@@ -133,7 +138,7 @@ class AggregateCertificateTests(unittest.TestCase):
             "scheduled_for_utc": "2026-08-17T00:17:00Z",
             "trigger": {"event_name": "schedule", "run_attempt": 1},
             "basis": {
-                "u1_receipt": {"commit": self.commit, "path": "u1.json", "sha256": H},
+                "u1_receipt": {"commit": self.commit, "path": "u1.json", "sha256": H, "p1r_commit": self.commit, "p1r_activation_sha256": "8" * 64, "activation_boundary": "PUBLIC_AUTHENTICATED_P1R"},
                 "previous_checkpoint": None,
                 "public_chain_proof": {"proof_sha256": "9" * 64},
             },
@@ -242,6 +247,7 @@ class AggregateCertificateTests(unittest.TestCase):
         return A.build_certificate(
             self.chronology_path, self.registry_path, self.manifest_path,
             self.manifest_path, self.manifest_path, self.commit,
+            self.manifest_path, self.commit,
             [self.manifest_path], self.manifest_path,
         )
 
@@ -542,6 +548,7 @@ class AggregateCertificateTests(unittest.TestCase):
 
     def test_component_and_chronology_bindings_are_exact(self) -> None:
         certificate = self.build()
+        self.assertEqual(certificate["p1_binding"]["p1r_activation_sha256"], "8" * 64)
         bad = copy.deepcopy(certificate)
         bad["frozen_components"]["registry"]["executable"]["sha256"] = "0" * 64
         self.resign(bad)
