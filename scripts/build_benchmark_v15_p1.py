@@ -150,6 +150,23 @@ NATIVE_COMPONENTS = (
     "classifier_readiness_receipt",
     "five_strata_classifier_closure_validator",
     "five_strata_classifier_closure_contract_test",
+    "immutable_infrastructure_plan",
+    "immutable_infrastructure_cloudformation",
+    "immutable_infrastructure_verifier",
+    "immutable_infrastructure_contract_test",
+    "operational_controlled_harness_activation_schema",
+    "operational_controlled_harness_unit_schema",
+    "operational_harness_unit_generator",
+    "operational_harness_unit_generator_contract_test",
+    "controlled_harness_deployment_contract",
+    "controlled_harness_deployment_contract_schema",
+    "controlled_harness_deployment_verifier",
+    "controlled_harness_deployment_contract_test",
+    "controlled_harness_systemd_unit",
+    "controlled_harness_sysusers_asset",
+    "controlled_harness_tmpfiles_asset",
+    "controlled_harness_network_policy",
+    "controlled_harness_destructive_gap_plan",
     "classifier_runtime_binding_schema",
     "classifier_runtime_verifier",
     "scheduled_aggregate_certificate_builder",
@@ -196,9 +213,10 @@ FORBIDDEN_DATA_KEYS = {
     "clusters", "eligible_rows", "final_eligible_rows", "selected_rows",
     "selected_clusters", "candidate_identities", "statement", "statement_text",
     "declarations", "candidates", "target_rankings", "target_semantics",
-    "residual", "proof_route", "outcomes",
+    "residual", "proof_route", "outcomes", "target_identity", "target_identities",
 }
 SCHEMA_CONTAINER_KEYS = {"properties", "definitions", "$defs", "patternProperties"}
+STRUCTURAL_STATEMENT_ROLES = {"immutable_infrastructure_cloudformation"}
 HEX_SHA256 = re.compile(r"[0-9a-f]{64}")
 
 
@@ -262,18 +280,36 @@ def _nonempty(value: Any) -> bool:
     return True
 
 
-def scan_for_target_data(value: Any, *, role: str, trail: tuple[str, ...] = ()) -> None:
+def scan_for_target_data(
+    value: Any,
+    *,
+    role: str,
+    trail: tuple[str, ...] = (),
+    allow_structural_statement: bool = False,
+) -> None:
     """Reject populated target-data containers, except JSON-Schema definitions."""
     if isinstance(value, dict):
         inside_schema = any(part in SCHEMA_CONTAINER_KEYS for part in trail)
         for key, child in value.items():
             next_trail = (*trail, str(key))
-            if str(key).casefold() in FORBIDDEN_DATA_KEYS and _nonempty(child) and not inside_schema:
+            folded_key = str(key).casefold()
+            structural_statement = allow_structural_statement and folded_key == "statement"
+            if folded_key in FORBIDDEN_DATA_KEYS and _nonempty(child) and not inside_schema and not structural_statement:
                 raise P1Error(f"{role} contains nonempty forbidden target-data field {'.'.join(next_trail)}")
-            scan_for_target_data(child, role=role, trail=next_trail)
+            scan_for_target_data(
+                child,
+                role=role,
+                trail=next_trail,
+                allow_structural_statement=allow_structural_statement,
+            )
     elif isinstance(value, list):
         for index, child in enumerate(value):
-            scan_for_target_data(child, role=role, trail=(*trail, str(index)))
+            scan_for_target_data(
+                child,
+                role=role,
+                trail=(*trail, str(index)),
+                allow_structural_statement=allow_structural_statement,
+            )
 
 
 def audit_native_component(role: str, ref: dict[str, str]) -> None:
@@ -291,7 +327,11 @@ def audit_native_component(role: str, ref: dict[str, str]) -> None:
             jsonschema.Draft7Validator.check_schema(value)
         except jsonschema.SchemaError as exc:
             raise P1Error(f"{role} is not a valid Draft-07-compatible schema: {exc.message}") from exc
-    scan_for_target_data(value, role=role)
+    scan_for_target_data(
+        value,
+        role=role,
+        allow_structural_statement=role in STRUCTURAL_STATEMENT_ROLES,
+    )
 
 
 def _load_v14_module() -> Any:

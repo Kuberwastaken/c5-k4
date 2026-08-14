@@ -73,11 +73,22 @@
       "properties": {
         "controlled_harness": {
           "type": "object", "additionalProperties": false,
-          "required": ["contract", "contract_schema", "request_schema", "response_schema", "service", "test"],
+          "required": ["contract", "contract_schema", "request_schema", "response_schema", "service", "test", "activation_schema", "unit_schema", "unit_generator", "unit_generator_test", "deployment_contract", "deployment_contract_schema", "deployment_verifier", "deployment_test", "systemd_unit", "sysusers_asset", "tmpfiles_asset", "network_policy", "destructive_gap_plan"],
           "properties": {
+            "activation_schema": {"$ref": "#/definitions/artifactRef"},
             "contract": {"$ref": "#/definitions/artifactRef"}, "contract_schema": {"$ref": "#/definitions/artifactRef"},
             "request_schema": {"$ref": "#/definitions/artifactRef"}, "response_schema": {"$ref": "#/definitions/artifactRef"},
-            "service": {"$ref": "#/definitions/artifactRef"}, "test": {"$ref": "#/definitions/artifactRef"}
+            "service": {"$ref": "#/definitions/artifactRef"}, "test": {"$ref": "#/definitions/artifactRef"},
+            "unit_schema": {"$ref": "#/definitions/artifactRef"}, "unit_generator": {"$ref": "#/definitions/artifactRef"},
+            "unit_generator_test": {"$ref": "#/definitions/artifactRef"},
+            "deployment_contract": {"$ref": "#/definitions/artifactRef"},
+            "deployment_contract_schema": {"$ref": "#/definitions/artifactRef"},
+            "deployment_verifier": {"$ref": "#/definitions/artifactRef"}, "deployment_test": {"$ref": "#/definitions/artifactRef"},
+            "systemd_unit": {"$ref": "#/definitions/artifactRef"},
+            "sysusers_asset": {"$ref": "#/definitions/artifactRef"},
+            "tmpfiles_asset": {"$ref": "#/definitions/artifactRef"},
+            "network_policy": {"$ref": "#/definitions/artifactRef"},
+            "destructive_gap_plan": {"$ref": "#/definitions/artifactRef"}
           }
         },
         "participant_scope": {
@@ -122,12 +133,16 @@
         },
         "immutable_store": {
           "type": "object", "additionalProperties": false,
-          "required": ["executable", "test", "broker_adapter", "broker_adapter_test", "private_object_reference_schema", "private_artifact_locator_schema", "config_schema", "readiness_schema"],
+          "required": ["executable", "test", "broker_adapter", "broker_adapter_test", "private_object_reference_schema", "private_artifact_locator_schema", "config_schema", "readiness_schema", "infrastructure_plan", "infrastructure_cloudformation", "infrastructure_verifier", "infrastructure_test"],
           "properties": {
             "executable": {"$ref": "#/definitions/artifactRef"}, "test": {"$ref": "#/definitions/artifactRef"},
             "broker_adapter": {"$ref": "#/definitions/artifactRef"}, "broker_adapter_test": {"$ref": "#/definitions/artifactRef"},
             "private_object_reference_schema": {"$ref": "#/definitions/artifactRef"},
             "private_artifact_locator_schema": {"$ref": "#/definitions/artifactRef"},
+            "infrastructure_plan": {"$ref": "#/definitions/artifactRef"},
+            "infrastructure_cloudformation": {"$ref": "#/definitions/artifactRef"},
+            "infrastructure_verifier": {"$ref": "#/definitions/artifactRef"},
+            "infrastructure_test": {"$ref": "#/definitions/artifactRef"},
             "config_schema": {"$ref": "#/definitions/artifactRef"}, "readiness_schema": {"$ref": "#/definitions/artifactRef"}
           }
         },
@@ -271,7 +286,7 @@
       "type": "object", "additionalProperties": false,
       "required": ["path", "sha256"],
       "properties": {
-        "path": {"type": "string", "pattern": "^(scripts|schemas|results/benchmark/v1\\.5-[A-Za-z0-9._/-]+)/[^\\u0000]*$"},
+        "path": {"type": "string", "pattern": "^(scripts|schemas|results/benchmark/v1\\.5-[A-Za-z0-9._/-]+|infra/benchmark-v1\\.5|deployment/benchmark-v15-controlled-harness)/[^\\u0000]*$"},
         "sha256": {"$ref": "#/definitions/sha256"}
       }
     },

@@ -35,12 +35,25 @@
       "validator": {"closure": "NATIVE_V1_5", "role": "five_strata_classifier_closure_validator"}
     },
     "controlled_harness": {
+      "activation_schema": {"closure": "NATIVE_V1_5", "role": "operational_controlled_harness_activation_schema"},
       "contract": {"closure": "NATIVE_V1_5", "role": "controlled_harness_service_contract"},
       "contract_schema": {"closure": "NATIVE_V1_5", "role": "controlled_harness_service_contract_schema"},
       "request_schema": {"closure": "NATIVE_V1_5", "role": "target_blind_checkpoint_request_schema"},
       "response_schema": {"closure": "NATIVE_V1_5", "role": "controlled_harness_response_schema"},
+      "deployment_contract": {"closure": "NATIVE_V1_5", "role": "controlled_harness_deployment_contract"},
+      "deployment_contract_schema": {"closure": "NATIVE_V1_5", "role": "controlled_harness_deployment_contract_schema"},
+      "deployment_test": {"closure": "NATIVE_V1_5", "role": "controlled_harness_deployment_contract_test"},
+      "deployment_verifier": {"closure": "NATIVE_V1_5", "role": "controlled_harness_deployment_verifier"},
+      "destructive_gap_plan": {"closure": "NATIVE_V1_5", "role": "controlled_harness_destructive_gap_plan"},
+      "network_policy": {"closure": "NATIVE_V1_5", "role": "controlled_harness_network_policy"},
       "service": {"closure": "NATIVE_V1_5", "role": "controlled_harness_service"},
-      "test": {"closure": "NATIVE_V1_5", "role": "controlled_harness_service_contract_test"}
+      "systemd_unit": {"closure": "NATIVE_V1_5", "role": "controlled_harness_systemd_unit"},
+      "sysusers_asset": {"closure": "NATIVE_V1_5", "role": "controlled_harness_sysusers_asset"},
+      "test": {"closure": "NATIVE_V1_5", "role": "controlled_harness_service_contract_test"},
+      "tmpfiles_asset": {"closure": "NATIVE_V1_5", "role": "controlled_harness_tmpfiles_asset"},
+      "unit_generator": {"closure": "NATIVE_V1_5", "role": "operational_harness_unit_generator"},
+      "unit_generator_test": {"closure": "NATIVE_V1_5", "role": "operational_harness_unit_generator_contract_test"},
+      "unit_schema": {"closure": "NATIVE_V1_5", "role": "operational_controlled_harness_unit_schema"}
     },
     "grouping": {"policy": {"closure": "INHERITED_V1_4", "role": "grouping_rule"}},
     "immutable_store": {
@@ -50,6 +63,10 @@
       "executable": {"closure": "NATIVE_V1_5", "role": "s3_object_lock_store"},
       "private_object_reference_schema": {"closure": "NATIVE_V1_5", "role": "private_s3_object_reference_schema"},
       "private_artifact_locator_schema": {"closure": "NATIVE_V1_5", "role": "private_artifact_locator_schema"},
+      "infrastructure_cloudformation": {"closure": "NATIVE_V1_5", "role": "immutable_infrastructure_cloudformation"},
+      "infrastructure_plan": {"closure": "NATIVE_V1_5", "role": "immutable_infrastructure_plan"},
+      "infrastructure_test": {"closure": "NATIVE_V1_5", "role": "immutable_infrastructure_contract_test"},
+      "infrastructure_verifier": {"closure": "NATIVE_V1_5", "role": "immutable_infrastructure_verifier"},
       "readiness_schema": {"closure": "NATIVE_V1_5", "role": "s3_object_lock_store_readiness_schema"},
       "test": {"closure": "NATIVE_V1_5", "role": "s3_object_lock_store_contract_test"}
     },
