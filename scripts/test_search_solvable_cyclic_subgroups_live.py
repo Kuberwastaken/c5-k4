@@ -8,6 +8,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest import mock
 
 import search_solvable_cyclic_subgroups_live as target
 import verify_solvable_cyclic_subgroups_certificate as verifier
@@ -37,6 +38,11 @@ class SolvableCyclicSubgroupsFreezeTests(unittest.TestCase):
         self.assertEqual(manifest["evidence_split"], "DEVELOPMENT")
         self.assertEqual(manifest["upstream"]["commit"], target.UPSTREAM_COMMIT)
         self.assertFalse(manifest["candidate_policy"]["public_action"])
+        self.assertEqual(manifest["descriptor_error_policy"]["action"], "DURABLE_SKIP")
+        self.assertEqual(
+            manifest["descriptor_error_policy"]["stdout_max_bytes"],
+            target.DIAGNOSTIC_MAX_BYTES,
+        )
 
     def test_source_documented_a5_histogram_is_exact(self) -> None:
         profile = fixture_profile("A5")
@@ -97,6 +103,48 @@ class SolvableCyclicSubgroupsFreezeTests(unittest.TestCase):
         )
         with self.assertRaises(target.SearchError):
             target.parse_profile_line(target.marker_line(wrapped, "@@PROFILE@@"), descriptor)
+
+    def test_missing_profile_preserves_bounded_process_diagnostic(self) -> None:
+        descriptor = target.GroupDescriptor(
+            "Aut_A7", 'AutomorphismGroup(SimpleGroup("A7"))', "fixture"
+        )
+        result = target.GapProcessResult(
+            0,
+            "@@QUERY_BEGIN@@\nError, synthetic unsupported construction\n" + "x" * 5000,
+            "synthetic stderr",
+        )
+        with mock.patch.object(target, "run_gap_capture", return_value=result):
+            with self.assertRaises(target.GapDescriptorError) as raised:
+                target.query_profile("gap", descriptor, 1.0)
+        self.assertEqual(raised.exception.reason, "PROFILE_MARKER_MISSING_OR_DUPLICATE")
+        diagnostic = raised.exception.diagnostic
+        self.assertEqual(diagnostic["returncode"], 0)
+        self.assertTrue(diagnostic["stdout"]["truncated"])
+        self.assertIn("synthetic unsupported construction", diagnostic["stdout"]["text"])
+        self.assertEqual(diagnostic["stderr"]["text"], "synthetic stderr")
+
+    def test_descriptor_error_is_durable_skip_not_evaluation(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            root = Path(raw)
+            ledger = target.DurableLedger(root / "ledger.jsonl", "WALL_NAVIGATION")
+            recorder = target.SearchRecorder("gap", ledger, ledger.started + 10.0, root / "certificate.json")
+            failure = target.GapDescriptorError(
+                "PROFILE_MARKER_MISSING_OR_DUPLICATE",
+                target.process_diagnostic(target.GapProcessResult(0, "Error, fixture\n", "")),
+            )
+            with mock.patch.object(target, "query_profile", side_effect=failure):
+                crossed = recorder.evaluate(
+                    target.GroupDescriptor("Aut_A7", "fixture", "fixture"),
+                    {"wall_index": 5},
+                )
+            self.assertFalse(crossed)
+            self.assertEqual(ledger.counters.proposed, 1)
+            self.assertEqual(ledger.counters.descriptor_errors, 1)
+            self.assertEqual(ledger.counters.exact_evaluated, 0)
+            self.assertEqual(ledger.counters.objective_scored, 0)
+            row = json.loads((root / "ledger.jsonl").read_text().splitlines()[-1])
+            self.assertEqual(row["kind"], "descriptor_error")
+            self.assertEqual(row["mathematical_inference"], "NONE")
 
     def test_hash_chained_fsync_ledger_and_terminal(self) -> None:
         with tempfile.TemporaryDirectory() as raw:

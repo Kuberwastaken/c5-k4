@@ -22,6 +22,12 @@
   "internal_stop_seconds": 54,
   "external_stop_seconds": 60,
   "per_gap_query_max_seconds": 8,
+  "descriptor_error_policy": {
+    "action": "DURABLE_SKIP",
+    "mathematical_inference": "NONE",
+    "stdout_max_bytes": 4096,
+    "stderr_max_bytes": 4096
+  },
   "catalogue": {
     "order_min": 60,
     "order_max": 255,
@@ -58,7 +64,7 @@
   "artifacts": [
     {
       "path": "results/expansion/live-search-2026-08-14/solvable-cyclic-subgroups-contract.md",
-      "sha256": "db60f47b3983d039746f41dc7478b97945353e1fcc048032120d183b6c09be58"
+      "sha256": "fea7ad499a0da14928fc22d1074726f3362c3f2c513e969dec3e440988f41c48"
     },
     {
       "path": "results/expansion/live-search-2026-08-14/solvable-cyclic-subgroups-source-status.json",
@@ -66,7 +72,7 @@
     },
     {
       "path": "scripts/search_solvable_cyclic_subgroups_live.py",
-      "sha256": "a43e1ffc0bb6dd0e0e9bbfb9bc37cc29e9fbb0d176c0df7e89add32de4b6a5ca"
+      "sha256": "7928210568fff68e92c91d32e634065bea270593698e2b6aeaf09238bf8c9d08"
     },
     {
       "path": "scripts/verify_solvable_cyclic_subgroups_certificate.py",
@@ -74,7 +80,7 @@
     },
     {
       "path": "scripts/test_search_solvable_cyclic_subgroups_live.py",
-      "sha256": "5b1b8b1137c8240a1572f13e547dad785c55fcd0cb0430e1e01995803fec3f4f"
+      "sha256": "3cbcf2d3a5cedf78d0add25241c5d6a38adbaa8cb6e66d43baaceb5bd19a20c6"
     },
     {
       "path": ".github/workflows/solvable-cyclic-subgroups-development.yml",
@@ -83,6 +89,10 @@
     {
       "path": "results/expansion/live-search-2026-08-14/solvable-cyclic-subgroups-run-31792034789-invalid.md",
       "sha256": "10e3a42253bf8e8e8781f6e5e1c70f855e7be7f3719578db463b4c7d09ba79f6"
+    },
+    {
+      "path": "results/expansion/live-search-2026-08-14/solvable-cyclic-subgroups-run-31792455211-invalid.md",
+      "sha256": "b3f13a1225ca5ed05481f34409752914a8832ffbaae033152d9ef42a1b6afed7"
     }
   ]
 }

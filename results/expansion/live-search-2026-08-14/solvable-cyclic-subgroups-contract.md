@@ -61,6 +61,14 @@ Each arm has a 54-second internal stop and a separate 60-second process cap.
 Every individual GAP query is separately capped at eight seconds so a difficult
 group cannot consume the terminal-receipt margin.
 
+A frozen descriptor is scoreable only when its GAP subprocess returns a
+complete, independently parsed profile. Nonzero exits and missing, duplicate,
+or malformed profile markers produce a durable `descriptor_error` row with
+bounded raw stdout, stderr, and return code. They increment neither exact
+evaluations nor holds/crossings and do not terminate the rest of an arm. This
+distinguishes an unsupported or failed construction from a successful profile
+without converting one family endpoint into a whole-worker failure.
+
 ### CATALOGUE
 
 In increasing `(order, SmallGroup id)` order, exhaust every nonsolvable GAP
@@ -117,3 +125,13 @@ row, apparent hold, crossing, timeout, or terminal prefix from that run is
 admissible as mathematical evidence; the A5 controls provide sanity evidence
 and nothing further. Exact artifact identifiers and terminal receipts are
 recorded in `solvable-cyclic-subgroups-run-31792034789-invalid.md`.
+
+GitHub Actions run `31792455211` at campaign commit
+`1be238c1e6de413b2fd5dce7f9fcbb607ca0cc25` is also classified
+`INVALID_RUN`. The framing correction allowed long successful profiles, but
+the frozen `Aut(A7)` descriptor returned code zero without any profile marker.
+Because that version discarded per-query stdout/stderr before ledger emission,
+the construction failure cannot be diagnosed from its preserved arm artifact.
+No target row from this run is admitted as a hold, crossing, or denominator;
+only the repeated sanity gate is retained. The exact invalid-run record is
+`solvable-cyclic-subgroups-run-31792455211-invalid.md`.

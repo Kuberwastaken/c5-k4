@@ -22,6 +22,7 @@ ARMS = ("CATALOGUE", "GENERIC", "WALL_NAVIGATION")
 INTERNAL_STOP_SECONDS = 54.0
 EXTERNAL_STOP_SECONDS = 60
 PER_QUERY_MAX_SECONDS = 8.0
+DIAGNOSTIC_MAX_BYTES = 4096
 UPSTREAM_COMMIT = "942fb149e782a56c2719c543ab58e093f733acb4"
 UPSTREAM_BLOB = "cb099f09a40eab0149b3332979d92e190ef44def"
 UPSTREAM_DECLARATION = "Arxiv.«2604.08040».solvable_of_cyc_lt"
@@ -62,6 +63,15 @@ class GapQueryTimeout(TimeoutError):
     """Raised when one separately capped GAP query exceeds its allowance."""
 
 
+class GapDescriptorError(SearchError):
+    """A single frozen descriptor produced no admissible exact profile."""
+
+    def __init__(self, reason: str, diagnostic: Mapping[str, Any]):
+        super().__init__(reason)
+        self.reason = reason
+        self.diagnostic = dict(diagnostic)
+
+
 def canonical_json(value: Mapping[str, Any]) -> bytes:
     return (json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=True) + "\n").encode("ascii")
 
@@ -91,6 +101,13 @@ def load_and_verify_manifest(path: Path) -> dict[str, Any]:
         raise SearchError("internal deadline drift")
     if value.get("external_stop_seconds") != EXTERNAL_STOP_SECONDS:
         raise SearchError("external deadline drift")
+    if value.get("descriptor_error_policy") != {
+        "action": "DURABLE_SKIP",
+        "mathematical_inference": "NONE",
+        "stdout_max_bytes": DIAGNOSTIC_MAX_BYTES,
+        "stderr_max_bytes": DIAGNOSTIC_MAX_BYTES,
+    }:
+        raise SearchError("descriptor-error policy drift")
     dependencies = value.get("gap_dependencies", {})
     if dependencies != {
         "gap": GAP_VERSION,
@@ -115,11 +132,19 @@ class GroupDescriptor:
     provenance: str
 
 
+@dataclass(frozen=True)
+class GapProcessResult:
+    returncode: int
+    stdout: str
+    stderr: str
+
+
 @dataclass
 class Counters:
     proposed: int = 0
     exact_evaluated: int = 0
     query_timeouts: int = 0
+    descriptor_errors: int = 0
     nonsolvable: int = 0
     objective_scored: int = 0
     primary_candidates: int = 0
@@ -256,6 +281,7 @@ def euler_phi(n: int) -> int:
 def profile_gap_source(descriptor: GroupDescriptor) -> str:
     return f'''SetInfoLevel(InfoWarning,0);;
 SetPrintFormattingStatus("*stdout*",false);;
+Print("@@QUERY_BEGIN@@\\n");;
 G0 := {descriptor.expression};;
 G := Image(IsomorphismPermGroup(G0));;
 cc := ConjugacyClasses(G);;
@@ -296,7 +322,7 @@ QUIT_GAP(0);;
 '''
 
 
-def run_gap_script(gap: str, source: str, timeout_seconds: float) -> str:
+def run_gap_capture(gap: str, source: str, timeout_seconds: float) -> GapProcessResult:
     if timeout_seconds <= 0:
         raise GapQueryTimeout("no time remains for GAP query")
     try:
@@ -312,9 +338,38 @@ def run_gap_script(gap: str, source: str, timeout_seconds: float) -> str:
         )
     except subprocess.TimeoutExpired as exc:
         raise GapQueryTimeout("separately capped GAP query timed out") from exc
-    if completed.returncode != 0:
-        raise SearchError(f"GAP exited {completed.returncode}: {completed.stderr[-1000:]}")
-    return completed.stdout
+    return GapProcessResult(completed.returncode, completed.stdout, completed.stderr)
+
+
+def bounded_diagnostic(text: str, limit: int = DIAGNOSTIC_MAX_BYTES) -> dict[str, Any]:
+    encoded = text.encode("utf-8", errors="replace")
+    if len(encoded) <= limit:
+        rendered = encoded.decode("utf-8", errors="replace")
+        truncated = False
+    else:
+        half = limit // 2
+        rendered = (
+            encoded[:half].decode("utf-8", errors="replace")
+            + "\n@@DIAGNOSTIC_TRUNCATED@@\n"
+            + encoded[-half:].decode("utf-8", errors="replace")
+        )
+        truncated = True
+    return {"bytes": len(encoded), "truncated": truncated, "text": rendered}
+
+
+def process_diagnostic(result: GapProcessResult) -> dict[str, Any]:
+    return {
+        "returncode": result.returncode,
+        "stdout": bounded_diagnostic(result.stdout),
+        "stderr": bounded_diagnostic(result.stderr),
+    }
+
+
+def run_gap_script(gap: str, source: str, timeout_seconds: float) -> str:
+    result = run_gap_capture(gap, source, timeout_seconds)
+    if result.returncode != 0:
+        raise SearchError(f"GAP exited {result.returncode}: {result.stderr[-1000:]}")
+    return result.stdout
 
 
 def marker_line(output: str, prefix: str) -> str:
@@ -325,8 +380,18 @@ def marker_line(output: str, prefix: str) -> str:
 
 
 def query_profile(gap: str, descriptor: GroupDescriptor, timeout_seconds: float) -> dict[str, Any]:
-    output = run_gap_script(gap, profile_gap_source(descriptor), timeout_seconds)
-    return parse_profile_line(marker_line(output, "@@PROFILE@@"), descriptor)
+    result = run_gap_capture(gap, profile_gap_source(descriptor), timeout_seconds)
+    diagnostic = process_diagnostic(result)
+    if result.returncode != 0:
+        raise GapDescriptorError("GAP_NONZERO_EXIT", diagnostic)
+    try:
+        line = marker_line(result.stdout, "@@PROFILE@@")
+    except SearchError as exc:
+        raise GapDescriptorError("PROFILE_MARKER_MISSING_OR_DUPLICATE", diagnostic) from exc
+    try:
+        return parse_profile_line(line, descriptor)
+    except (SearchError, ValueError) as exc:
+        raise GapDescriptorError("PROFILE_MARKER_MALFORMED", diagnostic) from exc
 
 
 def query_nonsolvable_ids(gap: str, order: int, timeout_seconds: float) -> tuple[bool, tuple[int, ...]]:
@@ -454,6 +519,19 @@ class SearchRecorder:
         except GapQueryTimeout:
             self.ledger.counters.query_timeouts += 1
             self.ledger.emit("evaluation_timeout", {"descriptor": asdict(descriptor), "cursor": dict(cursor)})
+            return False
+        except GapDescriptorError as exc:
+            self.ledger.counters.descriptor_errors += 1
+            self.ledger.emit(
+                "descriptor_error",
+                {
+                    "descriptor": asdict(descriptor),
+                    "cursor": dict(cursor),
+                    "descriptor_status": exc.reason,
+                    "diagnostic": exc.diagnostic,
+                    "mathematical_inference": "NONE",
+                },
+            )
             return False
         self.ledger.counters.exact_evaluated += 1
         self.ledger.counters.objective_scored += 1
