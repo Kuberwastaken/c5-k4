@@ -31,11 +31,11 @@ mathematics.
 
 A further sweep covered all **228 independence-number bounds** still listed
 as open in Graph Brain issue #421, all **178 resolved/annotated WoW I rows**,
-all **94 WoW I source-recovery rows**, the current finite-graph declarations
-in `google-deepmind/formal-conjectures`, and 12 nonduplicate major human
-conjectures. It found one especially clean, apparently unrecorded
-open-as-posted disproof: Graph Brain upper-081 is false on C₅[K₄], on a
-9-vertex windmill, and on two infinite families.
+all **94 WoW I source-recovery rows**, the finite-graph declarations at the
+pinned 2026-08-12 `google-deepmind/formal-conjectures` snapshot, and 12
+nonduplicate major human conjectures. It found one especially clean,
+apparently unrecorded open-as-posted disproof: Graph Brain upper-081 is false
+on C₅[K₄], on a 9-vertex windmill, and on two infinite families.
 
 ## From one carrier to a discovery procedure
 
@@ -164,7 +164,7 @@ fractions can therefore approach the wall but cannot cross it. This is a
 not a completed proof of the exact Lean declaration: source-to-definition and
 finite-cutoff bridge lemmas remain to be formalized.
 
-The latest executable rotation is OEIS A231201, explicitly as a
+The executable rotation preceding A056777 was OEIS A231201, explicitly as a
 **contaminated DEVELOPMENT** continuation rather than a held-out trial. Both
 the exact predicate and the residue-cover idea had prior target-specific
 computational exposure, so it cannot measure independent method efficacy. Its
@@ -1219,10 +1219,12 @@ audit below shows no comparable reach. Ranked targets:
    source-faithful kill; eight more are conservatively recorded as retro-kills,
    48 upper bounds fail the small-graph gate, and 19 already have
    counterexamples in the author's own source.
-6. **google-deepmind/formal-conjectures beyond WOWII — swept at current
-   upstream**: 77 current open finite-graph declarations were classified;
-   23 were concretely applicable and none failed. Twelve major human
-   conjectures likewise produced no kill.
+6. **google-deepmind/formal-conjectures beyond WOWII — swept at the
+   2026-08-12 pin `c9052e8`**: 77 open finite-graph declarations were
+   classified; 23 were concretely applicable and none failed. Later
+   current-manifest work is tracked separately and must not be conflated with
+   that historical complete sweep. Twelve major human conjectures likewise
+   produced no kill.
 
 Where it is useless, equally worth knowing: asymptotic/extremal
 statements, anything with tree/bipartite/triangle-free/planar/sparse
