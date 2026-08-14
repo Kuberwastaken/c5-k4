@@ -1,0 +1,45 @@
+{
+  "schema": "c5k4-method-v1.5-immutable-infrastructure-plan-1.0",
+  "status": "PRE_P1_INFRASTRUCTURE_PLAN_NOT_DEPLOYED",
+  "activation_permitted": false,
+  "aws_api_calls_permitted": false,
+  "deployment_executed": false,
+  "template": "infra/benchmark-v1.5/immutable-store/cloudformation.json",
+  "template_sha256": "08486d446a67f627ce88a859c6c70518d1ef5ccb40aca7ccbb8bf03715614d89",
+  "commitments": {
+    "kms_key_policy_sha256": "514745a3efd9ce91ce20c50ee4abf9cea1f6fa40d14ce6ae43ace3ef469c94db",
+    "bucket_policy_sha256": "d8ba77fe998d7c63dd2bd205899f402128bea0cc42a15d1576fb64ab92473e04",
+    "writer_policy_sha256": "fd84ddfaefe40ccc94137c6eea78a3c04f4d0527f47c6518374691d22364a788"
+  },
+  "resource_logical_ids": [
+    "CustodyBucket",
+    "CustodyBucketPolicy",
+    "CustodyKey",
+    "CustodyWriterPolicy",
+    "CustodyWriterRole"
+  ],
+  "cloudformation_outputs": [],
+  "target_identity_fields": [],
+  "acceptance": {
+    "cloudformation_native": true,
+    "generated_physical_names": true,
+    "kms_key_retained": true,
+    "object_lock_compliance": true,
+    "bucket_retained": true,
+    "versioning_enabled": true,
+    "public_access_blocked": true,
+    "destructive_mutation_denied": true,
+    "single_writer_role": true,
+    "exact_sse_kms_required": true,
+    "target_blind": true,
+    "operationally_accepted": false
+  },
+  "remaining_external_prerequisites": [
+    "ACCOUNT_SCOPED_PERMISSIONS_BOUNDARY_EXISTS",
+    "FRESH_PRIVATE_AWS_ACCOUNT_OR_EQUIVALENT_BOUNDARY",
+    "LIVE_STACK_ACCEPTANCE_NOT_RUN",
+    "BROKER_CREDENTIAL_DELIVERY_NOT_CONFIGURED",
+    "DESTRUCTIVE_GAP_TESTS_NOT_RUN",
+    "P1_NOT_FROZEN"
+  ]
+}

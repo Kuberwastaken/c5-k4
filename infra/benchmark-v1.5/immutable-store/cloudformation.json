@@ -1,0 +1,286 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "C5K4 method v1.5 target-blind private immutable custody layer; inert until separately deployed and accepted",
+  "Parameters": {
+    "HarnessPrincipalArn": {
+      "Type": "String",
+      "NoEcho": true,
+      "AllowedPattern": "^arn:aws(-[a-z]+)?:iam::[0-9]{12}:role/[A-Za-z0-9+=,.@_/-]{1,512}$"
+    },
+    "HarnessExternalId": {
+      "Type": "String",
+      "NoEcho": true,
+      "MinLength": 32,
+      "MaxLength": 128,
+      "AllowedPattern": "^[A-Za-z0-9_-]+$"
+    },
+    "PrivatePrefix": {
+      "Type": "String",
+      "Default": "private/c5k4/v1.5",
+      "AllowedPattern": "^private/c5k4/v1\\.5$"
+    },
+    "RetentionYears": {
+      "Type": "Number",
+      "Default": 3,
+      "MinValue": 3,
+      "MaxValue": 10
+    }
+  },
+  "Resources": {
+    "CustodyWriterRole": {
+      "Type": "AWS::IAM::Role",
+      "DeletionPolicy": "Retain",
+      "UpdateReplacePolicy": "Retain",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Sid": "OnlyControlledHarness",
+              "Effect": "Allow",
+              "Principal": {"AWS": {"Ref": "HarnessPrincipalArn"}},
+              "Action": "sts:AssumeRole",
+              "Condition": {"StringEquals": {"sts:ExternalId": {"Ref": "HarnessExternalId"}}}
+            }
+          ]
+        },
+        "MaxSessionDuration": 3600,
+        "Path": "/c5k4/v1.5/",
+        "PermissionsBoundary": {"Fn::Sub": "arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/c5k4-v1-5-custody-writer-boundary"},
+        "Tags": [
+          {"Key": "c5k4:protocol", "Value": "v1.5"},
+          {"Key": "c5k4:activation", "Value": "PRE-P1"}
+        ]
+      }
+    },
+    "CustodyKey": {
+      "Type": "AWS::KMS::Key",
+      "DeletionPolicy": "Retain",
+      "UpdateReplacePolicy": "Retain",
+      "Properties": {
+        "BypassPolicyLockoutSafetyCheck": true,
+        "Description": "C5K4 v1.5 private immutable-custody encryption",
+        "EnableKeyRotation": true,
+        "KeySpec": "SYMMETRIC_DEFAULT",
+        "KeyUsage": "ENCRYPT_DECRYPT",
+        "MultiRegion": false,
+        "KeyPolicy": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Sid": "DenyKeyDestruction",
+              "Effect": "Deny",
+              "Principal": "*",
+              "Action": ["kms:DisableKey", "kms:ScheduleKeyDeletion"],
+              "Resource": "*"
+            },
+            {
+              "Sid": "AccountReadOnlyAdministration",
+              "Effect": "Allow",
+              "Principal": {"AWS": {"Fn::Sub": "arn:${AWS::Partition}:iam::${AWS::AccountId}:root"}},
+              "Action": [
+                "kms:DescribeKey",
+                "kms:EnableKeyRotation",
+                "kms:GetKeyPolicy",
+                "kms:GetKeyRotationStatus",
+                "kms:ListResourceTags",
+                "kms:TagResource",
+                "kms:UntagResource"
+              ],
+              "Resource": "*"
+            },
+            {
+              "Sid": "SingleWriterCryptography",
+              "Effect": "Allow",
+              "Principal": {"AWS": {"Fn::GetAtt": ["CustodyWriterRole", "Arn"]}},
+              "Action": [
+                "kms:Decrypt",
+                "kms:DescribeKey",
+                "kms:Encrypt",
+                "kms:GenerateDataKey"
+              ],
+              "Resource": "*",
+              "Condition": {"StringEquals": {"kms:ViaService": {"Fn::Sub": "s3.${AWS::Region}.${AWS::URLSuffix}"}}}
+            }
+          ]
+        },
+        "Tags": [
+          {"TagKey": "c5k4:protocol", "TagValue": "v1.5"},
+          {"TagKey": "c5k4:activation", "TagValue": "PRE-P1"}
+        ]
+      }
+    },
+    "CustodyBucket": {
+      "Type": "AWS::S3::Bucket",
+      "DeletionPolicy": "Retain",
+      "UpdateReplacePolicy": "Retain",
+      "Properties": {
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "BucketKeyEnabled": true,
+              "ServerSideEncryptionByDefault": {
+                "KMSMasterKeyID": {"Fn::GetAtt": ["CustodyKey", "Arn"]},
+                "SSEAlgorithm": "aws:kms"
+              }
+            }
+          ]
+        },
+        "ObjectLockEnabled": true,
+        "ObjectLockConfiguration": {
+          "ObjectLockEnabled": "Enabled",
+          "Rule": {"DefaultRetention": {"Mode": "COMPLIANCE", "Years": {"Ref": "RetentionYears"}}}
+        },
+        "OwnershipControls": {"Rules": [{"ObjectOwnership": "BucketOwnerEnforced"}]},
+        "PublicAccessBlockConfiguration": {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true
+        },
+        "VersioningConfiguration": {"Status": "Enabled"},
+        "Tags": [
+          {"Key": "c5k4:protocol", "Value": "v1.5"},
+          {"Key": "c5k4:activation", "Value": "PRE-P1"}
+        ]
+      }
+    },
+    "CustodyBucketPolicy": {
+      "Type": "AWS::S3::BucketPolicy",
+      "DeletionPolicy": "Retain",
+      "UpdateReplacePolicy": "Retain",
+      "Properties": {
+        "Bucket": {"Ref": "CustodyBucket"},
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Sid": "DenyInsecureTransport",
+              "Effect": "Deny",
+              "Principal": "*",
+              "Action": "s3:*",
+              "Resource": [
+                {"Fn::GetAtt": ["CustodyBucket", "Arn"]},
+                {"Fn::Sub": "${CustodyBucket.Arn}/*"}
+              ],
+              "Condition": {"Bool": {"aws:SecureTransport": "false"}}
+            },
+            {
+              "Sid": "DenyDestructiveMutation",
+              "Effect": "Deny",
+              "Principal": "*",
+              "Action": [
+                "s3:DeleteBucket",
+                "s3:DeleteObject",
+                "s3:DeleteObjectVersion",
+                "s3:PutBucketVersioning",
+                "s3:PutEncryptionConfiguration",
+                "s3:PutObjectLockConfiguration"
+              ],
+              "Resource": [
+                {"Fn::GetAtt": ["CustodyBucket", "Arn"]},
+                {"Fn::Sub": "${CustodyBucket.Arn}/*"}
+              ]
+            },
+            {
+              "Sid": "DenyWritesOutsidePrivatePrefix",
+              "Effect": "Deny",
+              "Principal": "*",
+              "Action": ["s3:PutObject", "s3:PutObjectRetention"],
+              "NotResource": {"Fn::Sub": "${CustodyBucket.Arn}/${PrivatePrefix}/*"}
+            },
+            {
+              "Sid": "DenyWritesOutsideSingleWriter",
+              "Effect": "Deny",
+              "Principal": "*",
+              "Action": ["s3:PutObject", "s3:PutObjectRetention"],
+              "Resource": {"Fn::Sub": "${CustodyBucket.Arn}/${PrivatePrefix}/*"},
+              "Condition": {"StringNotEquals": {"aws:PrincipalArn": {"Fn::GetAtt": ["CustodyWriterRole", "Arn"]}}}
+            },
+            {
+              "Sid": "DenyWrongEncryptionAlgorithm",
+              "Effect": "Deny",
+              "Principal": "*",
+              "Action": "s3:PutObject",
+              "Resource": {"Fn::Sub": "${CustodyBucket.Arn}/${PrivatePrefix}/*"},
+              "Condition": {"StringNotEquals": {"s3:x-amz-server-side-encryption": "aws:kms"}}
+            },
+            {
+              "Sid": "DenyWrongEncryptionKey",
+              "Effect": "Deny",
+              "Principal": "*",
+              "Action": "s3:PutObject",
+              "Resource": {"Fn::Sub": "${CustodyBucket.Arn}/${PrivatePrefix}/*"},
+              "Condition": {"ArnNotEquals": {"s3:x-amz-server-side-encryption-aws-kms-key-id": {"Fn::GetAtt": ["CustodyKey", "Arn"]}}}
+            },
+            {
+              "Sid": "DenyNonComplianceWrites",
+              "Effect": "Deny",
+              "Principal": "*",
+              "Action": "s3:PutObject",
+              "Resource": {"Fn::Sub": "${CustodyBucket.Arn}/${PrivatePrefix}/*"},
+              "Condition": {"StringNotEquals": {"s3:x-amz-object-lock-mode": "COMPLIANCE"}}
+            }
+          ]
+        }
+      }
+    },
+    "CustodyWriterPolicy": {
+      "Type": "AWS::IAM::Policy",
+      "DeletionPolicy": "Retain",
+      "UpdateReplacePolicy": "Retain",
+      "Properties": {
+        "PolicyName": "c5k4-v1-5-private-custody-single-writer",
+        "Roles": [{"Ref": "CustodyWriterRole"}],
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Sid": "InspectExactBucketGuards",
+              "Effect": "Allow",
+              "Action": [
+                "s3:GetBucketEncryption",
+                "s3:GetBucketLocation",
+                "s3:GetBucketObjectLockConfiguration",
+                "s3:GetBucketPolicy",
+                "s3:GetBucketPolicyStatus",
+                "s3:GetBucketPublicAccessBlock",
+                "s3:GetBucketVersioning"
+              ],
+              "Resource": {"Fn::GetAtt": ["CustodyBucket", "Arn"]}
+            },
+            {
+              "Sid": "ListPrivateVersions",
+              "Effect": "Allow",
+              "Action": [
+                "s3:ListBucket",
+                "s3:ListBucketVersions"
+              ],
+              "Resource": {"Fn::GetAtt": ["CustodyBucket", "Arn"]},
+              "Condition": {"StringLike": {"s3:prefix": [{"Fn::Sub": "${PrivatePrefix}/*"}]}}
+            },
+            {
+              "Sid": "WriteAndVerifyImmutableVersions",
+              "Effect": "Allow",
+              "Action": [
+                "s3:GetObject",
+                "s3:GetObjectRetention",
+                "s3:GetObjectVersion",
+                "s3:PutObject",
+                "s3:PutObjectRetention"
+              ],
+              "Resource": {"Fn::Sub": "${CustodyBucket.Arn}/${PrivatePrefix}/*"}
+            },
+            {
+              "Sid": "UseExactCustodyKeyViaS3",
+              "Effect": "Allow",
+              "Action": ["kms:Decrypt", "kms:DescribeKey", "kms:Encrypt", "kms:GenerateDataKey"],
+              "Resource": {"Fn::GetAtt": ["CustodyKey", "Arn"]},
+              "Condition": {"StringEquals": {"kms:ViaService": {"Fn::Sub": "s3.${AWS::Region}.${AWS::URLSuffix}"}}}
+            }
+          ]
+        }
+      }
+    }
+  }
+}
