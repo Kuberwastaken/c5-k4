@@ -1,0 +1,37 @@
+{
+  "schema": "c5k4-method-v1.5-controlled-harness-https-daemon-contract-1.0",
+  "status": "PRE_P1_NONOPERATIONAL_NO_LISTENER",
+  "identity": {"service": "c5k4-benchmark-v15", "target_specific": false},
+  "paths": {
+    "p1": "/opt/c5k4-benchmark-v15/p1",
+    "credentials": "/etc/c5k4-benchmark-v15/credentials",
+    "daemon_contract": "/etc/c5k4-benchmark-v15/credentials/https-daemon-contract.json",
+    "service_contract": "/etc/c5k4-benchmark-v15/credentials/service-contract.json",
+    "tls_certificate": "/etc/c5k4-benchmark-v15/credentials/tls-fullchain.pem",
+    "tls_private_key": "/etc/c5k4-benchmark-v15/credentials/tls-private-key.pem",
+    "provider_module": "/opt/c5k4-benchmark-v15/p1/bin/c5k4_harness_providers.py",
+    "control_socket": "/run/c5k4-benchmark-v15/control.sock",
+    "replay_ledger": "/var/lib/c5k4-benchmark-v15/replay.sqlite3"
+  },
+  "transport": {
+    "listener_permitted": false,
+    "https_endpoint": null,
+    "bind_address": null,
+    "port": 443,
+    "tls_version": "TLSv1.3_ONLY",
+    "method": "POST",
+    "path": "/v1/checkpoint",
+    "content_type": "application/json",
+    "max_request_bytes": 8192,
+    "request_digest_header": "X-C5K4-Request-SHA256",
+    "authorization_scheme": "Bearer"
+  },
+  "oidc": {
+    "issuer": "https://token.actions.githubusercontent.com",
+    "audience_prefix": "c5k4-method-v1.5",
+    "request_sha256_suffix_required": true,
+    "injected_verifier_required": true
+  },
+  "replay": {"durable": true, "atomic": true, "single_writer": true, "one_request_at_a_time": true, "rollback_permitted": false},
+  "failure_policy": {"response_body_permitted": false, "diagnostics_permitted": false, "request_logging_permitted": false, "target_parsing_by_transport_permitted": false}
+}

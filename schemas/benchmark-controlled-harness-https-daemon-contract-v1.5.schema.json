@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-controlled-harness-https-daemon-contract-v1.5.schema.json",
+  "title": "Method v1.5 target-blind controlled-harness HTTPS daemon contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "status", "identity", "paths", "transport", "oidc", "replay", "failure_policy"],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-controlled-harness-https-daemon-contract-1.0"},
+    "status": {"enum": ["PRE_P1_NONOPERATIONAL_NO_LISTENER", "FROZEN_P1_EXECUTABLE"]},
+    "identity": {
+      "const": {"service": "c5k4-benchmark-v15", "target_specific": false}
+    },
+    "paths": {
+      "const": {
+        "p1": "/opt/c5k4-benchmark-v15/p1",
+        "credentials": "/etc/c5k4-benchmark-v15/credentials",
+        "daemon_contract": "/etc/c5k4-benchmark-v15/credentials/https-daemon-contract.json",
+        "service_contract": "/etc/c5k4-benchmark-v15/credentials/service-contract.json",
+        "tls_certificate": "/etc/c5k4-benchmark-v15/credentials/tls-fullchain.pem",
+        "tls_private_key": "/etc/c5k4-benchmark-v15/credentials/tls-private-key.pem",
+        "provider_module": "/opt/c5k4-benchmark-v15/p1/bin/c5k4_harness_providers.py",
+        "control_socket": "/run/c5k4-benchmark-v15/control.sock",
+        "replay_ledger": "/var/lib/c5k4-benchmark-v15/replay.sqlite3"
+      }
+    },
+    "transport": {
+      "type": "object", "additionalProperties": false,
+      "required": ["listener_permitted", "https_endpoint", "bind_address", "port", "tls_version", "method", "path", "content_type", "max_request_bytes", "request_digest_header", "authorization_scheme"],
+      "properties": {
+        "listener_permitted": {"type": "boolean"},
+        "https_endpoint": {"type": ["string", "null"]},
+        "bind_address": {"type": ["string", "null"]},
+        "port": {"const": 443},
+        "tls_version": {"const": "TLSv1.3_ONLY"},
+        "method": {"const": "POST"},
+        "path": {"const": "/v1/checkpoint"},
+        "content_type": {"const": "application/json"},
+        "max_request_bytes": {"const": 8192},
+        "request_digest_header": {"const": "X-C5K4-Request-SHA256"},
+        "authorization_scheme": {"const": "Bearer"}
+      }
+    },
+    "oidc": {
+      "const": {
+        "issuer": "https://token.actions.githubusercontent.com",
+        "audience_prefix": "c5k4-method-v1.5",
+        "request_sha256_suffix_required": true,
+        "injected_verifier_required": true
+      }
+    },
+    "replay": {
+      "const": {"durable": true, "atomic": true, "single_writer": true, "one_request_at_a_time": true, "rollback_permitted": false}
+    },
+    "failure_policy": {
+      "const": {"response_body_permitted": false, "diagnostics_permitted": false, "request_logging_permitted": false, "target_parsing_by_transport_permitted": false}
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "PRE_P1_NONOPERATIONAL_NO_LISTENER"}}},
+      "then": {"properties": {"transport": {"properties": {"listener_permitted": {"const": false}, "https_endpoint": {"type": "null"}, "bind_address": {"type": "null"}}}}}
+    },
+    {
+      "if": {"properties": {"status": {"const": "FROZEN_P1_EXECUTABLE"}}},
+      "then": {"properties": {"transport": {"properties": {"listener_permitted": {"const": true}, "https_endpoint": {"type": "string", "pattern": "^https://[a-z0-9][a-z0-9.-]{0,252}:443/v1/checkpoint$"}, "bind_address": {"type": "string", "format": "ipv4"}}}}}
+    }
+  ]
+}
