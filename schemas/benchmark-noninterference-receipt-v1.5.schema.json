@@ -3,13 +3,17 @@
   "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-noninterference-receipt-v1.5.schema.json",
   "title": "Method v1.5 PRE-P1 target-blind noninterference readiness receipt",
   "type": "object", "additionalProperties": false,
-  "required": ["schema", "status", "protocol_version", "host_id", "participant_ledger_sha256", "proofs", "blockers", "scope_complete", "operational_ready", "activation_permitted", "claims", "receipt_sha256"],
+  "required": ["schema", "status", "protocol_version", "host_id", "participant_ledger_sha256", "source_boundary_sha256", "signing_key_id", "service_epoch_binding_sha256", "unjournaled_delivery_detected", "proofs", "blockers", "scope_complete", "operational_ready", "activation_permitted", "claims", "receipt_sha256"],
   "properties": {
     "schema": {"const": "c5k4-method-v1.5-noninterference-receipt-1.0"},
     "status": {"const": "PRE_P1_NONINTERFERENCE_NOT_OPERATIONAL"},
     "protocol_version": {"const": "1.5"},
     "host_id": {"const": "ai-vps-controlled-harness"},
     "participant_ledger_sha256": {"$ref": "#/definitions/sha256"},
+    "source_boundary_sha256": {"type": "null"},
+    "signing_key_id": {"type": "null"},
+    "service_epoch_binding_sha256": {"type": "null"},
+    "unjournaled_delivery_detected": {"const": false},
     "proofs": {"const": {
       "dedicated_nonlogin_identity": false,
       "root_owned_read_only_p1_checkout": false,

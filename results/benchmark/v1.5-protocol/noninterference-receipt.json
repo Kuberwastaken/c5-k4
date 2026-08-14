@@ -4,11 +4,15 @@
   "protocol_version": "1.5",
   "host_id": "ai-vps-controlled-harness",
   "participant_ledger_sha256": "a9537b446b4fd76b63c0728692314bde7f4bb37811186e7ca96d67b2c39e5f0f",
+  "source_boundary_sha256": null,
+  "signing_key_id": null,
+  "service_epoch_binding_sha256": null,
+  "unjournaled_delivery_detected": false,
   "proofs": {"dedicated_nonlogin_identity": false, "root_owned_read_only_p1_checkout": false, "private_root_permissions": false, "private_socket_permissions": false, "credential_isolation": false, "network_default_deny": false, "allowed_endpoint_enforcement": false, "excluded_process_denial": false, "unbroken_ingress_custody": false, "destructive_gap_acceptance": false},
   "blockers": ["DEDICATED_SERVICE_IDENTITY_NOT_PROVISIONED", "ROOT_OWNED_P1_CHECKOUT_NOT_FROZEN", "PRIVATE_FILESYSTEM_BOUNDARY_NOT_ACCEPTED", "NETWORK_ALLOWLIST_NOT_ENFORCED", "EXCLUDED_PROCESS_NONINTERFERENCE_NOT_PROVED", "INGRESS_CUSTODY_CHAIN_NOT_LIVE_ACCEPTED", "DESTRUCTIVE_GAP_TEST_NOT_PASSED"],
   "scope_complete": false,
   "operational_ready": false,
   "activation_permitted": false,
   "claims": {"p1_frozen": false, "operational_capture": false, "production_ready": false, "target_specific": false},
-  "receipt_sha256": "d2aa9da5c682dffcb4f97aae505cb308b657ce28016d842d529cf3bf378b4147"
+  "receipt_sha256": "1d7ffbcd4b735af65e72b06a9eec4d62dca42da48d4e1c712d1b7423e07ec4e2"
 }

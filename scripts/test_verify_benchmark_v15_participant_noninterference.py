@@ -42,6 +42,10 @@ class ParticipantNoninterferenceTests(unittest.TestCase):
         result = module.verify(self.ledger, self.receipt)
         self.assertTrue(result["valid"])
         self.assertFalse(result["activation_permitted"])
+        self.assertIsNone(self.receipt["source_boundary_sha256"])
+        self.assertIsNone(self.receipt["signing_key_id"])
+        self.assertIsNone(self.receipt["service_epoch_binding_sha256"])
+        self.assertFalse(self.receipt["unjournaled_delivery_detected"])
 
     def test_no_human_or_model_participant_exists(self) -> None:
         serialized = json.dumps(self.ledger)
@@ -92,6 +96,19 @@ class ParticipantNoninterferenceTests(unittest.TestCase):
         receipt["proofs"]["network_default_deny"] = True
         self.rehash(ledger, receipt)
         with self.assertRaises(module.BoundaryError): module.verify(ledger, receipt)
+
+    def test_premature_binding_and_unjournaled_delivery_fail(self) -> None:
+        for key, value in (
+            ("source_boundary_sha256", "a" * 64),
+            ("signing_key_id", "pre-p1-key"),
+            ("service_epoch_binding_sha256", "b" * 64),
+            ("unjournaled_delivery_detected", True),
+        ):
+            ledger, receipt = self.mutate()
+            receipt[key] = value
+            self.rehash(ledger, receipt)
+            with self.assertRaises(module.BoundaryError):
+                module.verify(ledger, receipt)
         ledger, receipt = self.mutate()
         receipt["activation_permitted"] = True
         self.rehash(ledger, receipt)

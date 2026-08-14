@@ -80,6 +80,11 @@ def verify(ledger: dict[str, Any], receipt: dict[str, Any]) -> dict[str, Any]:
 
     if ledger["model_endpoints"]:
         raise BoundaryError("pre-C1 controlled harness cannot contain a model endpoint")
+    for field in ("source_boundary_sha256", "signing_key_id", "service_epoch_binding_sha256"):
+        if receipt[field] is not None:
+            raise BoundaryError(f"PRE-P1 receipt cannot claim frozen {field}")
+    if receipt["unjournaled_delivery_detected"]:
+        raise BoundaryError("unjournaled delivery invalidates the controlled harness")
     if receipt["scope_complete"] or receipt["operational_ready"] or receipt["activation_permitted"]:
         raise BoundaryError("PRE-P1 receipt cannot authorize activation")
     if any(receipt["proofs"].values()):
