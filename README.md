@@ -158,6 +158,16 @@ claim that an opaque `answer(sorry)` biconditional was itself refuted. This is
 the second wave's direct evidence that structured wall coordinates outperform
 flat catalogue and random search even outside the original graph setting.
 
+Wave three then tested that lesson on fresh answer-wrapped, structured OEIS,
+domain-boundary, and graph targets. It produced bounded zeroes on Erdős 850,
+almost-perfect numbers, same-parity betrothed numbers, partition perfect
+powers, A108129, Alon--Tarsi cycle covers, graceful trees, and Erdős 628. Its
+one new validation finding is deliberately separate: the formal Bateman--Horn
+counting helper includes `n=0` although the source counts positive integers.
+The [certificate](results/expansion/live-search-2026-08-14/bateman-horn-count-endpoint.md)
+also proves why this finite discrepancy is asymptotically inert and therefore
+not a counterexample to Bateman--Horn.
+
 The prospective benchmark record is deliberately fail-closed. Method v1.1
 terminated `NO_ELIGIBLE_BENCHMARK`; it never selected a target. Its corrected
 chronology successor, [Method v1.2](METHOD_V1_2_BENCHMARK.md), published P0 and
