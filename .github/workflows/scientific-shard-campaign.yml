@@ -1,0 +1,257 @@
+name: Run frozen scientific shard campaign
+
+on:
+  workflow_dispatch:
+    inputs:
+      campaign_commit:
+        description: Exact lowercase 40-hex commit containing runner, manifest, and workers
+        required: true
+        type: string
+      manifest_path:
+        description: Repository-relative c5k4-scientific-shards-1.0 manifest
+        required: true
+        type: string
+      max_parallel:
+        description: Concurrent standard Linux runners (GitHub Pro has 40 total)
+        required: true
+        default: '24'
+        type: choice
+        options:
+          - '4'
+          - '8'
+          - '16'
+          - '24'
+          - '32'
+
+permissions:
+  contents: read
+
+jobs:
+  prepare:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      matrix: ${{ steps.matrix.outputs.matrix }}
+      campaign_id: ${{ steps.matrix.outputs.campaign_id }}
+    steps:
+      - name: Reject a movable execution ref
+        shell: bash
+        env:
+          CAMPAIGN_COMMIT: ${{ inputs.campaign_commit }}
+        run: |
+          if [[ ! "$CAMPAIGN_COMMIT" =~ ^[0-9a-f]{40}$ ]]; then
+            echo 'campaign_commit must be exact lowercase 40-hex' >&2
+            exit 2
+          fi
+
+      - name: Check out exact frozen campaign
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ inputs.campaign_commit }}
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Verify checkout and derive bounded matrix
+        id: matrix
+        shell: bash
+        env:
+          CAMPAIGN_COMMIT: ${{ inputs.campaign_commit }}
+          MANIFEST_PATH: ${{ inputs.manifest_path }}
+        run: |
+          set -euo pipefail
+          [[ "$(git rev-parse HEAD)" == "$CAMPAIGN_COMMIT" ]]
+          matrix=$(python3 scripts/run_scientific_shard_campaign.py prepare \
+            --repository "$GITHUB_WORKSPACE" \
+            --manifest "$MANIFEST_PATH" \
+            --campaign-commit "$CAMPAIGN_COMMIT")
+          campaign_id=$(python3 -c \
+            'import json,sys; print(json.load(open(sys.argv[1]))["campaign_id"])' \
+            "$MANIFEST_PATH")
+          printf 'matrix=%s\n' "$matrix" >> "$GITHUB_OUTPUT"
+          printf 'campaign_id=%s\n' "$campaign_id" >> "$GITHUB_OUTPUT"
+
+      - name: Run shard-runner contract tests
+        shell: bash
+        run: python3 scripts/test_run_scientific_shard_campaign.py
+
+  shard:
+    needs: prepare
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      max-parallel: ${{ fromJSON(inputs.max_parallel) }}
+      matrix: ${{ fromJSON(needs.prepare.outputs.matrix) }}
+    steps:
+      - name: Check out exact frozen campaign
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ inputs.campaign_commit }}
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Set up pinned Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12.9'
+
+      - name: Execute one bounded shard
+        id: execute
+        shell: bash
+        env:
+          CAMPAIGN_COMMIT: ${{ inputs.campaign_commit }}
+          MANIFEST_PATH: ${{ inputs.manifest_path }}
+          SHARD_ID: ${{ matrix.shard_id }}
+          OUTPUT_ROOT: ${{ runner.temp }}/scientific-shard
+        run: |
+          set +e
+          python3 scripts/run_scientific_shard_campaign.py execute \
+            --repository "$GITHUB_WORKSPACE" \
+            --manifest "$MANIFEST_PATH" \
+            --campaign-commit "$CAMPAIGN_COMMIT" \
+            --shard-id "$SHARD_ID" \
+            --output "$OUTPUT_ROOT" \
+            > "$RUNNER_TEMP/runner-report.json"
+          runner_status=$?
+          set -e
+          printf '%s\n' "$runner_status" > "$RUNNER_TEMP/runner-exit-code.txt"
+          if [[ -f "$OUTPUT_ROOT/runner-terminal.json" ]]; then
+            reason=$(python3 -c \
+              'import json,sys; print(json.load(open(sys.argv[1]))["terminal_reason"])' \
+              "$OUTPUT_ROOT/runner-terminal.json")
+          else
+            reason=RUNNER_FAILURE
+          fi
+          printf 'runner_status=%s\n' "$runner_status" >> "$GITHUB_OUTPUT"
+          printf 'terminal_reason=%s\n' "$reason" >> "$GITHUB_OUTPUT"
+
+      - name: Content-address complete shard record
+        id: address
+        if: always()
+        shell: bash
+        env:
+          OUTPUT_ROOT: ${{ runner.temp }}/scientific-shard
+        run: |
+          set -euo pipefail
+          mkdir -p "$OUTPUT_ROOT"
+          cp "$RUNNER_TEMP/runner-report.json" "$OUTPUT_ROOT/runner-report.json" 2>/dev/null || true
+          cp "$RUNNER_TEMP/runner-exit-code.txt" "$OUTPUT_ROOT/runner-exit-code.txt" 2>/dev/null || true
+          cd "$OUTPUT_ROOT"
+          find . -type f ! -name SHA256SUMS ! -name ARTIFACT_ROOT_SHA256 \
+            -print0 | sort -z | xargs -0 -r sha256sum > SHA256SUMS
+          sha256sum SHA256SUMS | awk '{print $1}' > ARTIFACT_ROOT_SHA256
+          root_sha256=$(tr -d '\n' < ARTIFACT_ROOT_SHA256)
+          [[ "$root_sha256" =~ ^[0-9a-f]{64}$ ]]
+          printf 'root_sha256=%s\n' "$root_sha256" >> "$GITHUB_OUTPUT"
+
+      - name: Upload immutable per-shard evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: scientific-${{ needs.prepare.outputs.campaign_id }}-${{ matrix.shard_id }}-${{ steps.address.outputs.root_sha256 }}
+          path: ${{ runner.temp }}/scientific-shard
+          if-no-files-found: error
+          include-hidden-files: true
+          compression-level: 9
+          retention-days: 30
+
+      - name: Summarize scientific classification
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo '## Scientific shard `${{ matrix.shard_id }}`'
+            echo
+            echo '- Terminal reason: `${{ steps.execute.outputs.terminal_reason }}`'
+            echo '- Runner status: `${{ steps.execute.outputs.runner_status }}`'
+            echo '- Artifact root: `${{ steps.address.outputs.root_sha256 }}`'
+            echo
+            echo '`DEADLINE_PREFIX` is retained evidence, never domain exhaustion.'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Fail closed on infrastructure or worker defects
+        if: always()
+        shell: bash
+        env:
+          RUNNER_STATUS: ${{ steps.execute.outputs.runner_status }}
+          TERMINAL_REASON: ${{ steps.execute.outputs.terminal_reason }}
+        run: |
+          set -euo pipefail
+          [[ "$RUNNER_STATUS" == 0 ]]
+          case "$TERMINAL_REASON" in
+            DOMAIN_EXHAUSTED|DEADLINE_PREFIX|CANDIDATE_FOUND) exit 0 ;;
+            *) echo "non-scientific terminal classification: $TERMINAL_REASON" >&2; exit 2 ;;
+          esac
+
+  aggregate:
+    needs:
+      - prepare
+      - shard
+    if: always() && needs.prepare.result == 'success'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out exact frozen campaign
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ inputs.campaign_commit }}
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Download every available shard artifact
+        continue-on-error: true
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6
+        with:
+          pattern: scientific-${{ needs.prepare.outputs.campaign_id }}-*
+          path: ${{ runner.temp }}/shard-evidence
+
+      - name: Build explicit campaign terminal index
+        id: index
+        shell: bash
+        env:
+          CAMPAIGN_COMMIT: ${{ inputs.campaign_commit }}
+          MANIFEST_PATH: ${{ inputs.manifest_path }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/shard-evidence"
+          python3 scripts/run_scientific_shard_campaign.py aggregate \
+            --repository "$GITHUB_WORKSPACE" \
+            --manifest "$MANIFEST_PATH" \
+            --campaign-commit "$CAMPAIGN_COMMIT" \
+            --evidence "$RUNNER_TEMP/shard-evidence" \
+            --output "$RUNNER_TEMP/campaign-index" \
+            > "$RUNNER_TEMP/campaign-report.json"
+          reason=$(python3 -c \
+            'import json,sys; print(json.load(open(sys.argv[1]))["campaign_terminal_reason"])' \
+            "$RUNNER_TEMP/campaign-index/campaign-index.json")
+          printf 'terminal_reason=%s\n' "$reason" >> "$GITHUB_OUTPUT"
+
+      - name: Upload compact campaign index
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: scientific-${{ needs.prepare.outputs.campaign_id }}-campaign-index-${{ github.run_id }}
+          path: ${{ runner.temp }}/campaign-index
+          if-no-files-found: error
+          compression-level: 9
+          retention-days: 30
+
+      - name: Summarize campaign coverage
+        shell: bash
+        run: |
+          {
+            echo '## Frozen scientific shard campaign'
+            echo
+            echo '- Campaign terminal reason: `${{ steps.index.outputs.terminal_reason }}`'
+            echo
+            echo 'Only `DOMAIN_EXHAUSTED` proves every assigned finite shard completed.'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Fail closed on missing or invalid evidence
+        shell: bash
+        env:
+          TERMINAL_REASON: ${{ steps.index.outputs.terminal_reason }}
+        run: |
+          case "$TERMINAL_REASON" in
+            DOMAIN_EXHAUSTED|DEADLINE_PREFIX|CANDIDATE_FOUND) exit 0 ;;
+            *) echo "campaign evidence is incomplete or invalid: $TERMINAL_REASON" >&2; exit 2 ;;
+          esac
