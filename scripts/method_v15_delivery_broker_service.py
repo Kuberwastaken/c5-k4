@@ -11,7 +11,7 @@ traffic.  It captures only commands explicitly launched through this program.
 from __future__ import annotations
 
 import argparse
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 import errno
 import fcntl
 import json
@@ -39,6 +39,46 @@ class OperationalRefusal(ServiceError):
 
 def timestamp(value: datetime) -> str:
     return value.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+class HeartbeatScheduler:
+    """Schedule from the last signed whole-second receipt, with one-second margin.
+
+    Wall-clock polling may occur just after a second boundary.  Scheduling from
+    a later high-resolution clock sample can therefore accidentally skip two
+    encoded seconds when the interval is one.  This scheduler instead derives
+    every hard deadline from the timestamp actually signed by the broker and
+    targets one second before it.  A half-interval cadence prevents a duplicate
+    whole-second heartbeat from causing a busy loop.
+    """
+
+    def __init__(self, last_signed_utc: str, interval_seconds: int):
+        if interval_seconds < 1 or interval_seconds > 240:
+            raise ServiceError("heartbeat interval must be in 1..240 seconds")
+        self.interval_seconds = interval_seconds
+        self.last_signed = broker.utc(last_signed_utc)
+        self.next_due = self.last_signed + timedelta(seconds=max(0, interval_seconds - 1))
+
+    @property
+    def hard_deadline(self) -> datetime:
+        return self.last_signed + timedelta(seconds=self.interval_seconds)
+
+    def is_due(self, current: datetime) -> bool:
+        return current.astimezone(timezone.utc) >= self.next_due
+
+    def emitted(self, observed: datetime, signed_utc: str) -> None:
+        signed = broker.utc(signed_utc)
+        if signed < self.last_signed or signed > self.hard_deadline:
+            raise ServiceError("signed heartbeat escaped its monotonic deadline")
+        self.last_signed = signed
+        deadline = self.hard_deadline
+        early = deadline - timedelta(seconds=1)
+        cadence = observed.astimezone(timezone.utc) + timedelta(
+            seconds=max(0.25, self.interval_seconds / 2)
+        )
+        # Never schedule beyond the exact signed deadline.  For interval=1,
+        # duplicate encoded timestamps retry at 0.5s and then at the boundary.
+        self.next_due = min(deadline, max(early, cadence))
 
 
 def load_private_key(path: Path) -> Ed25519PrivateKey:
@@ -148,8 +188,10 @@ class BrokerService:
     def _now(self) -> str:
         return timestamp(self.clock())
 
-    def _heartbeat(self) -> None:
-        self.broker.heartbeat(self._now())
+    def _heartbeat(self, observed: datetime | None = None) -> str:
+        signed = timestamp(observed or self.clock())
+        self.broker.heartbeat(signed)
+        return signed
 
     def _capture_return(self, raw: bytes, channel: str) -> bytes:
         now = self._now()
@@ -200,13 +242,17 @@ class BrokerService:
                 raise
 
             heartbeat_seconds = int(self.config["heartbeat_interval_seconds"])
-            next_heartbeat = self.clock().timestamp() + max(1, heartbeat_seconds // 2)
+            last_signed = self.broker.state["last_heartbeat_utc"]
+            if not isinstance(last_signed, str):
+                self.broker._lock("heartbeat receipt missing after initialization")
+                raise ServiceError("heartbeat initialization did not persist a signed timestamp")
+            heartbeat_schedule = HeartbeatScheduler(last_signed, heartbeat_seconds)
             try:
                 while process.poll() is None:
                     current = self.clock()
-                    if current.timestamp() >= next_heartbeat:
-                        self.broker.heartbeat(timestamp(current))
-                        next_heartbeat = current.timestamp() + max(1, heartbeat_seconds // 2)
+                    if heartbeat_schedule.is_due(current):
+                        signed = self._heartbeat(current)
+                        heartbeat_schedule.emitted(current, signed)
                     self.sleep(min(0.05, max(0.01, heartbeat_seconds / 4)))
             except Exception:
                 if process.poll() is None:

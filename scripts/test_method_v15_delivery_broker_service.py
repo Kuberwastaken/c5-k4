@@ -24,6 +24,10 @@ def at(seconds: int) -> datetime:
     return datetime(2026, 8, 13, 12, 0, seconds, tzinfo=timezone.utc)
 
 
+def instant(seconds: float) -> datetime:
+    return datetime(2026, 8, 13, 12, 0, tzinfo=timezone.utc) + timedelta(seconds=seconds)
+
+
 class FixedClock:
     def __init__(self, value: datetime):
         self.value = value
@@ -114,6 +118,32 @@ class BrokerServiceTests(unittest.TestCase):
             self.assertEqual(result.stdout, b"done")
             rows = [json.loads(path.read_text()) for path in wrapper.broker._receipt_files()]
             self.assertGreaterEqual(sum(row["event_kind"] == "HEARTBEAT" for row in rows), 2)
+
+    def test_heartbeat_scheduler_uses_last_signed_timestamp_not_later_sample(self) -> None:
+        schedule = service.HeartbeatScheduler("2026-08-13T12:00:00Z", 1)
+        # The initial receipt was signed at 00.999 and encoded as :00.  A later
+        # scheduler sample at 01.001 must not postpone the next emission to :02.
+        self.assertTrue(schedule.is_due(instant(1.001)))
+        schedule.emitted(instant(1.001), "2026-08-13T12:00:01Z")
+        self.assertLessEqual(schedule.next_due, instant(2.0))
+        self.assertEqual(schedule.hard_deadline, instant(2.0))
+
+    def test_heartbeat_scheduler_duplicate_second_and_jitter_never_skip_bound(self) -> None:
+        schedule = service.HeartbeatScheduler("2026-08-13T12:00:00Z", 1)
+        observed_signed = []
+        for current in (instant(0.001), instant(0.62), instant(1.001), instant(1.83), instant(2.0)):
+            if schedule.is_due(current):
+                signed = service.timestamp(current)
+                schedule.emitted(current, signed)
+                observed_signed.append(broker.utc(signed))
+        self.assertGreaterEqual(len(observed_signed), 3)
+        gaps = [int((right - left).total_seconds()) for left, right in zip(observed_signed, observed_signed[1:])]
+        self.assertTrue(all(0 <= gap <= 1 for gap in gaps), gaps)
+
+    def test_heartbeat_scheduler_rejects_poll_after_true_signed_deadline(self) -> None:
+        schedule = service.HeartbeatScheduler("2026-08-13T12:00:00Z", 1)
+        with self.assertRaisesRegex(service.ServiceError, "escaped"):
+            schedule.emitted(instant(2.0), "2026-08-13T12:00:02Z")
 
     def test_command_stdin_stdout_stderr_are_content_addressed(self) -> None:
         command = [sys.executable, "-c", "import sys; x=sys.stdin.buffer.read(); sys.stdout.buffer.write(x.upper()); sys.stderr.buffer.write(b'warn:'+x)"]
