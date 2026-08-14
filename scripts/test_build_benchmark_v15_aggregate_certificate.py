@@ -57,6 +57,7 @@ class AggregateCertificateTests(unittest.TestCase):
             "checkpoint_runner": {key: dict(ref) for key in (
                 "executable", "test", "publication_schema", "private_input_schema", "private_input_assembler",
                 "private_input_assembler_test", "private_input_assembly_schema", "gap_schema",
+                "capture_orchestrator", "capture_orchestrator_test", "capture_plan_schema", "capture_readiness_schema",
                 "public_chain_verifier", "public_chain_proof_schema",
             )},
             "private_custody": {key: dict(ref) for key in (
@@ -382,6 +383,10 @@ class AggregateCertificateTests(unittest.TestCase):
             "triplet_isolation_plan_schema": "schemas/benchmark-triplet-isolation-plan-v1.5.schema.json",
             "triplet_isolation_acceptance_schema": "schemas/benchmark-triplet-isolation-acceptance-v1.5.schema.json",
             "triplet_isolation_readiness_schema": "schemas/benchmark-triplet-isolation-readiness-v1.5.schema.json",
+            "checkpoint_capture_orchestrator": "scripts/method_v15_checkpoint_capture_orchestrator.py",
+            "checkpoint_capture_orchestrator_contract_test": "scripts/test_method_v15_checkpoint_capture_orchestrator.py",
+            "checkpoint_capture_plan_schema": "schemas/benchmark-checkpoint-capture-plan-v1.5.schema.json",
+            "checkpoint_capture_readiness_schema": "schemas/benchmark-checkpoint-capture-readiness-v1.5.schema.json",
             "runner_private_input_assembler": "scripts/build_benchmark_v15_runner_private_input.py",
             "runner_private_input_assembler_contract_test": "scripts/test_build_benchmark_v15_runner_private_input.py",
             "runner_private_input_assembly_schema": "schemas/benchmark-runner-private-input-assembly-v1.5.schema.json",

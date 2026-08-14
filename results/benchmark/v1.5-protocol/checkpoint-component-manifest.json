@@ -30,6 +30,10 @@
       "test": {"closure": "NATIVE_V1_5", "role": "s3_object_lock_store_contract_test"}
     },
     "checkpoint_runner": {
+      "capture_orchestrator": {"closure": "NATIVE_V1_5", "role": "checkpoint_capture_orchestrator"},
+      "capture_orchestrator_test": {"closure": "NATIVE_V1_5", "role": "checkpoint_capture_orchestrator_contract_test"},
+      "capture_plan_schema": {"closure": "NATIVE_V1_5", "role": "checkpoint_capture_plan_schema"},
+      "capture_readiness_schema": {"closure": "NATIVE_V1_5", "role": "checkpoint_capture_readiness_schema"},
       "executable": {"closure": "NATIVE_V1_5", "role": "checkpoint_runner"},
       "gap_schema": {"closure": "NATIVE_V1_5", "role": "terminal_chronology_gap_certificate_schema"},
       "private_input_schema": {"closure": "NATIVE_V1_5", "role": "checkpoint_runner_private_input_schema"},

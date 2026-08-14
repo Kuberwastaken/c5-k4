@@ -123,6 +123,8 @@ class P1Tests(unittest.TestCase):
             "triplet_isolation_backend", "triplet_isolation_backend_contract_test",
             "triplet_isolation_plan_schema", "triplet_isolation_acceptance_schema",
             "triplet_isolation_readiness_schema",
+            "checkpoint_capture_orchestrator", "checkpoint_capture_orchestrator_contract_test",
+            "checkpoint_capture_plan_schema", "checkpoint_capture_readiness_schema",
         }
         self.assertLessEqual(required, set(P1.NATIVE_COMPONENTS))
         p1a = self.build()

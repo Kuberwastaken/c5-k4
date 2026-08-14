@@ -49,7 +49,7 @@
         },
         "checkpoint_runner": {
           "type": "object", "additionalProperties": false,
-          "required": ["executable", "test", "publication_schema", "private_input_schema", "private_input_assembler", "private_input_assembler_test", "private_input_assembly_schema", "gap_schema", "public_chain_verifier", "public_chain_proof_schema"],
+          "required": ["executable", "test", "publication_schema", "private_input_schema", "private_input_assembler", "private_input_assembler_test", "private_input_assembly_schema", "capture_orchestrator", "capture_orchestrator_test", "capture_plan_schema", "capture_readiness_schema", "gap_schema", "public_chain_verifier", "public_chain_proof_schema"],
           "properties": {
             "executable": {"$ref": "#/definitions/native/checkpoint_runner"},
             "test": {"$ref": "#/definitions/native/checkpoint_runner_contract_test"},
@@ -58,6 +58,10 @@
             "private_input_assembler": {"$ref": "#/definitions/native/runner_private_input_assembler"},
             "private_input_assembler_test": {"$ref": "#/definitions/native/runner_private_input_assembler_contract_test"},
             "private_input_assembly_schema": {"$ref": "#/definitions/native/runner_private_input_assembly_schema"},
+            "capture_orchestrator": {"$ref": "#/definitions/native/checkpoint_capture_orchestrator"},
+            "capture_orchestrator_test": {"$ref": "#/definitions/native/checkpoint_capture_orchestrator_contract_test"},
+            "capture_plan_schema": {"$ref": "#/definitions/native/checkpoint_capture_plan_schema"},
+            "capture_readiness_schema": {"$ref": "#/definitions/native/checkpoint_capture_readiness_schema"},
             "gap_schema": {"$ref": "#/definitions/native/terminal_chronology_gap_certificate_schema"},
             "public_chain_verifier": {"$ref": "#/definitions/native/public_checkpoint_chain_verifier"},
             "public_chain_proof_schema": {"$ref": "#/definitions/native/public_checkpoint_chain_proof_schema"}
@@ -235,6 +239,10 @@
       ,"triplet_isolation_plan_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "triplet_isolation_plan_schema"}}}]}
       ,"triplet_isolation_acceptance_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "triplet_isolation_acceptance_schema"}}}]}
       ,"triplet_isolation_readiness_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "triplet_isolation_readiness_schema"}}}]}
+      ,"checkpoint_capture_orchestrator": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "checkpoint_capture_orchestrator"}}}]}
+      ,"checkpoint_capture_orchestrator_contract_test": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "checkpoint_capture_orchestrator_contract_test"}}}]}
+      ,"checkpoint_capture_plan_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "checkpoint_capture_plan_schema"}}}]}
+      ,"checkpoint_capture_readiness_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "checkpoint_capture_readiness_schema"}}}]}
     },
     "inherited": {
       "five_strata_classifier": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "INHERITED_V1_4"}, "role": {"const": "five_strata_classifier"}}}]},
