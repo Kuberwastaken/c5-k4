@@ -116,6 +116,23 @@ The original bracket is preserved in
 the superseding evidence is in the
 [`N=24 result`](results/expansion/live-search-2026-08-14/catchup-n24-parity-packed-development/result.md).
 
+The active graph-theory rotation now targets the formalized Bondy
+longest-cycles declaration from arXiv:2606.03696. Its
+[`sharp-family audit`](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/math-audit.md)
+shows that the source family
+misses the rounded degree premise by exactly one, so the frozen construction
+performs balanced edge surgery and uses exact subset dynamic programming to
+test the required four-vertex path-deletion bound. The first workflow run is
+deliberately classified as
+[`INVALID_PRE_EVALUATION_SOURCE_DRIFT`](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/invalid-run-31845837185.md):
+unrelated commits moved upstream `main`, the candidate job was skipped, and
+zero target rows or artifacts were produced. A replacement gate is being
+built around descendant-history plus complete semantic-import/toolchain
+continuity, rather than unsafe target-blob equality. Until that gate passes
+an independent audit and a fresh immutable run completes, this lane has no
+candidate and no mathematical result; the exact policy is recorded in the
+[`v3 continuity audit`](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/tip-continuity-policy-audit.md).
+
 The order-15 Latin Tableau zero has likewise been converted into theorem work:
 warning-clean Lean now proves the profile telescoping, binary-change,
 threshold-to-basis, and one-vertex coloring-extension lemmas. The remaining
@@ -182,10 +199,26 @@ quadratic-prime declarations through a compact finite-prefix cover rather than
 independent integer scans. After an initial dispatch failed closed before any
 shard ran, the superseding content-locked run passed its live race gate and
 exhausted all 16 frozen shards. Independent replay verified all 17 artifact
-bundles and all 22 admissible profiles: 15 ended at a composite escape and
+bundles and all 22 interval-admitted profiles: 15 ended at a composite escape and
 seven at a prime escape, with zero full covers, candidates, errors, or reached
 deadlines. This is a [bounded zero](results/expansion/live-search-2026-08-14/oeis-a109908-a109909-development/result.md),
 not a proof of either conjecture and not a release-worthy result.
+The post-run audit also found that every frozen profile's first uncovered
+position was already present in its target-free construction mask, so none
+could have reached the live acceptance condition. That exact arm is retired;
+future cover searches must pass a mandatory construction-prefix viability
+gate before dispatch. The run validates its evidence machinery but provides
+negligible evidence about either conjecture or the search method. See the
+[`post-run diagnosis`](results/expansion/live-search-2026-08-14/oeis-a109908-a109909-development/postrun-search-arm-diagnosis.md).
+
+OEIS A103151 was then considered as the next direct finite-universal reserve
+and deferred before evaluation. It is the classical Lemoine--Levy conjecture,
+has already been computationally checked through `10^9`, and the available
+finite-residue construction lacks the sharp least-escape wall required by the
+method. Barker sequences were rejected even earlier because GitHub-sized
+orders lie inside known theorem/computation ranges. The
+[`reserve preflight`](results/expansion/live-search-2026-08-14/oeis-a103151-reserve-preflight.md)
+records both stops; neither is a result or a release candidate.
 
 The executable rotation preceding A056777 was OEIS A231201, explicitly as a
 **contaminated DEVELOPMENT** continuation rather than a held-out trial. Both
@@ -272,7 +305,7 @@ now pauses instead of receiving another post-result universe expansion. The
 [v3 result](results/expansion/live-search-2026-08-14/oeis-a231201-v3-development/result.md)
 records the full evidence.
 
-The current DeepMind number-theory lane began with OEIS A056777. There the
+A later DeepMind number-theory lane began with OEIS A056777. There the
 squarefree semiprime equality wall algebraically collapses to the known
 prime-quadruple family, so the prospective search deliberately separates
 factor shape using
@@ -585,8 +618,8 @@ Forty-three separately capped GAP queries timed out and remain explicitly
 unevaluated. See the [C23 result](results/expansion/live-search-2026-08-14/graffiti3-conjecture23-result.md).
 
 The exact contracts, ledgers, corrections, stop reasons, and reports are under
-[`results/expansion/`](results/expansion/); the current portfolio and its
-scope limits are summarized in [`OVERARCHING_PLAN.md`](OVERARCHING_PLAN.md).
+[`results/expansion/`](results/expansion/); the programme scope and standing
+rules are summarized in [`OVERARCHING_PLAN.md`](OVERARCHING_PLAN.md).
 
 ### Method v0.8: prospective evidence without a crossing
 
@@ -706,11 +739,12 @@ Detailed artifacts:
 and
 [`method_v38_wow141_k33e_two_lift_parity_lean.md`](results/expansion/method_v38_wow141_k33e_two_lift_parity_lean.md).
 
-The workflow now has an explicit **proof-extraction** side as well. Active
-development is restricted to finite-graph declarations present in the current
-`formal-conjectures` corpus; the WoW I, Graph Brain, AutoGraphiX, and
-TxGraffiti sweeps below are retained as completed historical audits, not as
-DeepMind work queues.
+The workflow now has an explicit **proof-extraction** side as well. The active
+graph-theoretic proof-extraction queue is restricted to finite-graph
+declarations present in the current `formal-conjectures` corpus; the WoW I,
+Graph Brain, AutoGraphiX, and TxGraffiti sweeps below are retained as completed
+historical audits, not as DeepMind work queues. Separate current arithmetic
+and game lanes are labelled independently above.
 
 The current no-`sorry`, warning-clean Lean ladder includes:
 
@@ -1163,8 +1197,9 @@ provable and holds here with slack 8.
 (Readings and exact numbers per conjecture in
 [`results/open_sweep/`](results/open_sweep/).) A graph this tight against
 this many independent bounds is exactly the profile of a database-edge
-extremal object — Graffiti.pc "knew" this territory to m = 3 and
-conjectured right up against it.
+extremal object: the conjectured boundary follows the `C5[K_m]` family through
+exact equality at `m=3`, then fails at `m=4`. This behavior does not by itself
+establish that `C5[K_3]` was present in Graffiti.pc's historical database.
 
 ## What it does *not* close (the honest part)
 
