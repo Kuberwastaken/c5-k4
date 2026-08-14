@@ -93,6 +93,17 @@ def _all_policy_actions(privilege: dict) -> set[str]:
     return actions
 
 
+def _assert_allowed_forbidden_disjoint(privilege: dict, label: str) -> None:
+    allowed = _all_policy_actions(privilege)
+    forbidden_value = privilege.get("explicitly_forbidden_actions")
+    if not isinstance(forbidden_value, list) or not all(isinstance(item, str) for item in forbidden_value):
+        raise BootstrapContractError(f"malformed forbidden action list: {label}")
+    forbidden = set(forbidden_value)
+    overlap = sorted(allowed & forbidden)
+    if overlap:
+        raise BootstrapContractError(f"allowed/forbidden action overlap for {label}: {overlap}")
+
+
 def verify(
     contract: dict,
     schema: dict,
@@ -137,7 +148,7 @@ def verify(
     role_names = [row["role_name"] for row in deployers] + [principals["controlled_harness_instance"]["role_name"]]
     if len(role_names) != len(set(role_names)):
         raise BootstrapContractError("principal roles are not pairwise distinct")
-    for deployer in deployers:
+    for label, deployer in zip(("immutable_store_deployer", "controlled_host_deployer"), deployers):
         trust = deployer["trust"]
         if trust["action"] != "sts:AssumeRoleWithWebIdentity" or trust["role_chaining_permitted"]:
             raise BootstrapContractError("deployer trust permits role chaining")
@@ -147,6 +158,7 @@ def verify(
         }:
             raise BootstrapContractError("deployer trust is not exact immutable OIDC")
         privilege = deployer["least_privilege"]
+        _assert_allowed_forbidden_disjoint(privilege, label)
         actions = _all_policy_actions(privilege)
         if "sts:AssumeRole" in actions or "*" in actions or any("Administrator" in action for action in actions):
             raise BootstrapContractError("deployer permission allows chaining or broad administration")

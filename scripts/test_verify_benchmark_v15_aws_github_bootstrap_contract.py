@@ -80,6 +80,21 @@ class BootstrapContractTests(unittest.TestCase):
             with self.subTest(mutate=mutate), self.assertRaises(module.BootstrapContractError):
                 self.verify(value)
 
+    def test_every_allowed_action_set_is_disjoint_from_forbidden_actions(self) -> None:
+        for label in ("immutable_store_deployer", "controlled_host_deployer"):
+            privilege = copy.deepcopy(self.contract["principals"][label]["least_privilege"])
+            module._assert_allowed_forbidden_disjoint(privilege, label)
+            allowed = sorted(module._all_policy_actions(privilege))
+            self.assertTrue(allowed)
+            privilege["explicitly_forbidden_actions"].append(allowed[0])
+            with self.subTest(label=label), self.assertRaises(module.BootstrapContractError):
+                module._assert_allowed_forbidden_disjoint(privilege, label)
+
+    def test_modify_instance_attribute_remains_forbidden_not_allowed(self) -> None:
+        privilege = self.contract["principals"]["controlled_host_deployer"]["least_privilege"]
+        self.assertNotIn("ec2:ModifyInstanceAttribute", module._all_policy_actions(privilege))
+        self.assertIn("ec2:ModifyInstanceAttribute", privilege["explicitly_forbidden_actions"])
+
     def test_only_exact_external_id_bound_custody_hop_is_permitted(self) -> None:
         mutations = (
             lambda value: value["principals"]["immutable_store_deployer"]["custody_writer_creation"].__setitem__("external_id_policy", "NONE"),

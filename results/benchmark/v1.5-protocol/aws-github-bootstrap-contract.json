@@ -160,7 +160,6 @@
           "ec2:DescribeSubnets",
           "ec2:DescribeVolumes",
           "ec2:DescribeVpcs",
-          "ec2:ModifyInstanceAttribute",
           "ec2:ModifyVpcAttribute",
           "ec2:MonitorInstances",
           "ec2:RevokeSecurityGroupEgress",
@@ -280,5 +279,5 @@
     "unexpected_existing_authority": "REQUIRE_NEW_SIGNED_RECONCILIATION_BEFORE_ANY_MUTATION",
     "target_or_statement_data_present": "FAIL_CLOSED_PROTOCOL_INVALID"
   },
-  "contract_sha256": "1ce293ed61f60d695a850abd31ab68e115110480b455e98a97c109dfdd3b0d05"
+  "contract_sha256": "af54cd80ba257cad9d990238e513284276c8b67ca44aefb5fe18116c3fef1352"
 }
