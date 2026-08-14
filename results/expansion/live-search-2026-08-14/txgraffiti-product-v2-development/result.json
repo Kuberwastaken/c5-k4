@@ -1,0 +1,159 @@
+{
+  "schema": "c5k4-txgraffiti-product-v2-development-result-1.0",
+  "status": "BOUNDED_ZERO",
+  "campaign_commit": "f6e4a6f88b00ed7b1fb8a4767490e2b6e2181fe5",
+  "github_actions_run": "https://github.com/Kuberwastaken/c5-k4/actions/runs/31794226395",
+  "target": "gamma_t(G square H) >= gamma(G direct H)",
+  "artifact_checksum_manifests_replayed": 3,
+  "ledger_chains_replayed": 3,
+  "ledger_rows_replayed": 1235,
+  "terminal_bindings_replayed": 3,
+  "fixed_cardinality_receipts_replayed": 643,
+  "independently_exact_pair_replays": 293,
+  "crossings": 0,
+  "certificates": 0,
+  "candidate_files": 0,
+  "publication_action": false,
+  "totals": {
+    "proposed": 293,
+    "evaluated": 293,
+    "cartesian_subproblems": 135,
+    "direct_subproblems": 508,
+    "absent_subproblems": 339,
+    "witness_subproblems": 304,
+    "timeout_subproblems": 0,
+    "worker_cartesian_exact": 286,
+    "worker_cartesian_upper_only": 7,
+    "independently_exact_cartesian": 293,
+    "worker_exact_direct": 293,
+    "unique_product_identity_pairs": 230,
+    "equality_pairs": 225,
+    "strict_holding_pairs": 68
+  },
+  "arms": {
+    "CATALOGUE": {
+      "artifact_id": 9216705767,
+      "artifact_name": "txgraffiti-product-v2-31794226395-1-CATALOGUE",
+      "sha256sums_manifest_sha256": "4797e6493d3fa6dc5ceed3eed910f2244813c78b58f984babdaebcb15c7eea60",
+      "proposed": 69,
+      "evaluated": 69,
+      "ledger_rows": 286,
+      "last_row_sha256": "7b27e5936f6c904ae2d7e47d6391b924a22ec849ae814c0806848035ba542f1e",
+      "cartesian_subproblems": 29,
+      "direct_subproblems": 117,
+      "absent_subproblems": 75,
+      "witness_subproblems": 71,
+      "timeout_subproblems": 0,
+      "worker_cartesian_exact": 67,
+      "worker_cartesian_upper_only": 2,
+      "terminal_reason": "DOMAIN_EXHAUSTED",
+      "domain_exhausted": true,
+      "crossings": 0
+    },
+    "GENERIC": {
+      "artifact_id": 9216705463,
+      "artifact_name": "txgraffiti-product-v2-31794226395-1-GENERIC",
+      "sha256sums_manifest_sha256": "5f8106b5e0284b8ee6a60e8a974633e8d10f5723d7f4884c98661d2dbc7ce3d4",
+      "proposed": 192,
+      "evaluated": 192,
+      "ledger_rows": 825,
+      "last_row_sha256": "5492cc072c2df369280f2a52ac2cfe68adb0b3db0aae7467ce51565c3f8837a6",
+      "cartesian_subproblems": 98,
+      "direct_subproblems": 341,
+      "absent_subproblems": 238,
+      "witness_subproblems": 201,
+      "timeout_subproblems": 0,
+      "worker_cartesian_exact": 187,
+      "worker_cartesian_upper_only": 5,
+      "terminal_reason": "DOMAIN_EXHAUSTED",
+      "domain_exhausted": true,
+      "crossings": 0
+    },
+    "WALL_NAVIGATION": {
+      "artifact_id": 9216704808,
+      "artifact_name": "txgraffiti-product-v2-31794226395-1-WALL_NAVIGATION",
+      "sha256sums_manifest_sha256": "c09a460405da99369926c0a3260394cb3e42538298dd20b510cdf03d933e1bed",
+      "proposed": 32,
+      "evaluated": 32,
+      "ledger_rows": 124,
+      "last_row_sha256": "ee41cb8ef1fab71bd903f9c7cefdb9fc9b2ad433fb0bc9c3be526ed255d66352",
+      "cartesian_subproblems": 8,
+      "direct_subproblems": 50,
+      "absent_subproblems": 26,
+      "witness_subproblems": 32,
+      "timeout_subproblems": 0,
+      "worker_cartesian_exact": 32,
+      "worker_cartesian_upper_only": 0,
+      "terminal_reason": "DOMAIN_EXHAUSTED",
+      "domain_exhausted": true,
+      "crossings": 0
+    }
+  },
+  "cartesian_upper_only_rows_closed_by_independent_exact_replay": [
+    {
+      "arm": "CATALOGUE",
+      "name": "named:K2:P5",
+      "reported_upper_bound": 4,
+      "independent_exact_value": 4
+    },
+    {
+      "arm": "CATALOGUE",
+      "name": "named:K2:P6",
+      "reported_upper_bound": 4,
+      "independent_exact_value": 4
+    },
+    {
+      "arm": "GENERIC",
+      "name": "generic-v2:28:2:5:0.18:0.0",
+      "reported_upper_bound": 4,
+      "independent_exact_value": 4
+    },
+    {
+      "arm": "GENERIC",
+      "name": "generic-v2:44:2:5:0.42:0.0",
+      "reported_upper_bound": 4,
+      "independent_exact_value": 4
+    },
+    {
+      "arm": "GENERIC",
+      "name": "generic-v2:76:2:5:0.0:0.18",
+      "reported_upper_bound": 4,
+      "independent_exact_value": 4
+    },
+    {
+      "arm": "GENERIC",
+      "name": "generic-v2:111:5:5:0.42:0.18",
+      "reported_upper_bound": 5,
+      "independent_exact_value": 5
+    },
+    {
+      "arm": "GENERIC",
+      "name": "generic-v2:124:2:5:0.68:0.18",
+      "reported_upper_bound": 4,
+      "independent_exact_value": 4
+    }
+  ],
+  "exact_parameter_pair_counts": {
+    "2,2": 80,
+    "3,3": 60,
+    "4,3": 22,
+    "4,4": 79,
+    "5,3": 2,
+    "5,4": 22,
+    "5,5": 6,
+    "6,4": 15,
+    "7,4": 2,
+    "8,6": 5
+  },
+  "method_comparison_v1": {
+    "v1_durably_evaluated": 801,
+    "v1_domain_exhausted_arms": 1,
+    "v1_deadline_prefix_arms": 2,
+    "v1_limitation": "Greedy-only Cartesian upper bounds could conceal a crossing when the witness was nonminimal.",
+    "v2_evaluated": 293,
+    "v2_domain_exhausted_arms": 3,
+    "v2_deadline_prefix_arms": 0,
+    "v2_result": "The method-corrected smaller domains remain zero, with exact independent values for both parameters on every pair."
+  },
+  "interpretation": "The v2 method correction removes the v1 greedy-witness ambiguity for these 293 pairs, but this bounded zero neither proves the conjecture nor completes the broader v1 prefixes."
+}
