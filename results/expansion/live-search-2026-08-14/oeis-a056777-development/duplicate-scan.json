@@ -1,0 +1,13 @@
+{
+  "schema": "oeis-a056777-duplicate-scan-v1",
+  "audited_at_utc": "2026-08-14T00:00:00Z",
+  "repository_workflow_duplicate_found": false,
+  "repository_release_or_certificate_duplicate_found": false,
+  "provenance_database_match_found": true,
+  "matched_external_package": "breakthroughmaxxing/06-bigger/oeis56777-equivalence-1m",
+  "matched_package_result": "exact bounded equivalence through 1000000; five members; no counterexample",
+  "registry_cluster": "fc-module:FormalConjectures/OEIS/56777",
+  "registry_classification": "AMBIGUOUS_EXCLUDE",
+  "registry_contamination": "semantic exposure and prior worktree package recorded",
+  "novelty_claim_permitted": false
+}

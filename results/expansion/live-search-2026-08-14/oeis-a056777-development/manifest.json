@@ -1,0 +1,55 @@
+{
+  "schema": "oeis-a056777-development-freeze-v1",
+  "shards": 24,
+  "internal_seconds": 48,
+  "external_search_seconds": 54,
+  "external_verify_seconds": 60,
+  "historical_exclusion_upper_inclusive": 1000000000000,
+  "value_minimum": 1000000000001,
+  "value_maximum": 100000000000000,
+  "checkpoint_interval": 128,
+  "formal_conjectures": {
+    "commit": "6b37c6ede7ccdee80826b8399a80ec010771d5d4",
+    "path": "FormalConjectures/OEIS/56777.lean",
+    "blob_sha1": "a6dd44fb981be19a5a8bc19de54ef8e533519627",
+    "sha256": "2539ce34a7417a5b482d3c6f21a8327198e4890df7f67e6458a522293b1d099c",
+    "url": "https://raw.githubusercontent.com/google-deepmind/formal-conjectures/6b37c6ede7ccdee80826b8399a80ec010771d5d4/FormalConjectures/OEIS/56777.lean",
+    "declaration": "OeisA56777.comesFromPrimeQuadruple_of_a",
+    "category": "research open"
+  },
+  "oeis_source": {
+    "url": "https://raw.githubusercontent.com/oeis/oeisdata/main/seq/A056/A056777.seq",
+    "sha256": "67a9fd6b1b5114a4aa09f4d01967d15e54266dd09902699fe40ce4d8b9e54d63",
+    "revision": "#28 Jun 13 2026 17:40:34"
+  },
+  "oeis_bfile": {
+    "url": "https://oeis.org/A056777/b056777.txt",
+    "sha256": "8a4d205fea5761af6deac8c2bf23d709c4e7844e792f48bf8616135376835ccf",
+    "rows": 166,
+    "last_index": 166,
+    "last_value": 967164068009
+  },
+  "arms": {
+    "REPEATED_POWER_SURGERY": {
+      "shape": "p^e*q with p<q prime",
+      "p_rank_first": 1,
+      "p_rank_count": 384,
+      "exponents": [2, 3, 4, 5, 6],
+      "q_prime_offsets": 256
+    },
+    "SQUAREFREE_THREE_BLOCK": {
+      "shape": "p*q*r with p<q<r prime",
+      "p_rank_first": 1,
+      "p_rank_count": 96,
+      "q_prime_offsets_after_p": 96,
+      "r_prime_offsets": 256
+    },
+    "PURE_PRIME_POWER": {
+      "shape": "p^e with p prime and e>=2",
+      "theorem_pruned_exponent": 2,
+      "exponent_min": 3,
+      "exponent_max": 46,
+      "coverage": "all e>=3 prime powers in the frozen value interval; squares theorem-pruned"
+    }
+  }
+}

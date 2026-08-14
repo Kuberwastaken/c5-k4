@@ -1,0 +1,16 @@
+{
+  "schema": "oeis-a056777-source-status-attestation-v1",
+  "audited_at_utc": "2026-08-14T00:00:00Z",
+  "candidate_pin": "6b37c6ede7ccdee80826b8399a80ec010771d5d4",
+  "observed_upstream_main": "05ea0345d09375efac830fac93bf083b654e317e",
+  "declaration": "OeisA56777.comesFromPrimeQuadruple_of_a",
+  "formal_conjectures_status": "research open",
+  "upstream_resolution_match_found": false,
+  "upstream_related_history": [1867, 1895, 4104, 4105],
+  "formal_conjectures_blob_sha256": "2539ce34a7417a5b482d3c6f21a8327198e4890df7f67e6458a522293b1d099c",
+  "oeis_revision": "#28 Jun 13 2026 17:40:34",
+  "oeis_claim": "all terms arise from prime quadruplets, and all terms are congruent to 65 modulo 72, verified up to 10^12",
+  "bfile_rows": 166,
+  "bfile_last": [166, 967164068009],
+  "disposition": "DEVELOPMENT_ONLY_CONTAMINATED_DUPLICATE_KNOWN"
+}

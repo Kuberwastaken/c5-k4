@@ -1,0 +1,24 @@
+{
+  "schema": "oeis-a056777-method-wall-v1",
+  "definition": "K(x)=sigma(x)+phi(x)-2*x",
+  "target_consequence": "K(n+12)=K(n)",
+  "factor_shape_lemmas": {
+    "K_equals_2": "for x>1, K(x)=2 iff x is the product of two distinct primes",
+    "K_equals_1": "for x>1, K(x)=1 iff x is the square of a prime"
+  },
+  "squarefree_semiprime_wall": {
+    "ordered_factors": ["n=a*b with a<b prime", "n+12=c*d with c<d prime"],
+    "sigma_cancellation": "a+b=c+d",
+    "substitution": ["c=a+x", "d=b-x"],
+    "diophantine_identity": "x*((b-a)-x)=12",
+    "positive_factor_pairs": [[1,12],[2,6],[3,4]],
+    "parity_survivor_gap": 8,
+    "ordered_survivor_shift": 2,
+    "conclusion": "(a,c,d,b)=(p,p+2,p+6,p+8)"
+  },
+  "prime_square_prune": {
+    "forced_partner": "n=p^2 implies n+12=q^2",
+    "identity": "(q-p)*(q+p)=12",
+    "prime_solutions": []
+  }
+}
