@@ -1,0 +1,32 @@
+{
+  "schema": "c5k4-live-development-manifest-1.0",
+  "target": "TxGraffiti C-C: connected regular i(G) <= mu*(G)",
+  "evidence_split": "DEVELOPMENT",
+  "predecessor": "txgraffiti-cc-result.md",
+  "seed": 876712691733,
+  "process_wall_cap_seconds": 60,
+  "solver_cap_seconds": 8,
+  "internal_stop_seconds": 54,
+  "arms": {
+    "CATALOGUE": {
+      "constructor": "all signed two-lifts of labeled K3,3",
+      "masks": [0, 511],
+      "order": "increasing mask",
+      "deduplicate": "frozen nauty labelg"
+    },
+    "GENERIC": {
+      "constructor": "random signed two-lift",
+      "seeds": ["K3,3", "Petersen", "CL5", "CL6"],
+      "mask_distribution": "uniform over all edge-sign masks"
+    },
+    "WALL_NAVIGATION": {
+      "seeds": ["K3,3", "Petersen", "CL5", "CL6", "CL9"],
+      "operation": "degree-preserving connected two-switch",
+      "rank_by": "none before exact evaluation",
+      "expansion_guard": "exact residual zero and child independent domination at least parent independent domination",
+      "maximum_children_per_state": 16,
+      "maximum_expanded_states": 24,
+      "maximum_depth": 3
+    }
+  }
+}
