@@ -15,6 +15,12 @@
   "internal_stop_seconds": 54,
   "external_stop_seconds": 60,
   "per_gap_query_seconds": 4,
+  "database_gate": {
+    "expected_rows": 2732,
+    "chunks": 96,
+    "shared_preparation_artifact": true,
+    "content_addressed": true
+  },
   "gap_dependencies": {
     "gap": "4.12.1",
     "smallgrp": "1.5.3"
@@ -41,11 +47,15 @@
   "artifacts": [
     {
       "path": ".github/workflows/graffiti3-conjecture23-development.yml",
-      "sha256": "da367acb86bc3ceff1b96ea5ba71c5f0677beea90c15ccaa3a0d917bbbbe1813"
+      "sha256": "4f1a07a346aed78e15c57f132f07c3e3615aa476015ca319a423b92de4ec7212"
     },
     {
       "path": "scripts/search_graffiti3_conjecture23.py",
-      "sha256": "90e276c7fc9004619b35231c5f522115335ef2328e361fbda742db8772696ccc"
+      "sha256": "1458948f4b1bde52fb3463c5add86de6c78a731600c0c52813071da5ebb7fdcf"
+    },
+    {
+      "path": "scripts/prepare_graffiti3_conjecture23_gate.py",
+      "sha256": "86eeb019bfd91795cd714c366669dfe1fcfbfe80cecc7efa1211f4b9c81309ab"
     },
     {
       "path": "scripts/verify_graffiti3_conjecture23_certificate.py",
@@ -53,7 +63,7 @@
     },
     {
       "path": "scripts/test_graffiti3_conjecture23.py",
-      "sha256": "1dc8118942d31ef281933f025254f9f6cc30833b1eb587e3c6c6672ab441f9ae"
+      "sha256": "e54a3dcf9986396af315bcafb999193a5eb94cdf240cd79fe47938a0a5ae2e5b"
     },
     {
       "path": "results/expansion/live-search-2026-08-14/graffiti3-conjecture23-source-status.md",
@@ -61,7 +71,7 @@
     },
     {
       "path": "results/expansion/live-search-2026-08-14/graffiti3-conjecture23-contract.md",
-      "sha256": "9f6211fb8a1a7302427f1ce01995ed84804e1e14a578d86dccba3e65424a9d40"
+      "sha256": "0a9c5fcf1e447eef8b7178dc967957fc0d241b45c5727284be67c9566ff9d710"
     }
   ]
 }

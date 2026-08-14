@@ -25,6 +25,16 @@ INTERNAL_STOP_SECONDS = 54.0
 EXTERNAL_STOP_SECONDS = 60
 PER_GAP_QUERY_SECONDS = 4.0
 EXPECTED_DATABASE_GATE_COUNT = 2_732
+DATABASE_GATE_CHUNKS = 96
+DATABASE_GATE_SCHEMA = "c5k4-graffiti3-conjecture23-database-gate-1.0"
+DATABASE_GATE_ORDER_COUNTS = {
+    1: 1, 2: 1, 3: 1, 4: 2, 5: 1, 7: 1, 8: 5, 9: 2, 11: 1,
+    13: 1, 16: 14, 17: 1, 19: 1, 23: 1, 25: 2, 27: 5, 29: 1,
+    31: 1, 32: 51, 37: 1, 41: 1, 43: 1, 47: 1, 49: 2, 53: 1,
+    59: 1, 61: 1, 64: 267, 67: 1, 71: 1, 73: 1, 79: 1, 81: 15,
+    83: 1, 89: 1, 97: 1, 101: 1, 103: 1, 107: 1, 109: 1, 113: 1,
+    121: 2, 125: 5, 127: 1, 128: 2_328,
+}
 CATALOGUE_ORDER = 256
 CATALOGUE_COUNT = 56_092
 GENERIC_ORDER = 512
@@ -90,6 +100,13 @@ def load_and_verify_manifest(path: Path) -> dict[str, Any]:
         raise SearchError("deadline drift")
     if value.get("per_gap_query_seconds") != 4:
         raise SearchError("GAP query cap drift")
+    if value.get("database_gate") != {
+        "expected_rows": EXPECTED_DATABASE_GATE_COUNT,
+        "chunks": DATABASE_GATE_CHUNKS,
+        "shared_preparation_artifact": True,
+        "content_addressed": True,
+    }:
+        raise SearchError("database-gate preparation drift")
     if value.get("source", {}).get("pdf_sha256") != PDF_SHA256:
         raise SearchError("source digest drift")
     expected = {
@@ -207,22 +224,50 @@ QUIT_GAP(0);
 '''
 
 
-def gap_database_gate_source() -> str:
-    orders = [1, 2, 3, 4, 5, 7, 8, 9, 11, 13, 16, 17, 19, 23, 25, 27, 29,
-              31, 32, 37, 41, 43, 47, 49, 53, 59, 61, 64, 67, 71, 73, 79,
-              81, 83, 89, 97, 101, 103, 107, 109, 113, 121, 125, 127, 128]
+def database_gate_coordinates() -> tuple[tuple[int, int], ...]:
+    coordinates = tuple(
+        (order, identifier)
+        for order, count in DATABASE_GATE_ORDER_COUNTS.items()
+        for identifier in range(1, count + 1)
+    )
+    if len(coordinates) != EXPECTED_DATABASE_GATE_COUNT:
+        raise SearchError("frozen database-gate coordinate count drift")
+    return coordinates
+
+
+def database_gate_chunk_coordinates(chunk: int) -> tuple[tuple[int, int], ...]:
+    if not 0 <= chunk < DATABASE_GATE_CHUNKS:
+        raise SearchError("invalid database-gate chunk")
+    coordinates = database_gate_coordinates()
+    domain = partition_interval(len(coordinates), DATABASE_GATE_CHUNKS, chunk)
+    return tuple(coordinates[index - 1] for index in domain)
+
+
+def records_sha256(records: Sequence[Mapping[str, Any]]) -> str:
+    digest = hashlib.sha256()
+    for record in records:
+        digest.update(canonical_json(record))
+    return digest.hexdigest()
+
+
+def coordinate_records(coordinates: Sequence[tuple[int, int]]) -> list[dict[str, int]]:
+    return [{"order": order, "id": identifier} for order, identifier in coordinates]
+
+
+def gap_database_gate_chunk_source(chunk: int, coordinates: Sequence[tuple[int, int]]) -> str:
+    gap_coordinates = [[order, identifier] for order, identifier in coordinates]
     return f'''SetPrintFormattingStatus("*stdout*",false);;
-orders:={orders};; checked:=0;; negatives:=0;; equalities:=0;; d8:=fail;; q8:=fail;;
-for n in orders do
-  for id in [1..NrSmallGroups(n)] do
-    G:=SmallGroup(n,id);; D:=DerivedSubgroup(G);; Z:=Centre(G);;
+C5K4GateChunk:=function(coordinates)
+  local coordinate,n,identifier,G,D,Z,w;
+  for coordinate in coordinates do
+    n:=coordinate[1];; identifier:=coordinate[2];; G:=SmallGroup(n,identifier);;
+    D:=DerivedSubgroup(G);; Z:=Centre(G);;
     w:=2*Size(FactorGroup(G,D))+Size(G)+2*Size(Z)-4*NrConjugacyClasses(G);;
-    checked:=checked+1;; if w<0 then negatives:=negatives+1; fi;
-    if w=0 then equalities:=equalities+1; fi;
-    if n=8 and id=3 then d8:=w; fi; if n=8 and id=4 then q8:=w; fi;
+    Print("@@GATE_ROW@@\\t",n,"\\t",identifier,"\\t",w,"\\t@@END@@\\n");
   od;
-od;
-Print("@@GATE@@\\t",checked,"\\t",negatives,"\\t",equalities,"\\t",d8,"\\t",q8,"\\t@@END@@\\n");
+end;;
+C5K4GateChunk({gap_coordinates});;
+Print("@@GATE_CHUNK@@\\t{chunk}\\t{len(coordinates)}\\t@@END@@\\n");
 QUIT_GAP(0);
 '''
 
@@ -264,16 +309,151 @@ def parse_profile(stdout: str, identity: str, provenance: str, expression: str) 
                    classes, w, fields[7] == "true", expression, None)
 
 
-def parse_database_gate(stdout: str) -> dict[str, int]:
-    fields = unique_marker(stdout, "@@GATE@@").split("\t")
-    if len(fields) != 7 or fields[-1] != "@@END@@":
-        raise SearchError("malformed database gate marker")
-    checked, negatives, equalities, d8, q8 = map(int, fields[1:6])
-    if (checked != EXPECTED_DATABASE_GATE_COUNT or negatives != 0
-            or equalities <= 0 or d8 != 0 or q8 != 0):
+def parse_database_gate_chunk(
+    stdout: str, chunk: int, expected: Sequence[tuple[int, int]],
+) -> list[dict[str, int]]:
+    terminals = [
+        line for line in stdout.splitlines() if line.startswith("@@GATE_CHUNK@@")
+    ]
+    if len(terminals) != 1:
+        raise SearchError(
+            "expected one database-gate chunk marker; GAP output tail: "
+            + stdout[-1000:]
+        )
+    terminal = terminals[0].split("\t")
+    if (len(terminal) != 4 or terminal[-1] != "@@END@@"
+            or int(terminal[1]) != chunk or int(terminal[2]) != len(expected)):
+        raise SearchError("malformed database-gate chunk marker")
+    rows: list[dict[str, int]] = []
+    for line in stdout.splitlines():
+        if not line.startswith("@@GATE_ROW@@"):
+            continue
+        fields = line.split("\t")
+        if len(fields) != 5 or fields[-1] != "@@END@@":
+            raise SearchError("malformed database-gate row marker")
+        order, identifier, residual = map(int, fields[1:4])
+        rows.append({"order": order, "id": identifier, "residual_w": residual})
+    if [(row["order"], row["id"]) for row in rows] != list(expected):
+        raise SearchError("partial or reordered database-gate chunk")
+    return rows
+
+
+def database_gate_summary(rows: Sequence[Mapping[str, Any]]) -> dict[str, int]:
+    coordinates = [(int(row["order"]), int(row["id"])) for row in rows]
+    if coordinates != list(database_gate_coordinates()):
+        raise SearchError("partial or reordered database-gate aggregate")
+    residuals = [int(row["residual_w"]) for row in rows]
+    by_coordinate = {coordinate: residual for coordinate, residual in zip(coordinates, residuals)}
+    summary = {
+        "checked": len(rows),
+        "negatives": sum(value < 0 for value in residuals),
+        "equalities": sum(value == 0 for value in residuals),
+        "d8_residual": by_coordinate.get((8, 3), 1),
+        "q8_residual": by_coordinate.get((8, 4), 1),
+    }
+    if (summary["checked"] != EXPECTED_DATABASE_GATE_COUNT
+            or summary["negatives"] != 0 or summary["equalities"] <= 0
+            or summary["d8_residual"] != 0 or summary["q8_residual"] != 0):
         raise SearchError("source snapshot or extraspecial gate failed")
-    return {"checked": checked, "negatives": negatives, "equalities": equalities,
-            "d8_residual": d8, "q8_residual": q8}
+    return summary
+
+
+def build_database_gate_preparation(
+    rows: Sequence[Mapping[str, Any]], campaign_commit: str, manifest_path: Path,
+) -> dict[str, Any]:
+    normalized = [
+        {"order": int(row["order"]), "id": int(row["id"]),
+         "residual_w": int(row["residual_w"])}
+        for row in rows
+    ]
+    summary = database_gate_summary(normalized)
+    chunks: list[dict[str, Any]] = []
+    cursor = 0
+    for chunk in range(DATABASE_GATE_CHUNKS):
+        expected = database_gate_chunk_coordinates(chunk)
+        chunk_rows = normalized[cursor:cursor + len(expected)]
+        cursor += len(expected)
+        chunks.append({
+            "chunk": chunk,
+            "count": len(expected),
+            "coordinates_sha256": records_sha256(coordinate_records(expected)),
+            "rows_sha256": records_sha256(chunk_rows),
+        })
+    document: dict[str, Any] = {
+        "schema": DATABASE_GATE_SCHEMA,
+        "campaign_commit": campaign_commit,
+        "source_pdf_sha256": PDF_SHA256,
+        "manifest_sha256": sha256_file(manifest_path),
+        "per_gap_query_seconds": int(PER_GAP_QUERY_SECONDS),
+        "chunk_count": DATABASE_GATE_CHUNKS,
+        "coordinate_count": EXPECTED_DATABASE_GATE_COUNT,
+        "coordinate_domain_sha256": records_sha256(
+            coordinate_records(database_gate_coordinates())
+        ),
+        "rows_sha256": records_sha256(normalized),
+        "summary": summary,
+        "chunks": chunks,
+        "rows": normalized,
+    }
+    document["preparation_sha256"] = hashlib.sha256(canonical_json(document)).hexdigest()
+    return document
+
+
+def prepare_database_gate(
+    gap: str, campaign_commit: str, manifest_path: Path, output: Path,
+) -> dict[str, Any]:
+    load_and_verify_manifest(manifest_path)
+    rows: list[dict[str, int]] = []
+    for chunk in range(DATABASE_GATE_CHUNKS):
+        expected = database_gate_chunk_coordinates(chunk)
+        stdout = run_gap(
+            gap, gap_database_gate_chunk_source(chunk, expected),
+            PER_GAP_QUERY_SECONDS,
+        )
+        rows.extend(parse_database_gate_chunk(stdout, chunk, expected))
+    document = build_database_gate_preparation(rows, campaign_commit, manifest_path)
+    write_json_fsync(output, document)
+    return document
+
+
+def verify_database_gate_preparation(
+    path: Path, campaign_commit: str, manifest_path: Path,
+) -> dict[str, Any]:
+    if not path.is_file():
+        raise SearchError("database-gate preparation missing")
+    try:
+        document = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise SearchError("database-gate preparation unreadable") from exc
+    if not isinstance(document, dict) or document.get("schema") != DATABASE_GATE_SCHEMA:
+        raise SearchError("database-gate preparation schema mismatch")
+    claimed = document.get("preparation_sha256")
+    unsigned = dict(document)
+    unsigned.pop("preparation_sha256", None)
+    actual = hashlib.sha256(canonical_json(unsigned)).hexdigest()
+    if claimed != actual:
+        raise SearchError("database-gate preparation content hash mismatch")
+    if (document.get("campaign_commit") != campaign_commit
+            or document.get("source_pdf_sha256") != PDF_SHA256
+            or document.get("manifest_sha256") != sha256_file(manifest_path)
+            or document.get("per_gap_query_seconds") != int(PER_GAP_QUERY_SECONDS)
+            or document.get("chunk_count") != DATABASE_GATE_CHUNKS
+            or document.get("coordinate_count") != EXPECTED_DATABASE_GATE_COUNT):
+        raise SearchError("database-gate preparation binding mismatch")
+    rows = document.get("rows")
+    chunks = document.get("chunks")
+    if not isinstance(rows, list) or not isinstance(chunks, list):
+        raise SearchError("database-gate preparation payload missing")
+    rebuilt = build_database_gate_preparation(rows, campaign_commit, manifest_path)
+    if document != rebuilt:
+        raise SearchError("database-gate preparation aggregate mismatch")
+    return {
+        **rebuilt["summary"],
+        "preparation_sha256": rebuilt["preparation_sha256"],
+        "coordinate_domain_sha256": rebuilt["coordinate_domain_sha256"],
+        "rows_sha256": rebuilt["rows_sha256"],
+        "chunk_count": rebuilt["chunk_count"],
+    }
 
 
 def partition_interval(total: int, shards: int, shard: int) -> range:
@@ -423,8 +603,9 @@ def run_assignment(args: argparse.Namespace) -> int:
     ledger = DurableLedger(args.ledger, args.arm, args.shard, args.campaign_commit)
     deadline = ledger.started + INTERNAL_STOP_SECONDS
     try:
-        gate_stdout = run_gap(args.gap, gap_database_gate_source(), min(PER_GAP_QUERY_SECONDS, deadline_remaining(deadline)))
-        gate = parse_database_gate(gate_stdout)
+        gate = verify_database_gate_preparation(
+            args.database_gate_preparation, args.campaign_commit, args.manifest,
+        )
         ledger.emit("database_sanity_pass", gate)
     except Exception as exc:
         ledger.emit("database_sanity_failure", {"error": type(exc).__name__, "message": str(exc)[:1000]})
@@ -519,6 +700,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--campaign-commit", required=True)
     parser.add_argument("--gap", default="gap")
     parser.add_argument("--manifest", type=Path, default=DEFAULT_MANIFEST)
+    parser.add_argument("--database-gate-preparation", type=Path, required=True)
     parser.add_argument("--ledger", type=Path, required=True)
     parser.add_argument("--terminal", type=Path, required=True)
     parser.add_argument("--certificate", type=Path, required=True)

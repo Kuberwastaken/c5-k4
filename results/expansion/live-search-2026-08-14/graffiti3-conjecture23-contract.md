@@ -30,20 +30,32 @@ proportion comparably. No different wall is substituted after seeing results.
 
 ## Mandatory database-sanity gate
 
-Before any development row, one separately capped GAP query must:
+Before any development row, a dedicated preparation job must:
 
 1. enumerate the trivial group and every SmallGroup whose order is a prime
    power at most 128, exactly 2,732 rows in total;
 2. compute `W` literally and find no negative source-snapshot row;
 3. recover exact equality on `D8=SmallGroup(8,3)` and `Q8=SmallGroup(8,4)`;
-4. bind the count and residual controls into the first ledger receipt.
+4. partition the frozen coordinate sequence into 96 consecutive chunks, with
+   every individual GAP query still capped at four seconds;
+5. content-address every chunk, the full coordinate domain, all residual rows,
+   the source and manifest, and the exact campaign commit in one preparation;
+6. upload that preparation once for reuse by all 72 target workers.
 
 A timeout, missing GAP package, malformed marker, source mismatch, or failed
-control ends the worker as `SANITY_GATE_FAILED`; it admits zero target rows.
-The separately capped query remains fixed at four seconds. The first CI run
-must establish that the complete 2,732-row gate is operationally feasible
-within that cap; otherwise the lane fails closed and must not admit target
-evidence.
+control prevents preparation and therefore prevents every target worker from
+starting. Each worker independently verifies the downloaded artifact checksum,
+its internal content hash, complete ordered 2,732-row coverage, all 96 chunk
+bindings, the zero-negative result, both equality controls, the source digest,
+the manifest digest, and its campaign commit before evaluating a target row.
+A missing, partial, reordered, stale, or tampered preparation ends that worker
+as `SANITY_GATE_FAILED` and admits zero target rows.
+
+The pre-correction run
+[`31794768947`](https://github.com/Kuberwastaken/c5-k4/actions/runs/31794768947)
+repeated one monolithic gate in every worker and produced no `@@GATE@@` marker;
+all affected workers stopped with zero proposals. It is `INVALID_RUN`
+preparation evidence and carries no mathematical inference.
 
 ## Three frozen arms
 

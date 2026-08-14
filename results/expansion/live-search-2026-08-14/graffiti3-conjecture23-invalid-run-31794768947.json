@@ -1,0 +1,27 @@
+{
+  "schema": "c5k4-invalid-run-report-1.0",
+  "campaign": "graffiti3-conjecture23",
+  "classification": "INVALID_RUN",
+  "mathematical_inference": "NONE",
+  "run_id": 31794768947,
+  "run_url": "https://github.com/Kuberwastaken/c5-k4/actions/runs/31794768947",
+  "campaign_commit": "5e184e2df3aef55aa3e55d6f8ccbb1a0fd65d253",
+  "workflow_conclusion": "failure",
+  "target_jobs": 72,
+  "gate_failure_jobs": 69,
+  "pre_search_install_timeout_jobs": 3,
+  "pre_search_install_timeout_assignments": [
+    "CATALOGUE:0",
+    "CATALOGUE:5",
+    "CATALOGUE:10"
+  ],
+  "uploaded_ledgers": 69,
+  "hash_chains_verified": 69,
+  "terminal_bindings_verified": 69,
+  "gate_failure_message": "expected one @@GATE@@ marker",
+  "proposed": 0,
+  "exact_evaluated": 0,
+  "crossings": 0,
+  "certificates": 0,
+  "replacement": "shared content-addressed 2732-row gate prepared in 96 separately capped GAP chunks"
+}

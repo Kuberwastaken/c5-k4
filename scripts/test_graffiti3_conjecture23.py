@@ -14,6 +14,23 @@ import verify_graffiti3_conjecture23_certificate as verifier
 
 
 class Graffiti3Conjecture23FreezeTests(unittest.TestCase):
+    campaign_commit = "a" * 40
+
+    def complete_gate_rows(self) -> list[dict[str, int]]:
+        return [
+            {
+                "order": order,
+                "id": identifier,
+                "residual_w": 0 if (order, identifier) in {(8, 3), (8, 4)} else 1,
+            }
+            for order, identifier in target.database_gate_coordinates()
+        ]
+
+    def valid_gate_document(self) -> dict[str, object]:
+        return target.build_database_gate_preparation(
+            self.complete_gate_rows(), self.campaign_commit, target.DEFAULT_MANIFEST,
+        )
+
     def test_manifest_freeze(self) -> None:
         manifest = target.load_and_verify_manifest(target.DEFAULT_MANIFEST)
         self.assertEqual(manifest["evidence_split"], "DEVELOPMENT")
@@ -34,14 +51,76 @@ class Graffiti3Conjecture23FreezeTests(unittest.TestCase):
             self.assertEqual(row.residual_w, 0)
             self.assertTrue(row.is_p_group)
 
-    def test_database_gate_fixture(self) -> None:
-        receipt = target.parse_database_gate("@@GATE@@\t2732\t0\t17\t0\t0\t@@END@@\n")
-        self.assertEqual(receipt["checked"], target.EXPECTED_DATABASE_GATE_COUNT)
-        self.assertEqual(receipt["negatives"], 0)
+    def test_database_gate_chunks_cover_snapshot_exactly(self) -> None:
+        chunks = [
+            target.database_gate_chunk_coordinates(chunk)
+            for chunk in range(target.DATABASE_GATE_CHUNKS)
+        ]
+        self.assertEqual(sum(map(len, chunks)), target.EXPECTED_DATABASE_GATE_COUNT)
+        self.assertEqual(tuple(value for chunk in chunks for value in chunk),
+                         target.database_gate_coordinates())
 
-    def test_database_gate_rejects_partial_snapshot(self) -> None:
-        with self.assertRaises(target.SearchError):
-            target.parse_database_gate("@@GATE@@\t2328\t0\t17\t0\t0\t@@END@@\n")
+    def test_database_gate_chunk_parser_fixture(self) -> None:
+        expected = ((8, 3), (8, 4))
+        stdout = (
+            "@@GATE_ROW@@\t8\t3\t0\t@@END@@\n"
+            "@@GATE_ROW@@\t8\t4\t0\t@@END@@\n"
+            "@@GATE_CHUNK@@\t7\t2\t@@END@@\n"
+        )
+        rows = target.parse_database_gate_chunk(stdout, 7, expected)
+        self.assertEqual([row["residual_w"] for row in rows], [0, 0])
+
+    def test_database_gate_chunk_source_uses_local_gap_variables(self) -> None:
+        expected = target.database_gate_chunk_coordinates(0)
+        source = target.gap_database_gate_chunk_source(0, expected)
+        self.assertIn("C5K4GateChunk:=function(coordinates)", source)
+        self.assertIn("local coordinate,n,identifier,G,D,Z,w;", source)
+        self.assertIn(f"@@GATE_CHUNK@@\\t0\\t{len(expected)}", source)
+
+    def test_database_gate_preparation_accepts_complete_bound_fixture(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            path = Path(raw) / "gate.json"
+            target.write_json_fsync(path, self.valid_gate_document())
+            receipt = target.verify_database_gate_preparation(
+                path, self.campaign_commit, target.DEFAULT_MANIFEST,
+            )
+            self.assertEqual(receipt["checked"], target.EXPECTED_DATABASE_GATE_COUNT)
+            self.assertEqual(receipt["chunk_count"], target.DATABASE_GATE_CHUNKS)
+
+    def test_database_gate_preparation_rejects_missing(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            with self.assertRaises(target.SearchError):
+                target.verify_database_gate_preparation(
+                    Path(raw) / "missing.json", self.campaign_commit,
+                    target.DEFAULT_MANIFEST,
+                )
+
+    def test_database_gate_preparation_rejects_partial_even_if_resigned(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            path = Path(raw) / "partial.json"
+            document = self.valid_gate_document()
+            document["rows"] = document["rows"][:-1]  # type: ignore[index]
+            unsigned = dict(document)
+            unsigned.pop("preparation_sha256")
+            document["preparation_sha256"] = hashlib.sha256(
+                target.canonical_json(unsigned)
+            ).hexdigest()
+            target.write_json_fsync(path, document)
+            with self.assertRaises(target.SearchError):
+                target.verify_database_gate_preparation(
+                    path, self.campaign_commit, target.DEFAULT_MANIFEST,
+                )
+
+    def test_database_gate_preparation_rejects_tampering(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            path = Path(raw) / "tampered.json"
+            document = self.valid_gate_document()
+            document["rows"][0]["residual_w"] = -1  # type: ignore[index]
+            target.write_json_fsync(path, document)
+            with self.assertRaises(target.SearchError):
+                target.verify_database_gate_preparation(
+                    path, self.campaign_commit, target.DEFAULT_MANIFEST,
+                )
 
     def test_catalogue_partition_is_complete_and_disjoint(self) -> None:
         domains = [target.partition_interval(target.CATALOGUE_COUNT, target.SHARDS, shard) for shard in range(target.SHARDS)]
@@ -110,7 +189,16 @@ class Graffiti3Conjecture23FreezeTests(unittest.TestCase):
         self.assertIn("persist-credentials: false", text)
         self.assertIn("gap=4.12.1-2build2", text)
         self.assertIn("gap-smallgrp=1.5.3-1", text)
+        self.assertIn("prepare-database-gate", text)
+        self.assertIn("actions/download-artifact@", text)
         self.assertIn("timeout --signal=TERM --kill-after=5s 60s", text)
+        self.assertIn("set +e", text)
+        self.assertIn("verifier_exit_code", text)
+        self.assertIn("terminal_validation_exit_code", text)
+        self.assertIn("certificate/terminal mismatch", text)
+        self.assertIn("timeout --signal=TERM --kill-after=5s 60s", text)
+        self.assertIn("Verify immutable preparation checkout", text)
+        self.assertIn("Verify immutable worker checkout", text)
         self.assertNotIn("release", text.lower())
 
 

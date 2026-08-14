@@ -51,12 +51,91 @@ jobs:
           set -euo pipefail
           python -m py_compile \
             scripts/search_graffiti3_conjecture23.py \
+            scripts/prepare_graffiti3_conjecture23_gate.py \
             scripts/verify_graffiti3_conjecture23_certificate.py \
             scripts/test_graffiti3_conjecture23.py
           PYTHONPATH=scripts python -m unittest -v scripts/test_graffiti3_conjecture23.py
 
-  exact-arm:
+  prepare-database-gate:
     needs: validate-frozen-harness
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      LC_ALL: C.UTF-8
+      PYTHONDONTWRITEBYTECODE: '1'
+      PYTHONHASHSEED: '0'
+      TZ: UTC
+    steps:
+      - name: Check out the exact frozen campaign commit
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ inputs.campaign_commit }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up pinned Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12.9'
+
+      - name: Verify immutable preparation checkout
+        shell: bash
+        env:
+          CAMPAIGN_COMMIT: ${{ inputs.campaign_commit }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$CAMPAIGN_COMMIT"
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+
+      - name: Install pinned GAP dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            gap=4.12.1-2build2 \
+            gap-smallgrp=1.5.3-1 \
+            gap-smallgrp-extra=1.5.3-1
+          test "$(dpkg-query -W -f='${Version}' gap)" = "4.12.1-2build2"
+          test "$(dpkg-query -W -f='${Version}' gap-smallgrp)" = "1.5.3-1"
+          test "$(dpkg-query -W -f='${Version}' gap-smallgrp-extra)" = "1.5.3-1"
+
+      - name: Prepare complete content-addressed database gate
+        shell: bash
+        env:
+          CAMPAIGN_COMMIT: ${{ inputs.campaign_commit }}
+        run: |
+          set -euo pipefail
+          output="$RUNNER_TEMP/graffiti3-c23-gate"
+          mkdir -p "$output"
+          python scripts/prepare_graffiti3_conjecture23_gate.py \
+            --campaign-commit "$CAMPAIGN_COMMIT" \
+            --gap gap \
+            --output "$output/database-gate.json"
+          python - "$output/database-gate.json" "$CAMPAIGN_COMMIT" <<'PY'
+          import pathlib, sys
+          sys.path.insert(0, "scripts")
+          import search_graffiti3_conjecture23 as target
+          target.verify_database_gate_preparation(
+              pathlib.Path(sys.argv[1]), sys.argv[2], target.DEFAULT_MANIFEST,
+          )
+          PY
+          (
+            cd "$output"
+            sha256sum database-gate.json > SHA256SUMS
+          )
+
+      - name: Upload shared database-gate preparation
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: graffiti3-c23-gate-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/graffiti3-c23-gate/
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 90
+
+  exact-arm:
+    needs: [validate-frozen-harness, prepare-database-gate]
     strategy:
       fail-fast: false
       max-parallel: 24
@@ -83,6 +162,15 @@ jobs:
         with:
           python-version: '3.12.9'
 
+      - name: Verify immutable worker checkout
+        shell: bash
+        env:
+          CAMPAIGN_COMMIT: ${{ inputs.campaign_commit }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$CAMPAIGN_COMMIT"
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+
       - name: Install pinned GAP dependencies
         shell: bash
         run: |
@@ -96,6 +184,19 @@ jobs:
           test "$(dpkg-query -W -f='${Version}' gap-smallgrp)" = "1.5.3-1"
           test "$(dpkg-query -W -f='${Version}' gap-smallgrp-extra)" = "1.5.3-1"
 
+      - name: Download shared database-gate preparation
+        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        with:
+          name: graffiti3-c23-gate-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/graffiti3-c23-gate
+
+      - name: Verify downloaded database-gate artifact checksum
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP/graffiti3-c23-gate"
+          sha256sum --check SHA256SUMS
+
       - name: Run one frozen shard under the hard cap
         id: search
         shell: bash
@@ -104,6 +205,9 @@ jobs:
           SHARD: ${{ matrix.shard }}
           CAMPAIGN_COMMIT: ${{ inputs.campaign_commit }}
         run: |
+          # GitHub invokes bash with -e.  Disable it explicitly so a fail-closed
+          # search exit cannot skip the durable receipts and checks below.
+          set +e
           set -uo pipefail
           output="$RUNNER_TEMP/graffiti3-c23/$ARM/$SHARD"
           mkdir -p "$output"
@@ -114,19 +218,25 @@ jobs:
                 --shard "$SHARD" \
                 --campaign-commit "$CAMPAIGN_COMMIT" \
                 --gap gap \
+                --database-gate-preparation \
+                  "$RUNNER_TEMP/graffiti3-c23-gate/database-gate.json" \
                 --ledger "$output/ledger.jsonl" \
                 --terminal "$output/terminal.json" \
                 --certificate "$output/certificate.json" \
               > "$output/stdout.txt" 2> "$output/stderr.txt"
-          code=$?
-          printf '{"campaign_commit":"%s","arm":"%s","shard":%s,"exit_code":%s}\n' \
-            "$CAMPAIGN_COMMIT" "$ARM" "$SHARD" "$code" > "$output/assignment.json"
+          search_code=$?
+
+          verifier_code=0
           if [[ -f "$output/certificate.json" ]]; then
-            python scripts/verify_graffiti3_conjecture23_certificate.py \
-              "$output/certificate.json" > "$output/independent-verification.json"
+            timeout --signal=TERM --kill-after=5s 60s \
+              python scripts/verify_graffiti3_conjecture23_certificate.py \
+                "$output/certificate.json" > "$output/independent-verification.json"
+            verifier_code=$?
           fi
+
+          terminal_code=0
           if [[ -f "$output/terminal.json" ]]; then
-            python - "$output/terminal.json" <<'PY'
+            python - "$output/terminal.json" "$output/certificate.json" <<'PY'
           import json, sys
           value = json.load(open(sys.argv[1], encoding="utf-8"))
           allowed = {
@@ -135,13 +245,48 @@ jobs:
           }
           if value.get("terminal_reason") not in allowed:
               raise SystemExit("invalid terminal reason")
+          certificate_present = __import__("pathlib").Path(sys.argv[2]).is_file()
+          if (value.get("terminal_reason") == "CERTIFICATE_FOUND") != certificate_present:
+              raise SystemExit("certificate/terminal mismatch")
           PY
+            terminal_code=$?
+          else
+            printf '%s\n' 'terminal receipt missing' > "$output/postprocessing-error.txt"
+            terminal_code=1
           fi
+
+          python - "$output/execution-status.json" "$CAMPAIGN_COMMIT" "$ARM" \
+            "$SHARD" "$search_code" "$verifier_code" "$terminal_code" <<'PY'
+          import json, pathlib, sys
+          path, commit, arm, shard, search, verifier, terminal = sys.argv[1:]
+          value = {
+              "campaign_commit": commit,
+              "arm": arm,
+              "shard": int(shard),
+              "search_exit_code": int(search),
+              "verifier_exit_code": int(verifier),
+              "terminal_validation_exit_code": int(terminal),
+          }
+          pathlib.Path(path).write_text(
+              json.dumps(value, sort_keys=True, separators=(",", ":")) + "\n",
+              encoding="ascii",
+          )
+          PY
+          status_code=$?
+
           (
             cd "$output"
             find . -maxdepth 1 -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS
           )
-          exit "$code"
+          sums_code=$?
+
+          final_code=$search_code
+          for post_code in "$verifier_code" "$terminal_code" "$status_code" "$sums_code"; do
+            if [[ "$final_code" -eq 0 && "$post_code" -ne 0 ]]; then
+              final_code=$post_code
+            fi
+          done
+          exit "$final_code"
 
       - name: Upload complete incremental shard evidence
         if: always()
