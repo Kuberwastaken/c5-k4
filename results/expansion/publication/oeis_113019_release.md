@@ -35,7 +35,21 @@ Date: **2026-08-14 UTC**
   wrapper and qualify the priority search.
 - No generated binary assets.
 
-## Release lock and publication readback
+## Release lock
 
-Pending creation of the preflight commit and release.  A follow-up commit will
-record the exact tag target and GitHub readback.
+The annotated tag dereferences locally and remotely to
+`23187774664723186f9e6d63c3b8af71912b8957`.  The tag object is
+`29421fbb19aeb1feee519510c7175b9e4783723b`.
+
+## Publication readback
+
+- Release:
+  <https://github.com/Kuberwastaken/c5-k4/releases/tag/oeis-113019-fixed-points-v1>.
+- GitHub confirms the intended title, non-draft and non-prerelease state,
+  publication at `2026-08-14T06:47:54Z`, and zero binary assets.
+- Every immutable GitHub artifact link returned HTTP 200.
+- OEIS's Cloudflare layer returned HTTP 403 to the automated page readback;
+  the source content and status had already been independently audited, and
+  this transport response is not recorded as a mathematical verification.
+- The release distinguishes the intended source answer from the opaque
+  `answer(sorry)` wrapper and qualifies bibliographic priority.
