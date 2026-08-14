@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-private-artifact-locator-v1.5.schema.json",
+  "title": "Method v1.5 accepted private WORM artifact locator",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema", "status", "backend", "bucket", "key", "version_id",
+    "sha256", "byte_count", "retain_until_utc", "store_acceptance_sha256",
+    "private_only"
+  ],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-private-artifact-locator-1.0"},
+    "status": {"const": "FROZEN_P1_WORM_OBJECT_VERIFIED"},
+    "backend": {"const": "AWS_S3_OBJECT_LOCK"},
+    "bucket": {"type": "string", "minLength": 3, "maxLength": 63, "pattern": "^[a-z0-9][a-z0-9.-]*[a-z0-9]$"},
+    "key": {"type": "string", "minLength": 1, "maxLength": 1024, "pattern": "^[^\\u0000]+$"},
+    "version_id": {"type": "string", "minLength": 1, "maxLength": 1024, "pattern": "^[^\\u0000]+$"},
+    "sha256": {"$ref": "#/definitions/sha256"},
+    "byte_count": {"type": "integer", "minimum": 0, "maximum": 9223372036854775807},
+    "retain_until_utc": {"$ref": "#/definitions/timestamp"},
+    "store_acceptance_sha256": {"$ref": "#/definitions/sha256"},
+    "private_only": {"const": true}
+  },
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "timestamp": {"type": "string", "format": "date-time", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"}
+  }
+}
