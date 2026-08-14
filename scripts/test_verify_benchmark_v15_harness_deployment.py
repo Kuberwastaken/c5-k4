@@ -37,6 +37,7 @@ class FakeInspector(module.HostInspector):
             ("systemctl", "is-active", "c5k4-harness.service"): subprocess.CompletedProcess([], 3, "inactive\n", ""),
             ("systemctl", "is-enabled", "c5k4-harness.service"): subprocess.CompletedProcess([], 0, "static\n", ""),
             ("ss", "-H", "-lntup"): subprocess.CompletedProcess([], 0, "", ""),
+            ("ss", "-H", "-lxnp"): subprocess.CompletedProcess([], 0, "", ""),
         }
 
     def stat(self, absolute: str) -> os.stat_result:
@@ -208,6 +209,11 @@ class HarnessDeploymentTests(unittest.TestCase):
         self.inspector.responses[("ss", "-H", "-lntup")] = subprocess.CompletedProcess([], 0, 'users:(("c5k4-harness",pid=8,fd=3))\n', "")
         with self.assertRaisesRegex(module.DeploymentError, "listener exists"):
             self.verify()
+        self.inspector.responses[("ss", "-H", "-lntup")] = subprocess.CompletedProcess([], 0, "", "")
+        self.inspector.responses[("ss", "-H", "-lxnp")] = subprocess.CompletedProcess([], 0, 'u_str LISTEN users:(("c5k4-harness",pid=8,fd=3))\n', "")
+        with self.assertRaisesRegex(module.DeploymentError, "listener exists"):
+            self.verify()
+        self.inspector.responses[("ss", "-H", "-lxnp")] = subprocess.CompletedProcess([], 0, "", "")
         self.inspector.responses[("ss", "-H", "-lntup")] = subprocess.CompletedProcess([], 127, "", "missing")
         with self.assertRaisesRegex(module.DeploymentError, "cannot prove"):
             self.verify()

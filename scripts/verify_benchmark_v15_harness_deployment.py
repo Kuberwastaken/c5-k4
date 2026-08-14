@@ -201,10 +201,12 @@ def verify_host(contract: dict[str, Any], inspector: HostInspector) -> dict[str,
     enabled = inspector.command(["systemctl", "is-enabled", "c5k4-harness.service"])
     if enabled.stdout.strip() not in ("disabled", "static"):
         raise DeploymentError("controlled harness is enabled before P1")
-    sockets = inspector.command(["ss", "-H", "-lntup"])
-    if sockets.returncode != 0:
+    internet_sockets = inspector.command(["ss", "-H", "-lntup"])
+    unix_sockets = inspector.command(["ss", "-H", "-lxnp"])
+    if internet_sockets.returncode != 0 or unix_sockets.returncode != 0:
         raise DeploymentError("cannot prove listener absence")
-    if "c5k4-harness" in sockets.stdout or "/run/c5k4-harness/harness.sock" in sockets.stdout:
+    listeners = internet_sockets.stdout + unix_sockets.stdout
+    if "c5k4-harness" in listeners or "/run/c5k4-harness/harness.sock" in listeners:
         raise DeploymentError("controlled-harness listener exists before P1")
 
     return {
