@@ -1,0 +1,23 @@
+{
+  "schema": "oeis-a231201-contaminated-development-freeze-v2.1",
+  "classification": "CONTAMINATED_DEVELOPMENT",
+  "supersedes_operational_version": "v2",
+  "inherits_v2_freeze_registry_sha256": "44de5d1720f4c2a026868e9c61e720691523213b8cabde873785fd1079ab4ba0",
+  "failed_v2_run_id": 31809864013,
+  "failed_v2_freeze_commit": "83ef494622957db578079772b37f716f7060db89",
+  "correction": "replace int.bit_count() with bin(value).count(\"1\") for nonnegative incidence masks",
+  "python": "3.9.23",
+  "internal_seconds": 54,
+  "external_seconds": 60,
+  "external_kill_after_seconds": 6,
+  "arms": [
+    "COMPRESSED_SET_COVER_CP",
+    "DETERMINISTIC_GREEDY_REPAIR",
+    "SMALL_BASIS_CEGAR"
+  ],
+  "partition_cells": 6,
+  "construction_rounds": 3,
+  "frozen_target_domain_evaluated_by_smoke_tests": false,
+  "synthetic_target_format_assignment_constructed_by_smoke_tests": true,
+  "resumable": false
+}
