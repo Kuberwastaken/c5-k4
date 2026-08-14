@@ -77,7 +77,9 @@ The generic mathlib-only workflow
 checks out an immutable campaign commit and that exact Mathlib commit, rejects
 a `FormalConjectures` import, retrieves only the five imported Mathlib
 dependency closures, and compiles the certificate with
-`-DwarningAsError=true`.  The workflow has not yet been dispatched because
-these files are intentionally left uncommitted for the parent campaign agent.
-This note must be updated with the immutable successful Actions run before a
-release cites CI replay.
+`-DwarningAsError=true`.  The immutable external replay passed in GitHub
+Actions run
+[`31798269800`](https://github.com/Kuberwastaken/c5-k4/actions/runs/31798269800)
+at campaign commit
+`1a165f20771c8b17064c94c2bc39e4a6b1f082a7` and Mathlib commit
+`a3a10db0e9d66acbebf76c5e6a135066525ac900`.
