@@ -249,13 +249,14 @@ now pauses instead of receiving another post-result universe expansion. The
 [v3 result](results/expansion/live-search-2026-08-14/oeis-a231201-v3-development/result.md)
 records the full evidence.
 
-The next current-DeepMind rotation is OEIS A056777. There the squarefree
-semiprime equality wall algebraically collapses to the known prime-quadruple
-family, so the prospective search deliberately separates factor shape using
+The current DeepMind number-theory lane began with OEIS A056777. There the
+squarefree semiprime equality wall algebraically collapses to the known
+prime-quadruple family, so the prospective search deliberately separates
+factor shape using
 repeated prime powers and three-or-more-prime endpoints. That is a new
 factorization-coordinate test of the method, not another residue-cover retry;
-A067720 and A108569 are the ordered reserves. See the
-[current target ranking](results/expansion/live-search-2026-08-14/next-deepmind-rotation-after-a231201.md).
+see the
+[selection audit](results/expansion/live-search-2026-08-14/next-deepmind-rotation-after-a231201.md).
 
 That rotation has now completed its first frozen pass. Before execution, the
 factor defect `K(x)=sigma(x)+phi(x)-2x` proved two apparent directions
@@ -272,6 +273,18 @@ so the next iteration must change the small factor block rather than merely
 move the terminal primes. See the
 [factor-defect theorem shadow](results/expansion/live-search-2026-08-14/oeis-a056777-theorem-shadow/result.md)
 and the [audited search result](results/expansion/live-search-2026-08-14/oeis-a056777-development/result.md).
+
+The theorem shadow is now fully formalized in warning-clean, no-`sorry` Lean:
+the formal proof includes the coprime-product recurrence, the prime-power
+formula, and both small-defect converses. A rank-one algebraic surgery workflow
+is under freeze audit against the newly isolated repeated-square versus
+squarefree-triple wall; it has not yet been evaluated. If that workflow does
+not pass its predeclared freeze gate, or after its single frozen execution,
+the next independent DeepMind rotation is A067720, with A108569 as reserve.
+The [post-A056777 ranking](results/expansion/live-search-2026-08-14/next-deepmind-rotation-after-a056777.md)
+records the current source/status, duplicate, certificate-shape, and stop-rule
+audit. Written on the Wall I is not part of DeepMind's corpus and is excluded
+from this ranking.
 
 A subsequent live-arm pass over the newly merged OEIS cohort found one exact
 lower-endpoint failure: the formalized A109074 identity says `1 = 3` at
