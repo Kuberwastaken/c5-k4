@@ -1,0 +1,144 @@
+{
+  "schema": "oeis-a108569-development-result-v1",
+  "status": "VALID_COMPLETE_FROZEN_ODD_PROFILE_DOMAIN_EXHAUSTION_NO_COUNTEREXAMPLE",
+  "scope": "development_only_finite_odd_support_profile_domains",
+  "mathematical_claim": "No odd counterexample to OeisA108569.conjecture occurs in either frozen one-to-three-prime support domain against the frozen endpoint catalogue; this is not exhaustion of all odd k, larger supports, or the unbounded conjecture.",
+  "evidence_split": "DEVELOPMENT",
+  "prospective_target_specific_trial": true,
+  "held_out_trial": false,
+  "publication_action": false,
+  "pre_evaluation_attempt": {
+    "run_id": 31830066668,
+    "url": "https://github.com/Kuberwastaken/c5-k4/actions/runs/31830066668",
+    "campaign_commit": "bf8ed2ed973acb492261a596c35138e9dcbe65b1",
+    "conclusion": "failure",
+    "validators_passed": 2,
+    "stop": "LIVE_UPSTREAM_HEAD_TREE_DRIFT",
+    "cause": "one unrelated Barker-sequence file landed after the pin",
+    "target_workers_skipped": 48,
+    "target_profiles_evaluated": 0
+  },
+  "run": {
+    "repository": "Kuberwastaken/c5-k4",
+    "workflow": "OEIS A108569 profile-wall DEVELOPMENT search",
+    "run_id": 31830898959,
+    "run_attempt": 1,
+    "url": "https://github.com/Kuberwastaken/c5-k4/actions/runs/31830898959",
+    "event": "workflow_dispatch",
+    "campaign_commit": "833896548c702e20af98c979a7bf0f7ba8b40d86",
+    "created_at_utc": "2026-08-14T18:55:08Z",
+    "completed_at_utc": "2026-08-14T18:58:37Z",
+    "conclusion": "success",
+    "jobs": 51,
+    "successful_jobs": 51
+  },
+  "artifact_audit": {
+    "artifacts_expected": 49,
+    "artifacts_downloaded": 49,
+    "files_downloaded": 391,
+    "artifact_identities_complete_and_unique": true,
+    "sha256sum_manifests_checked": 49,
+    "sha256sum_manifest_failures": 0,
+    "nonmanifest_files_checksum_replayed": 342,
+    "source_gate_independently_verified": true,
+    "gate_attestation_file_sha256": "50517312fd4dbfa31577081a4330df562a14891aaa0a0a49695e1607b9bd9391",
+    "gate_attestation_self_hash": "3d4c8aa548db766e9d2fd77d42eb03029e0651fc7bbfbc6f3d62cb9e3d6fc02c",
+    "gate_sha256sum_manifest_sha256": "c7889ea43f67c843a51ef0066a828c51ede4e7cb74311d2d6d477f88bc8cf569",
+    "ordered_ledger_sha256_listing_sha256": "2ab03d2d8ff53f56bace9fae317e12cfd9372520f954883b01afbe054fc9d93c",
+    "terminal_ledger_pairs_expected": 48,
+    "terminal_ledger_pairs_found": 48,
+    "terminal_ledger_pairs_independently_replayed": 48,
+    "terminal_replay_failures": 0,
+    "assignment_pairs_complete_and_unique": true,
+    "execution_statuses_checked": 48,
+    "execution_statuses_with_nonzero_code": 0,
+    "worker_errors": 0,
+    "candidate_files": 0,
+    "certificate_files": 0
+  },
+  "gate": {
+    "schema": "oeis-a108569-gate-v1",
+    "manifest_sha256": "af327f5dfe40cade302217dccca54a3b93a3cf21b584182d2869defa66c75d78",
+    "source_commit": "6c0950bec7743f5098c0196c6aee7b22c1ec8005",
+    "source_tree": "5af0d2a3a319ee2458f8cd061db7c49aeba1b35e",
+    "source_status_at_run": "research open",
+    "lean_sha256": "0e62b2d15f41a2b2dbcc568a63abd3644e8429fa7befdec7cc2d0e96cc6244f8",
+    "live_lean_sha256": "0e62b2d15f41a2b2dbcc568a63abd3644e8429fa7befdec7cc2d0e96cc6244f8",
+    "oeis_source_sha256": "66a98eb6032c98c12f6bf8250c30356775c434fae4ca4cc2b8ed98eb04d83d9f",
+    "oeis_bfile_sha256": "a84aa7eb3295768365d07e081bcaf7b4f0b6d412b6e0615128d615148c238544",
+    "live_duplicate_audit_sha256": "e0a626df2f30acbb1deb7bcb0564565d830b620704303967b751b273dc5683f0",
+    "open_pull_requests_scanned": 279,
+    "catalogue_rows": 384,
+    "catalogue_first": [1, 1],
+    "catalogue_last": [384, 997694],
+    "catalogue_odd_rows": [[1, 1]],
+    "catalogue_even_rows": 383,
+    "even_lift_checks": 383,
+    "divisor_lift_checks": 6511,
+    "sophie_germain_controls": 5,
+    "catalogue_verified_row_stream_sha256": "d140a3345fcdad615fffef3a193216095e6f143f924d4c600155a9f54e1cad11"
+  },
+  "independent_replay": {
+    "lanes": 48,
+    "passed": 48,
+    "failed": 0,
+    "terminal_reasons": {
+      "DOMAIN_EXHAUSTED": 48
+    },
+    "ledger_rows": 53236,
+    "ledger_bytes": 49843555,
+    "profiles_visited": 779731,
+    "stop_counts": {
+      "NO_TRANSLATED_ENDPOINT_PROFILE": 28169,
+      "NO_RHO_COLLISION": 745665,
+      "RHO_COLLISION_NO_TRANSLATION": 0,
+      "SUPPORT_RHO_MISMATCH": 5897,
+      "EXPONENT_LATTICE_MISMATCH": 0,
+      "RESIDUAL_NONZERO": 0,
+      "CATALOGUE_LIFT_CONTROL": 0,
+      "SOURCE_CONTROL": 0,
+      "SURVIVOR": 0
+    },
+    "candidate_files": 0
+  },
+  "arms": [
+    {
+      "arm": "ODD_CORE_PROFILES",
+      "lanes": 24,
+      "terminal_reason": "DOMAIN_EXHAUSTED",
+      "profiles_visited": 34066,
+      "visited_minimum": 1419,
+      "visited_maximum": 1420,
+      "visited_by_shard": [1420, 1420, 1420, 1420, 1420, 1420, 1420, 1420, 1420, 1420, 1419, 1419, 1419, 1419, 1419, 1419, 1419, 1419, 1419, 1419, 1419, 1419, 1419, 1419],
+      "ledger_rows": 6604,
+      "stop_counts": {
+        "NO_TRANSLATED_ENDPOINT_PROFILE": 28169,
+        "SUPPORT_RHO_MISMATCH": 5897,
+        "SURVIVOR": 0
+      }
+    },
+    {
+      "arm": "ODD_COLLISION_WALL",
+      "lanes": 24,
+      "terminal_reason": "DOMAIN_EXHAUSTED",
+      "profiles_visited": 745665,
+      "visited_minimum": 31069,
+      "visited_maximum": 31070,
+      "visited_by_shard": [31070, 31070, 31070, 31070, 31070, 31070, 31070, 31070, 31070, 31069, 31069, 31069, 31069, 31069, 31069, 31069, 31069, 31069, 31069, 31069, 31069, 31069, 31069, 31069],
+      "ledger_rows": 46632,
+      "stop_counts": {
+        "NO_RHO_COLLISION": 745665,
+        "RHO_COLLISION_NO_TRANSLATION": 0,
+        "SURVIVOR": 0
+      }
+    }
+  ],
+  "method_observation": "The frozen one-to-three-prime search does not approach the equality residual: every profile is stopped by endpoint-catalogue or reduced-totient-ratio geometry. A future A108569 iteration must change support/profile geometry rather than merely widen the same prime ranks.",
+  "novelty_and_source_caveats": [
+    "The result is a prospective target-specific DEVELOPMENT trial, not a held-out result.",
+    "The exact source/status/duplicate gate passed at run time and found the declaration research open, the pinned and live Lean bytes identical, no open target-path touch, and no exact issue, pull-request, or release claim; this bounded repository audit is not a global literature novelty proof.",
+    "The OEIS b-file exclusion and database-sanity control covers exactly 384 rows through value 997694 at the frozen hashes, not all possible prior computations or unpublished work.",
+    "Domain exhaustion means only the immutable one-to-three-prime odd-support catalogues and the frozen endpoint catalogue were exhausted. It does not cover all odd k, supports of size at least four, larger exponent patterns, or the unbounded conjecture.",
+    "No issue, pull request, release, README counterexample claim, tag, or publication follows from this bounded zero."
+  ]
+}
