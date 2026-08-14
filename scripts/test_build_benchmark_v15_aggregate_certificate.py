@@ -55,7 +55,9 @@ class AggregateCertificateTests(unittest.TestCase):
             )},
             "registry": {key: dict(ref) for key in ("executable", "policy", "schema", "invocation_contract")},
             "classification": {key: dict(ref) for key in (
-                "policy", "contract", "contract_schema", "readiness_schema", "validator", "test",
+                "policy", "contract", "contract_schema", "readiness_receipt",
+                "readiness_schema", "validator", "test", "runtime_binding_schema",
+                "runtime_verifier",
             )},
             "controlled_harness": {key: dict(ref) for key in (
                 "contract", "contract_schema", "request_schema", "response_schema", "service", "test",
@@ -414,8 +416,11 @@ class AggregateCertificateTests(unittest.TestCase):
             "five_strata_classifier_contract": "results/benchmark/v1.5-protocol/five-strata-classifier-contract.json",
             "five_strata_classifier_contract_schema": "schemas/benchmark-five-strata-classifier-contract-v1.5.schema.json",
             "five_strata_classifier_readiness_schema": "schemas/benchmark-five-strata-classifier-readiness-v1.5.schema.json",
+            "classifier_readiness_receipt": "results/benchmark/v1.5-protocol/five-strata-classifier-readiness.json",
             "five_strata_classifier_closure_validator": "scripts/validate_benchmark_v15_classifier_closure.py",
             "five_strata_classifier_closure_contract_test": "scripts/test_validate_benchmark_v15_classifier_closure.py",
+            "classifier_runtime_binding_schema": "schemas/benchmark-classifier-runtime-binding-v1.5.schema.json",
+            "classifier_runtime_verifier": "scripts/verify_benchmark_v15_classifier_runtime.py",
             "checkpoint_capture_orchestrator": "scripts/method_v15_checkpoint_capture_orchestrator.py",
             "checkpoint_capture_orchestrator_contract_test": "scripts/test_method_v15_checkpoint_capture_orchestrator.py",
             "checkpoint_capture_plan_schema": "schemas/benchmark-checkpoint-capture-plan-v1.5.schema.json",

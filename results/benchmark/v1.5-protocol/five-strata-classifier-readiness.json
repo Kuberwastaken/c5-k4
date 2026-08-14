@@ -1,0 +1,22 @@
+{
+  "builder_sha256": "4ebe61b971ac274b3c05af3f13a027ab18c6217e9b9f7df6a663142b32a477cc",
+  "classifier_sha256": "53df8514fba5179b731006485cea2f1f848c45f74495f7a252dc27b490df27e0",
+  "contract_sha256": "2439a2d3768599b49ab4dbc27e20ef7c707c2118cb783ca4343dfc55be4ba0dc",
+  "entropy_used": false,
+  "model_or_human_classification": false,
+  "negative_property_count": 6,
+  "positive_counts": {
+    "AUTOMATA_GAME_PROCESS": 2,
+    "FINITE_ALGEBRA_EQUATIONAL": 2,
+    "FINITE_COMBINATORIAL": 2,
+    "GRAPH_SCALAR_INEQUALITY": 3,
+    "GRAPH_STRUCTURAL_PROPERTY": 3
+  },
+  "positive_vector_count": 12,
+  "real_registry_access": false,
+  "receipt_sha256": "5896be76c8dc3bc48d10c3878b33e29f5771ff2b3837c30ec7794e71a68f1e14",
+  "schema": "c5k4-method-v1.5-five-strata-classifier-readiness-1.0",
+  "selection_performed": false,
+  "status": "PRE_P1_TARGET_BLIND_CLASSIFIER_CLOSURE_READY",
+  "target_data_read": false
+}

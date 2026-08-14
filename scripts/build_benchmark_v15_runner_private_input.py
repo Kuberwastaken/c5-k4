@@ -33,6 +33,7 @@ import build_benchmark_v15_identity_hits as identity_hits  # noqa: E402
 import build_benchmark_v15_vendor_bases as vendor  # noqa: E402
 import method_v15_s3_object_lock_store as s3_store  # noqa: E402
 import resolve_benchmark_v15_p1_roles as p1_roles  # noqa: E402
+import verify_benchmark_v15_classifier_runtime as classifier_runtime  # noqa: E402
 import verify_benchmark_v15_private_custody as custody  # noqa: E402
 import verify_benchmark_v15_participant_noninterference as noninterference_verifier  # noqa: E402
 
@@ -66,6 +67,17 @@ P1_SCOPE_ROLES = {
     "noninterference_verifier": ("participant_noninterference_verifier", "noninterference_verifier_sha256"),
     "operational_noninterference_key_commitment": ("operational_noninterference_key_commitment", "operational_noninterference_key_commitment_sha256"),
     "operational_noninterference_key_commitment_schema": ("operational_noninterference_key_commitment_schema", "operational_noninterference_key_commitment_schema_sha256"),
+    "classifier_readiness_receipt": ("classifier_readiness_receipt", "classifier_readiness_receipt_sha256"),
+}
+P1_RUNTIME_ROLES = {
+    "classifier_runtime_binding_schema": (
+        ROOT / "schemas/benchmark-classifier-runtime-binding-v1.5.schema.json",
+        "classifier_runtime_binding_schema_sha256",
+    ),
+    "classifier_runtime_verifier": (
+        Path(classifier_runtime.__file__).resolve(),
+        "classifier_runtime_verifier_sha256",
+    ),
 }
 
 
@@ -224,6 +236,16 @@ def _validate_p1_scope(request: dict[str, Any], raw: dict[str, bytes | list[byte
         expected = scope[scope_key]
         if not isinstance(row, dict) or row.get("sha256") != expected or sha256(value) != expected:
             raise AssemblyError(f"{artifact} does not resolve through exact P1 native bytes")
+    for role, (path, scope_key) in P1_RUNTIME_ROLES.items():
+        row = components.get(role)
+        expected = scope[scope_key]
+        if (
+            not isinstance(row, dict)
+            or row.get("sha256") != expected
+            or row.get("path") != path.relative_to(ROOT).as_posix()
+            or sha256_file(path) != expected
+        ):
+            raise AssemblyError(f"{role} does not resolve through executing P1 native bytes")
     participant = _json(raw["participant_ledger"])  # type: ignore[arg-type]
     boundary = _json(raw["source_boundary"])  # type: ignore[arg-type]
     receipt = _json(raw["noninterference_receipt"])  # type: ignore[arg-type]
@@ -439,6 +461,7 @@ def verify_private_replay(
     request: dict[str, Any], raw: dict[str, bytes | list[bytes]], work: Path
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     """Re-execute the frozen registry against two distinct isolated stores."""
+    _verify_classifier_runtime(raw, work)
     u1 = _json(raw["u1_receipt"])  # type: ignore[arg-type]
     capture = _json(raw["checkpoint_capture"])  # type: ignore[arg-type]
     v14 = _json(raw["v14_exclusion"])  # type: ignore[arg-type]
@@ -503,6 +526,82 @@ def verify_private_replay(
     if supplied.get("registry_sha256") != future.registry_digest(supplied):
         raise AssemblyError("private registry self-digest mismatch")
     return ledgers, pack
+
+
+def _verify_classifier_runtime(
+    raw: dict[str, bytes | list[bytes]], work: Path
+) -> dict[str, Any]:
+    """Authenticate classifier/runtime closure before any target-row parse."""
+    try:
+        resolution_raw = raw["p1_role_resolution"]
+        readiness_raw = raw["classifier_readiness_receipt"]
+        classifier_raw = raw["classifier"]
+        assert isinstance(resolution_raw, bytes)
+        assert isinstance(readiness_raw, bytes)
+        assert isinstance(classifier_raw, bytes)
+
+        resolution = classifier_runtime.strict_json(
+            resolution_raw, "P1 role resolution"
+        )
+        roles = {
+            (row.get("closure"), row.get("role")): row
+            for row in resolution.get("resolved_roles", [])
+            if isinstance(row, dict)
+        }
+        components: dict[str, dict[str, str]] = {}
+        for name, (closure_name, role_name) in classifier_runtime.EXPECTED_COMPONENTS.items():
+            row = roles.get((closure_name, role_name))
+            if not isinstance(row, dict):
+                raise AssemblyError("classifier runtime role is absent")
+            components[name] = {
+                "closure": closure_name,
+                "role": role_name,
+                "path": row["path"],
+                "sha256": row["sha256"],
+            }
+
+        resolution_path = work / "p1-role-resolution.json"
+        readiness_path = work / "classifier-readiness.json"
+        classifier_path = work / "classifier.json"
+        resolution_path.write_bytes(resolution_raw)
+        readiness_path.write_bytes(readiness_raw)
+        classifier_path.write_bytes(classifier_raw)
+        binding = {
+            "schema": "c5k4-method-v1.5-classifier-runtime-binding-1.0",
+            "status": "FROZEN_P1_PRE_REGISTRY_CLASSIFIER_BINDING",
+            "target_data_access_permitted": False,
+            "future_registry_invocation_started": False,
+            "p1_role_resolution": {
+                "path": str(resolution_path.resolve()),
+                "sha256": sha256(resolution_raw),
+            },
+            "classifier_readiness_receipt": {
+                "path": str(readiness_path.resolve()),
+                "sha256": sha256(readiness_raw),
+            },
+            "consumed_classifier": {
+                "path": str(classifier_path.resolve()),
+                "sha256": sha256(classifier_raw),
+            },
+            "components": components,
+        }
+        binding_path = work / "classifier-runtime-binding.json"
+        binding_path.write_bytes(canonical_json(binding))
+        result = classifier_runtime.verify(binding_path)
+        if (
+            result.get("status")
+            != "CLASSIFIER_RUNTIME_AUTHENTICATED_BEFORE_REGISTRY"
+            or result.get("target_data_read") is not False
+            or result.get("future_registry_invocation_started") is not False
+        ):
+            raise AssemblyError("classifier runtime verifier returned unsafe status")
+        return result
+    except Exception as exc:
+        if isinstance(exc, AssemblyError):
+            raise
+        raise AssemblyError(
+            "classifier runtime gate failed before registry access"
+        ) from exc
 
 
 def _fsync_dir(path: Path) -> None:

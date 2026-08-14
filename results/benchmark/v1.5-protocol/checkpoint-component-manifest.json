@@ -27,7 +27,10 @@
       "contract": {"closure": "NATIVE_V1_5", "role": "five_strata_classifier_contract"},
       "contract_schema": {"closure": "NATIVE_V1_5", "role": "five_strata_classifier_contract_schema"},
       "policy": {"closure": "INHERITED_V1_4", "role": "five_strata_classifier"},
+      "readiness_receipt": {"closure": "NATIVE_V1_5", "role": "classifier_readiness_receipt"},
       "readiness_schema": {"closure": "NATIVE_V1_5", "role": "five_strata_classifier_readiness_schema"},
+      "runtime_binding_schema": {"closure": "NATIVE_V1_5", "role": "classifier_runtime_binding_schema"},
+      "runtime_verifier": {"closure": "NATIVE_V1_5", "role": "classifier_runtime_verifier"},
       "test": {"closure": "NATIVE_V1_5", "role": "five_strata_classifier_closure_contract_test"},
       "validator": {"closure": "NATIVE_V1_5", "role": "five_strata_classifier_closure_validator"}
     },

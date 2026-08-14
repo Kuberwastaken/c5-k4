@@ -188,10 +188,11 @@
         },
         "classification": {
           "type": "object", "additionalProperties": false,
-          "required": ["policy", "contract", "contract_schema", "readiness_schema", "validator", "test"],
+          "required": ["policy", "contract", "contract_schema", "readiness_receipt", "readiness_schema", "validator", "test", "runtime_binding_schema", "runtime_verifier"],
           "properties": {
             "policy": {"$ref": "#/definitions/artifactRef"}, "contract": {"$ref": "#/definitions/artifactRef"},
-            "contract_schema": {"$ref": "#/definitions/artifactRef"}, "readiness_schema": {"$ref": "#/definitions/artifactRef"},
+            "contract_schema": {"$ref": "#/definitions/artifactRef"}, "readiness_receipt": {"$ref": "#/definitions/artifactRef"}, "readiness_schema": {"$ref": "#/definitions/artifactRef"},
+            "runtime_binding_schema": {"$ref": "#/definitions/artifactRef"}, "runtime_verifier": {"$ref": "#/definitions/artifactRef"},
             "validator": {"$ref": "#/definitions/artifactRef"}, "test": {"$ref": "#/definitions/artifactRef"}
           }
         },

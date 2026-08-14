@@ -39,6 +39,9 @@ P1_SCOPE_EXTRA = {
     "noninterference_verifier_sha256": "8" * 64,
     "operational_noninterference_key_commitment_sha256": "9" * 64,
     "operational_noninterference_key_commitment_schema_sha256": "a" * 64,
+    "classifier_readiness_receipt_sha256": "b" * 64,
+    "classifier_runtime_binding_schema_sha256": "c" * 64,
+    "classifier_runtime_verifier_sha256": "d" * 64,
 }
 
 
@@ -86,6 +89,7 @@ def request() -> dict:
         "noninterference_verifier", "noninterference_verification_key",
         "operational_noninterference_key_commitment",
         "operational_noninterference_key_commitment_schema",
+        "classifier_readiness_receipt",
         "service_epoch_binding",
         "replay_acquisition_receipt", "primary_private_registry",
         "replayed_private_registry",
@@ -198,6 +202,7 @@ class PrivateAssemblerContractTests(unittest.TestCase):
             "noninterference_receipt_schema", "noninterference_verifier",
             "noninterference_verification_key", "operational_noninterference_key_commitment",
             "operational_noninterference_key_commitment_schema",
+            "classifier_readiness_receipt",
         ):
             mutated = copy.deepcopy(value)
             del mutated["artifacts"][artifact]
@@ -259,6 +264,9 @@ class PrivateAssemblerContractTests(unittest.TestCase):
             "operational_noninterference_key_commitment": A.canonical_json(commitment),
             "operational_noninterference_key_commitment_schema": (A.ROOT / "schemas" / A.NONINTERFERENCE_KEY_COMMITMENT_SCHEMA).read_bytes(),
             "p1_role_resolution": b"placeholder",
+            "classifier_readiness_receipt": (
+                A.ROOT / "results/benchmark/v1.5-protocol/five-strata-classifier-readiness.json"
+            ).read_bytes(),
         }
         value["p1_scope"].update({
             "participant_ledger_sha256": participant["ledger_sha256"],
@@ -269,10 +277,20 @@ class PrivateAssemblerContractTests(unittest.TestCase):
             "noninterference_verifier_sha256": A.sha256(raw["noninterference_verifier"]),
             "operational_noninterference_key_commitment_sha256": A.sha256(raw["operational_noninterference_key_commitment"]),
             "operational_noninterference_key_commitment_schema_sha256": A.sha256(raw["operational_noninterference_key_commitment_schema"]),
+            "classifier_readiness_receipt_sha256": A.sha256(raw["classifier_readiness_receipt"]),
+            "classifier_runtime_binding_schema_sha256": A.sha256_file(A.P1_RUNTIME_ROLES["classifier_runtime_binding_schema"][0]),
+            "classifier_runtime_verifier_sha256": A.sha256_file(A.P1_RUNTIME_ROLES["classifier_runtime_verifier"][0]),
         })
         roles = []
         for artifact, (role, scope_key) in A.P1_SCOPE_ROLES.items():
             roles.append({"role": role, "closure": "NATIVE_V1_5", "sha256": value["p1_scope"][scope_key]})
+        for role, (path, scope_key) in A.P1_RUNTIME_ROLES.items():
+            roles.append({
+                "role": role,
+                "closure": "NATIVE_V1_5",
+                "path": path.relative_to(A.ROOT).as_posix(),
+                "sha256": value["p1_scope"][scope_key],
+            })
         resolution = {"status": "AUTHENTICATED_PUBLISHED_P1_ROLE_CLOSURE", "operational": True, "resolved_roles": roles}
         resolution["resolution_sha256"] = "r" * 64
         value["p1_scope"]["role_resolution_sha256"] = "r" * 64
@@ -456,17 +474,46 @@ class PrivateAssemblerContractTests(unittest.TestCase):
             "replayed_private_registry": registry_raw,
             "primary_acquisition_receipt": b"{}",
             "replay_acquisition_receipt": b"{}",
+            "p1_role_resolution": b"{}",
+            "classifier_readiness_receipt": b"{}",
         }
         repos = (Path("/private/primary.git"), Path("/private/replay.git"))
         with tempfile.TemporaryDirectory() as temporary, \
                 mock.patch.object(A, "_validate"), \
                 mock.patch.object(A, "_validate_acquisitions", return_value=repos), \
                 mock.patch.object(A.identity_hits, "load_content_pack", return_value={}), \
+                mock.patch.object(A, "_verify_classifier_runtime"), \
                 mock.patch.object(A.future, "build", side_effect=[result, result]) as build:
             A.verify_private_replay(request(), raw, Path(temporary))
         self.assertEqual(build.call_count, 2)
         self.assertEqual(build.call_args_list[0].kwargs["repository"], repos[0])
         self.assertEqual(build.call_args_list[1].kwargs["repository"], repos[1])
+
+    def test_classifier_runtime_gate_precedes_target_parse_and_registry_build(self) -> None:
+        raw = {
+            "p1_role_resolution": b"{}",
+            "classifier_readiness_receipt": b"{}",
+            "classifier": b"{}",
+            "u1_receipt": b"target",
+        }
+        events: list[str] = []
+
+        def refuse_gate(_raw: object, _work: Path) -> None:
+            events.append("gate")
+            raise A.AssemblyError("refused")
+
+        def parsed(_raw: bytes) -> dict:
+            events.append("parse")
+            return {}
+
+        with tempfile.TemporaryDirectory() as temporary, \
+                mock.patch.object(A, "_verify_classifier_runtime", side_effect=refuse_gate), \
+                mock.patch.object(A, "_json", side_effect=parsed), \
+                mock.patch.object(A.future, "build") as build, \
+                self.assertRaises(A.AssemblyError):
+            A.verify_private_replay(request(), raw, Path(temporary))
+        self.assertEqual(events, ["gate"])
+        build.assert_not_called()
 
 
 def canonical(value: object) -> bytes:

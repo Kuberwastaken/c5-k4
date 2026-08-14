@@ -152,12 +152,15 @@
         },
         "classification": {
           "type": "object", "additionalProperties": false,
-          "required": ["policy", "contract", "contract_schema", "readiness_schema", "validator", "test"],
+          "required": ["policy", "contract", "contract_schema", "readiness_receipt", "readiness_schema", "validator", "test", "runtime_binding_schema", "runtime_verifier"],
           "properties": {
             "policy": {"$ref": "#/definitions/inherited/five_strata_classifier"},
             "contract": {"$ref": "#/definitions/native/five_strata_classifier_contract"},
             "contract_schema": {"$ref": "#/definitions/native/five_strata_classifier_contract_schema"},
+            "readiness_receipt": {"$ref": "#/definitions/native/classifier_readiness_receipt"},
             "readiness_schema": {"$ref": "#/definitions/native/five_strata_classifier_readiness_schema"},
+            "runtime_binding_schema": {"$ref": "#/definitions/native/classifier_runtime_binding_schema"},
+            "runtime_verifier": {"$ref": "#/definitions/native/classifier_runtime_verifier"},
             "validator": {"$ref": "#/definitions/native/five_strata_classifier_closure_validator"},
             "test": {"$ref": "#/definitions/native/five_strata_classifier_closure_contract_test"}
           }
@@ -319,6 +322,9 @@
       ,"five_strata_classifier_readiness_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "five_strata_classifier_readiness_schema"}}}]}
       ,"five_strata_classifier_closure_validator": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "five_strata_classifier_closure_validator"}}}]}
       ,"five_strata_classifier_closure_contract_test": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "five_strata_classifier_closure_contract_test"}}}]}
+      ,"classifier_readiness_receipt": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "classifier_readiness_receipt"}}}]}
+      ,"classifier_runtime_binding_schema": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "classifier_runtime_binding_schema"}}}]}
+      ,"classifier_runtime_verifier": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "NATIVE_V1_5"}, "role": {"const": "classifier_runtime_verifier"}}}]}
     },
     "inherited": {
       "five_strata_classifier": {"allOf": [{"$ref": "#/definitions/selector"}, {"properties": {"closure": {"const": "INHERITED_V1_4"}, "role": {"const": "five_strata_classifier"}}}]},
