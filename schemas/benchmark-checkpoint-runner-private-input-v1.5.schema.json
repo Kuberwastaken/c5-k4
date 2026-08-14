@@ -4,10 +4,20 @@
   "title": "Method v1.5 private checkpoint-runner input contract",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema", "status", "checkpoint", "custody", "registry", "replay"],
+  "required": ["schema", "status", "runner_contract", "checkpoint", "custody", "registry", "replay"],
   "properties": {
     "schema": {"const": "c5k4-method-v1.5-checkpoint-runner-private-input-1.0"},
     "status": {"const": "PRIVATE_CUSTODY_READY"},
+    "runner_contract": {
+      "type": "object", "additionalProperties": false,
+      "required": ["mode", "runner_path", "invocation_contract_path", "private_input_argument"],
+      "properties": {
+        "mode": {"const": "CAPTURE"},
+        "runner_path": {"const": "scripts/run_benchmark_v15_checkpoint.py"},
+        "invocation_contract_path": {"const": "results/benchmark/v1.5-protocol/checkpoint-invocation-contract.json"},
+        "private_input_argument": {"const": "--private-input"}
+      }
+    },
     "checkpoint": {
       "type": "object", "additionalProperties": false,
       "required": ["scheduled_for_utc", "public_chain_proof_sha256"],

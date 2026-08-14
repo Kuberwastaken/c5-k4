@@ -21,6 +21,31 @@
   "runner": {
     "path": "scripts/run_benchmark_v15_checkpoint.py",
     "sha256": null,
+    "invocation_contract": {
+      "common_required_arguments": [
+        "--contract",
+        "--u1-receipt",
+        "--scheduled-for-utc",
+        "--event-name",
+        "--run-attempt",
+        "--public-chain-proof",
+        "--public-repository",
+        "--output"
+      ],
+      "capture_required_argument": "--private-input",
+      "terminal_gap_required_argument": "--terminal-chronology-gap",
+      "capture_without_private_input_permitted": false,
+      "terminal_gap_with_private_input_permitted": false,
+      "unknown_arguments_permitted": false
+    },
+    "private_input": {
+      "schema_path": "schemas/benchmark-checkpoint-runner-private-input-v1.5.schema.json",
+      "schema_sha256": null,
+      "runner_temp_relative_path": "method-v15-private-input/private-input.json",
+      "path_source": "FROZEN_CAPTURE_ADAPTER_STAGING_ONLY",
+      "workflow_download_or_discovery_permitted": false,
+      "terminal_gap_read_permitted": false
+    },
     "stdout_publication_permitted": false,
     "stderr_publication_permitted": false
   },
@@ -103,6 +128,7 @@
     "valid_u1_receipt_required": true,
     "workflow_sha256_required": true,
     "runner_sha256_required": true,
+    "private_input_schema_sha256_required": true,
     "all_bound_digest_values_required": true
   }
 }

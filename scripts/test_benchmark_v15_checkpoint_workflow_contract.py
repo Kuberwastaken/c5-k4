@@ -36,12 +36,17 @@ def validate(workflow: Path, contract_path: Path, *, runtime: bool = False) -> N
             raise ValueError(f"forbidden workflow trigger: {forbidden}")
     if "group: method-v15-checkpoint-publication" not in text or "cancel-in-progress: false" not in text:
         raise ValueError("checkpoint publication is not serialized without cancellation")
+    runtime_gate = text.find("--runtime >/dev/null 2>&1")
+    if runtime_gate < 0 or runtime_gate > text.find("git fetch --no-tags origin"):
+        raise ValueError("pre-P1 silent fail-closed gate does not precede publication-chain access")
     for required in (
         "github.event_name", "github.run_attempt", "sha256sum .github/workflows/method-v15-checkpoint.yml",
         "git checkout --detach \"$frozen_commit\"", "git push --atomic origin \"HEAD:refs/heads/",
         "verify_benchmark_v15_public_checkpoint_chain.py",
         "--public-chain-proof \"$PUBLIC_CHAIN_PROOF\"",
         "TERMINAL_CHRONOLOGY_GAP", "--terminal-chronology-gap",
+        "elif [[ \"$CHECKPOINT_MODE\" = CAPTURE ]]", "args+=(--private-input \"$private_input\")",
+        "test -f \"$private_input\"",
         "jq -er '.next_checkpoint.scheduled_for_utc'",
         "test \"$(git rev-parse HEAD)\" = \"$CHAIN_TIP\"",
         "test ! -e \"$checkpoint_tree/$destination\"",
@@ -80,6 +85,30 @@ def validate(workflow: Path, contract_path: Path, *, runtime: bool = False) -> N
         raise ValueError("publication genesis is not anchored directly to P1T")
     if publication.get("server_update_rule") != "ATOMIC_NORMAL_FAST_FORWARD_PUSH_FROM_VERIFIED_PUBLIC_TIP":
         raise ValueError("publication does not require an atomic normal fast-forward push")
+    runner = contract.get("runner", {})
+    if runner.get("path") != "scripts/run_benchmark_v15_checkpoint.py":
+        raise ValueError("runner path contract is not exact")
+    invocation = runner.get("invocation_contract", {})
+    if invocation.get("capture_required_argument") != "--private-input" or invocation.get("capture_without_private_input_permitted") is not False:
+        raise ValueError("CAPTURE does not require the private input argument")
+    if invocation.get("terminal_gap_required_argument") != "--terminal-chronology-gap" or invocation.get("terminal_gap_with_private_input_permitted") is not False:
+        raise ValueError("terminal gap does not forbid private input")
+    private_input = runner.get("private_input", {})
+    if private_input.get("schema_path") != "schemas/benchmark-checkpoint-runner-private-input-v1.5.schema.json":
+        raise ValueError("private-input schema path is not exact")
+    if private_input.get("runner_temp_relative_path") != "method-v15-private-input/private-input.json":
+        raise ValueError("private-input staging path is not exact")
+    if private_input.get("workflow_download_or_discovery_permitted") is not False or private_input.get("terminal_gap_read_permitted") is not False:
+        raise ValueError("private-input custody boundary is not fail-closed")
+    production = text.split("if [[ \"$CHECKPOINT_MODE\" = TERMINAL_CHRONOLOGY_GAP ]]", 1)
+    if len(production) != 2:
+        raise ValueError("workflow lacks the terminal/CAPTURE mode split")
+    terminal_body, capture_tail = production[1].split("elif [[ \"$CHECKPOINT_MODE\" = CAPTURE ]]", 1)
+    capture_body = capture_tail.split("else", 1)[0]
+    if "--private-input" in terminal_body or "private_input" in terminal_body:
+        raise ValueError("terminal gap receives or reads private input")
+    if "args+=(--private-input \"$private_input\")" not in capture_body:
+        raise ValueError("CAPTURE does not pass the private input")
     certificate = contract.get("aggregate_certificate", {})
     if certificate.get("identity_rows_permitted") is not False or certificate.get("statement_text_permitted") is not False:
         raise ValueError("aggregate certificate permits target-bearing content")
@@ -103,6 +132,10 @@ def validate(workflow: Path, contract_path: Path, *, runtime: bool = False) -> N
             raise ValueError("active contract does not bind the exact workflow bytes")
         if not isinstance(runner_sha, str) or HEX64.fullmatch(runner_sha) is None:
             raise ValueError("active contract does not bind the checkpoint runner")
+        private_schema_sha = private_input.get("schema_sha256")
+        private_schema_path = ROOT / private_input["schema_path"]
+        if not isinstance(private_schema_sha, str) or HEX64.fullmatch(private_schema_sha) is None or digest(private_schema_path) != private_schema_sha:
+            raise ValueError("active contract does not bind the private-input schema")
     elif runtime:
         raise ValueError("pre-P1 checkpoint scaffold is intentionally non-executable")
 
@@ -146,6 +179,17 @@ class WorkflowContractMutationTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "not serialized"):
                 validate(workflow, contract)
 
+    def test_pre_p1_gate_must_remain_silent_and_first(self) -> None:
+        temporary, workflow, contract = self.fixture()
+        with temporary:
+            workflow.write_text(
+                workflow.read_text(encoding="utf-8").replace(
+                    "--runtime >/dev/null 2>&1", "--runtime", 1
+                ), encoding="utf-8",
+            )
+            with self.assertRaisesRegex(ValueError, "silent fail-closed gate"):
+                validate(workflow, contract)
+
     def test_active_contract_requires_exact_workflow_hash(self) -> None:
         temporary, workflow, contract_path = self.fixture()
         with temporary:
@@ -156,6 +200,29 @@ class WorkflowContractMutationTests(unittest.TestCase):
             contract_path.write_text(json.dumps(contract), encoding="utf-8")
             with self.assertRaisesRegex(ValueError, "exact workflow bytes"):
                 validate(workflow, contract_path)
+
+    def test_capture_private_input_argument_is_required(self) -> None:
+        temporary, workflow, contract = self.fixture()
+        with temporary:
+            workflow.write_text(
+                workflow.read_text(encoding="utf-8").replace(
+                    "            args+=(--private-input \"$private_input\")\n", "", 1
+                ), encoding="utf-8",
+            )
+            with self.assertRaisesRegex(ValueError, "missing required frozen behavior|does not pass"):
+                validate(workflow, contract)
+
+    def test_terminal_gap_cannot_receive_private_input(self) -> None:
+        temporary, workflow, contract = self.fixture()
+        with temporary:
+            workflow.write_text(
+                workflow.read_text(encoding="utf-8").replace(
+                    "            args+=(--terminal-chronology-gap)\n",
+                    "            args+=(--terminal-chronology-gap --private-input secret)\n", 1,
+                ), encoding="utf-8",
+            )
+            with self.assertRaisesRegex(ValueError, "terminal gap receives"):
+                validate(workflow, contract)
 
 
 def main() -> int:

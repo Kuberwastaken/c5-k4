@@ -37,7 +37,7 @@ jobs:
           python3 scripts/test_benchmark_v15_checkpoint_workflow_contract.py \
             --workflow .github/workflows/method-v15-checkpoint.yml \
             --contract "$CONTRACT_PATH" \
-            --runtime
+            --runtime >/dev/null 2>&1
           python3 - "$CONTRACT_PATH" "$EVENT_NAME" "$RUN_ATTEMPT" <<'PY'
           import json, re, sys
           from pathlib import Path
@@ -146,7 +146,12 @@ jobs:
           )
           if [[ "$CHECKPOINT_MODE" = TERMINAL_CHRONOLOGY_GAP ]]; then
             args+=(--terminal-chronology-gap)
-          elif [[ "$CHECKPOINT_MODE" != CAPTURE ]]; then
+          elif [[ "$CHECKPOINT_MODE" = CAPTURE ]]; then
+            private_relative=$(jq -er '.runner.private_input.runner_temp_relative_path' "$CONTRACT_PATH")
+            private_input="$RUNNER_TEMP/$private_relative"
+            test -f "$private_input"
+            args+=(--private-input "$private_input")
+          else
             echo 'Unrecognized frozen checkpoint mode.' >&2
             exit 2
           fi

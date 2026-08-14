@@ -145,6 +145,18 @@ def validate_contract(path: Path, event_name: str, run_attempt: int) -> dict[str
     runner = contract.get("runner", {})
     if runner.get("path") != "scripts/run_benchmark_v15_checkpoint.py":
         raise RunnerError("unexpected frozen runner path")
+    invocation = runner.get("invocation_contract", {})
+    if invocation.get("capture_required_argument") != "--private-input" or invocation.get("capture_without_private_input_permitted") is not False:
+        raise RunnerError("CAPTURE private-input interface differs from the runner")
+    if invocation.get("terminal_gap_required_argument") != "--terminal-chronology-gap" or invocation.get("terminal_gap_with_private_input_permitted") is not False:
+        raise RunnerError("terminal-gap private-input interface differs from the runner")
+    private_input = runner.get("private_input", {})
+    if private_input.get("schema_path") != "schemas/benchmark-checkpoint-runner-private-input-v1.5.schema.json":
+        raise RunnerError("unexpected private-input schema path")
+    expected_private_schema = private_input.get("schema_sha256")
+    actual_private_schema = sha256_file(ROOT / private_input["schema_path"])
+    if not isinstance(expected_private_schema, str) or expected_private_schema != actual_private_schema:
+        raise RunnerError("private-input schema bytes are not P1-frozen")
     expected_runner = runner.get("sha256")
     if not isinstance(expected_runner, str) or expected_runner != sha256_file(Path(__file__).resolve()):
         raise RunnerError("runner bytes are not the P1-frozen bytes")

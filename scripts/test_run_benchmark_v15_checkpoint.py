@@ -47,6 +47,12 @@ class RunnerBoundaryTests(unittest.TestCase):
         value = {
             "schema": R.PRIVATE_INPUT_SCHEMA,
             "status": "PRIVATE_CUSTODY_READY",
+            "runner_contract": {
+                "mode": "CAPTURE",
+                "runner_path": "scripts/run_benchmark_v15_checkpoint.py",
+                "invocation_contract_path": "results/benchmark/v1.5-protocol/checkpoint-invocation-contract.json",
+                "private_input_argument": "--private-input",
+            },
             "checkpoint": {
                 "scheduled_for_utc": "2026-08-14T00:17:00Z",
                 "public_chain_proof_sha256": "9" * 64,
@@ -127,6 +133,13 @@ class RunnerBoundaryTests(unittest.TestCase):
         path = self.write("private-input.json", value)
         with self.assertRaisesRegex(R.RunnerError, "another checkpoint"):
             R.validate_private_input(path, "2026-08-15T00:17:00Z", self.proof())
+
+    def test_private_manifest_rejects_another_runner_contract(self) -> None:
+        value, _ = self.private_input()
+        value["runner_contract"]["runner_path"] = "scripts/another_runner.py"
+        path = self.write("wrong-runner-input.json", value)
+        with self.assertRaisesRegex(R.RunnerError, "frozen schema"):
+            R.validate_private_input(path, "2026-08-14T00:17:00Z", self.proof())
 
     def test_private_manifest_rejects_tampered_content_address(self) -> None:
         value, files = self.private_input()
