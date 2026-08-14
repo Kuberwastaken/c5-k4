@@ -296,10 +296,15 @@ reached a nearby equality wall without crossing it. This exhausts only the
 frozen factor-profile catalogues, not all `k` or the conjecture. See the
 [A067720 result](results/expansion/live-search-2026-08-14/oeis-a067720-development/result.md).
 
-A108569 is now the active independent rotation. Its source/status and
-resolution-shape preflight passed; the remaining pre-freeze requirement is a
-target-free odd-support catalogue benchmark under the 48-second cap. No
-A108569 target coordinate has been evaluated.
+A108569 is now the active independent rotation. Its audit-clean DEVELOPMENT
+freeze is running in [GitHub Actions](https://github.com/Kuberwastaken/c5-k4/actions/runs/31830066668)
+from immutable commit `bf8ed2e`. The source-control arm and two odd-support
+profile arms respectively cover 384 source rows, 34,066 one- and two-prime
+profiles, and 745,665 three-prime collision profiles against an 880,891-entry
+endpoint catalogue. The freeze also includes a target-free, warning-clean
+Lean bridge from any odd sequence member to a concrete positive index; any
+surviving candidate must still receive its own no-`sorry` theorem before it is
+release-eligible. This is a prospective DEVELOPMENT trial, not yet a result.
 
 The [post-A056777 ranking](results/expansion/live-search-2026-08-14/next-deepmind-rotation-after-a056777.md)
 records the current source/status, duplicate, certificate-shape, and stop-rule
