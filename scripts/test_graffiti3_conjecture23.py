@@ -51,6 +51,25 @@ class Graffiti3Conjecture23FreezeTests(unittest.TestCase):
             self.assertEqual(row.residual_w, 0)
             self.assertTrue(row.is_p_group)
 
+    def test_gap_profile_source_uses_function_local_variables(self) -> None:
+        source = target.gap_profile_source("SmallGroup(256,1)", "fixture")
+        self.assertIn("C5K4Profile:=function()", source)
+        self.assertIn("local G,D,Z;", source)
+        self.assertIn("  G:=SmallGroup(256,1);;", source)
+        self.assertFalse(any(line.startswith("G:=") for line in source.splitlines()))
+
+    def test_profile_marker_failure_preserves_gap_output_tail(self) -> None:
+        with self.assertRaisesRegex(target.SearchError, "Variable.*read only"):
+            target.unique_marker("Variable: 'G' is read only\n", "@@PROFILE@@")
+
+    def test_gap_table_source_and_parser_fixture(self) -> None:
+        source = target.gap_table_source("SmallGroup(2,1)", "C2")
+        self.assertIn("C5K4Table:=function()", source)
+        self.assertIn("local G,els,n,i,j;", source)
+        self.assertFalse(any(line.startswith("G:=") for line in source.splitlines()))
+        stdout = "@@TABLE_BEGIN@@\tC2\t2\n0,1\n1,0\n@@TABLE_END@@\n"
+        self.assertEqual(target.parse_gap_table(stdout, "C2", 2), [[0, 1], [1, 0]])
+
     def test_database_gate_chunks_cover_snapshot_exactly(self) -> None:
         chunks = [
             target.database_gate_chunk_coordinates(chunk)

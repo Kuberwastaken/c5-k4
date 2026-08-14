@@ -51,7 +51,7 @@
     },
     {
       "path": "scripts/search_graffiti3_conjecture23.py",
-      "sha256": "1458948f4b1bde52fb3463c5add86de6c78a731600c0c52813071da5ebb7fdcf"
+      "sha256": "a6d514ce6635d9a4b984f223c6e35a1b4cf79d7c37211d4803d38e2ee5b65bd3"
     },
     {
       "path": "scripts/prepare_graffiti3_conjecture23_gate.py",
@@ -63,7 +63,7 @@
     },
     {
       "path": "scripts/test_graffiti3_conjecture23.py",
-      "sha256": "e54a3dcf9986396af315bcafb999193a5eb94cdf240cd79fe47938a0a5ae2e5b"
+      "sha256": "7109b6b56ee70f43bdbd9ce82083dbf3824c744fbc64843f4e8a870ccb559701"
     },
     {
       "path": "results/expansion/live-search-2026-08-14/graffiti3-conjecture23-source-status.md",

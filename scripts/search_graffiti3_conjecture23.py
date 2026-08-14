@@ -216,10 +216,14 @@ def write_terminal(path: Path, ledger: DurableLedger, reason: str, extra: Mappin
 def gap_profile_source(expression: str, identity: str) -> str:
     # expression is generated only by this frozen module.
     return f'''SetPrintFormattingStatus("*stdout*",false);;
-G:={expression};; D:=DerivedSubgroup(G);; Z:=Centre(G);;
-Print("@@PROFILE@@\\t{identity}\\t",Size(G),"\\t",Size(D),"\\t",
- Size(FactorGroup(G,D)),"\\t",Size(Z),"\\t",NrConjugacyClasses(G),"\\t",
- IsPGroup(G),"\\t@@END@@\\n");
+C5K4Profile:=function()
+  local G,D,Z;
+  G:={expression};; D:=DerivedSubgroup(G);; Z:=Centre(G);;
+  Print("@@PROFILE@@\\t{identity}\\t",Size(G),"\\t",Size(D),"\\t",
+   Size(FactorGroup(G,D)),"\\t",Size(Z),"\\t",NrConjugacyClasses(G),"\\t",
+   IsPGroup(G),"\\t@@END@@\\n");
+end;;
+C5K4Profile();;
 QUIT_GAP(0);
 '''
 
@@ -284,14 +288,19 @@ def run_gap(gap: str, source: str, timeout_seconds: float) -> str:
     except subprocess.TimeoutExpired as exc:
         raise QueryTimeout("GAP query exceeded separate cap") from exc
     if result.returncode != 0:
-        raise SearchError(f"GAP failed: {result.stderr[-1000:]}")
+        raise SearchError(
+            "GAP failed; stdout tail: " + result.stdout[-1000:]
+            + "; stderr tail: " + result.stderr[-1000:]
+        )
     return result.stdout
 
 
 def unique_marker(stdout: str, prefix: str) -> str:
     rows = [line for line in stdout.splitlines() if line.startswith(prefix)]
     if len(rows) != 1:
-        raise SearchError(f"expected one {prefix} marker")
+        raise SearchError(
+            f"expected one {prefix} marker; GAP output tail: {stdout[-1000:]}"
+        )
     return rows[0]
 
 
@@ -558,14 +567,19 @@ def wall_table(dimension: int, outputs: Sequence[int]) -> list[list[int]]:
 
 def gap_table_source(expression: str, identity: str) -> str:
     return f'''SetPrintFormattingStatus("*stdout*",false);;
-G:={expression};; els:=AsSSortedList(G);; n:=Length(els);;
-Print("@@TABLE_BEGIN@@\\t{identity}\\t",n,"\\n");
-for i in [1..n] do
-  for j in [1..n] do
-    if j>1 then Print(","); fi; Print(PositionSorted(els,els[i]*els[j])-1);
-  od; Print("\\n");
-od;
-Print("@@TABLE_END@@\\n"); QUIT_GAP(0);
+C5K4Table:=function()
+  local G,els,n,i,j;
+  G:={expression};; els:=AsSSortedList(G);; n:=Length(els);;
+  Print("@@TABLE_BEGIN@@\\t{identity}\\t",n,"\\n");
+  for i in [1..n] do
+    for j in [1..n] do
+      if j>1 then Print(","); fi; Print(PositionSorted(els,els[i]*els[j])-1);
+    od; Print("\\n");
+  od;
+  Print("@@TABLE_END@@\\n");
+end;;
+C5K4Table();;
+QUIT_GAP(0);
 '''
 
 
@@ -576,7 +590,9 @@ def parse_gap_table(stdout: str, identity: str, order: int) -> list[list[int]]:
         start = lines.index(begin)
         finish = lines.index("@@TABLE_END@@", start + 1)
     except ValueError as exc:
-        raise SearchError("malformed GAP table marker") from exc
+        raise SearchError(
+            "malformed GAP table marker; GAP output tail: " + stdout[-1000:]
+        ) from exc
     rows = [[int(value) for value in line.split(",")] for line in lines[start + 1:finish]]
     if len(rows) != order or any(len(row) != order for row in rows):
         raise SearchError("incomplete GAP multiplication table")
