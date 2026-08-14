@@ -1,0 +1,32 @@
+{
+  "schema": "oeis-a067720-source-status-attestation-v1",
+  "audited_at_utc": "2026-08-14T17:38:27Z",
+  "candidate_pin": "05ea0345d09375efac830fac93bf083b654e317e",
+  "observed_upstream_main": "05ea0345d09375efac830fac93bf083b654e317e",
+  "observed_upstream_tree": "002d0d472115157683c0ecf7f2290f2383bea58f",
+  "declaration": "OeisA67720.prime_add_one_of_a",
+  "formal_conjectures_status": "research open",
+  "formal_conjectures_blob_sha256": "af8ae5ba8ebed4d7252b9cee3d6cb7e304f7971282db7f8954ce2f0da99d249e",
+  "oeis_commit": "8872fa543438401edd424a57b67ad5e0737bebfb",
+  "oeis_revision": "#18 Nov 21 2020 14:01:32",
+  "oeis_claim": "a(n)+1 is prime except for a(5)=8; asks whether 8 is the only additional value beyond A070689",
+  "source_reading": "UNAMBIGUOUS",
+  "known_exception": 8,
+  "catalogue_rows": 10000,
+  "catalogue_last": [10000, 1548870],
+  "open_exact_path_maintenance_prs": {
+    "4198": {
+      "classification": "NON_RESOLVING_STALE_NORMALIZATION",
+      "head_sha": "1cda50fe1496260c6fe6177543542dcc7acca1fb",
+      "file_sha256": "7387a319aad73fae84ab7088c5b2af1bca1736755ecc07c6a0d1ce7e47112282",
+      "rationale": "normalizes imports, namespace placement, OEIS link, and a-to-A naming; the literal target remains research open with sorry"
+    },
+    "4688": {
+      "classification": "NON_RESOLVING_MODULE_MAINTENANCE",
+      "head_sha": "5e22a9f1dac70e763f3a33dd9eeba59dd008b03f",
+      "file_sha256": "301a72ec827dedbc4e31baf87bf5a61d7380dacdabf89623ada0102288d6333e",
+      "rationale": "adds module/public import declarations; the target theorem text, open category, and sorry are unchanged"
+    }
+  },
+  "disposition": "DEVELOPMENT_ONLY_UNCLAIMED_AT_FREEZE"
+}

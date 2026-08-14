@@ -1,0 +1,23 @@
+{
+  "schema": "oeis-a067720-duplicate-scan-v1",
+  "audited_at_utc": "2026-08-14T17:38:27Z",
+  "queries": [
+    "repo:google-deepmind/formal-conjectures \"A067720\"",
+    "repo:google-deepmind/formal-conjectures \"prime_add_one_of_a\"",
+    "repo:Kuberwastaken/c5-k4 \"A067720\"",
+    "repo:Kuberwastaken/c5-k4 \"prime_add_one_of_a\""
+  ],
+  "known_upstream_items": [
+    {"number": 1878, "kind": "pull_request", "state": "closed", "role": "merged ingestion only"},
+    {"number": 1456, "kind": "issue", "state": "closed", "role": "unrelated item containing the identifier"}
+  ],
+  "known_batch_history": [4450],
+  "open_pull_request_target_path_matches": [
+    {"number": 4198, "classification": "NON_RESOLVING_STALE_NORMALIZATION", "head_sha": "1cda50fe1496260c6fe6177543542dcc7acca1fb", "file_sha256": "7387a319aad73fae84ab7088c5b2af1bca1736755ecc07c6a0d1ce7e47112282"},
+    {"number": 4688, "classification": "NON_RESOLVING_MODULE_MAINTENANCE", "head_sha": "5e22a9f1dac70e763f3a33dd9eeba59dd008b03f", "file_sha256": "301a72ec827dedbc4e31baf87bf5a61d7380dacdabf89623ada0102288d6333e"}
+  ],
+  "local_issue_or_pull_request_claims": [],
+  "local_release_claims": [],
+  "resolution_match_found": false,
+  "required_live_recheck": "workflow gate binds the exact four queries and complete results, exhausts open-PR files including renamed-away paths, rejects any target-path PR other than exact pinned non-resolving #4198/#4688 or any drift in those tuples, verifies #1878 is merged and #1456 is a closed non-PR, paginates local releases to a short final page, and rejects upstream-head or local claim drift"
+}

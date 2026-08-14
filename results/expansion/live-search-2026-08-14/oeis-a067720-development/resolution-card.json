@@ -1,0 +1,15 @@
+{
+  "schema": "resolution-card-v1",
+  "target": "OeisA67720.prime_add_one_of_a",
+  "logical_class": "FINITE_UNIVERSAL",
+  "target_negation": "there exists k != 8 with phi(k^2+1)=k*phi(k+1) and composite k+1",
+  "negation_certificate": "k; complete ordered prime factorizations of k+1 and k^2+1; exact totient products; residual zero; proper factor of k+1; catalogue exclusion",
+  "finite_witness_suffices": true,
+  "exact_residual": "R(k)=phi(k^2+1)-k*phi(k+1); target crossing is R(k)=0 inside the frozen composite-successor premise",
+  "answer_placeholder": false,
+  "eventual_quantifier": false,
+  "global_constant_quantifier": false,
+  "unbounded_auxiliary_search": false,
+  "source_reading": "UNAMBIGUOUS",
+  "development_set": true
+}

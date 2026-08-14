@@ -1,0 +1,23 @@
+{
+  "schema": "oeis-a067720-method-wall-v1",
+  "target": "OeisA67720.prime_add_one_of_a",
+  "baseline": "if k+1 and k^2+1 are prime, then R(k)=0; this entire prime-prime family is theorem-subtracted",
+  "known_exception": {
+    "k": 8,
+    "successor_factors": [[3, 2]],
+    "endpoint_factors": [[5, 1], [13, 1]],
+    "identity": "phi(65)=48=8*phi(9)"
+  },
+  "obstruction_identity": "all 9999 nonexceptional catalogue rows have prime k+1 and prime k^2+1; size alone does not leave the theorem baseline",
+  "separating_coordinate": "ordered exponent profile of composite s=k+1 together with the factor profile of m=s^2-2s+2",
+  "rigid_translation": "m=s^2-2s+2=k^2+1",
+  "sign_potential": [
+    {"term": "composite-successor premise", "prediction": "forced positive by q^e or q^e*r^f construction"},
+    {"term": "translated endpoint", "prediction": "pinned exactly by catalogue lookup m=s^2-2s+2"},
+    {"term": "R=phi(m)-(s-1)phi(s)", "prediction": "can reach zero after the prime-prime baseline is removed; k=8 is the calibration point"},
+    {"term": "certificate cost", "prediction": "bounded: both complete factorizations are carried by the matched profiles"}
+  ],
+  "pre_evaluation_feasible_point": "s=3^2 and m=5*13 is the source-declared control; the frozen catalogues perturb both exponent profiles away from it before any new residual is evaluated",
+  "evaluation_rule": "no residual is evaluated unless both profiles satisfy the exact rigid translation",
+  "outcome_scope": "one frozen two-profile MITM trial with two disjoint successor-shape arms"
+}
