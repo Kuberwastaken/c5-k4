@@ -25,7 +25,8 @@ Date: **2026-08-14 UTC**
 - Complete arithmetic-only Lean certificate: `88fd614`.
 - Independent exact verifier: `66d3b1a`.
 - Corrected GitHub Actions replay: `31789142496`.
-- Lean warning-as-error CI: **pending run `31789829781`**.
+- Lean warning-as-error CI: run `31790179797` passed against pinned upstream
+  commit `942fb149e782a56c2719c543ab58e093f733acb4`.
 
 ## Planned release
 
@@ -38,5 +39,5 @@ Date: **2026-08-14 UTC**
 
 ## Release lock
 
-Pending Lean CI, final documentation commit, annotated tag, publication, and
-immutable-link readback.
+Lean CI passed. Pending final documentation commit, annotated tag, publication,
+and immutable-link readback.

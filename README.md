@@ -308,7 +308,8 @@ same canonical graph independently. Balanced `DS(k,k)` supplies an infinite
 counterexample family for every `k>=12`. The exact
 [result](results/expansion/live-search-2026-08-14/graffiti3-conjecture2-result.md),
 independent verifier, source/status audit, and arithmetic Lean certificate are
-committed; warning-clean external Lean replay is the final release gate.
+committed. The certificate passed warning-as-error external replay, and the
+result is published as a one-problem release.
 
 The exact contracts, ledgers, corrections, stop reasons, and reports are under
 [`results/expansion/`](results/expansion/); the current portfolio and its
@@ -613,6 +614,7 @@ workflow.
 - [OEIS A111291: certificate and audit of the merged real-domain defect](https://github.com/Kuberwastaken/c5-k4/releases/tag/oeis-111291-formalization-v1)
 - [OEIS A113019: complete fixed-point classification `1, 32, 9^9`](https://github.com/Kuberwastaken/c5-k4/releases/tag/oeis-113019-fixed-points-v1)
 - [Bateman--Horn: certificate and audit of the counting-helper endpoint defect](https://github.com/Kuberwastaken/c5-k4/releases/tag/bateman-horn-count-endpoint-v1)
+- [Graffiti³ Conjecture 2: double-star counterexamples and formal arithmetic certificate](https://github.com/Kuberwastaken/c5-k4/releases/tag/graffiti3-conjecture2-double-star-v1)
 
 Only A113019 in this second group answers the intended mathematical source
 question. The other three releases preserve exact, formally certified defects

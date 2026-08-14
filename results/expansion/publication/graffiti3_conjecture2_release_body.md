@@ -48,7 +48,8 @@ which is below `2k` for every `k>=12`. The cleaner companion witness
 
 - [Derivation, source/status audit, run chronology, and exact certificate](https://github.com/Kuberwastaken/c5-k4/blob/c936765/results/expansion/live-search-2026-08-14/graffiti3-conjecture2-result.md)
 - [Independent standard-library verifier](https://github.com/Kuberwastaken/c5-k4/blob/66d3b1a/scripts/verify_graffiti3_conjecture2_double_star.py)
-- [No-`sorry` Lean arithmetic certificate](https://github.com/Kuberwastaken/c5-k4/blob/88fd614/lean/Graffiti3Conjecture2Arithmetic.lean)
+- [No-`sorry`, warning-clean Lean arithmetic certificate](https://github.com/Kuberwastaken/c5-k4/blob/4031fdf/lean/Graffiti3Conjecture2Arithmetic.lean)
+- [External Lean validation run](https://github.com/Kuberwastaken/c5-k4/actions/runs/31790179797)
 - [Frozen search contract](https://github.com/Kuberwastaken/c5-k4/blob/b168383/results/expansion/live-search-2026-08-14/graffiti3-conjecture2-contract.md)
 - [Primary preprint](https://doi.org/10.21203/rs.3.rs-8493329/v1)
 

@@ -40,6 +40,10 @@ contains no `sorry`.  It proves:
 3. an abstract wrapper: any graph data with `alpha >= 23` and this exact RGA2
    formula violates `alpha <= RGA2`.
 
+The certificate passed warning-as-error external replay against pinned
+`google-deepmind/formal-conjectures@942fb149e782a56c2719c543ab58e093f733acb4`
+in [GitHub Actions run 31790179797](https://github.com/Kuberwastaken/c5-k4/actions/runs/31790179797).
+
 The current `formal-conjectures` snapshot has no Graffiti³ Conjecture 2 or
 RGA2 declaration.  Accordingly, this file does **not** claim to verify the
 double-star adjacency relation, the 23-leaf independent set, the closed

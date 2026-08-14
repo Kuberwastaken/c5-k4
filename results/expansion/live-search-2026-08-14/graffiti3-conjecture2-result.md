@@ -2,12 +2,15 @@
 
 Date: 2026-08-14 UTC
 
-Status: **VERIFIED NEW COUNTEREXAMPLE; RELEASE PENDING FORMAL CERTIFICATE**
+Status: **VERIFIED NEW COUNTEREXAMPLE; FORMAL CERTIFICATE PASSED**
 
 Corrected replay commit: `79e9e0dc6790489f2e168a46661a0c971fe1191c`
 
 Corrected GitHub Actions run:
 [`31789142496`](https://github.com/Kuberwastaken/c5-k4/actions/runs/31789142496)
+
+Warning-clean external Lean replay:
+[`31790179797`](https://github.com/Kuberwastaken/c5-k4/actions/runs/31790179797)
 
 ## Statement and source reading
 
@@ -122,6 +125,7 @@ unindexed work, but it clears the repository's public novelty gate.
 
 The frozen [contract](graffiti3-conjecture2-contract.md) and
 [manifest](graffiti3-conjecture2-manifest.json) preserve the pre-search and
-serialization-replay chronology. A release requires the pending warning-clean,
-no-`sorry` Lean arithmetic certificate; no upstream issue or pull request is
-opened automatically.
+serialization-replay chronology. The no-`sorry` arithmetic certificate passed
+warning-as-error external replay against the pinned `formal-conjectures`
+environment in run `31790179797`. No upstream issue or pull request is opened
+automatically.
