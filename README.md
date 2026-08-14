@@ -296,18 +296,19 @@ reached a nearby equality wall without crossing it. This exhausts only the
 frozen factor-profile catalogues, not all `k` or the conjecture. See the
 [A067720 result](results/expansion/live-search-2026-08-14/oeis-a067720-development/result.md).
 
-A108569 is now the active independent rotation. Its audit-clean DEVELOPMENT
-freeze is running in [GitHub Actions](https://github.com/Kuberwastaken/c5-k4/actions/runs/31830898959)
-from refreshed immutable commit `8338965`. The first dispatch passed both
-validators and failed closed before target evaluation when an unrelated
-upstream file landed; the refreshed run pins that new upstream tree. The
-source-control arm and two odd-support
-profile arms respectively cover 384 source rows, 34,066 one- and two-prime
-profiles, and 745,665 three-prime collision profiles against an 880,891-entry
-endpoint catalogue. The freeze also includes a target-free, warning-clean
-Lean bridge from any odd sequence member to a concrete positive index; any
-surviving candidate must still receive its own no-`sorry` theorem before it is
-release-eligible. This is a prospective DEVELOPMENT trial, not yet a result.
+A108569 has now completed as an independently replayed prospective DEVELOPMENT
+bounded zero. After one correctly fail-closed pre-evaluation dispatch caused
+by unrelated upstream tree drift, the refreshed
+[run](https://github.com/Kuberwastaken/c5-k4/actions/runs/31830898959)
+exhausted 779,731 one-to-three-prime odd-support profiles across 48/48 verified
+shards. All 745,665 three-prime profiles failed to produce the required
+reduced-totient-ratio collision; the 34,066 smaller-support profiles stopped
+at translated-endpoint or support-ratio gates. Nothing reached the final
+residual, and there were zero survivors, candidates, errors, or deadlines.
+This closes only the frozen profile geometry, not A108569; it argues for a
+qualitatively different higher-support construction rather than wider copies
+of the same prime-rank bands. See the
+[A108569 result](results/expansion/live-search-2026-08-14/oeis-a108569-development/result.md).
 
 The [post-A056777 ranking](results/expansion/live-search-2026-08-14/next-deepmind-rotation-after-a056777.md)
 records the current source/status, duplicate, certificate-shape, and stop-rule
