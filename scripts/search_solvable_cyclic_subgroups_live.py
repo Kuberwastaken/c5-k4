@@ -193,7 +193,7 @@ def _gap_string_list(values: str) -> list[str]:
 
 def parse_profile_line(line: str, descriptor: GroupDescriptor) -> dict[str, Any]:
     fields = line.rstrip("\n").split("\t")
-    if len(fields) != 8 or fields[0] != "@@PROFILE@@":
+    if len(fields) != 9 or fields[0] != "@@PROFILE@@" or fields[8] != "@@END@@":
         raise SearchError("malformed GAP profile marker")
     order = int(fields[1])
     prime_factors = tuple(int(value) for value in _gap_string_list(fields[2]))
@@ -255,6 +255,7 @@ def euler_phi(n: int) -> int:
 
 def profile_gap_source(descriptor: GroupDescriptor) -> str:
     return f'''SetInfoLevel(InfoWarning,0);;
+SetPrintFormattingStatus("*stdout*",false);;
 G0 := {descriptor.expression};;
 G := Image(IsomorphismPermGroup(G0));;
 cc := ConjugacyClasses(G);;
@@ -267,7 +268,7 @@ Print("@@PROFILE@@\\t", Size(G), "\\t",
   JoinStringsWithSeparator(List(pf,String),","), "\\t", Length(pf), "\\t", cyc, "\\t",
   IsSolvableGroup(G), "\\t",
   JoinStringsWithSeparator(List(hist,x -> Concatenation(String(x[1]),":",String(x[2]))),","), "\\t",
-  JoinStringsWithSeparator(gens,"|"), "\\n");;
+  JoinStringsWithSeparator(gens,"|"), "\\t@@END@@\\n");;
 QUIT_GAP(0);;
 '''
 

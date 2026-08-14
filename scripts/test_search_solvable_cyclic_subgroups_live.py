@@ -16,15 +16,15 @@ import verify_solvable_cyclic_subgroups_certificate as verifier
 def fixture_profile(identifier: str) -> dict[str, object]:
     rows = {
         "S3": target.parse_profile_line(
-            "@@PROFILE@@\t6\t2,3\t2\t5\ttrue\t1:1,2:3,3:2\t(1,2)|(1,2,3)",
+            "@@PROFILE@@\t6\t2,3\t2\t5\ttrue\t1:1,2:3,3:2\t(1,2)|(1,2,3)\t@@END@@",
             target.GroupDescriptor("S3", "SymmetricGroup(3)", "fixture"),
         ),
         "A4": target.parse_profile_line(
-            "@@PROFILE@@\t12\t2,3\t2\t8\ttrue\t1:1,2:3,3:8\t(1,2,3)|(1,2)(3,4)",
+            "@@PROFILE@@\t12\t2,3\t2\t8\ttrue\t1:1,2:3,3:8\t(1,2,3)|(1,2)(3,4)\t@@END@@",
             target.GroupDescriptor("A4", "AlternatingGroup(4)", "fixture"),
         ),
         "A5": target.parse_profile_line(
-            "@@PROFILE@@\t60\t2,3,5\t3\t32\tfalse\t1:1,2:15,3:20,5:24\t(1,2,3)|(1,2,3,4,5)",
+            "@@PROFILE@@\t60\t2,3,5\t3\t32\tfalse\t1:1,2:15,3:20,5:24\t(1,2,3)|(1,2,3,4,5)\t@@END@@",
             target.GroupDescriptor("A5", 'SimpleGroup("A5")', "fixture"),
         ),
     }
@@ -77,12 +77,26 @@ class SolvableCyclicSubgroupsFreezeTests(unittest.TestCase):
         descriptor = target.smallgroup_descriptor(168, 42, "test")
         source = target.profile_gap_source(descriptor)
         self.assertIn("SmallGroup(168,42)", source)
+        self.assertIn('SetPrintFormattingStatus("*stdout*",false);;', source)
         self.assertIn("ConjugacyClasses(G)", source)
         self.assertIn("Phi", source)
         self.assertIn("@@PROFILE@@", source)
+        self.assertIn("@@END@@", source)
         ids_source = target.ids_gap_source(168)
         self.assertIn("IdsOfAllSmallGroups", ids_source)
         self.assertIn("IsSolvableGroup,false", ids_source)
+
+    def test_wrapped_profile_marker_is_rejected_fail_closed(self) -> None:
+        descriptor = target.GroupDescriptor(
+            "Aut_A5", 'AutomorphismGroup(SimpleGroup("A5"))', "fixture"
+        )
+        wrapped = (
+            "@@PROFILE@@\t120\t2,3,5\t3\t40\tfalse\t"
+            "1:1,2:25,3:20,4:30,5:24,6:20\t(1,2,3,4,5)\n"
+            "(6,7,8,9,10)"
+        )
+        with self.assertRaises(target.SearchError):
+            target.parse_profile_line(target.marker_line(wrapped, "@@PROFILE@@"), descriptor)
 
     def test_hash_chained_fsync_ledger_and_terminal(self) -> None:
         with tempfile.TemporaryDirectory() as raw:

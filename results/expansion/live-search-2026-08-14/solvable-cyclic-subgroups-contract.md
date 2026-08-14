@@ -38,7 +38,11 @@ cyc(G) = sum_d count(elements of order d) / phi(d).
 
 Python independently checks divisibility by `phi(d)`, the total element count,
 the cyclic-subgroup sum, distinct prime support, threshold, and residual. Every
-profile stores the frozen GAP expression and permutation generators.
+profile stores the frozen GAP expression and permutation generators. GAP output
+formatting is explicitly disabled before emitting the tab-delimited profile
+marker. The parser continues to require exactly one complete marker on one
+physical line ending in the explicit `@@END@@` sentinel, and rejects wrapped,
+partial, duplicate, or malformed output.
 
 ## Mandatory sanity gate
 
@@ -100,3 +104,16 @@ count, and a strict negative residual permits `CERTIFICATE_FOUND`.
 No README edit, release, issue, pull request, or public claim is authorized by
 this harness. Any candidate requires a fresh novelty audit and no-`sorry` Lean
 certificate before promotion.
+
+## Invalid first execution
+
+GitHub Actions run `31792034789` at campaign commit
+`2619631aea514dcb19e36463dff8a67573b2f2bc` is classified `INVALID_RUN`.
+All three arms reproduced the mandatory sanity controls, but GAP's formatted
+stdout wrapped longer permutation-generator output after the marker began.
+The strict parser therefore stopped with `malformed GAP profile marker`.
+The run is evidence of an emission-protocol defect only. No evaluated target
+row, apparent hold, crossing, timeout, or terminal prefix from that run is
+admissible as mathematical evidence; the A5 controls provide sanity evidence
+and nothing further. Exact artifact identifiers and terminal receipts are
+recorded in `solvable-cyclic-subgroups-run-31792034789-invalid.md`.
