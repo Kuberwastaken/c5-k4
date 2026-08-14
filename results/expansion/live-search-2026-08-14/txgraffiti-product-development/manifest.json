@@ -1,0 +1,48 @@
+{
+  "schema": "c5k4-txgraffiti-product-development-manifest-1.0",
+  "campaign_id": "txgraffiti-product-conjecture-development-v1",
+  "status": "FROZEN_UNEXECUTED_DEVELOPMENT",
+  "frozen_utc": "2026-08-14",
+  "campaign_commit": null,
+  "target": "For connected G,H with n(G),n(H)>=2, gamma_t(G square H) >= gamma(G direct H)",
+  "primary_source": "https://arxiv.org/abs/2409.19379v2",
+  "source_revision_date": "2026-05-11",
+  "source_conjecture_number": 3,
+  "arms": [
+    "CATALOGUE",
+    "GENERIC",
+    "WALL_NAVIGATION"
+  ],
+  "internal_wall_seconds": 54,
+  "external_wall_seconds": 60,
+  "candidate_rule": "an explicit size-k total dominating set in G square H, plus complete exhaustive absence proofs for dominating sets of sizes k and k-1 in G direct H",
+  "database_gate": {
+    "connected_atlas_orders_2_through_7": 995,
+    "counts_by_order": {
+      "2": 1,
+      "3": 2,
+      "4": 6,
+      "5": 21,
+      "6": 112,
+      "7": 853
+    },
+    "ordered_labelled_graph6_sha256": "1cfb1c9688917d79dc59a9e9fc529af2780b9bceaa39f25bb61672c4ad4e72c3"
+  },
+  "terminal_reasons": [
+    "CANDIDATE_FOUND",
+    "DOMAIN_EXHAUSTED",
+    "DEADLINE_PREFIX",
+    "DB_SOURCE_GATE_FAILED",
+    "CERTIFICATE_FAILED",
+    "ERROR"
+  ],
+  "frozen_files": {
+    "scripts/search_txgraffiti_product_conjecture.py": "39d7ccafc36c68837ee4d9d20f6205b5be49bac2b935ae48c99de2b7ff20b2f5",
+    "scripts/test_txgraffiti_product_conjecture.py": "9ec0df88f1d4b7b8c95eaebb33fe73efcf9d95e6544ee8d458c0e332c1c429f6",
+    "scripts/verify_txgraffiti_product_certificate.py": "e793cb74d0248ffdf0dc53dcc220089cd0ab713c2337141939328689b10be1bd",
+    ".github/workflows/txgraffiti-product-conjecture-development.yml": "128d2c2997378f54c737950658e9d647a7a436b2a076354fcdd5c2b3eabdcf0b",
+    "results/expansion/live-search-2026-08-14/txgraffiti-product-development/source-status-attestation.json": "d68967afdd617b585eff21f1f94d9ff146813ee739f2b8c0000fa92cc7a6de53",
+    "results/expansion/live-search-2026-08-14/txgraffiti-product-development/CONTRACT.md": "e136827561af11ab47c5428d9a73da59bb549c0042d01c2b36d8eac495f30331",
+    "results/expansion/live-search-2026-08-14/txgraffiti-product-development/verify_freeze.py": "8a3ea56e1716e04fb43d3609efe988a4b8cf42805fbd94e4a8d3f5ec980f2c3d"
+  }
+}
