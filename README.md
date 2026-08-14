@@ -297,8 +297,11 @@ frozen factor-profile catalogues, not all `k` or the conjecture. See the
 [A067720 result](results/expansion/live-search-2026-08-14/oeis-a067720-development/result.md).
 
 A108569 is now the active independent rotation. Its audit-clean DEVELOPMENT
-freeze is running in [GitHub Actions](https://github.com/Kuberwastaken/c5-k4/actions/runs/31830066668)
-from immutable commit `bf8ed2e`. The source-control arm and two odd-support
+freeze is running in [GitHub Actions](https://github.com/Kuberwastaken/c5-k4/actions/runs/31830898959)
+from refreshed immutable commit `8338965`. The first dispatch passed both
+validators and failed closed before target evaluation when an unrelated
+upstream file landed; the refreshed run pins that new upstream tree. The
+source-control arm and two odd-support
 profile arms respectively cover 384 source rows, 34,066 one- and two-prime
 profiles, and 745,665 three-prime collision profiles against an 880,891-entry
 endpoint catalogue. The freeze also includes a target-free, warning-clean
