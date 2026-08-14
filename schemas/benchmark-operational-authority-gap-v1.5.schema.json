@@ -1,0 +1,242 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-operational-authority-gap-v1.5.schema.json",
+  "title": "Method v1.5 target-blind PRE-P1 operational-authority gap",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "status",
+    "protocol_version",
+    "artifact_class",
+    "scope",
+    "accepted_current_authority",
+    "pre_p1_gap_facts",
+    "github_origin_assessment",
+    "encrypted_pack_boundary",
+    "minimum_external_authority",
+    "supersession",
+    "publication_gate",
+    "failure_policy",
+    "gap_sha256"
+  ],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-operational-authority-gap-1.0"},
+    "status": {"const": "PRE_P1_EXTERNAL_OPERATIONAL_AUTHORITY_REQUIRED"},
+    "protocol_version": {"const": "1.5"},
+    "artifact_class": {"const": "TARGET_BLIND_NORMATIVE_AUTHORITY_GAP"},
+    "scope": {
+      "const": {
+        "normative_only": true,
+        "live_acceptance": false,
+        "continuing_host_state_claimed": false,
+        "credential_possession_claimed": false,
+        "provisioning_performed": false,
+        "target_data_consumed": false,
+        "target_data_present": false
+      }
+    },
+    "accepted_current_authority": {
+      "const": {
+        "aws_operational_authority": false,
+        "github_immutable_release_acceptance": false,
+        "github_authoritative_worm_acceptance": false,
+        "dedicated_host_isolation_acceptance": false,
+        "protected_key_authority_acceptance": false,
+        "append_only_publication_authority_acceptance": false
+      }
+    },
+    "pre_p1_gap_facts": {
+      "const": {
+        "fact_class": "FROZEN_PRE_P1_DISCLOSED_GAP_LABELS_NOT_CONTINUOUS_TELEMETRY",
+        "live_state_authority": false,
+        "conditions": [
+          "NO_AWS_CREDENTIAL_OR_PROVISIONING_AUTHORITY_ACCEPTED",
+          "GITHUB_IMMUTABLE_RELEASES_DISABLED_AT_PRE_P1_ASSESSMENT",
+          "GITHUB_RELEASE_DELETION_AND_ATTESTATION_DELETION_REMAIN_AUTHORIZED_TO_WRITE_PRINCIPALS",
+          "SAME_HOST_MANDATORY_ACCESS_CONTROL_NOT_ACCEPTED_AS_ENFORCING",
+          "SAME_HOST_INTERACTIVE_ROOT_EQUIVALENCE_NOT_EXCLUDED",
+          "SAME_HOST_MARKETING_WORKLOAD_NONINTERFERENCE_NOT_PROVED"
+        ],
+        "secret_values_recorded": false,
+        "host_identifiers_recorded": false,
+        "container_identifiers_recorded": false,
+        "mutable_setting_values_are_readiness_evidence": false
+      }
+    },
+    "github_origin_assessment": {
+      "const": {
+        "repository": "https://github.com/Kuberwastaken/c5-k4.git",
+        "permitted_role": "SECONDARY_PUBLIC_TRANSPARENCY_WITNESS_ONLY",
+        "authoritative_private_worm_store": false,
+        "fixed_horizon_retention_proved": false,
+        "destructive_operation_denial_proved": false,
+        "least_privilege_create_without_delete_proved": false,
+        "release_attestation_is_retention_authority": false,
+        "immutable_release_limitations": [
+          "A_PUBLISHED_RELEASE_CAN_BE_DELETED_BY_AN_AUTHORIZED_WRITE_PRINCIPAL",
+          "AFTER_RELEASE_DELETION_THE_ASSOCIATED_TAG_CAN_BE_DELETED",
+          "A_RELEASE_ATTESTATION_CAN_BE_DELETED_BY_AN_AUTHORIZED_ATTESTATION_WRITE_PRINCIPAL",
+          "NO_FIXED_RETAIN_UNTIL_HORIZON_IS_ENFORCED_BY_THE_REPOSITORY_RELEASE_PRIMITIVE"
+        ],
+        "future_witness_requirements": {
+          "repository_immutable_releases_enabled_before_candidate_base": true,
+          "published_release_must_report_immutable": true,
+          "release_and_every_asset_attestation_verified": true,
+          "repository_numeric_identity_bound": true,
+          "release_id_tag_commit_and_asset_ids_bound": true,
+          "generic_target_blind_names_only": true,
+          "fixed_asset_count_and_fixed_padded_sizes": true,
+          "authenticated_encryption_before_upload": true,
+          "plaintext_or_decryption_key_in_git_actions": false,
+          "draft_release_is_custody_acceptance": false,
+          "witness_can_replace_external_retention_authority": false
+        }
+      }
+    },
+    "encrypted_pack_boundary": {
+      "const": {
+        "public_payload_class": "FIXED_SHAPE_AUTHENTICATED_CIPHERTEXT_ONLY",
+        "plaintext_visibility": "DEDICATED_CONTROLLED_HARNESS_ONLY",
+        "encryption_requirement": "P1_FROZEN_AEAD_WITH_FRESH_NONCE_AND_KEY_ID_BINDING",
+        "padding_requirement": "P1_FROZEN_FIXED_ASSET_COUNT_AND_FIXED_BYTE_SIZE",
+        "associated_data_must_bind": [
+          "PROTOCOL_VERSION",
+          "SERVICE_EPOCH",
+          "BROKER_SEQUENCE_RANGE",
+          "CIPHERTEXT_ROLE",
+          "P1_COMPONENT_CLOSURE_DIGEST"
+        ],
+        "public_metadata_may_contain": [
+          "CIPHERTEXT_SHA256",
+          "PADDED_BYTE_COUNT",
+          "GENERIC_ROLE",
+          "CHAIN_RECEIPT_SHA256"
+        ],
+        "public_metadata_must_not_contain": [
+          "CANDIDATE_IDENTITIES",
+          "STATEMENT_TEXT",
+          "TARGET_RANKINGS",
+          "TARGET_SEMANTIC_ANALYSIS",
+          "DECRYPTION_KEYS",
+          "PRIVATE_ALIAS_VALUES"
+        ],
+        "ciphertext_publication_is_plaintext_custody": false,
+        "encryption_alone_proves_retention": false,
+        "encryption_alone_proves_noninterference": false
+      }
+    },
+    "minimum_external_authority": {
+      "const": [
+        {
+          "authority_class": "INDEPENDENT_FIXED_HORIZON_RETENTION_AUTHORITY",
+          "required_properties": [
+            "CONTENT_ADDRESSED_VERSION_PINNED_OBJECTS",
+            "WRITE_ONCE_OR_APPEND_ONLY_RETENTION_THROUGH_2028_08_16T00_00_00Z",
+            "DELETE_OVERWRITE_RETENTION_SHORTENING_AND_OUT_OF_PREFIX_WRITES_DENIED",
+            "DENIAL_APPLIES_TO_HARNESS_OPERATOR_SERVICE_AND_REPOSITORY_WRITER",
+            "AUTHENTICATED_READ_AFTER_WRITE_AND_INDEPENDENT_INVENTORY",
+            "SIGNED_DESTRUCTIVE_PROBES_AND_MISSING_OBJECT_VERIFICATION"
+          ],
+          "may_be_same_principal_as_experimenter": false,
+          "may_be_github_release_immutability_alone": false
+        },
+        {
+          "authority_class": "DEDICATED_ISOLATION_AUTHORITY",
+          "required_properties": [
+            "FRESH_DEDICATED_PRODUCTION_HOST_OR_ATTESTED_TEE",
+            "MANDATORY_ACCESS_CONTROL_ENFORCING_FROM_BOOT",
+            "NO_SHARED_MARKETING_WORKLOAD_OR_SHARED_CONTAINER_DAEMON",
+            "EXCLUDED_INTERACTIVE_IDENTITIES_HAVE_NO_SUDO_DOCKER_ROOT_OR_PROCESS_MEMORY_ACCESS",
+            "FROZEN_FILESYSTEM_SOCKET_NETWORK_ENVIRONMENT_SECRET_AND_CONTROL_INPUT_BOUNDARY",
+            "SIGNED_KERNEL_IMAGE_POLICY_AND_RUNTIME_ACCEPTANCE"
+          ],
+          "may_be_current_general_ai_session_host": false,
+          "coexistence_without_proved_zero_ingress": false
+        },
+        {
+          "authority_class": "PROTECTED_CUSTODY_KEY_AUTHORITY",
+          "required_properties": [
+            "AEAD_DECRYPTION_KEY_UNAVAILABLE_TO_GITHUB_HUMANS_MODELS_AND_GENERAL_SESSIONS",
+            "ED25519_RECEIPT_SIGNING_KEY_UNAVAILABLE_TO_EXCLUDED_IDENTITIES",
+            "KEY_IDENTIFIERS_AND_PUBLIC_VERIFICATION_KEYS_FROZEN_BEFORE_P1A",
+            "RAW_PRIVATE_KEYS_NEVER_ENTER_REPOSITORY_ACTION_LOG_OR_GENERAL_WORKTREE",
+            "KEY_USE_BOUND_TO_EXACT_SERVICE_EPOCH_AND_P1_CLOSURE"
+          ],
+          "raw_private_key_repository_role": false,
+          "operator_disclosure_is_key_acceptance": false
+        },
+        {
+          "authority_class": "APPEND_ONLY_PUBLICATION_AUTHORITY",
+          "required_properties": [
+            "SERVICE_CREDENTIAL_CANNOT_DELETE_REWRITE_FORCE_PUSH_OR_DISABLE_RETENTION",
+            "PUBLIC_CHECKPOINT_CHAIN_REMAINS_SOLE_PARENT_ADD_ONLY",
+            "GITHUB_WITNESS_AND_AUTHORITATIVE_RETENTION_RECEIPTS_BIND_IDENTICAL_CIPHERTEXT_DIGESTS",
+            "FAILED_OR_MISSING_PUBLICATION_FAILS_CLOSED_WITHOUT_TARGET_INSPECTION"
+          ],
+          "general_repository_admin_token_accepted": false,
+          "manual_publication_override": false
+        }
+      ]
+    },
+    "supersession": {
+      "const": {
+        "gap_artifact_is_mutated_into_acceptance": false,
+        "separate_live_acceptance_required": true,
+        "required_future_schema": "c5k4-method-v1.5-operational-authority-live-acceptance-1.0",
+        "required_future_status": "FROZEN_P1_OPERATIONAL_AUTHORITY_LIVE_ACCEPTED",
+        "current_acceptance_path": null,
+        "current_acceptance_sha256": null,
+        "current_signature": null,
+        "required_signer_classes": [
+          "INDEPENDENT_FIXED_HORIZON_RETENTION_AUTHORITY",
+          "CONTROLLED_HARNESS_READINESS_KEY"
+        ],
+        "signature_algorithm": "ED25519_DOMAIN_SEPARATED_COMPONENT_SIGNATURES",
+        "acceptance_must_bind": [
+          "THIS_GAP_ARTIFACT_SHA256",
+          "EXACT_CANDIDATE_BASE_COMMIT_AND_ROOT_TREE",
+          "BACKEND_CONTRACT_SCHEMA_VERIFIER_AND_TEST_DIGESTS",
+          "RETENTION_AUTHORITY_IDENTITY_POLICY_AND_FIXED_HORIZON",
+          "LIVE_DESTRUCTIVE_PROBE_RECEIPTS",
+          "DEDICATED_HOST_IMAGE_KERNEL_MANDATORY_ACCESS_POLICY_AND_SERVICE_EPOCH",
+          "PARTICIPANT_LEDGER_SOURCE_BOUNDARY_AND_NONINTERFERENCE_RECEIPT",
+          "ENCRYPTION_AND_SIGNING_KEY_IDENTIFIERS_AND_PUBLIC_KEY_DIGESTS",
+          "GITHUB_REPOSITORY_NUMERIC_ID_IMMUTABLE_RELEASE_SETTING_AND_WITNESS_VERIFIER",
+          "ZERO_TARGET_DATA_STRUCTURAL_AUDIT"
+        ],
+        "fixture_is_acceptance": false,
+        "unsigned_document_is_acceptance": false,
+        "operator_statement_is_acceptance": false,
+        "github_setting_receipt_alone_is_acceptance": false,
+        "schema_without_live_evidence_is_acceptance": false,
+        "independent_verification_required": true
+      }
+    },
+    "publication_gate": {
+      "const": {
+        "p1a_publication_permitted": false,
+        "p1t_publication_permitted": false,
+        "u1_capture_permitted": false,
+        "checkpoint_capture_permitted": false,
+        "entropy_permitted": false,
+        "selection_permitted": false,
+        "target_semantic_inspection_permitted": false,
+        "transition_rule": "ONLY_A_SEPARATELY_SIGNED_LIVE_ACCEPTANCE_VALIDATED_FROM_EXACT_CANDIDATE_BASE_MAY_CLEAR_THIS_GAP"
+      }
+    },
+    "failure_policy": {
+      "const": {
+        "github_used_as_authoritative_worm": "FAIL_CLOSED",
+        "public_ciphertext_shape_leak": "FAIL_CLOSED_PROTOCOL_INVALID",
+        "missing_retention_authority": "FAIL_CLOSED",
+        "same_host_root_equivalence_not_excluded": "FAIL_CLOSED",
+        "shared_marketing_workload_boundary_unproved": "FAIL_CLOSED",
+        "missing_or_invalid_live_acceptance_signature": "FAIL_CLOSED",
+        "acceptance_not_bound_to_exact_candidate_base": "FAIL_CLOSED",
+        "fixture_or_manual_override": "FORBIDDEN"
+      }
+    },
+    "gap_sha256": {"const": "bea53f4044ab34906113404e1d3e2e35679e7b9a14e8ddc186ac3d9505f52b9e"}
+  }
+}
