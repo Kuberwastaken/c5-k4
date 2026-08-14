@@ -8,13 +8,13 @@
   "properties": {
     "schema": {"const": "c5k4-method-v1.5-c0-publication-contract-1.0"},
     "protocol_version": {"const": "1.5"},
-    "status": {"const": "BLOCKED_AWAITING_PUBLIC_PASS_POOL_COMPILER"},
+    "status": {"const": "BLOCKED_AWAITING_C0_BRIDGE_AND_OBSERVER"},
     "c0_authority_available": {"const": false},
-    "current_blockers": {"const": ["PUBLIC_PASS_POOL_SCHEMA_NOT_FROZEN", "PUBLIC_PASS_POOL_COMPILER_NOT_FROZEN", "PUBLIC_PASS_POOL_CONTRACT_TEST_NOT_FROZEN"]},
+    "current_blockers": {"const": ["C0_BRIDGE_NOT_FROZEN", "C0_SCHEMA_NOT_FROZEN", "C0_BRIDGE_CONTRACT_TEST_NOT_FROZEN", "C0_GITHUB_ACTIONS_OBSERVER_NOT_FROZEN", "C0_GITHUB_ACTIONS_OBSERVER_CONTRACT_TEST_NOT_FROZEN"]},
     "required_lifecycle": {"const": [
       "AUTHENTICATE_PUBLISHED_P1_ROLE_CLOSURE", "REPLAY_PUBLIC_U1_TO_FIRST_QUOTA_PASS_U2_CHAIN",
       "AUTHENTICATE_EXACT_U1_RECEIPT_SHAPE_AND_COMMITTED_BYTES", "AUTHENTICATE_EXACT_U2_RECEIPT_MANIFEST_CERTIFICATE_TRIPLET",
-      "REPLAY_U2_AGGREGATE_COUNTS_AND_ALL_CROSS_BINDINGS", "COMPILE_AND_PUBLISH_EXACT_ELIGIBLE_PASS_POOL_BEFORE_ENTROPY",
+      "REPLAY_U2_AGGREGATE_COUNTS_AND_ALL_CROSS_BINDINGS", "COMPILE_EXACT_ELIGIBLE_PASS_POOL_FOR_CANONICAL_C0A_EMBEDDING_BEFORE_ENTROPY",
       "REPLAY_PASS_POOL_SCHEMA_DIGEST_COUNTS_AND_U2_BINDING", "COMPILE_C0A_WITH_STATUS_AWAITING_C0_PUBLICATION_ATTESTATION",
       "COMMIT_C0A_AS_NONMERGE_SOLE_CHILD_OF_TERMINAL_U2_ON_FROZEN_C0_REF", "OBSERVE_EXACT_C0A_PUSH_WITH_FROZEN_GITHUB_ACTIONS_WORKFLOW",
       "COMPLETE_GITHUB_SERVER_OBSERVATION_STRICTLY_BEFORE_DRAND_CLOSE", "COMMIT_C0T_AS_NONMERGE_SOLE_CHILD_OF_C0A_ADDING_EXACTLY_ONE_PATH",
@@ -33,8 +33,8 @@
     "publicCheckpointGate": {"type": "object", "additionalProperties": false, "required": ["preterminal_statuses_allowed", "terminal_status_required", "first_pass_required", "u1_full_shape_and_raw_digest_required", "u2_receipt_full_shape_and_raw_digest_required", "u2_publication_manifest_schema_self_digest_and_artifact_digests_required", "u2_aggregate_schema_self_digest_arithmetic_and_cross_bindings_required", "u2_public_triplet_same_commit_required", "private_replay_attestation_bytes_claimed_public"], "properties": {
       "preterminal_statuses_allowed": {"const": ["QUOTA_FAIL"]}, "terminal_status_required": {"const": "QUOTA_PASS_U2"}, "first_pass_required": {"const": true}, "u1_full_shape_and_raw_digest_required": {"const": true}, "u2_receipt_full_shape_and_raw_digest_required": {"const": true}, "u2_publication_manifest_schema_self_digest_and_artifact_digests_required": {"const": true}, "u2_aggregate_schema_self_digest_arithmetic_and_cross_bindings_required": {"const": true}, "u2_public_triplet_same_commit_required": {"const": true}, "private_replay_attestation_bytes_claimed_public": {"const": false}
     }},
-    "passPoolGate": {"type": "object", "additionalProperties": false, "required": ["separate_pre_entropy_artifact_required", "exact_public_schema_required", "exact_committed_file_sha256_required", "canonical_object_sha256_required", "eligible_records_required", "stratum_counts_must_replay", "candidate_count_must_replay", "u2_certificate_binding_required", "selection_ready_before_gate"], "properties": {
-      "separate_pre_entropy_artifact_required": {"const": true}, "exact_public_schema_required": {"const": true}, "exact_committed_file_sha256_required": {"const": true}, "canonical_object_sha256_required": {"const": true}, "eligible_records_required": {"const": true}, "stratum_counts_must_replay": {"const": true}, "candidate_count_must_replay": {"const": true}, "u2_certificate_binding_required": {"const": true}, "selection_ready_before_gate": {"const": false}
+    "passPoolGate": {"type": "object", "additionalProperties": false, "required": ["canonical_pre_entropy_object_required", "standalone_publication_required", "exact_public_schema_required", "exact_embedded_object_sha256_required", "canonical_object_sha256_required", "eligible_records_required", "stratum_counts_must_replay", "candidate_count_must_replay", "u2_certificate_binding_required", "selection_ready_before_gate"], "properties": {
+      "canonical_pre_entropy_object_required": {"const": true}, "standalone_publication_required": {"const": false}, "exact_public_schema_required": {"const": true}, "exact_embedded_object_sha256_required": {"const": true}, "canonical_object_sha256_required": {"const": true}, "eligible_records_required": {"const": true}, "stratum_counts_must_replay": {"const": true}, "candidate_count_must_replay": {"const": true}, "u2_certificate_binding_required": {"const": true}, "selection_ready_before_gate": {"const": false}
     }},
     "plannedC0a": {"type": "object", "additionalProperties": false, "required": ["artifact_kind", "status", "may_claim_frozen", "must_bind_authenticated_pass_pool", "entropy_value_permitted", "selection_permitted"], "properties": {
       "artifact_kind": {"const": "C0A"}, "status": {"const": "AWAITING_C0_PUBLICATION_ATTESTATION"}, "may_claim_frozen": {"const": false}, "must_bind_authenticated_pass_pool": {"const": true}, "entropy_value_permitted": {"const": false}, "selection_permitted": {"const": false}

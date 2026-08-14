@@ -1,12 +1,14 @@
 {
   "schema": "c5k4-method-v1.5-c0-publication-contract-1.0",
   "protocol_version": "1.5",
-  "status": "BLOCKED_AWAITING_PUBLIC_PASS_POOL_COMPILER",
+  "status": "BLOCKED_AWAITING_C0_BRIDGE_AND_OBSERVER",
   "c0_authority_available": false,
   "current_blockers": [
-    "PUBLIC_PASS_POOL_SCHEMA_NOT_FROZEN",
-    "PUBLIC_PASS_POOL_COMPILER_NOT_FROZEN",
-    "PUBLIC_PASS_POOL_CONTRACT_TEST_NOT_FROZEN"
+    "C0_BRIDGE_NOT_FROZEN",
+    "C0_SCHEMA_NOT_FROZEN",
+    "C0_BRIDGE_CONTRACT_TEST_NOT_FROZEN",
+    "C0_GITHUB_ACTIONS_OBSERVER_NOT_FROZEN",
+    "C0_GITHUB_ACTIONS_OBSERVER_CONTRACT_TEST_NOT_FROZEN"
   ],
   "required_lifecycle": [
     "AUTHENTICATE_PUBLISHED_P1_ROLE_CLOSURE",
@@ -14,7 +16,7 @@
     "AUTHENTICATE_EXACT_U1_RECEIPT_SHAPE_AND_COMMITTED_BYTES",
     "AUTHENTICATE_EXACT_U2_RECEIPT_MANIFEST_CERTIFICATE_TRIPLET",
     "REPLAY_U2_AGGREGATE_COUNTS_AND_ALL_CROSS_BINDINGS",
-    "COMPILE_AND_PUBLISH_EXACT_ELIGIBLE_PASS_POOL_BEFORE_ENTROPY",
+    "COMPILE_EXACT_ELIGIBLE_PASS_POOL_FOR_CANONICAL_C0A_EMBEDDING_BEFORE_ENTROPY",
     "REPLAY_PASS_POOL_SCHEMA_DIGEST_COUNTS_AND_U2_BINDING",
     "COMPILE_C0A_WITH_STATUS_AWAITING_C0_PUBLICATION_ATTESTATION",
     "COMMIT_C0A_AS_NONMERGE_SOLE_CHILD_OF_TERMINAL_U2_ON_FROZEN_C0_REF",
@@ -35,9 +37,10 @@
     "private_replay_attestation_bytes_claimed_public": false
   },
   "pass_pool_gate": {
-    "separate_pre_entropy_artifact_required": true,
+    "canonical_pre_entropy_object_required": true,
+    "standalone_publication_required": false,
     "exact_public_schema_required": true,
-    "exact_committed_file_sha256_required": true,
+    "exact_embedded_object_sha256_required": true,
     "canonical_object_sha256_required": true,
     "eligible_records_required": true,
     "stratum_counts_must_replay": true,

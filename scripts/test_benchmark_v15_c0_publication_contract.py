@@ -39,6 +39,9 @@ class ContractTests(unittest.TestCase):
         self.assertLess(pool, c0a)
         self.assertTrue(self.contract["planned_c0a"]["must_bind_authenticated_pass_pool"])
         self.assertTrue(self.contract["planned_c0t"]["pass_pool_bound_must_be_true"])
+        self.assertTrue(self.contract["pass_pool_gate"]["canonical_pre_entropy_object_required"])
+        self.assertFalse(self.contract["pass_pool_gate"]["standalone_publication_required"])
+        self.assertTrue(self.contract["pass_pool_gate"]["exact_embedded_object_sha256_required"])
 
     def test_u2_triplet_and_first_pass_are_mandatory(self) -> None:
         gate = self.contract["public_checkpoint_gate"]
