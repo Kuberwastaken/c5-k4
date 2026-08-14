@@ -312,6 +312,19 @@ independent verifier, source/status audit, and arithmetic Lean certificate are
 committed. The certificate passed warning-as-error external replay, and the
 result is published as a one-problem release.
 
+Two subsequent fresh targets produced calibrated bounded zeroes. The
+tan--arctan campaign exhausted all 12 source-listed exceptional indices and
+checked 73 deterministic post-paper samples, while its wall predicate selected
+no index through `n=155802`; exact integer-state growth, not candidate scoring,
+was the bottleneck. The [result](results/expansion/live-search-2026-08-14/tan-arctan-sum-result.md)
+therefore retires volume-only continuation in favor of modular filters and
+certified restart states. The DOI-qualified TxGraffiti product campaign
+durably evaluated 801 factor pairs and exhausted its 72-pair wall family with
+no certificate. Its [result](results/expansion/live-search-2026-08-14/txgraffiti-product-development/result.md)
+identified a more important method defect: a merely greedy Cartesian
+total-domination witness can conceal a crossing, so the next revision must
+certify or descend that side before expanding the same prefixes.
+
 The exact contracts, ledgers, corrections, stop reasons, and reports are under
 [`results/expansion/`](results/expansion/); the current portfolio and its
 scope limits are summarized in [`OVERARCHING_PLAN.md`](OVERARCHING_PLAN.md).
