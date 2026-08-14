@@ -69,22 +69,34 @@
     "component_manifest": {"$ref": "#/definitions/artifactRef"},
     "frozen_components": {
       "type": "object", "additionalProperties": false,
-      "required": ["registry", "classification", "grouping", "syntax_pool", "provenance", "checkpoint_runner", "private_custody", "delivery_broker", "immutable_store", "arm_execution", "participant_scope"],
+      "required": ["registry", "classification", "grouping", "syntax_pool", "provenance", "checkpoint_runner", "private_custody", "delivery_broker", "immutable_store", "arm_execution", "participant_scope", "controlled_harness"],
       "properties": {
+        "controlled_harness": {
+          "type": "object", "additionalProperties": false,
+          "required": ["contract", "contract_schema", "request_schema", "response_schema", "service", "test"],
+          "properties": {
+            "contract": {"$ref": "#/definitions/artifactRef"}, "contract_schema": {"$ref": "#/definitions/artifactRef"},
+            "request_schema": {"$ref": "#/definitions/artifactRef"}, "response_schema": {"$ref": "#/definitions/artifactRef"},
+            "service": {"$ref": "#/definitions/artifactRef"}, "test": {"$ref": "#/definitions/artifactRef"}
+          }
+        },
         "participant_scope": {
           "type": "object", "additionalProperties": false,
-          "required": ["ledger", "ledger_schema", "noninterference_receipt", "noninterference_receipt_schema", "operational_noninterference_receipt_schema", "verifier", "test"],
+          "required": ["ledger", "ledger_schema", "noninterference_receipt", "noninterference_receipt_schema", "operational_noninterference_receipt_schema", "noninterference_key_commitment", "noninterference_key_commitment_schema", "operational_noninterference_key_commitment_schema", "verifier", "test"],
           "properties": {
             "ledger": {"$ref": "#/definitions/artifactRef"}, "ledger_schema": {"$ref": "#/definitions/artifactRef"},
             "noninterference_receipt": {"$ref": "#/definitions/artifactRef"},
             "noninterference_receipt_schema": {"$ref": "#/definitions/artifactRef"},
             "operational_noninterference_receipt_schema": {"$ref": "#/definitions/artifactRef"},
+            "noninterference_key_commitment": {"$ref": "#/definitions/artifactRef"},
+            "noninterference_key_commitment_schema": {"$ref": "#/definitions/artifactRef"},
+            "operational_noninterference_key_commitment_schema": {"$ref": "#/definitions/artifactRef"},
             "verifier": {"$ref": "#/definitions/artifactRef"}, "test": {"$ref": "#/definitions/artifactRef"}
           }
         },
         "arm_execution": {
           "type": "object", "additionalProperties": false,
-          "required": ["capability_matrix", "capability_matrix_schema", "envelope_schema", "validator", "test", "triplet_launcher", "triplet_launcher_test", "triplet_claim_schema", "triplet_combined_record_schema", "triplet_isolation_backend", "triplet_isolation_backend_test", "triplet_isolation_plan_schema", "triplet_isolation_acceptance_schema", "triplet_isolation_readiness_schema", "linux_isolation_acceptance", "linux_isolation_acceptance_test"],
+          "required": ["capability_matrix", "capability_matrix_schema", "envelope_schema", "validator", "test", "triplet_launcher", "triplet_launcher_test", "triplet_claim_schema", "triplet_combined_record_schema", "triplet_isolation_backend", "triplet_isolation_backend_test", "triplet_isolation_plan_schema", "triplet_isolation_acceptance_schema", "triplet_isolation_readiness_schema", "linux_isolation_acceptance", "linux_isolation_acceptance_test", "production_adapter", "production_adapter_test", "production_isolation_attestation_schema", "production_triplet_acceptance_schema"],
           "properties": {
             "capability_matrix": {"$ref": "#/definitions/artifactRef"},
             "capability_matrix_schema": {"$ref": "#/definitions/artifactRef"},
@@ -100,6 +112,10 @@
             "triplet_isolation_readiness_schema": {"$ref": "#/definitions/artifactRef"},
             "linux_isolation_acceptance": {"$ref": "#/definitions/artifactRef"},
             "linux_isolation_acceptance_test": {"$ref": "#/definitions/artifactRef"},
+            "production_adapter": {"$ref": "#/definitions/artifactRef"},
+            "production_adapter_test": {"$ref": "#/definitions/artifactRef"},
+            "production_isolation_attestation_schema": {"$ref": "#/definitions/artifactRef"},
+            "production_triplet_acceptance_schema": {"$ref": "#/definitions/artifactRef"},
             "validator": {"$ref": "#/definitions/artifactRef"},
             "test": {"$ref": "#/definitions/artifactRef"}
           }
@@ -170,7 +186,15 @@
             "schema": {"$ref": "#/definitions/artifactRef"}, "invocation_contract": {"$ref": "#/definitions/artifactRef"}
           }
         },
-        "classification": {"$ref": "#/definitions/policyComponent"},
+        "classification": {
+          "type": "object", "additionalProperties": false,
+          "required": ["policy", "contract", "contract_schema", "readiness_schema", "validator", "test"],
+          "properties": {
+            "policy": {"$ref": "#/definitions/artifactRef"}, "contract": {"$ref": "#/definitions/artifactRef"},
+            "contract_schema": {"$ref": "#/definitions/artifactRef"}, "readiness_schema": {"$ref": "#/definitions/artifactRef"},
+            "validator": {"$ref": "#/definitions/artifactRef"}, "test": {"$ref": "#/definitions/artifactRef"}
+          }
+        },
         "grouping": {"$ref": "#/definitions/policyComponent"},
         "syntax_pool": {
           "type": "object", "additionalProperties": false, "required": ["executable"],

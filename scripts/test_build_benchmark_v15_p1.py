@@ -128,10 +128,20 @@ class P1Tests(unittest.TestCase):
             "participant_ledger", "participant_ledger_schema", "noninterference_receipt",
             "noninterference_receipt_schema", "participant_noninterference_verifier",
             "operational_noninterference_receipt_schema",
+            "noninterference_key_commitment", "noninterference_key_commitment_schema",
+            "operational_noninterference_key_commitment_schema",
             "participant_noninterference_contract_test", "p1_role_resolver",
             "p1_role_resolver_contract_test", "p1_role_resolution_schema",
             "p1_role_resolution_readiness_schema", "linux_isolation_acceptance",
             "linux_isolation_acceptance_contract_test",
+            "controlled_harness_service_contract", "controlled_harness_service_contract_schema",
+            "target_blind_checkpoint_request_schema", "controlled_harness_response_schema",
+            "controlled_harness_service", "controlled_harness_service_contract_test",
+            "triplet_production_adapter", "triplet_production_adapter_contract_test",
+            "production_isolation_attestation_schema", "production_triplet_acceptance_certificate_schema",
+            "five_strata_classifier_contract", "five_strata_classifier_contract_schema",
+            "five_strata_classifier_readiness_schema", "five_strata_classifier_closure_validator",
+            "five_strata_classifier_closure_contract_test",
         }
         self.assertLessEqual(required, set(P1.NATIVE_COMPONENTS))
         p1a = self.build()

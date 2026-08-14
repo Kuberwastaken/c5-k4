@@ -14,12 +14,31 @@
       "triplet_isolation_readiness_schema": {"closure": "NATIVE_V1_5", "role": "triplet_isolation_readiness_schema"},
       "linux_isolation_acceptance": {"closure": "NATIVE_V1_5", "role": "linux_isolation_acceptance"},
       "linux_isolation_acceptance_test": {"closure": "NATIVE_V1_5", "role": "linux_isolation_acceptance_contract_test"},
+      "production_adapter": {"closure": "NATIVE_V1_5", "role": "triplet_production_adapter"},
+      "production_adapter_test": {"closure": "NATIVE_V1_5", "role": "triplet_production_adapter_contract_test"},
+      "production_isolation_attestation_schema": {"closure": "NATIVE_V1_5", "role": "production_isolation_attestation_schema"},
+      "production_triplet_acceptance_schema": {"closure": "NATIVE_V1_5", "role": "production_triplet_acceptance_certificate_schema"},
       "triplet_launcher": {"closure": "NATIVE_V1_5", "role": "arm_triplet_launcher"},
       "triplet_launcher_test": {"closure": "NATIVE_V1_5", "role": "arm_triplet_launcher_contract_test"},
       "test": {"closure": "NATIVE_V1_5", "role": "arm_execution_envelope_contract_test"},
       "validator": {"closure": "NATIVE_V1_5", "role": "arm_execution_envelope_validator"}
     },
-    "classification": {"policy": {"closure": "INHERITED_V1_4", "role": "five_strata_classifier"}},
+    "classification": {
+      "contract": {"closure": "NATIVE_V1_5", "role": "five_strata_classifier_contract"},
+      "contract_schema": {"closure": "NATIVE_V1_5", "role": "five_strata_classifier_contract_schema"},
+      "policy": {"closure": "INHERITED_V1_4", "role": "five_strata_classifier"},
+      "readiness_schema": {"closure": "NATIVE_V1_5", "role": "five_strata_classifier_readiness_schema"},
+      "test": {"closure": "NATIVE_V1_5", "role": "five_strata_classifier_closure_contract_test"},
+      "validator": {"closure": "NATIVE_V1_5", "role": "five_strata_classifier_closure_validator"}
+    },
+    "controlled_harness": {
+      "contract": {"closure": "NATIVE_V1_5", "role": "controlled_harness_service_contract"},
+      "contract_schema": {"closure": "NATIVE_V1_5", "role": "controlled_harness_service_contract_schema"},
+      "request_schema": {"closure": "NATIVE_V1_5", "role": "target_blind_checkpoint_request_schema"},
+      "response_schema": {"closure": "NATIVE_V1_5", "role": "controlled_harness_response_schema"},
+      "service": {"closure": "NATIVE_V1_5", "role": "controlled_harness_service"},
+      "test": {"closure": "NATIVE_V1_5", "role": "controlled_harness_service_contract_test"}
+    },
     "grouping": {"policy": {"closure": "INHERITED_V1_4", "role": "grouping_rule"}},
     "immutable_store": {
       "broker_adapter": {"closure": "NATIVE_V1_5", "role": "s3_delivery_broker_adapter"},
@@ -83,6 +102,9 @@
       "ledger_schema": {"closure": "NATIVE_V1_5", "role": "participant_ledger_schema"},
       "noninterference_receipt": {"closure": "NATIVE_V1_5", "role": "noninterference_receipt"},
       "noninterference_receipt_schema": {"closure": "NATIVE_V1_5", "role": "noninterference_receipt_schema"},
+      "noninterference_key_commitment": {"closure": "NATIVE_V1_5", "role": "noninterference_key_commitment"},
+      "noninterference_key_commitment_schema": {"closure": "NATIVE_V1_5", "role": "noninterference_key_commitment_schema"},
+      "operational_noninterference_key_commitment_schema": {"closure": "NATIVE_V1_5", "role": "operational_noninterference_key_commitment_schema"},
       "operational_noninterference_receipt_schema": {"closure": "NATIVE_V1_5", "role": "operational_noninterference_receipt_schema"},
       "test": {"closure": "NATIVE_V1_5", "role": "participant_noninterference_contract_test"},
       "verifier": {"closure": "NATIVE_V1_5", "role": "participant_noninterference_verifier"}
