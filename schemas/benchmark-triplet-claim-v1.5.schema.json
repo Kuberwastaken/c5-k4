@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-triplet-claim-v1.5.schema.json",
+  "title": "Method v1.5 PRE-P1 test-only three-arm execution claim",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema", "artifact_kind", "protocol_version", "status", "claim_state",
+    "envelope_sha256", "claim_nonce_sha256", "claim_ref", "claimed_at_utc",
+    "sealed_arm_order", "arm_order_derivation", "balanced_schedule_sha256",
+    "prior_claims_permitted", "atomic_create", "claim_sha256"
+  ],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-triplet-claim-1.0"},
+    "artifact_kind": {"const": "TEST_ONLY_THREE_ARM_EXECUTION_CLAIM"},
+    "protocol_version": {"const": "1.5"},
+    "status": {"const": "PRE_P1_TEST_ONLY_NOT_OPERATIONAL"},
+    "claim_state": {"const": "CLAIMED_ONCE"},
+    "envelope_sha256": {"$ref": "#/definitions/sha256"},
+    "claim_nonce_sha256": {"$ref": "#/definitions/sha256"},
+    "claim_ref": {"type": "string", "pattern": "^refs/heads/"},
+    "claimed_at_utc": {"$ref": "#/definitions/timestamp"},
+    "sealed_arm_order": {"$ref": "#/definitions/arms"},
+    "arm_order_derivation": {"const": "SHA256(envelope_sha256 || ':balanced-arm-order-v1') MOD 6"},
+    "balanced_schedule_sha256": {"$ref": "#/definitions/sha256"},
+    "prior_claims_permitted": {"const": false},
+    "atomic_create": {"const": "O_CREAT|O_EXCL+FSYNC_FILE+FSYNC_PARENT"},
+    "claim_sha256": {"$ref": "#/definitions/sha256"}
+  },
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+    },
+    "arms": {
+      "type": "array", "minItems": 3, "maxItems": 3, "uniqueItems": true,
+      "items": {"enum": ["CATALOGUE", "GENERIC", "WALL_NAVIGATION"]},
+      "allOf": [
+        {"contains": {"const": "CATALOGUE"}},
+        {"contains": {"const": "GENERIC"}},
+        {"contains": {"const": "WALL_NAVIGATION"}}
+      ]
+    }
+  }
+}

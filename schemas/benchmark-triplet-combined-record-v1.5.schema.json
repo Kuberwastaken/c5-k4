@@ -1,0 +1,141 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-triplet-combined-record-v1.5.schema.json",
+  "title": "Method v1.5 PRE-P1 test-only combined triplet record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema", "artifact_kind", "protocol_version", "status", "envelope_sha256",
+    "claim", "sealed_arm_order", "balanced_schedule_sha256", "started_at_utc",
+    "finished_at_utc", "execution_guarantees", "arms", "violations",
+    "combined_record_sha256"
+  ],
+  "properties": {
+    "schema": {"const": "c5k4-method-v1.5-triplet-combined-record-1.0"},
+    "artifact_kind": {"const": "TEST_ONLY_THREE_ARM_COMBINED_RECORD"},
+    "protocol_version": {"const": "1.5"},
+    "status": {
+      "enum": [
+        "PRE_P1_TEST_ONLY_TRIPLET_TERMINATED_NOT_OPERATIONAL",
+        "PRE_P1_TEST_ONLY_TRIPLET_REJECTED_NOT_OPERATIONAL"
+      ]
+    },
+    "envelope_sha256": {"$ref": "#/definitions/sha256"},
+    "claim": {
+      "type": "object", "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"const": "triplet-claim.json"},
+        "sha256": {"$ref": "#/definitions/sha256"}
+      }
+    },
+    "sealed_arm_order": {"$ref": "#/definitions/arms"},
+    "balanced_schedule_sha256": {"$ref": "#/definitions/sha256"},
+    "started_at_utc": {"$ref": "#/definitions/timestamp"},
+    "finished_at_utc": {"$ref": "#/definitions/timestamp"},
+    "execution_guarantees": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "envelope_authenticated_before_claim", "all_24_trees_submitted_before_observation",
+        "scientific_result_parsing_performed", "result_driven_control_adaptation_performed",
+        "network_policy", "network_enforcement", "filesystem_separation",
+        "mount_namespace_implementation", "intermediate_stream_delivery_permitted",
+        "intermediate_artifact_delivery_permitted", "public_output"
+      ],
+      "properties": {
+        "envelope_authenticated_before_claim": {"const": true},
+        "all_24_trees_submitted_before_observation": {"const": true},
+        "scientific_result_parsing_performed": {"const": false},
+        "result_driven_control_adaptation_performed": {"const": false},
+        "network_policy": {"const": "DENY"},
+        "network_enforcement": {"const": "INJECTED_TEST_KERNEL_ATTESTATION_ONLY"},
+        "filesystem_separation": {"const": "DISTINCT_TEST_BUFFER_AND_ENVIRONMENT_PER_TREE"},
+        "mount_namespace_implementation": {"const": "NOT_IMPLEMENTED_BY_THIS_PRE_P1_SKELETON"},
+        "intermediate_stream_delivery_permitted": {"const": false},
+        "intermediate_artifact_delivery_permitted": {"const": false},
+        "public_output": {"const": "COMBINED_RECORD_ONLY_AFTER_ALL_24_TERMINATE"}
+      }
+    },
+    "arms": {
+      "type": "object", "additionalProperties": false,
+      "required": ["CATALOGUE", "GENERIC", "WALL_NAVIGATION"],
+      "properties": {
+        "CATALOGUE": {"$ref": "#/definitions/armRecord"},
+        "GENERIC": {"$ref": "#/definitions/armRecord"},
+        "WALL_NAVIGATION": {"$ref": "#/definitions/armRecord"}
+      }
+    },
+    "violations": {
+      "type": "array", "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "combined_record_sha256": {"$ref": "#/definitions/sha256"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "PRE_P1_TEST_ONLY_TRIPLET_TERMINATED_NOT_OPERATIONAL"}}},
+      "then": {"properties": {"violations": {"maxItems": 0}}}
+    },
+    {
+      "if": {"properties": {"status": {"const": "PRE_P1_TEST_ONLY_TRIPLET_REJECTED_NOT_OPERATIONAL"}}},
+      "then": {"properties": {"violations": {"minItems": 1}}}
+    }
+  ],
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+    },
+    "arms": {
+      "type": "array", "minItems": 3, "maxItems": 3, "uniqueItems": true,
+      "items": {"enum": ["CATALOGUE", "GENERIC", "WALL_NAVIGATION"]},
+      "allOf": [
+        {"contains": {"const": "CATALOGUE"}},
+        {"contains": {"const": "GENERIC"}},
+        {"contains": {"const": "WALL_NAVIGATION"}}
+      ]
+    },
+    "opaqueDigest": {
+      "type": "object", "additionalProperties": false,
+      "required": ["byte_count", "sha256"],
+      "properties": {
+        "byte_count": {"type": "integer", "minimum": 0},
+        "sha256": {"$ref": "#/definitions/sha256"}
+      }
+    },
+    "completion": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "tree_id", "status", "returncode", "network_denied",
+        "accessed_root_roles", "stdout", "stderr", "artifact"
+      ],
+      "properties": {
+        "tree_id": {"type": "string", "pattern": "^(CATALOGUE|GENERIC|WALL_NAVIGATION)-[0-7]$"},
+        "status": {"enum": ["TERMINATED", "KERNEL_ERROR"]},
+        "returncode": {"type": ["integer", "null"]},
+        "network_denied": {"type": ["boolean", "null"]},
+        "accessed_root_roles": {
+          "type": "array", "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "stdout": {"$ref": "#/definitions/opaqueDigest"},
+        "stderr": {"$ref": "#/definitions/opaqueDigest"},
+        "artifact": {"$ref": "#/definitions/opaqueDigest"}
+      }
+    },
+    "armRecord": {
+      "type": "object", "additionalProperties": false,
+      "required": ["declared_writable_root", "tree_count", "completions"],
+      "properties": {
+        "declared_writable_root": {"type": "string", "pattern": "^/"},
+        "tree_count": {"const": 8},
+        "completions": {
+          "type": "array", "minItems": 8, "maxItems": 8,
+          "items": {"$ref": "#/definitions/completion"}
+        }
+      }
+    }
+  }
+}
