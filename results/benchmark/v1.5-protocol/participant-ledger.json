@@ -1,14 +1,14 @@
 {
   "schema": "c5k4-method-v1.5-participant-ledger-1.0",
-  "status": "PRE_P1_PARTICIPANT_SCOPE_NOT_OPERATIONAL",
+  "status": "P1_CANDIDATE_PARTICIPANT_SCOPE_CONTRACT",
   "protocol_version": "1.5",
   "host_id": "ai-vps-controlled-harness",
   "phase": "PRE_C1_MACHINE_ONLY",
-  "service_identity": {"name": "c5k4-benchmark-v15", "kind": "DEDICATED_NONLOGIN_SERVICE_IDENTITY", "provisioned": false, "uid": null, "gid": null},
+  "service_identity": {"name": "c5k4-benchmark-v15", "kind": "DEDICATED_NONLOGIN_SERVICE_IDENTITY"},
   "participants": ["BROKER_CUSTODY", "FROZEN_GIT_ACQUIRER", "IDENTITY_BUILDER", "GROUP_BUILDER", "STRUCTURAL_CLASSIFIER", "PROVENANCE_CLASSIFIER", "QUOTA_EVALUATOR", "REPLAY_VERIFIER", "CHECKPOINT_RUNNER", "PUBLICATION_VERIFIER"],
   "model_endpoints": [],
   "resources": {
-    "p1_checkout": {"path": "/opt/c5k4-benchmark-v15/p1", "owner": "root:root", "mode": "READ_ONLY_TO_SERVICE", "commit": null, "tree": null},
+    "p1_checkout": {"path": "/opt/c5k4-benchmark-v15/p1", "required_owner": "root:root", "required_mode": "READ_ONLY_TO_SERVICE"},
     "private_roots": ["/var/lib/c5k4-benchmark-v15", "/var/cache/c5k4-benchmark-v15"],
     "control_sockets": ["/run/c5k4-benchmark-v15/control.sock"],
     "credential_roots": ["/etc/c5k4-benchmark-v15/credentials"]
@@ -24,6 +24,6 @@
   "network": {"default": "DENY", "allowed_endpoint_classes": ["UPSTREAM_GIT_HTTPS", "IMMUTABLE_OBJECT_STORE_HTTPS", "KMS_HTTPS", "TRUSTED_TIME_HTTPS", "LOCAL_CONTROL_SOCKET"]},
   "excluded_environment": ["COMPANION_MAC", "HUMAN_INTERACTIVE_SESSIONS", "TMUX_SESSIONS", "STOCK_CODEX", "STOCK_CLAUDE", "DOCKER_DAEMON", "LOCAL_LLM_RELAY", "GENERAL_WORKTREES", "GENERAL_VPS_PROCESSES"],
   "failure_policy": {"unregistered_ingress": "PROTOCOL_INVALID", "missing_ingress_proof": "PROTOCOL_INVALID", "proved_external_noninterference": "NO_EVIDENCE_UNIT", "manual_exception": "FORBIDDEN", "new_channel_after_p1": "PROTOCOL_INVALID"},
-  "claims": {"p1_frozen": false, "operational": false, "production_ready": false, "target_specific": false},
-  "ledger_sha256": "a9537b446b4fd76b63c0728692314bde7f4bb37811186e7ca96d67b2c39e5f0f"
+  "contract": {"phase_invariant": true, "runtime_state_asserted": false, "operational_evidence_authority": "SIGNED_DEPLOYMENT_AND_NONINTERFERENCE_EVIDENCE", "target_specific": false},
+  "ledger_sha256": "a6d9f1dbb11f01a42e36308264a8ffba86899ea82c165418960989a95ffaf00b"
 }

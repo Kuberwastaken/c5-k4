@@ -94,6 +94,64 @@ class ParticipantNoninterferenceTests(unittest.TestCase):
         self.assertIsNone(self.receipt["service_epoch_binding_sha256"])
         self.assertFalse(self.receipt["unjournaled_delivery_detected"])
 
+    def test_ledger_is_phase_invariant_and_defers_runtime_state(self) -> None:
+        self.assertEqual(
+            self.ledger["status"], "P1_CANDIDATE_PARTICIPANT_SCOPE_CONTRACT"
+        )
+        self.assertEqual(
+            self.ledger["service_identity"],
+            {
+                "name": "c5k4-benchmark-v15",
+                "kind": "DEDICATED_NONLOGIN_SERVICE_IDENTITY",
+            },
+        )
+        self.assertEqual(
+            self.ledger["resources"]["p1_checkout"],
+            {
+                "path": "/opt/c5k4-benchmark-v15/p1",
+                "required_owner": "root:root",
+                "required_mode": "READ_ONLY_TO_SERVICE",
+            },
+        )
+        self.assertEqual(
+            self.ledger["contract"],
+            {
+                "phase_invariant": True,
+                "runtime_state_asserted": False,
+                "operational_evidence_authority": "SIGNED_DEPLOYMENT_AND_NONINTERFERENCE_EVIDENCE",
+                "target_specific": False,
+            },
+        )
+        def keys(value: object) -> set[str]:
+            if isinstance(value, dict):
+                return set(value) | set().union(*(keys(child) for child in value.values()))
+            if isinstance(value, list):
+                return set().union(*(keys(child) for child in value))
+            return set()
+
+        self.assertTrue(
+            {"provisioned", "uid", "gid", "commit", "tree", "claims"}.isdisjoint(
+                keys(self.ledger)
+            )
+        )
+
+    def test_runtime_state_cannot_be_smuggled_into_scope_contract(self) -> None:
+        for container, key, value in (
+            (("service_identity",), "provisioned", True),
+            (("service_identity",), "uid", 999),
+            (("resources", "p1_checkout"), "commit", "a" * 40),
+            (("resources", "p1_checkout"), "tree", "b" * 64),
+            ((), "claims", {"operational": True}),
+        ):
+            ledger, receipt = self.mutate()
+            selected = ledger
+            for part in container:
+                selected = selected[part]
+            selected[key] = value
+            self.rehash(ledger, receipt)
+            with self.assertRaises(module.BoundaryError):
+                module.verify(ledger, receipt)
+
     def test_no_human_or_model_participant_exists(self) -> None:
         serialized = json.dumps(self.ledger)
         self.assertEqual(self.ledger["model_endpoints"], [])

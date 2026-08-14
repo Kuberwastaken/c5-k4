@@ -3,7 +3,7 @@
   "status": "PRE_P1_NONINTERFERENCE_NOT_OPERATIONAL",
   "protocol_version": "1.5",
   "host_id": "ai-vps-controlled-harness",
-  "participant_ledger_sha256": "a9537b446b4fd76b63c0728692314bde7f4bb37811186e7ca96d67b2c39e5f0f",
+  "participant_ledger_sha256": "a6d9f1dbb11f01a42e36308264a8ffba86899ea82c165418960989a95ffaf00b",
   "source_boundary_sha256": null,
   "signing_key_id": null,
   "service_epoch_binding_sha256": null,
@@ -14,5 +14,5 @@
   "operational_ready": false,
   "activation_permitted": false,
   "claims": {"p1_frozen": false, "operational_capture": false, "production_ready": false, "target_specific": false},
-  "receipt_sha256": "1d7ffbcd4b735af65e72b06a9eec4d62dca42da48d4e1c712d1b7423e07ec4e2"
+  "receipt_sha256": "545aa7c5f11c08c9bff203b2a81f0dee76b52fd6b14217cf2139301c5311344f"
 }

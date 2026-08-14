@@ -96,6 +96,14 @@ class ProvenanceTests(unittest.TestCase):
         ontology = provenance.load_ontology(ROOT / "results/benchmark/v1.5-protocol/provenance-ontology.json")
         self.assertEqual(set(ontology["classes"]), provenance.CLASSES)
 
+    def test_preselection_exposure_examples_do_not_include_post_c1_arms(self) -> None:
+        ontology = provenance.load_ontology(
+            ROOT / "results/benchmark/v1.5-protocol/provenance-ontology.json"
+        )
+        self.assertIn("pre-selection", ontology["scope"])
+        examples = " ".join(ontology["classes"][provenance.SEMANTIC_EXPOSURE]["examples"])
+        self.assertNotIn("post-C1", examples)
+
     def test_ontology_distinguishes_outside_delivery_from_participant_ingress_gap(self) -> None:
         ontology = provenance.load_ontology(ROOT / "results/benchmark/v1.5-protocol/provenance-ontology.json")
         classification = ontology["classification"]

@@ -66,8 +66,21 @@ def reject_target_material(value: Any, path: tuple[str, ...] = ()) -> None:
             reject_target_material(child, path + (str(index),))
 
 
-def verify(ledger: dict[str, Any], receipt: dict[str, Any]) -> dict[str, Any]:
+def verify_scope_contract(ledger: dict[str, Any]) -> None:
+    """Require a phase-invariant scope; runtime facts belong in signed evidence."""
     validate_schema(ledger, "benchmark-participant-ledger-v1.5.schema.json")
+    contract = ledger["contract"]
+    if (
+        contract["phase_invariant"] is not True
+        or contract["runtime_state_asserted"] is not False
+        or contract["operational_evidence_authority"]
+        != "SIGNED_DEPLOYMENT_AND_NONINTERFERENCE_EVIDENCE"
+    ):
+        raise BoundaryError("participant ledger is not a phase-invariant scope contract")
+
+
+def verify(ledger: dict[str, Any], receipt: dict[str, Any]) -> dict[str, Any]:
+    verify_scope_contract(ledger)
     validate_schema(receipt, "benchmark-noninterference-receipt-v1.5.schema.json")
     reject_target_material(ledger)
     reject_target_material(receipt)
@@ -116,7 +129,7 @@ def verify_operational(
     verification_key: bytes,
 ) -> dict[str, Any]:
     """Verify a future operational receipt; no such artifact exists pre-P1."""
-    validate_schema(ledger, "benchmark-participant-ledger-v1.5.schema.json")
+    verify_scope_contract(ledger)
     validate_schema(receipt, "benchmark-operational-noninterference-receipt-v1.5.schema.json")
     reject_target_material(ledger)
     reject_target_material(receipt)

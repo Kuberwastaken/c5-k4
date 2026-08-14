@@ -1,20 +1,20 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://github.com/Kuberwastaken/c5-k4/schemas/benchmark-participant-ledger-v1.5.schema.json",
-  "title": "Method v1.5 PRE-P1 controlled-harness participant and channel ledger",
+  "title": "Method v1.5 phase-invariant P1-candidate participant and channel scope contract",
   "type": "object", "additionalProperties": false,
-  "required": ["schema", "status", "protocol_version", "host_id", "phase", "service_identity", "participants", "model_endpoints", "resources", "channels", "network", "excluded_environment", "failure_policy", "claims", "ledger_sha256"],
+  "required": ["schema", "status", "protocol_version", "host_id", "phase", "service_identity", "participants", "model_endpoints", "resources", "channels", "network", "excluded_environment", "failure_policy", "contract", "ledger_sha256"],
   "properties": {
     "schema": {"const": "c5k4-method-v1.5-participant-ledger-1.0"},
-    "status": {"const": "PRE_P1_PARTICIPANT_SCOPE_NOT_OPERATIONAL"},
+    "status": {"const": "P1_CANDIDATE_PARTICIPANT_SCOPE_CONTRACT"},
     "protocol_version": {"const": "1.5"},
     "host_id": {"const": "ai-vps-controlled-harness"},
     "phase": {"const": "PRE_C1_MACHINE_ONLY"},
-    "service_identity": {"const": {"name": "c5k4-benchmark-v15", "kind": "DEDICATED_NONLOGIN_SERVICE_IDENTITY", "provisioned": false, "uid": null, "gid": null}},
+    "service_identity": {"const": {"name": "c5k4-benchmark-v15", "kind": "DEDICATED_NONLOGIN_SERVICE_IDENTITY"}},
     "participants": {"const": ["BROKER_CUSTODY", "FROZEN_GIT_ACQUIRER", "IDENTITY_BUILDER", "GROUP_BUILDER", "STRUCTURAL_CLASSIFIER", "PROVENANCE_CLASSIFIER", "QUOTA_EVALUATOR", "REPLAY_VERIFIER", "CHECKPOINT_RUNNER", "PUBLICATION_VERIFIER"]},
     "model_endpoints": {"const": []},
     "resources": {"const": {
-      "p1_checkout": {"path": "/opt/c5k4-benchmark-v15/p1", "owner": "root:root", "mode": "READ_ONLY_TO_SERVICE", "commit": null, "tree": null},
+      "p1_checkout": {"path": "/opt/c5k4-benchmark-v15/p1", "required_owner": "root:root", "required_mode": "READ_ONLY_TO_SERVICE"},
       "private_roots": ["/var/lib/c5k4-benchmark-v15", "/var/cache/c5k4-benchmark-v15"],
       "control_sockets": ["/run/c5k4-benchmark-v15/control.sock"],
       "credential_roots": ["/etc/c5k4-benchmark-v15/credentials"]
@@ -30,7 +30,7 @@
     "network": {"const": {"default": "DENY", "allowed_endpoint_classes": ["UPSTREAM_GIT_HTTPS", "IMMUTABLE_OBJECT_STORE_HTTPS", "KMS_HTTPS", "TRUSTED_TIME_HTTPS", "LOCAL_CONTROL_SOCKET"]}},
     "excluded_environment": {"const": ["COMPANION_MAC", "HUMAN_INTERACTIVE_SESSIONS", "TMUX_SESSIONS", "STOCK_CODEX", "STOCK_CLAUDE", "DOCKER_DAEMON", "LOCAL_LLM_RELAY", "GENERAL_WORKTREES", "GENERAL_VPS_PROCESSES"]},
     "failure_policy": {"const": {"unregistered_ingress": "PROTOCOL_INVALID", "missing_ingress_proof": "PROTOCOL_INVALID", "proved_external_noninterference": "NO_EVIDENCE_UNIT", "manual_exception": "FORBIDDEN", "new_channel_after_p1": "PROTOCOL_INVALID"}},
-    "claims": {"const": {"p1_frozen": false, "operational": false, "production_ready": false, "target_specific": false}},
+    "contract": {"const": {"phase_invariant": true, "runtime_state_asserted": false, "operational_evidence_authority": "SIGNED_DEPLOYMENT_AND_NONINTERFERENCE_EVIDENCE", "target_specific": false}},
     "ledger_sha256": {"$ref": "#/definitions/sha256"}
   },
   "definitions": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
