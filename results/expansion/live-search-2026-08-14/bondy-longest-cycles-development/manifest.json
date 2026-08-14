@@ -1,0 +1,39 @@
+{
+  "campaign": "bondy-longest-cycles-development",
+  "evidence_class": "CONTAMINATED_DEVELOPMENT",
+  "target": "Arxiv.2606.03696.bondy_conjecture",
+  "slice": {"k": 4, "t": 4, "h_order": 20, "g_order": 24, "large_graph_cutoff": 108},
+  "caps": {"internal_search_seconds": 48, "internal_finalize_seconds": 54, "external_process_seconds": 60, "term_to_kill_seconds": 6, "independent_verify_seconds": 60},
+  "runtime": {"python_version": "3.11.9", "networkx_version": "3.3", "discovery_algorithm": "python_endpoint_path_cover_dp_v1", "replay_algorithm": "cpp_endpoint_path_cover_dp_v1"},
+  "upstream": {
+    "commit": "5a5af706fa5bef3f09606554d393c9170d2b27e8",
+    "tree": "0ef534e06d27e22e68e4cfd5081f2a5e28ebe73a",
+    "path": "FormalConjectures/Arxiv/2606.03696/BondyLongestCycles.lean",
+    "blob": "c4c5cb1983936860d5a4a7208b3f04bd201290d4"
+  },
+  "source_sha256": "562fbbb0ec47041a61017bb85ec0c7e9aa6fc98cf132be3022268a7dc60e9004",
+  "primary_pdf_sha256": "56213cd6384cc2111864d67150c41e1426608c59b1b009c6752acab9be3487fb",
+  "formal_wrapper": "google.answer_default_true_so_declaration_is_True_iff_RHS",
+  "source_control": {"scaled_degree_residual": -1, "delta_h": 3, "delta_g": 7, "threshold_numerator": 36, "threshold_denominator": 5, "threshold_ceiling": 8},
+  "grammar": {
+    "row_limit": 96,
+    "row_order": ["matching_choices_lexicographic", "quotient_index", "port_permutation_index"],
+    "perfect_matchings": [[[0,1],[2,3]],[[0,2],[1,3]],[[0,3],[1,2]]],
+    "quotient_catalogue": [
+      [[0,1,2,3],[1,2,3,4],[2,3,4,0],[3,4,0,1],[4,0,1,2]],
+      [[0,1,3,2],[1,2,4,3],[2,3,0,4],[3,4,1,0],[4,0,2,1]],
+      [[0,2,1,3],[1,3,2,4],[2,4,3,0],[3,0,4,1],[4,1,0,2]],
+      [[0,2,4,1],[1,3,0,2],[2,4,1,3],[3,0,2,4],[4,1,3,0]]
+    ],
+    "port_permutations": [[0,1,2,3],[1,0,3,2],[1,2,3,0]],
+    "labelled_duplicate": "sha256_canonical_edges_and_roles",
+    "ordinary_duplicate": "networkx_wl4_bucket_then_exact_isomorphism"
+  },
+  "candidate": {"q4": 16, "Q_vertices": 4, "Q_subsets": 4845, "Q_path_may_have_chords": true, "deletion_upper_checks": 1351, "circumference": 20, "discovery_encoder": "python_endpoint_path_cover_dp_capped_at_5", "discovery_version": "python_endpoint_path_cover_dp_v1", "independent_encoder": "cpp_endpoint_path_cover_dp_capped_at_5", "independent_version": "cpp_endpoint_path_cover_dp_v1", "pc_table_bytes": 1048576, "required_graph_edge_lists": ["edges_h", "edges_g"], "upper_rejection_requires_cover_witness": true},
+  "target_execution_lock": {
+    "enabled_by_default": false,
+    "token_provisioned": false,
+    "activation_token_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "state": "TARGET_DISABLED_NO_ACTIVATION_TOKEN_EXISTS"
+  }
+}

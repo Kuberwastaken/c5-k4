@@ -1,0 +1,129 @@
+name: Bondy longest cycles DEVELOPMENT (disabled)
+
+on:
+  workflow_dispatch:
+    inputs:
+      enable_target:
+        description: Exact reviewed target-execution Boolean
+        required: true
+        default: false
+        type: boolean
+      campaign_commit:
+        description: Exact reviewed freeze commit
+        required: true
+        default: "0000000000000000000000000000000000000000"
+        type: string
+      activation_token:
+        description: Exact reviewed activation token
+        required: true
+        default: ""
+        type: string
+
+permissions:
+  contents: read
+  pull-requests: read
+  issues: read
+
+jobs:
+  target-free-preflight:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: "3.11.9"
+      - name: Install frozen Python dependencies
+        run: python -m pip install 'networkx==3.3'
+      - name: Verify immutable freeze
+        run: python results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/verify_freeze.py
+      - name: Run target-free constructor tests
+        run: timeout --signal=TERM --kill-after=6s 60s python scripts/test_bondy_development.py --target-free
+      - name: Replay exact S(4,4) source control
+        run: timeout --signal=TERM --kill-after=6s 60s python scripts/prospective_bondy_construct.py --source-control
+      - name: Compile independent replay without executing a candidate
+        run: g++ -std=c++17 -O2 -Wall -Wextra -Werror scripts/prospective_bondy_replay.cpp -o /tmp/prospective_bondy_replay
+      - name: Recheck source, open status, duplicates, and primary hash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          curl -fsSL https://arxiv.org/pdf/2606.03696v1 -o /tmp/2606.03696.pdf
+          timeout --signal=TERM --kill-after=6s 60s python scripts/prospective_bondy_gate.py \
+            --paper /tmp/2606.03696.pdf --output /tmp/source-status-attestation.json
+
+  candidate-search:
+    if: ${{ inputs.enable_target == true }}
+    needs: target-free-preflight
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          ref: ${{ inputs.campaign_commit }}
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: "3.11.9"
+      - run: python -m pip install 'networkx==3.3'
+      - name: Compile independent replay
+        run: g++ -std=c++17 -O2 -Wall -Wextra -Werror scripts/prospective_bondy_replay.cpp -o /tmp/prospective_bondy_replay
+      - name: Exact live gate
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          curl -fsSL https://arxiv.org/pdf/2606.03696v1 -o /tmp/2606.03696.pdf
+          timeout --signal=TERM --kill-after=6s 60s python scripts/prospective_bondy_gate.py \
+            --paper /tmp/2606.03696.pdf --output /tmp/source-status-attestation.json
+      - name: Frozen target process (manifest remains disabled)
+        id: target
+        shell: bash
+        run: |
+          set +e
+          timeout --signal=TERM --kill-after=6s 60s python scripts/prospective_bondy_search.py \
+            --enable-target \
+            --campaign-commit '${{ inputs.campaign_commit }}' \
+            --activation-token '${{ inputs.activation_token }}' \
+            --source-attestation /tmp/source-status-attestation.json \
+            --ledger /tmp/bondy-ledger.jsonl \
+            --candidate /tmp/bondy-candidate.json \
+            --terminal /tmp/bondy-terminal.json \
+            --replay-binary /tmp/prospective_bondy_replay
+          target_code=$?
+          echo "target_code=$target_code" >> "$GITHUB_OUTPUT"
+          exit 0
+      - name: Independently verify candidate or fail-closed terminal
+        if: always()
+        shell: bash
+        run: |
+          set +e
+          final_code=1
+          expected_status=
+          if test -s /tmp/bondy-candidate.json && ! test -e /tmp/bondy-terminal.json; then
+            timeout --signal=TERM --kill-after=6s 60s python scripts/prospective_bondy_verify.py candidate \
+              /tmp/bondy-candidate.json --ledger /tmp/bondy-ledger.jsonl \
+              --output /tmp/bondy-verification.json
+            final_code=$?
+            expected_status=CANDIDATE_VERIFIED
+          elif test -s /tmp/bondy-terminal.json && ! test -e /tmp/bondy-candidate.json; then
+            timeout --signal=TERM --kill-after=6s 60s python scripts/prospective_bondy_verify.py terminal \
+              /tmp/bondy-terminal.json --ledger /tmp/bondy-ledger.jsonl \
+              --output /tmp/bondy-verification.json
+            final_code=$?
+            expected_status=TERMINAL_VERIFIED
+          fi
+          target_code='${{ steps.target.outputs.target_code }}'
+          if test "$target_code" -ne 0 || test "$final_code" -ne 0 || test -z "$expected_status"; then
+            exit 1
+          fi
+          accepted_status=$(python -c 'import json; print(json.load(open("/tmp/bondy-verification.json"))["status"])')
+          test "$accepted_status" = "$expected_status"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: bondy-longest-cycles-development-provisional-evidence
+          if-no-files-found: error
+          path: |
+            /tmp/source-status-attestation.json
+            /tmp/bondy-ledger.jsonl
+            /tmp/bondy-candidate.json
+            /tmp/bondy-terminal.json
+            /tmp/bondy-verification.json

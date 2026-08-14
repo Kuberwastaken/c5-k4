@@ -1,0 +1,17 @@
+{
+  "status": "PREFLIGHT_LOCKED_NOT_LIVE_RECHECKED",
+  "audit_date_utc": "2026-08-14",
+  "upstream": {
+    "commit": "5a5af706fa5bef3f09606554d393c9170d2b27e8",
+    "tree": "0ef534e06d27e22e68e4cfd5081f2a5e28ebe73a",
+    "path": "FormalConjectures/Arxiv/2606.03696/BondyLongestCycles.lean",
+    "blob": "c4c5cb1983936860d5a4a7208b3f04bd201290d4"
+  },
+  "source_sha256": "562fbbb0ec47041a61017bb85ec0c7e9aa6fc98cf132be3022268a7dc60e9004",
+  "primary_pdf_sha256": "56213cd6384cc2111864d67150c41e1426608c59b1b009c6752acab9be3487fb",
+  "category": "research open",
+  "known_ingestion_issue": 4858,
+  "known_ingestion_pr": 4879,
+  "live_gate_required_before_target": true,
+  "target_evaluated": false
+}
