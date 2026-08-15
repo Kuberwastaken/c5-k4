@@ -132,3 +132,8 @@ still needs the site.
   question is unaffected, and an AI assistance disclosure.
 - No PRs were opened in this lane. No release was drafted; none of these findings
   is release-eligible under `UPSTREAM_PROTOCOL.md`, which is for counterexamples.
+
+## Upstream submissions, 2026-08-15
+
+- **A110854** — issue [#4982](https://github.com/google-deepmind/formal-conjectures/issues/4982), PR [#4983](https://github.com/google-deepmind/formal-conjectures/pull/4983) (`answer(False)` with a complete in-repo proof, plus `conjecture.variants.oeis_question` preserving the real OEIS question). Build note: a full `lake build` was NOT run (the box lacked disk for a from-source Mathlib build); the file was type-checked with `lean -DwarningAsError=true` against existing package oleans, exit 0, axioms `[propext, Classical.choice, Quot.sound]`, no `sorryAx`. CI is the authoritative check.
+- **Eight formalization-defect issues** [#4974–#4981](https://github.com/google-deepmind/formal-conjectures/issues/4974) plus a comment on #4922.
