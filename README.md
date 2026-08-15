@@ -37,6 +37,76 @@ nonduplicate major human conjectures. It found one especially clean,
 apparently unrecorded open-as-posted disproof: Graph Brain upper-081 is false
 on C₅[K₄], on a 9-vertex windmill, and on two infinite families.
 
+## The formal-corpus program (2026-08-15)
+
+On 2026-08-15 the target queue was extended, by operator direction, to the
+**OEIS** and **ErdosProblems** collections of `google-deepmind/formal-conjectures`
+(scope amendment in [`OVERARCHING_PLAN.md`](OVERARCHING_PLAN.md); lane selection
+per [`METHOD_V1_6.md`](METHOD_V1_6.md) §A1). Inventory at upstream `2411d22e`:
+**460 files carrying `answer(sorry)` or `category research open`** — 87 OEIS, 373
+ErdosProblems, 438 untouched by this campaign
+([`open_targets_oeis_erdos_20260815.json`](results/expansion/open_targets_oeis_erdos_20260815.json)).
+
+This program is deliberately **separate from the tightness-navigation research
+claim above**. It asks a different question — *does this Lean declaration assert
+what its source says?* — and its results are statements about the formal corpus,
+never about the underlying mathematics. Both are tracked here, but they should
+not be added together.
+
+### Two crossings
+
+Finite witnesses that make an open declaration false. Both were found by one
+lane and then re-verified in a separate session by an independent sieve-based
+code path.
+
+| Declaration | Witness | Why it fails |
+|---|---|---|
+| **OEIS A110854** `conjecture` | `d = 3` (premise via `5 − 2`) | `a 1 = 1`, and for `n ≥ 2` all four primes are odd so `a n` is even; the reachable set is `{1} ∪ 2ℕ`. The source asks about coverage of **A004275**; the formalization widened the hypothesis to "difference of two primes", admitting odd `d = p − 2` |
+| **OEIS A108864** `conjecture` | `n = 67`, `a 67 = 8925` (odd) | The declaration encodes the index set as `\|σ(n) − 2n\| ≤ 10`, but A108864 is "perfect deficiency (**A109883**) ≤ 10", a greedy divisor-subtraction quantity. Decisive: 24 is in the published DATA yet `\|σ(24) − 48\| = 12` |
+
+Neither refutes its OEIS conjecture: A108864's "is 1155 the last odd term?"
+survives (A109883(8925) = 2969 ≫ 10), and A110854's A004275 question is
+untouched.
+
+### Nine defects filed upstream
+
+Eight issues plus one comment, each with a minimal witness, a suggested repair,
+and an explicit statement that the mathematics is unaffected — filed after an
+offline duplicate gate over 1,734 issues and 3,226 PRs (matched on title, body
+and changed path) and re-verification against then-current main:
+[#4974](https://github.com/google-deepmind/formal-conjectures/issues/4974) (A237271 vacuous hypothesis),
+[#4975](https://github.com/google-deepmind/formal-conjectures/issues/4975) (Erdős 1093 `smoothNumbers` threshold),
+[#4976](https://github.com/google-deepmind/formal-conjectures/issues/4976) (Erdős 1055 `IsOfClass`),
+[#4977](https://github.com/google-deepmind/formal-conjectures/issues/4977) (Erdős 40 missing extremality),
+[#4978](https://github.com/google-deepmind/formal-conjectures/issues/4978) (Erdős 33 wrong direction),
+[#4979](https://github.com/google-deepmind/formal-conjectures/issues/4979) (Erdős 15 `Summable`),
+[#4980](https://github.com/google-deepmind/formal-conjectures/issues/4980) (Erdős 477 index set),
+[#4981](https://github.com/google-deepmind/formal-conjectures/issues/4981) (Erdős 952 asserted direction),
+and a comment on [#4922](https://github.com/google-deepmind/formal-conjectures/issues/4922) for Erdős 142.
+
+Two carry provenance worth recording: **1093**'s threshold bug entered through a
+review suggestion on PR #1328 whose first commit had `p ≤ k` correct, and
+**477**'s docstring and code contradict each other inside the same declaration
+because #1242 narrowed the set while #1510 later re-synced only the docstring.
+
+### What the same sweep did *not* find
+
+The complete triage of all **603 open ErdosProblems declarations** classified
+575 as not finitely refutable; nineteen depth targets and 61 OEIS files yielded
+**zero** further crossings. Erdős 242's timeout bracket was closed properly
+(exact divisor enumeration settles every `n ≤ 2,000,000`), and Erdős 274's
+suspected loophole was shown not to exist. Seven status-sync claims were **held
+back unpublished** because the live source was unreachable and the offline
+mirror contradicted them — they are marked `CONTESTED` in
+[`CONFIRMED_LEDGER.md`](results/expansion/live-search-2026-08-15/CONFIRMED_LEDGER.md)
+rather than deleted.
+
+Two of five inherited candidate findings (Erdős 1084 and 931) were **refuted by
+the verification lane** — in both cases the alleged defect was in a docstring or
+in a reading that the declaration does not actually make. That is the second
+time in this campaign that single-pass audit findings failed adversarial
+re-checking, which is the argument for the verification lane being permanent.
+
 ## From one carrier to a discovery procedure
 
 The project no longer stops at asking which published inequalities are
@@ -62,7 +132,24 @@ original four kills:
 | regular clique blow-ups in the independent-domination cluster | center geometry and the Caro--Wei correction move together | nonuniform `P₇` clique blow-ups | #430a |
 | stars on the Graffiti³ closed-distance-two GA wall | one hub keeps every spoke term at equality | split the hub into adjacent unequal centers (double stars) | Graffiti³ Conjecture 2; `DS(k,k)` fails for every `k>=12` |
 | repeated equality in #438b | matching edges seem able to evade both induced-subgraph corrections | low-degree false-twin layer | no crossing: the attempted separation yields a stronger arbitrary-subset theorem proving #438b |
-| Bondy balanced rewiring | every surviving peripheral graph is the union of two `C4`-factors | factor-incidence scaffold and compatible Euler tours | no crossing: the whole connected `C4/C4` coordinate is Hamiltonian |
+| Bondy balanced rewiring | every surviving peripheral graph is the union of two `C4`-factors | factor-incidence scaffold and compatible Euler tours | no crossing: the whole connected `C4/C4` coordinate is Hamiltonian — **and the theorem recovered here is not new**, see below |
+
+One row of that table needs a correction stated plainly. The `C4`-factor
+Hamiltonicity result the Bondy lane proved is **already in the literature**:
+Boyd & Sebő, *The salesman's improved tours for fundamental classes*, IPCO 2017
+/ Math. Programming 186 (2021), **Lemma 2**, with the same contraction-plus-Kotzig
+proof and a Kotzig-free alternative matching our trail-splicing variant. A
+prior-art review found this after the fact
+([`c4-factor-novelty-prior-art.md`](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/c4-factor-novelty-prior-art.md));
+the theorem document is reclassified `KNOWN_RESULT_RECOVERED` and nothing there
+should be cited as new. Its value to the project is unchanged and real — it is
+the symbolic stop rule that retired the balanced `C4/C4` coordinate. The
+sharpness observation from the same review (the `C3/C3` analogue is false, via
+`L(X)` for a cubic bipartite `X` with no dominating cycle) is independently
+verified in [`scripts/verify_c3_factor_counterexample.py`](scripts/verify_c3_factor_counterexample.py),
+but it assembles Harary–Nash-Williams with well-known facts and is routine
+rather than new. `C6/C6` is genuinely open; the Kotzig route provably does not
+reach it.
 
 The `P₇` crossing was the first replication in a substantially different
 conjecture cluster of the same prospective pattern
