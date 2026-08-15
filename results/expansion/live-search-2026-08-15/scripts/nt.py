@@ -46,12 +46,10 @@ def factorint(n, spf=None):
     if n > 1: f[n] = f.get(n,0)+1
     return f
 
+import math
 def isqrt(n):
     if n < 0: return -1
-    x = int(n**0.5)
-    while x*x > n: x -= 1
-    while (x+1)*(x+1) <= n: x += 1
-    return x
+    return math.isqrt(n)
 
 def is_square(n):
     if n < 0: return False
