@@ -301,10 +301,15 @@ meet here.**
 
 ### 4.3 Sweep of the whole 1-parameter Danzer family
 
-852 admissible members sampled over `a₁ ∈ [−1.60, 0.60]` (1500 steps × 2
-branches), each Newton-solved to `1e-50` and screened by three guards:
-strict convexity, `min pairwise distance / diameter ≥ 1e-3`, and
-`min exterior turn ≥ 1e-3` rad.
+Two independent sweeps over `a₁ ∈ [−1.60, 0.60]`, each member Newton-solved to
+`1e-50` and screened by non-degeneracy guards (strict convexity;
+`min pairwise distance / diameter ≥ 1e-3`; and, in the finer sweep, additionally
+`min exterior turn ≥ 1e-3` rad):
+
+| sweep | steps × branches | admissible members | rejected as degenerate | best `min_i c_i` |
+|---|---|---|---|---|
+| committed script (`step = 0.005`) | 441 × 2 | 251 | 14 | **6** |
+| finer standalone (`step ≈ 0.00147`) | 1500 × 2 | 852 | 53 | **6** |
 
 * best (smallest) `min_i c_i` anywhere in the family: **6** → `R = +2`.
 * smallest relative gap between distinct classes among admissible members:
