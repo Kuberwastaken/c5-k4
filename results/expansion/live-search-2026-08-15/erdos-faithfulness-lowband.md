@@ -83,6 +83,11 @@ proposed. No `git` mutation was run. Internal reading record only.
 | 39 | open / OPEN | `erdos_39` | none. `(· ^ (1/2 − ε) : ℕ → ℝ) =O[atTop] (fun N => ((Icc 1 N ∩ A).ncard : ℝ))` is the correct direction for `≫_ε` | FAITHFUL | `∃ A` infinite Sidon set |
 | 40 | open / OPEN | `erdos_40` | **`theorem erdos_40 : Erdos40ForSet answer(sorry)` is satisfied by `answer := (∅ : Set (ℕ → ℝ))`.** See the finding block below | **VACUOUS_AS_STATED** | trivially fillable `answer` hole |
 | 41 | open / OPEN | `erdos_41` | **`NtupleCondition A n` quantifies over `Finset`s `I, J` of card exactly `n`, so it only forbids coincidences between sums of `n` *pairwise distinct* elements.** The source's "triple sums `a+b+c` … aside from the trivial coincidences" is the multiset (strong `B₃`) reading, which also forbids e.g. `a+a+b = c+c+d`. The Lean hypothesis class is therefore strictly larger, making `erdos_41` a **strictly stronger** claim than the source's. Same issue in the `research solved` `.variants.pairwise` (weak Sidon vs Sidon). Order of magnitude is unchanged (weak `B_h` sets in `[N]` are still `Θ(N^{1/h})`), so no refutation follows | MATERIAL_BUT_STILL_TRUE | `liminf = 0` over infinite `A` |
+| 36 | open / OPEN | `erdos_36`, `.variants.lower`, `.variants.upper` | encoding of `M(n)` is correct (`sInf` over `Disjoint A B`, `A ∪ B = Icc 1 (2n)`, `A.card = B.card`; `Overlap` counts ordered pairs). **Database gate passed**: independently brute-forced `M(1..10) = 1,1,2,2,3,3,3,4,4,5`, matching the file's `M_one … M_five` exactly. **`.variants.upper` is a STATUS_SYNC**: it asks for `c < 0.380926853433087` with `limsup ≤ c`, and the site now records the record upper bound `c < 0.380876` due to the TTT-Discover LLM [YKLBMWKCZGS26] (improving AlphaEvolve [GGTW25] and Haugland [Ha16]) — so the declaration is answered in the literature but tagged `research open`. `.variants.lower` (`> 0.379005`, White [Wh22]) is genuinely still open. `MinOverlapQuotient 0 = 0/0 = 0` junk, irrelevant `atTop` | STATUS_SYNC (`.variants.upper`) + FAITHFUL | `FIXED_OPTIMUM` / bound-improvement |
+| 44 | open / OPEN | `erdos_44`, `.variants.empty_start` | headline is a verbatim transcription ✓. **`.variants.empty_start` is a STATUS_SYNC**: `∀ ε > 0, ∀ᶠ M, ∃ A ⊆ Icc 1 M, IsSidon A ∧ (1−ε)√M ≤ #A` is precisely Singer's 1938 theorem (`h(N) ≥ (1−o(1))√N`), which the corpus itself cites on the neighbouring EP 30 page; it carries `research open` + `answer(sorry)`. Expected repair: `research solved`, `answer(True)` | STATUS_SYNC | `∃`-construction |
+| 50 | open / OPEN | `erdos_50` | open declaration is FAITHFUL: `HasDerivWithinAt f y (Icc 0 1) x` depends only on `f` restricted to `Icc 0 1`, which `IsDistributionOfPhiRatio` pins, so the unconstrained `∀ f` is harmless *there*. **But the `research solved` `erdos_50_singular` is false as stated** — see the finding block | FAITHFUL (open decl); FALSE_AS_STATED on a `research solved` sibling | derivative of a singular distribution |
+| 51 | open / OPEN | `erdos_51` | none. `IsLeast (φ ⁻¹' {a}) (n a)` gives both "`∃ n, φ(n) = a`" and "`n_a` is smallest" ✓. `atTop` on the subtype `A` is the right "as `a → ∞`" filter for an infinite `A ⊆ ℕ`. `0 ∈ A` would force `n 0 = 0` and `0/0 = 0`, invisible to an `atTop` limit | FAITHFUL | `∃ A` infinite |
+| 52 | open / OPEN | `erdos_52` | added hypothesis `ε < 1` is **not** in the source, but is free: the `ε ≥ 1` instances follow from any `ε' < 1` since `|A|^{2−ε} ≤ |A|^{2−ε'}` for `|A| ≥ 1` and both sides vanish at `|A| = 0`. `A = ∅` gives `0 ≥ C·0^{2−ε} = 0` ✓; singletons force `C ≤ 1`, which the `∃ C` absorbs | COSMETIC | `∃ C` global constant |
 
 ---
 
@@ -180,6 +185,44 @@ intended statement, not the encoded one.
 - **Severity:** `VACUOUS_AS_STATED` (declaration is `research solved`, so it is not in the
   open-target set; recorded as a corpus defect).
 - **Duplicate check:** NOT YET RUN.
+
+### EP 50 — `erdos_50_singular` quantifies over a function that is pinned only on `[0,1]`
+
+```lean
+def IsDistributionOfPhiRatio (f : ℝ → ℝ) : Prop :=
+  ∀ c ∈ Icc (0 : ℝ) 1, {n : ℕ | (φ n : ℝ) < c * n}.HasDensity (f c)
+
+def IsPurelySingular (f : ℝ → ℝ) : Prop :=
+  Continuous f ∧ ∀ᵐ x ∂volume, deriv f x = 0
+
+@[category research solved, AMS 11]
+theorem erdos_50_singular (f : ℝ → ℝ) (hf : IsDistributionOfPhiRatio f) : IsPurelySingular f
+```
+
+`IsDistributionOfPhiRatio f` constrains `f` **only on `Icc 0 1`**. `IsPurelySingular f` asserts
+`Continuous f` on **all of ℝ**. Explicit counterexample: let `F` be the true Schoenberg
+distribution function and set
+
+```
+f x = F x            for x ∈ [0,1]
+f x = 0              for x ∉ [0,1] ∪ {2}
+f 2 = 1
+```
+
+Then `IsDistributionOfPhiRatio f` holds (its only requirement is on `[0,1]`), and `f` is
+discontinuous at `2`, so `IsPurelySingular f` fails. The declaration is therefore **false as
+stated**, despite carrying `research solved`.
+
+The *open* declaration `erdos_50` in the same file is immune, because it uses
+`HasDerivWithinAt f y (Icc 0 1) x` with `x ∈ Icc 0 1`, which only sees `f` on `Icc 0 1`.
+The repair for the solved sibling is to state singularity of the restriction, or to add
+`∀ x ∉ Icc 0 1` normalisation to `IsDistributionOfPhiRatio`.
+
+- **Severity:** FALSE_AS_STATED (on a `research solved` declaration, therefore outside the
+  open-target set); certificate is an explicit function, not a finite object.
+- **Duplicate check:** NOT YET RUN.
+- **Pattern to reuse:** *an unconstrained function/parameter in a hypothesis predicate, with the
+  conclusion asserting a global property of it.* Worth grepping the corpus for.
 
 ---
 

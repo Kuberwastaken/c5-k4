@@ -421,3 +421,145 @@ language; (ii) the repair is one token — `smoothNumbers (k+1)` is by definitio
 source's condition; equivalently restore PR #1328's original local
 `IsKSmooth k n := ∀ p, p.Prime → p ∣ n → p ≤ k`; (iii) re-check the duplicate surface
 immediately before any write. **No action taken.**
+
+---
+
+## Candidate 4 — Erdős 1055 `Erdos1055.IsOfClass` / `Erdos1055.p`
+
+### Claim under test
+
+"The `r = 2` equality clause is vacuous in `ℕ+`, so `IsOfClass 2 2` holds and
+`Erdos1055.p 2 = 2`, where A005113 gives `p₂ = 13`."
+
+### (a) Primary re-derivation
+
+**Actual Lean at the pin** (`FormalConjectures/ErdosProblems/1055.lean`):
+
+```lean
+def IsOfClass : ℕ+ → ℕ → Prop := fun r ↦
+  PNat.caseStrongInductionOn (p := fun (_ : ℕ+) ↦ ℕ → Prop) r
+    (fun p ↦ (p + 1).primeFactors ⊆ {2, 3})
+    (fun n H p ↦
+      (∀ r ∈ (p + 1).primeFactors, ∃ (m : ℕ+) (hm : m ≤ n), H m hm r) ∧
+      (∃ r ∈ (p + 1).primeFactors, ∀ (m : ℕ+) (hm : m ≤ n), H m hm r → m = n))
+
+@[category textbook, AMS 11] theorem exists_p (r : ℕ+) : ∃ p, p.Prime ∧ IsOfClass r p := by sorry
+noncomputable def p (r : ℕ+) : ℕ := open scoped Classical in Nat.find (exists_p r)
+```
+
+**Recursor semantics checked in Mathlib, not assumed**
+(`Mathlib/Data/PNat/Basic.lean:160-168`):
+`caseStrongInductionOn (a) (hz : p 1) (hi : ∀ n, (∀ m, m ≤ n → p m) → p (n+1))` — value at
+`1` is `hz`, value at `n+1` is `hi n (fun m hm ↦ …)`. So, writing `L r p` for `IsOfClass r p`:
+
+- `L 1 p ↔ (p+1).primeFactors ⊆ {2,3}`
+- `L (n+1) p ↔ (∀ q ∈ (p+1).primeFactors, ∃ m ∈ [1..n], L m q) ∧ (∃ q ∈ (p+1).primeFactors, ∀ m ∈ [1..n], L m q → m = n)`
+
+At `n = 1` the inner `∀ m : ℕ+, m ≤ 1` ranges over the single value `m = 1`, so
+`L 1 q → 1 = 1` is trivially true and the whole second conjunct collapses to
+`(p+1).primeFactors.Nonempty`. **The equality clause is vacuous at `r = 2`.** Confirmed.
+
+**Source (erdosproblems.com/1055, live 2026-08-15, state `open`):**
+
+> A prime `p` is in class 1 if the only prime divisors of `p+1` are 2 or 3. In general, a
+> prime `p` is in class `r` if every prime factor of `p+1` is in some class `≤ r−1`, **with
+> equality for at least one prime factor.** … The sequence `p_r` begins `2,13,37,73,1021`
+> (A005113 in the OEIS).
+
+**OEIS A005113 (live 2026-08-15):** "Smallest prime in class n (sometimes written n+)
+according to the Erdős–Selfridge classification of primes."
+DATA `2, 13, 37, 73, 1021, 2917, 15013, 49681, …`.
+
+### (b) Independent computation (own code path)
+
+`…/scratchpad/verify/v1055.py` — I implemented **two** predicates from scratch: `lean(r,p)`
+transcribing the recursor unfolding above literally (with `m` ranging over `[1..n]`,
+mirroring `ℕ+`), and `trueclass(p)` implementing the source's classification directly
+(`1` if `p+1` is 3-smooth, else `1 + max` class over prime factors of `p+1`). Exact
+integers, memoised, ran in <3 s.
+
+| r | Lean `p r` = least prime with `IsOfClass r` | least prime of **true** class `r` | A005113(r) |
+|---|---|---|---|
+| 1 | 2 | 2 | 2 ✓ |
+| 2 | **2** | **13** | **13** ✗ (Lean disagrees) |
+| 3 | 37 | 37 | 37 ✓ |
+| 4 | 73 | 73 | 73 ✓ |
+| 5 | 1021 | 1021 | 1021 ✓ |
+
+Direct checks: `IsOfClass 1 2` holds (`primeFactors 3 = {3} ⊆ {2,3}`), `IsOfClass 1 3` holds
+(`primeFactors 4 = {2}`), and `IsOfClass 2 2` holds — while `2` has **true class 1**.
+So `Erdos1055.p 2 = 2 ≠ 13 = A005113(2)`. **Predecessor claim confirmed exactly.**
+
+**Sharper than the predecessor stated — the defect is confined to `r = 2`.** Verified over
+all primes `≤ 2000`:
+
+- `IsOfClass 2 p ⟺ true class of p is ≤ 2` (Lean class 2 swallows all of class 1);
+  16 primes `≤ 500` differ, all "Lean-true / source-false": `2, 3, 5, 7, 11, 17, 23, 31,
+  47, 53, 71, 107, 127, 191, 383, …` — precisely the class-1 primes.
+- `IsOfClass 1 p ⟺ true class 1`, `IsOfClass 3 p ⟺ true class 3`, `IsOfClass 4 p ⟺ true
+  class 4` — **no** disagreement. Reason: for `r ≥ 3` the clause `∀ m ≤ n, L m q → m = n`
+  is non-vacuous and, because `L 2 = (true class ≤ 2)`, it correctly forces "true class
+  exactly `n`". The vacuity is a one-level base-case leak, not a cascading one.
+
+### (c) METHOD §A6 classification
+
+One sentence: this is a claim about coordinate **(3)/(4)** — a `def` in the Lean file
+computes a predicate that differs from its cited source at exactly one parameter value
+(`r = 2`), so `Erdos1055.p` does not compute A005113 — and it makes no claim about
+coordinate (1), the underlying Erdős–Selfridge question, which stays open.
+
+**No declaration in the file is falsified**, and I checked the downstream reach explicitly:
+`erdos_1055 (r) : {p | p.Prime ∧ IsOfClass r p}.Infinite` becomes, at `r = 2`, the
+*weaker* "infinitely many primes of true class ≤ 2" — still an open infinitude claim with
+no finite negation certificate; `erdos_1055.variants.erdos_limit`
+(`Tendsto (p r)^(1/r) atTop atTop`) and `.selfridge_limit` (`∃ M, ∀ r, (p r)^(1/r) ≤ M`)
+are both asymptotic in `r`, and the single wrong term `p 2 = 2` (which is *smaller* than
+13) changes neither the limit nor the boundedness. So the material consequence is limited
+to the value of `p 2`, which no upstream declaration asserts.
+
+Secondary note (not part of the claim): `p` is `Nat.find (exists_p r)` where `exists_p` is
+itself a `sorry`'d `@[category textbook]` theorem, and `IsOfClass` is built by well-founded
+recursion through `PNat.caseStrongInductionOn`, so it has no definitional unfolding lemmas
+— both are ergonomics defects, not mathematical ones.
+
+### (d) Duplicate / novelty search performed
+
+Upstream (`gh api search/issues`, issues **and** PRs, all states): `1055` (8 hits),
+`IsOfClass` (**1 hit** — PR #1197, the PR that introduced the file), `erdos_1055` (2 hits,
+closed bot proof PRs for a `variants.class_one_infinite` that does not exist at the pin),
+`Selfridge classification class` (**0**), `A005113` (**0**). Nothing raises the `r = 2`
+vacuity.
+
+`git log`/`git blame` of `FormalConjectures/ErdosProblems/1055.lean`: 6 commits —
+`3f3aa455` (#1197, Paul Lezeau, 2025-11-13, wrote `IsOfClass` in exactly its current form),
+then only whitespace (#1840, #1872), category (#3900), util split (#4433), and
+classical-reasoning (#4671) changes. The definition has never been revised.
+
+Also re-read #4896, #4923, #4927 (the three live audit trackers, fetched in full for
+candidate 2): Erdős 1055 appears in **none** of them.
+
+Local `c5-k4`: `git log --all --oneline | grep -iE '1055|selfridge|isofclass|005113'` →
+only false positives (`A105565`, a commit hash `3b10555`); `git tag` / `gh release list` →
+none.
+
+SearXNG: `formal-conjectures erdos 1055 IsOfClass Selfridge class`,
+`formal-conjectures 1055 A005113 p_2 = 13 misformalization`,
+`Erdos Selfridge prime classification Lean formalization class 2` → only the upstream
+source file, the doc page, Rosetta Code, and an empty `leangenius.org/proof/erdos-1055`
+SPA shell (fetched: 1.1 kB, no content). No prior art.
+
+### (e) Verdict
+
+**CONFIRMED_PUBLISHABLE — as a small definition-level formalization defect, NOT as a
+counterexample; and materially narrower than the predecessor implied.** The exact claim
+handed over is true and independently reproduced (`IsOfClass 2 2` holds, `p 2 = 2`,
+A005113(2) = 13), the source and OEIS readings are re-derived from the primaries, and the
+duplicate surface is clean.
+
+Caveats that must survive into any write-up: (i) the divergence exists **only** at `r = 2`
+— `r = 1, 3, 4, 5` all reproduce A005113 exactly, which the predecessor did not establish;
+(ii) no declaration in the file becomes false, and the two open asymptotic variants are
+unaffected by a single perturbed term; (iii) therefore this is at most a one-line upstream
+issue ("the `r = 2` step case's equality clause is vacuous because `m : ℕ+`, `m ≤ 1` forces
+`m = 1`; consequently class 2 contains every class-1 prime and `p 2 = 2` instead of 13"),
+never a release. **No action taken.**
