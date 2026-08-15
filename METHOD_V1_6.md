@@ -145,3 +145,22 @@ A finite counterexample to (4) while (1) is untouched is a **formalization
 counterexample**: a real, publishable artifact about the formal corpus, and
 explicitly *not* a claim about the underlying mathematics. Say which one is
 being claimed, in the first sentence of any release.
+
+---
+
+## FROZEN 2026-08-15
+
+No METHOD v1.7 until the fresh-generation three-arm test has run and been
+published, whatever it returns. The independent review
+([`results/review/INDEPENDENT_REVIEW_2026-08-15.md`](results/review/INDEPENDENT_REVIEW_2026-08-15.md))
+counted ten METHOD versions inside a four-day git history against **n≈1**
+crossing under frozen protocol and **n=0** held-out, and named further protocol
+elaboration as displacement activity. Its judgment is accepted.
+
+What stays: the verification layer (adversarial re-derivation, database-sanity
+gate, independent recomputation, novelty checks). It caught six wrong claims in
+a single day and is the reason the published record is trustworthy.
+
+What is cut: benchmark v1.5 cloud infrastructure, CI continuity gates, per-defect
+releases, and any further protocol versioning. Those workflows are archived
+under `.github/workflows-archive/`.
