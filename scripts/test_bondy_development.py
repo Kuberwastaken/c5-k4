@@ -54,7 +54,8 @@ def live_attestation_fixture(empty: bool = False, identity_only_binding: bool = 
     closure_entries = [{"path": live_gate.TARGET_PATH}, {"path": "FormalConjectures/Imported.lean"}]
     toolchain = [{"path": "lean-toolchain"}]
     external = [{"name": "mathlib", "rev": "r"}]
-    raw_sha = __import__("hashlib").sha256(b"frozen").hexdigest()
+    target_raw = "@[category research open, AMS 5]\ntheorem bondy_conjecture : answer(sorry) ↔ True := by\n  sorry\n"
+    raw_sha = __import__("hashlib").sha256(target_raw.encode("utf-8")).hexdigest()
     declaration = {"declaration_count": 1, "exact_open_attribute_count": 1, "answer_wrapper_count": 1, "exact_by_sorry_block_count": 1}
     continuity = {
         "pinned": {"commit": pinned, "tree": pinned_tree},
@@ -63,8 +64,8 @@ def live_attestation_fixture(empty: bool = False, identity_only_binding: bool = 
         "commits": [{"commit": live, "parents": [pinned], "tree": live_tree, "subject": "unrelated", "changed_paths": ["unrelated"]}],
         "delta": [{"status": "M", "path": "unrelated"}],
         "delta_sha256": search.canonical_sha256([{"status": "M", "path": "unrelated"}]),
-        "target": {"path": live_gate.TARGET_PATH, "mode": "100644", "type": "blob", "blob": "blob", "bytes": 6, "sha256": raw_sha},
-        "target_raw_utf8": "frozen", "declaration": declaration,
+        "target": {"path": live_gate.TARGET_PATH, "mode": "100644", "type": "blob", "blob": "5" * 40, "bytes": len(target_raw.encode("utf-8")), "sha256": raw_sha},
+        "target_raw_utf8": target_raw, "declaration": declaration,
         "closure_count": 2, "closure_sha256": search.canonical_sha256(closure_entries), "closure_entries": closure_entries,
         "toolchain_sha256": search.canonical_sha256(toolchain), "toolchain": toolchain,
         "external_revisions_sha256": search.canonical_sha256(external), "external_revisions": external,
@@ -74,7 +75,7 @@ def live_attestation_fixture(empty: bool = False, identity_only_binding: bool = 
         "main": continuity["live"],
         "continuity": {
             "canonical_sha256": search.canonical_sha256(continuity), "live": continuity["live"],
-            "target": continuity["target"], "target_raw_bytes": 6, "target_raw_sha256": raw_sha,
+            "target": continuity["target"], "target_raw_bytes": len(target_raw.encode("utf-8")), "target_raw_sha256": raw_sha,
             "declaration": declaration, "closure_count": 2, "closure_sha256": continuity["closure_sha256"],
             "toolchain_sha256": continuity["toolchain_sha256"], "external_revisions_sha256": continuity["external_revisions_sha256"],
         },
@@ -95,18 +96,20 @@ def live_attestation_fixture(empty: bool = False, identity_only_binding: bool = 
         {"commit": "f" * 40, "subject": "freeze v3", "paths": ["scripts/prospective_bondy_gate.py"], "kind": "freeze_introducer"},
         {"commit": "8" * 40, "subject": "freeze v3.1", "paths": ["scripts/prospective_bondy_gate.py"], "kind": "freeze_introducer"},
         {"commit": "7" * 40, "subject": "freeze v3.2", "paths": ["scripts/prospective_bondy_gate.py"], "kind": "freeze_introducer"},
+        {"commit": "6" * 40, "subject": "freeze v3.3", "paths": ["scripts/prospective_bondy_gate.py"], "kind": "freeze_introducer"},
         {"commit": live_gate.KNOWN_GRAPH_ROTATION_COMMIT, "subject": live_gate.KNOWN_GRAPH_ROTATION_SUBJECT, "paths": [live_gate.KNOWN_GRAPH_ROTATION_PATH], "kind": "known_graph_rotation"},
         {"commit": live_gate.KNOWN_PREFLIGHT_COMMIT, "subject": "preflight", "paths": ["results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/preflight.md"], "kind": "known_preflight"},
     ]
     return {
-        "schema": "bondy_source_status_duplicate_gate_tip_continuity_v3_2",
+        "schema": "bondy_source_status_duplicate_gate_tip_continuity_v3_3",
         "kind": "source_status_duplicate_gate",
         "status": "PASS",
         "checks": {key: True for key in search.LIVE_GATE_CHECKS},
         "campaign": {"commit": "c" * 40, "tree": "d" * 40},
-        "pinned_upstream": {"commit": pinned, "tree": pinned_tree, "path": live_gate.TARGET_PATH, "blob": "blob"},
+        "pinned_upstream": {"commit": pinned, "tree": pinned_tree, "path": live_gate.TARGET_PATH, "blob": "5" * 40},
         "live_upstream": continuity["live"], "continuity": continuity,
-        "open_pr_protected_path_matches": [],
+        "open_pr_dependency_path_matches": [],
+        "open_pr_target_path_matches": [],
         "bracket_snapshot_before": snapshot,
         "bracket_snapshot_after": json.loads(json.dumps(snapshot)),
         "graphql_rate_limit_observations": {
@@ -121,7 +124,7 @@ def live_attestation_fixture(empty: bool = False, identity_only_binding: bool = 
 def sealed_attestation_fixture(attestation: dict[str, object]) -> dict[str, object]:
     continuity = attestation["continuity"]
     return {
-        "live_gate": {"schema": "bondy_source_status_duplicate_gate_tip_continuity_v3_2"},
+        "live_gate": {"schema": "bondy_source_status_duplicate_gate_tip_continuity_v3_3"},
         "upstream": attestation["pinned_upstream"],
         "source_sha256": attestation["continuity"]["target"]["sha256"],
         "semantic_closure": {
@@ -129,6 +132,31 @@ def sealed_attestation_fixture(attestation: dict[str, object]) -> dict[str, obje
             "toolchain_sha256": continuity["toolchain_sha256"],
             "external_revisions_sha256": continuity["external_revisions_sha256"],
         },
+    }
+
+
+def post_target_safeguard_fixture(attestation: dict[str, object]) -> dict[str, object]:
+    source_raw = verify.canonical_bytes(attestation)
+    return {
+        "schema": "bondy_post_target_status_collision_safeguard_v1",
+        "kind": "post_target_status_collision_safeguard",
+        "status": "PASS",
+        "checks": {
+            "live_main_unchanged_after_target": True,
+            "fresh_target_blob_and_declaration_unchanged_after_target": True,
+            "complete_status_surface_unchanged_after_target": True,
+            "complete_open_pr_bindings_after_target": True,
+            "no_open_pr_touches_exact_target_path_after_target": True,
+            "post_target_graphql_reserve": True,
+        },
+        "campaign": attestation["campaign"],
+        "source_attestation_sha256": hashlib.sha256(source_raw).hexdigest(),
+        "pre_gate_snapshot_sha256": search.canonical_sha256(attestation["bracket_snapshot_after"]),
+        "post_target_snapshot": json.loads(json.dumps(attestation["bracket_snapshot_after"])),
+        "fresh_target": {key: attestation["continuity"]["target"][key] for key in ("path", "type", "blob", "bytes", "sha256")},
+        "fresh_declaration": attestation["continuity"]["declaration"],
+        "open_pr_target_path_matches": [],
+        "graphql_rate_limit_observations": [{"cost": 1, "remaining": 80, "reset_at": "t"}],
     }
 
 
@@ -220,36 +248,40 @@ class TargetIsolationTests(unittest.TestCase):
         shell_source = "\n".join(run_bodies)
         self.assertNotIn("${{ inputs.", shell_source)
         self.assertIn('--campaign-commit "$CAMPAIGN_COMMIT"', shell_source)
-        self.assertIn('--activation-token "$ACTIVATION_TOKEN"', shell_source)
+        self.assertNotIn("inputs.activation_token", workflow)
+        self.assertNotIn("--activation-token", workflow)
+        self.assertIn("BONDY_V33_ACTIVATION_TOKEN: ${{ secrets.BONDY_V33_ACTIVATION_TOKEN }}", workflow)
+        self.assertIn("timeout-minutes: 8", workflow)
+        self.assertEqual(workflow.count("timeout --signal=TERM --kill-after=6s 60s"), 13)
         self.assertIn("fetch-depth: 0", workflow)
         self.assertIn('if test "$target_code" -ne 0 || test "$final_code" -ne 0 || test -z "$expected_status"; then', workflow)
         self.assertIn('if test "$accepted_status" != "$expected_status"; then', workflow)
-        self.assertEqual(workflow.count("scripts/prospective_bondy_gate.py"), 1)
-        self.assertEqual(workflow.count("--source-attestation /tmp/source-status-attestation.json --campaign-commit"), 2)
+        self.assertEqual(workflow.count("scripts/prospective_bondy_gate.py"), 2)
+        self.assertEqual(workflow.count("--source-attestation /tmp/source-status-attestation.json"), 3)
+        self.assertEqual(workflow.count("--post-target-safeguard /tmp/bondy-post-target-safeguard.json"), 2)
         self.assertIn("bondy_enabled_evidence_manifest_v1", workflow)
         self.assertIn("if-no-files-found: error", workflow)
         freeze_verifier = (ROOT / "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/verify_freeze.py").read_text()
         self.assertIn('if set(registry.get("sha256", {})) != REQUIRED_FREEZE_PATHS:', freeze_verifier)
         self.assertIn("CAMPAIGN_COMMIT: ${{ inputs.campaign_commit }}", workflow)
-        self.assertIn("ACTIVATION_TOKEN: ${{ inputs.activation_token }}", workflow)
 
         with tempfile.TemporaryDirectory() as directory:
             marker = Path(directory) / "injected"
             malicious = "bad'\nprintf injected > " + str(marker) + "\n"
-            environment = dict(os.environ, CAMPAIGN_COMMIT=malicious, ACTIVATION_TOKEN=malicious)
+            environment = dict(os.environ, CAMPAIGN_COMMIT=malicious)
             completed = subprocess.run(
                 [
                     "bash",
                     "-c",
                     "python3 -c 'import json,sys; print(json.dumps(sys.argv[1:]))' "
-                    '--campaign-commit "$CAMPAIGN_COMMIT" --activation-token "$ACTIVATION_TOKEN"',
+                    '--campaign-commit "$CAMPAIGN_COMMIT"',
                 ],
                 env=environment,
                 text=True,
                 capture_output=True,
                 check=True,
             )
-            self.assertEqual(json.loads(completed.stdout), ["--campaign-commit", malicious, "--activation-token", malicious])
+            self.assertEqual(json.loads(completed.stdout), ["--campaign-commit", malicious])
         self.assertFalse(marker.exists())
 
         failed = subprocess.run(
@@ -276,12 +308,86 @@ class TargetIsolationTests(unittest.TestCase):
         args = types.SimpleNamespace(
             enable_target=True,
             campaign_commit="0" * 40,
-            activation_token="BONDY_TARGET_DISABLED",
         )
-        with self.assertRaisesRegex(RuntimeError, "TARGET_EXECUTION_DISABLED"):
-            search.unlock(args)
+        with mock.patch.dict(os.environ, {"BONDY_V33_ACTIVATION_TOKEN": "BONDY_TARGET_DISABLED"}):
+            with self.assertRaisesRegex(RuntimeError, "TARGET_EXECUTION_DISABLED"):
+                search.unlock(args)
 
-    def test_v3_live_attestation_requires_full_bracket_and_bindings(self) -> None:
+    def test_activation_secret_cli_transport_and_serialization_are_rejected(self) -> None:
+        source = (ROOT / "scripts/prospective_bondy_search.py").read_text()
+        self.assertNotIn('parser.add_argument("--activation-token"', source)
+        self.assertIn('os.environ.get("BONDY_V33_ACTIVATION_TOKEN", "")', source)
+        self.assertIn("ACTIVATION_TOKEN_CLI_TRANSPORT_FORBIDDEN", source)
+        canary = "SENSITIVE_ACTIVATION_CANARY_NEVER_SERIALIZE"
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            cli = subprocess.run(
+                ["python3", str(ROOT / "scripts/prospective_bondy_search.py"), "--activation-token", canary],
+                text=True,
+                capture_output=True,
+                check=False,
+                timeout=10,
+            )
+            self.assertNotEqual(cli.returncode, 0)
+            self.assertNotIn(canary, cli.stdout + cli.stderr)
+            self.assertEqual(list(root.iterdir()), [])
+
+            paths = {name: root / name for name in ("source.json", "ledger.jsonl", "candidate.json", "terminal.json", "replay")}
+            environment = dict(os.environ, BONDY_V33_ACTIVATION_TOKEN=canary)
+            env = subprocess.run(
+                [
+                    "python3", str(ROOT / "scripts/prospective_bondy_search.py"), "--enable-target",
+                    "--campaign-commit", "0" * 40, "--source-attestation", str(paths["source.json"]),
+                    "--ledger", str(paths["ledger.jsonl"]), "--candidate", str(paths["candidate.json"]),
+                    "--terminal", str(paths["terminal.json"]), "--replay-binary", str(paths["replay"]),
+                ],
+                env=environment,
+                text=True,
+                capture_output=True,
+                check=False,
+                timeout=10,
+            )
+            self.assertNotEqual(env.returncode, 0)
+            serialized = (env.stdout + env.stderr).encode("utf-8") + b"".join(path.read_bytes() for path in root.iterdir() if path.is_file())
+            self.assertNotIn(canary.encode("ascii"), serialized)
+            self.assertEqual(json.loads(paths["terminal.json"].read_text())["status"], "GATE_FAIL")
+
+    def test_activation_environment_hashes_exact_bytes_without_trimming(self) -> None:
+        token = "synthetic-boundary-token"
+        manifest = {
+            "target_execution_lock": {
+                "activation_token_sha256": hashlib.sha256(token.encode("utf-8")).hexdigest(),
+                "token_provisioned": True,
+            },
+            "runtime": {"python_version": __import__("sys").version.split()[0], "networkx_version": nx.__version__},
+        }
+        args = types.SimpleNamespace(enable_target=True, campaign_commit="a" * 40)
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "manifest.json"
+            search.atomic_json(path, manifest)
+            git = lambda *arguments: "a" * 40 if arguments == ("rev-parse", "HEAD") else ""
+            with mock.patch.object(search, "MANIFEST", path), mock.patch.object(search, "git", side_effect=git), mock.patch.object(
+                search.subprocess, "run", return_value=types.SimpleNamespace(returncode=0)
+            ):
+                with mock.patch.dict(os.environ, {"BONDY_V33_ACTIVATION_TOKEN": token}):
+                    self.assertEqual(search.unlock(args), manifest)
+                with mock.patch.dict(os.environ, {"BONDY_V33_ACTIVATION_TOKEN": token + "\n"}):
+                    with self.assertRaisesRegex(RuntimeError, "exact_activation_token_mismatch"):
+                        search.unlock(args)
+
+    def test_v33_activation_digest_is_rotated_and_historical_digest_cannot_unlock(self) -> None:
+        manifest = json.loads((ROOT / "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/manifest.json").read_text())
+        current = manifest["target_execution_lock"]["activation_token_sha256"]
+        historical_v32 = "09d64624c2861b21d5883cfd276ce49eebce7d9c6f61e47193d50bf894be8e51"
+        self.assertEqual(current, "0fb0d55f32eb0cecd7e549a45dba8d5095e073737fe39efbd226c79d6a539d5a")
+        self.assertNotEqual(current, historical_v32)
+        self.assertEqual(manifest["target_execution_lock"]["exact_preimage_bytes"], 64)
+        self.assertIs(manifest["target_execution_lock"]["newline_terminated"], False)
+        self.assertEqual(manifest["target_execution_lock"]["actions_secret_name"], "BONDY_V33_ACTIVATION_TOKEN")
+        self.assertIs(manifest["target_execution_lock"]["actions_secret_required"], True)
+        self.assertEqual(manifest["target_execution_lock"]["state"], "V33_OPEN_PR_SPLIT_GUARD_HASH_PROVISIONED_ACTIONS_SECRET_REQUIRED_DEFAULT_DISABLED")
+
+    def test_v33_live_attestation_requires_full_bracket_and_bindings(self) -> None:
         attestation = live_attestation_fixture()
         manifest = sealed_attestation_fixture(attestation)
         search.validate_live_attestation(attestation, manifest)
@@ -293,13 +399,71 @@ class TargetIsolationTests(unittest.TestCase):
         attestation = live_attestation_fixture(empty=True)
         search.validate_live_attestation(attestation, sealed_attestation_fixture(attestation))
 
+    def test_dependency_path_touch_is_non_gating_but_telemetry_is_exact(self) -> None:
+        dependency = "FormalConjectures/Imported.lean"
+        attestation = live_attestation_fixture()
+        binding = attestation["bracket_snapshot_before"]["open_pull_binding_surface"]["bindings"][0]
+        binding["changed_paths"] = [dependency]
+        binding["changed_paths_sha256"] = search.canonical_sha256(binding["changed_paths"])
+        attestation["bracket_snapshot_after"] = json.loads(json.dumps(attestation["bracket_snapshot_before"]))
+        attestation["open_pr_dependency_path_matches"] = [{"number": 1, "paths": [dependency]}]
+        search.validate_live_attestation(attestation, sealed_attestation_fixture(attestation))
+
+        for forged in ([], [{"number": 1, "paths": ["lean-toolchain"]}]):
+            mutated = json.loads(json.dumps(attestation))
+            mutated["open_pr_dependency_path_matches"] = forged
+            with self.assertRaisesRegex(RuntimeError, "target/dependency telemetry"):
+                search.validate_live_attestation(mutated, sealed_attestation_fixture(mutated))
+
+    def test_exact_target_collision_is_recomputed_for_current_and_previous_paths(self) -> None:
+        for paths in ([live_gate.TARGET_PATH], [live_gate.TARGET_PATH, "FormalConjectures/RenamedDestination.lean"]):
+            for telemetry in ([], [{"number": 1, "paths": [live_gate.TARGET_PATH]}]):
+                attestation = live_attestation_fixture()
+                binding = attestation["bracket_snapshot_before"]["open_pull_binding_surface"]["bindings"][0]
+                binding["changed_paths"] = sorted(paths)
+                binding["changed_paths_sha256"] = search.canonical_sha256(binding["changed_paths"])
+                attestation["bracket_snapshot_after"] = json.loads(json.dumps(attestation["bracket_snapshot_before"]))
+                attestation["open_pr_target_path_matches"] = telemetry
+                with self.assertRaisesRegex(RuntimeError, "target/dependency telemetry"):
+                    search.validate_live_attestation(attestation, sealed_attestation_fixture(attestation))
+
+    def test_post_target_safeguard_verifier_binds_complete_fresh_snapshot(self) -> None:
+        attestation = live_attestation_fixture()
+        source_raw = verify.canonical_bytes(attestation)
+        safeguard = post_target_safeguard_fixture(attestation)
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "safeguard.json"
+            verify.atomic_json(path, safeguard)
+            self.assertEqual(verify.validate_post_target_safeguard(path, attestation, source_raw), hashlib.sha256(path.read_bytes()).hexdigest())
+
+            mutations = (
+                lambda row: row["post_target_snapshot"]["continuity"]["target"].update({"blob": "0" * 40}),
+                lambda row: row["post_target_snapshot"]["continuity"]["declaration"].update({"declaration_count": 2}),
+                lambda row: row["fresh_target"].update({"blob": "0" * 40}),
+                lambda row: row["fresh_declaration"].update({"declaration_count": 2}),
+                lambda row: row["post_target_snapshot"]["known_issue"].update({"state": "open"}),
+                lambda row: row["post_target_snapshot"]["searches"].update({'repo:google-deepmind/formal-conjectures "BondyLongestCycles"': [999]}),
+                lambda row: row.update({"open_pr_target_path_matches": [{"number": 1, "paths": [live_gate.TARGET_PATH]}]}),
+                lambda row: row.update({"source_attestation_sha256": "0" * 64}),
+            )
+            for mutate in mutations:
+                forged = json.loads(json.dumps(safeguard))
+                mutate(forged)
+                verify.atomic_json(path, forged)
+                with self.assertRaisesRegex(RuntimeError, "post-target status/collision safeguard drift"):
+                    verify.validate_post_target_safeguard(path, attestation, source_raw)
+
     def test_forged_identity_only_file_binding_is_rejected(self) -> None:
         attestation = live_attestation_fixture(identity_only_binding=True)
         with self.assertRaisesRegex(RuntimeError, "file binding schema drift"):
             search.validate_live_attestation(attestation, sealed_attestation_fixture(attestation))
 
-    def test_v1_and_v2_attestations_are_rejected(self) -> None:
-        for schema in ("bondy_source_status_attestation_v1", "bondy_source_status_duplicate_gate_bracketed_single_scan_v2"):
+    def test_superseded_attestations_are_rejected_without_reinterpretation(self) -> None:
+        for schema in (
+            "bondy_source_status_attestation_v1",
+            "bondy_source_status_duplicate_gate_bracketed_single_scan_v2",
+            "bondy_source_status_duplicate_gate_tip_continuity_v3_2",
+        ):
             attestation = live_attestation_fixture()
             attestation["schema"] = schema
             with self.assertRaisesRegex(RuntimeError, "missing or drifted"):
@@ -384,11 +548,11 @@ class TargetIsolationTests(unittest.TestCase):
                         search.run(args)
 
     def test_run_rejects_too_few_or_too_many_freeze_introducers_before_target(self) -> None:
-        for count in (3, 5):
+        for count in (4, 6):
             attestation = live_attestation_fixture()
             identities = attestation["local_history_identities"]
             freeze_indexes = [index for index, row in enumerate(identities) if row["kind"] == "freeze_introducer"]
-            if count == 3:
+            if count == 4:
                 del identities[freeze_indexes[-1]]
             else:
                 identities.insert(
@@ -413,7 +577,7 @@ class TargetIsolationTests(unittest.TestCase):
             identities = attestation["local_history_identities"]
             row = next(item for item in identities if item["kind"] == "known_graph_rotation")
             if field == "commit":
-                row["commit"] = "6" * 40
+                row["commit"] = "5" * 40
                 attestation["local_history_hits"] = [item["commit"] for item in identities]
             elif field == "subject":
                 row["subject"] = "research: mutated graph rotation"
@@ -719,8 +883,68 @@ class LiveGateConcurrencyTests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError, "REST"):
                 live_gate.parse_rest_commit_identity(value)
 
-    def test_v32_local_history_requires_exact_freeze_introducer_count(self) -> None:
-        freezes = [character * 40 for character in "fba7"]
+    def test_post_target_safeguard_rechecks_main_and_complete_status_collision_surface(self) -> None:
+        attestation = live_attestation_fixture()
+        live = attestation["live_upstream"]
+        rest = {"sha": live["commit"], "commit": {"tree": {"sha": live["tree"]}}}
+        target_raw = attestation["continuity"]["target_raw_utf8"].encode("utf-8")
+        contents = {
+            "path": live_gate.TARGET_PATH,
+            "type": "file",
+            "encoding": "base64",
+            "content": __import__("base64").b64encode(target_raw).decode("ascii"),
+            "sha": attestation["continuity"]["target"]["blob"],
+            "size": len(target_raw),
+        }
+        rates = [{"cost": 1, "remaining": 80, "reset_at": "t"}]
+        api = lambda path, token: contents if "/contents/" in path else rest
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory) / "source.json"
+            output = Path(directory) / "post.json"
+            live_gate.atomic_json(source, attestation)
+            stable = json.loads(json.dumps(attestation["bracket_snapshot_after"]))
+            with mock.patch.object(live_gate, "api", side_effect=api), mock.patch.object(
+                live_gate, "bracket_snapshot", return_value=(stable, rates)
+            ):
+                record = live_gate.run_post_target_safeguard(output, "token", source)
+            self.assertEqual(record["status"], "PASS")
+            self.assertEqual(record["open_pr_target_path_matches"], [])
+
+            mutations = (
+                lambda row: row["continuity"]["target"].update({"blob": "0" * 40}),
+                lambda row: row["continuity"]["declaration"].update({"declaration_count": 2}),
+                lambda row: row["known_issue"].update({"state": "open"}),
+                lambda row: row["searches"].update({'repo:google-deepmind/formal-conjectures "BondyLongestCycles"': [999]}),
+                lambda row: row["open_pull_binding_surface"]["bindings"][0]["changed_paths"].append(live_gate.TARGET_PATH),
+            )
+            for mutate in mutations:
+                changed = json.loads(json.dumps(stable))
+                mutate(changed)
+                with mock.patch.object(live_gate, "api", side_effect=api), mock.patch.object(
+                    live_gate, "bracket_snapshot", return_value=(changed, rates)
+                ):
+                    with self.assertRaisesRegex(RuntimeError, "post-target status/collision safeguard failed closed"):
+                        live_gate.run_post_target_safeguard(output, "token", source)
+
+            changed_contents = dict(contents)
+            changed_contents["sha"] = "0" * 40
+            changed_target_api = lambda path, token: changed_contents if "/contents/" in path else rest
+            with mock.patch.object(live_gate, "api", side_effect=changed_target_api), mock.patch.object(
+                live_gate, "bracket_snapshot", return_value=(stable, rates)
+            ):
+                with self.assertRaisesRegex(RuntimeError, "post-target status/collision safeguard failed closed"):
+                    live_gate.run_post_target_safeguard(output, "token", source)
+
+            changed_main = {"sha": "9" * 40, "commit": {"tree": {"sha": live["tree"]}}}
+            changed_api = lambda path, token: contents if "/contents/" in path else changed_main
+            with mock.patch.object(live_gate, "api", side_effect=changed_api), mock.patch.object(
+                live_gate, "bracket_snapshot", return_value=(stable, rates)
+            ):
+                with self.assertRaisesRegex(RuntimeError, "post-target status/collision safeguard failed closed"):
+                    live_gate.run_post_target_safeguard(output, "token", source)
+
+    def test_v33_local_history_requires_exact_freeze_introducer_count(self) -> None:
+        freezes = [character * 40 for character in "fba76"]
         extra_freeze = "9" * 40
         hits = [
             live_gate.KNOWN_CONTINUITY_AUDIT_COMMIT,
@@ -761,11 +985,11 @@ class LiveGateConcurrencyTests(unittest.TestCase):
         self.assertFalse(too_many)
         self.assertEqual(
             [row["kind"] for row in identities],
-            ["known_continuity_audit", "known_repin_audit", "freeze_introducer", "freeze_introducer", "freeze_introducer", "freeze_introducer", "known_graph_rotation", "known_preflight"],
+            ["known_continuity_audit", "known_repin_audit", "freeze_introducer", "freeze_introducer", "freeze_introducer", "freeze_introducer", "freeze_introducer", "known_graph_rotation", "known_preflight"],
         )
 
-    def test_v32_known_graph_rotation_hash_subject_and_path_are_exact(self) -> None:
-        freezes = [character * 40 for character in "fba7"]
+    def test_v33_known_graph_rotation_hash_subject_and_path_are_exact(self) -> None:
+        freezes = [character * 40 for character in "fba76"]
         baseline = [
             live_gate.KNOWN_CONTINUITY_AUDIT_COMMIT,
             live_gate.KNOWN_REPIN_AUDIT_COMMIT,
@@ -776,7 +1000,7 @@ class LiveGateConcurrencyTests(unittest.TestCase):
         for mutation in ("hash", "subject", "path"):
             hits = list(baseline)
             if mutation == "hash":
-                hits[hits.index(live_gate.KNOWN_GRAPH_ROTATION_COMMIT)] = "6" * 40
+                hits[hits.index(live_gate.KNOWN_GRAPH_ROTATION_COMMIT)] = "5" * 40
 
             def exact_git(*args: str) -> str:
                 commit = args[-1]
@@ -974,6 +1198,26 @@ class LiveGateConcurrencyTests(unittest.TestCase):
         ):
             with self.assertRaisesRegex(RuntimeError, "classification mismatch"):
                 live_gate.graphql_open_pull_bindings("token")
+
+    def test_renamed_away_exact_target_is_in_complete_collision_surface(self) -> None:
+        row = {
+            "id": "PR_11", "number": 11, "state": "OPEN", "title": "x", "isDraft": False,
+            "updatedAt": "t", "headRefOid": "a" * 40, "headRefName": "r", "headRepository": None,
+            "baseRefOid": "b" * 40, "baseRefName": "main", "baseRepository": {"nameWithOwner": "g/f"},
+            "changedFiles": 1,
+            "files": {"totalCount": 1, "pageInfo": {"hasNextPage": False, "endCursor": None}, "nodes": [{"path": "FormalConjectures/RenamedDestination.lean", "changeType": "RENAMED"}]},
+        }
+        final = dict(row)
+        final.pop("files")
+        rest = [{"filename": "FormalConjectures/RenamedDestination.lean", "status": "renamed", "previous_filename": live_gate.TARGET_PATH}]
+        with mock.patch.object(live_gate, "graphql", side_effect=[self.graphql_page([row], 1), self.graphql_page([final], 1)]), mock.patch.object(
+            live_gate, "api", return_value=rest
+        ):
+            result = live_gate.graphql_open_pull_bindings("token")
+        self.assertEqual(
+            result["bindings"][0]["changed_paths"],
+            sorted([live_gate.TARGET_PATH, "FormalConjectures/RenamedDestination.lean"]),
+        )
 
     def test_pagination_ambiguity_and_protected_delta_are_rejected(self) -> None:
         with self.assertRaisesRegex(RuntimeError, "ambiguity"):

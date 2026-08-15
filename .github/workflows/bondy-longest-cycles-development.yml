@@ -1,4 +1,4 @@
-name: Bondy longest cycles DEVELOPMENT v3.2 (disabled by default)
+name: Bondy longest cycles DEVELOPMENT v3.3 (disabled by default)
 
 on:
   workflow_dispatch:
@@ -13,12 +13,6 @@ on:
         required: true
         default: "0000000000000000000000000000000000000000"
         type: string
-      activation_token:
-        description: Exact reviewed activation token
-        required: true
-        default: ""
-        type: string
-
 permissions:
   contents: read
   pull-requests: read
@@ -27,7 +21,7 @@ permissions:
 jobs:
   gated-development:
     runs-on: ubuntu-24.04
-    timeout-minutes: 5
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
@@ -36,35 +30,34 @@ jobs:
         with:
           python-version: "3.11.9"
       - name: Install frozen Python dependencies
-        run: python -m pip install 'networkx==3.3'
-      - name: Verify immutable v3.2 freeze
-        run: python results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/verify_freeze.py
+        run: timeout --signal=TERM --kill-after=6s 60s python -m pip install 'networkx==3.3'
+      - name: Verify immutable v3.3 freeze
+        run: timeout --signal=TERM --kill-after=6s 60s python results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/verify_freeze.py
       - name: Run target-free constructor and adversarial gate tests
         run: timeout --signal=TERM --kill-after=6s 60s python scripts/test_bondy_development.py --target-free
       - name: Replay exact S(4,4) source control
         run: timeout --signal=TERM --kill-after=6s 60s python scripts/prospective_bondy_construct.py --source-control
       - name: Compile independent replay without executing a candidate
-        run: g++ -std=c++17 -O2 -Wall -Wextra -Werror scripts/prospective_bondy_replay.cpp -o /tmp/prospective_bondy_replay
-      - name: One complete v3.2 live continuity gate
+        run: timeout --signal=TERM --kill-after=6s 60s g++ -std=c++17 -O2 -Wall -Wextra -Werror scripts/prospective_bondy_replay.cpp -o /tmp/prospective_bondy_replay
+      - name: One complete v3.3 live continuity gate
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          curl -fsSL https://arxiv.org/pdf/2606.03696v1 -o /tmp/2606.03696.pdf
+          timeout --signal=TERM --kill-after=6s 60s curl -fsSL https://arxiv.org/pdf/2606.03696v1 -o /tmp/2606.03696.pdf
           timeout --signal=TERM --kill-after=6s 60s python scripts/prospective_bondy_gate.py \
             --paper /tmp/2606.03696.pdf --output /tmp/source-status-attestation.json
-      - name: Frozen v3.2 target process (requires all explicit guards)
+      - name: Frozen v3.3 target process (requires all explicit guards)
         if: ${{ inputs.enable_target == true }}
         id: target
         shell: bash
         env:
           CAMPAIGN_COMMIT: ${{ inputs.campaign_commit }}
-          ACTIVATION_TOKEN: ${{ inputs.activation_token }}
+          BONDY_V33_ACTIVATION_TOKEN: ${{ secrets.BONDY_V33_ACTIVATION_TOKEN }}
         run: |
           set +e
           timeout --signal=TERM --kill-after=6s 60s python scripts/prospective_bondy_search.py \
             --enable-target \
             --campaign-commit "$CAMPAIGN_COMMIT" \
-            --activation-token "$ACTIVATION_TOKEN" \
             --source-attestation /tmp/source-status-attestation.json \
             --ledger /tmp/bondy-ledger.jsonl \
             --candidate /tmp/bondy-candidate.json \
@@ -73,6 +66,14 @@ jobs:
           target_code=$?
           echo "target_code=$target_code" >> "$GITHUB_OUTPUT"
           exit 0
+      - name: Fresh post-target status and exact-path collision safeguard
+        if: ${{ inputs.enable_target == true }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          timeout --signal=TERM --kill-after=6s 60s python scripts/prospective_bondy_gate.py \
+            --post-target-source-attestation /tmp/source-status-attestation.json \
+            --output /tmp/bondy-post-target-safeguard.json
       - name: Independently verify candidate or fail-closed terminal
         if: ${{ always() && inputs.enable_target == true }}
         shell: bash
@@ -85,13 +86,15 @@ jobs:
           if test -s /tmp/bondy-candidate.json && ! test -e /tmp/bondy-terminal.json; then
             timeout --signal=TERM --kill-after=6s 60s python scripts/prospective_bondy_verify.py candidate \
               /tmp/bondy-candidate.json --ledger /tmp/bondy-ledger.jsonl --output /tmp/bondy-verification.json \
-              --source-attestation /tmp/source-status-attestation.json --campaign-commit "$CAMPAIGN_COMMIT"
+              --source-attestation /tmp/source-status-attestation.json \
+              --post-target-safeguard /tmp/bondy-post-target-safeguard.json --campaign-commit "$CAMPAIGN_COMMIT"
             final_code=$?
             expected_status=CANDIDATE_VERIFIED
           elif test -s /tmp/bondy-terminal.json && ! test -e /tmp/bondy-candidate.json; then
             timeout --signal=TERM --kill-after=6s 60s python scripts/prospective_bondy_verify.py terminal \
               /tmp/bondy-terminal.json --ledger /tmp/bondy-ledger.jsonl --output /tmp/bondy-verification.json \
-              --source-attestation /tmp/source-status-attestation.json --campaign-commit "$CAMPAIGN_COMMIT"
+              --source-attestation /tmp/source-status-attestation.json \
+              --post-target-safeguard /tmp/bondy-post-target-safeguard.json --campaign-commit "$CAMPAIGN_COMMIT"
             final_code=$?
             expected_status=TERMINAL_VERIFIED
           fi
@@ -99,7 +102,7 @@ jobs:
           if test "$target_code" -ne 0 || test "$final_code" -ne 0 || test -z "$expected_status"; then
             exit 1
           fi
-          accepted_status=$(python -c 'import json; print(json.load(open("/tmp/bondy-verification.json"))["status"])')
+          accepted_status=$(timeout --signal=TERM --kill-after=6s 60s python -c 'import json; print(json.load(open("/tmp/bondy-verification.json"))["status"])')
           if test "$accepted_status" != "$expected_status"; then
             exit 1
           fi
@@ -108,10 +111,10 @@ jobs:
         env:
           CAMPAIGN_COMMIT: ${{ inputs.campaign_commit }}
         run: |
-          python - <<'PY'
+          timeout --signal=TERM --kill-after=6s 60s python - <<'PY'
           import hashlib,json,os
           from pathlib import Path
-          names=['source-status-attestation.json','bondy-ledger.jsonl','bondy-verification.json']
+          names=['source-status-attestation.json','bondy-post-target-safeguard.json','bondy-ledger.jsonl','bondy-verification.json']
           candidates=[name for name in ('bondy-candidate.json','bondy-terminal.json') if (Path('/tmp')/name).is_file() and (Path('/tmp')/name).stat().st_size]
           if len(candidates) != 1: raise SystemExit('exactly one candidate/terminal artifact required')
           names += candidates
@@ -120,22 +123,25 @@ jobs:
           verification=json.loads((Path('/tmp')/'bondy-verification.json').read_bytes())
           handoff=verification.get('handoff')
           if not isinstance(handoff,dict) or handoff.get('campaign_commit') != os.environ['CAMPAIGN_COMMIT']: raise SystemExit('verification handoff missing')
+          safeguard=Path('/tmp')/'bondy-post-target-safeguard.json'
+          if verification.get('post_target_safeguard_sha256') != hashlib.sha256(safeguard.read_bytes()).hexdigest(): raise SystemExit('post-target safeguard binding missing')
           value={'schema':'bondy_enabled_evidence_manifest_v1','handoff':handoff,'files':{path.name:{'bytes':path.stat().st_size,'sha256':hashlib.sha256(path.read_bytes()).hexdigest()} for path in sorted(paths)}}
           (Path('/tmp')/'bondy-evidence-manifest.json').write_text(json.dumps(value,sort_keys=True,separators=(',',':'))+'\n',encoding='ascii')
           PY
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
-          name: bondy-longest-cycles-development-v32-gate-evidence
+          name: bondy-longest-cycles-development-v33-gate-evidence
           if-no-files-found: warn
           path: /tmp/source-status-attestation.json
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: ${{ always() && inputs.enable_target == true }}
         with:
-          name: bondy-longest-cycles-development-v32-enabled-evidence
+          name: bondy-longest-cycles-development-v33-enabled-evidence
           if-no-files-found: error
           path: |
             /tmp/source-status-attestation.json
+            /tmp/bondy-post-target-safeguard.json
             /tmp/bondy-ledger.jsonl
             /tmp/bondy-candidate.json
             /tmp/bondy-terminal.json

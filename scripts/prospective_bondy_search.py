@@ -44,7 +44,7 @@ LIVE_GATE_CHECKS = {
     "known_ingestion_pr_exact",
     "live_main_stable",
     "live_target_exact",
-    "no_open_pr_touches_protected_paths",
+    "no_open_pr_touches_exact_target_path",
     "no_standalone_repository_hit",
     "paper_sha256",
     "semantic_closure_exact",
@@ -59,7 +59,8 @@ LIVE_ATTESTATION_FIELDS = {
     "pinned_upstream",
     "live_upstream",
     "continuity",
-    "open_pr_protected_path_matches",
+    "open_pr_dependency_path_matches",
+    "open_pr_target_path_matches",
     "bracket_snapshot_before",
     "bracket_snapshot_after",
     "graphql_rate_limit_observations",
@@ -166,7 +167,9 @@ def unlock(args: argparse.Namespace) -> dict[str, object]:
         failures.append("campaign_commit_is_not_checked_out_HEAD")
     if git("status", "--porcelain"):
         failures.append("worktree_not_clean")
-    supplied_hash = hashlib.sha256(args.activation_token.encode("utf-8")).hexdigest()
+    supplied_token = os.environ.get("BONDY_V33_ACTIVATION_TOKEN", "")
+    supplied_hash = hashlib.sha256(supplied_token.encode("utf-8")).hexdigest()
+    del supplied_token
     if supplied_hash != lock.get("activation_token_sha256"):
         failures.append("exact_activation_token_mismatch")
     if lock.get("token_provisioned") is not True:
@@ -197,8 +200,8 @@ def validate_live_attestation(attestation: dict[str, object], manifest: dict[str
     continuity = attestation.get("continuity")
     if (
         set(attestation) != LIVE_ATTESTATION_FIELDS
-        or manifest.get("live_gate", {}).get("schema") != "bondy_source_status_duplicate_gate_tip_continuity_v3_2"
-        or attestation.get("schema") != "bondy_source_status_duplicate_gate_tip_continuity_v3_2"
+        or manifest.get("live_gate", {}).get("schema") != "bondy_source_status_duplicate_gate_tip_continuity_v3_3"
+        or attestation.get("schema") != "bondy_source_status_duplicate_gate_tip_continuity_v3_3"
         or attestation.get("kind") != "source_status_duplicate_gate"
         or attestation.get("status") != "PASS"
         or attestation.get("pinned_upstream") != manifest["upstream"]
@@ -212,7 +215,6 @@ def validate_live_attestation(attestation: dict[str, object], manifest: dict[str
         or before != after
         or not isinstance(continuity, dict)
         or set(continuity) != CONTINUITY_FIELDS
-        or attestation.get("open_pr_protected_path_matches") != []
     ):
         raise RuntimeError("GATE_FAIL:source attestation missing or drifted")
     frozen = manifest.get("semantic_closure")
@@ -323,7 +325,6 @@ def validate_live_attestation(attestation: dict[str, object], manifest: dict[str
             or not all(isinstance(path, str) and path for path in paths)
             or paths != sorted(set(paths))
             or binding.get("changed_paths_sha256") != canonical_sha256(paths)
-            or bool(set(paths).intersection(protected))
             or not isinstance(binding.get("node_id"), str) or not binding["node_id"]
             or binding.get("state") != "OPEN"
             or any(not isinstance(binding.get(key), str) or not binding[key] for key in ("title", "updated_at", "head_ref", "base_ref", "base_repo"))
@@ -338,6 +339,21 @@ def validate_live_attestation(attestation: dict[str, object], manifest: dict[str
         numbers.append(number)
     if numbers != sorted(set(numbers)):
         raise RuntimeError("GATE_FAIL:source attestation file binding drift")
+    dependency_paths = set(protected) - {FROZEN_TARGET_PATH}
+    expected_dependency_matches = [
+        {"number": binding["number"], "paths": sorted(dependency_paths.intersection(binding["changed_paths"]))}
+        for binding in bindings if dependency_paths.intersection(binding["changed_paths"])
+    ]
+    expected_target_matches = [
+        {"number": binding["number"], "paths": [FROZEN_TARGET_PATH]}
+        for binding in bindings if FROZEN_TARGET_PATH in binding["changed_paths"]
+    ]
+    if (
+        attestation.get("open_pr_dependency_path_matches") != expected_dependency_matches
+        or attestation.get("open_pr_target_path_matches") != expected_target_matches
+        or expected_target_matches
+    ):
+        raise RuntimeError("GATE_FAIL:open PR target/dependency telemetry drift")
     commits = continuity.get("commits")
     if not isinstance(commits, list) or (continuity["live"]["commit"] != continuity["pinned"]["commit"] and not commits):
         raise RuntimeError("GATE_FAIL:continuity commit provenance missing")
@@ -415,7 +431,7 @@ def validate_live_attestation(attestation: dict[str, object], manifest: dict[str
         or by_kind.get("known_repin_audit") != {"commit": "e17905b1d62048f43bab89e06625aebdcf280faf", "subject": "research: audit Bondy upstream repin", "paths": ["results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/upstream-drift-repin-audit.md"], "kind": "known_repin_audit"}
         or by_kind.get("known_continuity_audit") != {"commit": "c4d327479110cf51f2aae126d12e2fbc609c0921", "subject": "research: define Bondy tip continuity gate", "paths": ["results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/tip-continuity-policy-audit.md"], "kind": "known_continuity_audit"}
         or by_kind.get("known_graph_rotation") != {"commit": "6a80fcdcb0489dc196162554cd4fec4f41ad2187", "subject": "research: record empty held-out graph rotation", "paths": ["results/expansion/live-search-2026-08-14/next-heldout-graph-rotation-strict-stop.md"], "kind": "known_graph_rotation"}
-        or len(freeze_rows) != 4
+        or len(freeze_rows) != 5
         or any("scripts/prospective_bondy_gate.py" not in row["paths"] or not all(any(path.startswith(root) for root in freeze_roots) for path in row["paths"]) for row in freeze_rows)
     ):
         raise RuntimeError("GATE_FAIL:local contamination exact history drift")
@@ -789,10 +805,11 @@ def run(args: argparse.Namespace) -> int:
 
 
 def main() -> int:
+    if any(argument == "--activation-token" or argument.startswith("--activation-token=") for argument in sys.argv[1:]):
+        raise RuntimeError("ACTIVATION_TOKEN_CLI_TRANSPORT_FORBIDDEN")
     parser = argparse.ArgumentParser()
     parser.add_argument("--enable-target", action="store_true")
     parser.add_argument("--campaign-commit", required=True)
-    parser.add_argument("--activation-token", required=True)
     parser.add_argument("--source-attestation", type=Path, required=True)
     parser.add_argument("--ledger", type=Path, required=True)
     parser.add_argument("--candidate", type=Path, required=True)

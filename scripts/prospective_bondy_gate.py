@@ -4,6 +4,8 @@
 from __future__ import annotations
 
 import argparse
+import base64
+import binascii
 import concurrent.futures
 import hashlib
 import json
@@ -54,7 +56,8 @@ ACTIVE_DEADLINE: float | None = None
 # Intentionally adds one pickaxe occurrence so the v3.1 correction commit is
 # visible to the frozen local-history query: bondy_conjecture.
 # The v3.2 closure correction likewise remains visible: bondy_conjecture.
-EXACT_FREEZE_INTRODUCERS = 4
+# The v3.3 open-PR policy remains visible as well: bondy_conjecture.
+EXACT_FREEZE_INTRODUCERS = 5
 
 
 def remaining_timeout(cap: float = 20.0) -> float:
@@ -88,7 +91,7 @@ def graphql(query: str, variables: dict[str, object], token: str) -> dict[str, o
             "Accept": "application/vnd.github+json",
             "Authorization": f"Bearer {token}",
             "Content-Type": "application/json",
-            "User-Agent": "c5-k4-bondy-v32-continuity-gate",
+            "User-Agent": "c5-k4-bondy-v33-continuity-gate",
         },
         method="POST",
     )
@@ -587,6 +590,37 @@ def exact_declaration_shape(raw: bytes) -> dict[str, object]:
     return result
 
 
+def fresh_target_surface(token: str, commit: str) -> tuple[dict[str, object], dict[str, object]]:
+    """Fetch and parse the target at the exact post-target main commit."""
+    encoded_path = urllib.parse.quote(TARGET_PATH, safe="/")
+    value = api(f"/repos/google-deepmind/formal-conjectures/contents/{encoded_path}?ref={commit}", token)
+    if (
+        not isinstance(value, dict)
+        or value.get("path") != TARGET_PATH
+        or value.get("type") != "file"
+        or value.get("encoding") != "base64"
+        or not isinstance(value.get("content"), str)
+        or not isinstance(value.get("sha"), str) or len(value["sha"]) != 40
+        or any(character not in "0123456789abcdef" for character in value["sha"])
+        or isinstance(value.get("size"), bool) or not isinstance(value.get("size"), int) or value["size"] < 0
+    ):
+        raise RuntimeError("fresh post-target target response drift")
+    try:
+        raw = base64.b64decode("".join(value["content"].splitlines()), validate=True)
+    except (ValueError, binascii.Error) as error:
+        raise RuntimeError("fresh post-target target content is not canonical base64") from error
+    if len(raw) != value["size"]:
+        raise RuntimeError("fresh post-target target byte count drift")
+    target = {
+        "path": TARGET_PATH,
+        "type": "blob",
+        "blob": value["sha"],
+        "bytes": len(raw),
+        "sha256": sha256(raw),
+    }
+    return target, exact_declaration_shape(raw)
+
+
 def require_ancestor(repo: Path, pinned: str, live: str) -> str:
     if subprocess.run(
         ["git", "-C", str(repo), "merge-base", "--is-ancestor", pinned, live],
@@ -891,9 +925,14 @@ def run(output: Path, token: str, paper: Path | None) -> dict[str, object]:
     if not before_rate_limits or min(row["remaining"] for row in before_rate_limits) < before_cost + 25:
         raise RuntimeError("insufficient GraphQL reserve for complete second bracket")
     protected = set(continuity["protected_paths"])
-    touching = [
-        {"number": int(pull["number"]), "paths": sorted(protected.intersection(pull["changed_paths"]))}
-        for pull in before["open_pull_binding_surface"]["bindings"] if protected.intersection(pull["changed_paths"])
+    dependencies = protected - {TARGET_PATH}
+    dependency_touching = [
+        {"number": int(pull["number"]), "paths": sorted(dependencies.intersection(pull["changed_paths"]))}
+        for pull in before["open_pull_binding_surface"]["bindings"] if dependencies.intersection(pull["changed_paths"])
+    ]
+    target_touching = [
+        {"number": int(pull["number"]), "paths": [TARGET_PATH]}
+        for pull in before["open_pull_binding_surface"]["bindings"] if TARGET_PATH in pull["changed_paths"]
     ]
     local_hits = git("log", "--all", "--format=%H", "-Sbondy_conjecture", "--", ".").splitlines()
     local_ok, local_identities = validate_local_contamination(local_hits)
@@ -913,7 +952,7 @@ def run(output: Path, token: str, paper: Path | None) -> dict[str, object]:
         "semantic_closure_exact": before["continuity"]["canonical_sha256"] == canonical_sha256(continuity) and canonical_sha256(continuity["closure_entries"]) == continuity["closure_sha256"],
         "toolchain_and_external_revisions_exact": canonical_sha256(continuity["toolchain"]) == continuity["toolchain_sha256"] and canonical_sha256(continuity["external_revisions"]) == continuity["external_revisions_sha256"],
         "complete_open_pr_bindings": before["open_pull_binding_surface"]["total_count"] == len(before["open_pull_binding_surface"]["bindings"]),
-        "no_open_pr_touches_protected_paths": touching == [],
+        "no_open_pr_touches_exact_target_path": target_touching == [],
         "exact_allowed_search_result_sets": before["searches"] == ALLOWED_SEARCH_RESULTS,
         "known_ingestion_issue_exact": expected_issue["number"] == KNOWN_ISSUE and expected_issue["state"] == "closed" and expected_issue["state_reason"] == "completed" and expected_issue["closed_at"] == KNOWN_ISSUE_CLOSED_AT and expected_issue["is_pull_request"] is False,
         "known_ingestion_pr_exact": expected_pr["number"] == KNOWN_PR and expected_pr["state"] == "closed" and expected_pr["draft"] is False and expected_pr["merged"] is True and expected_pr["merged_at"] == KNOWN_PR_MERGED_AT and expected_pr["merge_commit_sha"] == KNOWN_PR_MERGE_COMMIT,
@@ -922,7 +961,7 @@ def run(output: Path, token: str, paper: Path | None) -> dict[str, object]:
     }
     checks["paper_sha256"] = paper is not None and paper.is_file() and sha256(paper.read_bytes()) == PAPER_SHA256
     record = {
-        "schema": "bondy_source_status_duplicate_gate_tip_continuity_v3_2",
+        "schema": "bondy_source_status_duplicate_gate_tip_continuity_v3_3",
         "kind": "source_status_duplicate_gate",
         "status": "PASS" if all(checks.values()) else "GATE_FAIL",
         "checks": checks,
@@ -930,7 +969,8 @@ def run(output: Path, token: str, paper: Path | None) -> dict[str, object]:
         "pinned_upstream": {"commit": UPSTREAM_COMMIT, "tree": UPSTREAM_TREE, "path": TARGET_PATH, "blob": TARGET_BLOB},
         "live_upstream": continuity["live"],
         "continuity": continuity,
-        "open_pr_protected_path_matches": touching,
+        "open_pr_dependency_path_matches": dependency_touching,
+        "open_pr_target_path_matches": target_touching,
         "bracket_snapshot_before": before,
         "bracket_snapshot_after": after,
         "graphql_rate_limit_observations": {
@@ -946,12 +986,77 @@ def run(output: Path, token: str, paper: Path | None) -> dict[str, object]:
     return record
 
 
+def run_post_target_safeguard(output: Path, token: str, source_attestation: Path) -> dict[str, object]:
+    """Recheck the complete status/collision surface after target processing."""
+    global ACTIVE_DEADLINE
+    ACTIVE_DEADLINE = time.monotonic() + 58.0
+    if not token:
+        raise RuntimeError("GH_TOKEN is required; post-target safeguard fails closed")
+    source_raw = source_attestation.read_bytes()
+    source = json.loads(source_raw)
+    if source_raw != (json.dumps(source, sort_keys=True, separators=(",", ":")) + "\n").encode("ascii"):
+        raise RuntimeError("post-target source attestation is not canonical")
+    if (
+        not isinstance(source, dict)
+        or source.get("schema") != "bondy_source_status_duplicate_gate_tip_continuity_v3_3"
+        or source.get("status") != "PASS"
+        or not isinstance(source.get("continuity"), dict)
+        or not isinstance(source.get("bracket_snapshot_after"), dict)
+        or not isinstance(source.get("campaign"), dict)
+    ):
+        raise RuntimeError("post-target source attestation drift")
+    preliminary = parse_rest_commit_identity(api("/repos/google-deepmind/formal-conjectures/commits/main", token))
+    fresh_target, fresh_declaration = fresh_target_surface(token, preliminary["commit"])
+    post, rate_limits = bracket_snapshot(token, source["continuity"])
+    bindings = post["open_pull_binding_surface"]["bindings"]
+    target_matches = [
+        {"number": int(pull["number"]), "paths": [TARGET_PATH]}
+        for pull in bindings if TARGET_PATH in pull["changed_paths"]
+    ]
+    checks = {
+        "live_main_unchanged_after_target": preliminary == source.get("live_upstream") == post.get("main"),
+        "fresh_target_blob_and_declaration_unchanged_after_target": fresh_target == {
+            key: source["continuity"]["target"].get(key) for key in ("path", "type", "blob", "bytes", "sha256")
+        } and fresh_declaration == source["continuity"].get("declaration"),
+        "complete_status_surface_unchanged_after_target": post == source.get("bracket_snapshot_after"),
+        "complete_open_pr_bindings_after_target": post["open_pull_binding_surface"]["total_count"] == len(bindings),
+        "no_open_pr_touches_exact_target_path_after_target": target_matches == [],
+        "post_target_graphql_reserve": bool(rate_limits) and min(row["remaining"] for row in rate_limits) >= 25,
+    }
+    record = {
+        "schema": "bondy_post_target_status_collision_safeguard_v1",
+        "kind": "post_target_status_collision_safeguard",
+        "status": "PASS" if all(checks.values()) else "GATE_FAIL",
+        "checks": checks,
+        "campaign": source["campaign"],
+        "source_attestation_sha256": sha256(source_raw),
+        "pre_gate_snapshot_sha256": canonical_sha256(source["bracket_snapshot_after"]),
+        "post_target_snapshot": post,
+        "fresh_target": fresh_target,
+        "fresh_declaration": fresh_declaration,
+        "open_pr_target_path_matches": target_matches,
+        "graphql_rate_limit_observations": sorted(rate_limits, key=lambda row: (row["remaining"], row["cost"], row["reset_at"])),
+    }
+    atomic_json(output, record)
+    if record["status"] != "PASS":
+        raise RuntimeError("post-target status/collision safeguard failed closed")
+    return record
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", type=Path, required=True)
-    parser.add_argument("--paper", type=Path, required=True)
+    parser.add_argument("--paper", type=Path)
+    parser.add_argument("--post-target-source-attestation", type=Path)
     args = parser.parse_args()
-    run(args.output, os.environ.get("GH_TOKEN", ""), args.paper)
+    if args.post_target_source_attestation is not None:
+        if args.paper is not None:
+            raise RuntimeError("post-target safeguard does not accept a paper input")
+        run_post_target_safeguard(args.output, os.environ.get("GH_TOKEN", ""), args.post_target_source_attestation)
+    else:
+        if args.paper is None:
+            raise RuntimeError("pre-target gate requires the frozen paper input")
+        run(args.output, os.environ.get("GH_TOKEN", ""), args.paper)
     return 0
 
 
