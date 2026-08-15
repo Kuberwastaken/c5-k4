@@ -255,7 +255,9 @@ triples admitting a column arrangement — cube roots ≤ 200;
 equal-sum triples `A, B` and each of the 6 relative orderings, set
 `C[x] = t − A[x] − B[x]` and test cubicity of `C[x]` against cubes up to
 `3·LIMR³` (so the third row may use roots beyond the enumeration bound).
-`HOLD_BOUNDED`, bracket roots > 200.
+Run (b) at `LIMR = 220`: 1,750,540 triples, 185,715 equal-sum groups,
+259,523 candidate pairs × 6 orderings, third-row roots admitted up to 317 —
+**no hit**. `HOLD_BOUNDED`, bracket: two rows with roots > 220.
 
 `exists_magic_square_squares` (magic square of squares, all rows/cols/both
 diagonals, entries positive and distinct) is faithful to the Parker-square

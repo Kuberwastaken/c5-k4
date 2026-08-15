@@ -157,3 +157,25 @@ as a real risk of losing priority, not a neutral choice.
   `IsDistributionOfPhiRatio f` pins `f` only on `[0,1]` while `IsPurelySingular f`
   asserts `Continuous f` on all of `ℝ`; take the true distribution on `[0,1]` plus a
   jump at `x = 2`. The *open* `erdos_50` is immune.
+
+## Wikipedia collection, M–Z lane (2026-08-15)
+
+51 files triaged (FIN 11 · FIN-HARD 9 · INF 26 · TERM 5) at pin `638da20e`.
+
+**Apparently unclaimed — candidates for filing**
+
+| Target | Defect | Status |
+|---|---|---|
+| `SparseRuler.wichmann_conjecture` | Wikipedia says Wichmann speculated all **sufficiently large** optimal rulers are of this type ("no others up to length 213"); the Lean substitutes a hard threshold `13 < g.length`. The docstring's justification is also off by one in unit — by A004137 the length-58 exception has 13 **marks** = 12 **segments** | unclaimed; no finite certificate reachable (`C(78,13) ≈ 1.6·10¹⁴`) |
+| `UnionClosed.variants.cardinality_even_of_union_closed_tight` | `UCC_tight` demands *every* element of the ambient type lie in exactly half the family — strictly stronger than "tight" (`max_i = #A/2`), and it silently forces the type finite and exactly covered. Shadowed binder `hA` used twice | unclaimed; direction precludes a counterexample. Exhaustive check over all subfamilies of `P([n])`, `n ≤ 4`: `#A` a power of 2 every time |
+
+**Already claimed — stopped, no filing**
+
+- `RudinsConjecture.rudins_conjecture_unique` is finitely false (witness `N = 6, q = 120, a = 49`; second witness `(168,121)`), re-verified by two disjoint code paths — but upstream issue **#4568** (Terry-cyx, 2026-07-23, open) already carries the identical witness. New material we hold that #4568 does not: the root cause is Wikipedia's *Super-Strong* form restricting uniqueness to `N = GP_k+1 ≥ 8`, and the failure set for `6 ≤ N ≤ 30` is exactly `{6,7,9,10,11,12,15,19,20,21,22,24,25,26}`, whose complement contains every `GP_k+1` value `{8,13,16,23,27}`. Worth a comment on #4568, not a new issue.
+
+**Out of declared scope (`research solved`, not open targets)**
+
+- `Sendov.variants.le_nine` claims `n ∈ Icc 2 9`; Brown–Xiang proved `n < 9`, i.e. `n ≤ 8`. A genuine overclaim in a solved declaration.
+- `SnakeInTheBox.snake_upper_bound` omits the `− 7` present in its own docstring formula; `sidorenko_tree` is tagged `research solved` with an open `sorry` in its inductive step.
+
+**Verified clean with brackets** (recorded so they are not re-run): `(2,5)`-perfect `σ(σ(n)) = 5n` none for `n ≤ 1.2·10⁶`; 3×3 semi-magic square of distinct cubes none (roots ≤ 220, third row to 317); Pollock 5-tetrahedral holds for `N ≤ 3·10⁶` with Salzer–Levine reproduced exactly (343867 not a sum of four tetrahedra; 241 exceptions); Oppermann for `2 ≤ x ≤ 50000`; no Wall–Sun–Sun prime `p < 2·10⁶`.

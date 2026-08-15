@@ -6,7 +6,6 @@ CBIG=set()
 r=1
 while r**3 <= 3*LIMR**3: CBIG.add(r**3); r+=1
 n=LIMR
-I,J,K=np.triu_indices(n,1)  # placeholder
 # build all i<j<k triples
 tri=[]
 for i in range(n):

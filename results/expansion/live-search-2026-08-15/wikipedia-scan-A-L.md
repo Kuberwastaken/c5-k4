@@ -11,8 +11,23 @@
   recorded in the triage table.
 - **Budget**: 60 s hard cap per computation (METHOD §A2.4). Timeouts are
   brackets, never holds.
-- **Status**: triage complete (80/80). Depth pass complete on ranked head.
-- **Nothing written upstream.** No issue, PR or comment opened.
+- **Status**: triage complete (80/80). Depth pass complete on the ranked head
+  (8 faithfulness targets + 3 reachable finite targets). Lane finished.
+- **Blob re-pin, 2026-08-15T21:48Z**: `upstream/main` unchanged at `638da20e`; all
+  six candidate-file blobs re-verified identical to the values recorded in §1.
+- **Duplicate re-check, 2026-08-15T21:48Z** (surface moves in hours — KitaKen1 /
+  williamjblair active): `gh` search on `rank_height_count_asymptotic`,
+  `twentyone_le_rank`, `FirstHardyLittlewoodConjectureFor`, `M_eq_kisielewiczFormula`,
+  `matrixOver_KotherRadical`, `same_parity_betrothed`, `polignac_conjecture`,
+  `four_dim_euler_brick_existence` → **0 hits each**; `idoneal_numbers_completeness`
+  → #4314 (closed, unrelated: proving `knownIdonealNumbers_are_idoneal`). The newest
+  20 issues/PRs (#4982–#4993, created since 2026-08-14) are all Erdős/OEIS — no
+  Wikipedia-collection entry. **Re-run this check immediately before any write.**
+- **Nothing written upstream.** No issue, PR or comment opened. `lake build` not run;
+  no `git commit` from this lane.
+- **Next action if resumed**: C1 is release-shaped (finite witness, two code paths,
+  novel, strong provenance). C3/C4/C6/C7/C8 are issue-shaped faithfulness reports.
+  C2 is dead (claimed by #4518/#4519).
 
 ### Candidate summary (details below)
 
@@ -78,11 +93,11 @@ reaches). `DECL` = the interesting surface is the declaration text itself
 | 35 | EllipticCurveRank `63b538269af3` | **FIN** | `rank_height_count_asymptotic` asserts an exact equality for **every** `H > 1`, but `heightLE 2 = ∅` → C1 |
 | 36 | ErdosMoser `06d844fd2101` | INC | counterexample provably ≥ 10^(10^9) |
 | 37 | Euclid `b635df0f8d81` | INC | primality/squarefreeness of `p_n# + 1`; `Euclid n` def checked correct (`1 + ∏_{i<n} pᵢ`) |
-| 38 | EulerBrick `6fe862750f7b` | **FIN** | `four_dim_euler_brick_existence` is settled by one integer 4-tuple; searched to 20000 (see §3.3) |
+| 38 | EulerBrick `6fe862750f7b` | **FIN** | `four_dim_euler_brick_existence` is settled by one integer 4-tuple; searched exhaustively to 10^5 (see §3.3) |
 | 39 | EulerSumOfPowers `f555756690cb` | INC | `k ≥ 6` case; no counterexample known, search space huge |
 | 40 | Exponentials `98f53a6305de` | INC | transcendence |
 | 41 | FactorialPrime `46a394021071` | INC | `Set.Infinite`; def avoids ℕ-subtraction via `n! = p + 1` ✔ |
-| 42 | FeitThompsonPrimeConjecture `923cea516d71` | **DECL** | asserts only one of the two ordered directions Wikipedia quantifies over → C5 |
+| 42 | FeitThompsonPrimeConjecture `923cea516d71` | ~~DECL~~ | flagged (one of two ordered directions vs Wikipedia) then **REFUTED** in §4.1 — the omitted half is trivial by size |
 | 43 | Fermat `3ca015d4f658` | INC | four Fermat-number questions; all four are exactly Wikipedia's "Open questions" list |
 | 44 | FermatCatalanConjecture `1c84be41b9f8` | INC | `Set.Finite`; image-set construction correctly implements "distinct triplets of values" |
 | 45 | FibonacciPrimes `e19501750d05` | INC | `Set.Infinite` |
@@ -124,8 +139,9 @@ reaches). `DECL` = the interesting surface is the declaration text itself
 
 **Counts.** 80 triaged. `FIN` 13 (of which 3 reachable: EllipticCurveRank,
 EulerBrick 4-D, Idoneal; 10 unreachable-in-practice). `INC` 59.
-`DECL`-flagged (faithfulness surface) 8. Depth was spent on the 8 `DECL` targets
-plus the 3 reachable `FIN` targets.
+`DECL`-flagged (faithfulness surface) 8 at triage, of which 7 survived depth
+(C5 refuted in §4.1). Depth was spent on the 8 `DECL` targets plus the 3 reachable
+`FIN` targets.
 
 ---
 
