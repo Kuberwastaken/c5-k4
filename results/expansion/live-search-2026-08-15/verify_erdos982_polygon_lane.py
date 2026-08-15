@@ -401,22 +401,44 @@ def main():
     # ---------------- (C) sweep the 1-parameter Danzer family ----------------
     print("\n--- sweep of the 1-parameter Danzer-type family "
           "(does any member do better?) ---")
+    print("  NON-DEGENERACY GUARDS ARE ESSENTIAL HERE.  At a1 = -1/2 the first")
+    print("  equation forces b1 = +-sqrt3/2, i.e. z1 = omega, so orbit 1 collapses")
+    print("  onto orbit 0: 3 tripled points at pairwise distance ~1e-25.  Without")
+    print("  the guards that member reports min_i c_i = 2 (R = -2), a FALSE")
+    print("  crossing -- it violates Function.Injective p.")
     bestc, bestat = None, None
-    tried = 0
-    a1v = D("-1.35")
-    while a1v <= D("0.36"):
-        vv, rr = dz_solve([a1v, D("0.8"), D("0.79"), D("0.29")], 0, a1v)
-        if vv is not None:
+    tried, rejected = 0, 0
+    a1v = D("-1.60")
+    step = D("0.005")
+    while a1v <= D("0.60"):
+        for branch in (D(1), D(-1)):
+            vv, rr = dz_solve([a1v, D("0.85") * branch, D("0.79"), D("0.29")],
+                              0, a1v)
+            if vv is None:
+                continue
             R = dz_points(vv)
-            if strictly_convex(R)[0] and dz_check_k3(R, vv):
-                tried += 1
-                cm = min(len(classes(R, i)[0]) for i in range(9))
-                if bestc is None or cm < bestc:
-                    bestc, bestat = cm, a1v
-        a1v += D("0.01")
-    print(f"  strictly convex k=3 members sampled: {tried}")
-    print(f"  best (smallest) min_i c_i over the family: {bestc} at a1={bestat}")
-    print(f"  needed for a counterexample: <= {9 // 2 - 1}")
+            if not strictly_convex(R)[0]:
+                continue
+            dmin = min(d2(R[i], R[j]) for i in range(9)
+                       for j in range(i + 1, 9)).sqrt()
+            dmax = max(d2(R[i], R[j]) for i in range(9)
+                       for j in range(i + 1, 9)).sqrt()
+            if dmin / dmax < D("1e-3"):          # injectivity / degeneracy guard
+                rejected += 1
+                continue
+            if not dz_check_k3(R, vv):
+                continue
+            tried += 1
+            cm = min(len(classes(R, i)[0]) for i in range(9))
+            if bestc is None or cm < bestc:
+                bestc, bestat = cm, a1v
+        a1v += step
+    print(f"  admissible strictly convex non-degenerate k>=3 members: {tried}"
+          f"   (rejected as degenerate: {rejected})")
+    print(f"  best (smallest) min_i c_i over the family: {bestc} "
+          f"at a1={float(bestat):.6f}")
+    print(f"  needed for a counterexample: <= {9 // 2 - 1}   "
+          f"-> RESIDUAL R = {bestc - 9 // 2:+d}")
 
     # ---------------- (D) subset lattices ----------------
     print("\n--- subset lattices (every subset of a convex set is convex) ---")

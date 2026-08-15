@@ -158,4 +158,262 @@ above was frozen first.
 
 ---
 
-*(sections 3–5 appended after the runs)*
+## 3 — Coordinates recovered
+
+### 3.1 Fishburn–Reeds 20-gon — **exact published table recovered**
+
+**Provenance.** Not obtainable from ScienceDirect (`092577219290026O`, HTTP 403
+to this box). Recovered instead from
+`github.com/davidiach/erdos97`, file `scripts/fr_cut_homotopy.py`, whose header
+comment reads *"Fishburn–Reeds Table 1 (published as 1000·x_i, 1000·y_i).
+A_i=(−x_i,y_i), B_i=(x_i,y_i)."* That repository is an AI-assisted research log
+on Erdős **97** and elsewhere disclaims holding exact FR coordinates, so the
+transcription was treated as unverified and **checked numerically before use**.
+
+| i | 1000·x_i | 1000·y_i |
+|---|---|---|
+| 1 | 469.633821777 | −92.982777730 |
+| 2 | 471.414237018 | −89.969229800 |
+| 3 | 473.126180256 | −87.048665472 |
+| 4 | **520.0** | **30.0** |
+| 5 | 520.996246864 | **33.0** |
+| 6 | **522.0** | **36.1** |
+| 7 | 429.872125856 | 342.595442083 |
+| 8 | 429.224646090 | 344.599064292 |
+| 9 | 428.539574537 | 346.658610393 |
+| 10 | 390.440922261 | 417.185267785 |
+
+Vertices `A_i = (−x_i, y_i)`, `B_i = (x_i, y_i)`, `i = 1..10`; 20 points,
+mirror-symmetric about the `y`-axis, no vertex on the axis.
+
+Unit-distance pairs (`|A_i B_j| = |A_j B_i| = 1`), 15 undirected / 30 directed:
+`(1,6) (1,9) (1,10) (2,5) (2,8) (2,10) (3,4) (3,7) (3,10) (4,8) (4,9) (5,7)
+(5,9) (6,7) (6,8)` — a **3-regular bipartite** unit-distance graph between the
+`A` side and the `B` side.
+
+**The transcription is authentic.** All 30 unit distances hold to
+`max |d² − 1| = 3.94e-12` as published. A fabricated table cannot satisfy 15
+independent nonlinear equations to 12 digits. Newton-polishing at 60 decimal
+digits (holding the five evidently hand-chosen round values `x₄, x₆, y₄, y₅, y₆`
+fixed) drives the residual to `1.0e-59` and moves the coordinates by only
+`6.3e-9`. The five round entries are exactly the free parameters: the incidence
+structure gives **15** independent equations in **20** unknowns, so FR's family
+is 5-dimensional and they fixed 5 coordinates. Everything is self-consistent.
+
+Verified properties: **strictly convex** (monotone-chain hull with strict turns
+returns all 20 vertices); **every vertex at distance exactly 1 from exactly 3
+others** (min degree = max degree = 3), as advertised on erdosproblems.com/97.
+
+Shape note (not in the citations): the polygon is highly clustered. `A₁A₂A₃`,
+`A₄A₅A₆`, `A₇A₈A₉` are triples of near-coincident points — e.g.
+`d²(A₁,A₂) = 1.225e-5`, i.e. distance `0.0035` against a diameter of `≈1.1`.
+FR buy their unit distances by packing points into tiny arcs.
+
+### 3.2 Danzer 9-gon — **reconstruction, not the original coordinates**
+
+No source reached prints Danzer's coordinates. `erdosproblems.com/97` carries an
+image asset `97-Danzer` (a picture, referenced by the page's `addImageBox` JS),
+and the construction is attributed to an explanation in [Er87b]; the site is
+Cloudflare-gated and the underlying figure was not retrieved. **Stated plainly:
+what is tested below is a reconstruction from the combinatorial structure, not
+Danzer's published nonagon.**
+
+The reconstruction is the natural one, and appears independently in the
+`erdos97` repo (`src/erdos97/danzer18_doubling.py`) as a "Danzer-type" nonagon:
+`C3` rotational symmetry, three orbits of three. Writing vertices as complex
+numbers with `ω = e^{2πi/3}`, orbit `m` is `{z_m, ω z_m, ω² z_m}`. Each vertex
+is automatically equidistant from its **two orbit mates**, at
+`|z_m − ω z_m| = √3·|z_m|`; one tuned cross-orbit witness per orbit closes the
+`k = 3` property. With the gauge `z₀ = 1` and the cross map
+`0 ↦ (2,1), 1 ↦ (0,0), 2 ↦ (1,0)` the three conditions reduce **exactly**, with
+no trigonometry, to a system over `ℚ(√3)`:
+
+```
+a₂² + b₂² + a₂ + √3·b₂        = 2
+a₁² + b₁² + a₁                = 1/2
+2(a₂²+b₂²) + 2(a₁a₂+b₁b₂) − (a₁²+b₁²) = 0        where z₁=a₁+ib₁, z₂=a₂+ib₂
+```
+
+Three equations in four unknowns ⇒ a **1-parameter family** (matching the
+repo's Jacobian-rank-3 finding). Note `a₁²+b₁²+a₁ = 1/2` is the circle
+`|z₁ + 1/2| = √3/2`, which has **no rational points** (`X²+Y²=3` is
+insolvable in ℚ), so no member of this family has rational coordinates — the
+predecessor's integer-grid search could never have seen it. That is exactly the
+gap this lane was opened to cover.
+
+Member tested (Newton at 60 digits, system residual `3.5e-56`):
+`z₁ = −0.544100000000000 + 0.864901838360863 i`,
+`z₂ = 0.802055422961524 + 0.276188094444543 i`, `z₀ = 1`.
+Verified: **strictly convex** 9-gon, **every vertex has ≥3 equidistant others**.
+Cross-checked against the repo's own 50-digit polar constants
+(`r₁ = 1.02327653622861512…, φ₁ = 2.13488993490095944…,
+r₂ = 0.84430467659553225…, φ₂ = 0.34318985719866858…`), which land on the same
+family and give identical distance profiles.
+
+---
+
+## 4 — Test results against the declaration
+
+Everything below is at 60 decimal digits with coordinates solved to `≤1e-56`;
+two squared distances are called equal only if they agree to `1e-30` absolute
+(and the robustness of that call is reported separately). Runtime: 0.9 s total,
+against a 60 s cap. No timeouts, so no brackets.
+
+### 4.1 Fishburn–Reeds 20-gon — `n = 20`, `⌊n/2⌋ = 10`
+
+| quantity | value |
+|---|---|
+| strictly convex | **yes**, hull = all 20 |
+| unit-degree per vertex | 3 (min = max) |
+| distinct distances `c_i` | **17 at every one of the 20 vertices** |
+| multiplicity profile at every vertex | `[3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]` |
+| excess `E_i` | **2** at every vertex (need `≥ 10`) |
+| **residual `R = min_i c_i − ⌊n/2⌋`** | **`+7`** (counterexample iff `≤ −1`) |
+
+Robustness: the count `c_i = 17` is stable for any relative merge tolerance from
+`1e-12` up to `1e-6`. It degrades only when the tolerance is coarse enough to
+merge genuinely distinct distances inside FR's tight clusters (`1e-4 → 16`,
+`1e-2 → 9`). Those are **tolerance artefacts, not coincidences**: the tightest
+adjacent pair at any vertex is `d² = 4.4337e-6` vs `4.7111e-6` (absolute gap
+`2.773e-7`, **relative gap 5.9 %**). Per the guard-band rule, none of these is a
+crossing. The exact answer at full precision is `17`.
+
+### 4.2 Danzer-type 9-gon — `n = 9`, `⌊n/2⌋ = 4`
+
+| quantity | value |
+|---|---|
+| strictly convex | **yes**, hull = all 9 |
+| `k = 3` property | holds at every vertex |
+| distinct distances `c_i` | **6 at every one of the 9 vertices** |
+| multiplicity profile at every vertex | `[3, 1, 1, 1, 1, 1]` |
+| excess `E_i` | **2** at every vertex (need `≥ 5`) |
+| **residual `R`** | **`+2`** |
+
+Sorted squared distances from `v₀`:
+`0.002220, 0.122710, 2.015841, 2.997780, 3.000000, 3.000000, 3.000000,
+3.141285`. Stable for every merge tolerance from `1e-12` to `1e-3`.
+
+The `2.997780` entry is a near-miss against the mate class `3.000000` (relative
+gap `7.4e-4`) — the same near-coincidence `d²(v₀,v₄) ≈ 2.99778` the `erdos97`
+repo records while hunting a `k = 4` example for Erdős **97**. Even if it closed
+exactly it would give `c_i = 5`, i.e. `R = +1`. **Erdős 97 and Erdős 982 do not
+meet here.**
+
+### 4.3 Sweep of the whole 1-parameter Danzer family
+
+852 admissible members sampled over `a₁ ∈ [−1.60, 0.60]` (1500 steps × 2
+branches), each Newton-solved to `1e-50` and screened by three guards:
+strict convexity, `min pairwise distance / diameter ≥ 1e-3`, and
+`min exterior turn ≥ 1e-3` rad.
+
+* best (smallest) `min_i c_i` anywhere in the family: **6** → `R = +2`.
+* smallest relative gap between distinct classes among admissible members:
+  `1.06e-6`; closing that single extra coincidence exactly would still leave
+  `min_i c_i ≥ 5`, `R ≥ +1`.
+* **53 members were rejected by the guards, and this mattered.** An earlier
+  unguarded pass reported `min_i c_i = 2`, `R = −2` — an apparent crossing — at
+  `a₁ = −0.5 + 1.2e-51`. At `a₁ = −1/2` the first equation forces
+  `b₁ = ±√3/2`, i.e. `z₁ = ω`, so orbit 1 **collapses onto orbit 0**: the
+  "9-gon" is 3 points each tripled, pairwise distances `~1e-25`, violating
+  `Function.Injective p`. This is recorded because it is exactly the failure the
+  guard-band rule exists to catch: **a sub-`1e-6` gap was not a crossing.**
+
+### 4.4 Subset lattices (exhaustive)
+
+Every subset of a strictly convex point set is strictly convex, so each of the
+`2^9` and `2^20` subsets is a legitimate candidate at its own `n`. Both lattices
+were exhausted by DFS over every target size `4 ≤ m ≤ n`, pruning on the
+hereditary condition `c_i(T) ≤ ⌊m/2⌋ − 1` for all `i ∈ T`:
+
+| point set | DFS nodes | subsets satisfying the negation |
+|---|---|---|
+| Danzer-type 9-gon | 644 | **0** |
+| Fishburn–Reeds 20-gon | 234,316 | **0** |
+
+This is forced, and the one-line reason generalises: with `max_t m_t = 3` at
+every vertex and every other class a singleton, `c_i(S) ≥ |S| − 3` for any
+subset `S`, so the negation `c_i(S) ≤ ⌊|S|/2⌋ − 1` requires `⌈|S|/2⌉ ≤ 2`, i.e.
+`|S| ≤ 4`; and `|S| = 4` requires 4 mutually equidistant points in `ℝ²`.
+
+### 4.5 Independent recomputation (METHOD Phase 7)
+
+Path B is a structurally different program: float64/numpy, polar-trigonometric
+parametrisation, seeded from the `erdos97` repo's own 50-digit constants rather
+than from this lane's complex-algebraic Newton solve, with the FR table used
+**unpolished** exactly as published. It reproduces every headline number:
+FR-20 `min_i c_i = 17`, `R = +7`; Danzer-9 `min_i c_i = 6`, `R = +2`; both
+strictly convex; both `k = 3`. Agreement across the whole tolerance sweep
+`1e-12 … 1e-6`.
+
+---
+
+## 5 — Why the attack fails, and what that closes
+
+The two constructions were built to refute **Erdős 97** (the `k`-equidistant
+question), which constrains **one** distance class per vertex. EP 982 constrains
+the **entire multiset**. Quantitatively:
+
+> **Proposition.** Suppose a strictly convex `n`-gon has, at every vertex,
+> one distance class of multiplicity `k` and all other classes singletons.
+> Then `c_i = n − k` and `R = n − k − ⌊n/2⌋`. Hence `R ≤ −1` **iff**
+> `k ≥ ⌈n/2⌉ + 1`.
+
+Both literature constructions have `k = 3`:
+
+| construction | `n` | `k` | `k` needed for `R ≤ −1` | deficit |
+|---|---|---|---|---|
+| Danzer-type 9-gon | 9 | 3 | 5 | **2** |
+| Fishburn–Reeds 20-gon | 20 | 3 | 11 | **8** |
+
+Equivalently, in mean multiplicity `(n−1)/c_i`: the negation of EP 982 requires
+`(n−1)/c_i ≥ (n−1)/(⌊n/2⌋−1) > 2` at **every** vertex, while these constructions
+deliver `(n−1)/(n−3) → 1`. The constructions therefore get **monotonically
+worse** as `n` grows — which is precisely the observed `R = +2` at `n = 9`
+versus `R = +7` at `n = 20`. This is the G3-lite sign, confirmed exactly.
+
+Three consequences worth recording:
+
+1. **The F9 lead is closed, structurally rather than just negatively.** The
+   whole "≥ `k` equidistant at every vertex" branch of the literature can only
+   yield an EP 982 counterexample once `k ≥ ⌈n/2⌉ + 1` — a vertex-centred circle
+   through more than half the remaining vertices, at every vertex. Nothing in
+   the unit-distance literature is remotely that.
+2. **Even solving Erdős 97 would not touch EP 982.** A hypothetical `k = 4`
+   convex `n`-gon (the open case, `$100`) satisfies `R ≤ −1` only for
+   `n ≤ 2(k−1) = 6`; `n = 6` was already exhausted by the predecessor and
+   `n ≤ 5` is unconditionally impossible. So Erdős 97 and Erdős 982, though they
+   share the phrase "equidistant vertices", are disjoint as attack surfaces.
+3. **The dimension counts are hopeless, not merely unlucky.** The Danzer family
+   is 1-dimensional and needs 3 further coincidences per vertex class
+   (over-determined by 2). The FR family is 5-dimensional (15 equations, 20
+   unknowns) and needs 8 further coincidences at each of 10 mirror classes,
+   i.e. ~80 equations on 5 parameters (over-determined by ~75).
+
+**What is *not* closed.** The predecessor's `HOLD_BOUNDED` bracket is unchanged
+in substance: integer/rational configurations exhausted for `n ∈ {6,7}` in
+`[0,30]×[−30,30]` and `n ∈ {8,9}` in `[0,9]×[−9,9]`; `n ≥ 10` untouched; the
+irrational regime untouched except for the two named algebraic families handled
+here. This lane adds: the two named irrational-coordinate constructions in the
+literature, their full 1- and 5-parameter families in the case of Danzer, and
+both of their complete subset lattices. It does **not** bear on the underlying
+conjecture, which remains open (best known `f(n) ≥ (13/36 + 1/22701)n − O(1)`,
+Nivasch–Pach–Pinchasi–Zerbib).
+
+### Verdict
+
+**`STRICT_STOP_G3_WRONG_SIGN`** (METHOD §A3). No crossing. `erdos_982` status is
+unchanged at `HOLD_BOUNDED`; blob `33971c07d094160f9b54fc40433c2b0df155ad11`
+re-checked at the end of the lane and unchanged. Nothing was opened, commented,
+or pushed upstream. §A6 coordinates: (1) the underlying question stays open;
+(2) no formal solution; (3) the declaration is faithful; (4) no counterexample
+to what it literally asserts was found.
+
+### Script
+
+`verify_erdos982_polygon_lane.py` (this directory) — runs the whole lane end to
+end in under a second:
+
+```
+python3 verify_erdos982_polygon_lane.py
+```
+
