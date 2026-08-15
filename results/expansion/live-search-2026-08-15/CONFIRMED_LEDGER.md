@@ -13,6 +13,33 @@ literal declaration is trivially *true*. None is eligible for the
 `UPSTREAM_PROTOCOL.md` release path, which is for counterexamples. The
 appropriate artifact is an upstream issue in the style of the live trackers.
 
+## Published upstream, 2026-08-15
+
+Eight issues filed after an offline duplicate gate (1734 issues + 3226 PRs
+with per-PR file lists, matched on title, body and changed path) and
+re-verification against then-current main `638da20e`, not the ledger pin:
+
+| Item | Issue |
+|---|---|
+| OEIS A237271 `observation_carmichael` | [#4974](https://github.com/google-deepmind/formal-conjectures/issues/4974) |
+| Erdős 1093 `deficiency` | [#4975](https://github.com/google-deepmind/formal-conjectures/issues/4975) |
+| Erdős 1055 `IsOfClass` | [#4976](https://github.com/google-deepmind/formal-conjectures/issues/4976) |
+| Erdős 40 `erdos_40` | [#4977](https://github.com/google-deepmind/formal-conjectures/issues/4977) |
+| Erdős 33 `.variants.one_mem_lowerBounds` | [#4978](https://github.com/google-deepmind/formal-conjectures/issues/4978) |
+| Erdős 15 `Summable` | [#4979](https://github.com/google-deepmind/formal-conjectures/issues/4979) |
+| Erdős 477 index set | [#4980](https://github.com/google-deepmind/formal-conjectures/issues/4980) |
+| Erdős 952 asserted direction | [#4981](https://github.com/google-deepmind/formal-conjectures/issues/4981) |
+| Erdős 142 (partial duplicate) | [comment on #4922](https://github.com/google-deepmind/formal-conjectures/issues/4922#issuecomment-5303863018) |
+
+New provenance surfaced while drafting, now in the issue bodies: **1093** —
+PR #1328's first commit had `IsKSmooth … p ≤ k` correct, and a review
+suggestion swapped in `smoothNumbers k` with no discussion of the threshold;
+**477** — PR #1242 replaced `Set.range f.eval` with `f.eval '' {n | 0 < n}`
+and set the docstring to `n > 0`, then #1510 re-synced the docstring to the
+site's `{f(n) : n ∈ ℤ}` while carrying the one-sided set into every
+declaration, which is why docstring and code now contradict each other inside
+the same declaration.
+
 ## Crossings — finite disproofs of open declarations (strongest class)
 
 These two are **counterexamples**: an explicit finite witness makes the open
@@ -56,6 +83,19 @@ term?") is **not** refuted: A109883(8925) = 2969 ≫ 10.
 | **Erdős 142** `erdos_142`, `.variants.upper`, `.variants.three` | All three `answer(sorry)` holes close by copying the LHS (`isTheta_refl` / `isBigO_refl`) | **Partial**: #4922 reports `.variants.upper`; #4923 lists the same reflexive-asymptotic pattern for EP 422/539/789 but **not** for `erdos_142` or `.variants.three` |
 
 ## Status-sync findings (not discovery claims, METHOD rule 9)
+
+> **⚠ CONTESTED, 2026-08-15 — do not publish these without re-verification.**
+> The publication lane could not reach erdosproblems.com (Cloudflare 403 for
+> curl and WebFetch; headless browser could not bind a port; archive.org
+> blocked), so it checked the offline mirror `teorth/erdosproblems@data/problems.yaml`
+> instead — and that mirror still records **all seven of these as `open`**,
+> directly contradicting several rows below (notably 1054 "Tao's disproof" and
+> 36 "`c < 0.380876` now recorded"). Either the mirror is stale or the
+> originating audit misread the live page; both are possible and neither is
+> established. All seven were therefore **held back from upstream**, correctly:
+> an unverified "this is already solved" claim is the expensive direction to be
+> wrong in. Re-run against the live site before treating any row here as a
+> finding. The rows are kept for traceability, not as confirmed results.
 
 | Target | Issue |
 |---|---|
