@@ -49,6 +49,13 @@ Sixteen open as of 2026-08-15; none reviewed yet.
 | [#4995](https://github.com/google-deepmind/formal-conjectures/pull/4995) | EllipticCurveRank: `∀ᶠ H in atTop` (no numeral guard can work) | crossing repair | fast checks pass, build pending |
 | [#4999](https://github.com/google-deepmind/formal-conjectures/pull/4999) | `same_parity_betrothed`: add `m ≠ n` | formalization repair | **all green** |
 
+### Other-corpora PRs (2026-08-15)
+
+| PR | Contribution | Class | CI |
+|---|---|---|---|
+| [#5004](https://github.com/google-deepmind/formal-conjectures/pull/5004) | Books/Equidistribution: "almost all", not "every transcendental" | crossing repair | filed |
+| [#5007](https://github.com/google-deepmind/formal-conjectures/pull/5007) | `green_40.variants.all_n`: `𝓝 ⊤`, not `atTop` | formalization repair | filed |
+
 ## C. Upstream issues filed
 
 [#4974](https://github.com/google-deepmind/formal-conjectures/issues/4974) A237271 ·
@@ -72,6 +79,13 @@ Wikipedia lane, 2026-08-15:
 [#5001](https://github.com/google-deepmind/formal-conjectures/issues/5001) UnionClosed tight hypothesis too strong ·
 [#5002](https://github.com/google-deepmind/formal-conjectures/issues/5002) Köthe spurious hypothesis ·
 comments crediting prior claimants on [#4568](https://github.com/google-deepmind/formal-conjectures/issues/4568) (Rudin) and [#3490](https://github.com/google-deepmind/formal-conjectures/issues/3490) (Dedekind).
+
+Other collections, 2026-08-15:
+[#5003](https://github.com/google-deepmind/formal-conjectures/issues/5003) Books/Equidistribution false as written ·
+[#5005](https://github.com/google-deepmind/formal-conjectures/issues/5005) Greens degenerate-answer cluster + `green_35.upper` status sync ·
+[#5006](https://github.com/google-deepmind/formal-conjectures/issues/5006) `green_40` filter `atTop = pure ⊤` ·
+[#5008](https://github.com/google-deepmind/formal-conjectures/issues/5008) Voronovskaja answer forced to 0 ·
+[#5009](https://github.com/google-deepmind/formal-conjectures/issues/5009) LatinSquare + **AnswerLinter gap** (fires on `declSig` binders, silent on `variable`-introduced ones).
 
 ## D. Releases (github.com/Kuberwastaken/c5-k4/releases)
 
