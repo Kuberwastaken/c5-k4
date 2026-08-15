@@ -176,3 +176,113 @@ declaration only for fixed small `C`, not for the `∃ C` form.
 `variants.known_result` solved). Nothing raising the asserted-direction defect.
 No upstream action taken.
 
+## F3 — Erdős 982, `erdos_982` — `HOLD_BOUNDED` (the one genuinely finite target)
+
+**Blob** `33971c07d094160f9b54fc40433c2b0df155ad11` (`982.lean`).
+
+```lean
+@[category research open, AMS 52]
+theorem erdos_982 (n : ℕ) (hn : 3 ≤ n) (p : Fin n → ℝ²) (hp : Function.Injective p)
+    (hp' : EuclideanGeometry.IsConvexPolygon p) :
+    ∃ (i : Fin n), { d : ℝ | ∃ j : Fin n, j ≠ i ∧ d = dist (p i) (p j) }.ncard ≥ n / 2
+```
+
+**Source (erdosproblems.com/982, state `open`, prize `FALSIFIABLE`, edited
+19 October 2025).** "If $n$ distinct points in $\mathbb{R}^2$ form a convex
+polygon then some vertex has at least $\lfloor n/2\rfloor$ different distances
+to other vertices."
+
+**Faithfulness: clean.** `n / 2` is ℕ-division `= ⌊n/2⌋`; `≥` matches "at
+least"; `ncard` of the set of realised distances from `p i` is the count of
+*distinct* distances; `Function.Injective p` = "distinct points";
+`IsConvexPolygon` in this repo unfolds to `IsCcwConvexPolygon p ∨
+IsCcwConvexPolygon (p ∘ Neg.neg)`, i.e. **strict** convexity (no three
+collinear vertices). No divergence found. §A6: any counterexample here would be
+a claim about **the mathematics**, not merely the declaration.
+
+**Certificate shape:** `FINITE_UNIVERSAL`. Negation = one strictly convex
+`n`-point configuration in which **every** vertex has `≤ ⌊n/2⌋ − 1` distinct
+distances. This is the only remaining candidate in the frontier whose negation
+is a genuinely replayable finite object.
+
+### Calibration (frozen before searching)
+
+Regular `n`-gon, `n = 3..9`: every vertex has exactly `⌊n/2⌋` distinct
+distances (`[1,1,1]`, `[2,2,2,2]`, `[2]*5`, `[3]*6`, `[3]*7`, `[4]*8`, `[4]*9`).
+So the conjecture is exactly tight and the residual `R = min_i c_i − ⌊n/2⌋` is
+`0` on the whole regular family. Unit square: counts `[2,2,2,2]`, strict
+convexity `True`.
+
+### Obstruction identity (METHOD Phase 4) — and it is already taken upstream
+
+If all `n` points are **concyclic**, then for any vertex `i` a circle centred at
+`p i` meets the common circle in at most 2 points, so each realised distance
+from `p i` has multiplicity `≤ 2` among the other `n−1` vertices, giving
+`c_i ≥ ⌈(n−1)/2⌉ = ⌊n/2⌋` for every `i`. Hence **no concyclic configuration can
+be a counterexample**, for any `n`.
+
+**Duplicate — this is already upstream.** `gh search issues --repo
+google-deepmind/formal-conjectures 982 --include-prs` returns issue **#4691**
+("Erdős 982: add the solved concyclic variant and Lean proof", open) and PR
+**#4694** ("feat(Erdős 982): add the concyclic solved variant", open, created
+2026-08-02), which adds `erdos_982.variants.concyclic` with a no-`sorry` Lean
+proof (`#print axioms` = `propext, Classical.choice, Quot.sound`). No novelty
+is claimed for this lemma here; it is recorded because it is the pruning
+principle the search below uses.
+
+The source page states the general form of the same fact: "This would be
+implied if there was a vertex such that no three vertices of the polygon are
+equally distant to it, which was originally also conjectured by Erdős [Er46b],
+but **this is false** (see [97])." So a counterexample must satisfy, at *every*
+vertex, "at least three other vertices are equidistant from me".
+
+### Bounded exact search
+
+Both searches are over **integer coordinates** (so all squared distances are
+exact integers), with the lex-smallest vertex translated to the origin, box
+`x ∈ [0,N]`, `y ∈ [−N,N]`. Target: `c_i ≤ K := ⌊n/2⌋ − 1` for all `i`.
+
+Two monotone prunes, both valid on partial sets because both properties are
+hereditary downward:
+* **P1** strict convex position (Andrew monotone chain with strict turns;
+  `hull_size(S) = |S|`);
+* **P2** `c_i(S) ≤ K` for every `i ∈ S` (`c_i` is nondecreasing in `S`).
+
+**Path A** (`<scratch>/e982.py`): DFS over the whole grid with P1+P2.
+**Path B** (`<scratch>/e982b.py`), independent: for `K = 2` the other `n−1`
+vertices lie on at most 2 circles centred at the origin, so enumerate the
+radius set first and DFS only inside that pool. Path B is a structurally
+different enumeration, used as the §Phase-7 independent recomputation.
+
+| n | K | box N | path | status | nodes | secs | counterexamples |
+|---|---|---|---|---|---|---|---|
+| 4 | 1 | 10 | A | COMPLETE | 24,310 | 0.0 | **0** |
+| 5 | 1 | 10 | A | COMPLETE | 24,310 | 0.0 | **0** |
+| 6 | 2 | 12 | A | COMPLETE | 5,030,452 | 4.8 | **0** |
+| 6 | 2 | 12 | B | COMPLETE | 98,243 dfs | 0.7 | **0** (agrees with A) |
+| 6 | 2 | 30 | B | COMPLETE | 3,716,438 dfs | 32.8 | **0** |
+| 6 | 2 | 45 | B | **TIMEOUT** at 55 s | 6,252,847 dfs | 55.0 | 0 so far (132,460 of 361,425 radius-groups) |
+| 7 | 2 | 30 | B | COMPLETE | 3,389,202 dfs | 28.6 | **0** |
+| 8 | 3 | 7 | A | COMPLETE | 4,445,090 | 5.7 | **0** |
+| 8 | 3 | 9 | A | COMPLETE | 30,135,606 | 35.0 | **0** |
+| 9 | 3 | 9 | A | COMPLETE | 30,135,606 | 35.9 | **0** |
+
+(The `n = 8` and `n = 9` node counts coincide because both have `K = 3`: the
+pruned tree is identical and no branch ever reaches depth 8, so none reaches
+depth 9 either.)
+
+`n = 4,5` are also settled unconditionally: `K = 1` forces all `n` points
+pairwise equidistant, impossible in `ℝ²` for `n ≥ 4`. `n = 3` is trivial
+(`K = 0`, but a 3-point set has at least one distance).
+
+**Verdict: `HOLD_BOUNDED`.** No counterexample. Explicit bounds: complete
+exhaustion of all strictly convex **integer** configurations with `n ∈ {6,7}`
+inside `x∈[0,30], y∈[−30,30]` and `n ∈ {8,9}` inside `x∈[0,9], y∈[−9,9]`, plus
+the partial `n=6, N=45` bracket. **Limitation, stated honestly:** integer
+coordinates only, so the search covers exactly those configurations similar to
+a rational one; a counterexample requiring irrational coordinates is outside
+the bracket, and so is any `n ≥ 10`. Prior art (Moser; Erdős–Fishburn;
+Dumitrescu; Nivasch–Pach–Pinchasi–Zerbib `f(n) ≥ (13/36+1/22701)n − O(1)`)
+leaves the conjecture open for all large `n`, so this is calibration, not new
+mathematical evidence.
+
