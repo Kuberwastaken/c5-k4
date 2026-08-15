@@ -292,3 +292,43 @@ verification) is now the campaign's most reliable regularity.
    `research open` declaration, so the missing `m ≠ n` does not merely resemble
    another open problem — it silently entangles two of them. Both artifacts now
    lead with that.
+
+## Restraint record — four verified findings deliberately NOT filed (2026-08-15)
+
+`green_25`, `green_51`, `green_27.equivalent`, and `molsExistenceProblem` were
+all verified `rfl`-closable under `with_auxiliary`. They were **not** filed:
+`CONTRIBUTING.md` uses literally that shape as its own worked example and
+declares trivial answers out of scope, and meta-issue #33 already tracks the
+policy. Reporting them would have been reporting a documented non-bug. Issues
+#5005 and #5009 say so explicitly rather than leaving the omission unexplained.
+
+Also dropped: `green_37_theta` (its reflexive witness is not closed, and a
+closed Θ-answer cannot be ruled out), `green_37_bigO`/`littleO` (#4943), Green
+19/72/14 (known duplicates), and `Arxiv/2107.00295` (our own ledger marks it
+unverified — the source paper was never read).
+
+This is the same discipline as the corrections record, pointed the other way:
+knowing what not to claim is part of the method, and the count of things
+correctly withheld belongs in the record next to the count of things published.
+
+## Two findings strengthened during filing
+
+1. **The "mis-scoped answer" class is a disproof, not a style complaint.** The
+   machine witness that `with_auxiliary` rejects a binder-dependent answer —
+   `(kernel) declaration has free variables '<decl>._answer'` — converts the
+   class from stylistic to formal, and `green_24`, `green_16`, `green_37`,
+   `green_37_asymptotic` now carry complete Lean disproofs of the
+   closed-answer reading (no `sorry`, exit 0).
+2. **Voronovskaja blocks two live PRs.** Open PRs #4646 and #4432 both propose
+   `μ(α)√(x(1−x))f′(x)`, which the current answer slot cannot express — so the
+   defect prevents either from landing coherently. #4432 independently proves
+   the same constant lemma we did.
+
+**New repo-infrastructure finding** (filed in #5009): the `AnswerLinter` fires
+on `declSig` binders but is **silent on `variable`-introduced ones**, which is
+how the mis-scoped declarations passed review in the first place.
+
+**Status-sync, this time verified live**: Green's own Update 2025 PDF was
+reached (HTTP 200, 839,479 B, MD5 `b82b1358…`) and quotes `c∞ ⩽ 0.75026`
+against the declaration's `< 0.7505`. Unlike the seven CONTESTED syncs above,
+this one has a live primary source and was filed.
