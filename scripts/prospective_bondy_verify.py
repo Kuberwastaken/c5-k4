@@ -30,6 +30,9 @@ ALLOWED_TERMINALS = {
     "GATE_FAIL",
 }
 EXPECTED_DISCOVERY_ALGORITHM = "python_endpoint_path_cover_dp_v1"
+EXPECTED_EVALUATOR_ALGORITHM = "python_bounded_hamiltonian_path_witness_then_endpoint_path_cover_dp_v1"
+HAMILTONIAN_PATH_ALGORITHM = "python_bounded_hamiltonian_path_witness_v1"
+HAMILTONIAN_PATH_EXPANSION_LIMIT = 50_000
 EXPECTED_PYTHON_VERSION = "3.11.9"
 EXPECTED_NETWORKX_VERSION = "3.3"
 COMMON_EVALUATION_FIELDS = {
@@ -39,8 +42,13 @@ COMMON_EVALUATION_FIELDS = {
     "dp_digests",
     "upper_deletion_sets_completed",
     "evaluation_seconds_millis",
+    "hamiltonian_search",
 }
 EVALUATION_FIELDS = {
+    "HAMILTONIAN_PATH_UPPER_REJECTED": {
+        "candidate", "classification", "algorithm", "hamiltonian_search",
+        "upper_deletion_sets_completed", "upper_rejection", "evaluation_seconds_millis",
+    },
     "Q4_UPPER_BOUND_REJECTED": COMMON_EVALUATION_FIELDS | {"upper_rejection"},
     "NO_Q_WITH_FOUR_PATH_AND_COMPLEMENT_COVER": COMMON_EVALUATION_FIELDS
     | {"q_sets_completed", "q_sets_with_simple_path"},
@@ -105,14 +113,14 @@ def validate_post_target_safeguard(
     }
     rates = safeguard.get("graphql_rate_limit_observations")
     if (
-        source_attestation.get("schema") != "bondy_source_status_duplicate_gate_tip_continuity_v3_4"
+        source_attestation.get("schema") != "bondy_source_status_duplicate_gate_tip_continuity_v3_5"
         or source_attestation.get("status") != "PASS"
         or set(safeguard) != {
             "schema", "kind", "status", "checks", "campaign", "source_attestation_sha256",
             "pre_gate_snapshot_sha256", "post_target_snapshot", "post_target_open_pr_binding_surface", "fresh_target", "fresh_declaration", "open_pr_target_path_matches",
             "graphql_rate_limit_observations",
         }
-        or safeguard.get("schema") != "bondy_post_target_status_collision_safeguard_v2"
+        or safeguard.get("schema") != "bondy_post_target_status_collision_safeguard_v3"
         or safeguard.get("kind") != "post_target_status_collision_safeguard"
         or safeguard.get("status") != "PASS"
         or not isinstance(checks, dict) or set(checks) != expected_checks
@@ -180,20 +188,43 @@ def validate_evaluation_schema(result: dict[str, object]) -> str:
     expected_candidate = classification == "CANDIDATE_PENDING_INDEPENDENT_REPLAY"
     if result.get("candidate") is not expected_candidate:
         raise RuntimeError("target classification/candidate Boolean disagreement")
-    if result.get("algorithm") != EXPECTED_DISCOVERY_ALGORITHM:
-        raise RuntimeError("target evaluation algorithm drift")
-    digests = result.get("dp_digests")
-    if not isinstance(digests, dict) or set(digests) != {"pc_table_sha256", "endpoint_table_sha256"}:
-        raise RuntimeError("target evaluation DP digest schema drift")
-    if any(not isinstance(value, str) or len(value) != 64 or any(c not in "0123456789abcdef" for c in value) for value in digests.values()):
-        raise RuntimeError("target evaluation DP digest value drift")
+    hamiltonian_search = result.get("hamiltonian_search")
+    if (
+        not isinstance(hamiltonian_search, dict)
+        or set(hamiltonian_search) != {"algorithm", "expansion_limit", "expansions", "outcome", "path"}
+        or hamiltonian_search.get("algorithm") != HAMILTONIAN_PATH_ALGORITHM
+        or hamiltonian_search.get("expansion_limit") != HAMILTONIAN_PATH_EXPANSION_LIMIT
+        or isinstance(hamiltonian_search.get("expansions"), bool)
+        or not isinstance(hamiltonian_search.get("expansions"), int)
+        or not 0 <= hamiltonian_search["expansions"] <= HAMILTONIAN_PATH_EXPANSION_LIMIT
+    ):
+        raise RuntimeError("Hamiltonian-path search audit drift")
+    if classification == "HAMILTONIAN_PATH_UPPER_REJECTED":
+        if (
+            result.get("algorithm") != HAMILTONIAN_PATH_ALGORITHM
+            or hamiltonian_search.get("outcome") != "WITNESS"
+            or not isinstance(hamiltonian_search.get("path"), list)
+        ):
+            raise RuntimeError("Hamiltonian-path result algorithm/audit drift")
+    else:
+        if (
+            result.get("algorithm") != EXPECTED_DISCOVERY_ALGORITHM
+            or hamiltonian_search.get("outcome") != "INCONCLUSIVE"
+            or hamiltonian_search.get("path") is not None
+        ):
+            raise RuntimeError("target evaluation algorithm drift")
+        digests = result.get("dp_digests")
+        if not isinstance(digests, dict) or set(digests) != {"pc_table_sha256", "endpoint_table_sha256"}:
+            raise RuntimeError("target evaluation DP digest schema drift")
+        if any(not isinstance(value, str) or len(value) != 64 or any(c not in "0123456789abcdef" for c in value) for value in digests.values()):
+            raise RuntimeError("target evaluation DP digest value drift")
     upper_completed = result.get("upper_deletion_sets_completed")
     elapsed = result.get("evaluation_seconds_millis")
     if isinstance(upper_completed, bool) or not isinstance(upper_completed, int) or not 1 <= upper_completed <= 1351:
         raise RuntimeError("target upper-catalogue accounting drift")
     if isinstance(elapsed, bool) or not isinstance(elapsed, int) or elapsed < 0:
         raise RuntimeError("target evaluation timing drift")
-    if classification != "Q4_UPPER_BOUND_REJECTED" and upper_completed != 1351:
+    if classification not in {"Q4_UPPER_BOUND_REJECTED", "HAMILTONIAN_PATH_UPPER_REJECTED"} and upper_completed != 1351:
         raise RuntimeError("target result lacks complete q4 upper audit")
     if classification == "NO_Q_WITH_FOUR_PATH_AND_COMPLEMENT_COVER":
         if result["q_sets_completed"] != 4845:
@@ -217,7 +248,7 @@ def validate_evaluation_schema(result: dict[str, object]) -> str:
 
 
 def validate_upper_rejection(graph: nx.Graph, result: dict[str, object]) -> dict[str, int]:
-    if result.get("classification") != "Q4_UPPER_BOUND_REJECTED" or result.get("candidate") is not False:
+    if result.get("classification") not in {"Q4_UPPER_BOUND_REJECTED", "HAMILTONIAN_PATH_UPPER_REJECTED"} or result.get("candidate") is not False:
         raise RuntimeError("not a frozen q4 upper-rejection record")
     witness = result.get("upper_rejection")
     if not isinstance(witness, dict) or set(witness) != {"X", "removed_mask", "kept_mask", "pc_H_minus_X", "cover_H_minus_X"}:
@@ -249,6 +280,31 @@ def validate_upper_rejection(graph: nx.Graph, result: dict[str, object]) -> dict
     if result.get("upper_deletion_sets_completed") != expected_ordinal:
         raise RuntimeError("upper-rejection witness/catalogue ordinal drift")
     return {"removed": len(removed), "paths": len(cover)}
+
+
+def validate_hamiltonian_path_rejection(graph: nx.Graph, result: dict[str, object]) -> dict[str, int]:
+    replay = validate_upper_rejection(graph, result)
+    witness = result["upper_rejection"]
+    search = result["hamiltonian_search"]
+    cover = witness["cover_H_minus_X"]
+    path = cover[0] if isinstance(cover, list) and len(cover) == 1 else None
+    if (
+        result.get("classification") != "HAMILTONIAN_PATH_UPPER_REJECTED"
+        or witness.get("X") != []
+        or witness.get("removed_mask") != 0
+        or witness.get("kept_mask") != (1 << construct.H_ORDER) - 1
+        or witness.get("pc_H_minus_X") != 1
+        or result.get("upper_deletion_sets_completed") != 1
+        or not isinstance(path, list)
+        or len(path) != construct.H_ORDER
+        or any(isinstance(vertex, bool) or not isinstance(vertex, int) for vertex in path)
+        or path != min(path, list(reversed(path)))
+        or set(path) != set(range(construct.H_ORDER))
+        or search.get("path") != path
+        or search.get("expansions", 0) < construct.H_ORDER
+    ):
+        raise RuntimeError("Hamiltonian-path rejection certificate drift")
+    return replay
 
 
 def verify_ledger_semantics(records: list[dict[str, object]], artifact: dict[str, object]) -> dict[str, object]:
@@ -287,9 +343,12 @@ def verify_ledger_semantics(records: list[dict[str, object]], artifact: dict[str
             if not isinstance(result, dict):
                 raise RuntimeError("target evaluation is not an object")
             classification = validate_evaluation_schema(result)
-            if classification == "Q4_UPPER_BOUND_REJECTED":
+            if classification in {"Q4_UPPER_BOUND_REJECTED", "HAMILTONIAN_PATH_UPPER_REJECTED"}:
                 peripheral = construct.graph_from_edges(construct.H_ORDER, expected_full["edges_h"])
-                validate_upper_rejection(peripheral, result)
+                if classification == "HAMILTONIAN_PATH_UPPER_REJECTED":
+                    validate_hamiltonian_path_rejection(peripheral, result)
+                else:
+                    validate_upper_rejection(peripheral, result)
             evaluations[row_index] = result
             evaluated += 1
             cursor += 1
@@ -440,7 +499,7 @@ def verify_candidate(candidate: dict[str, object], work: Path, deadline: float) 
     if (
         set(provenance) != {"search_algorithm", "replay_algorithm", "python_version", "networkx_version", "search_elapsed_seconds_millis", "caps_seconds", "search_source_sha256", "replay_source_sha256"}
         or candidate.get("q4_upper_certificate_obligation") != "for_all_X_card_lt_4_pc_H_minus_X_gt_4"
-        or provenance.get("search_algorithm") != "python_endpoint_path_cover_dp_v1"
+        or provenance.get("search_algorithm") != EXPECTED_EVALUATOR_ALGORITHM
         or provenance.get("replay_algorithm") != "cpp_endpoint_path_cover_dp_v1"
         or provenance.get("python_version") != EXPECTED_PYTHON_VERSION
         or provenance.get("networkx_version") != EXPECTED_NETWORKX_VERSION
@@ -589,7 +648,7 @@ def main() -> int:
     else:
         result = verify_terminal(artifact)
     result.update({
-        "schema": "bondy_verification_v3_4",
+        "schema": "bondy_verification_v3_5",
         "handoff": handoff,
         "ledger_rows": len(records),
         "ledger_head": head,

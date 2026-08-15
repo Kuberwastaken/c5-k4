@@ -1,17 +1,17 @@
 {
-  "schema": "bondy-freeze-files-v3.4",
+  "schema": "bondy-freeze-files-v3.5",
   "sha256": {
-    ".github/workflows/bondy-longest-cycles-development.yml": "9333cff6d711c127c17a65fc9e2d3272ef065abd514c8b54bedbf117dfa50014",
+    ".github/workflows/bondy-longest-cycles-development.yml": "4bf0bd642b76434cab86d257812fba3289fbb029d6e69e1c8410d88965a4f061",
     "scripts/prospective_bondy_construct.py": "ac1fa82c60cdbbfcc6cb0dd343f9db78edc78d155e24926cefef93774cd38d4f",
-    "scripts/prospective_bondy_gate.py": "eb4171f3c6291815dce15222edbac61fe3f8c89a26f604978d99f6f8b3345771",
-    "scripts/prospective_bondy_search.py": "04dcc466d2922540f9e480154cbac3721a7335443e3ecacc66ca4ae6ecc93215",
+    "scripts/prospective_bondy_gate.py": "b644fe753b68ca9c3272b4cd291cffdc7fb52a617308d5b4442c82b9b8dd0c16",
+    "scripts/prospective_bondy_search.py": "e28834e79591d70a9793f459acd0dd82399ed9f61ec01c922c592fc042a44719",
     "scripts/prospective_bondy_replay.cpp": "edb7263ebba7cb426f4e1d808546310878d8e813e2abf709ac853c3fde422dfe",
-    "scripts/prospective_bondy_verify.py": "da617e1b160e6fc8a875436a53e835556ba3be7dc7edba339ba9d7a94ac6ef77",
-    "scripts/test_bondy_development.py": "5cfb507f12909f56a047008d6697529eb3fa2d6985dca57a27e5285018f12ceb",
-    "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/CONTRACT.md": "cbbffad9c083400be5816daf838fb2aa8007b91829d3f0888b7c9e074d8739ff",
-    "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/manifest.json": "7837138d7e85c3d3c78afa652ee85df2f1d82b1730e922c65746f6b03e0fd3b9",
-    "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/source-status-attestation.json": "699df0ca048fdf38f1c24383d9a86ca7ce733dc275de3915b00fff273af57000",
-    "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/verify_freeze.py": "cf6b4cc42c8d18c5b1b8aaa47a69b8f48d294a78a037c98ea26080d82cbb982e",
+    "scripts/prospective_bondy_verify.py": "afcb30bc477ed0cdb41ffc14e285475c7cf02b7665c6f39d918b1bb6dbb5a114",
+    "scripts/test_bondy_development.py": "9b782ab8db82e28d30b40316d4be5690781f259b9b7b67316b3b9e59ae251f8a",
+    "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/CONTRACT.md": "b0317f89dd669583c01993d4fffa06c1f2e19dd9ac579de4ab13ebe1c9a68703",
+    "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/manifest.json": "33aeccec4633c30a8a43f8cc9346582bb83c6ce4ba8d8647aff3862432700c95",
+    "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/source-status-attestation.json": "84359f3e503e7e3e02a4e244d6854f06fb912aa44e145d025484b2ed7389d31e",
+    "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/verify_freeze.py": "aa560ef61d6e427b5ffad3f3fe326ee3c9b9937572a278c27672e769e81be7c5",
     "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/semantic-closure-v3.json": "9c95d7ebbcaf137720c7edb45186e6213e03efe419f827c0d31d8cefe80ce07b",
     "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/tip-continuity-policy-audit.md": "32a1c149288130e993db5d4579bda091b520ad5575af3cca688fce9f94a25c8f",
     "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/invalid-run-31845837185.md": "3e0471b6922ee37997c62ff74c14c5dcfad98dcae367ade4edd720f29870c477",
@@ -25,6 +25,8 @@
     "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/preflight.md": "8e7d64adbc21176549d1698fa4edf757f57286c06e1033fa49f558a3f49348f9",
     "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/math-audit.md": "c587b9aedc175c4301104608c954c1cbd3dfc1a2a8d9a785228cb8b52fc7bf19",
     "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/q4-algorithm-design.md": "00e0c73cfdd24b31ed750dd9ff12ad45b0effeb2b544a6a8d9eb47173285f0dd",
-    "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/upstream-drift-repin-audit.md": "a7e7a2f03f2873743aeea63a90e9ad785b8ccc56d26608ce6e0a58e1a6a07cfb"
+    "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/upstream-drift-repin-audit.md": "a7e7a2f03f2873743aeea63a90e9ad785b8ccc56d26608ce6e0a58e1a6a07cfb",
+    "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/v34-result.json": "c4504095afbc8e5e65b3f0bb68d5dc31f715e10e0b9ff9037b9335ddfe67f6df",
+    "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/v34-result.md": "1676152f3d4b66ab19f31d5f7b58849754d87b10caade188a4ffe4ea2fe7b6d8"
   }
 }

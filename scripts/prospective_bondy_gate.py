@@ -58,7 +58,8 @@ ACTIVE_DEADLINE: float | None = None
 # The v3.2 closure correction likewise remains visible: bondy_conjecture.
 # The v3.3 open-PR policy remains visible as well: bondy_conjecture.
 # The v3.4 single-catalogue policy remains visible as well: bondy_conjecture.
-EXACT_FREEZE_INTRODUCERS = 6
+# The v3.5 Hamiltonian-path witness policy remains visible as well: bondy_conjecture.
+EXACT_FREEZE_INTRODUCERS = 7
 
 
 def remaining_timeout(cap: float = 20.0) -> float:
@@ -92,7 +93,7 @@ def graphql(query: str, variables: dict[str, object], token: str) -> dict[str, o
             "Accept": "application/vnd.github+json",
             "Authorization": f"Bearer {token}",
             "Content-Type": "application/json",
-            "User-Agent": "c5-k4-bondy-v34-continuity-gate",
+            "User-Agent": "c5-k4-bondy-v35-continuity-gate",
         },
         method="POST",
     )
@@ -1013,7 +1014,7 @@ def run(output: Path, token: str, paper: Path | None) -> dict[str, object]:
     }
     checks["paper_sha256"] = paper is not None and paper.is_file() and sha256(paper.read_bytes()) == PAPER_SHA256
     record = {
-        "schema": "bondy_source_status_duplicate_gate_tip_continuity_v3_4",
+        "schema": "bondy_source_status_duplicate_gate_tip_continuity_v3_5",
         "kind": "source_status_duplicate_gate",
         "status": "PASS" if all(checks.values()) else "GATE_FAIL",
         "checks": checks,
@@ -1052,7 +1053,7 @@ def run_post_target_safeguard(output: Path, token: str, source_attestation: Path
         raise RuntimeError("post-target source attestation is not canonical")
     if (
         not isinstance(source, dict)
-        or source.get("schema") != "bondy_source_status_duplicate_gate_tip_continuity_v3_4"
+        or source.get("schema") != "bondy_source_status_duplicate_gate_tip_continuity_v3_5"
         or source.get("status") != "PASS"
         or not isinstance(source.get("continuity"), dict)
         or not isinstance(source.get("bracket_snapshot_after"), dict)
@@ -1083,7 +1084,7 @@ def run_post_target_safeguard(output: Path, token: str, source_attestation: Path
         "post_target_graphql_reserve": bool(rate_limits) and min(row["remaining"] for row in rate_limits) >= 25,
     }
     record = {
-        "schema": "bondy_post_target_status_collision_safeguard_v2",
+        "schema": "bondy_post_target_status_collision_safeguard_v3",
         "kind": "post_target_status_collision_safeguard",
         "status": "PASS" if all(checks.values()) else "GATE_FAIL",
         "checks": checks,

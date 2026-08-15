@@ -1,14 +1,16 @@
 {
   "campaign": "bondy-longest-cycles-development",
-  "seal_version": "bondy-longest-cycles-development-v3.4",
-  "supersedes": "bondy-longest-cycles-development-v3.3",
+  "seal_version": "bondy-longest-cycles-development-v3.5",
+  "supersedes": "bondy-longest-cycles-development-v3.4",
   "evidence_class": "CONTAMINATED_DEVELOPMENT",
   "target": "Arxiv.2606.03696.bondy_conjecture",
   "slice": {"k": 4, "t": 4, "h_order": 20, "g_order": 24, "large_graph_cutoff": 108},
   "caps": {"internal_search_seconds": 48, "internal_finalize_seconds": 54, "external_process_seconds": 60, "term_to_kill_seconds": 6, "independent_verify_seconds": 60, "post_target_status_seconds": 58, "workflow_minutes": 8},
-  "runtime": {"python_version": "3.11.9", "networkx_version": "3.3", "discovery_algorithm": "python_endpoint_path_cover_dp_v1", "replay_algorithm": "cpp_endpoint_path_cover_dp_v1"},
-  "live_gate": {"schema": "bondy_source_status_duplicate_gate_tip_continuity_v3_4", "main_rest_identity_paths": ["sha", "commit.tree.sha"], "reject_top_level_tree": true, "snapshot_workers": 24, "open_pull_page_size": 100, "changed_file_page_size": 100, "changed_file_hard_cap_per_pr": 3000, "pre_target_full_changed_file_catalogues": 1, "pre_target_outer_identity_only_snapshots": 1, "internal_identity_stabilization_pass": true, "identity_catalogue_identity_exact_equality": true, "whole_gate_seconds": 58, "rename_previous_path_required": true, "merged_main_protected_paths": "semantic_closure_plus_toolchain", "open_pr_collision_paths": ["FormalConjectures/Arxiv/2606.03696/BondyLongestCycles.lean"], "open_pr_dependency_telemetry_non_gating": true, "post_target_safeguard_schema": "bondy_post_target_status_collision_safeguard_v2", "post_target_fresh_target_contents_api": true, "post_target_fresh_full_changed_file_catalogue": true},
-  "local_history": {"known_preflight_commit": "d22eb07173794848fd375b5675059946ee3860b5", "known_repin_audit_commit": "e17905b1d62048f43bab89e06625aebdcf280faf", "known_continuity_audit_commit": "c4d327479110cf51f2aae126d12e2fbc609c0921", "known_graph_rotation_commit": "6a80fcdcb0489dc196162554cd4fec4f41ad2187", "known_graph_rotation_subject": "research: record empty held-out graph rotation", "known_graph_rotation_path": "results/expansion/live-search-2026-08-14/next-heldout-graph-rotation-strict-stop.md", "pickaxe": "bondy_conjecture", "exact_freeze_introducers": 6},
+  "runtime": {"python_version": "3.11.9", "networkx_version": "3.3", "discovery_algorithm": "python_bounded_hamiltonian_path_witness_then_endpoint_path_cover_dp_v1", "replay_algorithm": "cpp_endpoint_path_cover_dp_v1"},
+  "evaluation_policy": {"restart_row": 0, "hamiltonian_path_algorithm": "python_bounded_hamiltonian_path_witness_v1", "hamiltonian_path_expansion_limit": 50000, "positive_witness_only": true, "canonical_reversal": true, "inconclusive_falls_through": true, "fallback_algorithm": "python_endpoint_path_cover_dp_v1", "shared_absolute_deadline": true},
+  "live_gate": {"schema": "bondy_source_status_duplicate_gate_tip_continuity_v3_5", "main_rest_identity_paths": ["sha", "commit.tree.sha"], "reject_top_level_tree": true, "snapshot_workers": 24, "open_pull_page_size": 100, "changed_file_page_size": 100, "changed_file_hard_cap_per_pr": 3000, "pre_target_full_changed_file_catalogues": 1, "pre_target_outer_identity_only_snapshots": 1, "internal_identity_stabilization_pass": true, "identity_catalogue_identity_exact_equality": true, "whole_gate_seconds": 58, "rename_previous_path_required": true, "merged_main_protected_paths": "semantic_closure_plus_toolchain", "open_pr_collision_paths": ["FormalConjectures/Arxiv/2606.03696/BondyLongestCycles.lean"], "open_pr_dependency_telemetry_non_gating": true, "post_target_safeguard_schema": "bondy_post_target_status_collision_safeguard_v3", "post_target_fresh_target_contents_api": true, "post_target_fresh_full_changed_file_catalogue": true},
+  "local_history": {"known_preflight_commit": "d22eb07173794848fd375b5675059946ee3860b5", "known_repin_audit_commit": "e17905b1d62048f43bab89e06625aebdcf280faf", "known_continuity_audit_commit": "c4d327479110cf51f2aae126d12e2fbc609c0921", "known_graph_rotation_commit": "6a80fcdcb0489dc196162554cd4fec4f41ad2187", "known_graph_rotation_subject": "research: record empty held-out graph rotation", "known_graph_rotation_path": "results/expansion/live-search-2026-08-14/next-heldout-graph-rotation-strict-stop.md", "pickaxe": "bondy_conjecture", "exact_freeze_introducers": 7},
+  "prior_result": {"path": "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/v34-result.json", "sha256": "c4504095afbc8e5e65b3f0bb68d5dc31f715e10e0b9ff9037b9335ddfe67f6df", "classification": "VERIFIED_CAP_PREFIX", "run_id": 31855904650, "freeze_commit": "657a3bc64f2a2fa844a80a0c238e166331af7230"},
   "semantic_closure": {"path": "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/semantic-closure-v3.json", "count": 171, "sha256": "aa420ecaae62d6e55f0b6f5f1d6555183a4c5246fe998975f0a0e58ca3e88cd8", "toolchain_sha256": "3221ee3df4f1c1a23f5eddcddb22cce96a00543c432f7310366b88444406e0c6", "external_revisions_sha256": "4baee9cf677780f654f3d1e4413346482853ad52874add3a7cecf6ed04a4bfe6", "resolution": {"external_import_prefixes": ["Batteries", "Init", "Lean", "Mathlib", "Qq"], "module_to_path": "unquote_components_then_dot_to_slash_plus_dot_lean", "syntax": "comment_aware_candidates_exact_public_optional_meta_optional_single_module_import_with_quoted_components_all_rejected"}},
   "upstream": {
     "commit": "b5acb0ff13e38084105b7fe020ba0d59c1925bc5",
@@ -38,14 +40,14 @@
   "target_execution_lock": {
     "enabled_by_default": false,
     "token_provisioned": true,
-    "activation_token_sha256": "a4a17f279b5dea4df3f4c4c7377a620c13b16e7b206b42282c71c460eb65152a",
+    "activation_token_sha256": "717e4c7c1affdd0335a3edc773c8f5aa21c76c352b8d5ee629b89e84b8286861",
     "exact_preimage_bytes": 64,
     "newline_terminated": false,
-    "actions_secret_name": "BONDY_V34_ACTIVATION_TOKEN",
+    "actions_secret_name": "BONDY_V35_ACTIVATION_TOKEN",
     "actions_secret_required": true,
-    "runtime_environment": "BONDY_V34_ACTIVATION_TOKEN",
+    "runtime_environment": "BONDY_V35_ACTIVATION_TOKEN",
     "workflow_dispatch_input_allowed": false,
     "cli_transport_allowed": false,
-    "state": "V34_SINGLE_CATALOGUE_GUARD_HASH_PROVISIONED_ACTIONS_SECRET_REQUIRED_DEFAULT_DISABLED"
+    "state": "V35_HAMILTONIAN_WITNESS_HASH_PROVISIONED_ACTIONS_SECRET_REQUIRED_DEFAULT_DISABLED"
   }
 }

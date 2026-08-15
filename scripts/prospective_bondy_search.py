@@ -31,6 +31,9 @@ MANIFEST = HERE / "manifest.json"
 INTERNAL_SEARCH_SECONDS = 48
 INTERNAL_FINALIZE_SECONDS = 54
 EXTERNAL_SECONDS = 60
+HAMILTONIAN_PATH_EXPANSION_LIMIT = 50_000
+HAMILTONIAN_PATH_ALGORITHM = "python_bounded_hamiltonian_path_witness_v1"
+EVALUATOR_ALGORITHM = "python_bounded_hamiltonian_path_witness_then_endpoint_path_cover_dp_v1"
 LIVE_GATE_CHECKS = {
     "bracket_snapshot_stable",
     "complete_delta_disjoint",
@@ -170,7 +173,7 @@ def unlock(args: argparse.Namespace) -> dict[str, object]:
         failures.append("campaign_commit_is_not_checked_out_HEAD")
     if git("status", "--porcelain"):
         failures.append("worktree_not_clean")
-    supplied_token = os.environ.get("BONDY_V34_ACTIVATION_TOKEN", "")
+    supplied_token = os.environ.get("BONDY_V35_ACTIVATION_TOKEN", "")
     supplied_hash = hashlib.sha256(supplied_token.encode("utf-8")).hexdigest()
     del supplied_token
     if supplied_hash != lock.get("activation_token_sha256"):
@@ -192,6 +195,56 @@ def replay_path(graph: nx.Graph, path: Sequence[int]) -> bool:
     return len(path) == len(set(path)) and all(graph.has_edge(a, b) for a, b in zip(path, path[1:]))
 
 
+def bounded_hamiltonian_path_witness(graph: nx.Graph, deadline: float) -> dict[str, object]:
+    """Return only a positive spanning-path certificate; every miss is inconclusive."""
+    if set(graph) != set(range(construct.H_ORDER)):
+        raise ValueError("Hamiltonian-path witness requires frozen labels 0..19")
+    adjacency = tuple(tuple(sorted(graph.neighbors(vertex))) for vertex in range(construct.H_ORDER))
+    expansions = 0
+
+    def search(path: list[int], used_mask: int) -> list[int] | None:
+        nonlocal expansions
+        if len(path) == construct.H_ORDER:
+            return list(path)
+        if expansions >= HAMILTONIAN_PATH_EXPANSION_LIMIT or time.monotonic() >= deadline:
+            return None
+        choices = [vertex for vertex in adjacency[path[-1]] if not used_mask & (1 << vertex)]
+        choices.sort(
+            key=lambda vertex: (
+                sum(not used_mask & (1 << neighbor) for neighbor in adjacency[vertex]),
+                vertex,
+            )
+        )
+        for vertex in choices:
+            if expansions >= HAMILTONIAN_PATH_EXPANSION_LIMIT or time.monotonic() >= deadline:
+                break
+            expansions += 1
+            path.append(vertex)
+            witness = search(path, used_mask | (1 << vertex))
+            if witness is not None:
+                return witness
+            path.pop()
+        return None
+
+    witness: list[int] | None = None
+    for start in sorted(graph, key=lambda vertex: (graph.degree(vertex), vertex)):
+        if expansions >= HAMILTONIAN_PATH_EXPANSION_LIMIT or time.monotonic() >= deadline:
+            break
+        expansions += 1
+        witness = search([start], 1 << start)
+        if witness is not None:
+            break
+    if witness is not None:
+        witness = min(witness, list(reversed(witness)))
+    return {
+        "algorithm": HAMILTONIAN_PATH_ALGORITHM,
+        "expansion_limit": HAMILTONIAN_PATH_EXPANSION_LIMIT,
+        "expansions": expansions,
+        "outcome": "WITNESS" if witness is not None else "INCONCLUSIVE",
+        "path": witness,
+    }
+
+
 def file_sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
@@ -203,8 +256,8 @@ def validate_live_attestation(attestation: dict[str, object], manifest: dict[str
     continuity = attestation.get("continuity")
     if (
         set(attestation) != LIVE_ATTESTATION_FIELDS
-        or manifest.get("live_gate", {}).get("schema") != "bondy_source_status_duplicate_gate_tip_continuity_v3_4"
-        or attestation.get("schema") != "bondy_source_status_duplicate_gate_tip_continuity_v3_4"
+        or manifest.get("live_gate", {}).get("schema") != "bondy_source_status_duplicate_gate_tip_continuity_v3_5"
+        or attestation.get("schema") != "bondy_source_status_duplicate_gate_tip_continuity_v3_5"
         or attestation.get("kind") != "source_status_duplicate_gate"
         or attestation.get("status") != "PASS"
         or attestation.get("pinned_upstream") != manifest["upstream"]
@@ -450,7 +503,7 @@ def validate_live_attestation(attestation: dict[str, object], manifest: dict[str
         or by_kind.get("known_repin_audit") != {"commit": "e17905b1d62048f43bab89e06625aebdcf280faf", "subject": "research: audit Bondy upstream repin", "paths": ["results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/upstream-drift-repin-audit.md"], "kind": "known_repin_audit"}
         or by_kind.get("known_continuity_audit") != {"commit": "c4d327479110cf51f2aae126d12e2fbc609c0921", "subject": "research: define Bondy tip continuity gate", "paths": ["results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/tip-continuity-policy-audit.md"], "kind": "known_continuity_audit"}
         or by_kind.get("known_graph_rotation") != {"commit": "6a80fcdcb0489dc196162554cd4fec4f41ad2187", "subject": "research: record empty held-out graph rotation", "paths": ["results/expansion/live-search-2026-08-14/next-heldout-graph-rotation-strict-stop.md"], "kind": "known_graph_rotation"}
-        or len(freeze_rows) != 6
+        or len(freeze_rows) != 7
         or any("scripts/prospective_bondy_gate.py" not in row["paths"] or not all(any(path.startswith(root) for root in freeze_roots) for path in row["paths"]) for row in freeze_rows)
     ):
         raise RuntimeError("GATE_FAIL:local contamination exact history drift")
@@ -572,11 +625,40 @@ def target_evaluate(row: dict[str, object], remaining: float) -> dict[str, objec
     """The only proposed-candidate target call; forbidden in constructor tests."""
     evaluation_started = time.monotonic()
     peripheral = construct.graph_from_edges(construct.H_ORDER, row["edges_h"])
-    deadline = time.monotonic() + remaining
+    deadline = evaluation_started + remaining
+    hamiltonian_search = bounded_hamiltonian_path_witness(peripheral, deadline)
+    hamiltonian_path = hamiltonian_search["path"]
+    if hamiltonian_path is not None:
+        if (
+            not isinstance(hamiltonian_path, list)
+            or any(isinstance(vertex, bool) or not isinstance(vertex, int) for vertex in hamiltonian_path)
+            or hamiltonian_path != min(hamiltonian_path, list(reversed(hamiltonian_path)))
+            or set(hamiltonian_path) != set(range(construct.H_ORDER))
+            or len(hamiltonian_path) != construct.H_ORDER
+            or not replay_path(peripheral, hamiltonian_path)
+        ):
+            raise RuntimeError("Hamiltonian-path fast-path certificate replay failed")
+        all_mask = (1 << construct.H_ORDER) - 1
+        return {
+            "candidate": False,
+            "classification": "HAMILTONIAN_PATH_UPPER_REJECTED",
+            "algorithm": HAMILTONIAN_PATH_ALGORITHM,
+            "hamiltonian_search": hamiltonian_search,
+            "upper_deletion_sets_completed": 1,
+            "upper_rejection": {
+                "X": [],
+                "removed_mask": 0,
+                "kept_mask": all_mask,
+                "pc_H_minus_X": 1,
+                "cover_H_minus_X": [hamiltonian_path],
+            },
+            "evaluation_seconds_millis": round((time.monotonic() - evaluation_started) * 1000),
+        }
     dp = EndpointPathCoverDP(peripheral, deadline)
     result: dict[str, object] = {
         "candidate": False,
         "algorithm": "python_endpoint_path_cover_dp_v1",
+        "hamiltonian_search": hamiltonian_search,
         "dp_digests": dp.digests(),
         "upper_deletion_sets_completed": 0,
     }
@@ -795,7 +877,7 @@ def run(args: argparse.Namespace) -> int:
                 "q4_upper_certificate_obligation": "for_all_X_card_lt_4_pc_H_minus_X_gt_4",
                 "independent_upper_replay": upper,
                 "provenance": {
-                    "search_algorithm": "python_endpoint_path_cover_dp_v1",
+                    "search_algorithm": EVALUATOR_ALGORITHM,
                     "replay_algorithm": "cpp_endpoint_path_cover_dp_v1",
                     "python_version": sys.version.split()[0],
                     "networkx_version": nx.__version__,

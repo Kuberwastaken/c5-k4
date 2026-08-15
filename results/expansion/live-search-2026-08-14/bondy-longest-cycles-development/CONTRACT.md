@@ -1,6 +1,6 @@
-# Bondy longest-cycles frozen DEVELOPMENT contract v3.4
+# Bondy longest-cycles frozen DEVELOPMENT contract v3.5
 
-**State:** v3.4 single-catalogue identity-bracket policy sealed and disabled by default
+**State:** v3.5 bounded Hamiltonian-witness evaluator sealed and disabled by default
 
 **Evidence class:** contaminated `DEVELOPMENT`, never held out
 
@@ -8,26 +8,26 @@
 
 **Only slice:** `k=4`, source parameter `t=4`, `n=24`
 
-This v3.4 contract supersedes v3.3 without reinterpreting it and preserves all
-v1/v2/v3/v3.1/v3.2/v3.3 reports as
+This v3.5 contract supersedes v3.4 without reinterpreting it and preserves all
+v1/v2/v3/v3.1/v3.2/v3.3/v3.4 reports as
 historical records. It freezes the same small balanced delete/add port-
 rewiring arm around the source sharpness graph `S(4,4)`. This seal alone does not authorize execution,
 publication, a release, an issue, or a pull request.
 The workflow remains disabled by default. A target process can start only when
 an explicit dispatch supplies `enable_target=true` and a campaign commit equal
 to the checked-out `HEAD`, the tree is clean, and the repository Actions secret
-`BONDY_V34_ACTIVATION_TOKEN` is injected directly into the same-named process
+`BONDY_V35_ACTIVATION_TOKEN` is injected directly into the same-named process
 environment variable with exact SHA-256
-`a4a17f279b5dea4df3f4c4c7377a620c13b16e7b206b42282c71c460eb65152a`.
+`717e4c7c1affdd0335a3edc773c8f5aa21c76c352b8d5ee629b89e84b8286861`.
 The exact preimage is 64 bytes with no trailing newline. It is never a workflow-
 dispatch input or command-line argument. The freeze requires that Actions
 secret but deliberately makes no claim about its current external configuration.
 Only the hash is tracked; the guard preimage is deliberately absent from code,
 the manifest, and documentation. `HEAD` is checked at runtime rather than
 embedded in its own tracked contents, avoiding a self-referential Git hash.
-The immutable v3.4 content registry independently binds every executable and
+The immutable v3.5 content registry independently binds every executable and
 contract file. Before any target row, the runner accepts only the exact
-`bondy_source_status_duplicate_gate_tip_continuity_v3_4` schema and recomputes
+`bondy_source_status_duplicate_gate_tip_continuity_v3_5` schema and recomputes
 its ancestry, complete-delta, closure, toolchain, declaration, bracket, and
 open-PR bindings. A v1, v2, incomplete, or forged `PASS` object is rejected.
 The campaign dispatch string is mapped through a step environment variable and
@@ -61,8 +61,8 @@ Version 3.1 corrects live-main REST parsing: the commit is exactly `.sha` and
 the root tree is exactly `.commit.tree.sha`; a missing nested field or an
 ambiguous top-level `.tree` is a strict stop. The superseded v3 parser expected
 a nonexistent top-level tree and therefore could not produce a valid live PASS.
-The v3.1, v3.2, v3.3, and v3.4 corrections each deliberately add a `bondy_conjecture`
-pickaxe marker; the local contamination gate therefore requires exactly six
+The v3.1, v3.2, v3.3, v3.4, and v3.5 corrections each deliberately add a `bondy_conjecture`
+pickaxe marker; the local contamination gate therefore requires exactly seven
 freeze-introducer commits rather than accepting a loose upper bound.
 The unrelated pickaxe hit `6a80fcdcb0489dc196162554cd4fec4f41ad2187` is
 accepted only as the distinct `known_graph_rotation` identity with subject
@@ -133,6 +133,30 @@ surface is capped at 3,000 entries, including rename-previous recovery. After
 target processing, the safeguard still fetches a fresh full changed-file
 catalogue and requires it to equal the pre-target catalogue before independent
 verification.
+
+The enabled v3.4 run `31855904650` at exact freeze commit
+`657a3bc64f2a2fa844a80a0c238e166331af7230` produced a verified `CAP_PREFIX`.
+It serialized 22 constructor rows in frozen order, reached 10 applicable rows,
+completed nine, and found no candidate. Every completed evaluation was an
+exact `Q4_UPPER_BOUND_REJECTED` witness at `X=[]` with `pc(H)=1`; individual
+full endpoint-DP evaluations took 5.015--5.294 seconds. The canonical receipt
+is `v34-result.json`, SHA-256
+`c4504095afbc8e5e65b3f0bb68d5dc31f715e10e0b9ff9037b9335ddfe67f6df`,
+with the explanatory record in `v34-result.md`. It remains a contaminated
+development prefix, not domain exhaustion, a bounded hold, or a mathematical
+claim.
+
+Version 3.5 restarts at row zero and preserves the exact 96-row grammar,
+ordering, duplicate decisions, target predicate, and 48/54/60-second caps. It
+adds only a deterministic 50,000-expansion Hamiltonian-path witness search
+inside target evaluation before the full endpoint DP. A positive result is
+canonicalized against reversal and directly replayed as one spanning path;
+then `pc(H)=1`, the first deletion-catalogue set is exactly `X=[]`, and the row
+is the distinct ordinary noncandidate `HAMILTONIAN_PATH_UPPER_REJECTED`. A
+negative result, expansion-budget miss, or fast-path deadline observation is
+inconclusive: it cannot classify a row and falls through to the unchanged
+endpoint DP under the same original absolute evaluation deadline. No observed
+v3.4 row or path is hardcoded, and rows are never reordered or skipped.
 Live `main` may advance only when that anchor is its merge base and ancestor,
 the complete NUL-delimited local Git diff is enumerated, and the delta is
 disjoint from all 171 recursively resolved Lean closure paths plus the exact
@@ -149,7 +173,7 @@ identity set with an identity-only second pass, and uses REST only to recover
 renamed-away paths. Both identity surfaces and the catalogue projection must be byte-equal. Rate limits,
 timeouts, ambiguity, merges without parent-indexed provenance, merged-main
 protected-path touches, or any exact-target open-PR collision are strict stops.
-There is no v3.4 PASS record;
+There is no v3.5 PASS record;
 target execution stays unavailable
 until a fresh complete stable bracket succeeds.
 
@@ -225,7 +249,16 @@ q_4(H) = max |U| such that H[U] is coverable by at most four
          pairwise vertex-disjoint nonempty paths.
 ```
 
-The discovery encoding is a deterministic endpoint subset DP. With values
+Before the discovery DP, v3.5 runs the frozen bounded positive-witness search
+described above. It emits no DP digests and can only return a noncandidate
+after serializing a canonical spanning path. The independent terminal verifier
+reconstructs `H`, requires exact vertices `0..19` once, checks every consecutive
+edge, requires the path to be no greater than its reversal, and binds
+`X=[]`, removed mask zero, the full kept mask, `pc(H)=1`, and deletion ordinal
+one. A malformed or noncanonical witness fails closed. Candidate discovery
+never uses this branch.
+
+The fallback discovery encoding is the unchanged deterministic endpoint subset DP. With values
 capped at five, `p[S]` is the minimum path-cover count of `H[S]` and `d[S,v]`
 is the same minimum with `v` an endpoint of a distinguished path:
 
@@ -254,11 +287,13 @@ digests. A candidate requires all of:
 Every candidate serializes the complete canonical edge lists of both `H` and
 `G=K_4 join H`; the verifier reconstructs the join independently and requires
 byte-equivalent ordered `edges_g`. It also binds the Python and NetworkX
-versions, named Python/C++ DP algorithm versions, source and executable
+versions, named Python witness/Python DP/C++ DP algorithm versions, source and executable
 digests, exact 48/54/60 caps, discovery/replay timings, exit status, and the
 independent verifier's compiler/flags/build digest. The runtime provenance is
-frozen exactly to CPython `3.11.9`, NetworkX `3.3`, discovery algorithm
-`python_endpoint_path_cover_dp_v1`, and replay algorithm
+frozen exactly to CPython `3.11.9`, NetworkX `3.3`, composite evaluator
+`python_bounded_hamiltonian_path_witness_then_endpoint_path_cover_dp_v1`,
+positive-witness algorithm `python_bounded_hamiltonian_path_witness_v1`,
+fallback discovery algorithm `python_endpoint_path_cover_dp_v1`, and replay algorithm
 `cpp_endpoint_path_cover_dp_v1`; the verifier rejects any mismatch.
 
 If any deletion set `X` with `|X|<4` instead has `pc(H-X)<=4`, the row is an
@@ -268,6 +303,12 @@ cover of every vertex of `H-X`; the terminal verifier replays that cover.
 An independent-replay deadline alone may produce `CAP_PREFIX`. Any nonzero
 logical rejection, malformed output, table disagreement, or internal replay
 failure is `GATE_FAIL`, never a timeout prefix.
+
+The new `HAMILTONIAN_PATH_UPPER_REJECTED` branch is the exact `X=[]`,
+one-path special case. It contains no fabricated or placeholder DP-table
+digest. Its explicit spanning path alone proves the rejection; any
+inconclusive witness search retains the old DP result schemas and complete
+candidate verification path.
 
 For every row with global optimum 16, the discovery path enumerates all
 `C(20,4)=4,845` four-sets in lexicographic order, finds the least simple
@@ -301,9 +342,10 @@ in 2.36 seconds. A synthetic `C20` endpoint-DP fixture, explicitly not a
 proposed candidate, completed one full table in 6.889 seconds and produced
 `pc`-table SHA-256
 `fbb482ddcf2737fcb30159a44c7b9faec8e06911e1ae4a74dfe8f6bcc345b58f`.
-This predicts that the immutable target run may honestly end `CAP_PREFIX`
-after only a small number of applicable rows. It does not authorize target
-evaluation or reduce the exact 48/54/60 caps.
+The v3.4 run confirmed that full-table cost and ended at `CAP_PREFIX` after
+nine completed applicable rows. The v3.5 positive-witness optimization may
+extend the exact prefix but does not promise domain exhaustion, authorize
+target evaluation, or reduce the exact 48/54/60 caps.
 
 The sole terminals are:
 

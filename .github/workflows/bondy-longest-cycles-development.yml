@@ -1,4 +1,4 @@
-name: Bondy longest cycles DEVELOPMENT v3.4 (disabled by default)
+name: Bondy longest cycles DEVELOPMENT v3.5 (disabled by default)
 
 on:
   workflow_dispatch:
@@ -31,7 +31,7 @@ jobs:
           python-version: "3.11.9"
       - name: Install frozen Python dependencies
         run: timeout --signal=TERM --kill-after=6s 60s python -m pip install 'networkx==3.3'
-      - name: Verify immutable v3.4 freeze
+      - name: Verify immutable v3.5 freeze
         run: timeout --signal=TERM --kill-after=6s 60s python results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/verify_freeze.py
       - name: Run target-free constructor and adversarial gate tests
         run: timeout --signal=TERM --kill-after=6s 60s python scripts/test_bondy_development.py --target-free
@@ -39,20 +39,20 @@ jobs:
         run: timeout --signal=TERM --kill-after=6s 60s python scripts/prospective_bondy_construct.py --source-control
       - name: Compile independent replay without executing a candidate
         run: timeout --signal=TERM --kill-after=6s 60s g++ -std=c++17 -O2 -Wall -Wextra -Werror scripts/prospective_bondy_replay.cpp -o /tmp/prospective_bondy_replay
-      - name: One complete v3.4 live continuity gate
+      - name: One complete v3.5 live continuity gate
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           timeout --signal=TERM --kill-after=6s 60s curl -fsSL https://arxiv.org/pdf/2606.03696v1 -o /tmp/2606.03696.pdf
           timeout --signal=TERM --kill-after=6s 60s python scripts/prospective_bondy_gate.py \
             --paper /tmp/2606.03696.pdf --output /tmp/source-status-attestation.json
-      - name: Frozen v3.4 target process (requires all explicit guards)
+      - name: Frozen v3.5 target process (requires all explicit guards)
         if: ${{ inputs.enable_target == true }}
         id: target
         shell: bash
         env:
           CAMPAIGN_COMMIT: ${{ inputs.campaign_commit }}
-          BONDY_V34_ACTIVATION_TOKEN: ${{ secrets.BONDY_V34_ACTIVATION_TOKEN }}
+          BONDY_V35_ACTIVATION_TOKEN: ${{ secrets.BONDY_V35_ACTIVATION_TOKEN }}
         run: |
           set +e
           timeout --signal=TERM --kill-after=6s 60s python scripts/prospective_bondy_search.py \
@@ -131,13 +131,13 @@ jobs:
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
-          name: bondy-longest-cycles-development-v34-gate-evidence
+          name: bondy-longest-cycles-development-v35-gate-evidence
           if-no-files-found: warn
           path: /tmp/source-status-attestation.json
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: ${{ always() && inputs.enable_target == true }}
         with:
-          name: bondy-longest-cycles-development-v34-enabled-evidence
+          name: bondy-longest-cycles-development-v35-enabled-evidence
           if-no-files-found: error
           path: |
             /tmp/source-status-attestation.json

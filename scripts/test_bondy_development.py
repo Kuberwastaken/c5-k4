@@ -101,11 +101,12 @@ def live_attestation_fixture(empty: bool = False, identity_only_binding: bool = 
         {"commit": "7" * 40, "subject": "freeze v3.2", "paths": ["scripts/prospective_bondy_gate.py"], "kind": "freeze_introducer"},
         {"commit": "6" * 40, "subject": "freeze v3.3", "paths": ["scripts/prospective_bondy_gate.py"], "kind": "freeze_introducer"},
         {"commit": "9" * 40, "subject": "freeze v3.4", "paths": ["scripts/prospective_bondy_gate.py"], "kind": "freeze_introducer"},
+        {"commit": "5" * 40, "subject": "freeze v3.5", "paths": ["scripts/prospective_bondy_gate.py"], "kind": "freeze_introducer"},
         {"commit": live_gate.KNOWN_GRAPH_ROTATION_COMMIT, "subject": live_gate.KNOWN_GRAPH_ROTATION_SUBJECT, "paths": [live_gate.KNOWN_GRAPH_ROTATION_PATH], "kind": "known_graph_rotation"},
         {"commit": live_gate.KNOWN_PREFLIGHT_COMMIT, "subject": "preflight", "paths": ["results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/preflight.md"], "kind": "known_preflight"},
     ]
     return {
-        "schema": "bondy_source_status_duplicate_gate_tip_continuity_v3_4",
+        "schema": "bondy_source_status_duplicate_gate_tip_continuity_v3_5",
         "kind": "source_status_duplicate_gate",
         "status": "PASS",
         "checks": {key: True for key in search.LIVE_GATE_CHECKS},
@@ -130,7 +131,7 @@ def live_attestation_fixture(empty: bool = False, identity_only_binding: bool = 
 def sealed_attestation_fixture(attestation: dict[str, object]) -> dict[str, object]:
     continuity = attestation["continuity"]
     return {
-        "live_gate": {"schema": "bondy_source_status_duplicate_gate_tip_continuity_v3_4"},
+        "live_gate": {"schema": "bondy_source_status_duplicate_gate_tip_continuity_v3_5"},
         "upstream": attestation["pinned_upstream"],
         "source_sha256": attestation["continuity"]["target"]["sha256"],
         "semantic_closure": {
@@ -156,7 +157,7 @@ def refresh_binding_attestation(attestation: dict[str, object], *, identities: b
 def post_target_safeguard_fixture(attestation: dict[str, object]) -> dict[str, object]:
     source_raw = verify.canonical_bytes(attestation)
     return {
-        "schema": "bondy_post_target_status_collision_safeguard_v2",
+        "schema": "bondy_post_target_status_collision_safeguard_v3",
         "kind": "post_target_status_collision_safeguard",
         "status": "PASS",
         "checks": {
@@ -177,6 +178,31 @@ def post_target_safeguard_fixture(attestation: dict[str, object]) -> dict[str, o
         "fresh_declaration": attestation["continuity"]["declaration"],
         "open_pr_target_path_matches": [],
         "graphql_rate_limit_observations": [{"cost": 1, "remaining": 80, "reset_at": "t"}],
+    }
+
+
+def hamiltonian_rejection_fixture(path: list[int] | None = None) -> dict[str, object]:
+    witness_path = list(range(construct.H_ORDER)) if path is None else list(path)
+    return {
+        "candidate": False,
+        "classification": "HAMILTONIAN_PATH_UPPER_REJECTED",
+        "algorithm": search.HAMILTONIAN_PATH_ALGORITHM,
+        "hamiltonian_search": {
+            "algorithm": search.HAMILTONIAN_PATH_ALGORITHM,
+            "expansion_limit": search.HAMILTONIAN_PATH_EXPANSION_LIMIT,
+            "expansions": construct.H_ORDER,
+            "outcome": "WITNESS",
+            "path": witness_path,
+        },
+        "upper_deletion_sets_completed": 1,
+        "upper_rejection": {
+            "X": [],
+            "removed_mask": 0,
+            "kept_mask": (1 << construct.H_ORDER) - 1,
+            "pc_H_minus_X": 1,
+            "cover_H_minus_X": [witness_path],
+        },
+        "evaluation_seconds_millis": 1,
     }
 
 
@@ -270,7 +296,7 @@ class TargetIsolationTests(unittest.TestCase):
         self.assertIn('--campaign-commit "$CAMPAIGN_COMMIT"', shell_source)
         self.assertNotIn("inputs.activation_token", workflow)
         self.assertNotIn("--activation-token", workflow)
-        self.assertIn("BONDY_V34_ACTIVATION_TOKEN: ${{ secrets.BONDY_V34_ACTIVATION_TOKEN }}", workflow)
+        self.assertIn("BONDY_V35_ACTIVATION_TOKEN: ${{ secrets.BONDY_V35_ACTIVATION_TOKEN }}", workflow)
         self.assertIn("timeout-minutes: 8", workflow)
         self.assertEqual(workflow.count("timeout --signal=TERM --kill-after=6s 60s"), 13)
         self.assertIn("fetch-depth: 0", workflow)
@@ -314,7 +340,7 @@ class TargetIsolationTests(unittest.TestCase):
         source = (ROOT / "scripts/prospective_bondy_construct.py").read_text()
         tree = ast.parse(source)
         function_names = {node.name for node in ast.walk(tree) if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))}
-        forbidden = {"target_evaluate", "maximize_q4", "circumference", "path_cover", "pcov4"}
+        forbidden = {"target_evaluate", "maximize_q4", "circumference", "path_cover", "pcov4", "bounded_hamiltonian_path_witness"}
         self.assertTrue(function_names.isdisjoint(forbidden))
 
     def test_constructor_tests_do_not_call_proposed_candidate_target(self) -> None:
@@ -329,14 +355,14 @@ class TargetIsolationTests(unittest.TestCase):
             enable_target=True,
             campaign_commit="0" * 40,
         )
-        with mock.patch.dict(os.environ, {"BONDY_V34_ACTIVATION_TOKEN": "BONDY_TARGET_DISABLED"}):
+        with mock.patch.dict(os.environ, {"BONDY_V35_ACTIVATION_TOKEN": "BONDY_TARGET_DISABLED"}):
             with self.assertRaisesRegex(RuntimeError, "TARGET_EXECUTION_DISABLED"):
                 search.unlock(args)
 
     def test_activation_secret_cli_transport_and_serialization_are_rejected(self) -> None:
         source = (ROOT / "scripts/prospective_bondy_search.py").read_text()
         self.assertNotIn('parser.add_argument("--activation-token"', source)
-        self.assertIn('os.environ.get("BONDY_V34_ACTIVATION_TOKEN", "")', source)
+        self.assertIn('os.environ.get("BONDY_V35_ACTIVATION_TOKEN", "")', source)
         self.assertIn("ACTIVATION_TOKEN_CLI_TRANSPORT_FORBIDDEN", source)
         canary = "SENSITIVE_ACTIVATION_CANARY_NEVER_SERIALIZE"
         with tempfile.TemporaryDirectory() as directory:
@@ -353,7 +379,7 @@ class TargetIsolationTests(unittest.TestCase):
             self.assertEqual(list(root.iterdir()), [])
 
             paths = {name: root / name for name in ("source.json", "ledger.jsonl", "candidate.json", "terminal.json", "replay")}
-            environment = dict(os.environ, BONDY_V34_ACTIVATION_TOKEN=canary)
+            environment = dict(os.environ, BONDY_V35_ACTIVATION_TOKEN=canary)
             env = subprocess.run(
                 [
                     "python3", str(ROOT / "scripts/prospective_bondy_search.py"), "--enable-target",
@@ -389,25 +415,29 @@ class TargetIsolationTests(unittest.TestCase):
             with mock.patch.object(search, "MANIFEST", path), mock.patch.object(search, "git", side_effect=git), mock.patch.object(
                 search.subprocess, "run", return_value=types.SimpleNamespace(returncode=0)
             ):
-                with mock.patch.dict(os.environ, {"BONDY_V34_ACTIVATION_TOKEN": token}):
+                with mock.patch.dict(os.environ, {"BONDY_V35_ACTIVATION_TOKEN": token}):
                     self.assertEqual(search.unlock(args), manifest)
-                with mock.patch.dict(os.environ, {"BONDY_V34_ACTIVATION_TOKEN": token + "\n"}):
+                with mock.patch.dict(os.environ, {"BONDY_V35_ACTIVATION_TOKEN": token + "\n"}):
                     with self.assertRaisesRegex(RuntimeError, "exact_activation_token_mismatch"):
                         search.unlock(args)
 
-    def test_v34_activation_digest_is_rotated_and_historical_digest_cannot_unlock(self) -> None:
+    def test_v35_activation_digest_is_rotated_and_historical_digest_cannot_unlock(self) -> None:
         manifest = json.loads((ROOT / "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/manifest.json").read_text())
         current = manifest["target_execution_lock"]["activation_token_sha256"]
-        historical_v32 = "09d64624c2861b21d5883cfd276ce49eebce7d9c6f61e47193d50bf894be8e51"
-        self.assertEqual(current, "a4a17f279b5dea4df3f4c4c7377a620c13b16e7b206b42282c71c460eb65152a")
-        self.assertNotEqual(current, historical_v32)
+        historical = {
+            "09d64624c2861b21d5883cfd276ce49eebce7d9c6f61e47193d50bf894be8e51",
+            "0fb0d55f32eb0cecd7e549a45dba8d5095e073737fe39efbd226c79d6a539d5a",
+            "a4a17f279b5dea4df3f4c4c7377a620c13b16e7b206b42282c71c460eb65152a",
+        }
+        self.assertEqual(current, "717e4c7c1affdd0335a3edc773c8f5aa21c76c352b8d5ee629b89e84b8286861")
+        self.assertNotIn(current, historical)
         self.assertEqual(manifest["target_execution_lock"]["exact_preimage_bytes"], 64)
         self.assertIs(manifest["target_execution_lock"]["newline_terminated"], False)
-        self.assertEqual(manifest["target_execution_lock"]["actions_secret_name"], "BONDY_V34_ACTIVATION_TOKEN")
+        self.assertEqual(manifest["target_execution_lock"]["actions_secret_name"], "BONDY_V35_ACTIVATION_TOKEN")
         self.assertIs(manifest["target_execution_lock"]["actions_secret_required"], True)
-        self.assertEqual(manifest["target_execution_lock"]["state"], "V34_SINGLE_CATALOGUE_GUARD_HASH_PROVISIONED_ACTIONS_SECRET_REQUIRED_DEFAULT_DISABLED")
+        self.assertEqual(manifest["target_execution_lock"]["state"], "V35_HAMILTONIAN_WITNESS_HASH_PROVISIONED_ACTIONS_SECRET_REQUIRED_DEFAULT_DISABLED")
 
-    def test_v34_live_attestation_requires_single_full_catalogue_and_identity_brackets(self) -> None:
+    def test_v35_live_attestation_requires_single_full_catalogue_and_identity_brackets(self) -> None:
         attestation = live_attestation_fixture()
         manifest = sealed_attestation_fixture(attestation)
         search.validate_live_attestation(attestation, manifest)
@@ -514,13 +544,17 @@ class TargetIsolationTests(unittest.TestCase):
                 with self.assertRaisesRegex(RuntimeError, "post-target status/collision safeguard drift"):
                     verify.validate_post_target_safeguard(path, attestation, source_raw)
 
-            superseded = json.loads(json.dumps(attestation))
-            superseded["schema"] = "bondy_source_status_duplicate_gate_tip_continuity_v3_3"
-            superseded_raw = verify.canonical_bytes(superseded)
-            superseded_safeguard = post_target_safeguard_fixture(superseded)
-            verify.atomic_json(path, superseded_safeguard)
-            with self.assertRaisesRegex(RuntimeError, "post-target status/collision safeguard drift"):
-                verify.validate_post_target_safeguard(path, superseded, superseded_raw)
+            for schema in (
+                "bondy_source_status_duplicate_gate_tip_continuity_v3_3",
+                "bondy_source_status_duplicate_gate_tip_continuity_v3_4",
+            ):
+                superseded = json.loads(json.dumps(attestation))
+                superseded["schema"] = schema
+                superseded_raw = verify.canonical_bytes(superseded)
+                superseded_safeguard = post_target_safeguard_fixture(superseded)
+                verify.atomic_json(path, superseded_safeguard)
+                with self.assertRaisesRegex(RuntimeError, "post-target status/collision safeguard drift"):
+                    verify.validate_post_target_safeguard(path, superseded, superseded_raw)
 
     def test_forged_identity_only_file_binding_is_rejected(self) -> None:
         attestation = live_attestation_fixture(identity_only_binding=True)
@@ -533,6 +567,7 @@ class TargetIsolationTests(unittest.TestCase):
             "bondy_source_status_duplicate_gate_bracketed_single_scan_v2",
             "bondy_source_status_duplicate_gate_tip_continuity_v3_2",
             "bondy_source_status_duplicate_gate_tip_continuity_v3_3",
+            "bondy_source_status_duplicate_gate_tip_continuity_v3_4",
         ):
             attestation = live_attestation_fixture()
             attestation["schema"] = schema
@@ -618,11 +653,11 @@ class TargetIsolationTests(unittest.TestCase):
                         search.run(args)
 
     def test_run_rejects_too_few_or_too_many_freeze_introducers_before_target(self) -> None:
-        for count in (5, 7):
+        for count in (6, 8):
             attestation = live_attestation_fixture()
             identities = attestation["local_history_identities"]
             freeze_indexes = [index for index, row in enumerate(identities) if row["kind"] == "freeze_introducer"]
-            if count == 5:
+            if count == 6:
                 del identities[freeze_indexes[-1]]
             else:
                 identities.insert(
@@ -647,7 +682,7 @@ class TargetIsolationTests(unittest.TestCase):
             identities = attestation["local_history_identities"]
             row = next(item for item in identities if item["kind"] == "known_graph_rotation")
             if field == "commit":
-                row["commit"] = "5" * 40
+                row["commit"] = "4" * 40
                 attestation["local_history_hits"] = [item["commit"] for item in identities]
             elif field == "subject":
                 row["subject"] = "research: mutated graph rotation"
@@ -731,6 +766,18 @@ class TargetIsolationTests(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError, "binary drift"):
             verify.require_replay_binary_binding(process, {"binary_sha256": "0" * 64})
 
+    def test_candidate_producer_and_verifier_share_exact_evaluator_identity(self) -> None:
+        manifest = json.loads(
+            (ROOT / "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/manifest.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertEqual(search.EVALUATOR_ALGORITHM, verify.EXPECTED_EVALUATOR_ALGORITHM)
+        self.assertEqual(search.EVALUATOR_ALGORITHM, manifest["runtime"]["discovery_algorithm"])
+        source = (ROOT / "scripts/prospective_bondy_search.py").read_text(encoding="utf-8")
+        self.assertIn('"search_algorithm": EVALUATOR_ALGORITHM', source)
+        self.assertNotIn('"search_algorithm": "python_endpoint_path_cover_dp_v1"', source)
+
     def test_ledger_cannot_append_after_seal(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             ledger = search.DurableLedger(Path(directory) / "ledger.jsonl")
@@ -807,6 +854,104 @@ class TargetIsolationTests(unittest.TestCase):
             },
         }
         self.assertEqual(verify.validate_upper_rejection(graph, result), {"removed": 1, "paths": 1})
+
+    def test_bounded_hamiltonian_path_witness_is_deterministic_canonical_and_deadline_bounded(self) -> None:
+        graph = nx.path_graph(construct.H_ORDER)
+        first = search.bounded_hamiltonian_path_witness(graph, float("inf"))
+        second = search.bounded_hamiltonian_path_witness(graph, float("inf"))
+        self.assertEqual(first, second)
+        self.assertEqual(first["outcome"], "WITNESS")
+        self.assertEqual(first["path"], list(range(construct.H_ORDER)))
+        self.assertLessEqual(first["expansions"], search.HAMILTONIAN_PATH_EXPANSION_LIMIT)
+        with mock.patch.object(search.time, "monotonic", return_value=10.0):
+            expired = search.bounded_hamiltonian_path_witness(graph, 9.0)
+        self.assertEqual(expired["outcome"], "INCONCLUSIVE")
+        self.assertIsNone(expired["path"])
+        self.assertEqual(expired["expansions"], 0)
+
+    def test_hamiltonian_fast_path_succeeds_without_constructing_full_dp(self) -> None:
+        graph = nx.path_graph(construct.H_ORDER)
+        audit = hamiltonian_rejection_fixture()["hamiltonian_search"]
+        with mock.patch.object(search, "bounded_hamiltonian_path_witness", return_value=audit), mock.patch.object(
+            search, "EndpointPathCoverDP", side_effect=AssertionError("full DP constructed")
+        ):
+            result = search.target_evaluate({"edges_h": construct.edge_list(graph)}, 10.0)
+        self.assertEqual(result["classification"], "HAMILTONIAN_PATH_UPPER_REJECTED")
+        self.assertNotIn("dp_digests", result)
+        self.assertEqual(verify.validate_evaluation_schema(result), "HAMILTONIAN_PATH_UPPER_REJECTED")
+        self.assertEqual(verify.validate_hamiltonian_path_rejection(graph, result), {"removed": 0, "paths": 1})
+
+    def test_hamiltonian_miss_falls_through_to_unchanged_dp_with_same_absolute_deadline(self) -> None:
+        graph = nx.path_graph(construct.H_ORDER)
+        audit = {
+            "algorithm": search.HAMILTONIAN_PATH_ALGORITHM,
+            "expansion_limit": search.HAMILTONIAN_PATH_EXPANSION_LIMIT,
+            "expansions": search.HAMILTONIAN_PATH_EXPANSION_LIMIT,
+            "outcome": "INCONCLUSIVE",
+            "path": None,
+        }
+
+        class FakeDP:
+            deadline: float | None = None
+
+            def __init__(self, ignored_graph: nx.Graph, deadline: float) -> None:
+                FakeDP.deadline = deadline
+                self.p = {((1 << construct.H_ORDER) - 1): 1}
+
+            def reconstruct(self, mask: int) -> list[list[int]]:
+                self.assert_mask = mask
+                return [list(range(construct.H_ORDER))]
+
+            def digests(self) -> dict[str, str]:
+                return {"pc_table_sha256": "a" * 64, "endpoint_table_sha256": "b" * 64}
+
+        with mock.patch.object(search, "bounded_hamiltonian_path_witness", return_value=audit), mock.patch.object(
+            search, "EndpointPathCoverDP", FakeDP
+        ), mock.patch.object(search.time, "monotonic", side_effect=[100.0, 100.1]):
+            result = search.target_evaluate({"edges_h": construct.edge_list(graph)}, 7.0)
+        self.assertEqual(FakeDP.deadline, 107.0)
+        self.assertEqual(result["classification"], "Q4_UPPER_BOUND_REJECTED")
+        self.assertEqual(result["hamiltonian_search"], audit)
+        self.assertIn("dp_digests", result)
+        self.assertEqual(verify.validate_evaluation_schema(result), "Q4_UPPER_BOUND_REJECTED")
+
+    def test_hamiltonian_rejection_rejects_malformed_noncanonical_and_fake_dp_certificates(self) -> None:
+        graph = nx.path_graph(construct.H_ORDER)
+        baseline = hamiltonian_rejection_fixture()
+        self.assertEqual(verify.validate_evaluation_schema(baseline), "HAMILTONIAN_PATH_UPPER_REJECTED")
+        self.assertEqual(verify.validate_hamiltonian_path_rejection(graph, baseline), {"removed": 0, "paths": 1})
+
+        mutations = (
+            lambda row: row["upper_rejection"].update({"X": [0], "removed_mask": 1, "kept_mask": (1 << construct.H_ORDER) - 2}),
+            lambda row: row["upper_rejection"].update({"pc_H_minus_X": 2}),
+            lambda row: row.update({"upper_deletion_sets_completed": 2}),
+            lambda row: (
+                row["hamiltonian_search"].update({"path": list(reversed(range(construct.H_ORDER)))}),
+                row["upper_rejection"].update({"cover_H_minus_X": [list(reversed(range(construct.H_ORDER)))]}),
+            ),
+            lambda row: (
+                row["hamiltonian_search"].update({"path": [0, 2, 1, *range(3, construct.H_ORDER)]}),
+                row["upper_rejection"].update({"cover_H_minus_X": [[0, 2, 1, *range(3, construct.H_ORDER)]]}),
+            ),
+            lambda row: (
+                row["hamiltonian_search"].update({"path": [*range(construct.H_ORDER - 1), construct.H_ORDER - 2]}),
+                row["upper_rejection"].update({"cover_H_minus_X": [[*range(construct.H_ORDER - 1), construct.H_ORDER - 2]]}),
+            ),
+            lambda row: (
+                row["hamiltonian_search"].update({"path": [float(vertex) for vertex in range(construct.H_ORDER)]}),
+                row["upper_rejection"].update({"cover_H_minus_X": [[float(vertex) for vertex in range(construct.H_ORDER)]]}),
+            ),
+        )
+        for mutate in mutations:
+            forged = json.loads(json.dumps(baseline))
+            mutate(forged)
+            with self.assertRaises(RuntimeError):
+                verify.validate_hamiltonian_path_rejection(graph, forged)
+
+        forged = json.loads(json.dumps(baseline))
+        forged["dp_digests"] = {"pc_table_sha256": "a" * 64, "endpoint_table_sha256": "b" * 64}
+        with self.assertRaisesRegex(RuntimeError, "schema drift"):
+            verify.validate_evaluation_schema(forged)
 
     def test_full_ledger_rejects_unrecognized_fake_target_result(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -1022,8 +1167,8 @@ class LiveGateConcurrencyTests(unittest.TestCase):
                 with self.assertRaisesRegex(RuntimeError, "post-target status/collision safeguard failed closed"):
                     live_gate.run_post_target_safeguard(output, "token", source)
 
-    def test_v34_local_history_requires_exact_freeze_introducer_count(self) -> None:
-        freezes = [character * 40 for character in "fba769"]
+    def test_v35_local_history_requires_exact_freeze_introducer_count(self) -> None:
+        freezes = [character * 40 for character in "fba7695"]
         extra_freeze = "0" * 40
         hits = [
             live_gate.KNOWN_CONTINUITY_AUDIT_COMMIT,
@@ -1064,11 +1209,11 @@ class LiveGateConcurrencyTests(unittest.TestCase):
         self.assertFalse(too_many)
         self.assertEqual(
             [row["kind"] for row in identities],
-            ["known_continuity_audit", "known_repin_audit", "freeze_introducer", "freeze_introducer", "freeze_introducer", "freeze_introducer", "freeze_introducer", "freeze_introducer", "known_graph_rotation", "known_preflight"],
+            ["known_continuity_audit", "known_repin_audit", "freeze_introducer", "freeze_introducer", "freeze_introducer", "freeze_introducer", "freeze_introducer", "freeze_introducer", "freeze_introducer", "known_graph_rotation", "known_preflight"],
         )
 
-    def test_v34_known_graph_rotation_hash_subject_and_path_are_exact(self) -> None:
-        freezes = [character * 40 for character in "fba769"]
+    def test_v35_known_graph_rotation_hash_subject_and_path_are_exact(self) -> None:
+        freezes = [character * 40 for character in "fba7695"]
         baseline = [
             live_gate.KNOWN_CONTINUITY_AUDIT_COMMIT,
             live_gate.KNOWN_REPIN_AUDIT_COMMIT,
