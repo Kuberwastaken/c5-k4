@@ -362,3 +362,70 @@ carries an unverified interval.
 Erdős–Straus — proof attempts, not counterexamples, and not touched here). No
 upstream action taken.
 
+## F5 — Erdős 779, `erdos_779` (Deaconescu) — `HOLD_BOUNDED`, first run of this target
+
+**Blob** `ed251a0942abf6f9b9d0ae2ec02f989155510c88` (`779.lean`).
+
+```lean
+@[category research open, AMS 11]
+theorem erdos_779 (n : ℕ) (hn : n ≥ 1) : let P := ∏ i ∈ range (n + 1), nth Nat.Prime i
+    ∃ p, p.Prime ∧ (P + p).Prime ∧ nth Nat.Prime n < p ∧ p < P
+```
+
+**Source (erdosproblems.com/779, state `open`, prize `FALSIFIABLE`).** "Let
+$n>1$ and $p_1<\cdots<p_n$ the first $n$ primes. Let $P=\prod p_i$. Does there
+always exist some prime $p$ with $p_n<p<P$ such that $P+p$ is prime?"
+
+**Faithfulness: clean.** `nth Nat.Prime` is 0-indexed, so `∏ i ∈ range (n+1)`
+is the product of the first `n+1` primes and `nth Nat.Prime n` is the largest
+of them; the Lean's `n` is the site's `N − 1`, and `hn : n ≥ 1` is exactly the
+site's `N > 1`. The docstring documents the shift ("Needed to index shift in
+order to avoid trivial case n = 0"). No divergence. Confirms the predecessor's
+reading.
+
+**Certificate shape.** For a *fixed* `n` the negation is finite — "every prime
+`p ∈ (p_max, P)` has `P + p` composite" ranges over finitely many `p` — so the
+triage label `CANDIDATE_FOR_DEPTH` is technically right. But `P` is a
+primorial, so that exhaustion is only executable for `n ≤ 3` or so; in practice
+the reachable work is confirming the positive direction.
+
+### Bounded run (`<scratch>/e779.py`)
+
+For each `n` the **least** prime witness `p` is computed. Primality by
+Miller–Rabin; deterministic (13 prime bases below `3.317·10^24`) for `n ≤ 17`,
+and a 30-prime-base strong probable-prime test above that — labelled as such,
+not claimed as a proof.
+
+`n = 1..200`: **every `n` resolved, 0 failures.** `P` has 500 digits at
+`n = 200`. Largest witness over the whole range: `p = 3559` at `n = 180`; the
+largest number of primes that had to be tried before success was 318.
+
+First rows (exact, deterministic-MR region):
+
+| n | largest prime factor of P | P | least witness p | primes tried |
+|---|---|---|---|---|
+| 1 | 3 | 6 | 5 | 1 |
+| 2 | 5 | 30 | 7 | 1 |
+| 3 | 7 | 210 | 13 | 2 |
+| 4 | 11 | 2310 | 23 | 4 |
+| 5 | 13 | 30030 | 17 | 1 |
+| 6 | 17 | 510510 | 19 | 1 |
+| 7 | 19 | 9699690 | 23 | 1 |
+| 8 | 23 | 223092870 | 37 | 3 |
+| 9 | 29 | 6469693230 | 61 | 8 |
+| 10 | 31 | 200560490130 | 67 | 8 |
+
+`n = 201..` is a **`TIMEOUT_BRACKET`** (50.8 s wall clock reached at `n = 200`).
+
+**Verdict: `HOLD_BOUNDED`** on `n = 1..200`, with the `n ≥ 201` tail an
+explicit bracket. Prior art: Deaconescu verified `n ≤ 1000` (site), so this run
+is calibration, not new evidence; its value is that the campaign's own record
+for this target now has witnesses instead of "NOT STARTED". The witness sizes
+(`p ≤ 3559` for `n ≤ 200`) are consistent with Erdős's `p ≤ n^{O(1)}`
+expectation and with Cambie's heuristic that failure has probability
+`≪ exp(−n^{−cn})`.
+
+**Duplicate check.** "779": #2095 (closed, statement request), #2960 (closed,
+`variants.known_result`). No counterexample claim upstream. No upstream action
+taken.
+

@@ -283,3 +283,186 @@ solved" (KitaKen1, **opened 2026-08-15 07:12:09Z**, OPEN at time of this run) ch
 Recorded as duplicate; **no upstream write performed.**
 
 ---
+### A108864 — `conjecture` — RHS is FALSE at `n = 67` — **NEW, no duplicate found**
+
+**Blob:** `git show 2411d22e:FormalConjectures/OEIS/108864.lean`.
+
+**Lean (verbatim):**
+```lean
+def A (n : ℕ) : Prop :=
+  let sigmaOneN : ℕ := (Nat.divisors n).sum id
+  0 < n ∧ ((sigmaOneN : ℤ) - 2 * (n : ℤ)).natAbs ≤ 10
+
+noncomputable def a (n : ℕ) : ℕ := n.nth A
+
+@[category research open, AMS 11]
+theorem conjecture : answer(sorry) ↔ ∀ n > 58, Even (a n)
+```
+(file docstring: "Numbers `n` such that the perfect deficiency of `n` is `≤ 10`".)
+
+**OEIS pin.** A108864, OFFSET 1,2, NAME
+`Numbers n such that the perfect deficiency of n (A109883) is <= 10`;
+the only COMMENT is `Is 1155 the last odd number in this sequence?`
+DATA `1,2,3,4,5,6,7,8,9,10,11,12,14,15,16,18,20,21,22,24,26,28,30,32,40,42,44,50,52,60,64,68,72,110,120,126,128,130,136,144,150,152,180,184,204,228,256,315,462,496,512,528,592,656,750,884,1012,1024,1155,1188,1248`.
+
+A109883 NAME (pinned): `Start subtracting from n its divisors beginning from 1 until one
+reaches a number smaller than the last divisor subtracted or reaches the last nontrivial
+divisor < n. Define this to be the perfect deficiency of n.`  This is a **greedy
+divisor-subtraction** quantity; it is **not** `|σ(n) − 2n|`.
+
+**The divergence — proof by one value.** `A109883(24) = 0 ≤ 10`, so `24 ∈ A108864` (and 24 is
+in the OEIS DATA), but `σ(24) = 60`, `2·24 = 48`, `|60 − 48| = 12 > 10`, so the Lean predicate
+`A 24` is **false**. Symmetrically `56 ∉ A108864` but `σ(56) = 120 = 2·56`, so `A 56` holds.
+
+Reimplementing A109883 literally (`scratch/c109883b.py`) reproduces its published values
+`0,1,2,1,4,0,6,1,5,2,10,2,12,4,6,1,16,6,18,8,…` exactly (first 79 terms match), and its
+`≤ 10` filter reproduces the A108864 DATA head exactly (first 61 terms match). So the source
+side is pinned with certainty; the Lean predicate is the thing that differs.
+
+**Consequence — the Lean statement is false.** Let `L = {n > 0 : |σ(n) − 2n| ≤ 10}` (the set
+the Lean `A` actually defines). `L` is infinite (every `2^k ∈ L`, since `|σ(2^k) − 2^{k+1}| = 1`),
+so `Nat.nth A` is total. Enumerated exactly (`scratch/c108864.py`, σ-sieve to 10⁷, and
+independently by direct divisor enumeration in `scratch/c108864b.py`):
+
+```
+L (0-indexed) = 1,2,3,4,5,6,7,8,9,10,11,12,14,15,16,18,20,21,22,26,28,32,40,44,50,52,56,64,
+                68,70,88,104,110,128,130,136,152,184,196,256,315,368,464,496,512,592,650,656,
+                836,884,1012,1024,1155,1696,1888,1952,2048,2144,2272,2336,4030,4096,5830,
+                8128,8192,8384,8768,8925,11096,16384,...
+odd elements of L with their Lean index n:
+  (0,1) (2,3) (4,5) (6,7) (8,9) (10,11) (13,15) (17,21) (40,315) (52,1155)
+  (67,8925)  (74,32445)  (94,442365)
+```
+
+- **Minimal witness: `n = 67`.** `a 67 = 8925`, and `67 > 58`, and `8925` is **odd**, so
+  `Even (a 67)` is false. Premise check: `8925 = 3 · 5² · 7 · 17`,
+  `σ(8925) = 4 · 31 · 8 · 18 = 17856`, `2 · 8925 = 17850`, `|17856 − 17850| = 6 ≤ 10` ✓,
+  so `A 8925` holds. Indices 59..66 of `L` are `4030, 4096, 5830, 8128, 8192, 8384, 8768`, all
+  even, so 67 is the least violating index.
+- Further witnesses: `n = 74` (`a 74 = 32445`) and `n = 94` (`a 94 = 442365`).
+- Therefore the RHS is false and `answer` is forced to `False`.
+
+**Independent recomputation.** Two disjoint code paths agree on `L` and on the index of 8925:
+(i) numpy divisor-sum sieve to 10⁷; (ii) plain trial-division `sigma` with no sieve, listing
+`L ∩ [1, 9000]` (68 elements, `L[67] = 8925`). Both give `L.index(1155) = 52` and
+`L.index(8925) = 67`.
+
+**Why the `> 58` bound is the giveaway.** In the **true** A108864, `1155` is at 0-indexed
+position **58** (verified: `true_terms.index(1155) = 58`), which is exactly the bound the Lean
+declaration uses. So the declaration's index arithmetic was calibrated against the real
+sequence, while its predicate `A` defines a different one — in which `1155` sits at index 52
+and three further odd terms appear at indices 67, 74, 94.
+
+**The source conjecture is NOT refuted.** In the true A108864 (perfect deficiency ≤ 10) the
+odd terms up to `n = 3·10⁵` are exactly `1, 3, 5, 7, 9, 11, 15, 21, 315, 1155` — nothing beyond
+1155 (103 terms total in that range). And `A109883(8925) = 2969 ≫ 10`, so the Lean witness
+8925 is not even a member of the real sequence.
+
+**Classification (METHOD §A6):**
+`NEW_FORMALIZED_READING_DISPROOF` — a **formalization counterexample**. Coordinate (1), the
+mathematical status of "is 1155 the last odd term of A108864?", is **untouched and open**;
+coordinate (3)/(4) — the Lean declaration's faithfulness and literal content — fail, because
+`A` implements `|σ(n) − 2n| ≤ 10` instead of A109883's perfect deficiency.
+
+**Duplicate audit:** `gh issue/pr list --state all --search A108864` → 0 hits;
+`--search 108864` → only PR #4450 (AutoOeis batch, MERGED, the file's origin);
+`--search A109883` → 0 hits. Collector issues #4896 / #4923 / #4927 do not list A108864.
+No upstream write performed.
+
+---
+
+### Bounded holds — no counterexample found
+
+Each entry: exact Lean statement, OEIS pin, search bound, result. All arithmetic exact;
+each computation under the 60 s cap unless a longer explicit bound is stated.
+
+#### A112521 — `∀ n ≥ 1, (a n : ℤ) = T n n` — `HOLD_BOUNDED`
+OEIS pin: COMMENT (Gerald McGarvey, Oct 07 2008) "Conjecture: Starting with n=1, a(n) is the
+main diagonal of the array defined as T(1,1)=1, T(i,j)=0 if i<1 or j<1,
+T(n,k)=T(n,k-2)+T(n,k-1)-2T(n-1,k-1)+T(n-1,k)+T(n-2,k)." Faithful; the ℕ index truncations
+`k-2 → 0`, `n-2 → 0` coincide with the source's "0 if i<1 or j<1" convention.
+Computed `a n` (exact, including `.toNat`) and `T n n` for **n = 1..90**: **0 mismatches**;
+`a n` reproduces the OEIS DATA `0,1,0,6,4,60,84,700,1440,8910,…` exactly; the alternating sum
+is never negative, so `.toNat` causes no damage. `scratch/c112521.py`.
+
+#### A105020 — semiprime between consecutive odd entries — `HOLD_BOUNDED`
+OEIS pin: COMMENT (Michael Hiebl, Jul 15 2007) — a "Goldbach conjecture" for the array. The
+Lean `a` reproduces the DATA `1,3,4,5,8,9,7,12,15,16,9,16,21,24,25,11,20,27,…` exactly.
+Note the Lean quantifies over **all** index pairs with `a i = 2n+1`, `a j = 2n+3`, `j = i+n+1`,
+not only the row-start pairs the comment describes — a strictly stronger reading.
+Enumerated **all** `i < 2·10⁶` with `a i` odd ≥ 3 (1 000 499 candidates); **1998** triples
+satisfied the full premise; **0 failures** (`Nat.IsSemiprime` = `n>1 ∧ Ω(n)=2`, sieved to
+3 996 003). `scratch/c105020b.py` (runtime ≈ 100 s, declared bound).
+
+#### A108306 — `invertSeqD a b n = (genMatrix a b ^ n) 0 0` — `HOLD_BOUNDED`
+OEIS pin: COMMENT (Gary W. Adamson, Jul 31 2016) "The INVERT transform of a sequence starting
+(1, a, a*b, a*b^2, …) is equivalent to extracting the upper left terms of powers of the 2x2
+matrix [(1,a); (1,b)]." Faithful. Checked all `a, b ∈ 0..7`, `n ∈ 0..15` (1024 rows):
+**0 mismatches**. `scratch/c108306.py`.
+
+#### A112970 — `conjecture1/2/3` — hold, but all three are **trivially provable**
+OEIS pin: COMMENT "Conjectures: a(2^n)=a(2^(n+1)+1)=**A033638(n)**; a(2^n-1)=a(3*2^n-1)=1."
+Verified n = 0..16 for all three; `a` reproduces the DATA
+`1,1,1,1,2,1,2,1,3,2,2,1,4,2,2,1,5,3,3,2,5,…` exactly.
+Each Lean declaration is a one-line consequence of the recurrence:
+- `conjecture1`: `2^(n+1)+1` is odd and `(2^(n+1)+1) / 2 = 2^n` in ℕ, so the odd branch gives
+  `a (2^(n+1)+1) = a (2^n)` **definitionally**.
+- `conjecture3`: `2^n − 1` is odd with `(2^n−1)/2 = 2^(n-1)−1`; descend to `a 0 = 1`.
+- `conjecture2`: same descent on `3·2^n − 1` reaches `a 2 = a 1 + 0 = 1`; combined with
+  `conjecture3` both sides are 1.
+**Faithfulness defect:** the OEIS conjecture's actual content is the clause `= A033638(n)`
+(quarter-squares plus one), which the formalization **drops**. Computed
+`a(2^n) = 1,1,2,3,5,7,10,13,17,21,…` = A033638 ✓ — that is the nontrivial half and it is not
+formalized. Recorded as `STATUS_SYNC` (three `research open` declarations that are trivial
+lemmas). `scratch/c112970.py`.
+
+#### A113250 / A113252 / A113255 — `∀ n, IsSquare (a (2n+1))` — `HOLD_BOUNDED`
+OEIS pin: identical COMMENT on all three, "Conjecture: a(m, 2*n+1) is a perfect square for all
+m,n (see A113249)". Lean initial values and recurrences match each NAME/FORMULA and each DATA
+head exactly. Computed 404 terms of each (n = 0..201 for the odd indices), exact ℤ, `IsSquare`
+tested as "≥ 0 and `isqrt` exact": **0 failures** in all three. No odd-index term is ever
+negative (the sign pattern puts negatives only at even indices).
+`scratch/c1132xx.py`.
+
+#### A105210 — five trajectories pairwise disjoint — `HOLD_BOUNDED`
+OEIS pin: COMMENT quoting Math. Mag. 48 (1975) 301 — Cormier and Selfridge: "There appear to be
+five sequences beginning with integers less than 1000 which do not merge. These sequences were
+carried out to 10^8 or more. The five sequences are A003508, A105210-A105213." The Lean start
+set `{1, 393, 412, 668, 932}` matches. The trajectory from 393 reproduces the DATA
+`393,528,545,660,682,727,728,751,752,802,1206,1279,…` exactly.
+Ran all five to the first term ≥ 2·10⁷ (225/262/272/301/296 terms): all **10** pairwise
+intersections empty. Source verification (10⁸) already exceeds ours. `scratch/c105210.py`.
+
+#### A063880 — `n % 216 = 108` and `unique primitive = 108` — `HOLD_BOUNDED`
+OEIS pin: NAME `Numbers k such that sigma(k) = 2*usigma(k)`; COMMENTS "Numbers so far are all
+== 108 (mod 216) [Confirmed up to 10^7 by Robert G. Wilson v]" and "The only primitive term
+below 10^18 is 108". Lean `unitaryDivisors`/`usigma`/`A` are faithful; `Set.IsPrimitive S n`
+= `n ∈ S ∧ Disjoint properDivisors S` matches "proper divisors not in the sequence".
+Computed all **28 141** terms ≤ 10⁷ (first: 108, 540, 756, 1188, 1404, … = DATA ✓):
+**0** with `n % 216 ≠ 108`; the only primitive term is **108**. Source already verified to
+10⁷ / 10¹⁸ respectively. `scratch/c063880.py`.
+
+#### A067720 — `A k ∧ k ≠ 8 → (k+1).Prime` — `HOLD_BOUNDED`
+OEIS pin: COMMENT "a(n)+1 is prime except for a(5)=8" and "Superset of A070689. Is a(5)=8 the
+only additional value?" Faithful (`A 0` is false: `φ(1)=1 ≠ 0`, so no vacuity at 0).
+All `k ≤ 3162` (bound: `k²+1 ≤ 10⁷` φ-sieve): 76 members
+`1,2,4,6,8,10,16,36,40,66,126,130,…` = DATA ✓; **0** members with `k ≠ 8` and `k+1` composite.
+`scratch/batchA.py`.
+
+#### A056777 — `A n → ComesFromPrimeQuadruple n` — `HOLD_BOUNDED`
+OEIS pin: COMMENT (Jud McCranie, Oct 11 2000) "I conjecture that all members of the sequence
+are of this form", and (Himaghna Roy Choudhury, Jun 05 2026) "verified up to 10^12".
+Faithful. All 8 members ≤ 10⁷ — `65, 209, 11009, 38009, 680609, 2205209, 3515609, 4347209`
+(= DATA ✓) — are `p(p+8)` for a prime quadruple `p, p+2, p+6, p+8`: **0 violations**.
+Source verification (10¹²) far exceeds ours. `scratch/batchA.py`.
+*Cosmetic defect:* the file's title line reads `# Divisibility of $2^n + 1$ by $n$`, which
+belongs to a different sequence; the body and statement are about A056777.
+
+#### A109905 — `{n > 0 : a n = 0} = {1, 6, 30, 54}` — `HOLD_BOUNDED`
+OEIS pin: COMMENT (Robert Israel, Feb 23 2018) "a(n)=0 for k = 1, 6, 30 and 54. Are there any
+others?" and (Mauro Fiorentini, Jul 24 2023) "There are none for n up to 10^9". Faithful
+(`Finset.sup id` of the empty filtered set is `0`, matching "0 if no such prime exists").
+Scanned `n = 1..2·10⁶`: the zero set is exactly `{1, 6, 30, 54}`. Source verification (10⁹)
+exceeds ours. `scratch/batchA.py`.
+
+---

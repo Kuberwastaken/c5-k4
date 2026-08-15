@@ -21,12 +21,30 @@ problems live, so a `FINITELY_FALSE_AS_STATED` verdict has a materially higher p
 `/tmp/claude-1000/-Users-kuber-mehta-Projects-scratch/21f73cfa-6e97-457f-8bb8-ae31d911cc43/scratchpad/faith/ids_asc.txt`
 (line 1 = `1`, line 364 = `1212`).
 
-**AUDITED so far:** see the verdict table. **RESUME POINT:** first id in `ids_asc.txt`
-after the last table row.
+**AUDITED (60 ids, complete, all in the verdict table), ascending:**
 
-**Cache:** `…/scratchpad/faith/epcache/<id>.html` — the first 90 ascending ids are cached
+```
+1 3 5 7 9 10 11 12 13 14 15 17 18 20 25 28 30 32 33 36 39 40 41 44 50 51 52
+60 61 66 68 70 74 75 80 82 85 89 91 94 96 97 98 99 100 101 105 107 108 123
+124 125 126 137 138 141 142 143 145 153
+```
+
+**RESUME POINT: id `155`** (line 62 of `ids_asc.txt`). Everything from `155` up to `1007` is
+unaudited by either lane; the predecessor covered `1007`–`1212` descending (see the companion
+file), so the two sweeps will meet somewhere near id `500`.
+
+**Cache:** `…/scratchpad/faith/epcache/<id>.html` — ascending ids **1 through 247** (the first
+90 lines of `ids_asc.txt`) are cached
 (plus the predecessor's 180 descending ids ≥ ~700). Re-fetch with the desktop `User-Agent`
-recipe recorded in the predecessor's file.
+recipe recorded in the predecessor's file; `xargs -P 6` worked with zero failures.
+
+**Compute artefacts written this run** (absolute paths, reusable):
+
+- `…/scratchpad/faith/ids_asc.txt` — the frozen ascending id list (364 lines).
+- `…/scratchpad/faith/chk_10_11.py` — exhaustive small-`n` verifier for EP 10/11
+  ("sufficiently large" dropped): sieve + squarefree sieve to `3·10⁵`, ~20 s.
+- `…/scratchpad/faith/chk36.py` — brute-force `M(n)` for EP 36's minimum-overlap database
+  gate, `n ≤ 10`, ~40 s.
 
 **Frozen provenance**
 
@@ -79,7 +97,7 @@ proposed. No `git` mutation was run. Internal reading record only.
 | 28 | open / OPEN | `erdos_28` | none. `sumRep A = 𝟙_A ∗ 𝟙_A` (ordered pairs — irrelevant to a `limsup = ⊤` claim); `(A + A)ᶜ.Finite` is exactly "contains all but finitely many"; conclusion is a genuine `= ⊤` in `ℕ∞` | FAITHFUL | `limsup = ⊤` |
 | 30 | open / OPEN | `erdos_30` | none. `h N − (N : ℝ).sqrt` is **real** subtraction (the `.sqrt` forces the ℝ elaboration, so no ℕ truncation of the `h N − √N` difference, which can be negative). `maxSidonSubsetCard` = `sup` of `card` over Sidon subsets of `Icc 1 N` ✓; `IsSidon` is the standard `B₂` definition allowing `i₁ = i₂` ✓ | FAITHFUL | `∀ ε, =O` asymptotic |
 | 32 | open / OPEN | `erdos_32`, `.variants.log_bound` | none. `IsAdditiveComplementToPrimes` uses `∀ᶠ n in atTop`, matching "every large integer". `.variants.liminf_gt_one` is correctly `research solved` (the site poses it as a question, but Ruzsa's `≥ e^γ ≈ 1.781` settles it) | FAITHFUL | `∃ A` infinite object |
-| 33 | open / OPEN | `erdos_33` | (a) headline is `⨅ …= answer(sorry)`, a fixed-optimum hole; the "every large integer → every integer" change is **documented and correct** (padding `A` by finitely many elements changes no `limsup/√N`). (b) The site's **second** question (`liminf |A∩[1,N]|/√N > 1`?) has no declaration. (c) **`.variants.one_mem_lowerBounds` is vacuous**: its name and docstring claim "this value is … > 1" (a lower bound on the infimum) but the statement is `∃ A, AdditiveBasisCondition A ∧ 1 < limsup …`, which `A = ℕ` satisfies trivially (`k = k + 0²`; `limsup N/√N = ⊤`). A lower bound needs `∀ A`. Tagged `research solved`, so outside the open-declaration target set, but it is a corpus defect | VACUOUS_AS_STATED (on `.variants.one_mem_lowerBounds`); headline FAITHFUL | `FIXED_OPTIMUM` |
+| 33 | open / OPEN | `erdos_33` | (a) headline is `⨅ …= answer(sorry)`, a fixed-optimum hole; the "every large integer → every integer" change is **documented and correct** (padding `A` by finitely many elements changes no `limsup/√N`). (b) The site's **second** question (`liminf |A∩[1,N]|/√N > 1`?) has no declaration. (c) **`.variants.one_mem_lowerBounds` is vacuous**: its name and docstring claim "this value is … > 1" (a lower bound on the infimum) but the statement is `∃ A, AdditiveBasisCondition A ∧ 1 < limsup …`, which `A = ℕ` satisfies trivially (`k = k + 0²`; `limsup N/√N = ⊤`). A lower bound needs `∀ A`. Tagged `research solved`, so outside the open-declaration target set, but it is a corpus defect. (d) The headline is *also* self-answerable — the whole `⨅ … limsup …` expression can be copied into `answer` and closed by `rfl`; that half is **already reported upstream** in issue #4923 | VACUOUS_AS_STATED (headline self-answer, DUPLICATE #4923; `.variants.one_mem_lowerBounds`, not listed) | `FIXED_OPTIMUM` |
 | 39 | open / OPEN | `erdos_39` | none. `(· ^ (1/2 − ε) : ℕ → ℝ) =O[atTop] (fun N => ((Icc 1 N ∩ A).ncard : ℝ))` is the correct direction for `≫_ε` | FAITHFUL | `∃ A` infinite Sidon set |
 | 40 | open / OPEN | `erdos_40` | **`theorem erdos_40 : Erdos40ForSet answer(sorry)` is satisfied by `answer := (∅ : Set (ℕ → ℝ))`.** See the finding block below | **VACUOUS_AS_STATED** | trivially fillable `answer` hole |
 | 41 | open / OPEN | `erdos_41` | **`NtupleCondition A n` quantifies over `Finset`s `I, J` of card exactly `n`, so it only forbids coincidences between sums of `n` *pairwise distinct* elements.** The source's "triple sums `a+b+c` … aside from the trivial coincidences" is the multiset (strong `B₃`) reading, which also forbids e.g. `a+a+b = c+c+d`. The Lean hypothesis class is therefore strictly larger, making `erdos_41` a **strictly stronger** claim than the source's. Same issue in the `research solved` `.variants.pairwise` (weak Sidon vs Sidon). Order of magnitude is unchanged (weak `B_h` sets in `[N]` are still `Θ(N^{1/h})`), so no refutation follows | MATERIAL_BUT_STILL_TRUE | `liminf = 0` over infinite `A` |
@@ -112,6 +130,18 @@ proposed. No `git` mutation was run. Internal reading record only.
 | 105 | **solved / DISPROVED (LEAN)** | `.variants.sub_four` | headline correctly `research solved` + `answer(False)` with a `formal_proof` link ✓. Open declaration is the `n − 4` version, transcribed faithfully (`A.card = B.card + 4`, `¬ Collinear ℝ A`, "some line through two points of `A` misses `B`"). The site's other suggested strengthenings (`n − O(1)`, `(1−o(1))n`) are not formalized. **Cert-shape note for the sibling lane:** the literal negation is one finite pair of plane point sets — genuinely finite | FAITHFUL | **finite point configuration** |
 | 107 | open / **FALSIFIABLE** | `erdos_107` | none. `cardSet n` is upward closed (`HasConvexNGon` is monotone in the point set), so `sInf` is a genuine minimum ✓; `2^(n−2)` uses ℕ truncated subtraction but is guarded by `n ≥ 3` ✓. Database gate: the in-file `f_three_eq : f 3 = 3` agrees with `2^(3−2)+1 = 3` ✓ | FAITHFUL | Erdős–Szekeres value |
 | 108 | open / OPEN | `erdos_108` | none material. `SimpleGraph.girth` returns `⊤` on acyclic graphs, so the `k = 2` lobe is trivially satisfiable by a single edge — matching the source, where `k = 2` is equally trivial. Added `Nonempty V` is harmless; `∀ (V : Type u)` fixes one universe | FAITHFUL | `∃ f(k,r)` over all graphs |
+
+| 123 | **solved / PROVED (LEAN)** | `.variants.powers_2_3_5_snug` | headline `erdos_123` correctly `research solved` + `answer(True)` with a `formal_proof` link ✓. Open declaration transcribes Erdős' snug strengthening exactly: `IsSnug ε A := ∃ hA : A.Nonempty, ∀ a ∈ A, a < (1+ε)·A.min' hA` ⇔ `b_t < (1+ε)b_1` ✓; the `Finset` gives the source's *distinct* summands ✓; `↑(powers 2) * ↑(powers 3) * ↑(powers 5)` is `{2^k 3^l 5^m}` ✓ | FAITHFUL | `∀ ε ∀ᶠ n` |
+| 124 | open / OPEN | `erdos124.ne_zero` | none material. The site's own statement contains a typo (`∑ 1/(d_r − 1)` where it means `d_i`); the Lean silently uses the intended `∑_{d ∈ D} (d−1)⁻¹` ✓. `c_i ∈ {0,1}` is encoded by pointwise-summing the sets, which is faithful because `0 ∈ sumsOfDistinctPowers d k` (empty index set) ✓. `(d − 1 : ℚ)⁻¹` is rational subtraction, not ℕ truncation ✓. `D = ∅` is excluded by the `1 ≤ ∑` hypothesis ✓ | FAITHFUL | `∀ k ∀ D ∀ᶠ n` |
+| 125 | **solved / DISPROVED (LEAN)** | `.positive_upper_density`, `.zero_density`, `.zero_lower_positive_upper_density` | set definitions correct (`(digits 3 x).toFinset ⊆ {0,1}`; `digits b 0 = []` so `0 ∈ A`, matching the source's `∑ ε_k 3^k` with all `ε_k = 0`) ✓. **Redundancy:** given the already-proved `.variants.positive_lower_density : answer(False)` (i.e. `lowerDensity = 0`), `.zero_lower_positive_upper_density` is *literally equivalent* to `.positive_upper_density`, and `.zero_density` is its negation — three `research open` declarations encoding one open question. The four-case split is the Lean file's own editorial expansion; the site only asks about positive lower density | COSMETIC (redundant open declarations) | density |
+| 126 | open / OPEN | `erdos_126`, `.variants.isLittleO` | `A : Finset ℕ` **admits `0 ∈ A`**, which the source's `A ⊆ ℕ` (Erdős' positive-integer convention) does not: `A = {0,1}` gives `∏ = 1` and `f(2) = 0`, whereas the positive-integer `f(2) = 1`. Harmless for the asymptotic question: writing `A = {0} ∪ A'`, the product is `∏_{a∈A'} a² · ∏_{a≠b∈A'}(a+b)`, so `f_pos(n−1) ≤ f_Lean(n) ≤ f_pos(n)`, and `f_pos` is nondecreasing (a sub-`Finset`'s product divides), so `f_Lean(n)/log n → ∞ ⇔ f_pos(n)/log n → ∞`. `offDiag` counts ordered pairs, squaring the product without changing its prime factors ✓ | COSMETIC | `Tendsto … atTop` |
+| 137 | open / OPEN | `erdos_137`, `.variants.multiple_powerful_factors` | headline faithful (`Finset.Ioc n (n+k)` = `k` consecutive positive integers ✓; the product is never `0`, so the `Powerful 0` degeneracy is unreachable). In `.variants.multiple_powerful_factors` the Lean product `∏ x ∈ Ioc m (m+n), x = (m+1)⋯(m+n)` has **`n` factors starting at `m+1`**, whereas the source writes `m(m+1)⋯(m+n)` (`n+1` factors starting at `m`) — an index shift, immaterial because `Lean(m,n) = Source(m+1, n−1)` and both quantify `∀ᶠ n, ∀ m > 0` (the only uncovered start, `m = 1`, contributes the factor `1`). **Cert-shape note:** the headline's literal negation is one pair `(k, n)` with a powerful product — genuinely finite | COSMETIC (index shift) | **finite (k,n) pair** |
+| 138 | open / OPEN | `erdos_138`, `.variants.quotient`, `.variants.dvd_two_pow` | `monoAP_guarantee_set` is upward closed (restrict a colouring), so `sInf` is a genuine minimum ✓. Database gate: in-file `W 1 = 1`, `W 2 = 3` are the standard values ✓. **Docstring transcription error:** `.variants.prime`'s docstring says "Berlekamp has proved `W(p+1) ≥ p^{2^p}`" while the **code** says `p * 2^p ≤ W (p+1)`; the site confirms the code (`W(p+1) ≥ p2^p`), so the *docstring* is the defect. `.variants.difference` uses ℕ truncated subtraction `W(k+1) − W k`, safe because `W` is nondecreasing (a mono `(k+1)`-AP contains a `k`-AP). Kozik–Shabanov's general lower bound `W(k) ≫ 2^k` and Fox–Hunter's `r ≥ 3` result are not formalized | COSMETIC (docstring) | `Tendsto … atTop` |
+| 141 | open / OPEN | `erdos_141`, `.variants.eleven`, `.infinite_three`, `.infinite_general_case` | none. `IsPrimeProgressionOfLength s l := ∃ a, ENat.card s = l ∧ s = {(a+n).nth Prime | n < l}` correctly forces *consecutive* primes ✓, and the conjunction with `IsAPOfLength l` (whose `ENat.card` clause forces `d ≠ 0`) gives a genuine non-trivial AP ✓. Database gate: in-file `{3,5,7}` example, and `.variants.first_cases` (`k ≤ 10`) matches the site's "verified for k ≤ 10" ✓ | FAITHFUL | `∃` construction / `Set.Infinite` |
+| 142 | open / OPEN | `erdos_142`, `.variants.upper`, `.variants.three`, `.variants.lower` | **`erdos_142`, `.variants.upper` and `.variants.three` are all satisfied by copying the left-hand side into `answer`** (`isTheta_refl` / `isBigO_refl`). See the finding block below. `.variants.lower` (`r_k(N) = o(N/log N)`, `1 < k`) carries no `answer` hole and is a genuine statement. Definitional layer is correct: `IsAPOfLengthFree s l := ∀ t ⊆ s, t.IsAPOfLength l → l ≤ 1` correctly excludes trivial APs | **VACUOUS_AS_STATED** (3 of 4 open decls) | trivially fillable `answer` holes |
+| 143 | open / OPEN | `.parts.i`, `.parts.ii` | `WellSeparatedSet` transcribes the source hypothesis exactly ✓ and `.parts.ii` (`Summable 1/(x log x)`, positive terms — the right `Summable` use, contrast EP 15) is verbatim ✓. **`.parts.i` is an editorial invention**: the source asks the undefined "Does this imply that `A` is sparse?", and the Lean substitutes `liminf \|A ∩ [1,x]\|/x = 0`, a specific and comparatively weak reading (`liminf`, not `lim`). The source's third and fourth questions (`∑_{x<n} 1/x = o(log n)`; `≪ log x/√loglog x`) are commented out as TODO | MATERIAL (editorial reading of "sparse") | density / summability |
+| 145 | open / OPEN | `erdos_145` | none. `s = Nat.nth Squarefree` is 0-indexed while the source is 1-indexed, but `A x = {n | s n ≤ x}` collects the *same* gap multiset, so the shift cancels ✓. `(s (n+1) − s n : ℝ)` is real subtraction ✓. `α = 0` is admitted and harmless (all gaps `≥ 1`, so `gap⁰ = 1`) | FAITHFUL | limit existence |
+| 153 | open / OPEN | `erdos_153` | none. `f n` is the infimum over Sidon sets of size `n`, so "as `\|A\| → ∞`" becomes `Tendsto f atTop atTop` — the correct uniform reading ✓. Index reshuffle (`∑_{i ∈ Ico 1 t} (s_i − s_{i−1})²` vs the source's `∑_{1≤i<t}(s_{i+1}−s_i)²`) is the same sum ✓; `s` is monotone so no ℕ-subtraction truncation. `f 0 = f 1 = 0` junk (`0/0 = 0`), invisible `atTop` | FAITHFUL | `Tendsto … atTop` |
 
 ---
 
@@ -248,16 +278,110 @@ The repair for the solved sibling is to state singularity of the restriction, or
 - **Pattern to reuse:** *an unconstrained function/parameter in a hypothesis predicate, with the
   conclusion asserting a global property of it.* Worth grepping the corpus for.
 
+### EP 142 — three `answer(sorry)` holes closed by copying the left-hand side
+
+```lean
+@[category research open, AMS 11]
+theorem erdos_142 (k : ℕ) : (fun N => (r k N : ℝ)) =Θ[atTop] (answer(sorry) : ℕ → ℝ)
+
+@[category research open, AMS 11]
+theorem erdos_142.variants.upper (k : ℕ) : (fun N => (r k N : ℝ)) =O[atTop] (answer(sorry) : ℕ → ℝ)
+
+@[category research open, AMS 11]
+theorem erdos_142.variants.three : (fun N => (r 3 N : ℝ)) =Θ[atTop] (answer(sorry) : ℕ → ℝ)
+```
+
+Site statement (`erdosproblems.com/142`, last edited 04 April 2026): *"Prove an asymptotic
+formula for `r_k(N)`."*
+
+Nothing in these declarations forces the `answer` function to be independent of `r`.
+`answer := (fun N => (r k N : ℝ))` closes `erdos_142` and `.variants.three` by
+`Asymptotics.isTheta_refl`, and closes `.variants.upper` by `isBigO_refl`.
+
+- **Severity:** `VACUOUS_AS_STATED`, three of the file's four open declarations.
+  `.variants.lower` is untouched and genuine.
+- **Duplicate status:** **PARTIAL DUPLICATE.** Upstream issue
+  [#4922](https://github.com/google-deepmind/formal-conjectures/issues/4922) (OPEN) already
+  reports `.variants.upper`, via the different trivial witness `fun N => (N : ℝ)`
+  (`r k N ≤ N`). The umbrella issue
+  [#4923](https://github.com/google-deepmind/formal-conjectures/issues/4923) (OPEN) lists the
+  same "reflexive asymptotic answer" pattern for Erdős **422**, **539**, **789** and the
+  "exact self-answer" pattern for Erdős **33**, **329**, **348**, **409.iii** — but **not**
+  for `erdos_142` (headline) or `erdos_142.variants.three`. Those two are, as of the pin,
+  unlisted instances of a pattern the upstream repo is actively tracking.
+
 ---
 
-## Running severity roll-up
+## Duplicate-surface audit (METHOD A2.2 — read-only, no upstream write)
+
+`gh search issues/prs --repo google-deepmind/formal-conjectures`, run 2026-08-15.
+
+| finding | upstream status |
+|---|---|
+| EP 142 `.variants.upper` trivial answer | **DUPLICATE** — issue #4922 (open) |
+| EP 142 headline + `.variants.three` (`=Θ` self-answer) | **NOT LISTED** — same class as #4923's 422/539/789 bullets, but those two declarations are absent from every issue found |
+| EP 33 headline `⨅ … = answer(sorry)` self-answer | **DUPLICATE** — #4923 first bullet ("Erdős 33 … the entire unknown infimum/limsup expression can be copied into `answer`") |
+| EP 33 `.variants.one_mem_lowerBounds` (∃ instead of ∀) | **NOT LISTED** — #4923's Erdős 33 bullet is about the headline's `answer` hole only |
+| EP 40 `Erdos40ForSet answer(sorry)` satisfied by `∅` | **NOT LISTED** — no issue or PR matches `erdos_40`/`Erdos40ForSet` beyond a merged `variants.known_result` proof |
+| EP 15 `Summable` for a conditionally convergent series | **NOT LISTED** — cf. #4896's open-PR blocker "PR #4660 — `tsum` without `Summable`/`HasSum`", which is the *opposite* defect |
+| EP 50 `erdos_50_singular` false as stated | **NOT LISTED** |
+| EP 44 `.variants.empty_start` = Singer 1938 | **NOT LISTED** |
+| EP 60 `.variants.two_copies` tagged `research solved` | **NOT LISTED** |
+| EP 36 `.variants.upper` superseded by TTT-Discover bound | **NOT LISTED** |
+| EP 138 `.variants.prime` docstring `p^{2^p}` vs code `p·2^p` | **NOT LISTED** |
+| EP 80 added `c < 1/2` | **ALREADY FIXED UPSTREAM** — issue #4867 (closed); the pin already carries the repair, so this is not a defect |
+
+Context found while searching: #4896 ("Tracking: possible misformalizations found in statement
+audits") and #4923 ("Possible misformalizations II") show that an upstream contributor is
+running a parallel audit of exactly this kind. Any future write must be diffed against both.
+
+---
+
+## Running severity roll-up (60 ids audited)
 
 | severity | count | ids |
 |---|---|---|
-| `FINITELY_FALSE_AS_STATED` | 0 | — |
-| `VACUOUS_AS_STATED` | 2 | **40** (open decl), 33 (`research solved` variant) |
+| `FINITELY_FALSE_AS_STATED` | **0** | — |
+| `VACUOUS_AS_STATED` | **3** | **40** (open decl), **142** (3 of 4 open decls), 33 (headline self-answer + `research solved` variant) |
 | `MATERIAL_TRIVIALLY_DETERMINED` | 1 | 15 |
-| `MATERIAL_BUT_STILL_TRUE` | 1 | 41 |
-| `STATUS_SYNC` | 0 | — |
-| `COSMETIC` | 5 | 5, 10, 11, 13, 20 |
-| `FAITHFUL` | 13 | 1, 3, 7, 9, 12, 14, 17, 18, 25, 28, 30, 32, 39 |
+| `MATERIAL_BUT_STILL_TRUE` / `MATERIAL (editorial)` | 2 | 41, 143 |
+| `FALSE_AS_STATED` on a non-open declaration | 1 | 50 (`erdos_50_singular`) |
+| `STATUS_SYNC` | 3 | 36 (`.variants.upper`), 44 (`.variants.empty_start`), 60 (`.variants.two_copies`) |
+| `COSMETIC` | 13 | 5, 10, 11, 13, 20, 52, 74, 80, 100, 125, 126, 137, 138 |
+| `FAITHFUL` | 37 | 1, 3, 7, 9, 12, 14, 17, 18, 25, 28, 30, 32, 39, 51, 61, 66, 68, 70, 75, 82, 85, 89, 91, 94, 96, 97, 98, 99, 101, 105, 107, 108, 123, 124, 141, 145, 153 (the headlines of 36, 44, 60 are also faithful; those ids are counted under `STATUS_SYNC` for their variants) |
+
+**Certificate shape.** As in the high band, almost every open declaration in ids 1–153 is
+`CERTIFICATE_SHAPE_FAIL` for a finite-counterexample lane. The exceptions worth handing to the
+sibling depth lane, whose literal negation *is* one finite object, are:
+
+- **EP 97** `erdos_97` / `.variants.k_equidistant` — one convex-position finite point set
+  (site label already says FALSIFIABLE);
+- **EP 105** `.variants.sub_four` — one finite pair `(A,B)` of plane point sets, in a file where
+  the `n−2` and `n−3` versions were *both* already killed by explicit finite constructions
+  (Hickerson; Xichuan). This is the highest-prior finite target found in the low band;
+- **EP 137** `erdos_137` — one pair `(k, n)` with `∏_{x ∈ (n, n+k]} x` powerful;
+- **EP 107** `erdos_107` — one `n` with `f(n) ≠ 2^{n−2}+1` (site label FALSIFIABLE).
+
+**Divergence patterns that paid in the low band** (complementing the predecessor's list):
+
+1. **`answer(sorry)` holes with no extremality wrapper.** By far the highest-yield low-band
+   pattern: EP 40 (`∅`), EP 142 (copy the LHS), EP 33 (copy the `⨅`). Always ask *"what is the
+   laziest term of the answer's type?"* before reading the mathematics. Upstream is tracking
+   this genre in #4919/#4922/#4923, so check there first.
+2. **`Summable` for a series the source only claims converges conditionally** (EP 15). Check
+   whether the summand changes sign; if it does, `Summable` is the wrong idiom.
+3. **A hypothesis predicate that pins its function argument only on part of its domain**, with
+   the conclusion asserting a global property (EP 50 `IsDistributionOfPhiRatio` pins `f` on
+   `[0,1]`, `IsPurelySingular` asserts `Continuous f` on ℝ).
+4. **A declaration name/docstring that states `∀`, with a body that states `∃`** (EP 33
+   `one_mem_lowerBounds`).
+5. **`Finset`-of-card-`n` used for a source's multiset condition** (EP 41 `NtupleCondition`:
+   only *distinct* `n`-tuples are constrained, so the hypothesis class is strictly larger and
+   the conjecture strictly stronger).
+6. **Dropped "sufficiently large" is usually harmless but must be *checked*** — EP 10/11 needed
+   an exhaustive small-`n` verification (`n < 3·10⁵`, zero failures) before it could be called
+   cosmetic.
+7. **Docstring ↔ code numeric drift** (EP 138 `p^{2^p}` vs `p·2^p`; the site adjudicates in
+   favour of the code).
+8. **Status drift both ways**: EP 36/44 are `research open` but answered in the literature;
+   EP 60 `.variants.two_copies` is `research solved` although the site says it was never proved.
