@@ -1,0 +1,308 @@
+[
+ {
+  "name": "SidorenkoConjecture",
+  "path": "FormalConjectures/Wikipedia/SidorenkoConjecture.lean",
+  "blob": "872b7fc20702f8ea0b5e40a3b7062648d1aeb153",
+  "bytes": 26865
+ },
+ {
+  "name": "UnionClosed",
+  "path": "FormalConjectures/Wikipedia/UnionClosed.lean",
+  "blob": "b693d7d96203e976c145d6fc957c84d898ebc0dc",
+  "bytes": 7982
+ },
+ {
+  "name": "ScholzConjecture",
+  "path": "FormalConjectures/Wikipedia/ScholzConjecture.lean",
+  "blob": "3844afd9769c1e7233f7d9d2482dceb91bd5729d",
+  "bytes": 4349
+ },
+ {
+  "name": "Taxicab",
+  "path": "FormalConjectures/Wikipedia/Taxicab.lean",
+  "blob": "e062108fdfc79dd1956b5ee43edede16656106be",
+  "bytes": 4088
+ },
+ {
+  "name": "PebblingNumberConjecture",
+  "path": "FormalConjectures/Wikipedia/PebblingNumberConjecture.lean",
+  "blob": "200b127f9d93460d9a82e85c0036b931a0442d84",
+  "bytes": 5320
+ },
+ {
+  "name": "Mandelbrot",
+  "path": "FormalConjectures/Wikipedia/Mandelbrot.lean",
+  "blob": "e80807867d9b11effa26ed1f562d1192e32724d0",
+  "bytes": 8491
+ },
+ {
+  "name": "MovingSofa",
+  "path": "FormalConjectures/Wikipedia/MovingSofa.lean",
+  "blob": "e23f3ca36ddf1dd53748ca8a51203e874da4b00a",
+  "bytes": 8817
+ },
+ {
+  "name": "Sendov",
+  "path": "FormalConjectures/Wikipedia/Sendov.lean",
+  "blob": "fc74c84dc2f52a1bcb36059e63a6fbfdabdcc7f0",
+  "bytes": 2885
+ },
+ {
+  "name": "RegularPrimes",
+  "path": "FormalConjectures/Wikipedia/RegularPrimes.lean",
+  "blob": "1aac7564772296d5608d70374bebb1046cd47a6a",
+  "bytes": 2829
+ },
+ {
+  "name": "RudinsConjecture",
+  "path": "FormalConjectures/Wikipedia/RudinsConjecture.lean",
+  "blob": "322b2d7d43f9bf209db4fd6f533f663341c6a5e4",
+  "bytes": 4627
+ },
+ {
+  "name": "Selfridge",
+  "path": "FormalConjectures/Wikipedia/Selfridge.lean",
+  "blob": "25a9cf2bd137350885f53a7a15e192e8df68d5bb",
+  "bytes": 4671
+ },
+ {
+  "name": "SierpinskiNumber",
+  "path": "FormalConjectures/Wikipedia/SierpinskiNumber.lean",
+  "blob": "b0c47bf91a1d61bfae1588ff48f83f855ba9c822",
+  "bytes": 4411
+ },
+ {
+  "name": "Mersenne",
+  "path": "FormalConjectures/Wikipedia/Mersenne.lean",
+  "blob": "bb27507d49f9ca3cbbefab5afe3a17b3ac7dc51c",
+  "bytes": 4921
+ },
+ {
+  "name": "MeanValueProblem",
+  "path": "FormalConjectures/Wikipedia/MeanValueProblem.lean",
+  "blob": "69e0b5d420b0f6b71e0a938c0d939bf6875816be",
+  "bytes": 3432
+ },
+ {
+  "name": "SparseRuler",
+  "path": "FormalConjectures/Wikipedia/SparseRuler.lean",
+  "blob": "3391aa8daac1faeafba6b7c09a28d9c767eb726e",
+  "bytes": 4733
+ },
+ {
+  "name": "SumOfThreeCubes",
+  "path": "FormalConjectures/Wikipedia/SumOfThreeCubes.lean",
+  "blob": "f36a362c53f254a14ed0e0fb9239abefb4b762f1",
+  "bytes": 3423
+ },
+ {
+  "name": "RamanujanTau",
+  "path": "FormalConjectures/Wikipedia/RamanujanTau.lean",
+  "blob": "d7eeee397cf9e5f4e0f3722368d76d16c4068229",
+  "bytes": 2214
+ },
+ {
+  "name": "SurjunctiveGroup",
+  "path": "FormalConjectures/Wikipedia/SurjunctiveGroup.lean",
+  "blob": "e89ce8a73acfba55d7e45733927721632ff12f3f",
+  "bytes": 3586
+ },
+ {
+  "name": "SquarePacking",
+  "path": "FormalConjectures/Wikipedia/SquarePacking.lean",
+  "blob": "589c2471d14297878261cd11354557423ea93353",
+  "bytes": 7017
+ },
+ {
+  "name": "MagicSquares",
+  "path": "FormalConjectures/Wikipedia/MagicSquares.lean",
+  "blob": "e23096fef51be05110f9a02493826c0fcf088bd8",
+  "bytes": 2472
+ },
+ {
+  "name": "MoserWorm",
+  "path": "FormalConjectures/Wikipedia/MoserWorm.lean",
+  "blob": "4399928e6b3be327bb76cccf846c63d1603b3586",
+  "bytes": 4521
+ },
+ {
+  "name": "PerfectNumbers",
+  "path": "FormalConjectures/Wikipedia/PerfectNumbers.lean",
+  "blob": "43775be6bfeb0ff5dd11279f2d7b621fec974b3d",
+  "bytes": 3738
+ },
+ {
+  "name": "SolitaryNumber",
+  "path": "FormalConjectures/Wikipedia/SolitaryNumber.lean",
+  "blob": "ec3e10ae513d2207f6aac94f0f8bb6f3d086e5ab",
+  "bytes": 1988
+ },
+ {
+  "name": "PowerfulNumbersDensity",
+  "path": "FormalConjectures/Wikipedia/PowerfulNumbersDensity.lean",
+  "blob": "a3070c4d491847a9912c4336108d636634d14d26",
+  "bytes": 3416
+ },
+ {
+  "name": "PrimeTriplets",
+  "path": "FormalConjectures/Wikipedia/PrimeTriplets.lean",
+  "blob": "f475e124e6a770e7186afb0bdd68a7c99ec84945",
+  "bytes": 1081
+ },
+ {
+  "name": "PrimesAndPerfectSquares",
+  "path": "FormalConjectures/Wikipedia/PrimesAndPerfectSquares.lean",
+  "blob": "bfebf00373c95021c7ac7068996d881987eace65",
+  "bytes": 1102
+ },
+ {
+  "name": "QuasiperfectNumbers",
+  "path": "FormalConjectures/Wikipedia/QuasiperfectNumbers.lean",
+  "blob": "aefafe0daecb1633bc494855324ccd59eaa17ab1",
+  "bytes": 1154
+ },
+ {
+  "name": "RamseyNumbers",
+  "path": "FormalConjectures/Wikipedia/RamseyNumbers.lean",
+  "blob": "41b81b68621b270892a3b0f238302b4823a99e4b",
+  "bytes": 4398
+ },
+ {
+  "name": "RationalDistanceProblem",
+  "path": "FormalConjectures/Wikipedia/RationalDistanceProblem.lean",
+  "blob": "ffe0204e43796d33b2651c66abe82fecfc76c60e",
+  "bytes": 1443
+ },
+ {
+  "name": "SnakeInTheBox",
+  "path": "FormalConjectures/Wikipedia/SnakeInTheBox.lean",
+  "blob": "9682d8124dc617b7dc823afaf309ddd893279031",
+  "bytes": 3852
+ },
+ {
+  "name": "TwinPrimes",
+  "path": "FormalConjectures/Wikipedia/TwinPrimes.lean",
+  "blob": "48b05dfefa47b97eed628fbf7f4c4e919955ff40",
+  "bytes": 1111
+ },
+ {
+  "name": "Mahler32",
+  "path": "FormalConjectures/Wikipedia/Mahler32.lean",
+  "blob": "ca096debfa658ea972008f42aba2d290b2cac96e",
+  "bytes": 1904
+ },
+ {
+  "name": "NormalityOfPi",
+  "path": "FormalConjectures/Wikipedia/NormalityOfPi.lean",
+  "blob": "53eb74dec027163dd05ef3412a51b1654f739e63",
+  "bytes": 1266
+ },
+ {
+  "name": "Oppermann",
+  "path": "FormalConjectures/Wikipedia/Oppermann.lean",
+  "blob": "1a9ed16f83e1967a34727f3ef91be9070a6cc717",
+  "bytes": 4722
+ },
+ {
+  "name": "Pell",
+  "path": "FormalConjectures/Wikipedia/Pell.lean",
+  "blob": "75b041e99400392b4af277e6bbaa73eafb448dd0",
+  "bytes": 5667
+ },
+ {
+  "name": "PierceBirkhoff",
+  "path": "FormalConjectures/Wikipedia/PierceBirkhoff.lean",
+  "blob": "51a8d5477f7272b50a036039e8d19e05c4f31cca",
+  "bytes": 4218
+ },
+ {
+  "name": "PierpontPrime",
+  "path": "FormalConjectures/Wikipedia/PierpontPrime.lean",
+  "blob": "851f33327aa311590c149de36cd49706b836ec7e",
+  "bytes": 1558
+ },
+ {
+  "name": "PollocksConjecture",
+  "path": "FormalConjectures/Wikipedia/PollocksConjecture.lean",
+  "blob": "59648f368a6879f9c44f07390e7a079f11e6a392",
+  "bytes": 2776
+ },
+ {
+  "name": "RiemannZetaValues",
+  "path": "FormalConjectures/Wikipedia/RiemannZetaValues.lean",
+  "blob": "1a0893bc6c14662003e0f5368961ec2bd9688cdd",
+  "bytes": 2714
+ },
+ {
+  "name": "Schanuel",
+  "path": "FormalConjectures/Wikipedia/Schanuel.lean",
+  "blob": "a7d6282f7e91eaeb65dc78c77fc8577acf77decd",
+  "bytes": 1252
+ },
+ {
+  "name": "Schinzel",
+  "path": "FormalConjectures/Wikipedia/Schinzel.lean",
+  "blob": "2ae3c9f99fa48494eb28b02c9d99dc6b91b7e335",
+  "bytes": 1222
+ },
+ {
+  "name": "Singmaster",
+  "path": "FormalConjectures/Wikipedia/Singmaster.lean",
+  "blob": "66cbd5a519da42c55fc0d29e4964733c2225b3f3",
+  "bytes": 1533
+ },
+ {
+  "name": "SteinerSystem",
+  "path": "FormalConjectures/Wikipedia/SteinerSystem.lean",
+  "blob": "5059d700e20e52e2bd5a73735182ee1e8ae7f7b6",
+  "bytes": 9159
+ },
+ {
+  "name": "Superperfectnumbers",
+  "path": "FormalConjectures/Wikipedia/Superperfectnumbers.lean",
+  "blob": "0a0936e3afcdf9c5f63dbb88cef5df2eb4ae8329",
+  "bytes": 1380
+ },
+ {
+  "name": "Toronto",
+  "path": "FormalConjectures/Wikipedia/Toronto.lean",
+  "blob": "e99b1ea308f451607a001734d026ff67ebd7e165",
+  "bytes": 2011
+ },
+ {
+  "name": "Transcendental",
+  "path": "FormalConjectures/Wikipedia/Transcendental.lean",
+  "blob": "27e3e80949ec9a661dd54f55c294f7a3c67f25d9",
+  "bytes": 5203
+ },
+ {
+  "name": "VaughtConjecture",
+  "path": "FormalConjectures/Wikipedia/VaughtConjecture.lean",
+  "blob": "815a18b32b214f2469d689cf659922cdeea16422",
+  "bytes": 1608
+ },
+ {
+  "name": "WallSunSun",
+  "path": "FormalConjectures/Wikipedia/WallSunSun.lean",
+  "blob": "f113001f473bfedc3b29cf51b10152afd73a24e0",
+  "bytes": 6741
+ },
+ {
+  "name": "WilsonPrime",
+  "path": "FormalConjectures/Wikipedia/WilsonPrime.lean",
+  "blob": "0581da08cfb0fb7b78f5b6bb28f8247bb2545aa5",
+  "bytes": 2104
+ },
+ {
+  "name": "WolstenholmePrime",
+  "path": "FormalConjectures/Wikipedia/WolstenholmePrime.lean",
+  "blob": "4ec5343e07e812d4da7a096f4a77c23c2ae972b6",
+  "bytes": 3183
+ },
+ {
+  "name": "WoodalPrimes",
+  "path": "FormalConjectures/Wikipedia/WoodalPrimes.lean",
+  "blob": "b9173cb195a13f62e0fef78f9857bc36ef32b062",
+  "bytes": 1043
+ }
+]
