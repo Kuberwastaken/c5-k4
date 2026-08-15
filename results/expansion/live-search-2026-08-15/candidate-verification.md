@@ -145,3 +145,137 @@ Harborth [Ha74b] — expected repair `research solved`, plus adding the general 
 `f₂(n) = ⌊3n−√(12n−3)⌋` as a variant; (ii) docstring transcription error `<` for `=`.
 Both are metadata/prose defects, unclaimed upstream, and would at most support a
 courtesy upstream *issue* — never a release. Not authorized here.
+
+---
+
+## Candidate 2 — OEIS A237271 `OeisA237271.observation_carmichael`
+
+### Claim under test
+
+"Novel: the hypothesis quantifies `∀ a : ZMod k, a ≠ 0 → a^(k-1) = 1` instead of over
+units coprime to `k`, making it unsatisfiable for composite `k`, so the open declaration
+is vacuously true."
+
+### (a) Primary re-derivation
+
+**Actual Lean declaration at the pin** (`FormalConjectures/OEIS/237271.lean`, verbatim):
+
+```lean
+/--
+Observation: "a(A002997(n)) >= 3, at least for 1 <= n <= 10000."
+- _Omar E. Pol_, Oct 21 2025
+
+That is, $a(k) \ge 3$ for every Carmichael number $k$.
+A002997 is the sequence of Carmichael numbers.
+-/
+@[category research open, AMS 11]
+theorem observation_carmichael (k : ℕ)
+    (hk : ¬ k.Prime ∧ 1 < k ∧ ∀ a : ZMod k, a ≠ 0 → a ^ (k - 1) = 1) :
+    3 ≤ a k := by
+  sorry
+```
+
+Transcription confirmed character-for-character against the pinned blob.
+
+**Sources (live 2026-08-15):**
+
+- A237271 (`%I #308 Aug 13 2026`), `%C` line by _Omar E. Pol_, Oct 21 2025:
+  "Observation : a(A002997(n)) >= 3, at least for 1 <= n <= 10000."
+- A002997 `%N`: "Carmichael numbers: **composite** numbers `k` such that `a^(k-1) == 1
+  (mod k)` for every `a` **coprime to `k`**."
+
+So the source condition is over `a` **coprime to** `k` (i.e. over `(ZMod k)ˣ`); the Lean
+condition is over **every nonzero** `a : ZMod k`. Divergence confirmed from the primary
+source, not from the predecessor's paraphrase.
+
+### (b) Independent computation and the general proof
+
+**General argument (mine, complete, no computation needed).**
+Let `k` satisfy the hypothesis. `1 < k` and `¬ k.Prime` make `k` composite, so `k` has a
+prime divisor `p` with `1 < p < k` (write `k = p·m`, `m > 1`, hence `p = k/m < k`).
+Then `(p : ZMod k) ≠ 0` because `0 < p < k`. Since `k ≥ 2`, `k − 1 ≥ 1`, so the
+hypothesis gives `p^(k−1) = 1`, i.e. `p · p^(k−2) = 1`, so `(p : ZMod k)` is a unit.
+But the units of `ZMod k` are exactly the residues coprime to `k`, and `gcd(p, k) = p > 1`.
+Contradiction. **Hence no `k` satisfies `hk`: the hypothesis set is empty and the
+declaration is vacuously true** (provable by `exact absurd … `, no mathematics used).
+`k = 0` and `k = 1` are already excluded by `1 < k`.
+
+**Independent computation** (`…/scratchpad/verify/v237271.py`, own code path: trial-division
+divisors, own `isprime`, `pow(x, k-1, k)`; 60 s cap, ran in ~25 s):
+
+```
+a matches OEIS DATA n=1..90:                                    True
+k in 2..20000 satisfying FULL Lean hypothesis:                  NONE
+composite k in 4..4999 with least prime factor p, p^(k-1)=1 mod k:  0
+Carmichael numbers <= 20000: [561, 1105, 1729, 2465, 2821, 6601, 8911, 10585, 15841]
+a(k) on them:                [  5,    6,    4,    6,    6,    6,    7,     7,     8]  min = 4
+```
+
+Explicit premise-falsifying witnesses (METHOD Phase 0B item 6 — replayable witness, not a
+scalar flag): `(561, 3) ↦ 375`, `(1105, 5) ↦ 885`, `(1729, 7) ↦ 742`, `(2465, 5) ↦ 1480`,
+`(2821, 7) ↦ 2016`; each `a ≠ 0` in `ZMod k` and `a^(k−1) ≠ 1`.
+
+Also confirmed independently: the Lean `a` reproduces OEIS A237271's `%S/%T/%U` DATA
+exactly for `n = 1..90` (the predecessor only checked `n = 1..50`), so the *sequence*
+encoding is faithful; the defect is entirely in the Carmichael hypothesis. And the
+*intended* observation is not refuted: `min a(k) = 4 ≥ 3` over all Carmichael `k ≤ 20000`.
+
+### (c) METHOD §A6 classification
+
+One sentence: this is a claim about coordinate **(4) what the declaration literally
+asserts** (a vacuous implication) and coordinate **(3) faithfulness to its cited source**;
+coordinate (1), the underlying OEIS observation, is untouched and in fact holds on every
+Carmichael number `≤ 20000`.
+
+Note the direction: the literal declaration is **trivially true**, not finitely false. So
+this is *not* a counterexample and cannot become a counterexample release under
+METHOD Phase 8 / UPSTREAM_PROTOCOL. It is a statement defect with an exact proof.
+METHOD ledger label: `PREMISE_FALSE_STRICT` generalized to an empty applicable domain
+(no admissible instance exists at all).
+
+### (d) Duplicate / novelty search performed
+
+Upstream (`gh api search/issues`, which covers issues **and** PRs in every state):
+`A237271` (1 hit: merged PR #4924, about `conjecture_4`/`conjecture_5` parity only),
+`237271` (0), `observation_carmichael` (**0**), `Carmichael in:title` (3 hits: PR #4281
+`NumberTheory/Carmichael` import fix, issue #1784 / PR #1836 Carmichael *totient*
+conjecture — all unrelated), `A002997` (0), `Carmichael symmetric representation` (0),
+`ZMod coprime unit hypothesis vacuous` (0), `unsatisfiable hypothesis` (1, unrelated),
+`vacuous hypothesis` (17, inspected), `is:pr 237271 in:title,body` (0).
+
+Read in full the three live audit trackers and confirmed A237271 appears in **none** of
+them: **#4896** "Tracking: possible misformalizations found in statement audits" (open;
+has a "Boundary cases / vacuous wrappers" section listing Erdős 940/694/939, Green 21 —
+not A237271), **#4923** "Possible misformalizations II" (open; self-answers, reflexive
+asymptotics, OEIS A211417 degenerate witness — not A237271), **#4927** "Open statements
+with known solutions" (open; A287616, Green 3/31, OQP 35, Independent Domination, MO
+31809, Green 19, Erdős 272 — not A237271).
+
+`git log` / `git blame` of `FormalConjectures/OEIS/237271.lean`: only two commits —
+`d16e05ad` "feat(OEIS): add solutions from AlphaProof Nexus (#4384)" (Moritz Firsching,
+**2026-08-12**, which introduced `observation_carmichael` unchanged to this day) and
+`6ae3deba` (#4924, parity only). The declaration is three days old at the pin.
+
+Local `c5-k4`: `git tag` (11), `gh release list -R Kuberwastaken/c5-k4` (11),
+`git log --all --oneline | grep -iE '237271|carmichael'` → no hits.
+
+SearXNG: `formal-conjectures observation_carmichael`, `"observation_carmichael"`,
+`formal-conjectures A237271 Carmichael vacuous hypothesis`,
+`formal-conjectures ZMod a^(k-1)=1 nonzero coprime misformalization` → no prior art.
+
+### (e) Verdict
+
+**CONFIRMED_PUBLISHABLE — as a formalization-defect report only, explicitly NOT as a
+counterexample.** The divergence from A002997 is real and read from the primary source;
+the vacuity is *proved*, not merely searched (the `k ≤ 20000` sweep is corroboration);
+the declaration is genuinely `research open` while being trivially provable; and no
+upstream issue, PR, commit, blame line, tracker entry, local tag/release/commit, or web
+result claims it.
+
+Caveats that must survive into any write-up: (i) the underlying OEIS observation is
+untouched and holds on every Carmichael number `≤ 20000` (min `a(k) = 4`); (ii) a vacuous
+universal cannot be "refuted", so no release tag and no counterexample language —
+the correct artifact is an upstream issue in the style of #4896/#4923, or a local note;
+(iii) the declaration is 3 days old, so the duplicate surface must be re-checked
+immediately before any write (METHOD_V1_6 §A2.1). **No action taken; publication requires
+explicit user authorization.**
