@@ -27,10 +27,8 @@ plain curl is Cloudflare-challenged) plus `https://oeis.org/A<id>/b<id>.txt` whe
 
 ## Running summary
 
-| # | A-number | open decls | verdict | refuting witness |
-|---|---|---|---|---|
-
-*(populated incrementally below; one section per target)*
+*(see the populated "Running summary" table after Phase A below, and the FINAL SUMMARY at the
+end of this file; one section per target in between)*
 
 ---
 
@@ -78,7 +76,6 @@ conjecture and force the answer); `SHAPE-FAIL` = no finite artifact can settle i
 | A108306 | 1 | FIN-U (matrix/invert-sequence identity) | **compute** |
 | A108864 | 1 | ANS (`∀n>58, Even (a n)`) | bounded scan |
 | A108866 | 1 | FIN-U (`num ≡ 0 [ZMOD n²] ↔ n.Prime`) | **compute** |
-| A108866 | | | |
 | A109227 | 1 | ANS + `∃n` (construction) | bounded scan |
 | A109671 | 1 | SHAPE-FAIL (`∀m ∃n`) | stop |
 | A109845 | 1 | SHAPE-FAIL (`Set.Infinite`) | stop |
@@ -116,6 +113,37 @@ conjecture and force the answer); `SHAPE-FAIL` = no finite artifact can settle i
 | 1 | A100434 | 3 | `RETRO_COUNTEREXAMPLE` (duplicate: upstream PR #4560) | `n = 0`: `c 0 + d 0 = 3`, `b 0 = c 1 = -3` |
 | 2 | A110854 | 1 | **`NEW_FORMALIZED_READING_DISPROOF`** (no duplicate found) | `d = 3` (`= \|5 - 2\|`); `\|a n\| ∈ {1} ∪ 2ℕ` for all `n > 0` |
 | 3 | A103425 | 1 | `RETRO` / trivially true (duplicate: upstream PR #4964, opened 2026-08-15 07:12Z) | `a=3, b=1, c=-3, x ≡ 1` |
+| 4 | A108864 | 1 | **`NEW_FORMALIZED_READING_DISPROOF`** (no duplicate found) | `n = 67`: `a 67 = 8925`, odd, `\|σ(8925) − 2·8925\| = 6 ≤ 10` |
+| 5 | A112970 | 3 | `STATUS_SYNC` — all three trivially provable; the source's `= A033638(n)` clause is dropped | — |
+| 6 | A100478 | 1 | `STATUS_SYNC` — literal statement is an elementary theorem (`answer := True`) | — |
+| 7 | A100475 | 1 | `CERTIFICATE_SHAPE_FAIL` + uniform-`answer` defect | `x = 0` pins `answer := True` |
+| 8 | A100474 | 2 | `CONSTRUCTION_ONLY` + self-answer (`next_semiprime`) | — |
+| 9 | A102847 / A107247 / A113257 / A113271 / A116150 | 6 | `FIXED_OPTIMUM` + self-answer shape | — |
+| 10 | A112521 | 1 | `HOLD_BOUNDED` (n = 1..90) | — |
+| 11 | A105020 | 1 | `HOLD_BOUNDED` (1998 premise-satisfying triples, indices < 2·10⁶) | — |
+| 12 | A108306 | 1 | `HOLD_BOUNDED` (a,b ≤ 7, n ≤ 15) | — |
+| 13 | A113250 / A113252 / A113255 | 3 | `HOLD_BOUNDED` (odd indices to 403) | — |
+| 14 | A105210 | 2 | `HOLD_BOUNDED` (all five trajectories to 2·10⁷) + `CONSTRUCTION_ONLY` | — |
+| 15 | A063880 | 2 | `HOLD_BOUNDED` (28 141 terms ≤ 10⁷) | — |
+| 16 | A067720 | 1 | `HOLD_BOUNDED` (k ≤ 3162) | — |
+| 17 | A056777 | 1 | `HOLD_BOUNDED` (8 terms ≤ 10⁷) | — |
+| 18 | A109905 | 1 | `HOLD_BOUNDED` (n ≤ 2·10⁶) | — |
+| 19 | A034693 | 4 | `HOLD_BOUNDED` (n ≤ 10⁶) ×2 + `CERTIFICATE_SHAPE_FAIL` ×2 (mutually contradictory) | — |
+| 20 | A110475 | 1 | `HOLD_BOUNDED` (m ≤ 3·10⁵) | — |
+| 21 | A110835 | 1 | `HOLD_BOUNDED` (156 resolved n ≤ 194) | — |
+| 22 | A104320 | 1 | `HOLD_BOUNDED` (n ≤ 12 000) | — |
+| 23 | A108866 | 1 | `HOLD_BOUNDED` (n = 4..1200) | — |
+| 24 | A001146 | 1 | `HOLD_BOUNDED` (even k ≤ 2·10⁶) | — |
+| 25 | A113010 | 1 | `HOLD_BOUNDED` (exhaustive for n < 10³⁹) | — |
+| 26 | A114216 | 1 | `HOLD_BOUNDED` (n ≤ 1 270 607) | — |
+| 27 | A102371 | 1 | `HOLD_BOUNDED` (n ≤ 400) | — |
+| 28 | A011545 | 2 | `HOLD_BOUNDED` (n < 3005 / n < 600) | — |
+| 29 | A108301 | 1 | `HOLD_BOUNDED` (all published terms n = 12..27, none prime) | — |
+| 30 | A103662 | 2 | `HOLD_BOUNDED` (b ≤ 5.17·10⁷ for `a_40`) + `CERTIFICATE_SHAPE_FAIL` | — |
+| 31 | A000041 | 1 | `HOLD_BOUNDED` (p(n), n ≤ 30 000) | — |
+| 32 | A001157 | 1 | `HOLD_BOUNDED` (k = 2..6, n ≤ 2·10⁵) | — |
+| 33 | A109227 | 1 | `HOLD_BOUNDED` (n ≤ 260) | — |
+| 34 | 26 further files | 37 | `CERTIFICATE_SHAPE_FAIL` / `CONSTRUCTION_ONLY` — see Phase D table | — |
 
 ---
 
@@ -698,3 +726,80 @@ faithfulness was still spot-checked where cheap, and any note is recorded.
 | A034693 (×2) | `=O[atTop] (log n · log log n)` ; `¬BddAbove …` | asymptotic **and mutually contradictory** — the file formalizes both Ordowski's conjecture and Greathouse's explicit contradiction of it as `research open`; at most one can hold. |
 
 ---
+## FINAL SUMMARY — 61 files, 81 open declarations, all triaged
+
+| verdict | files | declarations |
+|---|---|---|
+| **`NEW_FORMALIZED_READING_DISPROOF`** (exact finite witness, no duplicate) | **2** (A110854, A108864) | 2 |
+| `RETRO_COUNTEREXAMPLE` / trivially-true, **duplicate upstream** | 2 (A100434, A103425) | 4 |
+| `STATUS_SYNC` — `research open` but trivially/elementarily provable | 2 (A112970, A100478) | 4 |
+| self-answer shape defect (`answer(sorry) = <closed term>`) | 6 (A100474, A102847, A107247, A113257, A113271, A116150) | 7 |
+| uniform-`answer`-under-binders defect | 1 (A100475) | 1 |
+| `HOLD_BOUNDED` (searched, nothing found) | 22 | 26 |
+| `CERTIFICATE_SHAPE_FAIL` / `CONSTRUCTION_ONLY` / `FIXED_OPTIMUM` | 26 | 37 |
+
+**Crossings: 2.** Both are formalization counterexamples (METHOD §A6 coordinate (4)); in both
+cases the underlying OEIS mathematics is untouched and remains open.
+
+| # | target | exact witness | duplicate status |
+|---|---|---|---|
+| 1 | **A110854** `conjecture` | `d = 3` (premise via `p1 = 5, p2 = 2`); `(a n).natAbs ∈ {1} ∪ 2ℕ` for all `n > 0`, proved by parity | **none** — 0 issue/PR hits, absent from #4896/#4923/#4927 |
+| 2 | **A108864** `conjecture` RHS | `n = 67`, `a 67 = 8925` odd, `\|σ(8925) − 2·8925\| = 6 ≤ 10`; also `n = 74 → 32445`, `n = 94 → 442365` | **none** — 0 issue/PR hits, absent from #4896/#4923/#4927 |
+
+Duplicates found and stopped on (per METHOD v1.6 §A2 step 2):
+- **A100434** — upstream PR #4560 (CLOSED unmerged 2026-07-25) already publishes the same
+  disproof (`c n + d n = b n`, witness `n = 2`; our minimal witness is `n = 0`).
+- **A103425** — upstream PR #4964 (OPEN, filed 2026-08-15 07:12:09Z, i.e. during this run)
+  already marks it `answer(True)` with a kernel-checked proof of the identical statement.
+
+---
+
+## HANDOFF STATE
+
+- **Upstream pin:** `2411d22e1bd550d050d0eac6c1fb379a76a3e7c5`, re-verified with
+  `git rev-parse upstream/main` at the start of this run. All Lean text read via
+  `git show upstream/main:FormalConjectures/OEIS/<id>.lean`. **No `git` write of any kind was
+  run by this agent** (per the concurrency rule, the parent commits).
+- **Share status: COMPLETE.** All 61 files in
+  `results/expansion/open_targets_oeis_erdos_20260815.json` with
+  `corpus=="OEIS" ∧ id < 130000 ∧ previously_touched == false` have been triaged, and every
+  finitely-refutable declaration has been searched. Nothing is left half-done.
+- **Upstream writes: NONE.** No issue, PR, comment, or review was created or edited. The only
+  `gh` calls were read-only `issue list` / `pr list` / `issue view` / `pr view`.
+- **Duplicate audit performed for both crossings:** `gh issue list --state all --search`
+  and `gh pr list --state all --search` on `A<id>` and `<id>` forms, plus full read of the
+  three known-defect collector issues #4896, #4923, #4927.
+- **Artifacts (scratch, session scratchpad — copy out if they need to persist):**
+  Verifier scripts have been copied to `results/expansion/live-search-2026-08-15/scripts/part1/`.
+  Session scratch (not persisted): `…/scratchpad/lean/<id>.lean` (61 pinned blobs),
+  `…/scratchpad/oeis/<id>.json` (61 OEIS JSON pins + A004275, A105033, A109883),
+  and the verifier scripts `c100434.py, c110854.py, c108864.py, c108864b.py, c109883b.py,
+  c112521.py, c105020b.py, c108306.py, c112970.py, c1132xx.py, c105210.py, c063880.py,
+  batchA.py, c034693.py, c110475.py, c110835b.py, c104320.py, c108866.py, cbatchC.py,
+  c102371.py, c011545.py, c108301.py, c103662.py, c000041.py, c001157.py, c100478.py,
+  c109227.py`.
+- **OEIS access recipe (confirmed working this run):** browser User-Agent is required.
+  `curl -A 'Mozilla/5.0 (Macintosh; …) Chrome/120.0 Safari/537.36' "https://oeis.org/search?q=id:A<id>&fmt=json"`
+  and `https://oeis.org/A<id>/b<id>.txt` (b-file fetch also needs the UA; plain `curl` gets a
+  Cloudflare interstitial that is served as a 200 with HTML body).
+- **Compute:** `/home/ec2-user/.venvs/wowii/bin/python` (3.9, numpy, **no sympy**);
+  helpers in `results/expansion/live-search-2026-08-15/scripts/nt.py`.
+  Per-computation caps honoured; the four runs that needed more than 60 s
+  (A105020 ≈ 100 s, A103662 ≈ 100 s, A000041 ≈ 49 s, A105210 ≈ 90 s) have their bounds
+  declared explicitly in their entries and are labelled bounded, not holds beyond the bound.
+- **Next actions available (not taken here):**
+  1. Write the two Lean disproof certificates (`A110854` parity lemma; `A108864` explicit
+     `Nat.nth` evaluation at 67) and run the axiom audit — required by METHOD Phase 8 before
+     any release.
+  2. Decide whether the C1 self-answer cluster (7 declarations) should be folded into a single
+     status report; it is the same class as open upstream issue #4923 but none of these OEIS
+     declarations is listed there.
+  3. Sibling lane `oeis-hunt-part2.md` covers `id ≥ 130000`; the ids in this share are disjoint
+     from it.
+
+---
+**Blob re-check at end of run (METHOD v1.6 §A2 step 1):**
+`upstream/main = 2411d22e1bd550d050d0eac6c1fb379a76a3e7c5` (unchanged);
+`FormalConjectures/OEIS/110854.lean` blob `7df89bd5a43f93a6344f10ec1be32eb2c605b059`;
+`FormalConjectures/OEIS/108864.lean` blob `d621e6438f9ea7acf518f7d3208e8127ea0fa905`.
+Final duplicate re-check on both crossings returned 0 hits.
