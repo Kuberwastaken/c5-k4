@@ -51,8 +51,8 @@ tight as **local maps of conjecture space**:
    independent exact recomputation, source recovery, and a no-`sorry` Lean
    certificate.
 
-That procedure has now produced four prospective structural transfers and one
-prospective theorem recovery, not merely retrospective explanations of the
+That procedure has now produced four prospective structural transfers and two
+prospective theorem recoveries, not merely retrospective explanations of the
 original four kills:
 
 | Tightness map | Obstruction exposed | Deliberate separating family | New crossing |
@@ -62,6 +62,7 @@ original four kills:
 | regular clique blow-ups in the independent-domination cluster | center geometry and the Caro--Wei correction move together | nonuniform `P₇` clique blow-ups | #430a |
 | stars on the Graffiti³ closed-distance-two GA wall | one hub keeps every spoke term at equality | split the hub into adjacent unequal centers (double stars) | Graffiti³ Conjecture 2; `DS(k,k)` fails for every `k>=12` |
 | repeated equality in #438b | matching edges seem able to evade both induced-subgraph corrections | low-degree false-twin layer | no crossing: the attempted separation yields a stronger arbitrary-subset theorem proving #438b |
+| Bondy balanced rewiring | every surviving peripheral graph is the union of two `C4`-factors | factor-incidence scaffold and compatible Euler tours | no crossing: the whole connected `C4/C4` coordinate is Hamiltonian |
 
 The `P₇` crossing was the first replication in a substantially different
 conjecture cluster of the same prospective pattern
@@ -173,6 +174,25 @@ with `pc(H)=1`. The verified `DOMAIN_EXHAUSTED`
 [`v3.5 result`](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/v35-result.md)
 retires this frozen balanced-rewiring catalogue. It remains a contaminated
 bounded zero—not a proof of the declaration or a release.
+The resulting equality signal has now been closed symbolically: every one of
+the 96 raw rows is the connected edge-disjoint union of two spanning
+`C4`-factors, and every such union is Hamiltonian. The proof turns factor
+cycles into a 4-regular incidence scaffold and applies a compatible Euler tour;
+an executable replay constructs and checks a Hamilton cycle in all 96 exact
+rows. See the
+[`C4`-factor theorem shadow](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/c4-factor-hamiltonicity-theorem.md).
+This retires every expansion that preserves the connected `C4/C4`
+factorization, not just the enumerated quotient catalogue.
+
+The next target-free coordinate reached Bondy's degree wall with
+`K_r join (c K_2)`, but failed the signed-separation gate. More generally, the
+degree premise forces every universal-separator/disconnected-lobe
+construction into a size range where a maximum peripheral path packing cannot
+leave a four-vertex path. The independently audited
+[`G3 strict stop`](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/next-coordinate-strict-stop.md)
+therefore retires that entire design class without making a circumference,
+`q_4`, or proposed-target call. A future Bondy arm must break both the
+compatible-Euler factorization and the universal-separator packing no-go.
 The exact continuity policy remains recorded in the
 [`v3 continuity audit`](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/tip-continuity-policy-audit.md).
 
