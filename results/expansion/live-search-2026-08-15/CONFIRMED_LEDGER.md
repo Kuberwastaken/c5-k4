@@ -179,3 +179,43 @@ as a real risk of losing priority, not a neutral choice.
 - `SnakeInTheBox.snake_upper_bound` omits the `− 7` present in its own docstring formula; `sidorenko_tree` is tagged `research solved` with an open `sorry` in its inductive step.
 
 **Verified clean with brackets** (recorded so they are not re-run): `(2,5)`-perfect `σ(σ(n)) = 5n` none for `n ≤ 1.2·10⁶`; 3×3 semi-magic square of distinct cubes none (roots ≤ 220, third row to 317); Pollock 5-tetrahedral holds for `N ≤ 3·10⁶` with Salzer–Levine reproduced exactly (343867 not a sum of four tetrahedra; 241 exceptions); Oppermann for `2 ≤ x ≤ 50000`; no Wall–Sun–Sun prime `p < 2·10⁶`.
+
+## Wikipedia collection, A–L lane (2026-08-15)
+
+80/80 triaged (59 certificate-shape-incompatible · 13 finite · 8 faithfulness
+surfaces) at pin `638da20e`, re-verified unchanged at end of run.
+
+**Crossing — finitely false as written, novel**
+
+| Target | Witness | Why |
+|---|---|---|
+| `EllipticCurveRank.…rank_height_count_asymptotic` | **`H = 2`** (also `H = 3`), any `r ∈ [1,20]` | Asserts an exact equality `{E ∈ heightLE H \| r ≤ E.rank}.ncard = (H:ℝ)^((21−r)/24 + f H)` for every `H > 1`. But `naiveHeight E = max(4\|A\|³, 27B²) ≤ 3` forces `A = B = 0`, excluded by `Δ_ne_zero` and `reduced`, so `heightLE 2 = ∅` and `ncard = 0` while `Real.rpow 2 x > 0` for every real exponent — no `f` can satisfy it. Two code paths; first non-empty is `heightLE 4 = {(±1,0)}` |
+
+Provenance: PR #252 ("fix(EllipticCurveRank): corner cases and a sanity check")
+introduced the `1 < H` guard for exactly this failure mode and stopped one step
+short — the set stays empty until `H = 4`. The sibling
+`twentyone_le_rank_height_count_asymptotic`, edited in the same diff, uses `≤`
+and is immune. The PPVW 8.2(b) heuristic itself is untouched.
+
+**Faithfulness defects, apparently unclaimed**
+
+| Target | Defect |
+|---|---|
+| `HardyLittlewood.first_hardy_littlewood_conjecture` | Two: (i) states `=O[atTop]` where the docstring and source both say `∼`, which for admissible tuples is a classical Brun/Selberg sieve theorem rather than the open conjecture; (ii) offsets are not required distinct — at `m = ![0,1,1]` the Euler product diverges (partials 1.63 → 8.12 for `Q = 10…10⁶`), so Mathlib's `tprod` returns junk `1`, giving `C = 4` and an RHS `≍ n/log³n` that is false conditional on the twin-prime conjecture. The constant is otherwise right: `m = ![0,1]` gives `1.320324` vs `2C₂ = 1.320323632…` |
+| `Dickson.polignac_conjecture` | Not de Polignac: the source requires **consecutive** primes; the Lean states the strictly weaker generalized-twin form, and admits `k = 0` where the instance is Euclid's theorem |
+| `Wikipedia.…same_parity_betrothed` | Omits `m ≠ n`; `IsBetrothed n n ⟺ σ(n) = 2n+1` (quasiperfect), so it is satisfiable by a different open problem. Sibling `infinitely_many_betrothed` does enforce `p.1 < p.2`. No `n ≤ 5·10⁶` with `σ(n) = 2n+1`; 35 betrothed pairs `≤ 5·10⁶`, all opposite parity |
+| `Koethe.…matrixOver_KotherRadical` | `{I}`/`hI` do not occur in the conclusion (spurious, not vacuous — satisfiable at `I = ⊥`); docstring misstates the code, which correctly gives Wikipedia's formulation 6 |
+| `DedekindNumber.M_eq` | The `answer(sorry)` hole is closed by `kisielewiczFormula`, at which point it *is* the `research solved` declaration directly above it. **Partially claimed**: issue #3490 (closed) raised it; resolving PR #3895 reworded the docstring and *added* the closing witness while leaving the hole open |
+
+**Already claimed — stopped**: `bounded_burnside_problem` (`research open` on a
+question Novikov–Adian settled in 1968) is issue **#4518** + PR **#4519**, open
+since 2026-07-21 with the same proposed fix.
+
+**Self-refuted candidate**: `feit_thompson_primes` — the omitted direction is
+trivially true (`x ↦ (x−1)/log x` increasing on `[2,∞)`), so the Lean keeps
+exactly the non-trivial half. No defect.
+
+**Bounded holds**: 4-D Euler brick exhaustive to sides `≤ 10⁵` — 1714 3-D Euler
+bricks (smallest `(44,117,240)`), **zero** 4-D; idoneal completeness exact to
+`10⁵` (and `10⁶` over-budget, recorded); Büchi `M = 5` none in range; Gilbreath
+`d^k(0) = 1` for `k ≤ 5000`; Goormaghtigh only 31 and 8191 up to `10¹³`.
