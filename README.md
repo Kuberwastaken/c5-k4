@@ -163,6 +163,16 @@ rejections; no candidate was found. This is useful optimization evidence, not
 a bounded hold, domain exhaustion, or mathematical result. The full hashes,
 cancelled-dispatch receipt, and standing are in the
 [`v3.4 result`](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/v34-result.md).
+That exact prefix then motivated a certificate-preserving v3.5 evaluator:
+a bounded deterministic spanning-path search may reject a row only after
+emitting an independently replayable path; any miss falls through to the
+unchanged full DP. V3.5 restarted at row zero with the same grammar and caps
+and exhausted all 96 rows. Exact isomorphism filtering retained 22 applicable
+graphs, and all 22 had a canonical spanning path, so every row was rejected
+with `pc(H)=1`. The verified `DOMAIN_EXHAUSTED`
+[`v3.5 result`](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/v35-result.md)
+retires this frozen balanced-rewiring catalogue. It remains a contaminated
+bounded zero—not a proof of the declaration or a release.
 The exact continuity policy remains recorded in the
 [`v3 continuity audit`](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/tip-continuity-policy-audit.md).
 
@@ -552,9 +562,10 @@ Separately, the adaptive live loop now has a frozen
 gates source eligibility, target-free constructor reachability, signed
 invariant separation, and exact replay before dispatch; it also retires
 saturated equality families and fixes a prospective next-ten falsification
-test. This is `DEVELOPMENT`, not the future-cohort benchmark. At the current
-pin Bondy is the only legacy arm still worth completing, and no second target
-is fabricated merely to keep a worker busy.
+test. This is `DEVELOPMENT`, not the future-cohort benchmark. At its freeze,
+Bondy was the only legacy arm still worth completing; that exact arm is now
+exhausted, leaving no current score-qualified target. No second target is
+fabricated merely to keep a worker busy.
 
 The development record also publishes its zeroes. Method v0.2 found no
 crossing for #382e after 212,502 wall-directed substitutions, all connected
