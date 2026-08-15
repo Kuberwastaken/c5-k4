@@ -1,0 +1,110 @@
+# Preregistration — fresh-generation three-arm test
+
+**Written 2026-08-15, BEFORE the conjecture population exists.** The generator
+was running when this file was committed and had produced no output; the git
+history of this repository is the evidence for that ordering. If the population
+file predates this commit, this preregistration is void.
+
+**Tag:** `prereg-three-arm-v1`
+
+## Why
+
+The campaign's central claim — that exact tightness structure *prospectively*
+guides counterexample design — has never been tested against a control. The
+independent review of 2026-08-15
+([`../review/INDEPENDENT_REVIEW_2026-08-15.md`](../review/INDEPENDENT_REVIEW_2026-08-15.md))
+counted **n≈4** developmental crossings, **n≈1** under frozen protocol, and
+**n=0** held-out, against roughly 80 frozen decisions — and noted that the one
+frozen crossing was found independently by its own catalogue arm, giving the
+navigation method a measured marginal value of zero on that instance. This
+experiment exists to settle that with one clean measurement.
+
+## Hypotheses
+
+- **H1 (the claim):** an arm that uses equality/tightness structure to design
+  separating families finds counterexamples that neither a fixed catalogue of
+  known extremal graphs nor generic search finds, at equal compute.
+- **H0 (null):** it does not. Any crossing the wall arm finds is also found by
+  the catalogue arm or by generic search.
+
+## Population
+
+Generated **after** this file is committed, by
+[`../../scripts/gen/`](../../scripts/gen/), and frozen at
+`results/experiment/fresh-population/population.json`.
+
+- Database `D`: all connected graphs on `n ≤ 8` (boundary to be recorded exactly
+  by the generator; if `n = 8` proves infeasible the generator must say so).
+- Emitted statements: Graffiti-style inequalities over a fixed invariant
+  vocabulary, retained only if they have **zero counterexamples in `D`**.
+- Filtered to finite-universal form ("for all connected graphs, <finite
+  inequality>"), deduplicated to structural clusters, capped at **30 targets**.
+- The generator is forbidden from testing any candidate against any graph
+  outside `D`. Any candidate it accidentally learns is false outside `D` is
+  discarded and recorded.
+
+**Population freeze:** once `population.json` is committed, no target may be
+added, removed, edited, or reordered. A target that later proves malformed is
+scored as `INVALID` and reported, not silently dropped.
+
+## Arms
+
+Three arms, run **independently and blind to each other's results**, each on a
+disjoint agent with no access to the others' output files.
+
+1. **Catalogue arm.** Test each target against a fixed, pre-declared list of
+   known extremal/pathological graphs: C₅[K_m] for m = 2..6, T(n) = L(Kₙ) for
+   n = 7..9, Petersen, Kneser K(n,2) for n = 5..7, Paley(13/17/29), complete
+   multipartite, cocktail-party, prisms/Möbius–Kantor, complete bipartite,
+   stars, brooms, double stars, the complement of each of the above. No design
+   step; pure lookup.
+2. **Generic arm.** Search without tightness information: random graphs across a
+   range of densities, plus local search / simulated annealing minimising the
+   target's slack, plus exhaustive small-graph sweeps beyond `D`.
+3. **Wall arm.** The campaign's method (METHOD_V1_6 §A3, frozen): read the
+   equality members recorded with each target, identify the invariant that
+   prevents crossing, apply the G3-lite symbolic sign check on the two smallest
+   members, then construct and test a purpose-built separating family.
+
+**Budget:** 1 CPU-hour per arm per target, hard cap, wall-clock enforced. An arm
+that exceeds it on a target records a bracket, not a result.
+
+## Primary endpoint
+
+**Wall-arm-unique crossings**: targets refuted by the wall arm and by neither
+the catalogue arm nor the generic arm, where every crossing must pass the
+standing verification bar — independent recomputation by a second code path,
+and the database-sanity gate (a "refutation" that also refutes members of `D`
+is a bug in the reading, not a crossing).
+
+## Decision rule, fixed in advance
+
+- **Claim supported** if the wall arm produces **≥ 3 unique crossings** over
+  **≥ 20 scored targets** AND its unique count is **≥** the catalogue arm's
+  total crossings.
+- **Claim falsified** if wall-unique crossings **≤** catalogue-unique crossings.
+- **Inconclusive** otherwise (including fewer than 20 scored targets), reported
+  as inconclusive with no reinterpretation of the endpoint.
+
+## Commitments
+
+1. The result is published in this repository **whatever it shows**, including
+   a null or falsifying result, within one week of the run completing.
+2. The endpoint, criterion, arms, and budget above will not be changed after
+   seeing any arm's output. Any deviation is recorded as a protocol violation in
+   the results file, with the reason.
+3. Arms do not communicate. Cross-contamination invalidates the affected target.
+4. No arm may be re-run to improve its score. A failed or crashed arm run is
+   reported as such.
+5. If the wall arm's operator (agent or human) recognises a target from prior
+   campaign work, that target is scored `CONTAMINATED` and excluded from the
+   denominator — reported, not hidden.
+
+## What would make this test worthless
+
+Recorded now so it cannot be rationalised later: a population small enough that
+3 uniques is noise; targets so easy that all three arms refute everything; a
+wall arm that is really doing generic search with extra steps; or any
+post-hoc adjustment of the criterion. If the run hits one of these, the honest
+report is "the experiment failed to test the hypothesis", not a claim in either
+direction.
