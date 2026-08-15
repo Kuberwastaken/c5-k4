@@ -466,3 +466,114 @@ Scanned `n = 1..2·10⁶`: the zero set is exactly `{1, 6, 30, 54}`. Source veri
 exceeds ours. `scratch/batchA.py`.
 
 ---
+#### A034693 — `exists_k` and `exists_k_stronger` — `HOLD_BOUNDED`
+OEIS pin: COMMENTS "Conjecture: for every n > 1 there exists a number k < n such that n*k + 1
+is a prime. - Amarnath Murthy"; "A stronger conjecture: for every n there exists a number
+k < 1 + n^(.75) such that n*k + 1 is a prime … verified this up to n = 10^6. - Joseph L. Pe";
+"Stronger version of the conjecture verified up to 10^9. - Mauro Fiorentini". Both Lean
+statements are faithful (`Real.nthRoot 4 n ^ 3 = n^(3/4)`). Recomputed `a(1..30) =
+1,1,2,1,2,1,4,2,2,1,2,1,4,2,2,1,6,1,10,2,2,1,2,3,4,2,4,1,2,1` = DATA ✓.
+Scanned `n = 1..10⁶` with a prime sieve to 10⁷ (877 735 of the 10⁶ values resolved; the rest
+have `n·k+1 > 10⁷` before a prime appears): **0 violations** of either statement.
+The two remaining declarations in this file (`a_isBigO`, `a_unbounded`) are asymptotic —
+`CERTIFICATE_SHAPE_FAIL`; note they are *mutually contradictory* as stated
+(Ordowski's `a(n) = O(log n log log n)` vs. Greathouse's "I conjecture the opposite"),
+so at most one can be true. `scratch/c034693.py`.
+
+#### A110475 — `∀ m > 0, m ∉ exceptionalSet ↔ ∃ x y, a x = 1 ∧ a y = 1 ∧ m = x + y` — `HOLD_BOUNDED`
+OEIS pin: COMMENT (Jonathan Vos Post, Sep 11 2005) "It is conjectured that 1,2,3,4,5,6,7,9,11
+are the only positive integers which cannot be represented as the sum of two elements of
+indices n such that a(n) = 1." Faithful. The Lean `a` reproduces the DATA
+`0,0,0,1,0,1,0,1,1,1,0,2,0,1,1,1,0,2,0,2,…` exactly (note `numAsterisks = k - 1` truncates to
+`0` at `n = 1`, giving `a 1 = 0`, matching the source's `a(1) = 0`).
+`{x : a x = 1}` = semiprimes ∪ prime powers `p^e, e ≥ 2` = `4,6,8,9,10,14,15,16,21,22,25,…` ✓.
+Checked the `↔` for every `m = 1..3·10⁵`: **0 violations**. `scratch/c110475.py`.
+
+#### A110835 — Sierpiński `∀ n > 0, a n ≥ n` — `HOLD_BOUNDED`
+OEIS pin: COMMENT (Charles R Greathouse IV, Oct 09 2010) "Sierpinski's conjecture (1958) is
+precisely that a(n) >= n for all n"; and "the 'inclusive' condition for the range affects only
+n=1" — the Lean predicate uses `n*m ≤ p ∧ p ≤ n*(m+1)` (inclusive) ✓ and indeed reproduces
+`a(1) = 8`. Recomputed `a(1..30) = 8,4,8,6,18,15,17,25,13,20,29,44,87,81,35,83,79,74,70,67,
+118,330,58,223,172,229,179,471,292,360` = DATA ✓.
+Sieve to 3·10⁷; **156 values of n (all n ≤ 194 that resolve in that window)**: `a n ≥ n`
+always, minimum slack `a n − n = 2` at `n = 2`. Beyond that the first prime gap of length `n`
+exceeds the sieve. `scratch/c110835b.py`.
+
+#### A104320 — `∀ n > 15, a n > 0` — `HOLD_BOUNDED`
+OEIS pin: COMMENT "Conjecture from N. J. A. Sloane: a(n) > 0 for n > 15, see A102483."
+Faithful. Base-3 representation of `2^n` maintained incrementally (exact), `n = 0..12000`:
+`a` reproduces the DATA head exactly; the only `n` with a zeroless base-3 `2^n` are
+`n ∈ {0,1,2,3,4,15}`. **0 violations**. `scratch/c104320.py`.
+
+#### A108866 — `(ratExpression n).num ≡ 0 [ZMOD n²] ↔ n.Prime` for `n > 3` — `HOLD_BOUNDED`
+OEIS pin: COMMENT (Thomas Ordowski, Mar 02 2020) "Conjecture: for n > 3,
+numerator(-2/n + Sum_{k=1..n} 2^k/k) == 0 (mod n^2) if and only if n is prime." Faithful,
+including the reduced-`num` reading. Exact `Fraction` arithmetic, `n = 4..1200`:
+**0 violations** in either direction. `scratch/c108866.py`.
+
+#### A001146 — `(k⁴−1) ∣ (2ᵏ−1) → k > 1 → ∃ n ≥ 2, k = 2^(2ⁿ)` — `HOLD_BOUNDED`
+OEIS pin: COMMENT (M. F. Hasler, Jul 25 2015) "I conjecture that { a(n) ; n>1 } are the
+numbers such that n^4-1 divides 2^n-1, intersection of A247219 and A247165." Faithful.
+`k⁴−1` must be odd (it divides the odd `2ᵏ−1`), so only even `k` can qualify; scanned every
+even `k` in `2..2·10⁶` by exact modular exponentiation: the solutions are exactly
+`16, 256, 65536` `= 2^(2ⁿ)` for `n = 2,3,4`. **0 violations**. `scratch/cbatchC.py`.
+
+#### A113010 — `a n = n ∧ n > 0 → n = 1 ∨ n = 32` — `HOLD_BOUNDED` (near-complete)
+OEIS pin: COMMENT "n=1 and 32 are two fixed points. Are there any others? There are no other
+fixed points less than 10^1000. - Chai Wah Wu, Feb 28 2019." Faithful.
+Direct scan `n ≤ 10⁷` → `{1, 32}`. Additionally an **exhaustive** scan over the only possible
+shape (`d` = digit count, `s` = digit sum, `n = d^s`) for every `d ≤ 39`, `s ≤ 9d` gives exactly
+`(d,s,n) ∈ {(1,1,1), (2,5,32)}` — i.e. no other fixed point below 10³⁹. `scratch/cbatchC.py`.
+
+#### A114216 — `∀ n > 33900, a n ≠ 1` — `HOLD_BOUNDED`
+OEIS pin: COMMENT "a(33899) = 123729 and the 33900th prime is 400559, hence 123729 + 400559 =
+524288 = 2^19 and a(33900) = 1. Is a(33900) the last term equal to 1? No other terms with
+a(n) = 1 for n < 10000000." Faithful. Recomputed with a sieve to 2·10⁷ (1 270 607 primes),
+`n = 1..1 270 607`: `a n = 1` exactly at `n ∈ {1, 2, 5, 12, 14, 20, 75, 33900}`; **0** with
+`n > 33900`. Source verification (10⁷) exceeds ours. `scratch/cbatchC.py`.
+
+#### A102371 — `a n = 2^n − 1 − A105033.a (n−1)` for `n > 0` — `HOLD_BOUNDED`
+OEIS pin: COMMENT (David A. Corneth, May 07 2020) "Do we have a(n) = 2^n-1-A105033(n-1)?"
+Faithful; the Lean `OeisA105033.a` matches A105033's published FORMULA.
+`a(1..12) = 1,2,7,12,29,62,123,248,505,1018,2047,4084` = DATA ✓.
+Checked `n = 1..400` (exact, ℕ-truncation applied): **0 violations**. `scratch/c102371.py`.
+
+#### A011545 — `conjecture1` (no π-prefix is a square) and `conjecture2` — `HOLD_BOUNDED`
+OEIS pin: COMMENT "Wolfgang Haken (1977) conjectured that no term of this sequence is a
+perfect square…" (→ `conjecture1`), and the Jianing Song note "this property … is equivalent
+to the statement that the interval (m*Pi, Pi/arctan(1/m)) does not contain an integer for all
+m = 10^n, is not known to be true for sure" (→ `conjecture2`). Both faithful.
+π computed to 3025 digits by Machin's formula in exact integer arithmetic:
+`a(n) = ⌊π·10ⁿ⌋` reproduces the DATA; **no `a(n)` is a perfect square for n < 3005**, and
+**no integer lies in `(π·10ⁿ, π/arctan(10⁻ⁿ))` for n < 600**. `scratch/c011545.py`.
+
+#### A108301 — `answer ↔ ∃ n > 11, (a n).Prime` — `HOLD_BOUNDED` (construction lane, no hit)
+OEIS pin: COMMENT "a(0), a(1), a(5), a(6), a(7) and a(11) are primes. Are there any more?"
+Faithful. Recomputed digit sums of `2^(2^n)+1` from scratch for `n = 0..18` — exact match with
+the DATA. Primality-tested every published term `n = 12..27`
+(`5624, 11120, 22166, 44222, 88262, 176180, 353042, 707648, 1419974, 2836751, 5679620,
+11365592, 22723865, 45445442, 90899234, 181828850`): **none is prime**
+(the only odd candidates, 2836751 and 22723865, are composite). No resolution.
+`scratch/c108301.py`.
+
+#### A103662 — `conjecture.variants.a_40 : ¬∃ b, IsValidZerolessPower 40 b` — `HOLD_BOUNDED`
+OEIS pin: "a(40), if it exists, is not known." Faithful; the Lean `a` reproduces
+`1,2,4,8,16,32,64,128,256,512,9765625,177147,531441` = DATA ✓.
+Scanned every base `b = 2 .. 51 725 559` for a zeroless decimal `b⁴⁰`: **none found**.
+(The companion `conjecture : ∃ N, ∀ n > N, a n = 0` is `CERTIFICATE_SHAPE_FAIL`.)
+`scratch/c103662.py`.
+
+#### A000041 — `answer ↔ ∀ k, ¬IsPerfectPower (p k)` — `HOLD_BOUNDED`
+OEIS pin: the Zhi-Wei Sun (Dec 02 2013) comment; `Nat.IsPerfectPower n := ∃ k m, 1 < k ∧
+1 < m ∧ k^m = n` correctly excludes `p(0) = p(1) = 1`, so there is **no** `n = 1` triviality.
+Computed `p(n)` for `n = 0..30000` by the pentagonal recurrence (exact; `p(50) = 204226` ✓)
+and tested each for perfect-power-ness by exact integer `m`-th roots: **none is a perfect
+power**. `scratch/c000041.py`.
+
+#### A001157 — Zhi-Wei Sun, pairwise distinct `Int.fract (σ_k(n)/n^k)` — `HOLD_BOUNDED`
+OEIS pin: COMMENT (Zhi-Wei Sun, Oct 15 2015) "For each k = 2,3,..., all the rational numbers
+sigma_k(n)/n^k = Sum_{d|n} 1/d^k (n = 1,2,3,...) have pairwise distinct fractional parts."
+Faithful. Exact `Fraction` fractional parts for `k = 2,3,4,5,6` and `n = 1..2·10⁵`
+(10⁶ values total): **0 collisions**. `scratch/c001157.py`.
+
+---

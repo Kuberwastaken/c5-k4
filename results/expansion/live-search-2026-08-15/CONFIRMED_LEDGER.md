@@ -23,6 +23,8 @@ appropriate artifact is an upstream issue in the style of the live trackers.
 | **Erdős 40** `erdos_40` | `Erdos40ForSet G := ∀ g ∈ G, …` with no extremality wrapper, so the `answer(sorry)` hole closes vacuously | Witness `answer := (∅ : Set (ℕ → ℝ))`. Same file's `variants.implies_erdos_28` uses `.univ`, showing the strong reading was intended | Not listed upstream |
 | **Erdős 33** `.variants.one_mem_lowerBounds` | States `∃ A, … ∧ 1 < limsup …` while name/docstring claim a lower bound | Witness `A = ℕ`: `k = k + 0²`, `limsup N/√N = ⊤` | Not listed upstream (the file's headline self-answer *is* already in #4923) |
 | **Erdős 15** | RHS is provably **False** as encoded — Mathlib `Summable` is unconditional (absolute over `ℝ`) and `∑ n/pₙ ~ ∑ 1/log n` diverges — while Erdős's actual question (conditional convergence) is open | Divergence argument | Not listed upstream |
+| **Erdős 477** | Source says `b ∈ {f(k) : k ∈ ℤ}`; all five declarations use `f.eval '' {n \| 0 < n}` = `{f(k) : k ≥ 1}`. The site's own published degree-2 proof uses `f(k) − f(−k)`, which the Lean set excludes | Repaired the `X²` case (`f(k+1) − f(k−1)`, `k ≥ 2`); the general `a ∣ b` variant is **not** repaired by that argument | Not listed upstream |
+| **Erdős 952** | Source asks a question and quotes [Er80] "the answer is almost certainly negative"; the Lean asserts the positive existence as a bare `theorem` rather than `answer(sorry) ↔` | Checked for a trivial-truth loophole: none (the norm is the squared step; injectivity forces escape to infinity) | Not listed upstream |
 
 ## Confirmed but partially claimed
 
@@ -41,6 +43,24 @@ appropriate artifact is an upstream issue in the style of the live trackers.
 | **Erdős 44** `.variants.empty_start` | Exactly Singer (1938), cited by the corpus itself on EP 30 |
 | **Erdős 60** `.variants.two_copies` | Tagged `research solved`; the site records no proof — mis-tagged in the *solved* direction |
 | **OEIS A357513** | Proved by Kutal, Jul 2026, with a Lean formalization; not tracked upstream |
+
+## Closed brackets and negative results worth keeping
+
+- **Erdős 242** (Erdős–Straus with distinctness): predecessor's timeout bracket is
+  **closed**. Exact divisor enumeration (`(py−q)(pz−q) = q²`) settles every
+  `x ∈ (n/4, 3n/4]` completely, plus a divisor lift. Every `n = 3..2,000,000` has an
+  explicit verified `(x,y,z)`; 148,933 exhaustive, 1,851,065 lifted, 45.5 s, third
+  code path agrees to `n ≤ 400`. `HOLD_BOUNDED`.
+- **Erdős 779**: first run ever; least prime witness for every `n = 1..200`
+  (largest `p = 3559` at `n = 180`). `HOLD_BOUNDED`, bracket at `n ≥ 201`.
+- **Erdős 982**: the one genuinely finite target; faithful. Exhaustive integer
+  searches for `n = 6..9` found nothing. Its concyclic obstruction is **already
+  upstream** (open PR #4694 / issue #4691) — no novelty available there. Live lane
+  continues via Danzer's 9-gon and the Fishburn–Reeds 20-gon.
+- **Erdős 274**: the predecessor's flagged `ENat.card`/index-0 loophole **does not
+  exist** — Neumann's lemma forces finite index on every part of a finite exact
+  cover, so the declaration is exactly Herzog–Schönheim. Minimal counterexample needs
+  `k ≥ 5`; 89 groups searched exhaustively, 0 hits.
 
 ## Refuted predecessor claims (recorded so they are not re-raised)
 

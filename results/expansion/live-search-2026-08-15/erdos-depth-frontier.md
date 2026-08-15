@@ -703,3 +703,71 @@ equivalent for the property in question, because `3n+1` is even whenever `n` is
 odd, so one shortcut step equals two unaccelerated steps and the two orbits hit
 1 together. Not a defect.
 
+## F9 — triage corrections, and the one live lead left on 982
+
+### Triage corrections to `erdos-hunt.md`'s "residual candidate dispositions"
+
+1. **1041 is not `CONSTRUCTION_ONLY`.** The predecessor's table lumps "952,
+   1041 — purely existential; a bounded search can prove but never disprove".
+   952 is indeed purely existential, but `erdos_1041` has `f` universally
+   quantified by `variable … include` at file scope, so the declaration is
+   `∀ n f, … → ∃ z₁ z₂ γ, …`. A bounded search can therefore neither prove nor
+   disprove it. Correct label: `CERTIFICATE_SHAPE_FAIL` (see F8).
+2. **274's `ENat.card` note is inverted.** The predecessor recorded that
+   infinite-index parts would make the conclusion trivially satisfiable. By
+   Neumann's lemma no part of a finite exact cover can have infinite index at
+   all, so the observation never applies and the declaration is exactly
+   Herzog–Schönheim (see F6).
+3. Everything else in that table is confirmed: 409 (`CERTIFICATE_SHAPE_FAIL`,
+   already corrected by the predecessor), 1113, 1055, 535, 477 ×2, 1044, 349,
+   241, 189 all fail the finite-negation gate for the stated reasons; 617 and
+   1135 have finite negations but are prior-art stops; 952 is
+   `CONSTRUCTION_ONLY`; 982 is the genuinely finite one.
+
+### The live lead on 982 (not pursued — outside this lane's budget)
+
+The source's own remark points at the exact obstruction: a counterexample must
+have **at least three other vertices equidistant from every vertex**, and
+erdosproblems.com/97 (`FALSIFIABLE`) records that such convex polygons exist:
+
+* **Danzer's convex 9-gon** — every vertex has three vertices equidistant from
+  it (the distance varies by vertex); construction explained in [Er87b].
+* **Fishburn–Reeds [FiRe92] convex 20-gon** — every vertex has three vertices
+  equidistant from it *at the same distance for all vertices*.
+
+These are precisely the configurations that survive the pruning principle, and
+they are the natural seeds for a targeted 982 attack (`n = 9` needs
+`c_i ≤ 3`; `n = 20` needs `c_i ≤ 9`). Neither paper's coordinates were fetched
+here. This is the highest-value untouched item left on this target, and it is
+a genuine research lane rather than a grid sweep — a next agent should get the
+explicit coordinates from [FiRe92] / [Er87b] before any further brute force.
+
+### Ledger for this lane
+
+| outcome | count | targets |
+|---|---|---|
+| `HOLD_BOUNDED` | 4 | 982, 242, 779, 274 |
+| `CERTIFICATE_SHAPE_FAIL` | 12 decls | 477 ×2, 1055 ×3, 189, 241, 349, 535, 1041, 1044, 1113 |
+| `CONSTRUCTION_ONLY` | 1 | 952 |
+| prior-art / `KNOWN_PROOF_DOMAIN` stop | 2 | 617, 1135 |
+| **new formalization defects** | 3 | 477 (index set), 952 (asserted direction), 1055 (`IsOfClass` non-exclusive) |
+| new counterexamples | **0** | — |
+
+
+### Committed verifiers (this lane)
+
+Copied out of the scratchpad into this directory (the scratchpad is
+session-scoped and may be wiped):
+
+| script | invocation | target |
+|---|---|---|
+| `verify_erdos982_convex_distances.py` | `search <n> <N> <budget>` / `check "[(x,y),…]"` | 982, path A (grid DFS) |
+| `verify_erdos982_radius_enum.py` | `<n> <N> <budget>` | 982, path B (radius enumeration, K=2) |
+| `verify_erdos242_divisor_exhaustive.py` | `<N> <budget>` | 242 |
+| `verify_erdos779_deaconescu.py` | `<nmax> <budget>` | 779 |
+| `verify_erdos274_herzog_schonheim.py` | `<budget>` | 274 |
+| `verify_erdos1055_prime_classes.py` | `<rmax> <cap>` | 1055 (source vs Lean class) |
+
+All take a wall-clock budget argument and honour the 60 s cap; all use exact
+integer / `fractions.Fraction` arithmetic (`e779` additionally uses
+Miller–Rabin, deterministic only below `3.317·10^24`, as flagged in F5).
