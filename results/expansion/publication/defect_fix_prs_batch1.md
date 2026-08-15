@@ -139,6 +139,16 @@ and unassigned at push time.
 | [#4976](https://github.com/google-deepmind/formal-conjectures/issues/4976) Erdős 1055 | [#4988](https://github.com/google-deepmind/formal-conjectures/pull/4988) |
 | [#4977](https://github.com/google-deepmind/formal-conjectures/issues/4977) Erdős 40 | [#4993](https://github.com/google-deepmind/formal-conjectures/pull/4993) |
 
-All four `OPEN` and `MERGEABLE` at time of writing. Work was done in a dedicated
-`git worktree` off `upstream/main`, removed afterwards; the shared checkout at
-`/Users/kuber.mehta/Projects/formal-conjectures` was never modified.
+All four `OPEN` and `MERGEABLE` at time of writing. CI: every fast check passes on
+all four (`check-changes`, `check-copyright`, `Test scripts`, `labeler`, `scan-pr`,
+`cla/google`); the authoritative `Build project` job was still `pending` on all
+four ~15 min after opening and was not waited out. **The upstream build is the
+check that matters and it has not yet reported** — nothing here claims a passing
+build.
+
+Work was done in a dedicated `git worktree` off `upstream/main`, removed
+afterwards; the shared checkout at `/Users/kuber.mehta/Projects/formal-conjectures`
+was never modified (`git status` clean, still on its own `disprove-oeis-110854`
+branch at `7b3f3d76`). The one olean compiled by hand
+(`FormalConjectures.ErdosProblems.«28»`, needed to elaborate `40.lean`) was written
+to the session scratchpad, never into `<repo>/.lake`.
