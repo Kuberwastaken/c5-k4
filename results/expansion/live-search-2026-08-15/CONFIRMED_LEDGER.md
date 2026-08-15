@@ -13,6 +13,29 @@ literal declaration is trivially *true*. None is eligible for the
 `UPSTREAM_PROTOCOL.md` release path, which is for counterexamples. The
 appropriate artifact is an upstream issue in the style of the live trackers.
 
+## Crossings — finite disproofs of open declarations (strongest class)
+
+These two are **counterexamples**: an explicit finite witness makes the open
+declaration's right-hand side false, forcing `answer := False`. They remain
+statements about the formalization — in both cases the underlying OEIS
+conjecture is untouched and *not* refuted — but unlike the vacuity findings
+below, something is genuinely false rather than trivially true.
+
+Both were independently re-verified by a second code path in the parent
+session (sieve-based, no shared code with the discovering lane).
+
+| Target | Witness | Why the declaration fails | Duplicate status |
+|---|---|---|---|
+| **OEIS A110854** `conjecture` | **d = 3** (premise via 5 − 2) | `a n = p(2n+2) − p(2n+1) − p(2n) + p(2n−1)`. `a 1 = 7−5−3+2 = 1`; for `n ≥ 2` all four primes are odd, so `a n` is even. Hence `{\|a n\| : n>0} ⊆ {1} ∪ 2ℕ` and 3 is unreachable. Confirmed: all `a n` even for `n = 2..3000`, 3 absent. Further witnesses d = 5, 9, 11, 15, 17, 21 | Novel — 0 hits on `A110854`/`110854` (only PR #4450, the AutoOeis batch that created the file); absent from #4896/#4923/#4927 |
+| **OEIS A108864** `conjecture` | **n = 67**, `a 67 = 8925` (odd) | Declaration says `answer(sorry) ↔ ∀ n > 58, Even (a n)` over the set `\|σ(n) − 2n\| ≤ 10`. 8925 = 3·5²·7·17, σ = 17856, 2n = 17850, deviation 6 ≤ 10; indices 59–66 are all even, so 67 is minimal. Confirmed independently. **Root cause:** A108864 is "perfect deficiency (A109883) ≤ 10" — a greedy divisor-subtraction quantity, not `\|σ(n) − 2n\|`. Decisive: 24 is in the published DATA but `\|σ(24) − 48\| = 12 > 10` | Novel — 0 hits on `A108864`/`108864`/`A109883`; absent from the collector issues |
+
+The A108864 forensics are worth preserving: re-implementing A109883 literally
+reproduces its own 79 published terms, and its `≤ 10` filter reproduces
+A108864's first 61 DATA terms exactly, placing **1155 at 0-indexed position
+58** — precisely the bound the declaration uses. In the (incorrect) Lean set
+1155 sits at index 52. The OEIS conjecture itself ("is 1155 the last odd
+term?") is **not** refuted: A109883(8925) = 2969 ≫ 10.
+
 ## Confirmed, apparently unclaimed
 
 | Target | Defect | Witness / proof | Duplicate status |
@@ -81,6 +104,12 @@ Upstream contributor **KitaKen1** is running a parallel misformalization audit
 issues matching the misformalization/vacuous/`answer(sorry)` surface. The duplicate
 surface for everything above is therefore **moving daily**, and each item must be
 re-checked immediately before any write.
+
+Hard evidence of how fast: while the OEIS lane was running on 2026-08-15, upstream
+PR **#4964** was opened at 07:12Z covering **A103425**, a target that lane was
+mid-way through triaging. It stopped on the duplicate. A second target, **A100434**,
+was already covered by PR #4560 (closed unmerged). Treat any delay before writing
+as a real risk of losing priority, not a neutral choice.
 
 ## Non-open declaration defect (out of target scope, recorded)
 
