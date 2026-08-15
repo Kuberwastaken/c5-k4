@@ -47,7 +47,7 @@ Sixteen open as of 2026-08-15; none reviewed yet.
 | PR | Contribution | Class | CI |
 |---|---|---|---|
 | [#4995](https://github.com/google-deepmind/formal-conjectures/pull/4995) | EllipticCurveRank: `∀ᶠ H in atTop` (no numeral guard can work) | crossing repair | fast checks pass, build pending |
-| [#4999](https://github.com/google-deepmind/formal-conjectures/pull/4999) | `same_parity_betrothed`: add `m ≠ n` | formalization repair | fast checks pass, build pending |
+| [#4999](https://github.com/google-deepmind/formal-conjectures/pull/4999) | `same_parity_betrothed`: add `m ≠ n` | formalization repair | **all green** |
 
 ## C. Upstream issues filed
 
