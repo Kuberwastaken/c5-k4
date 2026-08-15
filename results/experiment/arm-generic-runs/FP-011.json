@@ -1,0 +1,27 @@
+{
+ "best_slack_desc": "random geometric r=0.60 n=22",
+ "best_slack_found": "0",
+ "best_slack_graph6": "UXl|p~~n|vv~^^zH~~||zn~||~xuxqIDG~}nMvIg",
+ "cap_cpu_seconds": 3600.0,
+ "cpu_seconds": 240.00319688399998,
+ "evals_this_run": 306798,
+ "id": "FP-011",
+ "method_counts": {
+  "ANNEAL": 34,
+  "FAM": 30,
+  "GROW": 8,
+  "SWEEP": 8
+ },
+ "method_found": null,
+ "n_max_probed": 40,
+ "next_unit": 80,
+ "seeds": {
+  "base_seed": 20347924,
+  "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
+ },
+ "statement": "For every connected graph G with n(G) >= 2:  gamma >= ceil((Tdist_min)/(m))",
+ "sweep_bases_n8_completed": 160,
+ "units_total": 80,
+ "verdict": "BRACKET",
+ "wall_seconds": 311.50005626678467
+}

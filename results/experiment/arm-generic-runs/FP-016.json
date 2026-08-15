@@ -1,0 +1,58 @@
+{
+ "best_slack_desc": "anneal n=14 unit=5",
+ "best_slack_found": "-1",
+ "best_slack_graph6": "M[Gd_BgOKO[vXg\\z?",
+ "cap_cpu_seconds": 3600.0,
+ "cpu_seconds": 105.812686342,
+ "evals_this_run": 52481,
+ "gate_database_sanity": {
+  "arm_counterexamples_in_D": 0,
+  "arm_equality_count_in_D": 290,
+  "gen_path_counterexamples": 0,
+  "gen_path_sample": 1500,
+  "population_equality_count_in_D": 290,
+  "status": "PASS"
+ },
+ "gate_second_code_path": {
+  "arm_lhs": "5",
+  "arm_rhs": "4",
+  "arm_slack": "-1",
+  "connected": true,
+  "gen_brute_lhs": "5",
+  "gen_brute_rhs": "4",
+  "gen_brute_slack": "-1",
+  "gen_scal_lhs": "5",
+  "gen_scal_rhs": "4",
+  "gen_scal_slack": "-1",
+  "graph6": "I_A_L?SVO",
+  "n": 10,
+  "second_code_path": "PASS"
+ },
+ "id": "FP-016",
+ "method_counts": {
+  "ANNEAL": 7,
+  "FAM": 30,
+  "GROW": 1,
+  "SWEEP": 1
+ },
+ "method_found": "ANNEAL",
+ "n_max_probed": 40,
+ "next_unit": 39,
+ "seeds": {
+  "base_seed": 20387519,
+  "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
+ },
+ "statement": "For every connected graph G with n(G) >= 2:  gamma_i <= floor((alpha)/2) + gamma",
+ "sweep_bases_n8_completed": 20,
+ "units_total": 39,
+ "verdict": "CROSSED",
+ "verify_cpu_seconds": 9.469016025999991,
+ "wall_seconds": 126.81070685386658,
+ "witness_graph6": "I_A_L?SVO",
+ "witness_lhs": "5",
+ "witness_n": 10,
+ "witness_raw_graph6": "M[Gd_BgOKO[vXg\\z?",
+ "witness_raw_n": 14,
+ "witness_rhs": "4",
+ "witness_slack": "-1"
+}

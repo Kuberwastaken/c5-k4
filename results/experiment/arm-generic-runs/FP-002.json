@@ -1,0 +1,55 @@
+{
+ "best_slack_desc": "G(n,p) p=0.45 n=37",
+ "best_slack_found": "-11",
+ "best_slack_graph6": "daXBGTD?siq?{PoT@C?ZWfrf?jJw@tiw[POeBLJAyFy?BnA{dCdOd^C?K{gGf@hxWTEqBJzTY}dx{oPzWmcFkM`GfHCY{\\DjdBZ|Be|EGEoLPWgb",
+ "cap_cpu_seconds": 3600.0,
+ "cpu_seconds": 0.05379527,
+ "evals_this_run": 1,
+ "gate_database_sanity": {
+  "arm_counterexamples_in_D": 0,
+  "arm_equality_count_in_D": 249,
+  "gen_path_counterexamples": 0,
+  "gen_path_sample": 1500,
+  "population_equality_count_in_D": 249,
+  "status": "PASS"
+ },
+ "gate_second_code_path": {
+  "arm_lhs": "5",
+  "arm_rhs": "6",
+  "arm_slack": "-1",
+  "connected": true,
+  "gen_brute_lhs": "5",
+  "gen_brute_rhs": "6",
+  "gen_brute_slack": "-1",
+  "gen_scal_lhs": "5",
+  "gen_scal_rhs": "6",
+  "gen_scal_slack": "-1",
+  "graph6": "L`cAwH@CxsVySP",
+  "n": 13,
+  "second_code_path": "PASS"
+ },
+ "id": "FP-002",
+ "method_counts": {
+  "FAM": 1
+ },
+ "method_found": "FAM",
+ "n_max_probed": 40,
+ "next_unit": 1,
+ "seeds": {
+  "base_seed": 20276653,
+  "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
+ },
+ "statement": "For every connected graph G with n(G) >= 2:  alpha >= dist_even_max - chi",
+ "sweep_bases_n8_completed": 0,
+ "units_total": 1,
+ "verdict": "CROSSED",
+ "verify_cpu_seconds": 9.302034615,
+ "wall_seconds": 0.11147618293762207,
+ "witness_graph6": "L`cAwH@CxsVySP",
+ "witness_lhs": "5",
+ "witness_n": 13,
+ "witness_raw_graph6": "daXBGTD?siq?{PoT@C?ZWfrf?jJw@tiw[POeBLJAyFy?BnA{dCdOd^C?K{gGf@hxWTEqBJzTY}dx{oPzWmcFkM`GfHCY{\\DjdBZ|Be|EGEoLPWgb",
+ "witness_raw_n": 37,
+ "witness_rhs": "6",
+ "witness_slack": "-1"
+}

@@ -1,0 +1,13 @@
+{
+ "command": "python3 scripts/exp/generic/check_against_gen.py --sample 1200 --seed 20260815 --full-d",
+ "full_D_pass": true,
+ "lines": [
+  "invariant cross-check against `scripts/gen/invariants.py` on 1255 graphs of `D`, against **both** gen backends (exhaustive `2^n` and branch-and-bound), over all 42 invariants the population uses: **0 mismatches**",
+  "invariant cross-check against the `scripts/gen` branch-and-bound backend on 68 graphs with `n = 9..24` outside `D` (random `G(n,p)` at four densities, paths, cycles, complete graphs): **0 mismatches**",
+  "all 30 frozen targets re-evaluated over all 12,112 members of `D` through this arm's own evaluator: **PASS \u2014 0 counterexamples, and every recorded equality count, min slack and max slack reproduces exactly**"
+ ],
+ "outside_D_graphs": 68,
+ "outside_D_mismatches": 0,
+ "sample_D_graphs": 1255,
+ "sample_D_mismatches": 0
+}

@@ -1,0 +1,55 @@
+{
+ "best_slack_desc": "random bipartite p=0.70 n=27",
+ "best_slack_found": "-2",
+ "best_slack_graph6": "Z?????????????????F}gnKxV]BH{D}fATJ?j~w@|]?]~g?~^w?k{w?]to??",
+ "cap_cpu_seconds": 3600.0,
+ "cpu_seconds": 0.527904305,
+ "evals_this_run": 21,
+ "gate_database_sanity": {
+  "arm_counterexamples_in_D": 0,
+  "arm_equality_count_in_D": 85,
+  "gen_path_counterexamples": 0,
+  "gen_path_sample": 1500,
+  "population_equality_count_in_D": 85,
+  "status": "PASS"
+ },
+ "gate_second_code_path": {
+  "arm_lhs": "5",
+  "arm_rhs": "6",
+  "arm_slack": "-1",
+  "connected": true,
+  "gen_brute_lhs": "5",
+  "gen_brute_rhs": "6",
+  "gen_brute_slack": "-1",
+  "gen_scal_lhs": "5",
+  "gen_scal_rhs": "6",
+  "gen_scal_slack": "-1",
+  "graph6": "Q??????k|{Y[ao~w^gD~?[wBm??",
+  "n": 18,
+  "second_code_path": "PASS"
+ },
+ "id": "FP-014",
+ "method_counts": {
+  "FAM": 1
+ },
+ "method_found": "FAM",
+ "n_max_probed": 28,
+ "next_unit": 1,
+ "seeds": {
+  "base_seed": 20371681,
+  "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
+ },
+ "statement": "For every connected graph G with n(G) >= 2:  gamma_2 >= floor((dist_even_min + disp_min)/2)",
+ "sweep_bases_n8_completed": 0,
+ "units_total": 1,
+ "verdict": "CROSSED",
+ "verify_cpu_seconds": 15.420831324,
+ "wall_seconds": 0.5941402912139893,
+ "witness_graph6": "Q??????k|{Y[ao~w^gD~?[wBm??",
+ "witness_lhs": "5",
+ "witness_n": 18,
+ "witness_raw_graph6": "Z?????????????????F}gnKxV]BH{D}fATJ?j~w@|]?]~g?~^w?k{w?]to??",
+ "witness_raw_n": 27,
+ "witness_rhs": "6",
+ "witness_slack": "-1"
+}

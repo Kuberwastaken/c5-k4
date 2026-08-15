@@ -1,0 +1,55 @@
+{
+ "best_slack_desc": "random bipartite p=0.35 n=10",
+ "best_slack_found": "-1",
+ "best_slack_graph6": "I??????~w",
+ "cap_cpu_seconds": 3600.0,
+ "cpu_seconds": 0.29376102000000004,
+ "evals_this_run": 9,
+ "gate_database_sanity": {
+  "arm_counterexamples_in_D": 0,
+  "arm_equality_count_in_D": 7,
+  "gen_path_counterexamples": 0,
+  "gen_path_sample": 1500,
+  "population_equality_count_in_D": 7,
+  "status": "PASS"
+ },
+ "gate_second_code_path": {
+  "arm_lhs": "2",
+  "arm_rhs": "3",
+  "arm_slack": "-1",
+  "connected": true,
+  "gen_brute_lhs": "2",
+  "gen_brute_rhs": "3",
+  "gen_brute_slack": "-1",
+  "gen_scal_lhs": "2",
+  "gen_scal_rhs": "3",
+  "gen_scal_slack": "-1",
+  "graph6": "I??????~w",
+  "n": 10,
+  "second_code_path": "PASS"
+ },
+ "id": "FP-008",
+ "method_counts": {
+  "FAM": 1
+ },
+ "method_found": "FAM",
+ "n_max_probed": 9,
+ "next_unit": 1,
+ "seeds": {
+  "base_seed": 20324167,
+  "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
+ },
+ "statement": "For every connected graph G with n(G) >= 2:  diam >= floor((A)/(ceil(lambda_1)))",
+ "sweep_bases_n8_completed": 0,
+ "units_total": 1,
+ "verdict": "CROSSED",
+ "verify_cpu_seconds": 26.10956568,
+ "wall_seconds": 0.2973337173461914,
+ "witness_graph6": "I??????~w",
+ "witness_lhs": "2",
+ "witness_n": 10,
+ "witness_raw_graph6": "I??????~w",
+ "witness_raw_n": 10,
+ "witness_rhs": "3",
+ "witness_slack": "-1"
+}
