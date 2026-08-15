@@ -58,12 +58,23 @@ MAX_TARGETS = 30
 # Left-hand sides.  Graffiti conjectures bound an "interesting" invariant; the
 # 0/1 characteristic functions and the raw order/size parameters appear only on
 # the right, as Graffiti uses them (correction terms and scale terms).
-TARGETS = [
+_ALL_TARGETS = [
     "alpha", "omega", "chi", "mu",
     "gamma", "gamma_t", "gamma_2", "gamma_i",
     "f", "b",
     "res", "annih", "diam", "rad", "kappa", "lam_max",
 ]
+
+# Excluded from *emission* (they stay in the vocabulary and are still computed
+# and cross-checked) purely on measured runtime: the largest induced forest `f`
+# and the largest induced bipartite subgraph `b` both exceed the 60 s cap on
+# 40-vertex graphs with the exact solvers available here -- >20 s on
+# G(40, 0.3) and G(40, 0.5), >12 s on the 5x8 grid.  A statement that cannot be
+# decided inside the cap is unscorable for every arm, so it must not be emitted.
+# Measurements: scripts/gen/check_target_budget.py.
+EXCLUDED_FOR_RUNTIME = ("f", "b")
+
+TARGETS = [t for t in _ALL_TARGETS if t not in EXCLUDED_FOR_RUNTIME]
 
 # quotas that stop one invariant owning the population
 MAX_PER_TARGET = 3
@@ -417,7 +428,13 @@ def main() -> int:
 
     print("[2/6] invariants ...", flush=True)
     names, M = invariant_matrix(D, recompute)
-    print("      %d invariants x %d graphs" % (len(names), M.shape[0]), flush=True)
+    computed = len(names)
+    keep = [j for j, k in enumerate(names) if k not in EXCLUDED_FOR_RUNTIME]
+    names = [names[j] for j in keep]
+    M = np.ascontiguousarray(M[:, keep])
+    print("      %d invariants computed, %d in the emission vocabulary "
+          "(excluded for runtime: %s) x %d graphs"
+          % (computed, len(names), ", ".join(EXCLUDED_FOR_RUNTIME), M.shape[0]), flush=True)
 
     stats = {k: 0 for k in ["rhs_expressions", "rhs_constant", "f5_target_on_rhs",
                             "candidates_reaching_full_D", "f1_counterexample_in_D",
@@ -447,9 +464,10 @@ def main() -> int:
             open(DB.DB_PATH, "rb").read()).hexdigest(),
     }
     stats["templates"] = E.TEMPLATE_COUNTS
-    stats["vocabulary_size"] = len(names)
+    stats["vocabulary_computed"] = len(I.VOCAB)
+    stats["vocabulary_emitted"] = len(names)
+    stats["excluded_for_runtime"] = list(EXCLUDED_FOR_RUNTIME)
     stats["targets_considered"] = len(TARGETS)
-    stats["wall_clock_seconds"] = round(time.time() - t_start, 1)
 
     print("[6/6] writing population ...", flush=True)
     os.makedirs(OUT_DIR, exist_ok=True)
@@ -461,6 +479,9 @@ def main() -> int:
     print("      %s  (%d targets, %.1f kB)"
           % (path, len(chosen), os.path.getsize(path) / 1024.0), flush=True)
     print(json.dumps(stats, indent=1))
+    # deliberately NOT part of the frozen artifact: a wall-clock field would make
+    # the output differ between runs and break byte-for-byte reproducibility.
+    print("wall clock: %.1fs" % (time.time() - t_start))
     return 0
 
 

@@ -25,13 +25,21 @@ database).  Two conventions are pinned here because the sources leave them open:
   * ``dist_even(v)``/``dist_odd(v)``: `v` itself is counted (distance 0 is even),
     matching ``scripts/profile_c5k4.py`` and the WOWII page examples.
 
-Excluded on purpose:
+Excluded from the vocabulary on purpose:
   * ``maxine`` -- the greedy "remove a maximum-degree vertex" process is
     tie-break dependent and therefore not an isomorphism invariant.
   * ``p(G)`` (path covering number), ``path(G)`` (longest induced path),
-    ``tree(G)`` (largest induced tree) -- see ``check_invariants.py``; these blow
-    the 60 s cap on 30--40 vertex graphs and are dropped from the emission
-    vocabulary rather than shipped as unverifiable statements.
+    ``tree(G)`` (largest induced tree), ``L_s``/``gamma_c`` (max-leaf spanning
+    tree / connected domination), ``alpha'`` (critical independence) -- no exact
+    solver available here decides them inside the 60 s cap at n = 30..40.
+
+Present in the vocabulary but excluded from *emission* on measured runtime:
+  * ``f`` (largest induced forest) and ``b`` (largest induced bipartite
+    subgraph).  Both exceed 20 s on G(40, 0.3) and G(40, 0.5) with the solvers
+    below, so a statement using them could not be decided by any arm inside the
+    cap.  They are still computed on `D` and cross-checked between backends; the
+    exclusion is enforced by ``generate.EXCLUDED_FOR_RUNTIME`` and the numbers
+    are in ``check_target_budget.py``.
 """
 from __future__ import annotations
 
@@ -574,185 +582,210 @@ def _min_dominating(adj: Sequence[int], n: int, kind: str) -> int:
 
     kind in {"gamma", "gamma_t", "gamma_2", "gamma_i"}.
 
-    Branching scheme: pick the still-unsatisfied vertex with the fewest ways to
-    satisfy it, and branch over those options `u_1..u_k` as
-    "take `u_i`, forbid `u_1..u_{i-1}`".  That enumeration is exhaustive and
-    visits no subset twice.
+    Three things make this fast enough to decide a 40-vertex graph:
+
+    * a greedy feasible solution seeds the incumbent, so pruning bites at once;
+    * a **disjoint-neighbourhood packing lower bound** -- collect unsatisfied
+      vertices whose candidate pools are pairwise disjoint; each needs its own
+      picks, so the sum of their shortfalls is a valid bound.  On sparse graphs
+      (paths, trees, grids) this is nearly exact and collapses the search;
+    * branching on the most constrained unsatisfied vertex as
+      "take `u_i`, forbid `u_1..u_{i-1}`", which is exhaustive and visits no
+      subset twice.
     """
     closed = [adj[v] | (1 << v) for v in range(n)]
-    full = (1 << n) - 1
     if kind == "gamma_t" and any(a == 0 for a in adj):
         raise ValueError("total domination undefined with isolated vertices")
-    cover = list(adj) if kind == "gamma_t" else closed
     indep = kind == "gamma_i"
     need2 = kind == "gamma_2"
-    best = [n]
+    # pool[v] = vertices whose selection helps satisfy v
+    pool0 = list(adj) if kind == "gamma_t" else closed
 
-    def satisfied(v: int, picked: int) -> bool:
+    def shortfall(v: int, picked: int) -> int:
         if need2:
-            return bool(picked >> v & 1) or _pc(adj[v] & picked) >= 2
-        return bool(cover_mask(picked) >> v & 1)
+            if picked >> v & 1:
+                return 0
+            return max(0, 2 - _pc(adj[v] & picked))
+        return 0 if (pool0[v] & picked) else 1
 
-    def cover_mask(picked: int) -> int:
-        c = 0
-        p = picked
-        while p:
-            u = (p & -p).bit_length() - 1
-            p &= p - 1
-            c |= cover[u]
-        return c
+    # ---- greedy incumbent -------------------------------------------------
+    picked = 0
+    while True:
+        short = [v for v in range(n) if shortfall(v, picked)]
+        if not short:
+            break
+        bestu, bestgain = -1, -1
+        for u in range(n):
+            if picked >> u & 1:
+                continue
+            if indep and (adj[u] & picked):
+                continue
+            gain = sum(min(shortfall(v, picked), 1) for v in short if pool0[v] >> u & 1)
+            if gain > bestgain:
+                bestu, bestgain = u, gain
+        if bestu < 0 or bestgain <= 0:
+            picked = (1 << n) - 1                    # fall back: everything
+            break
+        picked |= 1 << bestu
+    best = [_pc(picked)]
+
+    # ---- branch and bound -------------------------------------------------
+    def lower_bound(unsat) -> int:
+        """Disjoint-pool packing bound.
+
+        If two unsatisfied vertices have disjoint candidate pools, no single pick
+        can help both, so their minimum costs add.  A vertex that may be selected
+        itself costs 1 however large its shortfall, because selecting it settles
+        the constraint outright -- that distinction is what `gamma_2` needs.
+        """
+        used = 0
+        lb = 0
+        for v, need, pl in unsat:
+            if pl & used:
+                continue
+            used |= pl
+            lb += 1 if (pl >> v & 1) else need
+        return lb
 
     def rec(picked: int, banned: int, k: int):
         if k >= best[0]:
             return
-        # find the most constrained unsatisfied vertex
-        target, opts = -1, None
-        cm = None if need2 else cover_mask(picked)
+        unsat = []
         for v in range(n):
-            if need2:
-                if (picked >> v & 1) or _pc(adj[v] & picked) >= 2:
-                    continue
-                pool = closed[v]
-            else:
-                if cm >> v & 1:
-                    continue
-                pool = 0
-                for u in range(n):
-                    if cover[u] >> v & 1:
-                        pool |= 1 << u
-            pool &= ~(picked | banned)
+            need = shortfall(v, picked)
+            if not need:
+                continue
+            pl = (closed[v] if need2 else pool0[v]) & ~(picked | banned)
             if indep:
                 for u in range(n):
-                    if (pool >> u & 1) and (adj[u] & picked):
-                        pool &= ~(1 << u)
-            o = [u for u in range(n) if pool >> u & 1]
-            if not o:
+                    if (pl >> u & 1) and (adj[u] & picked):
+                        pl &= ~(1 << u)
+            # v is settled either by selecting v itself, or by `need` neighbours
+            if not (pl >> v & 1) and _pc(adj[v] & pl) < need:
                 return
-            if opts is None or len(o) < len(opts):
-                target, opts = v, o
-                if len(o) == 1:
-                    break
-        if target < 0:
+            unsat.append((v, need, pl))
+        if not unsat:
             best[0] = k
             return
+        unsat.sort(key=lambda z: (_pc(z[2]), -z[1], z[0]))
+        if k + lower_bound(unsat) >= best[0]:
+            return
+        _, _, pl = unsat[0]
         ban = banned
-        for u in opts:
+        for u in range(n):
+            if not (pl >> u & 1):
+                continue
             rec(picked | (1 << u), ban, k + 1)
             ban |= 1 << u
     rec(0, 0, 0)
     return best[0]
 
 
-def _max_induced_forest_bb(adj: Sequence[int], n: int) -> int:
-    """Largest induced forest, by branching on a shortest cycle of G[S]."""
-    best = [0]
+def _cycle_in(adj: Sequence[int], S: int, n: int, odd_only: bool = False):
+    """A short cycle (or short odd cycle) of `G[S]`, as a vertex set, or None."""
+    best = None
+    for src in range(n):
+        if not (S >> src & 1):
+            continue
+        dist = {src: 0}
+        par = {src: -1}
+        order = [src]
+        qi = 0
+        while qi < len(order):
+            v = order[qi]
+            qi += 1
+            nb = adj[v] & S
+            while nb:
+                u = (nb & -nb).bit_length() - 1
+                nb &= nb - 1
+                if u not in dist:
+                    dist[u] = dist[v] + 1
+                    par[u] = v
+                    order.append(u)
+                elif u != par[v]:
+                    cyc = set()
+                    a, b = v, u
+                    while a != b:
+                        if dist[a] >= dist[b]:
+                            cyc.add(a)
+                            a = par[a]
+                        else:
+                            cyc.add(b)
+                            b = par[b]
+                    cyc.add(a)
+                    if len(cyc) < 3:
+                        continue
+                    if odd_only and len(cyc) % 2 == 0:
+                        continue
+                    if best is None or len(cyc) < len(best):
+                        best = cyc
+                        if len(best) == 3:
+                            return best
+    return best
 
-    def shortest_cycle(S: int):
-        bestc = None
-        for src in range(n):
-            if not (S >> src & 1):
-                continue
-            dist = {src: 0}
-            par = {src: -1}
-            order = [src]
-            qi = 0
-            while qi < len(order):
-                v = order[qi]
-                qi += 1
-                nb = adj[v] & S
-                while nb:
-                    u = (nb & -nb).bit_length() - 1
-                    nb &= nb - 1
-                    if u not in dist:
-                        dist[u] = dist[v] + 1
-                        par[u] = v
-                        order.append(u)
-                    elif u != par[v]:
-                        cyc = set()
-                        a, bb = v, u
-                        while a != bb:
-                            if dist[a] >= dist[bb]:
-                                cyc.add(a)
-                                a = par[a]
-                            else:
-                                cyc.add(bb)
-                                bb = par[bb]
-                        cyc.add(a)
-                        if bestc is None or len(cyc) < len(bestc):
-                            bestc = cyc
-                        if len(bestc) == 3:
-                            return bestc
-        return bestc
+
+def _pack_cycles(adj: Sequence[int], S: int, n: int, odd_only: bool = False) -> int:
+    """Greedy vertex-disjoint (odd) cycle packing of `G[S]`.
+
+    Every packed cycle needs one of its own vertices deleted, so the packing size
+    is a lower bound on the feedback vertex set (odd cycle transversal, when
+    `odd_only`), and `|S| - k` bounds the largest induced forest (bipartite
+    subgraph) from above.
+    """
+    rest = S
+    k = 0
+    while True:
+        c = _cycle_in(adj, rest, n, odd_only)
+        if c is None:
+            return k
+        k += 1
+        for v in c:
+            rest &= ~(1 << v)
+
+
+def _greedy_induced_acyclic(adj: Sequence[int], n: int, odd_only: bool = False) -> int:
+    """Feasible solution: repeatedly delete a highest-degree vertex of a witnessed cycle."""
+    S = (1 << n) - 1
+    while True:
+        c = _cycle_in(adj, S, n, odd_only)
+        if c is None:
+            return _pc(S)
+        v = max(c, key=lambda u: (_pc(adj[u] & S), -u))
+        S &= ~(1 << v)
+
+
+def _max_induced_acyclic_bb(adj: Sequence[int], n: int, odd_only: bool) -> int:
+    """Largest induced forest (`odd_only=False`) or induced bipartite subgraph (True).
+
+    Branch on a short (odd) cycle -- one of its vertices must go -- bounded above
+    by the disjoint cycle packing and seeded with a greedy feasible solution.
+    """
+    best = [_greedy_induced_acyclic(adj, n, odd_only)]
+    seen = set()
 
     def rec(S: int):
         sz = _pc(S)
-        if sz <= best[0]:
+        if sz <= best[0] or S in seen:
             return
-        c = shortest_cycle(S)
+        seen.add(S)
+        c = _cycle_in(adj, S, n, odd_only)
         if c is None:
             best[0] = sz
+            return
+        if sz - _pack_cycles(adj, S, n, odd_only) <= best[0]:
             return
         for v in sorted(c):
             rec(S & ~(1 << v))
     rec((1 << n) - 1)
     return best[0]
+
+
+def _max_induced_forest_bb(adj: Sequence[int], n: int) -> int:
+    return _max_induced_acyclic_bb(adj, n, False)
 
 
 def _max_induced_bipartite_bb(adj: Sequence[int], n: int) -> int:
-    """Largest induced bipartite subgraph, by branching on a shortest odd cycle."""
-    best = [0]
-
-    def odd_cycle(S: int):
-        for src in range(n):
-            if not (S >> src & 1):
-                continue
-            colour = {src: 0}
-            par = {src: -1}
-            order = [src]
-            qi = 0
-            while qi < len(order):
-                v = order[qi]
-                qi += 1
-                nb = adj[v] & S
-                while nb:
-                    u = (nb & -nb).bit_length() - 1
-                    nb &= nb - 1
-                    if u not in colour:
-                        colour[u] = 1 - colour[v]
-                        par[u] = v
-                        order.append(u)
-                    elif colour[u] == colour[v]:
-                        cyc = set()
-                        a, bb = v, u
-                        pa, pb = [a], [bb]
-                        while a != -1:
-                            a = par[a]
-                            if a != -1:
-                                pa.append(a)
-                        while bb != -1:
-                            bb = par[bb]
-                            if bb != -1:
-                                pb.append(bb)
-                        sa, sb = set(pa), set(pb)
-                        common = sa & sb
-                        meet = min(common, key=lambda x: pa.index(x)) if common else None
-                        cyc |= set(pa[:pa.index(meet) + 1]) if meet is not None else sa
-                        cyc |= set(pb[:pb.index(meet) + 1]) if meet is not None else sb
-                        return cyc
-        return None
-
-    def rec(S: int):
-        sz = _pc(S)
-        if sz <= best[0]:
-            return
-        c = odd_cycle(S)
-        if c is None:
-            best[0] = sz
-            return
-        for v in sorted(c):
-            rec(S & ~(1 << v))
-    rec((1 << n) - 1)
-    return best[0]
+    return _max_induced_acyclic_bb(adj, n, True)
 
 
 def _scal_part(G: nx.Graph, adj: Sequence[int], n: int) -> Dict[str, object]:

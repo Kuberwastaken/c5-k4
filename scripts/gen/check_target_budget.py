@@ -28,7 +28,7 @@ import invariants as I
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(os.path.dirname(HERE))
 POP = os.path.join(REPO, "results", "experiment", "fresh-population", "population.json")
-CAP = 20.0
+CAP = 12.0
 BUDGET = 60.0
 
 # which measured block each vocabulary entry belongs to
