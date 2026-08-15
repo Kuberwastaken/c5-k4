@@ -1,5 +1,166 @@
 # Erdős Problems finite-counterexample hunt — live search 2026-08-15
 
+---
+
+# HANDOFF STATE (written 2026-08-15, agent replaced mid-run)
+
+## Triage — COMPLETE
+
+All **603** `@[category research open]` declarations in the **364** untouched
+`ErdosProblems` files were extracted from upstream `2411d22e` and classified.
+The full table is below (section "Triage counts" → the 603-row table).
+**Do not redo this.** Result: **575 NOT_FINITELY_REFUTABLE, 28
+CANDIDATE_FOR_DEPTH** (in 25 files).
+
+The 28 candidates, by file:
+`10` (granville_soundararajan_odd), `11` (×3: erdos_11, not_four_dvd,
+two_pow_two), `189` (parallelogram), `241` (generalization), `242` (erdos_242),
+`274` (herzog_schonheim), `324` (quintic), `349`
+(complete_for_alpha_in_Ioo_one_to_goldenRatio), `364` (erdos_364), `406`
+(one_two), `409` (sigma_termination), `477` (×2: X_pow_three, monomial), `535`
+(sunflower_strong), `617` (erdos_617), `677` (erdos_677), `779` (erdos_779),
+`931` (exists_prime), `952` (erdos_952), `982` (erdos_982), `1041` (erdos_1041),
+`1044` (fixed_degree), `1055` (selfridge_limit), `1084`
+(triangular_optimal_d2), `1113` (filaseta_finch_kozek), `1135` (erdos_1135).
+
+## Depth — COMPLETED (written up in full below, sections D1–D4 plus D5–D9 here)
+
+| target | verdict | one line |
+|---|---|---|
+| 931 `exists_prime` | `HOLD_BOUNDED` | 161,590,323 tuples over all prime-free runs ≤ 3·10^5, 0 hits |
+| 10 `granville_soundararajan_odd` | `HOLD_BOUNDED` | all n ≤ 2·10^7, 0 failures; Grechuk fixture reproduced |
+| 11 (×3) | `HOLD_BOUNDED` | all n ≤ 5·10^7, 0 failures incl. the n ≡ 2 (mod 4) class |
+| 677 `erdos_677` | `HOLD_BOUNDED` | dict sweep n,m ≤ 2·10^5 k ≤ 12 + complete-in-m divisor-run n ≤ 40 k ≤ 24, 0 hits |
+| 364 `erdos_364` | `HOLD_BOUNDED` | 680,331 powerful numbers ≤ 10^11, 0 triples (16 pairs as control) |
+| 406 `one_two` | `HOLD_BOUNDED` | 2^m base-3 digits ⊆ {1,2} only for m ∈ {0,1,2,3,4,15} up to m = 4000 |
+| 324 `quintic` | `HOLD_BOUNDED` | 1,124,250 sums a^5+b^5, a<b<1500, 0 collisions |
+| 1084 `triangular_optimal_d2` | **`STATUS_SYNC` (finding, not a counterexample)** | see D8 |
+| 409 `sigma_termination` | **`CERTIFICATE_SHAPE_FAIL` (triage correction)** | see D9 |
+
+## Depth — MID-WAY when stopped: **Erdős 242** (the one live thread)
+
+`Erdos242.erdos_242 : ∀ n, 2 < n → ∃ x y z, 1 ≤ x ∧ x < y ∧ y < z ∧ (4/n:ℚ) = 1/x+1/y+1/z`
+
+What is established:
+* Source (erdosproblems.com/242, status **FALSIFIABLE**) states the **distinct**
+  `1 ≤ x < y < z` version verbatim, so the Lean is source-faithful — there is
+  **no** formalization divergence to exploit here.
+* Source notes: verified for all `n ≤ 10^18` [MiDu25]; "It suffices to prove
+  this when n is prime." So a small counterexample is already excluded by prior
+  art — expected verdict is `HOLD_BOUNDED` / prior-art stop.
+* Run `verify_erdos_misc.py es242 3000`: phase 1 (capped search, `ycap=20000`,
+  400k-op budget per n, x descending) covered `n = 3..2901` and left **178
+  unresolved** n (budget/cap exhausted, NOT failures). Phase 2 (exhaustive
+  per-n search) then hit the 52 s cap and checked **none** of them.
+* **UNVERIFIED:** those 178 n. They are almost certainly fine (they are only
+  "not settled within the phase-1 cap"), but the exhaustive pass was never run.
+  Next agent: run `es242` phase 2 alone on the unresolved list, or raise
+  `ycap`. The exhaustive routine `es242_solve(n)` with `ycap=None, budget=None`
+  is complete: `x ∈ (n/4, 3n/4]`, then `y ∈ (q/p, 2q/p]` where
+  `p/q = 4/n − 1/x` reduced, `z = qy/(py−q)`.
+
+## Depth — NOT STARTED
+
+* **779 `erdos_779`** (Deaconescu). Script mode `d779` is written and untested.
+  Source: "Does there always exist some prime p with p_n < p < P such that P+p
+  is prime?" Site status **FALSIFIABLE**; Deaconescu verified n ≤ 1000; Cambie:
+  "the chances of failing are ridiculously small". Lean index-shift
+  (`range (n+1)`, `hn : n ≥ 1`) matches source `n > 1` — **no divergence**.
+  Note: a *finite refutation* is only possible for tiny n (all p < P must be
+  ruled out), so realistically this is `CONSTRUCTION_ONLY` in practice.
+* **982**, **274**, **617**, **1113**, **1135**, **1055**, **535**, **477**,
+  **952**, **1041**, **1044**, **349**, **241**, **189** — see the "residual
+  candidate dispositions" table below; all are strict stops or prior-art stops
+  and were deliberately deprioritised.
+
+## Time-savers for the next agent
+
+1. **erdosproblems.com fetch.** Plain `curl` with the *default* UA gets a
+   Cloudflare 403. `curl -H 'User-Agent: Mozilla/5.0 …'` returns **HTTP 200** —
+   no browser needed. The `browse` skill is **unusable on this box** (its
+   `browser-manager.ts` hardcodes `headless: false`, no X server; it
+   mis-reports the failure as "No available port in range 9400-9409").
+   Best endpoints:
+   * `https://www.erdosproblems.com/latex/<id>` — canonical LaTeX; `<div
+     id="content">` = statement, `<div class="problem-additional-text">` =
+     notes + references.
+   * `https://www.erdosproblems.com/<id>` — `<div id="prize">` = status line
+     (`OPEN` / `FALSIFIABLE` / `VERIFIABLE` / `SOLVED` / prize).
+   * **No JSON API** (`/api/problems/<id>` → Flask 404).
+   * `teorth/erdosproblems` exists (`data/problems.yaml`) but carries only
+     metadata (status/formal_status/formalized/tags/prize), **no statements**.
+   * **Already fetched for 26 ids** (10, 11, 137, 189, 241, 242, 274, 324, 349,
+     364, 406, 409, 477, 535, 617, 677, 779, 931, 952, 982, 1041, 1044, 1055,
+     1084, 1113, 1135) and cached at
+     `/tmp/claude-1000/-Users-kuber-mehta-Projects-scratch/21f73cfa-6e97-457f-8bb8-ae31d911cc43/scratchpad/erdos_sources.json`
+     (may be wiped with the session — re-fetch is ~2 min).
+2. **Dead-end declaration shapes** (don't re-triage these): `answer(sorry)`
+   anywhere (486 of 603 declarations!) — the declaration is a hole with no
+   truth value, so it cannot be falsified by a finite object even when its
+   right-hand side is a decidable `∀`. Same for `Set.Infinite` / `Set.Finite` /
+   `Cardinal` conclusions, `Filter.atTop` / `∀ᶠ`, densities, `∃ c > 0, ∀ …`.
+3. **The supplied `finite_signals` ranking is misleading.** It is a file-level
+   lexical score. Erdős 470 ranks #2 only because of a big `decide` block in a
+   *textbook* proof; 18, 36, 602, 509, 1049, 1063 likewise. Every open
+   declaration in all of those is an `answer(sorry)` hole or asymptotic. Rank
+   from the declaration text, not the file.
+4. **Reusable extraction scripts** (scratchpad, may be wiped):
+   `extract.py` (pulls every `@[category research open]` block + docstring from
+   the upstream tree), `triage.py` (flag regexes), `write_triage.py` (renders
+   the table). The upstream tree snapshot was made with
+   `git -C /Users/kuber.mehta/Projects/formal-conjectures archive 2411d22e FormalConjectures/ErdosProblems | tar -x -C <dir>`
+   (the `c5-k4/upstream/formal-conjectures` checkout is a stub containing only
+   one WOWII file — do not use it).
+5. **Committed verifier scripts** (in this directory, safe to reuse):
+   * `verify_erdos931_exists_prime.py <limit>`
+   * `verify_erdos10_erdos11.py {erdos10|erdos10_grechuk|erdos11} <limit>`
+   * `verify_erdos677_lcm_interval.py <nmax> <kmax>`
+   * `verify_erdos_misc.py {es242|q324|p364|d406|d779} <arg>`
+6. **Useful semantics facts established** (don't re-derive):
+   * `sumPrimeAndTwoPows k` membership ⟺ `∃ prime p ≤ n, popcount(n−p) ≤ k`
+     (multiset of ≤k exponents ⟺ binary popcount ≤ k). Validated against the
+     repo's own `research solved` fact `1117175146 ∉ sumPrimeAndTwoPows 3`.
+   * `lcmInterval n k = (Finset.Ioc n (n+k)).lcm id = lcm{n+1,…,n+k}`
+     (`FormalConjecturesForMathlib/Algebra/GCDMonoid/Finset.lean:27`).
+   * `EuclideanGeometry.IsConvexPolygon` (`FormalConjecturesForMathlib/Geometry/2d.lean:153`)
+     `= IsCcwConvexPolygon p ∨ IsCcwConvexPolygon (p ∘ Neg.neg)`, i.e. **strict**
+     convexity (all oriented-angle signs = 1) — no three collinear vertices, so
+     there is no degenerate-configuration hole in Erdős 982.
+   * `Nat.Squarefree 0 = False`, `Squarefree 1 = True`.
+7. **No upstream write of any kind was made.** No issue, PR, comment, or fork
+   push. `gh` was used only for read queries.
+
+## Residual candidate dispositions (deprioritised, with reasons)
+
+| decl | disposition | reason |
+|---|---|---|
+| 409 `sigma_termination` | `CERTIFICATE_SHAPE_FAIL` | **triage correction:** `σ(n)−1 > n` strictly for every composite `n>1` and `= n` exactly at primes, so the orbit is strictly increasing until it halts — no cycle can exist, hence the negation "∃n ∀i ¬Prime" has no finite certificate. Reclassify as NOT_FINITELY_REFUTABLE. |
+| 982 `erdos_982` | deprioritised | source status FALSIFIABLE and the proved lower bound is only `(13/36+1/22701)n`, so a counterexample is genuinely possible — but it needs an exact algebraic-coordinate convex polygon where **every** vertex has `< ⌊n/2⌋` distinct distances. Regular n-gon is exactly tight. Lean `n / 2` is ℕ-division = `⌊n/2⌋`, faithful. Real lane, out of this budget. |
+| 274 `herzog_schonheim` | prior-art stop | Herzog–Schönheim; `ExactCovering` is a genuine coset partition with `1 < #ι`; enormous existing verification. Note `1 < ENat.card G` admits infinite `G`, where `Subgroup.index = 0` for infinite index, so any two infinite-index parts already satisfy the conclusion. |
+| 617 `erdos_617` | prior-art stop | METHOD v1.0 already closed this lane: standalone public artifacts claim computer-assisted proofs for `r = 5..11`; refutation would need `r ≥ 12`, i.e. a 12-colouring of `K_145`. |
+| 1113 `filaseta_finch_kozek` | `CERTIFICATE_SHAPE_FAIL` | refutation needs a Sierpiński number proved to have **no** finite covering set — not a finite artifact. |
+| 1135 `erdos_1135` | prior-art stop | Collatz; verified past `2^68`. |
+| 1055 `selfridge_limit` | `CERTIFICATE_SHAPE_FAIL` | `∃ M, ∀ r …` — global constant; refutation must rule out every `M`. (Regex missed it because the binder is `∃ M,` with no `:`/`>`; **fix the GLOBAL_CONST regex** if re-running triage.) |
+| 535 `sunflower_strong` | `CERTIFICATE_SHAPE_FAIL` | `∃ c_r > 0, ∀ k, ∀ A …` — same; regex missed it because of the underscore in `c_r`. |
+| 477 `X_pow_three`, `monomial` | `CERTIFICATE_SHAPE_FAIL` | `∀ A : Set ℤ, ∃ z, …` — refutation needs a specific **infinite** set `A`. |
+| 952, 1041 | `CONSTRUCTION_ONLY` | purely existential; a bounded search can prove but never disprove. |
+| 1044 `fixed_degree`, 349, 241, 189 | `CERTIFICATE_SHAPE_FAIL` / real-analytic | `IsLeast` over ℂ[X]/ℝ objects, `IsGoodPair` over ℝ², Bose–Chowla asymptotics, and a `¬ Erdos189For` whose negation is a full ∀-statement over ℝ² colourings. |
+
+## Two flagged formalization defects (neither is a counterexample)
+
+1. **Erdős 1084 `triangular_optimal_d2`** — see D8. Docstring says
+   `f_2(3n²+3n+1) < 9n²+3n`; the source says Erdős speculated `= 9n²+3n`; and
+   the source records **Harborth [Ha74b] proved it**, with the general formula
+   `f_2(n) = ⌊3n − √(12n−3)⌋`. So (a) the docstring's `<` is a transcription
+   error and is *provably false* (the triangular lattice attains `9n²+3n`), and
+   (b) the declaration is labelled `@[category research open]` although the
+   canonical source records it as proved. `STATUS_SYNC` / metadata defect.
+2. **Erdős 931 `exists_prime`** — prose says "a prime **between** `n₁` and
+   `n₂`", Lean says `n₁ ≤ p ∧ p ≤ n₂` (closed). A weakening, so conservative;
+   it makes the conclusion trivial whenever `n₁ ≤ 2`, which is how the repo's
+   own AlphaProof witness `(k₁,k₂,n₁,n₂) = (10,3,0,13)` discharges it.
+
+
 **Corpus:** `google-deepmind/formal-conjectures` at upstream commit
 `2411d22e1bd550d050d0eac6c1fb379a76a3e7c5` (2026-08-14 19:16:38 +0000,
 "Disprove WOWII 59 (#4574)"), tree `FormalConjectures/ErdosProblems/`.
@@ -831,3 +992,157 @@ fixtures (both check out: 210 and 420).
 
 **Verdict:** `HOLD_BOUNDED`. Path 2 is a genuine all-`m` closure on the
 low-`(n,k)` corner; path 1 is a bounded two-sided sweep.
+
+## D5 — Erdős 364, `erdos_364`
+
+**Lean (`364.lean:30`)** `¬ ∃ (n : ℕ), Powerful n ∧ Powerful (n+1) ∧ Powerful (n+2)`.
+**Source (erdosproblems.com/364, status `VERIFIABLE` — "Open, but could be proved
+with a finite example")** — "Are there any triples of consecutive positive
+integers all of which are powerful?" Lean is source-faithful. Note the Lean
+polarity: the *declaration* asserts non-existence, so a finite triple would
+refute the declaration and simultaneously answer the source question "yes".
+
+**Search (`verify_erdos_misc.py p364 100000000000`, 1.0 s).** Generated all
+680,331 powerful numbers `≤ 10^11` as `a²b³` (plus `0`, which is `Powerful` in
+Mathlib since every prime divides `0` and `p² ∣ 0`). **0 triples.** Control:
+**16 consecutive powerful pairs** in range, consistent with Mahler's
+infinitude via `x² = 8y² + 1`, so the generator is not silently empty.
+
+**Verdict:** `HOLD_BOUNDED` and prior-art stop — OEIS A076445 already excludes
+`n < 7.38·10^28`.
+
+## D6 — Erdős 406, `erdos_406.variants.one_two`
+
+**Lean (`406.lean:41`)** `IsGreatest { n | n.isPowerOfTwo ∧ Nat.digits 3 n ⊆ [1,2] } (2^15)`.
+**Source (erdosproblems.com/406, status `OPEN`)** — "If we only allow the digits
+1 and 2 then `2^15` seems to be the largest such power of 2." Faithful.
+
+**Negation shape (finite).** `IsGreatest S a = a ∈ S ∧ ∀ b ∈ S, b ≤ a`. Two
+finite refutation routes: (i) `2^15 ∉ S`, or (ii) some `2^m > 2^15` in `S`.
+
+**Search (`verify_erdos_misc.py d406 4000`, 3.7 s).**
+* Membership: base-3 digits of `2^15 = 32768` (little-endian) are
+  `[2,2,1,1,2,2,2,2,1,1]` — all in `{1,2}`. `2^15 ∈ S` **confirmed**.
+* Upper bound: for `0 ≤ m ≤ 4000`, `2^m` has all base-3 digits in `{1,2}`
+  exactly for `m ∈ {0,1,2,3,4,15}`. **No `2^m > 2^15` in `S`.**
+* Companion calibration for the sibling `erdos_406` (`digits ⊆ {0,1}`):
+  `m ∈ {0,2,8}`, i.e. `1, 4, 256` — reproduces the source note "The only
+  examples seem to be 1, 4 = 1+3, and 256 = 1+3+3²+3⁵" exactly.
+
+**Verdict:** `HOLD_BOUNDED` and prior-art stop — Saye [Sa22] already computed
+that `2^n` contains **every** ternary digit for `16 ≤ n ≤ 5.9·10^21`, which
+settles both digit-restricted sets far beyond any reachable search.
+
+## D7 — Erdős 324, `erdos_324.variants.quintic`
+
+**Lean (`324.lean:39`)** `{(a, b) : ℕ × ℕ | a < b}.InjOn fun (a, b) => a ^ 5 + b ^ 5`.
+**Source (erdosproblems.com/324, status `OPEN`)** — "Probably `f(x)=x^5` should
+work"; the Lander–Parkin–Selfridge conjecture would imply it for all `n ≥ 5`.
+Faithful. Negation = one pair of distinct pairs `(a,b) ≠ (c,d)`, `a<b`, `c<d`,
+with `a^5+b^5 = c^5+d^5` — a finite witness.
+
+**Search (`verify_erdos_misc.py q324 1500`, 0.9 s).** All `0 ≤ a < b < 1500`:
+**1,124,250 sums, 0 collisions.**
+
+**Verdict:** `HOLD_BOUNDED`. (Prior art: no equal sum of two fifth powers is
+known at all; published searches go far beyond this bound. The bounded run is
+calibration, not new evidence.)
+
+## D8 — Erdős 1084, `erdos_1084.variants.triangular_optimal_d2` — `STATUS_SYNC`
+
+**Lean (`1084.lean`, with `variable {n : ℕ}` at file scope, so `n` is
+auto-bound universally)**
+
+```lean
+/-- Erdős conjectured that the triangular lattice is best possible in 2D, in particular that
+$f_2(3n^2 + 3n + 1) < 9n^2 + 3n$.
+Note: in [Er75f] is read $9n^2 + 6n$, but this seems to be a typo. -/
+@[category research open, AMS 52]
+theorem erdos_1084.variants.triangular_optimal_d2 :
+    f 2 (3 * n ^ 2 + 3 * n + 1) = 9 * n ^ 2 + 3 * n
+```
+
+**Source (erdosproblems.com/1084, status `OPEN` for the parent estimate)** —
+"In [Er75f] he speculated that the triangular lattice is exactly the best
+possible, and in particular `f_2(3n²+3n+1) = 9n²+3n`. **Harborth [Ha74b] proved
+this**, and more generally `f_2(n) = ⌊3n − √(12n−3)⌋` for all `n ≥ 2`."
+
+**Two defects, neither exploitable as a counterexample.**
+1. The Lean **docstring** states the conjecture with a strict `<`. The source
+   states it with `=`. The `<` version is *false*: the triangular-lattice patch
+   with `3n²+3n+1` points attains exactly `9n²+3n` unit distances (`n = 1`:
+   7 points, 12 unit pairs = `9·1+3·1`), so `f_2(3n²+3n+1) < 9n²+3n` fails at
+   every `n ≥ 1`. The Lean *statement* uses `=` and is the correct reading, so
+   the defect is confined to the docstring.
+2. The declaration is `@[category research open]`, but the canonical source
+   records it as **proved by Harborth (1974)**. Cross-check of Harborth's
+   closed form at the relevant arguments:
+   `3(3n²+3n+1) − √(12(3n²+3n+1) − 3) = 9n²+9n+3 − √((6n+3)²) = 9n²+9n+3 − (6n+3) = 9n²+3n` ✓,
+   and the auto-bound `n = 0` case is `f 2 1 = 0 = 9·0+3·0` ✓.
+
+**Verdict:** `STATUS_SYNC` — the exact declaration appears to be a theorem of
+Harborth mis-labelled `research open`, plus a docstring transcription error
+(`<` for `=`). **Not** a counterexample. No upstream action taken.
+
+## D9 — Erdős 409, `erdos_409.variants.sigma_termination` — triage correction
+
+**Lean (`409.lean:130`)** `∀ n, n > 1 → ∃ i, ((σ 1 · - 1)^[i] n).Prime`, with
+the file's own note "this is open — it is not clear that the σ iteration always
+terminates, since it is non-decreasing".
+
+Initially triaged `CANDIDATE_FOR_DEPTH` because a **cycle** in the orbit would
+be a finite refutation certificate. That is impossible: for composite `n > 1`,
+`σ(n) ≥ 1 + d + n` for some proper divisor `d > 1`, so `σ(n) − 1 > n`; and for
+prime `n`, `σ(n) − 1 = n` and the orbit is already at a prime. Hence the orbit
+is **strictly increasing until it halts** and can never cycle. The literal
+negation is `∃ n > 1, ∀ i, ¬ Prime(…)`, which has no finite certificate.
+
+**Verdict:** `CERTIFICATE_SHAPE_FAIL` — reclassify as NOT_FINITELY_REFUTABLE.
+(ℕ-subtraction is also harmless here: `σ 1 0 = 0` and `0 - 1 = 0` in ℕ, but no
+`n > 1` can reach `1`, since `σ(n) − 1 = 1` forces `σ(n) = 2`, i.e. `n = 1`.)
+
+## D10 — Erdős 242, `erdos_242` — **INCOMPLETE / UNVERIFIED**
+
+**Lean (`242.lean:32`)**
+
+```lean
+theorem erdos_242 (n : ℕ) (hn : 2 < n) :
+    ∃ x y z : ℕ, 1 ≤ x ∧ x < y ∧ y < z ∧ (4 / n : ℚ) = 1 / x + 1 / y + 1 / z
+```
+
+**Source (erdosproblems.com/242, status `FALSIFIABLE` — "Open, but could be
+disproved with a finite counterexample")** — "For every `n>2` there exist
+**distinct** integers `1 ≤ x < y < z` such that `4/n = 1/x + 1/y + 1/z`."
+**No divergence:** the source itself carries the strict `x < y < z`, and the
+Lean division is rational (`(4/n : ℚ)`), not ℕ-division. Erdős–Straus.
+
+**Prior art that closes the exploitable window:** verified for all `n ≤ 10^18`
+[MiDu25]; it suffices to prove it for prime `n`; Mordell/Terzi reduce the
+exceptions to explicit congruence classes.
+
+**State of the run (`verify_erdos_misc.py es242 3000`, hit the 52 s cap).**
+Phase 1 (per-`n` capped search: `x` descending over `(n/4, 3n/4]`, `y` capped
+at 20,000, 400,000-op budget) covered `n = 3..2901` and left **178 `n`
+unresolved by the cap**. Phase 2 (the exhaustive per-`n` routine) then hit the
+cap having checked **none** of them.
+
+**Verdict: NONE — UNVERIFIED.** 0 counterexamples were found, but 178 values of
+`n ≤ 2901` were never settled exhaustively. This is a `TIMEOUT_BRACKET`, not a
+hold. The exhaustive routine is `es242_solve(n, ycap=None, budget=None)` in
+`verify_erdos_misc.py`: `x ∈ (⌊n/4⌋, ⌊3n/4⌋]`; with `p/q = 4/n − 1/x` in lowest
+terms, `y` ranges over `(q/p, 2q/p]` and `z = qy/(py − q)` must be an integer
+`> y`. Next agent: rerun phase 2 alone over the unresolved list.
+
+## D11 — Erdős 779, `erdos_779` — NOT STARTED
+
+Script mode `verify_erdos_misc.py d779 <nmax>` is written but **never
+executed**. Source (status `FALSIFIABLE`): "Let `n > 1` and `p_1 < … < p_n` the
+first `n` primes, `P = ∏ p_i`. Does there always exist some prime `p` with
+`p_n < p < P` such that `P + p` is prime?" The Lean uses
+`P := ∏ i ∈ range (n+1), nth Nat.Prime i` with `hn : n ≥ 1`, i.e. the first
+`n+1` primes and `nth Nat.Prime n` as the largest — the index shift the
+docstring documents. **This matches the source exactly; no divergence.**
+Deaconescu verified `n ≤ 1000`; Cambie's heuristic puts the failure chance at
+`≪ exp(-n^{-cn})`. A *finite refutation* would require ruling out every prime
+`p < P`, which is infeasible beyond `n ≈ 3`, so this is effectively
+`CONSTRUCTION_ONLY`.

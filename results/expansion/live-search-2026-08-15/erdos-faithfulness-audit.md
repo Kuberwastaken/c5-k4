@@ -133,3 +133,288 @@ proposed here. Everything below is an internal reading record.
 | 1041 | open (**FALSIFIABLE**) | `erdos_1041` | **degenerate case admitted**: the witness condition is `({z₁,z₂} : Multiset ℂ) ≤ f.roots`, which allows `z₁ = z₂` at a **repeated** root; the constant path then has `H¹`-measure `0 < 2` and lies in the sublevel set, making the declaration *trivially true for every `f` with a multiple root*. Also `length (Set.range γ)` measures the `H¹` trace of the path, not its parametrised arc length | MATERIAL_BUT_STILL_TRUE (`MULTI_READING`) | path in ℂ |
 | 1038 | open | `.parts.i` | `(n : ℕ)` is an **unused parameter** in all four declarations; `.parts.ii` alone omits the non-constant guard `f ≠ 1` (harmless: `f = 1` contributes volume `0` and cannot raise a supremum); declaration name typo `erdos_1038.varaints.inf_lowerBound`. The "all roots real and in `[-1,1]`" encoding via `(f.roots.filter (· ∈ Icc (-1) 1)).card = f.natDegree` is correct | COSMETIC | `FIXED_OPTIMUM` |
 | 1026 | **solved (SOLVED (LEAN))** | — (0 open decls) | in target list only via `answer_sorry`; site and Lean agree the van Doorn/Cambie form is settled (`c = 1`) | — | — |
+
+---
+
+## Severity roll-up over the 53 audited ids
+
+| severity | count | ids |
+|---|---|---|
+| `FINITELY_FALSE_AS_STATED` | **0** | — |
+| `MATERIAL_BUT_STILL_TRUE` | **10** | 1175, 1145, 1110, 1108, 1095, 1093, 1085, 1074, 1055, 1041 |
+| `MATERIAL (editorial reformulation)` | **1** | 1063 |
+| `STATUS_SYNC` | **5** | 1176, 1119 (benign), 1106, 1084, 1054 |
+| `COSMETIC` | **16** | 1203, 1201, 1192, 1167, 1146, 1142, 1139, 1137, 1135, 1101, 1068, 1062, 1056, 1038, (+1106, 1084, 1054 also carry cosmetic defects) |
+| `FAITHFUL` | **20** | 1212, 1210, 1209, 1199, 1150, 1133, 1113, 1109, 1107, 1082, 1073, 1065, 1061, 1060, 1059, 1057, 1052, 1049, 1047, 1044 |
+| not a target (0 open decls) | 2 | 1119, 1026 |
+
+**Certificate shape:** every one of the 53 audited declarations is
+`CERTIFICATE_SHAPE_FAIL` for a finite-counterexample lane — the literal negations are
+asymptotic limits/densities, `Set.Infinite`/`Set.Finite` claims, `∃`-over-infinite-object,
+cardinal statements, or `answer(sorry)` fixed-optimum holes. **This is the single most
+important structural fact of the sweep so far:** in the `1000+` id band, Erdős problems are
+overwhelmingly number-theoretic and asymptotic, so a `FINITELY_FALSE_AS_STATED` verdict is
+structurally very unlikely there. If the goal is finitely-false Lean declarations, the next
+agent should expect a much higher hit rate in the **low-id graph/combinatorics band** than in
+the descending sweep. Descending order was mandated for collision avoidance; note the
+trade-off explicitly if the mandate is revisited.
+
+---
+
+## FINITELY_FALSE_AS_STATED findings
+
+**None found in ids 1212 → 1026.** No explicit finite witness refutes any audited Lean
+declaration. Every candidate divergence either (a) made the declaration *easier* rather than
+false (degenerate cases admitted: 1041, 1108, 1056), or (b) landed inside a statement whose
+negation needs an infinite object.
+
+Two divergences came closest to a finite refutation and are recorded in full below (1093,
+1055) — both are exact, replayable, and independently recomputed, but neither falsifies a
+declaration because the declarations they sit under are `answer(sorry) ↔ …Infinite` /
+`…Finite` shapes.
+
+### Near-miss 1 — EP 1093, wrong smoothness threshold (exact, verified)
+
+`FormalConjectures/ErdosProblems/1093.lean` defines
+
+```lean
+noncomputable def deficiency (n k : ℕ) : ℕ :=
+  #{i ∈ range k | n - i ∈ smoothNumbers k}
+```
+
+Mathlib (`Mathlib/NumberTheory/SmoothNumbers.lean:274`):
+
+```lean
+def smoothNumbers (n : ℕ) : Set ℕ := {m | m ≠ 0 ∧ ∀ p ∈ primeFactorsList m, p < n}
+```
+
+i.e. prime factors **strictly less than `k`**. The source (erdosproblems.com/1093) defines
+`k`-smooth as "divisible only by primes **≤ k**". The two differ exactly when `k` is prime.
+Exact recomputation against the site's own catalogue of examples
+(`/home/ec2-user/.venvs/wowii/bin/python`, trial division, exact):
+
+```
+   n     k   source deficiency (p<=k)   Lean deficiency (p<k)
+   7     3            1                        0     <-- DIFFERS
+  23     5            1                        0     <-- DIFFERS
+  47    11            4                        3     <-- DIFFERS
+  13,14  4            1                        1
+  62     6            1                        1
+  94,95 10            1                        1
+  44 8 / 74 10 / 174 12 / 239 14 / 5179 27 / 8413 28 / 8414 28 / 96622 42 : 2 == 2
+  46 10 / 47 10 / 241 16 / 2105 25 / 1119 27 / 6459 33                    : 3 == 3
+ 284    28            9                        9
+```
+
+Consequences: `C(7,3)` and `C(23,5)` — two of the seven deficiency-1 examples the site
+lists — are **not** deficiency-1 under the Lean encoding, and `C(47,11)`, the unique known
+deficiency-4 example, becomes deficiency-3. `erdos_1093.parts.i` ("infinitely many with
+deficiency 1") and `.parts.ii` ("finitely many with deficiency > 1") are therefore about a
+different function than the source's. Not finitely false (both are `Infinite`/`Finite`
+claims). **Novelty: not checked against upstream issues/PRs — UNVERIFIED.**
+
+Witness arithmetic for the smallest case (replayable by hand):
+`k=3, n=7`; `i ∈ {0,1,2}` gives `n-i ∈ {7,6,5}`; `6 = 2·3` is 3-smooth for `p ≤ 3` but not
+for `p < 3`; `7` and `5` are neither. Source deficiency `1`, Lean deficiency `0`.
+
+### Near-miss 2 — EP 1055, class 2 swallows class 1 (exact, hand-verified)
+
+`FormalConjectures/ErdosProblems/1055.lean`, `IsOfClass` step case:
+
+```lean
+(∀ r ∈ (p + 1).primeFactors, ∃ (m : ℕ+) (hm : m ≤ n), H m hm r) ∧
+(∃ r ∈ (p + 1).primeFactors, ∀ (m : ℕ+) (hm : m ≤ n), H m hm r → m = n)
+```
+
+At `r = 2` we have `n = 1`, and `m : ℕ+` with `m ≤ 1` forces `m = 1`, so the second conjunct
+("equality for at least one prime factor") is **vacuously true**. Then:
+
+- `IsOfClass 1 3` holds: `primeFactors (3+1) = primeFactors 4 = {2} ⊆ {2,3}`.
+- Hence for `p = 2`: `primeFactors (2+1) = {3}`, and `∃ m ≤ 1, IsOfClass m 3` holds.
+- Hence **`IsOfClass 2 2` is true**, so `Erdos1055.p 2 = 2`.
+
+The source and OEIS A005113 give `p₂ = 13` (`2, 13, 37, 73, 1021`). `13` is genuinely class 2
+(`14 = 2·7`, `7+1 = 8 = 2³` so `7` is class 1; and `13` is not class 1 since `7 ∉ {2,3}`).
+So the Lean `p` function does not compute A005113. Not finitely false because no upstream
+declaration asserts `p 2 = 13`; the two open declarations
+(`erdos_1055.variants.erdos_limit`, `.selfridge_limit`) are asymptotic in `r`.
+Additional structural note: `p r := Nat.find (exists_p r)` where `exists_p` is itself a
+`sorry`'d `textbook` theorem. **Novelty: UNVERIFIED.**
+
+---
+
+## STATUS_SYNC findings (METHOD rule 9 — reconciliation, never a discovery claim)
+
+1. **EP 1106 `.parts.i` — solved in the literature, `research open` in Lean.**
+   Declaration: `erdos_1106.parts.i : answer(sorry) ↔ Tendsto (fun n => #(∏ i ∈ Icc 1 n, p i).primeFactors) atTop atTop`.
+   Site records: "Schinzel noted … that `F(n) → ∞` follows from the asymptotic formula for
+   `p(n)` and a result of Tijdeman [Ti73] … details are given in a paper of Erdős and Ivić",
+   and separately "Schinzel and Wirsing [ScWi87] have proved `F(n) ≫ log n`", which implies
+   `F(n) → ∞` outright. The Lean file records neither Schinzel–Wirsing nor Ono as a variant.
+   Expected repair: `.parts.i` → `research solved`, `answer(True)`. Only `.parts.ii`
+   (`F(n) > n` eventually) is genuinely open. Site-level state stays `open` because of
+   `.parts.ii`. Also a doc defect: module header link text reads `erdosproblems.com/1064`
+   while the URL is `/1106`.
+
+2. **EP 1084 `.variants.triangular_optimal_d2` — proved by Harborth, `research open` in Lean.**
+   Declaration: `f 2 (3 * n ^ 2 + 3 * n + 1) = 9 * n ^ 2 + 3 * n`, tagged `research open`.
+   Site records: "Harborth [Ha74b] **proved** this, and more generally
+   `f₂(n) = ⌊3n − √(12n−3)⌋` for all `n ≥ 2`."
+   Symbolic check that the two agree exactly (so the Lean statement is a true theorem):
+   at `n ↦ 3n²+3n+1`, `3(3n²+3n+1) − √(12(3n²+3n+1)−3) = 9n²+9n+3 − √(36n²+36n+9)
+   = 9n²+9n+3 − (6n+3) = 9n²+3n`, and the radicand is the exact square `(6n+3)²`, so the
+   floor is exact. Expected repair: retag `research solved` and add Harborth's general
+   formula as a variant. Docstring also writes `<` where both code and source have `=`.
+   File additionally carries `-- TODO: Add erdos_1084.` (no headline declaration).
+
+3. **EP 1054 `.parts.i` — disproved by Tao, `research open` in Lean.**
+   Declaration: `erdos_1054.parts.i : answer(sorry) ↔ (fun n ↦ (f n : ℝ)) =o[atTop] (fun n ↦ (n : ℝ))`.
+   Site records: "The strong claim that `f(n) = o(n)` was **disproved by Tao** in the comments
+   to [468], in which he proves that the upper density of `{n : f(n) ≤ δn}` is `≪ δ²`."
+   Expected repair: `answer(False)`, `research solved`. Note `.parts.iii` additionally
+   conjoins a **vacuous** `∃ A, A.HasDensity 1` that the `limsup` expression never mentions,
+   and `f_undefined_at_3` actually proves `f 5 = 0` (misnamed).
+
+4. **EP 1176 — site status class is "NOT DISPROVABLE", Lean is plain `research open`.**
+   Site tooltip: "Open in general, but there exist models of set theory where the result is
+   true" (Hajnal–Komjáth consistency). The Lean docstring mentions the consistency result in
+   prose but no declaration or category records the independence-flavoured status.
+
+5. **EP 1119 — benign.** Site `solved` / "INDEPENDENT of ZFC"; Lean already `research solved`
+   but with `answer(sorry)` because the answer is not expressible in Lean's fixed model. The
+   Kumar–Shelah and Schilhan–Weinert results live only in a **prose comment block**, not in
+   any declaration. Comparable pattern at EP 1175, where
+   `.variants.shelah_consistency` is tagged `research solved` yet states a **bare ZFC
+   negation** (which is only *consistent*, not a ZFC theorem) with `answer(sorry)`.
+
+---
+
+## Time-savers for the next agent
+
+### erdosproblems.com fetch quirks
+
+- **Plain `curl` gets a Cloudflare managed-challenge page** ("Just a moment…"). Adding a
+  desktop browser `User-Agent` defeats it completely and returns HTTP 200 static HTML:
+  ```
+  curl -s --max-time 25 -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) \
+    AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36" \
+    https://www.erdosproblems.com/<id>
+  ```
+  No JS, no cookies, no browser needed. `xargs -P 5` parallel fetching worked fine; 180 pages
+  pulled with zero failures and no rate limiting observed.
+- The `/latex/<id>` endpoint returns the **same HTML shell**, not raw LaTeX — not worth using.
+- Page structure worth parsing:
+  - `<div class="problem-text" id="open|solved|…">` — the coarse state.
+  - `<div id="prize">` — the **status class label** (`OPEN`, `SOLVED (LEAN)`,
+    `DISPROVED (LEAN)`, `INDEPENDENT`, `NOT DISPROVABLE`, `FALSIFIABLE`, `$500`, …) plus a
+    tooltip sentence. **This label is where the status-sync signal lives** — richer than the
+    div id. Always read it.
+  - `<div id="content">` — the canonical statement.
+  - `<div class="problem-additional-text">` — the remarks. **Read the remarks in full: three
+    of the five status-sync findings and the strongest MATERIAL finding (1074) came from the
+    remarks, not the statement.**
+  - `This page was last edited <date>` — record it as provenance.
+- `teorth/erdosproblems` `data/problems.yaml` gives status coordinates but **contains no
+  problem statements** — the site is the only statement source.
+
+### Scripts written (reusable, absolute paths)
+
+- `/tmp/claude-1000/-Users-kuber-mehta-Projects-scratch/21f73cfa-6e97-457f-8bb8-ae31d911cc43/scratchpad/faith/ep.py`
+  — the workhorse. `python ep.py [--norem] <id> <id> …` prints, per id: target metadata
+  (bytes / `n_answer_sorry` / `n_research_open`), site state + prize label + last-edited date,
+  the canonical statement, the remarks, and the **full upstream Lean file** at the pin
+  (header comment stripped). Caches pages in `./epcache/<id>.html`.
+- `/tmp/claude-1000/-Users-kuber-mehta-Projects-scratch/21f73cfa-6e97-457f-8bb8-ae31d911cc43/scratchpad/faith/ids.txt`
+  — the frozen descending id list (364 lines).
+- `/tmp/claude-1000/-Users-kuber-mehta-Projects-scratch/21f73cfa-6e97-457f-8bb8-ae31d911cc43/scratchpad/faith/epcache/`
+  — 180 cached pages.
+- **Warning:** the parent scratchpad directory is **shared with the sibling agent**, which
+  overwrote a file named `fetch_erdos.py` mid-run. Keep everything under the private
+  `faith/` subdirectory.
+
+### Divergence patterns: which turned out COSMETIC vs MATERIAL
+
+**Reliably COSMETIC — do not spend time on these (each was checked and cleared at least once):**
+
+- `Real.log 0 = 0` / `x / 0 = 0` junk at `k = 0, 1` inside an `⨆`/`limsup`/`Tendsto`
+  (1203, 1139, 1137, 1201) — junk terms never move a sup that already has positive terms, and
+  never move an `atTop` limit.
+- **ℕ floor division against an integer-valued LHS.** EP 1094's `minFac > max (n/k) k` with
+  ℕ division is *provably equivalent* to the real-quotient reading, because for `a ∈ ℤ`,
+  `a > r ↔ a > ⌊r⌋`. Check the LHS type before flagging any `n / k`.
+- **ℕ truncated subtraction guarded by a hypothesis** (1093 `n - i` under `2k ≤ n`; 1085
+  `d/2 - 1` under `4 ≤ d`; 1063 `m - i0` under `2k ≤ m`; 1082 `… - 1` under `a ∈ A`). Always
+  check whether the surrounding hypothesis makes truncation unreachable — it usually does.
+- 0-indexed `Nat.nth` vs 1-indexed source sequences: the formalizers **consistently
+  compensate** (1139 pairs `nth` shift with `log (k+1)`). Verify the compensation, then move on.
+- Ordered vs unordered counting (1192 `Fin r → ℕ` tuples, 1061 ordered pairs) — changes a
+  constant, never a `≪`/`~ c·x` shape, and 1061 documents it.
+- Induced-vs-arbitrary subgraph when the property is edge-monotone (1068).
+- `Type` vs `Type*` universe restrictions (1068 vs 1175/1176).
+
+**Reliably MATERIAL — these are where the yield is:**
+
+1. **A Mathlib definition whose convention differs from the source's.** Highest-yield pattern
+   found. `Nat.smoothNumbers k` uses `p < k`, sources say `p ≤ k` (EP 1093). **Always open the
+   Mathlib `def` for any imported predicate** (`smoothNumbers`, `Full`, `IsSierpinskiNumber`,
+   `Composite`, `primeFactors`, `IsCarmichael`, …) rather than trusting the name.
+   `Nat.Full`, `Nat.IsSierpinskiNumber`, `distinctDistancesFrom`, `Erdos246.Gamma`,
+   `primeGap`, `≪` (= `Asymptotics.IsBigO atTop` on `ℕ → ℝ`) were all checked and are correct.
+2. **A recursive/inductive `def` whose base case leaks into the next level** (EP 1055).
+3. **Docstring quotes truncated before the source retracts them** (EP 1074: the site's quote
+   continues "…density exists and **is unity**. Erdős … later agreed"; the Lean asserts
+   `HasDensity (1/2)`). **Read the remark paragraph past the point the docstring stops.**
+4. **`\asymp` (bounded ratio) silently rendered as `~[atTop]` (`IsEquivalent`, ratio → 1)**
+   — EP 1095 `.variants.log_equivalent`. Strictly stronger than the cited claim.
+5. **Dropped constants in transcribed bounds.** EP 1085 `.variants.upper_lower_d5_odd` writes
+   the Erdős–Pach upper constant as `(⌊d/2⌋-1)/⌊d/2⌋` instead of `(p-1)/(2p)` — the factor `2`
+   is missing from the denominator only in the upper bound; the lower bound in the same
+   declaration has it. Diff the two halves of any two-sided bound against each other.
+6. **`ℕ` containing `0` where the source means positive integers**, when `0` changes a
+   *set* rather than a single edge case. EP 1108: `S : Finset ℕ` admits `0 ∈ S`, and since
+   `0! = 1! = 1` the encoded `FactorialSums` is strictly larger — 128 extra elements below
+   `10⁶`, smallest extra `4 = 0!+1!+2!`, which is itself an extra square and an extra powerful
+   number, i.e. it lands directly in both open questions.
+7. **Degenerate witnesses that trivialise an existential** (EP 1041: `z₁ = z₂` at a repeated
+   root makes the constant path a legal witness). Conversely EP 1056 `.variants.noll_simmons`
+   shows the formalizer *correctly* adding an undocumented guard (`Q i < p`) to block exactly
+   this — check whether such a guard is present, absent-and-needed, or absent-and-harmless.
+8. **A headline declaration that is an editorial invention.** EP 1063 `.better_upper` asks for
+   a bound `o(k·lcm(1..k-1))` where the source only says "Estimate `n_k`"; EP 1085
+   `.variants.upper_d3` asks a question the source never poses. Watch for
+   `-- TODO: Add erdos_<id>.` markers (1085, 1084, 1095, 1062) — they mark files where the
+   *actual* source question has no declaration at all and the open declarations are side
+   questions.
+
+### Cheap high-value gates that paid off
+
+- **Database-sanity against the site's own worked examples.** EP 1094: enumerating the Lean
+  predicate for `n ≤ 400` returned **exactly** the 14 pairs conjectured in [ELS88]
+  (`(7,3) (13,4) (14,4) (23,5) (44,8) (46,10) (47,10) (47,11) (62,6) (74,10) (94,10) (95,10)
+  (241,16) (284,28)`) — instant confirmation of faithfulness. EP 1093: the same gate is what
+  *exposed* the smoothness bug. **Run this whenever the site lists explicit examples.**
+- Independently recomputed and confirmed correct: EP 1074's EHS initial segment
+  (first seven EHS numbers are `8, 9, 13, 14, 15, 16, 17`, via Pollard-rho factoring of
+  `m!+1`), EP 1063's `n₂=4, n₃=6, n₄=9, n₅=12`, EP 1052's `6` and `60`, EP 1056's `k=2` and
+  `k=3` witnesses mod 11 and 17, EP 1084's Harborth specialisation.
+
+### Explicitly UNVERIFIED / left open
+
+- **Novelty checks were not run for any finding.** No upstream issue/PR/`git log` search was
+  performed for EP 1093, 1055, 1074, 1095, 1085, 1106, 1084, or 1054. All eight need a
+  duplicate audit before they could ever be described as new.
+- EP 1203: whether the source's `max_k` is genuinely over all `k` is unresolved. Under the
+  literal all-`k` reading the sup appears to be bounded near `1` (primorial heuristic:
+  `ω(m)·loglog m/log m → 1`), which would make `F(n) → ∞` false *in the source itself*, not
+  just in Lean. **UNVERIFIED and worth a careful look** — it is the only place in the sweep
+  where the printed source statement itself looked suspect.
+- EP 1167: the module docstring names three original Erdős–Hajnal side conditions
+  (`γ ≥ 2`, `r < ω`, `κ_α > r`) but the Lean adds only the first two. I argued the omission of
+  `κ_α > r` is vacuous (for `κ_α ≤ r` the conclusion is trivially satisfiable), but this was a
+  pen-and-paper argument only — **UNVERIFIED**.
+- EP 1057's `IsCarmichael`, EP 1068's `InfinitelyConnected`, EP 1041's `Path`/`length`
+  interaction, and EP 1085/1084's `unitDistNum` / `IsSeparated'` were **not** opened; they are
+  the remaining unchecked imported definitions among audited ids.
+- EP 1073 `Nat.Composite` was not opened (assumed `¬Prime ∧ 1 < n`); same for EP 1113, where
+  the "none are prime" vs "composite" equivalence was argued from `k·2ⁿ+1 ≥ 3` rather than
+  from the definition.

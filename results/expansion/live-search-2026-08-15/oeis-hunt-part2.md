@@ -518,3 +518,382 @@ This is **not** a counterexample (a vacuous universal cannot be refuted); it is 
 Classification per METHOD: closest ledger label is `PREMISE_FALSE_STRICT` generalized to *all*
 instances, i.e. the declaration has an empty applicable domain.
 No publication action taken.
+
+---
+
+## 6. A239957 — Zhi-Wei Sun, every prime has a primitive root of the form k² + 1
+
+**Lean file:** `FormalConjectures/OEIS/239957.lean` (1531 bytes, 1 `category research open`).
+**OEIS:** <https://oeis.org/A239957> · RMB 2,000 prize.
+
+### Verbatim open declaration
+
+```lean
+def A (p : ℕ) : Prop :=
+  ∃ k : ℤ, k ^ 2 + 1 < p ∧ orderOf (k ^ 2 + 1 : ZMod p) = p - 1
+
+@[category research open, AMS 11]
+theorem conjecture (p : ℕ) (hp : p.Prime) : A p := by
+  sorry
+```
+
+### OEIS ground truth
+
+- NAME: "a(n) = |{0 < g < prime(n): g is a primitive root modulo prime(n) of the form k^2 + 1}|."
+- OFFSET: 1,7
+- COMMENT: "Conjecture: (i) a(n) > 0 for all n > 0. In other words, every prime p has a primitive
+  root 0 < g < p of the form k^2 + 1, where k is an integer."
+- PARI (Greathouse): `a(n)=my(p=prime(n)); sum(k=0, sqrtint(p-2), ispr(k^2+1, p))`, i.e. `k` runs
+  while `k² + 1 <= p - 1`, exactly matching Lean's strict `k^2 + 1 < p`.
+- Table of n, a(n) for n = 1..10000 (so verified through prime(10000) = 104729).
+
+The Lean encoding is faithful: `k : ℤ` matches "k is an integer"; `k^2 + 1 < p` matches `0 < g < p`
+(positivity is automatic since `k² + 1 ≥ 1`); `orderOf (… : ZMod p) = p - 1` is the primitive-root
+condition, and `ZMod p` is a field so a nonzero element's `orderOf` is its multiplicative order.
+Edge case `p = 2`: `k = 0` gives `g = 1 < 2` and `orderOf (1 : ZMod 2) = 1 = p - 1`. ✔
+
+### Computation
+
+Deterministic primitive-root test via the prime factorization of `p - 1`
+(`g^((p-1)/q) ≠ 1` for every prime `q ∣ p-1`).
+
+```
+A239957: Lean statement  exists k in Z, k^2+1 < p and orderOf(k^2+1 : ZMod p) = p-1
+  primes checked: 25997  (all primes <= 300000)  elapsed 28.3s
+  primes with NO such k (counterexample to the Lean declaration): NONE
+```
+
+Calibration — the recomputed counts reproduce the OEIS DATA for n = 1..80 exactly:
+`[1,1,1,1,1,1,2,2,3,3,1,3,2,2,3,4,4,4,2,1,2,1,3,3,6,3,3,7,4,5,2,8,3,5,6,1,2,5,8,10,7,3,2,6,8,2,3,5,8,4,7,4,2,5,8,9,10,5,8,6,10,6,4,9,6,9,5,3,13,5,8,9,5,6,8,13,13,6,6,5]`
+
+### Verdict
+
+`HOLD_BOUNDED` — no counterexample among all 25,997 primes `p ≤ 300,000`. Encoding faithful,
+including the `p = 2` endpoint and the strict `<`. No formalization defect.
+
+---
+
+## 7. A280831 — Zhi-Wei Sun's 1680-conjecture
+
+**Lean file:** `FormalConjectures/OEIS/280831.lean` (2327 bytes, 1 `category research open`).
+**OEIS:** <https://oeis.org/A280831> · RMB 1,680 prize.
+
+### Verbatim open declaration
+
+```lean
+def A (n : ℕ) : Prop :=
+  ∃ x y z w : ℕ, n = x ^ 2 + y ^ 2 + z ^ 2 + w ^ 2 ∧ IsSquare (x ^ 4 + 1680 * y ^ 3 * z)
+
+@[category research open, AMS 11]
+theorem conjecture (n : ℕ) : A n := by
+  sorry
+```
+
+### OEIS ground truth
+
+- NAME (of the *counting sequence*): "Number of ways to write 8*n+7 as x^2 + y^2 + z^2 + w^2 with
+  x^4 + 1680*y^3*z a square, where x,y,z,w are **positive** integers." OFFSET 0,4.
+- COMMENT (the conjecture the Lean file formalizes): "the author's 1680-conjecture which states that
+  each n = 0,1,... can be written as x^2 + y^2 + z^2 + w^2 with x,y,z,w **nonnegative** integers such
+  that x^4 + 1680*y^3*z is a square. Qing-Hu Hou at Tianjin Univ. has verified it for n up to 10^8."
+- COMMENT: "If a natural number n is not of the form 4^k*(8m+7) … there are nonnegative integers
+  w,x,y such that n = w^2 + x^2 + y^2 + 0^2 and hence x^4 + 1680*y^3*0 is a square. Thus, the
+  conjecture … has the following equivalent form: a(n) > 0 for all n = 0,1,..."
+
+The Lean statement is the nonnegative ("1680-conjecture") form, which is what the COMMENT states.
+Faithful. Note the NAME's *positive*-integer counting sequence is a different (stronger) object and
+is **not** what the Lean declaration asserts.
+
+### Computation
+
+Using the entry's own Gauss–Legendre reduction: for `n` not of the form `4^k(8m+7)` the Lean
+statement is immediate with `z = 0` (then `x⁴ + 1680·y³·0 = (x²)²`). Only the "hard" `n` need search.
+
+```
+hard n <= 100000 : (form 4^k(8m+7))
+  [time cap reached after n=43772]
+  n with NO representation: NONE
+  elapsed 45.0s
+```
+
+An earlier full pass gave `n = 0..20000 : NONE` in 11.4 s (3,331 hard values).
+
+Calibration — exhaustive positive-integer counts for `8n+7` reproduce the OEIS DATA for n = 0..49
+exactly: `[1,1,1,2,1,3,2,1,2,1,1,1,4,2,1,4,5,3,3,1,3,2,3,2,6,5,3,4,4,3,12,6,2,7,5,3,10,4,5,2,7,5,4,5,3,8,2,2,3,4]`.
+
+### Verdict
+
+`HOLD_BOUNDED` — no counterexample for `n = 0..43,772` (with all non-`4^k(8m+7)` values covered by
+the certified `z = 0` argument). Encoding faithful. No formalization defect.
+
+---
+
+## 8. A281976 — Zhi-Wei Sun's 24-conjecture
+
+**Lean file:** `FormalConjectures/OEIS/281976.lean` (2906 bytes, 1 `category research open`).
+**OEIS:** <https://oeis.org/A281976> · $2,400 prize.
+
+### Verbatim open declaration
+
+```lean
+def A (n : ℕ) : Prop :=
+  ∃ x y z w : ℕ, n = x ^ 2 + y ^ 2 + z ^ 2 + w ^ 2 ∧ z ≤ w ∧ IsSquare x ∧ IsSquare (x + 24 * y)
+
+@[category research open, AMS 11]
+theorem conjecture (n : ℕ) : A n := by
+  sorry
+```
+
+### OEIS ground truth
+
+- NAME: "Number of ways to write n as x^2 + y^2 + z^2 + w^2 with x,y,z,w nonnegative integers and
+  z <= w such that both x and x + 24*y are squares." OFFSET 0,2.
+- COMMENT: "Conjecture: a(n) > 0 for all n = 0,1,2,…" / "We have verified a(n) > 0 for all
+  n = 0..10^7." / "Qing-Hu Hou … has verified a(n) > 0 for all n = 0..10^10."
+
+Faithful, including the `z ≤ w` normalization, which is carried over verbatim from the NAME
+(and is harmless for existence, since `z, w` may be swapped).
+
+### Computation
+
+`x` ranges over perfect squares `t²` with `t⁴ ≤ n`; `y` is constrained by `IsSquare (x + 24y)`;
+the remainder is tested against a precomputed sum-of-two-squares (`z ≤ w`) bit table.
+
+```
+A281976 counts == OEIS DATA(0..80): True
+A281976 Lean-statement existence, n=0..200000 : failures = NONE  (6.8s)
+A281976 Lean-statement existence, n=0..781629 : failures = NONE  (50.0s, time cap)
+```
+
+### Verdict
+
+`HOLD_BOUNDED` — no counterexample for `n = 0..781,629`; representation counts match the OEIS DATA
+for `n = 0..80` exactly. Encoding faithful. No formalization defect.
+
+---
+
+## 9. A287616 — triangular + generalized pentagonal + generalized heptagonal
+
+**Lean file:** `FormalConjectures/OEIS/287616.lean` (2029 bytes, 1 `category research open`).
+**OEIS:** <https://oeis.org/A287616> · USD 135 prize.
+
+### Verbatim open declaration
+
+```lean
+def A (n : ℕ) : Prop :=
+  ∃ x y z : ℕ, n = x * (x + 1) / 2 + y * (3 * y + 1) / 2 + z * (5 * z + 1) / 2
+
+@[category research open, AMS 11]
+theorem conjecture (n : ℕ) : A n := by
+  sorry
+```
+
+### OEIS ground truth and the ℕ-vs-ℤ question (checked explicitly)
+
+- NAME: "Number of ways to write n as x*(x+1)/2 + y*(3*y+1)/2 + z*(5*z+1)/2 with x,y,z
+  **nonnegative integers**." OFFSET 0,4.
+- COMMENT: "Conjecture: a(n) > 0 for all n = 0,1,2,…, and a(n) = 1 only for n = 0, 1, 2, 4, 7, 9, 22."
+- COMMENT: "It was proved in arXiv:1502.03056 that each n can be written as x(x+1)/2 + y(3y+1)/2 +
+  z(5z+1)/2 with x,y,z **integers**. The author would like to offer 135 US dollars as the prize for
+  the first proof of the conjecture that a(n) is always positive."
+
+This was the prime suspect for a ℕ-vs-ℤ defect (the *generalized* pentagonal/heptagonal numbers
+require `y, z ∈ ℤ`, and the ℤ-version is already a theorem). **The suspicion is wrong:** the OEIS
+NAME itself restricts to nonnegative integers, and the open prize conjecture is precisely the
+nonnegative form. The Lean `x y z : ℕ` encoding is therefore **faithful**, and the Lean file's own
+header wording ("with x, y, z nonnegative integers") matches. Value sets used by Lean:
+`T = {0,1,3,6,10,…}`, `P = {0,2,7,15,26,…}`, `H = {0,3,11,24,42,…}`.
+
+### Computation (big-int bitset convolution)
+
+```
+|T|=7746 |P|=4472 |H|=3465  (parameters range over Nat, exactly as in the Lean statement)
+A287616 Lean-statement coverage of 0..30000000 : missing = NONE   (35.6s)
+A287616 representation counts == OEIS DATA(0..80): True
+```
+
+(Earlier pass: `0..5,000,000 : missing = NONE` in 2.0 s.)
+
+### STATUS_SYNC (already reported upstream)
+
+The OEIS entry now links **Yichuan Cao, Dakai Guo, Ruichen Qiu, Ruyong Feng, Xiao-Shan Gao,
+"Every Nonnegative Integer Is a Sum of a Triangular, a Pentagonal, and a Heptagonal Number",
+arXiv:2606.26035 (2026), see pp. 1–2, 12 (Lean formalization)** — i.e. this `research open`
+declaration is proved.
+
+**Duplicate status: ALREADY REPORTED.** Upstream open issue
+[#4927 "Open statements with known solutions"](https://github.com/google-deepmind/formal-conjectures/issues/4927)
+lists it: *"OEIS A287616 — `conjecture` — Theorem 1 (arXiv:2606.26035) proves the exact statement →
+mark solved."* Not novel.
+
+### Verdict
+
+`HOLD_BOUNDED` (n ≤ 3·10^7, zero gaps) and `STATUS_SYNC` (proved 2026), **duplicate of #4927**.
+No counterexample; no formalization defect.
+
+---
+
+## 10–12. A303656, A306477, A308734 — UNSTARTED (Phase 0B freeze only)
+
+No computation was run on these three. Everything below is the frozen Phase-0B provenance record so
+the next agent can start directly at the search step.
+
+### A303656 — sum of two squares, a power of 3, and a power of 5
+
+`FormalConjectures/OEIS/303656.lean` (2272 bytes, 1 `category research open`). $3,500 prize.
+
+```lean
+def A (n : ℕ) : Prop := ∃ a b c d : ℕ, n = a ^ 2 + b ^ 2 + 3 ^ c + 5 ^ d
+
+@[category research open, AMS 11]
+theorem conjecture (n : ℕ) (hn : 1 < n) : A n := by
+  sorry
+```
+
+- OEIS NAME: "Number of ways to write n as a^2 + b^2 + 3^c + 5^d, where a,b,c,d are nonnegative
+  integers **with a <= b**." OFFSET 1,4.
+- COMMENT: "Conjecture: a(n) > 0 for all n > 1." / "verified … for all n = 2..2*10^10" /
+  "Jiao-Min Lin … has verified a(n) > 0 for all 1 < n <= 2.4*10^11."
+- **Faithfulness:** Lean drops `a <= b`; harmless for existence (swap `a, b`). Hypothesis `1 < n`
+  matches "for all n > 1". `3^0 = 5^0 = 1`, so the minimum representable value is 2, consistent
+  with `a(1) = 0` in the DATA. Encoding looks faithful.
+- **Certificate shape:** finite universal — one `n` with no `(a,b,c,d)` refutes it. Cheap to sweep
+  (for each `n`, loop `c, d` with `3^c + 5^d ≤ n` and test `n - 3^c - 5^d` for
+  sum-of-two-squares via a precomputed table). Realistically a calibration sweep only, given
+  2.4·10^11 prior verification.
+
+### A306477 — Sun's 2-4-6-8 conjecture
+
+`FormalConjectures/OEIS/306477.lean` (2279 bytes, 1 `category research open`). $2,468 prize
+(**and RMB 2,468 offered for an explicit counterexample**).
+
+```lean
+def A (n : ℕ) : Prop :=
+  ∃ w x y z : ℕ, n = (w + 2).choose 2 + (x + 3).choose 4 + (y + 5).choose 6 + (z + 7).choose 8
+
+@[category research open, AMS 11]
+theorem conjecture (n : ℕ) (hn : 0 < n) : A n := by
+  sorry
+```
+
+- OEIS NAME: "Number of ways to write n as C(w+2,2) + C(x+3,4) + C(y+5,6) + C(z+7,8) with w,x,y,z
+  nonnegative integers." OFFSET 1,2. (The Lean encoding is character-for-character the NAME.)
+- COMMENT: "Conjecture: a(n) > 0 for all n > 0. In other words, any positive integer n can be
+  written as C(w,2) + C(x,4) + C(y,6) + C(z,8), where w,x,y,z are integers greater than one."
+- COMMENT: verified to 3·10^7 (Sun), 5·10^8 (Baruch), 2·10^11 (Alekseyev), **2·10^12 (Baruch,
+  Mar 12 2019)**.
+- **Offset-shift check (done by hand, no defect):** the two parameterizations generate identical
+  value sets. `C(w+2,2)` for `w ≥ 0` gives `{1,3,6,10,…}` = `C(w,2)` for `w ≥ 2`;
+  `C(x+3,4)` for `x ≥ 0` gives `{0,1,5,15,…}` = `C(x,4)` for `x ≥ 2` (both include the zeros from
+  `x < 4`); likewise `C(y+5,6)` ↔ `C(y,6)` and `C(z+7,8)` ↔ `C(z,8)`. **Encoding faithful.**
+- **Certificate shape:** finite universal. Given 2·10^12 prior verification, a small sweep is
+  calibration only; the value of this target is the encoding audit above, which is clean.
+
+### A308734 — Sun's four-square conjecture with powers of 2, 3, 5
+
+`FormalConjectures/OEIS/308734.lean` (2414 bytes, 1 `category research open`). $2,500 prize.
+
+```lean
+def A (n : ℕ) : Prop :=
+  ∃ a b c d x y : ℕ, n = (2 ^ a * 3 ^ b) ^ 2 + (2 ^ c * 5 ^ d) ^ 2 + x ^ 2 + y ^ 2
+
+@[category research open, AMS 11]
+theorem conjecture (n : ℕ) (hn : 1 < n) : A n := by
+  sorry
+```
+
+- OEIS NAME: "Number of ordered ways to write n as (2^a*3^b)^2 + (2^c*5^d)^2 + x^2 + y^2, where
+  a,b,c,d,x,y are nonnegative integers **with x <= y**." OFFSET 1,5.
+- COMMENT: "Four-square Conjecture: a(n) > 0 for all n > 1." / "verified a(n) > 0 for all
+  n = 2..10^9" / Giovanni Resta to 10^10 / **Jiao-Min Lin to 1.6·10^11**.
+- COMMENT worth noting as a near-miss control: "16265031 cannot be written as
+  (2^a*3^b)^2 + (2^c*3^d)^2 + x^2 + y^2" — that is the **3,3** variant, not the 3,5 variant the
+  Lean file states; do not mistake it for a counterexample here.
+- Literature: Soumyarup Banerjee, "On a conjecture of Sun about sums of restricted squares",
+  J. Number Theory 256 (2024), 253–289 — **check whether this settles the exact statement before
+  spending compute; it may be a `STATUS_SYNC` rather than a search target.**
+- **Faithfulness:** Lean drops `x <= y`; harmless for existence. Hypothesis `1 < n` matches
+  "for all n > 1". Encoding looks faithful.
+- **Certificate shape:** finite universal.
+
+---
+
+## 13. A357513 — generalized supercongruence (closed on shape; no compute needed)
+
+**Lean file:** `FormalConjectures/OEIS/357513.lean` (3635 bytes, 1 `category research open`).
+**OEIS:** <https://oeis.org/A357513>
+
+### Verbatim open declaration
+
+```lean
+noncomputable def u (m : ℕ) (n : ℕ) : ℕ :=
+  ∑ k ∈ (Finset.Icc 1 n),
+    ((n.choose k : ℚ) ^ 2 * ((n + k).choose k : ℚ) ^ 2) / k ^ (2 * m + 1) |>.num.natAbs
+
+@[category research open, AMS 11]
+theorem general_supercongruence (m : ℕ) : ∃ (exceptions : Finset ℕ), ∀ p, p.Prime →
+    p ∉ exceptions → u m (p - 1) = (0 : ZMod (p ^ 4)) := by
+  sorry
+```
+
+### OEIS ground truth
+
+- NAME: "a(n) = numerator of Sum_{k = 1..n} (1/k^3) * binomial(n,k)^2 * binomial(n+k,k)^2 for n >= 1
+  with a(0) = 0." OFFSET 0,2.
+- DATA: `0, 4, 81, 14651, 956875, 1335793103, 697621869, …` — the Lean test lemmas
+  `a 1 = 4`, `a 2 = 81`, `a 3 = 14651`, `a 4 = 956875`, `a 5 = 1335793103` match exactly, which also
+  pins the parse: `.num.natAbs` applies to the **whole sum**, not to each summand (summand-wise
+  would give `a 2 = 45`, not `81`).
+- COMMENT: "Let m be a nonnegative integer and set u(n) = the numerator of
+  Sum_{k = 1..n} 1/k^(2*m+1) * binomial(n,k)^2 * binomial(n+k,k)^2. We conjecture that
+  u(p-1) == 0 (mod p^4) for all primes p, with a finite number of exceptions that depend on m."
+- COMMENT (Ondrej Kutal, Jul 18 2026): **"This conjecture is now proved; see Links.** The
+  exceptional primes are exactly the primes p for which p − 1 divides 2*m + 4 and p does not divide
+  2*m + 7. In particular, p = 2 is always exceptional, and for m = 1 the exceptions are p = 2 and
+  p = 7 … Every exceptional prime satisfies p <= 2*m + 5."
+- LINK: "Ondrej Kutal, **A proof of the generalized conjecture, with Lean formalization**, Jul 2026."
+
+### Certificate shape (METHOD G0 / Phase 0A) — dead end for a finite counterexample
+
+The declaration is `∃ (exceptions : Finset ℕ), ∀ p prime, p ∉ exceptions → …`. To refute it one must
+show that **no** finite set of exceptions works, i.e. that infinitely many primes fail. A single
+integer — indeed any finite list of failing primes — is consistent with the statement, because those
+primes can simply be put into `exceptions`. **Not finitely refutable.**
+
+Note also the Lean file's own docstring records a deliberate source correction: "seems like a typo
+in the OEIS entry: the sum starts with k=0 there. In order to avoid a division by zero, we replace
+start the sum at k=1" — the current OEIS NAME/COMMENT both say `k = 1..n`, so the Lean choice agrees
+with the present source text.
+
+### STATUS_SYNC (novel as far as checked — not in #4927)
+
+The declaration is `category research open` at pinned commit `2411d22e`, but the OEIS entry records
+the general conjecture as **proved with a Lean formalization** (Kutal, Jul 2026), and the specific
+`m = 1` case in the same file is already `category research solved` via AlphaProof. Upstream issue
+search: `repo:google-deepmind/formal-conjectures A357513` → 1 hit, #1924 (closed, the original
+feature PR). #4927 "Open statements with known solutions" does **not** list A357513.
+No verification of Kutal's proof was performed here — this is a metadata observation only.
+
+### Verdict
+
+`CERTIFICATE_SHAPE_FAIL` / **NOT_FINITELY_REFUTABLE**, plus a `STATUS_SYNC` lead (proved upstream of
+the repository, still marked open, not currently tracked in #4927). No publication action taken.
+
+---
+
+## Final tally for this share (9 of 13 completed, 4 unstarted)
+
+- **Counterexamples found: 0.** No refuting integer for any declaration.
+- `CERTIFICATE_SHAPE_FAIL` / NOT_FINITELY_REFUTABLE: **3** (A167604, A228828, A357513).
+- `HOLD_BOUNDED`: **6** (A211417 n ≤ 3000; A232174 n ≤ 60000; A239957 all p ≤ 300000;
+  A280831 n ≤ 43772; A281976 n ≤ 781629; A287616 n ≤ 3·10^7).
+- Statement defects: **2** — A211417 `general_divisibility` (`D = 0`, **duplicate of #4923**) and
+  A237271 `observation_carmichael` (**vacuous premise, novel**).
+- Source errata: **1** — A232174 OEIS comment omits `n = 66` from its "a(n) = 1 only for" list
+  (**novel**, no Lean consequence).
+- Status syncs: **2** — A287616 proved 2026 (**duplicate of #4927**), A357513 proved 2026
+  (**not currently tracked upstream**).
+- Unstarted: A303656, A306477, A308734 (all with faithful encodings confirmed and Phase-0B
+  provenance frozen above).
+
+**No upstream issue, PR, comment, tag, or release was created. Local records only.**
