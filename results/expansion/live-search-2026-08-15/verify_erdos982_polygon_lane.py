@@ -15,10 +15,20 @@ Constructions tested
       others.  Table transcribed from github.com/davidiach/erdos97
       (scripts/fr_cut_homotopy.py) and independently re-verified + Newton
       polished here to 50 digits.
-  (B) Danzer-type C3-symmetric convex 9-gon: 3 rotation orbits, every vertex
-      has 3 equidistant others (2 orbit mates + 1 tuned cross witness), radius
-      varying by vertex.  This is a RECONSTRUCTION from the combinatorial
-      structure, not Danzer's published coordinates.
+  (B) DANZER's convex 9-gon, built from the recipe in the primary source:
+      P. Erdos, "Some combinatorial and metric problems in geometry",
+      Intuitive Geometry (Siofok 1985), Colloq. Math. Soc. Janos Bolyai 48,
+      167-177, North-Holland 1987; section 8, pp. 175-176.  Scan:
+      https://users.renyi.hu/~p_erdos/1987-27.pdf  (item 1987-27).
+      The source gives NO coordinates -- the nonagon is defined by an
+      intermediate-value argument -- so this rebuilds it from the recipe.
+        "convex nonagon A1B1C1A2B2C2A3B3C3 of threefold rotational symmetry,
+         satisfying A1A2 = A1A3 = A1B3, B1B2 = B1C2 = B1B3,
+         C1C2 = C1A3 = C1C3"
+  (C) Control: a DIFFERENT C3 k=3 nonagon (cross-witness map 0->(2,1),
+      1->(0,0), 2->(1,0)), taken from github.com/davidiach/erdos97.  Not
+      Danzer's polygon; included to show the answer is driven by counting,
+      not by the incidence pattern.
 
 All heavy arithmetic is decimal at 60 digits; no trigonometry is needed because
 the C3 rotation is exact: omega = (-1 + i*sqrt 3)/2.
@@ -298,6 +308,126 @@ def dz_check_k3(pts, v):
 
 
 # --------------------------------------------------------------------------
+# (B) DANZER's original nonagon, from the Erdos 1987 recipe.
+#
+# rho = e^{2 pi i/3}; A_j = rho^{j-1} a, B_j = rho^{j-1} b, C_j = rho^{j-1} c,
+# gauge a = 1.  A1A2=A1A3, B1B2=B1B3, C1C2=C1C3 are automatic (each is sqrt3
+# times a circumradius).  Danzer's three displayed equalities become:
+#   E1  |1 - rho^2 b|^2 = 3        <=> |b - A2| = sqrt3
+#           (B1 on the arc A3A1 EXTENDED; that arc is centred at A2)
+#   E2  |b - rho c|^2  = 3|b|^2    <=> |B3 C1| = |B1B2|
+#           (C1 on the side B1B2 of the Reuleaux triangle B1B2B3)
+#   E3  |c - rho^2|^2  = 3|c|^2    <=> C1A3 = C1C3   (Danzer's IVT condition)
+# E1 puts b on a fixed circle, E3 puts c on a fixed circle; E2 is then one
+# scalar equation solved by bisection -- the numerical form of Danzer's own
+# intermediate-value argument.  Free parameter: eps = |A1 B1|.
+DZ_LBL = ["A1", "B1", "C1", "A2", "B2", "C2", "A3", "B3", "C3"]
+
+
+def _rho():
+    return (D(-1) / 2, SQRT3 / 2)
+
+
+def _b_of(theta_cos, theta_sin):
+    r = _rho()
+    return (r[0] + SQRT3 * theta_cos, r[1] + SQRT3 * theta_sin)
+
+
+def _c_of(psi_cos, psi_sin):
+    return (D(1) / 4 + SQRT3 / 2 * psi_cos, SQRT3 / 4 + SQRT3 / 2 * psi_sin)
+
+
+def danzer_points(b, c):
+    """9 vertices in the published boundary order A1 B1 C1 A2 B2 C2 A3 B3 C3."""
+    r = _rho()
+    out = []
+    rot = (D(1), D(0))
+    for _ in range(3):
+        for z in ((D(1), D(0)), b, c):
+            out.append(cmul(rot, z))
+        rot = cmul(rot, r)
+    return out
+
+
+def danzer_e2(b, c):
+    r = _rho()
+    rc = cmul(r, c)
+    return ((b[0] - rc[0]) ** 2 + (b[1] - rc[1]) ** 2
+            - 3 * (b[0] ** 2 + b[1] ** 2))
+
+
+def danzer_build(eps):
+    """Solve Danzer's system EXACTLY at elongation eps = |A1 B1|.
+
+    No trigonometry and no iteration: the system is solvable in closed form.
+
+      E1 & |b - 1| = eps :  E1 gives |b|^2 + b1 - sqrt3 b2 = 2, and
+          |b-1|^2 = eps^2 gives |b|^2 = eps^2 - 1 + 2 b1.  Eliminating |b|^2
+          gives the LINE  3 b1 - sqrt3 b2 = 3 - eps^2; intersect with the
+          circle  b1^2 + b2^2 - 2 b1 + 1 - eps^2 = 0  -> quadratic in b1.
+
+      E3 gives |c|^2 = (c1 + sqrt3 c2 + 1)/2.  Substituting that into E2
+          (|c|^2 - 2(u c1 + v c2) - 2|b|^2 = 0, where (u,v) = b * rho^2)
+          makes E2 LINEAR in c:
+              c1 (1/2 - 2u) + c2 (sqrt3/2 - 2v) + 1/2 - 2|b|^2 = 0.
+          Intersect that line with the E3 circle
+              (c1 - 1/4)^2 + (c2 - sqrt3/4)^2 = 3/4   -> quadratic.
+
+    Returns the (b, c) branch reproducing the published boundary order, or
+    (None, None) if no branch does.
+    """
+    def line_circle(A, B, C, cx, cy, r):
+        """Solutions of A*x + B*y + C = 0 on the circle centre (cx,cy) rad r."""
+        # substitute the line into the circle
+        out = []
+        if B != 0:
+            # y = -(A x + C)/B
+            qa = 1 + (A / B) ** 2
+            qb = -2 * cx + 2 * (A / B) * (C / B + cy)
+            qc = cx * cx + (C / B + cy) ** 2 - r * r
+            disc = qb * qb - 4 * qa * qc
+            if disc < 0:
+                return []
+            s = disc.sqrt()
+            for x in ((-qb + s) / (2 * qa), (-qb - s) / (2 * qa)):
+                out.append((x, -(A * x + C) / B))
+        else:
+            x = -C / A
+            t = r * r - (x - cx) ** 2
+            if t < 0:
+                return []
+            s = t.sqrt()
+            out = [(x, cy + s), (x, cy - s)]
+        return out
+
+    e2v = eps * eps
+    # ---- b: line 3 b1 - sqrt3 b2 = 3 - eps^2 meets circle |b-1| = eps
+    bs = line_circle(D(3), -SQRT3, e2v - 3, D(1), D(0), eps)
+    for b in bs:
+        b1, b2 = b
+        nb = b1 * b1 + b2 * b2
+        # (u,v) = b * rho^2
+        u = (-b1 + SQRT3 * b2) / 2
+        v = (-SQRT3 * b1 - b2) / 2
+        A = D(1) / 2 - 2 * u
+        B = SQRT3 / 2 - 2 * v
+        C = D(1) / 2 - 2 * nb
+        for c in line_circle(A, B, C, D(1) / 4, SQRT3 / 4, SQRT3 / 2):
+            if danzer_order_ok(danzer_points(b, c)):
+                return b, c
+    return None, None
+
+
+def danzer_order_ok(P):
+    h = hull(P)
+    if len(h) != 9:
+        return False
+    lab = [DZ_LBL[i] for i in h]
+    k = lab.index("A1")
+    return "".join(lab[k:] + lab[:k]) == "A1B1C1A2B2C2A3B3C3"
+
+
+# --------------------------------------------------------------------------
 # subset lattice: is ANY subset of a given point set a counterexample?
 # (subsets of a strictly convex set are strictly convex, so this is legal)
 # --------------------------------------------------------------------------
@@ -381,7 +511,52 @@ def main():
           f"min={min(deg)} max={max(deg)}  (advertised: 3)")
     fr_cmin, fr_need, fr_mmax = profile(P, "Fishburn-Reeds 20-gon [FiRe92]")
 
-    # ---------------- (B) Danzer-type C3 nonagon ----------------
+    # ---------------- (B) DANZER's original nonagon ----------------
+    b, c = danzer_build(D("0.05"))
+    Dz = danzer_points(b, c)
+    print(f"\n[DANZER] Erdos 1987-27 p.175-176 recipe, elongation eps=|A1B1|=0.05")
+    print(f"[DANZER] E2 residual |B1C2|^2 - 3|B1|^2 : {float(danzer_e2(b, c)):.3e}")
+    print(f"[DANZER] strictly convex, published order A1B1C1A2B2C2A3B3C3: "
+          f"{danzer_order_ok(Dz)}")
+    dd = lambda i, j: d2(Dz[i], Dz[j]).sqrt()
+    print("[DANZER] the three equality triples from the paper:")
+    print(f"   A1A2={float(dd(0,3)):.12f}  A1A3={float(dd(0,6)):.12f}  "
+          f"A1B3={float(dd(0,7)):.12f}")
+    print(f"   B1B2={float(dd(1,4)):.12f}  B1C2={float(dd(1,5)):.12f}  "
+          f"B1B3={float(dd(1,7)):.12f}")
+    print(f"   C1C2={float(dd(2,5)):.12f}  C1A3={float(dd(2,6)):.12f}  "
+          f"C1C3={float(dd(2,8)):.12f}")
+    print("[DANZER] vertices:")
+    for i, p in enumerate(Dz):
+        print(f"   {DZ_LBL[i]:>3} = ({float(p[0]):+.15f}, {float(p[1]):+.15f})")
+    dz0_cmin, dz0_need, _ = profile(Dz, "DANZER's nonagon [Er87b]")
+
+    print("\n--- sweep of Danzer's own free parameter eps = |A1 B1| ---")
+    bestd, bestde, nd, rejd = None, None, 0, 0
+    e = D("0.001")
+    while e < D("1.2"):
+        bb, cc = danzer_build(e)
+        if bb is not None:
+            Pz = danzer_points(bb, cc)
+            if danzer_order_ok(Pz):
+                dmin = min(d2(Pz[i], Pz[j]) for i in range(9)
+                           for j in range(i + 1, 9)).sqrt()
+                dmax = max(d2(Pz[i], Pz[j]) for i in range(9)
+                           for j in range(i + 1, 9)).sqrt()
+                if dmin / dmax < D("1e-3"):
+                    rejd += 1
+                else:
+                    nd += 1
+                    cm = min(len(classes(Pz, i)[0]) for i in range(9))
+                    if bestd is None or cm < bestd:
+                        bestd, bestde = cm, e
+        e += D("0.002")
+    print(f"  admissible members of Danzer's family: {nd}  "
+          f"(rejected as degenerate: {rejd})")
+    print(f"  best (smallest) min_i c_i over the whole family: {bestd} "
+          f"at eps={float(bestde):.3f}  ->  RESIDUAL R = {bestd - 4:+d}")
+
+    # ---------------- (C) control: a different C3 k=3 nonagon ----------------
     # repo seed, converted from (r,phi) to (a,b) WITHOUT trig by re-solving:
     # pin a1 near the repo value and let Newton land on the same member.
     seed = [D("-0.544"), D("0.866"), D("0.794"), D("0.286")]
@@ -396,7 +571,7 @@ def main():
     okq, hq = strictly_convex(Q)
     print(f"[DZ] strictly convex 9-gon (hull = all 9)   : {okq}")
     print(f"[DZ] every vertex has >=3 equidistant others: {dz_check_k3(Q, v)}")
-    dz_cmin, dz_need, dz_mmax = profile(Q, "Danzer-type C3 nonagon (reconstruction)")
+    dz_cmin, dz_need, dz_mmax = profile(Q, "control: inequivalent C3 k=3 nonagon")
 
     # ---------------- (C) sweep the 1-parameter Danzer family ----------------
     print("\n--- sweep of the 1-parameter Danzer-type family "
@@ -442,13 +617,15 @@ def main():
 
     # ---------------- (D) subset lattices ----------------
     print("\n--- subset lattices (every subset of a convex set is convex) ---")
-    subset_scan(Q, "Danzer-9")
+    subset_scan(Dz, "Danzer-9 (Er87b)")
+    subset_scan(Q, "control-9")
     subset_scan(P, "FR-20")
 
     # ---------------- verdict ----------------
     print("\n" + "=" * 74)
     print(f"FR-20 : R = {fr_cmin - fr_need:+d}  (need <= -1)   NOT a counterexample")
-    print(f"DZ-9  : R = {dz_cmin - dz_need:+d}  (need <= -1)   NOT a counterexample")
+    print(f"DANZER-9 : R = {dz0_cmin - dz0_need:+d}  (need <= -1)   NOT a counterexample")
+    print(f"control-9: R = {dz_cmin - dz_need:+d}  (need <= -1)   NOT a counterexample")
     print("=" * 74)
     return 0
 

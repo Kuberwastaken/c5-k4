@@ -431,14 +431,26 @@ Squared distances from `A₁` at `ε = 0.05`:
 — six classes, the `3.000000000` one of multiplicity 3 (`A₂, A₃, B₃`, Danzer's
 triple), every other class a singleton.
 
-**Sweep of Danzer's own free parameter `ε = |A₁B₁|`.** 571 members solved over
-`ε ∈ [0.001, 0.571]` (beyond `0.571` convexity in the published order fails), by
-bisecting Danzer's IVT condition at each `ε`. Applying the non-degeneracy guard
-`min pairwise distance / diameter ≥ 1e-3` leaves **499 admissible members, and
-`min_i c_i = 6` on every single one** → `R = +2` uniformly across the entire
-family. The 72 rejected members are the `ε → 0` limit, where `B₁` and `C₁`
-collapse onto `A₁` (at `ε = 0.001` the closest pair is `1.9e-7` of the
-diameter); even there `min_i c_i = 5`, `R = +1`, never `≤ −1`.
+**The solve is closed-form, not iterative.** Danzer's IVT step is not needed
+numerically: `E1` together with `|b − 1| = ε` reduces to a line meeting a circle
+(quadratic in `b₁`), and substituting `E3`'s `|c|² = (c₁ + √3c₂ + 1)/2` into `E2`
+makes `E2` **linear** in `c`, so `c` is a line ∩ circle too. Both branches are
+solved exactly in 60-digit decimal; the achieved `E2` residual is `3.0e-59`, so
+the three equality triples are exact to `~1e-58` and the multiplicity-3 classes
+are real, not tolerance artefacts. (An earlier float-seeded version of this
+builder produced coordinates good only to `1e-16`, at which the guard band
+`1e-30` correctly *split* Danzer's equal triples and reported `c_i = 7`,
+`E_i = 1`. That is the guard band working as designed, and it is why the builder
+was made exact.)
+
+**Sweep of Danzer's own free parameter `ε = |A₁B₁|`.** 567 members solved over
+`ε ∈ [0.001, 0.571]` (beyond `0.571` convexity in the published order fails).
+With the non-degeneracy guard `min pairwise distance / diameter ≥ 1e-3`:
+**531 admissible members, `min_i c_i = 6` on every single one** → `R = +2`
+uniformly across Danzer's entire family. The 36 rejected members are the
+`ε → 0` limit, where `B₁` and `C₁` collapse onto `A₁` (at `ε = 0.001` the closest
+pair is `1.9e-7` of the diameter, violating `Function.Injective p`); even there
+`min_i c_i = 5`, `R = +1`, never `≤ −1`.
 
 ### 4.2b Control: the inequivalent `k = 3` nonagon of §3.4
 
@@ -489,7 +501,8 @@ hereditary condition `c_i(T) ≤ ⌊m/2⌋ − 1` for all `i ∈ T`:
 
 | point set | DFS nodes | subsets satisfying the negation |
 |---|---|---|
-| Danzer-type 9-gon | 644 | **0** |
+| Danzer's 9-gon [Er87b] | 617 | **0** |
+| control 9-gon (§3.4) | 644 | **0** |
 | Fishburn–Reeds 20-gon | 234,316 | **0** |
 
 This is forced, and the one-line reason generalises: with `max_t m_t = 3` at
@@ -499,13 +512,20 @@ subset `S`, so the negation `c_i(S) ≤ ⌊|S|/2⌋ − 1` requires `⌈|S|/2⌉
 
 ### 4.5 Independent recomputation (METHOD Phase 7)
 
-Path B is a structurally different program: float64/numpy, polar-trigonometric
-parametrisation, seeded from the `erdos97` repo's own 50-digit constants rather
-than from this lane's complex-algebraic Newton solve, with the FR table used
-**unpolished** exactly as published. It reproduces every headline number:
-FR-20 `min_i c_i = 17`, `R = +7`; Danzer-9 `min_i c_i = 6`, `R = +2`; both
-strictly convex; both `k = 3`. Agreement across the whole tolerance sweep
-`1e-12 … 1e-6`.
+Every headline number was produced twice, by programs sharing no code path:
+
+| quantity | path A | path B | agree |
+|---|---|---|---|
+| arithmetic | 60-digit `decimal`, exact closed-form / Newton | float64 + numpy | — |
+| Danzer 9-gon construction | closed-form line ∩ circle over `ℚ(√3)` | float trig, bisection on the IVT condition | ✔ |
+| control 9-gon | complex-algebraic Newton from a bare seed | polar `(r,φ)` trig from the `erdos97` 50-digit constants | ✔ |
+| FR table | Newton-polished to `1e-59` | used **unpolished**, exactly as published | ✔ |
+| FR-20 `min_i c_i` | 17 (`R = +7`) | 17 (`R = +7`) | ✔ |
+| Danzer-9 `min_i c_i` | 6 (`R = +2`) | 6 (`R = +2`) | ✔ |
+| control-9 `min_i c_i` | 6 (`R = +2`) | 6 (`R = +2`) | ✔ |
+| strict convexity, `k = 3` | yes / yes | yes / yes | ✔ |
+
+Path B agrees across the whole tolerance sweep `1e-12 … 1e-6`.
 
 ---
 
@@ -524,8 +544,8 @@ Both literature constructions have `k = 3`:
 
 | construction | `n` | `k` | `k` needed for `R ≤ −1` | deficit |
 |---|---|---|---|---|
-| Danzer-type 9-gon | 9 | 3 | 5 | **2** |
-| Fishburn–Reeds 20-gon | 20 | 3 | 11 | **8** |
+| Danzer's 9-gon [Er87b] | 9 | 3 | 5 | **2** |
+| Fishburn–Reeds 20-gon [FiRe92] | 20 | 3 | 11 | **8** |
 
 Equivalently, in mean multiplicity `(n−1)/c_i`: the negation of EP 982 requires
 `(n−1)/c_i ≥ (n−1)/(⌊n/2⌋−1) > 2` at **every** vertex, while these constructions
