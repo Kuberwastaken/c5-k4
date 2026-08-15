@@ -507,3 +507,79 @@ only. The prior-art stop recorded by the predecessor stands.
 fix), #4415 (merged, `formal_proof` link for the abelian variant), #2409
 (merged, fix). Nothing claiming a counterexample. No upstream action taken.
 
+## F7 — Erdős 1055, `variants.selfridge_limit` — `CERTIFICATE_SHAPE_FAIL` + **new formalization defect in `IsOfClass`**
+
+**Blob** `4835f12e96d618c7e9014f31a85f7549baf2ab79` (`1055.lean`).
+
+**Certificate shape (confirms the predecessor).** `selfridge_limit : ∃ M, ∀ r,
+(p r : ℝ) ^ (1/r : ℝ) ≤ M` is an existentially quantified global constant;
+refuting it means ruling out every `M`. Not a finite object.
+`erdos_1055` (`{p | Prime ∧ IsOfClass r p}.Infinite`) and
+`variants.erdos_limit` (`Tendsto … atTop`) are likewise infinitary. Strict stop.
+
+### But the underlying definition is wrong at `r = 2`
+
+**Source (erdosproblems.com/1055, `open`/`OPEN`).** "A prime `p` is in class 1
+if the only prime divisors of `p+1` are 2 or 3. In general, a prime `p` is in
+class `r` if every prime factor of `p+1` is in some class `≤ r−1`, with
+equality for at least one prime factor. … The sequence `p_r` begins
+**2, 13, 37, 73, 1021** (A005113 in the OEIS)."
+
+The classes are a *partition* of the primes (that is what makes `p_r` a
+well-defined sequence and A005113 the sequence it is). The Lean
+
+```lean
+def IsOfClass : ℕ+ → ℕ → Prop := fun r ↦
+  PNat.caseStrongInductionOn r
+    (fun p ↦ (p + 1).primeFactors ⊆ {2, 3})
+    (fun n H p ↦ (∀ r ∈ (p + 1).primeFactors, ∃ (m : ℕ+) (hm : m ≤ n), H m hm r) ∧
+                 (∃ r ∈ (p + 1).primeFactors, ∀ (m : ℕ+) (hm : m ≤ n), H m hm r → m = n))
+```
+
+never excludes "`p` is already of class 1", so **the classes are not
+exclusive**. Concretely, for any class-1 prime `p`, every prime factor `q` of
+`p+1` lies in `{2,3}`, and both 2 and 3 are class 1, so both conjuncts of the
+`r = 2` clause are satisfied: **every class-1 prime also satisfies
+`IsOfClass 2`.**
+
+Exact computation (`<scratch>/e1055.py`, two independent transcriptions — the
+source recursion `class(p) = 1 + max_{q | p+1} class(q)` and the literal Lean
+clause):
+
+| r | source `p_r` (A005113) | Lean `p r = Nat.find (exists_p r)` |
+|---|---|---|
+| 1 | 2 | 2 |
+| 2 | **13** | **2** ← wrong |
+| 3 | 37 | 37 |
+| 4 | 73 | 73 |
+| 5 | 1021 | 1021 |
+| 6 | 2917 | 2917 |
+
+Primes `< 60` carrying two Lean classes: 2, 3, 5, 7, 11, 17, 23, 31, 47, 53 —
+all of them genuinely class 1, all also satisfying `IsOfClass 2`.
+
+**Extent of the damage, checked exactly.** Over all 2,262 primes `< 20,000`:
+the Lean class set of `p` is exactly `{true class}`, together with `{2}` when
+the true class is 1 — **0 deviations**. So `IsOfClass r = ` true class `r` for
+every `r ≠ 2`, and `IsOfClass 2 = ` (true class 1) ∪ (true class 2). The reason
+is structural: `IsOfClass 3 p` needs a prime factor `q` of `p+1` whose Lean
+class set meets `[1,2]` in exactly `{2}`, and a class-1 `q` has Lean class set
+`{1,2}`, so the contamination cannot propagate past `r = 2`.
+
+**Consequence, stated precisely.** `p 2 = 2` instead of 13, so the Lean's `p`
+is **not** the source's `p_r` / A005113. Because the two open declarations
+(`erdos_limit`, `selfridge_limit`) are asymptotic in `r` and `∃M`-quantified, a
+single corrupted index does not change either truth value — so this is a
+**definition-faithfulness defect, not a counterexample**. §A6 coordinate (3):
+the declaration's definition diverges from its cited source; coordinates (1)
+and (4) are unaffected.
+
+**Verdict:** `CERTIFICATE_SHAPE_FAIL` for all three open declarations in the
+file, **plus** a recorded band-1 defect: `IsOfClass` makes classes non-exclusive
+at `r = 2`, so `Erdos1055.p 2 = 2 ≠ 13 = p_2`.
+
+**Duplicate check.** "1055": #1098 (closed, statement request), #3306 / #2790 /
+#3373 (closed, `variants.class_one_infinite` solves). Nothing raising the
+non-exclusive-class defect. The file's own TODO ("formalize the rest of the
+problems on the page") is unrelated. No upstream action taken.
+
