@@ -279,3 +279,145 @@ the correct artifact is an upstream issue in the style of #4896/#4923, or a loca
 (iii) the declaration is 3 days old, so the duplicate surface must be re-checked
 immediately before any write (METHOD_V1_6 §A2.1). **No action taken; publication requires
 explicit user authorization.**
+
+---
+
+## Candidate 3 — Erdős 1093 `Erdos1093.deficiency` (`erdos_1093.parts.i` / `.parts.ii`)
+
+### Claim under test
+
+"Mathlib `Nat.smoothNumbers k` means prime factors `< k` but the source says `≤ k`;
+this misclassifies the source's own catalogue (C(7,3), C(23,5) deficiency 1→0;
+C(47,11), the unique known deficiency-4 example, 4→3)."
+
+### (a) Primary re-derivation
+
+**Actual Lean at the pin** (`FormalConjectures/ErdosProblems/1093.lean`):
+
+```lean
+noncomputable def deficiency (n k : ℕ) : ℕ :=
+  #{i ∈ range k | n - i ∈ smoothNumbers k}
+
+@[category research open, AMS 5]
+theorem erdos_1093.parts.i :
+    answer(sorry) ↔ {x : ℕ × ℕ | let k := x.1; let n := x.2; 2 * k ≤ n ∧ deficiency n k = 1 ∧
+      ∀ p, p.Prime → (p ∣ choose n k) → k < p}.Infinite
+
+@[category research open, AMS 5]
+theorem erdos_1093.parts.ii :
+    {x : ℕ × ℕ | let k := x.1; let n := x.2; 2 * k ≤ n ∧ deficiency n k > 1 ∧
+      ∀ p, p.Prime → (p ∣ choose n k) → k < p}.Finite
+```
+
+**Mathlib at the pinned toolchain** (`lake-manifest.json`: mathlib
+`a3a10db0e9d66acbebf76c5e6a135066525ac900`, `v4.27.0`;
+`Mathlib/NumberTheory/SmoothNumbers.lean:272-274`):
+
+```lean
+/-- `smoothNumbers n` is the set of *`n`-smooth positive natural numbers*, i.e., the
+positive natural numbers all of whose prime factors are less than `n`. -/
+def smoothNumbers (n : ℕ) : Set ℕ := {m | m ≠ 0 ∧ ∀ p ∈ primeFactorsList m, p < n}
+```
+
+**Source (erdosproblems.com/1093, live 2026-08-15, state `open`):**
+
+> Otherwise, the deficiency is the number of `0 ≤ i < k` such that `n−i` is `k`-smooth,
+> that is, divisible only by primes **`≤ k`**.
+
+Divergence confirmed from both primaries: `p < k` (Lean) vs `p ≤ k` (source). The two
+predicates differ on `m` exactly when `k ∣ m` with `k` prime; machine-checked over
+`k < 60`, `m < 4000`: **0** cases where they differ with `k` composite.
+
+Note that the *other* side condition is faithful: the source's "undefined if a prime
+`p ≤ k` divides `C(n,k)`" is encoded as `∀ p, p.Prime → p ∣ choose n k → k < p`. Only the
+smoothness threshold inside `deficiency` is wrong.
+
+### (b) Independent recomputation (own code path)
+
+`…/scratchpad/verify/v1093.py` — own trial-division factoriser, `math.comb`, exact
+integers, ran in <2 s. I recomputed the deficiency of **every one of the 23 examples the
+source page lists**, under both thresholds, and also re-checked eligibility (`2k ≤ n` and
+no prime `≤ k` dividing `C(n,k)`) for each.
+
+- Under the **source** threshold `p ≤ k`, my values reproduce the site's stated
+  deficiencies for **all 23/23** catalogue entries (7 with deficiency 1, 8 with 2, 6
+  with 3, 1 with 4, 1 with 9). This is the control that fixes the correct reading.
+- Under the **Mathlib** threshold `p < k`, exactly **three** entries change, all with
+  `k` prime:
+
+| example | k | k prime | site / source `p ≤ k` | Lean `p < k` | separating value `n−i` |
+|---|---|---|---|---|---|
+| `C(7,3)` | 3 | yes | **1** | **0** | `6 = 2·3` |
+| `C(23,5)` | 5 | yes | **1** | **0** | `20 = 2²·5` |
+| `C(47,11)` | 11 | yes | **4** | **3** | `44 = 2²·11` |
+
+All other 20 entries (k = 4,4,6,10,10,8,10,12,14,27,28,28,42,10,10,16,25,27,33,28) are
+composite `k` and agree. Consequence, exactly as claimed: two of the seven listed
+deficiency-1 examples leave the deficiency-1 set under the Lean encoding, and `C(47,11)`
+— the **unique known deficiency-4 example** — is a deficiency-3 example under it.
+Predecessor's numbers reproduced independently.
+
+### (c) METHOD §A6 classification
+
+One sentence: this is a claim about coordinate **(3) faithfulness of the declaration to
+its cited source** — `deficiency` computes a different function from the one
+erdosproblems.com defines, so `parts.i`/`parts.ii` are open questions about a different
+object — and it says nothing about coordinate (1), the underlying Erdős–Lacampagne–
+Selfridge question, which remains open either way.
+
+**Not a counterexample and not finitely refutable**: `parts.i` is an `answer(sorry) ↔
+Set.Infinite` placeholder and `parts.ii` is a `Set.Finite` claim; neither has a finite
+negation certificate (METHOD Phase 0A: `answer_placeholder` / infinite-cardinality).
+
+### (d) Duplicate / novelty search performed
+
+Upstream (`gh api search/issues`, issues **and** PRs, all states): `smoothNumbers`
+(2 hits: PR #1668 GreensOpenProblems 59, PR #1328 the 1093 PR itself), `1093` (8 hits),
+`erdos_1093` (5 hits), `deficiency binomial` (2 hits), `smooth` (37 hits, scanned).
+**None** raises the `< k` vs `≤ k` threshold.
+
+`git log`/`git blame` of `FormalConjectures/ErdosProblems/1093.lean`: 4 commits —
+`4f97b303` (#1328, Pawan Parida, 2025-12-12, introduced `deficiency` in its current
+form), `a22f98ab` (#1489 `answer(sorry) ↔`), `3eac3cf9` (#1532 `k < n` → `2 * k ≤ n`),
+`c252a410` (util split).
+
+**Provenance of the defect, recovered from the PR itself** (this is new, and is the
+strongest novelty evidence): PR #1328's *first* commit
+`3e5947996eff655f7ccb4861aac119a014e84ebb` defined the predicate correctly by hand —
+
+```lean
+/-- A number $n$ is $k$-smooth if all its prime factors are $\le k$. -/
+def IsKSmooth (k n : ℕ) : Prop := ∀ p, p.Prime → p ∣ n → p ≤ k
+```
+
+— and an inline review suggestion (YaelDillies, on `1093.lean:51`) replaced it with
+`#{i ∈ .range k | n - i ∈ smoothNumbers k}`, later followed by "Did you not find
+[Mathlib/NumberTheory/SmoothNumbers.lean#L275-L277]? Can you try using it?". The author
+complied ("Updated to use Mathlib.NumberTheory.SmoothNumbers now"). The `≤ k` → `< k`
+change was never discussed in the PR thread, the review comments, or the two later fix
+PRs (#1489, #1532), one of which was itself a faithfulness fix to the same file. So the
+defect is documented as introduced-by-refactor and unnoticed since 2025-12-12.
+
+Local `c5-k4`: `git log --all --oneline | grep -iE '1093|smooth'` → no hits;
+`git tag` / `gh release list` → none; the only files mentioning 1093 are this campaign's
+own `erdos-hunt.md` / `erdos-faithfulness-audit.md`.
+
+SearXNG: `formal-conjectures erdos 1093 smoothNumbers deficiency`,
+`Mathlib smoothNumbers prime factors less than n convention k-smooth`,
+`formal-conjectures 1093 deficiency binomial coefficient misformalization` → no prior art.
+
+### (e) Verdict
+
+**CONFIRMED_PUBLISHABLE — as a formalization-faithfulness defect report only, NOT as a
+counterexample.** Every element is independently verified: the two primary definitions,
+the exact 23-entry catalogue recomputation under both thresholds (23/23 agreement with
+the site under `p ≤ k`, 3 disagreements under `p < k`), the "differs only for prime `k`"
+reason, and the PR-level provenance of the substitution.
+
+Caveats for any write-up: (i) neither `parts.i` nor `parts.ii` becomes false — they
+become questions about a different function, so no release and no counterexample
+language; (ii) the repair is one token — `smoothNumbers (k+1)` is by definition
+`{m ≠ 0 | ∀ p ∈ primeFactorsList m, p < k+1}` = "all prime factors `≤ k`", exactly the
+source's condition; equivalently restore PR #1328's original local
+`IsKSmooth k n := ∀ p, p.Prime → p ∣ n → p ≤ k`; (iii) re-check the duplicate surface
+immediately before any write. **No action taken.**

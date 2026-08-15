@@ -73,6 +73,16 @@ proposed. No `git` mutation was run. Internal reading record only.
 | 14 | open / OPEN | `.parts.i`, `.parts.ii` | `allUniqueSums` is "exactly one **unordered** pair", and it admits `p.1 = p.2` (so `2a` is a legal representation) — the standard reading of "sum of two elements". `f ≫ g` unfolds to `IsBigO atTop g f`, so `.parts.i` is `N^{1/2−ε} = O(|{1..N}\B|)`, correct for `≫_ε`. `.parts.i` quantifies `∀ A` including `A = ∅` (then `|{1..N}\B| = N`), harmless | FAITHFUL | asymptotic |
 | 15 | open / OPEN | `erdos_15` | **`Summable` used for a conditionally convergent alternating series.** See the finding block below. Index/sign bookkeeping is otherwise exactly right (`(−1)^(k+1)·(k+1)/nth Prime k` ↔ `(−1)^n·n/p_n`) | **MATERIAL_TRIVIALLY_DETERMINED** | RHS provably `False`; no finite cert |
 | 17 | open / OPEN | `erdos_17` | none. `(p − 3 : ℤ)` deliberately avoids ℕ truncation (`p = 2 ⇒ −1`, vacuous). `n = 0` admitted and satisfiable (`2 − 2`). Database gate: the file's own `isClusterPrime_97_isLeast_non_cluster` matches the site's "the first prime without this property is 97" | FAITHFUL | `Set.Infinite` |
+| 18 | open / OPEN | `erdos_18a`, `erdos_18b`, `erdos_18c` | `practicalH n = sup_{m ∈ Icc 1 n} sInf {k | ∃ D ⊆ n.divisors, D.card = k ∧ m ∈ subsetSums D}`. The `sInf` over *containing* sets `D` (not over the representing subset `B`) still computes the minimum `|B|`, because `D := B` is admissible and `m ∈ subsetSums D ⇒ ∃ B ⊆ D`. `Icc 1 n` includes `m = n` where the source has `1 ≤ n < m` — free, since `n ∣ n`. `sInf ∅ = 0` junk exists for non-practical `n` but every open declaration is guarded by `Nat.IsPractical` or by `n.factorial` (practicality proved in-file). `Nat.IsPractical n = ∀ m ≤ n, m ∈ subsetSums n.divisors` and `subsetSums` uses a `Finset`, i.e. **distinct** divisors ✓. Database gate: in-file `practicalH 1 = 1`, `practicalH 6 = 2` (`4 = 1+3`), `practicalH 12 = 3` (`11 = 1+4+6`) all recomputed by hand and correct. Note `erdos_18_upper_bound` weakens Erdős' "h(n!) < n for all n ≥ 1" to `∀ᶠ n` — **necessary**, since `h(1!) = 1 ≮ 1` | FAITHFUL | `∃ᶠ` / `∀ᶠ` asymptotic |
+| 20 | open / OPEN | `erdos_20` | `f n k = sInf {m | ∀ {α : Type}, ∀ F, ((∀ f ∈ F, f.ncard = n) ∧ m ≤ F.ncard) → ∃ S ⊆ F, S.ncard = k ∧ IsSunflower S}`. `Set.ncard = 0` on infinite sets, so **infinite families `F` are exempt** from the hypothesis for `m ≥ 1`; immaterial, because any `m` that works for finite families works for infinite ones (pass to a finite subfamily). `n = 0` additionally admits infinite member-sets (`f.ncard = 0` ⇔ `f = ∅` ∨ `f` infinite) but `erdos_20` guards `n > 0`. `IsSunflower = ∃ S, F.Pairwise (A ∩ B = S)` is the standard Δ-system ✓. `c : ℕ → ℕ` may be `0`, but `0^n = 0` for `n > 0` makes that choice useless, so the `∃ c` is not weakened. The set `{m | …}` is upward closed, so `sInf` is a genuine minimum | COSMETIC | `∃ c` global constant |
+| 25 | open / OPEN | `erdos_25` | none. `(∀ i, 0 < seq_n i) ∧ StrictMono seq_n` reproduces `1 ≤ n_1 < n_2 < ⋯`; `(x : ℤ) < seq_n i ∨ ¬(x ≡ a_i [ZMOD n_i])` reproduces "either n < n_i or n ≢ a_i" exactly | FAITHFUL | log-density existence over arbitrary sequences |
+| 28 | open / OPEN | `erdos_28` | none. `sumRep A = 𝟙_A ∗ 𝟙_A` (ordered pairs — irrelevant to a `limsup = ⊤` claim); `(A + A)ᶜ.Finite` is exactly "contains all but finitely many"; conclusion is a genuine `= ⊤` in `ℕ∞` | FAITHFUL | `limsup = ⊤` |
+| 30 | open / OPEN | `erdos_30` | none. `h N − (N : ℝ).sqrt` is **real** subtraction (the `.sqrt` forces the ℝ elaboration, so no ℕ truncation of the `h N − √N` difference, which can be negative). `maxSidonSubsetCard` = `sup` of `card` over Sidon subsets of `Icc 1 N` ✓; `IsSidon` is the standard `B₂` definition allowing `i₁ = i₂` ✓ | FAITHFUL | `∀ ε, =O` asymptotic |
+| 32 | open / OPEN | `erdos_32`, `.variants.log_bound` | none. `IsAdditiveComplementToPrimes` uses `∀ᶠ n in atTop`, matching "every large integer". `.variants.liminf_gt_one` is correctly `research solved` (the site poses it as a question, but Ruzsa's `≥ e^γ ≈ 1.781` settles it) | FAITHFUL | `∃ A` infinite object |
+| 33 | open / OPEN | `erdos_33` | (a) headline is `⨅ …= answer(sorry)`, a fixed-optimum hole; the "every large integer → every integer" change is **documented and correct** (padding `A` by finitely many elements changes no `limsup/√N`). (b) The site's **second** question (`liminf |A∩[1,N]|/√N > 1`?) has no declaration. (c) **`.variants.one_mem_lowerBounds` is vacuous**: its name and docstring claim "this value is … > 1" (a lower bound on the infimum) but the statement is `∃ A, AdditiveBasisCondition A ∧ 1 < limsup …`, which `A = ℕ` satisfies trivially (`k = k + 0²`; `limsup N/√N = ⊤`). A lower bound needs `∀ A`. Tagged `research solved`, so outside the open-declaration target set, but it is a corpus defect | VACUOUS_AS_STATED (on `.variants.one_mem_lowerBounds`); headline FAITHFUL | `FIXED_OPTIMUM` |
+| 39 | open / OPEN | `erdos_39` | none. `(· ^ (1/2 − ε) : ℕ → ℝ) =O[atTop] (fun N => ((Icc 1 N ∩ A).ncard : ℝ))` is the correct direction for `≫_ε` | FAITHFUL | `∃ A` infinite Sidon set |
+| 40 | open / OPEN | `erdos_40` | **`theorem erdos_40 : Erdos40ForSet answer(sorry)` is satisfied by `answer := (∅ : Set (ℕ → ℝ))`.** See the finding block below | **VACUOUS_AS_STATED** | trivially fillable `answer` hole |
+| 41 | open / OPEN | `erdos_41` | **`NtupleCondition A n` quantifies over `Finset`s `I, J` of card exactly `n`, so it only forbids coincidences between sums of `n` *pairwise distinct* elements.** The source's "triple sums `a+b+c` … aside from the trivial coincidences" is the multiset (strong `B₃`) reading, which also forbids e.g. `a+a+b = c+c+d`. The Lean hypothesis class is therefore strictly larger, making `erdos_41` a **strictly stronger** claim than the source's. Same issue in the `research solved` `.variants.pairwise` (weak Sidon vs Sidon). Order of magnitude is unchanged (weak `B_h` sets in `[N]` are still `Θ(N^{1/h})`), so no refutation follows | MATERIAL_BUT_STILL_TRUE | `liminf = 0` over infinite `A` |
 
 ---
 
@@ -114,6 +124,63 @@ e.g. `∃ l : ℝ, Tendsto (fun N => ∑ k ∈ Finset.range N, f k) atTop (𝓝 
   positive-term series (EP 3 `¬ Summable (1/a)`, EP 12 `.parts.iii Summable (1/n)`), so this is
   an isolated idiom slip rather than a corpus-wide convention.
 
+### EP 40 — `answer(sorry)` hole with no extremality constraint; `∅` settles it
+
+`FormalConjectures/ErdosProblems/40.lean`:
+
+```lean
+def Erdos40For (g : ℕ → ℝ) : Prop :=
+  ∀ A : Set ℕ,
+    (fun N : ℕ ↦ √N / g N) =O[atTop] (fun N ↦ ((A ∩ .Icc 1 N).ncard : ℝ)) →
+    limsup (fun N ↦ (sumRep A N : ℕ∞)) atTop = ⊤
+
+def Erdos40ForSet (G : Set (ℕ → ℝ)) : Prop := ∀ g ∈ G, Tendsto g atTop atTop → Erdos40For g
+
+@[category research open, AMS 11]
+theorem erdos_40 : Erdos40ForSet answer(sorry) := by
+  sorry
+```
+
+Site statement (`erdosproblems.com/40`, last edited: not shown): *"For what functions
+$g(N)\to\infty$ is it true that $|A\cap\{1,\ldots,N\}| \gg N^{1/2}/g(N)$ implies
+$\limsup 1_A*1_A(n)=\infty$?"*
+
+`Erdos40ForSet G` unfolds to `∀ g ∈ G, …`. **Witness: `answer := (∅ : Set (ℕ → ℝ))`.** Then
+`∀ g ∈ ∅, …` is vacuously true and the declaration is discharged by `simp`. Every subset of
+`{g | ¬ Tendsto g atTop atTop}` works equally well, so the hole is not merely trivially
+fillable, it is massively under-determined.
+
+The source asks for the **largest** such class of `g`. A faithful encoding needs an
+extremality wrapper — `IsGreatest {G | Erdos40ForSet G} answer(sorry)`, or a fixed
+family such as `Erdos40ForSet {g | ∀ᶠ N in atTop, g N ≤ (log N)^C}` — exactly the pattern the
+corpus uses elsewhere (`IsLeast`/`IsGreatest` + `answer`).
+
+- **Severity:** `VACUOUS_AS_STATED`. The witness is explicit and requires no computation.
+- **Certificate shape:** trivially fillable `answer` hole; no mathematical content is asserted.
+- **Duplicate check:** NOT YET RUN.
+- Contrast within the same file: `erdos_40.variants.implies_erdos_28` takes the hypothesis
+  `Erdos40ForSet .univ`, i.e. the *maximal* instantiation, showing the file's author had the
+  strong reading in mind; only the headline lost it.
+
+### EP 33 — `.variants.one_mem_lowerBounds` asserts an existential, not a lower bound
+
+```lean
+@[category research solved, AMS 11]
+theorem erdos_33.variants.one_mem_lowerBounds : ∃ A, AdditiveBasisCondition A ∧
+    1 < Filter.atTop.limsup (fun N => (A ∩ Icc 1 N).ncard / √N) := by
+  sorry
+```
+
+Docstring: *"Erdos observed that this value is finite and > 1."* — i.e. `1` bounds the
+**infimum** from below, a `∀ A` statement. The declaration says `∃ A`, which
+`A = ℕ` satisfies at once: `AdditiveBasisCondition ℕ` holds via `k = k + 0²`, and
+`limsup (N / √N) = ⊤ > 1`. The declaration name (`one_mem_lowerBounds`) describes the
+intended statement, not the encoded one.
+
+- **Severity:** `VACUOUS_AS_STATED` (declaration is `research solved`, so it is not in the
+  open-target set; recorded as a corpus defect).
+- **Duplicate check:** NOT YET RUN.
+
 ---
 
 ## Running severity roll-up
@@ -121,9 +188,9 @@ e.g. `∃ l : ℝ, Tendsto (fun N => ∑ k ∈ Finset.range N, f k) atTop (𝓝 
 | severity | count | ids |
 |---|---|---|
 | `FINITELY_FALSE_AS_STATED` | 0 | — |
-| `VACUOUS_AS_STATED` | 0 | — |
+| `VACUOUS_AS_STATED` | 2 | **40** (open decl), 33 (`research solved` variant) |
 | `MATERIAL_TRIVIALLY_DETERMINED` | 1 | 15 |
-| `MATERIAL_BUT_STILL_TRUE` | 0 | — |
+| `MATERIAL_BUT_STILL_TRUE` | 1 | 41 |
 | `STATUS_SYNC` | 0 | — |
-| `COSMETIC` | 4 | 5, 10, 11, 13 |
-| `FAITHFUL` | 7 | 1, 3, 7, 9, 12, 14, 17 |
+| `COSMETIC` | 5 | 5, 10, 11, 13, 20 |
+| `FAITHFUL` | 13 | 1, 3, 7, 9, 12, 14, 17, 18, 25, 28, 30, 32, 39 |
