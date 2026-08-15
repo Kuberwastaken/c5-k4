@@ -605,3 +605,31 @@ This programme is not complete when a headline counterexample is found. It is
 complete only when the method, full developmental evidence, formal artifacts,
 negative results, and a prospectively frozen held-out evaluation can be audited
 from the git history without relying on private context.
+
+## Terminus for the corpus-audit program (added 2026-08-15)
+
+The independent review found the formal-corpus audit to be real but finite
+work — "QA labour on a depleting, contested vein" — and recommended running it
+hard with an end date rather than letting it become the programme by default.
+Accepted. The audit ends when any of these is true:
+
+1. **Coverage.** Every open declaration in the pinned inventories has been
+   triaged: 460 OEIS/ErdosProblems
+   (`results/expansion/open_targets_oeis_erdos_20260815.json`) and 262 in the
+   remaining collections (`..._other_corpora_20260815.json`). OEIS and
+   ErdosProblems are done; the other ten collections are in progress.
+2. **Depletion.** Two consecutive full lanes return zero gate-surviving
+   findings. The signal is already visible: after the first two crossings, 19
+   Erdős depth targets and 61 OEIS files produced none.
+3. **Contention.** A parallel auditor has covered the remaining surface first.
+   Duplicate-checking stays mandatory, but *standing competitor surveillance is
+   discontinued* — one analysis was enough
+   (`results/expansion/publication/kitaken1-activity-analysis.md`); it will not
+   be refreshed.
+
+On termination: file whatever survives, update `CONTRIBUTIONS.md`, and stop.
+Do not extend the audit into new corpora to keep the lane alive — that is the
+tractability gradient the review warned about, not a research decision.
+
+The research claim is tested separately and once, by the fresh-generation
+three-arm experiment under `results/experiment/`.
