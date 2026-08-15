@@ -268,13 +268,33 @@ and admits `8925`.
 
 ## 9. Immutable links (HTTP 200 verified)
 
-LINKS_PLACEHOLDER
+All verified HTTP 200 immediately before the issue was posted.
+
+| Link | Code |
+|---|---|
+| `…/formal-conjectures/blob/638da20efd8eeeed2993fc2550fc596dc90c1ce8/FormalConjectures/OEIS/108864.lean` | 200 |
+| `…/c5-k4/blob/125be1d2ad3da8ade60615d1f6d7d3b1722a098a/results/expansion/live-search-2026-08-15/oeis-hunt-part1.md#L314-L397` | 200 |
+| `…/c5-k4/blob/125be1d2…/results/expansion/publication/oeis_108864_submission.md` | 200 |
+| `…/c5-k4/blob/125be1d2…/results/expansion/live-search-2026-08-15/scripts/part1/c109883b.py#L1-L27` | 200 |
+| `…/c5-k4/blob/125be1d2…/results/expansion/live-search-2026-08-15/scripts/part1/c108864.py` | 200 |
+| `…/c5-k4/blob/125be1d2…/results/expansion/live-search-2026-08-15/scripts/part1/c108864b.py` | 200 |
+
+`https://oeis.org/A108864` and `https://oeis.org/A109883` return 403 to `curl` (OEIS blocks
+non-browser agents); they are canonical source URLs and are rendered as links, not fetched.
+
+Full SHAs from `git rev-parse`:
+
+- c5-k4 audit/record commit: `125be1d2ad3da8ade60615d1f6d7d3b1722a098a` (pushed to `origin/main`)
+- upstream base: `638da20efd8eeeed2993fc2550fc596dc90c1ce8`
+- local fix commit: `ea241d35e3467795c081f4ff6a0fbf57d9a49690` on `fix-oeis-108864-encoding`
 
 ---
 
 ## 10. Submission
 
-- Issue: ISSUE_URL_PLACEHOLDER
+- Issue: **https://github.com/google-deepmind/formal-conjectures/issues/4984** (OPEN).
+  The `misformalization` label could not be applied — the account lacks label permissions on
+  the repository. The sibling issues #4974–#4982 are unlabelled for the same reason.
 - Branch: `fix-oeis-108864-encoding` (local, on `Kuberwastaken/formal-conjectures`), based on
   upstream `638da20efd8eeeed2993fc2550fc596dc90c1ce8`.
 - PR: **not opened** — left for parent review. Exact command in §11.
@@ -288,4 +308,30 @@ Section order confirmed against `UPSTREAM_PROTOCOL.md`: issue uses `Summary`,
 
 ## 11. Exact PR command
 
-PR_COMMAND_PLACEHOLDER
+The branch is committed but **deliberately not pushed**. Parent review first.
+
+```bash
+cd /Users/kuber.mehta/Projects/formal-conjectures
+
+# 1. publish the branch to the fork
+git push -u origin fix-oeis-108864-encoding
+
+# 2. open the PR
+gh pr create \
+  --repo google-deepmind/formal-conjectures \
+  --base main \
+  --head Kuberwastaken:fix-oeis-108864-encoding \
+  --title 'OEIS/108864: encode the perfect deficiency A109883, not |sigma(n) - 2n|' \
+  --body-file /Users/kuber.mehta/Projects/c5-k4/results/expansion/publication/oeis_108864_pr_body.md
+```
+
+The PR body is at `results/expansion/publication/oeis_108864_pr_body.md` in this repository and
+uses the protocol section order: `Summary`, the `Fixes #4984` reference, `Follow-up discovery
+pattern`, `Formal content` (no proof is claimed, so the `Formal proof` slot records the Lean
+content and the axiom audit instead), `Source/status note`, `Verification`, `AI assistance
+disclosure`.
+
+**Note for the parent:** `/Users/kuber.mehta/Projects/formal-conjectures` is a shared checkout.
+It was restored to the sibling lane's branch `disprove-oeis-110854` after this work; the fix
+lives on the local branch `fix-oeis-108864-encoding` at `ea241d35`. Check it out in a worktree
+rather than switching the shared tree.
