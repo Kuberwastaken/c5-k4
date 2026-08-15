@@ -286,3 +286,79 @@ Dumitrescu; Nivasch–Pach–Pinchasi–Zerbib `f(n) ≥ (13/36+1/22701)n − O(
 leaves the conjecture open for all large `n`, so this is calibration, not new
 mathematical evidence.
 
+## F4 — Erdős 242, `erdos_242` — predecessor's `TIMEOUT_BRACKET` **CLOSED**, now `HOLD_BOUNDED`
+
+**Blob** `597f7a04f2b128b1fbaf8a000a0ab642aa201d1f` (`242.lean`).
+
+```lean
+theorem erdos_242 (n : ℕ) (hn : 2 < n) :
+    ∃ x y z : ℕ, 1 ≤ x ∧ x < y ∧ y < z ∧ (4 / n : ℚ) = 1 / x + 1 / y + 1 / z
+```
+
+Source faithfulness was already settled in `erdos-hunt.md` D10 (site carries the
+strict `1 ≤ x < y < z`, Lean division is rational): **no divergence**. This
+entry only closes the open computational bracket.
+
+### What was left open
+
+`erdos-hunt.md` D10: phase 1 of `verify_erdos_misc.py es242 3000` covered
+`n = 3..2901` with a per-`n` op cap and left **178 values unresolved by the
+cap**; phase 2 (the exhaustive pass) hit the 52 s wall having checked none of
+them. Verdict recorded there: `TIMEOUT_BRACKET`, explicitly **not** a hold.
+
+### Why the old run was slow, and the replacement (independent code path)
+
+The old routine enumerated `y` one at a time inside `(q/p, 2q/p]`, whose length
+is `~n²/(16j)` at `x = ⌊n/4⌋+j` — that is the op blow-up. Replace the `y`-loop
+by exact divisor enumeration:
+
+```
+4/n − 1/x = p/q  in lowest terms  (n/4 < x ≤ 3n/4, since 1/x is the largest term)
+1/y + 1/z = p/q  ⟺  (p·y − q)(p·z − q) = q²,  with d := p·y − q a divisor of q², d ≤ q
+             ⟹  y = (q+d)/p,  z = (q + q²/d)/p     (both required integral)
+```
+
+so each `x` is settled **completely** rather than up to a cap. `q ∣ n·x`, so
+`q`'s factorisation is read off from a smallest-prime-factor sieve on `x` plus
+the factorisation of `n` — no big-number factoring. Two further exact
+accelerations, both certificate-preserving:
+
+* **divisor lift:** if `d ∣ n`, `3 ≤ d < n`, and `4/d = 1/x+1/y+1/z` with
+  `x<y<z`, then `4/n = 1/(kx)+1/(ky)+1/(kz)` with `k = n/d`, still strictly
+  ordered. So only `n` with no solved proper divisor `≥ 3` reach the
+  exhaustive routine (in practice: the primes).
+* every produced triple, lifted or exhaustive, is re-verified with
+  `fractions.Fraction` before being accepted (`1 ≤ x < y < z` and exact
+  equality) — this is a second arithmetic path over **every** witness, not a
+  sample.
+
+Script: `<scratch>/e242.py`.
+
+### Result
+
+| range | status | n needing exhaustive search | n solved by lift | **n with no triple** | secs |
+|---|---|---|---|---|---|
+| `n = 3..3,000` | COMPLETE | 430 | 2,568 | **0** | 0.1 |
+| `n = 3..100,000` | COMPLETE | 9,592 | 90,406 | **0** | 2.0 |
+| `n = 3..2,000,000` | COMPLETE | 148,933 | 1,851,065 | **0** | 45.5 |
+
+Sample exact witnesses (all Fraction-verified):
+`n=3 → (1,4,12)`; `n=4 → (2,3,6)`; `n=5 → (2,5,10)`;
+`n=97 → (25,810,392850)`; `n=2,000,000 → (1000000,1500000,3000000)`.
+
+**Third independent path** (naive `x`-then-`y` scan with `Fraction`
+arithmetic, no divisor algebra, no lifting): `n = 3..400`, **398/398 solved,
+0 unsolved**, 14.7 s. Agrees with the divisor method on the whole overlap.
+
+**Verdict: `HOLD_BOUNDED`.** The predecessor's 178-value bracket at `n ≤ 2901`
+is fully closed — every `n` in `3..2,000,000` now has an explicit, exactly
+verified `(x,y,z)` with `1 ≤ x < y < z`. No counterexample. Prior art
+(verified `n ≤ 10^18` [MiDu25]) already excluded a small one, so this is
+calibration; the contribution is that the campaign's own record no longer
+carries an unverified interval.
+
+**Duplicate check.** "242": #2049 (closed, statement request), #2859 (closed,
+`variants.known_result`), #1864 and #3952 (open, claimed *proofs* of
+Erdős–Straus — proof attempts, not counterexamples, and not touched here). No
+upstream action taken.
+

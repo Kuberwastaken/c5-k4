@@ -563,3 +563,188 @@ unaffected by a single perturbed term; (iii) therefore this is at most a one-lin
 issue ("the `r = 2` step case's equality clause is vacuous because `m : ℕ+`, `m ≤ 1` forces
 `m = 1`; consequently class 2 contains every class-1 prime and `p 2 = 2` instead of 13"),
 never a release. **No action taken.**
+
+---
+
+## Candidate 5 — Erdős 931 `erdos_931.variants.exists_prime`
+
+### Claim under test
+
+"Prose says a prime strictly *between* `n₁` and `n₂`; Lean uses closed `n₁ ≤ p ≤ n₂`,
+which trivialises the conclusion on the repo's own AlphaProof witness `(10,3,0,13)`."
+
+### (a) Primary re-derivation
+
+**Actual Lean at the pin** (`FormalConjectures/ErdosProblems/931.lean`):
+
+```lean
+/-- Erdős was unable to prove that if the two products have the same factors
+then there must exist a prime between $n_1$ and $n_2$. -/
+@[category research open, AMS 11]
+theorem erdos_931.variants.exists_prime (k₁ k₂ n₁ n₂ : ℕ) (h₁ : k₂ ≤ k₁) (h₂ : 3 ≤ k₂)
+    (h₃ : n₁ + k₁ ≤ n₂) (h₄ : (∏ i ∈ Finset.Icc 1 k₁, (n₁ + i)).primeFactors =
+      (∏ j ∈ Finset.Icc 1 k₂, (n₂ + j)).primeFactors) :
+    ∃ (p : ℕ), p.Prime ∧ n₁ ≤ p ∧ p ≤ n₂
+```
+
+Closed interval in the conclusion, "between" in the docstring: the textual divergence is
+real and confirmed.
+
+**Source (erdosproblems.com/931, live 2026-08-15, state `open`).** Full page text
+retrieved; the statement is the finiteness question, and the remarks give Tijdeman's
+example `19,20,21,22` / `54,55,56,57` and the AlphaProof counterexample
+(`10! = 2⁸·3⁴·5²·7`, `14·15·16 = 2⁵·3·5·7`, so `n₁=0, k₁=10, n₂=13, k₂=3`).
+
+**Source-attribution bracket (recorded, not asserted as a defect).** The sentence the
+docstring attributes to the source — "Erdős was unable to prove … there must exist a prime
+between `n₁` and `n₂`" — does **not** appear on the current page: the live fetch and the
+campaign's cached copy are byte-identical (33,924 bytes each) and contain **0** occurrences
+of "between" and **0** of "unable"; the `/latex/931` rendering likewise has 0. The
+docstring dates to 2025-02-17 (Salvatore Mercuri, then
+`OpenConjectures/ErdosProblems/erdos_931.lean`), so the site text may simply have been
+edited since. A Wayback Machine check was attempted twice and returned **HTTP 429**
+(rate-limited), so this is an **unresolved bracket**, not a finding. Do not claim the
+docstring is unsourced on this evidence. (The predecessor's `erdos-hunt.md` D1 quotes this
+sentence as "Source (erdosproblems.com/931 …)" — that attribution is unverified.)
+
+### (b) Independent computation (own code path)
+
+`…/scratchpad/verify/v931.py`, own smallest-prime-factor sieve; the key reduction is
+`primeFactors (∏_{i=1..k}(n+i)) = ⋃_{i=1..k} primeFactors(n+i)`, so `h₄` is a set equality
+that can be indexed and matched. Ran in <10 s.
+
+**The AlphaProof witness `(k₁,k₂,n₁,n₂) = (10,3,0,13)`:** `10! = 3628800`, prime factors
+`{2,3,5,7}`; `14·15·16 = 3360`, prime factors `{2,3,5,7}` — `h₄` holds; `h₁,h₂,h₃` hold.
+
+- primes in the **closed** `[0,13]`: `2,3,5,7,11,13`
+- primes in the **open** `(0,13)`: `2,3,5,7,11`
+
+**Both readings are satisfied, with the same least witness `p = 2`.** The conclusion is
+discharged trivially because `n₁ = 0`, not because the interval is closed. **The claimed
+causal link between the closed interval and the trivialisation is false.**
+
+Same for Tijdeman's example (`n₁=18, k₁=4, n₂=53, k₂=4`, common support
+`{2,3,5,7,11,19}`): both `[18,53]` and `(18,53)` contain `19,23,29,31,37,…`.
+
+**Bounded exhaustive hunt for premise-satisfying tuples** (this is new work; the
+predecessor searched only *inside prime-free runs* and therefore found zero instances of
+any kind). Over `n₁ ≤ 500`, `3 ≤ k₂ ≤ k₁ ≤ 25`, `n₂ ≤ 6000`, with `k₂ ≤ k₁` and
+`n₁+k₁ ≤ n₂` and `h₄` all enforced:
+
+```
+premise-satisfying tuples found:                        280
+tuples where the CLOSED and OPEN readings disagree:       0
+tuples with NO prime in the closed interval [n1,n2]:      0
+first hits: (5,3,0,7) (6,3,0,7) (4,3,1,7) (5,3,1,7) (3,3,2,7) (4,3,2,7) (3,3,3,7) (7,3,0,13)
+```
+
+So across every premise-satisfying instance in the searched region, the endpoint
+divergence changes nothing, and the conclusion holds under both readings.
+
+**Direction of the divergence.** `(∃ p, n₁ < p < n₂) → (∃ p, n₁ ≤ p ≤ n₂)`, so the Lean
+form is strictly **weaker** than the "between" reading. It is therefore *harder* to refute:
+any counterexample to the Lean declaration is automatically a counterexample to the
+stricter source reading. The divergence is conservative and cannot manufacture a spurious
+disproof.
+
+### (c) METHOD §A6 classification
+
+One sentence: this is a claim about coordinate **(3)** only — a docstring-vs-statement
+endpoint mismatch in a declaration that is *weaker* than the reading its docstring
+describes — and it touches neither coordinate (1) nor produces any finite falsification of
+coordinate (4).
+
+### (d) Duplicate / novelty search performed
+
+Upstream (`gh api search/issues`, issues **and** PRs, all states): `931` (6 hits: closed
+issue #2106 "Erdős Problem 931", closed PR #11 "add counterexample to Erdős 931", two
+closed bot PRs for `additional_condition_nonempty`, plus two unrelated Erdős-768 items),
+`erdos_931` (3 hits, same), `exists_prime` (**0**), `Tijdeman` (2 hits, unrelated
+Polignac/Green–Tao PR). Nothing about the interval endpoints.
+
+`git log`/`git blame` of `FormalConjectures/ErdosProblems/931.lean`: 14 commits; the
+conclusion line `∃ (p : ℕ), p.Prime ∧ n₁ ≤ p ∧ p ≤ n₂` traces to `ffa38e38` (#114, a
+`:= sorry` → `:= by sorry` chore) over Salvatore Mercuri's original 2025-02-17 statement;
+the docstring sentence is from that same original. No commit ever touched the endpoints.
+
+Also re-checked the three live audit trackers (#4896, #4923, #4927, fetched in full for
+candidate 2): Erdős 931 appears in none.
+
+Local `c5-k4`: `git tag` / `gh release list` → none for 931; the only local mentions are
+this campaign's own reports.
+
+SearXNG: `formal-conjectures erdos 931 exists_prime prime between n1 n2`,
+`erdosproblems 931 prime between n_1 n_2 Erdos unable to prove` → no prior art (the second
+query surfaced the erdosproblems forum thread `/forum/discuss/931`, which resolves to a
+221-byte redirect stub with no content).
+
+### (e) Verdict
+
+**REFUTED** as handed over. The endpoint divergence (`between` vs `n₁ ≤ p ≤ n₂`) is real,
+but it does **not** trivialise the conclusion on the AlphaProof witness — the strict
+reading is satisfied there too, by the same `p = 2` — and across all 280 premise-satisfying
+tuples I found in a bounded exhaustive region, the two readings never disagree. The
+divergence is also in the *conservative* direction (Lean is the weaker statement), so it
+can never yield a counterexample the source reading would not also yield.
+
+**Residual, DOWNGRADED to `COSMETIC`** plus one **unresolved bracket**: the docstring's
+"prime between `n₁` and `n₂`" sentence is not present on the current
+erdosproblems.com/931 page, and the Wayback check to determine whether it once was
+returned HTTP 429 twice. That bracket must be closed before the endpoint mismatch could
+even be described as a docstring defect. Nothing publishable. **No action taken.**
+
+---
+
+## Summary
+
+| # | Target | Verdict | One-line justification |
+|---|---|---|---|
+| 1 | Erdős 1084 `triangular_optimal_d2` | **REFUTED** (residual `STATUS_SYNC` + `COSMETIC`) | The declaration asserts `=`, not `<`; the `=` form is exactly Harborth's 1974 theorem, so nothing is finitely false — only the docstring (`<`) and the `research open` tag are wrong. |
+| 2 | OEIS A237271 `observation_carmichael` | **CONFIRMED_PUBLISHABLE** (formalization defect, not a counterexample) | Any composite `k > 1` has a prime factor `p` with `0 < p < k`, which is a zero divisor and so cannot satisfy `p^(k−1) = 1`; the hypothesis is unsatisfiable, the `research open` declaration is vacuously true, and nothing upstream or on the web reports it. |
+| 3 | Erdős 1093 `deficiency` | **CONFIRMED_PUBLISHABLE** (formalization defect, not a counterexample) | `Nat.smoothNumbers k` is `p < k` while the source is `p ≤ k`; my recomputation reproduces all 23 catalogue entries under `p ≤ k` and changes exactly three under `p < k` (C(7,3): 1→0, C(23,5): 1→0, C(47,11): 4→3), and PR #1328's own first commit shows the correct `≤ k` predicate was replaced by the Mathlib one without discussion. |
+| 4 | Erdős 1055 `IsOfClass` / `p` | **CONFIRMED_PUBLISHABLE** (small definition defect; narrower than claimed) | `m : ℕ+`, `m ≤ 1 ⇒ m = 1` makes the `r = 2` equality clause vacuous, so `IsOfClass 2` = "true class ≤ 2" and `p 2 = 2` vs A005113(2) = 13 — but `r = 1,3,4,5` all reproduce A005113 exactly and no declaration in the file becomes false. |
+| 5 | Erdős 931 `exists_prime` | **REFUTED** (residual `COSMETIC` + one open bracket) | The closed interval does not trivialise the AlphaProof witness — the strict reading is satisfied there too by `p = 2` — and across 280 premise-satisfying tuples I enumerated, closed and open never disagree; the divergence is in the conservative (weaker) direction. |
+
+### What may and may not be claimed
+
+- **Nothing here is a counterexample.** Candidates 2, 3 and 4 are all *formalization
+  defects* (METHOD_V1_6 §A6 coordinates 3 and 4). In each case the underlying
+  mathematics (coordinate 1) is untouched, and in candidate 2 the literal declaration is
+  trivially **true**, so METHOD Phase 8 / `UPSTREAM_PROTOCOL.md` release machinery does
+  not apply. The appropriate artifact for 2/3/4 is an upstream **issue** in the style of
+  the live trackers #4896 / #4923, or a local note — **subject to explicit user
+  authorization, which has not been given.**
+- Candidates 1 and 5 should not be carried forward as counterexamples at all.
+- The four-coordinate discipline must be stated in the first sentence of any write-up.
+
+### Pinned blob SHAs (METHOD_V1_6 §A2.1 — re-check immediately before any publish)
+
+```
+159a640c86ea311e35d4cc85fb7548358be19bc3  FormalConjectures/ErdosProblems/1084.lean
+74d08a37138750c7a607d5f8b7ec216a7ed0b99d  FormalConjectures/OEIS/237271.lean
+846eebf592199842d56e9b2a5bc03866e2a497fb  FormalConjectures/ErdosProblems/1093.lean
+4835f12e96d618c7e9014f31a85f7549baf2ab79  FormalConjectures/ErdosProblems/1055.lean
+b90e2e2595df52da5dbbb6c74afce4a17e81bbef  FormalConjectures/ErdosProblems/931.lean
+```
+
+`OEIS/237271.lean` in particular was created only on **2026-08-12** (three days before
+this audit), so its duplicate surface is the most volatile of the five.
+
+### Verifier scripts (independent code path, all under the 60 s cap)
+
+- `…/scratchpad/verify/v1084.py` — exact triangular-lattice unit-distance count and
+  Harborth floor via `math.isqrt`.
+- `…/scratchpad/verify/v237271.py` — Lean `a` re-implementation vs OEIS DATA `n = 1..90`,
+  full Lean-hypothesis sweep `k ≤ 20000`, Carmichael numbers and `a(k)` on them.
+- `…/scratchpad/verify/v1093.py` — deficiency under both thresholds for all 23 catalogue
+  entries plus the "differs only for prime `k`" check.
+- `…/scratchpad/verify/v1055.py` — literal `PNat.caseStrongInductionOn` unfolding vs the
+  Erdős–Selfridge classification, and `p r` vs A005113 for `r = 1..5`.
+- `…/scratchpad/verify/v931.py` — AlphaProof/Tijdeman witnesses and the bounded
+  exhaustive premise-satisfying-tuple hunt.
+
+Copies have been placed in the repository at
+`results/expansion/live-search-2026-08-15/scripts/verify_candidate_{1084,237271,1093,1055,931}.py`
+so the audit is replayable; they are uncommitted (this lane does not write to git) and must
+be committed before any of 2/3/4 could enter a publication path
+(`UPSTREAM_PROTOCOL.md` artifact gate).
