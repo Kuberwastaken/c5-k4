@@ -303,3 +303,121 @@ DATA. This secondary claim is **not formalized in Lean**, so it does not refute 
 `HOLD_BOUNDED` — no counterexample to the Lean declaration for `2 <= n <= 60000`; encoding is
 faithful. One `SOURCE_ERRATUM` recorded against the OEIS comment (n = 66), with no upstream Lean
 consequence.
+
+---
+
+## 5. A237271 — parts in the symmetric representation of σ(n) (Carmichael observation)
+
+**Lean file:** `FormalConjectures/OEIS/237271.lean` (6976 bytes, 1 `category research open`).
+**OEIS:** <https://oeis.org/A237271>
+
+### Verbatim open declaration
+
+```lean
+/--
+Observation: "a(A002997(n)) >= 3, at least for 1 <= n <= 10000."
+- _Omar E. Pol_, Oct 21 2025
+
+That is, $a(k) \ge 3$ for every Carmichael number $k$.
+A002997 is the sequence of Carmichael numbers.
+-/
+@[category research open, AMS 11]
+theorem observation_carmichael (k : ℕ)
+    (hk : ¬ k.Prime ∧ 1 < k ∧ ∀ a : ZMod k, a ≠ 0 → a ^ (k - 1) = 1) :
+    3 ≤ a k := by
+  sorry
+```
+
+with
+
+```lean
+def a (n : ℕ) : ℕ :=
+  let divs_list : List ℕ := (n.divisors.sort (· ≤ ·))
+  let consecutive_pairs : List (ℕ × ℕ) := List.zip divs_list divs_list.tail
+  let count : ℕ := consecutive_pairs.countP fun pair =>
+    Odd pair.snd ∧ pair.snd ≥ 2 * pair.fst
+  1 + count
+```
+
+### OEIS ground truth
+
+- NAME: "Number of parts in the symmetric representation of sigma(n)." OFFSET 1,3.
+- COMMENT (Omar E. Pol, Oct 21 2025): "Observation: a(A002997(n)) >= 3, at least for 1 <= n <= 10000."
+- A002997 = Carmichael numbers = **composite** `k` such that `a^(k-1) ≡ 1 (mod k)` for all `a`
+  **coprime to `k`**.
+
+Sequence faithfulness: the Lean `a` reproduces the OEIS DATA exactly for `n = 1..50`:
+`[1,1,2,1,2,1,2,1,3,2,2,1,2,2,3,1,2,1,2,1,4,2,2,1,3,2,4,1,2,1,2,1,4,2,3,1,2,2,4,1,2,1,2,2,3,2,2,1,3,3]`.
+
+### FORMALIZATION DEFECT — the hypothesis is unsatisfiable, so the declaration is vacuously true
+
+The Carmichael condition quantifies over residues **coprime to `k`**. The Lean hypothesis instead
+quantifies over **every nonzero** `a : ZMod k`. Those are not the same, and the Lean version is
+satisfied by no `k` at all:
+
+> Let `k` be composite with `1 < k`, and let `p` be a prime divisor of `k`. Then `1 < p < k`, so
+> `(p : ZMod k) ≠ 0`. If `p ^ (k-1) = 1` in `ZMod k` then `p * p ^ (k-2) = 1`, i.e. `p` is a unit of
+> `ZMod k`, hence `gcd(p, k) = 1` — contradicting `p ∣ k` and `p > 1`. So the third conjunct fails.
+> Conversely the third conjunct forces `ZMod k` to be a field, i.e. `k` prime, contradicting the
+> first conjunct. **The hypothesis set is empty.**
+
+Exhaustive computational confirmation (independent code path, direct `pow(x, k-1, k)` over all
+`1 <= x < k`):
+
+```
+k in 2..20000 satisfying the FULL Lean hypothesis
+   (composite AND all nonzero a have a^(k-1)=1): NONE
+```
+
+Explicit falsifying witnesses on the first genuine Carmichael numbers (each is a concrete
+`(k, a)` pair refuting the Lean premise, in the sense of METHOD Phase 0B item 6):
+
+| k (Carmichael) | witness `a` | `a ≠ 0` in `ZMod k` | `a^(k-1) mod k` | premise |
+|---|---|---|---|---|
+| 561 = 3·11·17 | 3 | yes | **375** ≠ 1 | FALSE |
+| 1105 = 5·13·17 | 5 | yes | **885** ≠ 1 | FALSE |
+| 1729 = 7·13·19 | 7 | yes | **742** ≠ 1 | FALSE |
+| 2465 = 5·17·29 | 5 | yes | **1480** ≠ 1 | FALSE |
+| 2821 = 7·13·31 | 7 | yes | **2016** ≠ 1 | FALSE |
+
+Consequence: `observation_carmichael` as written is provable outright (`exact absurd … `; the
+premise contradicts itself) and says nothing about Carmichael numbers. It is a `research open`
+declaration that is in fact trivially true.
+
+### The intended statement is not refuted
+
+Under the correct Carmichael definition (`a^(k-1) ≡ 1 mod k` for all `a` with `gcd(a,k)=1`):
+
+```
+Carmichael numbers <= 20000: [561, 1105, 1729, 2465, 2821, 6601, 8911, 10585, 15841]
+a(k):                        [  5,    6,    4,    6,    6,    6,    7,     7,     8]
+min a(k) = 4  >= 3
+```
+
+So the OEIS observation holds on every Carmichael number `<= 20000`; the defect is purely in the
+formalization, not in the mathematics.
+
+### Novelty / duplicate check
+
+- `gh api search/issues repo:google-deepmind/formal-conjectures Carmichael` → 11 hits, none about
+  `237271`/`observation_carmichael` (they concern Carmichael's *totient* conjecture and an unrelated
+  `NumberTheory/Carmichael` import fix, #4281).
+- `gh api search/issues repo:google-deepmind/formal-conjectures 237271` → **0** hits.
+- `gh api search/issues repo:google-deepmind/formal-conjectures A237271` → 1 hit, #4924
+  "Mark OEIS A237271 parity conjectures as solved" (closed) — about `conjecture_4`/`conjecture_5`,
+  **not** about the Carmichael hypothesis.
+- Read in full: open issue #4923 "Possible misformalizations II" and #4896 "Tracking: possible
+  misformalizations found in statement audits" — neither lists A237271.
+- SearXNG web search (`formal-conjectures A237271 Carmichael vacuous hypothesis`,
+  `formal-conjectures observation_carmichael`) → no prior art.
+
+**Status: NOVEL, undiscovered upstream.**
+
+### Verdict
+
+`FORMALIZATION_DEFECT / VACUOUS_PREMISE` — the open declaration's hypothesis is satisfied by no
+natural number, so the statement is trivially true and does not encode the OEIS observation.
+This is **not** a counterexample (a vacuous universal cannot be refuted); it is a statement defect.
+Classification per METHOD: closest ledger label is `PREMISE_FALSE_STRICT` generalized to *all*
+instances, i.e. the declaration has an empty applicable domain.
+No publication action taken.

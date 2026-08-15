@@ -35,9 +35,10 @@ def sieve_spf(n):
     return spf
 
 
-spf = sieve_spf(LIMIT)
-is_prime = [False] * (LIMIT + 1)
-for v in range(2, LIMIT + 1):
+PAD = 512
+spf = sieve_spf(LIMIT + PAD)   # n2+j can exceed LIMIT by at most the run span
+is_prime = [False] * (LIMIT + PAD + 1)
+for v in range(2, LIMIT + PAD + 1):
     is_prime[v] = (spf[v] == v)
 
 
