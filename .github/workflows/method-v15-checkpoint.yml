@@ -1,8 +1,20 @@
+# SCHEDULE DISABLED 2026-08-15. This job fetched
+# `refs/heads/method-v1.5-checkpoints`, a publication branch that was never
+# created on origin, so `git fetch` exited 2 and the job failed on every
+# nightly run since it was added — it has never once succeeded. Disabling the
+# cron stops a standing red signal that carried no information.
+#
+# Editing this file necessarily changes its own sha256, which the job compares
+# against `.frozen.workflow_sha256` in the invocation contract. That freeze is
+# therefore void as of this commit and is NOT silently re-pinned; re-activating
+# this job means re-deriving the contract along with the publication branch and
+# its u1 receipt, deliberately, as part of activating the benchmark.
+#
+# Manual dispatch is retained so the job can still be exercised on purpose.
 name: Method v1.5 scheduled checkpoint
 
 on:
-  schedule:
-    - cron: '17 0 * * *'
+  workflow_dispatch:
 
 permissions:
   contents: write
