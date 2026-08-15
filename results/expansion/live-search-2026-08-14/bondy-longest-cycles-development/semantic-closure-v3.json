@@ -1,6 +1,6 @@
 {
-  "closure_count": 168,
-  "closure_sha256": "06f205b34dc84a04c0d46d718c0a1fe46b5634f76f39343e51dd132d43dfdbb7",
+  "closure_count": 171,
+  "closure_sha256": "aa420ecaae62d6e55f0b6f5f1d6555183a4c5246fe998975f0a0e58ca3e88cd8",
   "entries": [
     {
       "blob": "c4c5cb1983936860d5a4a7208b3f04bd201290d4",
@@ -843,6 +843,22 @@
       "type": "blob"
     },
     {
+      "blob": "cc3994cee4ad7b23f6e20fd9581c01e6bb111147",
+      "bytes": 11776,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Geometry/2d.lean",
+      "sha256": "db63b72f364236af8a8466b758d4adbee18ef8ef26cb6d7d2d62d68a49e486a3",
+      "type": "blob"
+    },
+    {
+      "blob": "75fb8541cf91f20e73cb389e342c0b1c37223783",
+      "bytes": 1429,
+      "mode": "100644",
+      "path": "FormalConjecturesForMathlib/Geometry/3d.lean",
+      "sha256": "8d2fb5b192229c35ddeecc5fc5924717905707c9f8a25a4ba5fa0698b49da78f",
+      "type": "blob"
+    },
+    {
       "blob": "928880b71b4fee557a0833ec35e08990cc734bb8",
       "bytes": 745,
       "mode": "100644",
@@ -1259,6 +1275,14 @@
       "type": "blob"
     },
     {
+      "blob": "a4873dcc1119beb5eac860ff68d09e3ed4d3ff13",
+      "bytes": 6457,
+      "mode": "100644",
+      "path": "FormalConjecturesUtil/Attributes/AMS.lean",
+      "sha256": "e5a6b4b0cd42e1ad11e84b75bd89f78a9797a98e5b23d8b956f13190b9078d96",
+      "type": "blob"
+    },
+    {
       "blob": "f5362d9976d26574631774cc34b7e9e1bddbb16f",
       "bytes": 21590,
       "mode": "100644",
@@ -1444,14 +1468,17 @@
   "pinned_tree": "4f6c9bd17fdfdc264f54b26862ce768743da5d63",
   "resolution": {
     "external_import_prefixes": [
+      "Batteries",
+      "Init",
+      "Lean",
       "Mathlib",
-      "Lean"
+      "Qq"
     ],
-    "module_to_path": "dot_to_slash_plus_dot_lean",
-    "syntax": "exact_single_module_import_per_line"
+    "module_to_path": "unquote_components_then_dot_to_slash_plus_dot_lean",
+    "syntax": "comment_aware_candidates_exact_public_optional_meta_optional_single_module_import_with_quoted_components_all_rejected"
   },
   "root": "FormalConjectures/Arxiv/2606.03696/BondyLongestCycles.lean",
-  "schema": "bondy_semantic_closure_v3",
+  "schema": "bondy_semantic_closure_v3_2",
   "toolchain": [
     {
       "blob": "13a1771e215c0200be3db3d1d6881017a1f5d179",

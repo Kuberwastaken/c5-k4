@@ -197,8 +197,8 @@ def validate_live_attestation(attestation: dict[str, object], manifest: dict[str
     continuity = attestation.get("continuity")
     if (
         set(attestation) != LIVE_ATTESTATION_FIELDS
-        or manifest.get("live_gate", {}).get("schema") != "bondy_source_status_duplicate_gate_tip_continuity_v3_1"
-        or attestation.get("schema") != "bondy_source_status_duplicate_gate_tip_continuity_v3_1"
+        or manifest.get("live_gate", {}).get("schema") != "bondy_source_status_duplicate_gate_tip_continuity_v3_2"
+        or attestation.get("schema") != "bondy_source_status_duplicate_gate_tip_continuity_v3_2"
         or attestation.get("kind") != "source_status_duplicate_gate"
         or attestation.get("status") != "PASS"
         or attestation.get("pinned_upstream") != manifest["upstream"]
@@ -393,7 +393,7 @@ def validate_live_attestation(attestation: dict[str, object], manifest: dict[str
         or [row.get("commit") if isinstance(row, dict) else None for row in identities] != hits
     ):
         raise RuntimeError("GATE_FAIL:local contamination evidence drift")
-    allowed_kinds = {"known_preflight", "known_repin_audit", "known_continuity_audit", "freeze_introducer"}
+    allowed_kinds = {"known_preflight", "known_repin_audit", "known_continuity_audit", "known_graph_rotation", "freeze_introducer"}
     for row in identities:
         if (
             not isinstance(row, dict) or set(row) != {"commit", "subject", "paths", "kind"}
@@ -410,11 +410,12 @@ def validate_live_attestation(attestation: dict[str, object], manifest: dict[str
     )
     freeze_rows = [row for row in identities if row["kind"] == "freeze_introducer"]
     if (
-        any(sum(row["kind"] == kind for row in identities) != 1 for kind in ("known_preflight", "known_repin_audit", "known_continuity_audit"))
+        any(sum(row["kind"] == kind for row in identities) != 1 for kind in ("known_preflight", "known_repin_audit", "known_continuity_audit", "known_graph_rotation"))
         or by_kind.get("known_preflight", {}).get("commit") != "d22eb07173794848fd375b5675059946ee3860b5"
         or by_kind.get("known_repin_audit") != {"commit": "e17905b1d62048f43bab89e06625aebdcf280faf", "subject": "research: audit Bondy upstream repin", "paths": ["results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/upstream-drift-repin-audit.md"], "kind": "known_repin_audit"}
         or by_kind.get("known_continuity_audit") != {"commit": "c4d327479110cf51f2aae126d12e2fbc609c0921", "subject": "research: define Bondy tip continuity gate", "paths": ["results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/tip-continuity-policy-audit.md"], "kind": "known_continuity_audit"}
-        or len(freeze_rows) != 3
+        or by_kind.get("known_graph_rotation") != {"commit": "6a80fcdcb0489dc196162554cd4fec4f41ad2187", "subject": "research: record empty held-out graph rotation", "paths": ["results/expansion/live-search-2026-08-14/next-heldout-graph-rotation-strict-stop.md"], "kind": "known_graph_rotation"}
+        or len(freeze_rows) != 4
         or any("scripts/prospective_bondy_gate.py" not in row["paths"] or not all(any(path.startswith(root) for root in freeze_roots) for path in row["paths"]) for row in freeze_rows)
     ):
         raise RuntimeError("GATE_FAIL:local contamination exact history drift")

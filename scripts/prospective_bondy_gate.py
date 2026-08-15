@@ -33,8 +33,12 @@ KNOWN_REPIN_AUDIT_COMMIT = "e17905b1d62048f43bab89e06625aebdcf280faf"
 KNOWN_REPIN_AUDIT_PATH = "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/upstream-drift-repin-audit.md"
 KNOWN_CONTINUITY_AUDIT_COMMIT = "c4d327479110cf51f2aae126d12e2fbc609c0921"
 KNOWN_CONTINUITY_AUDIT_PATH = "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/tip-continuity-policy-audit.md"
+KNOWN_GRAPH_ROTATION_COMMIT = "6a80fcdcb0489dc196162554cd4fec4f41ad2187"
+KNOWN_GRAPH_ROTATION_SUBJECT = "research: record empty held-out graph rotation"
+KNOWN_GRAPH_ROTATION_PATH = "results/expansion/live-search-2026-08-14/next-heldout-graph-rotation-strict-stop.md"
 HERE = Path(__file__).resolve().parents[1] / "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development"
 SEMANTIC_CLOSURE = HERE / "semantic-closure-v3.json"
+EXTERNAL_IMPORT_PREFIXES = ("Batteries", "Init", "Lean", "Mathlib", "Qq")
 SEARCH_QUERIES = (
     'repo:google-deepmind/formal-conjectures "bondy_conjecture"',
     'repo:google-deepmind/formal-conjectures "BondyLongestCycles"',
@@ -49,7 +53,8 @@ SNAPSHOT_WORKERS = 24
 ACTIVE_DEADLINE: float | None = None
 # Intentionally adds one pickaxe occurrence so the v3.1 correction commit is
 # visible to the frozen local-history query: bondy_conjecture.
-EXACT_FREEZE_INTRODUCERS = 3
+# The v3.2 closure correction likewise remains visible: bondy_conjecture.
+EXACT_FREEZE_INTRODUCERS = 4
 
 
 def remaining_timeout(cap: float = 20.0) -> float:
@@ -83,7 +88,7 @@ def graphql(query: str, variables: dict[str, object], token: str) -> dict[str, o
             "Accept": "application/vnd.github+json",
             "Authorization": f"Bearer {token}",
             "Content-Type": "application/json",
-            "User-Agent": "c5-k4-bondy-v31-continuity-gate",
+            "User-Agent": "c5-k4-bondy-v32-continuity-gate",
         },
         method="POST",
     )
@@ -362,6 +367,10 @@ def validate_local_contamination(hits: list[str]) -> tuple[bool, list[dict[str, 
             kind = "known_continuity_audit"
             if subject != "research: define Bondy tip continuity gate" or paths != [KNOWN_CONTINUITY_AUDIT_PATH]:
                 return False, identities
+        elif commit == KNOWN_GRAPH_ROTATION_COMMIT:
+            kind = "known_graph_rotation"
+            if subject != KNOWN_GRAPH_ROTATION_SUBJECT or paths != [KNOWN_GRAPH_ROTATION_PATH]:
+                return False, identities
         else:
             kind = "freeze_introducer"
         if kind == "freeze_introducer":
@@ -375,6 +384,7 @@ def validate_local_contamination(hits: list[str]) -> tuple[bool, list[dict[str, 
         KNOWN_PREFLIGHT_COMMIT in hits
         and KNOWN_REPIN_AUDIT_COMMIT in hits
         and KNOWN_CONTINUITY_AUDIT_COMMIT in hits
+        and KNOWN_GRAPH_ROTATION_COMMIT in hits
         and freeze_introducers == EXACT_FREEZE_INTRODUCERS
     ), identities
 
@@ -446,8 +456,74 @@ def git_entry(repo: Path, commit: str, path: str) -> tuple[dict[str, object], by
     }, raw
 
 
+def parse_import_module(stripped: str) -> str:
+    """Parse one exact public?/meta? import; reject `all` and loose spacing."""
+    component = r"(?:[A-Za-z0-9_]+|«[A-Za-z0-9_]+»)"
+    if re.match(r"^(?:public )?(?:meta )?import all(?: |$)", stripped):
+        raise RuntimeError("unsupported Lean import all in semantic closure")
+    match = re.fullmatch(rf"(?:public )?(?:meta )?import ({component}(?:\.{component})*)", stripped)
+    if match is None:
+        raise RuntimeError("ambiguous Lean import syntax in semantic closure")
+    parts = match.group(1).split(".")
+    normalized = [part[1:-1] if part.startswith("«") else part for part in parts]
+    if any(not part or "/" in part or "\\" in part for part in normalized):
+        raise RuntimeError("unsafe Lean import component in semantic closure")
+    return ".".join(normalized)
+
+
+def lean_code_surface(text: str) -> list[str]:
+    """Mask nested comments and strings while preserving code layout and lines."""
+    masked: list[str] = []
+    index = 0
+    comment_depth = 0
+    in_string = False
+    escaped = False
+    while index < len(text):
+        pair = text[index:index + 2]
+        character = text[index]
+        if comment_depth:
+            if pair == "/-":
+                comment_depth += 1
+                masked.extend("  ")
+                index += 2
+            elif pair == "-/":
+                comment_depth -= 1
+                masked.extend("  ")
+                index += 2
+            else:
+                masked.append("\n" if character == "\n" else " ")
+                index += 1
+        elif in_string:
+            masked.append("\n" if character == "\n" else " ")
+            if escaped:
+                escaped = False
+            elif character == "\\":
+                escaped = True
+            elif character == '"':
+                in_string = False
+            index += 1
+        elif pair == "--":
+            while index < len(text) and text[index] != "\n":
+                masked.append(" ")
+                index += 1
+        elif pair == "/-":
+            comment_depth = 1
+            masked.extend("  ")
+            index += 2
+        elif character == '"':
+            in_string = True
+            masked.append(" ")
+            index += 1
+        else:
+            masked.append(character)
+            index += 1
+    if comment_depth or in_string:
+        raise RuntimeError("unterminated Lean comment or string in semantic closure")
+    return "".join(masked).splitlines()
+
+
 def resolve_import_closure(
-    repo: Path, commit: str, root: str, external_prefixes: tuple[str, ...] = ("Mathlib", "Lean")
+    repo: Path, commit: str, root: str, external_prefixes: tuple[str, ...] = EXTERNAL_IMPORT_PREFIXES
 ) -> list[dict[str, object]]:
     seen: set[str] = set()
     pending = [root]
@@ -459,14 +535,19 @@ def resolve_import_closure(
         if entry["mode"] != "100644" or entry["type"] != "blob":
             raise RuntimeError("semantic closure contains a non-regular blob")
         seen.add(path)
-        for line in raw.decode("utf-8").splitlines():
+        text = raw.decode("utf-8")
+        original_lines = text.splitlines()
+        code_lines = lean_code_surface(text)
+        if len(original_lines) != len(code_lines):
+            raise RuntimeError("Lean code-surface line accounting drift")
+        for line, code_line in zip(original_lines, code_lines):
             stripped = line.strip()
-            if not (stripped.startswith("import ") or stripped.startswith("public import ")):
+            code = code_line.strip()
+            import_candidate = re.search(r"(?<![A-Za-z0-9_])import(?![A-Za-z0-9_])", code) is not None
+            split_qualifier_candidate = re.fullmatch(r"(?:public|meta)(?:\s+(?:public|meta))*", code) is not None
+            if not import_candidate and not split_qualifier_candidate:
                 continue
-            match = re.fullmatch(r"(?:public\s+)?import\s+([A-Za-z0-9_.]+)", stripped)
-            if match is None:
-                raise RuntimeError("ambiguous Lean import syntax in semantic closure")
-            module = match.group(1)
+            module = parse_import_module(stripped)
             imported = module.replace(".", "/") + ".lean"
             exists = subprocess.run(
                 ["git", "-C", str(repo), "cat-file", "-e", f"{commit}:{imported}"],
@@ -521,14 +602,14 @@ def require_ancestor(repo: Path, pinned: str, live: str) -> str:
 def prepare_continuity(live_commit: str, live_tree: str) -> dict[str, object]:
     frozen = json.loads(SEMANTIC_CLOSURE.read_text())
     if (
-        frozen.get("schema") != "bondy_semantic_closure_v3"
+        frozen.get("schema") != "bondy_semantic_closure_v3_2"
         or frozen.get("pinned_commit") != UPSTREAM_COMMIT
         or frozen.get("pinned_tree") != UPSTREAM_TREE
         or frozen.get("root") != TARGET_PATH
         or frozen.get("resolution") != {
-            "external_import_prefixes": ["Mathlib", "Lean"],
-            "module_to_path": "dot_to_slash_plus_dot_lean",
-            "syntax": "exact_single_module_import_per_line",
+            "external_import_prefixes": ["Batteries", "Init", "Lean", "Mathlib", "Qq"],
+            "module_to_path": "unquote_components_then_dot_to_slash_plus_dot_lean",
+            "syntax": "comment_aware_candidates_exact_public_optional_meta_optional_single_module_import_with_quoted_components_all_rejected",
         }
         or frozen.get("closure_count") != len(frozen.get("entries", []))
         or frozen.get("toolchain_count") != len(frozen.get("toolchain", []))
@@ -841,7 +922,7 @@ def run(output: Path, token: str, paper: Path | None) -> dict[str, object]:
     }
     checks["paper_sha256"] = paper is not None and paper.is_file() and sha256(paper.read_bytes()) == PAPER_SHA256
     record = {
-        "schema": "bondy_source_status_duplicate_gate_tip_continuity_v3_1",
+        "schema": "bondy_source_status_duplicate_gate_tip_continuity_v3_2",
         "kind": "source_status_duplicate_gate",
         "status": "PASS" if all(checks.values()) else "GATE_FAIL",
         "checks": checks,

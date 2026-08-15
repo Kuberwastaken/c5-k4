@@ -1,15 +1,15 @@
 {
   "campaign": "bondy-longest-cycles-development",
-  "seal_version": "bondy-longest-cycles-development-v3.1",
-  "supersedes": "bondy-longest-cycles-development-v3",
+  "seal_version": "bondy-longest-cycles-development-v3.2",
+  "supersedes": "bondy-longest-cycles-development-v3.1",
   "evidence_class": "CONTAMINATED_DEVELOPMENT",
   "target": "Arxiv.2606.03696.bondy_conjecture",
   "slice": {"k": 4, "t": 4, "h_order": 20, "g_order": 24, "large_graph_cutoff": 108},
   "caps": {"internal_search_seconds": 48, "internal_finalize_seconds": 54, "external_process_seconds": 60, "term_to_kill_seconds": 6, "independent_verify_seconds": 60},
   "runtime": {"python_version": "3.11.9", "networkx_version": "3.3", "discovery_algorithm": "python_endpoint_path_cover_dp_v1", "replay_algorithm": "cpp_endpoint_path_cover_dp_v1"},
-  "live_gate": {"schema": "bondy_source_status_duplicate_gate_tip_continuity_v3_1", "main_rest_identity_paths": ["sha", "commit.tree.sha"], "reject_top_level_tree": true, "snapshot_workers": 24, "open_pull_page_size": 100, "changed_file_page_size": 100, "complete_file_bindings_in_both_brackets": true, "identity_only_stabilization_pass": true, "whole_gate_seconds": 58, "rename_previous_path_required": true},
-  "local_history": {"known_preflight_commit": "d22eb07173794848fd375b5675059946ee3860b5", "known_repin_audit_commit": "e17905b1d62048f43bab89e06625aebdcf280faf", "known_continuity_audit_commit": "c4d327479110cf51f2aae126d12e2fbc609c0921", "pickaxe": "bondy_conjecture", "exact_freeze_introducers": 3},
-  "semantic_closure": {"path": "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/semantic-closure-v3.json", "count": 168, "sha256": "06f205b34dc84a04c0d46d718c0a1fe46b5634f76f39343e51dd132d43dfdbb7", "toolchain_sha256": "3221ee3df4f1c1a23f5eddcddb22cce96a00543c432f7310366b88444406e0c6", "external_revisions_sha256": "4baee9cf677780f654f3d1e4413346482853ad52874add3a7cecf6ed04a4bfe6"},
+  "live_gate": {"schema": "bondy_source_status_duplicate_gate_tip_continuity_v3_2", "main_rest_identity_paths": ["sha", "commit.tree.sha"], "reject_top_level_tree": true, "snapshot_workers": 24, "open_pull_page_size": 100, "changed_file_page_size": 100, "complete_file_bindings_in_both_brackets": true, "identity_only_stabilization_pass": true, "whole_gate_seconds": 58, "rename_previous_path_required": true},
+  "local_history": {"known_preflight_commit": "d22eb07173794848fd375b5675059946ee3860b5", "known_repin_audit_commit": "e17905b1d62048f43bab89e06625aebdcf280faf", "known_continuity_audit_commit": "c4d327479110cf51f2aae126d12e2fbc609c0921", "known_graph_rotation_commit": "6a80fcdcb0489dc196162554cd4fec4f41ad2187", "known_graph_rotation_subject": "research: record empty held-out graph rotation", "known_graph_rotation_path": "results/expansion/live-search-2026-08-14/next-heldout-graph-rotation-strict-stop.md", "pickaxe": "bondy_conjecture", "exact_freeze_introducers": 4},
+  "semantic_closure": {"path": "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/semantic-closure-v3.json", "count": 171, "sha256": "aa420ecaae62d6e55f0b6f5f1d6555183a4c5246fe998975f0a0e58ca3e88cd8", "toolchain_sha256": "3221ee3df4f1c1a23f5eddcddb22cce96a00543c432f7310366b88444406e0c6", "external_revisions_sha256": "4baee9cf677780f654f3d1e4413346482853ad52874add3a7cecf6ed04a4bfe6", "resolution": {"external_import_prefixes": ["Batteries", "Init", "Lean", "Mathlib", "Qq"], "module_to_path": "unquote_components_then_dot_to_slash_plus_dot_lean", "syntax": "comment_aware_candidates_exact_public_optional_meta_optional_single_module_import_with_quoted_components_all_rejected"}},
   "upstream": {
     "commit": "b5acb0ff13e38084105b7fe020ba0d59c1925bc5",
     "tree": "4f6c9bd17fdfdc264f54b26862ce768743da5d63",
@@ -39,6 +39,6 @@
     "enabled_by_default": false,
     "token_provisioned": true,
     "activation_token_sha256": "09d64624c2861b21d5883cfd276ce49eebce7d9c6f61e47193d50bf894be8e51",
-    "state": "V31_REPLACEMENT_GUARD_HASH_PROVISIONED_DEFAULT_DISABLED"
+    "state": "V32_IMPORT_CLOSURE_GUARD_HASH_PROVISIONED_DEFAULT_DISABLED"
   }
 }

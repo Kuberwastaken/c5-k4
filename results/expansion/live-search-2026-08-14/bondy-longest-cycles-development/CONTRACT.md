@@ -1,6 +1,6 @@
-# Bondy longest-cycles frozen DEVELOPMENT contract v3.1
+# Bondy longest-cycles frozen DEVELOPMENT contract v3.2
 
-**State:** v3.1 REST-shape correction sealed, disabled by default, never dispatched
+**State:** v3.2 import-closure correction sealed and disabled by default
 
 **Evidence class:** contaminated `DEVELOPMENT`, never held out
 
@@ -8,7 +8,7 @@
 
 **Only slice:** `k=4`, source parameter `t=4`, `n=24`
 
-This v3.1 contract supersedes v3 while preserving all v1/v2/v3 reports as
+This v3.2 contract supersedes v3.1 while preserving all v1/v2/v3/v3.1 reports as
 historical records. It freezes the same small balanced delete/add port-
 rewiring arm around the source sharpness graph `S(4,4)`. This seal alone does not authorize execution,
 publication, a release, an issue, or a pull request.
@@ -19,9 +19,9 @@ exactly `09d64624c2861b21d5883cfd276ce49eebce7d9c6f61e47193d50bf894be8e51`.
 Only the hash is tracked; the guard preimage is deliberately absent from code,
 the manifest, and documentation. `HEAD` is checked at runtime rather than
 embedded in its own tracked contents, avoiding a self-referential Git hash.
-The immutable v3.1 content registry independently binds every executable and
+The immutable v3.2 content registry independently binds every executable and
 contract file. Before any target row, the runner accepts only the exact
-`bondy_source_status_duplicate_gate_tip_continuity_v3_1` schema and recomputes
+`bondy_source_status_duplicate_gate_tip_continuity_v3_2` schema and recomputes
 its ancestry, complete-delta, closure, toolchain, declaration, bracket, and
 open-PR bindings. A v1, v2, incomplete, or forged `PASS` object is rejected.
 Workflow dispatch strings are mapped through step environment variables and
@@ -52,12 +52,35 @@ Version 3.1 corrects live-main REST parsing: the commit is exactly `.sha` and
 the root tree is exactly `.commit.tree.sha`; a missing nested field or an
 ambiguous top-level `.tree` is a strict stop. The superseded v3 parser expected
 a nonexistent top-level tree and therefore could not produce a valid live PASS.
-The v3.1 correction deliberately adds one `bondy_conjecture` pickaxe marker;
-the local contamination gate therefore requires exactly three freeze-introducer
-commits rather than accepting a loose upper bound.
+The v3.1 and v3.2 corrections each deliberately add a `bondy_conjecture`
+pickaxe marker; the local contamination gate therefore requires exactly four
+freeze-introducer commits rather than accepting a loose upper bound.
+The unrelated pickaxe hit `6a80fcdcb0489dc196162554cd4fec4f41ad2187` is
+accepted only as the distinct `known_graph_rotation` identity with subject
+`research: record empty held-out graph rotation` and sole path
+`results/expansion/live-search-2026-08-14/next-heldout-graph-rotation-strict-stop.md`;
+any hash, subject, or path mutation is a strict stop and it never counts as a
+Bondy freeze introducer.
+Disabled workflow run `31850751842` exercised v3.1 but failed in the pinned
+closure recomputation before any live bracket or target processing: its prefix
+allowlist omitted `Qq`, `Batteries`, and Lean core `Init`; its grammar could not
+parse the in-repository quoted components `«2d»` and `«3d»`; and import-candidate
+dispatch silently skipped `public meta import` commands, including the edge to
+`FormalConjecturesUtil/Attributes/AMS.lean`.
+The run evaluated zero target rows and emitted zero target artifacts or results;
+it is an invalid pre-evaluation integration record, not scientific evidence.
+Version 3.2 freezes exactly the external prefixes `Batteries`, `Init`, `Lean`,
+`Mathlib`, and `Qq`; supports only exact optional `public` and optional `meta`
+modifiers before one import module; rejects `import all`, loose whitespace,
+bare or split commands, and every other import syntax; accepts guillemet quoting
+only around an alphanumeric/underscore module component; and removes those
+delimiters before safe dot-to-path conversion. Candidate dispatch masks nested
+comments and strings, then routes any remaining `import` token or standalone
+modifier chain to the strict parser using the untouched source line, so comment-
+separated commands reject without confusing comment prose for code.
 Live `main` may advance only when that anchor is its merge base and ancestor,
 the complete NUL-delimited local Git diff is enumerated, and the delta is
-disjoint from all 168 recursively resolved Lean closure paths plus the exact
+disjoint from all 171 recursively resolved Lean closure paths plus the exact
 toolchain and dependency locks. The audited `b5ac...2411` delta consists only
 of unrelated `AUTHORS`, Erdos problem 506, and WrittenOnTheWallII files; this
 observation is not a reusable PASS and remains subject to a fresh live gate.
@@ -69,8 +92,8 @@ searches, and every open PR's completely paginated changed paths. A bounded
 identity set with an identity-only second pass, and uses REST only to recover
 renamed-away paths. Both full binding surfaces must be byte-equal. Rate limits,
 timeouts, ambiguity, merges without parent-indexed provenance, protected-path
-touches, or any dependency drift are strict stops. The current GitHub rate-limit
-caveat means there is no v3.1 PASS record yet; target execution stays unavailable
+touches, or any dependency drift are strict stops. There is no v3.2 PASS record;
+target execution stays unavailable
 until a fresh complete stable bracket succeeds.
 
 ## Source control and theorem subtraction
