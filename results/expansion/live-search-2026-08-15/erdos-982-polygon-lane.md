@@ -87,8 +87,15 @@ duplicate. No hit ⇒ no stop.
   constructions are confirmed to exist and their defining properties are
   pinned. Note the parenthetical: Danzer's radii **vary by vertex**;
   Fishburn–Reeds' radius is **global** (unit).
+* **`[Er87b]` itself is reachable and was read** —
+  `users.renyi.hu/~p_erdos/1987-27.pdf`, §8 pp. 175–176. This is the *primary*
+  source for both EP 982's original statement and Danzer's construction. See
+  §3.2. This upgrades the pre-flight from "paraphrase reachable" to "primary
+  source read".
 * `Comput. Geom. 2 (1992) 81–91` (ScienceDirect `092577219290026O`) is
-  paywalled/403 to this box.
+  paywalled/403 to this box; the full list of failed retrieval routes is in
+  §3.1. The FR construction is nevertheless recovered and independently
+  validated by its defining property.
 
 **4. Budget.** Hard cap 60 s per computation, per §A2.4. All computations in
 this lane finished in well under 1 s; no timeout brackets were incurred.
@@ -391,8 +398,8 @@ family and give identical distance profiles.
 
 Everything below is at 60 decimal digits with coordinates solved to `≤1e-56`;
 two squared distances are called equal only if they agree to `1e-30` absolute
-(and the robustness of that call is reported separately). Runtime: 0.9 s total,
-against a 60 s cap. No timeouts, so no brackets.
+(and the robustness of that call is reported separately). Runtime: **4.76 s** for
+the whole lane, against a 60 s per-computation cap. No timeouts, so no brackets.
 
 ### 4.1 Fishburn–Reeds 20-gon — `n = 20`, `⌊n/2⌋ = 10`
 
@@ -560,11 +567,18 @@ Three consequences worth recording:
    yield an EP 982 counterexample once `k ≥ ⌈n/2⌉ + 1` — a vertex-centred circle
    through more than half the remaining vertices, at every vertex. Nothing in
    the unit-distance literature is remotely that.
-2. **Even solving Erdős 97 would not touch EP 982.** A hypothetical `k = 4`
-   convex `n`-gon (the open case, `$100`) satisfies `R ≤ −1` only for
-   `n ≤ 2(k−1) = 6`; `n = 6` was already exhausted by the predecessor and
-   `n ≤ 5` is unconditionally impossible. So Erdős 97 and Erdős 982, though they
-   share the phrase "equidistant vertices", are disjoint as attack surfaces.
+2. **Even solving Erdős 97 would not touch EP 982.** The *guarantee* a `k`-
+   equidistant construction supplies is `E_i ≥ k − 1`; EP 982 needs
+   `E_i ≥ ⌈n/2⌉`. So a hypothetical `k = 4` convex `n`-gon — the open case
+   Erdős poses two sentences later on the same page, worth `$100` — meets the
+   requirement only for `n ≤ 2(k−1) = 6`, and `n ≤ 6` is already settled
+   (`n ≤ 5` unconditionally, `n = 6` exhausted by the predecessor). Erdős 97 and
+   Erdős 982 sit in adjacent sentences of [Er87b] and share the phrase
+   "equidistant vertices", but they are disjoint as attack surfaces. *(Caveat,
+   stated because the Proposition is conditional: a `k = 4` construction could
+   in principle carry additional unforced coincidences and so exceed
+   `E_i = k − 1`. Nothing guarantees them, and neither literature construction
+   has any — both sit at exactly `E_i = 2`.)*
 3. **The dimension counts are hopeless, not merely unlucky.** The Danzer family
    is 1-dimensional and needs 3 further coincidences per vertex class
    (over-determined by 2). The FR family is 5-dimensional (15 equations, 20
@@ -584,11 +598,23 @@ Nivasch–Pach–Pinchasi–Zerbib).
 ### Verdict
 
 **`STRICT_STOP_G3_WRONG_SIGN`** (METHOD §A3). No crossing. `erdos_982` status is
-unchanged at `HOLD_BOUNDED`; blob `33971c07d094160f9b54fc40433c2b0df155ad11`
-re-checked at the end of the lane and unchanged. Nothing was opened, commented,
-or pushed upstream. §A6 coordinates: (1) the underlying question stays open;
-(2) no formal solution; (3) the declaration is faithful; (4) no counterexample
-to what it literally asserts was found.
+unchanged at `HOLD_BOUNDED`; upstream commit `2411d22e` / blob
+`33971c07d094160f9b54fc40433c2b0df155ad11` re-checked at the end of the lane and
+**unchanged**. Nothing was opened, commented, or pushed upstream.
+
+§A6 four coordinates for `erdos_982`:
+
+1. **Accepted mathematical status** — open. Erdős himself writes "As far as I
+   know this conjecture is still open" ([Er87b], p. 175); best known
+   `f(n) ≥ (13/36 + 1/22701)n − O(1)` (Nivasch–Pach–Pinchasi–Zerbib). Not to be
+   confused with the *global* version ("a convex `n`-gon determines at least
+   `⌊n/2⌋` distinct distances"), which is **Altman's theorem** and is proved —
+   Erdős states both in the same sentence, and conflating them would be the
+   natural error here.
+2. **Formal solution anywhere** — none.
+3. **Faithfulness of the declaration** — clean, now confirmed against the
+   **primary source** (§3.2) and not only against erdosproblems.com.
+4. **What the declaration literally asserts** — no counterexample found.
 
 ### Script
 
