@@ -1,0 +1,4602 @@
+[
+ {
+  "path": "FormalConjectures/ErdosProblems/18.lean",
+  "corpus": "ErdosProblems",
+  "id": "18",
+  "n_answer_sorry": 3,
+  "n_research_open": 3,
+  "finite_signals": 69,
+  "previously_touched": false,
+  "bytes": 12367
+ },
+ {
+  "path": "FormalConjectures/OEIS/110835.lean",
+  "corpus": "OEIS",
+  "id": "110835",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 43,
+  "previously_touched": false,
+  "bytes": 3844
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/470.lean",
+  "corpus": "ErdosProblems",
+  "id": "470",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 42,
+  "previously_touched": false,
+  "bytes": 5019
+ },
+ {
+  "path": "FormalConjectures/OEIS/100474.lean",
+  "corpus": "OEIS",
+  "id": "100474",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 23,
+  "previously_touched": false,
+  "bytes": 4793
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/36.lean",
+  "corpus": "ErdosProblems",
+  "id": "36",
+  "n_answer_sorry": 3,
+  "n_research_open": 3,
+  "finite_signals": 16,
+  "previously_touched": false,
+  "bytes": 14353
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/602.lean",
+  "corpus": "ErdosProblems",
+  "id": "602",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 14,
+  "previously_touched": false,
+  "bytes": 20550
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/509.lean",
+  "corpus": "ErdosProblems",
+  "id": "509",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 12,
+  "previously_touched": false,
+  "bytes": 4168
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1049.lean",
+  "corpus": "ErdosProblems",
+  "id": "1049",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 11,
+  "previously_touched": false,
+  "bytes": 11102
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1063.lean",
+  "corpus": "ErdosProblems",
+  "id": "1063",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 11,
+  "previously_touched": false,
+  "bytes": 5058
+ },
+ {
+  "path": "FormalConjectures/OEIS/108864.lean",
+  "corpus": "OEIS",
+  "id": "108864",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 11,
+  "previously_touched": false,
+  "bytes": 2716
+ },
+ {
+  "path": "FormalConjectures/OEIS/105720.lean",
+  "corpus": "OEIS",
+  "id": "105720",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 11,
+  "previously_touched": true,
+  "bytes": 3044
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/394.lean",
+  "corpus": "ErdosProblems",
+  "id": "394",
+  "n_answer_sorry": 1,
+  "n_research_open": 2,
+  "finite_signals": 10,
+  "previously_touched": false,
+  "bytes": 5903
+ },
+ {
+  "path": "FormalConjectures/OEIS/102722.lean",
+  "corpus": "OEIS",
+  "id": "102722",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 10,
+  "previously_touched": false,
+  "bytes": 3307
+ },
+ {
+  "path": "FormalConjectures/OEIS/108569.lean",
+  "corpus": "OEIS",
+  "id": "108569",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 10,
+  "previously_touched": true,
+  "bytes": 2330
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/340.lean",
+  "corpus": "ErdosProblems",
+  "id": "340",
+  "n_answer_sorry": 4,
+  "n_research_open": 6,
+  "finite_signals": 9,
+  "previously_touched": false,
+  "bytes": 5222
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/456.lean",
+  "corpus": "ErdosProblems",
+  "id": "456",
+  "n_answer_sorry": 3,
+  "n_research_open": 3,
+  "finite_signals": 9,
+  "previously_touched": false,
+  "bytes": 5320
+ },
+ {
+  "path": "FormalConjectures/OEIS/56777.lean",
+  "corpus": "OEIS",
+  "id": "56777",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 9,
+  "previously_touched": false,
+  "bytes": 8815
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/786.lean",
+  "corpus": "ErdosProblems",
+  "id": "786",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 8,
+  "previously_touched": false,
+  "bytes": 8027
+ },
+ {
+  "path": "FormalConjectures/OEIS/108129.lean",
+  "corpus": "OEIS",
+  "id": "108129",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 8,
+  "previously_touched": false,
+  "bytes": 2364
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/17.lean",
+  "corpus": "ErdosProblems",
+  "id": "17",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 7,
+  "previously_touched": false,
+  "bytes": 4751
+ },
+ {
+  "path": "FormalConjectures/OEIS/117027.lean",
+  "corpus": "OEIS",
+  "id": "117027",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 7,
+  "previously_touched": false,
+  "bytes": 3854
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/686.lean",
+  "corpus": "ErdosProblems",
+  "id": "686",
+  "n_answer_sorry": 4,
+  "n_research_open": 4,
+  "finite_signals": 6,
+  "previously_touched": false,
+  "bytes": 6693
+ },
+ {
+  "path": "FormalConjectures/OEIS/107247.lean",
+  "corpus": "OEIS",
+  "id": "107247",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 6,
+  "previously_touched": false,
+  "bytes": 2872
+ },
+ {
+  "path": "FormalConjectures/OEIS/41.lean",
+  "corpus": "OEIS",
+  "id": "41",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 6,
+  "previously_touched": false,
+  "bytes": 1562
+ },
+ {
+  "path": "FormalConjectures/OEIS/101779.lean",
+  "corpus": "OEIS",
+  "id": "101779",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 6,
+  "previously_touched": false,
+  "bytes": 2224
+ },
+ {
+  "path": "FormalConjectures/OEIS/103151.lean",
+  "corpus": "OEIS",
+  "id": "103151",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 6,
+  "previously_touched": true,
+  "bytes": 2122
+ },
+ {
+  "path": "FormalConjectures/OEIS/108081.lean",
+  "corpus": "OEIS",
+  "id": "108081",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 6,
+  "previously_touched": true,
+  "bytes": 2845
+ },
+ {
+  "path": "FormalConjectures/OEIS/108306.lean",
+  "corpus": "OEIS",
+  "id": "108306",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 6,
+  "previously_touched": false,
+  "bytes": 2998
+ },
+ {
+  "path": "FormalConjectures/OEIS/112521.lean",
+  "corpus": "OEIS",
+  "id": "112521",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 6,
+  "previously_touched": false,
+  "bytes": 2114
+ },
+ {
+  "path": "FormalConjectures/OEIS/306477.lean",
+  "corpus": "OEIS",
+  "id": "306477",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 6,
+  "previously_touched": false,
+  "bytes": 2279
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/835.lean",
+  "corpus": "ErdosProblems",
+  "id": "835",
+  "n_answer_sorry": 3,
+  "n_research_open": 3,
+  "finite_signals": 5,
+  "previously_touched": true,
+  "bytes": 5960
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/44.lean",
+  "corpus": "ErdosProblems",
+  "id": "44",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 5,
+  "previously_touched": false,
+  "bytes": 5167
+ },
+ {
+  "path": "FormalConjectures/OEIS/113257.lean",
+  "corpus": "OEIS",
+  "id": "113257",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 5,
+  "previously_touched": false,
+  "bytes": 1671
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/107.lean",
+  "corpus": "ErdosProblems",
+  "id": "107",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 5,
+  "previously_touched": false,
+  "bytes": 6099
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/955.lean",
+  "corpus": "ErdosProblems",
+  "id": "955",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 5,
+  "previously_touched": false,
+  "bytes": 4623
+ },
+ {
+  "path": "FormalConjectures/OEIS/103425.lean",
+  "corpus": "OEIS",
+  "id": "103425",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 5,
+  "previously_touched": false,
+  "bytes": 1955
+ },
+ {
+  "path": "FormalConjectures/OEIS/109905.lean",
+  "corpus": "OEIS",
+  "id": "109905",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 5,
+  "previously_touched": false,
+  "bytes": 1680
+ },
+ {
+  "path": "FormalConjectures/OEIS/116150.lean",
+  "corpus": "OEIS",
+  "id": "116150",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 5,
+  "previously_touched": false,
+  "bytes": 1489
+ },
+ {
+  "path": "FormalConjectures/OEIS/81091.lean",
+  "corpus": "OEIS",
+  "id": "81091",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 5,
+  "previously_touched": false,
+  "bytes": 2168
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1.lean",
+  "corpus": "ErdosProblems",
+  "id": "1",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 5,
+  "previously_touched": false,
+  "bytes": 6206
+ },
+ {
+  "path": "FormalConjectures/OEIS/103885.lean",
+  "corpus": "OEIS",
+  "id": "103885",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 5,
+  "previously_touched": false,
+  "bytes": 4205
+ },
+ {
+  "path": "FormalConjectures/OEIS/105565.lean",
+  "corpus": "OEIS",
+  "id": "105565",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 5,
+  "previously_touched": true,
+  "bytes": 3028
+ },
+ {
+  "path": "FormalConjectures/OEIS/105801.lean",
+  "corpus": "OEIS",
+  "id": "105801",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 5,
+  "previously_touched": false,
+  "bytes": 2070
+ },
+ {
+  "path": "FormalConjectures/OEIS/108211.lean",
+  "corpus": "OEIS",
+  "id": "108211",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 5,
+  "previously_touched": true,
+  "bytes": 1615
+ },
+ {
+  "path": "FormalConjectures/OEIS/109908.lean",
+  "corpus": "OEIS",
+  "id": "109908",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 5,
+  "previously_touched": true,
+  "bytes": 1470
+ },
+ {
+  "path": "FormalConjectures/OEIS/109909.lean",
+  "corpus": "OEIS",
+  "id": "109909",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 5,
+  "previously_touched": true,
+  "bytes": 1491
+ },
+ {
+  "path": "FormalConjectures/OEIS/110854.lean",
+  "corpus": "OEIS",
+  "id": "110854",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 5,
+  "previously_touched": false,
+  "bytes": 3114
+ },
+ {
+  "path": "FormalConjectures/OEIS/113213.lean",
+  "corpus": "OEIS",
+  "id": "113213",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 5,
+  "previously_touched": false,
+  "bytes": 1586
+ },
+ {
+  "path": "FormalConjectures/OEIS/67720.lean",
+  "corpus": "OEIS",
+  "id": "67720",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 5,
+  "previously_touched": false,
+  "bytes": 2345
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/950.lean",
+  "corpus": "ErdosProblems",
+  "id": "950",
+  "n_answer_sorry": 5,
+  "n_research_open": 5,
+  "finite_signals": 4,
+  "previously_touched": false,
+  "bytes": 3533
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1052.lean",
+  "corpus": "ErdosProblems",
+  "id": "1052",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 4,
+  "previously_touched": false,
+  "bytes": 2733
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1059.lean",
+  "corpus": "ErdosProblems",
+  "id": "1059",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 4,
+  "previously_touched": false,
+  "bytes": 4072
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1142.lean",
+  "corpus": "ErdosProblems",
+  "id": "1142",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 4,
+  "previously_touched": false,
+  "bytes": 4345
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/170.lean",
+  "corpus": "ErdosProblems",
+  "id": "170",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 4,
+  "previously_touched": false,
+  "bytes": 3144
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/389.lean",
+  "corpus": "ErdosProblems",
+  "id": "389",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 4,
+  "previously_touched": false,
+  "bytes": 1525
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/829.lean",
+  "corpus": "ErdosProblems",
+  "id": "829",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 4,
+  "previously_touched": false,
+  "bytes": 4022
+ },
+ {
+  "path": "FormalConjectures/OEIS/109227.lean",
+  "corpus": "OEIS",
+  "id": "109227",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 4,
+  "previously_touched": false,
+  "bytes": 2343
+ },
+ {
+  "path": "FormalConjectures/OEIS/110475.lean",
+  "corpus": "OEIS",
+  "id": "110475",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 4,
+  "previously_touched": false,
+  "bytes": 2725
+ },
+ {
+  "path": "FormalConjectures/OEIS/111114.lean",
+  "corpus": "OEIS",
+  "id": "111114",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 4,
+  "previously_touched": false,
+  "bytes": 2022
+ },
+ {
+  "path": "FormalConjectures/OEIS/1146.lean",
+  "corpus": "OEIS",
+  "id": "1146",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 4,
+  "previously_touched": false,
+  "bytes": 2557
+ },
+ {
+  "path": "FormalConjectures/OEIS/228828.lean",
+  "corpus": "OEIS",
+  "id": "228828",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 4,
+  "previously_touched": false,
+  "bytes": 1633
+ },
+ {
+  "path": "FormalConjectures/OEIS/63880.lean",
+  "corpus": "OEIS",
+  "id": "63880",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 4,
+  "previously_touched": false,
+  "bytes": 3635
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1074.lean",
+  "corpus": "ErdosProblems",
+  "id": "1074",
+  "n_answer_sorry": 4,
+  "n_research_open": 5,
+  "finite_signals": 3,
+  "previously_touched": false,
+  "bytes": 4550
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/141.lean",
+  "corpus": "ErdosProblems",
+  "id": "141",
+  "n_answer_sorry": 4,
+  "n_research_open": 4,
+  "finite_signals": 3,
+  "previously_touched": false,
+  "bytes": 3715
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/593.lean",
+  "corpus": "ErdosProblems",
+  "id": "593",
+  "n_answer_sorry": 3,
+  "n_research_open": 3,
+  "finite_signals": 3,
+  "previously_touched": false,
+  "bytes": 9813
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/940.lean",
+  "corpus": "ErdosProblems",
+  "id": "940",
+  "n_answer_sorry": 3,
+  "n_research_open": 3,
+  "finite_signals": 3,
+  "previously_touched": false,
+  "bytes": 3025
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/287.lean",
+  "corpus": "ErdosProblems",
+  "id": "287",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 3,
+  "previously_touched": false,
+  "bytes": 3709
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/522.lean",
+  "corpus": "ErdosProblems",
+  "id": "522",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 3,
+  "previously_touched": false,
+  "bytes": 5136
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/931.lean",
+  "corpus": "ErdosProblems",
+  "id": "931",
+  "n_answer_sorry": 2,
+  "n_research_open": 3,
+  "finite_signals": 3,
+  "previously_touched": false,
+  "bytes": 2729
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/313.lean",
+  "corpus": "ErdosProblems",
+  "id": "313",
+  "n_answer_sorry": 1,
+  "n_research_open": 2,
+  "finite_signals": 3,
+  "previously_touched": false,
+  "bytes": 3837
+ },
+ {
+  "path": "FormalConjectures/OEIS/167604.lean",
+  "corpus": "OEIS",
+  "id": "167604",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 3,
+  "previously_touched": false,
+  "bytes": 2243
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/233.lean",
+  "corpus": "ErdosProblems",
+  "id": "233",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 3,
+  "previously_touched": false,
+  "bytes": 2062
+ },
+ {
+  "path": "FormalConjectures/OEIS/108866.lean",
+  "corpus": "OEIS",
+  "id": "108866",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 3,
+  "previously_touched": false,
+  "bytes": 2131
+ },
+ {
+  "path": "FormalConjectures/OEIS/115257.lean",
+  "corpus": "OEIS",
+  "id": "115257",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 3,
+  "previously_touched": true,
+  "bytes": 2006
+ },
+ {
+  "path": "FormalConjectures/OEIS/115366.lean",
+  "corpus": "OEIS",
+  "id": "115366",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 3,
+  "previously_touched": false,
+  "bytes": 1822
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/647.lean",
+  "corpus": "ErdosProblems",
+  "id": "647",
+  "n_answer_sorry": 3,
+  "n_research_open": 3,
+  "finite_signals": 2,
+  "previously_touched": false,
+  "bytes": 1882
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/700.lean",
+  "corpus": "ErdosProblems",
+  "id": "700",
+  "n_answer_sorry": 3,
+  "n_research_open": 3,
+  "finite_signals": 2,
+  "previously_touched": false,
+  "bytes": 11325
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1056.lean",
+  "corpus": "ErdosProblems",
+  "id": "1056",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 2,
+  "previously_touched": false,
+  "bytes": 2545
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1212.lean",
+  "corpus": "ErdosProblems",
+  "id": "1212",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 2,
+  "previously_touched": false,
+  "bytes": 6156
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/195.lean",
+  "corpus": "ErdosProblems",
+  "id": "195",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 2,
+  "previously_touched": false,
+  "bytes": 1674
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/23.lean",
+  "corpus": "ErdosProblems",
+  "id": "23",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 2,
+  "previously_touched": true,
+  "bytes": 4143
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/257.lean",
+  "corpus": "ErdosProblems",
+  "id": "257",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 2,
+  "previously_touched": false,
+  "bytes": 3693
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/291.lean",
+  "corpus": "ErdosProblems",
+  "id": "291",
+  "n_answer_sorry": 1,
+  "n_research_open": 3,
+  "finite_signals": 2,
+  "previously_touched": false,
+  "bytes": 4605
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/304.lean",
+  "corpus": "ErdosProblems",
+  "id": "304",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 2,
+  "previously_touched": false,
+  "bytes": 6805
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/375.lean",
+  "corpus": "ErdosProblems",
+  "id": "375",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 2,
+  "previously_touched": true,
+  "bytes": 4048
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/513.lean",
+  "corpus": "ErdosProblems",
+  "id": "513",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 2,
+  "previously_touched": false,
+  "bytes": 2065
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/9.lean",
+  "corpus": "ErdosProblems",
+  "id": "9",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 2,
+  "previously_touched": false,
+  "bytes": 2218
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/973.lean",
+  "corpus": "ErdosProblems",
+  "id": "973",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 2,
+  "previously_touched": false,
+  "bytes": 3413
+ },
+ {
+  "path": "FormalConjectures/OEIS/34693.lean",
+  "corpus": "OEIS",
+  "id": "34693",
+  "n_answer_sorry": 0,
+  "n_research_open": 4,
+  "finite_signals": 2,
+  "previously_touched": false,
+  "bytes": 3688
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/321.lean",
+  "corpus": "ErdosProblems",
+  "id": "321",
+  "n_answer_sorry": 5,
+  "n_research_open": 4,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 4454
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1175.lean",
+  "corpus": "ErdosProblems",
+  "id": "1175",
+  "n_answer_sorry": 4,
+  "n_research_open": 2,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 5447
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/138.lean",
+  "corpus": "ErdosProblems",
+  "id": "138",
+  "n_answer_sorry": 3,
+  "n_research_open": 3,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 4851
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/282.lean",
+  "corpus": "ErdosProblems",
+  "id": "282",
+  "n_answer_sorry": 3,
+  "n_research_open": 4,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 4755
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/349.lean",
+  "corpus": "ErdosProblems",
+  "id": "349",
+  "n_answer_sorry": 3,
+  "n_research_open": 4,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 7407
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/939.lean",
+  "corpus": "ErdosProblems",
+  "id": "939",
+  "n_answer_sorry": 3,
+  "n_research_open": 3,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 3552
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/269.lean",
+  "corpus": "ErdosProblems",
+  "id": "269",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 2762
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/307.lean",
+  "corpus": "ErdosProblems",
+  "id": "307",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 3368
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/400.lean",
+  "corpus": "ErdosProblems",
+  "id": "400",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 3659
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/506.lean",
+  "corpus": "ErdosProblems",
+  "id": "506",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 4478
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/723.lean",
+  "corpus": "ErdosProblems",
+  "id": "723",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 2346
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/828.lean",
+  "corpus": "ErdosProblems",
+  "id": "828",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 1701
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/967.lean",
+  "corpus": "ErdosProblems",
+  "id": "967",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 3853
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1133.lean",
+  "corpus": "ErdosProblems",
+  "id": "1133",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 2598
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1139.lean",
+  "corpus": "ErdosProblems",
+  "id": "1139",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 1236
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/312.lean",
+  "corpus": "ErdosProblems",
+  "id": "312",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 1399
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/329.lean",
+  "corpus": "ErdosProblems",
+  "id": "329",
+  "n_answer_sorry": 1,
+  "n_research_open": 2,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 3880
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/346.lean",
+  "corpus": "ErdosProblems",
+  "id": "346",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 4583
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/454.lean",
+  "corpus": "ErdosProblems",
+  "id": "454",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 1544
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/508.lean",
+  "corpus": "ErdosProblems",
+  "id": "508",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 3553
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/538.lean",
+  "corpus": "ErdosProblems",
+  "id": "538",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 3101
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/566.lean",
+  "corpus": "ErdosProblems",
+  "id": "566",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 1740
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/595.lean",
+  "corpus": "ErdosProblems",
+  "id": "595",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 10446
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/730.lean",
+  "corpus": "ErdosProblems",
+  "id": "730",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 1935
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/742.lean",
+  "corpus": "ErdosProblems",
+  "id": "742",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "previously_touched": true,
+  "bytes": 4753
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/769.lean",
+  "corpus": "ErdosProblems",
+  "id": "769",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 3689
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/873.lean",
+  "corpus": "ErdosProblems",
+  "id": "873",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 1568
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/886.lean",
+  "corpus": "ErdosProblems",
+  "id": "886",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 2281
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/91.lean",
+  "corpus": "ErdosProblems",
+  "id": "91",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 8120
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/996.lean",
+  "corpus": "ErdosProblems",
+  "id": "996",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 2413
+ },
+ {
+  "path": "FormalConjectures/OEIS/113258.lean",
+  "corpus": "OEIS",
+  "id": "113258",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 1424
+ },
+ {
+  "path": "FormalConjectures/OEIS/113271.lean",
+  "corpus": "OEIS",
+  "id": "113271",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 1543
+ },
+ {
+  "path": "FormalConjectures/OEIS/113609.lean",
+  "corpus": "OEIS",
+  "id": "113609",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 2138
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1044.lean",
+  "corpus": "ErdosProblems",
+  "id": "1044",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 3695
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1084.lean",
+  "corpus": "ErdosProblems",
+  "id": "1084",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 2781
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1101.lean",
+  "corpus": "ErdosProblems",
+  "id": "1101",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 2129
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/373.lean",
+  "corpus": "ErdosProblems",
+  "id": "373",
+  "n_answer_sorry": 0,
+  "n_research_open": 3,
+  "finite_signals": 1,
+  "previously_touched": true,
+  "bytes": 3193
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/677.lean",
+  "corpus": "ErdosProblems",
+  "id": "677",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 1427
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/779.lean",
+  "corpus": "ErdosProblems",
+  "id": "779",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 1285
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/94.lean",
+  "corpus": "ErdosProblems",
+  "id": "94",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 3112
+ },
+ {
+  "path": "FormalConjectures/OEIS/100800.lean",
+  "corpus": "OEIS",
+  "id": "100800",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 3112
+ },
+ {
+  "path": "FormalConjectures/OEIS/105751.lean",
+  "corpus": "OEIS",
+  "id": "105751",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 2964
+ },
+ {
+  "path": "FormalConjectures/OEIS/114362.lean",
+  "corpus": "OEIS",
+  "id": "114362",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 3383
+ },
+ {
+  "path": "FormalConjectures/OEIS/211417.lean",
+  "corpus": "OEIS",
+  "id": "211417",
+  "n_answer_sorry": 0,
+  "n_research_open": 6,
+  "finite_signals": 1,
+  "previously_touched": false,
+  "bytes": 4663
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/357.lean",
+  "corpus": "ErdosProblems",
+  "id": "357",
+  "n_answer_sorry": 12,
+  "n_research_open": 15,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 9800
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/409.lean",
+  "corpus": "ErdosProblems",
+  "id": "409",
+  "n_answer_sorry": 12,
+  "n_research_open": 12,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 6637
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/319.lean",
+  "corpus": "ErdosProblems",
+  "id": "319",
+  "n_answer_sorry": 5,
+  "n_research_open": 4,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 4392
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/288.lean",
+  "corpus": "ErdosProblems",
+  "id": "288",
+  "n_answer_sorry": 4,
+  "n_research_open": 4,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2127
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/422.lean",
+  "corpus": "ErdosProblems",
+  "id": "422",
+  "n_answer_sorry": 4,
+  "n_research_open": 4,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1702
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/918.lean",
+  "corpus": "ErdosProblems",
+  "id": "918",
+  "n_answer_sorry": 4,
+  "n_research_open": 4,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 5614
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/936.lean",
+  "corpus": "ErdosProblems",
+  "id": "936",
+  "n_answer_sorry": 4,
+  "n_research_open": 4,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1718
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1054.lean",
+  "corpus": "ErdosProblems",
+  "id": "1054",
+  "n_answer_sorry": 3,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 6833
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1209.lean",
+  "corpus": "ErdosProblems",
+  "id": "1209",
+  "n_answer_sorry": 3,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3751
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/125.lean",
+  "corpus": "ErdosProblems",
+  "id": "125",
+  "n_answer_sorry": 3,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 4035
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/142.lean",
+  "corpus": "ErdosProblems",
+  "id": "142",
+  "n_answer_sorry": 3,
+  "n_research_open": 4,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2225
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/323.lean",
+  "corpus": "ErdosProblems",
+  "id": "323",
+  "n_answer_sorry": 3,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2326
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/342.lean",
+  "corpus": "ErdosProblems",
+  "id": "342",
+  "n_answer_sorry": 3,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 5026
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/366.lean",
+  "corpus": "ErdosProblems",
+  "id": "366",
+  "n_answer_sorry": 3,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1608
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/385.lean",
+  "corpus": "ErdosProblems",
+  "id": "385",
+  "n_answer_sorry": 3,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2704
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/386.lean",
+  "corpus": "ErdosProblems",
+  "id": "386",
+  "n_answer_sorry": 3,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1666
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/413.lean",
+  "corpus": "ErdosProblems",
+  "id": "413",
+  "n_answer_sorry": 3,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3450
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/416.lean",
+  "corpus": "ErdosProblems",
+  "id": "416",
+  "n_answer_sorry": 3,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3324
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/5.lean",
+  "corpus": "ErdosProblems",
+  "id": "5",
+  "n_answer_sorry": 3,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 10677
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/507.lean",
+  "corpus": "ErdosProblems",
+  "id": "507",
+  "n_answer_sorry": 3,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3693
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/567.lean",
+  "corpus": "ErdosProblems",
+  "id": "567",
+  "n_answer_sorry": 3,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2420
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/596.lean",
+  "corpus": "ErdosProblems",
+  "id": "596",
+  "n_answer_sorry": 3,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 4782
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/688.lean",
+  "corpus": "ErdosProblems",
+  "id": "688",
+  "n_answer_sorry": 3,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2273
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/70.lean",
+  "corpus": "ErdosProblems",
+  "id": "70",
+  "n_answer_sorry": 3,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 7322
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/770.lean",
+  "corpus": "ErdosProblems",
+  "id": "770",
+  "n_answer_sorry": 3,
+  "n_research_open": 4,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2579
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/872.lean",
+  "corpus": "ErdosProblems",
+  "id": "872",
+  "n_answer_sorry": 3,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 8866
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/944.lean",
+  "corpus": "ErdosProblems",
+  "id": "944",
+  "n_answer_sorry": 3,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 4010
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/945.lean",
+  "corpus": "ErdosProblems",
+  "id": "945",
+  "n_answer_sorry": 3,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3030
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/968.lean",
+  "corpus": "ErdosProblems",
+  "id": "968",
+  "n_answer_sorry": 3,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3091
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1003.lean",
+  "corpus": "ErdosProblems",
+  "id": "1003",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2036
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1057.lean",
+  "corpus": "ErdosProblems",
+  "id": "1057",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3705
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1065.lean",
+  "corpus": "ErdosProblems",
+  "id": "1065",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1427
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1072.lean",
+  "corpus": "ErdosProblems",
+  "id": "1072",
+  "n_answer_sorry": 2,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1958
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1106.lean",
+  "corpus": "ErdosProblems",
+  "id": "1106",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1652
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1108.lean",
+  "corpus": "ErdosProblems",
+  "id": "1108",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1836
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1109.lean",
+  "corpus": "ErdosProblems",
+  "id": "1109",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3321
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1119.lean",
+  "corpus": "ErdosProblems",
+  "id": "1119",
+  "n_answer_sorry": 2,
+  "n_research_open": 0,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 5499
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1210.lean",
+  "corpus": "ErdosProblems",
+  "id": "1210",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2062
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/14.lean",
+  "corpus": "ErdosProblems",
+  "id": "14",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1962
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/160.lean",
+  "corpus": "ErdosProblems",
+  "id": "160",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2737
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/168.lean",
+  "corpus": "ErdosProblems",
+  "id": "168",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3658
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/208.lean",
+  "corpus": "ErdosProblems",
+  "id": "208",
+  "n_answer_sorry": 2,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2008
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/252.lean",
+  "corpus": "ErdosProblems",
+  "id": "252",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3801
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/263.lean",
+  "corpus": "ErdosProblems",
+  "id": "263",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 4934
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/317.lean",
+  "corpus": "ErdosProblems",
+  "id": "317",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2449
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/32.lean",
+  "corpus": "ErdosProblems",
+  "id": "32",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3578
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/325.lean",
+  "corpus": "ErdosProblems",
+  "id": "325",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2196
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/332.lean",
+  "corpus": "ErdosProblems",
+  "id": "332",
+  "n_answer_sorry": 2,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1940
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/354.lean",
+  "corpus": "ErdosProblems",
+  "id": "354",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2116
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/361.lean",
+  "corpus": "ErdosProblems",
+  "id": "361",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2481
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/417.lean",
+  "corpus": "ErdosProblems",
+  "id": "417",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1647
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/457.lean",
+  "corpus": "ErdosProblems",
+  "id": "457",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2415
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/539.lean",
+  "corpus": "ErdosProblems",
+  "id": "539",
+  "n_answer_sorry": 2,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 5782
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/600.lean",
+  "corpus": "ErdosProblems",
+  "id": "600",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2537
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/660.lean",
+  "corpus": "ErdosProblems",
+  "id": "660",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2912
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/680.lean",
+  "corpus": "ErdosProblems",
+  "id": "680",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1432
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/695.lean",
+  "corpus": "ErdosProblems",
+  "id": "695",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1718
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/699.lean",
+  "corpus": "ErdosProblems",
+  "id": "699",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2059
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/727.lean",
+  "corpus": "ErdosProblems",
+  "id": "727",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1963
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/74.lean",
+  "corpus": "ErdosProblems",
+  "id": "74",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 5154
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/789.lean",
+  "corpus": "ErdosProblems",
+  "id": "789",
+  "n_answer_sorry": 2,
+  "n_research_open": 5,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 4798
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/80.lean",
+  "corpus": "ErdosProblems",
+  "id": "80",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 4491
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/812.lean",
+  "corpus": "ErdosProblems",
+  "id": "812",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1912
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/830.lean",
+  "corpus": "ErdosProblems",
+  "id": "830",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2832
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/889.lean",
+  "corpus": "ErdosProblems",
+  "id": "889",
+  "n_answer_sorry": 2,
+  "n_research_open": 4,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3476
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/890.lean",
+  "corpus": "ErdosProblems",
+  "id": "890",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2815
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/891.lean",
+  "corpus": "ErdosProblems",
+  "id": "891",
+  "n_answer_sorry": 2,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2784
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/897.lean",
+  "corpus": "ErdosProblems",
+  "id": "897",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 5107
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/97.lean",
+  "corpus": "ErdosProblems",
+  "id": "97",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 5484
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/975.lean",
+  "corpus": "ErdosProblems",
+  "id": "975",
+  "n_answer_sorry": 2,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 4448
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/978.lean",
+  "corpus": "ErdosProblems",
+  "id": "978",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 4299
+ },
+ {
+  "path": "FormalConjectures/OEIS/114137.lean",
+  "corpus": "OEIS",
+  "id": "114137",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2677
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/10.lean",
+  "corpus": "ErdosProblems",
+  "id": "10",
+  "n_answer_sorry": 1,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3165
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/100.lean",
+  "corpus": "ErdosProblems",
+  "id": "100",
+  "n_answer_sorry": 1,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2801
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1002.lean",
+  "corpus": "ErdosProblems",
+  "id": "1002",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2383
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1004.lean",
+  "corpus": "ErdosProblems",
+  "id": "1004",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1807
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1007.lean",
+  "corpus": "ErdosProblems",
+  "id": "1007",
+  "n_answer_sorry": 1,
+  "n_research_open": 0,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3340
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1026.lean",
+  "corpus": "ErdosProblems",
+  "id": "1026",
+  "n_answer_sorry": 1,
+  "n_research_open": 0,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 5641
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1038.lean",
+  "corpus": "ErdosProblems",
+  "id": "1038",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2783
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1047.lean",
+  "corpus": "ErdosProblems",
+  "id": "1047",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 5244
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/105.lean",
+  "corpus": "ErdosProblems",
+  "id": "105",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2993
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1061.lean",
+  "corpus": "ErdosProblems",
+  "id": "1061",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1679
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1062.lean",
+  "corpus": "ErdosProblems",
+  "id": "1062",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2869
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1068.lean",
+  "corpus": "ErdosProblems",
+  "id": "1068",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1112
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1073.lean",
+  "corpus": "ErdosProblems",
+  "id": "1073",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1162
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/108.lean",
+  "corpus": "ErdosProblems",
+  "id": "108",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1341
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1082.lean",
+  "corpus": "ErdosProblems",
+  "id": "1082",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2181
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1085.lean",
+  "corpus": "ErdosProblems",
+  "id": "1085",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3344
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1093.lean",
+  "corpus": "ErdosProblems",
+  "id": "1093",
+  "n_answer_sorry": 1,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1543
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1110.lean",
+  "corpus": "ErdosProblems",
+  "id": "1110",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1606
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1113.lean",
+  "corpus": "ErdosProblems",
+  "id": "1113",
+  "n_answer_sorry": 1,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3658
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1137.lean",
+  "corpus": "ErdosProblems",
+  "id": "1137",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1205
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1145.lean",
+  "corpus": "ErdosProblems",
+  "id": "1145",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3051
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1146.lean",
+  "corpus": "ErdosProblems",
+  "id": "1146",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1972
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1150.lean",
+  "corpus": "ErdosProblems",
+  "id": "1150",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1874
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1167.lean",
+  "corpus": "ErdosProblems",
+  "id": "1167",
+  "n_answer_sorry": 1,
+  "n_research_open": 5,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 7811
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1176.lean",
+  "corpus": "ErdosProblems",
+  "id": "1176",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1585
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1192.lean",
+  "corpus": "ErdosProblems",
+  "id": "1192",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 4200
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1199.lean",
+  "corpus": "ErdosProblems",
+  "id": "1199",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1570
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/12.lean",
+  "corpus": "ErdosProblems",
+  "id": "12",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 5494
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/120.lean",
+  "corpus": "ErdosProblems",
+  "id": "120",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1877
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1201.lean",
+  "corpus": "ErdosProblems",
+  "id": "1201",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1875
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1203.lean",
+  "corpus": "ErdosProblems",
+  "id": "1203",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1390
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/123.lean",
+  "corpus": "ErdosProblems",
+  "id": "123",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 4860
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/124.lean",
+  "corpus": "ErdosProblems",
+  "id": "124",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 4150
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/126.lean",
+  "corpus": "ErdosProblems",
+  "id": "126",
+  "n_answer_sorry": 1,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2150
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/128.lean",
+  "corpus": "ErdosProblems",
+  "id": "128",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": true,
+  "bytes": 1221
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/13.lean",
+  "corpus": "ErdosProblems",
+  "id": "13",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2048
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/137.lean",
+  "corpus": "ErdosProblems",
+  "id": "137",
+  "n_answer_sorry": 1,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2149
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/143.lean",
+  "corpus": "ErdosProblems",
+  "id": "143",
+  "n_answer_sorry": 1,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1821
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/145.lean",
+  "corpus": "ErdosProblems",
+  "id": "145",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2788
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/15.lean",
+  "corpus": "ErdosProblems",
+  "id": "15",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1283
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/153.lean",
+  "corpus": "ErdosProblems",
+  "id": "153",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1673
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/155.lean",
+  "corpus": "ErdosProblems",
+  "id": "155",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1223
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/156.lean",
+  "corpus": "ErdosProblems",
+  "id": "156",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2502
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/158.lean",
+  "corpus": "ErdosProblems",
+  "id": "158",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3727
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/172.lean",
+  "corpus": "ErdosProblems",
+  "id": "172",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1228
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/184.lean",
+  "corpus": "ErdosProblems",
+  "id": "184",
+  "n_answer_sorry": 1,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": true,
+  "bytes": 5032
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/188.lean",
+  "corpus": "ErdosProblems",
+  "id": "188",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2557
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/193.lean",
+  "corpus": "ErdosProblems",
+  "id": "193",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2974
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/196.lean",
+  "corpus": "ErdosProblems",
+  "id": "196",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 959
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/197.lean",
+  "corpus": "ErdosProblems",
+  "id": "197",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1119
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/20.lean",
+  "corpus": "ErdosProblems",
+  "id": "20",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2249
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/200.lean",
+  "corpus": "ErdosProblems",
+  "id": "200",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1570
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/203.lean",
+  "corpus": "ErdosProblems",
+  "id": "203",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1133
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/205.lean",
+  "corpus": "ErdosProblems",
+  "id": "205",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 4061
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/212.lean",
+  "corpus": "ErdosProblems",
+  "id": "212",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 995
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/213.lean",
+  "corpus": "ErdosProblems",
+  "id": "213",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1612
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/234.lean",
+  "corpus": "ErdosProblems",
+  "id": "234",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1114
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/238.lean",
+  "corpus": "ErdosProblems",
+  "id": "238",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1635
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/241.lean",
+  "corpus": "ErdosProblems",
+  "id": "241",
+  "n_answer_sorry": 1,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3421
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/244.lean",
+  "corpus": "ErdosProblems",
+  "id": "244",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1392
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/247.lean",
+  "corpus": "ErdosProblems",
+  "id": "247",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1705
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/249.lean",
+  "corpus": "ErdosProblems",
+  "id": "249",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 983
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/25.lean",
+  "corpus": "ErdosProblems",
+  "id": "25",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1396
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/251.lean",
+  "corpus": "ErdosProblems",
+  "id": "251",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 998
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/260.lean",
+  "corpus": "ErdosProblems",
+  "id": "260",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1403
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/264.lean",
+  "corpus": "ErdosProblems",
+  "id": "264",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3300
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/267.lean",
+  "corpus": "ErdosProblems",
+  "id": "267",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2828
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/272.lean",
+  "corpus": "ErdosProblems",
+  "id": "272",
+  "n_answer_sorry": 1,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2445
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/273.lean",
+  "corpus": "ErdosProblems",
+  "id": "273",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1419
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/274.lean",
+  "corpus": "ErdosProblems",
+  "id": "274",
+  "n_answer_sorry": 1,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3749
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/276.lean",
+  "corpus": "ErdosProblems",
+  "id": "276",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1688
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/279.lean",
+  "corpus": "ErdosProblems",
+  "id": "279",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1179
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/289.lean",
+  "corpus": "ErdosProblems",
+  "id": "289",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1278
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/295.lean",
+  "corpus": "ErdosProblems",
+  "id": "295",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1989
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/3.lean",
+  "corpus": "ErdosProblems",
+  "id": "3",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1131
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/30.lean",
+  "corpus": "ErdosProblems",
+  "id": "30",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1243
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/302.lean",
+  "corpus": "ErdosProblems",
+  "id": "302",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3684
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/306.lean",
+  "corpus": "ErdosProblems",
+  "id": "306",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1813
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/324.lean",
+  "corpus": "ErdosProblems",
+  "id": "324",
+  "n_answer_sorry": 1,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1354
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/326.lean",
+  "corpus": "ErdosProblems",
+  "id": "326",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1740
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/33.lean",
+  "corpus": "ErdosProblems",
+  "id": "33",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2280
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/331.lean",
+  "corpus": "ErdosProblems",
+  "id": "331",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2814
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/341.lean",
+  "corpus": "ErdosProblems",
+  "id": "341",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1635
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/348.lean",
+  "corpus": "ErdosProblems",
+  "id": "348",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1335
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/352.lean",
+  "corpus": "ErdosProblems",
+  "id": "352",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1275
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/376.lean",
+  "corpus": "ErdosProblems",
+  "id": "376",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1353
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/377.lean",
+  "corpus": "ErdosProblems",
+  "id": "377",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3893
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/383.lean",
+  "corpus": "ErdosProblems",
+  "id": "383",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1080
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/387.lean",
+  "corpus": "ErdosProblems",
+  "id": "387",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3554
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/39.lean",
+  "corpus": "ErdosProblems",
+  "id": "39",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1206
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/390.lean",
+  "corpus": "ErdosProblems",
+  "id": "390",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1709
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/396.lean",
+  "corpus": "ErdosProblems",
+  "id": "396",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1068
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/398.lean",
+  "corpus": "ErdosProblems",
+  "id": "398",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1065
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/40.lean",
+  "corpus": "ErdosProblems",
+  "id": "40",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3165
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/406.lean",
+  "corpus": "ErdosProblems",
+  "id": "406",
+  "n_answer_sorry": 1,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1279
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/410.lean",
+  "corpus": "ErdosProblems",
+  "id": "410",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1280
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/412.lean",
+  "corpus": "ErdosProblems",
+  "id": "412",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1127
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/414.lean",
+  "corpus": "ErdosProblems",
+  "id": "414",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1150
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/418.lean",
+  "corpus": "ErdosProblems",
+  "id": "418",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 4693
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/421.lean",
+  "corpus": "ErdosProblems",
+  "id": "421",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1120
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/424.lean",
+  "corpus": "ErdosProblems",
+  "id": "424",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1950
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/428.lean",
+  "corpus": "ErdosProblems",
+  "id": "428",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1385
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/445.lean",
+  "corpus": "ErdosProblems",
+  "id": "445",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2487
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/450.lean",
+  "corpus": "ErdosProblems",
+  "id": "450",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2681
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/455.lean",
+  "corpus": "ErdosProblems",
+  "id": "455",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1682
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/458.lean",
+  "corpus": "ErdosProblems",
+  "id": "458",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1310
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/463.lean",
+  "corpus": "ErdosProblems",
+  "id": "463",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1184
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/477.lean",
+  "corpus": "ErdosProblems",
+  "id": "477",
+  "n_answer_sorry": 1,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2687
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/479.lean",
+  "corpus": "ErdosProblems",
+  "id": "479",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 981
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/486.lean",
+  "corpus": "ErdosProblems",
+  "id": "486",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1193
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/488.lean",
+  "corpus": "ErdosProblems",
+  "id": "488",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1403
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/495.lean",
+  "corpus": "ErdosProblems",
+  "id": "495",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1112
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/50.lean",
+  "corpus": "ErdosProblems",
+  "id": "50",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2942
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/501.lean",
+  "corpus": "ErdosProblems",
+  "id": "501",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 9313
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/503.lean",
+  "corpus": "ErdosProblems",
+  "id": "503",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2853
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/51.lean",
+  "corpus": "ErdosProblems",
+  "id": "51",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1361
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/510.lean",
+  "corpus": "ErdosProblems",
+  "id": "510",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2147
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/516.lean",
+  "corpus": "ErdosProblems",
+  "id": "516",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2860
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/517.lean",
+  "corpus": "ErdosProblems",
+  "id": "517",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1750
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/52.lean",
+  "corpus": "ErdosProblems",
+  "id": "52",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1191
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/520.lean",
+  "corpus": "ErdosProblems",
+  "id": "520",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2144
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/536.lean",
+  "corpus": "ErdosProblems",
+  "id": "536",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1385
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/562.lean",
+  "corpus": "ErdosProblems",
+  "id": "562",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1373
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/564.lean",
+  "corpus": "ErdosProblems",
+  "id": "564",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1220
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/579.lean",
+  "corpus": "ErdosProblems",
+  "id": "579",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3054
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/592.lean",
+  "corpus": "ErdosProblems",
+  "id": "592",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1208
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/598.lean",
+  "corpus": "ErdosProblems",
+  "id": "598",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1453
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/61.lean",
+  "corpus": "ErdosProblems",
+  "id": "61",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3703
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/623.lean",
+  "corpus": "ErdosProblems",
+  "id": "623",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1386
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/633.lean",
+  "corpus": "ErdosProblems",
+  "id": "633",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 4208
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/64.lean",
+  "corpus": "ErdosProblems",
+  "id": "64",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": true,
+  "bytes": 1158
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/649.lean",
+  "corpus": "ErdosProblems",
+  "id": "649",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 5786
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/653.lean",
+  "corpus": "ErdosProblems",
+  "id": "653",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1262
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/655.lean",
+  "corpus": "ErdosProblems",
+  "id": "655",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2913
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/66.lean",
+  "corpus": "ErdosProblems",
+  "id": "66",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1185
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/672.lean",
+  "corpus": "ErdosProblems",
+  "id": "672",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1828
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/68.lean",
+  "corpus": "ErdosProblems",
+  "id": "68",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2043
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/681.lean",
+  "corpus": "ErdosProblems",
+  "id": "681",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1236
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/683.lean",
+  "corpus": "ErdosProblems",
+  "id": "683",
+  "n_answer_sorry": 1,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2269
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/689.lean",
+  "corpus": "ErdosProblems",
+  "id": "689",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1276
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/692.lean",
+  "corpus": "ErdosProblems",
+  "id": "692",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3729
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/694.lean",
+  "corpus": "ErdosProblems",
+  "id": "694",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2418
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/7.lean",
+  "corpus": "ErdosProblems",
+  "id": "7",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1005
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/701.lean",
+  "corpus": "ErdosProblems",
+  "id": "701",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1364
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/726.lean",
+  "corpus": "ErdosProblems",
+  "id": "726",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1852
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/740.lean",
+  "corpus": "ErdosProblems",
+  "id": "740",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1696
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/741.lean",
+  "corpus": "ErdosProblems",
+  "id": "741",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3349
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/749.lean",
+  "corpus": "ErdosProblems",
+  "id": "749",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1240
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/75.lean",
+  "corpus": "ErdosProblems",
+  "id": "75",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1429
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/757.lean",
+  "corpus": "ErdosProblems",
+  "id": "757",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1930
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/774.lean",
+  "corpus": "ErdosProblems",
+  "id": "774",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1754
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/785.lean",
+  "corpus": "ErdosProblems",
+  "id": "785",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 8058
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/817.lean",
+  "corpus": "ErdosProblems",
+  "id": "817",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2023
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/821.lean",
+  "corpus": "ErdosProblems",
+  "id": "821",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2847
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/826.lean",
+  "corpus": "ErdosProblems",
+  "id": "826",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1025
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/849.lean",
+  "corpus": "ErdosProblems",
+  "id": "849",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1088
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/85.lean",
+  "corpus": "ErdosProblems",
+  "id": "85",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1328
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/850.lean",
+  "corpus": "ErdosProblems",
+  "id": "850",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1227
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/855.lean",
+  "corpus": "ErdosProblems",
+  "id": "855",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1132
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/857.lean",
+  "corpus": "ErdosProblems",
+  "id": "857",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1436
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/881.lean",
+  "corpus": "ErdosProblems",
+  "id": "881",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1869
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/885.lean",
+  "corpus": "ErdosProblems",
+  "id": "885",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2338
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/887.lean",
+  "corpus": "ErdosProblems",
+  "id": "887",
+  "n_answer_sorry": 1,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2400
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/893.lean",
+  "corpus": "ErdosProblems",
+  "id": "893",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1777
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/906.lean",
+  "corpus": "ErdosProblems",
+  "id": "906",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1157
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/913.lean",
+  "corpus": "ErdosProblems",
+  "id": "913",
+  "n_answer_sorry": 1,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3711
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/930.lean",
+  "corpus": "ErdosProblems",
+  "id": "930",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2782
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/933.lean",
+  "corpus": "ErdosProblems",
+  "id": "933",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3669
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/938.lean",
+  "corpus": "ErdosProblems",
+  "id": "938",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1169
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/942.lean",
+  "corpus": "ErdosProblems",
+  "id": "942",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1842
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/943.lean",
+  "corpus": "ErdosProblems",
+  "id": "943",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1068
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/949.lean",
+  "corpus": "ErdosProblems",
+  "id": "949",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 5274
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/951.lean",
+  "corpus": "ErdosProblems",
+  "id": "951",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2942
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/959.lean",
+  "corpus": "ErdosProblems",
+  "id": "959",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 4086
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/96.lean",
+  "corpus": "ErdosProblems",
+  "id": "96",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2402
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/961.lean",
+  "corpus": "ErdosProblems",
+  "id": "961",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3133
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/962.lean",
+  "corpus": "ErdosProblems",
+  "id": "962",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2609
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/971.lean",
+  "corpus": "ErdosProblems",
+  "id": "971",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2402
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/972.lean",
+  "corpus": "ErdosProblems",
+  "id": "972",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1180
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/979.lean",
+  "corpus": "ErdosProblems",
+  "id": "979",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1822
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/98.lean",
+  "corpus": "ErdosProblems",
+  "id": "98",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3306
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/985.lean",
+  "corpus": "ErdosProblems",
+  "id": "985",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1584
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/99.lean",
+  "corpus": "ErdosProblems",
+  "id": "99",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1957
+ },
+ {
+  "path": "FormalConjectures/OEIS/100475.lean",
+  "corpus": "OEIS",
+  "id": "100475",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2930
+ },
+ {
+  "path": "FormalConjectures/OEIS/100478.lean",
+  "corpus": "OEIS",
+  "id": "100478",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2658
+ },
+ {
+  "path": "FormalConjectures/OEIS/102371.lean",
+  "corpus": "OEIS",
+  "id": "102371",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2219
+ },
+ {
+  "path": "FormalConjectures/OEIS/102847.lean",
+  "corpus": "OEIS",
+  "id": "102847",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1715
+ },
+ {
+  "path": "FormalConjectures/OEIS/108301.lean",
+  "corpus": "OEIS",
+  "id": "108301",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1935
+ },
+ {
+  "path": "FormalConjectures/OEIS/109671.lean",
+  "corpus": "OEIS",
+  "id": "109671",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1906
+ },
+ {
+  "path": "FormalConjectures/OEIS/113010.lean",
+  "corpus": "OEIS",
+  "id": "113010",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1499
+ },
+ {
+  "path": "FormalConjectures/OEIS/113019.lean",
+  "corpus": "OEIS",
+  "id": "113019",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": true,
+  "bytes": 1796
+ },
+ {
+  "path": "FormalConjectures/OEIS/114216.lean",
+  "corpus": "OEIS",
+  "id": "114216",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2669
+ },
+ {
+  "path": "FormalConjectures/OEIS/945.lean",
+  "corpus": "OEIS",
+  "id": "945",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3000
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/101.lean",
+  "corpus": "ErdosProblems",
+  "id": "101",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1812
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1041.lean",
+  "corpus": "ErdosProblems",
+  "id": "1041",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2251
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1055.lean",
+  "corpus": "ErdosProblems",
+  "id": "1055",
+  "n_answer_sorry": 0,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3539
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1060.lean",
+  "corpus": "ErdosProblems",
+  "id": "1060",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1596
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1094.lean",
+  "corpus": "ErdosProblems",
+  "id": "1094",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1046
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1095.lean",
+  "corpus": "ErdosProblems",
+  "id": "1095",
+  "n_answer_sorry": 0,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2911
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/11.lean",
+  "corpus": "ErdosProblems",
+  "id": "11",
+  "n_answer_sorry": 0,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2546
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1107.lean",
+  "corpus": "ErdosProblems",
+  "id": "1107",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1501
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/1135.lean",
+  "corpus": "ErdosProblems",
+  "id": "1135",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1685
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/189.lean",
+  "corpus": "ErdosProblems",
+  "id": "189",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3014
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/218.lean",
+  "corpus": "ErdosProblems",
+  "id": "218",
+  "n_answer_sorry": 0,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1679
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/236.lean",
+  "corpus": "ErdosProblems",
+  "id": "236",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1204
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/242.lean",
+  "corpus": "ErdosProblems",
+  "id": "242",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1675
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/243.lean",
+  "corpus": "ErdosProblems",
+  "id": "243",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1275
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/28.lean",
+  "corpus": "ErdosProblems",
+  "id": "28",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1172
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/337.lean",
+  "corpus": "ErdosProblems",
+  "id": "337",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 4378
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/358.lean",
+  "corpus": "ErdosProblems",
+  "id": "358",
+  "n_answer_sorry": 0,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 4172
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/359.lean",
+  "corpus": "ErdosProblems",
+  "id": "359",
+  "n_answer_sorry": 0,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2843
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/364.lean",
+  "corpus": "ErdosProblems",
+  "id": "364",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2103
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/371.lean",
+  "corpus": "ErdosProblems",
+  "id": "371",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1074
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/41.lean",
+  "corpus": "ErdosProblems",
+  "id": "41",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2010
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/535.lean",
+  "corpus": "ErdosProblems",
+  "id": "535",
+  "n_answer_sorry": 0,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 4988
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/60.lean",
+  "corpus": "ErdosProblems",
+  "id": "60",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2316
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/617.lean",
+  "corpus": "ErdosProblems",
+  "id": "617",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2660
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/624.lean",
+  "corpus": "ErdosProblems",
+  "id": "624",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1927
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/628.lean",
+  "corpus": "ErdosProblems",
+  "id": "628",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": true,
+  "bytes": 3547
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/82.lean",
+  "corpus": "ErdosProblems",
+  "id": "82",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1828
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/853.lean",
+  "corpus": "ErdosProblems",
+  "id": "853",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1598
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/859.lean",
+  "corpus": "ErdosProblems",
+  "id": "859",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2513
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/865.lean",
+  "corpus": "ErdosProblems",
+  "id": "865",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3716
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/89.lean",
+  "corpus": "ErdosProblems",
+  "id": "89",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3262
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/912.lean",
+  "corpus": "ErdosProblems",
+  "id": "912",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1926
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/932.lean",
+  "corpus": "ErdosProblems",
+  "id": "932",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1508
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/952.lean",
+  "corpus": "ErdosProblems",
+  "id": "952",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1113
+ },
+ {
+  "path": "FormalConjectures/ErdosProblems/982.lean",
+  "corpus": "ErdosProblems",
+  "id": "982",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1204
+ },
+ {
+  "path": "FormalConjectures/OEIS/100434.lean",
+  "corpus": "OEIS",
+  "id": "100434",
+  "n_answer_sorry": 0,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 4811
+ },
+ {
+  "path": "FormalConjectures/OEIS/103662.lean",
+  "corpus": "OEIS",
+  "id": "103662",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3105
+ },
+ {
+  "path": "FormalConjectures/OEIS/104320.lean",
+  "corpus": "OEIS",
+  "id": "104320",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1531
+ },
+ {
+  "path": "FormalConjectures/OEIS/105020.lean",
+  "corpus": "OEIS",
+  "id": "105020",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2951
+ },
+ {
+  "path": "FormalConjectures/OEIS/105210.lean",
+  "corpus": "OEIS",
+  "id": "105210",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3165
+ },
+ {
+  "path": "FormalConjectures/OEIS/109074.lean",
+  "corpus": "OEIS",
+  "id": "109074",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": true,
+  "bytes": 2073
+ },
+ {
+  "path": "FormalConjectures/OEIS/109845.lean",
+  "corpus": "OEIS",
+  "id": "109845",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1816
+ },
+ {
+  "path": "FormalConjectures/OEIS/110566.lean",
+  "corpus": "OEIS",
+  "id": "110566",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1664
+ },
+ {
+  "path": "FormalConjectures/OEIS/111291.lean",
+  "corpus": "OEIS",
+  "id": "111291",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": true,
+  "bytes": 1926
+ },
+ {
+  "path": "FormalConjectures/OEIS/112970.lean",
+  "corpus": "OEIS",
+  "id": "112970",
+  "n_answer_sorry": 0,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2491
+ },
+ {
+  "path": "FormalConjectures/OEIS/113250.lean",
+  "corpus": "OEIS",
+  "id": "113250",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1858
+ },
+ {
+  "path": "FormalConjectures/OEIS/113252.lean",
+  "corpus": "OEIS",
+  "id": "113252",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1782
+ },
+ {
+  "path": "FormalConjectures/OEIS/113255.lean",
+  "corpus": "OEIS",
+  "id": "113255",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1788
+ },
+ {
+  "path": "FormalConjectures/OEIS/114831.lean",
+  "corpus": "OEIS",
+  "id": "114831",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2351
+ },
+ {
+  "path": "FormalConjectures/OEIS/11545.lean",
+  "corpus": "OEIS",
+  "id": "11545",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2949
+ },
+ {
+  "path": "FormalConjectures/OEIS/1157.lean",
+  "corpus": "OEIS",
+  "id": "1157",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1619
+ },
+ {
+  "path": "FormalConjectures/OEIS/231201.lean",
+  "corpus": "OEIS",
+  "id": "231201",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": true,
+  "bytes": 2245
+ },
+ {
+  "path": "FormalConjectures/OEIS/232174.lean",
+  "corpus": "OEIS",
+  "id": "232174",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2458
+ },
+ {
+  "path": "FormalConjectures/OEIS/237271.lean",
+  "corpus": "OEIS",
+  "id": "237271",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 6976
+ },
+ {
+  "path": "FormalConjectures/OEIS/239957.lean",
+  "corpus": "OEIS",
+  "id": "239957",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 1531
+ },
+ {
+  "path": "FormalConjectures/OEIS/280831.lean",
+  "corpus": "OEIS",
+  "id": "280831",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2327
+ },
+ {
+  "path": "FormalConjectures/OEIS/281976.lean",
+  "corpus": "OEIS",
+  "id": "281976",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2906
+ },
+ {
+  "path": "FormalConjectures/OEIS/287616.lean",
+  "corpus": "OEIS",
+  "id": "287616",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2029
+ },
+ {
+  "path": "FormalConjectures/OEIS/303656.lean",
+  "corpus": "OEIS",
+  "id": "303656",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2272
+ },
+ {
+  "path": "FormalConjectures/OEIS/308734.lean",
+  "corpus": "OEIS",
+  "id": "308734",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 2414
+ },
+ {
+  "path": "FormalConjectures/OEIS/357513.lean",
+  "corpus": "OEIS",
+  "id": "357513",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3635
+ },
+ {
+  "path": "FormalConjectures/OEIS/37274.lean",
+  "corpus": "OEIS",
+  "id": "37274",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "previously_touched": false,
+  "bytes": 3243
+ }
+]
