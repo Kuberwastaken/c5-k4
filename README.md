@@ -1204,9 +1204,16 @@ Complete no-`sorry` Lean certificates for both 64 and 309 are committed in
 
 ### Why it kills them: the discretization cliff
 
-Graffiti.pc verified its conjectures against a finite graph database
-(roughly n ≤ 11). C₅[K₄] lives exactly past the edge of that database on a
-**rounding cliff**: its induced-substructure invariants are pinned at 4
+Graffiti.pc verified its conjectures against a finite graph database before
+emitting them. **Correction, 2026-08-15:** earlier versions of this section
+said that database was "roughly n ≤ 11". That figure has no source — it was
+never traceable to DeLaViña's site or to any paper, and the paper draft
+([`paper/discretization-cliff/`](paper/discretization-cliff/)) dropped it
+rather than cite it. What *is* checkable, and is what the argument actually
+needs: all 995 connected graphs of order ≤ 7 satisfy these conjectures, so the
+refuting structure genuinely does not appear at small order. C₅[K₄] sits past
+wherever that edge really is, on a **rounding cliff**: its
+induced-substructure invariants are pinned at 4
 (any 5 vertices either meet a blob twice — creating a stranded component or
 a triangle — or induce the pentagon C₅, which is a cycle), while the
 distance-parity terms in the bounds keep growing with the blob size. The

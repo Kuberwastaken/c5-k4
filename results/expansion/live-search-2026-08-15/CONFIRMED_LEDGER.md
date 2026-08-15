@@ -219,3 +219,24 @@ exactly the non-trivial half. No defect.
 bricks (smallest `(44,117,240)`), **zero** 4-D; idoneal completeness exact to
 `10⁵` (and `10⁶` over-budget, recorded); Büchi `M = 5` none in range; Gilbreath
 `d^k(0) = 1` for `k ≤ 5000`; Goormaghtigh only 31 and 8191 up to `10¹³`.
+
+## Correction 7 — the database-boundary figure was unsourced (2026-08-15)
+
+The README asserted for two weeks that Graffiti.pc's verification database ran
+to "roughly n ≤ 11", and that figure carried the whole cliff narrative ("C₅[K₄]
+lives past the edge of that database"). Writing the paper exposed it: **there is
+no source**. It is not traceable to DeLaViña's site (unreachable from this host)
+or to any paper, and the paper draft refused to cite it.
+
+Replaced with a claim we can actually verify — all 995 connected graphs of order
+≤ 7 satisfy the conjectures in question — which is what the argument needs
+anyway. The mechanism survives; the specific number did not.
+
+Three further premise corrections from the same pass, all previously stated in
+this repo and all wrong:
+
+| Was claimed | Actually |
+|---|---|
+| `f = b = tree = 4` for `m ≥ 2` | true for **every** `m ≥ 1` |
+| `n mod Δ = 2m+1` | only for `m ≥ 3` (`m=1` gives 1, `m=2` gives 0 — which is why conjecture 64's RHS is 2 there) |
+| "≈40 exactly tight" | defensible count is **≈36**; four naive-parse hits are tight only under gate-*discarded* readings, and one (401b) is corrupt |
