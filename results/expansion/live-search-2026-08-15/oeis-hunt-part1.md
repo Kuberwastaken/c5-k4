@@ -577,3 +577,124 @@ Faithful. Exact `Fraction` fractional parts for `k = 2,3,4,5,6` and `n = 1..2·1
 (10⁶ values total): **0 collisions**. `scratch/c001157.py`.
 
 ---
+## Phase C — `answer(sorry)` shape defects (no finite counterexample, but the declaration
+does not capture its source)
+
+These are recorded because the campaign's band-1 vein is *formalization faithfulness*
+(METHOD v1.6 §A1), and because upstream issue **#4923** ("Possible misformalizations II")
+already treats exactly these two shapes for the Erdős corpus. **None of the OEIS declarations
+below appears in #4896 / #4923 / #4927.** No upstream write performed.
+
+### C1 — Exact self-answer (`answer(sorry) = <closed target term>`), 7 declarations / 6 files
+
+`answer(...)` is a plain term elaborator (`FormalConjecturesUtil/Answer/Syntax.lean:27`:
+`syntax (name := Google.answer) "answer(" term ")" : term`); it places no restriction on the
+supplied term. Therefore any declaration of the literal form
+`answer(sorry) = E` with `E` a **closed** term is discharged by
+`answer(E) = E := rfl`, without answering the mathematical question. This is precisely the
+defect class issue #4923 lists under "Exact self-answers" (Erdős 33, 329, 348, 409) and
+"Reflexive asymptotic answers" (Erdős 422, 539, 789).
+
+| file | declaration | closed target term `E` | OEIS question it is meant to encode |
+|---|---|---|---|
+| A100474 | `next_semiprime` | `a (sInf {n \| 11 < n ∧ (a n).IsSemiprime})` | "a(11) is the first semiprime … What is the next?" |
+| A102847 | `conjecture` | `sInf {n \| 4 < n ∧ (a n).Prime}` | "When is the next prime in the sequence?" |
+| A107247 | `conjecture` | `a (sInf {n \| 8 < n ∧ (a n).Prime})` | "Primes … include a(9) = 2, which is next?" |
+| A113257 | `conjecture1` | `a (sInf {n \| 2 < n ∧ (a n).Prime})` | "The smallest prime … is a(2) = 5. What is the next prime?" |
+| A113257 | `conjecture2` | `a (sInf {n \| 1 < n ∧ IsSquare (a n)})` | "What is the first square value after 1?" |
+| A113271 | `conjecture1` | `a (sInf {n \| 5 < n ∧ (a n).Prime})` | "The smallest primes … a(1)=3, a(3)=41 and a(5)=135457. What is the next prime?" |
+| A116150 | `conjecture` | `a (sInf {n \| 431 < n ∧ (a n).Prime})` | "First primes are a(11), a(17) … Additional primes: a(71), a(91), a(431). More primes?" |
+
+Each index bound was checked against its OEIS COMMENT and is correct
+(`4 < n` after `a(4)=15131` prime; `8 < n` after the 0-indexed `a(8)=2`; `431 < n` after
+Harvey P. Dale's `a(431)`; etc.), so the *bounds* are faithful — only the answer shape is
+degenerate. Verdict for all seven: `FIXED_OPTIMUM` + self-answer shape defect.
+
+### C2 — Uniform-`answer`-under-binders (the repo's own `AnswerLinter` pattern), 2 files
+
+`FormalConjecturesUtil/Linters/AnswerLinter.lean` warns on
+`theorem foo (bar : …) : answer(sorry) ↔ …` ("Move the quantifiers outward"). Its check
+(`stars_with_answer_sorry_iff`) only fires on `↔`; both declarations below use `=` on `Prop`
+and therefore slip past it, while exhibiting exactly the flaw the linter describes.
+
+**A100475** — `theorem conjecture (x : ℕ) (h : x ≠ 1) : answer(sorry) = IsUltimatelyPeriodic (aStartAt x)`
+- OEIS pin (A100475, "Prime-th recurrence with reversal at each step"), COMMENT verbatim:
+  `Starting at other than a(n) = 1, does this sequence ever go into a loop?`
+- The source asks an **existential** question over start values. The Lean form asserts one
+  single `answer` Prop equal to the periodicity status of **every** `x ≠ 1` — i.e. that all
+  start values behave alike.
+- **The answer is pinned by a degenerate start value.** `x = 0` is admitted (`h` only excludes
+  `1`), and `aStartAt 0 n = 0` for all `n` (the `if k = 0 then 0` branch fires immediately),
+  which is ultimately periodic with `N = 0, P = 1`. Hence `answer` is forced to `True`, and
+  the declaration becomes "**every** `x ≠ 1` gives an ultimately periodic sequence" — a much
+  stronger claim than the source's question, and one the source explicitly does *not* assert.
+- Not finitely refutable (refuting needs a provably aperiodic orbit), so verdict is
+  `CERTIFICATE_SHAPE_FAIL` + faithfulness defect, not a counterexample.
+
+**A100478** — `theorem conjecture (v : Fin 5 → ℕ) (h : ∀ i, v i > 0) : answer(sorry) = ∃ N P, P > 0 ∧ (∀ n ≥ N, aGeneral v (n + P) = aGeneral v n)`
+- OEIS pin (A100478, "Pentanacci pi function"), COMMENT verbatim:
+  `Starting with other values of a(1), a(2), a(3), a(4), a(5) what behaviors are possible?`
+  `Does the sequence always stick at a single integer after some point, or can it go into a`
+  `loop, or is there a third pattern?`
+- The source's open question is a **three-way** classification (fixed point vs. nontrivial
+  loop vs. something else). The Lean declaration only asks whether the orbit is eventually
+  periodic — and **that is provable**, so the declaration is not open:
+  1. `π(5M) ≤ M` for every `M ≥ 66` (checked exhaustively for `66 ≤ M ≤ 1.2·10⁶`, the last
+     failure being `M = 65`; for `M ≥ 109` it follows from `π(x) < 1.26x/ln x`).
+  2. Hence the window maximum never exceeds `max(max_i v i, 66)`: each new term is
+     `π(S)` with `S ≤ 5M`.
+  3. A bounded orbit of a deterministic map on 5-tuples of naturals visits finitely many
+     states, so by pigeonhole it is eventually periodic. ∎
+  Empirically all 48 tested starting tuples (including `(1,1,1,1,1)`, `(66,…)`, `(70,…)` and
+  40 random tuples in `[1,5000]⁵`) reach a **fixed point** (cycle length 1); the
+  `(1,1,1,1,1)` orbit reproduces the OEIS DATA `1,1,1,1,1,3,4,4,6,7,9,10,11,14,…` exactly.
+- Verdict: `STATUS_SYNC` — a `research open` declaration whose literal content is an
+  elementary theorem (`answer := True`), while the source question it cites is untouched.
+  `scratch/c100478.py`.
+
+---
+
+### A109227 — `answer ↔ ∃ n > 0, n ≠ 2 ∧ n ≠ 121 ∧ (a n).Prime` — `HOLD_BOUNDED`
+OEIS pin: COMMENT "a(2) and a(121) are primes. Are there any more?" Faithful; the Lean `a`
+reproduces the DATA `1, 11, 1101, 110101, 1101010001, …` exactly (12/12 terms).
+Note `a n` has digit sum `n` (its digits are the prime indicator on `2..p_n`), so `3 ∣ a n`
+whenever `3 ∣ n` — those `n` are excluded for free. Miller–Rabin over `n = 1..260`
+(numbers up to 1657 decimal digits): the only primes are **n = 2 and n = 121**. No resolution.
+`scratch/c109227.py`.
+
+---
+
+## Phase D — certificate-shape stops (METHOD Phase 0A), recorded and closed
+
+No finite artifact can settle these; each was stopped before building apparatus. Source
+faithfulness was still spot-checked where cheap, and any note is recorded.
+
+| A-number | declaration shape | note |
+|---|---|---|
+| A000945 | `answer ↔ ∀ p prime, ∃ n ≥ 1, a n = p` | Euclid–Mullin; refuting needs "prime never occurs". Lean `a`/`b` faithful (`a 1..7 = 2,3,7,43,13,53,5` = DATA). |
+| A037274 | `∀ n ≥ 2, ReachesPrime n` with `ReachesPrime n := ∃ k, prime` | home primes; negation is `∃n ∀k`. `primeFactorSplice` verified faithful (`foldl decimalAppend 0` = concatenation). |
+| A081091 | `answer ↔ Set.Infinite {p \| p.Prime ∧ p.bits.count true = 3}` | faithful: an odd prime with 3 one-bits is exactly `2ⁿ+2ⁱ+1`, `0<i<n`. |
+| A100800 | `∀ n ≠ 0, a n ≠ 0` where `a n = 0` iff **no** iterate works | negation is `∃n ∀k`. |
+| A101779 | `∀ n ≥ 1, ∃ k, Ak n k` | pure existence; a zero cannot disprove (`CONSTRUCTION_ONLY`). |
+| A102722 | `(fun n => a n) ~[atTop] (1 − γ)·n` | asymptotic. |
+| A103885 | `∀ m ≥ 1, ∃ P Q : Polynomial ℝ, …` | `CONSTRUCTION_ONLY`. |
+| A103662 `conjecture` | `∃ N, ∀ n > N, a n = 0` | eventual quantifier; the *variant* `a_40` was searched (above). |
+| A105210 `conjecture` | `∃ K, Set.Infinite K ∧ …` | `CONSTRUCTION_ONLY`; the companion 5-start disjointness was searched (above). |
+| A105751 (×2) | `Tendsto … (nhds 1)` | asymptotic (Moll's 2-adic / p-adic valuation conjectures). |
+| A105801 | `∀ k > 0, ∃ m, ∀ n > m, a n ≡ a (m+1) [MOD 3^k]` | eventual quantifier. Faithful — OEIS COMMENT (Giovanni Resta, Nov 17 2010) states exactly this. Lean `a` matches DATA `1,2,10,6,8,7,46,160,103,790,2680,1735`; `a n ≡ 7 (mod 9)` for `n ≥ 10` reproduced; the orbit grows (26 digits by `n = 79`), no cycle. |
+| A108129 | `a 254602 = -1 ∧ ∀ 1 ≤ n < 254602, a n ≠ -1` | Riesel problem; the first conjunct needs a covering-set proof, not a finite object. `k = 2·254602 − 1 = 509203` ✓ correct. |
+| A109671 | `answer ↔ ∀ m > 0, ∃ n > 0, a n = m` | Lean recursion verified faithful to "smallest positive number with `\|a(2n+1) − a(2n−1)\| = a(n)`" (strict `>` correctly forces the `+` branch on ties). |
+| A109845 | `Set.Infinite {n \| (a n).Prime}` | Lean `a` matches the lcm±1 source (`2,3,5,31,929,863971,…`), shifted by one index. |
+| A110566 | `∀ m odd, ∃ n > 0, a n = m` | faithful (COMMENT: "It is conjectured that every odd number occurs in this sequence"). |
+| A111114 | `∃ᶠ n in atTop, a n > a (n+1)` | "infinitely often". `a 0 = a 1 = 0` from `Nat` division by `π(n) = 0` — harmless at `atTop`. |
+| A113213 | `=O[atTop] n³` | asymptotic. Note `a 1 = 0` because `m = 0` is admitted and `2¹` is prime. |
+| A113258 | `answer ↔ ∃ n > 4, ∃ b > 1, ∃ e > 1, a n = b^e` | `CONSTRUCTION_ONLY`. |
+| A113609 | `answer ↔ ∃ q ≥ 10⁶, …` | `CONSTRUCTION_ONLY` (needs two prime powers differing by 2 above 10⁶; cf. 25/27). |
+| A114137 (×2) | `Set.Infinite {n \| a n = 1}` ; `∀ k odd, ∃ n, a n = k` | neither is finitely refutable. |
+| A114362 (×2) | `Irrational (…)` ; `=O[atTop]` | irrationality + asymptotic. |
+| A114831 | `Tendsto (a(n+1)/a n) atTop (nhds √3)` | asymptotic; the fixed-point equation `r = 1 + 2/(r+1) ⇒ r² = 3` confirms the constant is right. |
+| A115366 | `∃ L, Tendsto … ∧ 1.77 ≤ L ≤ 1.78` | asymptotic + numeric bracket. |
+| A117027 | `∃ L, Tendsto ratioSeq atTop (nhds L) ∧ 0.8 < L < 0.9` | asymptotic + bracket; `a 1 = 2·7 − 3·5 = −1` ✓ matches DATA. |
+| A034693 (×2) | `=O[atTop] (log n · log log n)` ; `¬BddAbove …` | asymptotic **and mutually contradictory** — the file formalizes both Ordowski's conjecture and Greathouse's explicit contradiction of it as `research open`; at most one can hold. |
+
+---
