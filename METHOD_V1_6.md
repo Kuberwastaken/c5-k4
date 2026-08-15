@@ -75,6 +75,40 @@ peripheral `K_2` lobes creates the intended `P_4` but simultaneously drops the
 lobe pair's path-cover cost from two to one, so a maximum packing absorbs it.
 Two members would have shown that in minutes.
 
+**First validation, 2026-08-15 (EP 982 polygon lane).** The rule was frozen
+before the trial and predicted every outcome exactly:
+
+| construction | predicted `R` | actual `R` |
+|---|---|---|
+| Danzer 9-gon | +2 | +2 |
+| control `k=3` 9-gon | +2 | +2 |
+| Fishburn–Reeds 20-gon | +7 | +7 |
+
+A crossing needs `R ≤ −1`. The sign check also generalised into a structural
+closure rather than a mere stop: a counterexample needs per-vertex excess
+`E_i ≥ ⌈n/2⌉` while both constructions deliver `E_i = 2` exactly, and the
+mean multiplicity `(n−1)/(n−3) → 1`, so the family gets *worse* with `n`.
+That retires the whole lead — even solving Erdős 97 (`k = 4`) would only
+reach `n ≤ 6`, which is already settled. A sign check that converts an
+expensive open lead into a proof of futility is the intended behaviour.
+
+### A3.1 — Non-degeneracy guard (added 2026-08-15)
+
+The same lane produced a **false crossing** (`R = −2`) from an unguarded
+family sweep: at `a₁ = −1/2` the system collapsed one orbit onto another,
+yielding nine "vertices" that were three tripled points ~1e-25 apart, which
+violates the declaration's own `Function.Injective` hypothesis. Therefore:
+
+> Every generated family member must pass an explicit non-degeneracy check
+> against the declaration's own hypotheses before its residual is read.
+> For point configurations use `min pairwise distance / diameter ≥ 1e-3`.
+
+Related, from the same lane: a float-seeded builder mis-reported a count
+because a 1e-30 guard band was applied to equalities only accurate to 1e-16.
+Guard bands must be matched to the precision actually available, or the
+construction must be made exact. Both headline numbers were ultimately
+produced twice by programs sharing no code path.
+
 ## A4 — Triage before depth, always
 
 For any inventory larger than ~30 targets, a fast triage pass over *all* of it
