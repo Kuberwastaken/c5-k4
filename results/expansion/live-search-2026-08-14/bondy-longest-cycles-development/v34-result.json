@@ -1,0 +1,52 @@
+{
+  "schema": "bondy_v34_result_receipt_v1",
+  "classification": "VERIFIED_CAP_PREFIX",
+  "freeze_commit": "657a3bc64f2a2fa844a80a0c238e166331af7230",
+  "cancelled_dispatch": {
+    "run_id": 31855803325,
+    "classification": "INVALID_DISPATCH_INPUT_CANCELLED",
+    "target_rows": 0,
+    "artifacts": 0
+  },
+  "disabled": {
+    "run_id": 31855812545,
+    "status": "PASS",
+    "artifact_id": 9238992983,
+    "archive_digest": "sha256:1a7ab6231eaedc9f5e5d605275618d2c0848855ff007f69f7c8e2a2cee43a505",
+    "attestation_sha256": "3f196c673a8d697adf784ced93d022a6c694e591ad205354e8fcc05a3e9248cd",
+    "checks": 18,
+    "open_pull_bindings": 274,
+    "target_path_matches": 0
+  },
+  "enabled": {
+    "run_id": 31855904650,
+    "status": "PASS",
+    "terminal": "CAP_PREFIX",
+    "constructor_rows": 22,
+    "applicable": 10,
+    "evaluated": 9,
+    "candidates": 0,
+    "artifact_id": 9239036406,
+    "archive_digest": "sha256:b1aa0593b7d71df18a55fc9bdab2a92382092ec829fbe90fa2558ce333b05604",
+    "ledger_rows": 33,
+    "ledger_head": "64ea4f24fe298f7d4c2171379da73065ace468effa1790a376a2133c8587820c",
+    "manifest_sha256": "fc691931d7572aaf1ea7ea76e78edd47ede76b4cb4a1c79fbcd85ad870d57ae7",
+    "ledger_sha256": "f9ac2cecc2974653eaf73f4acd583b561dcf6cac5e3e1b9c8b3319fa2f49e9e3",
+    "source_attestation_sha256": "9d67b5adb79c3b441b2c2dc553129af814ce6fe88df88b619531f9dd714d6f73",
+    "post_target_safeguard_sha256": "bbb004f3abece13c52a769275b57dee5108325c0c02f390dc9a8f3bc647fab85",
+    "terminal_sha256": "7323560ba83452362294272088afe57a0e6eb2a8f9c289bb2111bb5c6c1bc247",
+    "verification_sha256": "79b735acf5b35811e0ea730c5d706a313c67a9a2bfbb16a7402be9c46ebb667b",
+    "verification_status": "TERMINAL_VERIFIED",
+    "post_target_checks": 7,
+    "completed_row_rejections": {
+      "classification": "Q4_UPPER_BOUND_REJECTED",
+      "count": 9,
+      "removed_set": [],
+      "path_cover_number": 1,
+      "evaluation_millis_min": 5015,
+      "evaluation_millis_max": 5294
+    }
+  },
+  "release": false,
+  "mathematical_claim": false
+}
