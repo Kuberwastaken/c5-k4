@@ -57,7 +57,8 @@ ACTIVE_DEADLINE: float | None = None
 # visible to the frozen local-history query: bondy_conjecture.
 # The v3.2 closure correction likewise remains visible: bondy_conjecture.
 # The v3.3 open-PR policy remains visible as well: bondy_conjecture.
-EXACT_FREEZE_INTRODUCERS = 5
+# The v3.4 single-catalogue policy remains visible as well: bondy_conjecture.
+EXACT_FREEZE_INTRODUCERS = 6
 
 
 def remaining_timeout(cap: float = 20.0) -> float:
@@ -91,7 +92,7 @@ def graphql(query: str, variables: dict[str, object], token: str) -> dict[str, o
             "Accept": "application/vnd.github+json",
             "Authorization": f"Bearer {token}",
             "Content-Type": "application/json",
-            "User-Agent": "c5-k4-bondy-v33-continuity-gate",
+            "User-Agent": "c5-k4-bondy-v34-continuity-gate",
         },
         method="POST",
     )
@@ -143,85 +144,112 @@ def page_info(connection: object, label: str) -> tuple[list[dict[str, object]], 
     return nodes, more, cursor if isinstance(cursor, str) else None
 
 
+PULL_IDENTITY_KEYS = (
+    "node_id", "number", "state", "title", "draft", "updated_at", "head_sha", "head_ref", "head_repo",
+    "base_sha", "base_ref", "base_repo", "changed_files",
+)
+
+
+def checked_graphql(token: str, rate_limits: list[dict[str, object]], query: str, variables: dict[str, object]) -> dict[str, object]:
+    remaining_timeout()
+    data = graphql(query, variables, token)
+    rate = data.get("rateLimit")
+    if (
+        not isinstance(rate, dict)
+        or isinstance(rate.get("cost"), bool) or not isinstance(rate.get("cost"), int)
+        or isinstance(rate.get("remaining"), bool) or not isinstance(rate.get("remaining"), int)
+        or not isinstance(rate.get("resetAt"), str) or not rate["resetAt"]
+        or rate["cost"] <= 0 or rate["remaining"] < 0
+    ):
+        raise RuntimeError("GraphQL rate-limit identity missing")
+    rate_limits.append({"cost": rate["cost"], "remaining": rate["remaining"], "reset_at": rate["resetAt"]})
+    return data
+
+
+def graphql_list_open_pull_rows(token: str, query: str, rate_limits: list[dict[str, object]]) -> tuple[list[dict[str, object]], int]:
+    result: list[dict[str, object]] = []
+    cursor: str | None = None
+    expected_total: int | None = None
+    seen_cursors: set[str] = set()
+    while True:
+        data = checked_graphql(token, rate_limits, query, {"cursor": cursor})
+        repository = data.get("repository")
+        if not isinstance(repository, dict):
+            raise RuntimeError("GraphQL repository missing")
+        connection = repository.get("pullRequests")
+        nodes, more, cursor = page_info(connection, "open pulls")
+        total = connection.get("totalCount") if isinstance(connection, dict) else None
+        if isinstance(total, bool) or not isinstance(total, int) or total < 0:
+            raise RuntimeError("open-pull totalCount missing")
+        if expected_total is None:
+            expected_total = total
+        elif total != expected_total:
+            raise RuntimeError("open-pull totalCount mutated during pagination")
+        result.extend(nodes)
+        if more:
+            if cursor in seen_cursors:
+                raise RuntimeError("repeated open-pull pagination cursor")
+            seen_cursors.add(cursor)
+        if not more:
+            if len(result) != expected_total:
+                raise RuntimeError("open-pull pagination truncated")
+            return result, expected_total
+
+
+def graphql_pull_identity(row: dict[str, object]) -> dict[str, object]:
+    head_repo = row.get("headRepository")
+    base_repo = row.get("baseRepository")
+    required_strings = ("id", "state", "title", "updatedAt", "headRefOid", "headRefName", "baseRefOid", "baseRefName")
+    if (
+        any(not isinstance(row.get(key), str) or not row[key] for key in required_strings)
+        or row.get("state") != "OPEN"
+        or any(len(row[key]) != 40 or any(c not in "0123456789abcdef" for c in row[key]) for key in ("headRefOid", "baseRefOid"))
+        or isinstance(row.get("number"), bool) or not isinstance(row.get("number"), int) or row["number"] <= 0
+        or not isinstance(row.get("isDraft"), bool)
+        or isinstance(row.get("changedFiles"), bool) or not isinstance(row.get("changedFiles"), int) or row["changedFiles"] < 0
+        or (head_repo is not None and (not isinstance(head_repo, dict) or not isinstance(head_repo.get("nameWithOwner"), str)))
+        or not isinstance(base_repo, dict) or not isinstance(base_repo.get("nameWithOwner"), str)
+    ):
+        raise RuntimeError("open-pull identity type/null/state drift")
+    return {
+        "node_id": row["id"], "number": row["number"], "state": row["state"], "title": row["title"],
+        "draft": row["isDraft"], "updated_at": row["updatedAt"], "head_sha": row["headRefOid"],
+        "head_ref": row["headRefName"], "head_repo": head_repo.get("nameWithOwner") if isinstance(head_repo, dict) else None,
+        "base_sha": row["baseRefOid"], "base_ref": row["baseRefName"],
+        "base_repo": base_repo.get("nameWithOwner") if isinstance(base_repo, dict) else None,
+        "changed_files": row["changedFiles"],
+    }
+
+
+def graphql_open_pull_identities(token: str) -> dict[str, object]:
+    rate_limits: list[dict[str, object]] = []
+    rows, total = graphql_list_open_pull_rows(token, OPEN_PULL_IDENTITY_QUERY, rate_limits)
+    identities = sorted((graphql_pull_identity(row) for row in rows), key=lambda row: int(row["number"]))
+    if len(identities) != len({int(row["number"]) for row in identities}):
+        raise RuntimeError("duplicate open-pull identity")
+    return {"total_count": total, "identities": identities, "rate_limits": rate_limits}
+
+
+def binding_identity_surface(binding_surface: dict[str, object]) -> dict[str, object]:
+    bindings = binding_surface.get("bindings")
+    total = binding_surface.get("total_count")
+    if (
+        set(binding_surface) != {"total_count", "bindings"}
+        or isinstance(total, bool) or not isinstance(total, int) or total < 0
+        or not isinstance(bindings, list) or len(bindings) != total
+        or any(not isinstance(row, dict) or any(key not in row for key in PULL_IDENTITY_KEYS) for row in bindings)
+    ):
+        raise RuntimeError("open-pull binding cache schema drift")
+    identities = [{key: row[key] for key in PULL_IDENTITY_KEYS} for row in bindings]
+    if identities != sorted(identities, key=lambda row: int(row["number"])):
+        raise RuntimeError("open-pull binding cache identity order drift")
+    return {"total_count": total, "identities": identities}
+
+
 def graphql_open_pull_bindings(token: str) -> dict[str, object]:
     rate_limits: list[dict[str, object]] = []
 
-    def checked_graphql(query: str, variables: dict[str, object]) -> dict[str, object]:
-        remaining_timeout()
-        data = graphql(query, variables, token)
-        rate = data.get("rateLimit")
-        if (
-            not isinstance(rate, dict)
-            or isinstance(rate.get("cost"), bool) or not isinstance(rate.get("cost"), int)
-            or isinstance(rate.get("remaining"), bool) or not isinstance(rate.get("remaining"), int)
-            or not isinstance(rate.get("resetAt"), str) or not rate["resetAt"]
-            or rate["cost"] <= 0 or rate["remaining"] < 0
-        ):
-            raise RuntimeError("GraphQL rate-limit identity missing")
-        rate_limits.append({"cost": rate["cost"], "remaining": rate["remaining"], "reset_at": rate["resetAt"]})
-        return data
-
-    def list_rows(query: str) -> tuple[list[dict[str, object]], int]:
-        result: list[dict[str, object]] = []
-        cursor: str | None = None
-        expected_total: int | None = None
-        seen_cursors: set[str] = set()
-        while True:
-            data = checked_graphql(query, {"cursor": cursor})
-            repository = data.get("repository")
-            if not isinstance(repository, dict):
-                raise RuntimeError("GraphQL repository missing")
-            connection = repository.get("pullRequests")
-            nodes, more, cursor = page_info(connection, "open pulls")
-            total = connection.get("totalCount") if isinstance(connection, dict) else None
-            if isinstance(total, bool) or not isinstance(total, int) or total < 0:
-                raise RuntimeError("open-pull totalCount missing")
-            if expected_total is None:
-                expected_total = total
-            elif total != expected_total:
-                raise RuntimeError("open-pull totalCount mutated during pagination")
-            result.extend(nodes)
-            if more:
-                if cursor in seen_cursors:
-                    raise RuntimeError("repeated open-pull pagination cursor")
-                seen_cursors.add(cursor)
-            if not more:
-                if len(result) != expected_total:
-                    raise RuntimeError("open-pull pagination truncated")
-                return result, expected_total
-
-    def identity(row: dict[str, object]) -> dict[str, object]:
-        head_repo = row.get("headRepository")
-        base_repo = row.get("baseRepository")
-        required_strings = ("id", "state", "title", "updatedAt", "headRefOid", "headRefName", "baseRefOid", "baseRefName")
-        if (
-            any(not isinstance(row.get(key), str) or not row[key] for key in required_strings)
-            or row.get("state") != "OPEN"
-            or any(len(row[key]) != 40 or any(c not in "0123456789abcdef" for c in row[key]) for key in ("headRefOid", "baseRefOid"))
-            or isinstance(row.get("number"), bool) or not isinstance(row.get("number"), int) or row["number"] <= 0
-            or not isinstance(row.get("isDraft"), bool)
-            or isinstance(row.get("changedFiles"), bool) or not isinstance(row.get("changedFiles"), int) or row["changedFiles"] < 0
-            or (head_repo is not None and (not isinstance(head_repo, dict) or not isinstance(head_repo.get("nameWithOwner"), str)))
-            or not isinstance(base_repo, dict) or not isinstance(base_repo.get("nameWithOwner"), str)
-        ):
-            raise RuntimeError("open-pull identity type/null/state drift")
-        return {
-            "node_id": row["id"],
-            "number": row["number"],
-            "state": row["state"],
-            "title": row["title"],
-            "draft": row["isDraft"],
-            "updated_at": row["updatedAt"],
-            "head_sha": row["headRefOid"],
-            "head_ref": row["headRefName"],
-            "head_repo": head_repo.get("nameWithOwner") if isinstance(head_repo, dict) else None,
-            "base_sha": row["baseRefOid"],
-            "base_ref": row["baseRefName"],
-            "base_repo": base_repo.get("nameWithOwner") if isinstance(base_repo, dict) else None,
-            "changed_files": row["changedFiles"],
-        }
-
-    rows, open_total = list_rows(OPEN_PULL_QUERY)
+    rows, open_total = graphql_list_open_pull_rows(token, OPEN_PULL_QUERY, rate_limits)
     if len({int(row["number"]) for row in rows}) != len(rows):
         raise RuntimeError("duplicate open-pull identity")
 
@@ -231,7 +259,7 @@ def graphql_open_pull_bindings(token: str) -> dict[str, object]:
         nodes, more, cursor = page_info(connection, f"pull {number} files")
         file_total = connection.get("totalCount") if isinstance(connection, dict) else None
         changed_total = row.get("changedFiles")
-        if isinstance(file_total, bool) or not isinstance(file_total, int) or file_total < 0 or file_total != changed_total:
+        if isinstance(file_total, bool) or not isinstance(file_total, int) or file_total < 0 or file_total > 3000 or file_total != changed_total:
             raise RuntimeError("pull changedFiles/files totalCount mismatch")
         file_nodes_all = list(nodes)
         seen_file_cursors: set[str] = set()
@@ -239,7 +267,7 @@ def graphql_open_pull_bindings(token: str) -> dict[str, object]:
             if cursor in seen_file_cursors:
                 raise RuntimeError("repeated pull-file pagination cursor")
             seen_file_cursors.add(cursor)
-            data = checked_graphql(MORE_FILES_QUERY, {"number": number, "cursor": cursor})
+            data = checked_graphql(token, rate_limits, MORE_FILES_QUERY, {"number": number, "cursor": cursor})
             repository = data.get("repository")
             pull = repository.get("pullRequest") if isinstance(repository, dict) else None
             if (
@@ -271,13 +299,13 @@ def graphql_open_pull_bindings(token: str) -> dict[str, object]:
         if any(node.get("changeType") == "RENAMED" for node in file_nodes_all):
             rest_rows: list[dict[str, object]] = []
             page = 1
-            while True:
+            while len(rest_rows) < file_total:
+                if page > 30:
+                    raise RuntimeError("renamed-file REST 3000-file hard cap exceeded")
                 page_rows = api(f"/repos/google-deepmind/formal-conjectures/pulls/{number}/files?per_page=100&page={page}", token)
-                if not isinstance(page_rows, list) or any(not isinstance(item, dict) for item in page_rows):
+                if not isinstance(page_rows, list) or len(page_rows) > 100 or any(not isinstance(item, dict) for item in page_rows):
                     raise RuntimeError("renamed-file REST fallback shape drift")
                 rest_rows.extend(page_rows)
-                if len(page_rows) < 100:
-                    break
                 page += 1
             if len(rest_rows) != file_total or sorted(str(item.get("filename")) for item in rest_rows) != sorted(paths):
                 raise RuntimeError("renamed-file REST fallback does not bind GraphQL paths")
@@ -295,7 +323,7 @@ def graphql_open_pull_bindings(token: str) -> dict[str, object]:
         if paths != sorted(set(paths)):
             raise RuntimeError("duplicate or noncanonical changed path")
         return {
-            **identity(row),
+            **graphql_pull_identity(row),
             "changed_paths": paths,
             "changed_paths_sha256": canonical_sha256(paths),
         }
@@ -303,18 +331,19 @@ def graphql_open_pull_bindings(token: str) -> dict[str, object]:
     with concurrent.futures.ThreadPoolExecutor(max_workers=SNAPSHOT_WORKERS) as pool:
         bindings = list(pool.map(complete, rows))
     bindings.sort(key=lambda row: int(row["number"]))
-    initial_identities = sorted((identity(row) for row in rows), key=lambda row: int(row["number"]))
-    final_rows, final_total = list_rows(OPEN_PULL_IDENTITY_QUERY)
-    final_identities = sorted((identity(row) for row in final_rows), key=lambda row: int(row["number"]))
+    initial_identities = sorted((graphql_pull_identity(row) for row in rows), key=lambda row: int(row["number"]))
+    final_rows, final_total = graphql_list_open_pull_rows(token, OPEN_PULL_IDENTITY_QUERY, rate_limits)
+    final_identities = sorted((graphql_pull_identity(row) for row in final_rows), key=lambda row: int(row["number"]))
     if open_total != final_total or initial_identities != final_identities:
         raise RuntimeError("open-pull set or identity mutated during bracket pagination")
-    identity_keys = (
-        "node_id", "number", "state", "title", "draft", "updated_at", "head_sha", "head_ref", "head_repo",
-        "base_sha", "base_ref", "base_repo", "changed_files",
-    )
-    if [{key: row[key] for key in identity_keys} for row in bindings] != initial_identities:
+    if [{key: row[key] for key in PULL_IDENTITY_KEYS} for row in bindings] != initial_identities:
         raise RuntimeError("changed-file bindings do not match bracket identities")
-    return {"total_count": open_total, "bindings": bindings, "rate_limits": rate_limits}
+    return {
+        "total_count": open_total,
+        "bindings": bindings,
+        "identity_surface": {"total_count": open_total, "identities": initial_identities},
+        "rate_limits": rate_limits,
+    }
 
 
 def get_bytes(url: str) -> bytes:
@@ -844,12 +873,16 @@ def continuity_surface(continuity: dict[str, object]) -> dict[str, object]:
     }
 
 
-def bracket_snapshot(token: str, continuity: dict[str, object]) -> tuple[dict[str, object], list[dict[str, object]]]:
+def bracket_snapshot(
+    token: str, continuity: dict[str, object], *, full_changed_file_catalogue: bool
+) -> tuple[dict[str, object], dict[str, object] | None, list[dict[str, object]]]:
     repo = "/repos/google-deepmind/formal-conjectures"
     with concurrent.futures.ThreadPoolExecutor(max_workers=SNAPSHOT_WORKERS) as pool:
         main_future = pool.submit(api, repo + "/commits/main", token)
         search_futures = {query: pool.submit(issue_search, token, query) for query in SEARCH_QUERIES}
-        bindings_future = pool.submit(graphql_open_pull_bindings, token)
+        pulls_future = pool.submit(
+            graphql_open_pull_bindings if full_changed_file_catalogue else graphql_open_pull_identities, token
+        )
         issue_future = pool.submit(api, repo + f"/issues/{KNOWN_ISSUE}", token)
         pull_future = pool.submit(api, repo + f"/pulls/{KNOWN_PR}", token)
         repositories_future = pool.submit(
@@ -858,7 +891,7 @@ def bracket_snapshot(token: str, continuity: dict[str, object]) -> tuple[dict[st
             token,
         )
         main = main_future.result()
-        binding_surface = bindings_future.result()
+        pull_surface = pulls_future.result()
         issue = issue_future.result()
         pull = pull_future.result()
         searches = {query: search_futures[query].result() for query in SEARCH_QUERIES}
@@ -885,6 +918,16 @@ def bracket_snapshot(token: str, continuity: dict[str, object]) -> tuple[dict[st
         raise RuntimeError("incomplete standalone-repository search")
     if isinstance(repositories.get("total_count"), bool) or not isinstance(repositories.get("total_count"), int):
         raise RuntimeError("live main or repository count type drift")
+    if full_changed_file_catalogue:
+        identity_surface = pull_surface["identity_surface"]
+        binding_surface: dict[str, object] | None = {
+            "total_count": pull_surface["total_count"], "bindings": pull_surface["bindings"]
+        }
+        if binding_identity_surface(binding_surface) != identity_surface:
+            raise RuntimeError("full catalogue identity projection drift")
+    else:
+        identity_surface = {"total_count": pull_surface["total_count"], "identities": pull_surface["identities"]}
+        binding_surface = None
     snapshot = {
         "main": main_identity,
         "continuity": continuity_surface(continuity),
@@ -903,10 +946,10 @@ def bracket_snapshot(token: str, continuity: dict[str, object]) -> tuple[dict[st
             "updated_at": pull.get("updated_at"), "node_id": pull.get("node_id"),
         },
         "searches": searches,
-        "open_pull_binding_surface": {"total_count": binding_surface["total_count"], "bindings": binding_surface["bindings"]},
+        "open_pull_identity_surface": identity_surface,
         "repository_total_count": int(repositories.get("total_count", -1)),
     }
-    return snapshot, binding_surface["rate_limits"]
+    return snapshot, binding_surface, pull_surface["rate_limits"]
 
 
 def run(output: Path, token: str, paper: Path | None) -> dict[str, object]:
@@ -920,7 +963,11 @@ def run(output: Path, token: str, paper: Path | None) -> dict[str, object]:
     live_commit = preliminary_identity["commit"]
     live_tree = preliminary_identity["tree"]
     continuity = prepare_continuity(live_commit, live_tree)
-    before, before_rate_limits = bracket_snapshot(token, continuity)
+    before, binding_surface, before_rate_limits = bracket_snapshot(
+        token, continuity, full_changed_file_catalogue=True
+    )
+    if binding_surface is None:
+        raise RuntimeError("pre-target changed-file catalogue missing")
     before_cost = sum(row["cost"] for row in before_rate_limits)
     if not before_rate_limits or min(row["remaining"] for row in before_rate_limits) < before_cost + 25:
         raise RuntimeError("insufficient GraphQL reserve for complete second bracket")
@@ -928,15 +975,19 @@ def run(output: Path, token: str, paper: Path | None) -> dict[str, object]:
     dependencies = protected - {TARGET_PATH}
     dependency_touching = [
         {"number": int(pull["number"]), "paths": sorted(dependencies.intersection(pull["changed_paths"]))}
-        for pull in before["open_pull_binding_surface"]["bindings"] if dependencies.intersection(pull["changed_paths"])
+        for pull in binding_surface["bindings"] if dependencies.intersection(pull["changed_paths"])
     ]
     target_touching = [
         {"number": int(pull["number"]), "paths": [TARGET_PATH]}
-        for pull in before["open_pull_binding_surface"]["bindings"] if TARGET_PATH in pull["changed_paths"]
+        for pull in binding_surface["bindings"] if TARGET_PATH in pull["changed_paths"]
     ]
     local_hits = git("log", "--all", "--format=%H", "-Sbondy_conjecture", "--", ".").splitlines()
     local_ok, local_identities = validate_local_contamination(local_hits)
-    after, after_rate_limits = bracket_snapshot(token, continuity)
+    after, after_binding_surface, after_rate_limits = bracket_snapshot(
+        token, continuity, full_changed_file_catalogue=False
+    )
+    if after_binding_surface is not None:
+        raise RuntimeError("outer identity-only snapshot unexpectedly fetched changed paths")
     if not after_rate_limits or min(row["remaining"] for row in after_rate_limits) < 25:
         raise RuntimeError("GraphQL post-bracket safety reserve exhausted")
     expected_issue = before["known_issue"]
@@ -951,7 +1002,8 @@ def run(output: Path, token: str, paper: Path | None) -> dict[str, object]:
         "declaration_shape_exact": continuity["declaration"] == {"declaration_count": 1, "exact_open_attribute_count": 1, "answer_wrapper_count": 1, "exact_by_sorry_block_count": 1},
         "semantic_closure_exact": before["continuity"]["canonical_sha256"] == canonical_sha256(continuity) and canonical_sha256(continuity["closure_entries"]) == continuity["closure_sha256"],
         "toolchain_and_external_revisions_exact": canonical_sha256(continuity["toolchain"]) == continuity["toolchain_sha256"] and canonical_sha256(continuity["external_revisions"]) == continuity["external_revisions_sha256"],
-        "complete_open_pr_bindings": before["open_pull_binding_surface"]["total_count"] == len(before["open_pull_binding_surface"]["bindings"]),
+        "complete_open_pr_bindings": binding_surface["total_count"] == len(binding_surface["bindings"]),
+        "outer_identity_matches_single_catalogue": before["open_pull_identity_surface"] == binding_identity_surface(binding_surface) == after["open_pull_identity_surface"],
         "no_open_pr_touches_exact_target_path": target_touching == [],
         "exact_allowed_search_result_sets": before["searches"] == ALLOWED_SEARCH_RESULTS,
         "known_ingestion_issue_exact": expected_issue["number"] == KNOWN_ISSUE and expected_issue["state"] == "closed" and expected_issue["state_reason"] == "completed" and expected_issue["closed_at"] == KNOWN_ISSUE_CLOSED_AT and expected_issue["is_pull_request"] is False,
@@ -961,7 +1013,7 @@ def run(output: Path, token: str, paper: Path | None) -> dict[str, object]:
     }
     checks["paper_sha256"] = paper is not None and paper.is_file() and sha256(paper.read_bytes()) == PAPER_SHA256
     record = {
-        "schema": "bondy_source_status_duplicate_gate_tip_continuity_v3_3",
+        "schema": "bondy_source_status_duplicate_gate_tip_continuity_v3_4",
         "kind": "source_status_duplicate_gate",
         "status": "PASS" if all(checks.values()) else "GATE_FAIL",
         "checks": checks,
@@ -969,6 +1021,8 @@ def run(output: Path, token: str, paper: Path | None) -> dict[str, object]:
         "pinned_upstream": {"commit": UPSTREAM_COMMIT, "tree": UPSTREAM_TREE, "path": TARGET_PATH, "blob": TARGET_BLOB},
         "live_upstream": continuity["live"],
         "continuity": continuity,
+        "open_pr_binding_surface": binding_surface,
+        "open_pr_binding_surface_sha256": canonical_sha256(binding_surface),
         "open_pr_dependency_path_matches": dependency_touching,
         "open_pr_target_path_matches": target_touching,
         "bracket_snapshot_before": before,
@@ -998,7 +1052,7 @@ def run_post_target_safeguard(output: Path, token: str, source_attestation: Path
         raise RuntimeError("post-target source attestation is not canonical")
     if (
         not isinstance(source, dict)
-        or source.get("schema") != "bondy_source_status_duplicate_gate_tip_continuity_v3_3"
+        or source.get("schema") != "bondy_source_status_duplicate_gate_tip_continuity_v3_4"
         or source.get("status") != "PASS"
         or not isinstance(source.get("continuity"), dict)
         or not isinstance(source.get("bracket_snapshot_after"), dict)
@@ -1007,8 +1061,12 @@ def run_post_target_safeguard(output: Path, token: str, source_attestation: Path
         raise RuntimeError("post-target source attestation drift")
     preliminary = parse_rest_commit_identity(api("/repos/google-deepmind/formal-conjectures/commits/main", token))
     fresh_target, fresh_declaration = fresh_target_surface(token, preliminary["commit"])
-    post, rate_limits = bracket_snapshot(token, source["continuity"])
-    bindings = post["open_pull_binding_surface"]["bindings"]
+    post, post_binding_surface, rate_limits = bracket_snapshot(
+        token, source["continuity"], full_changed_file_catalogue=True
+    )
+    if post_binding_surface is None:
+        raise RuntimeError("post-target fresh changed-file catalogue missing")
+    bindings = post_binding_surface["bindings"]
     target_matches = [
         {"number": int(pull["number"]), "paths": [TARGET_PATH]}
         for pull in bindings if TARGET_PATH in pull["changed_paths"]
@@ -1019,12 +1077,13 @@ def run_post_target_safeguard(output: Path, token: str, source_attestation: Path
             key: source["continuity"]["target"].get(key) for key in ("path", "type", "blob", "bytes", "sha256")
         } and fresh_declaration == source["continuity"].get("declaration"),
         "complete_status_surface_unchanged_after_target": post == source.get("bracket_snapshot_after"),
-        "complete_open_pr_bindings_after_target": post["open_pull_binding_surface"]["total_count"] == len(bindings),
+        "complete_open_pr_bindings_after_target": post_binding_surface["total_count"] == len(bindings),
+        "complete_binding_surface_unchanged_after_target": post_binding_surface == source.get("open_pr_binding_surface"),
         "no_open_pr_touches_exact_target_path_after_target": target_matches == [],
         "post_target_graphql_reserve": bool(rate_limits) and min(row["remaining"] for row in rate_limits) >= 25,
     }
     record = {
-        "schema": "bondy_post_target_status_collision_safeguard_v1",
+        "schema": "bondy_post_target_status_collision_safeguard_v2",
         "kind": "post_target_status_collision_safeguard",
         "status": "PASS" if all(checks.values()) else "GATE_FAIL",
         "checks": checks,
@@ -1032,6 +1091,7 @@ def run_post_target_safeguard(output: Path, token: str, source_attestation: Path
         "source_attestation_sha256": sha256(source_raw),
         "pre_gate_snapshot_sha256": canonical_sha256(source["bracket_snapshot_after"]),
         "post_target_snapshot": post,
+        "post_target_open_pr_binding_surface": post_binding_surface,
         "fresh_target": fresh_target,
         "fresh_declaration": fresh_declaration,
         "open_pr_target_path_matches": target_matches,

@@ -99,17 +99,20 @@ def validate_post_target_safeguard(
         "fresh_target_blob_and_declaration_unchanged_after_target",
         "complete_status_surface_unchanged_after_target",
         "complete_open_pr_bindings_after_target",
+        "complete_binding_surface_unchanged_after_target",
         "no_open_pr_touches_exact_target_path_after_target",
         "post_target_graphql_reserve",
     }
     rates = safeguard.get("graphql_rate_limit_observations")
     if (
-        set(safeguard) != {
+        source_attestation.get("schema") != "bondy_source_status_duplicate_gate_tip_continuity_v3_4"
+        or source_attestation.get("status") != "PASS"
+        or set(safeguard) != {
             "schema", "kind", "status", "checks", "campaign", "source_attestation_sha256",
-            "pre_gate_snapshot_sha256", "post_target_snapshot", "fresh_target", "fresh_declaration", "open_pr_target_path_matches",
+            "pre_gate_snapshot_sha256", "post_target_snapshot", "post_target_open_pr_binding_surface", "fresh_target", "fresh_declaration", "open_pr_target_path_matches",
             "graphql_rate_limit_observations",
         }
-        or safeguard.get("schema") != "bondy_post_target_status_collision_safeguard_v1"
+        or safeguard.get("schema") != "bondy_post_target_status_collision_safeguard_v2"
         or safeguard.get("kind") != "post_target_status_collision_safeguard"
         or safeguard.get("status") != "PASS"
         or not isinstance(checks, dict) or set(checks) != expected_checks
@@ -120,6 +123,7 @@ def validate_post_target_safeguard(
             json.dumps(source_attestation.get("bracket_snapshot_after"), sort_keys=True, separators=(",", ":")).encode("ascii")
         ).hexdigest()
         or safeguard.get("post_target_snapshot") != source_attestation.get("bracket_snapshot_after")
+        or safeguard.get("post_target_open_pr_binding_surface") != source_attestation.get("open_pr_binding_surface")
         or safeguard.get("fresh_target") != {
             key: source_attestation.get("continuity", {}).get("target", {}).get(key)
             for key in ("path", "type", "blob", "bytes", "sha256")
@@ -585,7 +589,7 @@ def main() -> int:
     else:
         result = verify_terminal(artifact)
     result.update({
-        "schema": "bondy_verification_v3_3",
+        "schema": "bondy_verification_v3_4",
         "handoff": handoff,
         "ledger_rows": len(records),
         "ledger_head": head,

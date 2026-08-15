@@ -1,10 +1,10 @@
 {
-  "schema": "bondy_source_status_attestation_v3_3",
-  "seal_version": "bondy-longest-cycles-development-v3.3",
-  "supersedes": "bondy-longest-cycles-development-v3.2",
-  "status": "PENDING_AUTHENTICATED_LIVE_GATE_V33",
+  "schema": "bondy_source_status_attestation_v3_4",
+  "seal_version": "bondy-longest-cycles-development-v3.4",
+  "supersedes": "bondy-longest-cycles-development-v3.3",
+  "status": "PENDING_AUTHENTICATED_LIVE_GATE_V34",
   "audit_date_utc": "2026-08-14",
-  "live_gate_schema": "bondy_source_status_duplicate_gate_tip_continuity_v3_3",
+  "live_gate_schema": "bondy_source_status_duplicate_gate_tip_continuity_v3_4",
   "historical_upstream": {
     "commit": "b5acb0ff13e38084105b7fe020ba0d59c1925bc5",
     "tree": "4f6c9bd17fdfdc264f54b26862ce768743da5d63",
@@ -18,9 +18,9 @@
   "semantic_closure_sha256": "aa420ecaae62d6e55f0b6f5f1d6555183a4c5246fe998975f0a0e58ca3e88cd8",
   "toolchain_sha256": "3221ee3df4f1c1a23f5eddcddb22cce96a00543c432f7310366b88444406e0c6",
   "external_revisions_sha256": "4baee9cf677780f654f3d1e4413346482853ad52874add3a7cecf6ed04a4bfe6",
-  "activation_token_sha256": "0fb0d55f32eb0cecd7e549a45dba8d5095e073737fe39efbd226c79d6a539d5a",
-  "activation_transport": "REQUIRED_ACTIONS_SECRET_TO_EXACT_ENVIRONMENT_ONLY_NO_DISPATCH_OR_CLI",
-  "live_gate_caveat": "Run 31852437717 was a v3.2 pre-evaluation policy stop; no v3.3 PASS attestation exists, and fresh stable pre/post status and exact-target collision safeguards are mandatory.",
+  "activation_token_sha256": "a4a17f279b5dea4df3f4c4c7377a620c13b16e7b206b42282c71c460eb65152a",
+  "activation_transport": "REQUIRED_V34_ACTIONS_SECRET_TO_EXACT_ENVIRONMENT_ONLY_NO_DISPATCH_OR_CLI",
+  "live_gate_caveat": "Runs 31854544552 and 31854645706 were v3.3 pre-evaluation second-bracket deadline stops; no v3.4 PASS attestation exists, and a fresh stable single-catalogue pre-gate plus fresh full post-target safeguard are mandatory.",
   "workflow_enabled_by_default": false,
   "target_evaluated": false
 }

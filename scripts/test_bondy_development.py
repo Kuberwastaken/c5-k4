@@ -86,7 +86,10 @@ def live_attestation_fixture(empty: bool = False, identity_only_binding: bool = 
             'repo:google-deepmind/formal-conjectures "BondyLongestCycles"': [],
             'repo:google-deepmind/formal-conjectures "2606.03696"': [4879],
         },
-        "open_pull_binding_surface": {"total_count": len(bindings), "bindings": bindings},
+        "open_pull_identity_surface": {
+            "total_count": len(bindings),
+            "identities": [{key: binding[key] for key in live_gate.PULL_IDENTITY_KEYS} for binding in bindings],
+        },
         "repository_total_count": 0,
     }
     local_identities = [
@@ -97,17 +100,20 @@ def live_attestation_fixture(empty: bool = False, identity_only_binding: bool = 
         {"commit": "8" * 40, "subject": "freeze v3.1", "paths": ["scripts/prospective_bondy_gate.py"], "kind": "freeze_introducer"},
         {"commit": "7" * 40, "subject": "freeze v3.2", "paths": ["scripts/prospective_bondy_gate.py"], "kind": "freeze_introducer"},
         {"commit": "6" * 40, "subject": "freeze v3.3", "paths": ["scripts/prospective_bondy_gate.py"], "kind": "freeze_introducer"},
+        {"commit": "9" * 40, "subject": "freeze v3.4", "paths": ["scripts/prospective_bondy_gate.py"], "kind": "freeze_introducer"},
         {"commit": live_gate.KNOWN_GRAPH_ROTATION_COMMIT, "subject": live_gate.KNOWN_GRAPH_ROTATION_SUBJECT, "paths": [live_gate.KNOWN_GRAPH_ROTATION_PATH], "kind": "known_graph_rotation"},
         {"commit": live_gate.KNOWN_PREFLIGHT_COMMIT, "subject": "preflight", "paths": ["results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/preflight.md"], "kind": "known_preflight"},
     ]
     return {
-        "schema": "bondy_source_status_duplicate_gate_tip_continuity_v3_3",
+        "schema": "bondy_source_status_duplicate_gate_tip_continuity_v3_4",
         "kind": "source_status_duplicate_gate",
         "status": "PASS",
         "checks": {key: True for key in search.LIVE_GATE_CHECKS},
         "campaign": {"commit": "c" * 40, "tree": "d" * 40},
         "pinned_upstream": {"commit": pinned, "tree": pinned_tree, "path": live_gate.TARGET_PATH, "blob": "5" * 40},
         "live_upstream": continuity["live"], "continuity": continuity,
+        "open_pr_binding_surface": {"total_count": len(bindings), "bindings": bindings},
+        "open_pr_binding_surface_sha256": search.canonical_sha256({"total_count": len(bindings), "bindings": bindings}),
         "open_pr_dependency_path_matches": [],
         "open_pr_target_path_matches": [],
         "bracket_snapshot_before": snapshot,
@@ -124,7 +130,7 @@ def live_attestation_fixture(empty: bool = False, identity_only_binding: bool = 
 def sealed_attestation_fixture(attestation: dict[str, object]) -> dict[str, object]:
     continuity = attestation["continuity"]
     return {
-        "live_gate": {"schema": "bondy_source_status_duplicate_gate_tip_continuity_v3_3"},
+        "live_gate": {"schema": "bondy_source_status_duplicate_gate_tip_continuity_v3_4"},
         "upstream": attestation["pinned_upstream"],
         "source_sha256": attestation["continuity"]["target"]["sha256"],
         "semantic_closure": {
@@ -135,10 +141,22 @@ def sealed_attestation_fixture(attestation: dict[str, object]) -> dict[str, obje
     }
 
 
+def refresh_binding_attestation(attestation: dict[str, object], *, identities: bool = False) -> None:
+    surface = attestation["open_pr_binding_surface"]
+    attestation["open_pr_binding_surface_sha256"] = search.canonical_sha256(surface)
+    if identities:
+        identity_surface = {
+            "total_count": surface["total_count"],
+            "identities": [{key: binding[key] for key in live_gate.PULL_IDENTITY_KEYS} for binding in surface["bindings"]],
+        }
+        attestation["bracket_snapshot_before"]["open_pull_identity_surface"] = identity_surface
+        attestation["bracket_snapshot_after"]["open_pull_identity_surface"] = json.loads(json.dumps(identity_surface))
+
+
 def post_target_safeguard_fixture(attestation: dict[str, object]) -> dict[str, object]:
     source_raw = verify.canonical_bytes(attestation)
     return {
-        "schema": "bondy_post_target_status_collision_safeguard_v1",
+        "schema": "bondy_post_target_status_collision_safeguard_v2",
         "kind": "post_target_status_collision_safeguard",
         "status": "PASS",
         "checks": {
@@ -146,6 +164,7 @@ def post_target_safeguard_fixture(attestation: dict[str, object]) -> dict[str, o
             "fresh_target_blob_and_declaration_unchanged_after_target": True,
             "complete_status_surface_unchanged_after_target": True,
             "complete_open_pr_bindings_after_target": True,
+            "complete_binding_surface_unchanged_after_target": True,
             "no_open_pr_touches_exact_target_path_after_target": True,
             "post_target_graphql_reserve": True,
         },
@@ -153,6 +172,7 @@ def post_target_safeguard_fixture(attestation: dict[str, object]) -> dict[str, o
         "source_attestation_sha256": hashlib.sha256(source_raw).hexdigest(),
         "pre_gate_snapshot_sha256": search.canonical_sha256(attestation["bracket_snapshot_after"]),
         "post_target_snapshot": json.loads(json.dumps(attestation["bracket_snapshot_after"])),
+        "post_target_open_pr_binding_surface": json.loads(json.dumps(attestation["open_pr_binding_surface"])),
         "fresh_target": {key: attestation["continuity"]["target"][key] for key in ("path", "type", "blob", "bytes", "sha256")},
         "fresh_declaration": attestation["continuity"]["declaration"],
         "open_pr_target_path_matches": [],
@@ -250,7 +270,7 @@ class TargetIsolationTests(unittest.TestCase):
         self.assertIn('--campaign-commit "$CAMPAIGN_COMMIT"', shell_source)
         self.assertNotIn("inputs.activation_token", workflow)
         self.assertNotIn("--activation-token", workflow)
-        self.assertIn("BONDY_V33_ACTIVATION_TOKEN: ${{ secrets.BONDY_V33_ACTIVATION_TOKEN }}", workflow)
+        self.assertIn("BONDY_V34_ACTIVATION_TOKEN: ${{ secrets.BONDY_V34_ACTIVATION_TOKEN }}", workflow)
         self.assertIn("timeout-minutes: 8", workflow)
         self.assertEqual(workflow.count("timeout --signal=TERM --kill-after=6s 60s"), 13)
         self.assertIn("fetch-depth: 0", workflow)
@@ -309,14 +329,14 @@ class TargetIsolationTests(unittest.TestCase):
             enable_target=True,
             campaign_commit="0" * 40,
         )
-        with mock.patch.dict(os.environ, {"BONDY_V33_ACTIVATION_TOKEN": "BONDY_TARGET_DISABLED"}):
+        with mock.patch.dict(os.environ, {"BONDY_V34_ACTIVATION_TOKEN": "BONDY_TARGET_DISABLED"}):
             with self.assertRaisesRegex(RuntimeError, "TARGET_EXECUTION_DISABLED"):
                 search.unlock(args)
 
     def test_activation_secret_cli_transport_and_serialization_are_rejected(self) -> None:
         source = (ROOT / "scripts/prospective_bondy_search.py").read_text()
         self.assertNotIn('parser.add_argument("--activation-token"', source)
-        self.assertIn('os.environ.get("BONDY_V33_ACTIVATION_TOKEN", "")', source)
+        self.assertIn('os.environ.get("BONDY_V34_ACTIVATION_TOKEN", "")', source)
         self.assertIn("ACTIVATION_TOKEN_CLI_TRANSPORT_FORBIDDEN", source)
         canary = "SENSITIVE_ACTIVATION_CANARY_NEVER_SERIALIZE"
         with tempfile.TemporaryDirectory() as directory:
@@ -333,7 +353,7 @@ class TargetIsolationTests(unittest.TestCase):
             self.assertEqual(list(root.iterdir()), [])
 
             paths = {name: root / name for name in ("source.json", "ledger.jsonl", "candidate.json", "terminal.json", "replay")}
-            environment = dict(os.environ, BONDY_V33_ACTIVATION_TOKEN=canary)
+            environment = dict(os.environ, BONDY_V34_ACTIVATION_TOKEN=canary)
             env = subprocess.run(
                 [
                     "python3", str(ROOT / "scripts/prospective_bondy_search.py"), "--enable-target",
@@ -369,43 +389,83 @@ class TargetIsolationTests(unittest.TestCase):
             with mock.patch.object(search, "MANIFEST", path), mock.patch.object(search, "git", side_effect=git), mock.patch.object(
                 search.subprocess, "run", return_value=types.SimpleNamespace(returncode=0)
             ):
-                with mock.patch.dict(os.environ, {"BONDY_V33_ACTIVATION_TOKEN": token}):
+                with mock.patch.dict(os.environ, {"BONDY_V34_ACTIVATION_TOKEN": token}):
                     self.assertEqual(search.unlock(args), manifest)
-                with mock.patch.dict(os.environ, {"BONDY_V33_ACTIVATION_TOKEN": token + "\n"}):
+                with mock.patch.dict(os.environ, {"BONDY_V34_ACTIVATION_TOKEN": token + "\n"}):
                     with self.assertRaisesRegex(RuntimeError, "exact_activation_token_mismatch"):
                         search.unlock(args)
 
-    def test_v33_activation_digest_is_rotated_and_historical_digest_cannot_unlock(self) -> None:
+    def test_v34_activation_digest_is_rotated_and_historical_digest_cannot_unlock(self) -> None:
         manifest = json.loads((ROOT / "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/manifest.json").read_text())
         current = manifest["target_execution_lock"]["activation_token_sha256"]
         historical_v32 = "09d64624c2861b21d5883cfd276ce49eebce7d9c6f61e47193d50bf894be8e51"
-        self.assertEqual(current, "0fb0d55f32eb0cecd7e549a45dba8d5095e073737fe39efbd226c79d6a539d5a")
+        self.assertEqual(current, "a4a17f279b5dea4df3f4c4c7377a620c13b16e7b206b42282c71c460eb65152a")
         self.assertNotEqual(current, historical_v32)
         self.assertEqual(manifest["target_execution_lock"]["exact_preimage_bytes"], 64)
         self.assertIs(manifest["target_execution_lock"]["newline_terminated"], False)
-        self.assertEqual(manifest["target_execution_lock"]["actions_secret_name"], "BONDY_V33_ACTIVATION_TOKEN")
+        self.assertEqual(manifest["target_execution_lock"]["actions_secret_name"], "BONDY_V34_ACTIVATION_TOKEN")
         self.assertIs(manifest["target_execution_lock"]["actions_secret_required"], True)
-        self.assertEqual(manifest["target_execution_lock"]["state"], "V33_OPEN_PR_SPLIT_GUARD_HASH_PROVISIONED_ACTIONS_SECRET_REQUIRED_DEFAULT_DISABLED")
+        self.assertEqual(manifest["target_execution_lock"]["state"], "V34_SINGLE_CATALOGUE_GUARD_HASH_PROVISIONED_ACTIONS_SECRET_REQUIRED_DEFAULT_DISABLED")
 
-    def test_v33_live_attestation_requires_full_bracket_and_bindings(self) -> None:
+    def test_v34_live_attestation_requires_single_full_catalogue_and_identity_brackets(self) -> None:
         attestation = live_attestation_fixture()
         manifest = sealed_attestation_fixture(attestation)
         search.validate_live_attestation(attestation, manifest)
-        attestation["bracket_snapshot_before"]["open_pull_binding_surface"]["bindings"][0]["head_sha"] = "mutated"
-        with self.assertRaisesRegex(RuntimeError, "missing or drifted"):
+        attestation["open_pr_binding_surface"]["bindings"][0]["head_sha"] = "mutated"
+        refresh_binding_attestation(attestation, identities=True)
+        with self.assertRaisesRegex(RuntimeError, "file binding drift"):
             search.validate_live_attestation(attestation, manifest)
 
     def test_structurally_complete_zero_open_set_is_accepted(self) -> None:
         attestation = live_attestation_fixture(empty=True)
         search.validate_live_attestation(attestation, sealed_attestation_fixture(attestation))
 
+    def test_identity_brackets_and_binding_projection_reject_exhaustive_mutations(self) -> None:
+        baseline = live_attestation_fixture()
+        search.validate_live_attestation(baseline, sealed_attestation_fixture(baseline))
+
+        def alternate(key: str, value: object) -> object:
+            if isinstance(value, bool):
+                return not value
+            if isinstance(value, int):
+                return value + 1
+            if value is None:
+                return "fork/repo"
+            if key in {"head_sha", "base_sha"}:
+                return "c" * 40
+            if key == "state":
+                return "CLOSED"
+            return str(value) + "-mutated"
+
+        for key in live_gate.PULL_IDENTITY_KEYS:
+            attestation = live_attestation_fixture()
+            for bracket in ("bracket_snapshot_before", "bracket_snapshot_after"):
+                identity = attestation[bracket]["open_pull_identity_surface"]["identities"][0]
+                identity[key] = alternate(key, identity[key])
+            with self.assertRaisesRegex(RuntimeError, "outer identity/catalogue cache drift"):
+                search.validate_live_attestation(attestation, sealed_attestation_fixture(attestation))
+
+            attestation = live_attestation_fixture()
+            binding = attestation["open_pr_binding_surface"]["bindings"][0]
+            binding[key] = alternate(key, binding[key])
+            refresh_binding_attestation(attestation)
+            with self.assertRaisesRegex(RuntimeError, "outer identity/catalogue cache drift|file binding drift"):
+                search.validate_live_attestation(attestation, sealed_attestation_fixture(attestation))
+
+        attestation = live_attestation_fixture()
+        binding = attestation["open_pr_binding_surface"]["bindings"][0]
+        binding["changed_paths"] = ["forged/cache.lean"]
+        binding["changed_paths_sha256"] = search.canonical_sha256(binding["changed_paths"])
+        with self.assertRaisesRegex(RuntimeError, "continuity binding drift"):
+            search.validate_live_attestation(attestation, sealed_attestation_fixture(attestation))
+
     def test_dependency_path_touch_is_non_gating_but_telemetry_is_exact(self) -> None:
         dependency = "FormalConjectures/Imported.lean"
         attestation = live_attestation_fixture()
-        binding = attestation["bracket_snapshot_before"]["open_pull_binding_surface"]["bindings"][0]
+        binding = attestation["open_pr_binding_surface"]["bindings"][0]
         binding["changed_paths"] = [dependency]
         binding["changed_paths_sha256"] = search.canonical_sha256(binding["changed_paths"])
-        attestation["bracket_snapshot_after"] = json.loads(json.dumps(attestation["bracket_snapshot_before"]))
+        refresh_binding_attestation(attestation)
         attestation["open_pr_dependency_path_matches"] = [{"number": 1, "paths": [dependency]}]
         search.validate_live_attestation(attestation, sealed_attestation_fixture(attestation))
 
@@ -419,10 +479,10 @@ class TargetIsolationTests(unittest.TestCase):
         for paths in ([live_gate.TARGET_PATH], [live_gate.TARGET_PATH, "FormalConjectures/RenamedDestination.lean"]):
             for telemetry in ([], [{"number": 1, "paths": [live_gate.TARGET_PATH]}]):
                 attestation = live_attestation_fixture()
-                binding = attestation["bracket_snapshot_before"]["open_pull_binding_surface"]["bindings"][0]
+                binding = attestation["open_pr_binding_surface"]["bindings"][0]
                 binding["changed_paths"] = sorted(paths)
                 binding["changed_paths_sha256"] = search.canonical_sha256(binding["changed_paths"])
-                attestation["bracket_snapshot_after"] = json.loads(json.dumps(attestation["bracket_snapshot_before"]))
+                refresh_binding_attestation(attestation)
                 attestation["open_pr_target_path_matches"] = telemetry
                 with self.assertRaisesRegex(RuntimeError, "target/dependency telemetry"):
                     search.validate_live_attestation(attestation, sealed_attestation_fixture(attestation))
@@ -443,6 +503,7 @@ class TargetIsolationTests(unittest.TestCase):
                 lambda row: row["fresh_declaration"].update({"declaration_count": 2}),
                 lambda row: row["post_target_snapshot"]["known_issue"].update({"state": "open"}),
                 lambda row: row["post_target_snapshot"]["searches"].update({'repo:google-deepmind/formal-conjectures "BondyLongestCycles"': [999]}),
+                lambda row: row["post_target_open_pr_binding_surface"]["bindings"][0]["changed_paths"].append(live_gate.TARGET_PATH),
                 lambda row: row.update({"open_pr_target_path_matches": [{"number": 1, "paths": [live_gate.TARGET_PATH]}]}),
                 lambda row: row.update({"source_attestation_sha256": "0" * 64}),
             )
@@ -452,6 +513,14 @@ class TargetIsolationTests(unittest.TestCase):
                 verify.atomic_json(path, forged)
                 with self.assertRaisesRegex(RuntimeError, "post-target status/collision safeguard drift"):
                     verify.validate_post_target_safeguard(path, attestation, source_raw)
+
+            superseded = json.loads(json.dumps(attestation))
+            superseded["schema"] = "bondy_source_status_duplicate_gate_tip_continuity_v3_3"
+            superseded_raw = verify.canonical_bytes(superseded)
+            superseded_safeguard = post_target_safeguard_fixture(superseded)
+            verify.atomic_json(path, superseded_safeguard)
+            with self.assertRaisesRegex(RuntimeError, "post-target status/collision safeguard drift"):
+                verify.validate_post_target_safeguard(path, superseded, superseded_raw)
 
     def test_forged_identity_only_file_binding_is_rejected(self) -> None:
         attestation = live_attestation_fixture(identity_only_binding=True)
@@ -463,6 +532,7 @@ class TargetIsolationTests(unittest.TestCase):
             "bondy_source_status_attestation_v1",
             "bondy_source_status_duplicate_gate_bracketed_single_scan_v2",
             "bondy_source_status_duplicate_gate_tip_continuity_v3_2",
+            "bondy_source_status_duplicate_gate_tip_continuity_v3_3",
         ):
             attestation = live_attestation_fixture()
             attestation["schema"] = schema
@@ -481,8 +551,8 @@ class TargetIsolationTests(unittest.TestCase):
         mutations = (("number", 0), ("state", "CLOSED"), ("node_id", ""), ("head_sha", "abc"), ("changed_files", 999))
         for key, value in mutations:
             attestation = live_attestation_fixture()
-            attestation["bracket_snapshot_before"]["open_pull_binding_surface"]["bindings"][0][key] = value
-            attestation["bracket_snapshot_after"] = json.loads(json.dumps(attestation["bracket_snapshot_before"]))
+            attestation["open_pr_binding_surface"]["bindings"][0][key] = value
+            refresh_binding_attestation(attestation, identities=True)
             with self.assertRaisesRegex(RuntimeError, "file binding drift"):
                 search.validate_live_attestation(attestation, sealed_attestation_fixture(attestation))
         attestation = live_attestation_fixture()
@@ -531,8 +601,8 @@ class TargetIsolationTests(unittest.TestCase):
         for mutation in ("number", "history"):
             attestation = live_attestation_fixture()
             if mutation == "number":
-                attestation["bracket_snapshot_before"]["open_pull_binding_surface"]["bindings"][0]["number"] = 0
-                attestation["bracket_snapshot_after"] = json.loads(json.dumps(attestation["bracket_snapshot_before"]))
+                attestation["open_pr_binding_surface"]["bindings"][0]["number"] = 0
+                refresh_binding_attestation(attestation, identities=True)
             else:
                 attestation["local_history_hits"] = None
                 attestation["local_history_identities"] = "bogus"
@@ -548,16 +618,16 @@ class TargetIsolationTests(unittest.TestCase):
                         search.run(args)
 
     def test_run_rejects_too_few_or_too_many_freeze_introducers_before_target(self) -> None:
-        for count in (4, 6):
+        for count in (5, 7):
             attestation = live_attestation_fixture()
             identities = attestation["local_history_identities"]
             freeze_indexes = [index for index, row in enumerate(identities) if row["kind"] == "freeze_introducer"]
-            if count == 4:
+            if count == 5:
                 del identities[freeze_indexes[-1]]
             else:
                 identities.insert(
                     freeze_indexes[-1] + 1,
-                    {"commit": "9" * 40, "subject": "forged extra freeze", "paths": ["scripts/prospective_bondy_gate.py"], "kind": "freeze_introducer"},
+                    {"commit": "0" * 40, "subject": "forged extra freeze", "paths": ["scripts/prospective_bondy_gate.py"], "kind": "freeze_introducer"},
                 )
             attestation["local_history_hits"] = [row["commit"] for row in identities]
             manifest = sealed_attestation_fixture(attestation)
@@ -622,10 +692,10 @@ class TargetIsolationTests(unittest.TestCase):
 
     def test_changed_file_expansion_bound_and_quota_order_are_strict(self) -> None:
         attestation = live_attestation_fixture()
-        binding = attestation["bracket_snapshot_before"]["open_pull_binding_surface"]["bindings"][0]
+        binding = attestation["open_pr_binding_surface"]["bindings"][0]
         binding["changed_paths"] = [f"p/{index}" for index in range(3)]
         binding["changed_paths_sha256"] = search.canonical_sha256(binding["changed_paths"])
-        attestation["bracket_snapshot_after"] = json.loads(json.dumps(attestation["bracket_snapshot_before"]))
+        refresh_binding_attestation(attestation)
         with self.assertRaisesRegex(RuntimeError, "file binding drift"):
             search.validate_live_attestation(attestation, sealed_attestation_fixture(attestation))
         attestation = live_attestation_fixture()
@@ -903,10 +973,12 @@ class LiveGateConcurrencyTests(unittest.TestCase):
             output = Path(directory) / "post.json"
             live_gate.atomic_json(source, attestation)
             stable = json.loads(json.dumps(attestation["bracket_snapshot_after"]))
+            stable_bindings = json.loads(json.dumps(attestation["open_pr_binding_surface"]))
             with mock.patch.object(live_gate, "api", side_effect=api), mock.patch.object(
-                live_gate, "bracket_snapshot", return_value=(stable, rates)
-            ):
+                live_gate, "bracket_snapshot", return_value=(stable, stable_bindings, rates)
+            ) as snapshot:
                 record = live_gate.run_post_target_safeguard(output, "token", source)
+            snapshot.assert_called_once_with("token", attestation["continuity"], full_changed_file_catalogue=True)
             self.assertEqual(record["status"], "PASS")
             self.assertEqual(record["open_pr_target_path_matches"], [])
 
@@ -915,22 +987,29 @@ class LiveGateConcurrencyTests(unittest.TestCase):
                 lambda row: row["continuity"]["declaration"].update({"declaration_count": 2}),
                 lambda row: row["known_issue"].update({"state": "open"}),
                 lambda row: row["searches"].update({'repo:google-deepmind/formal-conjectures "BondyLongestCycles"': [999]}),
-                lambda row: row["open_pull_binding_surface"]["bindings"][0]["changed_paths"].append(live_gate.TARGET_PATH),
             )
             for mutate in mutations:
                 changed = json.loads(json.dumps(stable))
                 mutate(changed)
                 with mock.patch.object(live_gate, "api", side_effect=api), mock.patch.object(
-                    live_gate, "bracket_snapshot", return_value=(changed, rates)
+                    live_gate, "bracket_snapshot", return_value=(changed, stable_bindings, rates)
                 ):
                     with self.assertRaisesRegex(RuntimeError, "post-target status/collision safeguard failed closed"):
                         live_gate.run_post_target_safeguard(output, "token", source)
+
+            changed_bindings = json.loads(json.dumps(stable_bindings))
+            changed_bindings["bindings"][0]["changed_paths"].append(live_gate.TARGET_PATH)
+            with mock.patch.object(live_gate, "api", side_effect=api), mock.patch.object(
+                live_gate, "bracket_snapshot", return_value=(stable, changed_bindings, rates)
+            ):
+                with self.assertRaisesRegex(RuntimeError, "post-target status/collision safeguard failed closed"):
+                    live_gate.run_post_target_safeguard(output, "token", source)
 
             changed_contents = dict(contents)
             changed_contents["sha"] = "0" * 40
             changed_target_api = lambda path, token: changed_contents if "/contents/" in path else rest
             with mock.patch.object(live_gate, "api", side_effect=changed_target_api), mock.patch.object(
-                live_gate, "bracket_snapshot", return_value=(stable, rates)
+                live_gate, "bracket_snapshot", return_value=(stable, stable_bindings, rates)
             ):
                 with self.assertRaisesRegex(RuntimeError, "post-target status/collision safeguard failed closed"):
                     live_gate.run_post_target_safeguard(output, "token", source)
@@ -938,14 +1017,14 @@ class LiveGateConcurrencyTests(unittest.TestCase):
             changed_main = {"sha": "9" * 40, "commit": {"tree": {"sha": live["tree"]}}}
             changed_api = lambda path, token: contents if "/contents/" in path else changed_main
             with mock.patch.object(live_gate, "api", side_effect=changed_api), mock.patch.object(
-                live_gate, "bracket_snapshot", return_value=(stable, rates)
+                live_gate, "bracket_snapshot", return_value=(stable, stable_bindings, rates)
             ):
                 with self.assertRaisesRegex(RuntimeError, "post-target status/collision safeguard failed closed"):
                     live_gate.run_post_target_safeguard(output, "token", source)
 
-    def test_v33_local_history_requires_exact_freeze_introducer_count(self) -> None:
-        freezes = [character * 40 for character in "fba76"]
-        extra_freeze = "9" * 40
+    def test_v34_local_history_requires_exact_freeze_introducer_count(self) -> None:
+        freezes = [character * 40 for character in "fba769"]
+        extra_freeze = "0" * 40
         hits = [
             live_gate.KNOWN_CONTINUITY_AUDIT_COMMIT,
             live_gate.KNOWN_REPIN_AUDIT_COMMIT,
@@ -985,11 +1064,11 @@ class LiveGateConcurrencyTests(unittest.TestCase):
         self.assertFalse(too_many)
         self.assertEqual(
             [row["kind"] for row in identities],
-            ["known_continuity_audit", "known_repin_audit", "freeze_introducer", "freeze_introducer", "freeze_introducer", "freeze_introducer", "freeze_introducer", "known_graph_rotation", "known_preflight"],
+            ["known_continuity_audit", "known_repin_audit", "freeze_introducer", "freeze_introducer", "freeze_introducer", "freeze_introducer", "freeze_introducer", "freeze_introducer", "known_graph_rotation", "known_preflight"],
         )
 
-    def test_v33_known_graph_rotation_hash_subject_and_path_are_exact(self) -> None:
-        freezes = [character * 40 for character in "fba76"]
+    def test_v34_known_graph_rotation_hash_subject_and_path_are_exact(self) -> None:
+        freezes = [character * 40 for character in "fba769"]
         baseline = [
             live_gate.KNOWN_CONTINUITY_AUDIT_COMMIT,
             live_gate.KNOWN_REPIN_AUDIT_COMMIT,
@@ -1108,12 +1187,69 @@ class LiveGateConcurrencyTests(unittest.TestCase):
 
     def test_graphql_zero_set_is_complete_and_truncation_is_rejected(self) -> None:
         zero = self.graphql_page([], 0)
-        with mock.patch.object(live_gate, "graphql", side_effect=[zero, zero]):
+        with mock.patch.object(live_gate, "graphql", side_effect=[zero, zero]) as request:
             self.assertEqual(live_gate.graphql_open_pull_bindings("token")["total_count"], 0)
+        self.assertEqual(request.call_count, 2)  # full page plus mandatory internal identity stabilization
+        with mock.patch.object(live_gate, "graphql", return_value=zero) as request:
+            self.assertEqual(live_gate.graphql_open_pull_identities("token")["total_count"], 0)
+        self.assertEqual(request.call_count, 1)
         truncated = self.graphql_page([], 1)
         with mock.patch.object(live_gate, "graphql", return_value=truncated):
             with self.assertRaisesRegex(RuntimeError, "truncated"):
                 live_gate.graphql_open_pull_bindings("token")
+
+    def test_pre_target_uses_one_full_catalogue_then_one_outer_identity_pass(self) -> None:
+        attestation = live_attestation_fixture()
+        snapshot = attestation["bracket_snapshot_before"]
+        issue = snapshot["known_issue"]
+        pull = snapshot["known_pr"]
+
+        def fake_api(path: str, token: str) -> object:
+            if path.endswith("/commits/main"):
+                return {"sha": snapshot["main"]["commit"], "commit": {"tree": {"sha": snapshot["main"]["tree"]}}}
+            if "/issues/4858" in path:
+                return {
+                    "number": issue["number"], "state": issue["state"], "state_reason": issue["state_reason"],
+                    "title": issue["title"], "user": {"login": issue["author"]}, "created_at": issue["created_at"],
+                    "updated_at": issue["updated_at"], "closed_at": issue["closed_at"], "node_id": issue["node_id"],
+                }
+            if "/pulls/4879" in path:
+                return {
+                    "number": pull["number"], "state": pull["state"], "draft": pull["draft"], "merged": pull["merged"],
+                    "merged_at": pull["merged_at"], "merge_commit_sha": pull["merge_commit_sha"], "title": pull["title"],
+                    "user": {"login": pull["author"]}, "head": {"sha": pull["head_sha"]}, "base": {"sha": pull["base_sha"]},
+                    "updated_at": pull["updated_at"], "node_id": pull["node_id"],
+                }
+            if "/search/repositories" in path:
+                return {"incomplete_results": False, "total_count": snapshot["repository_total_count"], "items": []}
+            raise AssertionError(path)
+
+        bindings = json.loads(json.dumps(attestation["open_pr_binding_surface"]))
+        identity = json.loads(json.dumps(snapshot["open_pull_identity_surface"]))
+        rates = [{"cost": 1, "remaining": 80, "reset_at": "t"}]
+        full_result = {**bindings, "identity_surface": identity, "rate_limits": rates}
+        identity_result = {**identity, "rate_limits": rates}
+        with mock.patch.object(live_gate, "api", side_effect=fake_api), mock.patch.object(
+            live_gate, "issue_search", side_effect=lambda token, query: snapshot["searches"][query]
+        ), mock.patch.object(live_gate, "graphql_open_pull_bindings", return_value=full_result) as full, mock.patch.object(
+            live_gate, "graphql_open_pull_identities", return_value=identity_result
+        ) as identities:
+            first, catalogue, _ = live_gate.bracket_snapshot(
+                "token", attestation["continuity"], full_changed_file_catalogue=True
+            )
+            second, no_catalogue, _ = live_gate.bracket_snapshot(
+                "token", attestation["continuity"], full_changed_file_catalogue=False
+            )
+            post, fresh_catalogue, _ = live_gate.bracket_snapshot(
+                "token", attestation["continuity"], full_changed_file_catalogue=True
+            )
+        self.assertEqual(first, second)
+        self.assertEqual(post, second)
+        self.assertEqual(catalogue, bindings)
+        self.assertIsNone(no_catalogue)
+        self.assertEqual(fresh_catalogue, bindings)
+        self.assertEqual(full.call_count, 2)  # one pre-target catalogue and one fresh post-target catalogue
+        self.assertEqual(identities.call_count, 1)  # only the outer pre-target identity snapshot
 
     def test_graphql_identity_mutation_including_small_pr_is_rejected(self) -> None:
         row = {
@@ -1149,6 +1285,23 @@ class LiveGateConcurrencyTests(unittest.TestCase):
         attestation = live_attestation_fixture()
         attestation["graphql_rate_limit_observations"]["before"][0]["remaining"] = 1
         with self.assertRaisesRegex(RuntimeError, "quota reserve"):
+            search.validate_live_attestation(attestation, sealed_attestation_fixture(attestation))
+
+    def test_changed_file_catalogue_enforces_documented_3000_file_hard_cap(self) -> None:
+        row = {
+            "id": "PR_3001", "number": 3001, "state": "OPEN", "title": "x", "isDraft": False,
+            "updatedAt": "t", "headRefOid": "a" * 40, "headRefName": "r", "headRepository": None,
+            "baseRefOid": "b" * 40, "baseRefName": "main", "baseRepository": {"nameWithOwner": "g/f"},
+            "changedFiles": 3001,
+            "files": {"totalCount": 3001, "pageInfo": {"hasNextPage": False, "endCursor": None}, "nodes": []},
+        }
+        with mock.patch.object(live_gate, "graphql", return_value=self.graphql_page([row], 1)):
+            with self.assertRaisesRegex(RuntimeError, "changedFiles/files totalCount mismatch"):
+                live_gate.graphql_open_pull_bindings("token")
+        attestation = live_attestation_fixture()
+        attestation["open_pr_binding_surface"]["bindings"][0]["changed_files"] = 3001
+        refresh_binding_attestation(attestation, identities=True)
+        with self.assertRaisesRegex(RuntimeError, "file binding drift"):
             search.validate_live_attestation(attestation, sealed_attestation_fixture(attestation))
 
     def test_issue_search_count_schema_and_uniqueness_are_strict(self) -> None:

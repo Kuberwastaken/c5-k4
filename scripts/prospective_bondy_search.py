@@ -49,6 +49,7 @@ LIVE_GATE_CHECKS = {
     "paper_sha256",
     "semantic_closure_exact",
     "toolchain_and_external_revisions_exact",
+    "outer_identity_matches_single_catalogue",
 }
 LIVE_ATTESTATION_FIELDS = {
     "schema",
@@ -59,6 +60,8 @@ LIVE_ATTESTATION_FIELDS = {
     "pinned_upstream",
     "live_upstream",
     "continuity",
+    "open_pr_binding_surface",
+    "open_pr_binding_surface_sha256",
     "open_pr_dependency_path_matches",
     "open_pr_target_path_matches",
     "bracket_snapshot_before",
@@ -67,7 +70,7 @@ LIVE_ATTESTATION_FIELDS = {
     "local_history_hits",
     "local_history_identities",
 }
-BRACKET_FIELDS = {"main", "continuity", "known_issue", "known_pr", "searches", "open_pull_binding_surface", "repository_total_count"}
+BRACKET_FIELDS = {"main", "continuity", "known_issue", "known_pr", "searches", "open_pull_identity_surface", "repository_total_count"}
 PULL_IDENTITY_FIELDS = {
     "node_id",
     "number",
@@ -167,7 +170,7 @@ def unlock(args: argparse.Namespace) -> dict[str, object]:
         failures.append("campaign_commit_is_not_checked_out_HEAD")
     if git("status", "--porcelain"):
         failures.append("worktree_not_clean")
-    supplied_token = os.environ.get("BONDY_V33_ACTIVATION_TOKEN", "")
+    supplied_token = os.environ.get("BONDY_V34_ACTIVATION_TOKEN", "")
     supplied_hash = hashlib.sha256(supplied_token.encode("utf-8")).hexdigest()
     del supplied_token
     if supplied_hash != lock.get("activation_token_sha256"):
@@ -200,8 +203,8 @@ def validate_live_attestation(attestation: dict[str, object], manifest: dict[str
     continuity = attestation.get("continuity")
     if (
         set(attestation) != LIVE_ATTESTATION_FIELDS
-        or manifest.get("live_gate", {}).get("schema") != "bondy_source_status_duplicate_gate_tip_continuity_v3_3"
-        or attestation.get("schema") != "bondy_source_status_duplicate_gate_tip_continuity_v3_3"
+        or manifest.get("live_gate", {}).get("schema") != "bondy_source_status_duplicate_gate_tip_continuity_v3_4"
+        or attestation.get("schema") != "bondy_source_status_duplicate_gate_tip_continuity_v3_4"
         or attestation.get("kind") != "source_status_duplicate_gate"
         or attestation.get("status") != "PASS"
         or attestation.get("pinned_upstream") != manifest["upstream"]
@@ -219,7 +222,8 @@ def validate_live_attestation(attestation: dict[str, object], manifest: dict[str
         raise RuntimeError("GATE_FAIL:source attestation missing or drifted")
     frozen = manifest.get("semantic_closure")
     surface = before.get("continuity")
-    binding_surface = before.get("open_pull_binding_surface")
+    binding_surface = attestation.get("open_pr_binding_surface")
+    identity_surface = before.get("open_pull_identity_surface")
     if (
         not isinstance(frozen, dict) or not isinstance(surface, dict) or set(surface) != CONTINUITY_SURFACE_FIELDS
         or surface.get("canonical_sha256") != canonical_sha256(continuity)
@@ -255,6 +259,9 @@ def validate_live_attestation(attestation: dict[str, object], manifest: dict[str
         or continuity.get("target", {}).get("sha256") != manifest.get("source_sha256")
         or continuity.get("declaration") != {"declaration_count": 1, "exact_open_attribute_count": 1, "answer_wrapper_count": 1, "exact_by_sorry_block_count": 1}
         or not isinstance(binding_surface, dict) or set(binding_surface) != {"total_count", "bindings"}
+        or attestation.get("open_pr_binding_surface_sha256") != canonical_sha256(binding_surface)
+        or not isinstance(identity_surface, dict) or set(identity_surface) != {"total_count", "identities"}
+        or identity_surface != after.get("open_pull_identity_surface")
         or not isinstance(before.get("main"), dict) or set(before["main"]) != {"commit", "tree"}
         or not all(isinstance(before["main"].get(key), str) and len(before["main"][key]) == 40 for key in ("commit", "tree"))
         or any(any(c not in "0123456789abcdef" for c in before["main"][key]) for key in ("commit", "tree"))
@@ -331,7 +338,7 @@ def validate_live_attestation(attestation: dict[str, object], manifest: dict[str
             or any(not isinstance(binding.get(key), str) or len(binding[key]) != 40 or any(c not in "0123456789abcdef" for c in binding[key]) for key in ("head_sha", "base_sha"))
             or (binding.get("head_repo") is not None and (not isinstance(binding["head_repo"], str) or not binding["head_repo"]))
             or not isinstance(binding.get("draft"), bool)
-            or isinstance(changed_files, bool) or not isinstance(changed_files, int) or changed_files < 0 or changed_files > len(paths)
+            or isinstance(changed_files, bool) or not isinstance(changed_files, int) or changed_files < 0 or changed_files > 3000 or changed_files > len(paths)
             or len(paths) > 2 * changed_files
             or (changed_files == 0 and paths != [])
         ):
@@ -339,6 +346,18 @@ def validate_live_attestation(attestation: dict[str, object], manifest: dict[str
         numbers.append(number)
     if numbers != sorted(set(numbers)):
         raise RuntimeError("GATE_FAIL:source attestation file binding drift")
+    binding_identities = [{key: binding[key] for key in sorted(PULL_IDENTITY_FIELDS)} for binding in bindings]
+    expected_identities = [
+        {key: identity[key] for key in sorted(PULL_IDENTITY_FIELDS)}
+        for identity in identity_surface.get("identities", [])
+    ] if isinstance(identity_surface.get("identities"), list) and all(isinstance(identity, dict) for identity in identity_surface["identities"]) else None
+    if (
+        identity_surface.get("total_count") != expected_count
+        or expected_identities is None
+        or any(set(identity) != PULL_IDENTITY_FIELDS for identity in identity_surface["identities"])
+        or binding_identities != expected_identities
+    ):
+        raise RuntimeError("GATE_FAIL:outer identity/catalogue cache drift")
     dependency_paths = set(protected) - {FROZEN_TARGET_PATH}
     expected_dependency_matches = [
         {"number": binding["number"], "paths": sorted(dependency_paths.intersection(binding["changed_paths"]))}
@@ -431,7 +450,7 @@ def validate_live_attestation(attestation: dict[str, object], manifest: dict[str
         or by_kind.get("known_repin_audit") != {"commit": "e17905b1d62048f43bab89e06625aebdcf280faf", "subject": "research: audit Bondy upstream repin", "paths": ["results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/upstream-drift-repin-audit.md"], "kind": "known_repin_audit"}
         or by_kind.get("known_continuity_audit") != {"commit": "c4d327479110cf51f2aae126d12e2fbc609c0921", "subject": "research: define Bondy tip continuity gate", "paths": ["results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/tip-continuity-policy-audit.md"], "kind": "known_continuity_audit"}
         or by_kind.get("known_graph_rotation") != {"commit": "6a80fcdcb0489dc196162554cd4fec4f41ad2187", "subject": "research: record empty held-out graph rotation", "paths": ["results/expansion/live-search-2026-08-14/next-heldout-graph-rotation-strict-stop.md"], "kind": "known_graph_rotation"}
-        or len(freeze_rows) != 5
+        or len(freeze_rows) != 6
         or any("scripts/prospective_bondy_gate.py" not in row["paths"] or not all(any(path.startswith(root) for root in freeze_roots) for path in row["paths"]) for row in freeze_rows)
     ):
         raise RuntimeError("GATE_FAIL:local contamination exact history drift")

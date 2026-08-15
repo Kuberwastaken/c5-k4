@@ -1,6 +1,6 @@
-# Bondy longest-cycles frozen DEVELOPMENT contract v3.3
+# Bondy longest-cycles frozen DEVELOPMENT contract v3.4
 
-**State:** v3.3 prospective open-PR policy split sealed and disabled by default
+**State:** v3.4 single-catalogue identity-bracket policy sealed and disabled by default
 
 **Evidence class:** contaminated `DEVELOPMENT`, never held out
 
@@ -8,26 +8,26 @@
 
 **Only slice:** `k=4`, source parameter `t=4`, `n=24`
 
-This v3.3 contract supersedes v3.2 without reinterpreting it and preserves all
-v1/v2/v3/v3.1/v3.2 reports as
+This v3.4 contract supersedes v3.3 without reinterpreting it and preserves all
+v1/v2/v3/v3.1/v3.2/v3.3 reports as
 historical records. It freezes the same small balanced delete/add port-
 rewiring arm around the source sharpness graph `S(4,4)`. This seal alone does not authorize execution,
 publication, a release, an issue, or a pull request.
 The workflow remains disabled by default. A target process can start only when
 an explicit dispatch supplies `enable_target=true` and a campaign commit equal
 to the checked-out `HEAD`, the tree is clean, and the repository Actions secret
-`BONDY_V33_ACTIVATION_TOKEN` is injected directly into the same-named process
+`BONDY_V34_ACTIVATION_TOKEN` is injected directly into the same-named process
 environment variable with exact SHA-256
-`0fb0d55f32eb0cecd7e549a45dba8d5095e073737fe39efbd226c79d6a539d5a`.
+`a4a17f279b5dea4df3f4c4c7377a620c13b16e7b206b42282c71c460eb65152a`.
 The exact preimage is 64 bytes with no trailing newline. It is never a workflow-
 dispatch input or command-line argument. The freeze requires that Actions
 secret but deliberately makes no claim about its current external configuration.
 Only the hash is tracked; the guard preimage is deliberately absent from code,
 the manifest, and documentation. `HEAD` is checked at runtime rather than
 embedded in its own tracked contents, avoiding a self-referential Git hash.
-The immutable v3.3 content registry independently binds every executable and
+The immutable v3.4 content registry independently binds every executable and
 contract file. Before any target row, the runner accepts only the exact
-`bondy_source_status_duplicate_gate_tip_continuity_v3_3` schema and recomputes
+`bondy_source_status_duplicate_gate_tip_continuity_v3_4` schema and recomputes
 its ancestry, complete-delta, closure, toolchain, declaration, bracket, and
 open-PR bindings. A v1, v2, incomplete, or forged `PASS` object is rejected.
 The campaign dispatch string is mapped through a step environment variable and
@@ -61,8 +61,8 @@ Version 3.1 corrects live-main REST parsing: the commit is exactly `.sha` and
 the root tree is exactly `.commit.tree.sha`; a missing nested field or an
 ambiguous top-level `.tree` is a strict stop. The superseded v3 parser expected
 a nonexistent top-level tree and therefore could not produce a valid live PASS.
-The v3.1, v3.2, and v3.3 corrections each deliberately add a `bondy_conjecture`
-pickaxe marker; the local contamination gate therefore requires exactly five
+The v3.1, v3.2, v3.3, and v3.4 corrections each deliberately add a `bondy_conjecture`
+pickaxe marker; the local contamination gate therefore requires exactly six
 freeze-introducer commits rather than accepting a loose upper bound.
 The unrelated pickaxe hit `6a80fcdcb0489dc196162554cd4fec4f41ad2187` is
 accepted only as the distinct `known_graph_rotation` identity with subject
@@ -98,7 +98,7 @@ artifact was `bondy-longest-cycles-development-v32-gate-evidence`, archive
 SHA-256 `810f095f78e900e3971c9cb40cc9ca94a3a91399694da9188fcdf839565f174e`;
 the extracted attestation SHA-256 was
 `321eaf92a5dbf90842f6fd3000f7f593bca52f65876d59c728b891ecb9e3a99d`.
-That is a v3.2 pre-evaluation policy stop, not a v3.3 PASS.
+That is a v3.2 pre-evaluation policy stop, not a later-version PASS.
 
 Version 3.3 applies the full 171-file closure plus toolchain only to merged-main
 continuity. Open-PR collision gating is exactly the Bondy target path, including
@@ -111,6 +111,28 @@ fetch the target contents at the exact post-target main commit, reparse its
 blob and declaration shape, and bind those fields plus unchanged issue/PR
 status, searches, and the exact-target collision set into the verification and
 evidence artifacts.
+
+Disabled v3.3 runs `31854544552` and `31854645706` at commit
+`0d576acf096e3170bd5c1aeb6ad3bba0cf8d51db` each passed all 61 target-free
+tests, source control, freeze verification, and warning-as-error compilation,
+then stopped before target evaluation at the final GraphQL identity read of a
+second full changed-file bracket. They emitted zero target rows, artifacts, or
+results. The exact committed record
+`invalid-runs-31854544552-31854645706.md` remains historical v3.3 evidence and
+is incorporated by reference; it is not reinterpreted as a PASS.
+
+Version 3.4 keeps one complete pre-target changed-file catalogue. That full
+collector retains its internal complete identity-only stabilization pass. The
+outer second status snapshot performs one completely paginated identity-only
+enumeration and fetches no changed paths. The attestation stores the full
+binding surface once at top level and stores explicit identity surfaces in the
+before and after snapshots. Acceptance requires exact canonical equality
+`identity_before == projection(single_catalogue) == identity_after`; cached
+paths are never presented as freshly fetched. Each PR's documented REST files
+surface is capped at 3,000 entries, including rename-previous recovery. After
+target processing, the safeguard still fetches a fresh full changed-file
+catalogue and requires it to equal the pre-target catalogue before independent
+verification.
 Live `main` may advance only when that anchor is its merge base and ancestor,
 the complete NUL-delimited local Git diff is enumerated, and the delta is
 disjoint from all 171 recursively resolved Lean closure paths plus the exact
@@ -118,15 +140,16 @@ toolchain and dependency locks. The audited `b5ac...2411` delta consists only
 of unrelated `AUTHORS`, Erdos problem 506, and WrittenOnTheWallII files; this
 observation is not a reusable PASS and remains subject to a fresh live gate.
 
-Each of two full brackets binds live main/tree, the exact target and declaration
+Each of the two status brackets binds live main/tree, the exact target and declaration
 shape, the canonical continuity object, issue #4858, PR #4879, all frozen
-searches, and every open PR's completely paginated changed paths. A bounded
+searches, and every open PR's canonical identity. The single top-level catalogue
+binds every open PR's completely paginated changed paths. A bounded
 24-worker GraphQL collector validates connection totals, stabilizes the whole
 identity set with an identity-only second pass, and uses REST only to recover
-renamed-away paths. Both full binding surfaces must be byte-equal. Rate limits,
+renamed-away paths. Both identity surfaces and the catalogue projection must be byte-equal. Rate limits,
 timeouts, ambiguity, merges without parent-indexed provenance, merged-main
 protected-path touches, or any exact-target open-PR collision are strict stops.
-There is no v3.3 PASS record;
+There is no v3.4 PASS record;
 target execution stays unavailable
 until a fresh complete stable bracket succeeds.
 
