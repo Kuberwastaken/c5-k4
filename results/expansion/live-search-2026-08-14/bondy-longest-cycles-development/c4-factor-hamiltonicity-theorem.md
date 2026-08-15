@@ -1,6 +1,22 @@
 # C4-factor Hamiltonicity theorem shadow
 
-- Classification: `PROVED_THEOREM_SHADOW`
+> **Correction, 2026-08-15 — this result is NOT novel.** A prior-art review
+> ([`c4-factor-novelty-prior-art.md`](c4-factor-novelty-prior-art.md)) found an
+> equivalent statement already in print, with the same proof: Boyd & Sebő,
+> *The salesman's improved tours for fundamental classes*, IPCO 2017 / Math.
+> Programming 186 (2021) 289–307, **Lemma 2** (arXiv:1705.02385): "A square
+> graph `(G,M)` has a Hamiltonian cycle containing `M`." Their proof contracts
+> the squares, takes the diagonally-opposite pairs as forbidden transitions,
+> and applies Kotzig — i.e. the scaffold argument below. The two statements
+> interconvert by splitting/contracting a perfect matching. Boyd & Sebő also
+> give a Kotzig-free proof (their Theorem 11) matching the trail-splicing
+> variant below. The correct canonical citations for this fact are Boyd–Sebő
+> Lemma 2 and Kotzig 1968 Theorem 1; **nothing here should be published or
+> cited as a new theorem.** The material below stands as a correct,
+> independently reconstructed proof and as the symbolic stop rule that
+> retired this coordinate, which is its actual value to the campaign.
+
+- Classification: `PROVED_THEOREM_SHADOW` (superseded: `KNOWN_RESULT_RECOVERED`)
 - Frozen grammar covered: Bondy v3.5 rows `0..95`
 - Exact rows replayed: `96 / 96`
 - Hamilton cycles replayed: `96 / 96`
