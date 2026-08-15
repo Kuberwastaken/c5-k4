@@ -183,6 +183,13 @@ rows. See the
 [`C4`-factor theorem shadow](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/c4-factor-hamiltonicity-theorem.md).
 This retires every expansion that preserves the connected `C4/C4`
 factorization, not just the enumerated quotient catalogue.
+A warning-clean, no-`sorry`
+[`row-0 Lean certificate`](lean/BondyC4FactorHamiltonian.lean) confirms the
+finite formalization route. Packaging all 96 rows into one quantified
+`SimpleGraph.Hom` theorem hit the bounded proof-engineering cap, so the
+[`formalization status`](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/lean-formalization-status.md)
+records that partial scope explicitly rather than implying a general Lean
+proof.
 
 The next target-free coordinate reached Bondy's degree wall with
 `K_r join (c K_2)`, but failed the signed-separation gate. More generally, the
@@ -193,6 +200,14 @@ leave a four-vertex path. The independently audited
 therefore retires that entire design class without making a circumference,
 `q_4`, or proposed-target call. A future Bondy arm must break both the
 compatible-Euler factorization and the universal-separator packing no-go.
+The next natural factor-breaking attempt—`s-1` minimum-order filler cliques
+plus one exceptional connected lobe—also fails symbolically: the exceptional
+lobe is forced traceable at degree at least three, while at degree one or two
+every residual four-vertex path displaces a shorter filler path. The audited
+[`one-exceptional-lobe stop`](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/one-exceptional-lobe-strict-stop.md)
+is deliberately limited to the universal-join grammar; arbitrary attachment
+systems remain unresolved and receive no target call without a stitching
+certificate.
 The exact continuity policy remains recorded in the
 [`v3 continuity audit`](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/tip-continuity-policy-audit.md).
 
