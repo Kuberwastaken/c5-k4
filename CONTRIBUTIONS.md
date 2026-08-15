@@ -42,6 +42,13 @@ Sixteen open as of 2026-08-15; none reviewed yet.
 | [#4992](https://github.com/google-deepmind/formal-conjectures/pull/4992) | Erdős 952 `answer(sorry) ↔` | formalization repair | pass |
 | [#4993](https://github.com/google-deepmind/formal-conjectures/pull/4993) | Erdős 40 decision form | formalization repair | building |
 
+### Wikipedia-lane PRs (2026-08-15)
+
+| PR | Contribution | Class | CI |
+|---|---|---|---|
+| [#4995](https://github.com/google-deepmind/formal-conjectures/pull/4995) | EllipticCurveRank: `∀ᶠ H in atTop` (no numeral guard can work) | crossing repair | fast checks pass, build pending |
+| [#4999](https://github.com/google-deepmind/formal-conjectures/pull/4999) | `same_parity_betrothed`: add `m ≠ n` | formalization repair | fast checks pass, build pending |
+
 ## C. Upstream issues filed
 
 [#4974](https://github.com/google-deepmind/formal-conjectures/issues/4974) A237271 ·
@@ -55,6 +62,16 @@ Sixteen open as of 2026-08-15; none reviewed yet.
 [#4982](https://github.com/google-deepmind/formal-conjectures/issues/4982) A110854 ·
 [#4984](https://github.com/google-deepmind/formal-conjectures/issues/4984) A108864 ·
 plus a comment on [#4922](https://github.com/google-deepmind/formal-conjectures/issues/4922) (Erdős 142).
+
+Wikipedia lane, 2026-08-15:
+[#4994](https://github.com/google-deepmind/formal-conjectures/issues/4994) EllipticCurveRank false as written ·
+[#4996](https://github.com/google-deepmind/formal-conjectures/issues/4996) Hardy–Littlewood `=O` for `∼` + non-distinct offsets ·
+[#4997](https://github.com/google-deepmind/formal-conjectures/issues/4997) Dickson/de Polignac not consecutive ·
+[#4998](https://github.com/google-deepmind/formal-conjectures/issues/4998) `same_parity_betrothed` omits `m ≠ n` ·
+[#5000](https://github.com/google-deepmind/formal-conjectures/issues/5000) SparseRuler hard threshold ·
+[#5001](https://github.com/google-deepmind/formal-conjectures/issues/5001) UnionClosed tight hypothesis too strong ·
+[#5002](https://github.com/google-deepmind/formal-conjectures/issues/5002) Köthe spurious hypothesis ·
+comments crediting prior claimants on [#4568](https://github.com/google-deepmind/formal-conjectures/issues/4568) (Rudin) and [#3490](https://github.com/google-deepmind/formal-conjectures/issues/3490) (Dedekind).
 
 ## D. Releases (github.com/Kuberwastaken/c5-k4/releases)
 
