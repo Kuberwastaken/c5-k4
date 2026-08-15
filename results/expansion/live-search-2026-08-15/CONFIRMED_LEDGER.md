@@ -269,3 +269,26 @@ file actually *pre-empts* our defect shape, documenting why a naive ERH via
 **Own hypotheses refuted** (recorded so they are not re-raised): Green 50 `10 • A` is `Finset.nsmul`, the iterated sumset, not pointwise scaling — faithful; `Other/VCDimConvex` has no `n = 0` contradiction (`HasAddVCNDimAtMost A 0 d` unfolds to `A = ∅ ∨ A = univ`); `EquationalTheories_677_255` is correctly tagged per arXiv 2512.07087.
 
 **Computational holds** (exact, two code paths each): Arxiv/2501.03234 — no violations for odd primes ≤ 5987, and all three thresholds confirmed **exactly sharp**, last failures at `k` = 5, 233, **3119**; Arxiv/2607.05739 — no integer `xₙ` for `5 ≤ n ≤ 119,503` (the file claims only `n ≤ 3000`); Arxiv/1601.03081 — odd `n ≤ 1,922,151`, 115 crystals, zero with two component pairs.
+
+## Correction 8 — three briefs corrected at filing time (2026-08-15)
+
+The Wikipedia filing lane overturned three things I had stated as settled when
+briefing it. Recorded because the pattern (claims degrading on contact with
+verification) is now the campaign's most reliable regularity.
+
+1. **`3 < H` is not the minimal fix for the EllipticCurveRank defect — and no
+   numeral guard works at all.** `heightLE H = {(1,0), (−1,0)}` for every
+   `4 ≤ H ≤ 26`, and both curves (conductors 64 and 32) have rank 0, so the
+   *filtered* set is still empty there for every `r ≥ 1`. The first non-empty
+   `H` depends on `r`: at `r = 1` the minimal-conductor rank-1 curve 37a1
+   reduces to `y² = x³ − 16x + 16`, height 16384; at `r = 20` no bound is
+   known. PR #4995 therefore uses `∀ᶠ H in atTop`, matching the docstring's own
+   `o(1)`, and both artifacts explain why a guard cannot work.
+2. **A Hardy–Littlewood partial product in our scan does not reproduce.** The
+   scan reported `1.628` at `Q = 10`; recomputation gives `1.4954` (values for
+   `Q ≥ 10²` agree). Issue #4996 uses the recomputed table.
+3. **The betrothed finding is stronger than recorded.** The repo already
+   contains `QuasiperfectNumbers.Quasiperfect n := σ 1 n = 2n + 1` as its own
+   `research open` declaration, so the missing `m ≠ n` does not merely resemble
+   another open problem — it silently entangles two of them. Both artifacts now
+   lead with that.
