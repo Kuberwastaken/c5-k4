@@ -429,3 +429,81 @@ expectation and with Cambie's heuristic that failure has probability
 `variants.known_result`). No counterexample claim upstream. No upstream action
 taken.
 
+## F6 — Erdős 274, `herzog_schonheim` — `HOLD_BOUNDED` + faithfulness loophole **closed**
+
+**Blob** `8ef2aebf024c6d4c17a3ebfea963986debf8f1de` (`274.lean`).
+
+```lean
+@[category research open, AMS 20]
+theorem herzog_schonheim {G : Type*} [Group G] (hG : 1 < ENat.card G) {ι : Type*} [Fintype ι]
+    (hι : 1 < Fintype.card ι) (P : Group.ExactCovering G ι) :
+    ∃ i j, i ≠ j ∧ (P.parts i).index = (P.parts j).index
+```
+
+with `Group.ExactCovering` = `parts : ι → Subgroup G`, `reps : ι → G`,
+pairwise-disjoint `reps i • parts i`, union `= univ`.
+
+### The predecessor's flagged loophole does not exist
+
+`erdos-hunt.md` noted: "`1 < ENat.card G` admits infinite `G`, where
+`Subgroup.index = 0` for infinite index, so any two infinite-index parts
+already satisfy the conclusion". That escape is **unreachable**, by B. H.
+Neumann's lemma: if a group is covered by finitely many cosets, the cosets of
+infinite-index subgroups can be deleted and the rest still cover. Here `ι` is a
+`Fintype`, so the cover is finite. If some `H_j` had infinite index, deleting
+all infinite-index parts still covers `G`; but then the nonempty coset
+`g_j • H_j` meets one of the retained cosets, contradicting `disjoint`. If
+*every* part had infinite index the retained family would be empty and could
+not cover a nonempty `G`. Hence **every part has finite index**, `index` is a
+genuine positive integer throughout, and the declaration is exactly
+Herzog–Schönheim for arbitrary groups. **Faithful; no vacuous-satisfaction
+escape.** (Upstream has already repaired one different misformalization here:
+issue #4045 / PR #4057, "use per-index quantifier to avoid vacuous witness".)
+
+### Structure of any counterexample (classical, re-derived, not claimed new)
+
+Disjointness + covering give `Σ_i 1/[G:H_i] = 1`, and the conclusion fails only
+if the `[G:H_i]` are pairwise distinct.
+
+*Index-2 reduction.* Suppose some part has index 2, say `H_1`, with quotient
+map `φ : G → C_2`. For `i ≠ 1`, if `H_i ⊄ H_1` then `φ(H_i) = C_2`, so
+`g_i • H_i` meets both cosets of `H_1`, in particular `g_1 • H_1` — contradicting
+disjointness. So `H_i ≤ H_1` for all `i ≠ 1`, each `g_i • H_i` lies in the
+*other* coset `xH_1`, and translating by `x^{-1}` gives an exact cover of `H_1`
+by the `k−1` parts `H_i` with indices `[H_1 : H_i] = [G:H_i]/2`, still pairwise
+distinct. If `k−1 = 1` that part has index 1 in `H_1`, i.e. index 2 in `G`,
+duplicating `[G:H_1]` — contradiction. So a counterexample with **minimal `k`
+has no index-2 part.**
+
+*Consequence, computed exactly.* Distinct indices `≥ 2` with `Σ 1/n_i = 1`
+force `k ≥ 3` (smallest set `{2,3,6}`; 486 such sets with `n_i ≤ 60, k ≤ 7`).
+With **no index 2**, i.e. distinct `n_i ≥ 3`: `k ≥ 5`, and the *unique* `k = 5`
+set with `n_i ≤ 60` is `{3,4,5,6,20}` (102 sets total for `k ≤ 7`). So a
+minimal counterexample has at least 5 parts and, at `k = 5`, `|G|` divisible by
+`lcm(3,4,5,6,20) = 60`.
+
+### Bounded finite search (`<scratch>/e274.py`)
+
+Exact: permutation representations, full subgroup enumeration by closure, all
+left cosets, then exact-cover DFS over the admissible distinct-index sets
+(cover the least uncovered element; one coset per index value).
+
+| family | groups tested | orders | distinct-index sets explored | counterexamples |
+|---|---|---|---|---|
+| all subgroups of `S₅` of order ≥ 6 | 78 | 6, 8, 10, 12, 20, 24, 60 | 81 | **0** |
+| `D_n` (order `2n ≡ 0 mod 6`), `n = 3..33` + `C_n` | 11 | 6, 12, 18, 24, 30, 36, 42, 48, 54, 60, 66 | 71 | **0** |
+
+`S₅` itself (order 120) and `D₃₆` (order 72) are **`TIMEOUT_BRACKET`s** — the
+subgroup-closure enumeration exceeded the 50 s cap; they were not tested.
+
+**Verdict: `HOLD_BOUNDED`** over the 89 groups above, plus a recorded
+faithfulness resolution (Neumann's lemma closes the `ENat.card` loophole) and
+the `k ≥ 5` / `{3,4,5,6,20}` narrowing. Herzog–Schönheim is a well-known open
+conjecture with far larger verifications in the literature (and the abelian
+case is proved and already linked in this file), so the numbers are calibration
+only. The prior-art stop recorded by the predecessor stands.
+
+**Duplicate check.** "274": #4045 (closed, misformalization), #4057 (merged,
+fix), #4415 (merged, `formal_proof` link for the abelian variant), #2409
+(merged, fix). Nothing claiming a counterexample. No upstream action taken.
+
