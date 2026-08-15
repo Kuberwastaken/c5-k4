@@ -30,18 +30,25 @@ closed in `erdos-hunt.md` (931, 10, 11 ×3, 677, 364, 406, 324) — i.e. 189,
 1084*, 1113, 1135. (* 409 and 1084 were already closed in D8/D9; carried here
 only as pointers.)
 
-## Status table
+## Status table — **frontier CLOSED, 0 counterexamples, 3 new formalization defects**
 
-| target | verdict | status |
+| target | verdict | section |
 |---|---|---|
-| 477 `X_pow_three`, `monomial` | `CERTIFICATE_SHAPE_FAIL` + **formalization divergence** | DONE (F1) |
-| 952 `erdos_952` | `CONSTRUCTION_ONLY` + **formalization defect (asserted direction)** | DONE (F2) |
-| 982 `erdos_982` | pending | IN PROGRESS |
-| 242 `erdos_242` | pending | queued |
-| 779 `erdos_779` | pending | queued |
-| 274 `herzog_schonheim` | pending | queued |
-| 189 `parallelogram` | pending | queued |
-| 349, 241, 535, 617, 1041, 1044, 1055, 1113, 1135 | pending | queued |
+| 477 `X_pow_three`, `monomial` | `CERTIFICATE_SHAPE_FAIL` + **divergence: `{f(k):k∈ℤ}` formalized as `{f(k):k≥1}`** | F1 |
+| 952 `erdos_952` | `CONSTRUCTION_ONLY` + **defect: open question asserted in the direction [Er80] calls "almost certainly negative"** | F2 |
+| 982 `erdos_982` | `HOLD_BOUNDED` (n=6,7 complete to N=30; n=8,9 to N=9) | F3 |
+| 242 `erdos_242` | `HOLD_BOUNDED` — predecessor's `TIMEOUT_BRACKET` **closed**, all n ≤ 2,000,000 witnessed | F4 |
+| 779 `erdos_779` | `HOLD_BOUNDED` n = 1..200 (bracket at n ≥ 201) | F5 |
+| 274 `herzog_schonheim` | `HOLD_BOUNDED` over 89 groups + **`ENat.card` loophole closed by Neumann's lemma** | F6 |
+| 1055 `selfridge_limit` | `CERTIFICATE_SHAPE_FAIL` + **defect: `IsOfClass` non-exclusive at r=2, `p 2 = 2 ≠ 13`** | F7 |
+| 189, 241, 349, 535, 617, 1041, 1044, 1113, 1135 | strict stops (`CERTIFICATE_SHAPE_FAIL` / prior-art), each re-derived | F8 |
+| 409, 1084 | already closed by the predecessor (D9, D8) | — |
+
+**Nothing is left queued.** Open brackets, for a future agent:
+`982` (`n=6, N=45` at 37 % of radius-groups; `n ≥ 10` untouched; irrational
+coordinates outside every run), `779` (`n ≥ 201`), `274` (`S₅` order 120 and
+`D₃₆` order 72 not enumerated), `242` (`n > 2·10⁶`, but prior art reaches
+`10^18` so this is worthless), `617` (needs a balanced 12-colouring of `K₁₄₅`).
 
 ## Rules being followed
 
@@ -582,4 +589,117 @@ at `r = 2`, so `Erdos1055.p 2 = 2 ≠ 13 = p_2`.
 #3373 (closed, `variants.class_one_infinite` solves). Nothing raising the
 non-exclusive-class defect. The file's own TODO ("formalize the rest of the
 problems on the page") is unrelated. No upstream action taken.
+
+## F8 — the nine remaining candidates: strict stops, each re-derived from the Lean text
+
+All nine were `CANDIDATE_FOR_DEPTH` in the predecessor's triage and marked
+"deprioritised" without a completed certificate-shape derivation. Each is now
+derived from the declaration text at the pinned blob, compared against the live
+source page, and closed. Blob SHAs in the table.
+
+| decl | blob | site state / prize | verdict |
+|---|---|---|---|
+| 189 `variants.parallelogram` | `11765f54…` | `solved` / `DISPROVED (LEAN)` (parallelogram case explicitly still open) | `CERTIFICATE_SHAPE_FAIL` |
+| 241 `variants.generalization` | `0f767411…` | `open` / `OPEN` | `CERTIFICATE_SHAPE_FAIL` |
+| 349 `complete_for_alpha_in_Ioo_one_to_goldenRatio` | `2a95c8a8…` | `open` / `OPEN` | `CERTIFICATE_SHAPE_FAIL` |
+| 535 `variants.sunflower_strong` | `720d2187…` | `open` / `OPEN` | `CERTIFICATE_SHAPE_FAIL` |
+| 617 `erdos_617` | `00d6f622…` | `open` / **`FALSIFIABLE`** | finite negation, `KNOWN_PROOF_DOMAIN` / prior-art stop |
+| 1041 `erdos_1041` | `0bd296db…` | `open` / **`FALSIFIABLE`** | `CERTIFICATE_SHAPE_FAIL` (finite witness, non-finite verification) |
+| 1044 `variants.fixed_degree` | `2ab25808…` | `solved` / `SOLVED (LEAN)` (fixed-degree part open) | `CERTIFICATE_SHAPE_FAIL` |
+| 1113 `variants.filaseta_finch_kozek` | `4448a7e6…` | `open` / `OPEN` | `CERTIFICATE_SHAPE_FAIL` |
+| 1135 `erdos_1135` | `e285a2e1…` | `open` / `OPEN` | finite negation (a cycle), prior-art stop |
+
+**189 `parallelogram`.** The declaration is `¬ Erdos189For (parallelogram) (area)`.
+Its negation is `Erdos189For …` = "for every finite colouring of `ℝ²` some
+colour class contains a monochromatic parallelogram of every positive area" — a
+`∀`-statement over all colourings of `ℝ²`. No finite certificate. Two notes:
+(i) the site confirms the parallelogram case is open ("This is false; Kovač
+[Ko23] provides an explicit colouring … The question for parallelograms remains
+open"), so the `research open` label is correct; (ii) the declaration asserts
+the **negative** branch of an open question with nothing in the docstring
+("Seems to be open, as of January 2025") supporting that direction — the same
+answer-shape pattern as F2, but here it is at least in line with the settled
+rectangle and rhombus cases. The area function `dist a b * dist b c * (∡ a b c).sin`
+is the correct parallelogram area, and `IsCcwConvexPolygon ![a,b,c,d]` makes
+`ab ∥ cd`, `ad ∥ bc` the genuine opposite-side condition. No divergence.
+
+**241 `generalization`.** `BoseChowlaConjecture r = (fun N ↦ f N r) ~[atTop]
+(fun N ↦ N ^ (1/r))` — an asymptotic equivalence; refutation needs a rate over
+all large `N`. Site matches verbatim ("Bose and Chowla conjectured … `|A| ∼
+N^{1/r}` … known only for `r = 2`"), and `f N r` (multisets of card `r`, equal
+sums forced equal as multisets) is the correct "aside from the trivial
+coincidences" reading. No divergence.
+
+**349 `complete_for_alpha_in_Ioo_one_to_goldenRatio`.** `IsAddComplete A =
+∀ᶠ k in atTop, k ∈ subsetSums A`, so its negation is "infinitely many `k` are
+not a subset sum" — not a finite object; and `t, α` range over ℝ. Site matches
+verbatim, including the golden-ratio endpoint ("It seems likely that the
+sequence is complete for all `t>0` and all `1<α<(1+√5)/2`"). No divergence.
+Note for the next agent: upstream has **five open PRs** on this file (#4470,
+#4476, #4478, #4483, #4485) adding positive results on the strip `1 < α < 3/2`
+— an active area, so re-check duplicates before touching it.
+
+**535 `sunflower_strong`.** `∃ c_r > 0, ∀ k, ∀ A, …` — an existentially
+quantified global constant; refutation must rule out every `c_r`. (The
+predecessor already noted the triage regex missed this because the binder is
+`c_r`; confirmed.) Two definitions in the file are deliberately *different* and
+both are faithful: `f r N` uses plain constant pairwise gcd, matching the site's
+`f_r(N)`; `NoConstantPairwiseGcdCoprimeSubsets` adds coprime quotients, matching
+Erdős's stronger `Ω`-based auxiliary conjecture in [Er73]. No divergence.
+
+**617.** Negation *is* finite: one `r ≥ 3` and one `r`-colouring of
+`K_{r²+1}` in which every `(r+1)`-subset sees all `r` colours. Site prize is
+`FALSIFIABLE`. But METHOD v1.0 already closed this lane at Phase 0: standalone
+public artifacts claim computer-assisted proofs for `r = 5..11`, so a
+refutation needs `r ≥ 12`, i.e. a balanced 12-colouring of `K_145` — outside any
+bounded budget here. Cosmetic wart recorded: `variants.r_eq_3` and
+`variants.r_eq_4` both carry an **unused** `(r : ℕ) (hr : r ≥ 3)` binder while
+their statements use the literals 3 and 4; harmless, but the binder is dead.
+
+**1041.** The witness for the negation would be a single polynomial — finite —
+but the property to be certified is "**no** path of length `< 2` inside
+`{|f| < 1}` joins two roots", a statement about an uncountable path space. Not
+a replayable finite check, so it fails the METHOD Phase-0A gate even though the
+site marks the problem `FALSIFIABLE`; this is a triage-boundary disagreement,
+recorded rather than resolved. Faithfulness note: `({z₁, z₂} : Multiset ℂ) ≤
+f.roots` permits `z₁ = z₂` at a root of multiplicity `≥ 2`, and then the
+constant path has `μH[1] (range γ) = 0 < 2` with `‖f.eval z₁‖ = 0 < 1` — so the
+declaration is **trivially true for every polynomial with a repeated root**.
+The sibling `exists_connected_component_contains_two_roots` says "two roots
+with multiplicity", so this is internally consistent; but a counterexample
+search would be confined to squarefree `f`, and the source's "two of the roots"
+more likely means two distinct roots. Recorded as a weakening, not a defect.
+
+**1044 `fixed_degree`.** `IsLeast {L | ∃ f, IsAdmissible f ∧ f.natDegree = n ∧
+maxBoundaryLength f = L} (maxBoundaryLength (X^n − 1))` — refuting it means
+either exhibiting an admissible `f` of degree `n` with strictly smaller maximum
+component-boundary Hausdorff measure (an analytic quantity, not a finite
+computation) or showing the value is not attained. No finite certificate.
+Faithfulness clean: site says Tang "suggests" exactly this and proves `n = 1,2`,
+which is precisely how the file splits `fixed_degree` (open) from
+`fixed_degree_of_le_two` (solved); `X^n − 1 = ∏(X − ζ^i)` with `|ζ^i| = 1` is
+admissible under `IsAdmissible` (`‖z i‖ ≤ 1`, non-strict) ✓.
+
+**1113 `filaseta_finch_kozek`.** Negation needs a `k` that is (a) proved
+Sierpiński — itself a `∀ n` compositeness claim — (b) proved to have **no**
+finite covering set, and (c) not a perfect power. (b) is not finitely
+certifiable. Definitions check out: `Nat.IsSierpinskiNumber k = ¬2∣k ∧ ∀ n,
+(k*2^n+1).Composite` matches the site's "positive odd `m` such that none of
+`2^k m + 1` are prime"; `HasFinitePrimeCoveringSet` matches "every `2^k m + 1`
+is divisible by some `p ∈ P`"; and `Nat.IsPerfectPower n ↔ n > 1 ∧
+n.primeFactors.gcd n.factorization > 1` is a proper perfect-power predicate
+with **no** `k = k^1` loophole (checked: `¬IsPerfectPower 0/1/2` are `decide`d
+in `FormalConjecturesForMathlib/Data/Nat/PerfectPower.lean`). The site's own
+evidence example, `m = 734110615000775^4`, is a perfect power, consistent with
+the FFK conjecture as stated. No divergence.
+
+**1135.** `type_of% CollatzConjecture.collatz_conjecture`, i.e.
+`∀ n > 0, ∃ m, collatzStep^[m] n = 1` with `collatzStep n = if Even n then n/2
+else 3*n+1`. A cycle avoiding 1 would be a finite certificate, so this is
+finitely refutable in principle — prior-art stop (verified past `2^68`).
+Faithfulness note: the site states the **shortcut** map `f(n) = n/2` (even),
+`(3n+1)/2` (odd), while the Lean uses the unaccelerated `3n+1`. These are
+equivalent for the property in question, because `3n+1` is even whenever `n` is
+odd, so one shortcut step equals two unaccelerated steps and the two orbits hit
+1 together. Not a defect.
 
