@@ -22,6 +22,12 @@ All four problems are `open` on the site and in the `teorth/erdosproblems`
 Diff sizes: 33 `+6/-3`, 15 `+6/-1`, 477 `+5/-5`, 952 `+1/-1`. One file each, no
 bundled changes. Each body carries the AI assistance disclosure and `Fixes #NNNN.`
 
+**CI settled 2026-08-15: all four PRs are green on all 7 checks** — `Build project`,
+`Test scripts`, `check-copyright`, `check-changes`, `scan-pr`, `labeler`,
+`cla/google` — and all four report `MERGEABLE`. So the authoritative full-project
+`lake build` agrees with the read-only type-check described below, on every one of
+the four.
+
 ## The one substantive correction: issue #4978's witness was wrong
 
 The ledger and issue #4978 claim `A = ℕ` trivially satisfies
