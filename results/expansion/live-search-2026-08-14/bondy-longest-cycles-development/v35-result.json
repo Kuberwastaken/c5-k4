@@ -1,0 +1,48 @@
+{
+  "schema": "bondy_v35_result_receipt_v1",
+  "classification": "VERIFIED_FROZEN_DOMAIN_EXHAUSTION",
+  "freeze_commit": "3be87c143b41f455346087786b02faa12ca548df",
+  "disabled": {
+    "run_id": 31857412193,
+    "status": "PASS",
+    "artifact_id": 9239477316,
+    "archive_digest": "sha256:788edf29164c8de2a0cd90b6736d96102c4824578497952b5096a521e9aae4f2",
+    "attestation_sha256": "32fc56ca81e9aa88fd6a627895d8a63c78a67a85ef503e6341167ade325f3124",
+    "checks": 18,
+    "open_pull_bindings": 275,
+    "target_path_matches": 0
+  },
+  "enabled": {
+    "run_id": 31857501706,
+    "status": "PASS",
+    "terminal": "DOMAIN_EXHAUSTED",
+    "constructor_rows": 96,
+    "constructor_limit": 96,
+    "applicable": 22,
+    "duplicate_isomorphic": 74,
+    "evaluated": 22,
+    "candidates": 0,
+    "artifact_id": 9239509231,
+    "archive_digest": "sha256:ec031e084968ca090ae2815070abdcc8b61e7860f38d133eeb07aa323896a090",
+    "ledger_rows": 120,
+    "ledger_head": "24a7ed9a418b8eb5145069b7c0ad4100a5f2cc46e61bdd15f8ced454f80bbba1",
+    "manifest_sha256": "2a4432487c6bb7752ec5fbbb41b300a7257ee67d4514355fd84168f4aa18f62f",
+    "ledger_sha256": "e640ce495ad6be29b89b60ab444790c5fa2fdf16ae80afc13082d309325889fd",
+    "source_attestation_sha256": "8f2ec1265c569d9f9e3bca01b0585cb71ef53506b9d2817e74cf771d63926614",
+    "post_target_safeguard_sha256": "080a7061edb6e7ba55f0414ab5ea811cb4b208304b40d377cf335c1d390bfff5",
+    "terminal_sha256": "abdde8ad5483a280091f64e42895533dd0d91b0f18667f2dedb4b516a756ce88",
+    "verification_sha256": "88ed00d6521e5c4b02cfa54d2dcb27d9eead1d55a35de0e5b1d62a7fadffa8b6",
+    "verification_status": "TERMINAL_VERIFIED",
+    "post_target_checks": 7,
+    "completed_row_rejections": {
+      "classification": "HAMILTONIAN_PATH_UPPER_REJECTED",
+      "count": 22,
+      "dfs_expansions_each": 20,
+      "removed_set": [],
+      "path_cover_number": 1
+    }
+  },
+  "release": false,
+  "mathematical_claim": false,
+  "bounded_claim": "no counterexample in the exact frozen 96-row balanced-rewiring grammar"
+}

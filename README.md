@@ -51,8 +51,8 @@ tight as **local maps of conjecture space**:
    independent exact recomputation, source recovery, and a no-`sorry` Lean
    certificate.
 
-That procedure has now produced four prospective structural transfers and one
-prospective theorem recovery, not merely retrospective explanations of the
+That procedure has now produced four prospective structural transfers and two
+prospective theorem recoveries, not merely retrospective explanations of the
 original four kills:
 
 | Tightness map | Obstruction exposed | Deliberate separating family | New crossing |
@@ -62,6 +62,7 @@ original four kills:
 | regular clique blow-ups in the independent-domination cluster | center geometry and the Caro--Wei correction move together | nonuniform `P₇` clique blow-ups | #430a |
 | stars on the Graffiti³ closed-distance-two GA wall | one hub keeps every spoke term at equality | split the hub into adjacent unequal centers (double stars) | Graffiti³ Conjecture 2; `DS(k,k)` fails for every `k>=12` |
 | repeated equality in #438b | matching edges seem able to evade both induced-subgraph corrections | low-degree false-twin layer | no crossing: the attempted separation yields a stronger arbitrary-subset theorem proving #438b |
+| Bondy balanced rewiring | every surviving peripheral graph is the union of two `C4`-factors | factor-incidence scaffold and compatible Euler tours | no crossing: the whole connected `C4/C4` coordinate is Hamiltonian |
 
 The `P₇` crossing was the first replication in a substantially different
 conjecture cluster of the same prospective pattern
@@ -106,10 +107,139 @@ The protocol and exact audit are in [`METHOD.md`](METHOD.md) and
 The first certificate-gated non-graph exact trial is also public. A normalized
 solver reproducing the current Catch-Up declaration passed source calibration
 through `N=20` and an independent recurrence audit. Under isolated 60-second
-GitHub Actions jobs, `N=23` is an exact draw after 95,451,689 memo states;
-`N=24` remains an explicit timeout bracket. This is a method result—not a
-counterexample or release—and its raw incremental evidence is preserved in
-[`catchup_n23_n24_report.md`](results/expansion/catchup_n23_n24_report.md).
+GitHub Actions jobs, `N=23` is an exact draw after 95,451,689 memo states. A
+subsequent parity-packed representation then closed the old `N=24` timeout
+bracket: independent artifact replay verifies an exact draw after 199,721,295
+memo states and 1,845,920,291 calls in 21.00 seconds. This is a bounded method
+result—not a proof of the universal conjecture, counterexample, or release.
+The original bracket is preserved in
+[`catchup_n23_n24_report.md`](results/expansion/catchup_n23_n24_report.md), and
+the superseding evidence is in the
+[`N=24 result`](results/expansion/live-search-2026-08-14/catchup-n24-parity-packed-development/result.md).
+
+The active graph-theory rotation now targets the formalized Bondy
+longest-cycles declaration from arXiv:2606.03696. Its
+[`sharp-family audit`](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/math-audit.md)
+shows that the source family
+misses the rounded degree premise by exactly one, so the frozen construction
+is designed to perform balanced edge surgery and would use exact subset dynamic
+programming to test the required four-vertex path-deletion bound. The first
+workflow run is
+deliberately classified as
+[`INVALID_PRE_EVALUATION_SOURCE_DRIFT`](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/invalid-run-31845837185.md):
+unrelated commits moved upstream `main`, the candidate job was skipped, and
+zero target rows or artifacts were produced. The replacement v3 gate was then
+sealed around descendant-history plus complete semantic-import/toolchain
+continuity, but its disabled live run failed before evaluation because it
+expected a nonexistent top-level `tree` in GitHub's commits REST response;
+that exact failure is preserved in the
+[`v3 invalid-run record`](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/invalid-run-31849777027.md).
+The independently audited, default-disabled
+[`v3.1 contract`](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/CONTRACT.md)
+corrected the REST shape and passed its static and target-free tests. Its first
+disabled live run reached the semantic-import continuity check, then failed
+closed on an external Lean import missing from the frozen prefix model; the
+target again remained skipped and zero artifacts were uploaded. See the
+[`v3.1 invalid-run record`](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/invalid-run-31850751842.md).
+The v3.2 supersession completed both brackets and produced a canonical
+attestation, but its deliberately conservative policy stopped because 45 open
+pull requests touched dependency or toolchain paths; none touched the exact
+target. That run remains invalid and is preserved in the
+[`v3.2 policy-stop record`](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/invalid-run-31852437717.md).
+Two independent audits then approved separating exact-target collision from
+non-gating dependency telemetry. The resulting v3.3 freeze passed all 61
+target-free tests, but two disabled live attempts reproducibly exhausted the
+60-second continuity-gate budget during the second complete open-pull
+snapshot. Both stopped before attestation or target execution and emitted no
+artifacts. See the
+[`v3.3 deadline-stop record`](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/invalid-runs-31854544552-31854645706.md).
+The independently audited v3.4 gate removed only the redundant second file-
+catalogue download: one complete rename-aware catalogue is now bound between
+exact open-pull identity snapshots, while the post-target safeguard still
+downloads a fresh complete catalogue. Its disabled run passed all 18 live
+checks. The enabled 48/54/60-second run then reached a verified `CAP_PREFIX`:
+22 of 96 constructor rows, 10 applicable rows, and nine completed target rows.
+All nine completed peripheral graphs had path-cover number one and were exact
+rejections; no candidate was found. This is useful optimization evidence, not
+a bounded hold, domain exhaustion, or mathematical result. The full hashes,
+cancelled-dispatch receipt, and standing are in the
+[`v3.4 result`](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/v34-result.md).
+That exact prefix then motivated a certificate-preserving v3.5 evaluator:
+a bounded deterministic spanning-path search may reject a row only after
+emitting an independently replayable path; any miss falls through to the
+unchanged full DP. V3.5 restarted at row zero with the same grammar and caps
+and exhausted all 96 rows. Exact isomorphism filtering retained 22 applicable
+graphs, and all 22 had a canonical spanning path, so every row was rejected
+with `pc(H)=1`. The verified `DOMAIN_EXHAUSTED`
+[`v3.5 result`](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/v35-result.md)
+retires this frozen balanced-rewiring catalogue. It remains a contaminated
+bounded zero—not a proof of the declaration or a release.
+The resulting equality signal has now been closed symbolically: every one of
+the 96 raw rows is the connected edge-disjoint union of two spanning
+`C4`-factors, and every such union is Hamiltonian. The proof turns factor
+cycles into a 4-regular incidence scaffold and applies a compatible Euler tour;
+an executable replay constructs and checks a Hamilton cycle in all 96 exact
+rows. See the
+[`C4`-factor theorem shadow](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/c4-factor-hamiltonicity-theorem.md).
+This retires every expansion that preserves the connected `C4/C4`
+factorization, not just the enumerated quotient catalogue.
+A warning-clean, no-`sorry`
+[`row-0 Lean certificate`](lean/BondyC4FactorHamiltonian.lean) confirms the
+finite formalization route. Packaging all 96 rows into one quantified
+`SimpleGraph.Hom` theorem hit the bounded proof-engineering cap, so the
+[`formalization status`](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/lean-formalization-status.md)
+records that partial scope explicitly rather than implying a general Lean
+proof.
+
+The next target-free coordinate reached Bondy's degree wall with
+`K_r join (c K_2)`, but failed the signed-separation gate. More generally, the
+degree premise forces every universal-separator/disconnected-lobe
+construction into a size range where a maximum peripheral path packing cannot
+leave a four-vertex path. The independently audited
+[`G3 strict stop`](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/next-coordinate-strict-stop.md)
+therefore retires that entire design class without making a circumference,
+`q_4`, or proposed-target call. A future Bondy arm must break both the
+compatible-Euler factorization and the universal-separator packing no-go.
+The next natural factor-breaking attempt—`s-1` minimum-order filler cliques
+plus one exceptional connected lobe—also fails symbolically: the exceptional
+lobe is forced traceable at degree at least three, while at degree one or two
+every residual four-vertex path displaces a shorter filler path. The audited
+[`one-exceptional-lobe stop`](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/one-exceptional-lobe-strict-stop.md)
+is deliberately limited to the universal-join grammar; arbitrary attachment
+systems remain unresolved and receive no target call without a stitching
+certificate.
+The exact continuity policy remains recorded in the
+[`v3 continuity audit`](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/tip-continuity-policy-audit.md).
+
+The next wall selected in parallel—the strong `n^(3/2)` bound for
+2-increasing triples—was stopped during design rather than promoted into a
+frozen search. Although `F(4)=8` is exact equality, complete insertion tests
+and two independent unrestricted models give `F(5)=10`, while a formal
+counterexample at five would require length 12. Because those target values
+were observed before the arm was frozen, this is logged as a
+[`PROTOCOL_DEVIATION / DEVELOPMENT` diagnostic](results/expansion/live-search-2026-08-14/sincreasing-tuples-development/n5-pre-freeze-diagnostic.md),
+not a scored bounded result, candidate, or release. The episode sharpens the
+method rule: verify that the next integer crossing remains reachable before
+freezing a wall-transfer search.
+
+The adjacent Erdős 373 factorial-product preflight stopped at the source and
+database gate. Its proposed finite band `17 <= n <= 256` is entirely inside
+the published unconditional verification range `n <= e^80`, while three open
+upstream pull requests touch the exact formal target path. It is therefore
+classified `CATALOGUE_CONTROL / STRICT_STOP_SOURCE_BOUND`: no `n >= 17` target
+was constructed or evaluated, and no search workflow, candidate, bounded
+result, or release exists. The global problem remains open above the published
+range. The proposed design and controlling-source audit are preserved in the
+[`preflight`](results/expansion/live-search-2026-08-14/erdos373-maximal-solution-development/preflight.md)
+and [`source-bound gate`](results/expansion/live-search-2026-08-14/erdos373-maximal-solution-development/source-bound-gate.md).
+
+Erdős 375 / Grimm's conjecture was also stopped before target evaluation.
+The proposed Hall-deficiency transfer through smooth numbers is already
+present in the published Laishram--Murty approach, while the new composite
+block idea has no target-free construction proving that its required
+simultaneous admissibility conditions are reachable. It is therefore a
+[`STRICT_STOP_DUPLICATE_AND_NO_CROSSING_REACHABILITY`](results/expansion/live-search-2026-08-14/erdos375-grimm-development/preflight.md),
+not a new arm, candidate, or release.
 
 The order-15 Latin Tableau zero has likewise been converted into theorem work:
 warning-clean Lean now proves the profile telescoping, binary-change,
@@ -171,6 +301,32 @@ fractions can therefore approach the wall but cannot cross it. This is a
 [theorem-shadow diagnosis](results/expansion/live-search-2026-08-14/oeis-a105565-heldout-theorem-shadow-preflight-20260814.md),
 not a completed proof of the exact Lean declaration: source-to-definition and
 finite-cutoff bridge lemmas remain to be formalized.
+
+The subsequent joint A109908/A109909 DEVELOPMENT trial tested the equivalent
+quadratic-prime declarations through a compact finite-prefix cover rather than
+independent integer scans. After an initial dispatch failed closed before any
+shard ran, the superseding content-locked run passed its live race gate and
+exhausted all 16 frozen shards. Independent replay verified all 17 artifact
+bundles and all 22 interval-admitted profiles: 15 ended at a composite escape and
+seven at a prime escape, with zero full covers, candidates, errors, or reached
+deadlines. This is a [bounded zero](results/expansion/live-search-2026-08-14/oeis-a109908-a109909-development/result.md),
+not a proof of either conjecture and not a release-worthy result.
+The post-run audit also found that every frozen profile's first uncovered
+position was already present in its target-free construction mask, so none
+could have reached the live acceptance condition. That exact arm is retired;
+future cover searches must pass a mandatory construction-prefix viability
+gate before dispatch. The run validates its evidence machinery but provides
+negligible evidence about either conjecture or the search method. See the
+[`post-run diagnosis`](results/expansion/live-search-2026-08-14/oeis-a109908-a109909-development/postrun-search-arm-diagnosis.md).
+
+OEIS A103151 was then considered as the next direct finite-universal reserve
+and deferred before evaluation. It is the classical Lemoine--Levy conjecture,
+has already been computationally checked through `10^9`, and the available
+finite-residue construction lacks the sharp least-escape wall required by the
+method. Barker sequences were rejected even earlier because GitHub-sized
+orders lie inside known theorem/computation ranges. The
+[`reserve preflight`](results/expansion/live-search-2026-08-14/oeis-a103151-reserve-preflight.md)
+records both stops; neither is a result or a release candidate.
 
 The executable rotation preceding A056777 was OEIS A231201, explicitly as a
 **contaminated DEVELOPMENT** continuation rather than a held-out trial. Both
@@ -257,7 +413,7 @@ now pauses instead of receiving another post-result universe expansion. The
 [v3 result](results/expansion/live-search-2026-08-14/oeis-a231201-v3-development/result.md)
 records the full evidence.
 
-The current DeepMind number-theory lane began with OEIS A056777. There the
+A later DeepMind number-theory lane began with OEIS A056777. There the
 squarefree semiprime equality wall algebraically collapses to the known
 prime-quadruple family, so the prospective search deliberately separates
 factor shape using
@@ -293,6 +449,19 @@ states had composite derived partners and large final identity gaps. This
 closes the frozen rank-one direction, not the full conjecture, and argues
 against merely widening the same value band. See the
 [v2 result](results/expansion/live-search-2026-08-14/oeis-a056777-v2-development/result.md).
+
+Two broader algebraic constructor proposals were then rejected by the new
+reachability-before-dispatch gate, without evaluating the conjecture target.
+The triple-versus-triple design enumerated 27,528,192 target-free constructor
+rows and found 749 integral intermediate rows but no allowed reconstructed
+prime block. The exponent-asymmetric power-versus-triple design enumerated
+10,967,040 profiles; every positive discriminant was nonsquare, so it produced
+no integer block product. The exact
+[`v3`](results/expansion/live-search-2026-08-14/oeis-a056777-v3-reachability/preflight.md)
+and
+[`v4`](results/expansion/live-search-2026-08-14/oeis-a056777-v4-reachability/preflight.md)
+receipts are both `STRICT_STOP_CROSSING_UNREACHABLE`. They save target and CI
+budget and are not bounded evidence about A056777 itself.
 
 The next independent DeepMind rotation, A067720, has now completed as another
 prospective DEVELOPMENT bounded zero. Its two frozen composite-successor
@@ -399,6 +568,18 @@ measure arm efficacy; it establishes that the current locally accumulated
 research corpus cannot serve as an uncontaminated held-out test under the
 frozen exclusion rule.
 
+A fresh strict rotation on 2026-08-15 confirmed that this is still the live
+state rather than a stale snapshot: upstream had not advanced beyond the
+latest 2026-08-14 audit pin, every one of the 728 clusters remained
+contamination-excluded, and both the graph and arithmetic/combinatorics
+qualified sets were empty. Recent pull requests
+were infrastructure work or already-claimed results, and a new issue marked a
+problem solved rather than opening a lane. The project therefore dispatched
+no placeholder search. See the
+[`graph strict stop`](results/expansion/live-search-2026-08-14/next-heldout-graph-rotation-strict-stop.md)
+and
+[`arithmetic strict stop`](results/expansion/live-search-2026-08-14/next-heldout-arithmetic-rotation-strict-stop.md).
+
 [Method v1.5](METHOD_V1_5_BENCHMARK.md) therefore moves the same preregistered
 twelve-cluster, three-arm experiment to a genuinely future DeepMind
 `formal-conjectures` cohort introduced after a new public P1 freeze. Its
@@ -410,6 +591,16 @@ host; no target has been consumed. V1.5 is still PRE-P1 and non-operational:
 live Object Lock/KMS/IAM, signing and TLS/OIDC service infrastructure,
 operational noninterference/custody receipts, final end-to-end acceptance, and
 the P1A/P1T/P1R activation chain and U1 publication remain outstanding.
+
+Separately, the adaptive live loop now has a frozen
+[`Method v1.5 empirical selector`](METHOD_V1_5_EMPIRICAL_SELECTOR.md). It hard-
+gates source eligibility, target-free constructor reachability, signed
+invariant separation, and exact replay before dispatch; it also retires
+saturated equality families and fixes a prospective next-ten falsification
+test. This is `DEVELOPMENT`, not the future-cohort benchmark. At its freeze,
+Bondy was the only legacy arm still worth completing; that exact arm is now
+exhausted, leaving no current score-qualified target. No second target is
+fabricated merely to keep a worker busy.
 
 The development record also publishes its zeroes. Method v0.2 found no
 crossing for #382e after 212,502 wall-directed substitutions, all connected
@@ -570,8 +761,8 @@ Forty-three separately capped GAP queries timed out and remain explicitly
 unevaluated. See the [C23 result](results/expansion/live-search-2026-08-14/graffiti3-conjecture23-result.md).
 
 The exact contracts, ledgers, corrections, stop reasons, and reports are under
-[`results/expansion/`](results/expansion/); the current portfolio and its
-scope limits are summarized in [`OVERARCHING_PLAN.md`](OVERARCHING_PLAN.md).
+[`results/expansion/`](results/expansion/); the programme scope and standing
+rules are summarized in [`OVERARCHING_PLAN.md`](OVERARCHING_PLAN.md).
 
 ### Method v0.8: prospective evidence without a crossing
 
@@ -691,11 +882,12 @@ Detailed artifacts:
 and
 [`method_v38_wow141_k33e_two_lift_parity_lean.md`](results/expansion/method_v38_wow141_k33e_two_lift_parity_lean.md).
 
-The workflow now has an explicit **proof-extraction** side as well. Active
-development is restricted to finite-graph declarations present in the current
-`formal-conjectures` corpus; the WoW I, Graph Brain, AutoGraphiX, and
-TxGraffiti sweeps below are retained as completed historical audits, not as
-DeepMind work queues.
+The workflow now has an explicit **proof-extraction** side as well. The active
+graph-theoretic proof-extraction queue is restricted to finite-graph
+declarations present in the current `formal-conjectures` corpus; the WoW I,
+Graph Brain, AutoGraphiX, and TxGraffiti sweeps below are retained as completed
+historical audits, not as DeepMind work queues. Separate current arithmetic
+and game lanes are labelled independently above.
 
 The current no-`sorry`, warning-clean Lean ladder includes:
 
@@ -1148,8 +1340,9 @@ provable and holds here with slack 8.
 (Readings and exact numbers per conjecture in
 [`results/open_sweep/`](results/open_sweep/).) A graph this tight against
 this many independent bounds is exactly the profile of a database-edge
-extremal object — Graffiti.pc "knew" this territory to m = 3 and
-conjectured right up against it.
+extremal object: the conjectured boundary follows the `C5[K_m]` family through
+exact equality at `m=3`, then fails at `m=4`. This behavior does not by itself
+establish that `C5[K_3]` was present in Graffiti.pc's historical database.
 
 ## What it does *not* close (the honest part)
 

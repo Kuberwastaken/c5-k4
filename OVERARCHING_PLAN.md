@@ -32,11 +32,26 @@ counterexample engine:
 
 ## Scope boundary
 
-Development targets must be existing graph statements from collections already
-represented in `google-deepmind/formal-conjectures`. In this campaign the main
-historical collection is **Written on the Wall II**. DeepMind's repository does
-not cover Written on the Wall I; WoW I and Graph Brain results therefore do not
-enter this programme's target queue or its methodological success count.
+Development targets must be existing statements from collections already
+represented in `google-deepmind/formal-conjectures`.
+
+**Scope amendment, 2026-08-15 (operator-directed):** the target queue now
+also includes the **OEIS** and **ErdosProblems** collections of that
+repository, alongside Written on the Wall II. The inventory of open
+declarations at upstream `2411d22e` is
+[`results/expansion/open_targets_oeis_erdos_20260815.json`](results/expansion/open_targets_oeis_erdos_20260815.json):
+460 files carrying `answer(sorry)` or `category research open`, of which 87
+are OEIS and 373 are ErdosProblems, and 438 are untouched by this campaign.
+Lane selection within that inventory follows the yield ordering in
+[`METHOD_V1_6.md`](METHOD_V1_6.md) §A1.
+
+The graph-theory statement of the research claim is unchanged; on these two
+collections the same equality/faithfulness machinery is applied to
+integer-sequence and combinatorial-number-theory declarations, and every
+result must say which of the four status coordinates it speaks to
+(`METHOD_V1_6.md` §A6). DeepMind's repository still does not cover Written on
+the Wall I; WoW I and Graph Brain results therefore remain outside this
+programme's target queue and its methodological success count.
 
 `formal-conjectures` is read-only for new discovery publication. Existing
 campaign pull requests may receive CI or review maintenance, but new results

@@ -1,0 +1,301 @@
+name: Catch-Up N24 parity-packed DEVELOPMENT
+
+on:
+  workflow_dispatch:
+    inputs:
+      campaign_commit:
+        description: Exact 40-hex c5-k4 commit containing the frozen arm
+        required: true
+        type: string
+      authorize_n24:
+        description: Explicitly enable the frozen N24 target after all gates
+        required: true
+        default: false
+        type: boolean
+      activation_token:
+        description: Frozen activation token; leave blank for target-free validation
+        required: false
+        default: ''
+        type: string
+
+permissions:
+  contents: read
+  issues: read
+  pull-requests: read
+
+env:
+  LC_ALL: C.UTF-8
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONHASHSEED: '0'
+  TZ: UTC
+
+jobs:
+  validate-frozen-arm:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Reject a movable execution ref
+        shell: bash
+        env: {CAMPAIGN_COMMIT: "${{ inputs.campaign_commit }}"}
+        run: |
+          set -euo pipefail
+          [[ "$CAMPAIGN_COMMIT" =~ ^[0-9a-f]{40}$ ]]
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: "${{ inputs.campaign_commit }}"
+          fetch-depth: 1
+          persist-credentials: false
+      - name: Verify exact checkout and immutable freeze
+        shell: bash
+        env: {CAMPAIGN_COMMIT: "${{ inputs.campaign_commit }}"}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$CAMPAIGN_COMMIT"
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+          python3 results/expansion/live-search-2026-08-14/catchup-n24-parity-packed-development/verify_freeze.py
+          python3 -m py_compile scripts/verify_catchup_parity_packed.py scripts/test_catchup_parity_packed.py
+      - name: Build warning-clean parity-packed solver
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/catchup-build"
+          g++ -std=c++20 -O3 -Wall -Wextra -Werror \
+            scripts/prospective_catchup_parity_packed.cpp \
+            -o "$RUNNER_TEMP/catchup-build/catchup-parity-packed"
+          sha256sum scripts/prospective_catchup_parity_packed.cpp \
+            "$RUNNER_TEMP/catchup-build/catchup-parity-packed"
+      - name: Run target-free unit and absolute-score comparisons
+        shell: bash
+        run: |
+          set -euo pipefail
+          PYTHONPATH=scripts timeout --signal=TERM --kill-after=3s 60s \
+            python3 -m unittest -v scripts/test_catchup_parity_packed.py
+          timeout --signal=TERM --kill-after=3s 60s \
+            python3 scripts/verify_catchup_parity_packed.py small-reference \
+              "$RUNNER_TEMP/catchup-build/catchup-parity-packed" --maximum 12
+      - name: Replay exact source controls through N20
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout --signal=TERM --kill-after=3s 60s \
+            "$RUNNER_TEMP/catchup-build/catchup-parity-packed" --source-controls \
+            > "$RUNNER_TEMP/source-controls.jsonl"
+          python3 - "$RUNNER_TEMP/source-controls.jsonl" <<'PY'
+          import json, pathlib, sys
+          rows=[json.loads(x) for x in pathlib.Path(sys.argv[1]).read_text().splitlines()]
+          got=[r['n'] for r in rows if r.get('event')=='result' and r.get('value')==0]
+          expected=[3,4,7,8,11,12,15,16,19,20]
+          if got != expected: raise SystemExit(f'source-control drift: {got}')
+          PY
+
+  current-source-status-gate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: "${{ inputs.campaign_commit }}"
+          fetch-depth: 1
+          persist-credentials: false
+      - name: Recheck exact source and live target bytes
+        shell: bash
+        env:
+          CAMPAIGN_COMMIT: "${{ inputs.campaign_commit }}"
+          GH_TOKEN: "${{ github.token }}"
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$CAMPAIGN_COMMIT"
+          gate="$RUNNER_TEMP/catchup-source-gate"; mkdir -p "$gate"
+          pinned='https://raw.githubusercontent.com/google-deepmind/formal-conjectures/6c0950bec7743f5098c0196c6aee7b22c1ec8005/FormalConjectures/Paper/CatchUpConjecture.lean'
+          live='https://raw.githubusercontent.com/google-deepmind/formal-conjectures/main/FormalConjectures/Paper/CatchUpConjecture.lean'
+          curl --fail --location --silent --show-error --retry 5 --retry-all-errors \
+            --connect-timeout 15 "$pinned" --output "$gate/pinned.lean"
+          curl --fail --location --silent --show-error --retry 5 --retry-all-errors \
+            --connect-timeout 15 "$live" --output "$gate/live.lean"
+          echo '7e940f2e37a1794e98fc21454096429da13243669a432b9239743aaf46f1d3c0  '"$gate/pinned.lean" | sha256sum --check
+          cmp "$gate/pinned.lean" "$gate/live.lean"
+          grep -F '@[category research open, AMS 11 91]' "$gate/live.lean"
+          grep -F 'theorem value_of_even_mul_succ_self_div_two' "$gate/live.lean"
+          grep -F 'sorry' "$gate/live.lean"
+          index=0
+          for query in \
+            'repo:google-deepmind/formal-conjectures CatchUp in:title,body' \
+            'repo:google-deepmind/formal-conjectures "Catch-Up" in:title,body' \
+            'repo:google-deepmind/formal-conjectures "Catch Up" game in:title,body' \
+            'repo:google-deepmind/formal-conjectures "N=24" CatchUp in:title,body' \
+            'repo:google-deepmind/formal-conjectures "N=24" "Catch-Up" in:title,body' \
+            'repo:google-deepmind/formal-conjectures "N = 24" "Catch-Up" in:title,body' \
+            'repo:google-deepmind/formal-conjectures N24 "Catch-Up" in:title,body' \
+            'repo:google-deepmind/formal-conjectures value_of_even_mul_succ_self_div_two in:title,body'; do
+            index=$((index + 1))
+            encoded=$(jq -rn --arg q "$query" '$q|@uri')
+            curl --fail --location --silent --show-error --retry 5 --retry-all-errors \
+              -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
+              "https://api.github.com/search/issues?q=$encoded&per_page=100" \
+              > "$gate/search-$index.json"
+          done
+          python3 - "$gate" <<'PY'
+          import json, pathlib, re, sys
+          root=pathlib.Path(sys.argv[1])
+          rows=[json.loads(path.read_text()) for path in sorted(root.glob('search-*.json'))]
+          allowed={1324,1325,4834}
+          items={item['number']:item for row in rows for item in row.get('items',[])}
+          seen={
+              number for number,item in items.items()
+              if re.search(r'\bcatch[\s-]?up\b', f"{item.get('title','')}\n{item.get('body','')}", re.I)
+              or 'value_of_even_mul_succ_self_div_two' in f"{item.get('title','')}\n{item.get('body','')}"
+          }
+          if seen != allowed:
+              raise SystemExit(
+                  f'Catch-Up issue/PR surface drift: expected {sorted(allowed)}, got {sorted(seen)}'
+              )
+          (root/'duplicate-ids.txt').write_text(' '.join(map(str,sorted(seen)))+'\n')
+          PY
+          (cd "$gate" && find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS)
+      - name: Upload source/status receipts
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: catchup-n24-source-gate-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/catchup-source-gate/
+          if-no-files-found: error
+          retention-days: 90
+
+  n23_exact_performance_gate:
+    needs: [validate-frozen-arm, current-source-status-gate]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      passed: ${{ steps.replay.outputs.passed }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: "${{ inputs.campaign_commit }}"
+          fetch-depth: 1
+          persist-credentials: false
+      - name: Build exact solver
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/n23"
+          g++ -std=c++20 -O3 -Wall -Wextra -Werror \
+            scripts/prospective_catchup_parity_packed.cpp \
+            -o "$RUNNER_TEMP/n23/solver"
+          sha256sum scripts/prospective_catchup_parity_packed.cpp \
+            "$RUNNER_TEMP/n23/solver" > "$RUNNER_TEMP/n23/solver.sha256"
+      - name: Reproduce N23 value, states, calls, and performance
+        id: replay
+        shell: bash
+        env: {CAMPAIGN_COMMIT: "${{ inputs.campaign_commit }}"}
+        run: |
+          set +e
+          /usr/bin/time -v -o "$RUNNER_TEMP/n23/resources.txt" \
+            timeout --signal=TERM --kill-after=3s 43s \
+            "$RUNNER_TEMP/n23/solver" --n23-gate --campaign-commit "$CAMPAIGN_COMMIT" \
+            > "$RUNNER_TEMP/n23/ledger.jsonl" 2> "$RUNNER_TEMP/n23/stderr.txt"
+          solve_code=$?
+          verify_code=1
+          if [[ "$solve_code" -eq 0 ]]; then
+            timeout --signal=TERM --kill-after=3s 60s \
+              python3 scripts/verify_catchup_parity_packed.py ledger \
+                "$RUNNER_TEMP/n23/ledger.jsonl" --n 23 --campaign-commit "$CAMPAIGN_COMMIT" \
+                > "$RUNNER_TEMP/n23/independent-verification.txt" 2>&1
+            verify_code=$?
+          fi
+          printf '{"solve_exit_code":%s,"verify_exit_code":%s}\n' "$solve_code" "$verify_code" \
+            > "$RUNNER_TEMP/n23/execution-status.json"
+          (cd "$RUNNER_TEMP/n23" && find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS)
+          if [[ "$solve_code" -eq 0 && "$verify_code" -eq 0 ]]; then
+            echo 'passed=true' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo 'passed=false' >> "$GITHUB_OUTPUT"
+          exit 1
+      - name: Upload complete N23 gate evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: catchup-n23-parity-gate-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/n23/
+          if-no-files-found: error
+          retention-days: 90
+
+  n24_frozen_target:
+    if: ${{ inputs.authorize_n24 && inputs.activation_token == 'AUTHORIZE_FROZEN_CATCHUP_N24_V1' && needs.n23_exact_performance_gate.outputs.passed == 'true' }}
+    needs: [n23_exact_performance_gate]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: "${{ inputs.campaign_commit }}"
+          fetch-depth: 1
+          persist-credentials: false
+      - name: Verify exact campaign SHA and activation
+        shell: bash
+        env:
+          CAMPAIGN_COMMIT: "${{ inputs.campaign_commit }}"
+          ACTIVATION_TOKEN: "${{ inputs.activation_token }}"
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$CAMPAIGN_COMMIT"
+          test "$ACTIVATION_TOKEN" = 'AUTHORIZE_FROZEN_CATCHUP_N24_V1'
+          python3 results/expansion/live-search-2026-08-14/catchup-n24-parity-packed-development/verify_freeze.py
+      - name: Build exact solver
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/n24"
+          g++ -std=c++20 -O3 -Wall -Wextra -Werror \
+            scripts/prospective_catchup_parity_packed.cpp \
+            -o "$RUNNER_TEMP/n24/solver"
+          sha256sum scripts/prospective_catchup_parity_packed.cpp \
+            "$RUNNER_TEMP/n24/solver" > "$RUNNER_TEMP/n24/solver.sha256"
+      - name: Run frozen N24 target under 54/60-second caps
+        shell: bash
+        env:
+          CAMPAIGN_COMMIT: "${{ inputs.campaign_commit }}"
+          ACTIVATION_TOKEN: "${{ inputs.activation_token }}"
+        run: |
+          set +e
+          /usr/bin/time -v -o "$RUNNER_TEMP/n24/resources.txt" \
+            timeout --signal=TERM --kill-after=3s 60s \
+            "$RUNNER_TEMP/n24/solver" --n24-target \
+              --campaign-commit "$CAMPAIGN_COMMIT" \
+              --activation-token "$ACTIVATION_TOKEN" \
+              --certificate "$RUNNER_TEMP/n24/strategy-dag.jsonl" \
+            > "$RUNNER_TEMP/n24/ledger.jsonl" 2> "$RUNNER_TEMP/n24/stderr.txt"
+          solve_code=$?
+          verify_code=1
+          case "$solve_code" in
+            0|75)
+              timeout --signal=TERM --kill-after=3s 60s \
+                python3 scripts/verify_catchup_parity_packed.py ledger \
+                  "$RUNNER_TEMP/n24/ledger.jsonl" --n 24 \
+                  --campaign-commit "$CAMPAIGN_COMMIT" \
+                  --certificate "$RUNNER_TEMP/n24/strategy-dag.jsonl" \
+                  > "$RUNNER_TEMP/n24/independent-verification.txt" 2>&1
+              verify_code=$?
+              ;;
+          esac
+          status=UNEXPECTED_FAILURE
+          [[ "$solve_code" -eq 0 && "$verify_code" -eq 0 ]] && status=EXACT_VERIFIED_RESULT
+          [[ "$solve_code" -eq 75 && "$verify_code" -eq 0 ]] && status=TIMEOUT_BRACKET
+          [[ "$solve_code" -eq 70 ]] && status=RESOURCE_BAD_ALLOC
+          [[ "$solve_code" -eq 124 || "$solve_code" -eq 137 || "$solve_code" -eq 143 ]] && status=EXTERNAL_TERMINATION_BRACKET
+          printf '{"campaign_commit":"%s","solve_exit_code":%s,"verify_exit_code":%s,"status":"%s","internal_cap_seconds":54,"external_cap_seconds":60}\n' \
+            "$CAMPAIGN_COMMIT" "$solve_code" "$verify_code" "$status" \
+            > "$RUNNER_TEMP/n24/execution-status.json"
+          (cd "$RUNNER_TEMP/n24" && find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS)
+          case "$status" in
+            EXACT_VERIFIED_RESULT|TIMEOUT_BRACKET|RESOURCE_BAD_ALLOC|EXTERNAL_TERMINATION_BRACKET) exit 0 ;;
+            *) exit 1 ;;
+          esac
+      - name: Upload complete incremental N24 evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: catchup-n24-parity-packed-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/n24/
+          if-no-files-found: error
+          retention-days: 90

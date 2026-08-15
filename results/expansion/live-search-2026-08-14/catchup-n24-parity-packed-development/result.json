@@ -1,0 +1,185 @@
+{
+  "schema": "catchup-n24-parity-packed-result-v1",
+  "classification": {
+    "research": "HOLD_BOUNDED",
+    "computation": "EXACT_VERIFIED_DRAW",
+    "resolution": "NON_RESOLUTION",
+    "release": "NO_RELEASE"
+  },
+  "run": {
+    "repository": "Kuberwastaken/c5-k4",
+    "id": 31838019833,
+    "attempt": 1,
+    "event": "workflow_dispatch",
+    "branch": "main",
+    "head_sha": "0c35c4220d6b0ba62b84769ef6658c28de0cb890",
+    "campaign_commit": "0c35c4220d6b0ba62b84769ef6658c28de0cb890",
+    "status": "completed",
+    "conclusion": "success",
+    "created_at": "2026-08-14T20:27:56Z",
+    "started_at": "2026-08-14T20:27:56Z",
+    "updated_at": "2026-08-14T20:29:11Z",
+    "url": "https://github.com/Kuberwastaken/c5-k4/actions/runs/31838019833",
+    "jobs": [
+      {
+        "name": "current-source-status-gate",
+        "duration_seconds": 12,
+        "conclusion": "success"
+      },
+      {
+        "name": "validate-frozen-arm",
+        "duration_seconds": 13,
+        "conclusion": "success"
+      },
+      {
+        "name": "n23_exact_performance_gate",
+        "duration_seconds": 20,
+        "conclusion": "success"
+      },
+      {
+        "name": "n24_frozen_target",
+        "duration_seconds": 31,
+        "conclusion": "success"
+      }
+    ]
+  },
+  "frozen_source": {
+    "upstream_commit": "6c0950bec7743f5098c0196c6aee7b22c1ec8005",
+    "upstream_tree": "5af0d2a3a319ee2458f8cd061db7c49aeba1b35e",
+    "source_blob": "ce8251a228ea79a6b2f8414e9eb6b5291a640677",
+    "source_sha256": "7e940f2e37a1794e98fc21454096429da13243669a432b9239743aaf46f1d3c0"
+  },
+  "replay": {
+    "python_version": "3.12.13",
+    "n23": {
+      "n": 23,
+      "mode": "n23_performance_gate",
+      "terminal_event": "result",
+      "value": 0,
+      "value_name": "draw",
+      "verifier_status": "PASS_N23_GATE",
+      "solve_exit_code": 0,
+      "verify_exit_code": 0,
+      "matches_frozen_gate": true,
+      "memo_states": 95451689,
+      "calls": 826741149,
+      "memo_bytes": 33554432,
+      "ledger_rows": 97,
+      "ledger_event_counts": {
+        "run_start": 1,
+        "memo_progress": 95,
+        "result": 1
+      },
+      "ledger_seconds": 8.95436057,
+      "ledger_start_rss_kib": 3524,
+      "ledger_terminal_rss_kib": 36412,
+      "resource_user_seconds": 8.95,
+      "resource_system_seconds": 0.0,
+      "resource_wall_seconds": 8.95,
+      "resource_max_rss_kib": 36296,
+      "internal_deadline_seconds": 38,
+      "external_cap_seconds": 43,
+      "resource_exit_status": 0,
+      "stderr_bytes": 0,
+      "certificate_emitted": false,
+      "strategy_dag_present": false
+    },
+    "n24": {
+      "n": 24,
+      "mode": "n24_target",
+      "terminal_event": "result",
+      "value": 0,
+      "value_name": "draw",
+      "execution_status": "EXACT_VERIFIED_RESULT",
+      "verifier_status": "PASS_EXACT_DRAW",
+      "solve_exit_code": 0,
+      "verify_exit_code": 0,
+      "matches_frozen_gate": true,
+      "memo_states": 199721295,
+      "calls": 1845920291,
+      "memo_bytes": 67108864,
+      "ledger_rows": 201,
+      "ledger_event_counts": {
+        "run_start": 1,
+        "memo_progress": 199,
+        "result": 1
+      },
+      "ledger_seconds": 21.003911,
+      "ledger_start_rss_kib": 3552,
+      "ledger_terminal_rss_kib": 69208,
+      "resource_user_seconds": 20.98,
+      "resource_system_seconds": 0.02,
+      "resource_wall_seconds": 21.01,
+      "resource_max_rss_kib": 69092,
+      "internal_deadline_seconds": 54,
+      "external_cap_seconds": 60,
+      "resource_exit_status": 0,
+      "stderr_bytes": 0,
+      "certificate_emitted": false,
+      "strategy_dag_present": false
+    },
+    "strategy_dag": {
+      "present": false,
+      "verified": false,
+      "reason": "Both exact outcomes are draws. The committed verifier requires no strategy DAG for a draw and rejects emitted DAG bytes; replay with the absent N24 certificate path passed PASS_EXACT_DRAW."
+    }
+  },
+  "artifacts": [
+    {
+      "name": "catchup-n24-source-gate-31838019833-1",
+      "id": 9233211622,
+      "size_bytes": 18907,
+      "archive_sha256": "8ee3b6ac5f7c9d714bef325564a620c3358fcf05079a4703effb042bf0b7cc21",
+      "checksummed_payload_files": 11,
+      "sha256sums_verified": true,
+      "manifest_exhaustive": true
+    },
+    {
+      "name": "catchup-n23-parity-gate-31838019833-1",
+      "id": 9233222732,
+      "size_bytes": 25891,
+      "archive_sha256": "ba5fbf84e6fe085fe17f87fc77674c37ce6f2bffd02c767e837c17b42988a030",
+      "checksummed_payload_files": 7,
+      "sha256sums_verified": true,
+      "manifest_exhaustive": true
+    },
+    {
+      "name": "catchup-n24-parity-packed-31838019833-1",
+      "id": 9233237579,
+      "size_bytes": 27785,
+      "archive_sha256": "66e02d500e08f835f1b9b523e6eee72bdee505ed1e1da8a18a223abb96b863b5",
+      "checksummed_payload_files": 7,
+      "sha256sums_verified": true,
+      "manifest_exhaustive": true
+    }
+  ],
+  "source_status_gate": {
+    "pinned_live_byte_identical": true,
+    "pinned_sha256": "7e940f2e37a1794e98fc21454096429da13243669a432b9239743aaf46f1d3c0",
+    "live_sha256": "7e940f2e37a1794e98fc21454096429da13243669a432b9239743aaf46f1d3c0",
+    "required_open_category_present": true,
+    "required_theorem_present": true,
+    "sorry_occurrences": 1,
+    "search_total_counts": [1, 4, 3, 0, 0, 0, 0, 0],
+    "unique_returned_ids": [1324, 1325, 4834, 4862],
+    "accepted_ids": [1324, 1325, 4834],
+    "duplicate_ids_receipt": [1324, 1325, 4834],
+    "filtered_ids": [
+      {
+        "id": 4862,
+        "title": "ErdosProblems/973: the answer is no",
+        "reason": "Irrelevant to Catch-Up and rejected by the frozen Catch-Up/theorem-name semantic predicate."
+      }
+    ],
+    "offline_replay": "PASS"
+  },
+  "provenance": {
+    "verifier_git_blob": "df7fdeb70a0d7fbd962c378b98e3eab3007f2988",
+    "verifier_sha256": "af30c4f9c06eb6e10bb765ef54818c4a9e106b8ce64c2b426d8e6ec171543cae",
+    "solver_source_sha256": "19648cd806fcbe5f42ab7ccb1ffbf2690406c0a58fd178b21bfd0336480e6bc3",
+    "n23_solver_binary_sha256": "8ac6b633d11bf23d1d8024214cbb15cf849be51379c94ce4f73ff746b6db503e",
+    "n24_solver_binary_sha256": "8ac6b633d11bf23d1d8024214cbb15cf849be51379c94ce4f73ff746b6db503e",
+    "solver_binaries_byte_identical": true
+  },
+  "interpretation": "The frozen N24 game is exactly verified as a draw. This is a bounded computational hold, not a proof or disproof of the general Catch-Up conjecture, and it authorizes no release."
+}

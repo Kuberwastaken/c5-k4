@@ -1,0 +1,32 @@
+{
+  "schema": "bondy_source_status_attestation_v3_5",
+  "seal_version": "bondy-longest-cycles-development-v3.5",
+  "supersedes": "bondy-longest-cycles-development-v3.4",
+  "status": "PENDING_AUTHENTICATED_LIVE_GATE_V35",
+  "audit_date_utc": "2026-08-15",
+  "live_gate_schema": "bondy_source_status_duplicate_gate_tip_continuity_v3_5",
+  "historical_upstream": {
+    "commit": "b5acb0ff13e38084105b7fe020ba0d59c1925bc5",
+    "tree": "4f6c9bd17fdfdc264f54b26862ce768743da5d63",
+    "path": "FormalConjectures/Arxiv/2606.03696/BondyLongestCycles.lean",
+    "blob": "c4c5cb1983936860d5a4a7208b3f04bd201290d4"
+  },
+  "last_audited_live_upstream": {
+    "commit": "2411d22e1bd550d050d0eac6c1fb379a76a3e7c5",
+    "tree": "f6b52f1d3f63b365d6f8c405623d5f7a4e674efc"
+  },
+  "semantic_closure_sha256": "aa420ecaae62d6e55f0b6f5f1d6555183a4c5246fe998975f0a0e58ca3e88cd8",
+  "toolchain_sha256": "3221ee3df4f1c1a23f5eddcddb22cce96a00543c432f7310366b88444406e0c6",
+  "external_revisions_sha256": "4baee9cf677780f654f3d1e4413346482853ad52874add3a7cecf6ed04a4bfe6",
+  "activation_token_sha256": "717e4c7c1affdd0335a3edc773c8f5aa21c76c352b8d5ee629b89e84b8286861",
+  "activation_transport": "REQUIRED_V35_ACTIONS_SECRET_TO_EXACT_ENVIRONMENT_ONLY_NO_DISPATCH_OR_CLI",
+  "prior_result": {
+    "path": "results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/v34-result.json",
+    "sha256": "c4504095afbc8e5e65b3f0bb68d5dc31f715e10e0b9ff9037b9335ddfe67f6df",
+    "classification": "VERIFIED_CAP_PREFIX",
+    "run_id": 31855904650
+  },
+  "live_gate_caveat": "Run 31855904650 is a verified v3.4 capped prefix, not a reusable PASS. No v3.5 attestation exists; v3.5 must restart at row zero behind a fresh stable single-catalogue pre-gate and fresh full post-target safeguard.",
+  "workflow_enabled_by_default": false,
+  "target_evaluated": false
+}

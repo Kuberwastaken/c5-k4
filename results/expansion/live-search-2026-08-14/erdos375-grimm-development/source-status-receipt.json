@@ -1,0 +1,68 @@
+{
+  "schema": "c5k4-erdos375-grimm-development-source-status-1.0",
+  "audit_date_utc": "2026-08-14",
+  "evaluation_state": "NOT_EVALUATED",
+  "disposition": "STRICT_STOP_DUPLICATE_AND_NO_CROSSING_REACHABILITY",
+  "formal_conjectures": {
+    "repository": "google-deepmind/formal-conjectures",
+    "commit": "2411d22e1bd550d050d0eac6c1fb379a76a3e7c5",
+    "tree": "f6b52f1d3f63b365d6f8c405623d5f7a4e674efc",
+    "commit_date": "2026-08-14T19:16:38Z",
+    "path": "FormalConjectures/ErdosProblems/375.lean",
+    "blob": "e68e24b79463a32b5c61c101fef737bd86d0cc97",
+    "bytes": 4217,
+    "sha256": "59e7516bf4dd5cf3e7eabbfcfc8f13f9cfda33446fd2f5c844cf36edd3bd2c7c",
+    "declaration": "Erdos375.erdos_375",
+    "category": "research open"
+  },
+  "erdosproblems": {
+    "repository": "teorth/erdosproblems",
+    "commit": "3cbe2cffad0267952de3523089549009ea6fe5dc",
+    "tree": "f7932ab6470b175d527155029193ab245885057b",
+    "commit_date": "2026-08-14T22:13:30Z",
+    "problem": 375,
+    "status": "FALSIFIABLE Open",
+    "incorporated_verification_upper_n": 19000000000,
+    "comment_solution_claims": 0
+  },
+  "primary_duplicate_source": {
+    "title": "Grimm's Conjecture and Smooth Numbers",
+    "authors": ["Shanta Laishram", "M. Ram Murty"],
+    "arxiv": "1306.0765v1",
+    "pdf_sha256": "70fd0c5704d23aa7f4066b036e3ce81974af1688ee56465b1e33328e33740586",
+    "pdf_pages": 17,
+    "pdf_type": "text_based",
+    "pages_needing_ocr": [],
+    "has_encoding_issues": false,
+    "overlap": "Lemma 2.4 transfers excess smooth numbers over available primes in a short interval to failure of prime representation."
+  },
+  "open_pull_requests_touching_exact_path": [
+    {
+      "number": 4428,
+      "title": "chore: bump to v4.32.0",
+      "resolution_claim": false
+    },
+    {
+      "number": 4004,
+      "title": "chore(FormalConjectures): use LaTeX rather than markdown in docstrings",
+      "resolution_claim": false
+    }
+  ],
+  "benchmark_identity": {
+    "cluster_id": "fc-module:FormalConjectures/ErdosProblems/375",
+    "identity_sha256": "fabf45dc5c7de91bcbfdf2bdc43a4df11eb464f7ca27baaa4108450a32ac3976",
+    "eligible": false,
+    "semantic_exposure": true,
+    "unknown_exposure": true
+  },
+  "preflight": {
+    "target_instances_read": 0,
+    "broad_n_scan": false,
+    "exponent_box_enumerated": false,
+    "target_free_negative_sign_implication": true,
+    "target_free_family_realizability": false,
+    "full_composite_block_reachability": false,
+    "workflow_dispatched": false,
+    "candidate": null
+  }
+}

@@ -263,6 +263,26 @@ before construction: a symbolic parameter range where the residual can turn
 negative, a quotient/ILP feasible point with negative objective, or a local
 edit derivative that is negative while every premise remains feasible.
 
+Every discrete arm must then pass a **crossing-reachability gate before
+dispatch**. Convert the strict violation into the smallest integer certificate
+that could cross it—for example `floor(RHS)+1` vertices, terms, covered
+positions, or units of residual—and use target-free constructor metadata to
+show that at least one frozen state is not already incapable of reaching that
+threshold. Exact equality at one parameter does not imply that the next
+integer threshold is reachable. Likewise, a larger beam or interval cannot
+repair a construction whose own prefix mask already proves an early escape.
+If every frozen state is ruled out by this gate, stop without target
+evaluation and redesign the transformation.
+
+The A109908/A109909 cover arm motivates the prefix form of this rule: every
+profile already had a construction-time uncovered position, so dispatch could
+only replay a known failure. The strong 2-increasing-tuples development
+diagnostic motivates the integer form: `F(4)=8` is exact equality, but the
+next proposed crossing at `n=5` required length 12 while exact pre-freeze
+diagnostics found maximum length 10. Because the latter target values were
+observed before a contract was frozen, they remain a protocol deviation and
+cannot be retroactively scored as a bounded trial.
+
 The prediction itself is an auditable outcome. If every tested coordinate
 matches a frozen closed form, record `PREDICTION_CONFIRMED` even when the family
 moves safely away from the wall. If the prescribed construction is exactly
