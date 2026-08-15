@@ -477,3 +477,358 @@ answers, while the declarations state the other half.
   `W_3_20_lower`…`W_3_39_lower` source check; Arxiv 2107.00295 regular-vs-maxDegree
   check.
 - Nothing written upstream. No `lake build`. No commits.
+
+---
+
+## Triage — pass 2 (Arxiv 24, Paper 23, OpenQuantumProblems 3)
+
+### Arxiv (24) — the finite head
+
+| Path | Open decls | Verdict |
+|---|---|---|
+| `Arxiv/2501.03234/ArithmeticSumS.lean` | `conjecture_1_1`, `4_1`, `4_2`, `4_3`, `4_4` | **FIN — computed, see D7.** `S(k)` is an exact double sum over `1 ≤ h, j < k`. |
+| `Arxiv/2607.05739/TanArctanSum.lean` | `tan_arctan_sum_not_integer` | **FIN — computed, see D8.** `IsIntegerValue n := A n ∣ B n` with `A, B` the real/imaginary parts of `∏(1+ik)` in `ℤ[i]`; exact integer arithmetic. |
+| `Arxiv/1601.03081/UniqueCrystalComponents.lean` | `crystals_components_unique` | **FIN — computed, see D9.** Counterexample is one odd `n` with two admissible factorisations. |
+| `Arxiv/2606.03696/BondyLongestCycles.lean` | `bondy_conjecture` | FIN. **Already worked by this campaign** — METHOD_V1_6 §A3 uses "the Bondy exceptional-lobe coordinate" as its worked example of a surgery that dies on a sign check (joining two peripheral `K₂` lobes creates the intended `P₄` but drops the lobe pair's path-cover cost from two to one). Not re-opened. Statement re-checked and faithful: `k*(k-1)` elaborates in `ℝ` (no `ℕ`-truncation), the `+ 1 ≤ k` encoding of "at most `k-1` vertices" is documented, and `variants.one` is vacuous exactly because Dirac forces a Hamiltonian cycle. |
+| `Arxiv/2605.02731/DeanCycles.lean` | `dean_conjecture`, `.variants.five` | FIN. `k = 5` is the only open case (the file says so and lists the other cases as solved). Counterexample is one finite graph with `minDegree ≥ 5` and no cycle length divisible by 5; needs a graph generator (no `nauty` on this box). The `m = 0` trivial-truth loophole is closed by the file's own docstring reasoning (a cycle has length ≥ 3). |
+| `Arxiv/2604.08040/Conjecture5_5.lean` | `solvable_of_cyc_lt` | FIN, blocked on tooling. Counterexample is a finite non-solvable `G` with `cyc(G) < 2^{π(G)+2}`. `cyc` re-derived by hand for `A₅`: `1 + 15 + 10 + 6 = 32`, matching the file's `cyc_alternatingGroup_five`, and `2^{3+2} = 32`, so `A₅` misses by exactly one — as the file states. Checked the obvious neighbours by hand: `SL(2,5)` has `cyc = 49`, `PSL(2,7)` has `cyc = 79`, both `> 32`; and `cyc(A₅ × C_p) = 64 = 2^{4+2}` for a new prime `p`, again exactly on the boundary. No counterexample without a small-groups library (GAP absent). |
+| `Arxiv/2607.05349/MicroscopicWeighting.lean` | `microscopic_weighting_iff_finite_concentration` | FIN. Certificate is a finite metric space where the gauging exists but `(Z t)⁻¹ 1` fails to converge as `t → 0⁺`. Fresh 2026 conjecture. Good hygiene: the file documents that `Matrix.inv` is `0` on singular matrices and why `Nonempty` is load-bearing. Not attempted. |
+| `Arxiv/2107.00295/IndependentDomination.lean` | `independentDominationEven`, `independentDominationOdd` | **CANDIDATE — see D10.** Source is *On independent domination of **regular** graphs*; the Lean drops regularity and substitutes `G.maxDegree`. |
+| `Arxiv/2607.06396/AlonTarsi.lean` | `alon_tarsi_short_cycle_cover` | FIN but tight. The Petersen graph attains `7/5` exactly (15 edges, shortest cycle cover 21), so any counterexample must beat the known extremal example. Statement faithful (`Multiset` allows repeats; `IsCycleCover` is per-edge). OUT-practical. |
+| `Arxiv/2402.13202/CirculantHadamard.lean` | `circulant_hadamard_conjecture` | FIN, verified in the literature past `10^11`. OUT-practical. |
+| `Arxiv/0912.2382/CurlingNumberConjecture.lean` | `curling_number_conjecture` | FIN. `k S = sSup {k | ∃ X Y, Y ≠ [] ∧ S = X ++ (replicate k Y).flatten}` — bounded by `|S|` since `Y ≠ []`, so the `sSup` is not junk; `k = 0` and `k = 1` are always attainable. Faithful. Chaffin–Sloane searched far beyond reach. OUT-practical. |
+| `Arxiv/2107.12475/CollatzLike.lean` | `CollatzLike` | FIN per `n`; equivalent to BB(15) hardness, verified enormously far. Re-derived the file's own test: `2^8 = 256 = 3^5 + 3^2 + 3 + 1`, base-3 digits `1,0,1,1,0,1`, no `2` ✓. OUT-practical. |
+| `Arxiv/2607.08366/MinModulus.lean` | `min_modulus` | FIN for small `n` (`minModulus 3 = 6`, `minModulus 4 = 12`, `minModulus 5 = 28`; exhaustive at `n ≤ 5` is feasible). Good hygiene: the file documents why `0 < N` is needed (`ZMod 0 = ℤ` would make `{1,2}` valid). Not attempted. |
+| `Arxiv/1102.4662/AtiyahSutcliffe.lean` | `conjecture_one` | FIN numerically (a determinant in `n` points). The unnormalised `directionLift` is justified in-file by scaling invariance, and the north-pole branch `(1,0)` is the correct projective limit of `((v₀+iv₁)/(‖v‖−v₂), 1)`. Verified numerically by others to `n ≈ 40`. OUT-practical. |
+| `Arxiv/2104.00502/BarkerSequence.lean` | `barker_conjecture` | FIN. `aperiodicAutocorrelation` via `zipWith` truncation is exactly `∑ᵢ aᵢaᵢ₊ₖ` ✓. Odd lengths `> 13` ruled out unconditionally; even lengths ruled out past `4·10^33`. OUT-practical. |
+| `Arxiv/1104.1579/CunninghamChain.lean` | `infinitely_many_firstKind_chains`, `..._secondKind_...` | OUT (infinitary). Definitions re-checked against the file's two tests (`2 → 2,5,11,23,47,95` length 5; `7 → 7,13,25` length 2) ✓. |
+| `Arxiv/2605.12342/Conjecture1.lean` | `conjecture_1` | FIN per `(m,n)` but needs generation-rank computation in `S_m × S_n`. The file documents the `(2,2)` exception carefully (rank 1 vs 2-generation). Not attempted. |
+| `Arxiv/2209.04540/…`, `2607.03582/…`, `math.0110202/…`, `2303.01089/…`, `2504.17644/…`, `2208.14736/…` | 3 + 1 + 1 + 1 + 1 + 1 | OUT (spectral sets, convex geometry, Banach spaces, ergodic theory, homogeneous spaces, affine algebraic geometry). |
+
+### Paper (23)
+
+| Path | Open decls | Verdict |
+|---|---|---|
+| `Paper/LatinSquare.lean` | 7 | **CANDIDATE — see D11.** Two distinct defects; note PR #4965 (theebayuser, opened 2026-08-15) is currently editing this file. |
+| `Paper/VoronovskajaTypeFormula.lean` | 4 | **CANDIDATE — see D12.** The `answer` is scoped under `α`, `f`, `x`, and the constant-`f` instance forces it to `0`. |
+| `Paper/ReedOmegaDeltaChi.lean` | 3 | FAITH-low. `2*χ ≤ ω + Δ + 2` correctly encodes `χ ≤ ⌈(ω+Δ+1)/2⌉`. But the file mixes `ecliqueNum`/`emaxDegree` (in `ℕ∞`) in the first two statements with `cliqueNum` (in `ℕ`) plus `emaxDegree` in `reed_conjecture_Δ_6_ω_2` — an internal inconsistency, and `cliqueNum` on a type with unbounded cliques takes the junk value `0`. Harmless here because `Δ = 6` caps clique size, but it is a real unit mismatch. FIN in principle (a triangle-free `Δ=6` graph with `χ = 6`). |
+| `Paper/Kurepa.lean` | 3 (`kurepa_conjecture`, `.variants.prime`, `.variants.gcd`) | FIN, verified in the literature past `2^34`. The file proves both reductions (prime, gcd) in full, which is unusually strong evidence of faithfulness. OUT-practical. |
+| `Paper/Chvatal.lean` | 1 | FIN. Checked the two degenerate families: `F = ∅` and `F = {∅}` both satisfy the conclusion (`Intersecting {∅}` is **false**, so the only subfamily to bound is `∅`). Faithful. Verified in the literature for small ground sets. |
+| `Paper/ConjugacyClassSizes.lean` | 1 | FIN, blocked on tooling (needs a finite-group library). Faithful. |
+| `Paper/CasasAlvero.lean` | 1 | Status-sync candidate, **already self-documented**: the file's own header says "The conjecture is now claimed to be proven in this paper: [Soham Ghosh, arXiv:2501.09272]" while the declaration stays `research open`. Since the file itself records the claim, an upstream report adds little. |
+| `Paper/StrongSensitivityConjecture.lean` | 1 | FIN for `n ≤ 4` by brute force; the best known separation is `bs ≥ (2/3)s²`, so no small counterexample exists. OUT-practical. |
+| `Paper/PrimeTuples.lean` | 1 | Checked hard for a defect and found none. The `n = 0` escape in the admissibility hypothesis (`∏ bᵢ = 1 ⟹ p ∤ 1` for every `p`) is *also* present in Dickson's own formulation, and every degenerate form I tried (`aᵢn` with `aᵢ > 1`; proportional forms; `n, n+2, n+4`) is correctly excluded by admissibility at some prime. `b : Fin k → ℕ` narrows the source's integer `bᵢ` to non-negative, which loses generality but introduces no falsity. |
+| `Paper/Dubner.lean` | 1 | FIN. `IsTwinPrime p := p.Prime ∧ ((p−2).Prime ∨ (p+2).Prime)`; the `ℕ`-truncation at `p = 2` gives `0`, which is not prime, matching the file's test `¬IsTwinPrime 2` ✓. Faithful. The `4208` threshold is Dubner's own computational bound. |
+| `Paper/CatchUpConjecture.lean` | 1 | FIN per `N` (a combinatorial game value), but the game tree grows fast. Not attempted. |
+| `Paper/KotzigConjecture.lean`, `Paper/RingelConjecture.lean`, `Paper/LatinTableau.lean` | 1 + 1 + 1 | FIN per tree / per Young diagram; all are famous open decomposition/colouring conjectures. OUT-practical. |
+| `Paper/DeGiorgi.lean` | 6 | OUT (PDE rigidity, dimensions 4–8). |
+| `Paper/Homogenous.lean` | 5 | OUT (compact homogeneous spaces, cardinal bounds). Minor: quantifies over `Type` rather than `Type*`. |
+| `Paper/WeakTiling.lean` | 3 | OUT (measure-theoretic tiling). |
+| `Paper/WeaklyFirstCountable.lean` | 3 | OUT (cardinal). Correctly separates the ZFC-only existence (open) from the CH construction (`research solved`, Yakovlev). |
+| `Paper/ZagierMZV.lean` | 1 | OUT. `zagierDim` and the weight-0/weight-1 base cases all check out against the file's own tests. |
+| `Paper/MonochromaticQuantumGraph.lean` | 34 | OUT-practical. Each is `answer(sorry) ↔ ¬∃ W : WeightsN N D ℂ, EqSystemN N D W` — a polynomial-system solvability question over `ℂ`. Certificate-compatible in principle (Gröbner / numerical algebraic geometry) but this is an active DeepMind prover-agent benchmark file with in-file `formal_proof` links; heavily worked upstream. |
+| `Paper/HartshorneConjecture.lean`, `Paper/CardinalityLindelof.lean`, `Paper/FusibleNumber.lean`, `Paper/CatchUpConjecture.lean` | 1 each | OUT (schemes; cardinal — and note the `CardinalityLindelof` docstring's own TODO says such a space exists "under additional axioms (consistent with ZFC)", i.e. the bare `∃` may be independent of ZFC; fusible numbers, where the file itself enumerates four deliberate deviations from Conjecture 7.1). |
+
+### OpenQuantumProblems (3) — all OUT-practical
+
+| Path | Open decls | Verdict |
+|---|---|---|
+| `OpenQuantumProblems/13.lean` | 12 | Maximal MUB counts in dimensions 6, 10, 12, 14, 15 and the general `d`. **Well-formed**: the general statement is `IsMaxMUBCount d ((answer(sorry) : ℕ → ℕ) d)` — the answer is a *function* applied to `d`, exactly the shape `green_41` and `VoronovskajaTypeFormula` get wrong. Good counter-example to have on file. |
+| `OpenQuantumProblems/23.lean` | 12 | SIC-POVM existence in fixed dimensions. Certificate is an exact algebraic construction; only numerical solutions are known in the listed dimensions. |
+| `OpenQuantumProblems/35.lean` | 16 | AME-state existence. Already on upstream's radar: issue #4927 lists `OpenQuantumProblems/35`. |
+
+**Triage totals: 131/131 complete.** By collection —
+GreensOpenProblems 50, Arxiv 24, Paper 23, Mathoverflow 10, Books 8,
+Kourovka 4, Millenium 4, OpenQuantumProblems 3, Other 3, Subsets 2.
+FIN (finite certificate shape) 48 · FAITH-only 21 · OUT 62.
+
+---
+
+## Depth results, continued
+
+### D7. `Arxiv/2501.03234/ArithmeticSumS.lean` — **HOLD_BOUNDED, thresholds confirmed sharp**
+
+`S'(h,k) = ∑_{j=1}^{k-1} (−1)^{j+1+⌊hj/k⌋}`, `S(k) = ∑_{h=1}^{k-1} S'(h,k)`.
+Four open declarations: `0 < S k` (odd prime `k`); `k < S k` (`k > 5`);
+`2k < S k` (`k > 233`); `3k < S k` (`k > 3119`).
+
+Two implementations sharing no code path — a pure-Python double loop
+(`scratchpad/verify_arxiv_finite.py`) and a vectorised NumPy outer-product
+(`scratchpad/verify_S_threshold.py`) — agree on `k = 3, 5, 7, 11, 101, 233, 239, 401`,
+and both reproduce the file's own test `S_fst_10 = [0,0,1,2,5,4,7,10,11,8]` exactly.
+
+```
+swept odd primes k ≤ 5987 (two paths; 40 s + 215 s)
+  conjecture_1_1 violations (S k ≤ 0)  : []
+  conjecture_4_1 violations (S k ≤ k)  : []
+  conjecture_4_2 violations (S k ≤ 2k) : []
+  conjecture_4_3 violations (S k ≤ 3k, k > 3119) : []
+threshold sharpness
+  last odd prime with S(k) ≤ 1k  = 5      (file threshold k > 5)     ✓ sharp
+  last odd prime with S(k) ≤ 2k  = 233    (file threshold k > 233)   ✓ sharp
+  last odd prime with S(k) ≤ 3k  = 3119   (file threshold k > 3119)  ✓ sharp
+  k=3109 S=14588 3k= 9327  S>3k ✓        k=3119 S= 9194 3k= 9357  S>3k ✗
+  k=3121 S=15128 3k= 9363  S>3k ✓        k=3137 S=12280 3k= 9411  S>3k ✓
+  k=3163 S=14382 3k= 9489  S>3k ✓
+```
+
+All three thresholds are **exactly** the last failing prime — the strongest possible
+positive check on the corpus's constants and on my implementation. No defect.
+`HOLD_BOUNDED`; bracket at `k > 5987`.
+
+### D8. `Arxiv/2607.05739/TanArctanSum.lean` — **HOLD_BOUNDED, range extended 40×**
+
+`Zₙ = ∏_{k=1}^n (1+ik)` by exact integer recursion `(a,b) ↦ (a − b·n, b + a·n)`.
+
+```
+swept n = 1..119,503  (25 s, exact ℤ arithmetic)
+  n with A n = 0                : []          (file's docstring only claims n ≤ 3000)
+  n with A n ∣ B n (xₙ integer) : [(1,1), (2,−3), (3,0), (4,4)]
+  violations for n ≥ 5          : []
+```
+
+The four integer values reproduce the file's `x_values` test
+(`x 1 = 1, x 2 = −3, x 3 = 0, x 4 = 4`) exactly. Conjecture verified to
+`n = 119,503`, versus the `n ≤ 3000` the file records. No defect. Bracket at `n > 119,503`.
+
+### D9. `Arxiv/1601.03081/UniqueCrystalComponents.lean` — **HOLD_BOUNDED**
+
+```
+swept odd n = 3..1,922,151  (40 s)
+  crystals found: 115
+  crystals with more than one component pair (counterexamples): []
+  sample: (35,5,7) (119,7,17) (279,9,31) (527,17,31) (539,11,49) (923,13,71)
+          (1455,15,97) (1519,31,49) (2159,17,127) (2759,31,89) (3059,19,161) (3479,49,71)
+```
+
+`(35,5,7)` reproduces the file's own test `isCrystalWithComponents_35_5_7` ✓.
+No defect. Bracket at odd `n > 1,922,151`.
+
+### D10. `Arxiv/2107.00295/IndependentDomination.lean` — **CANDIDATE: regularity hypothesis dropped**
+
+```lean
+/-- **Conjecture 1.6 (Even case).**
+For a nonempty isolate-free graph $G$ on $n$ vertices,
+if $D$ is even, then $(D + 2)^2 \cdot i(G) \leq (D^2 + 4) \cdot n$. -/
+@[category research open, AMS 5]
+theorem independentDominationEven (hIso : 0 < G.minDegree) (hEven : Even G.maxDegree) :
+    let D := G.maxDegree
+    let i := G.indepDominationNumber
+    let n := Fintype.card V
+    (D + 2)^2 * i ≤ (D^2 + 4) * n
+```
+
+The cited source is Cho–Choi–Park, **"On independent domination of *regular* graphs"**
+(arXiv:2107.00295). The Lean replaces "`D`-regular" with "isolate-free, `D := G.maxDegree`",
+which is a strictly stronger claim: every `D`-regular graph is isolate-free with
+`maxDegree = D`, but not conversely.
+
+**Duplicate status — the interesting part.** `gh` search on `IndependentDomination`,
+`Cho`, `regularity`: **0 hits** for the regularity mismatch. But two upstream artifacts
+propagate the same reading:
+- the repo's own formalization request, closed issue **#227** (mo271, 2025-06-13,
+  "arxiv 2107.00295: upper bound on independent domination number for isolate-free
+  graphs"), states Conjecture 1.6 in the isolate-free/maximum-degree form;
+- PR **#1373** (merged 2025-12-10) implemented it that way with no reviewer objection;
+- tracker **#4927** (KitaKen1, 2026-08-13) lists both declarations, but only to claim
+  they are *solved* ("Corollary 1.3 of arXiv:2202.09594 proves both displayed bounds →
+  mark solved") — which, if the regularity hypothesis is genuinely missing, would mark
+  as solved a statement stronger than the cited corollary.
+
+**Status: unverified.** I did not fetch arXiv:2107.00295 to confirm the exact wording of
+Conjecture 1.6, and the `≤ n/2` heuristic below suggests the non-regular reading may still
+be true, so this is a *fidelity* flag, not a falsity claim. Hand-probes found no
+counterexample: disjoint `K₂`'s give `i/n = 1/2` at `D = 1`; paths and cycles give
+`i/n ≤ 1/2` at `D = 2`; `K_{m,m}` gives `i/n = 1/2`. The asserted ratios are
+`(D²+4)/(D+2)² ≥ 1/2` (equality only at `D = 2`) and
+`(D²+3)/((D+1)(D+3)) ≥ 1/2` (equality at `D = 1, 3`), so both statements would follow
+from `i(G) ≤ n/2` for isolate-free graphs. **Next step for whoever picks this up: read
+Conjecture 1.6 in the paper and check whether it says "`k`-regular".**
+
+### D11. `Paper/LatinSquare.lean` — two defects
+
+**(i) `molsExistenceProblem` is closed by `rfl`.**
+
+```lean
+@[category research open, AMS 5]
+theorem molsExistenceProblem : answer(sorry) = {n : ℕ | HasCompleteMOLS n} := by sorry
+```
+
+`answer := {n : ℕ | HasCompleteMOLS n}` is a closed term and the goal becomes `rfl`.
+Identical shape to `green_25` and `green_51`. The intended question — "determine exactly
+which orders `n` admit a complete set of MOLS", i.e. for which `n` an affine plane exists —
+is entirely outside what the declaration asks.
+
+**(ii) `answer(sorry)` outside a free section variable makes `answer := False` unreachable.**
+
+The file opens with `variable {n : ℕ}`, and then:
+
+```lean
+theorem oddOrderLatinSquareTransversal : answer(sorry) ↔
+    Odd n → ∀ (L : LatinSquare n), ∃ σ, IsTransversal L σ
+
+theorem latinSquareNearTransversal : answer(sorry) ↔
+    ∀ (L : LatinSquare n), ∃ ρ σ, IsNearTransversal L ρ σ
+```
+
+`n` is auto-bound as an implicit argument, so each reads `∀ {n}, answer ↔ P n` with a
+single `answer` outside the `∀ n`. Consequences:
+
+- For `oddOrderLatinSquareTransversal`, `P n` is *true* whenever `n` is even (`Odd n` is
+  false), which forces `answer = True`; `answer := False` is then unprovable **whether or
+  not the conjecture holds**. The `answer(sorry) ↔ …` idiom exists precisely to let a
+  solver record either verdict, and here one verdict is unreachable.
+- For `latinSquareNearTransversal` the same scoping means the declaration is provable only
+  if `P n` has the *same* truth value for every `n`. If the near-transversal conjecture
+  held for some orders and failed for others, **no** value of `answer` would make it
+  provable.
+
+This is the exact failure the repo's own `AnswerLinter` warns about
+("Move the quantifiers outward … likely the intention was
+`theorem foo : answer(sorry) ↔ ∀ᵉ (bar : ℕ) …`"), but the linter's `contains_early_args`
+inspects explicit binders in the `declSig` and does not fire on a `variable`-introduced
+implicit.
+
+**Also in this file:** `oddOrderLeq9LatinSquareTransversal` is tagged `research solved`
+yet still carries an unfilled `answer(sorry)` — the answer should be `answer(True)`.
+
+**Concurrency warning:** PR **#4965** (theebayuser, opened 2026-08-15, "fix: replace
+`answer(sorry)` with `answer(True)` in solved statements") is currently editing
+`Paper/LatinSquare.lean` **and** `GreensOpenProblems/14.lean`. Re-check this file's blob
+immediately before any write.
+
+### D12. `Paper/VoronovskajaTypeFormula.lean` — **CANDIDATE: mis-scoped answer forces the limit to 0**
+
+```lean
+@[category research open, AMS 26 40 47]
+theorem voronovskaja_theorem.bezier_bernstein_operators
+    (α : ℝ) (hα_pos : 0 < α) (hα : α ≠ 1)
+    (f : ℝ → ℝ) (x : ℝ) (hx : x ∈ I)
+    (hf : ContDiffOn ℝ 2 f I) :
+    Tendsto (fun n : ℕ => Real.sqrt n * (bezierBernstein n α f x - f x)) atTop
+      (𝓝 answer(sorry)) := by
+  sorry
+```
+
+`answer(sorry) : ℝ` sits under the binders `α`, `f`, `x`, so a legitimate (closed) answer
+is a single real constant, the same for every `α`, `f` and `x`. Two consequences:
+
+1. **The answer is forced to `0`.** Take `f` constant, `f ≡ c` — it is `ContDiffOn ℝ 2` on
+   `I`, so it is in scope. Then
+   `bezierBernstein n α f x = ∑_{k=0}^n c·(J_{n,k}(x)^α − J_{n,k+1}(x)^α)`
+   telescopes to `c·(J_{n,0}(x)^α − J_{n,n+1}(x)^α)`. Now `J_{n,0}(x) = ∑_{j=0}^n p_{n,j}(x) = 1`
+   by the binomial theorem, and `bernsteinTail n (n+1)` sums over `Finset.Icc (n+1) n = ∅`,
+   so it is the zero polynomial and `0 ^ α = 0` for `α > 0`. Hence the bracket is `c`, the
+   sequence is identically `0`, and uniqueness of limits in `ℝ` pins `answer = 0`.
+2. **With `answer = 0` the declaration then asserts that
+   `√n·(B_{n,α}f(x) − f(x)) → 0` for every `C²` function `f`** — which contradicts the
+   file's own "Known Results" section: *"Numerical experiments indicate that for `α ≠ 1`
+   the quantity `√n (B_{n,α} f(x) − f(x))` may converge to a **non-zero** limit."*
+
+So the declaration is either false or vacuous, and in neither reading does it ask the
+source's question, which is explicitly *"determine an explicit expression for it in terms
+of `f`, `x`, and `α`"*.
+
+The same mis-scoping recurs twice more in the file:
+`variants.eventually_smooth` binds `let limitFormula : (ℝ → ℝ) → ℝ → ℝ := answer(sorry)`
+under `α` (so the formula cannot depend on `α`), and `variants.answer_smoothness` binds
+`let p : ℕ × ((ℝ → ℝ) → ℝ → ℝ) := answer(sorry)` under `α` likewise. Only
+`variants.eventually_smooth.limit_exists`, which uses `∃ L` **inside** all the binders,
+is correctly formed — and `OpenQuantumProblems/13.lean`'s
+`IsMaxMUBCount d ((answer(sorry) : ℕ → ℕ) d)` shows the idiom done right elsewhere in the
+corpus.
+
+**Duplicate status:** `gh` search on `Voronovskaja`, `bezier`, `bernstein`: not covered by
+#4896 / #4923 / #4927, which contain no `Paper/VoronovskajaTypeFormula` entry.
+**Apparently novel.** (Caveat: I did not run a dedicated `gh` query on the string
+"Voronovskaja"; the sweep covered the trackers and the Green/Books surface. Re-check
+before any write.)
+
+---
+
+## Duplicate sweep — results
+
+Offline `gh` sweep of the three live trackers plus targeted issue/PR searches
+(read-only; nothing opened, edited or commented).
+
+**Tracker contents.**
+- **#4896** (KitaKen1, 2026-08-12, label `misformalization`) — mostly Erdős; only two
+  GreensOpenProblems entries: **Green 72** ("apparent reversal of the intended
+  conclusion") and Green 21 `fox_kleitman_modular`. **No `Books/` paths.**
+- **#4923** (KitaKen1, 2026-08-13) — names the *reflexive asymptotic answer* pattern
+  (`isBigO_refl` on Erdős 422, `isTheta_refl` on Erdős 539 and 789) but lists **zero**
+  GreensOpenProblems and zero Books items.
+- **#4927** (KitaKen1, 2026-08-13, "Open statements with known solutions") — OEIS A287616;
+  **Green 3**; **Green 31** (two upper bounds); **OpenQuantumProblems/35**;
+  **Arxiv/2107.00295** (as *solved*, not as unfaithful); Mathoverflow/31809;
+  **Green 19 `lower` and `upper`**; Erdős 272.
+
+Also relevant: meta-issues **#33** (Paul-Lez, 2025-05-27, "`answer(sorry)` and asymptotic
+problems") and **#1407** ("Lint against `answer(sorry)` related errors") state the
+reflexivity problem generically and are still open — so the *pattern* is known upstream
+while the specific instances below are not.
+
+| Finding | Duplicate status |
+|---|---|
+| D2 `green_19.lower` / `.upper` mis-tagged | **DUPLICATE.** #4927 verbatim: "Green 19 — `lower` and `upper` — the same file already has the solved theorem `C = 4` → mark both solved." **Drop.** |
+| D5 `green_72` asserted in the wrong direction | **DUPLICATE.** PR **#4941** (williamjblair, 2026-08-13) "GreensOpenProblems/72: ask Green's question rather than assert its opposite", plus #4896. |
+| D5 `NoKInLine` (same claim at `k = 3`) | **Not covered.** #4941 says explicitly: "**Left alone.** `NoKInLine` contains the same claim at `k = 3`. GK2025 proves it for `k > 10^37`, so the range is a maintainer's call." Weak novelty — deliberately deferred, not missed. |
+| D4(a) `green_37_bigO` | **PARTIAL.** PR **#4943** (KitaKen1, 2026-08-13) replaces `answer(sorry)` with `answer(fun N : ℕ ↦ (N : ℝ))` on `green_37_bigO` and `green_37_littleO`, framed as marking solved. It states it "leaves `green_37`, `green_37_asymptotic`, and `green_37_theta` open". |
+| D4(a) `green_25`, `green_51`, `green_27.equivalent`, `green_37_theta` | **NOVEL.** 0 hits each. |
+| D4(b) `green_24`, `green_16`, `green_37`, `green_37_asymptotic`, `green_41` | **NOVEL.** 0 hits. |
+| D4(c) `green_35.lower` (zero-function hole) and (d) `green_35.upper` superseded by `c_∞ ≤ 0.75026` | **NOVEL.** 0 hits on `green_35`; only PRs #1866 and #3547, both cosmetic/feature. |
+| D3 `green_40.variants.all_n` (`atTop` on `ℝ≥0∞`) | **NOVEL.** 0 hits on `green_40`, `f_all`, `ENNReal`, `Tendsto atTop atTop`. |
+| D1 `isEquidistributedModuloOne_transcendental_three_halves_pow` | **NOVEL.** 0 hits. The only issue naming that module is #4747, and it names a *different* declaration (`isAccumulationPoint_three_halves_pow_exists`). No `Books/` item appears in any of the three trackers. |
+| D10 `Arxiv/2107.00295` regularity | **NOVEL as a fidelity claim.** #4927 lists the same two declarations but only asserts they are solved. |
+| D11 `Paper/LatinSquare` | **NOVEL**, but PR #4965 is live on the file *today*. |
+| D12 `Paper/VoronovskajaTypeFormula` | **NOVEL** (not in any tracker). |
+| Green 14 `W_3_20_lower` … `W_3_39_lower` | **DUPLICATE — checked before spending a SAT run.** Issue **#4854** (KitaKen1, 2026-08-10, "Green Problem 14: AKS14 lower bounds are misclassified as open"), PR **#4584**, PR **#4965**. Saved the planned certificate search. |
+| `Subsets/FC100OpenSet1` docstring/count mismatch | 0 hits, but the mismatch is almost certainly just drift as listed problems get solved — the `#eval verifyCategoryCounts` is the maintained artifact. Low value; not pursued. |
+
+**Timing risk.** Open-issue counts on this surface right now: 8 labelled
+`misformalization`, 19 matching "misformalization" in full text, 8 matching "vacuous",
+20 matching "answer(sorry)". In the last three days KitaKen1 touched GreensOpenProblems
+four times (PRs #4943, #4887; issues #4927, #4896) and williamjblair twice (PRs #4941,
+#4948); **neither has touched `Books/` at all**. A third contributor, theebayuser, opened
+PR #4965 on 2026-08-15 against `GreensOpenProblems/14.lean` and `Paper/LatinSquare.lean`.
+Re-check every blob immediately before any write.
+
+**Search caveat recorded for the next lane:** GitHub tokenizes underscores, so
+`gh search issues "green_19"` returns 0 hits even though #4927 covers it (it writes
+"Green 19"). Every underscore-form "0 hits" above was re-run as a spaced phrase.
+
+---
+
+## HANDOFF STATE (final)
+
+- **Triage: COMPLETE, 131/131.** FIN 48 · FAITH-only 21 · OUT 62.
+- **Depth: D1–D12 complete.** Three computational holds (D7, D8, D9) with brackets
+  recorded; two hypotheses raised and refuted (Green 50 `10 • A`, VCDimConvex `n = 0`).
+- **Live candidates, novel, in priority order:**
+  1. `Books/UniformDistributionOfSequences/Equidistribution.lean`
+     `isEquidistributedModuloOne_transcendental_three_halves_pow` — false; Cantor-set
+     construction verified in exact rational arithmetic. **Books is untouched by every
+     upstream auditor.**
+  2. `Paper/VoronovskajaTypeFormula.lean` `bezier_bernstein_operators` (+2 variants) —
+     answer forced to `0` by the constant-`f` instance, contradicting the file's own
+     "Known Results" note.
+  3. `GreensOpenProblems` degenerate-`answer` cluster: `green_25`, `green_51`,
+     `green_27.equivalent` (reflexive); `green_24`, `green_16`, `green_37`,
+     `green_37_asymptotic`, `green_37_theta`, `green_41` (mis-scoped);
+     `green_35.lower`/`.upper` (content-free hole; `.upper` also superseded by
+     `c_∞ ≤ 0.75026` from Green's own Update 2025).
+  4. `GreensOpenProblems/40.lean` `variants.all_n` — `atTop` on `ℝ≥0∞` means
+     "eventually `⊤`". Machine-checked.
+  5. `Paper/LatinSquare.lean` — `molsExistenceProblem` closed by `rfl`;
+     `oddOrderLatinSquareTransversal` / `latinSquareNearTransversal` have the answer hole
+     outside a free section variable. **PR #4965 is live on this file.**
+  6. `Arxiv/2107.00295/IndependentDomination.lean` — regularity hypothesis apparently
+     dropped. **Needs the paper read before it is claimed.**
+- **Dropped as duplicates:** Green 19 (#4927), Green 72 `green_72` (#4941/#4896),
+  Green 14 lower bounds (#4854/#4584/#4965), `green_37_bigO` (#4943, partial).
+- **Not attempted, recorded as available inventory:** Green 12 (Möbius-ladder
+  `K_{5,5}\C₁₀` Sidorenko instance — the transfer-tensor contraction over `y ∈ G⁵`
+  makes `|G| ≤ 27` reachable in NumPy); Dean `k = 5`; Arxiv 2604.08040 (needs GAP);
+  Arxiv 2607.05349; Kourovka 19.25 and 20.76 (both need a small-groups library);
+  Dubner (cheap twin-prime sieve, not run).
+- Nothing written upstream. No `lake build`. No `git commit`.
