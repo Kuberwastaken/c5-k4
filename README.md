@@ -140,9 +140,21 @@ disabled live run reached the semantic-import continuity check, then failed
 closed on an external Lean import missing from the frozen prefix model; the
 target again remained skipped and zero artifacts were uploaded. See the
 [`v3.1 invalid-run record`](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/invalid-run-31850751842.md).
-Until a corrected, independently audited gate passes a fresh disabled run,
-this lane has no candidate, bounded result, or mathematical result. The exact
-continuity policy remains recorded in the
+The v3.2 supersession completed both brackets and produced a canonical
+attestation, but its deliberately conservative policy stopped because 45 open
+pull requests touched dependency or toolchain paths; none touched the exact
+target. That run remains invalid and is preserved in the
+[`v3.2 policy-stop record`](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/invalid-run-31852437717.md).
+Two independent audits then approved separating exact-target collision from
+non-gating dependency telemetry. The resulting v3.3 freeze passed all 61
+target-free tests, but two disabled live attempts reproducibly exhausted the
+60-second continuity-gate budget during the second complete open-pull
+snapshot. Both stopped before attestation or target execution and emitted no
+artifacts. See the
+[`v3.3 deadline-stop record`](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/invalid-runs-31854544552-31854645706.md).
+Until a security-equivalent, independently audited gate fits the existing cap
+and passes a fresh disabled run, this lane has no candidate, bounded result,
+or mathematical result. The exact continuity policy remains recorded in the
 [`v3 continuity audit`](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/tip-continuity-policy-audit.md).
 
 The next wall selected in parallel—the strong `n^(3/2)` bound for
@@ -166,6 +178,14 @@ result, or release exists. The global problem remains open above the published
 range. The proposed design and controlling-source audit are preserved in the
 [`preflight`](results/expansion/live-search-2026-08-14/erdos373-maximal-solution-development/preflight.md)
 and [`source-bound gate`](results/expansion/live-search-2026-08-14/erdos373-maximal-solution-development/source-bound-gate.md).
+
+Erdős 375 / Grimm's conjecture was also stopped before target evaluation.
+The proposed Hall-deficiency transfer through smooth numbers is already
+present in the published Laishram--Murty approach, while the new composite
+block idea has no target-free construction proving that its required
+simultaneous admissibility conditions are reachable. It is therefore a
+[`STRICT_STOP_DUPLICATE_AND_NO_CROSSING_REACHABILITY`](results/expansion/live-search-2026-08-14/erdos375-grimm-development/preflight.md),
+not a new arm, candidate, or release.
 
 The order-15 Latin Tableau zero has likewise been converted into theorem work:
 warning-clean Lean now proves the profile telescoping, binary-change,
@@ -376,6 +396,19 @@ closes the frozen rank-one direction, not the full conjecture, and argues
 against merely widening the same value band. See the
 [v2 result](results/expansion/live-search-2026-08-14/oeis-a056777-v2-development/result.md).
 
+Two broader algebraic constructor proposals were then rejected by the new
+reachability-before-dispatch gate, without evaluating the conjecture target.
+The triple-versus-triple design enumerated 27,528,192 target-free constructor
+rows and found 749 integral intermediate rows but no allowed reconstructed
+prime block. The exponent-asymmetric power-versus-triple design enumerated
+10,967,040 profiles; every positive discriminant was nonsquare, so it produced
+no integer block product. The exact
+[`v3`](results/expansion/live-search-2026-08-14/oeis-a056777-v3-reachability/preflight.md)
+and
+[`v4`](results/expansion/live-search-2026-08-14/oeis-a056777-v4-reachability/preflight.md)
+receipts are both `STRICT_STOP_CROSSING_UNREACHABLE`. They save target and CI
+budget and are not bounded evidence about A056777 itself.
+
 The next independent DeepMind rotation, A067720, has now completed as another
 prospective DEVELOPMENT bounded zero. Its two frozen composite-successor
 profile arms exhausted 270,767 states across 48 independently replayed shards.
@@ -480,6 +513,18 @@ attestation are preserved in the
 measure arm efficacy; it establishes that the current locally accumulated
 research corpus cannot serve as an uncontaminated held-out test under the
 frozen exclusion rule.
+
+A fresh strict rotation on 2026-08-15 confirmed that this is still the live
+state rather than a stale snapshot: upstream had not advanced beyond the
+latest 2026-08-14 audit pin, every one of the 728 clusters remained
+contamination-excluded, and both the graph and arithmetic/combinatorics
+qualified sets were empty. Recent pull requests
+were infrastructure work or already-claimed results, and a new issue marked a
+problem solved rather than opening a lane. The project therefore dispatched
+no placeholder search. See the
+[`graph strict stop`](results/expansion/live-search-2026-08-14/next-heldout-graph-rotation-strict-stop.md)
+and
+[`arithmetic strict stop`](results/expansion/live-search-2026-08-14/next-heldout-arithmetic-rotation-strict-stop.md).
 
 [Method v1.5](METHOD_V1_5_BENCHMARK.md) therefore moves the same preregistered
 twelve-cluster, three-arm experiment to a genuinely future DeepMind
