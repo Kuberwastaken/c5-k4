@@ -152,9 +152,18 @@ target-free tests, but two disabled live attempts reproducibly exhausted the
 snapshot. Both stopped before attestation or target execution and emitted no
 artifacts. See the
 [`v3.3 deadline-stop record`](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/invalid-runs-31854544552-31854645706.md).
-Until a security-equivalent, independently audited gate fits the existing cap
-and passes a fresh disabled run, this lane has no candidate, bounded result,
-or mathematical result. The exact continuity policy remains recorded in the
+The independently audited v3.4 gate removed only the redundant second file-
+catalogue download: one complete rename-aware catalogue is now bound between
+exact open-pull identity snapshots, while the post-target safeguard still
+downloads a fresh complete catalogue. Its disabled run passed all 18 live
+checks. The enabled 48/54/60-second run then reached a verified `CAP_PREFIX`:
+22 of 96 constructor rows, 10 applicable rows, and nine completed target rows.
+All nine completed peripheral graphs had path-cover number one and were exact
+rejections; no candidate was found. This is useful optimization evidence, not
+a bounded hold, domain exhaustion, or mathematical result. The full hashes,
+cancelled-dispatch receipt, and standing are in the
+[`v3.4 result`](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/v34-result.md).
+The exact continuity policy remains recorded in the
 [`v3 continuity audit`](results/expansion/live-search-2026-08-14/bondy-longest-cycles-development/tip-continuity-policy-audit.md).
 
 The next wall selected in parallel—the strong `n^(3/2)` bound for
@@ -537,6 +546,15 @@ host; no target has been consumed. V1.5 is still PRE-P1 and non-operational:
 live Object Lock/KMS/IAM, signing and TLS/OIDC service infrastructure,
 operational noninterference/custody receipts, final end-to-end acceptance, and
 the P1A/P1T/P1R activation chain and U1 publication remain outstanding.
+
+Separately, the adaptive live loop now has a frozen
+[`Method v1.5 empirical selector`](METHOD_V1_5_EMPIRICAL_SELECTOR.md). It hard-
+gates source eligibility, target-free constructor reachability, signed
+invariant separation, and exact replay before dispatch; it also retires
+saturated equality families and fixes a prospective next-ten falsification
+test. This is `DEVELOPMENT`, not the future-cohort benchmark. At the current
+pin Bondy is the only legacy arm still worth completing, and no second target
+is fabricated merely to keep a worker busy.
 
 The development record also publishes its zeroes. Method v0.2 found no
 crossing for #382e after 212,502 wall-directed substitutions, all connected
