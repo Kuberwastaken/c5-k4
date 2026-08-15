@@ -240,3 +240,32 @@ this repo and all wrong:
 | `f = b = tree = 4` for `m ≥ 2` | true for **every** `m ≥ 1` |
 | `n mod Δ = 2m+1` | only for `m ≥ 3` (`m=1` gives 1, `m=2` gives 0 — which is why conjecture 64's RHS is 2 there) |
 | "≈40 exactly tight" | defensible count is **≈36**; four naive-parse hits are tight only under gate-*discarded* readings, and one (401b) is corrupt |
+
+## Other collections lane (2026-08-15) — 131/131 triaged
+
+GreensOpenProblems 50 · Arxiv 24 · Paper 23 · Mathoverflow 10 · Books 8 ·
+Kourovka 4 · Millenium 4 · OpenQuantumProblems 3 · Other 3 · Subsets 2.
+Millenium triaged out as a block (every open declaration quantifies over
+function spaces, manifolds, infinite language sets, or an L-function). Its RH
+file actually *pre-empts* our defect shape, documenting why a naive ERH via
+`dedekindZeta` would be provably false.
+
+**Crossing — novel, in a collection no active auditor has touched**
+
+| Target | Witness | Why |
+|---|---|---|
+| `Books/…/Equidistribution.lean` `isEquidistributedModuloOne_transcendental_three_halves_pow` | nested-interval Cantor construction, `λ = 3/2`, `c = 1/10`, `G = 8` | Asserts **every** transcendental `x` makes `(x·(3/2)ⁿ)` equidistributed mod 1; the cited source (Kuipers–Niederreiter Cor. 4.2) says **almost all**. Since `c·λ^G = 6561/2560 ≥ 2+c`, two blocks survive per level, giving a Cantor set of cardinality `2^ℵ₀` — hence containing transcendentals — each with density `≥ 1/8 > 1/10` in `[0,1/10]`. Exact `Fraction` arithmetic, 45 levels, zero violations. Provenance: PR #3609, an 8-line diff with no citation. The `x = 1` question is untouched |
+
+**Further unclaimed defects**
+
+- `Paper/VoronovskajaTypeFormula` `bezier_bernstein_operators` (+2 variants): constant `f` telescopes to `c`, so the sequence is identically 0 and `answer` is **forced to 0** — contradicting the file's own note that numerics indicate a non-zero limit.
+- **GreensOpenProblems degenerate-`answer` cluster** (machine-checked, `lean` exit 0): reflexive — `green_25`, `green_51` (closed by `rfl`), `green_27.equivalent`, `green_37_theta`; mis-scoped, no closed answer exists — `green_24`, `green_16`, `green_37`, `green_37_asymptotic`, `green_41`; content-free — `green_35.lower` (closed by the zero function).
+- `green_40.variants.all_n`: machine-proved `(atTop : Filter ℝ≥0∞) = pure ⊤`, so the statement says "`f_all r = ⊤` eventually", not "→ ∞". The sibling `green_40` gets this right via `𝓝 ⊤`.
+- `Paper/LatinSquare.lean`: `molsExistenceProblem` closed by `rfl`; two further holes sit outside a `variable {n}`, making `answer := False` unreachable. **Live race: PR #4965 is editing this file today** — re-gate immediately before any write.
+- Status sync: `green_35.upper` (`ub ∞ < 0.7505`) is answerable from Green's own Update 2025 (`c_∞ ≤ 0.75026`).
+
+**Dropped as duplicates** (4): Green 19 (#4927), `green_72` (#4941/#4896), Green 14 `W_3_20…W_3_39` (#4854/#4584 — caught *before* a planned SAT run was spent), `green_37_bigO` (#4943).
+
+**Own hypotheses refuted** (recorded so they are not re-raised): Green 50 `10 • A` is `Finset.nsmul`, the iterated sumset, not pointwise scaling — faithful; `Other/VCDimConvex` has no `n = 0` contradiction (`HasAddVCNDimAtMost A 0 d` unfolds to `A = ∅ ∨ A = univ`); `EquationalTheories_677_255` is correctly tagged per arXiv 2512.07087.
+
+**Computational holds** (exact, two code paths each): Arxiv/2501.03234 — no violations for odd primes ≤ 5987, and all three thresholds confirmed **exactly sharp**, last failures at `k` = 5, 233, **3119**; Arxiv/2607.05739 — no integer `xₙ` for `5 ≤ n ≤ 119,503` (the file claims only `n ≤ 3000`); Arxiv/1601.03081 — odd `n ≤ 1,922,151`, 115 crystals, zero with two component pairs.
