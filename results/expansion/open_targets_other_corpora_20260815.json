@@ -1,0 +1,2360 @@
+[
+ {
+  "path": "FormalConjectures/Wikipedia/SidorenkoConjecture.lean",
+  "corpus": "Wikipedia",
+  "name": "SidorenkoConjecture",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 58,
+  "bytes": 26865
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/DedekindNumber.lean",
+  "corpus": "Wikipedia",
+  "name": "DedekindNumber",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 23,
+  "bytes": 10763
+ },
+ {
+  "path": "FormalConjectures/OpenQuantumProblems/35.lean",
+  "corpus": "OpenQuantumProblems",
+  "name": "35",
+  "n_answer_sorry": 16,
+  "n_research_open": 16,
+  "finite_signals": 19,
+  "bytes": 36004
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/UnionClosed.lean",
+  "corpus": "Wikipedia",
+  "name": "UnionClosed",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 17,
+  "bytes": 7982
+ },
+ {
+  "path": "FormalConjectures/Arxiv/2606.03696/BondyLongestCycles.lean",
+  "corpus": "Arxiv",
+  "name": "BondyLongestCycles",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 12,
+  "bytes": 4682
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/ScholzConjecture.lean",
+  "corpus": "Wikipedia",
+  "name": "ScholzConjecture",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 11,
+  "bytes": 4349
+ },
+ {
+  "path": "FormalConjectures/Paper/DeGiorgi.lean",
+  "corpus": "Paper",
+  "name": "DeGiorgi",
+  "n_answer_sorry": 0,
+  "n_research_open": 6,
+  "finite_signals": 11,
+  "bytes": 5713
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/18.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "18",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 10,
+  "bytes": 3321
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/Conway99Graph.lean",
+  "corpus": "Wikipedia",
+  "name": "Conway99Graph",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 9,
+  "bytes": 5913
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/LeinsterGroup.lean",
+  "corpus": "Wikipedia",
+  "name": "LeinsterGroup",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 9,
+  "bytes": 3934
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/DiameterSimpleFiniteGroups.lean",
+  "corpus": "Wikipedia",
+  "name": "DiameterSimpleFiniteGroups",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 9,
+  "bytes": 8088
+ },
+ {
+  "path": "FormalConjectures/Paper/LatinSquare.lean",
+  "corpus": "Paper",
+  "name": "LatinSquare",
+  "n_answer_sorry": 8,
+  "n_research_open": 7,
+  "finite_signals": 7,
+  "bytes": 8920
+ },
+ {
+  "path": "FormalConjectures/Arxiv/2605.02731/DeanCycles.lean",
+  "corpus": "Arxiv",
+  "name": "DeanCycles",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 7,
+  "bytes": 3784
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/Taxicab.lean",
+  "corpus": "Wikipedia",
+  "name": "Taxicab",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 7,
+  "bytes": 4088
+ },
+ {
+  "path": "FormalConjectures/Mathoverflow/75792.lean",
+  "corpus": "Mathoverflow",
+  "name": "75792",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 7,
+  "bytes": 8504
+ },
+ {
+  "path": "FormalConjectures/Paper/ConjugacyClassSizes.lean",
+  "corpus": "Paper",
+  "name": "ConjugacyClassSizes",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 7,
+  "bytes": 5964
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/PebblingNumberConjecture.lean",
+  "corpus": "Wikipedia",
+  "name": "PebblingNumberConjecture",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 7,
+  "bytes": 5320
+ },
+ {
+  "path": "FormalConjectures/Arxiv/2604.08040/Conjecture5_5.lean",
+  "corpus": "Arxiv",
+  "name": "Conjecture5_5",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 6,
+  "bytes": 4855
+ },
+ {
+  "path": "FormalConjectures/Arxiv/2607.05349/MicroscopicWeighting.lean",
+  "corpus": "Arxiv",
+  "name": "MicroscopicWeighting",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 6,
+  "bytes": 5219
+ },
+ {
+  "path": "FormalConjectures/Arxiv/2607.06396/AlonTarsi.lean",
+  "corpus": "Arxiv",
+  "name": "AlonTarsi",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 6,
+  "bytes": 3471
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/BusyBeaver.lean",
+  "corpus": "Wikipedia",
+  "name": "BusyBeaver",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 6,
+  "bytes": 2807
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/InverseGalois.lean",
+  "corpus": "Wikipedia",
+  "name": "InverseGalois",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 6,
+  "bytes": 2752
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/5.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "5",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 5,
+  "bytes": 3612
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/CernyConjecture.lean",
+  "corpus": "Wikipedia",
+  "name": "CernyConjecture",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 5,
+  "bytes": 3349
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/38.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "38",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 4,
+  "bytes": 4086
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/51.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "51",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 4,
+  "bytes": 3985
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/72.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "72",
+  "n_answer_sorry": 1,
+  "n_research_open": 3,
+  "finite_signals": 4,
+  "bytes": 4427
+ },
+ {
+  "path": "FormalConjectures/Kourovka/19_25.lean",
+  "corpus": "Kourovka",
+  "name": "19_25",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 4,
+  "bytes": 1326
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/FortuneConjecture.lean",
+  "corpus": "Wikipedia",
+  "name": "FortuneConjecture",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 4,
+  "bytes": 5382
+ },
+ {
+  "path": "FormalConjectures/Paper/Kurepa.lean",
+  "corpus": "Paper",
+  "name": "Kurepa",
+  "n_answer_sorry": 0,
+  "n_research_open": 3,
+  "finite_signals": 4,
+  "bytes": 5276
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/Bloch.lean",
+  "corpus": "Wikipedia",
+  "name": "Bloch",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 4,
+  "bytes": 8960
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/Mandelbrot.lean",
+  "corpus": "Wikipedia",
+  "name": "Mandelbrot",
+  "n_answer_sorry": 0,
+  "n_research_open": 6,
+  "finite_signals": 4,
+  "bytes": 8491
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/MovingSofa.lean",
+  "corpus": "Wikipedia",
+  "name": "MovingSofa",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 4,
+  "bytes": 8817
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/Sendov.lean",
+  "corpus": "Wikipedia",
+  "name": "Sendov",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 4,
+  "bytes": 2885
+ },
+ {
+  "path": "FormalConjectures/OpenQuantumProblems/13.lean",
+  "corpus": "OpenQuantumProblems",
+  "name": "13",
+  "n_answer_sorry": 6,
+  "n_research_open": 6,
+  "finite_signals": 3,
+  "bytes": 23645
+ },
+ {
+  "path": "FormalConjectures/Mathoverflow/34145.lean",
+  "corpus": "Mathoverflow",
+  "name": "34145",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 3,
+  "bytes": 7628
+ },
+ {
+  "path": "FormalConjectures/Paper/ZagierMZV.lean",
+  "corpus": "Paper",
+  "name": "ZagierMZV",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 3,
+  "bytes": 7923
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/Buchi.lean",
+  "corpus": "Wikipedia",
+  "name": "Buchi",
+  "n_answer_sorry": 1,
+  "n_research_open": 2,
+  "finite_signals": 3,
+  "bytes": 3593
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/JacobianConjecture.lean",
+  "corpus": "Wikipedia",
+  "name": "JacobianConjecture",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 3,
+  "bytes": 7524
+ },
+ {
+  "path": "FormalConjectures/Arxiv/2107.00295/IndependentDomination.lean",
+  "corpus": "Arxiv",
+  "name": "IndependentDomination",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 3,
+  "bytes": 1830
+ },
+ {
+  "path": "FormalConjectures/Arxiv/2208.14736/ZariskiCancellation.lean",
+  "corpus": "Arxiv",
+  "name": "ZariskiCancellation",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 3,
+  "bytes": 2446
+ },
+ {
+  "path": "FormalConjectures/Paper/CasasAlvero.lean",
+  "corpus": "Paper",
+  "name": "CasasAlvero",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 3,
+  "bytes": 6602
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/EllipticCurveRank.lean",
+  "corpus": "Wikipedia",
+  "name": "EllipticCurveRank",
+  "n_answer_sorry": 0,
+  "n_research_open": 7,
+  "finite_signals": 3,
+  "bytes": 9560
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/GracefulLabeling.lean",
+  "corpus": "Wikipedia",
+  "name": "GracefulLabeling",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 3,
+  "bytes": 2856
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/Kakeya.lean",
+  "corpus": "Wikipedia",
+  "name": "Kakeya",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 3,
+  "bytes": 3664
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/KomlosConjecture.lean",
+  "corpus": "Wikipedia",
+  "name": "KomlosConjecture",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 3,
+  "bytes": 3788
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/RegularPrimes.lean",
+  "corpus": "Wikipedia",
+  "name": "RegularPrimes",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 3,
+  "bytes": 2829
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/RudinsConjecture.lean",
+  "corpus": "Wikipedia",
+  "name": "RudinsConjecture",
+  "n_answer_sorry": 0,
+  "n_research_open": 3,
+  "finite_signals": 3,
+  "bytes": 4627
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/Selfridge.lean",
+  "corpus": "Wikipedia",
+  "name": "Selfridge",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 3,
+  "bytes": 4671
+ },
+ {
+  "path": "FormalConjectures/Paper/MonochromaticQuantumGraph.lean",
+  "corpus": "Paper",
+  "name": "MonochromaticQuantumGraph",
+  "n_answer_sorry": 34,
+  "n_research_open": 34,
+  "finite_signals": 2,
+  "bytes": 30006
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/31.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "31",
+  "n_answer_sorry": 7,
+  "n_research_open": 7,
+  "finite_signals": 2,
+  "bytes": 6236
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/SierpinskiNumber.lean",
+  "corpus": "Wikipedia",
+  "name": "SierpinskiNumber",
+  "n_answer_sorry": 3,
+  "n_research_open": 3,
+  "finite_signals": 2,
+  "bytes": 4411
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/Mersenne.lean",
+  "corpus": "Wikipedia",
+  "name": "Mersenne",
+  "n_answer_sorry": 2,
+  "n_research_open": 4,
+  "finite_signals": 2,
+  "bytes": 4921
+ },
+ {
+  "path": "FormalConjectures/Arxiv/2607.05739/TanArctanSum.lean",
+  "corpus": "Arxiv",
+  "name": "TanArctanSum",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 2,
+  "bytes": 5927
+ },
+ {
+  "path": "FormalConjectures/Arxiv/2607.08366/MinModulus.lean",
+  "corpus": "Arxiv",
+  "name": "MinModulus",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 2,
+  "bytes": 3880
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/12.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "12",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 2,
+  "bytes": 1578
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/24.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "24",
+  "n_answer_sorry": 1,
+  "n_research_open": 2,
+  "finite_signals": 2,
+  "bytes": 3115
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/IdonealCompleteness.lean",
+  "corpus": "Wikipedia",
+  "name": "IdonealCompleteness",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 2,
+  "bytes": 4000
+ },
+ {
+  "path": "FormalConjectures/Arxiv/2104.00502/BarkerSequence.lean",
+  "corpus": "Arxiv",
+  "name": "BarkerSequence",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 2,
+  "bytes": 2695
+ },
+ {
+  "path": "FormalConjectures/Arxiv/2504.17644/Margulis.lean",
+  "corpus": "Arxiv",
+  "name": "Margulis",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 2,
+  "bytes": 3162
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/19.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "19",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 2,
+  "bytes": 3326
+ },
+ {
+  "path": "FormalConjectures/Paper/HartshorneConjecture.lean",
+  "corpus": "Paper",
+  "name": "HartshorneConjecture",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 2,
+  "bytes": 3684
+ },
+ {
+  "path": "FormalConjectures/Paper/ReedOmegaDeltaChi.lean",
+  "corpus": "Paper",
+  "name": "ReedOmegaDeltaChi",
+  "n_answer_sorry": 0,
+  "n_research_open": 3,
+  "finite_signals": 2,
+  "bytes": 2531
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/ABC.lean",
+  "corpus": "Wikipedia",
+  "name": "ABC",
+  "n_answer_sorry": 0,
+  "n_research_open": 3,
+  "finite_signals": 2,
+  "bytes": 3001
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/AgohGiuga.lean",
+  "corpus": "Wikipedia",
+  "name": "AgohGiuga",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 2,
+  "bytes": 10817
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/ErdosMoser.lean",
+  "corpus": "Wikipedia",
+  "name": "ErdosMoser",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 2,
+  "bytes": 1982
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/EulerSumOfPowers.lean",
+  "corpus": "Wikipedia",
+  "name": "EulerSumOfPowers",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 2,
+  "bytes": 2026
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/Hadamard.lean",
+  "corpus": "Wikipedia",
+  "name": "Hadamard",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 2,
+  "bytes": 4593
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/Koethe.lean",
+  "corpus": "Wikipedia",
+  "name": "Koethe",
+  "n_answer_sorry": 0,
+  "n_research_open": 5,
+  "finite_signals": 2,
+  "bytes": 3411
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/MeanValueProblem.lean",
+  "corpus": "Wikipedia",
+  "name": "MeanValueProblem",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 2,
+  "bytes": 3432
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/SparseRuler.lean",
+  "corpus": "Wikipedia",
+  "name": "SparseRuler",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 2,
+  "bytes": 4733
+ },
+ {
+  "path": "FormalConjectures/OpenQuantumProblems/23.lean",
+  "corpus": "OpenQuantumProblems",
+  "name": "23",
+  "n_answer_sorry": 12,
+  "n_research_open": 12,
+  "finite_signals": 1,
+  "bytes": 15243
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/40.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "40",
+  "n_answer_sorry": 5,
+  "n_research_open": 5,
+  "finite_signals": 1,
+  "bytes": 6188
+ },
+ {
+  "path": "FormalConjectures/Paper/VoronovskajaTypeFormula.lean",
+  "corpus": "Paper",
+  "name": "VoronovskajaTypeFormula",
+  "n_answer_sorry": 4,
+  "n_research_open": 4,
+  "finite_signals": 1,
+  "bytes": 6399
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/21.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "21",
+  "n_answer_sorry": 3,
+  "n_research_open": 4,
+  "finite_signals": 1,
+  "bytes": 9341
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/39.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "39",
+  "n_answer_sorry": 3,
+  "n_research_open": 3,
+  "finite_signals": 1,
+  "bytes": 4096
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/32.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "32",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 1,
+  "bytes": 5656
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/35.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "35",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 1,
+  "bytes": 3494
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/64.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "64",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 1,
+  "bytes": 2633
+ },
+ {
+  "path": "FormalConjectures/Mathoverflow/434111.lean",
+  "corpus": "Mathoverflow",
+  "name": "434111",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 1,
+  "bytes": 2896
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/AmicableNumbers.lean",
+  "corpus": "Wikipedia",
+  "name": "AmicableNumbers",
+  "n_answer_sorry": 2,
+  "n_research_open": 3,
+  "finite_signals": 1,
+  "bytes": 3203
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/BetrothedNumbers.lean",
+  "corpus": "Wikipedia",
+  "name": "BetrothedNumbers",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 1,
+  "bytes": 2215
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/Euclid.lean",
+  "corpus": "Wikipedia",
+  "name": "Euclid",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 1,
+  "bytes": 1359
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/33.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "33",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "bytes": 2206
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/42.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "42",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "bytes": 4277
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/62.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "62",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "bytes": 1499
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/SumOfThreeCubes.lean",
+  "corpus": "Wikipedia",
+  "name": "SumOfThreeCubes",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "bytes": 3423
+ },
+ {
+  "path": "FormalConjectures/Arxiv/1102.4662/AtiyahSutcliffe.lean",
+  "corpus": "Arxiv",
+  "name": "AtiyahSutcliffe",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "bytes": 4273
+ },
+ {
+  "path": "FormalConjectures/Arxiv/1609.08688/sIncreasingrTuples.lean",
+  "corpus": "Arxiv",
+  "name": "sIncreasingrTuples",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "bytes": 11067
+ },
+ {
+  "path": "FormalConjectures/Arxiv/2402.13202/CirculantHadamard.lean",
+  "corpus": "Arxiv",
+  "name": "CirculantHadamard",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "bytes": 1921
+ },
+ {
+  "path": "FormalConjectures/Arxiv/2501.03234/ArithmeticSumS.lean",
+  "corpus": "Arxiv",
+  "name": "ArithmeticSumS",
+  "n_answer_sorry": 0,
+  "n_research_open": 5,
+  "finite_signals": 1,
+  "bytes": 4612
+ },
+ {
+  "path": "FormalConjectures/Books/BugeaudDistributionModuloOne/Problem10_5.lean",
+  "corpus": "Books",
+  "name": "Problem10_5",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 1,
+  "bytes": 4016
+ },
+ {
+  "path": "FormalConjectures/Other/EquationalTheories_677_255.lean",
+  "corpus": "Other",
+  "name": "EquationalTheories_677_255",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 1,
+  "bytes": 2697
+ },
+ {
+  "path": "FormalConjectures/Paper/Chvatal.lean",
+  "corpus": "Paper",
+  "name": "Chvatal",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "bytes": 1701
+ },
+ {
+  "path": "FormalConjectures/Paper/StrongSensitivityConjecture.lean",
+  "corpus": "Paper",
+  "name": "StrongSensitivityConjecture",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "bytes": 5601
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/BatemanHornConjecture.lean",
+  "corpus": "Wikipedia",
+  "name": "BatemanHornConjecture",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "bytes": 3562
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/BeckFialaConjecture.lean",
+  "corpus": "Wikipedia",
+  "name": "BeckFialaConjecture",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "bytes": 4383
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/DeterminantalConjecture.lean",
+  "corpus": "Wikipedia",
+  "name": "DeterminantalConjecture",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "bytes": 1870
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/ElliottHalberstamConjecture.lean",
+  "corpus": "Wikipedia",
+  "name": "ElliottHalberstamConjecture",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "bytes": 2968
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/GaussCircleProblem.lean",
+  "corpus": "Wikipedia",
+  "name": "GaussCircleProblem",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "bytes": 3037
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/Goormaghtigh.lean",
+  "corpus": "Wikipedia",
+  "name": "Goormaghtigh",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "bytes": 2436
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/Hall.lean",
+  "corpus": "Wikipedia",
+  "name": "Hall",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 1,
+  "bytes": 2582
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/RamanujanTau.lean",
+  "corpus": "Wikipedia",
+  "name": "RamanujanTau",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "bytes": 2214
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/SurjunctiveGroup.lean",
+  "corpus": "Wikipedia",
+  "name": "SurjunctiveGroup",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 1,
+  "bytes": 3586
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/14.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "14",
+  "n_answer_sorry": 28,
+  "n_research_open": 22,
+  "finite_signals": 0,
+  "bytes": 11158
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/Irrational.lean",
+  "corpus": "Wikipedia",
+  "name": "Irrational",
+  "n_answer_sorry": 9,
+  "n_research_open": 9,
+  "finite_signals": 0,
+  "bytes": 2469
+ },
+ {
+  "path": "FormalConjectures/Other/BeaverMathOlympiad.lean",
+  "corpus": "Other",
+  "name": "BeaverMathOlympiad",
+  "n_answer_sorry": 6,
+  "n_research_open": 5,
+  "finite_signals": 0,
+  "bytes": 11236
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/37.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "37",
+  "n_answer_sorry": 5,
+  "n_research_open": 5,
+  "finite_signals": 0,
+  "bytes": 2893
+ },
+ {
+  "path": "FormalConjectures/Paper/Homogenous.lean",
+  "corpus": "Paper",
+  "name": "Homogenous",
+  "n_answer_sorry": 5,
+  "n_research_open": 5,
+  "finite_signals": 0,
+  "bytes": 4601
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/SquarePacking.lean",
+  "corpus": "Wikipedia",
+  "name": "SquarePacking",
+  "n_answer_sorry": 5,
+  "n_research_open": 5,
+  "finite_signals": 0,
+  "bytes": 7017
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/Fermat.lean",
+  "corpus": "Wikipedia",
+  "name": "Fermat",
+  "n_answer_sorry": 4,
+  "n_research_open": 4,
+  "finite_signals": 0,
+  "bytes": 1509
+ },
+ {
+  "path": "FormalConjectures/Arxiv/2209.04540/SpectralSetsAndWeakTiling.lean",
+  "corpus": "Arxiv",
+  "name": "SpectralSetsAndWeakTiling",
+  "n_answer_sorry": 3,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "bytes": 3847
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/25.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "25",
+  "n_answer_sorry": 3,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "bytes": 4163
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/27.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "27",
+  "n_answer_sorry": 3,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "bytes": 3501
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/41.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "41",
+  "n_answer_sorry": 3,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "bytes": 3531
+ },
+ {
+  "path": "FormalConjectures/Paper/WeakTiling.lean",
+  "corpus": "Paper",
+  "name": "WeakTiling",
+  "n_answer_sorry": 3,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "bytes": 4655
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/EulerBrick.lean",
+  "corpus": "Wikipedia",
+  "name": "EulerBrick",
+  "n_answer_sorry": 3,
+  "n_research_open": 5,
+  "finite_signals": 0,
+  "bytes": 6026
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/16.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "16",
+  "n_answer_sorry": 2,
+  "n_research_open": 5,
+  "finite_signals": 0,
+  "bytes": 3377
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/36.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "36",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "bytes": 2978
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/46.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "46",
+  "n_answer_sorry": 2,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "bytes": 3090
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/9.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "9",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "bytes": 2042
+ },
+ {
+  "path": "FormalConjectures/Paper/WeaklyFirstCountable.lean",
+  "corpus": "Paper",
+  "name": "WeaklyFirstCountable",
+  "n_answer_sorry": 2,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "bytes": 6216
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/AlgebraicNormality.lean",
+  "corpus": "Wikipedia",
+  "name": "AlgebraicNormality",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "bytes": 2443
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/BalancedPrimes.lean",
+  "corpus": "Wikipedia",
+  "name": "BalancedPrimes",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "bytes": 1461
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/FlintCooksonHills.lean",
+  "corpus": "Wikipedia",
+  "name": "FlintCooksonHills",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "bytes": 1737
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/Fuglede.lean",
+  "corpus": "Wikipedia",
+  "name": "Fuglede",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "bytes": 2068
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/InscribedSquare.lean",
+  "corpus": "Wikipedia",
+  "name": "InscribedSquare",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "bytes": 3456
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/LychrelNumbers.lean",
+  "corpus": "Wikipedia",
+  "name": "LychrelNumbers",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "bytes": 3797
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/MagicSquares.lean",
+  "corpus": "Wikipedia",
+  "name": "MagicSquares",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "bytes": 2472
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/MoserWorm.lean",
+  "corpus": "Wikipedia",
+  "name": "MoserWorm",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "bytes": 4521
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/PerfectNumbers.lean",
+  "corpus": "Wikipedia",
+  "name": "PerfectNumbers",
+  "n_answer_sorry": 2,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "bytes": 3738
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/SolitaryNumber.lean",
+  "corpus": "Wikipedia",
+  "name": "SolitaryNumber",
+  "n_answer_sorry": 2,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "bytes": 1988
+ },
+ {
+  "path": "FormalConjectures/Arxiv/2607.03582/LpRogersShephard.lean",
+  "corpus": "Arxiv",
+  "name": "LpRogersShephard",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 4810
+ },
+ {
+  "path": "FormalConjectures/Arxiv/math.0110202/BanachMazurRotation.lean",
+  "corpus": "Arxiv",
+  "name": "BanachMazurRotation",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 2345
+ },
+ {
+  "path": "FormalConjectures/Books/BugeaudDistributionModuloOne/IntDistanceDistribution.lean",
+  "corpus": "Books",
+  "name": "IntDistanceDistribution",
+  "n_answer_sorry": 1,
+  "n_research_open": 4,
+  "finite_signals": 0,
+  "bytes": 5449
+ },
+ {
+  "path": "FormalConjectures/Books/BugeaudDistributionModuloOne/Problem10_7.lean",
+  "corpus": "Books",
+  "name": "Problem10_7",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1577
+ },
+ {
+  "path": "FormalConjectures/Books/UniformDistributionOfSequences/Equidistribution.lean",
+  "corpus": "Books",
+  "name": "Equidistribution",
+  "n_answer_sorry": 1,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "bytes": 3094
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/1.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "1",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1283
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/15.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "15",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1786
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/2.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "2",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 3595
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/22.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "22",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 3961
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/26.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "26",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 2993
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/28.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "28",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 2129
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/29.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "29",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 2455
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/3.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "3",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1170
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/4.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "4",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 2228
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/44.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "44",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 2106
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/47.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "47",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 2217
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/50.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "50",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 2273
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/52.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "52",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 2458
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/53.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "53",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1415
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/54.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "54",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 2214
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/58.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "58",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1254
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/60.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "60",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1235
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/61.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "61",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1465
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/66.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "66",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1788
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/7.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "7",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1284
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/77.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "77",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1159
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/85.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "85",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 2677
+ },
+ {
+  "path": "FormalConjectures/GreensOpenProblems/94.lean",
+  "corpus": "GreensOpenProblems",
+  "name": "94",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1700
+ },
+ {
+  "path": "FormalConjectures/Kourovka/1_40.lean",
+  "corpus": "Kourovka",
+  "name": "1_40",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 2166
+ },
+ {
+  "path": "FormalConjectures/Kourovka/1_74.lean",
+  "corpus": "Kourovka",
+  "name": "1_74",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1849
+ },
+ {
+  "path": "FormalConjectures/Kourovka/20_76.lean",
+  "corpus": "Kourovka",
+  "name": "20_76",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1298
+ },
+ {
+  "path": "FormalConjectures/Mathoverflow/1973.lean",
+  "corpus": "Mathoverflow",
+  "name": "1973",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1492
+ },
+ {
+  "path": "FormalConjectures/Mathoverflow/21003.lean",
+  "corpus": "Mathoverflow",
+  "name": "21003",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1306
+ },
+ {
+  "path": "FormalConjectures/Mathoverflow/235893.lean",
+  "corpus": "Mathoverflow",
+  "name": "235893",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 8935
+ },
+ {
+  "path": "FormalConjectures/Mathoverflow/31809.lean",
+  "corpus": "Mathoverflow",
+  "name": "31809",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1217
+ },
+ {
+  "path": "FormalConjectures/Mathoverflow/347178.lean",
+  "corpus": "Mathoverflow",
+  "name": "347178",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 2775
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/Agrawal.lean",
+  "corpus": "Wikipedia",
+  "name": "Agrawal",
+  "n_answer_sorry": 1,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "bytes": 2650
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/AlmostPerfectNumbers.lean",
+  "corpus": "Wikipedia",
+  "name": "AlmostPerfectNumbers",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1361
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/BoundedBurnsideProblem.lean",
+  "corpus": "Wikipedia",
+  "name": "BoundedBurnsideProblem",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1165
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/GoldbachConjecture.lean",
+  "corpus": "Wikipedia",
+  "name": "GoldbachConjecture",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1644
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/LegendreConjecture.lean",
+  "corpus": "Wikipedia",
+  "name": "LegendreConjecture",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 2239
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/LehmerTotient.lean",
+  "corpus": "Wikipedia",
+  "name": "LehmerTotient",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1024
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/PowerfulNumbersDensity.lean",
+  "corpus": "Wikipedia",
+  "name": "PowerfulNumbersDensity",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 3416
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/PrimeTriplets.lean",
+  "corpus": "Wikipedia",
+  "name": "PrimeTriplets",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1081
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/PrimesAndPerfectSquares.lean",
+  "corpus": "Wikipedia",
+  "name": "PrimesAndPerfectSquares",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1102
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/QuasiperfectNumbers.lean",
+  "corpus": "Wikipedia",
+  "name": "QuasiperfectNumbers",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1154
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/RamseyNumbers.lean",
+  "corpus": "Wikipedia",
+  "name": "RamseyNumbers",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 4398
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/RationalDistanceProblem.lean",
+  "corpus": "Wikipedia",
+  "name": "RationalDistanceProblem",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1443
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/SnakeInTheBox.lean",
+  "corpus": "Wikipedia",
+  "name": "SnakeInTheBox",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 3852
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/TwinPrimes.lean",
+  "corpus": "Wikipedia",
+  "name": "TwinPrimes",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1111
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/conjecture_1_3_to_2_3.lean",
+  "corpus": "Wikipedia",
+  "name": "conjecture_1_3_to_2_3",
+  "n_answer_sorry": 1,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1538
+ },
+ {
+  "path": "FormalConjectures/Arxiv/0912.2382/CurlingNumberConjecture.lean",
+  "corpus": "Arxiv",
+  "name": "CurlingNumberConjecture",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1847
+ },
+ {
+  "path": "FormalConjectures/Arxiv/1104.1579/CunninghamChain.lean",
+  "corpus": "Arxiv",
+  "name": "CunninghamChain",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "bytes": 3559
+ },
+ {
+  "path": "FormalConjectures/Arxiv/1601.03081/UniqueCrystalComponents.lean",
+  "corpus": "Arxiv",
+  "name": "UniqueCrystalComponents",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1797
+ },
+ {
+  "path": "FormalConjectures/Arxiv/2107.12475/CollatzLike.lean",
+  "corpus": "Arxiv",
+  "name": "CollatzLike",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1965
+ },
+ {
+  "path": "FormalConjectures/Arxiv/2303.01089/FurstenbergTimesPTimesQ.lean",
+  "corpus": "Arxiv",
+  "name": "FurstenbergTimesPTimesQ",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 3334
+ },
+ {
+  "path": "FormalConjectures/Arxiv/2605.12342/Conjecture1.lean",
+  "corpus": "Arxiv",
+  "name": "Conjecture1",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 4749
+ },
+ {
+  "path": "FormalConjectures/Books/BugeaudDistributionModuloOne/Problem10_4.lean",
+  "corpus": "Books",
+  "name": "Problem10_4",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1741
+ },
+ {
+  "path": "FormalConjectures/Books/BugeaudDistributionModuloOne/Problem10_6.lean",
+  "corpus": "Books",
+  "name": "Problem10_6",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "bytes": 6513
+ },
+ {
+  "path": "FormalConjectures/Books/BugeaudDistributionModuloOne/Problem10_8.lean",
+  "corpus": "Books",
+  "name": "Problem10_8",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 2780
+ },
+ {
+  "path": "FormalConjectures/Books/BugeaudDistributionModuloOne/Problem10_9.lean",
+  "corpus": "Books",
+  "name": "Problem10_9",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 2468
+ },
+ {
+  "path": "FormalConjectures/Mathoverflow/17560.lean",
+  "corpus": "Mathoverflow",
+  "name": "17560",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1679
+ },
+ {
+  "path": "FormalConjectures/Mathoverflow/339137.lean",
+  "corpus": "Mathoverflow",
+  "name": "339137",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 2560
+ },
+ {
+  "path": "FormalConjectures/Millenium/NavierStokes.lean",
+  "corpus": "Millenium",
+  "name": "NavierStokes",
+  "n_answer_sorry": 0,
+  "n_research_open": 4,
+  "finite_signals": 0,
+  "bytes": 13012
+ },
+ {
+  "path": "FormalConjectures/Millenium/Poincare.lean",
+  "corpus": "Millenium",
+  "name": "Poincare",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "bytes": 4237
+ },
+ {
+  "path": "FormalConjectures/Millenium/PvsNP.lean",
+  "corpus": "Millenium",
+  "name": "PvsNP",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "bytes": 3819
+ },
+ {
+  "path": "FormalConjectures/Millenium/RiemannHypothesis.lean",
+  "corpus": "Millenium",
+  "name": "RiemannHypothesis",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "bytes": 5024
+ },
+ {
+  "path": "FormalConjectures/Other/VCDimConvex.lean",
+  "corpus": "Other",
+  "name": "VCDimConvex",
+  "n_answer_sorry": 0,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "bytes": 2923
+ },
+ {
+  "path": "FormalConjectures/Paper/CardinalityLindelof.lean",
+  "corpus": "Paper",
+  "name": "CardinalityLindelof",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1460
+ },
+ {
+  "path": "FormalConjectures/Paper/CatchUpConjecture.lean",
+  "corpus": "Paper",
+  "name": "CatchUpConjecture",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 7156
+ },
+ {
+  "path": "FormalConjectures/Paper/Dubner.lean",
+  "corpus": "Paper",
+  "name": "Dubner",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1730
+ },
+ {
+  "path": "FormalConjectures/Paper/FusibleNumber.lean",
+  "corpus": "Paper",
+  "name": "FusibleNumber",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 3080
+ },
+ {
+  "path": "FormalConjectures/Paper/KotzigConjecture.lean",
+  "corpus": "Paper",
+  "name": "KotzigConjecture",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 2060
+ },
+ {
+  "path": "FormalConjectures/Paper/LatinTableau.lean",
+  "corpus": "Paper",
+  "name": "LatinTableau",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1515
+ },
+ {
+  "path": "FormalConjectures/Paper/PrimeTuples.lean",
+  "corpus": "Paper",
+  "name": "PrimeTuples",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1363
+ },
+ {
+  "path": "FormalConjectures/Paper/RingelConjecture.lean",
+  "corpus": "Paper",
+  "name": "RingelConjecture",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1804
+ },
+ {
+  "path": "FormalConjectures/Subsets/FC100OpenSet1.lean",
+  "corpus": "Subsets",
+  "name": "FC100OpenSet1",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 10085
+ },
+ {
+  "path": "FormalConjectures/Subsets/FC100SolvedSet1.lean",
+  "corpus": "Subsets",
+  "name": "FC100SolvedSet1",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 9893
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/Andrica.lean",
+  "corpus": "Wikipedia",
+  "name": "Andrica",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1437
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/ArtinPrimitiveRootsConjecture.lean",
+  "corpus": "Wikipedia",
+  "name": "ArtinPrimitiveRootsConjecture",
+  "n_answer_sorry": 0,
+  "n_research_open": 4,
+  "finite_signals": 0,
+  "bytes": 8854
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/BealConjecture.lean",
+  "corpus": "Wikipedia",
+  "name": "BealConjecture",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 2340
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/BingBorsuk.lean",
+  "corpus": "Wikipedia",
+  "name": "BingBorsuk",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1971
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/Brennanconjecture.lean",
+  "corpus": "Wikipedia",
+  "name": "Brennanconjecture",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "bytes": 3067
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/BrocardConjecture.lean",
+  "corpus": "Wikipedia",
+  "name": "BrocardConjecture",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1584
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/Bunyakovsky.lean",
+  "corpus": "Wikipedia",
+  "name": "Bunyakovsky",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1171
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/CarmichaelTotient.lean",
+  "corpus": "Wikipedia",
+  "name": "CarmichaelTotient",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 2332
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/Catalan.lean",
+  "corpus": "Wikipedia",
+  "name": "Catalan",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "bytes": 2741
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/ClassNumberProblem.lean",
+  "corpus": "Wikipedia",
+  "name": "ClassNumberProblem",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1661
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/CollatzConjecture.lean",
+  "corpus": "Wikipedia",
+  "name": "CollatzConjecture",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1886
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/CongruentNumber.lean",
+  "corpus": "Wikipedia",
+  "name": "CongruentNumber",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "bytes": 4566
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/Dickson.lean",
+  "corpus": "Wikipedia",
+  "name": "Dickson",
+  "n_answer_sorry": 0,
+  "n_research_open": 5,
+  "finite_signals": 0,
+  "bytes": 2872
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/Exponentials.lean",
+  "corpus": "Wikipedia",
+  "name": "Exponentials",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "bytes": 1543
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/FactorialPrime.lean",
+  "corpus": "Wikipedia",
+  "name": "FactorialPrime",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1597
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/FeitThompsonPrimeConjecture.lean",
+  "corpus": "Wikipedia",
+  "name": "FeitThompsonPrimeConjecture",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1114
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/FermatCatalanConjecture.lean",
+  "corpus": "Wikipedia",
+  "name": "FermatCatalanConjecture",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 2491
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/FibonacciPrimes.lean",
+  "corpus": "Wikipedia",
+  "name": "FibonacciPrimes",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "bytes": 1902
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/Firoozbakht.lean",
+  "corpus": "Wikipedia",
+  "name": "Firoozbakht",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1626
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/GapConjecture.lean",
+  "corpus": "Wikipedia",
+  "name": "GapConjecture",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1533
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/Gilbreath.lean",
+  "corpus": "Wikipedia",
+  "name": "Gilbreath",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1235
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/Grimm.lean",
+  "corpus": "Wikipedia",
+  "name": "Grimm",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "bytes": 1558
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/HardyLittlewood.lean",
+  "corpus": "Wikipedia",
+  "name": "HardyLittlewood",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "bytes": 4138
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/InvariantSubspaceProblem.lean",
+  "corpus": "Wikipedia",
+  "name": "InvariantSubspaceProblem",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 5679
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/JugglerConjecture.lean",
+  "corpus": "Wikipedia",
+  "name": "JugglerConjecture",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1717
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/Kaplansky.lean",
+  "corpus": "Wikipedia",
+  "name": "Kaplansky",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "bytes": 4191
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/KummerVandiver.lean",
+  "corpus": "Wikipedia",
+  "name": "KummerVandiver",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1263
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/LanderParkinAndSelfridgeConjecture.lean",
+  "corpus": "Wikipedia",
+  "name": "LanderParkinAndSelfridgeConjecture",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "bytes": 2230
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/LehmerMahlerMeasureProblem.lean",
+  "corpus": "Wikipedia",
+  "name": "LehmerMahlerMeasureProblem",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "bytes": 2679
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/Lemoine.lean",
+  "corpus": "Wikipedia",
+  "name": "Lemoine",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "bytes": 1602
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/LittlewoodConjecture.lean",
+  "corpus": "Wikipedia",
+  "name": "LittlewoodConjecture",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "bytes": 1810
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/LonelyRunnerConjecture.lean",
+  "corpus": "Wikipedia",
+  "name": "LonelyRunnerConjecture",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 2750
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/Mahler32.lean",
+  "corpus": "Wikipedia",
+  "name": "Mahler32",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1904
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/NormalityOfPi.lean",
+  "corpus": "Wikipedia",
+  "name": "NormalityOfPi",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1266
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/Oppermann.lean",
+  "corpus": "Wikipedia",
+  "name": "Oppermann",
+  "n_answer_sorry": 0,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "bytes": 4722
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/Pell.lean",
+  "corpus": "Wikipedia",
+  "name": "Pell",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 5667
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/PierceBirkhoff.lean",
+  "corpus": "Wikipedia",
+  "name": "PierceBirkhoff",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 4218
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/PierpontPrime.lean",
+  "corpus": "Wikipedia",
+  "name": "PierpontPrime",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1558
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/PollocksConjecture.lean",
+  "corpus": "Wikipedia",
+  "name": "PollocksConjecture",
+  "n_answer_sorry": 0,
+  "n_research_open": 2,
+  "finite_signals": 0,
+  "bytes": 2776
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/RiemannZetaValues.lean",
+  "corpus": "Wikipedia",
+  "name": "RiemannZetaValues",
+  "n_answer_sorry": 0,
+  "n_research_open": 5,
+  "finite_signals": 0,
+  "bytes": 2714
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/Schanuel.lean",
+  "corpus": "Wikipedia",
+  "name": "Schanuel",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1252
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/Schinzel.lean",
+  "corpus": "Wikipedia",
+  "name": "Schinzel",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1222
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/Singmaster.lean",
+  "corpus": "Wikipedia",
+  "name": "Singmaster",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1533
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/SteinerSystem.lean",
+  "corpus": "Wikipedia",
+  "name": "SteinerSystem",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 9159
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/Superperfectnumbers.lean",
+  "corpus": "Wikipedia",
+  "name": "Superperfectnumbers",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1380
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/Toronto.lean",
+  "corpus": "Wikipedia",
+  "name": "Toronto",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 2011
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/Transcendental.lean",
+  "corpus": "Wikipedia",
+  "name": "Transcendental",
+  "n_answer_sorry": 0,
+  "n_research_open": 16,
+  "finite_signals": 0,
+  "bytes": 5203
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/VaughtConjecture.lean",
+  "corpus": "Wikipedia",
+  "name": "VaughtConjecture",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1608
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/WallSunSun.lean",
+  "corpus": "Wikipedia",
+  "name": "WallSunSun",
+  "n_answer_sorry": 0,
+  "n_research_open": 3,
+  "finite_signals": 0,
+  "bytes": 6741
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/WilsonPrime.lean",
+  "corpus": "Wikipedia",
+  "name": "WilsonPrime",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 2104
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/WolstenholmePrime.lean",
+  "corpus": "Wikipedia",
+  "name": "WolstenholmePrime",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 3183
+ },
+ {
+  "path": "FormalConjectures/Wikipedia/WoodalPrimes.lean",
+  "corpus": "Wikipedia",
+  "name": "WoodalPrimes",
+  "n_answer_sorry": 0,
+  "n_research_open": 1,
+  "finite_signals": 0,
+  "bytes": 1043
+ }
+]
