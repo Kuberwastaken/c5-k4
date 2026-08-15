@@ -108,3 +108,27 @@ wall arm that is really doing generic search with extra steps; or any
 post-hoc adjustment of the criterion. If the run hits one of these, the honest
 report is "the experiment failed to test the hypothesis", not a claim in either
 direction.
+
+---
+
+## Run log (appended during execution, no criterion changes)
+
+**2026-08-15, arms launched.** Catalogue, generic and wall arms started
+concurrently and blind: each was instructed not to read the others' output
+files, and the generic and wall arms were additionally forbidden from reading
+`scripts/exp/catalogue.py` (the control arm's instrument).
+
+**Interim, generic arm partial (12 CROSSED / 8 BRACKET / 10 PENDING of 30).**
+Recorded as it stands. This is in the direction of the pre-specified
+worthlessness condition "targets so easy that all three arms refute
+everything": if generic search alone refutes most of the population, the
+experiment loses power to discriminate between arms regardless of what the wall
+arm does. The criterion is **not** being changed in response — that is exactly
+the post-hoc adjustment this document forbids. If the final numbers land there,
+the honest report is "the experiment failed to test the hypothesis", per the
+closing section above.
+
+Contributing factor already documented pre-freeze in `GENERATION.md`: the
+database edge is `n = 8`, well inside Graffiti.pc's, so these targets were
+expected to be easier to refute than the WOWII conjectures the method was
+developed on. Only the between-arm comparison was ever meaningful.
