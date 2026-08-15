@@ -36,7 +36,7 @@ Sixteen open as of 2026-08-15; none reviewed yet.
 | [#4986](https://github.com/google-deepmind/formal-conjectures/pull/4986) | Erdős 1093 `smoothNumbers (k+1)` | formalization repair | building |
 | [#4987](https://github.com/google-deepmind/formal-conjectures/pull/4987) | OEIS A237271 `IsCarmichael` hypothesis | formalization repair | building |
 | [#4988](https://github.com/google-deepmind/formal-conjectures/pull/4988) | Erdős 1055 `IsOfClass` exactness | formalization repair | building |
-| [#4989](https://github.com/google-deepmind/formal-conjectures/pull/4989) | Erdős 33 lower-bound form | formalization repair | building |
+| [#4989](https://github.com/google-deepmind/formal-conjectures/pull/4989) | Erdős 33 lower-bound form | formalization repair | pass |
 | [#4990](https://github.com/google-deepmind/formal-conjectures/pull/4990) | Erdős 15 conditional convergence | formalization repair | building |
 | [#4991](https://github.com/google-deepmind/formal-conjectures/pull/4991) | Erdős 477 two-sided index set | formalization repair | pass |
 | [#4992](https://github.com/google-deepmind/formal-conjectures/pull/4992) | Erdős 952 `answer(sorry) ↔` | formalization repair | building |
