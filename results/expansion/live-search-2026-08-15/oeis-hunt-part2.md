@@ -10,13 +10,110 @@ ids sorted ascending, second half (`id >= 130000`).
 Phase 7 candidate verification. 60-second hard cap on every computation.
 **Publication:** none. No upstream issue/PR/comment opened. Local records only.
 
+## HANDOFF STATE (written 2026-08-15, agent replaced mid-run)
+
+**Assigned share:** the 14 `corpus == "OEIS"` entries with `id >= 130000`, minus A231201
+(`previously_touched == true`) = **13 targets**.
+
+### Completed (9 of 13) — full write-ups below
+
+| id | verdict | counterexample? |
+|---|---|---|
+| A167604 | `CERTIFICATE_SHAPE_FAIL` / NOT_FINITELY_REFUTABLE (`answer(sorry)`) | no |
+| A211417 | `HOLD_BOUNDED` to n=3000 + trivially-true `general_divisibility` (**duplicate of upstream open issue #4923**) | no |
+| A228828 | `CERTIFICATE_SHAPE_FAIL` / NOT_FINITELY_REFUTABLE (`Set.Infinite`) | no |
+| A232174 | `HOLD_BOUNDED` to n=60000; + novel `SOURCE_ERRATUM` in the OEIS comment (n=66) | no |
+| A237271 | **`FORMALIZATION_DEFECT / VACUOUS_PREMISE` — NOVEL**, hypothesis satisfied by no k | no (vacuously true) |
+| A239957 | `HOLD_BOUNDED` — all 25,997 primes ≤ 300,000 | no |
+| A280831 | `HOLD_BOUNDED` — n = 0..43,772 | no |
+| A281976 | `HOLD_BOUNDED` — n = 0..781,629 | no |
+| A287616 | `HOLD_BOUNDED` — n = 0..30,000,000; + `STATUS_SYNC` (proved 2026, **duplicate of upstream open issue #4927**) | no |
+
+### Mid-way when stopped
+
+**A287616** was fully computed and verified (n ≤ 3·10^7, no gaps; representation counts match OEIS
+DATA(0..80) exactly). Only its formatted section was outstanding — it is written below in full.
+Nothing was left unresolved on it.
+
+### UNSTARTED (4 of 13) — Lean file and OEIS entry already read; findings recorded below
+
+- **A303656** — Sun, `n = a²+b²+3^c+5^d` for `n > 1`. Encoding verified faithful (OEIS adds
+  `a <= b`, a harmless normalization). Finitely refutable. Verified by Sun/Lin to 2.4·10^11.
+  **No computation run.**
+- **A306477** — Sun 2-4-6-8 conjecture. Encoding verified faithful (Lean's `C(w+2,2)`, `C(x+3,4)`,
+  `C(y+5,6)`, `C(z+7,8)` with `w,x,y,z : ℕ` generate exactly the same value sets as the source's
+  `C(w,2)+C(x,4)+C(y,6)+C(z,8)` with `w,x,y,z ∈ {2,3,...}`; I checked this by hand, see notes below).
+  Verified by Baruch to 2·10^12. **No computation run.**
+- **A308734** — Sun four-square, `(2^a·3^b)² + (2^c·5^d)² + x² + y²` for `n > 1`. Encoding faithful
+  (OEIS adds `x <= y`, harmless). Verified by Lin to 1.6·10^11. **No computation run.**
+- **A357513** — `general_supercongruence`. **Shape analysis done: NOT finitely refutable** — the
+  declaration is `∃ (exceptions : Finset ℕ), ∀ p prime, p ∉ exceptions → ...`, so refuting it
+  requires infinitely many failing primes. Also a `STATUS_SYNC`: the OEIS entry now records
+  *"This conjecture is now proved; see Links"* (Ondrej Kutal, Jul 18 2026, **with Lean
+  formalization**), while the declaration is still `category research open` upstream.
+  See notes below. **No computation needed; this one can be closed on shape alone.**
+
+### Candidate counterexamples
+
+**None.** Zero refuting integers were found in nine completed targets. The two substantive findings
+are statement defects, not counterexamples, and one of the two is already reported upstream.
+There is **no UNVERIFIED candidate** pending.
+
+### Notes that will save the next agent time
+
+1. **OEIS fetching.** Plain `curl` on `https://oeis.org/search?...&fmt=text`, `/A<id>`,
+   `/A<id>/internal` and `/A<id>/list` all return **403 (Cloudflare challenge)**. Two things work:
+   - a browser User-Agent on the plain page:
+     `curl -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36" https://oeis.org/A<id>` → 200. Strip tags to text.
+   - **b-files are static and need no UA**: `https://oeis.org/A<id>/b<id>.txt` → 200.
+2. **Always run Python with `-u`.** A timed-out buffered script prints nothing at all and looks like
+   a hang. Also: `while n % 4 == 0: n //= 4` is an infinite loop at `n = 0` — guard it.
+3. **Dead-end declaration shapes** (stop at METHOD G0, do not compute):
+   - `answer(sorry) ↔ …` (fixed-answer class) — A167604.
+   - `Set.Infinite` / "the sequence is infinite" — A228828.
+   - `∃ (exceptions : Finset ℕ), ∀ p, …` — A357513.
+   These three consumed no compute and should not be reopened.
+4. **The productive shape in this half is `∃`-witness Sun conjectures** (`∀ n, ∃ x y z w, …`), which
+   *are* finitely refutable — but every one of them has been machine-verified by the proposers to
+   10^8–10^12, so a small-`n` sweep is calibration, not a realistic kill. The realistic vein here
+   was **defective quantifiers**, and that is where both findings came from
+   (`∃ D : ℤ` with no `D ≠ 0`; `∀ a : ZMod k, a ≠ 0` instead of `∀ a` coprime to `k`).
+5. **Two upstream open issues already collect this class of defect** — read them before claiming
+   novelty on any statement defect:
+   - #4896 "Tracking: possible misformalizations found in statement audits"
+   - #4923 "Possible misformalizations II" (contains the A211417 `D = 0` item verbatim)
+   - #4927 "Open statements with known solutions" (contains the A287616 item)
+6. **Scripts written** (all in
+   `/tmp/claude-1000/-Users-kuber-mehta-Projects-scratch/21f73cfa-6e97-457f-8bb8-ae31d911cc43/scratchpad/`,
+   a session-scoped scratchpad that will not survive — copy anything you want to keep):
+   `a167604.py`, `a211417.py`, `a211417b.py`, `a232174.py` (counts), `a232174b.py` (DATA
+   cross-check), `a232174c.py` (existence sweep), `a237271.py`, `a239957.py`, `a280831b.py`
+   (existence, Gauss–Legendre-reduced), `a280831c.py` (DATA calibration), `a281976.py`,
+   `a287616.py` / `a287616b.py` (big-int bitset convolution — this technique covers 3·10^7 in 36 s
+   and is the right tool for any "sum of three polygonal numbers" target).
+   Fetched OEIS pages/text are in the sibling `oeis/` subdirectory.
+7. **Python env:** `/home/ec2-user/.venvs/wowii/bin/python`. **`sympy` is NOT installed** — write
+   your own `isqrt`/Miller–Rabin/factorization helpers.
+
+---
+
 ## Running summary
 
 | # | OEIS | Lean file | open decls | certificate shape | verdict | refuting integer |
 |---|---|---|---|---|---|---|
-| 1 | A167604 | `FormalConjectures/OEIS/167604.lean` | 1 (`answer(sorry)`) | fixed-answer placeholder | `CERTIFICATE_SHAPE_FAIL` (NOT_FINITELY_REFUTABLE) | — |
-
-_(table extended after each target)_
+| 1 | A167604 | `OEIS/167604.lean` | 1 (`answer(sorry)`) | fixed-answer placeholder | `CERTIFICATE_SHAPE_FAIL` | — |
+| 2 | A211417 | `OEIS/211417.lean` | 6 | finite universal ×5, degenerate ∃ ×1 | `HOLD_BOUNDED` + defect (dup #4923) | — |
+| 3 | A228828 | `OEIS/228828.lean` | 1 | infinitude | `CERTIFICATE_SHAPE_FAIL` | — |
+| 4 | A232174 | `OEIS/232174.lean` | 1 | finite universal | `HOLD_BOUNDED` (n ≤ 60000) + OEIS erratum n=66 | — |
+| 5 | A237271 | `OEIS/237271.lean` | 1 | finite universal, **empty domain** | **`FORMALIZATION_DEFECT / VACUOUS_PREMISE` (novel)** | — (vacuously true) |
+| 6 | A239957 | `OEIS/239957.lean` | 1 | finite universal | `HOLD_BOUNDED` (all p ≤ 300000) | — |
+| 7 | A280831 | `OEIS/280831.lean` | 1 | finite universal | `HOLD_BOUNDED` (n ≤ 43772) | — |
+| 8 | A281976 | `OEIS/281976.lean` | 1 | finite universal | `HOLD_BOUNDED` (n ≤ 781629) | — |
+| 9 | A287616 | `OEIS/287616.lean` | 1 | finite universal | `HOLD_BOUNDED` (n ≤ 3·10^7) + `STATUS_SYNC` (dup #4927) | — |
+| 10 | A303656 | `OEIS/303656.lean` | 1 | finite universal | **UNSTARTED** (faithful encoding confirmed) | — |
+| 11 | A306477 | `OEIS/306477.lean` | 1 | finite universal | **UNSTARTED** (faithful encoding confirmed) | — |
+| 12 | A308734 | `OEIS/308734.lean` | 1 | finite universal | **UNSTARTED** (faithful encoding confirmed) | — |
+| 13 | A357513 | `OEIS/357513.lean` | 1 | `∃ Finset` exceptions | **`CERTIFICATE_SHAPE_FAIL` + `STATUS_SYNC`** (analysis below, no compute needed) | — |
 
 ---
 

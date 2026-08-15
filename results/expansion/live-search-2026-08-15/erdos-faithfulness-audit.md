@@ -1,5 +1,42 @@
 # Erdős Problems formalization-faithfulness audit (live search 2026-08-15)
 
+## HANDOFF STATE (agent 1 stopped mid-sweep, 2026-08-15)
+
+**Stopped by coordinator instruction (model rotation). No new target started after `1026`.**
+
+**Traversal:** strictly descending numeric id over
+`results/expansion/open_targets_oeis_erdos_20260815.json`,
+`corpus=="ErdosProblems"`, `previously_touched==false` (364 rows). The full descending
+id list is written to
+`/tmp/claude-1000/-Users-kuber-mehta-Projects-scratch/21f73cfa-6e97-457f-8bb8-ae31d911cc43/scratchpad/faith/ids.txt`
+(line 1 = `1212`, line 364 = smallest). Ids audited = lines 1–53 of that file.
+
+**AUDITED (53 ids, complete, all in the table below), descending:**
+
+```
+1212 1210 1209 1203 1201 1199 1192 1176 1175 1167 1150 1146 1145 1142 1139
+1137 1135 1133 1119 1113 1110 1109 1108 1107 1106 1101 1095 1094 1093 1085
+1084 1082 1074 1073 1068 1065 1063 1062 1061 1060 1059 1057 1056 1055 1054
+1052 1049 1047 1044 1041 1038 1026 1007*
+```
+
+`1007` (*) — **IN PROGRESS / NOT AUDITED.** Its page is cached but the Lean file was
+never read. Treat `1007` as the resume point.
+
+**REACHED:** id `1026` fully audited; `1007` is the next unaudited id.
+
+**REMAINS (311 ids):** everything from `1007` downward in `ids.txt`, i.e. lines 53–364:
+`1007 1004 1003 1002 996 985 982 979 978 975 973 972 971 968 967 962 961 959 955 952
+951 950 949 945 944 943 942 …` down to the smallest id. **Resume at `1007` and keep
+descending** — the sibling finite-counterexample agent works the `finite_signals`
+ranking, not this order, so descending traversal remains the collision-free lane.
+
+**Pages already fetched and cached** (no re-fetch needed): the first **180** ids of
+`ids.txt`, i.e. down to roughly id `700`, in
+`…/scratchpad/faith/epcache/<id>.html`.
+
+---
+
 **Angle.** Text-to-text comparison of the canonical problem statement on
 `erdosproblems.com/<id>` against the exact Lean encoding in
 `google-deepmind/formal-conjectures`, hunting statement/source divergences that make the
@@ -87,3 +124,12 @@ proposed here. Everything below is an internal reading record.
 | 1059 | open | `erdos_1059` | none. `Set.range Nat.factorial` correctly yields `{1,2,6,24,…}` (`0! = 1! = 1`, and `0 ∉ range`), matching "each `k` with `1 ≤ k! < p`"; the site's second (easier) Erdős variant is not formalized | FAITHFUL | `Set.Infinite` |
 | 1057 | open | `erdos_1057`, `.variants.pomerance` | none | FAITHFUL | asymptotic |
 | 1056 | open | `erdos_1056`, `.variants.noll_simmons` | (a) `.variants.noll_simmons` **adds** `∀ i, Q i < p`, which is absent from the source but **necessary** — without it `Q = (p, p+1, …)` makes every `(Q i)! ≡ 0 [MOD p]` and the statement trivially true; the addition is undocumented; (b) headline docstring says "intervals `I_0,…,I_k`" (k+1) while the code builds `k` intervals from `Fin (k+1)` boundaries; `Fin (k+1)` successor cannot wrap because `i.castSucc ≤ k-1` | COSMETIC | `∃ p` + finite interval data |
+| 1055 | open | `erdos_1055`, `.variants.erdos_limit`, `.variants.selfridge_limit` | **`IsOfClass 2` wrongly contains every class-1 prime**, so `Erdos1055.p 2 = 2` whereas the source's `p₂ = 13` (A005113 `2, 13, 37, 73, 1021`). Reason: for `r = 2` the "equality for at least one prime factor" clause reads `∀ m ≤ 1, IsOfClass m q → m = 1`, which is vacuous in `ℕ+`. Hand-verified: `IsOfClass 1 3` holds (`primeFactors 4 = {2} ⊆ {2,3}`), hence `IsOfClass 2 2` holds. Separately, `p` is `Nat.find (exists_p r)` where `exists_p` is itself `sorry`'d. The `p−1` variant of the question is not formalized | MATERIAL_BUT_STILL_TRUE | `Set.Infinite` / asymptotic in `r` |
+| 1054 | open | `.parts.i`, `.parts.ii`, `.parts.iii` | **`.parts.i` (`f(n) = o(n)`) is recorded on the site as disproved by Tao** ("The strong claim that `f(n)=o(n)` was disproved by Tao in the comments to [468]…upper density of `{n : f(n) ≤ δn}` is `≪ δ²`") yet carries `research open` + `answer(sorry)`. Also `.parts.iii` conjoins a **vacuous** `∃ A, A.HasDensity 1` that the limsup expression never mentions (copy-paste from `.parts.ii`). Lemma `f_undefined_at_3` actually proves `f 5 = 0` (misnamed) | STATUS_SYNC + COSMETIC | asymptotic |
+| 1052 | open | `erdos_1052` | none (`properUnitaryDivisors` correctly excludes `n` itself via `Ico 1 n`; `6` and `60` recheck) | FAITHFUL | `Set.Finite` |
+| 1049 | open | `erdos_1049` | none | FAITHFUL | irrationality |
+| 1047 | **solved (DISPROVED (LEAN))** | `.variants.max_non_convex_components` | headline correctly `research solved` + `answer(False)`; the open declaration is Goodman's follow-up (max number of non-convex components as a function of `deg f`), an `IsGreatest … answer(sorry)` fixed-optimum | FAITHFUL | `FIXED_OPTIMUM` |
+| 1044 | **solved (SOLVED (LEAN))** | `.variants.fixed_degree` | headline correctly `research solved` + `answer(2)`; open declaration is Tang's fixed-degree suggestion, encoded as `IsLeast` (i.e. attained), matching "is attained by `fₙ(z) = zⁿ − 1`" | FAITHFUL | `FIXED_OPTIMUM` |
+| 1041 | open (**FALSIFIABLE**) | `erdos_1041` | **degenerate case admitted**: the witness condition is `({z₁,z₂} : Multiset ℂ) ≤ f.roots`, which allows `z₁ = z₂` at a **repeated** root; the constant path then has `H¹`-measure `0 < 2` and lies in the sublevel set, making the declaration *trivially true for every `f` with a multiple root*. Also `length (Set.range γ)` measures the `H¹` trace of the path, not its parametrised arc length | MATERIAL_BUT_STILL_TRUE (`MULTI_READING`) | path in ℂ |
+| 1038 | open | `.parts.i` | `(n : ℕ)` is an **unused parameter** in all four declarations; `.parts.ii` alone omits the non-constant guard `f ≠ 1` (harmless: `f = 1` contributes volume `0` and cannot raise a supremum); declaration name typo `erdos_1038.varaints.inf_lowerBound`. The "all roots real and in `[-1,1]`" encoding via `(f.roots.filter (· ∈ Icc (-1) 1)).card = f.natDegree` is correct | COSMETIC | `FIXED_OPTIMUM` |
+| 1026 | **solved (SOLVED (LEAN))** | — (0 open decls) | in target list only via `answer_sorry`; site and Lean agree the van Doorn/Cambie form is settled (`c = 1`) | — | — |
