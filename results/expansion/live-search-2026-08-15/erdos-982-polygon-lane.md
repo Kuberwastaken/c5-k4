@@ -18,12 +18,14 @@ never fetched. This lane fetches and tests them.
 | item | value |
 |---|---|
 | **Verdict** | **`STRICT_STOP_G3_WRONG_SIGN`** — both constructions move the target quantity the wrong way, by a provable margin; no crossing, no hold change |
-| 982 status after this lane | unchanged: `HOLD_BOUNDED` (F3 bracket stands, now widened structurally — see §5) |
+| 982 status after this lane | unchanged: `HOLD_BOUNDED` (F3 bracket stands, now closed structurally along this axis — see §5) |
 | Upstream action taken | **none** (read-only lane, as instructed) |
-| Coordinates recovered | Fishburn–Reeds Table 1 (20-gon) — verified to 2e-12; a C3-symmetric Danzer-type 9-gon — re-solved here to 50 digits |
-| Danzer *original* coordinates | not printed in any source reached; the 9-gon used here is a **reconstruction** from the stated combinatorial structure, so labelled throughout |
-| Key number | both constructions have **per-vertex excess = 2**; EP 982's negation needs excess ≥ `⌈n/2⌉` (5 at n=9, 10 at n=20) |
+| Danzer 9-gon | **primary source found and read**: Erdős 1987, *Intuitive Geometry* (Siófok 1985), Bolyai **48**, 167–177, §8 pp. 175–176 = `users.renyi.hu/~p_erdos/1987-27.pdf`. Contains no coordinates (an IVT existence argument), so the full construction recipe was recovered and re-solved here; explicit coordinates in §3.3 |
+| Fishburn–Reeds 20-gon | Table 1 recovered (transcription via `github.com/davidiach/erdos97`), **authenticity established numerically** — all 30 unit distances hold to `3.9e-12`. No independent textual copy reachable (see §3.1 for the dead routes) |
+| Bonus | p. 175 of the same Erdős paper states **EP 982 in Erdős's own words**, independently confirming the predecessor's faithfulness audit against the primary source |
+| Key number | both constructions have **per-vertex excess = 2**; EP 982's negation needs excess `≥ ⌈n/2⌉` (5 at `n=9`, 10 at `n=20`) |
 | Scripts | `verify_erdos982_polygon_lane.py` (this directory) |
+| Discipline note | one false positive was caught and rejected by the non-degeneracy guard (§4.3) — a family member whose vertices collapse to `~1e-25` apart reported `R = −2` |
 
 ---
 
@@ -204,29 +206,162 @@ Verified properties: **strictly convex** (monotone-chain hull with strict turns
 returns all 20 vertices); **every vertex at distance exactly 1 from exactly 3
 others** (min degree = max degree = 3), as advertised on erdosproblems.com/97.
 
+**Independent textual confirmation was sought and not obtained.** Recorded so it
+is not re-walked: ScienceDirect `pii/092577219290026O` and its `/pdf`, `/pdfft`
+variants → 403 to every user-agent tried (the full text is demonstrably in the
+HTML — DuckDuckGo has indexed its first page — but the bot wall holds);
+`core.ac.uk/download/pdf/81199002.pdf` (the Semantic Scholar OA pointer) → 404,
+expired blob signature; **Unpaywall** on `10.1016/0925-7721(92)90026-O` →
+`is_oa: false`, zero OA locations; **OpenAlex** → `oa_status: closed`,
+`any_repository_has_fulltext: false` (so Semantic Scholar's "HYBRID" flag is
+stale); Wayback CDX/availability → HTTP 429 throughout; scholar.archive.org → no
+hits; sci-hub / Anna's Archive / libgen mirrors → captcha or refused; several
+CORS proxies → SPA shells. **Aggarwal, arXiv:1009.2216** was downloaded and
+grepped in full: it cites FR as `[6]` and answers their pattern-feasibility
+question but **does not reproduce Table 1** — cross it off. The `erdos97` repo is
+the same source as the transcription, not an independent one.
+
+So the provenance rests on internal evidence, which is nonetheless strong: a
+15-equation nonlinear system is satisfied to 12 digits, and the free/solved
+split (five exact round decimals among sixteen 9–12-digit entries) is exactly
+the fingerprint of FR's stated method. Fabrication is effectively excluded; what
+cannot be excluded is that these are a *re-solve* of FR's system rather than
+their literal printed digits. Either way the polygon tested below has the
+defining Fishburn–Reeds property, which is all the EP 982 test depends on.
+
 Shape note (not in the citations): the polygon is highly clustered. `A₁A₂A₃`,
 `A₄A₅A₆`, `A₇A₈A₉` are triples of near-coincident points — e.g.
 `d²(A₁,A₂) = 1.225e-5`, i.e. distance `0.0035` against a diameter of `≈1.1`.
 FR buy their unit distances by packing points into tiny arcs.
 
-### 3.2 Danzer 9-gon — **reconstruction, not the original coordinates**
+### 3.2 Danzer 9-gon — **primary source located; construction recovered in full**
 
-No source reached prints Danzer's coordinates. `erdosproblems.com/97` carries an
-image asset `97-Danzer` (a picture, referenced by the page's `addImageBox` JS),
-and the construction is attributed to an explanation in [Er87b]; the site is
-Cloudflare-gated and the underlying figure was not retrieved. **Stated plainly:
-what is tested below is a reconstruction from the combinatorial structure, not
-Danzer's published nonagon.**
+**`[Er87b]` identified.** P. Erdős, *"Some combinatorial and metric problems in
+geometry"*, **Intuitive Geometry** (Siófok, 1985), Colloq. Math. Soc. János
+Bolyai **48**, pp. 167–177, North-Holland, Amsterdam, 1987. Item **1987-27** in
+the Erdős archive; free scan at
+**`https://users.renyi.hu/~p_erdos/1987-27.pdf`** (no paywall, plain `curl`
+works). The Danzer material is **Section 8, pp. 175–176**.
 
-The reconstruction is the natural one, and appears independently in the
-`erdos97` repo (`src/erdos97/danzer18_doubling.py`) as a "Danzer-type" nonagon:
-`C3` rotational symmetry, three orbits of three. Writing vertices as complex
-numbers with `ω = e^{2πi/3}`, orbit `m` is `{z_m, ω z_m, ω² z_m}`. Each vertex
-is automatically equidistant from its **two orbit mates**, at
-`|z_m − ω z_m| = √3·|z_m|`; one tuned cross-orbit witness per orbit closes the
-`k = 3` property. With the gauge `z₀ = 1` and the cross map
-`0 ↦ (2,1), 1 ↦ (0,0), 2 ↦ (1,0)` the three conditions reduce **exactly**, with
-no trigonometry, to a system over `ℚ(√3)`:
+The PDF is a **scan with no text layer** (`pdf-inspector`: `pdf_type=text_based`
+but `pages_needing_ocr = [1..11]`, "no extractable text"). It was therefore
+**read directly as page images**, not OCR'd, so the quotation below is a
+transcription of what is legibly printed.
+
+**Two things are on p. 175, in the same paragraph.** First, Erdős's own
+statement of what is now EP 982:
+
+> "8. Another old problem of mine states: The vertices of a convex `n`-gon
+> determine at least `[n/2]` distinct distances. This conjecture was proved by
+> Altman [7]. **I further conjectured that in a convex `n`-gon there always is a
+> vertex so that the number of distinct distances from this vertex is at least
+> `[n/2]`. As far as I know this conjecture is still open.** I also conjectured
+> that in a convex `n`-gon there always is a vertex which has no three other
+> vertices equidistant from it. This conjecture was disproved by Danzer, his
+> example appears in Fig. 5."
+
+This is an **independent, primary-source confirmation of the predecessor's
+faithfulness audit**: `[n/2]` is the floor, the quantifier is "there always is a
+vertex", and the count is of distinct distances *from that vertex*. The Lean
+declaration matches Erdős's own sentence, not merely the erdosproblems.com
+paraphrase. (Erdős also records the *global* version as **Altman's theorem** —
+proved — which is worth keeping distinct from the per-vertex conjecture.) The
+paragraph ends with the `k = 4` question, i.e. Erdős problem **97**: "Perhaps in
+every convex polygon there is a vertex which does not have four other vertices
+equidistant from it."
+
+**Danzer's construction, verbatim (pp. 175–176):**
+
+> "This is a convex nonagon `A₁B₁C₁A₂B₂C₂A₃B₃C₃` of threefold rotational
+> symmetry, satisfying `A₁A₂ = A₁A₃ = A₁B₃`, `B₁B₂ = B₁C₂ = B₁B₃`,
+> `C₁C₂ = C₁A₃ = C₁C₃`. It is constructed in the following way. Take a Reuleaux
+> triangle `A₁A₂A₃`. Elongate the arc `A₃A₁` beyond `A₁` and choose a point `B₁`
+> on this elongation, close to `A₁`. Analogously we define `B₂, B₃` (taking into
+> account the threefold rotational symmetry of the figure) and we draw the
+> Reuleaux triangle `B₁B₂B₃`. Denote `B_i′` the midpoint of the side `B_iB_{i+1}`
+> of this Reuleaux triangle (`B₄ = B₁`). Choose a point `C₁` on the arc `B₁B₁′`
+> of the side `B₁B₂` and analogously choose points `C₂, C₃` […]. For `C₁ = B₁` we
+> have `C₁C₃ = B₁B₃ > B₁A₃ = C₁A₃`, while for `C₁ = B₁′` we have
+> `C₁C₃ = B₁′B₃ < B₁′A₃ = C₁A₃` (provided `B₁A₁` is sufficiently small). Hence
+> for some intermediate position of `C₁` we will have `(C₁C₂ =) C₁C₃ = C₁A₃`.
+> The nonagon constructed with this `C₁` will satisfy all the requirements."
+
+**There are no numeric coordinates in the primary source.** Danzer's nonagon is
+defined by an intermediate-value argument (slide `C₁` along the arc `B₁B₁′`
+until `C₁C₃ = C₁A₃`), with two free parameters: the scale of the Reuleaux
+triangle `A₁A₂A₃` and the elongation `ε = |A₁B₁|`. After the scale gauge it is a
+**1-parameter family**. Any coordinate list for it is therefore necessarily a
+reconstruction; §3.3 reconstructs it exactly from this recipe.
+
+The figure itself is reachable: the erdosproblems.com image asset is served at
+`https://www.erdosproblems.com/static/97-Danzer.png` (454×449 PNG; `/static/` is
+not Cloudflare-gated even though the problem page is). It is a scan of Fig. 5 —
+a labelled line drawing with **no coordinates and no scale**, showing the two
+nested Reuleaux triangles, the `C_i` immediately adjacent to the `B_i`, the arc
+midpoints `B₁′, B₃′`, and dashed chords marking the equidistance triples.
+
+### 3.3 Danzer's nonagon, reconstructed exactly from the recipe
+
+Model the threefold symmetry exactly with `ρ = e^{2πi/3}`: `A_j = ρ^{j-1}a`,
+`B_j = ρ^{j-1}b`, `C_j = ρ^{j-1}c`, gauge `a = 1`. Then `A₁A₂ = A₁A₃`,
+`B₁B₂ = B₁B₃` and `C₁C₂ = C₁C₃` hold automatically (each is `√3` times a
+circumradius), and Danzer's three displayed equalities reduce to exactly three
+algebraic conditions over `ℚ(√3)` — **no trigonometry, no Reuleaux arcs needed**:
+
+```
+E1   |1 - rho^2 b|^2 = 3          <=>  |b - A2| = sqrt3
+     (A1B3 = A1A2 : B1 lies on the arc A3A1 EXTENDED -- that arc is centred
+      at A2 with radius equal to the side, which is exactly Danzer's
+      "elongate the arc A3A1 beyond A1")
+
+E2   |b - rho c|^2  = 3|b|^2      <=>  |B3 C1| = |B1 B2|
+     (B1C2 = B1B2 : C1 lies on the side B1B2 of the Reuleaux triangle
+      B1B2B3, which is the arc centred at B3 -- Danzer's "choose a point C1
+      on the arc B1B1' of the side B1B2")
+
+E3   |c - rho^2|^2  = 3|c|^2      <=>  C1A3 = C1C3
+     (Danzer's intermediate-value condition, the one he slides C1 to meet)
+```
+
+Three equations, four real unknowns ⇒ the 1-parameter family, parametrised by
+`ε = |A₁B₁|`, as the recipe says. Each of the first two confines `b`, resp. `c`,
+to a fixed circle; the third is then a single scalar equation solved by
+bisection — the numerical form of Danzer's own IVT argument.
+
+**Canonical member, `ε = 0.05`** (E2 residual `4.4e-16`; hull = all 9; boundary
+order comes out as `A₁B₁C₁A₂B₂C₂A₃B₃C₃`, exactly as published):
+
+| vertex | x | y |
+|---|---|---|
+| A₁ | +1.000000000000000 | +0.000000000000000 |
+| B₁ | +1.024372395697686 | +0.043657603323539 |
+| C₁ | +1.023921405508171 | +0.044366772933409 |
+| A₂ | −0.500000000000000 | +0.866025403784439 |
+| B₂ | −0.549994791395371 | +0.865303715947952 |
+| C₂ | −0.550383455198353 | +0.864558562182039 |
+| A₃ | −0.500000000000000 | −0.866025403784439 |
+| B₃ | −0.474377604302314 | −0.908961319271490 |
+| C₃ | −0.473537950309818 | −0.908925335115448 |
+
+Danzer's three equality triples verified to 12 digits:
+`A₁A₂ = A₁A₃ = A₁B₃ = 1.732050807569`;
+`B₁B₂ = B₁C₂ = B₁B₃ = 1.775875664056`;
+`C₁C₂ = C₁A₃ = C₁C₃ = 1.775147984140`.
+Note the three radii genuinely differ — matching erdosproblems.com's
+parenthetical that in Danzer's example "this distance is different for different
+vertices", in contrast to Fishburn–Reeds.
+
+### 3.4 A second, inequivalent `k = 3` nonagon (cross-check)
+
+Independently, the `erdos97` repo (`src/erdos97/danzer18_doubling.py`) carries a
+different `C3` `k = 3` nonagon — same orbit structure, but the cross-witness map
+is `0↦(2,1), 1↦(0,0), 2↦(1,0)` instead of Danzer's `0↦(1,2), 1↦(2,1), 2↦(0,2)`.
+It is **not** Danzer's polygon. It is tested too, as a control: if the answer
+depended on the incidence pattern rather than on the counting, the two would
+differ. They do not.
+
+Its defining system, derived the same way (gauge `z₀ = 1`, orbit `m` is
+`{z_m, ω z_m, ω² z_m}`, mate distance `√3·|z_m|`), again over `ℚ(√3)`:
 
 ```
 a₂² + b₂² + a₂ + √3·b₂        = 2
@@ -278,16 +413,38 @@ adjacent pair at any vertex is `d² = 4.4337e-6` vs `4.7111e-6` (absolute gap
 `2.773e-7`, **relative gap 5.9 %**). Per the guard-band rule, none of these is a
 crossing. The exact answer at full precision is `17`.
 
-### 4.2 Danzer-type 9-gon — `n = 9`, `⌊n/2⌋ = 4`
+### 4.2 Danzer's nonagon (primary-source construction) — `n = 9`, `⌊n/2⌋ = 4`
 
 | quantity | value |
 |---|---|
 | strictly convex | **yes**, hull = all 9 |
-| `k = 3` property | holds at every vertex |
+| boundary order | `A₁B₁C₁A₂B₂C₂A₃B₃C₃`, exactly as published |
+| Danzer's three equality triples | hold to 12 digits |
+| `k = 3` property | holds at every vertex, with three *different* radii |
 | distinct distances `c_i` | **6 at every one of the 9 vertices** |
 | multiplicity profile at every vertex | `[3, 1, 1, 1, 1, 1]` |
 | excess `E_i` | **2** at every vertex (need `≥ 5`) |
 | **residual `R`** | **`+2`** |
+
+Squared distances from `A₁` at `ε = 0.05`:
+`0.002500000, 0.002540644, 2.997459356, 3.000000000, 3.151150366, 3.151234374`
+— six classes, the `3.000000000` one of multiplicity 3 (`A₂, A₃, B₃`, Danzer's
+triple), every other class a singleton.
+
+**Sweep of Danzer's own free parameter `ε = |A₁B₁|`.** 571 members solved over
+`ε ∈ [0.001, 0.571]` (beyond `0.571` convexity in the published order fails), by
+bisecting Danzer's IVT condition at each `ε`. Applying the non-degeneracy guard
+`min pairwise distance / diameter ≥ 1e-3` leaves **499 admissible members, and
+`min_i c_i = 6` on every single one** → `R = +2` uniformly across the entire
+family. The 72 rejected members are the `ε → 0` limit, where `B₁` and `C₁`
+collapse onto `A₁` (at `ε = 0.001` the closest pair is `1.9e-7` of the
+diameter); even there `min_i c_i = 5`, `R = +1`, never `≤ −1`.
+
+### 4.2b Control: the inequivalent `k = 3` nonagon of §3.4
+
+Same `n = 9`, different cross-witness map. Identical answer: `c_i = 6` at every
+vertex, profile `[3, 1, 1, 1, 1, 1]`, `E_i = 2`, **`R = +2`**. The result is
+driven by the counting, not by the incidence pattern.
 
 Sorted squared distances from `v₀`:
 `0.002220, 0.122710, 2.015841, 2.997780, 3.000000, 3.000000, 3.000000,
@@ -299,7 +456,7 @@ repo records while hunting a `k = 4` example for Erdős **97**. Even if it close
 exactly it would give `c_i = 5`, i.e. `R = +1`. **Erdős 97 and Erdős 982 do not
 meet here.**
 
-### 4.3 Sweep of the whole 1-parameter Danzer family
+### 4.3 Sweep of the control family of §3.4
 
 Two independent sweeps over `a₁ ∈ [−1.60, 0.60]`, each member Newton-solved to
 `1e-50` and screened by non-degeneracy guards (strict convexity;
