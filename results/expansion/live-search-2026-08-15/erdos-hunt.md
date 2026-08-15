@@ -660,3 +660,174 @@ from the declaration texts.
 | 1210 | `erdos_1210.variants.er80_correction` | NOT_FINITELY_REFUTABLE | answer(sorry) hole: literal declaration has no truth value a finite object can falsify (METHOD Phase 0A answer_placeholder=true) [+GLOBAL_CONST] |
 | 1212 | `erdos_1212` | NOT_FINITELY_REFUTABLE | answer(sorry) hole: literal declaration has no truth value a finite object can falsify (METHOD Phase 0A answer_placeholder=true) [+ASYMPTOTIC] |
 
+
+---
+
+# Depth targets
+
+Every computation below ran under an explicit `timeout 60` wall-clock cap with
+exact integer / `Fraction` arithmetic. Source statements were pulled from
+`https://www.erdosproblems.com/latex/<id>` (the LaTeX view of the canonical
+page; plain `curl` with a browser User-Agent returns HTTP 200 — the Cloudflare
+403 only affects the default curl UA) and from the `<div id="prize">` status
+line on `https://www.erdosproblems.com/<id>`. The site's own metadata repo
+`teorth/erdosproblems` (`data/problems.yaml`) carries status/prize/tags but no
+statements; it was used for the four status coordinates. There is no JSON API
+(`/api/problems/<id>` is a Flask 404).
+
+Verifier scripts are committed alongside this file:
+`verify_erdos931_exists_prime.py`, `verify_erdos10_erdos11.py`,
+`verify_erdos677_lcm_interval.py`, `verify_erdos_misc.py`.
+
+## D1 — Erdős 931, `erdos_931.variants.exists_prime`
+
+**Lean (upstream 2411d22e, `FormalConjectures/ErdosProblems/931.lean:71`)**
+
+```lean
+theorem erdos_931.variants.exists_prime (k₁ k₂ n₁ n₂ : ℕ) (h₁ : k₂ ≤ k₁) (h₂ : 3 ≤ k₂)
+    (h₃ : n₁ + k₁ ≤ n₂) (h₄ : (∏ i ∈ Finset.Icc 1 k₁, (n₁ + i)).primeFactors =
+      (∏ j ∈ Finset.Icc 1 k₂, (n₂ + j)).primeFactors) :
+    ∃ (p : ℕ), p.Prime ∧ n₁ ≤ p ∧ p ≤ n₂
+```
+
+**Source (erdosproblems.com/931, status `OPEN`)** — "Erdős was unable to prove
+that if the two products have the same factors then there must exist a prime
+between $n_1$ and $n_2$."
+
+**Word-by-word divergence.** The prose says "a prime *between* $n_1$ and
+$n_2$"; the Lean uses the **closed** interval `n₁ ≤ p ∧ p ≤ n₂`. This is a
+*weakening* (it also accepts `p = n₁` and `p = n₂`), so it makes the
+declaration harder, not easier, to refute. It also makes the declaration
+trivially true whenever `n₁ ≤ 2 ≤ n₂` — which is exactly what happens on the
+repo's own proved witness `erdos_931.variants.additional_condition_nonempty`
+(`k₁,k₂,n₁,n₂ = 10,3,0,13`, i.e. `10! = 2^8·3^4·5^2·7` vs
+`14·15·16 = 2^5·3·5·7`, both with prime support `{2,3,5,7}`): the conclusion is
+discharged by `p = 2`. Same for Tijdeman's example `19,20,21,22` /
+`54,55,56,57` (`n₁=18, k₁=4, n₂=53, k₂=4`, common support `{2,3,5,7,11,19}`),
+discharged by `p = 19`.
+
+**Negation shape (finite).** A counterexample is one tuple `(k₁,k₂,n₁,n₂)` with
+`3 ≤ k₂ ≤ k₁`, `n₁+k₁ ≤ n₂`, equal prime supports, and **no prime in the closed
+interval `[n₁,n₂]`**. Since `n₂ - n₁ ≥ k₁ ≥ k₂ ≥ 3`, the interval `[n₁,n₂]`
+must sit inside a maximal prime-free run of span `≥ 3`. That reduces the search
+to an exhaustive enumeration over prime-free runs.
+
+**Search (`verify_erdos931_exists_prime.py 300000`, 54.2 s).**
+All 20,028 maximal prime-free runs of span ≥ 3 with `n₁ ≤ 300000` (max span 84,
+i.e. the largest admissible `k₁` in range is 84); for every `(n₁,n₂)` inside a
+run and every `3 ≤ k₂ ≤ k₁ ≤ n₂-n₁`: **161,590,323 tuples tested, 0 satisfy
+`h₄`**. No premise-satisfying tuple with a prime-free interval exists in that
+range at all — the binding constraint is `h₄`, not the prime.
+
+**Verdict:** `HOLD_BOUNDED`. No counterexample; the interval-endpoint
+divergence (`between` vs `≤ … ≤`) is a real but *conservative* formalization
+difference and is recorded as a `STATUS_SYNC`-class note, not a defect that
+could be exploited.
+
+## D2 — Erdős 10, `erdos_10.variants.granville_soundararajan_odd`
+
+**Lean (`10.lean:59`)**
+
+```lean
+theorem erdos_10.variants.granville_soundararajan_odd :
+    {n : ℕ | Odd n ∧ 1 < n} ⊆ sumPrimeAndTwoPows 3 ∧
+      {n : ℕ | Even n ∧ n ≠ 0} ⊆ sumPrimeAndTwoPows 4
+```
+
+with `sumPrimeAndTwoPows k = { p + (pows.map (2 ^ ·)).sum | p.Prime, pows : Multiset ℕ, pows.card ≤ k }`.
+
+**Source (erdosproblems.com/10, status `OPEN`)** — "Granville and Soundararajan
+have conjectured that at most 3 powers of 2 suffice for all odd integers, and
+hence at most 4 powers of 2 suffice for all even integers."
+
+**Exact semantics used.** A multiset of at most `k` exponents sums to a number
+of binary popcount `≤ k`, and conversely every number of popcount `≤ k` is such
+a sum. Hence
+`n ∈ sumPrimeAndTwoPows k ⟺ ∃ prime p ≤ n with popcount(n − p) ≤ k`
+(the empty multiset gives `popcount 0 = 0`, i.e. `n` itself prime).
+
+**Semantics calibration against a `research solved` sibling.** The same file
+asserts `erdos_10.variants.grechuk_example : 1117175146 ∉ sumPrimeAndTwoPows 3`.
+The popcount characterisation reproduces this exactly: enumerating **all**
+`d ≥ 0` with `popcount d ≤ 3` and `d ≤ 1117175144`, no `1117175146 − d` is
+prime. Semantics fixture PASSES.
+
+**Search (`verify_erdos10_erdos11.py erdos10 20000000`, 43.3 s).**
+Every `2 ≤ n ≤ 20,000,000`: odd `n` tested against popcount ≤ 3, even `n`
+against popcount ≤ 4. **0 odd failures, 0 even failures.**
+
+**Verdict:** `HOLD_BOUNDED`. Note the parent problem's source statement says
+"every **large** integer", but this particular declaration is the
+Granville–Soundararajan variant, which the source does state without a
+largeness caveat ("for all odd integers"), so there is no all-vs-eventually
+divergence to exploit here.
+
+## D3 — Erdős 11, `erdos_11`, `.variants.not_four_dvd`, `.variants.two_pow_two`
+
+**Lean (`11.lean:28,38,47`)** — three universally quantified declarations:
+`∀ n, Odd n → 1 < n → ∃ k l, Squarefree k ∧ n = k + 2^l`; the same with
+hypothesis `¬ 4 ∣ n` (so it also covers every `n ≡ 2 (mod 4)`); and the
+two-powers version.
+
+**Source (erdosproblems.com/11, status `OPEN`)** — "Is every **large** odd
+integer $n$ the sum of a squarefree number and a power of 2?"
+
+**Word-by-word divergence — this is the target shape.** The source says
+*large*; the Lean quantifies over **all** odd `n > 1`. The unrestricted version
+is exactly the kind of statement that is often finitely false. It is not,
+however, exploitable here: the source notes record that Odlyzko checked to
+`10^7` and Hercher [He24b] verified **all** odd integers up to `2^50 ≈
+1.12·10^15`, so the "large" gap is already closed numerically far beyond any
+reachable search.
+
+The `not_four_dvd` variant is the genuinely wider one: it adds every
+`n ≡ 2 (mod 4)`, a residue class the cited verifications (stated for *odd*
+integers) do not cover.
+
+**Search (`verify_erdos10_erdos11.py erdos11 50000000`, 27.3 s).** Exact
+squarefree sieve (`Squarefree 0 = False`, `Squarefree 1 = True`, matching
+Mathlib). Every `2 ≤ n ≤ 50,000,000` with `n` odd or `n ≢ 0 (mod 4)`:
+**0 failures for `erdos_11`, 0 for `not_four_dvd` (including all `n ≡ 2 mod 4`),
+0 for `two_pow_two`.**
+
+**Verdict:** `HOLD_BOUNDED` on all three. The `n ≡ 2 (mod 4)` class — the part
+not covered by the published odd-integer verifications — is clean to `5·10^7`.
+
+## D4 — Erdős 677, `erdos_677`
+
+**Lean (`677.lean:41`)**
+
+```lean
+theorem erdos_677 :
+    ∀ (m n k : ℕ), k > 0 → m ≥ n + k → lcmInterval m k ≠ lcmInterval n k
+```
+
+`lcmInterval n k = (Finset.Ioc n (n+k)).lcm id = lcm{n+1,…,n+k}`
+(`FormalConjecturesForMathlib/Algebra/GCDMonoid/Finset.lean:27`).
+
+**Source (erdosproblems.com/677, status `OPEN`)** — "Is it true that for all
+$m\geq n+k$, $M(n,k)\neq M(m,k)$?" The Lean matches the source exactly
+(including the free `k > 0`). Source notes: "The Thue–Siegel theorem implies
+that, for fixed $k$, there are only **finitely many** $m,n$ such that $m\geq
+n+k$ and $M(n,k)=M(m,k)$" — i.e. the source itself leaves room for a finite
+counterexample set. The two solutions Erdős knew, `M(4,3)=M(13,2)` and
+`M(3,4)=M(19,2)`, use **different** `k` on the two sides and are therefore not
+counterexamples to this declaration; they are reproduced verbatim by the repo's
+own `@[category test] lcmInterval_eq_example1` and are used here as calibration
+fixtures (both check out: 210 and 420).
+
+**Two independent search paths, both zero.**
+
+1. Collision-dictionary search: for `k = 1..12` and `n = 0..200,000`, hash every
+   `lcmInterval n k` and flag equal values with index gap `≥ k`.
+   **0 counterexamples** (3.8 s). Equal values *do* occur — e.g.
+   `lcmInterval 9 10 = lcmInterval 12 10 = 232792560` — but always with gap
+   `< k`; the largest observed gap is 3 (at `k = 10`), never reaching `k`.
+2. Complete-in-`m` divisor-run search: `m+1,…,m+k` must **all divide**
+   `V = lcmInterval n k`, so they are a run of `k` consecutive divisors of `V`.
+   Factoring `V` and enumerating its divisors settles **every** `m` at once,
+   not just `m ≤ 200,000`. Run for `n = 0..40`, `k = 3..24`:
+   **0 counterexamples** (43.8 s).
+
+**Verdict:** `HOLD_BOUNDED`. Path 2 is a genuine all-`m` closure on the
+low-`(n,k)` corner; path 1 is a bounded two-sided sweep.
