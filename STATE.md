@@ -71,9 +71,31 @@ therefore designed as an explicitly *narrower* hypothesis (does navigation win
 claim, never H1 as originally stated. Whether that is legitimate or
 goalpost-moving is a judgement call that has not been made.
 
-A second independent Fable review was launched to rule on exactly this and was
-**killed before finishing** — no verdict exists. Re-running it is cheap and is
-probably the right first move.
+**Resolved 2026-08-16 — v2 should run.** A second Fable review was launched to
+rule on this and was killed before finishing, but it was never actually needed:
+the *first* review (`INDEPENDENT_REVIEW_2026-08-15.md` §4) does not merely give a
+verdict, it **specifies the re-test in full** — population source, freeze
+protocol, sampling, the three arms, the endpoint, the success criterion, and its
+own falsification rule. Reading it against what we ran settles the question:
+
+- Its falsification rule was "arm-3 uniques ≤ arm-1 uniques, **or zero arm-3
+  uniques**". We got 1 vs 0, so v1 is not falsified under the reviewer's own
+  criterion either — consistent with our preregistered verdict of inconclusive.
+- Its population spec said the batch should be emitted "on **the project's
+  invariant vocabulary**". v1 dropped `f`, `b`, `tree`, `path` on runtime
+  grounds — those *are* the project's core vocabulary and the whole content of
+  the mechanism. So **v1 under-implemented the prescribed test**; v2 restores
+  what the spec asked for.
+
+So v2 is best understood as *completing* the prescribed experiment, not retrying
+a failed one. Two constraints stay binding: the reviewer's "one run, no retries,
+no post-hoc re-scoring" means v2 may **not** be counted as a second attempt at
+H1 — it tests the narrower H1-v2 only; and v1's result stands unamended.
+
+The second review remains worth running for its other questions (was the first
+review calibrated, is the wall arm really distinct from generic search, is the
+project's biggest self-deception still live) — but it is **not a gate**. Nothing
+is blocked on it.
 
 ## Honest liabilities
 
@@ -115,8 +137,8 @@ worktrees; leave it alone.
 
 ## If you want the shortest path to value
 
-1. Re-run the second independent review; let it rule on v2.
-2. If it says run v2, run the arms **sequentially and isolated** (METHOD v1.7
-   R2) — concurrent arms caused the contamination event.
-3. Regardless of v2: the cliff paper is the most likely thing here to matter to
+1. Run the v2 arms **sequentially and isolated** (METHOD v1.7 R2) — concurrent
+   arms caused the v1 contamination event. The population is frozen and ready;
+   the decision to run is recorded above.
+2. Regardless of v2: the cliff paper is the most likely thing here to matter to
    anyone outside this repo, and it is sitting finished and unsubmitted.
