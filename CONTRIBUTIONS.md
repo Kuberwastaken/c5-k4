@@ -18,6 +18,10 @@ Last updated: 2026-08-15.
 |---|---|---|---|
 | 2026-08-12 | [#4592](https://github.com/google-deepmind/formal-conjectures/pull/4592) | Disprove WOWII 63 and 85 via C₅[K₄] | mathematical counterexample (machine-generated conjecture) |
 | 2026-08-09 | [#4605](https://github.com/google-deepmind/formal-conjectures/pull/4605) | Green 31: formalise binary Sidon sums | formalization repair |
+| 2026-08-16 | [#4987](https://github.com/google-deepmind/formal-conjectures/pull/4987) | OEIS A237271: quantify over Carmichael condition | formalization repair |
+| 2026-08-16 | [#4988](https://github.com/google-deepmind/formal-conjectures/pull/4988) | Erdős 1055: `IsOfClass` must exclude lower classes | formalization repair |
+| 2026-08-16 | [#4992](https://github.com/google-deepmind/formal-conjectures/pull/4992) | Erdős 952: state as `answer(sorry) ↔` | formalization repair |
+| 2026-08-16 | [#4999](https://github.com/google-deepmind/formal-conjectures/pull/4999) | Betrothed numbers: require `m ≠ n` | formalization repair |
 
 ## B. Open upstream PRs
 
