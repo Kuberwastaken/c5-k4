@@ -1,28 +1,27 @@
 {
- "best_slack_desc": "random bipartite p=0.20 n=14",
+ "best_slack_desc": "anneal n=12 unit=100019",
  "best_slack_found": "0",
- "best_slack_graph6": "M??????PGE?CEWiO?",
+ "best_slack_graph6": "KG??Aa?ccWC?",
  "cap_cpu_seconds": 3600.0,
- "cpu_seconds": 240.41015736900002,
- "evals_this_run": 162321,
+ "cpu_seconds": 3600.0517759970003,
+ "evals_this_run": 2120062,
  "id": "FP-006",
  "method_counts": {
-  "ANNEAL": 18,
-  "FAM": 30,
-  "GROW": 4,
-  "SWEEP": 4
+  "ANNEAL": 236,
+  "GROW": 59,
+  "SWEEP": 58
  },
  "method_found": null,
  "n_max_probed": 40,
- "next_unit": 56,
+ "next_unit": 501,
  "seeds": {
   "base_seed": 20308329,
   "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
  },
  "spec_convention": "true",
  "statement": "For every connected graph G with n(G) >= 2:  chi >= ceil((omega - chi_regular)/2) + 1",
- "sweep_bases_n8_completed": 80,
- "units_total": 56,
- "verdict": "BRACKET",
- "wall_seconds": 253.93076038360596
+ "sweep_bases_n8_completed": 1160,
+ "units_total": 501,
+ "verdict": "HELD",
+ "wall_seconds": 4505.302041537857
 }

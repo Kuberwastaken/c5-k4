@@ -1,28 +1,27 @@
 {
- "best_slack_desc": "G(n,p) p=0.55 n=32",
+ "best_slack_desc": "n=9 exhaustive extension of GHhGns",
  "best_slack_found": "0",
- "best_slack_graph6": "_k`[iXolrL]DoLip]{{juQ}T]^{XsC^TvsAwd~Qrfa_ro{kTSwLjKt@IcfjYW||BvN{_Ifx}jtrHt}naDaQg",
+ "best_slack_graph6": "HHhGnv?",
  "cap_cpu_seconds": 3600.0,
- "cpu_seconds": 240.005794485,
- "evals_this_run": 191423,
+ "cpu_seconds": 3600.009674105,
+ "evals_this_run": 3832055,
  "id": "FP-003",
  "method_counts": {
-  "ANNEAL": 20,
-  "FAM": 30,
-  "GROW": 5,
-  "SWEEP": 5
+  "ANNEAL": 484,
+  "GROW": 121,
+  "SWEEP": 121
  },
  "method_found": null,
  "n_max_probed": 40,
- "next_unit": 60,
+ "next_unit": 975,
  "seeds": {
   "base_seed": 20284572,
   "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
  },
  "spec_convention": "true",
  "statement": "For every connected graph G with n(G) >= 2:  alpha >= lambda_max - cutv",
- "sweep_bases_n8_completed": 100,
- "units_total": 60,
- "verdict": "BRACKET",
- "wall_seconds": 253.4002583026886
+ "sweep_bases_n8_completed": 2420,
+ "units_total": 975,
+ "verdict": "HELD",
+ "wall_seconds": 4487.081283990478
 }

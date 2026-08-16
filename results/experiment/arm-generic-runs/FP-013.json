@@ -1,28 +1,27 @@
 {
- "best_slack_desc": "random bipartite p=0.70 n=11",
+ "best_slack_desc": "n=9 exhaustive extension of GEyn~w",
  "best_slack_found": "0",
- "best_slack_graph6": "J???????F~_",
+ "best_slack_graph6": "HEyn~z~",
  "cap_cpu_seconds": 3600.0,
- "cpu_seconds": 240.052198375,
- "evals_this_run": 89459,
+ "cpu_seconds": 3600.2626686139997,
+ "evals_this_run": 827357,
  "id": "FP-013",
  "method_counts": {
-  "ANNEAL": 11,
-  "FAM": 30,
-  "GROW": 2,
-  "SWEEP": 2
+  "ANNEAL": 103,
+  "GROW": 26,
+  "SWEEP": 26
  },
  "method_found": null,
  "n_max_probed": 28,
- "next_unit": 45,
+ "next_unit": 248,
  "seeds": {
   "base_seed": 20363762,
   "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
  },
  "spec_convention": "true",
  "statement": "For every connected graph G with n(G) >= 2:  gamma_2 >= ceil((Delta)/(Sigma_2))",
- "sweep_bases_n8_completed": 40,
- "units_total": 45,
- "verdict": "BRACKET",
- "wall_seconds": 258.38348841667175
+ "sweep_bases_n8_completed": 520,
+ "units_total": 248,
+ "verdict": "HELD",
+ "wall_seconds": 4392.391752883911
 }

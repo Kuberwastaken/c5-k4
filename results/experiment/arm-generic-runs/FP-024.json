@@ -1,28 +1,27 @@
 {
- "best_slack_desc": "random 7-regular n=32",
+ "best_slack_desc": "n=9 exhaustive extension of GA?KJG",
  "best_slack_found": "0",
- "best_slack_graph6": "_?_gE?I?WG@wAkkGW?O`kA?AAW?CAGOq???CDg??SCGpACc?ggDOaQ_A?g@C?@BIt_GS?EO`O?AoPCOSKGSG",
+ "best_slack_graph6": "HA?KJI?",
  "cap_cpu_seconds": 3600.0,
- "cpu_seconds": 240.05009694499998,
- "evals_this_run": 78927,
+ "cpu_seconds": 3600.2216895809997,
+ "evals_this_run": 873290,
  "id": "FP-024",
  "method_counts": {
-  "ANNEAL": 8,
-  "FAM": 30,
-  "GROW": 2,
-  "SWEEP": 2
+  "ANNEAL": 111,
+  "GROW": 28,
+  "SWEEP": 28
  },
  "method_found": null,
  "n_max_probed": 40,
- "next_unit": 42,
+ "next_unit": 248,
  "seeds": {
   "base_seed": 20450871,
   "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
  },
  "spec_convention": "true",
  "statement": "For every connected graph G with n(G) >= 2:  mu <= ceil((n - chi_tree)/2)",
- "sweep_bases_n8_completed": 40,
- "units_total": 42,
- "verdict": "BRACKET",
- "wall_seconds": 284.8516457080841
+ "sweep_bases_n8_completed": 560,
+ "units_total": 248,
+ "verdict": "HELD",
+ "wall_seconds": 4385.881238132858
 }

@@ -1,28 +1,27 @@
 {
- "best_slack_desc": "random bipartite p=0.20 n=40",
+ "best_slack_desc": "n=9 exhaustive extension of GXU]~w",
  "best_slack_found": "0",
- "best_slack_graph6": "gsaCCA?_C?O?_?_?O?C??_?A??C??C??A???_??C???O???_???_???O???C????_???A????C????C????A?????_????C?????O?????_?????_?????O?????C??????",
+ "best_slack_graph6": "HXU]~z{",
  "cap_cpu_seconds": 3600.0,
- "cpu_seconds": 240.378744711,
- "evals_this_run": 70298,
+ "cpu_seconds": 3600.2606239079996,
+ "evals_this_run": 686826,
  "id": "FP-025",
  "method_counts": {
-  "ANNEAL": 8,
-  "FAM": 30,
-  "GROW": 2,
-  "SWEEP": 2
+  "ANNEAL": 83,
+  "GROW": 21,
+  "SWEEP": 21
  },
  "method_found": null,
  "n_max_probed": 40,
- "next_unit": 42,
+ "next_unit": 223,
  "seeds": {
   "base_seed": 20458790,
   "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
  },
  "spec_convention": "true",
  "statement": "For every connected graph G with n(G) >= 2:  mu >= floor((delta + lambda_min)/2)",
- "sweep_bases_n8_completed": 40,
- "units_total": 42,
- "verdict": "BRACKET",
- "wall_seconds": 287.27262568473816
+ "sweep_bases_n8_completed": 420,
+ "units_total": 223,
+ "verdict": "HELD",
+ "wall_seconds": 4410.097796040344
 }

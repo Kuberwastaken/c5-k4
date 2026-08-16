@@ -1,28 +1,27 @@
 {
- "best_slack_desc": "anneal n=10 unit=57",
- "best_slack_found": "7/5",
- "best_slack_graph6": "IrS?OGD@w",
+ "best_slack_desc": "anneal n=10 unit=337",
+ "best_slack_found": "59/45",
+ "best_slack_graph6": "I~?I?WLA_",
  "cap_cpu_seconds": 3600.0,
- "cpu_seconds": 240.00971038100002,
- "evals_this_run": 736856,
+ "cpu_seconds": 3600.001740096,
+ "evals_this_run": 8221897,
  "id": "FP-004",
  "method_counts": {
-  "ANNEAL": 91,
-  "FAM": 30,
-  "GROW": 22,
-  "SWEEP": 22
+  "ANNEAL": 1004,
+  "GROW": 251,
+  "SWEEP": 251
  },
  "method_found": null,
  "n_max_probed": 40,
- "next_unit": 165,
+ "next_unit": 2073,
  "seeds": {
   "base_seed": 20292491,
   "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
  },
  "spec_convention": "true",
  "statement": "For every connected graph G with n(G) >= 2:  A >= floor((disp_min)/2) + dist_avg",
- "sweep_bases_n8_completed": 440,
- "units_total": 165,
- "verdict": "BRACKET",
- "wall_seconds": 252.44411993026733
+ "sweep_bases_n8_completed": 5020,
+ "units_total": 2073,
+ "verdict": "HELD",
+ "wall_seconds": 4486.927390098953
 }
