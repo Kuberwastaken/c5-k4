@@ -2,6 +2,12 @@
 
 ![C5[K4] — five K4 blobs on a cycle, complete join between adjacent blobs](assets/c5k4.png)
 
+> **Picking this back up? Read [`STATE.md`](STATE.md) first.**
+> It is the current situation report — what is settled, what is running (nothing,
+> as of 2026-08-16), the one open decision, the honest liabilities, and the live
+> threads with upstream maintainers. This README is the story; `STATE.md` is
+> where things actually stand.
+
 **One 20-vertex graph that became a counterexample-discovery program.**
 
 C₅[K₄] is the lexicographic product of the 5-cycle with the complete graph K₄:
