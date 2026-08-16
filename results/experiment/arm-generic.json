@@ -13,19 +13,294 @@
  },
  "evaluator_gate": {
   "command": "python3 scripts/exp/generic/check_against_gen.py --sample 1200 --seed 20260815 --full-d",
+  "full_D": {
+   "generator": {
+    "counterexample_targets": [],
+    "equality_count_mismatches": [],
+    "seconds": 21.5,
+    "slack_extreme_mismatches": []
+   },
+   "true": {
+    "counterexample_targets": [],
+    "equality_count_mismatches": [
+     "FP-008"
+    ],
+    "seconds": 21.7,
+    "slack_extreme_mismatches": []
+   }
+  },
   "full_D_pass": true,
   "lines": [
    "invariant cross-check against `scripts/gen/invariants.py` on 1255 graphs of `D`, against **both** gen backends (exhaustive `2^n` and branch-and-bound), over all 42 invariants the population uses: **0 mismatches**",
    "invariant cross-check against the `scripts/gen` branch-and-bound backend on 68 graphs with `n = 9..24` outside `D` (random `G(n,p)` at four densities, paths, cycles, complete graphs): **0 mismatches**",
-   "all 30 frozen targets re-evaluated over all 12,112 members of `D` through this arm's own evaluator: **PASS \u2014 0 counterexamples, and every recorded equality count, min slack and max slack reproduces exactly**"
+   "spectral audit: `floor(lambda_1)` is identical under both conventions on all 12,112 members of `D`. `ceil(lambda_1)` differs on **19** of them: `scripts/gen/invariants._spectral_bracket` returns `ceil = floor` whenever `det(floor*I - A) = 0`, i.e. whenever `floor(lambda_1)` happens to be *some* eigenvalue, not necessarily the largest. On all 19 the arm's value is the one that matches the actual spectral radius (e.g. `Dh_`, lambda_1 = sqrt(3) = 1.7320508\u2026: the arm gives `ceil = 2`, the generator gives `ceil = 1`).",
+   "all 30 frozen targets re-evaluated over all 12,112 members of `D` through this arm's own evaluator: **0 counterexamples under both conventions**. Under the generator's convention every recorded equality count, min slack and max slack reproduces exactly (0 mismatches). Under the definition-faithful convention the equality count of FP-008 differs, because that target's right-hand side depends on `ceil(lambda_1)`."
   ],
   "outside_D_graphs": 68,
   "outside_D_mismatches": 0,
   "sample_D_graphs": 1255,
-  "sample_D_mismatches": 0
+  "sample_D_mismatches": 0,
+  "spectral_affected_targets": [
+   "FP-008"
+  ],
+  "spectral_ceil_difference_count": 19,
+  "spectral_ceil_differences": [
+   {
+    "arm_floor_ceil": [
+     1,
+     2
+    ],
+    "gen_floor_ceil": [
+     1,
+     1
+    ],
+    "graph6": "Dh_",
+    "lambda_1_float": 1.7320508076,
+    "n": 5
+   },
+   {
+    "arm_floor_ceil": [
+     1,
+     2
+    ],
+    "gen_floor_ceil": [
+     1,
+     1
+    ],
+    "graph6": "EiGO",
+    "lambda_1_float": 1.9318516526,
+    "n": 6
+   },
+   {
+    "arm_floor_ceil": [
+     2,
+     3
+    ],
+    "gen_floor_ceil": [
+     2,
+     2
+    ],
+    "graph6": "FMs`G",
+    "lambda_1_float": 2.7092753594,
+    "n": 7
+   },
+   {
+    "arm_floor_ceil": [
+     2,
+     3
+    ],
+    "gen_floor_ceil": [
+     2,
+     2
+    ],
+    "graph6": "F`ooo",
+    "lambda_1_float": 2.3429230828,
+    "n": 7
+   },
+   {
+    "arm_floor_ceil": [
+     2,
+     3
+    ],
+    "gen_floor_ceil": [
+     2,
+     2
+    ],
+    "graph6": "GCc`N?",
+    "lambda_1_float": 2.4142135624,
+    "n": 8
+   },
+   {
+    "arm_floor_ceil": [
+     2,
+     3
+    ],
+    "gen_floor_ceil": [
+     2,
+     2
+    ],
+    "graph6": "GCc`N_",
+    "lambda_1_float": 2.7977433277,
+    "n": 8
+   },
+   {
+    "arm_floor_ceil": [
+     2,
+     3
+    ],
+    "gen_floor_ceil": [
+     2,
+     2
+    ],
+    "graph6": "GLg?IK",
+    "lambda_1_float": 2.316693302,
+    "n": 8
+   },
+   {
+    "arm_floor_ceil": [
+     1,
+     2
+    ],
+    "gen_floor_ceil": [
+     1,
+     1
+    ],
+    "graph6": "G_CKJ?",
+    "lambda_1_float": 1.8793852416,
+    "n": 8
+   },
+   {
+    "arm_floor_ceil": [
+     2,
+     3
+    ],
+    "gen_floor_ceil": [
+     2,
+     2
+    ],
+    "graph6": "G`G`Mo",
+    "lambda_1_float": 2.6813306436,
+    "n": 8
+   },
+   {
+    "arm_floor_ceil": [
+     2,
+     3
+    ],
+    "gen_floor_ceil": [
+     2,
+     2
+    ],
+    "graph6": "G`o_lg",
+    "lambda_1_float": 2.9910255016,
+    "n": 8
+   },
+   {
+    "arm_floor_ceil": [
+     2,
+     3
+    ],
+    "gen_floor_ceil": [
+     2,
+     2
+    ],
+    "graph6": "G`o_mg",
+    "lambda_1_float": 2.9172859931,
+    "n": 8
+   },
+   {
+    "arm_floor_ceil": [
+     2,
+     3
+    ],
+    "gen_floor_ceil": [
+     2,
+     2
+    ],
+    "graph6": "G`o_n_",
+    "lambda_1_float": 2.9537237163,
+    "n": 8
+   },
+   {
+    "arm_floor_ceil": [
+     2,
+     3
+    ],
+    "gen_floor_ceil": [
+     2,
+     2
+    ],
+    "graph6": "Geo`?k",
+    "lambda_1_float": 2.6955399937,
+    "n": 8
+   },
+   {
+    "arm_floor_ceil": [
+     2,
+     3
+    ],
+    "gen_floor_ceil": [
+     2,
+     2
+    ],
+    "graph6": "Ggog`k",
+    "lambda_1_float": 2.9032119259,
+    "n": 8
+   },
+   {
+    "arm_floor_ceil": [
+     2,
+     3
+    ],
+    "gen_floor_ceil": [
+     2,
+     2
+    ],
+    "graph6": "Ggogcc",
+    "lambda_1_float": 2.6411864762,
+    "n": 8
+   },
+   {
+    "arm_floor_ceil": [
+     2,
+     3
+    ],
+    "gen_floor_ceil": [
+     2,
+     2
+    ],
+    "graph6": "Ggoghc",
+    "lambda_1_float": 2.8136065026,
+    "n": 8
+   },
+   {
+    "arm_floor_ceil": [
+     2,
+     3
+    ],
+    "gen_floor_ceil": [
+     2,
+     2
+    ],
+    "graph6": "GhoG_k",
+    "lambda_1_float": 2.5615528128,
+    "n": 8
+   },
+   {
+    "arm_floor_ceil": [
+     2,
+     3
+    ],
+    "gen_floor_ceil": [
+     2,
+     2
+    ],
+    "graph6": "Gk_`Io",
+    "lambda_1_float": 2.6051983875,
+    "n": 8
+   },
+   {
+    "arm_floor_ceil": [
+     2,
+     3
+    ],
+    "gen_floor_ceil": [
+     2,
+     2
+    ],
+    "graph6": "Gx_?G{",
+    "lambda_1_float": 2.6180339887,
+    "n": 8
+   }
+  ]
  },
  "experiment": "fresh-generation three-arm test (prereg-three-arm-v1)",
  "method": "brute force plus heuristics: random families over a wide order/density range, near-exhaustive n=9 sweep beyond D, beam extension, and simulated annealing on edge flips minimising the target's slack. No structural analysis of tightness.",
+ "protocol_notes": [
+  "A first pass of this arm was run and DISCARDED before any verdict was recorded, because profiling showed the arm's exact spectral test was slow enough to cap the searchable order at n=9 for the two targets that use floor(lambda_1) (FP-019, FP-026). The evaluator was rewritten (fraction-free integer Sylvester test) and the whole arm restarted from unit 0 with the final code, so every target was searched by one and the same instrument. No verdict from the discarded pass was carried over.",
+  "While fixing that, the arm found that scripts/gen/invariants._spectral_bracket returns ceil(lambda_1) = floor(lambda_1) whenever floor(lambda_1) is an eigenvalue, even when it is not the largest one; that is wrong on 19 of the 12,112 members of D. It affects exactly one target, FP-008, whose right-hand side is floor(A / ceil(lambda_1)). The arm searches under the definition-faithful convention, which is the harder one for this target (a larger ceil makes the right-hand side smaller and the '>=' easier to satisfy), and every crossing is required to be a crossing under BOTH conventions."
+ ],
+ "spec_convention_searched": "true (definition-faithful)",
  "targets": [
   {
    "best_slack_found": "0",
@@ -41,7 +316,7 @@
    "max_order_searched": 40,
    "method_found": null,
    "method_unit_counts": {
-    "ANNEAL": 53,
+    "ANNEAL": 54,
     "FAM": 30,
     "GROW": 13,
     "SWEEP": 13
@@ -49,16 +324,17 @@
    "n9_exhaustive_bases_completed": 260,
    "refuting_graph6": null,
    "rhs_at_witness": null,
-   "search_evaluations": 503176,
+   "search_evaluations": 508568,
    "seeds": {
     "base_seed": 20268734,
     "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
    },
    "slack_at_witness": null,
+   "spec_convention": "true",
    "statement": "For every connected graph G with n(G) >= 2:  alpha <= ceil((Tdist_max - dist_even_min)/2) + 1",
    "verdict": "BRACKET",
    "verify_cpu_seconds": 0.0,
-   "wall_seconds": 333.62,
+   "wall_seconds": 253.77,
    "witness_before_reduction_graph6": null,
    "witness_before_reduction_n": null,
    "witness_n": null
@@ -68,21 +344,28 @@
    "best_slack_graph6": "daXBGTD?siq?{PoT@C?ZWfrf?jJw@tiw[POeBLJAyFy?BnA{dCdOd^C?K{gGf@hxWTEqBJzTY}dx{oPzWmcFkM`GfHCY{\\DjdBZ|Be|EGEoLPWgb",
    "best_slack_source": "G(n,p) p=0.45 n=37",
    "cap_cpu_seconds": 3600.0,
-   "cpu_seconds": 0.05,
+   "cpu_seconds": 0.04,
    "gate_database_sanity": "PASS",
    "gate_detail": {
     "database_sanity": {
      "arm_counterexamples_in_D": 0,
      "arm_equality_count_in_D": 249,
+     "convention": "true",
+     "equality_count_reproduces": true,
      "gen_path_counterexamples": 0,
      "gen_path_sample": 1500,
      "population_equality_count_in_D": 249,
      "status": "PASS"
     },
     "second_code_path": {
+     "arm_convention": "true",
      "arm_lhs": "5",
+     "arm_lhs_generator_convention": "5",
      "arm_rhs": "6",
+     "arm_rhs_generator_convention": "6",
      "arm_slack": "-1",
+     "arm_slack_generator_convention": "-1",
+     "arm_slack_true_convention": "-1",
      "connected": true,
      "gen_brute_lhs": "5",
      "gen_brute_rhs": "6",
@@ -112,10 +395,11 @@
     "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
    },
    "slack_at_witness": "-1",
+   "spec_convention": "true",
    "statement": "For every connected graph G with n(G) >= 2:  alpha >= dist_even_max - chi",
    "verdict": "CROSSED",
-   "verify_cpu_seconds": 9.3,
-   "wall_seconds": 0.11,
+   "verify_cpu_seconds": 8.36,
+   "wall_seconds": 0.04,
    "witness_before_reduction_graph6": "daXBGTD?siq?{PoT@C?ZWfrf?jJw@tiw[POeBLJAyFy?BnA{dCdOd^C?K{gGf@hxWTEqBJzTY}dx{oPzWmcFkM`GfHCY{\\DjdBZ|Be|EGEoLPWgb",
    "witness_before_reduction_n": 37,
    "witness_n": 13
@@ -125,7 +409,7 @@
    "best_slack_graph6": "_k`[iXolrL]DoLip]{{juQ}T]^{XsC^TvsAwd~Qrfa_ro{kTSwLjKt@IcfjYW||BvN{_Ifx}jtrHt}naDaQg",
    "best_slack_source": "G(n,p) p=0.55 n=32",
    "cap_cpu_seconds": 3600.0,
-   "cpu_seconds": 240.0,
+   "cpu_seconds": 240.01,
    "gate_database_sanity": "n/a (no candidate)",
    "gate_detail": null,
    "gate_second_code_path": "n/a (no candidate)",
@@ -134,7 +418,7 @@
    "max_order_searched": 40,
    "method_found": null,
    "method_unit_counts": {
-    "ANNEAL": 19,
+    "ANNEAL": 20,
     "FAM": 30,
     "GROW": 5,
     "SWEEP": 5
@@ -142,16 +426,17 @@
    "n9_exhaustive_bases_completed": 100,
    "refuting_graph6": null,
    "rhs_at_witness": null,
-   "search_evaluations": 184848,
+   "search_evaluations": 191423,
    "seeds": {
     "base_seed": 20284572,
     "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
    },
    "slack_at_witness": null,
+   "spec_convention": "true",
    "statement": "For every connected graph G with n(G) >= 2:  alpha >= lambda_max - cutv",
    "verdict": "BRACKET",
    "verify_cpu_seconds": 0.0,
-   "wall_seconds": 335.15,
+   "wall_seconds": 253.4,
    "witness_before_reduction_graph6": null,
    "witness_before_reduction_n": null,
    "witness_n": null
@@ -161,7 +446,7 @@
    "best_slack_graph6": "IrS?OGD@w",
    "best_slack_source": "anneal n=10 unit=57",
    "cap_cpu_seconds": 3600.0,
-   "cpu_seconds": 240.0,
+   "cpu_seconds": 240.01,
    "gate_database_sanity": "n/a (no candidate)",
    "gate_detail": null,
    "gate_second_code_path": "n/a (no candidate)",
@@ -170,7 +455,7 @@
    "max_order_searched": 40,
    "method_found": null,
    "method_unit_counts": {
-    "ANNEAL": 87,
+    "ANNEAL": 91,
     "FAM": 30,
     "GROW": 22,
     "SWEEP": 22
@@ -178,16 +463,17 @@
    "n9_exhaustive_bases_completed": 440,
    "refuting_graph6": null,
    "rhs_at_witness": null,
-   "search_evaluations": 720931,
+   "search_evaluations": 736856,
    "seeds": {
     "base_seed": 20292491,
     "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
    },
    "slack_at_witness": null,
+   "spec_convention": "true",
    "statement": "For every connected graph G with n(G) >= 2:  A >= floor((disp_min)/2) + dist_avg",
    "verdict": "BRACKET",
    "verify_cpu_seconds": 0.0,
-   "wall_seconds": 329.42,
+   "wall_seconds": 252.44,
    "witness_before_reduction_graph6": null,
    "witness_before_reduction_n": null,
    "witness_n": null
@@ -206,24 +492,25 @@
    "max_order_searched": 40,
    "method_found": null,
    "method_unit_counts": {
-    "ANNEAL": 42,
+    "ANNEAL": 43,
     "FAM": 30,
-    "GROW": 10,
-    "SWEEP": 10
+    "GROW": 11,
+    "SWEEP": 11
    },
-   "n9_exhaustive_bases_completed": 200,
+   "n9_exhaustive_bases_completed": 220,
    "refuting_graph6": null,
    "rhs_at_witness": null,
-   "search_evaluations": 381947,
+   "search_evaluations": 407178,
    "seeds": {
     "base_seed": 20300410,
     "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
    },
    "slack_at_witness": null,
+   "spec_convention": "true",
    "statement": "For every connected graph G with n(G) >= 2:  A >= floor((n)/(gamma_t))",
    "verdict": "BRACKET",
    "verify_cpu_seconds": 0.0,
-   "wall_seconds": 332.68,
+   "wall_seconds": 252.87,
    "witness_before_reduction_graph6": null,
    "witness_before_reduction_n": null,
    "witness_n": null
@@ -233,7 +520,7 @@
    "best_slack_graph6": "M??????PGE?CEWiO?",
    "best_slack_source": "random bipartite p=0.20 n=14",
    "cap_cpu_seconds": 3600.0,
-   "cpu_seconds": 240.06,
+   "cpu_seconds": 240.41,
    "gate_database_sanity": "n/a (no candidate)",
    "gate_detail": null,
    "gate_second_code_path": "n/a (no candidate)",
@@ -250,16 +537,17 @@
    "n9_exhaustive_bases_completed": 80,
    "refuting_graph6": null,
    "rhs_at_witness": null,
-   "search_evaluations": 162072,
+   "search_evaluations": 162321,
    "seeds": {
     "base_seed": 20308329,
     "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
    },
    "slack_at_witness": null,
+   "spec_convention": "true",
    "statement": "For every connected graph G with n(G) >= 2:  chi >= ceil((omega - chi_regular)/2) + 1",
    "verdict": "BRACKET",
    "verify_cpu_seconds": 0.0,
-   "wall_seconds": 333.07,
+   "wall_seconds": 253.93,
    "witness_before_reduction_graph6": null,
    "witness_before_reduction_n": null,
    "witness_n": null
@@ -269,21 +557,28 @@
    "best_slack_graph6": "QC?@?PGBA??_?@?CA???CGAAA??",
    "best_slack_source": "random tree n=18",
    "cap_cpu_seconds": 3600.0,
-   "cpu_seconds": 8.58,
+   "cpu_seconds": 8.46,
    "gate_database_sanity": "PASS",
    "gate_detail": {
     "database_sanity": {
      "arm_counterexamples_in_D": 0,
      "arm_equality_count_in_D": 6,
+     "convention": "true",
+     "equality_count_reproduces": true,
      "gen_path_counterexamples": 0,
      "gen_path_sample": 1500,
      "population_equality_count_in_D": 6,
      "status": "PASS"
     },
     "second_code_path": {
+     "arm_convention": "true",
      "arm_lhs": "8",
+     "arm_lhs_generator_convention": "8",
      "arm_rhs": "7",
+     "arm_rhs_generator_convention": "7",
      "arm_slack": "-1",
+     "arm_slack_generator_convention": "-1",
+     "arm_slack_true_convention": "-1",
      "connected": true,
      "gen_brute_lhs": "8",
      "gen_brute_rhs": "7",
@@ -313,34 +608,42 @@
     "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
    },
    "slack_at_witness": "-1",
+   "spec_convention": "true",
    "statement": "For every connected graph G with n(G) >= 2:  diam <= disp_max + gamma_2",
    "verdict": "CROSSED",
-   "verify_cpu_seconds": 10.61,
-   "wall_seconds": 13.34,
+   "verify_cpu_seconds": 10.5,
+   "wall_seconds": 8.73,
    "witness_before_reduction_graph6": "QC?@?PGBA??_?@?CA???CGAAA??",
    "witness_before_reduction_n": 18,
    "witness_n": 9
   },
   {
    "best_slack_found": "-1",
-   "best_slack_graph6": "I??????~w",
-   "best_slack_source": "random bipartite p=0.35 n=10",
+   "best_slack_graph6": "M?????????????~~_",
+   "best_slack_source": "random bipartite p=0.20 n=14",
    "cap_cpu_seconds": 3600.0,
-   "cpu_seconds": 0.29,
+   "cpu_seconds": 0.65,
    "gate_database_sanity": "PASS",
    "gate_detail": {
     "database_sanity": {
      "arm_counterexamples_in_D": 0,
-     "arm_equality_count_in_D": 7,
+     "arm_equality_count_in_D": 6,
+     "convention": "true",
+     "equality_count_reproduces": false,
      "gen_path_counterexamples": 0,
      "gen_path_sample": 1500,
      "population_equality_count_in_D": 7,
      "status": "PASS"
     },
     "second_code_path": {
+     "arm_convention": "true",
      "arm_lhs": "2",
+     "arm_lhs_generator_convention": "2",
      "arm_rhs": "3",
+     "arm_rhs_generator_convention": "3",
      "arm_slack": "-1",
+     "arm_slack_generator_convention": "-1",
+     "arm_slack_true_convention": "-1",
      "connected": true,
      "gen_brute_lhs": "2",
      "gen_brute_rhs": "3",
@@ -348,56 +651,64 @@
      "gen_scal_lhs": "2",
      "gen_scal_rhs": "3",
      "gen_scal_slack": "-1",
-     "graph6": "I??????~w",
-     "n": 10,
+     "graph6": "L???????????~~",
+     "n": 13,
      "second_code_path": "PASS"
     }
    },
    "gate_second_code_path": "PASS",
    "id": "FP-008",
    "lhs_at_witness": "2",
-   "max_order_searched": 9,
+   "max_order_searched": 40,
    "method_found": "FAM",
    "method_unit_counts": {
     "FAM": 1
    },
    "n9_exhaustive_bases_completed": 0,
-   "refuting_graph6": "I??????~w",
+   "refuting_graph6": "L???????????~~",
    "rhs_at_witness": "3",
-   "search_evaluations": 9,
+   "search_evaluations": 15,
    "seeds": {
     "base_seed": 20324167,
     "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
    },
    "slack_at_witness": "-1",
+   "spec_convention": "true",
    "statement": "For every connected graph G with n(G) >= 2:  diam >= floor((A)/(ceil(lambda_1)))",
    "verdict": "CROSSED",
-   "verify_cpu_seconds": 26.11,
-   "wall_seconds": 0.3,
-   "witness_before_reduction_graph6": "I??????~w",
-   "witness_before_reduction_n": 10,
-   "witness_n": 10
+   "verify_cpu_seconds": 9.62,
+   "wall_seconds": 0.32,
+   "witness_before_reduction_graph6": "M?????????????~~_",
+   "witness_before_reduction_n": 14,
+   "witness_n": 13
   },
   {
    "best_slack_found": "-1",
    "best_slack_graph6": "N?I@?CAOCc?C?C?Gg??",
    "best_slack_source": "random tree n=15",
    "cap_cpu_seconds": 3600.0,
-   "cpu_seconds": 0.17,
+   "cpu_seconds": 0.19,
    "gate_database_sanity": "PASS",
    "gate_detail": {
     "database_sanity": {
      "arm_counterexamples_in_D": 0,
      "arm_equality_count_in_D": 704,
+     "convention": "true",
+     "equality_count_reproduces": true,
      "gen_path_counterexamples": 0,
      "gen_path_sample": 1500,
      "population_equality_count_in_D": 704,
      "status": "PASS"
     },
     "second_code_path": {
+     "arm_convention": "true",
      "arm_lhs": "7",
+     "arm_lhs_generator_convention": "7",
      "arm_rhs": "6",
+     "arm_rhs_generator_convention": "6",
      "arm_slack": "-1",
+     "arm_slack_generator_convention": "-1",
+     "arm_slack_true_convention": "-1",
      "connected": true,
      "gen_brute_lhs": "7",
      "gen_brute_rhs": "6",
@@ -427,46 +738,48 @@
     "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
    },
    "slack_at_witness": "-1",
+   "spec_convention": "true",
    "statement": "For every connected graph G with n(G) >= 2:  gamma <= floor((lambda_avg)/2) + res",
    "verdict": "CROSSED",
-   "verify_cpu_seconds": 9.21,
-   "wall_seconds": 0.21,
+   "verify_cpu_seconds": 8.87,
+   "wall_seconds": 0.2,
    "witness_before_reduction_graph6": "N?I@?CAOCc?C?C?Gg??",
    "witness_before_reduction_n": 15,
    "witness_n": 15
   },
   {
    "best_slack_found": "0",
-   "best_slack_graph6": "HCCK@HO",
+   "best_slack_graph6": "H_?__Qw",
    "best_slack_source": "random tree n=9",
    "cap_cpu_seconds": 3600.0,
-   "cpu_seconds": 240.29,
+   "cpu_seconds": 240.01,
    "gate_database_sanity": "n/a (no candidate)",
    "gate_detail": null,
    "gate_second_code_path": "n/a (no candidate)",
    "id": "FP-010",
    "lhs_at_witness": null,
-   "max_order_searched": 32,
+   "max_order_searched": 28,
    "method_found": null,
    "method_unit_counts": {
-    "ANNEAL": 13,
+    "ANNEAL": 8,
     "FAM": 30,
-    "GROW": 3,
-    "SWEEP": 3
+    "GROW": 2,
+    "SWEEP": 2
    },
-   "n9_exhaustive_bases_completed": 60,
+   "n9_exhaustive_bases_completed": 40,
    "refuting_graph6": null,
    "rhs_at_witness": null,
-   "search_evaluations": 112084,
+   "search_evaluations": 74967,
    "seeds": {
     "base_seed": 20340005,
     "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
    },
    "slack_at_witness": null,
+   "spec_convention": "true",
    "statement": "For every connected graph G with n(G) >= 2:  gamma <= gamma_2 - chi_C4free",
    "verdict": "BRACKET",
    "verify_cpu_seconds": 0.0,
-   "wall_seconds": 313.64,
+   "wall_seconds": 252.81,
    "witness_before_reduction_graph6": null,
    "witness_before_reduction_n": null,
    "witness_n": null
@@ -476,7 +789,7 @@
    "best_slack_graph6": "UXl|p~~n|vv~^^zH~~||zn~||~xuxqIDG~}nMvIg",
    "best_slack_source": "random geometric r=0.60 n=22",
    "cap_cpu_seconds": 3600.0,
-   "cpu_seconds": 240.0,
+   "cpu_seconds": 240.01,
    "gate_database_sanity": "n/a (no candidate)",
    "gate_detail": null,
    "gate_second_code_path": "n/a (no candidate)",
@@ -499,74 +812,86 @@
     "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
    },
    "slack_at_witness": null,
+   "spec_convention": "true",
    "statement": "For every connected graph G with n(G) >= 2:  gamma >= ceil((Tdist_min)/(m))",
    "verdict": "BRACKET",
    "verify_cpu_seconds": 0.0,
-   "wall_seconds": 311.5,
+   "wall_seconds": 257.29,
    "witness_before_reduction_graph6": null,
    "witness_before_reduction_n": null,
    "witness_n": null
   },
   {
-   "best_slack_found": "-2",
-   "best_slack_graph6": "[??C??g?g_???COCG?_???@????B?gA??O?A????????_???C?A???G???@???Og",
-   "best_slack_source": "random tree n=28",
+   "best_slack_found": "-1",
+   "best_slack_graph6": "LkQAC?@_A??@A?",
+   "best_slack_source": "preferential attachment m=1 n=13",
    "cap_cpu_seconds": 3600.0,
-   "cpu_seconds": 0.54,
+   "cpu_seconds": 0.2,
    "gate_database_sanity": "PASS",
    "gate_detail": {
     "database_sanity": {
      "arm_counterexamples_in_D": 0,
      "arm_equality_count_in_D": 17,
+     "convention": "true",
+     "equality_count_reproduces": true,
      "gen_path_counterexamples": 0,
      "gen_path_sample": 1500,
      "population_equality_count_in_D": 17,
      "status": "PASS"
     },
     "second_code_path": {
-     "arm_lhs": "14",
-     "arm_rhs": "13",
+     "arm_convention": "true",
+     "arm_lhs": "8",
+     "arm_lhs_generator_convention": "8",
+     "arm_rhs": "7",
+     "arm_rhs_generator_convention": "7",
      "arm_slack": "-1",
+     "arm_slack_generator_convention": "-1",
+     "arm_slack_true_convention": "-1",
      "connected": true,
-     "gen_scal_lhs": "14",
-     "gen_scal_rhs": "13",
+     "gen_brute_lhs": "8",
+     "gen_brute_rhs": "7",
+     "gen_brute_slack": "-1",
+     "gen_scal_lhs": "8",
+     "gen_scal_rhs": "7",
      "gen_scal_slack": "-1",
-     "graph6": "U??_GAA_OA??B@A?G?O?????O??C?O?@???G?AD?",
-     "n": 22,
+     "graph6": "IkQ?K@?G?",
+     "n": 10,
      "second_code_path": "PASS"
     }
    },
    "gate_second_code_path": "PASS",
    "id": "FP-012",
-   "lhs_at_witness": "14",
-   "max_order_searched": 28,
+   "lhs_at_witness": "8",
+   "max_order_searched": 24,
    "method_found": "FAM",
    "method_unit_counts": {
     "FAM": 1
    },
    "n9_exhaustive_bases_completed": 0,
-   "refuting_graph6": "U??_GAA_OA??B@A?G?O?????O??C?O?@???G?AD?",
-   "rhs_at_witness": "13",
-   "search_evaluations": 34,
+   "refuting_graph6": "IkQ?K@?G?",
+   "rhs_at_witness": "7",
+   "search_evaluations": 5,
    "seeds": {
     "base_seed": 20355843,
     "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
    },
    "slack_at_witness": "-1",
+   "spec_convention": "true",
    "statement": "For every connected graph G with n(G) >= 2:  gamma_2 <= dist_even_max - chi_regular + 2",
    "verdict": "CROSSED",
-   "verify_cpu_seconds": 10.42,
-   "wall_seconds": 0.73,
-   "witness_before_reduction_graph6": "[??C??g?g_???COCG?_???@????B?gA??O?A????????_???C?A???G???@???Og",
-   "witness_before_reduction_n": 28,
-   "witness_n": 22
+   "verify_cpu_seconds": 9.88,
+   "wall_seconds": 0.21,
+   "witness_before_reduction_graph6": "LkQAC?@_A??@A?",
+   "witness_before_reduction_n": 13,
+   "witness_n": 10
   },
   {
    "best_slack_found": "0",
    "best_slack_graph6": "J???????F~_",
    "best_slack_source": "random bipartite p=0.70 n=11",
    "cap_cpu_seconds": 3600.0,
-   "cpu_seconds": 240.02,
+   "cpu_seconds": 240.05,
    "gate_database_sanity": "n/a (no candidate)",
    "gate_detail": null,
    "gate_second_code_path": "n/a (no candidate)",
@@ -583,16 +908,17 @@
    "n9_exhaustive_bases_completed": 40,
    "refuting_graph6": null,
    "rhs_at_witness": null,
-   "search_evaluations": 88774,
+   "search_evaluations": 89459,
    "seeds": {
     "base_seed": 20363762,
     "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
    },
    "slack_at_witness": null,
+   "spec_convention": "true",
    "statement": "For every connected graph G with n(G) >= 2:  gamma_2 >= ceil((Delta)/(Sigma_2))",
    "verdict": "BRACKET",
    "verify_cpu_seconds": 0.0,
-   "wall_seconds": 310.56,
+   "wall_seconds": 258.38,
    "witness_before_reduction_graph6": null,
    "witness_before_reduction_n": null,
    "witness_n": null
@@ -602,21 +928,28 @@
    "best_slack_graph6": "Z?????????????????F}gnKxV]BH{D}fATJ?j~w@|]?]~g?~^w?k{w?]to??",
    "best_slack_source": "random bipartite p=0.70 n=27",
    "cap_cpu_seconds": 3600.0,
-   "cpu_seconds": 0.53,
+   "cpu_seconds": 0.42,
    "gate_database_sanity": "PASS",
    "gate_detail": {
     "database_sanity": {
      "arm_counterexamples_in_D": 0,
      "arm_equality_count_in_D": 85,
+     "convention": "true",
+     "equality_count_reproduces": true,
      "gen_path_counterexamples": 0,
      "gen_path_sample": 1500,
      "population_equality_count_in_D": 85,
      "status": "PASS"
     },
     "second_code_path": {
+     "arm_convention": "true",
      "arm_lhs": "5",
+     "arm_lhs_generator_convention": "5",
      "arm_rhs": "6",
+     "arm_rhs_generator_convention": "6",
      "arm_slack": "-1",
+     "arm_slack_generator_convention": "-1",
+     "arm_slack_true_convention": "-1",
      "connected": true,
      "gen_brute_lhs": "5",
      "gen_brute_rhs": "6",
@@ -646,10 +979,11 @@
     "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
    },
    "slack_at_witness": "-1",
+   "spec_convention": "true",
    "statement": "For every connected graph G with n(G) >= 2:  gamma_2 >= floor((dist_even_min + disp_min)/2)",
    "verdict": "CROSSED",
-   "verify_cpu_seconds": 15.42,
-   "wall_seconds": 0.59,
+   "verify_cpu_seconds": 15.05,
+   "wall_seconds": 0.43,
    "witness_before_reduction_graph6": "Z?????????????????F}gnKxV]BH{D}fATJ?j~w@|]?]~g?~^w?k{w?]to??",
    "witness_before_reduction_n": 27,
    "witness_n": 18
@@ -659,21 +993,28 @@
    "best_slack_graph6": "fpa?OO__@?O?A?A?C?@????C??`???O????G?G?C??????OG????A???@???O????G?????O?@?????????a?????G???????G????C???????A?_?????@??????",
    "best_slack_source": "preferential attachment m=1 n=39",
    "cap_cpu_seconds": 3600.0,
-   "cpu_seconds": 0.31,
+   "cpu_seconds": 0.22,
    "gate_database_sanity": "PASS",
    "gate_detail": {
     "database_sanity": {
      "arm_counterexamples_in_D": 0,
      "arm_equality_count_in_D": 3,
+     "convention": "true",
+     "equality_count_reproduces": true,
      "gen_path_counterexamples": 0,
      "gen_path_sample": 1500,
      "population_equality_count_in_D": 3,
      "status": "PASS"
     },
     "second_code_path": {
+     "arm_convention": "true",
      "arm_lhs": "11",
+     "arm_lhs_generator_convention": "11",
      "arm_rhs": "10",
+     "arm_rhs_generator_convention": "10",
      "arm_slack": "-1",
+     "arm_slack_generator_convention": "-1",
+     "arm_slack_true_convention": "-1",
      "connected": true,
      "gen_scal_lhs": "11",
      "gen_scal_rhs": "10",
@@ -700,10 +1041,11 @@
     "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
    },
    "slack_at_witness": "-1",
+   "spec_convention": "true",
    "statement": "For every connected graph G with n(G) >= 2:  gamma_i <= diam + mu - 1",
    "verdict": "CROSSED",
-   "verify_cpu_seconds": 14.71,
-   "wall_seconds": 0.45,
+   "verify_cpu_seconds": 14.08,
+   "wall_seconds": 0.23,
    "witness_before_reduction_graph6": "fpa?OO__@?O?A?A?C?@????C??`???O????G?G?C??????OG????A???@???O????G?????O?@?????????a?????G???????G????C???????A?_?????@??????",
    "witness_before_reduction_n": 39,
    "witness_n": 22
@@ -713,21 +1055,28 @@
    "best_slack_graph6": "M[Gd_BgOKO[vXg\\z?",
    "best_slack_source": "anneal n=14 unit=5",
    "cap_cpu_seconds": 3600.0,
-   "cpu_seconds": 105.81,
+   "cpu_seconds": 103.23,
    "gate_database_sanity": "PASS",
    "gate_detail": {
     "database_sanity": {
      "arm_counterexamples_in_D": 0,
      "arm_equality_count_in_D": 290,
+     "convention": "true",
+     "equality_count_reproduces": true,
      "gen_path_counterexamples": 0,
      "gen_path_sample": 1500,
      "population_equality_count_in_D": 290,
      "status": "PASS"
     },
     "second_code_path": {
+     "arm_convention": "true",
      "arm_lhs": "5",
+     "arm_lhs_generator_convention": "5",
      "arm_rhs": "4",
+     "arm_rhs_generator_convention": "4",
      "arm_slack": "-1",
+     "arm_slack_generator_convention": "-1",
+     "arm_slack_true_convention": "-1",
      "connected": true,
      "gen_brute_lhs": "5",
      "gen_brute_rhs": "4",
@@ -760,10 +1109,11 @@
     "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
    },
    "slack_at_witness": "-1",
+   "spec_convention": "true",
    "statement": "For every connected graph G with n(G) >= 2:  gamma_i <= floor((alpha)/2) + gamma",
    "verdict": "CROSSED",
-   "verify_cpu_seconds": 9.47,
-   "wall_seconds": 126.81,
+   "verify_cpu_seconds": 9.18,
+   "wall_seconds": 107.13,
    "witness_before_reduction_graph6": "M[Gd_BgOKO[vXg\\z?",
    "witness_before_reduction_n": 14,
    "witness_n": 10
@@ -773,7 +1123,7 @@
    "best_slack_graph6": "Ia?PDCGIo",
    "best_slack_source": "random geometric r=0.25 n=10",
    "cap_cpu_seconds": 3600.0,
-   "cpu_seconds": 240.1,
+   "cpu_seconds": 240.06,
    "gate_database_sanity": "n/a (no candidate)",
    "gate_detail": null,
    "gate_second_code_path": "n/a (no candidate)",
@@ -790,16 +1140,17 @@
    "n9_exhaustive_bases_completed": 160,
    "refuting_graph6": null,
    "rhs_at_witness": null,
-   "search_evaluations": 311945,
+   "search_evaluations": 312281,
    "seeds": {
     "base_seed": 20395438,
     "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
    },
    "slack_at_witness": null,
+   "spec_convention": "true",
    "statement": "For every connected graph G with n(G) >= 2:  gamma_t >= floor((cutv + chi_tree)/2) + 1",
    "verdict": "BRACKET",
    "verify_cpu_seconds": 0.0,
-   "wall_seconds": 311.7,
+   "wall_seconds": 259.21,
    "witness_before_reduction_graph6": null,
    "witness_before_reduction_n": null,
    "witness_n": null
@@ -809,7 +1160,7 @@
    "best_slack_graph6": "f}X`HCoIAOCGa?E?B??`?A?Go???a?AA?AO?OG??__????aOC??E???A??G??AG?A??C?__??B????@???G???C?@A??A??_???CGA????_?G?????P???C????A?",
    "best_slack_source": "preferential attachment m=2 n=39",
    "cap_cpu_seconds": 3600.0,
-   "cpu_seconds": 240.02,
+   "cpu_seconds": 240.1,
    "gate_database_sanity": "n/a (no candidate)",
    "gate_detail": null,
    "gate_second_code_path": "n/a (no candidate)",
@@ -826,76 +1177,85 @@
    "n9_exhaustive_bases_completed": 80,
    "refuting_graph6": null,
    "rhs_at_witness": null,
-   "search_evaluations": 157963,
+   "search_evaluations": 158356,
    "seeds": {
     "base_seed": 20403357,
     "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
    },
    "slack_at_witness": null,
+   "spec_convention": "true",
    "statement": "For every connected graph G with n(G) >= 2:  gamma_t >= floor((gamma)/(disp_min))",
    "verdict": "BRACKET",
    "verify_cpu_seconds": 0.0,
-   "wall_seconds": 309.65,
+   "wall_seconds": 259.14,
    "witness_before_reduction_graph6": null,
    "witness_before_reduction_n": null,
    "witness_n": null
   },
   {
    "best_slack_found": "0",
-   "best_slack_graph6": "II_HC?S?o",
-   "best_slack_source": "random 2-regular n=10",
+   "best_slack_graph6": "KC_??WcOa_CO",
+   "best_slack_source": "random 2-regular n=12",
    "cap_cpu_seconds": 3600.0,
-   "cpu_seconds": 240.04,
+   "cpu_seconds": 240.01,
    "gate_database_sanity": "n/a (no candidate)",
    "gate_detail": null,
    "gate_second_code_path": "n/a (no candidate)",
    "id": "FP-019",
    "lhs_at_witness": null,
-   "max_order_searched": 9,
+   "max_order_searched": 36,
    "method_found": null,
    "method_unit_counts": {
-    "ANNEAL": 15,
+    "ANNEAL": 3,
     "FAM": 30,
-    "GROW": 3,
-    "SWEEP": 3
+    "GROW": 1,
+    "SWEEP": 1
    },
-   "n9_exhaustive_bases_completed": 60,
+   "n9_exhaustive_bases_completed": 20,
    "refuting_graph6": null,
    "rhs_at_witness": null,
-   "search_evaluations": 85609,
+   "search_evaluations": 32076,
    "seeds": {
     "base_seed": 20411276,
     "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
    },
    "slack_at_witness": null,
+   "spec_convention": "true",
    "statement": "For every connected graph G with n(G) >= 2:  kappa <= floor((t)/2) + floor(lambda_1)",
    "verdict": "BRACKET",
    "verify_cpu_seconds": 0.0,
-   "wall_seconds": 316.67,
+   "wall_seconds": 260.05,
    "witness_before_reduction_graph6": null,
    "witness_before_reduction_n": null,
    "witness_n": null
   },
   {
    "best_slack_found": "-1",
-   "best_slack_graph6": "c@Q@c_aaPdG??ACBh?aOHKi??jAay`aqDP\\rGgACA_FH?eC?????Bpg??o?Xc?O_`S?A?a_GOPdU]A@dOO_mDO@GGlo?QELaqFOTg?}?K?",
-   "best_slack_source": "random geometric r=0.35 n=36",
+   "best_slack_graph6": "gBM????S@qFB]DB?IBr_C]Dk?_?BAGB?KB??n?QA_doD@GQ?DG?@?O??H?w`qY?h`???Ak@?TPoYOgjoDoO?wL?Sun?QDDloAOgl_K?wC??Q@pK@JAOd\\m__GQgeGAW@DdC",
+   "best_slack_source": "random geometric r=0.35 n=40",
    "cap_cpu_seconds": 3600.0,
-   "cpu_seconds": 0.53,
+   "cpu_seconds": 0.34,
    "gate_database_sanity": "PASS",
    "gate_detail": {
     "database_sanity": {
      "arm_counterexamples_in_D": 0,
      "arm_equality_count_in_D": 1284,
+     "convention": "true",
+     "equality_count_reproduces": true,
      "gen_path_counterexamples": 0,
      "gen_path_sample": 1500,
      "population_equality_count_in_D": 1284,
      "status": "PASS"
     },
     "second_code_path": {
+     "arm_convention": "true",
      "arm_lhs": "1",
+     "arm_lhs_generator_convention": "1",
      "arm_rhs": "2",
+     "arm_rhs_generator_convention": "2",
      "arm_slack": "-1",
+     "arm_slack_generator_convention": "-1",
+     "arm_slack_true_convention": "-1",
      "connected": true,
      "gen_brute_lhs": "1",
      "gen_brute_rhs": "2",
@@ -903,56 +1263,64 @@
      "gen_scal_lhs": "1",
      "gen_scal_rhs": "2",
      "gen_scal_slack": "-1",
-     "graph6": "RnE^`ySdG?BmABo_^{fcBo?QSogWK?",
-     "n": 19,
+     "graph6": "OwbWmk_vomazb?fvaRMYc",
+     "n": 16,
      "second_code_path": "PASS"
     }
    },
    "gate_second_code_path": "PASS",
    "id": "FP-020",
    "lhs_at_witness": "1",
-   "max_order_searched": 36,
+   "max_order_searched": 40,
    "method_found": "FAM",
    "method_unit_counts": {
     "FAM": 1
    },
    "n9_exhaustive_bases_completed": 0,
-   "refuting_graph6": "RnE^`ySdG?BmABo_^{fcBo?QSogWK?",
+   "refuting_graph6": "OwbWmk_vomazb?fvaRMYc",
    "rhs_at_witness": "2",
-   "search_evaluations": 12,
+   "search_evaluations": 6,
    "seeds": {
     "base_seed": 20419195,
     "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
    },
    "slack_at_witness": "-1",
+   "spec_convention": "true",
    "statement": "For every connected graph G with n(G) >= 2:  kappa >= floor((disp_avg - ecc_avg)/2) + 1",
    "verdict": "CROSSED",
-   "verify_cpu_seconds": 24.48,
-   "wall_seconds": 1.54,
-   "witness_before_reduction_graph6": "c@Q@c_aaPdG??ACBh?aOHKi??jAay`aqDP\\rGgACA_FH?eC?????Bpg??o?Xc?O_`S?A?a_GOPdU]A@dOO_mDO@GGlo?QELaqFOTg?}?K?",
-   "witness_before_reduction_n": 36,
-   "witness_n": 19
+   "verify_cpu_seconds": 15.85,
+   "wall_seconds": 0.35,
+   "witness_before_reduction_graph6": "gBM????S@qFB]DB?IBr_C]Dk?_?BAGB?KB??n?QA_doD@GQ?DG?@?O??H?w`qY?h`???Ak@?TPoYOgjoDoO?wL?Sun?QDDloAOgl_K?wC??Q@pK@JAOd\\m__GQgeGAW@DdC",
+   "witness_before_reduction_n": 40,
+   "witness_n": 16
   },
   {
    "best_slack_found": "-1",
-   "best_slack_graph6": "O???????????}~y~^~fvw",
-   "best_slack_source": "random bipartite p=0.90 n=16",
+   "best_slack_graph6": "V?B{rpguFo^?m?i?\\?Fo?]?AW?Fo?Fo??O??s??DO???",
+   "best_slack_source": "random bipartite p=0.70 n=23",
    "cap_cpu_seconds": 3600.0,
-   "cpu_seconds": 13.13,
+   "cpu_seconds": 30.15,
    "gate_database_sanity": "PASS",
    "gate_detail": {
     "database_sanity": {
      "arm_counterexamples_in_D": 0,
      "arm_equality_count_in_D": 335,
+     "convention": "true",
+     "equality_count_reproduces": true,
      "gen_path_counterexamples": 0,
      "gen_path_sample": 1500,
      "population_equality_count_in_D": 335,
      "status": "PASS"
     },
     "second_code_path": {
+     "arm_convention": "true",
      "arm_lhs": "1",
+     "arm_lhs_generator_convention": "1",
      "arm_rhs": "2",
+     "arm_rhs_generator_convention": "2",
      "arm_slack": "-1",
+     "arm_slack_generator_convention": "-1",
+     "arm_slack_true_convention": "-1",
      "connected": true,
      "gen_brute_lhs": "1",
      "gen_brute_rhs": "2",
@@ -960,35 +1328,36 @@
      "gen_scal_lhs": "1",
      "gen_scal_rhs": "2",
      "gen_scal_slack": "-1",
-     "graph6": "I??Bzz{^?",
-     "n": 10,
+     "graph6": "M?~vfbokF_]?G?w??",
+     "n": 14,
      "second_code_path": "PASS"
     }
    },
    "gate_second_code_path": "PASS",
    "id": "FP-021",
    "lhs_at_witness": "1",
-   "max_order_searched": 40,
+   "max_order_searched": 36,
    "method_found": "FAM",
    "method_unit_counts": {
-    "FAM": 6
+    "FAM": 16
    },
    "n9_exhaustive_bases_completed": 0,
-   "refuting_graph6": "I??Bzz{^?",
+   "refuting_graph6": "M?~vfbokF_]?G?w??",
    "rhs_at_witness": "2",
-   "search_evaluations": 1011,
+   "search_evaluations": 2787,
    "seeds": {
     "base_seed": 20427114,
     "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
    },
    "slack_at_witness": "-1",
+   "spec_convention": "true",
    "statement": "For every connected graph G with n(G) >= 2:  kappa >= floor((lambda_avg - disp_max)/2) + 1",
    "verdict": "CROSSED",
-   "verify_cpu_seconds": 13.76,
-   "wall_seconds": 13.9,
-   "witness_before_reduction_graph6": "O???????????}~y~^~fvw",
-   "witness_before_reduction_n": 16,
-   "witness_n": 10
+   "verify_cpu_seconds": 14.42,
+   "wall_seconds": 33.03,
+   "witness_before_reduction_graph6": "V?B{rpguFo^?m?i?\\?Fo?]?AW?Fo?Fo??O??s??DO???",
+   "witness_before_reduction_n": 23,
+   "witness_n": 14
   },
   {
    "best_slack_found": "-1",
@@ -1001,15 +1370,22 @@
     "database_sanity": {
      "arm_counterexamples_in_D": 0,
      "arm_equality_count_in_D": 380,
+     "convention": "true",
+     "equality_count_reproduces": true,
      "gen_path_counterexamples": 0,
      "gen_path_sample": 1500,
      "population_equality_count_in_D": 380,
      "status": "PASS"
     },
     "second_code_path": {
+     "arm_convention": "true",
      "arm_lhs": "2",
+     "arm_lhs_generator_convention": "2",
      "arm_rhs": "3",
+     "arm_rhs_generator_convention": "3",
      "arm_slack": "-1",
+     "arm_slack_generator_convention": "-1",
+     "arm_slack_true_convention": "-1",
      "connected": true,
      "gen_brute_lhs": "2",
      "gen_brute_rhs": "3",
@@ -1039,34 +1415,42 @@
     "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
    },
    "slack_at_witness": "-1",
+   "spec_convention": "true",
    "statement": "For every connected graph G with n(G) >= 2:  lambda_max >= floor((dd - f_1)/2)",
    "verdict": "CROSSED",
-   "verify_cpu_seconds": 7.85,
-   "wall_seconds": 0.02,
+   "verify_cpu_seconds": 8.08,
+   "wall_seconds": 0.01,
    "witness_before_reduction_graph6": "X~~qv~~}~~~v^l~~~^~Vz~~|~v~}~~~zy|~~tz~l~~~v^v~^n~~",
    "witness_before_reduction_n": 25,
    "witness_n": 13
   },
   {
    "best_slack_found": "-1",
-   "best_slack_graph6": "Mg???GO??BOA?ge??",
-   "best_slack_source": "random tree n=14",
+   "best_slack_graph6": "N_OA?A?CPc?_?D?C?O?",
+   "best_slack_source": "random tree n=15",
    "cap_cpu_seconds": 3600.0,
-   "cpu_seconds": 0.66,
+   "cpu_seconds": 0.29,
    "gate_database_sanity": "PASS",
    "gate_detail": {
     "database_sanity": {
      "arm_counterexamples_in_D": 0,
      "arm_equality_count_in_D": 30,
+     "convention": "true",
+     "equality_count_reproduces": true,
      "gen_path_counterexamples": 0,
      "gen_path_sample": 1500,
      "population_equality_count_in_D": 30,
      "status": "PASS"
     },
     "second_code_path": {
+     "arm_convention": "true",
      "arm_lhs": "3",
+     "arm_lhs_generator_convention": "3",
      "arm_rhs": "4",
+     "arm_rhs_generator_convention": "4",
      "arm_slack": "-1",
+     "arm_slack_generator_convention": "-1",
+     "arm_slack_true_convention": "-1",
      "connected": true,
      "gen_brute_lhs": "3",
      "gen_brute_rhs": "4",
@@ -1074,7 +1458,7 @@
      "gen_scal_lhs": "3",
      "gen_scal_rhs": "4",
      "gen_scal_slack": "-1",
-     "graph6": "K??Q??E_OS[?",
+     "graph6": "K_Q@@OO?gC@?",
      "n": 12,
      "second_code_path": "PASS"
     }
@@ -1082,13 +1466,13 @@
    "gate_second_code_path": "PASS",
    "id": "FP-023",
    "lhs_at_witness": "3",
-   "max_order_searched": 32,
+   "max_order_searched": 28,
    "method_found": "FAM",
    "method_unit_counts": {
     "FAM": 1
    },
    "n9_exhaustive_bases_completed": 0,
-   "refuting_graph6": "K??Q??E_OS[?",
+   "refuting_graph6": "K_Q@@OO?gC@?",
    "rhs_at_witness": "4",
    "search_evaluations": 4,
    "seeds": {
@@ -1096,12 +1480,13 @@
     "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
    },
    "slack_at_witness": "-1",
+   "spec_convention": "true",
    "statement": "For every connected graph G with n(G) >= 2:  lambda_max >= floor((gamma_2 - chi)/2) + 1",
    "verdict": "CROSSED",
-   "verify_cpu_seconds": 11.44,
-   "wall_seconds": 0.77,
-   "witness_before_reduction_graph6": "Mg???GO??BOA?ge??",
-   "witness_before_reduction_n": 14,
+   "verify_cpu_seconds": 11.42,
+   "wall_seconds": 0.34,
+   "witness_before_reduction_graph6": "N_OA?A?CPc?_?D?C?O?",
+   "witness_before_reduction_n": 15,
    "witness_n": 12
   },
   {
@@ -1109,7 +1494,7 @@
    "best_slack_graph6": "_?_gE?I?WG@wAkkGW?O`kA?AAW?CAGOq???CDg??SCGpACc?ggDOaQ_A?g@C?@BIt_GS?EO`O?AoPCOSKGSG",
    "best_slack_source": "random 7-regular n=32",
    "cap_cpu_seconds": 3600.0,
-   "cpu_seconds": 240.08,
+   "cpu_seconds": 240.05,
    "gate_database_sanity": "n/a (no candidate)",
    "gate_detail": null,
    "gate_second_code_path": "n/a (no candidate)",
@@ -1126,16 +1511,17 @@
    "n9_exhaustive_bases_completed": 40,
    "refuting_graph6": null,
    "rhs_at_witness": null,
-   "search_evaluations": 79353,
+   "search_evaluations": 78927,
    "seeds": {
     "base_seed": 20450871,
     "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
    },
    "slack_at_witness": null,
+   "spec_convention": "true",
    "statement": "For every connected graph G with n(G) >= 2:  mu <= ceil((n - chi_tree)/2)",
    "verdict": "BRACKET",
    "verify_cpu_seconds": 0.0,
-   "wall_seconds": 306.02,
+   "wall_seconds": 284.85,
    "witness_before_reduction_graph6": null,
    "witness_before_reduction_n": null,
    "witness_n": null
@@ -1145,7 +1531,7 @@
    "best_slack_graph6": "gsaCCA?_C?O?_?_?O?C??_?A??C??C??A???_??C???O???_???_???O???C????_???A????C????C????A?????_????C?????O?????_?????_?????O?????C??????",
    "best_slack_source": "random bipartite p=0.20 n=40",
    "cap_cpu_seconds": 3600.0,
-   "cpu_seconds": 240.06,
+   "cpu_seconds": 240.38,
    "gate_database_sanity": "n/a (no candidate)",
    "gate_detail": null,
    "gate_second_code_path": "n/a (no candidate)",
@@ -1162,52 +1548,54 @@
    "n9_exhaustive_bases_completed": 40,
    "refuting_graph6": null,
    "rhs_at_witness": null,
-   "search_evaluations": 70743,
+   "search_evaluations": 70298,
    "seeds": {
     "base_seed": 20458790,
     "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
    },
    "slack_at_witness": null,
+   "spec_convention": "true",
    "statement": "For every connected graph G with n(G) >= 2:  mu >= floor((delta + lambda_min)/2)",
    "verdict": "BRACKET",
    "verify_cpu_seconds": 0.0,
-   "wall_seconds": 297.57,
+   "wall_seconds": 287.27,
    "witness_before_reduction_graph6": null,
    "witness_before_reduction_n": null,
    "witness_n": null
   },
   {
    "best_slack_found": "0",
-   "best_slack_graph6": "HhF~j[}",
-   "best_slack_source": "preferential attachment m=5 n=9",
+   "best_slack_graph6": "JhF~h}VLtK_",
+   "best_slack_source": "preferential attachment m=5 n=11",
    "cap_cpu_seconds": 3600.0,
-   "cpu_seconds": 240.04,
+   "cpu_seconds": 240.6,
    "gate_database_sanity": "n/a (no candidate)",
    "gate_detail": null,
    "gate_second_code_path": "n/a (no candidate)",
    "id": "FP-026",
    "lhs_at_witness": null,
-   "max_order_searched": 9,
+   "max_order_searched": 40,
    "method_found": null,
    "method_unit_counts": {
-    "ANNEAL": 18,
+    "ANNEAL": 8,
     "FAM": 30,
-    "GROW": 4,
-    "SWEEP": 4
+    "GROW": 2,
+    "SWEEP": 2
    },
-   "n9_exhaustive_bases_completed": 80,
+   "n9_exhaustive_bases_completed": 40,
    "refuting_graph6": null,
    "rhs_at_witness": null,
-   "search_evaluations": 96790,
+   "search_evaluations": 68999,
    "seeds": {
     "base_seed": 20466709,
     "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
    },
    "slack_at_witness": null,
+   "spec_convention": "true",
    "statement": "For every connected graph G with n(G) >= 2:  rad >= floor((disp_max)/(floor(lambda_1)))",
    "verdict": "BRACKET",
    "verify_cpu_seconds": 0.0,
-   "wall_seconds": 298.48,
+   "wall_seconds": 280.89,
    "witness_before_reduction_graph6": null,
    "witness_before_reduction_n": null,
    "witness_n": null
@@ -1217,7 +1605,7 @@
    "best_slack_graph6": "M`?dC@??_C@?G?E??",
    "best_slack_source": "G(n,p) p=0.08 n=14",
    "cap_cpu_seconds": 3600.0,
-   "cpu_seconds": 240.01,
+   "cpu_seconds": 240.0,
    "gate_database_sanity": "n/a (no candidate)",
    "gate_detail": null,
    "gate_second_code_path": "n/a (no candidate)",
@@ -1226,24 +1614,25 @@
    "max_order_searched": 40,
    "method_found": null,
    "method_unit_counts": {
-    "ANNEAL": 90,
+    "ANNEAL": 79,
     "FAM": 30,
-    "GROW": 22,
-    "SWEEP": 22
+    "GROW": 20,
+    "SWEEP": 20
    },
-   "n9_exhaustive_bases_completed": 440,
+   "n9_exhaustive_bases_completed": 400,
    "refuting_graph6": null,
    "rhs_at_witness": null,
-   "search_evaluations": 835832,
+   "search_evaluations": 745543,
    "seeds": {
     "base_seed": 20474628,
     "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
    },
    "slack_at_witness": null,
+   "spec_convention": "true",
    "statement": "For every connected graph G with n(G) >= 2:  rad >= floor((ecc_avg)/2) + chi_bipartite",
    "verdict": "BRACKET",
    "verify_cpu_seconds": 0.0,
-   "wall_seconds": 300.0,
+   "wall_seconds": 282.23,
    "witness_before_reduction_graph6": null,
    "witness_before_reduction_n": null,
    "witness_n": null
@@ -1262,24 +1651,25 @@
    "max_order_searched": 40,
    "method_found": null,
    "method_unit_counts": {
-    "ANNEAL": 135,
+    "ANNEAL": 124,
     "FAM": 30,
-    "GROW": 34,
-    "SWEEP": 34
+    "GROW": 31,
+    "SWEEP": 31
    },
-   "n9_exhaustive_bases_completed": 680,
+   "n9_exhaustive_bases_completed": 620,
    "refuting_graph6": null,
    "rhs_at_witness": null,
-   "search_evaluations": 1155696,
+   "search_evaluations": 1066622,
    "seeds": {
     "base_seed": 20482547,
     "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
    },
    "slack_at_witness": null,
+   "spec_convention": "true",
    "statement": "For every connected graph G with n(G) >= 2:  res <= alpha + CW - 1",
    "verdict": "BRACKET",
    "verify_cpu_seconds": 0.0,
-   "wall_seconds": 300.04,
+   "wall_seconds": 282.94,
    "witness_before_reduction_graph6": null,
    "witness_before_reduction_n": null,
    "witness_n": null
@@ -1295,15 +1685,22 @@
     "database_sanity": {
      "arm_counterexamples_in_D": 0,
      "arm_equality_count_in_D": 32,
+     "convention": "true",
+     "equality_count_reproduces": true,
      "gen_path_counterexamples": 0,
      "gen_path_sample": 1500,
      "population_equality_count_in_D": 32,
      "status": "PASS"
     },
     "second_code_path": {
+     "arm_convention": "true",
      "arm_lhs": "5",
+     "arm_lhs_generator_convention": "5",
      "arm_rhs": "67/13",
+     "arm_rhs_generator_convention": "67/13",
      "arm_slack": "-2/13",
+     "arm_slack_generator_convention": "-2/13",
+     "arm_slack_true_convention": "-2/13",
      "connected": true,
      "gen_brute_lhs": "5",
      "gen_brute_rhs": "67/13",
@@ -1333,10 +1730,11 @@
     "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
    },
    "slack_at_witness": "-2/13",
+   "spec_convention": "true",
    "statement": "For every connected graph G with n(G) >= 2:  res >= A - deg_avg",
    "verdict": "CROSSED",
-   "verify_cpu_seconds": 7.14,
-   "wall_seconds": 0.02,
+   "verify_cpu_seconds": 6.99,
+   "wall_seconds": 0.0,
    "witness_before_reduction_graph6": "b???@A?@?C???@??O??O????S??????????_??OG????C?OCA?????aGO_???G????OO?G?@?A??O??AC???_???O??AA???__???",
    "witness_before_reduction_n": 35,
    "witness_n": 13
@@ -1352,15 +1750,22 @@
     "database_sanity": {
      "arm_counterexamples_in_D": 0,
      "arm_equality_count_in_D": 2216,
+     "convention": "true",
+     "equality_count_reproduces": true,
      "gen_path_counterexamples": 0,
      "gen_path_sample": 1500,
      "population_equality_count_in_D": 2216,
      "status": "PASS"
     },
     "second_code_path": {
+     "arm_convention": "true",
      "arm_lhs": "2",
+     "arm_lhs_generator_convention": "2",
      "arm_rhs": "3",
+     "arm_rhs_generator_convention": "3",
      "arm_slack": "-1",
+     "arm_slack_generator_convention": "-1",
+     "arm_slack_true_convention": "-1",
      "connected": true,
      "gen_brute_lhs": "2",
      "gen_brute_rhs": "3",
@@ -1390,14 +1795,15 @@
     "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
    },
    "slack_at_witness": "-1",
+   "spec_convention": "true",
    "statement": "For every connected graph G with n(G) >= 2:  res >= floor((dd)/(gamma_t))",
    "verdict": "CROSSED",
-   "verify_cpu_seconds": 7.89,
-   "wall_seconds": 0.16,
+   "verify_cpu_seconds": 7.6,
+   "wall_seconds": 0.1,
    "witness_before_reduction_graph6": "[DlRyDznkGm}~~MkobTtmMluCYekt{GtNU]f~n~~||~vUZBnm~~]|uFM}pVZn|~v",
    "witness_before_reduction_n": 28,
    "witness_n": 9
   }
  ],
- "written": "2026-08-15T22:54:29Z"
+ "written": "2026-08-16T11:41:30Z"
 }

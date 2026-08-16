@@ -1,0 +1,59 @@
+Database-sanity gate for the wall-navigation arm
+=================================================
+command:  python3 scripts/exp/wall_verify_D.py 8
+code path: scripts/exp/wall_arm.py  (this arm's own invariant implementation;
+           shares no code with scripts/gen/invariants.py)
+database:  D rebuilt by scripts/gen/graph_db.py
+           n=2 1, n=3 2, n=4 6, n=5 21, n=6 112, n=7 853, n=8 11117
+           |D| = 12112  (matches OEIS A001349 and population.json)
+
+output
+------
+|D| = 12112, 30 targets
+computed 12112 graphs in 23s
+FAIL (2):
+  FP-008 eq count 6 != 7
+  FP-008 eq-by-n {'2': 1, '8': 3, '5': 1, '7': 1} != {'2': 1, '5': 1, '6': 1, '7': 1, '8': 3}
+
+what passed
+-----------
+* zero counterexamples in D, for all 30 targets           <-- the gate condition
+* min_slack_over_D reproduced exactly, all 30
+* max_slack_over_D reproduced exactly, all 30
+* equality_count_in_D / equality_by_order_n reproduced exactly, 29 of 30
+
+the one mismatch
+----------------
+FP-008 is `diam >= floor(A / ceil(lambda_1))`.  The population records 7
+equality members; this arm finds 6.  The extra recorded member is `EiGO`
+(n=6, degrees 1,1,1,2,2,3), where
+
+    exact eigenvalues of A  = -1.931852, -1, -0.517638, 0.517638, 1, 1.931852
+    lambda_1                = 1.9318516525781368
+    correct (floor, ceil)   = (1, 2)
+    scripts/gen/invariants.py::_spectral_bracket returns (1, 1)
+
+The shipped routine computes floor(lambda_1) correctly by Sylvester's
+criterion and then tests `det(fl*I - A) == 0` to decide whether lambda_1 is
+exactly `fl`.  That determinant vanishes whenever *any* eigenvalue equals
+`fl`, not only when lambda_1 does.  On EiGO, 1 is an eigenvalue while
+lambda_1 = 1.93, so ceil(lambda_1) is reported as 1 instead of 2.
+
+Scan over all of D comparing this arm's exact rational PSD test against the
+shipped routine:
+
+    spec_floor disagreements: 0   (out of 12112)
+    spec_ceil  disagreements: 19  (out of 12112)
+    examples: Dh_, EiGO, FMs`G, F`ooo, GCc`N?, GCc`N_, GLg?IK, G_CKJ?
+
+Consequence: none for the validity of any target.  Under the mathematically
+correct reading -- the one stated in the population's own
+`invariant_definitions` ("ceiling of the adjacency spectral radius") -- all 30
+statements still have zero counterexamples over all of D.  Only the recorded
+`equality_witnesses_graph6` list of FP-008 contains one graph (EiGO) that is
+not in fact tight, and the recorded `equality_count_in_D` for FP-008 is 7
+where the correct value is 6.
+
+This arm used the correct spectral invariant throughout, both for reading the
+wall and for evaluating every constructed family, and reports the population
+defect rather than adopting it.

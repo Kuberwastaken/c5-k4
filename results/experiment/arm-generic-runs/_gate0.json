@@ -1,13 +1,283 @@
 {
  "command": "python3 scripts/exp/generic/check_against_gen.py --sample 1200 --seed 20260815 --full-d",
+ "full_D": {
+  "generator": {
+   "counterexample_targets": [],
+   "equality_count_mismatches": [],
+   "seconds": 21.5,
+   "slack_extreme_mismatches": []
+  },
+  "true": {
+   "counterexample_targets": [],
+   "equality_count_mismatches": [
+    "FP-008"
+   ],
+   "seconds": 21.7,
+   "slack_extreme_mismatches": []
+  }
+ },
  "full_D_pass": true,
  "lines": [
   "invariant cross-check against `scripts/gen/invariants.py` on 1255 graphs of `D`, against **both** gen backends (exhaustive `2^n` and branch-and-bound), over all 42 invariants the population uses: **0 mismatches**",
   "invariant cross-check against the `scripts/gen` branch-and-bound backend on 68 graphs with `n = 9..24` outside `D` (random `G(n,p)` at four densities, paths, cycles, complete graphs): **0 mismatches**",
-  "all 30 frozen targets re-evaluated over all 12,112 members of `D` through this arm's own evaluator: **PASS \u2014 0 counterexamples, and every recorded equality count, min slack and max slack reproduces exactly**"
+  "spectral audit: `floor(lambda_1)` is identical under both conventions on all 12,112 members of `D`. `ceil(lambda_1)` differs on **19** of them: `scripts/gen/invariants._spectral_bracket` returns `ceil = floor` whenever `det(floor*I - A) = 0`, i.e. whenever `floor(lambda_1)` happens to be *some* eigenvalue, not necessarily the largest. On all 19 the arm's value is the one that matches the actual spectral radius (e.g. `Dh_`, lambda_1 = sqrt(3) = 1.7320508\u2026: the arm gives `ceil = 2`, the generator gives `ceil = 1`).",
+  "all 30 frozen targets re-evaluated over all 12,112 members of `D` through this arm's own evaluator: **0 counterexamples under both conventions**. Under the generator's convention every recorded equality count, min slack and max slack reproduces exactly (0 mismatches). Under the definition-faithful convention the equality count of FP-008 differs, because that target's right-hand side depends on `ceil(lambda_1)`."
  ],
  "outside_D_graphs": 68,
  "outside_D_mismatches": 0,
  "sample_D_graphs": 1255,
- "sample_D_mismatches": 0
+ "sample_D_mismatches": 0,
+ "spectral_affected_targets": [
+  "FP-008"
+ ],
+ "spectral_ceil_difference_count": 19,
+ "spectral_ceil_differences": [
+  {
+   "arm_floor_ceil": [
+    1,
+    2
+   ],
+   "gen_floor_ceil": [
+    1,
+    1
+   ],
+   "graph6": "Dh_",
+   "lambda_1_float": 1.7320508076,
+   "n": 5
+  },
+  {
+   "arm_floor_ceil": [
+    1,
+    2
+   ],
+   "gen_floor_ceil": [
+    1,
+    1
+   ],
+   "graph6": "EiGO",
+   "lambda_1_float": 1.9318516526,
+   "n": 6
+  },
+  {
+   "arm_floor_ceil": [
+    2,
+    3
+   ],
+   "gen_floor_ceil": [
+    2,
+    2
+   ],
+   "graph6": "FMs`G",
+   "lambda_1_float": 2.7092753594,
+   "n": 7
+  },
+  {
+   "arm_floor_ceil": [
+    2,
+    3
+   ],
+   "gen_floor_ceil": [
+    2,
+    2
+   ],
+   "graph6": "F`ooo",
+   "lambda_1_float": 2.3429230828,
+   "n": 7
+  },
+  {
+   "arm_floor_ceil": [
+    2,
+    3
+   ],
+   "gen_floor_ceil": [
+    2,
+    2
+   ],
+   "graph6": "GCc`N?",
+   "lambda_1_float": 2.4142135624,
+   "n": 8
+  },
+  {
+   "arm_floor_ceil": [
+    2,
+    3
+   ],
+   "gen_floor_ceil": [
+    2,
+    2
+   ],
+   "graph6": "GCc`N_",
+   "lambda_1_float": 2.7977433277,
+   "n": 8
+  },
+  {
+   "arm_floor_ceil": [
+    2,
+    3
+   ],
+   "gen_floor_ceil": [
+    2,
+    2
+   ],
+   "graph6": "GLg?IK",
+   "lambda_1_float": 2.316693302,
+   "n": 8
+  },
+  {
+   "arm_floor_ceil": [
+    1,
+    2
+   ],
+   "gen_floor_ceil": [
+    1,
+    1
+   ],
+   "graph6": "G_CKJ?",
+   "lambda_1_float": 1.8793852416,
+   "n": 8
+  },
+  {
+   "arm_floor_ceil": [
+    2,
+    3
+   ],
+   "gen_floor_ceil": [
+    2,
+    2
+   ],
+   "graph6": "G`G`Mo",
+   "lambda_1_float": 2.6813306436,
+   "n": 8
+  },
+  {
+   "arm_floor_ceil": [
+    2,
+    3
+   ],
+   "gen_floor_ceil": [
+    2,
+    2
+   ],
+   "graph6": "G`o_lg",
+   "lambda_1_float": 2.9910255016,
+   "n": 8
+  },
+  {
+   "arm_floor_ceil": [
+    2,
+    3
+   ],
+   "gen_floor_ceil": [
+    2,
+    2
+   ],
+   "graph6": "G`o_mg",
+   "lambda_1_float": 2.9172859931,
+   "n": 8
+  },
+  {
+   "arm_floor_ceil": [
+    2,
+    3
+   ],
+   "gen_floor_ceil": [
+    2,
+    2
+   ],
+   "graph6": "G`o_n_",
+   "lambda_1_float": 2.9537237163,
+   "n": 8
+  },
+  {
+   "arm_floor_ceil": [
+    2,
+    3
+   ],
+   "gen_floor_ceil": [
+    2,
+    2
+   ],
+   "graph6": "Geo`?k",
+   "lambda_1_float": 2.6955399937,
+   "n": 8
+  },
+  {
+   "arm_floor_ceil": [
+    2,
+    3
+   ],
+   "gen_floor_ceil": [
+    2,
+    2
+   ],
+   "graph6": "Ggog`k",
+   "lambda_1_float": 2.9032119259,
+   "n": 8
+  },
+  {
+   "arm_floor_ceil": [
+    2,
+    3
+   ],
+   "gen_floor_ceil": [
+    2,
+    2
+   ],
+   "graph6": "Ggogcc",
+   "lambda_1_float": 2.6411864762,
+   "n": 8
+  },
+  {
+   "arm_floor_ceil": [
+    2,
+    3
+   ],
+   "gen_floor_ceil": [
+    2,
+    2
+   ],
+   "graph6": "Ggoghc",
+   "lambda_1_float": 2.8136065026,
+   "n": 8
+  },
+  {
+   "arm_floor_ceil": [
+    2,
+    3
+   ],
+   "gen_floor_ceil": [
+    2,
+    2
+   ],
+   "graph6": "GhoG_k",
+   "lambda_1_float": 2.5615528128,
+   "n": 8
+  },
+  {
+   "arm_floor_ceil": [
+    2,
+    3
+   ],
+   "gen_floor_ceil": [
+    2,
+    2
+   ],
+   "graph6": "Gk_`Io",
+   "lambda_1_float": 2.6051983875,
+   "n": 8
+  },
+  {
+   "arm_floor_ceil": [
+    2,
+    3
+   ],
+   "gen_floor_ceil": [
+    2,
+    2
+   ],
+   "graph6": "Gx_?G{",
+   "lambda_1_float": 2.6180339887,
+   "n": 8
+  }
+ ]
 }

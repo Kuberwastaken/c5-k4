@@ -1,0 +1,245 @@
+{
+ "all_pass": true,
+ "crossings": [
+  {
+   "arm_lhs": "5",
+   "arm_rhs": "6",
+   "connected": true,
+   "graph6": "L`cAwH@CxsVySP",
+   "id": "FP-002",
+   "invariants": {
+    "alpha": "5",
+    "chi": "4",
+    "dist_even_max": "10"
+   },
+   "n": 13,
+   "status": "PASS",
+   "third_path_lhs": "5",
+   "third_path_rhs": "6",
+   "third_path_slack": "-1"
+  },
+  {
+   "arm_lhs": "8",
+   "arm_rhs": "7",
+   "connected": true,
+   "graph6": "HAgcACO",
+   "id": "FP-007",
+   "invariants": {
+    "diam": "8",
+    "disp_max": "2",
+    "gamma_2": "5"
+   },
+   "n": 9,
+   "status": "PASS",
+   "third_path_lhs": "8",
+   "third_path_rhs": "7",
+   "third_path_slack": "-1"
+  },
+  {
+   "arm_lhs": "2",
+   "arm_rhs": "3",
+   "connected": true,
+   "graph6": "L???????????~~",
+   "id": "FP-008",
+   "invariants": {
+    "annih": "12",
+    "diam": "2",
+    "spec_ceil": "4"
+   },
+   "lambda_1_float": 3.4641016151,
+   "n": 13,
+   "status": "PASS",
+   "third_path_lhs": "2",
+   "third_path_rhs": "3",
+   "third_path_slack": "-1"
+  },
+  {
+   "arm_lhs": "7",
+   "arm_rhs": "6",
+   "connected": true,
+   "graph6": "N?I@?CAOCc?C?C?Gg??",
+   "id": "FP-009",
+   "invariants": {
+    "gamma": "7",
+    "lam_avg": "28/15",
+    "res": "6"
+   },
+   "n": 15,
+   "status": "PASS",
+   "third_path_lhs": "7",
+   "third_path_rhs": "6",
+   "third_path_slack": "-1"
+  },
+  {
+   "arm_lhs": "8",
+   "arm_rhs": "7",
+   "connected": true,
+   "graph6": "IkQ?K@?G?",
+   "id": "FP-012",
+   "invariants": {
+    "chi_reg": "0",
+    "dist_even_max": "5",
+    "gamma_2": "8"
+   },
+   "n": 10,
+   "status": "PASS",
+   "third_path_lhs": "8",
+   "third_path_rhs": "7",
+   "third_path_slack": "-1"
+  },
+  {
+   "arm_lhs": "5",
+   "arm_rhs": "6",
+   "connected": true,
+   "graph6": "Q??????k|{Y[ao~w^gD~?[wBm??",
+   "id": "FP-014",
+   "invariants": {
+    "disp_min": "3",
+    "dist_even_min": "9",
+    "gamma_2": "5"
+   },
+   "n": 18,
+   "status": "PASS",
+   "third_path_lhs": "5",
+   "third_path_rhs": "6",
+   "third_path_slack": "-1"
+  },
+  {
+   "arm_lhs": "11",
+   "arm_rhs": "10",
+   "connected": true,
+   "graph6": "UqP?GP?GC?G?C?C?C??G?O?A??A???O?A???G???",
+   "id": "FP-015",
+   "invariants": {
+    "diam": "5",
+    "gamma_i": "11",
+    "mu": "6"
+   },
+   "n": 22,
+   "status": "PASS",
+   "third_path_lhs": "11",
+   "third_path_rhs": "10",
+   "third_path_slack": "-1"
+  },
+  {
+   "arm_lhs": "5",
+   "arm_rhs": "4",
+   "connected": true,
+   "graph6": "I_A_L?SVO",
+   "id": "FP-016",
+   "invariants": {
+    "alpha": "5",
+    "gamma": "2",
+    "gamma_i": "5"
+   },
+   "n": 10,
+   "status": "PASS",
+   "third_path_lhs": "5",
+   "third_path_rhs": "4",
+   "third_path_slack": "-1"
+  },
+  {
+   "arm_lhs": "1",
+   "arm_rhs": "2",
+   "connected": true,
+   "graph6": "OwbWmk_vomazb?fvaRMYc",
+   "id": "FP-020",
+   "invariants": {
+    "disp_avg": "85/16",
+    "ecc_avg": "13/4",
+    "kappa": "1"
+   },
+   "n": 16,
+   "status": "PASS",
+   "third_path_lhs": "1",
+   "third_path_rhs": "2",
+   "third_path_slack": "-1"
+  },
+  {
+   "arm_lhs": "1",
+   "arm_rhs": "2",
+   "connected": true,
+   "graph6": "M?~vfbokF_]?G?w??",
+   "id": "FP-021",
+   "invariants": {
+    "disp_max": "3",
+    "kappa": "1",
+    "lam_avg": "5"
+   },
+   "n": 14,
+   "status": "PASS",
+   "third_path_lhs": "1",
+   "third_path_rhs": "2",
+   "third_path_slack": "-1"
+  },
+  {
+   "arm_lhs": "2",
+   "arm_rhs": "3",
+   "connected": true,
+   "graph6": "LZ~Rzv~}v^^~^~",
+   "id": "FP-022",
+   "invariants": {
+    "dd": "6",
+    "f1": "0",
+    "lam_max": "2"
+   },
+   "n": 13,
+   "status": "PASS",
+   "third_path_lhs": "2",
+   "third_path_rhs": "3",
+   "third_path_slack": "-1"
+  },
+  {
+   "arm_lhs": "3",
+   "arm_rhs": "4",
+   "connected": true,
+   "graph6": "K_Q@@OO?gC@?",
+   "id": "FP-023",
+   "invariants": {
+    "chi": "2",
+    "gamma_2": "8",
+    "lam_max": "3"
+   },
+   "n": 12,
+   "status": "PASS",
+   "third_path_lhs": "3",
+   "third_path_rhs": "4",
+   "third_path_slack": "-1"
+  },
+  {
+   "arm_lhs": "5",
+   "arm_rhs": "67/13",
+   "connected": true,
+   "graph6": "L?GOB@CcCC?OA?",
+   "id": "FP-029",
+   "invariants": {
+    "annih": "7",
+    "deg_avg": "24/13",
+    "res": "5"
+   },
+   "n": 13,
+   "status": "PASS",
+   "third_path_lhs": "5",
+   "third_path_rhs": "67/13",
+   "third_path_slack": "-2/13"
+  },
+  {
+   "arm_lhs": "2",
+   "arm_rhs": "3",
+   "connected": true,
+   "graph6": "H~Fwtnv",
+   "id": "FP-030",
+   "invariants": {
+    "dd": "6",
+    "gamma_t": "2",
+    "res": "2"
+   },
+   "n": 9,
+   "status": "PASS",
+   "third_path_lhs": "2",
+   "third_path_rhs": "3",
+   "third_path_slack": "-1"
+  }
+ ],
+ "note": "third independent code path (networkx primitives, exact set-cover chromatic number, naive itertools domination) recomputing every recorded crossing"
+}

@@ -1,0 +1,133 @@
+# Results — fresh-generation three-arm test
+
+**Run completed 2026-08-16.** Protocol frozen at
+[`PREREGISTRATION.md`](PREREGISTRATION.md) (tag `prereg-three-arm-v1`), before
+the population existed; population frozen at tag `population-frozen-v1`;
+adjudicator committed before any arm reported.
+
+## Verdict: INCONCLUSIVE by the letter — and close to null in substance
+
+| arm | CROSSED | HELD | BRACKET |
+|---|---|---|---|
+| catalogue | 8 | 22 | 0 |
+| generic | 14 | 0 | 16 |
+| wall | 15 | 15 | 0 |
+
+Scored targets: **30**.
+
+| endpoint | value |
+|---|---|
+| **wall-unique crossings** | **1** (`FP-026`) |
+| catalogue-unique | 0 |
+| generic-unique | 0 |
+| crossed by all three | 8 |
+
+Applying the preregistered rule mechanically:
+
+- **Supported** requires wall-unique ≥ 3 **and** ≥ catalogue total (8). Wall-unique
+  is 1. **Not met.**
+- **Falsified** requires wall-unique ≤ catalogue-unique (0). Wall-unique is 1.
+  **Not met** — by a single target.
+- Therefore: **INCONCLUSIVE**.
+
+## What actually happened, stated plainly
+
+The three arms nest almost perfectly:
+
+```
+catalogue (8)  ⊆  generic (14)  ⊆  wall (15)
+```
+
+The wall arm found **everything** the other two found, and exactly **one**
+target more. That is the whole measured marginal value of tightness navigation
+on this population: one conjecture out of thirty, over a control that is random
+graphs plus annealing.
+
+The verdict is "inconclusive" only because the falsification threshold was set
+at wall-unique ≤ catalogue-unique, and catalogue-unique came out at 0 rather
+than 1. Nobody should read the label as encouraging. The honest summary is that
+**the method did not distinguish itself from generic search** on a population
+built to suit it, and it cleared the falsification bar by the narrowest
+possible margin.
+
+## Caveats that cut both ways
+
+**Against the method** — the population was *favourable to it by construction*.
+Every target had `min_slack_over_D = 0`, so the wall arm was handed usable
+tightness data on all 30; `GENERATION.md` recorded this in advance as "the most
+favourable fair setting for the hypothesis".
+
+**In its favour, weakly** — the generic arm returned **16 BRACKETs and zero
+HELDs**: it never established that anything holds, it either cracked a target
+fast or ran out of budget. So its 14 crossings are a lower bound on what
+generic search would find with more compute. With a larger budget, generic
+might well have found `FP-026` too, which would take wall-unique to **0** and
+flip the verdict to falsified. The asymmetry runs against the method, not for
+it.
+
+**Contamination (event E2)** — arms ran concurrently on a shared box and
+cross-arm process-table visibility could not be excluded. As recorded *before*
+the wall arm reported, any such leak inflates catalogue/generic and deflates
+wall-unique. It cannot manufacture the observed result: even granting maximum
+benefit of the doubt, the wall arm's own crossings are only 15 of 30, and 14 of
+those were independently reached by annealing.
+
+**The prespecified worthlessness condition was partly met.** "Targets so easy
+that all three arms refute everything" — generic search alone refuted 14/30
+with no structural insight at all. The population was not trivial (half of it
+held), but it was easy enough that the discriminating power of the test was
+low. The database edge at `n = 8` is the likely cause, and that too was
+recorded pre-freeze.
+
+## Findings worth keeping regardless of the verdict
+
+1. **G3-lite does heavy work.** 756 sign checks were run and **691 (91%)
+   stopped a trial before it was executed**. Whatever the navigation method's
+   discovery value, the sign check is an effective filter against wasted
+   trials — which is what it was added for after the 2026-08-14 wrong-sign
+   stops.
+2. **The sign check has a known failure mode: floor/ceiling step functions.**
+   On `FP-008`, `FP-020`, `FP-026`, `FP-007`, `FP-023` the residual is a step
+   function, so consecutive members of the obvious parametrisation give
+   `dR = 0` and the literal §A3 test stops a family that in fact crosses. All
+   five needed re-indexing (or subdivision instead of path-stretch). Any future
+   version of §A3 must test across a *step*, not across adjacent members.
+3. **The wall arm found a defect in the population's own generator.**
+   `_spectral_bracket` computes `⌈λ₁⌉` by testing `det(⌊λ₁⌋·I − A) == 0`, which
+   fires whenever *any* eigenvalue equals `⌊λ₁⌋`; **19 of 12,112** members of
+   `D` get a wrong `spec_ceil`. Consequence: `FP-008`'s recorded
+   `equality_count_in_D` is 7 where the truth is 6, and its witness list
+   contains a non-tight member. Under the corrected reading all 30 targets
+   still have zero counterexamples in `D`, so no target loses validity — but
+   the tightness data one arm was handed was wrong on one target.
+4. **Database gate passed cleanly**: the wall arm's independent evaluator
+   reproduced min/max slack for all 30 targets over all 12,112 members, and
+   equality counts for 29 of 30 (the exception being the `FP-008` defect
+   above).
+
+## What this does and does not license
+
+It does **not** license the claim that tightness navigation prospectively finds
+counterexamples generic search misses. On the only preregistered test ever run,
+the margin was one target out of thirty, and the control arm was budget-starved
+in a way that likely understates it.
+
+It does **not** falsify the mechanism either. `n = 8` is a weak database edge,
+`f`/`b`/`tree` — the invariants that carried the original C₅[K_m] case study —
+were excluded from emission on runtime grounds, and one run on one population
+is one data point.
+
+The correct next step is **not** a seventh method version and **not** a rerun
+of this design with tweaks. If the claim is to be tested again it needs a
+harder population (larger database edge, hereditary induced invariants in the
+vocabulary), an equal-and-sufficient budget for the control, and arms in
+isolated environments. Absent that, the honest position is the one the
+independent review already reached: the corpus-audit work is what this project
+demonstrably does well, and the navigation claim remains unproven.
+
+## Reproducibility
+
+`scripts/exp/adjudicate.py` (committed before results), `scripts/exp/wall_*.py`,
+`scripts/gen/`, raw arm outputs `arm-catalogue.{md,json}`,
+`arm-generic.{md,json}`, `arm-wall.{md,json}`, gate log `arm-wall-dbgate.txt`.
+Verdict recomputable from the three JSONs by set difference on `CROSSED`.

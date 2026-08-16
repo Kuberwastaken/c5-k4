@@ -3,25 +3,26 @@
  "best_slack_found": "0",
  "best_slack_graph6": "H~~~~~~",
  "cap_cpu_seconds": 3600.0,
- "cpu_seconds": 240.000049316,
- "evals_this_run": 1155696,
+ "cpu_seconds": 240.000387503,
+ "evals_this_run": 1066622,
  "id": "FP-028",
  "method_counts": {
-  "ANNEAL": 135,
+  "ANNEAL": 124,
   "FAM": 30,
-  "GROW": 34,
-  "SWEEP": 34
+  "GROW": 31,
+  "SWEEP": 31
  },
  "method_found": null,
  "n_max_probed": 40,
- "next_unit": 232,
+ "next_unit": 216,
  "seeds": {
   "base_seed": 20482547,
   "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
  },
+ "spec_convention": "true",
  "statement": "For every connected graph G with n(G) >= 2:  res <= alpha + CW - 1",
- "sweep_bases_n8_completed": 680,
- "units_total": 232,
+ "sweep_bases_n8_completed": 620,
+ "units_total": 216,
  "verdict": "BRACKET",
- "wall_seconds": 300.0372693538666
+ "wall_seconds": 282.9387674331665
 }

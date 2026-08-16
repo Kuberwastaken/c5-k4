@@ -3,25 +3,26 @@
  "best_slack_found": "0",
  "best_slack_graph6": "M`?dC@??_C@?G?E??",
  "cap_cpu_seconds": 3600.0,
- "cpu_seconds": 240.00888152800002,
- "evals_this_run": 835832,
+ "cpu_seconds": 240.000258576,
+ "evals_this_run": 745543,
  "id": "FP-027",
  "method_counts": {
-  "ANNEAL": 90,
+  "ANNEAL": 79,
   "FAM": 30,
-  "GROW": 22,
-  "SWEEP": 22
+  "GROW": 20,
+  "SWEEP": 20
  },
  "method_found": null,
  "n_max_probed": 40,
- "next_unit": 164,
+ "next_unit": 148,
  "seeds": {
   "base_seed": 20474628,
   "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
  },
+ "spec_convention": "true",
  "statement": "For every connected graph G with n(G) >= 2:  rad >= floor((ecc_avg)/2) + chi_bipartite",
- "sweep_bases_n8_completed": 440,
- "units_total": 164,
+ "sweep_bases_n8_completed": 400,
+ "units_total": 148,
  "verdict": "BRACKET",
- "wall_seconds": 299.9956998825073
+ "wall_seconds": 282.2331109046936
 }

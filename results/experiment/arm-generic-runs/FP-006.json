@@ -3,8 +3,8 @@
  "best_slack_found": "0",
  "best_slack_graph6": "M??????PGE?CEWiO?",
  "cap_cpu_seconds": 3600.0,
- "cpu_seconds": 240.056271556,
- "evals_this_run": 162072,
+ "cpu_seconds": 240.41015736900002,
+ "evals_this_run": 162321,
  "id": "FP-006",
  "method_counts": {
   "ANNEAL": 18,
@@ -19,9 +19,10 @@
   "base_seed": 20308329,
   "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
  },
+ "spec_convention": "true",
  "statement": "For every connected graph G with n(G) >= 2:  chi >= ceil((omega - chi_regular)/2) + 1",
  "sweep_bases_n8_completed": 80,
  "units_total": 56,
  "verdict": "BRACKET",
- "wall_seconds": 333.06688475608826
+ "wall_seconds": 253.93076038360596
 }

@@ -3,8 +3,8 @@
  "best_slack_found": "0",
  "best_slack_graph6": "f}X`HCoIAOCGa?E?B??`?A?Go???a?AA?AO?OG??__????aOC??E???A??G??AG?A??C?__??B????@???G???C?@A??A??_???CGA????_?G?????P???C????A?",
  "cap_cpu_seconds": 3600.0,
- "cpu_seconds": 240.015562712,
- "evals_this_run": 157963,
+ "cpu_seconds": 240.103884885,
+ "evals_this_run": 158356,
  "id": "FP-018",
  "method_counts": {
   "ANNEAL": 17,
@@ -19,9 +19,10 @@
   "base_seed": 20403357,
   "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
  },
+ "spec_convention": "true",
  "statement": "For every connected graph G with n(G) >= 2:  gamma_t >= floor((gamma)/(disp_min))",
  "sweep_bases_n8_completed": 80,
  "units_total": 55,
  "verdict": "BRACKET",
- "wall_seconds": 309.6510145664215
+ "wall_seconds": 259.14151668548584
 }
