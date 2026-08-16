@@ -66,7 +66,7 @@ jobs:
         with:
           python-version: '3.12.9'
           cache: pip
-          cache-dependency-path: campaign/.github/workflows/erdos-resolution-shape-audit.yml
+          cache-dependency-path: .github/workflows/erdos-resolution-shape-audit.yml
 
       - name: Install audit dependency
         shell: bash
@@ -82,7 +82,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p artifacts
-          python3 campaign/scripts/audit_erdos_resolution_shape.py \
+          python3 scripts/audit_erdos_resolution_shape.py \
             --formal-repo formal-conjectures \
             --erdos-yaml erdosproblems/data/problems.yaml \
             --jsonl artifacts/erdos-resolution-shapes.jsonl \
