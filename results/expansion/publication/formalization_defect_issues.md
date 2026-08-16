@@ -139,3 +139,27 @@ still needs the site.
 - **Eight formalization-defect issues** [#4974–#4981](https://github.com/google-deepmind/formal-conjectures/issues/4974) plus a comment on #4922.
 
 - **A108864** — issue [#4984](https://github.com/google-deepmind/formal-conjectures/issues/4984), PR [#4985](https://github.com/google-deepmind/formal-conjectures/pull/4985). Repair shape (b) chosen: fix the encoding to A109883 and keep the declaration `research open`, per AGENTS.md ("if they disagree, the Lean is incorrect") and precedent PR #4933; option (a) `answer(False)` would have recorded a refutation of a conjecture that has not been refuted. Build: `lake --wfail build` exit 0, warning-clean, 8055/8055 (after `lake exe cache get`).
+
+## Review round: PR #4986 (Erdős 1093) — corpus-wide `smoothNumbers` audit
+
+mo271: *"We should check if the same mistake has been made in other places where
+`smoothNumbers` are used!"* Audited at upstream `main`.
+
+**Result: 1093 is the only instance.**
+
+| Location | Uses | Verdict |
+|---|---|---|
+| `ErdosProblems/961.lean` | `Nat.smoothNumbers (k + 1)` | **Correct.** `< k+1` is `≤ k`, so `∉ smoothNumbers (k+1)` = "has a prime factor `> k`", matching the source ("integer divisible by a prime `> k`"). Already compensates for the Mathlib convention |
+| `ErdosProblems/369.lean` | `∀ p ∈ primeFactors, (p:ℝ) ≤ n^ε` | Bound written directly; no convention involved |
+| `ErdosProblems/648.lean` | largest prime factor | different notion |
+| `ErdosProblems/851.lean` | `primeFactors.card ≤ r` | *number* of prime factors, different notion |
+| `Millenium/Poincare.lean` | `SmoothConjectureFor` | differential topology, unrelated |
+
+**One prose nit reported, not a defect**: 961's `sylvester_schur` docstring says
+"divisible by a prime greater than $k$, i.e. not $(k+1)$-smooth". Under the
+standard convention ($k$-smooth = every prime factor $\le k$) that should read
+"not $k$-smooth". The Lean is correct; only the sentence is loose. Offered as a
+one-word fix pending the maintainer's preference — not pushed unasked into a
+file outside the PR's scope.
+
+[Reply](https://github.com/google-deepmind/formal-conjectures/pull/4986#issuecomment-5307907971)
