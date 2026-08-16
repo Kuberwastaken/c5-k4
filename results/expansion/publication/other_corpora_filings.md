@@ -110,3 +110,32 @@ Both PRs were prepared in dedicated `git worktree`s off `upstream/main`
 - **AlphaEvolve's `c∞ ⩽ 0.75026` was not independently verified**, only Green's record of it.
 - **The Voronovskaja and LatinSquare issues carry no PR** because open PRs by other contributors
   are live on both files.
+
+## Review round 1 (2026-08-16)
+
+**PR #4991 (Erdős 477)** — mo271 asked for the docstring to track the updated
+erdosproblems.com wording. The source renamed its variables: target element
+`z → n`, polynomial argument `n → k`. Pushed `c3598ec5`; docstring only, the
+statement is unchanged.
+
+**PR #5004 (Books/Equidistribution)** — mo271 asked whether this is only "the
+informal source phrases it as a question, so use `answer(sorry) ↔`". He read
+the PR correctly, and that exposed an inconsistency of ours: issue #5003 says
+the declaration is **false**, while the PR only made the shape change.
+
+Replied ([comment](https://github.com/google-deepmind/formal-conjectures/pull/5004#issuecomment-5307723576))
+that the ∀-form is known false, not merely unasserted: for a lacunary `(rₙ)`
+the set of `x` with `{x rₙ}` not dense mod 1 has Hausdorff dimension 1
+(de Mathan; Pollington). With `rₙ = (3/2)ⁿ` that is uncountably many
+exceptional `x`, hence some transcendental one, and non-density implies
+non-equidistribution. Proposed `answer(False)` + `research solved` with those
+citations instead of `answer(sorry)`, and noted that Kuipers–Niederreiter
+supports only the almost-everywhere statement.
+
+Docstring trimmed from five lines to two as committed in the reply. The
+`answer(False)` switch is **held pending the maintainer's decision** — it is
+his call, not ours, and pre-empting it would be discourteous.
+
+Citations verified for use in the file if the switch is approved:
+- A. D. Pollington, *On the density of sequence {n_k ξ}*, Illinois J. Math. **23** (1979), no. 4, 511–515.
+- B. de Mathan, *Numbers contravening a condition in density modulo 1*, Acta Math. Acad. Sci. Hungar. **36** (1980), 237–241.
