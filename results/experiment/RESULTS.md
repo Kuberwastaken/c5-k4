@@ -10,8 +10,14 @@ adjudicator committed before any arm reported.
 | arm | CROSSED | HELD | BRACKET |
 |---|---|---|---|
 | catalogue | 8 | 22 | 0 |
-| generic | 14 | 0 | 16 |
+| generic | 14 | 14 | 2 |
 | wall | 15 | 15 | 0 |
+
+**Amended 2026-08-16.** The generic arm was still running when this file was
+first written; it had 14 CROSSED / 0 HELD / 16 BRACKET at that moment. It then
+ran a further ~16 hours and resolved 14 of its 16 brackets — **into HELDs, not
+CROSSEDs**. Its crossing set is unchanged, so the endpoint below is unchanged.
+The table above is the completed run.
 
 Scored targets: **30**.
 
@@ -57,13 +63,19 @@ Every target had `min_slack_over_D = 0`, so the wall arm was handed usable
 tightness data on all 30; `GENERATION.md` recorded this in advance as "the most
 favourable fair setting for the hypothesis".
 
-**In its favour, weakly** — the generic arm returned **16 BRACKETs and zero
-HELDs**: it never established that anything holds, it either cracked a target
-fast or ran out of budget. So its 14 crossings are a lower bound on what
-generic search would find with more compute. With a larger budget, generic
-might well have found `FP-026` too, which would take wall-unique to **0** and
-flip the verdict to falsified. The asymmetry runs against the method, not for
-it.
+**~~In its favour, weakly~~ — RETRACTED 2026-08-16.** The first version of this
+section argued that the generic arm's 14 crossings were a lower bound, because
+it had bracketed 16/30 and returned no HELDs, so more compute might have found
+`FP-026` and taken wall-unique to 0. That speculation has now been settled by
+the arm itself: given roughly 16 further hours it converted 14 of those 16
+brackets, and **every one became a HELD, not a CROSSED**. Generic search found
+no additional crossing with an order of magnitude more time.
+
+The correction cuts both ways and both should be stated. It **removes** the
+"budget-starved control" caveat — the control did reach a verdict on 28 of 30
+targets, so the comparison was fairer than it looked. And it **strengthens**
+the one positive datum: `FP-026` survived a control arm that had far more
+compute than the wall arm spent (the wall arm's entire run was 724 s).
 
 **Contamination (event E2)** — arms ran concurrently on a shared box and
 cross-arm process-table visibility could not be excluded. As recorded *before*
