@@ -1,0 +1,27 @@
+{
+ "best_slack_desc": "random geometric r=0.25 n=10",
+ "best_slack_found": "0",
+ "best_slack_graph6": "Ia?PDCGIo",
+ "cap_cpu_seconds": 3600.0,
+ "cpu_seconds": 240.09902281499998,
+ "evals_this_run": 311945,
+ "id": "FP-017",
+ "method_counts": {
+  "ANNEAL": 35,
+  "FAM": 30,
+  "GROW": 8,
+  "SWEEP": 8
+ },
+ "method_found": null,
+ "n_max_probed": 40,
+ "next_unit": 81,
+ "seeds": {
+  "base_seed": 20395438,
+  "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
+ },
+ "statement": "For every connected graph G with n(G) >= 2:  gamma_t >= floor((cutv + chi_tree)/2) + 1",
+ "sweep_bases_n8_completed": 160,
+ "units_total": 81,
+ "verdict": "BRACKET",
+ "wall_seconds": 311.70163345336914
+}

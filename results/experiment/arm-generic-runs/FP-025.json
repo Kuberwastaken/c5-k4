@@ -1,0 +1,27 @@
+{
+ "best_slack_desc": "random bipartite p=0.20 n=40",
+ "best_slack_found": "0",
+ "best_slack_graph6": "gsaCCA?_C?O?_?_?O?C??_?A??C??C??A???_??C???O???_???_???O???C????_???A????C????C????A?????_????C?????O?????_?????_?????O?????C??????",
+ "cap_cpu_seconds": 3600.0,
+ "cpu_seconds": 240.058732438,
+ "evals_this_run": 70743,
+ "id": "FP-025",
+ "method_counts": {
+  "ANNEAL": 8,
+  "FAM": 30,
+  "GROW": 2,
+  "SWEEP": 2
+ },
+ "method_found": null,
+ "n_max_probed": 40,
+ "next_unit": 42,
+ "seeds": {
+  "base_seed": 20458790,
+  "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
+ },
+ "statement": "For every connected graph G with n(G) >= 2:  mu >= floor((delta + lambda_min)/2)",
+ "sweep_bases_n8_completed": 40,
+ "units_total": 42,
+ "verdict": "BRACKET",
+ "wall_seconds": 297.57310485839844
+}

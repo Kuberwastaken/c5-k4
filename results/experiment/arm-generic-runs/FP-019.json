@@ -1,0 +1,27 @@
+{
+ "best_slack_desc": "random 2-regular n=10",
+ "best_slack_found": "0",
+ "best_slack_graph6": "II_HC?S?o",
+ "cap_cpu_seconds": 3600.0,
+ "cpu_seconds": 240.035171298,
+ "evals_this_run": 85609,
+ "id": "FP-019",
+ "method_counts": {
+  "ANNEAL": 15,
+  "FAM": 30,
+  "GROW": 3,
+  "SWEEP": 3
+ },
+ "method_found": null,
+ "n_max_probed": 9,
+ "next_unit": 51,
+ "seeds": {
+  "base_seed": 20411276,
+  "formula": "BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED"
+ },
+ "statement": "For every connected graph G with n(G) >= 2:  kappa <= floor((t)/2) + floor(lambda_1)",
+ "sweep_bases_n8_completed": 60,
+ "units_total": 51,
+ "verdict": "BRACKET",
+ "wall_seconds": 316.67274141311646
+}

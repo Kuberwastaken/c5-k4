@@ -2,7 +2,7 @@
 
 Arm 2 of the preregistered three-arm test ([`PREREGISTRATION.md`](PREREGISTRATION.md), tag `prereg-three-arm-v1`), run blind to the other two arms.
 
-**Written incrementally; last update 2026-08-15T22:49:11Z.**
+**Written incrementally; last update 2026-08-15T22:54:29Z.**
 
 ## Method
 
@@ -38,9 +38,8 @@ Witnesses are then reduced mechanically (greedy vertex deletion while connected 
 
 | verdict | targets |
 |---|---|
-| CROSSED | 12 |
-| BRACKET | 8 |
-| PENDING | 10 |
+| CROSSED | 14 |
+| BRACKET | 16 |
 | **total** | **30** |
 
 ## Per-target results
@@ -63,20 +62,20 @@ Witnesses are then reduced mechanically (greedy vertex deletion while connected 
 | FP-014 | `gamma_2 >= floor((dist_even_min + disp_min)/2)` | **CROSSED** | `Q??????k|{Y[ao~w^gD~?[wBm??` | 18 | 5 | 6 | FAM | 0.53 | PASS | PASS |
 | FP-015 | `gamma_i <= diam + mu - 1` | **CROSSED** | `UqP?GP?GC?G?C?C?C??G?O?A??A???O?A???G???` | 22 | 11 | 10 | FAM | 0.31 | PASS | PASS |
 | FP-016 | `gamma_i <= floor((alpha)/2) + gamma` | **CROSSED** | `I_A_L?SVO` | 10 | 5 | 4 | ANNEAL | 105.81 | PASS | PASS |
-| FP-017 | `gamma_t >= floor((cutv + chi_tree)/2) + 1` | PENDING | | | | | | | | |
-| FP-018 | `gamma_t >= floor((gamma)/(disp_min))` | PENDING | | | | | | | | |
-| FP-019 | `kappa <= floor((t)/2) + floor(lambda_1)` | PENDING | | | | | | | | |
+| FP-017 | `gamma_t >= floor((cutv + chi_tree)/2) + 1` | **BRACKET** | — | — | — | — | — | 240.1 | n/a (no candidate) | n/a (no candidate) |
+| FP-018 | `gamma_t >= floor((gamma)/(disp_min))` | **BRACKET** | — | — | — | — | — | 240.02 | n/a (no candidate) | n/a (no candidate) |
+| FP-019 | `kappa <= floor((t)/2) + floor(lambda_1)` | **BRACKET** | — | — | — | — | — | 240.04 | n/a (no candidate) | n/a (no candidate) |
 | FP-020 | `kappa >= floor((disp_avg - ecc_avg)/2) + 1` | **CROSSED** | `RnE^`ySdG?BmABo_^{fcBo?QSogWK?` | 19 | 1 | 2 | FAM | 0.53 | PASS | PASS |
 | FP-021 | `kappa >= floor((lambda_avg - disp_max)/2) + 1` | **CROSSED** | `I??Bzz{^?` | 10 | 1 | 2 | FAM | 13.13 | PASS | PASS |
 | FP-022 | `lambda_max >= floor((dd - f_1)/2)` | **CROSSED** | `LZ~Rzv~}v^^~^~` | 13 | 2 | 3 | FAM | 0.01 | PASS | PASS |
 | FP-023 | `lambda_max >= floor((gamma_2 - chi)/2) + 1` | **CROSSED** | `K??Q??E_OS[?` | 12 | 3 | 4 | FAM | 0.66 | PASS | PASS |
-| FP-024 | `mu <= ceil((n - chi_tree)/2)` | PENDING | | | | | | | | |
-| FP-025 | `mu >= floor((delta + lambda_min)/2)` | PENDING | | | | | | | | |
-| FP-026 | `rad >= floor((disp_max)/(floor(lambda_1)))` | PENDING | | | | | | | | |
-| FP-027 | `rad >= floor((ecc_avg)/2) + chi_bipartite` | PENDING | | | | | | | | |
-| FP-028 | `res <= alpha + CW - 1` | PENDING | | | | | | | | |
-| FP-029 | `res >= A - deg_avg` | PENDING | | | | | | | | |
-| FP-030 | `res >= floor((dd)/(gamma_t))` | PENDING | | | | | | | | |
+| FP-024 | `mu <= ceil((n - chi_tree)/2)` | **BRACKET** | — | — | — | — | — | 240.08 | n/a (no candidate) | n/a (no candidate) |
+| FP-025 | `mu >= floor((delta + lambda_min)/2)` | **BRACKET** | — | — | — | — | — | 240.06 | n/a (no candidate) | n/a (no candidate) |
+| FP-026 | `rad >= floor((disp_max)/(floor(lambda_1)))` | **BRACKET** | — | — | — | — | — | 240.04 | n/a (no candidate) | n/a (no candidate) |
+| FP-027 | `rad >= floor((ecc_avg)/2) + chi_bipartite` | **BRACKET** | — | — | — | — | — | 240.01 | n/a (no candidate) | n/a (no candidate) |
+| FP-028 | `res <= alpha + CW - 1` | **BRACKET** | — | — | — | — | — | 240.0 | n/a (no candidate) | n/a (no candidate) |
+| FP-029 | `res >= A - deg_avg` | **CROSSED** | `L?GOB@CcCC?OA?` | 13 | 5 | 67/13 | FAM | 0.0 | PASS | PASS |
+| FP-030 | `res >= floor((dd)/(gamma_t))` | **CROSSED** | `H~Fwtnv` | 9 | 2 | 3 | FAM | 0.08 | PASS | PASS |
 
 ## Crossings in detail
 
@@ -200,6 +199,26 @@ Witnesses are then reduced mechanically (greedy vertex deletion while connected 
 * gate (b) database sanity: **PASS** — 0 counterexamples over all 12,112 members of `D` through this arm's evaluator, 0 through the `scripts/gen` path on a 1500-graph sample; equality count 30 vs 30 recorded
 * seeds: base `20442952`; BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED
 
+### FP-029 — `res >= A - deg_avg`
+
+* refuting graph (graph6, `n = 13`): `L?GOB@CcCC?OA?`
+* at the witness: **LHS = 5**, **RHS = 67/13**, slack = -2/13
+* found by: `FAM`; first hit at `n = 35` (`b???@A?@?C???@??O??O????S??????????_??OG????C?OCA?????aGO_???G????OO?G?@?A??O??AC???_???O??AA???__???`), then reduced to `n = 13`
+* search cost: 0.00 CPU s (cap 3600 s); verification 7.14 CPU s
+* gate (a) second code path: **PASS** — `scripts/gen` brute: LHS 5 / RHS 67/13, scal: LHS 5 / RHS 67/13
+* gate (b) database sanity: **PASS** — 0 counterexamples over all 12,112 members of `D` through this arm's evaluator, 0 through the `scripts/gen` path on a 1500-graph sample; equality count 32 vs 32 recorded
+* seeds: base `20490466`; BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED
+
+### FP-030 — `res >= floor((dd)/(gamma_t))`
+
+* refuting graph (graph6, `n = 9`): `H~Fwtnv`
+* at the witness: **LHS = 2**, **RHS = 3**, slack = -1
+* found by: `FAM`; first hit at `n = 28` (`[DlRyDznkGm}~~MkobTtmMluCYekt{GtNU]f~n~~||~vUZBnm~~]|uFM}pVZn|~v`), then reduced to `n = 9`
+* search cost: 0.08 CPU s (cap 3600 s); verification 7.89 CPU s
+* gate (a) second code path: **PASS** — `scripts/gen` brute: LHS 2 / RHS 3, scal: LHS 2 / RHS 3
+* gate (b) database sanity: **PASS** — 0 counterexamples over all 12,112 members of `D` through this arm's evaluator, 0 through the `scripts/gen` path on a 1500-graph sample; equality count 2216 vs 2216 recorded
+* seeds: base `20498385`; BASE_SEED(20260815) + 7919 * int(id suffix); FAM unit k -> base+1000+k, ANNEAL unit k -> base+500000+k, GROW unit k -> base+900000+k, probe -> base XOR 0x5EED
+
 ## Non-crossings — how close the search got
 
 | id | verdict | best slack found | at (graph6) | source | evaluations | max order | n=9 bases swept | CPU s |
@@ -212,5 +231,13 @@ Witnesses are then reduced mechanically (greedy vertex deletion while connected 
 | FP-010 | BRACKET | 0 | `HCCK@HO` | random tree n=9 | 112084 | 32 | 60 | 240.29 |
 | FP-011 | BRACKET | 0 | `UXl|p~~n|vv~^^zH~~||zn~||~xuxqIDG~}nMvIg` | random geometric r=0.60 n=22 | 306798 | 40 | 160 | 240.0 |
 | FP-013 | BRACKET | 0 | `J???????F~_` | random bipartite p=0.70 n=11 | 88774 | 28 | 40 | 240.02 |
+| FP-017 | BRACKET | 0 | `Ia?PDCGIo` | random geometric r=0.25 n=10 | 311945 | 40 | 160 | 240.1 |
+| FP-018 | BRACKET | 0 | `f}X`HCoIAOCGa?E?B??`?A?Go???a?AA?AO?OG??__????aOC??E???A??G??AG?A??C?__??B????@???G???C?@A??A??_???CGA????_?G?????P???C????A?` | preferential attachment m=2 n=39 | 157963 | 40 | 80 | 240.02 |
+| FP-019 | BRACKET | 0 | `II_HC?S?o` | random 2-regular n=10 | 85609 | 9 | 60 | 240.04 |
+| FP-024 | BRACKET | 0 | `_?_gE?I?WG@wAkkGW?O`kA?AAW?CAGOq???CDg??SCGpACc?ggDOaQ_A?g@C?@BIt_GS?EO`O?AoPCOSKGSG` | random 7-regular n=32 | 79353 | 40 | 40 | 240.08 |
+| FP-025 | BRACKET | 0 | `gsaCCA?_C?O?_?_?O?C??_?A??C??C??A???_??C???O???_???_???O???C????_???A????C????C????A?????_????C?????O?????_?????_?????O?????C??????` | random bipartite p=0.20 n=40 | 70743 | 40 | 40 | 240.06 |
+| FP-026 | BRACKET | 0 | `HhF~j[}` | preferential attachment m=5 n=9 | 96790 | 9 | 80 | 240.04 |
+| FP-027 | BRACKET | 0 | `M`?dC@??_C@?G?E??` | G(n,p) p=0.08 n=14 | 835832 | 40 | 440 | 240.01 |
+| FP-028 | BRACKET | 0 | `H~~~~~~` | random 8-regular n=9 | 1155696 | 40 | 680 | 240.0 |
 
 Machine-readable copy: [`arm-generic.json`](arm-generic.json). Per-target raw run records: `arm-generic-runs/`.

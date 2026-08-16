@@ -1,0 +1,1871 @@
+{
+ "arm": "catalogue",
+ "protocol": "results/experiment/PREREGISTRATION.md (tag prereg-three-arm-v1)",
+ "catalogue": "scripts/exp/catalogue.py (frozen, imported unmodified)",
+ "catalogue_size": 68,
+ "population": "results/experiment/fresh-population/population.json",
+ "population_size": 30,
+ "complete": true,
+ "targets_scored": 30,
+ "counts": {
+  "HELD": 22,
+  "CROSSED": 8
+ },
+ "budget_seconds_per_target": 3600.0,
+ "setup_seconds_shared": 0.04,
+ "invariant_path_mismatches_on_catalogue": [],
+ "database_gate": {
+  "database_rebuilt": 12112,
+  "database_sha256": "08a53734416cc3f468b7cd64a5789c60f6ca92d28c59b56968c637ee3b335024",
+  "database_sha256_recorded": "08a53734416cc3f468b7cd64a5789c60f6ca92d28c59b56968c637ee3b335024",
+  "database_sha256_match": true,
+  "invariant_path_mismatch_count_on_D": 0,
+  "seconds": 43.09342336654663,
+  "rebuild_seconds": 52.00686264038086
+ },
+ "results": [
+  {
+   "id": "FP-001",
+   "statement": "For every connected graph G with n(G) >= 2:  alpha <= ceil((Tdist_max - dist_even_min)/2) + 1",
+   "relation": "alpha <= ceil((Tdist_max - dist_even_min)/2) + 1",
+   "invariants_used": [
+    "Tdist_max",
+    "alpha",
+    "dist_even_min"
+   ],
+   "verdict": "HELD",
+   "bracket_reason": null,
+   "catalogue_graphs_tested": 68,
+   "refuting_graphs": [],
+   "seconds": 16.185,
+   "seconds_evaluation_only": 0.0184,
+   "seconds_with_database_gate_share": 111.286,
+   "budget_seconds": 3600.0,
+   "gate": {
+    "status": "PASS",
+    "counterexamples_in_D_pathA": 0,
+    "counterexamples_in_D_pathB": 0,
+    "equality_count_mine": 16,
+    "equality_count_recorded": 16,
+    "slack_histogram_matches_population": true,
+    "slack_histogram_diff": null,
+    "recorded_equality_witnesses_all_tight": true,
+    "two_paths_agree_on_D": true
+   },
+   "second_path_recomputation": "pass"
+  },
+  {
+   "id": "FP-002",
+   "statement": "For every connected graph G with n(G) >= 2:  alpha >= dist_even_max - chi",
+   "relation": "alpha >= dist_even_max - chi",
+   "invariants_used": [
+    "alpha",
+    "chi",
+    "dist_even_max"
+   ],
+   "verdict": "CROSSED",
+   "bracket_reason": null,
+   "catalogue_graphs_tested": 68,
+   "refuting_graphs": [
+    {
+     "graph": "comp(C5[K4])",
+     "graph6": "S????Bo{F_]?~o~o^wF}?B~?N{?^w?^w?",
+     "n": 20,
+     "m": 80,
+     "lhs_pathA": "8",
+     "rhs_pathA": "9",
+     "lhs_pathB": "8",
+     "rhs_pathB": "9",
+     "slack_pathA": "-1",
+     "slack_pathB": "-1",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "alpha": "8",
+      "chi": "3",
+      "dist_even_max": "12"
+     }
+    },
+    {
+     "graph": "T(7)",
+     "graph6": "Tn@}W]^ooQn`wcqfmj`AtIBuWlL`C{bpknaY",
+     "n": 21,
+     "m": 105,
+     "lhs_pathA": "3",
+     "rhs_pathA": "4",
+     "lhs_pathB": "3",
+     "rhs_pathB": "4",
+     "slack_pathA": "-1",
+     "slack_pathB": "-1",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "alpha": "3",
+      "chi": "7",
+      "dist_even_max": "11"
+     }
+    },
+    {
+     "graph": "comp(Kneser(7,2))",
+     "graph6": "T~~}DERa{NkWShQdgpxbKITSdKwpeohTkKXn",
+     "n": 21,
+     "m": 105,
+     "lhs_pathA": "3",
+     "rhs_pathA": "4",
+     "lhs_pathB": "3",
+     "rhs_pathB": "4",
+     "slack_pathA": "-1",
+     "slack_pathB": "-1",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "alpha": "3",
+      "chi": "7",
+      "dist_even_max": "11"
+     }
+    },
+    {
+     "graph": "comp(C5[K5])",
+     "graph6": "X???????Fo^?}?}?^?F~_~{B~oF~_F~_?F~_@~w?N~??~{?@~w?",
+     "n": 25,
+     "m": 125,
+     "lhs_pathA": "10",
+     "rhs_pathA": "12",
+     "lhs_pathB": "10",
+     "rhs_pathB": "12",
+     "slack_pathA": "-2",
+     "slack_pathB": "-2",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "alpha": "10",
+      "chi": "3",
+      "dist_even_max": "15"
+     }
+    },
+    {
+     "graph": "C9[K3]",
+     "graph6": "Z~~ww{^?wF_^?F?F_Bw?F??{?Bw??w??{??^???w??F_??^w??Fw??F{??Bw",
+     "n": 27,
+     "m": 108,
+     "lhs_pathA": "4",
+     "rhs_pathA": "6",
+     "lhs_pathB": "4",
+     "rhs_pathB": "6",
+     "slack_pathA": "-2",
+     "slack_pathB": "-2",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "alpha": "4",
+      "chi": "7",
+      "dist_even_max": "13"
+     }
+    },
+    {
+     "graph": "T(8)",
+     "graph6": "[xP]^@NFFioOdfk`o[y\\GKWW@cwg{hoaOoD^yU?SSnAanToADD}A[JVnsJKFAWlc",
+     "n": 28,
+     "m": 168,
+     "lhs_pathA": "4",
+     "rhs_pathA": "9",
+     "lhs_pathB": "4",
+     "rhs_pathB": "9",
+     "slack_pathA": "-5",
+     "slack_pathB": "-5",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "alpha": "4",
+      "chi": "7",
+      "dist_even_max": "16"
+     }
+    },
+    {
+     "graph": "Paley(29)",
+     "graph6": "\\hfNNdxnI{dxDxa{gnHDxcVdGnHGnGcVeHDxPGnLCa{yHDxyHDx|Ca{nPGnHyHDxfgcVc",
+     "n": 29,
+     "m": 203,
+     "lhs_pathA": "4",
+     "rhs_pathA": "7",
+     "lhs_pathB": "4",
+     "rhs_pathB": "7",
+     "slack_pathA": "-3",
+     "slack_pathB": "-3",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "alpha": "4",
+      "chi": "8",
+      "dist_even_max": "15"
+     }
+    },
+    {
+     "graph": "comp(Paley(29))",
+     "graph6": "\\UWooYEOtBYEyE\\BVOuyEZgYvOuvOvZgXuyEmvOqz\\BDuyEDuyEAz\\BOmvOuDuyEWVZgW",
+     "n": 29,
+     "m": 203,
+     "lhs_pathA": "4",
+     "rhs_pathA": "7",
+     "lhs_pathB": "4",
+     "rhs_pathB": "7",
+     "slack_pathA": "-3",
+     "slack_pathB": "-3",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "alpha": "4",
+      "chi": "8",
+      "dist_even_max": "15"
+     }
+    },
+    {
+     "graph": "comp(C5[K6])",
+     "graph6": "]???????????~?~?^_Fw?~?B{?F~wF~wB~{?~~?F~w?^~_??~~??~~??^~_?F~w??~~??B~{??",
+     "n": 30,
+     "m": 180,
+     "lhs_pathA": "12",
+     "rhs_pathA": "15",
+     "lhs_pathB": "12",
+     "rhs_pathB": "15",
+     "slack_pathA": "-3",
+     "slack_pathB": "-3",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "alpha": "12",
+      "chi": "3",
+      "dist_even_max": "18"
+     }
+    },
+    {
+     "graph": "T(9)",
+     "graph6": "c`MGclRKxoA^`onQ{ADIfBB@?kIX?Z@`kkOzGFN]fh?WkYwoBJEB_agX_DTXsU?A]IPpCaQppSI]wkECD?VgAMKRVF|AiWFoR?TqGSOwjk",
+     "n": 36,
+     "m": 252,
+     "lhs_pathA": "4",
+     "rhs_pathA": "13",
+     "lhs_pathB": "4",
+     "rhs_pathB": "13",
+     "slack_pathA": "-9",
+     "slack_pathB": "-9",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "alpha": "4",
+      "chi": "9",
+      "dist_even_max": "22"
+     }
+    }
+   ],
+   "seconds": 16.358,
+   "seconds_evaluation_only": 0.0178,
+   "seconds_with_database_gate_share": 111.458,
+   "budget_seconds": 3600.0,
+   "gate": {
+    "status": "PASS",
+    "counterexamples_in_D_pathA": 0,
+    "counterexamples_in_D_pathB": 0,
+    "equality_count_mine": 249,
+    "equality_count_recorded": 249,
+    "slack_histogram_matches_population": true,
+    "slack_histogram_diff": null,
+    "recorded_equality_witnesses_all_tight": true,
+    "two_paths_agree_on_D": true
+   },
+   "second_path_recomputation": "pass"
+  },
+  {
+   "id": "FP-003",
+   "statement": "For every connected graph G with n(G) >= 2:  alpha >= lambda_max - cutv",
+   "relation": "alpha >= lambda_max - cutv",
+   "invariants_used": [
+    "alpha",
+    "cutv",
+    "lam_max"
+   ],
+   "verdict": "HELD",
+   "bracket_reason": null,
+   "catalogue_graphs_tested": 68,
+   "refuting_graphs": [],
+   "seconds": 16.549,
+   "seconds_evaluation_only": 0.0171,
+   "seconds_with_database_gate_share": 111.649,
+   "budget_seconds": 3600.0,
+   "gate": {
+    "status": "PASS",
+    "counterexamples_in_D_pathA": 0,
+    "counterexamples_in_D_pathB": 0,
+    "equality_count_mine": 6696,
+    "equality_count_recorded": 6696,
+    "slack_histogram_matches_population": true,
+    "slack_histogram_diff": null,
+    "recorded_equality_witnesses_all_tight": true,
+    "two_paths_agree_on_D": true
+   },
+   "second_path_recomputation": "pass"
+  },
+  {
+   "id": "FP-004",
+   "statement": "For every connected graph G with n(G) >= 2:  A >= floor((disp_min)/2) + dist_avg",
+   "relation": "A >= floor((disp_min)/2) + dist_avg",
+   "invariants_used": [
+    "annih",
+    "disp_min",
+    "dist_avg"
+   ],
+   "verdict": "HELD",
+   "bracket_reason": null,
+   "catalogue_graphs_tested": 68,
+   "refuting_graphs": [],
+   "seconds": 16.133,
+   "seconds_evaluation_only": 0.0185,
+   "seconds_with_database_gate_share": 111.233,
+   "budget_seconds": 3600.0,
+   "gate": {
+    "status": "PASS",
+    "counterexamples_in_D_pathA": 0,
+    "counterexamples_in_D_pathB": 0,
+    "equality_count_mine": 2,
+    "equality_count_recorded": 2,
+    "slack_histogram_matches_population": true,
+    "slack_histogram_diff": null,
+    "recorded_equality_witnesses_all_tight": true,
+    "two_paths_agree_on_D": true
+   },
+   "second_path_recomputation": "pass"
+  },
+  {
+   "id": "FP-005",
+   "statement": "For every connected graph G with n(G) >= 2:  A >= floor((n)/(gamma_t))",
+   "relation": "A >= floor((n)/(gamma_t))",
+   "invariants_used": [
+    "annih",
+    "gamma_t",
+    "n"
+   ],
+   "verdict": "HELD",
+   "bracket_reason": null,
+   "catalogue_graphs_tested": 68,
+   "refuting_graphs": [],
+   "seconds": 17.227,
+   "seconds_evaluation_only": 0.0145,
+   "seconds_with_database_gate_share": 112.327,
+   "budget_seconds": 3600.0,
+   "gate": {
+    "status": "PASS",
+    "counterexamples_in_D_pathA": 0,
+    "counterexamples_in_D_pathB": 0,
+    "equality_count_mine": 3922,
+    "equality_count_recorded": 3922,
+    "slack_histogram_matches_population": true,
+    "slack_histogram_diff": null,
+    "recorded_equality_witnesses_all_tight": true,
+    "two_paths_agree_on_D": true
+   },
+   "second_path_recomputation": "pass"
+  },
+  {
+   "id": "FP-006",
+   "statement": "For every connected graph G with n(G) >= 2:  chi >= ceil((omega - chi_regular)/2) + 1",
+   "relation": "chi >= ceil((omega - chi_regular)/2) + 1",
+   "invariants_used": [
+    "chi",
+    "chi_reg",
+    "omega"
+   ],
+   "verdict": "HELD",
+   "bracket_reason": null,
+   "catalogue_graphs_tested": 68,
+   "refuting_graphs": [],
+   "seconds": 16.341,
+   "seconds_evaluation_only": 0.0149,
+   "seconds_with_database_gate_share": 111.441,
+   "budget_seconds": 3600.0,
+   "gate": {
+    "status": "PASS",
+    "counterexamples_in_D_pathA": 0,
+    "counterexamples_in_D_pathB": 0,
+    "equality_count_mine": 5731,
+    "equality_count_recorded": 5731,
+    "slack_histogram_matches_population": true,
+    "slack_histogram_diff": null,
+    "recorded_equality_witnesses_all_tight": true,
+    "two_paths_agree_on_D": true
+   },
+   "second_path_recomputation": "pass"
+  },
+  {
+   "id": "FP-007",
+   "statement": "For every connected graph G with n(G) >= 2:  diam <= disp_max + gamma_2",
+   "relation": "diam <= disp_max + gamma_2",
+   "invariants_used": [
+    "diam",
+    "disp_max",
+    "gamma_2"
+   ],
+   "verdict": "HELD",
+   "bracket_reason": null,
+   "catalogue_graphs_tested": 68,
+   "refuting_graphs": [],
+   "seconds": 17.404,
+   "seconds_evaluation_only": 0.012,
+   "seconds_with_database_gate_share": 112.504,
+   "budget_seconds": 3600.0,
+   "gate": {
+    "status": "PASS",
+    "counterexamples_in_D_pathA": 0,
+    "counterexamples_in_D_pathB": 0,
+    "equality_count_mine": 6,
+    "equality_count_recorded": 6,
+    "slack_histogram_matches_population": true,
+    "slack_histogram_diff": null,
+    "recorded_equality_witnesses_all_tight": true,
+    "two_paths_agree_on_D": true
+   },
+   "second_path_recomputation": "pass"
+  },
+  {
+   "id": "FP-008",
+   "statement": "For every connected graph G with n(G) >= 2:  diam >= floor((A)/(ceil(lambda_1)))",
+   "relation": "diam >= floor((A)/(ceil(lambda_1)))",
+   "invariants_used": [
+    "annih",
+    "diam",
+    "spec_ceil"
+   ],
+   "verdict": "CROSSED",
+   "bracket_reason": null,
+   "catalogue_graphs_tested": 68,
+   "refuting_graphs": [
+    {
+     "graph": "star(12)",
+     "graph6": "LsaCCA?_C?O?_?",
+     "n": 13,
+     "m": 12,
+     "lhs_pathA": "2",
+     "rhs_pathA": "3",
+     "lhs_pathB": "2",
+     "rhs_pathB": "3",
+     "slack_pathA": "-1",
+     "slack_pathB": "-1",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "annih": "12",
+      "diam": "2",
+      "spec_ceil": "4"
+     }
+    },
+    {
+     "graph": "doublestar(8,8)",
+     "graph6": "QsaCCA?_A?G?O?O?G?A??O?@???",
+     "n": 18,
+     "m": 17,
+     "lhs_pathA": "3",
+     "rhs_pathA": "4",
+     "lhs_pathB": "3",
+     "rhs_pathB": "4",
+     "slack_pathA": "-1",
+     "slack_pathB": "-1",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "annih": "16",
+      "diam": "3",
+      "spec_ceil": "4"
+     }
+    },
+    {
+     "graph": "doublestar(12,12)",
+     "graph6": "YsaCCA?_C?O?_?_?G?A??O?@??A??A??@???O??A???G???O???O????",
+     "n": 26,
+     "m": 25,
+     "lhs_pathA": "3",
+     "rhs_pathA": "6",
+     "lhs_pathB": "3",
+     "rhs_pathB": "6",
+     "slack_pathA": "-3",
+     "slack_pathB": "-3",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "annih": "24",
+      "diam": "3",
+      "spec_ceil": "4"
+     }
+    }
+   ],
+   "seconds": 16.127,
+   "seconds_evaluation_only": 0.0126,
+   "seconds_with_database_gate_share": 111.228,
+   "budget_seconds": 3600.0,
+   "gate": {
+    "status": "PASS",
+    "counterexamples_in_D_pathA": 0,
+    "counterexamples_in_D_pathB": 0,
+    "equality_count_mine": 6,
+    "equality_count_recorded": 7,
+    "slack_histogram_matches_population": false,
+    "slack_histogram_diff": {
+     "0": [
+      7,
+      6
+     ],
+     "1": [
+      2164,
+      2163
+     ],
+     "2": [
+      7981,
+      7968
+     ],
+     "3": [
+      1810,
+      1822
+     ],
+     "4": [
+      141,
+      143
+     ],
+     "5": [
+      9,
+      10
+     ]
+    },
+    "recorded_equality_witnesses_all_tight": false,
+    "two_paths_agree_on_D": true,
+    "generator_spec_ceil_reading_on_D": {
+     "counterexamples_in_D": 0,
+     "equality_count": 7,
+     "histogram_matches_recorded": true
+    }
+   },
+   "second_path_recomputation": "pass",
+   "alt_reading_generator_spec_ceil": {
+    "refuting_graphs": [
+     {
+      "graph": "star(12)",
+      "graph6": "LsaCCA?_C?O?_?",
+      "lhs": "2",
+      "rhs": "3"
+     },
+     {
+      "graph": "doublestar(8,8)",
+      "graph6": "QsaCCA?_A?G?O?O?G?A??O?@???",
+      "lhs": "3",
+      "rhs": "4"
+     },
+     {
+      "graph": "doublestar(12,12)",
+      "graph6": "YsaCCA?_C?O?_?_?G?A??O?@??A??A??@???O??A???G???O???O????",
+      "lhs": "3",
+      "rhs": "6"
+     }
+    ],
+    "verdict": "CROSSED"
+   }
+  },
+  {
+   "id": "FP-009",
+   "statement": "For every connected graph G with n(G) >= 2:  gamma <= floor((lambda_avg)/2) + res",
+   "relation": "gamma <= floor((lambda_avg)/2) + res",
+   "invariants_used": [
+    "gamma",
+    "lam_avg",
+    "res"
+   ],
+   "verdict": "HELD",
+   "bracket_reason": null,
+   "catalogue_graphs_tested": 68,
+   "refuting_graphs": [],
+   "seconds": 16.644,
+   "seconds_evaluation_only": 0.0175,
+   "seconds_with_database_gate_share": 111.744,
+   "budget_seconds": 3600.0,
+   "gate": {
+    "status": "PASS",
+    "counterexamples_in_D_pathA": 0,
+    "counterexamples_in_D_pathB": 0,
+    "equality_count_mine": 704,
+    "equality_count_recorded": 704,
+    "slack_histogram_matches_population": true,
+    "slack_histogram_diff": null,
+    "recorded_equality_witnesses_all_tight": true,
+    "two_paths_agree_on_D": true
+   },
+   "second_path_recomputation": "pass"
+  },
+  {
+   "id": "FP-010",
+   "statement": "For every connected graph G with n(G) >= 2:  gamma <= gamma_2 - chi_C4free",
+   "relation": "gamma <= gamma_2 - chi_C4free",
+   "invariants_used": [
+    "chi_C4free",
+    "gamma",
+    "gamma_2"
+   ],
+   "verdict": "HELD",
+   "bracket_reason": null,
+   "catalogue_graphs_tested": 68,
+   "refuting_graphs": [],
+   "seconds": 17.555,
+   "seconds_evaluation_only": 0.0157,
+   "seconds_with_database_gate_share": 112.655,
+   "budget_seconds": 3600.0,
+   "gate": {
+    "status": "PASS",
+    "counterexamples_in_D_pathA": 0,
+    "counterexamples_in_D_pathB": 0,
+    "equality_count_mine": 216,
+    "equality_count_recorded": 216,
+    "slack_histogram_matches_population": true,
+    "slack_histogram_diff": null,
+    "recorded_equality_witnesses_all_tight": true,
+    "two_paths_agree_on_D": true
+   },
+   "second_path_recomputation": "pass"
+  },
+  {
+   "id": "FP-011",
+   "statement": "For every connected graph G with n(G) >= 2:  gamma >= ceil((Tdist_min)/(m))",
+   "relation": "gamma >= ceil((Tdist_min)/(m))",
+   "invariants_used": [
+    "Tdist_min",
+    "gamma",
+    "m"
+   ],
+   "verdict": "HELD",
+   "bracket_reason": null,
+   "catalogue_graphs_tested": 68,
+   "refuting_graphs": [],
+   "seconds": 16.277,
+   "seconds_evaluation_only": 0.0153,
+   "seconds_with_database_gate_share": 111.377,
+   "budget_seconds": 3600.0,
+   "gate": {
+    "status": "PASS",
+    "counterexamples_in_D_pathA": 0,
+    "counterexamples_in_D_pathB": 0,
+    "equality_count_mine": 1509,
+    "equality_count_recorded": 1509,
+    "slack_histogram_matches_population": true,
+    "slack_histogram_diff": null,
+    "recorded_equality_witnesses_all_tight": true,
+    "two_paths_agree_on_D": true
+   },
+   "second_path_recomputation": "pass"
+  },
+  {
+   "id": "FP-012",
+   "statement": "For every connected graph G with n(G) >= 2:  gamma_2 <= dist_even_max - chi_regular + 2",
+   "relation": "gamma_2 <= dist_even_max - chi_regular + 2",
+   "invariants_used": [
+    "chi_reg",
+    "dist_even_max",
+    "gamma_2"
+   ],
+   "verdict": "CROSSED",
+   "bracket_reason": null,
+   "catalogue_graphs_tested": 68,
+   "refuting_graphs": [
+    {
+     "graph": "doublestar(4,4)",
+     "graph6": "IsaAA@?O?",
+     "n": 10,
+     "m": 9,
+     "lhs_pathA": "8",
+     "rhs_pathA": "7",
+     "lhs_pathB": "8",
+     "rhs_pathB": "7",
+     "slack_pathA": "-1",
+     "slack_pathB": "-1",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "chi_reg": "0",
+      "dist_even_max": "5",
+      "gamma_2": "8"
+     }
+    },
+    {
+     "graph": "doublestar(8,8)",
+     "graph6": "QsaCCA?_A?G?O?O?G?A??O?@???",
+     "n": 18,
+     "m": 17,
+     "lhs_pathA": "16",
+     "rhs_pathA": "11",
+     "lhs_pathB": "16",
+     "rhs_pathB": "11",
+     "slack_pathA": "-5",
+     "slack_pathB": "-5",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "chi_reg": "0",
+      "dist_even_max": "9",
+      "gamma_2": "16"
+     }
+    },
+    {
+     "graph": "doublestar(12,12)",
+     "graph6": "YsaCCA?_C?O?_?_?G?A??O?@??A??A??@???O??A???G???O???O????",
+     "n": 26,
+     "m": 25,
+     "lhs_pathA": "24",
+     "rhs_pathA": "15",
+     "lhs_pathB": "24",
+     "rhs_pathB": "15",
+     "slack_pathA": "-9",
+     "slack_pathB": "-9",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "chi_reg": "0",
+      "dist_even_max": "13",
+      "gamma_2": "24"
+     }
+    }
+   ],
+   "seconds": 17.406,
+   "seconds_evaluation_only": 0.0142,
+   "seconds_with_database_gate_share": 112.507,
+   "budget_seconds": 3600.0,
+   "gate": {
+    "status": "PASS",
+    "counterexamples_in_D_pathA": 0,
+    "counterexamples_in_D_pathB": 0,
+    "equality_count_mine": 17,
+    "equality_count_recorded": 17,
+    "slack_histogram_matches_population": true,
+    "slack_histogram_diff": null,
+    "recorded_equality_witnesses_all_tight": true,
+    "two_paths_agree_on_D": true
+   },
+   "second_path_recomputation": "pass"
+  },
+  {
+   "id": "FP-013",
+   "statement": "For every connected graph G with n(G) >= 2:  gamma_2 >= ceil((Delta)/(Sigma_2))",
+   "relation": "gamma_2 >= ceil((Delta)/(Sigma_2))",
+   "invariants_used": [
+    "Delta",
+    "Sigma2",
+    "gamma_2"
+   ],
+   "verdict": "HELD",
+   "bracket_reason": null,
+   "catalogue_graphs_tested": 68,
+   "refuting_graphs": [],
+   "seconds": 17.405,
+   "seconds_evaluation_only": 0.0132,
+   "seconds_with_database_gate_share": 112.506,
+   "budget_seconds": 3600.0,
+   "gate": {
+    "status": "PASS",
+    "counterexamples_in_D_pathA": 0,
+    "counterexamples_in_D_pathB": 0,
+    "equality_count_mine": 39,
+    "equality_count_recorded": 39,
+    "slack_histogram_matches_population": true,
+    "slack_histogram_diff": null,
+    "recorded_equality_witnesses_all_tight": true,
+    "two_paths_agree_on_D": true
+   },
+   "second_path_recomputation": "pass"
+  },
+  {
+   "id": "FP-014",
+   "statement": "For every connected graph G with n(G) >= 2:  gamma_2 >= floor((dist_even_min + disp_min)/2)",
+   "relation": "gamma_2 >= floor((dist_even_min + disp_min)/2)",
+   "invariants_used": [
+    "disp_min",
+    "dist_even_min",
+    "gamma_2"
+   ],
+   "verdict": "CROSSED",
+   "bracket_reason": null,
+   "catalogue_graphs_tested": 68,
+   "refuting_graphs": [
+    {
+     "graph": "comp(Kneser(6,2))",
+     "graph6": "N~~DKmNXaihfKuIlbLw",
+     "n": 15,
+     "m": 60,
+     "lhs_pathA": "3",
+     "rhs_pathA": "4",
+     "lhs_pathB": "3",
+     "rhs_pathB": "4",
+     "slack_pathA": "-1",
+     "slack_pathB": "-1",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "disp_min": "1",
+      "dist_even_min": "7",
+      "gamma_2": "3"
+     }
+    },
+    {
+     "graph": "C5[K4]",
+     "graph6": "S~~~~{NBw^`~?N?N_Fw@~{?~oB~_F~_F{",
+     "n": 20,
+     "m": 110,
+     "lhs_pathA": "4",
+     "rhs_pathA": "5",
+     "lhs_pathB": "4",
+     "rhs_pathB": "5",
+     "slack_pathA": "-1",
+     "slack_pathB": "-1",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "disp_min": "1",
+      "dist_even_min": "9",
+      "gamma_2": "4"
+     }
+    },
+    {
+     "graph": "comp(C5[K4])",
+     "graph6": "S????Bo{F_]?~o~o^wF}?B~?N{?^w?^w?",
+     "n": 20,
+     "m": 80,
+     "lhs_pathA": "5",
+     "rhs_pathA": "6",
+     "lhs_pathB": "5",
+     "rhs_pathB": "6",
+     "slack_pathA": "-1",
+     "slack_pathB": "-1",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "disp_min": "1",
+      "dist_even_min": "12",
+      "gamma_2": "5"
+     }
+    },
+    {
+     "graph": "Kneser(7,2)",
+     "graph6": "T??@yxk\\BoRfjUlYVME[rtijYrFMXNUiRreO",
+     "n": 21,
+     "m": 105,
+     "lhs_pathA": "5",
+     "rhs_pathA": "6",
+     "lhs_pathB": "5",
+     "rhs_pathB": "6",
+     "slack_pathA": "-1",
+     "slack_pathB": "-1",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "disp_min": "1",
+      "dist_even_min": "11",
+      "gamma_2": "5"
+     }
+    },
+    {
+     "graph": "T(7)",
+     "graph6": "Tn@}W]^ooQn`wcqfmj`AtIBuWlL`C{bpknaY",
+     "n": 21,
+     "m": 105,
+     "lhs_pathA": "4",
+     "rhs_pathA": "6",
+     "lhs_pathB": "4",
+     "rhs_pathB": "6",
+     "slack_pathA": "-2",
+     "slack_pathB": "-2",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "disp_min": "1",
+      "dist_even_min": "11",
+      "gamma_2": "4"
+     }
+    },
+    {
+     "graph": "comp(C7[K3])",
+     "graph6": "T??FFB_~Fw^_~w~w^{F~w~~B~{?~~?~~?^~_",
+     "n": 21,
+     "m": 126,
+     "lhs_pathA": "4",
+     "rhs_pathA": "5",
+     "lhs_pathB": "4",
+     "rhs_pathB": "5",
+     "slack_pathA": "-1",
+     "slack_pathB": "-1",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "disp_min": "1",
+      "dist_even_min": "9",
+      "gamma_2": "4"
+     }
+    },
+    {
+     "graph": "comp(Kneser(7,2))",
+     "graph6": "T~~}DERa{NkWShQdgpxbKITSdKwpeohTkKXn",
+     "n": 21,
+     "m": 105,
+     "lhs_pathA": "4",
+     "rhs_pathA": "6",
+     "lhs_pathB": "4",
+     "rhs_pathB": "6",
+     "slack_pathA": "-2",
+     "slack_pathB": "-2",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "disp_min": "1",
+      "dist_even_min": "11",
+      "gamma_2": "4"
+     }
+    },
+    {
+     "graph": "comp(T(7))",
+     "graph6": "TO}@f`_NNlO]FZLWPS]|It{HfQq]zB[MRO\\d",
+     "n": 21,
+     "m": 105,
+     "lhs_pathA": "5",
+     "rhs_pathA": "6",
+     "lhs_pathB": "5",
+     "rhs_pathB": "6",
+     "slack_pathA": "-1",
+     "slack_pathB": "-1",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "disp_min": "1",
+      "dist_even_min": "11",
+      "gamma_2": "5"
+     }
+    },
+    {
+     "graph": "C5[K5]",
+     "graph6": "X~~~~~~~wN_~@~@~_~w?^?B{?Nw?^w?^~w?^}?F~o?~~?B~}?F~",
+     "n": 25,
+     "m": 175,
+     "lhs_pathA": "4",
+     "rhs_pathA": "6",
+     "lhs_pathB": "4",
+     "rhs_pathB": "6",
+     "slack_pathA": "-2",
+     "slack_pathB": "-2",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "disp_min": "1",
+      "dist_even_min": "11",
+      "gamma_2": "4"
+     }
+    },
+    {
+     "graph": "comp(C5[K5])",
+     "graph6": "X???????Fo^?}?}?^?F~_~{B~oF~_F~_?F~_@~w?N~??~{?@~w?",
+     "n": 25,
+     "m": 125,
+     "lhs_pathA": "5",
+     "rhs_pathA": "8",
+     "lhs_pathB": "5",
+     "rhs_pathB": "8",
+     "slack_pathA": "-3",
+     "slack_pathB": "-3",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "disp_min": "1",
+      "dist_even_min": "15",
+      "gamma_2": "5"
+     }
+    },
+    {
+     "graph": "C9[K3]",
+     "graph6": "Z~~ww{^?wF_^?F?F_Bw?F??{?Bw??w??{??^???w??F_??^w??Fw??F{??Bw",
+     "n": 27,
+     "m": 108,
+     "lhs_pathA": "6",
+     "rhs_pathA": "7",
+     "lhs_pathB": "6",
+     "rhs_pathB": "7",
+     "slack_pathA": "-1",
+     "slack_pathB": "-1",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "disp_min": "1",
+      "dist_even_min": "13",
+      "gamma_2": "6"
+     }
+    },
+    {
+     "graph": "comp(C9[K3])",
+     "graph6": "Z??FFB_~Fw^_~w~w^{F~w~~B~{F~~F~~B~~_~~~F~~w^~~_F~~wF~~wB~~{?",
+     "n": 27,
+     "m": 243,
+     "lhs_pathA": "3",
+     "rhs_pathA": "5",
+     "lhs_pathB": "3",
+     "rhs_pathB": "5",
+     "slack_pathA": "-2",
+     "slack_pathB": "-2",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "disp_min": "1",
+      "dist_even_min": "9",
+      "gamma_2": "3"
+     }
+    },
+    {
+     "graph": "T(8)",
+     "graph6": "[xP]^@NFFioOdfk`o[y\\GKWW@cwg{hoaOoD^yU?SSnAanToADD}A[JVnsJKFAWlc",
+     "n": 28,
+     "m": 168,
+     "lhs_pathA": "4",
+     "rhs_pathA": "8",
+     "lhs_pathB": "4",
+     "rhs_pathB": "8",
+     "slack_pathA": "-4",
+     "slack_pathB": "-4",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "disp_min": "1",
+      "dist_even_min": "16",
+      "gamma_2": "4"
+     }
+    },
+    {
+     "graph": "comp(T(8))",
+     "graph6": "[Em`_}owwTNnYWR]NbDavrff}ZFVBUN\\nNy_Dh~jjO|\\OiN|yy@|bsgOJsrw|fQZ",
+     "n": 28,
+     "m": 210,
+     "lhs_pathA": "4",
+     "rhs_pathA": "7",
+     "lhs_pathB": "4",
+     "rhs_pathB": "7",
+     "slack_pathA": "-3",
+     "slack_pathB": "-3",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "disp_min": "1",
+      "dist_even_min": "13",
+      "gamma_2": "4"
+     }
+    },
+    {
+     "graph": "Paley(29)",
+     "graph6": "\\hfNNdxnI{dxDxa{gnHDxcVdGnHGnGcVeHDxPGnLCa{yHDxyHDx|Ca{nPGnHyHDxfgcVc",
+     "n": 29,
+     "m": 203,
+     "lhs_pathA": "5",
+     "rhs_pathA": "8",
+     "lhs_pathB": "5",
+     "rhs_pathB": "8",
+     "slack_pathA": "-3",
+     "slack_pathB": "-3",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "disp_min": "1",
+      "dist_even_min": "15",
+      "gamma_2": "5"
+     }
+    },
+    {
+     "graph": "comp(Paley(29))",
+     "graph6": "\\UWooYEOtBYEyE\\BVOuyEZgYvOuvOvZgXuyEmvOqz\\BDuyEDuyEAz\\BOmvOuDuyEWVZgW",
+     "n": 29,
+     "m": 203,
+     "lhs_pathA": "5",
+     "rhs_pathA": "8",
+     "lhs_pathB": "5",
+     "rhs_pathB": "8",
+     "slack_pathA": "-3",
+     "slack_pathB": "-3",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "disp_min": "1",
+      "dist_even_min": "15",
+      "gamma_2": "5"
+     }
+    },
+    {
+     "graph": "C5[K6]",
+     "graph6": "]~~~~~~~~~~~?~?~_^wF~?~{B~w?Fw?F{?B~??~w?F~_?^~~??~~??~~_?^~w?F~~??~~{?B~w",
+     "n": 30,
+     "m": 255,
+     "lhs_pathA": "4",
+     "rhs_pathA": "7",
+     "lhs_pathB": "4",
+     "rhs_pathB": "7",
+     "slack_pathA": "-3",
+     "slack_pathB": "-3",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "disp_min": "1",
+      "dist_even_min": "13",
+      "gamma_2": "4"
+     }
+    },
+    {
+     "graph": "comp(C5[K6])",
+     "graph6": "]???????????~?~?^_Fw?~?B{?F~wF~wB~{?~~?F~w?^~_??~~??~~??^~_?F~w??~~??B~{??",
+     "n": 30,
+     "m": 180,
+     "lhs_pathA": "5",
+     "rhs_pathA": "9",
+     "lhs_pathB": "5",
+     "rhs_pathB": "9",
+     "slack_pathA": "-4",
+     "slack_pathB": "-4",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "disp_min": "1",
+      "dist_even_min": "18",
+      "gamma_2": "5"
+     }
+    },
+    {
+     "graph": "T(9)",
+     "graph6": "c`MGclRKxoA^`onQ{ADIfBB@?kIX?Z@`kkOzGFN]fh?WkYwoBJEB_agX_DTXsU?A]IPpCaQppSI]wkECD?VgAMKRVF|AiWFoR?TqGSOwjk",
+     "n": 36,
+     "m": 252,
+     "lhs_pathA": "5",
+     "rhs_pathA": "11",
+     "lhs_pathB": "5",
+     "rhs_pathB": "11",
+     "slack_pathA": "-6",
+     "slack_pathB": "-6",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "disp_min": "1",
+      "dist_even_min": "22",
+      "gamma_2": "5"
+     }
+    },
+    {
+     "graph": "comp(T(9))",
+     "graph6": "c]pvZQkrEN|_]NOlB|ytW{{}~Rte~c}]RRnCvwo`WU~fRdFN{sx{^\\Ve^yieJh~|`tmMz\\lMMjt`FRxzy~gV|prkgwA|TfwNk~iLvjnFSR",
+     "n": 36,
+     "m": 378,
+     "lhs_pathA": "4",
+     "rhs_pathA": "8",
+     "lhs_pathB": "4",
+     "rhs_pathB": "8",
+     "slack_pathA": "-4",
+     "slack_pathB": "-4",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "disp_min": "1",
+      "dist_even_min": "15",
+      "gamma_2": "4"
+     }
+    }
+   ],
+   "seconds": 17.407,
+   "seconds_evaluation_only": 0.0146,
+   "seconds_with_database_gate_share": 112.507,
+   "budget_seconds": 3600.0,
+   "gate": {
+    "status": "PASS",
+    "counterexamples_in_D_pathA": 0,
+    "counterexamples_in_D_pathB": 0,
+    "equality_count_mine": 85,
+    "equality_count_recorded": 85,
+    "slack_histogram_matches_population": true,
+    "slack_histogram_diff": null,
+    "recorded_equality_witnesses_all_tight": true,
+    "two_paths_agree_on_D": true
+   },
+   "second_path_recomputation": "pass"
+  },
+  {
+   "id": "FP-015",
+   "statement": "For every connected graph G with n(G) >= 2:  gamma_i <= diam + mu - 1",
+   "relation": "gamma_i <= diam + mu - 1",
+   "invariants_used": [
+    "diam",
+    "gamma_i",
+    "mu"
+   ],
+   "verdict": "CROSSED",
+   "bracket_reason": null,
+   "catalogue_graphs_tested": 68,
+   "refuting_graphs": [
+    {
+     "graph": "doublestar(4,4)",
+     "graph6": "IsaAA@?O?",
+     "n": 10,
+     "m": 9,
+     "lhs_pathA": "5",
+     "rhs_pathA": "4",
+     "lhs_pathB": "5",
+     "rhs_pathB": "4",
+     "slack_pathA": "-1",
+     "slack_pathB": "-1",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "diam": "3",
+      "gamma_i": "5",
+      "mu": "2"
+     }
+    },
+    {
+     "graph": "doublestar(8,8)",
+     "graph6": "QsaCCA?_A?G?O?O?G?A??O?@???",
+     "n": 18,
+     "m": 17,
+     "lhs_pathA": "9",
+     "rhs_pathA": "4",
+     "lhs_pathB": "9",
+     "rhs_pathB": "4",
+     "slack_pathA": "-5",
+     "slack_pathB": "-5",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "diam": "3",
+      "gamma_i": "9",
+      "mu": "2"
+     }
+    },
+    {
+     "graph": "doublestar(12,12)",
+     "graph6": "YsaCCA?_C?O?_?_?G?A??O?@??A??A??@???O??A???G???O???O????",
+     "n": 26,
+     "m": 25,
+     "lhs_pathA": "13",
+     "rhs_pathA": "4",
+     "lhs_pathB": "13",
+     "rhs_pathB": "4",
+     "slack_pathA": "-9",
+     "slack_pathB": "-9",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "diam": "3",
+      "gamma_i": "13",
+      "mu": "2"
+     }
+    }
+   ],
+   "seconds": 16.293,
+   "seconds_evaluation_only": 0.015,
+   "seconds_with_database_gate_share": 111.394,
+   "budget_seconds": 3600.0,
+   "gate": {
+    "status": "PASS",
+    "counterexamples_in_D_pathA": 0,
+    "counterexamples_in_D_pathB": 0,
+    "equality_count_mine": 3,
+    "equality_count_recorded": 3,
+    "slack_histogram_matches_population": true,
+    "slack_histogram_diff": null,
+    "recorded_equality_witnesses_all_tight": true,
+    "two_paths_agree_on_D": true
+   },
+   "second_path_recomputation": "pass"
+  },
+  {
+   "id": "FP-016",
+   "statement": "For every connected graph G with n(G) >= 2:  gamma_i <= floor((alpha)/2) + gamma",
+   "relation": "gamma_i <= floor((alpha)/2) + gamma",
+   "invariants_used": [
+    "alpha",
+    "gamma",
+    "gamma_i"
+   ],
+   "verdict": "CROSSED",
+   "bracket_reason": null,
+   "catalogue_graphs_tested": 68,
+   "refuting_graphs": [
+    {
+     "graph": "comp(C5[K4])",
+     "graph6": "S????Bo{F_]?~o~o^wF}?B~?N{?^w?^w?",
+     "n": 20,
+     "m": 80,
+     "lhs_pathA": "8",
+     "rhs_pathA": "7",
+     "lhs_pathB": "8",
+     "rhs_pathB": "7",
+     "slack_pathA": "-1",
+     "slack_pathB": "-1",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "alpha": "8",
+      "gamma": "3",
+      "gamma_i": "8"
+     }
+    },
+    {
+     "graph": "comp(C7[K3])",
+     "graph6": "T??FFB_~Fw^_~w~w^{F~w~~B~{?~~?~~?^~_",
+     "n": 21,
+     "m": 126,
+     "lhs_pathA": "6",
+     "rhs_pathA": "5",
+     "lhs_pathB": "6",
+     "rhs_pathB": "5",
+     "slack_pathA": "-1",
+     "slack_pathB": "-1",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "alpha": "6",
+      "gamma": "2",
+      "gamma_i": "6"
+     }
+    },
+    {
+     "graph": "comp(C5[K5])",
+     "graph6": "X???????Fo^?}?}?^?F~_~{B~oF~_F~_?F~_@~w?N~??~{?@~w?",
+     "n": 25,
+     "m": 125,
+     "lhs_pathA": "10",
+     "rhs_pathA": "8",
+     "lhs_pathB": "10",
+     "rhs_pathB": "8",
+     "slack_pathA": "-2",
+     "slack_pathB": "-2",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "alpha": "10",
+      "gamma": "3",
+      "gamma_i": "10"
+     }
+    },
+    {
+     "graph": "comp(C9[K3])",
+     "graph6": "Z??FFB_~Fw^_~w~w^{F~w~~B~{F~~F~~B~~_~~~F~~w^~~_F~~wF~~wB~~{?",
+     "n": 27,
+     "m": 243,
+     "lhs_pathA": "6",
+     "rhs_pathA": "5",
+     "lhs_pathB": "6",
+     "rhs_pathB": "5",
+     "slack_pathA": "-1",
+     "slack_pathB": "-1",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "alpha": "6",
+      "gamma": "2",
+      "gamma_i": "6"
+     }
+    },
+    {
+     "graph": "comp(C5[K6])",
+     "graph6": "]???????????~?~?^_Fw?~?B{?F~wF~wB~{?~~?F~w?^~_??~~??~~??^~_?F~w??~~??B~{??",
+     "n": 30,
+     "m": 180,
+     "lhs_pathA": "12",
+     "rhs_pathA": "9",
+     "lhs_pathB": "12",
+     "rhs_pathB": "9",
+     "slack_pathA": "-3",
+     "slack_pathB": "-3",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "alpha": "12",
+      "gamma": "3",
+      "gamma_i": "12"
+     }
+    }
+   ],
+   "seconds": 16.492,
+   "seconds_evaluation_only": 0.0137,
+   "seconds_with_database_gate_share": 111.592,
+   "budget_seconds": 3600.0,
+   "gate": {
+    "status": "PASS",
+    "counterexamples_in_D_pathA": 0,
+    "counterexamples_in_D_pathB": 0,
+    "equality_count_mine": 290,
+    "equality_count_recorded": 290,
+    "slack_histogram_matches_population": true,
+    "slack_histogram_diff": null,
+    "recorded_equality_witnesses_all_tight": true,
+    "two_paths_agree_on_D": true
+   },
+   "second_path_recomputation": "pass"
+  },
+  {
+   "id": "FP-017",
+   "statement": "For every connected graph G with n(G) >= 2:  gamma_t >= floor((cutv + chi_tree)/2) + 1",
+   "relation": "gamma_t >= floor((cutv + chi_tree)/2) + 1",
+   "invariants_used": [
+    "chi_tree",
+    "cutv",
+    "gamma_t"
+   ],
+   "verdict": "HELD",
+   "bracket_reason": null,
+   "catalogue_graphs_tested": 68,
+   "refuting_graphs": [],
+   "seconds": 17.226,
+   "seconds_evaluation_only": 0.0137,
+   "seconds_with_database_gate_share": 112.326,
+   "budget_seconds": 3600.0,
+   "gate": {
+    "status": "PASS",
+    "counterexamples_in_D_pathA": 0,
+    "counterexamples_in_D_pathB": 0,
+    "equality_count_mine": 400,
+    "equality_count_recorded": 400,
+    "slack_histogram_matches_population": true,
+    "slack_histogram_diff": null,
+    "recorded_equality_witnesses_all_tight": true,
+    "two_paths_agree_on_D": true
+   },
+   "second_path_recomputation": "pass"
+  },
+  {
+   "id": "FP-018",
+   "statement": "For every connected graph G with n(G) >= 2:  gamma_t >= floor((gamma)/(disp_min))",
+   "relation": "gamma_t >= floor((gamma)/(disp_min))",
+   "invariants_used": [
+    "disp_min",
+    "gamma",
+    "gamma_t"
+   ],
+   "verdict": "HELD",
+   "bracket_reason": null,
+   "catalogue_graphs_tested": 68,
+   "refuting_graphs": [],
+   "seconds": 17.372,
+   "seconds_evaluation_only": 0.0126,
+   "seconds_with_database_gate_share": 112.472,
+   "budget_seconds": 3600.0,
+   "gate": {
+    "status": "PASS",
+    "counterexamples_in_D_pathA": 0,
+    "counterexamples_in_D_pathB": 0,
+    "equality_count_mine": 4972,
+    "equality_count_recorded": 4972,
+    "slack_histogram_matches_population": true,
+    "slack_histogram_diff": null,
+    "recorded_equality_witnesses_all_tight": true,
+    "two_paths_agree_on_D": true
+   },
+   "second_path_recomputation": "pass"
+  },
+  {
+   "id": "FP-019",
+   "statement": "For every connected graph G with n(G) >= 2:  kappa <= floor((t)/2) + floor(lambda_1)",
+   "relation": "kappa <= floor((t)/2) + floor(lambda_1)",
+   "invariants_used": [
+    "kappa",
+    "spec_floor",
+    "tri"
+   ],
+   "verdict": "HELD",
+   "bracket_reason": null,
+   "catalogue_graphs_tested": 68,
+   "refuting_graphs": [],
+   "seconds": 16.129,
+   "seconds_evaluation_only": 0.0147,
+   "seconds_with_database_gate_share": 111.23,
+   "budget_seconds": 3600.0,
+   "gate": {
+    "status": "PASS",
+    "counterexamples_in_D_pathA": 0,
+    "counterexamples_in_D_pathB": 0,
+    "equality_count_mine": 175,
+    "equality_count_recorded": 175,
+    "slack_histogram_matches_population": true,
+    "slack_histogram_diff": null,
+    "recorded_equality_witnesses_all_tight": true,
+    "two_paths_agree_on_D": true
+   },
+   "second_path_recomputation": "pass"
+  },
+  {
+   "id": "FP-020",
+   "statement": "For every connected graph G with n(G) >= 2:  kappa >= floor((disp_avg - ecc_avg)/2) + 1",
+   "relation": "kappa >= floor((disp_avg - ecc_avg)/2) + 1",
+   "invariants_used": [
+    "disp_avg",
+    "ecc_avg",
+    "kappa"
+   ],
+   "verdict": "HELD",
+   "bracket_reason": null,
+   "catalogue_graphs_tested": 68,
+   "refuting_graphs": [],
+   "seconds": 16.128,
+   "seconds_evaluation_only": 0.0131,
+   "seconds_with_database_gate_share": 111.228,
+   "budget_seconds": 3600.0,
+   "gate": {
+    "status": "PASS",
+    "counterexamples_in_D_pathA": 0,
+    "counterexamples_in_D_pathB": 0,
+    "equality_count_mine": 1284,
+    "equality_count_recorded": 1284,
+    "slack_histogram_matches_population": true,
+    "slack_histogram_diff": null,
+    "recorded_equality_witnesses_all_tight": true,
+    "two_paths_agree_on_D": true
+   },
+   "second_path_recomputation": "pass"
+  },
+  {
+   "id": "FP-021",
+   "statement": "For every connected graph G with n(G) >= 2:  kappa >= floor((lambda_avg - disp_max)/2) + 1",
+   "relation": "kappa >= floor((lambda_avg - disp_max)/2) + 1",
+   "invariants_used": [
+    "disp_max",
+    "kappa",
+    "lam_avg"
+   ],
+   "verdict": "HELD",
+   "bracket_reason": null,
+   "catalogue_graphs_tested": 68,
+   "refuting_graphs": [],
+   "seconds": 16.492,
+   "seconds_evaluation_only": 0.0132,
+   "seconds_with_database_gate_share": 111.592,
+   "budget_seconds": 3600.0,
+   "gate": {
+    "status": "PASS",
+    "counterexamples_in_D_pathA": 0,
+    "counterexamples_in_D_pathB": 0,
+    "equality_count_mine": 335,
+    "equality_count_recorded": 335,
+    "slack_histogram_matches_population": true,
+    "slack_histogram_diff": null,
+    "recorded_equality_witnesses_all_tight": true,
+    "two_paths_agree_on_D": true
+   },
+   "second_path_recomputation": "pass"
+  },
+  {
+   "id": "FP-022",
+   "statement": "For every connected graph G with n(G) >= 2:  lambda_max >= floor((dd - f_1)/2)",
+   "relation": "lambda_max >= floor((dd - f_1)/2)",
+   "invariants_used": [
+    "dd",
+    "f1",
+    "lam_max"
+   ],
+   "verdict": "HELD",
+   "bracket_reason": null,
+   "catalogue_graphs_tested": 68,
+   "refuting_graphs": [],
+   "seconds": 16.491,
+   "seconds_evaluation_only": 0.0124,
+   "seconds_with_database_gate_share": 111.592,
+   "budget_seconds": 3600.0,
+   "gate": {
+    "status": "PASS",
+    "counterexamples_in_D_pathA": 0,
+    "counterexamples_in_D_pathB": 0,
+    "equality_count_mine": 380,
+    "equality_count_recorded": 380,
+    "slack_histogram_matches_population": true,
+    "slack_histogram_diff": null,
+    "recorded_equality_witnesses_all_tight": true,
+    "two_paths_agree_on_D": true
+   },
+   "second_path_recomputation": "pass"
+  },
+  {
+   "id": "FP-023",
+   "statement": "For every connected graph G with n(G) >= 2:  lambda_max >= floor((gamma_2 - chi)/2) + 1",
+   "relation": "lambda_max >= floor((gamma_2 - chi)/2) + 1",
+   "invariants_used": [
+    "chi",
+    "gamma_2",
+    "lam_max"
+   ],
+   "verdict": "CROSSED",
+   "bracket_reason": null,
+   "catalogue_graphs_tested": 68,
+   "refuting_graphs": [
+    {
+     "graph": "MobiusKantor",
+     "graph6": "OhEGHC@AG?_PO@?Ga?K?P",
+     "n": 16,
+     "m": 24,
+     "lhs_pathA": "3",
+     "rhs_pathA": "4",
+     "lhs_pathB": "3",
+     "rhs_pathB": "4",
+     "slack_pathA": "-1",
+     "slack_pathB": "-1",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "chi": "2",
+      "gamma_2": "8",
+      "lam_max": "3"
+     }
+    }
+   ],
+   "seconds": 17.943,
+   "seconds_evaluation_only": 0.0134,
+   "seconds_with_database_gate_share": 113.043,
+   "budget_seconds": 3600.0,
+   "gate": {
+    "status": "PASS",
+    "counterexamples_in_D_pathA": 0,
+    "counterexamples_in_D_pathB": 0,
+    "equality_count_mine": 30,
+    "equality_count_recorded": 30,
+    "slack_histogram_matches_population": true,
+    "slack_histogram_diff": null,
+    "recorded_equality_witnesses_all_tight": true,
+    "two_paths_agree_on_D": true
+   },
+   "second_path_recomputation": "pass"
+  },
+  {
+   "id": "FP-024",
+   "statement": "For every connected graph G with n(G) >= 2:  mu <= ceil((n - chi_tree)/2)",
+   "relation": "mu <= ceil((n - chi_tree)/2)",
+   "invariants_used": [
+    "chi_tree",
+    "mu",
+    "n"
+   ],
+   "verdict": "HELD",
+   "bracket_reason": null,
+   "catalogue_graphs_tested": 68,
+   "refuting_graphs": [],
+   "seconds": 16.128,
+   "seconds_evaluation_only": 0.0132,
+   "seconds_with_database_gate_share": 111.228,
+   "budget_seconds": 3600.0,
+   "gate": {
+    "status": "PASS",
+    "counterexamples_in_D_pathA": 0,
+    "counterexamples_in_D_pathB": 0,
+    "equality_count_mine": 10407,
+    "equality_count_recorded": 10407,
+    "slack_histogram_matches_population": true,
+    "slack_histogram_diff": null,
+    "recorded_equality_witnesses_all_tight": true,
+    "two_paths_agree_on_D": true
+   },
+   "second_path_recomputation": "pass"
+  },
+  {
+   "id": "FP-025",
+   "statement": "For every connected graph G with n(G) >= 2:  mu >= floor((delta + lambda_min)/2)",
+   "relation": "mu >= floor((delta + lambda_min)/2)",
+   "invariants_used": [
+    "delta",
+    "lam_min",
+    "mu"
+   ],
+   "verdict": "HELD",
+   "bracket_reason": null,
+   "catalogue_graphs_tested": 68,
+   "refuting_graphs": [],
+   "seconds": 16.493,
+   "seconds_evaluation_only": 0.0136,
+   "seconds_with_database_gate_share": 111.593,
+   "budget_seconds": 3600.0,
+   "gate": {
+    "status": "PASS",
+    "counterexamples_in_D_pathA": 0,
+    "counterexamples_in_D_pathB": 0,
+    "equality_count_mine": 58,
+    "equality_count_recorded": 58,
+    "slack_histogram_matches_population": true,
+    "slack_histogram_diff": null,
+    "recorded_equality_witnesses_all_tight": true,
+    "two_paths_agree_on_D": true
+   },
+   "second_path_recomputation": "pass"
+  },
+  {
+   "id": "FP-026",
+   "statement": "For every connected graph G with n(G) >= 2:  rad >= floor((disp_max)/(floor(lambda_1)))",
+   "relation": "rad >= floor((disp_max)/(floor(lambda_1)))",
+   "invariants_used": [
+    "disp_max",
+    "rad",
+    "spec_floor"
+   ],
+   "verdict": "HELD",
+   "bracket_reason": null,
+   "catalogue_graphs_tested": 68,
+   "refuting_graphs": [],
+   "seconds": 16.128,
+   "seconds_evaluation_only": 0.0132,
+   "seconds_with_database_gate_share": 111.228,
+   "budget_seconds": 3600.0,
+   "gate": {
+    "status": "PASS",
+    "counterexamples_in_D_pathA": 0,
+    "counterexamples_in_D_pathB": 0,
+    "equality_count_mine": 747,
+    "equality_count_recorded": 747,
+    "slack_histogram_matches_population": true,
+    "slack_histogram_diff": null,
+    "recorded_equality_witnesses_all_tight": true,
+    "two_paths_agree_on_D": true
+   },
+   "second_path_recomputation": "pass"
+  },
+  {
+   "id": "FP-027",
+   "statement": "For every connected graph G with n(G) >= 2:  rad >= floor((ecc_avg)/2) + chi_bipartite",
+   "relation": "rad >= floor((ecc_avg)/2) + chi_bipartite",
+   "invariants_used": [
+    "chi_bip",
+    "ecc_avg",
+    "rad"
+   ],
+   "verdict": "HELD",
+   "bracket_reason": null,
+   "catalogue_graphs_tested": 68,
+   "refuting_graphs": [],
+   "seconds": 16.129,
+   "seconds_evaluation_only": 0.0139,
+   "seconds_with_database_gate_share": 111.229,
+   "budget_seconds": 3600.0,
+   "gate": {
+    "status": "PASS",
+    "counterexamples_in_D_pathA": 0,
+    "counterexamples_in_D_pathB": 0,
+    "equality_count_mine": 215,
+    "equality_count_recorded": 215,
+    "slack_histogram_matches_population": true,
+    "slack_histogram_diff": null,
+    "recorded_equality_witnesses_all_tight": true,
+    "two_paths_agree_on_D": true
+   },
+   "second_path_recomputation": "pass"
+  },
+  {
+   "id": "FP-028",
+   "statement": "For every connected graph G with n(G) >= 2:  res <= alpha + CW - 1",
+   "relation": "res <= alpha + CW - 1",
+   "invariants_used": [
+    "CW",
+    "alpha",
+    "res"
+   ],
+   "verdict": "HELD",
+   "bracket_reason": null,
+   "catalogue_graphs_tested": 68,
+   "refuting_graphs": [],
+   "seconds": 16.181,
+   "seconds_evaluation_only": 0.0137,
+   "seconds_with_database_gate_share": 111.281,
+   "budget_seconds": 3600.0,
+   "gate": {
+    "status": "PASS",
+    "counterexamples_in_D_pathA": 0,
+    "counterexamples_in_D_pathB": 0,
+    "equality_count_mine": 7,
+    "equality_count_recorded": 7,
+    "slack_histogram_matches_population": true,
+    "slack_histogram_diff": null,
+    "recorded_equality_witnesses_all_tight": true,
+    "two_paths_agree_on_D": true
+   },
+   "second_path_recomputation": "pass"
+  },
+  {
+   "id": "FP-029",
+   "statement": "For every connected graph G with n(G) >= 2:  res >= A - deg_avg",
+   "relation": "res >= A - deg_avg",
+   "invariants_used": [
+    "annih",
+    "deg_avg",
+    "res"
+   ],
+   "verdict": "CROSSED",
+   "bracket_reason": null,
+   "catalogue_graphs_tested": 68,
+   "refuting_graphs": [
+    {
+     "graph": "broom(6,4)",
+     "graph6": "IhCGGGC@?",
+     "n": 10,
+     "m": 9,
+     "lhs_pathA": "5",
+     "rhs_pathA": "26/5",
+     "lhs_pathB": "5",
+     "rhs_pathB": "26/5",
+     "slack_pathA": "-1/5",
+     "slack_pathB": "-1/5",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "annih": "7",
+      "deg_avg": "9/5",
+      "res": "5"
+     }
+    },
+    {
+     "graph": "MobiusKantor",
+     "graph6": "OhEGHC@AG?_PO@?Ga?K?P",
+     "n": 16,
+     "m": 24,
+     "lhs_pathA": "4",
+     "rhs_pathA": "5",
+     "lhs_pathB": "4",
+     "rhs_pathB": "5",
+     "slack_pathA": "-1",
+     "slack_pathB": "-1",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "annih": "8",
+      "deg_avg": "3",
+      "res": "4"
+     }
+    },
+    {
+     "graph": "C9[K3]",
+     "graph6": "Z~~ww{^?wF_^?F?F_Bw?F??{?Bw??w??{??^???w??F_??^w??Fw??F{??Bw",
+     "n": 27,
+     "m": 108,
+     "lhs_pathA": "3",
+     "rhs_pathA": "5",
+     "lhs_pathB": "3",
+     "rhs_pathB": "5",
+     "slack_pathA": "-2",
+     "slack_pathB": "-2",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "annih": "13",
+      "deg_avg": "8",
+      "res": "3"
+     }
+    },
+    {
+     "graph": "T(9)",
+     "graph6": "c`MGclRKxoA^`onQ{ADIfBB@?kIX?Z@`kkOzGFN]fh?WkYwoBJEB_agX_DTXsU?A]IPpCaQppSI]wkECD?VgAMKRVF|AiWFoR?TqGSOwjk",
+     "n": 36,
+     "m": 252,
+     "lhs_pathA": "3",
+     "rhs_pathA": "4",
+     "lhs_pathB": "3",
+     "rhs_pathB": "4",
+     "slack_pathA": "-1",
+     "slack_pathB": "-1",
+     "both_paths_agree": true,
+     "invariant_values": {
+      "annih": "18",
+      "deg_avg": "14",
+      "res": "3"
+     }
+    }
+   ],
+   "seconds": 16.131,
+   "seconds_evaluation_only": 0.0163,
+   "seconds_with_database_gate_share": 111.231,
+   "budget_seconds": 3600.0,
+   "gate": {
+    "status": "PASS",
+    "counterexamples_in_D_pathA": 0,
+    "counterexamples_in_D_pathB": 0,
+    "equality_count_mine": 32,
+    "equality_count_recorded": 32,
+    "slack_histogram_matches_population": true,
+    "slack_histogram_diff": null,
+    "recorded_equality_witnesses_all_tight": true,
+    "two_paths_agree_on_D": true
+   },
+   "second_path_recomputation": "pass"
+  },
+  {
+   "id": "FP-030",
+   "statement": "For every connected graph G with n(G) >= 2:  res >= floor((dd)/(gamma_t))",
+   "relation": "res >= floor((dd)/(gamma_t))",
+   "invariants_used": [
+    "dd",
+    "gamma_t",
+    "res"
+   ],
+   "verdict": "HELD",
+   "bracket_reason": null,
+   "catalogue_graphs_tested": 68,
+   "refuting_graphs": [],
+   "seconds": 17.226,
+   "seconds_evaluation_only": 0.0137,
+   "seconds_with_database_gate_share": 112.326,
+   "budget_seconds": 3600.0,
+   "gate": {
+    "status": "PASS",
+    "counterexamples_in_D_pathA": 0,
+    "counterexamples_in_D_pathB": 0,
+    "equality_count_mine": 2216,
+    "equality_count_recorded": 2216,
+    "slack_histogram_matches_population": true,
+    "slack_histogram_diff": null,
+    "recorded_equality_witnesses_all_tight": true,
+    "two_paths_agree_on_D": true
+   },
+   "second_path_recomputation": "pass"
+  }
+ ]
+}

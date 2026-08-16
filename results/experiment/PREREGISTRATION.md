@@ -132,3 +132,69 @@ Contributing factor already documented pre-freeze in `GENERATION.md`: the
 database edge is `n = 8`, well inside Graffiti.pc's, so these targets were
 expected to be easier to refute than the WOWII conjectures the method was
 developed on. Only the between-arm comparison was ever meaningful.
+
+## Integrity events (disclosed, no criterion changes)
+
+### E1 — process-table leak, downstream → upstream
+
+The generator agent, checking for dangling processes with `pgrep -af`, saw the
+command line of the **wall arm's** verifier: `<target-id>:<graph6>` pairs for
+**15 of the 30 targets**, on graphs well outside `D`. It saw target IDs paired
+with candidate witnesses; it did **not** see any outcome, did not open the
+verifier's inputs or outputs, and stopped investigating on recognising what the
+process was.
+
+It correctly did **nothing** to the population. Discarding those 15 targets
+would have (a) edited a population this document freezes, (b) on a guess about
+results it had not seen, and (c) removed precisely the targets an arm was
+working on — biasing the primary endpoint in the direction the experiment
+exists to test. `population.json` was generated, deduplicated, selected and
+verified *before* those process arguments existed, and `sha256sum` confirms it
+unchanged.
+
+**The structural gap is real and is not covered by this document.** The
+arm-isolation clause isolates *files*; it says nothing about *process tables*,
+which are world-readable on a shared box. Here the leak ran downstream→upstream
+into already-frozen output, which is harmless. It would not be harmless
+arm→arm.
+
+### E2 — arms ran concurrently; cross-arm leakage cannot be excluded
+
+By my design all three arms ran **concurrently on one machine**. Post-hoc
+checks of the arm transcripts:
+
+- **Wall arm**: zero reads of any other arm's files, zero process-listing calls.
+- **Catalogue arm**: its only `Read` of an `arm-*` file was of **its own**
+  `arm-catalogue.md`. Ran ~7 process-listing commands.
+- **Generic arm**: ran ~7 process-listing commands; one bash invocation matched
+  an `arm-*` filename pattern. **This check is incomplete** — the grep over the
+  transcript timed out and I did not establish whether that invocation touched
+  its own file or another's.
+
+So: no arm is shown to have read another's results file, but **I cannot exclude
+that the catalogue or generic arm saw wall-arm process arguments.**
+
+**Direction of the residual risk matters.** Any leak from the wall arm into
+catalogue/generic would let those arms find crossings they would not otherwise
+have found, which *raises* their counts and *lowers* wall-unique crossings —
+the primary endpoint. That biases **against** the hypothesis, not for it. A
+positive result would survive this contamination; a null or falsifying result
+is the one that would be suspect. Recorded now, before the wall arm has
+reported.
+
+### E3 — catalogue arm crashed after completing its scored run
+
+The catalogue arm completed all 30 targets (22 HELD, 8 CROSSED) and then
+stalled during a supplementary third-path witness check, killed by the
+watchdog. Its scored output is complete and is used as-is. Per the commitments
+above this is reported, not re-run: re-running is disallowed as score-fishing,
+and in any case the catalogue arm is deterministic lookup, so a re-run could
+only reproduce it.
+
+### Corrective for any future run
+
+Run arms in separate containers or namespaces, or sequentially after the
+previous session has exited — never concurrently on a shared box with readable
+process tables. This document's isolation clause should be amended to cover
+process visibility, not just file access. That amendment applies to the *next*
+experiment; changing it now would be a post-hoc protocol change.
