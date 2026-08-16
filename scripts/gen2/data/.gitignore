@@ -1,0 +1,7 @@
+# Regenerable invariant-matrix caches (~5 MB each).  Rebuild with
+#   python3 scripts/gen2/invmatrix.py A
+#   python3 scripts/gen2/invmatrix.py B
+# The database itself (connected_n2_n9.g6) and the R4 gate record
+# (crossval_ok.json) are durable and are NOT ignored: population.json records the
+# sha256 of the graph6 file, and generate2.py refuses to run without the gate.
+*.npz

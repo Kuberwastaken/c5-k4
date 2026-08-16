@@ -1,0 +1,558 @@
+{
+ "database": {
+  "size": 273192,
+  "definition": "every connected graph with 2 <= n <= 9, up to isomorphism",
+  "sha256_graph6_file": "b827d6a3e9dd0fdd01753a17c5c1090453b43a25c2f31b3c5f8f41f3dc136365"
+ },
+ "vocabulary_size": 51,
+ "total_mismatches": 0,
+ "per_invariant": {
+  "n": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "bit-mask decode of graph6",
+   "path_B": "networkx G.number_of_nodes"
+  },
+  "m": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "sum of pop-counts / 2",
+   "path_B": "networkx G.number_of_edges"
+  },
+  "Delta": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "sorted pop-count degree list",
+   "path_B": "max(dict(G.degree).values())"
+  },
+  "delta": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "sorted pop-count degree list",
+   "path_B": "min(dict(G.degree).values())"
+  },
+  "sigma2": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "sorted pop-count degree list",
+   "path_B": "sorted networkx degree list"
+  },
+  "Sigma2": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "sorted pop-count degree list",
+   "path_B": "sorted networkx degree list"
+  },
+  "dd": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "set of pop-count degrees",
+   "path_B": "set of networkx degrees"
+  },
+  "f1": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "count of pop-count degrees == 1",
+   "path_B": "count of networkx degrees == 1"
+  },
+  "res": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "Havel-Hakimi: pop the largest degree, decrement, re-sort the list",
+   "path_B": "Havel-Hakimi in counting-array form, no list is ever re-sorted"
+  },
+  "annih": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "early-exit prefix loop over the ascending degree sequence",
+   "path_B": "itertools.accumulate over the networkx degree sequence, counting prefixes with sum <= m"
+  },
+  "SW": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "repeated minimum-degree deletion on bit-masks",
+   "path_B": "max(networkx.core_number)"
+  },
+  "diam": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "own bit-mask BFS from every vertex",
+   "path_B": "networkx.eccentricity"
+  },
+  "rad": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "own bit-mask BFS from every vertex",
+   "path_B": "networkx.eccentricity"
+  },
+  "girth": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "own BFS cross-edge scan",
+   "path_B": "min over edges e of 1 + dist_{G-e}(u,v) (networkx)"
+  },
+  "dist_even_min": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "own bit-mask BFS",
+   "path_B": "networkx.all_pairs_shortest_path_length"
+  },
+  "dist_even_max": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "own bit-mask BFS",
+   "path_B": "networkx.all_pairs_shortest_path_length"
+  },
+  "Tdist_min": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "own bit-mask BFS",
+   "path_B": "networkx.all_pairs_shortest_path_length"
+  },
+  "Tdist_max": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "own bit-mask BFS",
+   "path_B": "networkx.all_pairs_shortest_path_length"
+  },
+  "kappa": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "exhaustive search for a smallest vertex cut over all 2^n subsets",
+   "path_B": "networkx.node_connectivity (max-flow)"
+  },
+  "cutv": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "delete v, own BFS connectivity test",
+   "path_B": "networkx.articulation_points"
+  },
+  "tri": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "pop-count of common neighbourhoods over edges",
+   "path_B": "networkx.triangles"
+  },
+  "disp_max": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "bit-mask neighbourhood degree sets",
+   "path_B": "networkx neighbour iteration"
+  },
+  "disp_min": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "bit-mask neighbourhood degree sets",
+   "path_B": "networkx neighbour iteration"
+  },
+  "spec_floor": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "Sylvester leading-minor definiteness of kI-A (Bareiss, integer)",
+   "path_B": "integer characteristic polynomial (Newton identities) + Taylor positivity"
+  },
+  "spec_ceil": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "as spec_floor, plus a positive-semidefiniteness test of floor(l1)I-A",
+   "path_B": "characteristic polynomial: l1 is an integer iff chi(fl)=0 and all higher derivatives at fl are positive"
+  },
+  "omega": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "exhaustive 2^n subset scan, descending size, early exit",
+   "path_B": "branch and bound on the complement"
+  },
+  "chi": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "DSATUR branch and bound",
+   "path_B": "independent-set cover DP over all 2^n subsets"
+  },
+  "mu": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "maximum-matching DP over all 2^n subsets",
+   "path_B": "networkx.max_weight_matching"
+  },
+  "lam_max": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "exhaustive independent sets inside each neighbourhood",
+   "path_B": "branch and bound inside each neighbourhood"
+  },
+  "lam_min": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "exhaustive independent sets inside each neighbourhood",
+   "path_B": "branch and bound inside each neighbourhood"
+  },
+  "gamma": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "exhaustive 2^n subset scan, ascending size, early exit",
+   "path_B": "packing-bounded branch and bound"
+  },
+  "gamma_t": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "exhaustive 2^n subset scan, ascending size, early exit",
+   "path_B": "packing-bounded branch and bound"
+  },
+  "gamma_2": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "exhaustive 2^n subset scan, ascending size, early exit",
+   "path_B": "packing-bounded branch and bound"
+  },
+  "gamma_i": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "exhaustive 2^n subset scan, ascending size, early exit",
+   "path_B": "packing-bounded branch and bound"
+  },
+  "alpha": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "exhaustive 2^n subset scan, descending size, early exit",
+   "path_B": "greedy-clique-cover-bounded branch and bound"
+  },
+  "f": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "exhaustive 2^n subset scan, descending size, early exit",
+   "path_B": "branch on a shortest cycle, bounded by a disjoint cycle packing"
+  },
+  "b": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "exhaustive 2^n subset scan, descending size, early exit",
+   "path_B": "branch on a shortest odd cycle, bounded by a disjoint odd-cycle packing"
+  },
+  "tree": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "exhaustive 2^n subset scan, descending size, early exit",
+   "path_B": "connected-expansion branch and bound with a reachability bound"
+  },
+  "path": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "exhaustive 2^n subset scan, descending size, early exit",
+   "path_B": "endpoint-growth branch and bound with a reachability bound"
+  },
+  "chi_bip": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "own 2-colouring BFS",
+   "path_B": "networkx.is_bipartite"
+  },
+  "chi_K3free": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "triangle count == 0 (bit-mask)",
+   "path_B": "networkx.triangles"
+  },
+  "chi_C4free": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "|N(u) & N(v)| >= 2 scan over pairs",
+   "path_B": "itertools over 4-subsets"
+  },
+  "chi_claw": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "bit-mask scan over neighbour triples",
+   "path_B": "itertools over 4-subsets"
+  },
+  "chi_reg": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "Delta == delta on pop-counts",
+   "path_B": "len(set(networkx degrees)) == 1"
+  },
+  "chi_tree": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "m == n-1 (bit-mask)",
+   "path_B": "networkx.is_tree"
+  },
+  "deg_avg": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "Fraction(2m, n) from pop-counts",
+   "path_B": "Fraction(sum of networkx degrees, n)"
+  },
+  "ecc_avg": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "own bit-mask BFS",
+   "path_B": "networkx.eccentricity"
+  },
+  "dist_avg": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "own bit-mask BFS",
+   "path_B": "networkx.all_pairs_shortest_path_length"
+  },
+  "CW": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "Fraction sum over pop-count degrees",
+   "path_B": "Fraction sum over networkx degrees"
+  },
+  "lam_avg": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "exhaustive independent sets inside each neighbourhood",
+   "path_B": "branch and bound inside each neighbourhood"
+  },
+  "disp_avg": {
+   "mismatches": 0,
+   "examples": [],
+   "path_A": "bit-mask neighbourhood degree sets",
+   "path_B": "networkx neighbour iteration"
+  }
+ },
+ "v1_generator_third_path_n_le_8": {
+  "n": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "m": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "Delta": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "delta": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "sigma2": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "Sigma2": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "dd": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "f1": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "res": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "annih": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "SW": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "diam": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "rad": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "girth": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "dist_even_min": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "dist_even_max": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "Tdist_min": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "Tdist_max": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "kappa": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "cutv": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "tri": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "disp_max": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "disp_min": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "spec_floor": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "spec_ceil": {
+   "disagreements": 19,
+   "examples_graph6_v2": [
+    "DQo",
+    "ECR_",
+    "FCQrO",
+    "FQhV?",
+    "G?`Drg"
+   ]
+  },
+  "omega": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "chi": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "mu": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "lam_max": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "lam_min": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "gamma": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "gamma_t": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "gamma_2": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "gamma_i": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "alpha": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "f": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "b": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "chi_bip": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "chi_K3free": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "chi_C4free": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "chi_claw": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "chi_reg": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "chi_tree": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "deg_avg": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "ecc_avg": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "dist_avg": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "CW": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "lam_avg": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  },
+  "disp_avg": {
+   "disagreements": 0,
+   "examples_graph6_v2": []
+  }
+ },
+ "v1_spec_ceil_rule_regression": {
+  "wrong_on": 96,
+  "of": 273192,
+  "by_order_n": {
+   "5": 1,
+   "6": 1,
+   "7": 2,
+   "8": 15,
+   "9": 77
+  },
+  "wrong_on_n_le_8": 19,
+  "v1_reported_wrong_on_n_le_8": 19,
+  "first_examples_graph6": [
+   "DQo",
+   "ECR_",
+   "FCQrO",
+   "FQhV?",
+   "G?`Drg",
+   "G?`ad?",
+   "G?`alo",
+   "G?`bco",
+   "G?otQg",
+   "GCQQV?",
+   "GCQQV_",
+   "GCQdbW",
+   "GCQrV?",
+   "GCdbEG",
+   "GCdbE_",
+   "GCdbEg",
+   "GCdbF?",
+   "GCdbFG",
+   "GCdbF_",
+   "H??CED{"
+  ],
+  "note": "reproduction of the v1 defect recorded in METHOD v1.7 R4; not part of the v2 vocabulary"
+ },
+ "passed": true
+}
