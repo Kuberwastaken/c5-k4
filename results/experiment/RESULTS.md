@@ -121,8 +121,9 @@ recorded pre-freeze.
 
 It does **not** license the claim that tightness navigation prospectively finds
 counterexamples generic search misses. On the only preregistered test ever run,
-the margin was one target out of thirty, and the control arm was budget-starved
-in a way that likely understates it.
+the margin was one target out of thirty — and that margin held up: the control
+arm went on to spend roughly 16 further hours and converted 14 brackets without
+finding a single additional crossing. So the margin is real, and it is one.
 
 It does **not** falsify the mechanism either. `n = 8` is a weak database edge,
 `f`/`b`/`tree` — the invariants that carried the original C₅[K_m] case study —
