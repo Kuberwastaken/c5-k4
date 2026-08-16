@@ -14,9 +14,9 @@ productive and **six PRs are now merged upstream**. The research claim the
 project is named for — that tightness structure *prospectively* designs
 counterexamples — was put to its first preregistered test and came back at
 **wall-unique = 1 of 30**, which is close to null. A v2 population that fixes
-v1's two blamable weaknesses is frozen and ready, but its arms have not run,
-and there is an unresolved question of whether running it is a fair narrower
-test or moving the goalposts. That question is the main open decision.
+v1's two blamable weaknesses is frozen and ready and **has been cleared to
+run** (reasoning below); its arms have not been started. Running them is the
+next action, not an open question.
 
 ## What is settled
 
@@ -26,8 +26,8 @@ test or moving the goalposts. That question is the main open decision.
 - The **discretization-cliff paper** is drafted at `paper/discretization-cliff/`
   — 14 pages, compiles, with `verify_paper_claims.py` re-deriving every numeric
   claim. It proves more than the original brief: `C_{2r+1}[K_m]` pins
-  path/tree/f/b at `2r` for **every** `m ≥ 1`, not just C₅. Both independent
-  reviews called this the one genuinely novel contribution. **It is not
+  path/tree/f/b at `2r` for **every** `m ≥ 1`, not just C₅. The independent
+  review called this the project's one genuinely novel contribution. **It is not
   submitted anywhere.**
 - **Method frozen at v1.7**, which contains only repairs the experiment forced.
   No v1.8 without new evidence.
@@ -54,7 +54,7 @@ trials (91%) — a good filter even if navigation has no discovery value — and
 has a real bug, that step-function residuals read `dR = 0` across adjacent
 members, which silently kills families that do cross.
 
-## The open decision
+## The v2 decision (resolved)
 
 **Should experiment v2 run?** `results/experiment-v2/` has a frozen population:
 `D₂` complete through **n = 9 (273,192 graphs**, versus v1's 12,112), all 30
