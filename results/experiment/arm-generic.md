@@ -2,7 +2,7 @@
 
 Arm 2 of the preregistered three-arm test ([`PREREGISTRATION.md`](PREREGISTRATION.md), tag `prereg-three-arm-v1`), run blind to the other two arms.
 
-**Written incrementally; last update 2026-08-16T14:29:15Z.**
+**Written incrementally; last update 2026-08-16T15:13:01Z.**
 
 ## Method
 
@@ -47,8 +47,7 @@ Witnesses are then reduced mechanically (greedy vertex deletion while connected 
 | verdict | targets |
 |---|---|
 | CROSSED | 14 |
-| HELD | 14 |
-| BRACKET | 2 |
+| HELD | 16 |
 | **total** | **30** |
 
 ## Per-target results
@@ -81,8 +80,8 @@ Witnesses are then reduced mechanically (greedy vertex deletion while connected 
 | FP-024 | `mu <= ceil((n - chi_tree)/2)` | **HELD** | — | — | — | — | — | 3600.22 | n/a (no candidate) | n/a (no candidate) | n/a (no candidate) |
 | FP-025 | `mu >= floor((delta + lambda_min)/2)` | **HELD** | — | — | — | — | — | 3600.26 | n/a (no candidate) | n/a (no candidate) | n/a (no candidate) |
 | FP-026 | `rad >= floor((disp_max)/(floor(lambda_1)))` | **HELD** | — | — | — | — | — | 3600.05 | n/a (no candidate) | n/a (no candidate) | n/a (no candidate) |
-| FP-027 | `rad >= floor((ecc_avg)/2) + chi_bipartite` | **BRACKET** | — | — | — | — | — | 900.01 | n/a (no candidate) | n/a (no candidate) | n/a (no candidate) |
-| FP-028 | `res <= alpha + CW - 1` | **BRACKET** | — | — | — | — | — | 900.0 | n/a (no candidate) | n/a (no candidate) | n/a (no candidate) |
+| FP-027 | `rad >= floor((ecc_avg)/2) + chi_bipartite` | **HELD** | — | — | — | — | — | 3600.01 | n/a (no candidate) | n/a (no candidate) | n/a (no candidate) |
+| FP-028 | `res <= alpha + CW - 1` | **HELD** | — | — | — | — | — | 3600.01 | n/a (no candidate) | n/a (no candidate) | n/a (no candidate) |
 | FP-029 | `res >= A - deg_avg` | **CROSSED** | `L?GOB@CcCC?OA?` | 13 | 5 | 67/13 | FAM | 0.0 | PASS | PASS | PASS |
 | FP-030 | `res >= floor((dd)/(gamma_t))` | **CROSSED** | `H~Fwtnv` | 9 | 2 | 3 | FAM | 0.08 | PASS | PASS | PASS |
 
@@ -274,7 +273,7 @@ Witnesses are then reduced mechanically (greedy vertex deletion while connected 
 | FP-024 | HELD | 0 | `HA?KJI?` | n=9 exhaustive extension of GA?KJG | 873290 | 40 | 560 | 3600.22 |
 | FP-025 | HELD | 0 | `HXU]~z{` | n=9 exhaustive extension of GXU]~w | 686826 | 40 | 420 | 3600.26 |
 | FP-026 | HELD | 0 | `HaOGnH?` | n=9 exhaustive extension of GaOGnG | 826737 | 40 | 500 | 3600.05 |
-| FP-027 | BRACKET | 0 | `L_HCO?PWSGo_G?` | anneal n=13 unit=60 | 3654858 | 40 | 2020 | 900.01 |
-| FP-028 | BRACKET | 1/153 | `Q~~~~~}~~~~~~~~~~~~~~~~~~~w` | beam extension of order 17 | 4382308 | 40 | 2360 | 900.0 |
+| FP-027 | HELD | 0 | `L?OEG?AI??AGDQ` | anneal n=13 unit=368 | 17558459 | 40 | 8697 | 3600.01 |
+| FP-028 | HELD | 29/1995 | `T}v~~~|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~` | beam extension of order 20 | 18271896 | 40 | 8137 | 3600.01 |
 
 Machine-readable copy: [`arm-generic.json`](arm-generic.json). Per-target raw run records: `arm-generic-runs/`.
