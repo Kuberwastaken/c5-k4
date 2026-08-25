@@ -1,0 +1,10 @@
+{
+ "raw_candidates": 108331,
+ "unique_connected_n8": 11117,
+ "generation_seconds": 17.8,
+ "violations": [],
+ "n_not_applicable_complete": 1,
+ "n_equalities_R0": 16,
+ "min_positive_slack": "1",
+ "gamma_t_ge4_and_M_le5_population": 0
+}
