@@ -14,3 +14,6 @@ graphify-out/cache/
 
 # 101MB provenance artifact for a run that selected 0/728 clusters (independent review 2026-08-15)
 results/benchmark/v1.4-f0a/registry/provenance-inventory.json
+
+# local experiment venv (regenerable)
+.venv/
