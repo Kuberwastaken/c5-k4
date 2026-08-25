@@ -1,0 +1,37 @@
+Carrier C5[K4] (Figure 1)
+  OK n=20 |E|=110 11-regular diam2 alpha=2 omega=8 dist_even=9 even_horizontal=28 min|N_comp(e)|=16 gamma_t=3; RHS(63)=RHS(85)=RHS(64)=5 > 4 = f = tree; RHS(309)=-3/2 < 3 = gamma_t
+
+C5[K_m] closed forms (Propositions 4.1-4.2, Theorems 5.1-5.4, Table 1)
+ m   n  deg  a   w  b  f tr pa lam  de   eh  nmodD  g  gt  gc  Ls  Nbe  R63  R85  R64    R309
+ 1   5    2  2   2  4  4  4  4   2   3    1      1  2   3   3   2    4    3    3    2       3
+ 2  10    5  2   4  4  4  4  4   2   5    6      0  2   3   3   7    8    4    4    2     7/2
+ 3  15    8  2   6  4  4  4  4   2   7   15      7  2   3   3  12   12    4    4    4       2
+ 4  20   11  2   8  4  4  4  4   2   9   28      9  2   3   3  17   16    5    5    5    -3/2
+ 5  25   14  2  10  4  4  4  4   2  11   45     11  2   3   3  22   20    6    5    5      -7
+ 6  30   17  2  12  4  4  4  4   2  13   66     13  2   3   3  27   24    6    6    6   -29/2
+  OK all C5[K_m] closed forms, thresholds and equality pattern verified for m = 1..6
+
+Corollary 3.3 (odd-cycle pinning)
+  C5[K_1]: n=  5 alpha=2  path=tree=f=b=4=2*alpha
+  C5[K_2]: n= 10 alpha=2  path=tree=f=b=4=2*alpha
+  C5[K_3]: n= 15 alpha=2  path=tree=f=b=4=2*alpha
+  C5[K_4]: n= 20 alpha=2  path=tree=f=b=4=2*alpha
+  C7[K_1]: n=  7 alpha=3  path=tree=f=b=6=2*alpha
+  C7[K_2]: n= 14 alpha=3  path=tree=f=b=6=2*alpha
+  C7[K_3]: n= 21 alpha=3  path=tree=f=b=6=2*alpha
+  C9[K_1]: n=  9 alpha=4  path=tree=f=b=8=2*alpha
+  C9[K_2]: n= 18 alpha=4  path=tree=f=b=8=2*alpha
+  OK odd-cycle pinning verified
+
+Table 3 (retro-kills on C5[K4])
+  #24: LHS = 4, RHS = 5  -> violated
+  #25: LHS = 4, RHS = 8  -> violated
+  #46: LHS = 4, RHS = 6  -> violated
+  #49: LHS = 4, RHS = 8  -> violated
+  #52: LHS = 4, RHS = 6  -> violated
+  #54: LHS = 4, RHS = 6  -> violated
+  #55: LHS = 4, RHS = 15  -> violated
+  #56: LHS = 4, RHS = 5  -> violated
+  OK all eight retro-kill right-hand sides reproduce
+
+ALL PAPER CLAIMS VERIFIED
