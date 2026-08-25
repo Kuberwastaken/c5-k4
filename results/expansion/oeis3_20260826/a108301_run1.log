@@ -1,0 +1,32 @@
+== paths agree + published head ==
+a(0)=3 paths_agree=True matches_pub=True
+a(1)=5 paths_agree=True matches_pub=True
+a(2)=8 paths_agree=True matches_pub=True
+a(3)=14 paths_agree=True matches_pub=True
+a(4)=26 paths_agree=True matches_pub=True
+a(5)=59 paths_agree=True matches_pub=True
+
+== six claimed prime values ==
+a(0) = 3 -> prime? True
+a(1) = 5 -> prime? True
+a(5) = 59 -> prime? True
+a(6) = 89 -> prime? True
+a(7) = 167 -> prime? True
+a(11) = 2741 -> prime? True
+ALL SIX CONJUNCTS VERIFY: True
+
+== composite context values ==
+a(2) = 8 prime? False
+a(3) = 14 prime? False
+a(4) = 26 prime? False
+a(8) = 377 prime? False
+a(9) = 734 prime? False
+
+== hunt beyond n=11 within cap ==
+Traceback (most recent call last):
+  File "/Users/kuber.mehta/Personal-Projects/c5-k4/results/expansion/oeis3_20260826/scripts/a108301_digitsums.py", line 55, in <module>
+    ds = digitsum_str(fermat(n))
+  File "/Users/kuber.mehta/Personal-Projects/c5-k4/results/expansion/oeis3_20260826/scripts/a108301_digitsums.py", line 11, in digitsum_str
+    return sum(map(int, str(x)))
+                        ~~~^^^
+ValueError: Exceeds the limit (20000000 digits) for integer string conversion; use sys.set_int_max_str_digits() to increase the limit

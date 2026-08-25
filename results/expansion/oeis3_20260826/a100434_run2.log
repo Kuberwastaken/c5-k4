@@ -1,0 +1,5 @@
+three-way c+d=e+f=g+a failures up to n=100: NONE
+signed form (c+d)=(-1)^(n+1)*b failures: NONE
+
+Lean conjecture1 counterexample at n=0: c0+d0 = 3 vs b0 = -3
+Lean conjecture3: proven a_even gives a(0) = 3 ; conj3 needs 0+a(0) = b(0) == -3

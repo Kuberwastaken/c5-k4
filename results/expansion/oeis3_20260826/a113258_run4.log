@@ -1,0 +1,6 @@
+n=5: digits=8 perfect_power=False  (0.0s)
+n=6: digits=37 perfect_power=False  (0.0s)
+n=7: digits=217 perfect_power=False  (0.0s)
+n=8: digits=1518 perfect_power=False  (0.0s)
+n=9: digits=12138 perfect_power=False  (0.0s)
+n=10: digits=109238 perfect_power=False  (0.1s)

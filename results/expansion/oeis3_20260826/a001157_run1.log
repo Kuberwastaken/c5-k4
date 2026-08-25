@@ -1,0 +1,15 @@
+== collision hunt: fixed k, all pairs n1<n2 <= N ==
+k=2: no collision among n<=N
+k=3: no collision among n<=N
+k=4: no collision among n<=N
+k=5: no collision among n<=N
+k=6: no collision among n<=N
+(0.1s)
+collisions found: NONE
+
+== spot values vs OEIS-style expectations ==
+n=1: frac(sigma_2(n)/n^2) = 0
+n=2: frac(sigma_2(n)/n^2) = 1/4
+n=3: frac(sigma_2(n)/n^2) = 1/9
+n=4: frac(sigma_2(n)/n^2) = 5/16
+n=6: frac(sigma_2(n)/n^2) = 7/18

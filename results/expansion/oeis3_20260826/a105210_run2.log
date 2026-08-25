@@ -1,0 +1,17 @@
+ran all five starts to >=2000000 (0.0s)
+start 1: 197 terms, last=2427598
+start 393: 184 terms, last=2254568
+start 412: 199 terms, last=2017111
+start 668: 224 terms, last=2022336
+start 932: 183 terms, last=2249408
+393 head: [393, 528, 545, 660, 682] expect [393,528,545,660,682]
+MERGE between 1 and 393: sample shared terms [None]
+MERGE between 1 and 412: sample shared terms [None]
+MERGE between 1 and 668: sample shared terms [None]
+MERGE between 1 and 932: sample shared terms [None]
+MERGE between 393 and 412: sample shared terms [None]
+MERGE between 393 and 668: sample shared terms [None]
+MERGE between 393 and 932: sample shared terms [None]
+MERGE between 412 and 668: sample shared terms [None]
+MERGE between 412 and 932: sample shared terms [None]
+MERGE between 668 and 932: sample shared terms [None]

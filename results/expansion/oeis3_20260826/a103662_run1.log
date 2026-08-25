@@ -1,0 +1,15 @@
+== head terms vs published ==
+n=0: least base=2 -> a=1 published=1 OK
+n=1: least base=2 -> a=2 published=2 OK
+n=2: least base=2 -> a=4 published=4 OK
+n=3: least base=2 -> a=8 published=8 OK
+n=4: least base=2 -> a=16 published=16 OK
+n=5: least base=2 -> a=32 published=32 OK
+n=6: least base=2 -> a=64 published=64 OK
+n=7: least base=2 -> a=128 published=128 OK
+
+== n=40 hunt (Lean conjecture.variants.a_40: no valid base) ==
+bases scanned to 20000 (0.0s): first zeroless 40th power base: None
+
+== which small n have bases at all ==
+n with zeroless power (base<=600): [(1, 2), (2, 2), (3, 2), (4, 2), (5, 2), (6, 2), (7, 2), (8, 2), (9, 2), (10, 5), (11, 3), (12, 3), (13, 2), (14, 2), (15, 2), (16, 2), (17, 4), (18, 2), (19, 2), (20, 12)]

@@ -1,0 +1,204 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+  
+  <head>
+  <link rel="stylesheet" href="/styles.css">
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name=viewport content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="OEIS,integer sequences,Sloane" />
+  
+  
+  
+  <title>A113010 - OEIS</title>
+  <link rel="search" type="application/opensearchdescription+xml" title="OEIS" href="/oeis.xml">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" sizes="16x16 32x32 48x48" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <script>
+  var myURL = "\/A113010\/internal"
+  function redir() {
+      var host = document.location.hostname;
+      if(host != "oeis.org" && host != "127.0.0.1" && !/^([0-9.]+)$/.test(host) && host != "localhost" && host != "localhost.localdomain") {
+          document.location = "https"+":"+"//"+"oeis"+".org/" + myURL;
+      }
+  }
+  function sf() {
+      if(document.location.pathname == "/" && document.f) document.f.q.focus();
+  }
+  </script>
+  </head>
+  <body bgcolor=#ffffff onload="redir();sf()">
+    <div class=loginbar>
+      <div class=login>
+      
+        <a href="/login?redirect=%2FA113010%2Finternal" rel="nofollow">login</a>
+      
+      </div>
+    </div>
+
+    <div class=center><div class=top>
+    <center>
+    <div class=donors>
+    The OEIS is supported by <a href="http://oeisf.org/#DONATE">the many generous donors to the OEIS Foundation</a>.
+    </div>
+
+    <div class=banner>
+    <a href="/"><picture>
+    <source media="(min-width: 830px)" srcset="/oeis-banner-wide.svg" width="918" height="129">
+    <img class=banner border="0" width="540" height="129" src="/oeis-banner.svg" alt="A113010 - OEIS">
+    </picture></a>
+    </div>
+
+    
+    </center>
+    </div></div>
+
+    <div class=center><div class=pagebody>
+      
+    
+    <div class=searchbarcenter>
+        <form name=f action="/search" method="GET">
+            <div class=searchbargreet>
+                <div class=searchbar>
+                    <div class=searchq>
+                        <input class=searchbox maxLength=1024 name=q value="" title="Search Query">
+                        
+                        
+                        
+                        
+                    </div>
+                    <div class=searchsubmit>
+                        <input type=submit value="Search" name=go>
+                    </div>
+                    <div class=hints>
+                        <span class=hints><a href="/hints.html">Hints</a></span>
+                    </div>
+                </div>
+                <div class=searchgreet>
+                    (Greetings from <a href="/welcome">The On-Line Encyclopedia of Integer Sequences</a>!)
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class=sequence>
+        <div class=space1></div>
+        <div class=line></div>
+        
+        <div class=seqhead>
+            <div class=seqnumname>
+                <div class=seqnum>
+                    
+                        <a href="/A113010">A113010</a>
+                    
+                </div>
+                <div class=seqname>
+                    {Number of digits of n} raised to the power of {the sum of the digits of n}.
+                    
+                </div>
+            </div>
+            <div class=scorerefs>
+                        
+                        1
+            </div>
+        </div>
+        
+            <div>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%I #8 Feb 28 2019 22:16:41
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%S 1,1,1,1,1,1,1,1,1,1,2,4,8,16,32,64,128,256,512,1024,4,8,16,32,64,128,
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%T 256,512,1024,2048,8,16,32,64,128,256,512,1024,2048,4096,16,32,64,128,
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%U 256,512,1024,2048,4096,8192,32,64,128,256,512,1024,2048,4096,8192
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%N {Number of digits of n} raised to the power of {the sum of the digits of n}.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C n=1 and 32 are two fixed points. Are there any others?
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C There are no other fixed points less than 10^1000. - _Chai Wah Wu_, Feb 28 2019
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F a(ijk...) [m digits ijk...] = m^(i&#43;j&#43;k&#43;...)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o (Python)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o def A113010(n):
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o     return len(str(n))**sum(int(d) for d in str(n)) # _Chai Wah Wu_, Feb 28 2019
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%Y Cf. A101337.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%K base,easy,nonn
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%O 0,11
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%A _Alexandre Wajnberg_, Jan 03 2006
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt></tt></p>
+            
+            </div>
+        
+        <div class=space10></div>
+    </div>
+
+    </div></div>
+
+    <p>
+
+    <div class=footerpad></div>
+    <div class=footer>
+    <center>
+    <div class=bottom>
+    <div class=linksbar>
+      <a href="/">Lookup</a>
+      <a href="/wiki/Welcome"><font color="red">Welcome</font></a>
+      <a href="/wiki/Main_Page"><font color="red">Wiki</font></a>
+      <a href="/account">Register</a>
+      
+      <a href="/play.html">Music</a>
+      <a href="/plot2.html">Plot 2</a>
+      <a href="/demo1.html">Demos</a>
+      <a href="/wiki/Index_to_OEIS">Index</a>
+      <a href="/webcam">WebCam</a>
+      <a href="/Submit.html">Contribute</a>
+      <a href="/eishelp2.html">Format</a>
+      <a href="/wiki/Style_Sheet">Style Sheet</a>
+      <a href="/transforms.html">Transforms</a>
+      <a href="/ol.html">Superseeker</a>
+      <a href="/recent">Recents</a>
+    </div>
+    <div class=linksbar>
+      <a href="/community.html">The OEIS Community</a>
+    </div>
+    <div class=linksbar>
+      Maintained by <a href="http://oeisf.org">The OEIS Foundation Inc.</a>
+    </div>
+
+    <div class=dbinfo>Last modified August 25 18:28 EDT 2026.  Contains 398683 sequences.</div>
+    <div class=legal>
+    <a href="/wiki/Legal_Documents">License Agreements, Terms of Use, Privacy Policy</a>
+    </div>
+
+    </div>
+    </center>
+    </div>
+  <script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a30e13866b8e8a7c',t:'MTc4NzY5NzM5Mw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

@@ -1,0 +1,3 @@
+Euclid-Mullin first 12: [2, 3, 7, 43, 13, 53, 5, 6221671, 38709183810571, 139, 2801, 11]
+matches published: True (0.0s)
+Lean a_1..a_7 tests: [2, 3, 7, 43, 13, 53, 5] match: True

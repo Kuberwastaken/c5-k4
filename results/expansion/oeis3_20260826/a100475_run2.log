@@ -1,0 +1,9 @@
+primes tabulated: 335439
+Traceback (most recent call last):
+  File "/Users/kuber.mehta/Personal-Projects/c5-k4/results/expansion/oeis3_20260826/scripts/a100475_loops.py", line 27, in <module>
+    seq.append(nxt(seq[-1]))
+               ~~~^^^^^^^^^
+  File "/Users/kuber.mehta/Personal-Projects/c5-k4/results/expansion/oeis3_20260826/scripts/a100475_loops.py", line 23, in nxt
+    return 0 if k == 0 else rev(primes[k - 1])
+                                ~~~~~~^^^^^^^
+IndexError: list index out of range

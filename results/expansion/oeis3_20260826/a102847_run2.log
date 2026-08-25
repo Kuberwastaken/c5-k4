@@ -1,0 +1,12 @@
+a(11): 536 digits prime=False (0.0s)
+a(12): 1071 digits prime=False (0.0s)
+a(13): 2141 digits prime=False (0.0s)
+a(14): 4281 digits prime=False (3.8s)
+Traceback (most recent call last):
+  File "<stdin>", line 9, in <module>
+ValueError: Exceeds the limit (4300 digits) for integer string conversion; use sys.set_int_max_str_digits() to increase the limit
+a(15): 8561 digits prime=False (0.0s)
+a(16): 17121 digits prime=False (0.0s)
+a(17): 34242 digits prime=False (0.0s)
+a(18): 68483 digits prime=False (0.0s)
+a(19): 136966 digits prime=False (0.0s)

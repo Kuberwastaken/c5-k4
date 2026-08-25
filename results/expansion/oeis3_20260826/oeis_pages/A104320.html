@@ -1,0 +1,219 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+  
+  <head>
+  <link rel="stylesheet" href="/styles.css">
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name=viewport content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="OEIS,integer sequences,Sloane" />
+  
+  
+  
+  <title>A104320 - OEIS</title>
+  <link rel="search" type="application/opensearchdescription+xml" title="OEIS" href="/oeis.xml">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" sizes="16x16 32x32 48x48" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <script>
+  var myURL = "\/A104320\/internal"
+  function redir() {
+      var host = document.location.hostname;
+      if(host != "oeis.org" && host != "127.0.0.1" && !/^([0-9.]+)$/.test(host) && host != "localhost" && host != "localhost.localdomain") {
+          document.location = "https"+":"+"//"+"oeis"+".org/" + myURL;
+      }
+  }
+  function sf() {
+      if(document.location.pathname == "/" && document.f) document.f.q.focus();
+  }
+  </script>
+  </head>
+  <body bgcolor=#ffffff onload="redir();sf()">
+    <div class=loginbar>
+      <div class=login>
+      
+        <a href="/login?redirect=%2FA104320%2Finternal" rel="nofollow">login</a>
+      
+      </div>
+    </div>
+
+    <div class=center><div class=top>
+    <center>
+    <div class=donors>
+    The OEIS is supported by <a href="http://oeisf.org/#DONATE">the many generous donors to the OEIS Foundation</a>.
+    </div>
+
+    <div class=banner>
+    <a href="/"><picture>
+    <source media="(min-width: 830px)" srcset="/oeis-banner-wide.svg" width="918" height="129">
+    <img class=banner border="0" width="540" height="129" src="/oeis-banner.svg" alt="A104320 - OEIS">
+    </picture></a>
+    </div>
+
+    
+    </center>
+    </div></div>
+
+    <div class=center><div class=pagebody>
+      
+    
+    <div class=searchbarcenter>
+        <form name=f action="/search" method="GET">
+            <div class=searchbargreet>
+                <div class=searchbar>
+                    <div class=searchq>
+                        <input class=searchbox maxLength=1024 name=q value="" title="Search Query">
+                        
+                        
+                        
+                        
+                    </div>
+                    <div class=searchsubmit>
+                        <input type=submit value="Search" name=go>
+                    </div>
+                    <div class=hints>
+                        <span class=hints><a href="/hints.html">Hints</a></span>
+                    </div>
+                </div>
+                <div class=searchgreet>
+                    (Greetings from <a href="/welcome">The On-Line Encyclopedia of Integer Sequences</a>!)
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class=sequence>
+        <div class=space1></div>
+        <div class=line></div>
+        
+        <div class=seqhead>
+            <div class=seqnumname>
+                <div class=seqnum>
+                    
+                        <a href="/A104320">A104320</a>
+                    
+                </div>
+                <div class=seqname>
+                    Number of zeros in ternary representation of 2^n.
+                    
+                </div>
+            </div>
+            <div class=scorerefs>
+                        
+                        9
+            </div>
+        </div>
+        
+            <div>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%I #29 May 10 2024 08:52:15
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%S 0,0,0,0,0,1,1,1,2,2,1,1,1,4,1,0,4,2,3,3,3,3,3,7,7,9,5,6,6,4,4,3,5,6,
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%T 7,9,9,10,6,6,9,9,8,9,8,7,13,12,13,9,5,9,8,6,16,13,9,10,11,11,7,14,13,
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%U 13,9,12,14,15,15,11,11,17,15,19,14,19,12,18,15,11,10,16,15,14,14,13,17,14
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%N Number of zeros in ternary representation of 2^n.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C Conjecture from _N. J. A. Sloane_: a(n) &gt; 0 for n &gt; 15, see A102483.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Robert Israel, &lt;a href=&#34;/A104320/b104320.txt&#34;&gt;Table of n, a(n) for n = 0..10000&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F a(n) = A077267(A000079(n)).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F a(A104321(n))=n and a(m)&lt;&gt;n for m &lt; A104321(n).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%e n=13: 2^13=8192 -&gt; &#39;102020102&#39;, a(13) = 4.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%p f:= n -&gt; numboccur(0, convert(2^n,base,3)):
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%p map(f, [$0..100]); # _Robert Israel_, Nov 17 2019
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%t Table[DigitCount[2^n,3,0],{n,0,90}] (* _Harvey P. Dale_, May 06 2014 *)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o (PARI) a(n) = my(d=vecsort(digits(2^n, 3))); #setintersect(d, vector(#d)) \\ _Felix Fröhlich_, Nov 17 2019
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o (PARI) a(n) = #select(d-&gt;!d, digits(2^n, 3)); \\ _Ruud H.G. van Tol_, May 09 2024
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o (Magma)  [Multiplicity(Intseq(2^n,3),0):n in [0..90]]; // _Marius A. Burtea_, Nov 17 2019
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%Y Cf. A004642, A007089.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%K nonn,base
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%O 0,9
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%A _Reinhard Zumkeller_, Mar 01 2005
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt></tt></p>
+            
+            </div>
+        
+        <div class=space10></div>
+    </div>
+
+    </div></div>
+
+    <p>
+
+    <div class=footerpad></div>
+    <div class=footer>
+    <center>
+    <div class=bottom>
+    <div class=linksbar>
+      <a href="/">Lookup</a>
+      <a href="/wiki/Welcome"><font color="red">Welcome</font></a>
+      <a href="/wiki/Main_Page"><font color="red">Wiki</font></a>
+      <a href="/account">Register</a>
+      
+      <a href="/play.html">Music</a>
+      <a href="/plot2.html">Plot 2</a>
+      <a href="/demo1.html">Demos</a>
+      <a href="/wiki/Index_to_OEIS">Index</a>
+      <a href="/webcam">WebCam</a>
+      <a href="/Submit.html">Contribute</a>
+      <a href="/eishelp2.html">Format</a>
+      <a href="/wiki/Style_Sheet">Style Sheet</a>
+      <a href="/transforms.html">Transforms</a>
+      <a href="/ol.html">Superseeker</a>
+      <a href="/recent">Recents</a>
+    </div>
+    <div class=linksbar>
+      <a href="/community.html">The OEIS Community</a>
+    </div>
+    <div class=linksbar>
+      Maintained by <a href="http://oeisf.org">The OEIS Foundation Inc.</a>
+    </div>
+
+    <div class=dbinfo>Last modified August 25 18:28 EDT 2026.  Contains 398683 sequences.</div>
+    <div class=legal>
+    <a href="/wiki/Legal_Documents">License Agreements, Terms of Use, Privacy Policy</a>
+    </div>
+
+    </div>
+    </center>
+    </div>
+  <script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a30e13b67e368a7c',t:'MTc4NzY5NzQwMQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

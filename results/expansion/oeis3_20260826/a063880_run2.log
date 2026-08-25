@@ -1,0 +1,5 @@
+A-terms <= 100000: 281 (0.3s)
+decomposition-shape failures: NONE
+powerful-kernel-not-term failures: NONE
+closure A(m)=>A(m*q) for coprime prime q holds in spot checks: True
+primitive terms found: [108]

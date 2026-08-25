@@ -1,0 +1,9 @@
+lcm-recurrence == polynomial recurrence for n=1..16: True
+n=16: 6079 digits - beyond BPSW cap
+prime terms within cap: [1, 2, 3, 4, 5]
+  a(1) prime (1 digits)
+  a(2) prime (1 digits)
+  a(3) prime (1 digits)
+  a(4) prime (2 digits)
+  a(5) prime (3 digits)
+(1.6s)

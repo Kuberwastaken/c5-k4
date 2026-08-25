@@ -1,0 +1,8 @@
+== head vs Lean tests ==
+a(1)=2 expect 2 OK
+a(2)=4 expect 4 OK
+a(3)=6 expect 6 OK
+a(4)=8 expect 8 OK
+a(5)=10 expect 10 OK
+scanned n<= 5000 (1.5s)
+no-hit within 200000 iterations: NONE

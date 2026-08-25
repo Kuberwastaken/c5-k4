@@ -1,0 +1,249 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+  
+  <head>
+  <link rel="stylesheet" href="/styles.css">
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name=viewport content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="OEIS,integer sequences,Sloane" />
+  
+  
+  
+  <title>A100434 - OEIS</title>
+  <link rel="search" type="application/opensearchdescription+xml" title="OEIS" href="/oeis.xml">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" sizes="16x16 32x32 48x48" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <script>
+  var myURL = "\/A100434\/internal"
+  function redir() {
+      var host = document.location.hostname;
+      if(host != "oeis.org" && host != "127.0.0.1" && !/^([0-9.]+)$/.test(host) && host != "localhost" && host != "localhost.localdomain") {
+          document.location = "https"+":"+"//"+"oeis"+".org/" + myURL;
+      }
+  }
+  function sf() {
+      if(document.location.pathname == "/" && document.f) document.f.q.focus();
+  }
+  </script>
+  </head>
+  <body bgcolor=#ffffff onload="redir();sf()">
+    <div class=loginbar>
+      <div class=login>
+      
+        <a href="/login?redirect=%2FA100434%2Finternal" rel="nofollow">login</a>
+      
+      </div>
+    </div>
+
+    <div class=center><div class=top>
+    <center>
+    <div class=donors>
+    The OEIS is supported by <a href="http://oeisf.org/#DONATE">the many generous donors to the OEIS Foundation</a>.
+    </div>
+
+    <div class=banner>
+    <a href="/"><picture>
+    <source media="(min-width: 830px)" srcset="/oeis-banner-wide.svg" width="918" height="129">
+    <img class=banner border="0" width="540" height="129" src="/oeis-banner.svg" alt="A100434 - OEIS">
+    </picture></a>
+    </div>
+
+    
+    </center>
+    </div></div>
+
+    <div class=center><div class=pagebody>
+      
+    
+    <div class=searchbarcenter>
+        <form name=f action="/search" method="GET">
+            <div class=searchbargreet>
+                <div class=searchbar>
+                    <div class=searchq>
+                        <input class=searchbox maxLength=1024 name=q value="" title="Search Query">
+                        
+                        
+                        
+                        
+                    </div>
+                    <div class=searchsubmit>
+                        <input type=submit value="Search" name=go>
+                    </div>
+                    <div class=hints>
+                        <span class=hints><a href="/hints.html">Hints</a></span>
+                    </div>
+                </div>
+                <div class=searchgreet>
+                    (Greetings from <a href="/welcome">The On-Line Encyclopedia of Integer Sequences</a>!)
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class=sequence>
+        <div class=space1></div>
+        <div class=line></div>
+        
+        <div class=seqhead>
+            <div class=seqnumname>
+                <div class=seqnum>
+                    
+                        <a href="/A100434">A100434</a>
+                    
+                </div>
+                <div class=seqname>
+                    Expansion of g.f. (1+x)*(3+x)/(1+6*x^2+x^4).
+                    
+                </div>
+            </div>
+            <div class=scorerefs>
+                        
+                        1
+            </div>
+        </div>
+        
+            <div>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%I #27 Apr 09 2023 11:50:02
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%S 3,4,-17,-24,99,140,-577,-816,3363,4756,-19601,-27720,114243,161564,
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%T -665857,-941664,3880899,5488420,-22619537,-31988856,131836323,
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%U 186444716,-768398401,-1086679440,4478554083,6333631924,-26102926097,-36915112104,152139002499,215157040700
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%N Expansion of g.f. (1&#43;x)*(3&#43;x)/(1&#43;6*x^2&#43;x^4).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C From _Creighton Dement_, Dec 18 2004: (Start)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C Define the following sequences:
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C b(2n) = c(2n&#43;1), b(2n&#43;1) = c(2n); (c(n)) = (1, -3, -7, 17, 41, -99, -239, 577, 1393, -3363, -8119, 19601, 47321). This is the sequence A001333, apart from signs. Then c(2n) = ((-1)^n)*A002315(n) and c(2n&#43;1) = ((-1)^(n&#43;1))*A001541(n&#43;1).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C (d(n)) = (2, 4, -10, -24, 58, 140, -338, -816, 1970, 4756, -11482, -27720). This is A052542, apart from signs. Also, d(2n) = ((-1)^n)*A075870(n), d(2n&#43;1) = ((-1)^n)*A005319(n&#43;1).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C (e(n)) = (1, -1, -5, 5, 29, -29, -169, 169, 985, -985, -5741, 5741, 33461, -33461), e(2n) = d(2n)/2, e(2n&#43;1) = - d(2n)/2.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C (f(n)) = (2, 2, -12, -12, 70, 70, -408, -408, 2378, 2378, -13860, -13860, ) f(2n) = f(2n&#43;1) = d(2n&#43;1)/2.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C (g(n)) = (0, -3, 0, 17, 0, -99, 0, 577, 0, -3363, 0, 19601, 0, -114243, 0, 665857), g(2n) = 0, g(2n&#43;1) = c(2n&#43;1).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C Then a(2n) = - c(2n&#43;1), a(2n&#43;1) = d(2n&#43;1) and we have the following conjectures: c(n) &#43; d(n) = e(n) &#43; f(n) = g(n) &#43; a(n); c(n) &#43; d(n) = b(n). In other words, the sequences (c(n) &#43; d(n)) = (e(n) &#43; f(n)) = (g(n) &#43; h(n)) all represent the sequence c with even- and odd-indexed terms reversed. (End)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H G. C. Greubel, &lt;a href=&#34;/A100434/b100434.txt&#34;&gt;Table of n, a(n) for n = 0..1000&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H &lt;a href=&#34;/index/Rec#order_04&#34;&gt;Index entries for linear recurrences with constant coefficients&lt;/a&gt;, signature (0,-6,0,-1).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F a(n) = (-1)^floor(n/2)*A000034(n)*A126354(n&#43;3). - _R. J. Mathar_, Mar 08 2009
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F a(n) = -2*a(n-1) - 3*a(n-2) if n is even; a(n) = (4*a(n-1) - a(n-2))/3 if n is odd. - _R. J. Mathar_, Jun 18 2014
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%t LinearRecurrence[{0,-6,0,-1}, {3,4,-17,-24}, 41] (* _G. C. Greubel_, Apr 09 2023 *)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o (Magma) I:=[3,4,-17,-24]; [n le 4 select I[n] else -6*Self(n-2)-Self(n-4): n in [1..40]]; // _G. C. Greubel_, Apr 09 2023
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o (SageMath)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o @CachedFunction
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o def a(n): # a = A100434
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o     if (n&lt;4): return (3,4,-17,-24)[n]
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o     else: return -6*a(n-2) - a(n-4)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o [a(n) for n in range(41)] # _G. C. Greubel_, Apr 09 2023
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%Y Bisections give A001541, A005319.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%Y Cf. A000034, A001333, A002315, A052542, A075870, A126354.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%K sign,easy
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%O 0,1
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%A _N. J. A. Sloane_, Nov 21 2004, suggested by correspondence from _Creighton Dement_
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt></tt></p>
+            
+            </div>
+        
+        <div class=space10></div>
+    </div>
+
+    </div></div>
+
+    <p>
+
+    <div class=footerpad></div>
+    <div class=footer>
+    <center>
+    <div class=bottom>
+    <div class=linksbar>
+      <a href="/">Lookup</a>
+      <a href="/wiki/Welcome"><font color="red">Welcome</font></a>
+      <a href="/wiki/Main_Page"><font color="red">Wiki</font></a>
+      <a href="/account">Register</a>
+      
+      <a href="/play.html">Music</a>
+      <a href="/plot2.html">Plot 2</a>
+      <a href="/demo1.html">Demos</a>
+      <a href="/wiki/Index_to_OEIS">Index</a>
+      <a href="/webcam">WebCam</a>
+      <a href="/Submit.html">Contribute</a>
+      <a href="/eishelp2.html">Format</a>
+      <a href="/wiki/Style_Sheet">Style Sheet</a>
+      <a href="/transforms.html">Transforms</a>
+      <a href="/ol.html">Superseeker</a>
+      <a href="/recent">Recents</a>
+    </div>
+    <div class=linksbar>
+      <a href="/community.html">The OEIS Community</a>
+    </div>
+    <div class=linksbar>
+      Maintained by <a href="http://oeisf.org">The OEIS Foundation Inc.</a>
+    </div>
+
+    <div class=dbinfo>Last modified August 25 18:28 EDT 2026.  Contains 398683 sequences.</div>
+    <div class=legal>
+    <a href="/wiki/Legal_Documents">License Agreements, Terms of Use, Privacy Policy</a>
+    </div>
+
+    </div>
+    </center>
+    </div>
+  <script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a30e13a2ff368a7c',t:'MTc4NzY5NzM5OA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

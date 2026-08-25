@@ -1,0 +1,14 @@
+ran all five starts to >=2000000 (0.0s)
+start 1: 108 terms, last=2400627
+start 393: 78 terms, last=3254067
+start 412: 76 terms, last=2327569
+start 668: 101 terms, last=2400627
+start 932: 56 terms, last=2266347
+393 head: [393, 528, 545, 660, 682] expect [393,528,545,660,682]
+MERGE between 1 and 393: sample shared terms [None]
+MERGE between 1 and 412: sample shared terms [None]
+Traceback (most recent call last):
+  File "/Users/kuber.mehta/Personal-Projects/c5-k4/results/expansion/oeis3_20260826/scripts/a105210_disjoint.py", line 36, in <module>
+    print(f"MERGE between {j} and {k}: sample shared terms {sorted(inter)[:5]}")
+                                                            ~~~~~~^^^^^^^
+TypeError: '<' not supported between instances of 'NoneType' and 'int'

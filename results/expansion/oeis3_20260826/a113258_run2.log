@@ -1,0 +1,15 @@
+== head terms ==
+a(1)=1 OK
+a(2)=3 OK
+a(3)=11 OK
+a(4)=125 OK
+a(4)=125=5^3 itself is a power (excluded: question asks AFTER a(4))
+n=5: digits=8 perfect_power=False  (0.0s)
+n=6: digits=37 perfect_power=False  (0.0s)
+n=7: digits=217 perfect_power=False  (0.0s)
+n=8: digits=1518 perfect_power=False  (0.1s)
+Traceback (most recent call last):
+  File "/Users/kuber.mehta/Personal-Projects/c5-k4/results/expansion/oeis3_20260826/scripts/a113258_powers.py", line 56, in <module>
+    print(f"n={n}: digits={len(str(v))} perfect_power={pp} {w or ''} ({time.time()-t1:.1f}s)")
+                               ~~~^^^
+ValueError: Exceeds the limit (4300 digits) for integer string conversion; use sys.set_int_max_str_digits() to increase the limit

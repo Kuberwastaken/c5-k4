@@ -1,0 +1,207 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+  
+  <head>
+  <link rel="stylesheet" href="/styles.css">
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name=viewport content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="OEIS,integer sequences,Sloane" />
+  
+  
+  
+  <title>A113252 - OEIS</title>
+  <link rel="search" type="application/opensearchdescription+xml" title="OEIS" href="/oeis.xml">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" sizes="16x16 32x32 48x48" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <script>
+  var myURL = "\/A113252\/internal"
+  function redir() {
+      var host = document.location.hostname;
+      if(host != "oeis.org" && host != "127.0.0.1" && !/^([0-9.]+)$/.test(host) && host != "localhost" && host != "localhost.localdomain") {
+          document.location = "https"+":"+"//"+"oeis"+".org/" + myURL;
+      }
+  }
+  function sf() {
+      if(document.location.pathname == "/" && document.f) document.f.q.focus();
+  }
+  </script>
+  </head>
+  <body bgcolor=#ffffff onload="redir();sf()">
+    <div class=loginbar>
+      <div class=login>
+      
+        <a href="/login?redirect=%2FA113252%2Finternal" rel="nofollow">login</a>
+      
+      </div>
+    </div>
+
+    <div class=center><div class=top>
+    <center>
+    <div class=donors>
+    The OEIS is supported by <a href="http://oeisf.org/#DONATE">the many generous donors to the OEIS Foundation</a>.
+    </div>
+
+    <div class=banner>
+    <a href="/"><picture>
+    <source media="(min-width: 830px)" srcset="/oeis-banner-wide.svg" width="918" height="129">
+    <img class=banner border="0" width="540" height="129" src="/oeis-banner.svg" alt="A113252 - OEIS">
+    </picture></a>
+    </div>
+
+    
+    </center>
+    </div></div>
+
+    <div class=center><div class=pagebody>
+      
+    
+    <div class=searchbarcenter>
+        <form name=f action="/search" method="GET">
+            <div class=searchbargreet>
+                <div class=searchbar>
+                    <div class=searchq>
+                        <input class=searchbox maxLength=1024 name=q value="" title="Search Query">
+                        
+                        
+                        
+                        
+                    </div>
+                    <div class=searchsubmit>
+                        <input type=submit value="Search" name=go>
+                    </div>
+                    <div class=hints>
+                        <span class=hints><a href="/hints.html">Hints</a></span>
+                    </div>
+                </div>
+                <div class=searchgreet>
+                    (Greetings from <a href="/welcome">The On-Line Encyclopedia of Integer Sequences</a>!)
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class=sequence>
+        <div class=space1></div>
+        <div class=line></div>
+        
+        <div class=seqhead>
+            <div class=seqnumname>
+                <div class=seqnum>
+                    
+                        <a href="/A113252">A113252</a>
+                    
+                </div>
+                <div class=seqname>
+                    Corresponds to m = 6 in a family of 4th-order linear recurrence sequences given by a(n) = m^4*a(n-4) + (2*m)^2*a(n-3) - 4*a(n-1), a(0) = -1, a(1) = 4, a(2) = -13 + 6*(m-1) + 3*(m-1)^2, a(3) = (-8+m^2)^2.
+                    
+                </div>
+            </div>
+            <div class=scorerefs>
+                        
+                        8
+            </div>
+        </div>
+        
+            <div>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%I #16 Aug 11 2026 01:08:42
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%S -1,4,92,784,-3856,33856,96704,73984,-418048,59474944,-101917696,
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%T 443355136,6249181184,37406654464,-217868812288,2345945595904,
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%U 4101714673664,699056521216,52661959000064,3420344569298944,-8264891921072128,41548867031793664
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%N Corresponds to m = 6 in a family of 4th-order linear recurrence sequences given by a(n) = m^4*a(n-4) &#43; (2*m)^2*a(n-3) - 4*a(n-1), a(0) = -1, a(1) = 4, a(2) = -13 &#43; 6*(m-1) &#43; 3*(m-1)^2, a(3) = (-8&#43;m^2)^2.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C Conjecture: a(m, 2*n&#43;1) is a perfect square for all m,n (see A113249).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Colin Barker, &lt;a href=&#34;/A113252/b113252.txt&#34;&gt;Table of n, a(n) for n = 0..1000&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H &lt;a href=&#34;/index/Rec#order_04&#34;&gt;Index entries for linear recurrences with constant coefficients&lt;/a&gt;, signature (-4,0,144,1296).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F G.f.: (-1&#43;108*x^2&#43;1296*x^3)/((6*x&#43;1)*(1-6*x)*(36*x^2&#43;4*x&#43;1)).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F a(n) = -4*a(n-1) &#43; 144*a(n-3) &#43; 1296*a(n-4) for n&gt;3. - _Colin Barker_, May 20 2019
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%t LinearRecurrence[{-4, 0, 144, 1296}, {-1, 4, 92, 784}, 25] (* _Paolo Xausa_, Jun 10 2024 *)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o (PARI) Vec(-(1 - 108*x^2 - 1296*x^3) / ((1 - 6*x)*(1 &#43; 6*x)*(1 &#43; 4*x &#43; 36*x^2)) &#43; O(x^25)) \\ _Colin Barker_, May 20 2019
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%Y Cf. A000302, A097948, A056450, A113249, A113250, A113251, A113253, A113254, A113255, A113256.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%K easy,sign
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%O 0,2
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%A _Creighton Dement_, Nov 18 2005
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt></tt></p>
+            
+            </div>
+        
+        <div class=space10></div>
+    </div>
+
+    </div></div>
+
+    <p>
+
+    <div class=footerpad></div>
+    <div class=footer>
+    <center>
+    <div class=bottom>
+    <div class=linksbar>
+      <a href="/">Lookup</a>
+      <a href="/wiki/Welcome"><font color="red">Welcome</font></a>
+      <a href="/wiki/Main_Page"><font color="red">Wiki</font></a>
+      <a href="/account">Register</a>
+      
+      <a href="/play.html">Music</a>
+      <a href="/plot2.html">Plot 2</a>
+      <a href="/demo1.html">Demos</a>
+      <a href="/wiki/Index_to_OEIS">Index</a>
+      <a href="/webcam">WebCam</a>
+      <a href="/Submit.html">Contribute</a>
+      <a href="/eishelp2.html">Format</a>
+      <a href="/wiki/Style_Sheet">Style Sheet</a>
+      <a href="/transforms.html">Transforms</a>
+      <a href="/ol.html">Superseeker</a>
+      <a href="/recent">Recents</a>
+    </div>
+    <div class=linksbar>
+      <a href="/community.html">The OEIS Community</a>
+    </div>
+    <div class=linksbar>
+      Maintained by <a href="http://oeisf.org">The OEIS Foundation Inc.</a>
+    </div>
+
+    <div class=dbinfo>Last modified August 25 18:28 EDT 2026.  Contains 398683 sequences.</div>
+    <div class=legal>
+    <a href="/wiki/Legal_Documents">License Agreements, Terms of Use, Privacy Policy</a>
+    </div>
+
+    </div>
+    </center>
+    </div>
+  <script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a30e13ee9c378a7c',t:'MTc4NzY5NzQxMA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

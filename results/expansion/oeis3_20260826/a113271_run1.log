@@ -1,0 +1,28 @@
+== head-term reproduction (paths 1 & 2 vs published %S/%T) ==
+a(0): path1=True path2=True OK
+a(1): path1=True path2=True OK
+a(2): path1=True path2=True OK
+a(3): path1=True path2=True OK
+a(4): path1=True path2=True OK
+a(5): path1=True path2=True OK
+a(6): path1=True path2=True OK
+a(7): path1=True path2=True OK
+all head terms reproduced: True
+
+== the two conflicting claims ==
+543 factorization: {3: 1, 181: 1} -> prime? False
+a(5) = 135457
+a(5) factorization: {7: 1, 37: 1, 523: 1} -> prime? False
+is 543 a term anywhere in published head? False
+
+== next-prime hunt (conjecture1: sInf{n>4 | a(n) prime}) ==
+n=5: digits=6 prime=False (0.0s)
+   factors: {7: 1, 37: 1, 523: 1}
+n=6: digits=10 prime=False (0.0s)
+   factors: {11: 1, 70687: 1, 11069: 1}
+n=7: digits=20 prime=False (0.0s)
+   factors: {3: 3, 5: 1, 41: 1, 79: 1, 229: 1, 368445140381: 1}
+n=8: digits=39 prime=False (0.0s)
+n=9: digits=78 prime=False (0.0s)
+n=10: digits=155 prime=False (0.0s)
+n=11: digits=309 prime=False (0.0s)

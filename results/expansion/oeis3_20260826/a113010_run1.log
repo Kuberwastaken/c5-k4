@@ -1,0 +1,4 @@
+scanned 1..2000000 (0.6s)
+fixed points: [1, 32]
+beyond {1,32}: NONE
+spot checks: a(32)=32, a(1)=1

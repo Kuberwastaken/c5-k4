@@ -1,0 +1,6 @@
+primes tabulated: 602489
+main head (within table): [1, 2, 3, 5, 11, 13, 14, 34, 931, 7037, 95017, 3549221]
+b-file matches head: True
+0.0s; entered loop: 0/120
+escaped beyond table (start,index-at-exit): [(1, 3549221), (2, 3549221), (3, 3549221), (4, 3049025), (5, 3549221), (6, 3598421), (7, 3049025), (8, 9188434), (9, 7180022), (10, 9110551)]
+cycle shapes (len,entry,count): {}

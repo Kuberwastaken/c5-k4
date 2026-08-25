@@ -1,0 +1,219 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+  
+  <head>
+  <link rel="stylesheet" href="/styles.css">
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name=viewport content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="OEIS,integer sequences,Sloane" />
+  
+  
+  
+  <title>A357513 - OEIS</title>
+  <link rel="search" type="application/opensearchdescription+xml" title="OEIS" href="/oeis.xml">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" sizes="16x16 32x32 48x48" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <script>
+  var myURL = "\/A357513\/internal"
+  function redir() {
+      var host = document.location.hostname;
+      if(host != "oeis.org" && host != "127.0.0.1" && !/^([0-9.]+)$/.test(host) && host != "localhost" && host != "localhost.localdomain") {
+          document.location = "https"+":"+"//"+"oeis"+".org/" + myURL;
+      }
+  }
+  function sf() {
+      if(document.location.pathname == "/" && document.f) document.f.q.focus();
+  }
+  </script>
+  </head>
+  <body bgcolor=#ffffff onload="redir();sf()">
+    <div class=loginbar>
+      <div class=login>
+      
+        <a href="/login?redirect=%2FA357513%2Finternal" rel="nofollow">login</a>
+      
+      </div>
+    </div>
+
+    <div class=center><div class=top>
+    <center>
+    <div class=donors>
+    The OEIS is supported by <a href="http://oeisf.org/#DONATE">the many generous donors to the OEIS Foundation</a>.
+    </div>
+
+    <div class=banner>
+    <a href="/"><picture>
+    <source media="(min-width: 830px)" srcset="/oeis-banner-wide.svg" width="918" height="129">
+    <img class=banner border="0" width="540" height="129" src="/oeis-banner.svg" alt="A357513 - OEIS">
+    </picture></a>
+    </div>
+
+    
+    </center>
+    </div></div>
+
+    <div class=center><div class=pagebody>
+      
+    
+    <div class=searchbarcenter>
+        <form name=f action="/search" method="GET">
+            <div class=searchbargreet>
+                <div class=searchbar>
+                    <div class=searchq>
+                        <input class=searchbox maxLength=1024 name=q value="" title="Search Query">
+                        
+                        
+                        
+                        
+                    </div>
+                    <div class=searchsubmit>
+                        <input type=submit value="Search" name=go>
+                    </div>
+                    <div class=hints>
+                        <span class=hints><a href="/hints.html">Hints</a></span>
+                    </div>
+                </div>
+                <div class=searchgreet>
+                    (Greetings from <a href="/welcome">The On-Line Encyclopedia of Integer Sequences</a>!)
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class=sequence>
+        <div class=space1></div>
+        <div class=line></div>
+        
+        <div class=seqhead>
+            <div class=seqnumname>
+                <div class=seqnum>
+                    
+                        <a href="/A357513">A357513</a>
+                    
+                </div>
+                <div class=seqname>
+                    a(n) = numerator of Sum_{k = 1..n} (1/k^3) * binomial(n,k)^2 * binomial(n+k,k)^2 for n &gt;= 1 with a(0) = 0.
+                    
+                </div>
+            </div>
+            <div class=scorerefs>
+                        
+                        6
+            </div>
+        </div>
+        
+            <div>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%I #28 Jul 22 2026 22:54:52
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%S 0,4,81,14651,956875,1335793103,697621869,3929170277787,
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%T 573290332967211,8235727724024089939,172296487023049395523,
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%U 5032311952710217004416313,114828404520381550476341513,5947240175728534283432460589661,144126887537331651710781931325261
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%N a(n) = numerator of Sum_{k = 1..n} (1/k^3) * binomial(n,k)^2 * binomial(n&#43;k,k)^2 for n &gt;= 1 with a(0) = 0.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C Let m be a nonnegative integer and set u(n) = the numerator of Sum_{k = 1..n} 1/k^(2*m&#43;1) * binomial(n,k)^2 * binomial(n&#43;k,k)^2. We conjecture that u(p-1) == 0 (mod p^4) for all primes p, with a finite number of exceptions that depend on m.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C This conjecture is now proved; see Links. The exceptional primes are exactly the primes p for which p - 1 divides 2*m &#43; 4 and p does not divide 2*m &#43; 7. In particular, p = 2 is always exceptional, and for m = 1 the exceptions are p = 2 and p = 7 (only p = 7 when restricted to p &gt;= 3). Every exceptional prime satisfies p &lt;= 2*m &#43; 5. - _Ondrej Kutal_, Jul 18 2026
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Moritz Firsching, &lt;a href=&#34;https://github.com/google-deepmind/formal-conjectures/blob/879bf00811ed2e504511fe6f78b59605fddcfa31/FormalConjectures/OEIS/357513.lean&#34;&gt;AlphaProof proof of a conjecture&lt;/a&gt;, Jan 2026.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Ondrej Kutal, &lt;a href=&#34;https://github.com/TheSil/A357513_conjecture&#34;&gt;A proof of the generalized conjecture, with Lean formalization&lt;/a&gt;, Jul 2026.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H A. Straub, &lt;a href=&#34;https://arxiv.org/abs/1401.0854&#34;&gt;Multivariate Apéry numbers and supercongruences of rational functions&lt;/a&gt;, arXiv:1401.0854 [math.NT] (2014).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F Conjecture: a(p-1) == 0 (mod p^4) for all primes p &gt;= 3 except p = 7 (checked up to p = 499).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F The above conjecture is true. See Links for proof. - _Moritz Firsching_, Jan 29 2026
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F Note: the Apery numbers A(n) = A005259(n) = Sum_{k = 0..n} binomial(n,k)^2 * binomial(n&#43;k,k)^2 satisfy the supercongruence A(p-1) == 1 (mod p^3) for all primes p &gt;= 5 (see, for example, Straub, Introduction).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%e a(11 - 1) = 172296487023049395523 = (11^4)*(43^2)*6163*1032705769 == 0 (mod 11^4).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%p seq(numer(add( (1/k^3) * binomial(n,k)^2 * binomial(n&#43;k,k)^2, k = 1..n )), n = 0..20);
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o (PARI) a(n) = if (n, numerator(sum(k=1, n, binomial(n,k)^2*binomial(n&#43;k,k)^2/k^3)), 0); \\ _Michel Marcus_, Oct 04 2022
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%Y Cf. A005259, A357510, A357511, A357512.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%K nonn,easy
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%O 0,2
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%A _Peter Bala_, Oct 02 2022
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt></tt></p>
+            
+            </div>
+        
+        <div class=space10></div>
+    </div>
+
+    </div></div>
+
+    <p>
+
+    <div class=footerpad></div>
+    <div class=footer>
+    <center>
+    <div class=bottom>
+    <div class=linksbar>
+      <a href="/">Lookup</a>
+      <a href="/wiki/Welcome"><font color="red">Welcome</font></a>
+      <a href="/wiki/Main_Page"><font color="red">Wiki</font></a>
+      <a href="/account">Register</a>
+      
+      <a href="/play.html">Music</a>
+      <a href="/plot2.html">Plot 2</a>
+      <a href="/demo1.html">Demos</a>
+      <a href="/wiki/Index_to_OEIS">Index</a>
+      <a href="/webcam">WebCam</a>
+      <a href="/Submit.html">Contribute</a>
+      <a href="/eishelp2.html">Format</a>
+      <a href="/wiki/Style_Sheet">Style Sheet</a>
+      <a href="/transforms.html">Transforms</a>
+      <a href="/ol.html">Superseeker</a>
+      <a href="/recent">Recents</a>
+    </div>
+    <div class=linksbar>
+      <a href="/community.html">The OEIS Community</a>
+    </div>
+    <div class=linksbar>
+      Maintained by <a href="http://oeisf.org">The OEIS Foundation Inc.</a>
+    </div>
+
+    <div class=dbinfo>Last modified August 25 18:28 EDT 2026.  Contains 398683 sequences.</div>
+    <div class=legal>
+    <a href="/wiki/Legal_Documents">License Agreements, Terms of Use, Privacy Policy</a>
+    </div>
+
+    </div>
+    </center>
+    </div>
+  <script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a30e1454b81e8a7c',t:'MTc4NzY5NzQyNg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

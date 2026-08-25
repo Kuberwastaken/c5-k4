@@ -1,0 +1,16 @@
+== head via Bernoulli formula vs published ==
+a(0) = 2 OK
+a(1) = 2 OK
+a(2) = 6 OK
+a(3) = 691 OK
+a(4) = 7234 
+a(5) = 523833 
+a(6) = 3545461365 
+a(7) = 3392780147 
+
+== conjecture2 numeric bracket: (1-t)/(1+t) - sum_{p<=7} p^-n = O(11^-n) ==
+n=5: residual=5.252e-06 11^-n=6.209e-06 ratio=0.8458
+n=10: residual=2.996e-11 11^-n=3.855e-11 ratio=0.7771
+n=15: residual=1.943e-16 11^-n=2.394e-16 ratio=0.8115
+n=20: residual=1.278e-21 11^-n=1.486e-21 ratio=0.8600
+n=30: residual=5.348e-32 11^-n=5.731e-32 ratio=0.9332

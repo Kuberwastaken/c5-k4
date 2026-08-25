@@ -1,0 +1,5 @@
+a(1)=9 expect 9 OK
+a(2)=50 expect 50 OK
+a(3)=313 expect 313 OK
+n=5: a=17075 pi=9592 ratio=1.7801 (0.2s)
+n=6: a=139484 pi=78498 ratio=1.7769 (2.9s)

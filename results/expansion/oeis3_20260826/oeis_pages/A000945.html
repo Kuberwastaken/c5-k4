@@ -1,0 +1,354 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+  
+  <head>
+  <link rel="stylesheet" href="/styles.css">
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name=viewport content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="OEIS,integer sequences,Sloane" />
+  
+  
+  
+  <title>A000945 - OEIS</title>
+  <link rel="search" type="application/opensearchdescription+xml" title="OEIS" href="/oeis.xml">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" sizes="16x16 32x32 48x48" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <script>
+  var myURL = "\/A000945\/internal"
+  function redir() {
+      var host = document.location.hostname;
+      if(host != "oeis.org" && host != "127.0.0.1" && !/^([0-9.]+)$/.test(host) && host != "localhost" && host != "localhost.localdomain") {
+          document.location = "https"+":"+"//"+"oeis"+".org/" + myURL;
+      }
+  }
+  function sf() {
+      if(document.location.pathname == "/" && document.f) document.f.q.focus();
+  }
+  </script>
+  </head>
+  <body bgcolor=#ffffff onload="redir();sf()">
+    <div class=loginbar>
+      <div class=login>
+      
+        <a href="/login?redirect=%2FA000945%2Finternal" rel="nofollow">login</a>
+      
+      </div>
+    </div>
+
+    <div class=center><div class=top>
+    <center>
+    <div class=donors>
+    The OEIS is supported by <a href="http://oeisf.org/#DONATE">the many generous donors to the OEIS Foundation</a>.
+    </div>
+
+    <div class=banner>
+    <a href="/"><picture>
+    <source media="(min-width: 830px)" srcset="/oeis-banner-wide.svg" width="918" height="129">
+    <img class=banner border="0" width="540" height="129" src="/oeis-banner.svg" alt="A000945 - OEIS">
+    </picture></a>
+    </div>
+
+    
+    </center>
+    </div></div>
+
+    <div class=center><div class=pagebody>
+      
+    
+    <div class=searchbarcenter>
+        <form name=f action="/search" method="GET">
+            <div class=searchbargreet>
+                <div class=searchbar>
+                    <div class=searchq>
+                        <input class=searchbox maxLength=1024 name=q value="" title="Search Query">
+                        
+                        
+                        
+                        
+                    </div>
+                    <div class=searchsubmit>
+                        <input type=submit value="Search" name=go>
+                    </div>
+                    <div class=hints>
+                        <span class=hints><a href="/hints.html">Hints</a></span>
+                    </div>
+                </div>
+                <div class=searchgreet>
+                    (Greetings from <a href="/welcome">The On-Line Encyclopedia of Integer Sequences</a>!)
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class=sequence>
+        <div class=space1></div>
+        <div class=line></div>
+        
+        <div class=seqhead>
+            <div class=seqnumname>
+                <div class=seqnum>
+                    
+                        <a href="/A000945">A000945</a>
+                    
+                </div>
+                <div class=seqname>
+                    Euclid-Mullin sequence: a(1) = 2, a(n+1) is smallest prime factor of 1 + Product_{k=1..n} a(k).
+                    <br><font size=-1>(Formerly M0863 N0329)</font>
+                </div>
+            </div>
+            <div class=scorerefs>
+                        
+                        104
+            </div>
+        </div>
+        
+            <div>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%I M0863 N0329 #193 Jun 30 2026 09:17:02
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%S 2,3,7,43,13,53,5,6221671,38709183810571,139,2801,11,17,5471,52662739,
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%T 23003,30693651606209,37,1741,1313797957,887,71,7127,109,23,97,159227,
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%U 643679794963466223081509857,103,1079990819,9539,3143065813,29,3847,89,19,577,223,139703,457,9649,61,4357
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%N Euclid-Mullin sequence: a(1) = 2, a(n&#43;1) is smallest prime factor of 1 &#43; Product_{k=1..n} a(k).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C &#34;Does the sequence ... contain every prime? ... [It] was considered by Guy and Nowakowski and later by Shanks, [Wagstaff 1993] computed the sequence through the 43rd term. The computational problem inherent in continuing the sequence further is the enormous size of the numbers that must be factored. Already the number a(1)* ... *a(43) &#43; 1 has 180 digits.&#34; - Crandall and Pomerance
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C If this variant of Euclid-Mullin sequence is initiated either with 3, 7 or 43 instead of 2, then from a(5) onwards it is unchanged. See also A051614. - _Labos Elemer_, May 03 2004
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C Wilfrid Keller informed me that a(1)* ... *a(43) &#43; 1 was factored as the product of two primes on Mar 09 2010 by the GNFS method. See the post in the Mersenne Forum for more details. The smaller 68-digit prime is a(44). Terms a(45)-a(47) were easy to find. Finding a(48) will require the factorization of a 256-digit number. See the b-file for the four new terms. - _T. D. Noe_, Oct 15 2010
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C On Sep 11 2012, Ryan Propper factored the 256-digit number by finding a 75-digit factor by using ECM. Finding a(52) will require the factorization of a 335-digit number. See the b-file for the terms a(48) to a(51). - _V. Raman_, Sep 17 2012
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C Needs longer b-file. - _N. J. A. Sloane_, Dec 18 2015
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C A056756 gives the position of the k-th prime in this sequence for each k. - _Jianing Song_, May 07 2021
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C Named after the Greek mathematician Euclid (flourished c. 300 B.C.) and the American engineer and mathematician Albert Alkins Mullin (1933-2017). - _Amiram Eldar_, Jun 11 2021
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C In Ribenboim 2004, a wrong value of a(8) is given, 6221271 instead of 6221671. - _Stefano Spezia_, Mar 27 2025
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C The sequence could also start with a(0) = 1, then a(1) = 2 would follow from the general rule for a(n&#43;1). - _M. F. Hasler_, Jun 29 2026
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D Richard Crandall and Carl Pomerance, Prime Numbers: A Computational Perspective, Springer, NY, 2001; see p. 6.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D Richard Guy and Richard Nowakowski, Discovering primes with Euclid, Delta (Waukesha), Vol. 5, pp. 49-63, 1975.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D Paulo Ribenboim, The Little Book of Bigger Primes, Springer-Verlag NY 2004. See p. 5.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D Samuel S. Wagstaff, Jr., Computing Euclid&#39;s primes, Bull. Institute Combin. Applications, Vol. 8 (1993), pp. 23-32.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Ryan Propper, &lt;a href=&#34;/A000945/b000945.txt&#34;&gt;Table of n, a(n) for n = 1..51&lt;/a&gt; (first 47 terms from T. D. Noe)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Andrew R. Booker, &lt;a href=&#34;https://doi.org/10.1515/integers-2012-0034&#34;&gt;On Mullin&#39;s second sequence of primes&lt;/a&gt;, Integers, Vol. 12, No. 6 (2012), pp. 1167-1177; &lt;a href=&#34;https://arxiv.org/abs/1107.3318&#34;&gt;arXiv preprint&lt;/a&gt;, arXiv:1107.3318 [math.NT], 2011-2013.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Andrew R. Booker, &lt;a href=&#34;https://arxiv.org/abs/1605.08929&#34;&gt;A variant of the Euclid-Mullin sequence containing every prime&lt;/a&gt;, arXiv preprint arXiv:1605.08929 [math.NT], 2016.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Andrew R. Booker and Sean A. Irvine, &lt;a href=&#34;https://doi.org/10.1016/j.jnt.2016.01.013&#34;&gt;The Euclid-Mullin graph&lt;/a&gt;, Journal of Number Theory, Vol. 165 (2016), pp. 30-57; &lt;a href=&#34;https://arxiv.org/abs/1508.03039&#34;&gt;arXiv preprint&lt;/a&gt;, arXiv:1508.03039 [math.NT], 2015-2016.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Cristian Cobeli and Alexandru Zaharescu, &lt;a href=&#34;http://rms.unibuc.ro/bulletin/pdf/56-1/PromenadePascalPart1.pdf&#34;&gt;Promenade around Pascal Triangle-Number Motives&lt;/a&gt;, Bull. Math. Soc. Sci. Math. Roumanie, Vol. 56(104), No. 1 (2013), pp. 73-98.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Keith Conrad, &lt;a href=&#34;https://kconrad.math.uconn.edu/blurbs/ugradnumthy/infinitudeofprimes.pdf&#34;&gt;The infinitude of the primes&lt;/a&gt;, University of Connecticut, 2020.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H C. D. Cox and A. J. van der Poorten, &lt;a href=&#34;https://doi.org/10.1017/S1446788700006236&#34;&gt;On a sequence of prime numbers&lt;/a&gt;, Journal of the Australian Mathematical Society, Vol. 8 (1968), pp. 571-574.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H FactorDB, &lt;a href=&#34;http://factordb.com/index.php?showid=1100000000535556602&#34;&gt;Status of EM51&lt;/a&gt;.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Richard Guy and Richard Nowakowski, &lt;a href=&#34;/A000945/a000945_5.pdf&#34;&gt;Discovering primes with Euclid&lt;/a&gt;, Research Paper No. 260 (Nov 1974), The University of Calgary Department of Mathematics, Statistics and Computing Science.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Lucas Hoogendijk, &lt;a href=&#34;https://dspace.library.uu.nl/handle/1874/394848&#34;&gt;Prime Generators&lt;/a&gt;, Bachelor Thesis, Utrecht University (Netherlands, 2020).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Robert R. Korfhage, &lt;a href=&#34;/A000945/a000945_3.pdf&#34;&gt;On a sequence of prime numbers&lt;/a&gt;, Bull Amer. Math. Soc., Vol. 70 (1964), pp. 341, 342, 747. [Annotated scanned copy]
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Evelyn Lamb, &lt;a href=&#34;https://blogs.scientificamerican.com/roots-of-unity/a-curious-sequence-of-prime-numbers/&#34;&gt;A Curious Sequence of Prime Numbers&lt;/a&gt;, Scientific American blog (2019).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Des MacHale, &lt;a href=&#34;https://doi.org/10.2307/3621650&#34;&gt;Infinitely many proofs that there are infinitely many primes&lt;/a&gt;, Math. Gazette, Vol. 97, No. 540 (2013), pp. 495-498.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Mersenne Forum, &lt;a href=&#34;http://www.mersenneforum.org/showthread.php?p=207854#post207854&#34;&gt;Factoring 43rd Term of Euclid-Mullin sequence&lt;/a&gt;.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Mersenne Forum, &lt;a href=&#34;http://www.mersenneforum.org/showthread.php?p=311145&#34;&gt;Factoring EM47&lt;/a&gt;.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Romeo Meštrović, &lt;a href=&#34;https://arxiv.org/abs/1202.3670&#34;&gt;Euclid&#39;s theorem on the infinitude of primes: a historical survey of its proofs (300 BC--2012) and another new proof&lt;/a&gt;, arXiv preprint arXiv:1202.3670 [math.HO], 2012.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Albert A. Mullin, &lt;a href=&#34;https://doi.org/10.1090/S0002-9904-1963-11017-4&#34;&gt;Research Problem 8: Recursive function theory&lt;/a&gt;, Bull. Amer. Math. Soc., Vol. 69, No. 6 (1963), p. 737.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Thorkil Naur, &lt;a href=&#34;/A000945/a000945.pdf&#34;&gt;Letter to N. J. A. Sloane, Aug 27 1991&lt;/a&gt;, together with copies of &#34;Mullin&#39;s sequence of primes is not monotonic&#34; (1984) and &#34;New integer factorizations&#34; (1983) [Annotated scanned copies]
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H OEIS wiki, &lt;a href=&#34;https://oeis.org/wiki/OEIS_sequences_needing_factors&#34;&gt;OEIS sequences needing factors&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Paul Pollack and Enrique Treviño, &lt;a href=&#34;https://www.jstor.org/stable/10.4169/amer.math.monthly.121.05.433&#34;&gt;The Primes that Euclid Forgot&lt;/a&gt;, Amer. Math. Monthly, Vol. 121, No. 5 (2014), pp. 433-437. MR3193727; &lt;a href=&#34;http://pollack.uga.edu/mullin.pdf&#34;&gt;alternative link&lt;/a&gt;.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Daphne Stouthart, &lt;a href=&#34;https://studenttheses.uu.nl/handle/20.500.12932/47109&#34;&gt;Euclid and the infinite number of missing primes&lt;/a&gt;, Bachelor Thesis, Utrecht Univ (Netherlands, 2024). See p. 1.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Samuel S. Wagstaff, Jr., &lt;a href=&#34;/A000945/a000945_1.pdf&#34;&gt;Emails to N. J. A. Sloane, May 30 1991&lt;/a&gt;.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Samuel S. Wagstaff, Jr., &lt;a href=&#34;/A000945/a000945_4.pdf&#34;&gt;Computing Euclid&#39;s primes&lt;/a&gt;, Bull. Institute Combin. Applications, Vol. 8 (1993), pp. 23-32. (Annotated scanned copy)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%e a(5) is equal to 13 because 2*3*7*43 &#43; 1 = 1807 = 13 * 139.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%p a :=n-&gt; if n = 1 then 2 else numtheory:-divisors(mul(a(i),i = 1 .. n-1)&#43;1)[2] fi: seq(a(n), n=1..15);
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%p # _Robert FERREOL_, Sep 25 2019
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%t f[1]=2; f[n_] := f[n] = FactorInteger[Product[f[i], {i, 1, n - 1}] &#43; 1][[1, 1]]; Table[f[n], {n, 1, 46}]
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%t (* Alternative: *)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%t nxt[{p_,a_}]:=With[{c=FactorInteger[p&#43;1][[1,1]]},{p*c,c}]; Rest[NestList[nxt,{1,2},20][[;;,2]]] (* _Harvey P. Dale_, Feb 02 2025 *)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o (PARI) print1(k=2);for(n=2,20,print1(&#34;, &#34;,p=factor(k&#43;1)[1,1]);k*=p) \\ _Charles R Greathouse IV_, Jun 10 2011
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o (PARI) P=[];until(,print(P=concat(P,factor(vecprod(P)&#43;1)[1,1]))) \\ _Jeppe Stig Nielsen_, Apr 01 2024
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o (Python)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o from sympy import factorint, isprime, prod
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o def A000945(n: int):
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o     if not hasattr(A:=A000945,&#39;seq&#39;): A.seq=[]
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o     while len(A.seq) &lt; n:
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o         if not isprime(p := prod(A.seq)&#43;1):
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o             L = 1e6
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o             while p==(p:=min(factorint(p, limit=L))): L*=100
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o         A.seq.append(p)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o     return A.seq[n-1] # _M. F. Hasler_, Jun 29 2026
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%Y Cf. A000946, A005265, A005266, A051309-A051334, A051614, A051615, A051616, A056756.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%K nonn,nice,hard
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%O 1,1
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%A _N. J. A. Sloane_
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt></tt></p>
+            
+            </div>
+        
+        <div class=space10></div>
+    </div>
+
+    </div></div>
+
+    <p>
+
+    <div class=footerpad></div>
+    <div class=footer>
+    <center>
+    <div class=bottom>
+    <div class=linksbar>
+      <a href="/">Lookup</a>
+      <a href="/wiki/Welcome"><font color="red">Welcome</font></a>
+      <a href="/wiki/Main_Page"><font color="red">Wiki</font></a>
+      <a href="/account">Register</a>
+      
+      <a href="/play.html">Music</a>
+      <a href="/plot2.html">Plot 2</a>
+      <a href="/demo1.html">Demos</a>
+      <a href="/wiki/Index_to_OEIS">Index</a>
+      <a href="/webcam">WebCam</a>
+      <a href="/Submit.html">Contribute</a>
+      <a href="/eishelp2.html">Format</a>
+      <a href="/wiki/Style_Sheet">Style Sheet</a>
+      <a href="/transforms.html">Transforms</a>
+      <a href="/ol.html">Superseeker</a>
+      <a href="/recent">Recents</a>
+    </div>
+    <div class=linksbar>
+      <a href="/community.html">The OEIS Community</a>
+    </div>
+    <div class=linksbar>
+      Maintained by <a href="http://oeisf.org">The OEIS Foundation Inc.</a>
+    </div>
+
+    <div class=dbinfo>Last modified August 25 18:28 EDT 2026.  Contains 398683 sequences.</div>
+    <div class=legal>
+    <a href="/wiki/Legal_Documents">License Agreements, Terms of Use, Privacy Policy</a>
+    </div>
+
+    </div>
+    </center>
+    </div>
+  <script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a30e13982b188a7c',t:'MTc4NzY5NzM5Ng=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

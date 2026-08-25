@@ -1,0 +1,6 @@
+lcm-recurrence == polynomial recurrence for n=1..16: True
+Traceback (most recent call last):
+  File "/Users/kuber.mehta/Personal-Projects/c5-k4/results/expansion/oeis3_20260826/scripts/a109845_primes.py", line 29, in <module>
+    d=len(str(p[n]))
+          ~~~^^^^^^
+ValueError: Exceeds the limit (4300 digits) for integer string conversion; use sys.set_int_max_str_digits() to increase the limit

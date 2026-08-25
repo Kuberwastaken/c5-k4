@@ -1,0 +1,26 @@
+== nonacci head (window impl): [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 4]
+== Lean-index sumsquares: [1, 2, 6, 22, 86]
+
+== conjunct-by-conjunct certification (path C) ==
+a(8) = 2: expected prime, got ('prime', None)
+a(9) = 6: expected semiprime, got ('semiprime', (2, 3))
+a(10) = 22: expected semiprime, got ('semiprime', (2, 11))
+a(11) = 86: expected semiprime, got ('semiprime', (2, 43))
+a(13) = 1366: expected semiprime, got ('semiprime', (2, 683))
+a(14) = 5462: expected semiprime, got ('semiprime', (2, 2731))
+a(16) = 87382: expected semiprime, got ('semiprime', (2, 43691))
+a(17) = 348503: expected semiprime, got ('semiprime', (37, 9419))
+a(27) = 358201316657: expected semiprime, got ('semiprime', (71, 5045088967))
+
+ALL NINE CONJUNCTS VERIFY (path C): True
+
+== lean witness table ==
+a(8) = 2: Prime := by decide
+a(9) = 6 = 2 * 3  (2,3 prime)
+a(10) = 22 = 2 * 11  (2,11 prime)
+a(11) = 86 = 2 * 43  (2,43 prime)
+a(13) = 1366 = 2 * 683  (2,683 prime)
+a(14) = 5462 = 2 * 2731  (2,2731 prime)
+a(16) = 87382 = 2 * 43691  (2,43691 prime)
+a(17) = 348503 = 37 * 9419  (37,9419 prime)
+a(27) = 358201316657 = 71 * 5045088967  (71,5045088967 prime)

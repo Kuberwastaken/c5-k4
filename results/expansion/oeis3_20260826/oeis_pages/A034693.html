@@ -1,0 +1,300 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+  
+  <head>
+  <link rel="stylesheet" href="/styles.css">
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name=viewport content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="OEIS,integer sequences,Sloane" />
+  
+  
+  
+  <title>A034693 - OEIS</title>
+  <link rel="search" type="application/opensearchdescription+xml" title="OEIS" href="/oeis.xml">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" sizes="16x16 32x32 48x48" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <script>
+  var myURL = "\/A034693\/internal"
+  function redir() {
+      var host = document.location.hostname;
+      if(host != "oeis.org" && host != "127.0.0.1" && !/^([0-9.]+)$/.test(host) && host != "localhost" && host != "localhost.localdomain") {
+          document.location = "https"+":"+"//"+"oeis"+".org/" + myURL;
+      }
+  }
+  function sf() {
+      if(document.location.pathname == "/" && document.f) document.f.q.focus();
+  }
+  </script>
+  </head>
+  <body bgcolor=#ffffff onload="redir();sf()">
+    <div class=loginbar>
+      <div class=login>
+      
+        <a href="/login?redirect=%2FA034693%2Finternal" rel="nofollow">login</a>
+      
+      </div>
+    </div>
+
+    <div class=center><div class=top>
+    <center>
+    <div class=donors>
+    The OEIS is supported by <a href="http://oeisf.org/#DONATE">the many generous donors to the OEIS Foundation</a>.
+    </div>
+
+    <div class=banner>
+    <a href="/"><picture>
+    <source media="(min-width: 830px)" srcset="/oeis-banner-wide.svg" width="918" height="129">
+    <img class=banner border="0" width="540" height="129" src="/oeis-banner.svg" alt="A034693 - OEIS">
+    </picture></a>
+    </div>
+
+    
+    </center>
+    </div></div>
+
+    <div class=center><div class=pagebody>
+      
+    
+    <div class=searchbarcenter>
+        <form name=f action="/search" method="GET">
+            <div class=searchbargreet>
+                <div class=searchbar>
+                    <div class=searchq>
+                        <input class=searchbox maxLength=1024 name=q value="" title="Search Query">
+                        
+                        
+                        
+                        
+                    </div>
+                    <div class=searchsubmit>
+                        <input type=submit value="Search" name=go>
+                    </div>
+                    <div class=hints>
+                        <span class=hints><a href="/hints.html">Hints</a></span>
+                    </div>
+                </div>
+                <div class=searchgreet>
+                    (Greetings from <a href="/welcome">The On-Line Encyclopedia of Integer Sequences</a>!)
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class=sequence>
+        <div class=space1></div>
+        <div class=line></div>
+        
+        <div class=seqhead>
+            <div class=seqnumname>
+                <div class=seqnum>
+                    
+                        <a href="/A034693">A034693</a>
+                    
+                </div>
+                <div class=seqname>
+                    Smallest k such that k*n+1 is prime.
+                    
+                </div>
+            </div>
+            <div class=scorerefs>
+                        
+                        55
+            </div>
+        </div>
+        
+            <div>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%I #115 Apr 10 2026 06:22:06
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%S 1,1,2,1,2,1,4,2,2,1,2,1,4,2,2,1,6,1,10,2,2,1,2,3,4,2,4,1,2,1,10,3,2,
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%T 3,2,1,4,5,2,1,2,1,4,2,4,1,6,2,4,2,2,1,2,2,6,2,4,1,12,1,6,5,2,3,2,1,4,
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%U 2,2,1,8,1,4,2,2,3,6,1,4,3,2,1,2,4,12,2,4,1,2,2,6,3,4,3,2,1,4,2
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%N Smallest k such that k*n&#43;1 is prime.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C Conjecture: for every n &gt; 1 there exists a number k &lt; n such that n*k &#43; 1 is a prime. - _Amarnath Murthy_, Apr 17 2001
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C A stronger conjecture: for every n there exists a number k &lt; 1 &#43; n^(.75) such that n*k &#43; 1 is a prime. I have verified this up to n = 10^6. Also, the expression 1 &#43; n^(.74) does not work as an upper bound (counterexample: n = 19). - _Joseph L. Pe_, Jul 16 2002
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C Stronger version of the conjecture verified up to 10^9. - _Mauro Fiorentini_, Jul 23 2023
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C It is known that, for almost all n, a(n) &lt;= n^2. From Heath-Brown&#39;s result (1992) obtained with help of the GRH, it follows that a(n) &lt;= (phi(n)*log(n))^2. - _Vladimir Shevelev_, Apr 30 2012
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C Conjecture: a(n) = O(log(n)*log(log(n))). - _Thomas Ordowski_, Oct 17 2014
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C I conjecture the opposite: a(n) / (log n log log n) is unbounded. See A194945 for records in this sequence. - _Charles R Greathouse IV_, Mar 21 2016
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D Steven R. Finch, Mathematical Constants, Cambridge, 2003, section 2.12, pp. 127-130.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D P. Ribenboim, (1989), The Book of Prime Number Records. Chapter 4, Section IV.B.: The Smallest Prime In Arithmetic Progressions, pp. 217-223.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Wesley Stuart Kruis, &lt;a href=&#34;/A034693/b034693.txt&#34;&gt;Table of n, a(n) for n = 1..20000&lt;/a&gt; (first 10000 terms from T. D. Noe)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Gunther Cornelissen, David Hokken, and Berend Ringeling, &lt;a href=&#34;https://arxiv.org/abs/2507.09303&#34;&gt;The asymptotic Mahler measure of Gaussian periods&lt;/a&gt;, arXiv:2507.09303 [math.NT], 2025. See p. 1.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Steven R. Finch, &lt;a href=&#34;http://web.archive.org/web/20010207193039/http://www.mathsoft.com/asolve/constant/linnik/linnik.html&#34;&gt;Linnik&#39;s Constant&lt;/a&gt;.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H S. Graham, &lt;a href=&#34;http://matwbn.icm.edu.pl/ksiazki/aa/aa39/aa3926.pdf&#34;&gt;On Linnik&#39;s constant&lt;/a&gt;, Acta Arithm., 39, 1981, pp. 163-179.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H D. R. Heath-Brown, &lt;a href=&#34;https://ora.ox.ac.uk/objects/uuid:b63b8b4f-ad21-4de4-a86b-c82fdfc87997&#34;&gt;Zero-free regions for Dirichlet L-functions, and the least prime in an arithmetic progression&lt;/a&gt;, Proc. London Math. Soc. 64(3) (1992), pp. 265-338.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Pengcheng Niu and Junli Zhang, &lt;a href=&#34;https://doi.org/10.13140/RG.2.2.16430.11848&#34;&gt;On Two Conjectures of A. Murthy&lt;/a&gt;, ResearchGate (2024).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Ivan Niven and Barry Powell, &lt;a href=&#34;https://www.jstor.org/stable/2318341&#34;&gt;Primes in Certain Arithmetic Progressions&lt;/a&gt;, Amer. Math. Monthly, 83, 1976, pp. 467-469.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Wikipedia, &lt;a href=&#34;https://en.wikipedia.org/wiki/Dirichlet%27s_theorem_on_arithmetic_progressions&#34;&gt;Dirichlet&#39;s theorem on arithmetic progressions&lt;/a&gt;.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F It seems that Sum_{k=1..n} a(k) is asymptotic to (zeta(2)-1)*n*log(n) where zeta(2)-1 = Pi^2/6-1 = 0.6449... . - _Benoit Cloitre_, Aug 11 2002
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F a(n) = (A034694(n)-1) / n. - _Joerg Arndt_, Oct 18 2020
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%e If n=7, the smallest prime in the sequence 8, 15, 22, 29, ... is 29, so a(7)=4.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%p A034693 := proc(n)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%p     for k from 1 do
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%p         if isprime(k*n&#43;1) then
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%p             return k;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%p         end if;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%p     end do:
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%p end proc: # _R. J. Mathar_, Jul 26 2015
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%t a[n_]:=(k=0; While[!PrimeQ[&#43;&#43;k*n &#43; 1]]; k); Table[a[n], {n,100}] (* _Jean-François Alcover_, Jul 19 2011 *)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o (PARI) a(n)=if(n&lt;0,0,s=1; while(isprime(s*n&#43;1)==0,s&#43;&#43;); s)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o (Haskell)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o a034693 n = head [k | k &lt;- [1..], a010051 (k * n &#43; 1) == 1]
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o -- _Reinhard Zumkeller_, Feb 14 2013
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o (Python)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o from sympy import isprime
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o def a(n):
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o     k = 1
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o     while not isprime(k*n&#43;1): k &#43;= 1
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o     return k
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o print([a(n) for n in range(1, 99)]) # _Michael S. Branicky_, May 05 2022
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%Y Cf. A010051, A034694, A053989, A071558, A085420, A103689, A194944 (records), A194945 (positions of records), A200996.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%K nonn,nice
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%O 1,3
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%A _Labos Elemer_
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt></tt></p>
+            
+            </div>
+        
+        <div class=space10></div>
+    </div>
+
+    </div></div>
+
+    <p>
+
+    <div class=footerpad></div>
+    <div class=footer>
+    <center>
+    <div class=bottom>
+    <div class=linksbar>
+      <a href="/">Lookup</a>
+      <a href="/wiki/Welcome"><font color="red">Welcome</font></a>
+      <a href="/wiki/Main_Page"><font color="red">Wiki</font></a>
+      <a href="/account">Register</a>
+      
+      <a href="/play.html">Music</a>
+      <a href="/plot2.html">Plot 2</a>
+      <a href="/demo1.html">Demos</a>
+      <a href="/wiki/Index_to_OEIS">Index</a>
+      <a href="/webcam">WebCam</a>
+      <a href="/Submit.html">Contribute</a>
+      <a href="/eishelp2.html">Format</a>
+      <a href="/wiki/Style_Sheet">Style Sheet</a>
+      <a href="/transforms.html">Transforms</a>
+      <a href="/ol.html">Superseeker</a>
+      <a href="/recent">Recents</a>
+    </div>
+    <div class=linksbar>
+      <a href="/community.html">The OEIS Community</a>
+    </div>
+    <div class=linksbar>
+      Maintained by <a href="http://oeisf.org">The OEIS Foundation Inc.</a>
+    </div>
+
+    <div class=dbinfo>Last modified August 25 18:28 EDT 2026.  Contains 398683 sequences.</div>
+    <div class=legal>
+    <a href="/wiki/Legal_Documents">License Agreements, Terms of Use, Privacy Policy</a>
+    </div>
+
+    </div>
+    </center>
+    </div>
+  <script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a30e1322da168a7c',t:'MTc4NzY5NzM3Nw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

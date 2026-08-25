@@ -1,0 +1,9 @@
+== head terms vs Lean tests ==
+a(1)=0 expect 0 OK
+a(2)=2 expect 2 OK
+a(3)=3 expect 3 OK
+a(4)=5 expect 5 OK
+a(5)=7 expect 7 OK
+scanned n=1..19001 (55.0s)
+zeros found: [1, 6, 30, 54]
+beyond known {1,6,30,54}: NONE -> bracket n<=19001

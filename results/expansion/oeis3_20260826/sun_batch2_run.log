@@ -1,0 +1,6 @@
+== 303656 fixed: n>1 = a^2+b^2+3^c+5^d, n<=5000 ==
+missing: NONE (0.0s)
+== 308734 fixed: n<=8000 ==
+missing: NONE (0.0s)
+== 281976 fixed: n<=300 ==
+missing: NONE (0.0s)

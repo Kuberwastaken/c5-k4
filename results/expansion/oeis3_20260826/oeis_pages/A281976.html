@@ -1,0 +1,255 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+  
+  <head>
+  <link rel="stylesheet" href="/styles.css">
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name=viewport content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="OEIS,integer sequences,Sloane" />
+  
+  
+  
+  <title>A281976 - OEIS</title>
+  <link rel="search" type="application/opensearchdescription+xml" title="OEIS" href="/oeis.xml">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" sizes="16x16 32x32 48x48" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <script>
+  var myURL = "\/A281976\/internal"
+  function redir() {
+      var host = document.location.hostname;
+      if(host != "oeis.org" && host != "127.0.0.1" && !/^([0-9.]+)$/.test(host) && host != "localhost" && host != "localhost.localdomain") {
+          document.location = "https"+":"+"//"+"oeis"+".org/" + myURL;
+      }
+  }
+  function sf() {
+      if(document.location.pathname == "/" && document.f) document.f.q.focus();
+  }
+  </script>
+  </head>
+  <body bgcolor=#ffffff onload="redir();sf()">
+    <div class=loginbar>
+      <div class=login>
+      
+        <a href="/login?redirect=%2FA281976%2Finternal" rel="nofollow">login</a>
+      
+      </div>
+    </div>
+
+    <div class=center><div class=top>
+    <center>
+    <div class=donors>
+    The OEIS is supported by <a href="http://oeisf.org/#DONATE">the many generous donors to the OEIS Foundation</a>.
+    </div>
+
+    <div class=banner>
+    <a href="/"><picture>
+    <source media="(min-width: 830px)" srcset="/oeis-banner-wide.svg" width="918" height="129">
+    <img class=banner border="0" width="540" height="129" src="/oeis-banner.svg" alt="A281976 - OEIS">
+    </picture></a>
+    </div>
+
+    
+    </center>
+    </div></div>
+
+    <div class=center><div class=pagebody>
+      
+    
+    <div class=searchbarcenter>
+        <form name=f action="/search" method="GET">
+            <div class=searchbargreet>
+                <div class=searchbar>
+                    <div class=searchq>
+                        <input class=searchbox maxLength=1024 name=q value="" title="Search Query">
+                        
+                        
+                        
+                        
+                    </div>
+                    <div class=searchsubmit>
+                        <input type=submit value="Search" name=go>
+                    </div>
+                    <div class=hints>
+                        <span class=hints><a href="/hints.html">Hints</a></span>
+                    </div>
+                </div>
+                <div class=searchgreet>
+                    (Greetings from <a href="/welcome">The On-Line Encyclopedia of Integer Sequences</a>!)
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class=sequence>
+        <div class=space1></div>
+        <div class=line></div>
+        
+        <div class=seqhead>
+            <div class=seqnumname>
+                <div class=seqnum>
+                    
+                        <a href="/A281976">A281976</a>
+                    
+                </div>
+                <div class=seqname>
+                    Number of ways to write n as x^2 + y^2 + z^2 + w^2 with x,y,z,w nonnegative integers and z &lt;= w such that both x and x + 24*y are squares.
+                    
+                </div>
+            </div>
+            <div class=scorerefs>
+                        
+                        71
+            </div>
+        </div>
+        
+            <div>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%I #33 May 30 2026 16:40:47
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%S 1,2,3,2,2,3,3,2,1,3,4,2,1,2,2,2,2,3,5,2,3,3,2,1,1,4,5,4,2,2,4,3,3,3,
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%T 6,2,6,5,3,3,3,7,6,2,2,5,4,1,2,3,7,6,8,4,5,5,2,4,5,2,3,5,3,4,2,5,9,4,
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%U 5,4,5,1,3,5,4,5,5,4,2,3,3
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%N Number of ways to write n as x^2 &#43; y^2 &#43; z^2 &#43; w^2 with x,y,z,w nonnegative integers and z &lt;= w such that both x and x &#43; 24*y are squares.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C Conjecture: a(n) &gt; 0 for all n = 0,1,2,..., and a(n) = 1 only for n = 0, 16^k*m (k = 0,1,2,... and m = 8, 12, 23, 24, 47, 71, 168, 344, 632, 1724).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C By the linked JNT paper, any nonnegative integer can be written as the sum of a fourth power and three squares.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C We have verified a(n) &gt; 0 for all n = 0..10^7.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C See also A281977, A282013 and A282014 for similar conjectures.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C a(n) &lt;= A273404(n). Starts to differ from A273404 at n=145. - _R. J. Mathar_, Feb 12 2017
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C Qing-Hu Hou at Tianjin Univ. has verified a(n) &gt; 0 for all n = 0..10^10.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C I would like to offer 2400 US dollars for the first proof of my conjecture that a(n) &gt; 0 for any nonnegative integer n. - _Zhi-Wei Sun_, Feb 14 2017
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Zhi-Wei Sun, &lt;a href=&#34;/A281976/b281976.txt&#34;&gt;Table of n, a(n) for n = 0..10000&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Zhi-Wei Sun, &lt;a href=&#34;https://doi.org/10.1016/j.jnt.2016.11.008&#34;&gt;Refining Lagrange&#39;s four-square theorem&lt;/a&gt;, J. Number Theory 175(2017), 167-190.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Zhi-Wei Sun, &lt;a href=&#34;https://arxiv.org/abs/1701.05868&#34;&gt;Restricted sums of four squares&lt;/a&gt;, arXiv:1701.05868 [math.NT], 2017.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Zhi-Wei Sun, &lt;a href=&#34;http://listserv.nodak.edu/cgi-bin/wa.exe?A2=NMBRTHRY;d465bba.1702&#34;&gt;The 24-conjecture with $2400 prize&lt;/a&gt;, a message to Number Theory List, Feb. 14, 2017.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%e a(8) = 1 since 8 = 0^2 &#43; 0^2 &#43; 2^2 &#43; 2^2 with 0 = 0^2 and 0 &#43; 24*0 = 0^2.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%e a(12) = 1 since 12 = 1^2 &#43; 1^2 &#43; 1^2 &#43; 3^2 with 1 = 1^2 and 1 &#43; 24*1 = 5^2.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%e a(23) = 1 since 23 = 1^2 &#43; 2^2 &#43; 3^2 &#43; 3^2 with 1 = 1^2 and 1 &#43; 24*2 = 7^2.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%e a(24) = 1 since 24 = 4^2 &#43; 0^2 &#43; 2^2 &#43; 2^2 with 4 = 2^2 and 4 &#43; 24*0 = 2^2.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%e a(47) = 1 since 47 = 1^2 &#43; 1^2 &#43; 3^2 &#43; 6^2 with 1 = 1^2 and 1 &#43; 24*1 = 5^2.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%e a(71) = 1 since 71 = 1^2 &#43; 5^2 &#43; 3^2 &#43; 6^2 with 1 = 1^2 and 1 &#43; 24*5 = 11^2.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%e a(168) = 1 since 168 = 4^2 &#43; 4^2 &#43; 6^2 &#43; 10^2 with 4 = 2^2 and 4 &#43; 24*4 = 10^2.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%e a(344) = 1 since 344 = 4^2 &#43; 0^2 &#43; 2^2 &#43; 18^2 with 4 = 2^2 and 4 &#43; 24*0 = 2^2.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%e a(632) = 1 since 632 = 0^2 &#43; 6^2 &#43; 14^2 &#43; 20^2 with 0 = 0^2 and 0 &#43; 24*6 = 12^2.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%e a(1724) = 1 since 1724 = 25^2 &#43; 1^2 &#43; 3^2 &#43; 33^2 with 25 = 5^2 and 25 &#43; 24*1 = 7^2.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%t SQ[n_]:=SQ[n]=IntegerQ[Sqrt[n]];
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%t Do[r=0;Do[If[SQ[n-x^4-y^2-z^2]&amp;&amp;SQ[x^2&#43;24y],r=r&#43;1],{x,0,n^(1/4)},{y,0,Sqrt[n-x^4]},{z,0,Sqrt[(n-x^4-y^2)/2]}];Print[n,&#34; &#34;,r];Continue,{n,0,80}]
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%Y Cf. A000118, A000290, A000583, A270969, A273404, A281939, A281941, A281975, A281977, A281980, A282013, A282014.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%K nonn
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%O 0,2
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%A _Zhi-Wei Sun_, Feb 04 2017
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt></tt></p>
+            
+            </div>
+        
+        <div class=space10></div>
+    </div>
+
+    </div></div>
+
+    <p>
+
+    <div class=footerpad></div>
+    <div class=footer>
+    <center>
+    <div class=bottom>
+    <div class=linksbar>
+      <a href="/">Lookup</a>
+      <a href="/wiki/Welcome"><font color="red">Welcome</font></a>
+      <a href="/wiki/Main_Page"><font color="red">Wiki</font></a>
+      <a href="/account">Register</a>
+      
+      <a href="/play.html">Music</a>
+      <a href="/plot2.html">Plot 2</a>
+      <a href="/demo1.html">Demos</a>
+      <a href="/wiki/Index_to_OEIS">Index</a>
+      <a href="/webcam">WebCam</a>
+      <a href="/Submit.html">Contribute</a>
+      <a href="/eishelp2.html">Format</a>
+      <a href="/wiki/Style_Sheet">Style Sheet</a>
+      <a href="/transforms.html">Transforms</a>
+      <a href="/ol.html">Superseeker</a>
+      <a href="/recent">Recents</a>
+    </div>
+    <div class=linksbar>
+      <a href="/community.html">The OEIS Community</a>
+    </div>
+    <div class=linksbar>
+      Maintained by <a href="http://oeisf.org">The OEIS Foundation Inc.</a>
+    </div>
+
+    <div class=dbinfo>Last modified August 25 18:28 EDT 2026.  Contains 398683 sequences.</div>
+    <div class=legal>
+    <a href="/wiki/Legal_Documents">License Agreements, Terms of Use, Privacy Policy</a>
+    </div>
+
+    </div>
+    </center>
+    </div>
+  <script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a30e142f6fbb8a7c',t:'MTc4NzY5NzQyMA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

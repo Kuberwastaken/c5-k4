@@ -1,0 +1,25 @@
+== head values vs Lean tests ==
+a(1)=1 expect 1 OK
+a(2)=1 expect 1 OK
+a(3)=2 expect 2 OK
+a(7)=4 expect 4 OK
+
+== the SOLVED claim: exponent .74 fails at n=19 ==
+numeric bound = 9.8364; so k ranges over 0..9
+all 19k+1 composite in range: True
+  k=0: 1 composite=[]
+  k=1: 20 composite=[2, 5]
+  k=2: 39 composite=[3, 13]
+  k=3: 58 composite=[2, 29]
+  k=4: 77 composite=[7, 11]
+  k=5: 96 composite=[2, 3]
+  k=6: 115 composite=[5, 23]
+  k=7: 134 composite=[2, 67]
+  k=8: 153 composite=[3, 17]
+  k=9: 172 composite=[2, 43]
+
+== exists_k: least prime 1 mod n is < n^2? scan n<=5000 ==
+scanned n<= 5000 (0.0s); violations of exists_k: NONE
+
+== exists_k_stronger spot check: k < 1+n^.75 ==
+n scanned to 19999: violations of stronger bound: NONE

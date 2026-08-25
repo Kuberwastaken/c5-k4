@@ -1,0 +1,17 @@
+ran all five starts to >=2000000 (0.0s)
+start 1: 197 terms, last=2427598
+start 393: 184 terms, last=2254568
+start 412: 199 terms, last=2017111
+start 668: 224 terms, last=2022336
+start 932: 183 terms, last=2249408
+393 head: [393, 528, 545, 660, 682] expect [393,528,545,660,682]
+1 vs 393: disjoint below 2000000
+1 vs 412: disjoint below 2000000
+1 vs 668: disjoint below 2000000
+1 vs 932: disjoint below 2000000
+393 vs 412: disjoint below 2000000
+393 vs 668: disjoint below 2000000
+393 vs 932: disjoint below 2000000
+412 vs 668: disjoint below 2000000
+412 vs 932: disjoint below 2000000
+668 vs 932: disjoint below 2000000

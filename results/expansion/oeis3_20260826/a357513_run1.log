@@ -1,0 +1,33 @@
+== path 1: exact Fractions, numerator mod p^4 ==
+p=3: a(p-1) mod p^4 = 0 OK(zero)
+p=5: a(p-1) mod p^4 = 0 OK(zero)
+p=7: a(p-1) mod p^4 = 1715 NONZERO <-- exception
+p=11: a(p-1) mod p^4 = 0 OK(zero)
+p=13: a(p-1) mod p^4 = 0 OK(zero)
+p=17: a(p-1) mod p^4 = 0 OK(zero)
+p=19: a(p-1) mod p^4 = 0 OK(zero)
+p=23: a(p-1) mod p^4 = 0 OK(zero)
+p=29: a(p-1) mod p^4 = 0 OK(zero)
+p=31: a(p-1) mod p^4 = 0 OK(zero)
+p=37: a(p-1) mod p^4 = 0 OK(zero)
+p=41: a(p-1) mod p^4 = 0 OK(zero)
+p=43: a(p-1) mod p^4 = 0 OK(zero)
+p=47: a(p-1) mod p^4 = 0 OK(zero)
+p=53: a(p-1) mod p^4 = 0 OK(zero)
+p=59: a(p-1) mod p^4 = 0 OK(zero)
+
+== path 2: fully modular recomputation (cross-check) ==
+p=3: modular u(1,p-1) mod p^4 = 0
+p=5: modular u(1,p-1) mod p^4 = 0
+p=7: modular u(1,p-1) mod p^4 = 343
+p=11: modular u(1,p-1) mod p^4 = 0
+p=13: modular u(1,p-1) mod p^4 = 0
+p=17: modular u(1,p-1) mod p^4 = 0
+
+== negative control: composites must NOT generally vanish ==
+composites with u(1,n-1)==0 mod n^2 (informational): []
+
+== general_supercongruence spot-checks: u(m,p-1) mod p^4 ==
+m=0: p=3:X p=5:X p=7:0 p=11:0 p=13:0
+m=2: p=3:X p=5:X p=7:0 p=11:0 p=13:0
+m=3: p=3:X p=5:0 p=7:0 p=11:X p=13:0
