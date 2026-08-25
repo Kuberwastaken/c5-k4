@@ -1,0 +1,255 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+  
+  <head>
+  <link rel="stylesheet" href="/styles.css">
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name=viewport content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="OEIS,integer sequences,Sloane" />
+  
+  
+  
+  <title>A167604 - OEIS</title>
+  <link rel="search" type="application/opensearchdescription+xml" title="OEIS" href="/oeis.xml">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" sizes="16x16 32x32 48x48" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <script>
+  var myURL = "\/A167604\/internal"
+  function redir() {
+      var host = document.location.hostname;
+      if(host != "oeis.org" && host != "127.0.0.1" && !/^([0-9.]+)$/.test(host) && host != "localhost" && host != "localhost.localdomain") {
+          document.location = "https"+":"+"//"+"oeis"+".org/" + myURL;
+      }
+  }
+  function sf() {
+      if(document.location.pathname == "/" && document.f) document.f.q.focus();
+  }
+  </script>
+  </head>
+  <body bgcolor=#ffffff onload="redir();sf()">
+    <div class=loginbar>
+      <div class=login>
+      
+        <a href="/login?redirect=%2FA167604%2Finternal" rel="nofollow">login</a>
+      
+      </div>
+    </div>
+
+    <div class=center><div class=top>
+    <center>
+    <div class=donors>
+    The OEIS is supported by <a href="http://oeisf.org/#DONATE">the many generous donors to the OEIS Foundation</a>.
+    </div>
+
+    <div class=banner>
+    <a href="/"><picture>
+    <source media="(min-width: 830px)" srcset="/oeis-banner-wide.svg" width="918" height="129">
+    <img class=banner border="0" width="540" height="129" src="/oeis-banner.svg" alt="A167604 - OEIS">
+    </picture></a>
+    </div>
+
+    
+    </center>
+    </div></div>
+
+    <div class=center><div class=pagebody>
+      
+    
+    <div class=searchbarcenter>
+        <form name=f action="/search" method="GET">
+            <div class=searchbargreet>
+                <div class=searchbar>
+                    <div class=searchq>
+                        <input class=searchbox maxLength=1024 name=q value="" title="Search Query">
+                        
+                        
+                        
+                        
+                    </div>
+                    <div class=searchsubmit>
+                        <input type=submit value="Search" name=go>
+                    </div>
+                    <div class=hints>
+                        <span class=hints><a href="/hints.html">Hints</a></span>
+                    </div>
+                </div>
+                <div class=searchgreet>
+                    (Greetings from <a href="/welcome">The On-Line Encyclopedia of Integer Sequences</a>!)
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class=sequence>
+        <div class=space1></div>
+        <div class=line></div>
+        
+        <div class=seqhead>
+            <div class=seqnumname>
+                <div class=seqnum>
+                    
+                        <a href="/A167604">A167604</a>
+                    
+                </div>
+                <div class=seqname>
+                    A variant of Euclid-Mullin (<a href="/A000945" title="Euclid-Mullin sequence: a(1) = 2, a(n+1) is smallest prime factor of 1 + Product_{k=1..n} a(k).">A000945</a>): a(1)=2, a(n+1) is the least prime dividing [Product_{i in I} a(i) + Product_{i in I'} a(i)], minimized over all subsets I of {1..n}, where I' denotes the complementary subset of I.
+                    
+                </div>
+            </div>
+            <div class=scorerefs>
+                        
+                        6
+            </div>
+        </div>
+        
+            <div>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%I #52 Apr 07 2026 08:41:09
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%S 2,3,5,11,37,13,7,29,17,19,43,23,47,41,53,31,61,59,67,79,83,73,97,71,
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%T 101,89,103,127,107,113,137,131,139,109,149,151,163,157,167,173,193,
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%U 211,179,191,181,223,199,197,233,227,229,239,241,251,257,307,281,269,271,293
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%N A variant of Euclid-Mullin (A000945): a(1)=2, a(n&#43;1) is the least prime dividing [Product_{i in I} a(i) &#43; Product_{i in I&#39;} a(i)], minimized over all subsets I of {1..n}, where I&#39; denotes the complementary subset of I.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C By Euclid&#39;s argument, the terms are distinct.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C If I is restricted to the empty set, we get the original Euclid-Mullin sequence (see A000945).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C One can ask whether all primes occur in this sequence.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C Initialization of the sequence with a(1) = 2 is not necessary: the formula given for successive terms yields 2 anyway (when starting with an empty sequence). Thus the sequence can be considered free of exceptional initialization. - _Peter Munn_, Oct 16 2025
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Max Alekseyev, &lt;a href=&#34;/A167604/b167604.txt&#34;&gt;Table of n, a(n) for n = 1..2500&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Andrew R. Booker, &lt;a href=&#34;https://arxiv.org/abs/1605.08929&#34;&gt;A variant of the Euclid-Mullin sequence containing every prime&lt;/a&gt;, arXiv preprint arXiv:1605.08929 [math.NT], 2016.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H OEIS Wiki, &lt;a href=&#34;https://oeis.org/wiki/Empty_product&#34;&gt;Empty product&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F For any n, we have Legendre symbol (-a(1)*a(2)*...*a(n-1) / a(n)) = 1. If p is the smallest prime such that (-a(1)*a(2)*...*a(n-1) / p) = 1, then a(n) &gt;= p. Conjecture: For all n, a(n) = p. Note that if b is such that b^2 == -a(1)*a(2)*...*a(n-1) (mod p) and for some I, b == prod_{i in I} a(i) (mod p), then a(n) = p. Heuristically, I must exist for large enough n, since the number of possible subsets I is much larger than p. - _Max Alekseyev_, Nov 11 2009, May 20 2015
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%e To determine a(n&#43;1) = a(2): we have n = 1, so we need to consider all subsets I of {1..n}, noting that {1..n} = {1}; so these subsets are the empty set, {}, and {1}. When I = {} and I&#39; = {1}, Product_{i in I} a(i) is the empty product, which is 1, and Product_{i in I&#39;} a(i) = a(1) = 2. The evaluation specified for I is the least prime dividing the sum of these products (1 &#43; 2 = 3), which is 3. When I = {1}, the 2 products are interchanged, giving the same value 3. Taking the minimum of both values gives a(2) = 3.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%e a(4)=11 which is the smallest prime dividing any of the expressions derived from 4 partitions of the set of preceding terms: 2 &#43; 3*5 = 17, 3 &#43; 2*5 = 13, 5 &#43; 2*3 = 11, 1 &#43; 2*3*5 = 31.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%p with(numtheory):p:=proc(N) local S, d : S:=NULL:for d  in divisors(N) while d^2&lt;=N  do S:=S,divisors(d&#43;N/d)[2] od : return(min(S)) end:
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%p a :=n-&gt;if n = 1 then 2 else p(mul(a(i),i = 1 .. n-1)) fi :
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%p seq(a(n), n=1..15);
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%p # _Robert FERREOL_, Oct 01 2019
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%t p[N_Integer] := Module[{S = {}, d, divisorsList},
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%t For[d = 1, d^2 &lt;= N, d&#43;&#43;, If[Divisible[N, d], divisorsList = Divisors[d &#43; N/d];
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%t If[Length[divisorsList] &gt;= 2, AppendTo[S, divisorsList[[2]]]];]]; Min[S]];
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%t a[n_Integer] := If[n == 1, 2, p[Times @@ Table[a[i], {i, 1, n - 1}]]];
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%t Table[a[n], {n, 1, 14}] (* _Hilko Koning_, Oct 30 2024 *)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o (PARI) { A167604_list() = my(a,A,p,b,q,z,m); a = []; A=1; while(1, p=2; while( kronecker(-A,p)!=1, p=nextprime(p&#43;1) ); b=lift(sqrt(-A&#43;O(p))); z=znprimroot(p); m=nextprime(random(10^6)); q=lift(prod(i=1,#a, Mod(1&#43;x^znlog(Mod(a[i],p),z,p-1),(1-x^(p-1))*Mod(1,m)) )); if( polcoeff(q,znlog(Mod(b,p),z,p-1),x)==0, error(&#34;conjecture failed mod&#34;,m)); a=concat(a,[p]); A*=p; print1(p,&#34;, &#34;) ) } /* _Max Alekseyev_, May 20 2015 */
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%Y A167605 lists such n that the first n terms here constitute a permutation of the first n primes.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%Y Cf. A000945, A060772, A344020.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%K nonn
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%O 1,1
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%A Kok Seng Chua (chuakokseng(AT)hotmail.com), Nov 07 2009
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%E Edited and extended by _Max Alekseyev_, Nov 11 2009
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%E Edited by _Peter Munn_, Oct 05 2025
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt></tt></p>
+            
+            </div>
+        
+        <div class=space10></div>
+    </div>
+
+    </div></div>
+
+    <p>
+
+    <div class=footerpad></div>
+    <div class=footer>
+    <center>
+    <div class=bottom>
+    <div class=linksbar>
+      <a href="/">Lookup</a>
+      <a href="/wiki/Welcome"><font color="red">Welcome</font></a>
+      <a href="/wiki/Main_Page"><font color="red">Wiki</font></a>
+      <a href="/account">Register</a>
+      
+      <a href="/play.html">Music</a>
+      <a href="/plot2.html">Plot 2</a>
+      <a href="/demo1.html">Demos</a>
+      <a href="/wiki/Index_to_OEIS">Index</a>
+      <a href="/webcam">WebCam</a>
+      <a href="/Submit.html">Contribute</a>
+      <a href="/eishelp2.html">Format</a>
+      <a href="/wiki/Style_Sheet">Style Sheet</a>
+      <a href="/transforms.html">Transforms</a>
+      <a href="/ol.html">Superseeker</a>
+      <a href="/recent">Recents</a>
+    </div>
+    <div class=linksbar>
+      <a href="/community.html">The OEIS Community</a>
+    </div>
+    <div class=linksbar>
+      Maintained by <a href="http://oeisf.org">The OEIS Foundation Inc.</a>
+    </div>
+
+    <div class=dbinfo>Last modified August 25 18:06 EDT 2026.  Contains 398681 sequences.</div>
+    <div class=legal>
+    <a href="/wiki/Legal_Documents">License Agreements, Terms of Use, Privacy Policy</a>
+    </div>
+
+    </div>
+    </center>
+    </div>
+  <script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a30deac1fac9e59b',t:'MTc4NzY5NTcyMw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

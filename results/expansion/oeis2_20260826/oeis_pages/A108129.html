@@ -1,0 +1,237 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+  
+  <head>
+  <link rel="stylesheet" href="/styles.css">
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name=viewport content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="OEIS,integer sequences,Sloane" />
+  
+  
+  
+  <title>A108129 - OEIS</title>
+  <link rel="search" type="application/opensearchdescription+xml" title="OEIS" href="/oeis.xml">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" sizes="16x16 32x32 48x48" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <script>
+  var myURL = "\/A108129\/internal"
+  function redir() {
+      var host = document.location.hostname;
+      if(host != "oeis.org" && host != "127.0.0.1" && !/^([0-9.]+)$/.test(host) && host != "localhost" && host != "localhost.localdomain") {
+          document.location = "https"+":"+"//"+"oeis"+".org/" + myURL;
+      }
+  }
+  function sf() {
+      if(document.location.pathname == "/" && document.f) document.f.q.focus();
+  }
+  </script>
+  </head>
+  <body bgcolor=#ffffff onload="redir();sf()">
+    <div class=loginbar>
+      <div class=login>
+      
+        <a href="/login?redirect=%2FA108129%2Finternal" rel="nofollow">login</a>
+      
+      </div>
+    </div>
+
+    <div class=center><div class=top>
+    <center>
+    <div class=donors>
+    The OEIS is supported by <a href="http://oeisf.org/#DONATE">the many generous donors to the OEIS Foundation</a>.
+    </div>
+
+    <div class=banner>
+    <a href="/"><picture>
+    <source media="(min-width: 830px)" srcset="/oeis-banner-wide.svg" width="918" height="129">
+    <img class=banner border="0" width="540" height="129" src="/oeis-banner.svg" alt="A108129 - OEIS">
+    </picture></a>
+    </div>
+
+    
+    </center>
+    </div></div>
+
+    <div class=center><div class=pagebody>
+      
+    
+    <div class=searchbarcenter>
+        <form name=f action="/search" method="GET">
+            <div class=searchbargreet>
+                <div class=searchbar>
+                    <div class=searchq>
+                        <input class=searchbox maxLength=1024 name=q value="" title="Search Query">
+                        
+                        
+                        
+                        
+                    </div>
+                    <div class=searchsubmit>
+                        <input type=submit value="Search" name=go>
+                    </div>
+                    <div class=hints>
+                        <span class=hints><a href="/hints.html">Hints</a></span>
+                    </div>
+                </div>
+                <div class=searchgreet>
+                    (Greetings from <a href="/welcome">The On-Line Encyclopedia of Integer Sequences</a>!)
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class=sequence>
+        <div class=space1></div>
+        <div class=line></div>
+        
+        <div class=seqhead>
+            <div class=seqnumname>
+                <div class=seqnum>
+                    
+                        <a href="/A108129">A108129</a>
+                    
+                </div>
+                <div class=seqname>
+                    Riesel problem: let k=2n-1; then a(n)=smallest m &gt;= 1 such that k*2^m-1 is prime, or -1 if no such prime exists.
+                    
+                </div>
+            </div>
+            <div class=scorerefs>
+                        
+                        10
+            </div>
+        </div>
+        
+            <div>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%I #43 Sep 21 2024 12:42:16
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%S 2,1,2,1,1,2,3,1,2,1,1,4,3,1,4,1,2,2,1,3,2,7,1,4,1,1,2,1,1,12,3,2,4,5,
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%T 1,2,7,1,2,1,3,2,5,1,4,1,3,2,1,1,10,3,2,10,9,2,8,1,1,12,1,2,2,25,1,2,
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%U 3,1,2,1,1,2,5,1,4,5,3,2,1,1,2,3,2,4,1,2,2,1,1,8,3,4,2,1,3,226,3,1,2,1,1,2
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%N Riesel problem: let k=2n-1; then a(n)=smallest m &gt;= 1 such that k*2^m-1 is prime, or -1 if no such prime exists.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C It is conjectured that the integer k = 509203 is the smallest Riesel number, that is, the first n such that a(n) = -1 is 254602.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C Browkin &amp; Schinzel, having proved that 509203*2^k - 1 is composite for all k &gt; 0, ask for the first such number with this property, noting that the question is implicit in Aigner 1961. - _Charles R Greathouse IV_, Jan 12 2018
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C Record values begin a(1) = 2, a(7) = 3, a(12) = 4, a(22) = 7, a(30) = 12, a(64) = 25, a(96) = 226, a(330) = 800516; the next record appears to be a(1147), unless a(1147) = -1. (The value for a(330), i.e., for k = 659, is from the Ballinger &amp; Keller link, which also lists k = 2293, i.e., n = (k&#43;1)/2 = (2293&#43;1)/2 = 1147, as the smallest of 50 values of k &lt; 509203 for which no prime of the form k*2^m-1 had yet been found.) - _Jon E. Schoenfield_, Jan 13 2018
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C Same as A046069 except for a(2) = 1. - _Georg Fischer_, Nov 03 2018
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D Hans Riesel, Några stora primtal, Elementa 39 (1956), pp. 258-260.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Jon E. Schoenfield, &lt;a href=&#34;/A108129/b108129.txt&#34;&gt;Table of n, a(n) for n = 1..329&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H A. Aigner, &lt;a href=&#34;https://doi.org/10.1002/mana.1961.3210230405&#34;&gt;Folgen der Art ar^n &#43; b, welche nur teilbare Zahlen liefern&lt;/a&gt;, Math. Nachr. 23 (1961), pp. 259-264. (Cited in Browkin &amp; Schinzel)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H R. Ballinger &amp; W. Keller, &lt;a href=&#34;http://www.prothsearch.com/rieselprob.html&#34;&gt;The Riesel Problem: Definition and Status&lt;/a&gt;.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H J. Browkin and A. Schinzel, &lt;a href=&#34;http://matwbn.icm.edu.pl/ksiazki/cm/cm68/cm6817.pdf&#34;&gt;On integers not of the form n-phi(n)&lt;/a&gt;, Colloq. Math., 68 (1995), pp. 55-58.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Wilfrid Keller, &lt;a href=&#34;http://www.prothsearch.com/riesel2.html&#34;&gt;List of primes k.2^n - 1 for k &lt; 300 &lt;/a&gt;.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Hans Riesel, &lt;a href=&#34;/A076337/a076337.pdf&#34;&gt;Some large prime numbers&lt;/a&gt;. Translated from the Swedish original (Några stora primtal, Elementa 39 (1956), pp. 258-260) by Lars Blomberg.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%t Array[Function[k, SelectFirst[Range@300, PrimeQ[k 2^# - 1] &amp;]][2 # - 1] &amp;, 102] (* _Michael De Vlieger_, Jan 12 2018 *)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%t smk[n_]:=Module[{m=1,k=2n-1},While[!PrimeQ[k 2^m-1],m&#43;&#43;];m]; Array[smk,120] (* _Harvey P. Dale_, Dec 26 2023 *)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o (PARI) forstep(k=1,301,2,n=1;while(!isprime(k*2^n-1),n&#43;&#43;);print1(n,&#34;,&#34;))
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%Y Main sequences for Riesel problem: A038699, A040081, A046069, A050412, A052333, A076337, A101036, A108129.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%Y Cf. A040081, A046069.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%K nonn
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%O 1,1
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%A _Jorge Coveiro_, Jun 04 2005
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%E Edited by Herman Jamke (hermanjamke(AT)fastmail.fm), Oct 25 2006
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%E Name corrected by _T. D. Noe_, Feb 13 2011
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt></tt></p>
+            
+            </div>
+        
+        <div class=space10></div>
+    </div>
+
+    </div></div>
+
+    <p>
+
+    <div class=footerpad></div>
+    <div class=footer>
+    <center>
+    <div class=bottom>
+    <div class=linksbar>
+      <a href="/">Lookup</a>
+      <a href="/wiki/Welcome"><font color="red">Welcome</font></a>
+      <a href="/wiki/Main_Page"><font color="red">Wiki</font></a>
+      <a href="/account">Register</a>
+      
+      <a href="/play.html">Music</a>
+      <a href="/plot2.html">Plot 2</a>
+      <a href="/demo1.html">Demos</a>
+      <a href="/wiki/Index_to_OEIS">Index</a>
+      <a href="/webcam">WebCam</a>
+      <a href="/Submit.html">Contribute</a>
+      <a href="/eishelp2.html">Format</a>
+      <a href="/wiki/Style_Sheet">Style Sheet</a>
+      <a href="/transforms.html">Transforms</a>
+      <a href="/ol.html">Superseeker</a>
+      <a href="/recent">Recents</a>
+    </div>
+    <div class=linksbar>
+      <a href="/community.html">The OEIS Community</a>
+    </div>
+    <div class=linksbar>
+      Maintained by <a href="http://oeisf.org">The OEIS Foundation Inc.</a>
+    </div>
+
+    <div class=dbinfo>Last modified August 25 18:04 EDT 2026.  Contains 398680 sequences.</div>
+    <div class=legal>
+    <a href="/wiki/Legal_Documents">License Agreements, Terms of Use, Privacy Policy</a>
+    </div>
+
+    </div>
+    </center>
+    </div>
+  <script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a30de434fe51e59b',t:'MTc4NzY5NTQ1NQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

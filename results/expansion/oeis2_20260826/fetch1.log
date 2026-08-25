@@ -1,0 +1,29 @@
+fetched 110835 (3983 bytes)
+fetched 108864 (2736 bytes)
+fetched 56777 (9022 bytes)
+FAIL 108129: <urlopen error _ssl.c:1064: The handshake operation timed out>
+FAIL 117027: <urlopen error _ssl.c:1064: The handshake operation timed out>
+FAIL 107247: <urlopen error _ssl.c:1064: The handshake operation timed out>
+fetched 41 (1571 bytes)
+fetched 101779 (2274 bytes)
+FAIL 108306: <urlopen error _ssl.c:1064: The handshake operation timed out>
+fetched 112521 (2150 bytes)
+FAIL 306477: <urlopen error _ssl.c:1064: The handshake operation timed out>
+fetched 113257 (1687 bytes)
+fetched 103425 (1990 bytes)
+FAIL 109905: <urlopen error _ssl.c:1064: The handshake operation timed out>
+fetched 116150 (1505 bytes)
+FAIL 81091: <urlopen error _ssl.c:1064: The handshake operation timed out>
+FAIL 103885: <urlopen error _ssl.c:1064: The handshake operation timed out>
+fetched 105801 (2094 bytes)
+FAIL 110854: <urlopen error _ssl.c:1064: The handshake operation timed out>
+fetched 113213 (1600 bytes)
+fetched 67720 (2355 bytes)
+fetched 109227 (2364 bytes)
+FAIL 110475: <urlopen error _ssl.c:1064: The handshake operation timed out>
+FAIL 111114: <urlopen error _ssl.c:1064: The handshake operation timed out>
+FAIL 1146: <urlopen error _ssl.c:1064: The handshake operation timed out>
+FAIL 228828: <urlopen error _ssl.c:1064: The handshake operation timed out>
+FAIL 63880: <urlopen error _ssl.c:1064: The handshake operation timed out>
+FAIL 167604: <urlopen error _ssl.c:1064: The handshake operation timed out>
+done 15/30

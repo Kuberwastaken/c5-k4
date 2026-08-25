@@ -1,0 +1,1464 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+  
+  <head>
+  <link rel="stylesheet" href="/styles.css">
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name=viewport content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="OEIS,integer sequences,Sloane" />
+  
+  
+  
+  <title>A000041 - OEIS</title>
+  <link rel="search" type="application/opensearchdescription+xml" title="OEIS" href="/oeis.xml">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" sizes="16x16 32x32 48x48" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <script>
+  var myURL = "\/A000041\/internal"
+  function redir() {
+      var host = document.location.hostname;
+      if(host != "oeis.org" && host != "127.0.0.1" && !/^([0-9.]+)$/.test(host) && host != "localhost" && host != "localhost.localdomain") {
+          document.location = "https"+":"+"//"+"oeis"+".org/" + myURL;
+      }
+  }
+  function sf() {
+      if(document.location.pathname == "/" && document.f) document.f.q.focus();
+  }
+  </script>
+  </head>
+  <body bgcolor=#ffffff onload="redir();sf()">
+    <div class=loginbar>
+      <div class=login>
+      
+        <a href="/login?redirect=%2FA000041%2Finternal" rel="nofollow">login</a>
+      
+      </div>
+    </div>
+
+    <div class=center><div class=top>
+    <center>
+    <div class=donors>
+    The OEIS is supported by <a href="http://oeisf.org/#DONATE">the many generous donors to the OEIS Foundation</a>.
+    </div>
+
+    <div class=banner>
+    <a href="/"><picture>
+    <source media="(min-width: 830px)" srcset="/oeis-banner-wide.svg" width="918" height="129">
+    <img class=banner border="0" width="540" height="129" src="/oeis-banner.svg" alt="A000041 - OEIS">
+    </picture></a>
+    </div>
+
+    
+    </center>
+    </div></div>
+
+    <div class=center><div class=pagebody>
+      
+    
+    <div class=searchbarcenter>
+        <form name=f action="/search" method="GET">
+            <div class=searchbargreet>
+                <div class=searchbar>
+                    <div class=searchq>
+                        <input class=searchbox maxLength=1024 name=q value="" title="Search Query">
+                        
+                        
+                        
+                        
+                    </div>
+                    <div class=searchsubmit>
+                        <input type=submit value="Search" name=go>
+                    </div>
+                    <div class=hints>
+                        <span class=hints><a href="/hints.html">Hints</a></span>
+                    </div>
+                </div>
+                <div class=searchgreet>
+                    (Greetings from <a href="/welcome">The On-Line Encyclopedia of Integer Sequences</a>!)
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class=sequence>
+        <div class=space1></div>
+        <div class=line></div>
+        
+        <div class=seqhead>
+            <div class=seqnumname>
+                <div class=seqnum>
+                    
+                        <a href="/A000041">A000041</a>
+                    
+                </div>
+                <div class=seqname>
+                    a(n) is the number of partitions of n (the partition numbers).
+                    <br><font size=-1>(Formerly M0663 N0244)</font>
+                </div>
+            </div>
+            <div class=scorerefs>
+                        
+                        4017
+            </div>
+        </div>
+        
+            <div>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%I M0663 N0244 #1233 Jul 27 2026 10:14:46
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%S 1,1,2,3,5,7,11,15,22,30,42,56,77,101,135,176,231,297,385,490,627,792,
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%T 1002,1255,1575,1958,2436,3010,3718,4565,5604,6842,8349,10143,12310,
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%U 14883,17977,21637,26015,31185,37338,44583,53174,63261,75175,89134,105558,124754,147273,173525
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%N a(n) is the number of partitions of n (the partition numbers).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C Also number of nonnegative solutions to b &#43; 2c &#43; 3d &#43; 4e &#43; ... = n and the number of nonnegative solutions to 2c &#43; 3d &#43; 4e &#43; ... &lt;= n. - _Henry Bottomley_, Apr 17 2001
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C a(n) is also the number of conjugacy classes in the symmetric group S_n (and the number of irreducible representations of S_n).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C Also the number of rooted trees with n&#43;1 nodes and height at most 2.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C Coincides with the sequence of numbers of nilpotent conjugacy classes in the Lie algebras gl(n). A006950, A015128 and this sequence together cover the nilpotent conjugacy classes in the classical A,B,C,D series of Lie algebras. - Alexander Elashvili, Sep 08 2003
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C Number of distinct Abelian groups of order p^n, where p is prime (the number is independent of p). - _Lekraj Beedassy_, Oct 16 2004
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C Number of graphs on n vertices that do not contain P3 as an induced subgraph. - _Washington Bomfim_, May 10 2005
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C Numbers of terms to be added when expanding the n-th derivative of 1/f(x). - _Thomas Baruchel_, Nov 07 2005
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C Sequence agrees with expansion of Molien series for symmetric group S_n up to the term in x^n. - Maurice D. Craig (towenaar(AT)optusnet.com.au), Oct 30 2006
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C Also the number of nonnegative integer solutions to x_1 &#43; x_2 &#43; x_3 &#43; ... &#43; x_n = n such that n &gt;= x_1 &gt;= x_2 &gt;= x_3 &gt;= ... &gt;= x_n &gt;= 0, because by letting y_k = x_k - x_(k&#43;1) &gt;= 0 (where 0 &lt; k &lt; n) we get y_1 &#43; 2y_2 &#43; 3y_3 &#43; ... &#43; (n-1)y_(n-1) &#43; nx_n = n. - Werner Grundlingh (wgrundlingh(AT)gmail.com), Mar 14 2007
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C Let P(z) := Sum_{j&gt;=0} b_j z^j, b_0 != 0. Then 1/P(z) = Sum_{j&gt;=0} c_j z^j, where the c_j must be computed from the infinite triangular system b_0 c_0 = 1, b_0 c_1 &#43; b_1 c_0 = 0 and so on (Cauchy products of the coefficients set to zero). The n-th partition number arises as the number of terms in the numerator of the expression for c_n: The coefficient c_n of the inverted power series is a fraction with b_0^(n&#43;1) in the denominator and in its numerator having a(n) products of n coefficients b_i each. The partitions may be read off from the indices of the b_i. - Peter C. Heinig (algorithms(AT)gmx.de), Apr 09 2007
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C A sequence of positive integers p = p_1 ... p_k is a descending partition of the positive integer n if p_1 &#43; ... &#43; p_k = n and p_1 &gt;= ... &gt;= p_k. If formally needed p_j = 0 is appended to p for j &gt; k. Let P_n denote the set of these partition for some n &gt;= 1. Then a(n) = 1 &#43; Sum_{p in P_n} floor((p_1-1)/(p_2&#43;1)). (Cf. A000065, where the formula reduces to the sum.) Proof in Kelleher and O&#39;Sullivan (2009). For example a(6) = 1 &#43; 0 &#43; 0 &#43; 0 &#43; 0 &#43; 1 &#43; 0 &#43; 0 &#43; 1 &#43; 1 &#43; 2 &#43; 5 = 11. - _Peter Luschny_, Oct 24 2010
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C Let n = Sum( k_(p_m) p_m ) = k_1 &#43; 2k_2 &#43; 5k_5 &#43; 7k_7 &#43; ..., where p_m is the m-th generalized pentagonal number (A001318). Then a(n) is the sum over all such pentagonal partitions of n of (-1)^(k_5&#43;k_7 &#43; k_22 &#43; ...) ( k_1 &#43; k_2 &#43; k_5 &#43; ...)! /( k_1! k_2! k_5! ...), where the exponent of (-1) is the sum of all the k&#39;s corresponding to even-indexed GPN&#39;s. - _Jerome Malenfant_, Feb 14 2011
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C From _Jerome Malenfant_, Feb 14 2011: (Start)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C The matrix of a(n) values
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C   a(0)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C   a(1) a(0)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C   a(2) a(1) a(0)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C   a(3) a(2) a(1) a(0)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C   ....
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C   a(n) a(n-1) a(n-2) ... a(0)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C is the inverse of the matrix
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C    1
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C   -1  1
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C   -1 -1  1
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C    0 -1 -1  1
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C   ....
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C   -d_n  -d_(n-1) -d_(n-2) ... -d_1  1
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C where d_q = (-1)^(m&#43;1) if q = m(3m-1)/2 = the m-th generalized pentagonal number (A001318), = 0 otherwise. (End)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C Let k &gt; 0 be an integer, and let i_1, i_2, ..., i_k be distinct integers such that 1 &lt;= i_1 &lt; i_2 &lt; ... &lt; i_k. Then, equivalently, a(n) equals the number of partitions of N = n &#43; i_1 &#43; i_2 &#43; ... &#43; i_k in which each i_j (1 &lt;= j &lt;= k) appears as a part at least once. To see this, note that the partitions of N of this class must be in 1-to-1 correspondence with the partitions of n, since N - i_1 - i_2 - ... - i_k = n. - _L. Edson Jeffery_, Apr 16 2011
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C a(n) is the number of distinct degree sequences over all free trees having n &#43; 2 nodes.  Take a partition of the integer n, add 1 to each part and append as many 1&#39;s as needed so that the total is 2n &#43; 2.  Now we have a degree sequence of a tree with n &#43; 2 nodes.  Example: The partition 3 &#43; 2 &#43; 1 = 6 corresponds to the degree sequence {4, 3, 2, 1, 1, 1, 1, 1} of a tree with 8 vertices. - _Geoffrey Critzer_, Apr 16 2011
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C a(n) is number of distinct characteristic polynomials among n! of permutations matrices size n X n. - _Artur Jasinski_, Oct 24 2011
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C Conjecture: starting with offset 1 represents the numbers of ordered compositions of n using the signed (&#43;&#43;--&#43;&#43;...) terms of A001318 starting (1, 2, -5, -7, 12, 15, ...). - _Gary W. Adamson_, Apr 04 2013 (this is true by the pentagonal number theorem, _Joerg Arndt_, Apr 08 2013)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C a(n) is also number of terms in expansion of the n-th derivative of log(f(x)). In Mathematica notation: Table[Length[Together[f[x]^n * D[Log[f[x]], {x, n}]]], {n, 1, 20}]. - _Vaclav Kotesovec_, Jun 21 2013
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C Conjecture: No a(n) has the form x^m with m &gt; 1 and x &gt; 1. - _Zhi-Wei Sun_, Dec 02 2013
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C Partitions of n that contain a part p are the partitions of n - p. Thus, number of partitions of m*n - r that include k*n as a part is A000041(h*n-r), where h = m - k &gt;= 0, n &gt;= 2, 0 &lt;= r &lt; n; see A111295 as an example. - _Clark Kimberling_, Mar 03 2014
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C a(n) is the number of compositions of n into positive parts avoiding the pattern [1, 2]. - _Bob Selcoe_, Jul 08 2014
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C For any j there exists k such that all primes p &lt;= A000040(j) are factors of one or more a(n) &lt;= a(k). Growth of this coverage is slow and irregular. k = 1067 covers the first 102 primes, thus slower than A000027. - _Richard R. Forberg_, Dec 08 2014 [The existence of such partition numbers follows from Ono&#39;s proof (see his paper &#34;Distribution of the partition function modulo m&#34;). - _Ralf Stephan_, Jan 28 2026]
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C a(n) is the number of nilpotent conjugacy classes in the order-preserving, order-decreasing and (order-preserving and order-decreasing) injective transformation semigroups. - _Ugbene Ifeanyichukwu_, Jun 03 2015
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C Define a segmented partition a(n,k, &lt;s(1)..s(j)&gt;) to be a partition of n with exactly k parts, with s(j) parts t(j) identical to each other and distinct from all the other parts. Note that n &gt;= k, j &lt;= k, 0 &lt;= s(j) &lt;= k, s(1)t(1) &#43; ... &#43; s(j)t(j) = n and s(1) &#43; ... &#43; s(j) = k. Then there are up to a(k) segmented partitions of n with exactly k parts. - _Gregory L. Simay_, Nov 08 2015
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C From _Gregory L. Simay_, Nov 09 2015: (Start)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C The polynomials for a(n, k, &lt;s(1), ..., s(j)&gt;) have degree j-1.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C   a(n, k, &lt;k&gt;) = 1 if n = 0 mod k, = 0 otherwise
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C   a(rn, rk, &lt;r*s(1), ..., r*s(j)&gt;) = a(n, k, &lt;s(1), ..., s(j)&gt;)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C   a(n odd, k, &lt;all s(j) even&gt;) = 0
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C Established results can be recast in terms of segmented partitions:
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C   For j(j&#43;1)/2 &lt;= n &lt; (j&#43;1)(j&#43;2)/2, A000009(n) = a(n, 1, &lt;1&gt;) &#43; ... &#43; a(n, j, &lt;j 1&#39;s&gt;), j &lt; n
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C   a(n, k, &lt;j 1&#39;s&gt;) = a(n - j(j-1)/2, k)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C (End)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C a(10^20) was computed using the NIST Arb package. It has 11140086260 digits and its head and tail sections are 18381765...88091448. See the Johansson 2015 link. - _Stanislav Sykora_, Feb 01 2016
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C Satisfies Benford&#39;s law [Anderson-Rolen-Stoehr, 2011]. - _N. J. A. Sloane_, Feb 08 2017
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C The partition function p(n) is log-concave for all n&gt;25 [DeSalvo-Pak, 2014]. - _Michel Marcus_, Apr 30 2019
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C a(n) is also the dimension of the n-th cohomology of the infinite real Grassmannian with coefficients in Z/2. - _Luuk Stehouwer_, Jun 06 2021
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C Number of equivalence relations on n unlabeled nodes. - _Lorenzo Sauras Altuzarra_, Jun 13 2022
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C Equivalently, number of idempotent mappings f from a set X of n elements into itself (i.e., satisfying f o f = f) up to permutation (i.e., f~f&#39; :&lt;=&gt; There is a permutation sigma in Sym(X) such that f&#39; o sigma = sigma o f). - _Philip Turecek_, Apr 17 2023
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C Conjecture: Each integer n &gt; 2 different from 6 can be written as a sum of finitely many numbers of the form a(k) &#43; 2 (k &gt; 0) with no summand dividing another. This has been verified for n &lt;= 7140. - _Zhi-Wei Sun_, May 16 2023
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C a(n) is also the number of partitions of n*(n&#43;3)/2 into n distinct parts. - _David García Herrero_, Aug 20 2024
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%C a(n) is also the number of non-isomorphic sigma algebras on {1,...,n}. A000110(n) counts all sigma algebras on {1,...,n}. Every sigma algebra on a finite set X is exactly the collection of all unions of its atoms (its minimal nonempty members), and those atoms partition X. An isomorphism of sigma algebras must map atoms to atoms, so the isomorphism class of a sigma algebra is determined by the multiset of its atom-sizes, which is an integer partition of n. - _Matthew Azar_, Jul 18 2025
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D George E. Andrews, The Theory of Partitions, Addison-Wesley, Reading, Mass., 1976.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D George E. Andrews and K. Eriksson, Integer Partitions, Cambridge University Press 2004.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D T. M. Apostol, Introduction to Analytic Number Theory, Springer-Verlag, 1976, page 307.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D R. Ayoub, An Introduction to the Analytic Theory of Numbers, Amer. Math. Soc., 1963; Chapter III.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D Mohammad K. Azarian, A Generalization of the Climbing Stairs Problem, Mathematics and Computer Education Journal, Vol. 31, No. 1, pp. 24-28, Winter 1997.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D Mohammad K. Azarian, A Generalization of the Climbing Stairs Problem II, Missouri Journal of Mathematical Sciences, Vol. 16, No. 1, Winter 2004, pp. 12-17. Zentralblatt MATH, Zbl 1071.05501.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D Bruce C. Berndt, Ramanujan&#39;s Notebooks Part V, Springer-Verlag.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D B. C. Berndt, Number Theory in the Spirit of Ramanujan, Chap. I Amer. Math. Soc. Providence RI 2006.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D Miklos Bona, editor, Handbook of Enumerative Combinatorics, CRC Press, 2015, page 999.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D Miklos Bona, Introduction to Enumerative and Analytic Combinatorics, CRC Press, 2025, pp. 65-77.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D J. M. Borwein, D. H. Bailey and R. Girgensohn, Experimentation in Mathematics, A K Peters, Ltd., Natick, MA, 2004. x&#43;357 pp. See p. 183.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D Florian Cajori, A History of Mathematical Notations, Dover edition (2012), par. 411.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D John H. Conway and Richard K. Guy, The Book of Numbers, New York: Springer-Verlag, 1996. See pp. 94-96.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D Elena Deza and Michel Marie Deza, Figurate numbers, World Scientific Publishing (2012), page 298.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D L. E. Dickson, History of the Theory of Numbers, Vol.II Chapter III pp. 101-164, Chelsea NY 1992.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D N. J. Fine, Basic Hypergeometric Series and Applications, Amer. Math. Soc., 1988; p. 37, Eq. (22.13).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D H. Gupta et al., Tables of Partitions. Royal Society Mathematical Tables, Vol. 4, Cambridge Univ. Press, 1958, p. 90.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D G. H. Hardy and S. Ramanujan, Asymptotic formulas in combinatorial analysis, Proc. London Math. Soc., 17 (1918), 75-.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D G. H. Hardy, Ramanujan: twelve lectures on subjects suggested by his life and work, Cambridge, University Press, 1940, pp. 83-100, 113-131.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D G. H. Hardy and E. M. Wright, An Introduction to the Theory of Numbers (Fifth edition), Oxford Univ. Press (Clarendon), 1979, 273-296.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D Konrad Knopp, Theory and application of infinite series, Blackie &amp; Son Limited, London and Glasgow, 1954. See p. 548.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D D. E. Knuth, The Art of Computer Programming, vol. 4A, Combinatorial Algorithms, Section 7.2.1.4, p. 396.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D D. S. Mitrinovic et al., Handbook of Number Theory, Kluwer, Section XIV.1, p. 491.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D S. Ramanujan, Collected Papers, Chap. 25, Cambridge Univ. Press 1927 (Proceedings of the Camb. Phil. Soc., 19 (1919), pp. 207-213).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D S. Ramanujan, Collected Papers, Chap. 28, Cambridge Univ. Press 1927 (Proceedings of the London Math. Soc., 2, 18(1920)).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D S. Ramanujan, Collected Papers, Chap. 30, Cambridge Univ. Press 1927 (Mathematische Zeitschrift, 9 (1921), pp. 147-163).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D S. Ramanujan, Collected Papers, Ed. G. H. Hardy et al., Cambridge 1927; Chelsea, NY, 1962. See Table IV on page 308.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D J. Riordan, An Introduction to Combinatorial Analysis, Wiley, 1958, p. 122.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D J. E. Roberts, Lure of the Integers, pp. 168-9 MAA 1992.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D R. E. Tapscott and D. Marcovich, &#34;Enumeration of Permutational Isomers: The Porphyrins&#34;, Journal of Chemical Education, 55 (1978), 446-447.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D James J. Tattersall, Elementary Number Theory in Nine Chapters, Cambridge University Press, 1999, pages 286-289, 297-298, 303.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%D Robert M. Young, &#34;Excursions in Calculus&#34;, Mathematical Association of America, p. 367.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H David W. Wilson, &lt;a href=&#34;/A000041/b000041.txt&#34;&gt;Table of n, a(n) for n = 0..10000&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Milton Abramowitz and Irene A. Stegun, eds., &lt;a href=&#34;http://www.convertit.com/Go/ConvertIt/Reference/AMS55.ASP&#34;&gt;Handbook of Mathematical Functions&lt;/a&gt;, National Bureau of Standards, Applied Math. Series 55, Tenth Printing, 1972, p. 836. [scanned copy]
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Scott Ahlgren and Ken Ono, &lt;a href=&#34;http://www.ams.org/notices/200109/fea-ahlgren.pdf&#34;&gt;Addition and Counting: The Arithmetic of Partitions&lt;/a&gt;, Notices of the AMS, 48 (2001) pp. 978-984.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Scott Ahlgren and Ken Ono, &lt;a href=&#34;http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=60793&#34;&gt;Congruence properties for the partition function&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Scott Ahlgren and Ken Ono, &lt;a href=&#34;https://doi.org/10.1073/pnas.191488598&#34;&gt;Congruence properties for the partition function&lt;/a&gt;, PNAS, vol. 98 no. 23, 12882-12884.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Gert Almkvist, &lt;a href=&#34;https://projecteuclid.org/euclid.em/1047674152&#34;&gt;Asymptotic formulas and generalized Dedekind sums&lt;/a&gt;, Exper. Math., 7 (No. 4, 1998), pp. 343-359.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Gert Almkvist, &lt;a href=&#34;http://matwbn.icm.edu.pl/ksiazki/aa/aa61/aa6126.pdf&#34;&gt;On the differences of the partition function&lt;/a&gt;, Acta Arith., 61.2 (1992), 173-181.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Gert Almkvist and Herbert S. Wilf, &lt;a href=&#34;https://doi.org/10.1006/jnth.1995.1027&#34;&gt;On the coefficients in the Hardy-Ramanujan-Rademacher formula for p(n)&lt;/a&gt;, Journal of Number Theory, Vol. 50, No. 2, 1995, pp. 329-334.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Amazing Mathematical Object Factory, &lt;a href=&#34;https://web.archive.org/web/20070920114320/http://www.aarms.math.ca/ACMN/amof/e_partI.htm&#34;&gt;Information on Partitions&lt;/a&gt;. [Wayback Machine link]
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Edward Anderson, &lt;a href=&#34;https://arxiv.org/abs/1805.03346&#34;&gt;Rubber Relationalism: Smallest Graph-Theoretically Nontrivial Leibniz Spaces&lt;/a&gt;, arXiv:1805.03346 [gr-qc], 2018.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Theresa C. Anderson, Larry Rolen and Ruth Stoehr, &lt;a href=&#34;https://doi.org/10.1090/S0002-9939-2010-10577-4&#34;&gt;Benford&#39;s Law for Coefficients of Modular Forms and Partition Functions&lt;/a&gt;, Proceedings of the American Mathematical Society, Vol. 139, No. 5, May 2011, pp. 1533-1541.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H George E. Andrews, &lt;a href=&#34;https://www.mat.univie.ac.at/~slc/opapers/s25andrews.html&#34;&gt;Three Aspects of Partitions&lt;/a&gt;, Séminaire Lotharingien de Combinatoire, B25f (1990), 1 p.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H George E. Andrews, &lt;a href=&#34;https://doi.org/10.37236/1858&#34;&gt;On a Partition Function of Richard Stanley&lt;/a&gt;, The Electronic Journal of Combinatorics, Volume 11, Issue 2 (2004-6) (The Stanley Festschrift volume), Research Paper #R1.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H George E. Andrews and Ken Ono, &lt;a href=&#34;http://pubmedcentral.com/articlerender.fcgi?artid=1266147&#34;&gt;Ramanujan&#39;s congruences and Dyson&#39;s crank&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H George E. Andrews and Ranjan Roy, &lt;a href=&#34;https://doi.org/10.37236/1317&#34;&gt;Ramanujan&#39;s Method in q-series Congruences&lt;/a&gt;, The Electronic Journal of Combinatorics, Volume 4, Issue 2 (1997) (The Wilf Festschrift volume) &gt; Research Paper #R2.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H George E. Andrews, Sumit Kumar Jha, and J. López-Bonilla, &lt;a href=&#34;https://cs.uwaterloo.ca/journals/JIS/VOL26/Jha/jha25.pdf&#34;&gt;Sums of Squares, Triangular Numbers, and Divisor Sums&lt;/a&gt;, Journal of Integer Sequences, Vol. 26 (2023), Article 23.2.5.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Anonymous, &lt;a href=&#34;http://felix.unife.it/Root/d-Mathematics/d-Number-theory/b-Partitions&#34;&gt;Bibliography on Partitions&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Riccardo Aragona, Roberto Civino, and Norberto Gavioli, &lt;a href=&#34;https://doi.org/10.1007/s10801-024-01318-x&#34;&gt;An ultimately periodic chain in the integral Lie ring of partitions&lt;/a&gt;, J. Algebr. Comb. (2024). See p. 11.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Joerg Arndt, &lt;a href=&#34;http://www.jjj.de/fxt/#fxtbook&#34;&gt;Matters Computational (The Fxtbook)&lt;/a&gt;, section 16.4, pp.344-353.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H A. O. L. Atkin and F. G. Garvan, &lt;a href=&#34;https://arxiv.org/abs/math/0208050&#34;&gt;Relations between the ranks and cranks of partitions&lt;/a&gt;, arXiv:math/0208050 [math.NT], 2002.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Koustav Banerjee, Peter Paule, Cristian-Silviu Radu, and WenHuan Zeng, &lt;a href=&#34;https://doi.org/10.1007/s11139-022-00653-6&#34;&gt;New inequalities for p(n) and log p(n)&lt;/a&gt;, Ramanujan J. 61 (2023) 1295-1338. See pp. 1297.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Helena Bergold, Lukas Egeling, and Hung. P. Hoang, &lt;a href=&#34;https://arxiv.org/abs/2411.19208&#34;&gt;Signotopes with few plus signs&lt;/a&gt;, arXiv:2411.19208 [math.CO], 2024. See p. 14.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Alexander Berkovich and Frank G. Garvan, &lt;a href=&#34;https://arxiv.org/abs/math/0401012&#34;&gt;On the Andrews-Stanley Refinement of Ramanujan&#39;s Partition Congruence Modulo 5&lt;/a&gt;, arXiv:math/0401012 [math.CO], 2004.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Alexander Berkovich and Frank G. Garvan, &lt;a href=&#34;https://arxiv.org/abs/math/0402439&#34;&gt;On the Andrews-Stanley Refinement of Ramanujan&#39;s Partition Congruence Modulo 5 and Generalizations&lt;/a&gt;, arXiv:math/0402439 [math.CO], 2004.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Bruce C. Berndt, &lt;a href=&#34;http://www.math.uiuc.edu/~berndt/articles/partitions2.pdf&#34;&gt;Ramanujan&#39;s congruences for the partition function modulo 5,7 and 11&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Bruce C. Berndt and K. Ono, &lt;a href=&#34;http://www.math.wisc.edu/~ono/reprints/044.pdf&#34;&gt;Ramanujan&#39;s Unpublished Manuscript On The Partition And Tau Functions With Proofs And Commentary&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Bruce C. Berndt and K. Ono, &lt;a href=&#34;http://emis.dsd.sztaki.hu/journals/SLC/wpapers/s42berndt.html&#34;&gt;Ramanujan&#39;s Unpublished Manuscript on the Partition and Tau Functions with Proofs and Commentary&lt;/a&gt;, Séminaire Lotharingien de Combinatoire, B42c (1999), 63 pp.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Frits Beukers, &lt;a href=&#34;https://www.pyth.eu/uploads/user/ArchiefPDF/Pyth38-6.pdf&#34;&gt;Ramanujan and The Partition Function (text in Dutch)&lt;/a&gt;, Pythagoras, Wiskundetijdschrift voor Jongeren, 38ste Jaargang, Nummer 6, Agustus 1999, pp. 15-16.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Henry Bottomley, &lt;a href=&#34;/A008284/a008284.gif&#34;&gt;Illustration of initial terms&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Henry Bottomley, &lt;a href=&#34;/A000009/a000009.gif&#34;&gt;Illustration of initial terms of A000009, A000041 and A047967&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Henry Bottomley, &lt;a href=&#34;http://www.btinternet.com/~se16/js/partitions.htm&#34;&gt;Partition and composition calculator&lt;/a&gt; [broken link]
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Kevin S. Brown, &lt;a href=&#34;http://www.math.niu.edu/~rusin/known-math/95/partitions&#34;&gt;Additive Partitions of Numbers&lt;/a&gt; [Broken link]
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Kevin S. Brown, &lt;a href=&#34;/A000041/a000041_1.txt&#34;&gt;Additive Partitions of Numbers&lt;/a&gt; [Cached copy of lost web page]
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Kevin S. Brown&#39;s Mathpages, &lt;a href=&#34;http://www.mathpages.com/home/kmath383.htm&#34;&gt;Computing the Partitions of n&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Jan Hendrik Bruinier, Amanda Folsom, Zachary A. Kent and Ken Ono, &lt;a href=&#34;http://www.mathematik.tu-darmstadt.de/fbereiche/AlgGeoFA/staff/bruinier/publications/ramapofn125.pdf&#34;&gt;Recent work on the partition function&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Jan Hendrik Bruinier and Ken Ono, &lt;a href=&#34;http://www.mathcs.emory.edu/~ono/publications-cv/pdfs/134.pdf&#34;&gt;Algebraic formulas for the coefficients of half-integral weight harmonic weak Maass forms&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Peter J. Cameron, &lt;a href=&#34;https://cs.uwaterloo.ca/journals/JIS/VOL3/groups.html&#34;&gt;Sequences realized by oligomorphic permutation groups&lt;/a&gt;, J. Integ. Seqs. Vol. 3 (2000), #00.1.5.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Huantian Cao, &lt;a href=&#34;http://cobweb.cs.uga.edu/~rwr/STUDENTS/hcao.html&#34;&gt;AutoGF: An Automated System to Calculate Coefficients of Generating Functions&lt;/a&gt;, thesis, 2002.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Huantian Cao, &lt;a href=&#34;/A000009/a000009.pdf&#34;&gt;AutoGF: An Automated System to Calculate Coefficients of Generating Functions&lt;/a&gt;, thesis, 2002 [Local copy, with permission]
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Chao-Ping Chen and Hui-Jie Zhang, &lt;a href=&#34;https://doi.org/10.1186/s13660-017-1479-8&#34;&gt;Padé approximant related to inequalities involving the constant e and a generalized Carleman-type inequality&lt;/a&gt;, Journal of Inequalities and Applications, 2017.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Yuriy Choliy and Andrew V. Sills, &lt;a href=&#34;http://home.dimacs.rutgers.edu/~asills/Durfee/CholiySillsRevAOC.pdf&#34;&gt;A formula for the partition function that &#39;counts&#39;&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Lynn Chua and Krishanu Roy Sankar, &lt;a href=&#34;https://doi.org/10.37236/3675&#34;&gt;Equipopularity Classes of 132-Avoiding Permutations&lt;/a&gt;, The Electronic Journal of Combinatorics 21(1)(2014), #P59. [Cited by Shalosh B. Ekhad and Doron Zeilberger, 2014] - _N. J. A. Sloane_, Mar 31 2014
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H CombOS - Combinatorial Object Server, &lt;a href=&#34;http://combos.org/part.html&#34;&gt;Generate integer partitions&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Jimena Davis and Elizabeth Perez, &lt;a href=&#34;http://www.ces.clemson.edu/~kevja/REU/2002/JDavisAndEPerez.pdf&#34;&gt;Computations Of The Partition Function, p(n)&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Stephen DeSalvo and Igor Pak, &lt;a href=&#34;https://arxiv.org/abs/1310.7982&#34;&gt;Log-Concavity of the Partition Function&lt;/a&gt;, arXiv:1310.7982 [math.CO], 2013-2014.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Dr. Math, &lt;a href=&#34;https://web.archive.org/web/20011224151740/http://mathforum.org/dr.math/problems/partitions.html&#34;&gt;Partitioning the Integers&lt;/a&gt; and &lt;a href=&#34;https://web.archive.org/web/20011224145843/http://mathforum.org/dr.math/problems/huckin11.14.98.html&#34;&gt;Partitioning an Integer&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H F. J. Dyson, &lt;a href=&#34;https://archim.org.uk/eureka/archive/Eureka-8.pdf&#34;&gt;Some guesses in the theory of partitions&lt;/a&gt;, Eureka (Cambridge) 8 (1944), 10-15.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Shalosh B. Ekhad and Doron Zeilberger, &lt;a href=&#34;https://arxiv.org/abs/1403.5664&#34;&gt;Automatic Proofs of Asymptotic Abnormality (and much more!) of Natural Statistics Defined on Catalan-Counted Combinatorial Families&lt;/a&gt;, arXiv:1403.5664 [math.CO], 2014.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Wenjie Fang, Hsien-Kuei Hwang, and Mihyun Kang, &lt;a href=&#34;https://arxiv.org/abs/2004.08901&#34;&gt;Phase transitions from exp(n^(1/2)) to exp(n^(2/3)) in the asymptotics of banded plane partitions&lt;/a&gt;, arXiv:2004.08901 [math.CO], 2020.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H FindStat - Combinatorial Statistic Finder, &lt;a href=&#34;https://www.findstat.org/CollectionsDatabase/IntegerPartitions/&#34;&gt;Integer partitions&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Nathan J. Fine, &lt;a href=&#34;http://www.pnas.org/cgi/reprint/34/12/616.pdf&#34;&gt;Some New Results On Partitions&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H P. Flajolet and R. Sedgewick, &lt;a href=&#34;http://algo.inria.fr/flajolet/Publications/books.html&#34;&gt;Analytic Combinatorics&lt;/a&gt;, 2009; see page 41.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Amanda Folsom, Zachary A. Kent and Ken Ono, &lt;a href=&#34;http://www.aimath.org/news/partition/folsom-kent-ono.pdf&#34;&gt;l-adic properties of the partition function&lt;/a&gt;, in press.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Amanda Folsom, Zachary A. Kent and Ken Ono, &lt;a href=&#34;https://doi.org/10.1016/j.aim.2011.11.013&#34;&gt;l-adic properties of the partition function&lt;/a&gt;, Adv. Math. 229 (2012) 1586.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H B. Forslund, &lt;a href=&#34;http://my.tbaytel.net/~forslund/partitio.html&#34;&gt;Partitioning Integers&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Harald Fripertinger, &lt;a href=&#34;http://www-ang.kfunigraz.ac.at/~fripert/fga/k1partn.html&#34;&gt;Partitions of an Integer&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Bert Fristedt, &lt;a href=&#34;https://doi.org/10.1090/S0002-9947-1993-1094553-1&#34;&gt;The structure of random partitions of large integers&lt;/a&gt;, Transactions of the American Mathematical Society, 337.2 (1993): 703-735. [A classic paper - _N. J. A. Sloane_, Aug 27 2018]
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H GEO magazine, &lt;a href=&#34;http://www.geo.de/GEO/wissenschaft_natur/technik/2000_11_GEO_11_zahlenspalterei/&#34;&gt;Zahlenspalterei&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H James Grime and Brady Haran, &lt;a href=&#34;https://www.youtube.com/watch?v=NjCIq58rZ8I&#34;&gt;Partitions&lt;/a&gt;, Numberphile video (2016).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Harald Grosse, Alexander Hock, and Raimar Wulkenhaar, &lt;a href=&#34;https://arxiv.org/abs/1903.12526&#34;&gt;A Laplacian to compute intersection numbers on M_(g,n) and correlation functions in NCQFT&lt;/a&gt;, arXiv:1903.12526 [math-ph], 2019.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H G. H. Hardy and S. Ramanujan, &lt;a href=&#34;http://ramanujan.sirinudi.org/Volumes/published/ram36.pdf&#34;&gt;Asymptotic formulas in combinatorial analysis&lt;/a&gt;, Proc. London Math. Soc., 17 (1918), 75-115.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H A. Hassen and T. J. Olsen, &lt;a href=&#34;http://www.math.temple.edu/~melkamu/html/partition.pdf&#34;&gt;Playing With Partitions On The Computer&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Tian-Xiao He, Peter J.-S. Shiue, Zihan Nie, and Minghao Chen, &lt;a href=&#34;https://doi.org/10.3934/era.2020057&#34;&gt;Recursive sequences and Girard-Waring identities with applications in sequence transformation&lt;/a&gt;, Electronic Research Archive (2020) Vol. 28, No. 2, 1049-1062.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Alexander D. Healy, &lt;a href=&#34;http://www.alexhealy.net/papers/math192.pdf&#34;&gt;Partition Identities&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Ferdinand Ihringer, &lt;a href=&#34;https://arxiv.org/abs/2002.06601&#34;&gt;Remarks on the Erdős Matching Conjecture for Vector Spaces&lt;/a&gt;, arXiv:2002.06601 [math.CO], 2020.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H INRIA Algorithms Project, &lt;a href=&#34;http://ecs.inria.fr/services/structure?nbr=61&#34;&gt;Encyclopedia of Combinatorial Structures 61&lt;/a&gt; and &lt;a href=&#34;http://ecs.inria.fr/services/structure?nbr=74&#34;&gt;Encyclopedia of Combinatorial Structures 74&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Fredrik Johansson, &lt;a href=&#34;http://fredrikj.net/math/nist.pdf&#34;&gt;Fast arbitrary-precision evaluation of special functions in the Arb library&lt;/a&gt;, OPSFA13, NIST, June 2015, page 15.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Jonathan M. Kane, &lt;a href=&#34;https://www.jstor.org/stable/2690190&#34;&gt;Distribution of orders of Abelian groups&lt;/a&gt;, Math. Mag., 49 (1976), 132-135.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Jerome Kelleher and Barry O&#39;Sullivan, &lt;a href=&#34;https://arxiv.org/abs/0909.2331&#34;&gt;Generating All Partitions: A Comparison Of Two Encodings&lt;/a&gt;, arXiv:0909.2331 [cs.DS], 2009-2014.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Erica Klarreich, &lt;a href=&#34;http://www.sciencenews.org/articles/20050618/bob9.asp&#34;&gt;Pieces of Numbers: A proof brings closure to a dramatic tale of partitions and primes&lt;/a&gt;, Science News, Week of Jun 18, 2005; Vol. 167, No. 25, p. 392.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Martin Klazar, &lt;a href=&#34;https://arxiv.org/abs/1808.08449&#34;&gt;What is an answer? — remarks, results and problems on PIO formulas in combinatorial enumeration, part I&lt;/a&gt;, arXiv:1808.08449 [math.CO], 2018.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Vaclav Kotesovec, &lt;a href=&#34;https://arxiv.org/abs/1509.08708&#34;&gt;A method of finding the asymptotics of q-series based on the convolution of generating functions&lt;/a&gt;, arXiv:1509.08708 [math.CO], Sep 30 2015.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H J. Laurendi, &lt;a href=&#34;https://web.archive.org/web/20140705212501/http://www.artofproblemsolving.com/Resources/Papers/LaurendiPartitions.pdf&#34;&gt;Partitions of Integers&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Oleg Lazarev, Matt Mizuhara, and Ben Reid, &lt;a href=&#34;https://web.archive.org/web/20170830011642/http://www.math.oregonstate.edu/~swisherh/LazarevMizuharaReid.pdf&#34;&gt;Some Results in Partitions, Plane Partitions, and Multipartitions&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Tim Lockette, &lt;a href=&#34;https://www.research.ufl.edu/publications/explore/v05n2/math.html&#34;&gt;Path To Partitions&lt;/a&gt;, Explore Magazine Volume 5 Issue 2.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H M. MacMahon, Collected Papers of Ramanujan, &lt;a href=&#34;https://web.archive.org/web/20040903112006/http://www.imsc.res.in/~rao/ramanujan/CamUnivCpapers/Cpaper36/page33.htm&#34;&gt;Table for p(n);n=1 through 200&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Jerome Malenfant, &lt;a href=&#34;https://arxiv.org/abs/1103.1585&#34;&gt;Finite, Closed-form Expressions for the Partition Function and for Euler, Bernoulli, and Stirling Numbers&lt;/a&gt;, arXiv:1103.1585 [math.NT], 2011.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H S. Markovski and M. Mihova, &lt;a href=&#34;http://www.math.bas.bg/infres/MathBalk/MB-22/MB-22-101-119.pdf&#34;&gt;An explicit formula for computing the partition numbers p(n)&lt;/a&gt;, Math. Balkanica 22 (2008) 101-119 &lt;a href=&#34;http://www.ams.org/mathscinet-getitem?mr=2467361&#34;&gt;MR2467361&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Victor Meally, &lt;a href=&#34;/A002868/a002868.pdf&#34;&gt;Comparison of several sequences given in Motzkin&#39;s paper &#34;Sorting numbers for cylinders...&#34;, letter to N. J. A. Sloane, N. D.&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Johannes W. Meijer, Euler&#39;s ship on the Pentagonal Sea, &lt;a href=&#34;/A000041/a000041.pdf&#34;&gt;pdf&lt;/a&gt; and &lt;a href=&#34;/A000041/a000041.jpg&#34;&gt;jpg&lt;/a&gt;.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Johannes W. Meijer and Manuel Nepveu, &lt;a href=&#34;http://www.ucbcba.edu.bo/Publicaciones/revistas/actanova/documentos/v4n1/v4.n1.Meijer.pdf&#34;&gt;Euler&#39;s ship on the Pentagonal Sea&lt;/a&gt;, Acta Nova, Volume 4, No.1, December 2008. pp. 176-187.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Mircea Merca, &lt;a href=&#34;https://arxiv.org/abs/1903.10797&#34;&gt;Fast algorithm for generating ascending compositions&lt;/a&gt;, arXiv:1903.10797 [math.CO], 2019.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Mircea Merca and M. D. Schmidt, &lt;a href=&#34;https://doi.org/10.1007/s11139-017-9988-0&#34;&gt;The partition function p(n) in terms of the classical Mobius function&lt;/a&gt;, Ramanujan J. 49 (1) (2019) 87-96.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H István Mező, &lt;a href=&#34;https://arxiv.org/abs/1106.2703&#34;&gt;Several special values of Jacobi theta functions&lt;/a&gt; arXiv:1106.2703v3 [math.CA], 2011-2013.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Gerard P. Michon, &lt;a href=&#34;http://www.numericana.com/data/partition.htm&#34;&gt;Table of partition function p(n) (n=0 through 4096)&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Gerard P. Michon, &lt;a href=&#34;http://www.numericana.com/answer/numbers.htm#partitions&#34;&gt;Partition function&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H G. A. Miller, &lt;a href=&#34;http://www.pnas.org/cgi/reprint/22/11/654.pdf&#34;&gt;Number of the abelian groups of a given order&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Hisanori Mishima, &lt;a href=&#34;http://www.asahi-net.or.jp/~KC2H-MSM/mathland/part&#34;&gt;Factorization of Partition Numbers&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H T. S. Motzkin, &lt;a href=&#34;/A000262/a000262.pdf&#34;&gt;Sorting numbers for cylinders and other classification numbers&lt;/a&gt;, in Combinatorics, Proc. Symp. Pure Math. 19, AMS, 1971, pp. 167-176. [Annotated, scanned copy]
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H D. J. Newman, &lt;a href=&#34;http://projecteuclid.org/euclid.mmj/1028998729&#34;&gt;A simplified proof of the partition formula&lt;/a&gt;, Michigan Math. J. 9:3 (1962), pp. 193-287.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Jean-Louis Nicolas, &lt;a href=&#34;https://doi.org/10.5802/aif.714&#34;&gt;Sur les entiers N pour lesquels il y a beaucoup de groupes abéliens d&#39;ordre N&lt;/a&gt;, Annales de l&#39;Institut Fourier, Tome 28 (1978) no. 4, p. 1-16.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H OEIS Wiki, &lt;a href=&#34;https://oeis.org/wiki/Sorting_numbers&#34;&gt;Sorting numbers&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Ken Ono, &lt;a href=&#34;http://math.la.asu.edu/~sf2000/kono.pdf&#34;&gt;Arithmetic of the partition function&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Ken Ono, &lt;a href=&#34;https://doi.org/10.1090/S1079-6762-95-01005-5&#34;&gt;Parity of the partition function&lt;/a&gt;, Electron. Res. Announc. Amer. Math. Soc. 1 (1995), 35-42.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Ken Ono, &lt;a href=&#34;https://arxiv.org/abs/math/0008140&#34;&gt;Distribution of the partition function modulo m&lt;/a&gt;, Annals Math. 151 (2000), 293-307.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Ken Ono (with J. Bruinier, A. Folsom and Z. Kent), Emory University, &lt;a href=&#34;http://www.youtube.com/watch?v=aj4FozCSg8g&#34;&gt;Adding and counting&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H T. J. Osler, &lt;a href=&#34;http://www2.rowan.edu/mars/depts/math/HASSEN/NT/Playpart.html&#34;&gt;Playing with Partitions on the Computer&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H I. Pak, &lt;a href=&#34;https://doi.org/10.1007/s11139-006-9576-1&#34;&gt;Partition bijections, a survey&lt;/a&gt;, Ramanujan J. 12 (2006) 5-75.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Michael Penn, &lt;a href=&#34;https://www.youtube.com/playlist?list=PL22w63XsKjqxGzgFLMZUw46BzanIKKYWG&#34;&gt;Rogers-Ramanujan Identities&lt;/a&gt;, Youtube playlist, 2019, 2020.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H I. Peterson, &lt;a href=&#34;http://www.sciencenews.org/20000617/bob10.asp&#34;&gt;The Power Of Partitions&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Götz Pfeiffer, &lt;a href=&#34;http://www.cs.uwaterloo.ca/journals/JIS/VOL7/Pfeiffer/pfeiffer6.html&#34;&gt;Counting Transitive Relations&lt;/a&gt;, Journal of Integer Sequences, Vol. 7 (2004), Article 04.3.2.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Michel Planat, &lt;a href=&#34;http://arXiv.org/abs/math-ph/0307033&#34;&gt;Quantum 1/f Noise in Equilibrium: from Planck to Ramanujan&lt;/a&gt;, arXiv:math-ph/0307033, 2003.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H M. Presern, &lt;a href=&#34;http://www2.arnes.si/massvega/documents/ke-2003/Some-Results-on-Partitions.pdf&#34;&gt;Some Results On Partitions&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H W. A. Pribitkin, &lt;a href=&#34;https://doi.org/10.1023/A:1009828302300&#34;&gt;Revisiting Rademacher&#39;s Formula for the Partition Function p(n)&lt;/a&gt;, The Ramanujan Journal 4(4) 2000.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Srinivasa Ramanujan, &lt;a href=&#34;http://www.imsc.res.in/~rao/ramanujan/CamUnivCpapers/Cpaper25/page1.htm&#34;&gt;Some Properties Of p(n), The Number Of Partitions Of n&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Srinivasa Ramanujan, &lt;a href=&#34;http://www.imsc.res.in/~rao/ramanujan/CamUnivCpapers/Cpaper28/page1.htm&#34;&gt;Congruence Properties Of Partitions&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Srinivasa Ramanujan, &lt;a href=&#34;http://www.imsc.res.in/~rao/ramanujan/CamUnivCpapers/Cpaper30/page1.htm&#34;&gt;Congruence Properties Of Partitions&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Srinivasa Ramanujan and G. H. Hardy, &lt;a href=&#34;http://www.imsc.res.in/~rao/ramanujan/CamUnivCpapers/Cpaper31/page1.htm&#34;&gt;Une formule asymptotique pour le nombre de partitions de n&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H J. Riordan, &lt;a href=&#34;https://doi.org/10.1147/rd.45.0473&#34;&gt;Enumeration of trees by height and diameter&lt;/a&gt;, IBM J. Res. Dev. 4 (1960), 473-478.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H J. D. Rosenhouse, &lt;a href=&#34;http://www.math.ksu.edu/~jasonr/book4.pdf&#34;&gt;Partitions of Integers&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H J. D. Rosenhouse, &lt;a href=&#34;http://www.math.ksu.edu/~jasonr/Solutions4.pdf&#34;&gt;Solutions to Problems&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Kate Rudolph, &lt;a href=&#34;https://doi.org/10.37236/2634&#34;&gt;Pattern Popularity in 132-Avoiding Permutations&lt;/a&gt;, The Electronic Journal of Combinatorics 20(1)(2013), #P8. [Cited by Shalosh B. Ekhad and Doron Zeilberger, 2014] - _N. J. A. Sloane_, Mar 31 2014
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H F. Ruskey, &lt;a href=&#34;http://combos.org/part&#34;&gt;Generate Numerical Partitions&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H F. Ruskey, &lt;a href=&#34;https://web.archive.org/web/20160604023632/http://www.theory.cs.uvic.ca/tables/partitions.txt.gz&#34;&gt;The first 284547 partition numbers&lt;/a&gt; (52MB compressed file, archived link)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Milos Savic, &lt;a href=&#34;http://www.cs.bsu.edu/homepages/hfischer/Journal/01-01/savic.pdf&#34;&gt;The Partition Function and Ramanujan&#39;s 5k&#43;4 Congruence&lt;/a&gt;.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Zhumagali Shomanov, &lt;a href=&#34;https://arxiv.org/abs/1508.03173&#34;&gt;Combinatorial formula for the partition function&lt;/a&gt;, arXiv:1508.03173 [math.CO], 2015-2016.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Torsten Sillke, &lt;a href=&#34;https://www.math.uni-bielefeld.de/~sillke/SEQUENCES/series011&#34;&gt;Number of integer partitions&lt;/a&gt;.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Richard P. Stanley, &lt;a href=&#34;https://math.mit.edu/~rstan/papers/comb.pdf&#34;&gt;A combinatorial miscellany&lt;/a&gt;.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Cormac O&#39;Sullivan, &lt;a href=&#34;https://arxiv.org/abs/2205.13468&#34;&gt;Detailed asymptotic expansions for partitions into powers&lt;/a&gt;, arXiv:2205.13468 [math.NT], 2022-3.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Yi Wang and Bao-Xuan Zhu, &lt;a href=&#34;https://arxiv.org/abs/1303.5595&#34;&gt;Proofs of some conjectures on monotonicity of number-theoretic and combinatorial sequences&lt;/a&gt;, arXiv preprint arXiv:1303.5595 [math.CO], 2013.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H R. L. Weaver, &lt;a href=&#34;https://doi.org/10.1023/A:1011493128408&#34;&gt;New Congruences for the Partition Function&lt;/a&gt;, The Ramanujan Journal 5(1) 2001.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Eric Weisstein&#39;s World of Mathematics, &lt;a href=&#34;https://mathworld.wolfram.com/Partition.html&#34;&gt;Partition&lt;/a&gt;, &lt;a href=&#34;https://mathworld.wolfram.com/PartitionFunctionP.html&#34;&gt;Partition Function P&lt;/a&gt;, &lt;a href=&#34;https://mathworld.wolfram.com/q-PochhammerSymbol.html&#34;&gt;q-Pochhammer Symbol&lt;/a&gt;, and &lt;a href=&#34;https://mathworld.wolfram.com/RamanujansIdentity.html&#34;&gt;Ramanujan&#39;s Identity&lt;/a&gt;.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Li Wenwei, &lt;a href=&#34;https://arxiv.org/abs/1612.05526&#34;&gt;Approximation of the Partition Number After Hardy and Ramanujan: An Application of Data Fitting Method in Combinatorics&lt;/a&gt;, arXiv preprint arXiv:1612.05526 [math.NT], 2016-2018.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H West Sussex Grid for Learning, Multicultural Mathematics, &lt;a href=&#34;http://wsgfl.westsussex.gov.uk/maths/Ramanujan.htm&#34;&gt;Ramanujan&#39;s Partition of Numbers&lt;/a&gt; [broken link]
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Thomas Wieder, &lt;a href=&#34;/A000041/a000041.txt&#34;&gt;Comment on A000041&lt;/a&gt;.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Wikipedia, &lt;a href=&#34;https://en.wikipedia.org/wiki/Integer_partition&#34;&gt;Integer partition&lt;/a&gt;.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Herbert S. Wilf, &lt;a href=&#34;https://www2.math.upenn.edu/~wilf/PIMS/PIMSLectures.pdf&#34;&gt;Lectures on Integer Partitions&lt;/a&gt;.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Wolfram Research, &lt;a href=&#34;https://functions.wolfram.com/IntegerFunctions/PartitionsP/11&#34;&gt;Generating functions of p(n)&lt;/a&gt;.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H David J. Wright, &lt;a href=&#34;http://klein.math.okstate.edu/~wrightd/4713/nt_essay/node14.html&#34;&gt;Partitions&lt;/a&gt;.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Doron Zeilberger and Noam Zeilberger, &lt;a href=&#34;https://arxiv.org/abs/1810.12701&#34;&gt;Two Questions about the Fractional Counting of Partitions&lt;/a&gt;, arXiv:1810.12701 [math.CO], 2018.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H Robert M. Ziff, &lt;a href=&#34;https://doi.org/10.1088/0305-4470/28/5/013&#34;&gt;On Cardy&#39;s formula for the critical crossing probability in 2D percolation&lt;/a&gt;, J. Phys. A. 28, 1249-1255 (1995).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H &lt;a href=&#34;/index/Cor#core&#34;&gt;Index entries for &#34;core&#34; sequences&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H &lt;a href=&#34;/index/Par#partN&#34;&gt;Index entries for related partition-counting sequences&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H &lt;a href=&#34;/index/Pro#1mxtok&#34;&gt;Index entries for expansions of Product_{k &gt;= 1} (1-x^k)^m&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H &lt;a href=&#34;/index/Ro#rooted&#34;&gt;Index entries for sequences related to rooted trees&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%H &lt;a href=&#34;/index/Be#Benford&#34;&gt;Index entries for sequences related to Benford&#39;s law&lt;/a&gt;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F G.f.: Product_{k&gt;0} 1/(1-x^k) = Sum_{k&gt;= 0} x^k Product_{i = 1..k} 1/(1-x^i) = 1 &#43; Sum_{k&gt;0} x^(k^2)/(Product_{i = 1..k} (1-x^i))^2.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F G.f.: 1 &#43; Sum_{n&gt;=1} x^n/(Product_{k&gt;=n} 1-x^k). - _Joerg Arndt_, Jan 29 2011
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F a(n) - a(n-1) - a(n-2) &#43; a(n-5) &#43; a(n-7) - a(n-12) - a(n-15) &#43; ... = 0, where the sum is over n-k and k is a generalized pentagonal number (A001318) &lt;= n and the sign of the k-th term is (-1)^([(k&#43;1)/2]). See A001318 for a good way to remember this!
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F a(n) = (1/n) * Sum_{k=0..n-1} sigma(n-k)*a(k), where sigma(k) is the sum of divisors of k (A000203).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F a(n) ~ 1/(4*n*sqrt(3)) * e^(Pi * sqrt(2n/3)) as n -&gt; infinity (Hardy and Ramanujan). See A050811.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F a(n) = a(0)*b(n) &#43; a(1)*b(n-2) &#43; a(2)*b(n-4) &#43; ... where b = A000009.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F From _Jon E. Schoenfield_, Aug 17 2014: (Start)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F It appears that the above approximation from Hardy and Ramanujan can be refined as
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F a(n) ~ 1/(4*n*sqrt(3)) * e^(Pi * sqrt(2n/3 &#43; c0 &#43; c1/n^(1/2) &#43; c2/n &#43; c3/n^(3/2) &#43; c4/n^2 &#43; ...)), where the coefficients c0 through c4 are approximately
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F      c0 = -0.230420145062453320665537
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F      c1 = -0.0178416569128570889793
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F      c2 =  0.0051329911273
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F      c3 = -0.0011129404
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F      c4 =  0.0009573,
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F as n -&gt; infinity. (End)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F From _Vaclav Kotesovec_, May 29 2016 (c4 added Nov 07 2016): (Start)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F c0 = -0.230420145062453320665536704197233... = -1/36 - 2/Pi^2
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F c1 = -0.017841656912857088979502135349949... = 1/(6*sqrt(6)*Pi) - sqrt(3/2)/Pi^3
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F c2 =  0.005132991127342167594576391633559... = 1/(2*Pi^4)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F c3 = -0.001112940489559760908236602843497... = 3*sqrt(3/2)/(4*Pi^5) - 5/(16*sqrt(6)*Pi^3)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F c4 =  0.000957343284806972958968694349196... = 1/(576*Pi^2) - 1/(24*Pi^4) &#43; 93/(80*Pi^6)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F a(n) ~ exp(Pi*sqrt(2*n/3))/(4*sqrt(3)*n) * (1 - (sqrt(3/2)/Pi &#43; Pi/(24*sqrt(6)))/sqrt(n) &#43; (1/16 &#43; Pi^2/6912)/n).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F a(n) ~ exp(Pi*sqrt(2*n/3) - (sqrt(3/2)/Pi &#43; Pi/(24*sqrt(6)))/sqrt(n) &#43; (1/24 - 3/(4*Pi^2))/n) / (4*sqrt(3)*n).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F (End)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F a(n) &lt; exp( (2/3)^(1/2) Pi sqrt(n) ) (Ayoub, p. 197).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F G.f.: Product_{m&gt;=1} (1&#43;x^m)^A001511(m). - _Vladeta Jovovic_, Mar 26 2004
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F a(n) = Sum_{i=0..n-1} P(i, n-i), where P(x, y) is the number of partitions of x into at most y parts and P(0, y)=1. - _Jon Perry_, Jun 16 2003
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F G.f.: Product_{i&gt;=1} Product_{j&gt;=0} (1&#43;x^((2i-1)*2^j))^(j&#43;1). - _Jon Perry_, Jun 06 2004
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F G.f. e^(Sum_{k&gt;0} (x^k/(1-x^k)/k)). - _Franklin T. Adams-Watters_, Feb 08 2006
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F a(n) = A114099(9*n). - _Reinhard Zumkeller_, Feb 15 2006
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F Euler transform of all 1&#39;s sequence (A000012). Weighout transform of A001511. - _Franklin T. Adams-Watters_, Mar 15 2006
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F a(n) = A027187(n) &#43; A027193(n) = A000701(n) &#43; A046682(n). - _Reinhard Zumkeller_, Apr 22 2006
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F A026820(a(n),n) = A134737(n) for n &gt; 0. - _Reinhard Zumkeller_, Nov 07 2007
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F Convolved with A152537 gives A000079, powers of 2. - _Gary W. Adamson_, Dec 06 2008
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F a(n) = A026820(n, n); a(n) = A108949(n) &#43; A045931(n) &#43; A108950(n) = A130780(n) &#43; A171966(n) - A045931(n) = A045931(n) &#43; A171967(n). - _Reinhard Zumkeller_, Jan 21 2010
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F a(n) = Tr(n)/(24*n-1) = A183011(n)/A183010(n), n&gt;=1. See the Bruinier-Ono paper in the Links. - _Omar E. Pol_, Jan 23 2011
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F From _Jerome Malenfant_, Feb 14 2011: (Start)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F a(n) = determinant of the n X n Toeplitz matrix:
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F    1  -1
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F    1   1  -1
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F    0   1   1  -1
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F    0   0   1   1  -1
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F   -1   0   0   1   1  -1
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F    . . .
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F   d_n  d_(n-1) d_(n-2)...1
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F where d_q = (-1)^(m&#43;1) if q = m(3m-1)/2 = p_m, the m-th generalized pentagonal number (A001318), otherwise d_q = 0. Note that the 1&#39;s run along the diagonal and the -1&#39;s are on the superdiagonal. The (n-1) row (not written) would end with ... 1 -1. (End)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F Empirical: let F*(x) = Sum_{n=0..infinity} p(n)*exp(-Pi*x*(n&#43;1)), then F*(2/5) = 1/sqrt(5) to a precision of 13 digits.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F F*(4/5) = 1/2&#43;3/2/sqrt(5)-sqrt(1/2*(1&#43;3/sqrt(5))) to a precision of 28 digits. These are the only values found for a/b when a/b is from F60, Farey fractions up to 60. The number for F*(4/5) is one of the real roots of 25*x^4 - 50*x^3 - 10*x^2 - 10*x &#43; 1. Note here the exponent (n&#43;1) compared to the standard notation with n starting at 0. - _Simon Plouffe_, Feb 23 2011
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F The constant (2^(7/8)*Gamma(3/4))/(exp(Pi/6)*Pi^(1/4)) = 1.0000034873... when expanded in base exp(4*Pi) will give the first 52 terms of a(n), n&gt;0, the precision needed is 300 decimal digits. - _Simon Plouffe_, Mar 02 2011
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F a(n) = A035363(2n). - _Omar E. Pol_, Nov 20 2009
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F G.f.: A(x)=1&#43;x/(G(0)-x); G(k) = 1 &#43; x - x^(k&#43;1) - x*(1-x^(k&#43;1))/G(k&#43;1); (continued fraction Euler&#39;s kind, 1-step ). - _Sergei N. Gladkovskii_, Jan 25 2012
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F Convolution of A010815 with A000712. - _Gary W. Adamson_, Jul 20 2012
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F G.f.: 1 &#43; x*(1 - G(0))/(1-x) where G(k) = 1 - 1/(1-x^(k&#43;1))/(1-x/(x-1/G(k&#43;1) )); (continued fraction). - _Sergei N. Gladkovskii_, Jan 22 2013
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F G.f.: Q(0) where Q(k) = 1 &#43; x^(4*k&#43;1)/( (x^(2*k&#43;1)-1)^2 - x^(4*k&#43;3)*(x^(2*k&#43;1)-1)^2/( x^(4*k&#43;3) &#43; (x^(2*k&#43;2)-1)^2/Q(k&#43;1) )); (continued fraction). - _Sergei N. Gladkovskii_, Feb 16 2013
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F a(n) = 24*spt(n) &#43; 12*N_2(n) - Tr(n) = 24*A092269(n) &#43; 12*A220908(n) - A183011(n), n &gt;= 1. - _Omar E. Pol_, Feb 17 2013
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F G.f.: 1/(x; x)_{inf} where (a; q)_k is the q-Pochhammer symbol. - _Vladimir Reshetnikov_, Apr 24 2013
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F a(n) = A066186(n)/n, n &gt;= 1. - _Omar E. Pol_, Aug 16 2013
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F From _Peter Bala_, Dec 23 2013: (Start)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F a(n-1) = Sum_{parts k in all partitions of n} mu(k), where mu(k) is the arithmetical Möbius function (see A008683).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F Let P(2,n) denote the set of partitions of n into parts k &gt;= 2. Then a(n-2) = -Sum_{parts k in all partitions in P(2,n)} mu(k).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F n*( a(n) - a(n-1) ) = Sum_{parts k in all partitions in P(2,n)} k (see A138880).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F Let P(3,n) denote the set of partitions of n into parts k &gt;= 3. Then
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F a(n-3) = (1/2)*Sum_{parts k in all partitions in P(3,n)} phi(k), where phi(k) is the Euler totient function (see A000010). Using this result and Mertens&#39;s theorem on the average order of the phi function, we can find an approximate 3-term recurrence for the partition function: a(n) ~ a(n-1) &#43; a(n-2) &#43; (Pi^2/(3*n) - 1)*a(n-3). For example, substituting the values a(47) = 124754, a(48) = 147273 and a(49) = 173525 into the recurrence gives the approximation a(50) ~ 204252.48... compared with the true value a(50) = 204226. (End)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F a(n) = Sum_{k=1..n&#43;1} (-1)^(n&#43;1-k)*A000203(k)*A002040(n&#43;1-k). - _Mircea Merca_, Feb 27 2014
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F a(n) = A240690(n) &#43; A240690(n&#43;1), n &gt;= 1. - _Omar E. Pol_, Mar 16 2015
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F From _Gary W. Adamson_, Jun 22 2015: (Start)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F A production matrix for the sequence with offset 1 is M, an infinite n x n matrix of the following form:
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F   a, 1, 0, 0, 0, 0, ...
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F   b, 0, 1, 0, 0, 0, ...
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F   c, 0, 0, 1, 0, 0, ...
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F   d, 0, 0, 0, 1, 0, ...
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F .
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F .
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F ... such that (a, b, c, d, ...) is the signed version of A080995 with offset 1: (1,1,0,0,-1,0,-1,...)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F and a(n) is the upper left term of M^n.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F This operation is equivalent to the g.f. (1 &#43; x &#43; 2x^2 &#43; 3x^3 &#43; 5x^4 &#43; ...) = 1/(1 - x - x^2 &#43; x^5 &#43; x^7 - x^12 - x^15 &#43; x^22 &#43; ...). (End)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F G.f.: x^(1/24)/eta(log(x)/(2 Pi i)). - _Thomas Baruchel_, Jan 09 2016, after _Michael Somos_ (after Richard Dedekind).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F a(n) = Sum_{k=-inf..&#43;inf} (-1)^k a(n-k(3k-1)/2) with a(0)=1 and a(negative)=0. The sum can be restricted to the (finite) range from k = (1-sqrt(1-24n))/6 to (1&#43;sqrt(1-24n))/6, since all terms outside this range are zero. - _Jos Koot_, Jun 01 2016
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F G.f.: (conjecture) (r(x) * r(x^2) * r(x^4) * r(x^8) * ...) where r(x) is A000009: (1, 1, 1, 2, 2, 3, 4, ...). - _Gary W. Adamson_, Sep 18 2016; _Doron Zeilberger_ observed today that &#34;This follows immediately from Euler&#39;s formula 1/(1-z) = (1&#43;z)*(1&#43;z^2)*(1&#43;z^4)*(1&#43;z^8)*...&#34; _Gary W. Adamson_, Sep 20 2016
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F a(n) ~ 2*Pi * BesselI(3/2, sqrt(24*n-1)*Pi/6) / (24*n-1)^(3/4). - _Vaclav Kotesovec_, Jan 11 2017
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F G.f.: Product_{k&gt;=1} (1 &#43; x^k)/(1 - x^(2*k)). - _Ilya Gutkovskiy_, Jan 23 2018
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F a(n) = p(1, n) where p(k, n) = p(k&#43;1, n) &#43; p(k, n-k) if k &lt; n, 1 if k = n, and 0 if k &gt; n. p(k, n) is the number of partitions of n into parts &gt;= k. - _Lorraine Lee_, Jan 28 2020
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F Sum_{n&gt;=1} 1/a(n) = A078506. - _Amiram Eldar_, Nov 01 2020
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F Sum_{n&gt;=0} a(n)/2^n = A065446. - _Amiram Eldar_, Jan 19 2021
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F From _Simon Plouffe_, Mar 12 2021: (Start)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F Sum_{n&gt;=0} a(n)/exp(Pi*n) = 2^(3/8)*Gamma(3/4)/(Pi^(1/4)*exp(Pi/24)) = A387545.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F Sum_{n&gt;=0} a(n)/exp(2*Pi*n) = 2^(1/2)*Gamma(3/4)/(Pi^(1/4)*exp(Pi/12)).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F [corrected by _Vaclav Kotesovec_, May 12 2023] (End)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F [These are the reciprocals of phi(exp(-Pi)) (A259148) and phi(exp(-2*Pi)) (A259149), where phi(q) is the Euler modular function. See B. C. Berndt (RLN, Vol. V, p. 326), and formulas (13) and (14) in I. Mező, 2013. - _Peter Luschny_, Mar 13 2021]
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F a(n) = A000009(n) &#43; A035363(n) &#43; A006477(n) for n &gt;= 1. - _R. J. Mathar_, Feb 01 2022
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F a(n) = A008284(2*n,n) is also the number of partitions of 2n into n parts. - _Ryan Brooks_, Jun 11 2022
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F a(n) = A000700(n) &#43; A330644(n). - _R. J. Mathar_, Jun 15 2022
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%F a(n) ~ exp(Pi*sqrt(2*n/3)) / (4*n*sqrt(3)) * (1 &#43; Sum_{r&gt;=1} w(r)/n^(r/2)), where w(r) = 1/(-4*sqrt(6))^r * Sum_{k=0..(r&#43;1)/2} binomial(r&#43;1,k) * (r&#43;1-k) / (r&#43;1-2*k)! * (Pi/6)^(r-2*k) [Cormac O&#39;Sullivan, 2023, pp. 2-3]. - _Vaclav Kotesovec_, Mar 15 2023
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%e a(5) = 7 because there are seven partitions of 5, namely: {1, 1, 1, 1, 1}, {2, 1, 1, 1}, {2, 2, 1}, {3, 1, 1}, {3, 2}, {4, 1}, {5}. - _Bob Selcoe_, Jul 08 2014
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%e G.f. = 1 &#43; x &#43; 2*x^2 &#43; 3*x^3 &#43; 5*x^4 &#43; 7*x^5 &#43; 11*x^6 &#43; 15*x^7 &#43; 22*x^8 &#43; ...
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%e G.f. = 1/q &#43; q^23 &#43; 2*q^47 &#43; 3*q^71 &#43; 5*q^95 &#43; 7*q^119 &#43; 11*q^143 &#43; 15*q^167 &#43; ...
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%e From _Gregory L. Simay_, Nov 08 2015: (Start)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%e There are up to a(4)=5 segmented partitions of the partitions of n with exactly 4 parts. They are a(n,4, &lt;4&gt;), a(n,4,&lt;3,1&gt;), a(n,4,&lt;2,2&gt;), a(n,4,&lt;2,1,1&gt;), a(n,4,&lt;1,1,1,1&gt;).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%e The partition 8,8,8,8 is counted in a(32,4,&lt;4&gt;).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%e The partition 9,9,9,5 is counted in a(32,4,&lt;3,1&gt;).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%e The partition 11,11,5,5 is counted in a(32,4,&lt;2,2&gt;).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%e The partition 13,13,5,1 is counted in a(32,4,&lt;2,1,1&gt;).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%e The partition 14,9,6,3 is counted in a(32,4,&lt;1,1,1,1&gt;).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%e a(n odd,4,&lt;2,2&gt;) = 0.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%e a(12, 6, &lt;2,2,2&gt;) = a(6,3,&lt;1,1,1&gt;) = a(6-3,3) = a(3,3) = 1. The lone partition is 3,3,2,2,1,1.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%e (End)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%p A000041 := n -&gt; combinat:-numbpart(n): [seq(A000041(n), n=0..50)]; # Warning: Maple 10 and 11 give incorrect answers in some cases: A110375.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%p # Alternative:
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%p spec := [B, {B=Set(Set(Z,card&gt;=1))}, unlabeled ];
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%p [seq(combstruct[count](spec, size=n), n=0..50)];
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%p # Alternative:
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%p with(combstruct):ZL0:=[S,{S=Set(Cycle(Z,card&gt;0))}, unlabeled]: seq(count(ZL0,size=n),n=0..45); # _Zerinvary Lajos_, Sep 24 2007
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%p # Alternative:
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%p G:={P=Set(Set(Atom,card&gt;0))}: combstruct[gfsolve](G,labeled,x); seq(combstruct[count]([P,G,unlabeled],size=i),i=0..45); # _Zerinvary Lajos_, Dec 16 2007
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%p # Alternative: Using the function EULER from Transforms (see link at the bottom of the page).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%p 1,op(EULER([seq(1,n=1..49)])); # _Peter Luschny_, Aug 19 2020
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%t Table[ PartitionsP[n], {n, 0, 45}]
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%t (* Alternative: *)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%t a[ n_] := SeriesCoefficient[ q^(1/24) / DedekindEta[ Log[q] / (2 Pi I)], {q, 0, n}]; (* _Michael Somos_, Jul 11 2011 *)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%t (* Alternative: *)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%t a[ n_] := SeriesCoefficient[ 1 / Product[ 1 - x^k, {k, n}], {x, 0, n}]; (* _Michael Somos_, Jul 11 2011 *)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%t (* Alternative: *)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%t CoefficientList[1/QPochhammer[q] &#43; O[q]^100, q] (* _Jean-François Alcover_, Nov 25 2015 *)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%t (* Alternative: *)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%t a[0] := 1; a[n_] := a[n] = Block[{k=1, s=0, i=n-1}, While[i &gt;= 0, s=s-(-1)^k (a[i]&#43;a[i-k]); k=k&#43;1; i=i-(3 k-2)]; s]; Map[a, Range[0, 49]] (* _Oliver Seipel_, Jun 01 2024 after Euler *)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o (Magma) a:= func&lt; n | NumberOfPartitions(n) &gt;; [ a(n) : n in [0..10]];
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o (PARI) {a(n) = if( n&lt;0, 0, polcoeff( 1 / eta(x &#43; x * O(x^n)), n))};
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o (PARI) /* The Hardy-Ramanujan-Rademacher exact formula in PARI is as follows (this is no longer necessary since it is now built in to the numbpart command): */
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o Psi(n, q) = local(a, b, c); a=sqrt(2/3)*Pi/q; b=n-1/24; c=sqrt(b); (sqrt(q)/(2*sqrt(2)*b*Pi))*(a*cosh(a*c)-(sinh(a*c)/c))
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o L(n, q) = if(q==1,1,sum(h=1,q-1,if(gcd(h,q)&gt;1,0,cos((g(h,q)-2*h*n)*Pi/q))))
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o g(h, q) = if(q&lt;3,0,sum(k=1,q-1,k*(frac(h*k/q)-1/2)))
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o part(n) = round(sum(q=1,max(5,0.5*sqrt(n)),L(n,q)*Psi(n,q)))
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o /* _Ralf Stephan_, Nov 30 2002, fixed by _Vaclav Kotesovec_, Apr 09 2018 */
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o (PARI) {a(n) = numbpart(n)};
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o (PARI) {a(n) = if( n&lt;0, 0, polcoeff( sum( k=1, sqrtint(n), x^k^2 / prod( i=1, k, 1 - x^i, 1 &#43; x * O(x^n))^2, 1), n))};
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o (PARI) f(n)= my(v,i,k,s,t);v=vector(n,k,0);v[n]=2;t=0;while(v[1]&lt;n, i=2;while(v[i]==0,i&#43;&#43;);v[i]--;s=sum(k=i,n,k*v[k]); while(i&gt;1,i--;s&#43;=i*(v[i]=(n-s)\i));t&#43;&#43;);t \\ _Thomas Baruchel_, Nov 07 2005
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o (PARI) a(n)=if(n&lt;0, 0, polcoeff(exp(sum(k=1, n, x^k/(1-x^k)/k, x*O(x^n))), n)) \\ _Joerg Arndt_, Apr 16 2010
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o (MuPAD) combinat::partitions::count(i) $i=0..54 // _Zerinvary Lajos_, Apr 16 2007
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o (SageMath) [number_of_partitions(n) for n in range(46)]  # _Zerinvary Lajos_, May 24 2009
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o (SageMath)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o @CachedFunction
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o def A000041(n):
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o     if n == 0: return 1
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o     S = 0; J = n-1; k = 2
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o     while 0 &lt;= J:
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o         T = A000041(J)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o         S = S&#43;T if is_odd(k//2) else S-T
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o         J -= k if is_odd(k) else k//2
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o         k &#43;= 1
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o     return S
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o [A000041(n) for n in range(50)]  # _Peter Luschny_, Oct 13 2012
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o (SageMath) # uses[EulerTransform from A166861]
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o a = BinaryRecurrenceSequence(1, 0)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o b = EulerTransform(a)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o print([b(n) for n in range(50)]) # _Peter Luschny_, Nov 11 2020
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o (Haskell)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o import Data.MemoCombinators (memo2, integral)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o a000041 n = a000041_list !! n
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o a000041_list = map (p&#39; 1) [0..] where
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o    p&#39; = memo2 integral integral p
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o    p _ 0 = 1
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o    p k m = if m &lt; k then 0 else p&#39; k (m - k) &#43; p&#39; (k &#43; 1) m
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o -- _Reinhard Zumkeller_, Nov 03 2015, Nov 04 2013
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o (Maxima) num_partitions(60,list); /* _Emanuele Munarini_, Feb 24 2014 */
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o (GAP) List([1..10],n-&gt;Size(OrbitsDomain(SymmetricGroup(IsPermGroup,n),SymmetricGroup(IsPermGroup,n),\^))); # _Attila Egri-Nagy_, Aug 15 2014
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o (Perl) use ntheory &#34;:all&#34;; my @p = map { partitions($_) } 0..100; say &#34;[@p]&#34;; # _Dana Jacobsen_, Sep 06 2015
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o (Scheme)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o ;; SUM(k,-inf,&#43;inf) (-1)^k p(n-k(3k-1)/2)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o ;; For k outside the range (1-(sqrt(1-24n))/6 to (1&#43;sqrt(1-24n))/6) argument n-k(3k-1)/2 &lt; 0.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o ;; Therefore the loops below are finite. The hash avoids repeated identical computations.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o (define (p n) ; Nr of partitions of n.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o (hash-ref h n
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o   (λ ()
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o    (define r
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o     (&#43;
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o      (let loop ((k 1) (n (sub1 n)) (s 0))
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o       (if (&lt; n 0) s
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o        (loop (add1 k) (- n (* 3 k) 1) (if (odd? k) (&#43; s (p n)) (- s (p n))))))
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o      (let loop ((k -1) (n (- n 2)) (s 0))
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o       (if (&lt; n 0) s
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o        (loop (sub1 k) (&#43; n (* 3 k) -2) (if (odd? k) (&#43; s (p n)) (- s (p n))))))))
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o    (hash-set! h n r)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o    r)))
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o (define h (make-hash &#39;((0 . 1))))
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o ;; (for ((k (in-range 0 50))) (printf &#34;~s, &#34; (p k))) runs in a moment.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o ;; _Jos Koot_, Jun 01 2016
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o (Python)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o from sympy.functions.combinatorial.numbers import partition
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o print([partition(i) for i in range(101)]) # _Joan Ludevid_, May 25 2025
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o (Julia) # DedekindEta is defined in A000594
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o A000041List(len) = DedekindEta(len, -1)
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%o A000041List(50) |&gt; println # _Peter Luschny_, Mar 09 2018
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%Y Cf. A000009, A000079, A000203, A001318, A008284, A026820, A065446, A078506, A113685, A132311, A000248, A000110, A387545.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%Y Partial sums give A000070.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%Y For successive differences see A002865, A053445, A072380, A081094, A081095.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%Y Antidiagonal sums of triangle A092905. a(n) = A054225(n,0).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%Y Boustrophedon transforms: A000733, A000751.
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%Y Cf. A167376 (complement), A061260 (multisets), A000700 (self-conjug), A330644 (not self-conj).
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%K core,easy,nonn,nice
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%O 0,3
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%A _N. J. A. Sloane_
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%E Additional comments from Ola Veshta (olaveshta(AT)my-deja.com), Feb 28 2001
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt>%E Additional comments from Dan Fux (dan.fux(AT)OpenGaia.com or danfux(AT)OpenGaia.com), Apr 07 2001
+</tt></p>
+            
+            <p style="text-indent: -2em; margin-left: 2em; margin-top: 0; margin-bottom: 0;"><tt></tt></p>
+            
+            </div>
+        
+        <div class=space10></div>
+    </div>
+
+    </div></div>
+
+    <p>
+
+    <div class=footerpad></div>
+    <div class=footer>
+    <center>
+    <div class=bottom>
+    <div class=linksbar>
+      <a href="/">Lookup</a>
+      <a href="/wiki/Welcome"><font color="red">Welcome</font></a>
+      <a href="/wiki/Main_Page"><font color="red">Wiki</font></a>
+      <a href="/account">Register</a>
+      
+      <a href="/play.html">Music</a>
+      <a href="/plot2.html">Plot 2</a>
+      <a href="/demo1.html">Demos</a>
+      <a href="/wiki/Index_to_OEIS">Index</a>
+      <a href="/webcam">WebCam</a>
+      <a href="/Submit.html">Contribute</a>
+      <a href="/eishelp2.html">Format</a>
+      <a href="/wiki/Style_Sheet">Style Sheet</a>
+      <a href="/transforms.html">Transforms</a>
+      <a href="/ol.html">Superseeker</a>
+      <a href="/recent">Recents</a>
+    </div>
+    <div class=linksbar>
+      <a href="/community.html">The OEIS Community</a>
+    </div>
+    <div class=linksbar>
+      Maintained by <a href="http://oeisf.org">The OEIS Foundation Inc.</a>
+    </div>
+
+    <div class=dbinfo>Last modified August 25 17:31 EDT 2026.  Contains 398662 sequences.</div>
+    <div class=legal>
+    <a href="/wiki/Legal_Documents">License Agreements, Terms of Use, Privacy Policy</a>
+    </div>
+
+    </div>
+    </center>
+    </div>
+  <script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a30db685ea3c96b4',t:'MTc4NzY5MzU4NA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
