@@ -1,0 +1,9769 @@
+{
+ "401b": {
+  "TRI_gate_violations": [
+   {
+    "graph": "atlas77",
+    "gamma_2": 5,
+    "rhs": 4,
+    "info": {
+     "Tdist_max": 9,
+     "T_max": 0,
+     "freq": 6
+    }
+   },
+   {
+    "graph": "atlas270",
+    "gamma_2": 6,
+    "rhs": 4,
+    "info": {
+     "Tdist_max": 11,
+     "T_max": 0,
+     "freq": 7
+    }
+   },
+   {
+    "graph": "K4,4",
+    "gamma_2": 4,
+    "rhs": 3,
+    "info": {
+     "Tdist_max": 10,
+     "T_max": 0,
+     "freq": 8
+    }
+   },
+   {
+    "graph": "K5,5",
+    "gamma_2": 4,
+    "rhs": 3,
+    "info": {
+     "Tdist_max": 13,
+     "T_max": 0,
+     "freq": 10
+    }
+   },
+   {
+    "graph": "star(1,5)",
+    "gamma_2": 5,
+    "rhs": 4,
+    "info": {
+     "Tdist_max": 9,
+     "T_max": 0,
+     "freq": 6
+    }
+   },
+   {
+    "graph": "star(1,6)",
+    "gamma_2": 6,
+    "rhs": 4,
+    "info": {
+     "Tdist_max": 11,
+     "T_max": 0,
+     "freq": 7
+    }
+   },
+   {
+    "graph": "star(1,7)",
+    "gamma_2": 7,
+    "rhs": 4,
+    "info": {
+     "Tdist_max": 13,
+     "T_max": 0,
+     "freq": 8
+    }
+   },
+   {
+    "graph": "star(1,8)",
+    "gamma_2": 8,
+    "rhs": 5,
+    "info": {
+     "Tdist_max": 15,
+     "T_max": 0,
+     "freq": 9
+    }
+   }
+  ],
+  "TD_gate_violations": [
+   {
+    "graph": "atlas270",
+    "gamma_2": 6,
+    "rhs": 5,
+    "info": {
+     "Tdist_max": 11,
+     "freq_of_Tdist_max": 6
+    }
+   },
+   {
+    "graph": "K4,4",
+    "gamma_2": 4,
+    "rhs": 3,
+    "info": {
+     "Tdist_max": 10,
+     "freq_of_Tdist_max": 8
+    }
+   },
+   {
+    "graph": "K5,5",
+    "gamma_2": 4,
+    "rhs": 3,
+    "info": {
+     "Tdist_max": 13,
+     "freq_of_Tdist_max": 10
+    }
+   },
+   {
+    "graph": "star(1,6)",
+    "gamma_2": 6,
+    "rhs": 5,
+    "info": {
+     "Tdist_max": 11,
+     "freq_of_Tdist_max": 6
+    }
+   },
+   {
+    "graph": "star(1,7)",
+    "gamma_2": 7,
+    "rhs": 5,
+    "info": {
+     "Tdist_max": 13,
+     "freq_of_Tdist_max": 7
+    }
+   },
+   {
+    "graph": "star(1,8)",
+    "gamma_2": 8,
+    "rhs": 5,
+    "info": {
+     "Tdist_max": 15,
+     "freq_of_Tdist_max": 8
+    }
+   }
+  ],
+  "TD_verdict": "MIS_TRANSCRIPTION_CLASS",
+  "gate_note": "atlas1 (=K2) excluded by hypothesis n>2; violations stand on stars/K4,4/K5,5 regardless",
+  "TRI_verdict": "MIS_TRANSCRIPTION_CLASS"
+ },
+ "412f": {},
+ "448b": {},
+ "412f_LIT_gate_violations": [
+  {
+   "graph": "atlas7",
+   "lhs_H": 0,
+   "mu_sub": 1,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas18",
+   "lhs_H": 0,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas38",
+   "lhs_H": 0,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas42",
+   "lhs_H": 0,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas43",
+   "lhs_H": 0,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas47",
+   "lhs_H": 0,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas48",
+   "lhs_H": 0,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas49",
+   "lhs_H": 0,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas50",
+   "lhs_H": 0,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas51",
+   "lhs_H": 0,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas52",
+   "lhs_H": 0,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas130",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas142",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas150",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas152",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas153",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas160",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas165",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas167",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas169",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas171",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas172",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas174",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas178",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas181",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas183",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas184",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas185",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas187",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas188",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas190",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas191",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas193",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas194",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas195",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas196",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas198",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas199",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas200",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas202",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas203",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas204",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas205",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas206",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas207",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas208",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas351",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas353",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas420",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas422",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas424",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas432",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas437",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas439",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas440",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas443",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas445",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas446",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas447",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas449",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas450",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas509",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas510",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas515",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas519",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas526",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas529",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas530",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas532",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas534",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas535",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas537",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas539",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas541",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas544",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas546",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas548",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas549",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas551",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas552",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas555",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas557",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas559",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas560",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas561",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas562",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas563",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas566",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas567",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas568",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas569",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas570",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas572",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas573",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas574",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas575",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas576",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas577",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas578",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas579",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas580",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas621",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas625",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas627",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas630",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas633",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas636",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas637",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas638",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas640",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas642",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas645",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas646",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas647",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas648",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas649",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas651",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas652",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas654",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas658",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas659",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas660",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas662",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas663",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas664",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas665",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas666",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas671",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas673",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas675",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas679",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas681",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas682",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas683",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas685",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas686",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas687",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas688",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas689",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas690",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas691",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas692",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas693",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas694",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas696",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas697",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas698",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas699",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas700",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas702",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas703",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas704",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas705",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas706",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas707",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas709",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas710",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas711",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas712",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas713",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas714",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas715",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas716",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas717",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas718",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas719",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas720",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas721",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas722",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas724",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas725",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas726",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas727",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas728",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas729",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas730",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas751",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas755",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas756",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas758",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas759",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas760",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas761",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas766",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas768",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas769",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas771",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas772",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas773",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas774",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas775",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas776",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas777",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas778",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas779",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas781",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas782",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas783",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas784",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas785",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas786",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas787",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas788",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas795",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas796",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas797",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas799",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas802",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas803",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas804",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas806",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas808",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas809",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas810",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas811",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas812",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas813",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas814",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas815",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas816",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas817",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas818",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas819",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas820",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas821",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas822",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas824",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas825",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas826",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas827",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas828",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas829",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas831",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas832",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas833",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas834",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas835",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas836",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas837",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas838",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas839",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas840",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas841",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas842",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas843",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas844",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas845",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas846",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas848",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas849",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas850",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas851",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas852",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas853",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas854",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas855",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas856",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas857",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas858",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas859",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas860",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas861",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas862",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas863",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas864",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas865",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas866",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas867",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas868",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas869",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas870",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas871",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas872",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas873",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas875",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas876",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas877",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas878",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas889",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas890",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas892",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas893",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas895",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas896",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas897",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas899",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas900",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas901",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas903",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas904",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas905",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas906",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas907",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas908",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas909",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas910",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas911",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas912",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas916",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas917",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas918",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas919",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas921",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas922",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas924",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas925",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas926",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas927",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas928",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas930",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas931",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas932",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas933",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas935",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas936",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas937",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas938",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas939",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas940",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas941",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas942",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas943",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas944",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas945",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas946",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas947",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas948",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas949",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas950",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas951",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas952",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas953",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas954",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas955",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas956",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas958",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas959",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas960",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas961",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas962",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas963",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas964",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas965",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas966",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas967",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas968",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas969",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas970",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas971",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas972",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas973",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas974",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas975",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas976",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas977",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas979",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas980",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas981",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas982",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas983",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas984",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas985",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas986",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas987",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas988",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas989",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas990",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas991",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas992",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas993",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas994",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas995",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas996",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas997",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas998",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas999",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1000",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1001",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1002",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1003",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1004",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1005",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1006",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1008",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1009",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1012",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas1015",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas1016",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas1017",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas1018",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas1019",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas1020",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas1021",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas1022",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas1023",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas1024",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas1027",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1028",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas1029",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1030",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1031",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1032",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1033",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1034",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1035",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1036",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1037",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas1038",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1039",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1040",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1041",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1043",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1044",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1046",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1047",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1048",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1049",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1050",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1051",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1052",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1053",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1054",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1055",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1056",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1057",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1058",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1059",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1060",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1061",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1062",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1063",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1064",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1065",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1066",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1067",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1068",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1069",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1070",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1071",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1072",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1073",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1074",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1075",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1076",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1077",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1078",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1079",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1080",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1081",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1082",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1083",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1084",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1085",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1086",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1087",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1089",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1090",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1091",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1092",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1093",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1094",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1095",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1096",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1097",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1098",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1099",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1100",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1101",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1102",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1103",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1104",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1105",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1106",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1108",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas1109",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas1110",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas1111",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas1112",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas1113",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas1114",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1115",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1117",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1118",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1119",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1120",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1121",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1122",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1123",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1124",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1125",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1126",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1127",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1128",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1129",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1130",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1131",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1132",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1133",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1134",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1135",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1136",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1137",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1138",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1139",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1141",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1142",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1143",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1144",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1145",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1146",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1147",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1148",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1149",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1150",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1151",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1152",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1153",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1154",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1155",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1156",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1157",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1158",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1159",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1160",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1161",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1162",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1163",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1164",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1165",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1166",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1167",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1168",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1169",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1170",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1171",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1173",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas1174",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas1175",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1176",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1177",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1178",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1179",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1180",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1181",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1182",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1183",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1185",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1186",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1187",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1188",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1189",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1190",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1191",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1192",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1193",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1194",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1195",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1196",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1197",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1198",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1199",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1200",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1201",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1202",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1203",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1204",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1205",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1206",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1207",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1208",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1209",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1210",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1211",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1212",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1213",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 2,
+   "P": 1
+  },
+  {
+   "graph": "atlas1214",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1215",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1216",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1217",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1218",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1219",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1220",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1221",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1222",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1223",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1224",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1225",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1226",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1227",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1228",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1229",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1230",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1231",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1232",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1233",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1234",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1235",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1236",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1237",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1238",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1239",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1240",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1241",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1242",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1243",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1244",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1245",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1246",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1247",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1248",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1249",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1250",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1251",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1252",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "C5",
+   "lhs_H": 0,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "C7",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "C9",
+   "lhs_H": 0,
+   "mu_sub": 4,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "K3",
+   "lhs_H": 0,
+   "mu_sub": 1,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "K7",
+   "lhs_H": 0,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "Petersen",
+   "lhs_H": 0,
+   "mu_sub": 5,
+   "ok_branch1": false,
+   "alpha_crit": 0,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  }
+ ],
+ "412f_LIT_verdict": "MIS_TRANSCRIPTION_CLASS",
+ "412f_NE_gate_violations": [
+  {
+   "graph": "atlas142",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas152",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas153",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas160",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas165",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas167",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas169",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas171",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas172",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas178",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas181",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas183",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas184",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas185",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas191",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas193",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas194",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas200",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas207",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": -2,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas351",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas420",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas422",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas424",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas432",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas437",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas439",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas440",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas447",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas509",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas510",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas515",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas519",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas526",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas529",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas530",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas532",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas534",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas535",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas537",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas539",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas541",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas544",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas546",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas548",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas549",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas567",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas568",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas570",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas579",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas621",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas625",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas627",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas630",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas633",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas636",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas637",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas638",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas640",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas642",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas645",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas646",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas647",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas648",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas649",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas651",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas652",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas654",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas658",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas659",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas660",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas662",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas663",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas664",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas665",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas666",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas681",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas688",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas689",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas698",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas706",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas721",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas726",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas751",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas755",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas756",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas758",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas759",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas760",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas761",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas766",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas768",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas769",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas771",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas772",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas773",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas774",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas775",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas776",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas777",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas778",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas779",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas781",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas782",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas783",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas784",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas785",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas786",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas787",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas788",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas806",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas812",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas814",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas831",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas832",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas846",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas851",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas856",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas871",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas889",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas890",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas892",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas893",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas895",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas896",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas897",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas899",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas900",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas901",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas903",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas904",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas905",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas906",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas907",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas908",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas909",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas910",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas911",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas912",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas918",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas924",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas932",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas944",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas945",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas949",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas976",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas986",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas991",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1012",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas1015",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas1016",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas1017",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas1018",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas1019",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas1020",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas1021",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas1022",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas1023",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas1024",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas1028",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1032",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas1036",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas1037",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1058",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1063",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1068",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1071",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1074",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1076",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1101",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -2,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas1103",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -2,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas1104",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -2,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas1108",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas1109",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas1110",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas1111",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas1112",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas1113",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1124",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1127",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1129",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1133",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1136",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1150",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -2,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas1151",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -2,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas1154",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -2,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas1156",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -2,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas1158",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -2,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas1159",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -2,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas1162",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -2,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas1164",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -2,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas1166",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -2,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1167",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -2,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1168",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -2,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1173",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas1174",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas1177",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1180",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1181",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1182",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1188",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -2,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas1190",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -2,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas1192",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -2,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas1194",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -2,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas1196",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -2,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas1198",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -2,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1199",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -2,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1200",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -2,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1201",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -2,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1204",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -2,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1205",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -2,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1213",
+   "lhs_H": 1,
+   "mu_sub": 2,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": 0,
+   "n_argmax": 1,
+   "P": 1
+  },
+  {
+   "graph": "atlas1215",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1216",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1219",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -2,
+   "n_argmax": 2,
+   "P": 0
+  },
+  {
+   "graph": "atlas1221",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -2,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1222",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -2,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1223",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -2,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1225",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -2,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1226",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -2,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1234",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -1,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1236",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -2,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1237",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -2,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1244",
+   "lhs_H": 1,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 1,
+   "best_deficit": -2,
+   "n_argmax": 1,
+   "P": 0
+  },
+  {
+   "graph": "atlas1251",
+   "lhs_H": 2,
+   "mu_sub": 3,
+   "ok_branch1": false,
+   "alpha_crit": 2,
+   "best_deficit": -3,
+   "n_argmax": 1,
+   "P": 0
+  }
+ ],
+ "412f_NE_verdict": "MIS_TRANSCRIPTION_CLASS",
+ "448b_RHO-RAD_gate_violations": [
+  {
+   "graph": "atlas13",
+   "alpha_2": 3,
+   "|V-A|": 1,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 2,
+   "ok": false
+  },
+  {
+   "graph": "atlas18",
+   "alpha_2": 2,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 1,
+   "ok": false
+  },
+  {
+   "graph": "atlas29",
+   "alpha_2": 4,
+   "|V-A|": 1,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 2,
+   "ok": false
+  },
+  {
+   "graph": "atlas38",
+   "alpha_2": 3,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 2,
+   "rhs": 2,
+   "ok": false
+  },
+  {
+   "graph": "atlas42",
+   "alpha_2": 4,
+   "|V-A|": 1,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 2,
+   "ok": false
+  },
+  {
+   "graph": "atlas52",
+   "alpha_2": 2,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 1,
+   "ok": false
+  },
+  {
+   "graph": "atlas77",
+   "alpha_2": 5,
+   "|V-A|": 1,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 2,
+   "ok": false
+  },
+  {
+   "graph": "atlas105",
+   "alpha_2": 4,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 3,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "atlas126",
+   "alpha_2": 4,
+   "|V-A|": 1,
+   "|E(G[N(S)])|": 0,
+   "rho": 2,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "atlas144",
+   "alpha_2": 4,
+   "|V-A|": 2,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "atlas161",
+   "alpha_2": 4,
+   "|V-A|": 2,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "atlas174",
+   "alpha_2": 3,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 2,
+   "rhs": 2,
+   "ok": false
+  },
+  {
+   "graph": "atlas175",
+   "alpha_2": 3,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 2,
+   "rhs": 2,
+   "ok": false
+  },
+  {
+   "graph": "atlas187",
+   "alpha_2": 3,
+   "|V-A|": 1,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 2,
+   "ok": false
+  },
+  {
+   "graph": "atlas195",
+   "alpha_2": 4,
+   "|V-A|": 2,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "atlas208",
+   "alpha_2": 2,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 1,
+   "ok": false
+  },
+  {
+   "graph": "atlas270",
+   "alpha_2": 6,
+   "|V-A|": 1,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 2,
+   "ok": false
+  },
+  {
+   "graph": "atlas314",
+   "alpha_2": 6,
+   "|V-A|": 3,
+   "|E(G[N(S)])|": 1,
+   "rho": 1,
+   "rhs": 5,
+   "ok": false
+  },
+  {
+   "graph": "atlas353",
+   "alpha_2": 4,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 3,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "atlas443",
+   "alpha_2": 5,
+   "|V-A|": 1,
+   "|E(G[N(S)])|": 0,
+   "rho": 2,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "atlas444",
+   "alpha_2": 4,
+   "|V-A|": 1,
+   "|E(G[N(S)])|": 0,
+   "rho": 2,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "atlas449",
+   "alpha_2": 5,
+   "|V-A|": 2,
+   "|E(G[N(S)])|": 0,
+   "rho": 2,
+   "rhs": 4,
+   "ok": false
+  },
+  {
+   "graph": "atlas450",
+   "alpha_2": 5,
+   "|V-A|": 2,
+   "|E(G[N(S)])|": 0,
+   "rho": 2,
+   "rhs": 4,
+   "ok": false
+  },
+  {
+   "graph": "atlas551",
+   "alpha_2": 6,
+   "|V-A|": 1,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 2,
+   "ok": false
+  },
+  {
+   "graph": "atlas552",
+   "alpha_2": 5,
+   "|V-A|": 2,
+   "|E(G[N(S)])|": 0,
+   "rho": 2,
+   "rhs": 4,
+   "ok": false
+  },
+  {
+   "graph": "atlas554",
+   "alpha_2": 5,
+   "|V-A|": 2,
+   "|E(G[N(S)])|": 0,
+   "rho": 2,
+   "rhs": 4,
+   "ok": false
+  },
+  {
+   "graph": "atlas555",
+   "alpha_2": 5,
+   "|V-A|": 2,
+   "|E(G[N(S)])|": 0,
+   "rho": 2,
+   "rhs": 4,
+   "ok": false
+  },
+  {
+   "graph": "atlas557",
+   "alpha_2": 5,
+   "|V-A|": 2,
+   "|E(G[N(S)])|": 0,
+   "rho": 2,
+   "rhs": 4,
+   "ok": false
+  },
+  {
+   "graph": "atlas558",
+   "alpha_2": 5,
+   "|V-A|": 2,
+   "|E(G[N(S)])|": 0,
+   "rho": 2,
+   "rhs": 4,
+   "ok": false
+  },
+  {
+   "graph": "atlas668",
+   "alpha_2": 5,
+   "|V-A|": 2,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "atlas669",
+   "alpha_2": 5,
+   "|V-A|": 2,
+   "|E(G[N(S)])|": 0,
+   "rho": 2,
+   "rhs": 4,
+   "ok": false
+  },
+  {
+   "graph": "atlas670",
+   "alpha_2": 5,
+   "|V-A|": 2,
+   "|E(G[N(S)])|": 0,
+   "rho": 2,
+   "rhs": 4,
+   "ok": false
+  },
+  {
+   "graph": "atlas671",
+   "alpha_2": 5,
+   "|V-A|": 3,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 4,
+   "ok": false
+  },
+  {
+   "graph": "atlas790",
+   "alpha_2": 5,
+   "|V-A|": 2,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "atlas791",
+   "alpha_2": 5,
+   "|V-A|": 3,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 4,
+   "ok": false
+  },
+  {
+   "graph": "atlas875",
+   "alpha_2": 4,
+   "|V-A|": 1,
+   "|E(G[N(S)])|": 0,
+   "rho": 2,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "atlas876",
+   "alpha_2": 4,
+   "|V-A|": 1,
+   "|E(G[N(S)])|": 0,
+   "rho": 2,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "atlas877",
+   "alpha_2": 4,
+   "|V-A|": 1,
+   "|E(G[N(S)])|": 0,
+   "rho": 2,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "atlas878",
+   "alpha_2": 4,
+   "|V-A|": 1,
+   "|E(G[N(S)])|": 0,
+   "rho": 2,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "atlas1008",
+   "alpha_2": 4,
+   "|V-A|": 1,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 2,
+   "ok": false
+  },
+  {
+   "graph": "atlas1009",
+   "alpha_2": 4,
+   "|V-A|": 1,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 2,
+   "ok": false
+  },
+  {
+   "graph": "atlas1077",
+   "alpha_2": 4,
+   "|V-A|": 2,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "atlas1170",
+   "alpha_2": 3,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 2,
+   "rhs": 2,
+   "ok": false
+  },
+  {
+   "graph": "atlas1171",
+   "alpha_2": 4,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 2,
+   "rhs": 2,
+   "ok": false
+  },
+  {
+   "graph": "atlas1207",
+   "alpha_2": 3,
+   "|V-A|": 1,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 2,
+   "ok": false
+  },
+  {
+   "graph": "atlas1208",
+   "alpha_2": 3,
+   "|V-A|": 1,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 2,
+   "ok": false
+  },
+  {
+   "graph": "atlas1252",
+   "alpha_2": 2,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 1,
+   "ok": false
+  },
+  {
+   "graph": "C5",
+   "alpha_2": 3,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 2,
+   "rhs": 2,
+   "ok": false
+  },
+  {
+   "graph": "C6",
+   "alpha_2": 4,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 3,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "C7",
+   "alpha_2": 4,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 3,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "C8",
+   "alpha_2": 5,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 4,
+   "rhs": 4,
+   "ok": false
+  },
+  {
+   "graph": "C9",
+   "alpha_2": 6,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 4,
+   "rhs": 4,
+   "ok": false
+  },
+  {
+   "graph": "K7",
+   "alpha_2": 2,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 1,
+   "ok": false
+  },
+  {
+   "graph": "K3,3",
+   "alpha_2": 3,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 2,
+   "rhs": 2,
+   "ok": false
+  },
+  {
+   "graph": "K4,4",
+   "alpha_2": 4,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 2,
+   "rhs": 2,
+   "ok": false
+  },
+  {
+   "graph": "K5,5",
+   "alpha_2": 5,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 2,
+   "rhs": 2,
+   "ok": false
+  },
+  {
+   "graph": "star(1,3)",
+   "alpha_2": 3,
+   "|V-A|": 1,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 2,
+   "ok": false
+  },
+  {
+   "graph": "star(1,4)",
+   "alpha_2": 4,
+   "|V-A|": 1,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 2,
+   "ok": false
+  },
+  {
+   "graph": "star(1,5)",
+   "alpha_2": 5,
+   "|V-A|": 1,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 2,
+   "ok": false
+  },
+  {
+   "graph": "star(1,6)",
+   "alpha_2": 6,
+   "|V-A|": 1,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 2,
+   "ok": false
+  },
+  {
+   "graph": "star(1,7)",
+   "alpha_2": 7,
+   "|V-A|": 1,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 2,
+   "ok": false
+  },
+  {
+   "graph": "star(1,8)",
+   "alpha_2": 8,
+   "|V-A|": 1,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 2,
+   "ok": false
+  },
+  {
+   "graph": "Petersen",
+   "alpha_2": 6,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 2,
+   "rhs": 2,
+   "ok": false
+  }
+ ],
+ "448b_RHO-RAD_verdict": "MIS_TRANSCRIPTION_CLASS",
+ "448b_RHO-PCOV_gate_violations": [
+  {
+   "graph": "atlas16",
+   "alpha_2": 2,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 1,
+   "ok": false
+  },
+  {
+   "graph": "atlas18",
+   "alpha_2": 2,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 1,
+   "ok": false
+  },
+  {
+   "graph": "atlas38",
+   "alpha_2": 3,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 1,
+   "ok": false
+  },
+  {
+   "graph": "atlas42",
+   "alpha_2": 4,
+   "|V-A|": 1,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 2,
+   "ok": false
+  },
+  {
+   "graph": "atlas52",
+   "alpha_2": 2,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 1,
+   "ok": false
+  },
+  {
+   "graph": "atlas105",
+   "alpha_2": 4,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 1,
+   "ok": false
+  },
+  {
+   "graph": "atlas126",
+   "alpha_2": 4,
+   "|V-A|": 1,
+   "|E(G[N(S)])|": 0,
+   "rho": 2,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "atlas127",
+   "alpha_2": 4,
+   "|V-A|": 2,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "atlas128",
+   "alpha_2": 4,
+   "|V-A|": 2,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "atlas144",
+   "alpha_2": 4,
+   "|V-A|": 2,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "atlas174",
+   "alpha_2": 3,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 1,
+   "ok": false
+  },
+  {
+   "graph": "atlas175",
+   "alpha_2": 3,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 1,
+   "ok": false
+  },
+  {
+   "graph": "atlas187",
+   "alpha_2": 3,
+   "|V-A|": 1,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 2,
+   "ok": false
+  },
+  {
+   "graph": "atlas190",
+   "alpha_2": 4,
+   "|V-A|": 2,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "atlas195",
+   "alpha_2": 4,
+   "|V-A|": 2,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "atlas204",
+   "alpha_2": 2,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 1,
+   "ok": false
+  },
+  {
+   "graph": "atlas208",
+   "alpha_2": 2,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 1,
+   "ok": false
+  },
+  {
+   "graph": "atlas353",
+   "alpha_2": 4,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 1,
+   "ok": false
+  },
+  {
+   "graph": "atlas443",
+   "alpha_2": 5,
+   "|V-A|": 1,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 2,
+   "ok": false
+  },
+  {
+   "graph": "atlas444",
+   "alpha_2": 4,
+   "|V-A|": 1,
+   "|E(G[N(S)])|": 0,
+   "rho": 2,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "atlas445",
+   "alpha_2": 4,
+   "|V-A|": 2,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "atlas446",
+   "alpha_2": 4,
+   "|V-A|": 2,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "atlas448",
+   "alpha_2": 4,
+   "|V-A|": 2,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "atlas449",
+   "alpha_2": 5,
+   "|V-A|": 2,
+   "|E(G[N(S)])|": 0,
+   "rho": 2,
+   "rhs": 4,
+   "ok": false
+  },
+  {
+   "graph": "atlas450",
+   "alpha_2": 5,
+   "|V-A|": 2,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "atlas551",
+   "alpha_2": 6,
+   "|V-A|": 1,
+   "|E(G[N(S)])|": 0,
+   "rho": 2,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "atlas552",
+   "alpha_2": 5,
+   "|V-A|": 2,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "atlas553",
+   "alpha_2": 4,
+   "|V-A|": 2,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "atlas554",
+   "alpha_2": 5,
+   "|V-A|": 2,
+   "|E(G[N(S)])|": 0,
+   "rho": 2,
+   "rhs": 4,
+   "ok": false
+  },
+  {
+   "graph": "atlas555",
+   "alpha_2": 5,
+   "|V-A|": 2,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "atlas556",
+   "alpha_2": 4,
+   "|V-A|": 2,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "atlas557",
+   "alpha_2": 5,
+   "|V-A|": 2,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "atlas558",
+   "alpha_2": 5,
+   "|V-A|": 2,
+   "|E(G[N(S)])|": 0,
+   "rho": 2,
+   "rhs": 4,
+   "ok": false
+  },
+  {
+   "graph": "atlas560",
+   "alpha_2": 5,
+   "|V-A|": 3,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 4,
+   "ok": false
+  },
+  {
+   "graph": "atlas562",
+   "alpha_2": 5,
+   "|V-A|": 3,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 4,
+   "ok": false
+  },
+  {
+   "graph": "atlas669",
+   "alpha_2": 5,
+   "|V-A|": 2,
+   "|E(G[N(S)])|": 0,
+   "rho": 2,
+   "rhs": 4,
+   "ok": false
+  },
+  {
+   "graph": "atlas671",
+   "alpha_2": 5,
+   "|V-A|": 3,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 4,
+   "ok": false
+  },
+  {
+   "graph": "atlas673",
+   "alpha_2": 5,
+   "|V-A|": 3,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 4,
+   "ok": false
+  },
+  {
+   "graph": "atlas675",
+   "alpha_2": 5,
+   "|V-A|": 3,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 4,
+   "ok": false
+  },
+  {
+   "graph": "atlas875",
+   "alpha_2": 4,
+   "|V-A|": 1,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 2,
+   "ok": false
+  },
+  {
+   "graph": "atlas876",
+   "alpha_2": 4,
+   "|V-A|": 1,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 2,
+   "ok": false
+  },
+  {
+   "graph": "atlas877",
+   "alpha_2": 4,
+   "|V-A|": 1,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 2,
+   "ok": false
+  },
+  {
+   "graph": "atlas878",
+   "alpha_2": 4,
+   "|V-A|": 1,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 2,
+   "ok": false
+  },
+  {
+   "graph": "atlas992",
+   "alpha_2": 4,
+   "|V-A|": 2,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "atlas993",
+   "alpha_2": 4,
+   "|V-A|": 2,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "atlas994",
+   "alpha_2": 4,
+   "|V-A|": 2,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "atlas995",
+   "alpha_2": 4,
+   "|V-A|": 2,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "atlas996",
+   "alpha_2": 4,
+   "|V-A|": 2,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "atlas1008",
+   "alpha_2": 4,
+   "|V-A|": 1,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 2,
+   "ok": false
+  },
+  {
+   "graph": "atlas1009",
+   "alpha_2": 4,
+   "|V-A|": 1,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 2,
+   "ok": false
+  },
+  {
+   "graph": "atlas1077",
+   "alpha_2": 4,
+   "|V-A|": 2,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "atlas1170",
+   "alpha_2": 3,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 1,
+   "ok": false
+  },
+  {
+   "graph": "atlas1171",
+   "alpha_2": 4,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 1,
+   "ok": false
+  },
+  {
+   "graph": "atlas1207",
+   "alpha_2": 3,
+   "|V-A|": 1,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 2,
+   "ok": false
+  },
+  {
+   "graph": "atlas1208",
+   "alpha_2": 3,
+   "|V-A|": 1,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 2,
+   "ok": false
+  },
+  {
+   "graph": "atlas1211",
+   "alpha_2": 4,
+   "|V-A|": 2,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 3,
+   "ok": false
+  },
+  {
+   "graph": "atlas1252",
+   "alpha_2": 2,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 1,
+   "ok": false
+  },
+  {
+   "graph": "C5",
+   "alpha_2": 3,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 1,
+   "ok": false
+  },
+  {
+   "graph": "C6",
+   "alpha_2": 4,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 1,
+   "ok": false
+  },
+  {
+   "graph": "C7",
+   "alpha_2": 4,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 1,
+   "ok": false
+  },
+  {
+   "graph": "C8",
+   "alpha_2": 5,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 1,
+   "ok": false
+  },
+  {
+   "graph": "C9",
+   "alpha_2": 6,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 1,
+   "ok": false
+  },
+  {
+   "graph": "K7",
+   "alpha_2": 2,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 1,
+   "ok": false
+  },
+  {
+   "graph": "K3,3",
+   "alpha_2": 3,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 1,
+   "ok": false
+  },
+  {
+   "graph": "K4,4",
+   "alpha_2": 4,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 1,
+   "ok": false
+  },
+  {
+   "graph": "K5,5",
+   "alpha_2": 5,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 1,
+   "ok": false
+  },
+  {
+   "graph": "Petersen",
+   "alpha_2": 6,
+   "|V-A|": 0,
+   "|E(G[N(S)])|": 0,
+   "rho": 1,
+   "rhs": 1,
+   "ok": false
+  }
+ ],
+ "448b_RHO-PCOV_verdict": "MIS_TRANSCRIPTION_CLASS"
+}
