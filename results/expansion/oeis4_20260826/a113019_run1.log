@@ -1,0 +1,18 @@
+=== PATH 1: exhaustive (d,r) enumeration ===
+  FIXED POINT n=1  (d=1, r=1)
+  FIXED POINT n=32  (d=2, r=5)
+  FIXED POINT n=387420489  (d=9, r=9)
+complete set: [1, 32, 387420489]
+completeness: n=a(n) => n=d^r, r=dr(n)<=9 => n<=10^9 => d<=10; all pairs checked
+=== Lean test values a_0..a_4 ===
+  a(0) = 1
+  a(1) = 1
+  a(2) = 1
+  a(3) = 1
+  a(4) = 1
+=== Kitamura candidate 387420489 = 9^9 ===
+  digits=9 dr=9 a(n)=387420489 fixed=True
+=== PATH 2: brute scan n<=10^7 (cap 60 s) ===
+  fixed points found n<= 10000000: [1, 32]
+=== verdict inputs ===
+Lean RHS 'forall n, a n = n -> n = 1 \/ n = 32' refuted by n = 387420489: True

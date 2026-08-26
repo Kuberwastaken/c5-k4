@@ -1,0 +1,11 @@
+=== head vs b-file ===
+  b-file first 12 match: True
+  head: [0, 1, 2, 3, 4, 5, 6, 7]
+=== CONJECTURE1: no square terms, n<=6000 ===
+  scanned n<= 6000; squares found: NONE
+  min distance-to-nearest-square: 1 at n~0 (Haken margin)
+=== CONJECTURE2: no integer in (pi*10^n, pi/arctan(10^-n)), n<=1200 ===
+  scanned n<= 1200: integers inside intervals: NONE
+  closest approach to containing an integer: n=761, slack=1.627e-07
+  (equivalence note: contains-integer <=> next digits of pi are 999..., same
+   phenomenon as conj1's square question via Haken/Gardner analysis)

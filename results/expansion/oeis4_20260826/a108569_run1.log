@@ -1,0 +1,11 @@
+phi sieve to 2000000: 0.2s
+scanned k <= 1000000: 384 terms
+first 40: [1, 4, 8, 16, 32, 64, 110, 128, 220, 256, 440, 506, 512, 550, 880, 1012, 1024, 1100, 1760, 1830, 2024, 2048, 2162, 2200, 2750, 3422, 3520, 3660, 4048, 4096, 4114, 4324, 4400, 4746, 5490, 5500, 5566, 6806, 6844, 7040]
+=== head vs OEIS %S ===
+  match first20: True
+  b-file first30 match: True
+ODD TERMS FOUND: [1] (conjecture says only k=1)
+conjecture holds in range: True
+=== Path 2: sympy.totient independent recheck of all found terms ===
+  mismatches: NONE
+  sample cross-scan misses: NONE

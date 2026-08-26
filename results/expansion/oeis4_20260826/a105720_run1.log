@@ -1,0 +1,19 @@
+primes to 600000: 49098 (0.0s)
+=== head vs OEIS %S ===
+  [5, 15, 36, 67, 112, 169, 240, 323, 424, 539, 662, 803, 964, 1133, 1312, 1523, 1746, 1987, 2246]
+  match: True
+=== claimed squares ===
+  a(3) = 36 = 6^2? True
+  a(6) = 169 = 13^2? True
+  a(4072) = 247590225 = 15735^2? True
+=== Path 2: sympy independent recompute (heads + random windows) ===
+  path2 agreement: True
+=== SQUARE HUNT n=1..20000 (cap 60 s) ===
+  scanned n<= 20000; squares found: [(3, 6), (6, 13), (4072, 15735)]
+=== prime-at-n spot check (%C: n=1,4,16,18,22 -> 5,67,1523,1987,3119) ===
+  n=1: a=5 expect 5 OK
+  n=4: a=67 expect 67 OK
+  n=16: a=1523 expect 1523 OK
+  n=18: a=1987 expect 1987 OK
+  n=22: a=3119 expect 3119 OK
+  n=36: a=9323 expect 9323 OK

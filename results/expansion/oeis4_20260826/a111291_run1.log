@@ -1,0 +1,10 @@
+=== PATH 1: real counterexamples near x=1 ===
+  x=1.5: count=1  x/(2 ln x)=1.850  holds=False
+  x=1.1: count=1  x/(2 ln x)=5.771  holds=False
+  x=1.001: count=1  x/(2 ln x)=500.750  holds=False
+=== PATH 2: sieve to 10^7 ===
+  sieve done in 3.5s
+  heads count(10^n) n=0..7: [1, 4, 16, 92, 665, 5257, 44705, 394240]
+  vs b-file: [1, 4, 16, 92, 665, 5257, 44705, 394240] match: True
+  no integer-point violations
+  none

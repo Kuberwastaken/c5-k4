@@ -1,0 +1,14 @@
+=== sequence head vs OEIS ===
+  [0, 2, 4, 20, 32, 256, 416, 4832, 8192, 42496, 74752, 1467392, 2650112, 62836736, 115552256, 42790912]
+  b-file: [0, 2, 4, 20, 32, 256, 416, 4832, 8192, 42496, 74752, 1467392, 2650112, 62836736, 115552256, 42790912, 79691776]
+  match: True
+=== Lean tests a_0..a_4 = 0,2,4,20,32 ===
+   [0, 2, 4, 20, 32]
+=== CONJECTURE SCAN n = 4..4000 (both directions; one wrong term = crossing) ===
+  scanned to n=4000
+  primes failing congruence: NONE
+  composites passing congruence: NONE
+=== PATH 2: independent common-denominator recomputation spot check ===
+  path2 mismatches on 120 samples: NONE
+=== known context: Wolstenholme primes L/R note (A088164: 16843, 2124679) ===
+  (beyond scan cap; literature-consistent: none expected below 16843)

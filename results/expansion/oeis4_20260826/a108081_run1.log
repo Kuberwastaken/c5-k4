@@ -1,0 +1,17 @@
+=== formulas agree n=0..40 ===
+  mismatches: NONE
+=== head vs b-file ===
+   [1, 2, 7, 25, 92, 344, 1300, 4950, 18955, 72905, 281403, 1089343, 4227273]
+  b-file: [1, 2, 7, 25, 92, 344, 1300, 4950, 18955, 72905, 281403, 1089343, 4227273]
+  match: True
+=== WORD ENUMERATION by levels (cap 55 s) ===
+  |X_2| = 2   a(1) = 2   match=True
+  |X_3| = 7   a(2) = 7   match=True
+  |X_4| = 25   a(3) = 25   match=True
+  |X_5| = 92   a(4) = 92   match=True
+  |X_6| = 344   a(5) = 344   match=True
+  |X_7| = 1300   a(6) = 1300   match=True
+  |X_8| = 4950   a(7) = 4950   match=True
+  |X_9| = 18955   a(8) = 18955   match=True
+  NOTE: enumeration counts DISTINCT derived words (XWord is a minimal
+  closed set; every derivation of valid parts is valid)

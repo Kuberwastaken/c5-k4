@@ -1,0 +1,16 @@
+=== PATH 1: rigorous rational-interval checks ===
+  n=1..400: all floor-identities rigorously confirmed
+  (0.1s)
+=== margin analysis at sample n ===
+  n=1: |interval| ~ 6.984e-37 vs gap ~ 5.556e-02
+  n=2: |interval| ~ 6.984e-37 vs gap ~ 1.515e-02
+  n=10: |interval| ~ 6.984e-37 vs gap ~ 6.242e-04
+  n=100: |interval| ~ 6.984e-37 vs gap ~ 6.250e-06
+  n=397: |interval| ~ 6.984e-37 vs gap ~ 3.966e-07
+=== PATH 2: mpmath dps=60, n=1..200000 ===
+  time cap at n=10121
+  checked up to n=10121: failures=NONE
+  min margins: E-(16n^2+1) >= 5.893e-01;  (16n^2+2)-E >= 7.322e-09
+=== head values vs OEIS/b-file ===
+  a(n)=16n^2+1 head: [17, 65, 145, 257, 401, 577, 785]
+  b-file head      : ['2', '65', '3', '145', '4', '257', '5', '401', '6', '577', '7', '785', '8', '1025']

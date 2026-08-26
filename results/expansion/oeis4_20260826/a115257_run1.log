@@ -1,0 +1,6 @@
+=== Path 1: sympy factor_list over Q ===
+Traceback (most recent call last):
+  File "/Users/kuber.mehta/Personal-Projects/c5-k4/results/expansion/oeis4_20260826/scripts/a115257_irred.py", line 168, in <module>
+    if len(fp[1]) > 1 or (fp[1] and fp[1][0][1].degree() != n):
+                                    ^^^^^^^^^^^^^^^^^^
+AttributeError: 'int' object has no attribute 'degree'

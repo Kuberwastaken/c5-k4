@@ -1,0 +1,10 @@
+=== PATH 1: full counts n=1..20000 ===
+  (5.6s)
+  computed head: [0, 0, 0, 1, 1, 2, 1, 3, 2, 2, 2, 3, 3, 4, 2, 4, 2]
+  OEIS %S head : [0, 0, 0, 1, 1, 2, 1, 3, 2, 2, 2, 3, 3, 4, 2, 4, 2]
+  match: True
+  b-file (60) match: True
+=== Lean test values a_1..a_5 ===
+   [0, 0, 0, 1, 1] (expect 0,0,0,1,1)
+=== PATH 2: existence scan n=4..1_500_000 (early exit) ===
+  scanned to n=1500001: violations=NONE

@@ -1,0 +1,15 @@
+=== Path 0: maxK=5n+10 sufficiency (Lean filter bound) ===
+  maxK=5n+10 safe for n=1..299: True
+  (index ~ n*4.78497 + 1.67 so safe for all large n)
+=== Path 1: exact indicator vs OEIS %S ===
+  OEIS %S: [0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1]
+  mine   : [0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1]
+  match: True
+  b-file (first 120) match: True
+=== Path 2: Iverson formula [{n*alpha+beta} < alpha], n=2..3000 ===
+  mismatches n=2..3000: NONE
+=== INEQUALITY beta-2 < S(n)-alpha*n < beta-1 (per-term, n<=3000) ===
+  violations: NONE for n=1..3000
+  min margins: lower 2.055753e-05, upper 6.611525e-04
+  constants: alpha=0.784971966782 beta=0.672275938185
+  HOLD_NUMERIC: infinitary claim labelled numeric-evidence-only

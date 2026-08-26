@@ -1,0 +1,9 @@
+=== Path 1: sympy factor_list over Q ===
+  TIME CAP at n=95
+  scanned n<= 95: reducible P cases: []
+                 reducible Q cases: []
+=== Path 2: Rabin certificates (independent modular code) ===
+  certificates obtained: 77/80; without certificate: [('P', 1), ('Q', 1), ('P', 2)]
+=== head sums vs OEIS ===
+   [1, 5, 41, 441, 5341, 68845, 922621, 12701245, 178338145, 2542242545]
+   expect 1,5,41,441,5341,68845,922621,12701245,178338145,2542242545

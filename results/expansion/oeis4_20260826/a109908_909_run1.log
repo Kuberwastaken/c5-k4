@@ -1,0 +1,17 @@
+=== heads ===
+  n=1: max=0 count=0
+  n=2: max=0 count=0
+  n=3: max=0 count=0
+  n=4: max=3 count=2
+  n=5: max=5 count=2
+  n=6: max=7 count=1
+  n=7: max=11 count=2
+  A109908 head match: False [3, 5, 7, 11, 11, 19, 23, 29, 31]
+  A109909 head match: False [2, 2, 1, 2, 1, 4, 1, 3, 2]
+=== b-file checks (first 60 each) ===
+  908: mismatches: NONE
+  909: mismatches: NONE
+=== PATH 1: existence scan n=4..500000 (early exit per n) ===
+  scanned n<= 500000: violations=NONE
+=== PATH 2 consistency: sup>0 <=> count>0 (n<=2000) ===
+  inconsistencies: NONE
