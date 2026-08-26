@@ -1,0 +1,340 @@
+[
+  {
+    "name": "K2",
+    "ok": true,
+    "expected": [
+      "0",
+      "0"
+    ],
+    "row": {
+      "name": "fixture:K2",
+      "origin": "fixture",
+      "n": 2,
+      "gamma_t": 2,
+      "absC": 2,
+      "absNA": 2,
+      "maxN_incl": 2,
+      "maxN_excl": 0,
+      "engines_agree": true,
+      "seconds": 0.035,
+      "within_cap": true,
+      "r255_RD-A": "0",
+      "r255_RD-B": "UNDEFINED",
+      "r256_RD-A": "0",
+      "r256_RD-B": "UNDEFINED",
+      "_viol_any": false
+    }
+  },
+  {
+    "name": "K3",
+    "ok": true,
+    "expected": [
+      "0",
+      "0"
+    ],
+    "row": {
+      "name": "fixture:K3",
+      "origin": "fixture",
+      "n": 3,
+      "gamma_t": 2,
+      "absC": 3,
+      "absNA": 3,
+      "maxN_incl": 3,
+      "maxN_excl": 1,
+      "engines_agree": true,
+      "seconds": 0.016,
+      "within_cap": true,
+      "r255_RD-A": "0",
+      "r255_RD-B": "-4",
+      "r256_RD-A": "0",
+      "r256_RD-B": "-4",
+      "_viol_any": true
+    }
+  },
+  {
+    "name": "K4",
+    "ok": true,
+    "expected": [
+      "0",
+      "0"
+    ],
+    "row": {
+      "name": "fixture:K4",
+      "origin": "fixture",
+      "n": 4,
+      "gamma_t": 2,
+      "absC": 4,
+      "absNA": 4,
+      "maxN_incl": 4,
+      "maxN_excl": 2,
+      "engines_agree": true,
+      "seconds": 0.016,
+      "within_cap": true,
+      "r255_RD-A": "0",
+      "r255_RD-B": "-2",
+      "r256_RD-A": "0",
+      "r256_RD-B": "-2",
+      "_viol_any": true
+    }
+  },
+  {
+    "name": "C4",
+    "ok": true,
+    "expected": [
+      "0",
+      "0"
+    ],
+    "row": {
+      "name": "fixture:C4",
+      "origin": "fixture",
+      "n": 4,
+      "gamma_t": 2,
+      "absC": 4,
+      "absNA": 4,
+      "maxN_incl": 4,
+      "maxN_excl": 2,
+      "engines_agree": true,
+      "seconds": 0.016,
+      "within_cap": true,
+      "r255_RD-A": "0",
+      "r255_RD-B": "-2",
+      "r256_RD-A": "0",
+      "r256_RD-B": "-2",
+      "_viol_any": true
+    }
+  },
+  {
+    "name": "C5",
+    "ok": true,
+    "expected": [
+      "1/2",
+      "1/2"
+    ],
+    "row": {
+      "name": "fixture:C5",
+      "origin": "fixture",
+      "n": 5,
+      "gamma_t": 3,
+      "absC": 5,
+      "absNA": 5,
+      "maxN_incl": 4,
+      "maxN_excl": 2,
+      "engines_agree": true,
+      "seconds": 0.017,
+      "within_cap": true,
+      "r255_RD-A": "1/2",
+      "r255_RD-B": "-2",
+      "r256_RD-A": "1/2",
+      "r256_RD-B": "-2",
+      "_viol_any": true
+    }
+  },
+  {
+    "name": "C6",
+    "ok": true,
+    "expected": [
+      "1",
+      "1"
+    ],
+    "row": {
+      "name": "fixture:C6",
+      "origin": "fixture",
+      "n": 6,
+      "gamma_t": 4,
+      "absC": 6,
+      "absNA": 6,
+      "maxN_incl": 4,
+      "maxN_excl": 2,
+      "engines_agree": true,
+      "seconds": 0.016,
+      "within_cap": true,
+      "r255_RD-A": "1",
+      "r255_RD-B": "-2",
+      "r256_RD-A": "1",
+      "r256_RD-B": "-2",
+      "_viol_any": true
+    }
+  },
+  {
+    "name": "C7",
+    "ok": true,
+    "expected": [
+      "1/2",
+      "1/2"
+    ],
+    "row": {
+      "name": "fixture:C7",
+      "origin": "fixture",
+      "n": 7,
+      "gamma_t": 4,
+      "absC": 7,
+      "absNA": 7,
+      "maxN_incl": 4,
+      "maxN_excl": 2,
+      "engines_agree": true,
+      "seconds": 0.016,
+      "within_cap": true,
+      "r255_RD-A": "1/2",
+      "r255_RD-B": "-3",
+      "r256_RD-A": "1/2",
+      "r256_RD-B": "-3",
+      "_viol_any": true
+    }
+  },
+  {
+    "name": "P7",
+    "ok": true,
+    "expected": [
+      "7/2",
+      "3"
+    ],
+    "row": {
+      "name": "fixture:P7",
+      "origin": "fixture",
+      "n": 7,
+      "gamma_t": 4,
+      "absC": 1,
+      "absNA": 2,
+      "maxN_incl": 4,
+      "maxN_excl": 2,
+      "engines_agree": true,
+      "seconds": 0.016,
+      "within_cap": true,
+      "r255_RD-A": "7/2",
+      "r255_RD-B": "3",
+      "r256_RD-A": "3",
+      "r256_RD-B": "2",
+      "_viol_any": false
+    }
+  },
+  {
+    "name": "K1,3",
+    "ok": true,
+    "expected": [
+      "3/2",
+      "3/2"
+    ],
+    "row": {
+      "name": "fixture:K1,3",
+      "origin": "fixture",
+      "n": 4,
+      "gamma_t": 2,
+      "absC": 1,
+      "absNA": 1,
+      "maxN_incl": 4,
+      "maxN_excl": 2,
+      "engines_agree": true,
+      "seconds": 0.016,
+      "within_cap": true,
+      "r255_RD-A": "3/2",
+      "r255_RD-B": "1",
+      "r256_RD-A": "3/2",
+      "r256_RD-B": "1",
+      "_viol_any": false
+    }
+  },
+  {
+    "name": "K1,4",
+    "ok": true,
+    "expected": [
+      "8/5",
+      "8/5"
+    ],
+    "row": {
+      "name": "fixture:K1,4",
+      "origin": "fixture",
+      "n": 5,
+      "gamma_t": 2,
+      "absC": 1,
+      "absNA": 1,
+      "maxN_incl": 5,
+      "maxN_excl": 3,
+      "engines_agree": true,
+      "seconds": 0.015,
+      "within_cap": true,
+      "r255_RD-A": "8/5",
+      "r255_RD-B": "4/3",
+      "r256_RD-A": "8/5",
+      "r256_RD-B": "4/3",
+      "_viol_any": false
+    }
+  },
+  {
+    "name": "K3,3",
+    "ok": true,
+    "expected": [
+      "0",
+      "0"
+    ],
+    "row": {
+      "name": "fixture:K3,3",
+      "origin": "fixture",
+      "n": 6,
+      "gamma_t": 2,
+      "absC": 6,
+      "absNA": 6,
+      "maxN_incl": 6,
+      "maxN_excl": 4,
+      "engines_agree": true,
+      "seconds": 0.015,
+      "within_cap": true,
+      "r255_RD-A": "0",
+      "r255_RD-B": "-1",
+      "r256_RD-A": "0",
+      "r256_RD-B": "-1",
+      "_viol_any": true
+    }
+  },
+  {
+    "name": "Q3",
+    "ok": true,
+    "expected": [
+      "4/3",
+      "4/3"
+    ],
+    "row": {
+      "name": "fixture:Q3",
+      "origin": "fixture",
+      "n": 8,
+      "gamma_t": 4,
+      "absC": 8,
+      "absNA": 8,
+      "maxN_incl": 6,
+      "maxN_excl": 4,
+      "engines_agree": true,
+      "seconds": 0.017,
+      "within_cap": true,
+      "r255_RD-A": "4/3",
+      "r255_RD-B": "0",
+      "r256_RD-A": "4/3",
+      "r256_RD-B": "0",
+      "_viol_any": false
+    }
+  },
+  {
+    "name": "Petersen",
+    "ok": true,
+    "expected": [
+      "2/3",
+      "2/3"
+    ],
+    "row": {
+      "name": "fixture:Petersen",
+      "origin": "fixture",
+      "n": 10,
+      "gamma_t": 4,
+      "absC": 10,
+      "absNA": 10,
+      "maxN_incl": 6,
+      "maxN_excl": 4,
+      "engines_agree": true,
+      "seconds": 0.016,
+      "within_cap": true,
+      "r255_RD-A": "2/3",
+      "r255_RD-B": "-1",
+      "r256_RD-A": "2/3",
+      "r256_RD-B": "-1",
+      "_viol_any": true
+    }
+  }
+]
