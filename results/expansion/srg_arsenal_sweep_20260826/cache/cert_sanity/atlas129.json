@@ -1,0 +1,265 @@
+{
+ "n": 6,
+ "m_edges": 11,
+ "delta": 3,
+ "Delta": 5,
+ "sigma_2nd_smallest": 3,
+ "Sigma_2nd_largest": 4,
+ "deg_avg": "11/3",
+ "dd": 3,
+ "mode_mode_min": 3,
+ "mode_mode_max": 3,
+ "mode_dd_mode": 1,
+ "mode_even_mode_min": null,
+ "mode_even_mode_max": null,
+ "median_median": "7/2",
+ "median_lower": 3,
+ "median_upper": 4,
+ "q1_ceil": 3,
+ "q1_floor": 3,
+ "annihilation": 3,
+ "CW": "79/60",
+ "CW_float": 1.3166666666666667,
+ "maxine": 6,
+ "WP_complement": 4,
+ "SW_G": 3,
+ "SW_comp": 1,
+ "length_sq": 84,
+ "residue": 2,
+ "HH_steps": 3,
+ "chi_residue2": 1,
+ "bipartite": 0,
+ "kappa_vertex": 3,
+ "kappa_edge": 3,
+ "components": 1,
+ "isolates": 0,
+ "cut_vertices": 0,
+ "ecc": {
+  "0": 2,
+  "1": 2,
+  "2": 2,
+  "3": 2,
+  "4": 1,
+  "5": 2
+ },
+ "diam": 2,
+ "rad": 1,
+ "dist_even": {
+  "0": 3,
+  "1": 3,
+  "2": 2,
+  "3": 3,
+  "4": 1,
+  "5": 2
+ },
+ "dist_odd": {
+  "0": 3,
+  "1": 3,
+  "2": 4,
+  "3": 3,
+  "4": 5,
+  "5": 4
+ },
+ "Tdist": {
+  "0": 7,
+  "1": 7,
+  "2": 6,
+  "3": 7,
+  "4": 5,
+  "5": 6
+ },
+ "even_horizontal": {
+  "0": 1,
+  "1": 1,
+  "2": 0,
+  "3": 1,
+  "4": 0,
+  "5": 0
+ },
+ "odd_horizontal": {
+  "0": 3,
+  "1": 2,
+  "2": 4,
+  "3": 2,
+  "4": 6,
+  "5": 4
+ },
+ "periphery_B": [
+  0,
+  1,
+  2,
+  3,
+  5
+ ],
+ "center_C": [
+  4
+ ],
+ "M_set": [
+  4
+ ],
+ "A_set": [
+  0,
+  1,
+  3
+ ],
+ "dist_max_M": 0,
+ "dist_min_M": 0,
+ "dist_max_A": 2,
+ "dist_min_A": 1,
+ "radial_circle_orders_at_center": {
+  "4": [
+   5
+  ]
+ },
+ "triangles_total": 7,
+ "T_v": {
+  "0": 3,
+  "1": 2,
+  "2": 4,
+  "3": 2,
+  "4": 6,
+  "5": 4
+ },
+ "T_min": 2,
+ "T_max": 6,
+ "freq_T_max": 1,
+ "K4_v": {
+  "0": 0,
+  "1": 0,
+  "2": 0,
+  "3": 0,
+  "4": 0,
+  "5": 0
+ },
+ "K4_min": 0,
+ "K4_max": 0,
+ "freq_K4_max": 6,
+ "dd_K4_seq": 1,
+ "disp": {
+  "0": 2,
+  "1": 3,
+  "2": 3,
+  "3": 3,
+  "4": 2,
+  "5": 3
+ },
+ "disp_min": 2,
+ "disp_max": 3,
+ "disp_sum": 16,
+ "disp_avg": "8/3",
+ "N_edge_max": 4,
+ "N_edge_min": 3,
+ "Nbar_edge_max": 2,
+ "Nbar_edge_min": 1,
+ "card_N_M": 5,
+ "card_NM_minus_M": 5,
+ "card_N_A": 5,
+ "card_NA_minus_A": 3,
+ "card_NB_minus_B": 1,
+ "D2_set": [],
+ "card_N_D2": 0,
+ "card_ND2_minus_D2": 0,
+ "pendant_P": [],
+ "support_S": [],
+ "f1_deg1_freq": 0,
+ "E_in_A": 1,
+ "E_in_M": 0,
+ "E_in_D2": 0,
+ "E_between_AB_cross": 7,
+ "chi_C4free": 0,
+ "dp_diametral_pairs": 4,
+ "two_B_pairs": 4,
+ "alpha": {
+  "value": 2,
+  "certified": true,
+  "secs": 0.0
+ },
+ "v_cover": 4,
+ "lambda_stats": {
+  "min": 1,
+  "max": 2,
+  "avg": "11/6",
+  "certified": true
+ },
+ "lambda_secs": 0.0,
+ "mu": 3,
+ "omega": {
+  "value": 4,
+  "certified": true
+ },
+ "gamma": {
+  "value": 1,
+  "certified": true,
+  "secs": 0.0
+ },
+ "gamma_t": {
+  "value": 2,
+  "certified": true,
+  "secs": 0.0
+ },
+ "gamma_2": {
+  "value": 3,
+  "certified": true,
+  "secs": 0.0
+ },
+ "i": {
+  "value": 1,
+  "certified": true,
+  "secs": 0.0
+ },
+ "alpha_crit": {
+  "D": 0,
+  "aprime": 0,
+  "certified": true,
+  "secs": 0.0
+ },
+ "alpha_2": {
+  "value": 3,
+  "certified": true,
+  "secs": 0.0
+ },
+ "f": {
+  "value": 4,
+  "certified": true,
+  "secs": 0.0
+ },
+ "tree": {
+  "value": 3,
+  "certified": true,
+  "secs": 0.0
+ },
+ "b": {
+  "value": 4,
+  "certified": true,
+  "secs": 0.0
+ },
+ "path_induced": {
+  "value": 4,
+  "certified": true,
+  "secs": 0.0
+ },
+ "p_cov": {
+  "value": 1,
+  "certified": true,
+  "witness": "ham path"
+ },
+ "ham_path": 1,
+ "traceable": 1,
+ "L_s": {
+  "value": 5,
+  "certified": true,
+  "secs": 0.0
+ },
+ "lambda1_numeric": 3.778457118258389,
+ "lambda2_numeric": 0.7108314535516895,
+ "algebraic_connectivity_numeric": 2.3819660112501064,
+ "q1_signless": 7.791287847477925,
+ "qn_signless": 1.3819660112501064,
+ "mu1_laplacian_largest": 6.000000000000001,
+ "proximity": 1.0,
+ "remoteness": 1.4,
+ "avg_distance": 1.2666666666666666,
+ "avg_distance_exact_num": 38,
+ "avg_distance_exact_den": 30,
+ "randic_index": 2.959844136454026
+}

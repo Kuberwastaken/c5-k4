@@ -1,0 +1,302 @@
+{
+ "n": 7,
+ "m_edges": 13,
+ "delta": 3,
+ "Delta": 5,
+ "sigma_2nd_smallest": 3,
+ "Sigma_2nd_largest": 5,
+ "deg_avg": "26/7",
+ "dd": 3,
+ "mode_mode_min": 3,
+ "mode_mode_max": 3,
+ "mode_dd_mode": 1,
+ "mode_even_mode_min": null,
+ "mode_even_mode_max": null,
+ "median_median": 3,
+ "median_lower": 3,
+ "median_upper": 3,
+ "q1_ceil": 3,
+ "q1_floor": 3,
+ "annihilation": 4,
+ "CW": "23/15",
+ "CW_float": 1.5333333333333334,
+ "maxine": 7,
+ "WP_complement": 4,
+ "SW_G": 3,
+ "SW_comp": 3,
+ "length_sq": 102,
+ "residue": 2,
+ "HH_steps": 4,
+ "chi_residue2": 1,
+ "bipartite": 0,
+ "kappa_vertex": 3,
+ "kappa_edge": 3,
+ "components": 1,
+ "isolates": 0,
+ "cut_vertices": 0,
+ "ecc": {
+  "0": 2,
+  "1": 2,
+  "2": 2,
+  "3": 2,
+  "4": 2,
+  "5": 2,
+  "6": 2
+ },
+ "diam": 2,
+ "rad": 2,
+ "dist_even": {
+  "0": 2,
+  "1": 4,
+  "2": 4,
+  "3": 3,
+  "4": 4,
+  "5": 4,
+  "6": 2
+ },
+ "dist_odd": {
+  "0": 5,
+  "1": 3,
+  "2": 3,
+  "3": 4,
+  "4": 3,
+  "5": 3,
+  "6": 5
+ },
+ "Tdist": {
+  "0": 7,
+  "1": 9,
+  "2": 9,
+  "3": 8,
+  "4": 9,
+  "5": 9,
+  "6": 7
+ },
+ "even_horizontal": {
+  "0": 0,
+  "1": 0,
+  "2": 0,
+  "3": 1,
+  "4": 0,
+  "5": 0,
+  "6": 0
+ },
+ "odd_horizontal": {
+  "0": 4,
+  "1": 1,
+  "2": 1,
+  "3": 0,
+  "4": 1,
+  "5": 1,
+  "6": 4
+ },
+ "periphery_B": [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6
+ ],
+ "center_C": [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6
+ ],
+ "M_set": [
+  0,
+  6
+ ],
+ "A_set": [
+  1,
+  2,
+  4,
+  5
+ ],
+ "dist_max_M": 1,
+ "dist_min_M": 1,
+ "dist_max_A": 2,
+ "dist_min_A": 2,
+ "radial_circle_orders_at_center": {
+  "0": [
+   1
+  ],
+  "1": [
+   3
+  ],
+  "2": [
+   3
+  ],
+  "3": [
+   2
+  ],
+  "4": [
+   3
+  ],
+  "5": [
+   3
+  ],
+  "6": [
+   1
+  ]
+ },
+ "triangles_total": 4,
+ "T_v": {
+  "0": 4,
+  "1": 1,
+  "2": 1,
+  "3": 0,
+  "4": 1,
+  "5": 1,
+  "6": 4
+ },
+ "T_min": 0,
+ "T_max": 4,
+ "freq_T_max": 2,
+ "K4_v": {
+  "0": 0,
+  "1": 0,
+  "2": 0,
+  "3": 0,
+  "4": 0,
+  "5": 0,
+  "6": 0
+ },
+ "K4_min": 0,
+ "K4_max": 0,
+ "freq_K4_max": 7,
+ "dd_K4_seq": 1,
+ "disp": {
+  "0": 2,
+  "1": 2,
+  "2": 2,
+  "3": 1,
+  "4": 2,
+  "5": 2,
+  "6": 2
+ },
+ "disp_min": 1,
+ "disp_max": 2,
+ "disp_sum": 13,
+ "disp_avg": "13/7",
+ "N_edge_max": 5,
+ "N_edge_min": 4,
+ "Nbar_edge_max": 2,
+ "Nbar_edge_min": 1,
+ "card_N_M": 6,
+ "card_NM_minus_M": 4,
+ "card_N_A": 3,
+ "card_NA_minus_A": 3,
+ "card_NB_minus_B": 0,
+ "D2_set": [],
+ "card_N_D2": 0,
+ "card_ND2_minus_D2": 0,
+ "pendant_P": [],
+ "support_S": [],
+ "f1_deg1_freq": 0,
+ "E_in_A": 0,
+ "E_in_M": 1,
+ "E_in_D2": 0,
+ "E_between_AB_cross": 12,
+ "chi_C4free": 0,
+ "dp_diametral_pairs": 8,
+ "two_B_pairs": 8,
+ "alpha": {
+  "value": 4,
+  "certified": true,
+  "secs": 0.0
+ },
+ "v_cover": 3,
+ "lambda_stats": {
+  "min": 2,
+  "max": 4,
+  "avg": "20/7",
+  "certified": true
+ },
+ "lambda_secs": 0.0,
+ "mu": 3,
+ "omega": {
+  "value": 3,
+  "certified": true
+ },
+ "gamma": {
+  "value": 2,
+  "certified": true,
+  "secs": 0.0
+ },
+ "gamma_t": {
+  "value": 2,
+  "certified": true,
+  "secs": 0.0
+ },
+ "gamma_2": {
+  "value": 3,
+  "certified": true,
+  "secs": 0.0
+ },
+ "i": {
+  "value": 2,
+  "certified": true,
+  "secs": 0.0
+ },
+ "alpha_crit": {
+  "D": 1,
+  "aprime": 4,
+  "certified": true,
+  "secs": 0.0
+ },
+ "alpha_2": {
+  "value": 5,
+  "certified": true,
+  "secs": 0.0
+ },
+ "f": {
+  "value": 5,
+  "certified": true,
+  "secs": 0.0
+ },
+ "tree": {
+  "value": 5,
+  "certified": true,
+  "secs": 0.0
+ },
+ "b": {
+  "value": 6,
+  "certified": true,
+  "secs": 0.0
+ },
+ "path_induced": {
+  "value": 3,
+  "certified": true,
+  "secs": 0.0
+ },
+ "p_cov": {
+  "value": 1,
+  "certified": true,
+  "witness": "ham path"
+ },
+ "ham_path": 1,
+ "traceable": 1,
+ "L_s": {
+  "value": 5,
+  "certified": true,
+  "secs": 0.0
+ },
+ "lambda1_numeric": 3.8482170775894864,
+ "lambda2_numeric": 0.3273273097610142,
+ "algebraic_connectivity_numeric": 2.9999999999999982,
+ "q1_signless": 7.999999999999998,
+ "qn_signless": 0.4384471871911681,
+ "mu1_laplacian_largest": 7.000000000000003,
+ "proximity": 1.1666666666666667,
+ "remoteness": 1.5,
+ "avg_distance": 1.380952380952381,
+ "avg_distance_exact_num": 58,
+ "avg_distance_exact_den": 42,
+ "randic_index": 3.4202916563565404
+}

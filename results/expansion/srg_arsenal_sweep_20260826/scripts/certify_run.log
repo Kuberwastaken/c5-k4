@@ -1,0 +1,50 @@
+done T(10) in 203.3s -> T_10.json
+done KG(10,2) in 43.2s -> KG_10_2.json
+skip T(11)
+done KG(11,2) in 131.0s -> KG_11_2.json
+done T(12) in 396.9s -> T_12.json
+done KG(12,2) in 149.6s -> KG_12_2.json
+done T(13) in 414.7s -> T_13.json
+done KG(13,2) in 208.4s -> KG_13_2.json
+done T(14) in 548.7s -> T_14.json
+done KG(14,2) in 307.5s -> KG_14_2.json
+done T(15) in 543.0s -> T_15.json
+done KG(15,2) in 485.5s -> KG_15_2.json
+done T(16) in 572.5s -> T_16.json
+done KG(16,2) in 812.4s -> KG_16_2.json
+done Paley(13) in 1.2s -> Paley_13.json
+done Paley(17) in 3.7s -> Paley_17.json
+done Paley(29) in 13.8s -> Paley_29.json
+done Paley(37) in 54.9s -> Paley_37.json
+done Paley(41) in 82.3s -> Paley_41.json
+done Paley(53) in 160.6s -> Paley_53.json
+done Paley(61) in 213.7s -> Paley_61.json
+done Paley(73) in 298.4s -> Paley_73.json
+done Paley(89) in 422.6s -> Paley_89.json
+done Paley(97) in 446.3s -> Paley_97.json
+done Paley(101) in 521.7s -> Paley_101.json
+skip CP(2)
+skip CP(3)
+done CP(4) in 0.1s -> CP_4.json
+done CP(5) in 0.1s -> CP_5.json
+done CP(6) in 0.2s -> CP_6.json
+done CP(7) in 0.2s -> CP_7.json
+done CP(8) in 0.2s -> CP_8.json
+done CMP(2) in 0.1s -> CMP_2.json
+done CMP(3) in 0.1s -> CMP_3.json
+done CMP(4) in 0.1s -> CMP_4.json
+done CMP(5) in 0.1s -> CMP_5.json
+done CMP(6) in 0.1s -> CMP_6.json
+done CMP(7) in 0.2s -> CMP_7.json
+done CMP(8) in 0.2s -> CMP_8.json
+skip comp(C5[K2])
+skip comp(C5[K3])
+done comp(C5[K4]) in 1.2s -> comp_C5_K4.json
+done comp(C5[K5]) in 2.1s -> comp_C5_K5.json
+done comp(C5[K6]) in 4.5s -> comp_C5_K6.json
+done comp(C5[K7]) in 49.4s -> comp_C5_K7.json
+done comp(C5[K8]) in 107.2s -> comp_C5_K8.json
+done C7[K3] in 13.1s -> C7_K3.json
+done C9[K3] in 62.4s -> C9_K3.json
+done K(3,3) in 0.1s -> K_3_3.json
+done K(3,3,3) in 0.1s -> K_3_3_3.json

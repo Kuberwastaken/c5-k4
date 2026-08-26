@@ -1,0 +1,279 @@
+{
+ "n": 6,
+ "m_edges": 5,
+ "delta": 1,
+ "Delta": 2,
+ "sigma_2nd_smallest": 1,
+ "Sigma_2nd_largest": 2,
+ "deg_avg": "5/3",
+ "dd": 2,
+ "mode_mode_min": 2,
+ "mode_mode_max": 2,
+ "mode_dd_mode": 1,
+ "mode_even_mode_min": 2,
+ "mode_even_mode_max": 2,
+ "median_median": "2",
+ "median_lower": 2,
+ "median_upper": 2,
+ "q1_ceil": 1,
+ "q1_floor": 1,
+ "annihilation": 3,
+ "CW": "7/3",
+ "CW_float": 2.3333333333333335,
+ "maxine": 6,
+ "WP_complement": 3,
+ "SW_G": 1,
+ "SW_comp": 3,
+ "length_sq": 18,
+ "residue": 3,
+ "HH_steps": 2,
+ "chi_residue2": 0,
+ "bipartite": 1,
+ "kappa_vertex": 1,
+ "kappa_edge": 1,
+ "components": 1,
+ "isolates": 0,
+ "cut_vertices": 4,
+ "ecc": {
+  "0": 4,
+  "1": 5,
+  "2": 5,
+  "3": 4,
+  "4": 3,
+  "5": 3
+ },
+ "diam": 5,
+ "rad": 3,
+ "dist_even": {
+  "0": 3,
+  "1": 3,
+  "2": 3,
+  "3": 3,
+  "4": 3,
+  "5": 3
+ },
+ "dist_odd": {
+  "0": 3,
+  "1": 3,
+  "2": 3,
+  "3": 3,
+  "4": 3,
+  "5": 3
+ },
+ "Tdist": {
+  "0": 11,
+  "1": 15,
+  "2": 15,
+  "3": 11,
+  "4": 9,
+  "5": 9
+ },
+ "even_horizontal": {
+  "0": 0,
+  "1": 0,
+  "2": 0,
+  "3": 0,
+  "4": 0,
+  "5": 0
+ },
+ "odd_horizontal": {
+  "0": 0,
+  "1": 0,
+  "2": 0,
+  "3": 0,
+  "4": 0,
+  "5": 0
+ },
+ "periphery_B": [
+  1,
+  2
+ ],
+ "center_C": [
+  4,
+  5
+ ],
+ "M_set": [
+  0,
+  3,
+  4,
+  5
+ ],
+ "A_set": [
+  1,
+  2
+ ],
+ "dist_max_M": 3,
+ "dist_min_M": 1,
+ "dist_max_A": 5,
+ "dist_min_A": 5,
+ "radial_circle_orders_at_center": {
+  "4": [
+   1
+  ],
+  "5": [
+   1
+  ]
+ },
+ "triangles_total": 0,
+ "T_v": {
+  "0": 0,
+  "1": 0,
+  "2": 0,
+  "3": 0,
+  "4": 0,
+  "5": 0
+ },
+ "T_min": 0,
+ "T_max": 0,
+ "freq_T_max": 6,
+ "K4_v": {
+  "0": 0,
+  "1": 0,
+  "2": 0,
+  "3": 0,
+  "4": 0,
+  "5": 0
+ },
+ "K4_min": 0,
+ "K4_max": 0,
+ "freq_K4_max": 6,
+ "dd_K4_seq": 1,
+ "disp": {
+  "0": 2,
+  "1": 1,
+  "2": 1,
+  "3": 2,
+  "4": 1,
+  "5": 1
+ },
+ "disp_min": 1,
+ "disp_max": 2,
+ "disp_sum": 8,
+ "disp_avg": "4/3",
+ "N_edge_max": 2,
+ "N_edge_min": 1,
+ "Nbar_edge_max": 4,
+ "Nbar_edge_min": 3,
+ "card_N_M": 6,
+ "card_NM_minus_M": 2,
+ "card_N_A": 2,
+ "card_NA_minus_A": 2,
+ "card_NB_minus_B": 2,
+ "D2_set": [
+  0,
+  3,
+  4,
+  5
+ ],
+ "card_N_D2": 6,
+ "card_ND2_minus_D2": 2,
+ "pendant_P": [
+  1,
+  2
+ ],
+ "support_S": [
+  0,
+  3
+ ],
+ "f1_deg1_freq": 2,
+ "E_in_A": 0,
+ "E_in_M": 3,
+ "E_in_D2": 3,
+ "E_between_AB_cross": 2,
+ "chi_C4free": 1,
+ "dp_diametral_pairs": 1,
+ "two_B_pairs": 0,
+ "alpha": {
+  "value": 3,
+  "certified": true,
+  "secs": 0.0
+ },
+ "v_cover": 3,
+ "lambda_stats": {
+  "min": 1,
+  "max": 2,
+  "avg": "5/3",
+  "certified": true
+ },
+ "lambda_secs": 0.0,
+ "mu": 3,
+ "omega": {
+  "value": 2,
+  "certified": true
+ },
+ "gamma": {
+  "value": 2,
+  "certified": true,
+  "secs": 0.0
+ },
+ "gamma_t": {
+  "value": 4,
+  "certified": true,
+  "secs": 0.0
+ },
+ "gamma_2": {
+  "value": 4,
+  "certified": true,
+  "secs": 0.0
+ },
+ "i": {
+  "value": 2,
+  "certified": true,
+  "secs": 0.0
+ },
+ "alpha_crit": {
+  "D": 0,
+  "aprime": 3,
+  "certified": true,
+  "secs": 0.0
+ },
+ "alpha_2": {
+  "value": 4,
+  "certified": true,
+  "secs": 0.0
+ },
+ "f": {
+  "value": 6,
+  "certified": true,
+  "secs": 0.0
+ },
+ "tree": {
+  "value": 4,
+  "certified": true,
+  "secs": 0.0
+ },
+ "b": {
+  "value": 6,
+  "certified": true,
+  "secs": 0.0
+ },
+ "path_induced": {
+  "value": 6,
+  "certified": true,
+  "secs": 0.0
+ },
+ "p_cov": {
+  "value": 1,
+  "certified": true,
+  "witness": "ham path"
+ },
+ "ham_path": 1,
+ "traceable": 1,
+ "L_s": {
+  "value": 2,
+  "certified": true,
+  "secs": 0.0
+ },
+ "lambda1_numeric": 1.8019377358048385,
+ "lambda2_numeric": 1.2469796037174676,
+ "algebraic_connectivity_numeric": 0.26794919243112225,
+ "q1_signless": 3.7320508075688776,
+ "qn_signless": -4.667250547857135e-16,
+ "mu1_laplacian_largest": 3.7320508075688767,
+ "proximity": 1.8,
+ "remoteness": 3.0,
+ "avg_distance": 2.3333333333333335,
+ "avg_distance_exact_num": 70,
+ "avg_distance_exact_den": 30,
+ "randic_index": 2.914213562373095
+}

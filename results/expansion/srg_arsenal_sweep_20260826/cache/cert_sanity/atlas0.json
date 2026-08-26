@@ -1,0 +1,236 @@
+{
+ "n": 2,
+ "m_edges": 1,
+ "delta": 1,
+ "Delta": 1,
+ "sigma_2nd_smallest": 1,
+ "Sigma_2nd_largest": 1,
+ "deg_avg": "1",
+ "dd": 1,
+ "mode_mode_min": 1,
+ "mode_mode_max": 1,
+ "mode_dd_mode": 1,
+ "mode_even_mode_min": null,
+ "mode_even_mode_max": null,
+ "median_median": "1",
+ "median_lower": 1,
+ "median_upper": 1,
+ "q1_ceil": 1,
+ "q1_floor": 1,
+ "annihilation": 1,
+ "CW": "1",
+ "CW_float": 1.0,
+ "maxine": 2,
+ "WP_complement": 2,
+ "SW_G": 1,
+ "SW_comp": 0,
+ "length_sq": 2,
+ "residue": 1,
+ "HH_steps": 1,
+ "chi_residue2": 0,
+ "bipartite": 1,
+ "kappa_vertex": 1,
+ "kappa_edge": 1,
+ "components": 1,
+ "isolates": 0,
+ "cut_vertices": 0,
+ "ecc": {
+  "0": 1,
+  "1": 1
+ },
+ "diam": 1,
+ "rad": 1,
+ "dist_even": {
+  "0": 1,
+  "1": 1
+ },
+ "dist_odd": {
+  "0": 1,
+  "1": 1
+ },
+ "Tdist": {
+  "0": 1,
+  "1": 1
+ },
+ "even_horizontal": {
+  "0": 0,
+  "1": 0
+ },
+ "odd_horizontal": {
+  "0": 0,
+  "1": 0
+ },
+ "periphery_B": [
+  0,
+  1
+ ],
+ "center_C": [
+  0,
+  1
+ ],
+ "M_set": [
+  0,
+  1
+ ],
+ "A_set": [
+  0,
+  1
+ ],
+ "dist_max_M": 1,
+ "dist_min_M": 1,
+ "dist_max_A": 1,
+ "dist_min_A": 1,
+ "radial_circle_orders_at_center": {
+  "0": [
+   1
+  ],
+  "1": [
+   1
+  ]
+ },
+ "triangles_total": 0,
+ "T_v": {
+  "0": 0,
+  "1": 0
+ },
+ "T_min": 0,
+ "T_max": 0,
+ "freq_T_max": 2,
+ "K4_v": {
+  "0": 0,
+  "1": 0
+ },
+ "K4_min": 0,
+ "K4_max": 0,
+ "freq_K4_max": 2,
+ "dd_K4_seq": 1,
+ "disp": {
+  "0": 1,
+  "1": 1
+ },
+ "disp_min": 1,
+ "disp_max": 1,
+ "disp_sum": 2,
+ "disp_avg": "1",
+ "N_edge_max": 0,
+ "N_edge_min": 0,
+ "Nbar_edge_max": null,
+ "Nbar_edge_min": null,
+ "card_N_M": 2,
+ "card_NM_minus_M": 0,
+ "card_N_A": 2,
+ "card_NA_minus_A": 0,
+ "card_NB_minus_B": 0,
+ "D2_set": [],
+ "card_N_D2": 0,
+ "card_ND2_minus_D2": 0,
+ "pendant_P": [
+  0,
+  1
+ ],
+ "support_S": [
+  0,
+  1
+ ],
+ "f1_deg1_freq": 2,
+ "E_in_A": 1,
+ "E_in_M": 1,
+ "E_in_D2": 0,
+ "E_between_AB_cross": 0,
+ "chi_C4free": 1,
+ "dp_diametral_pairs": 1,
+ "two_B_pairs": 0,
+ "alpha": {
+  "value": 1,
+  "certified": true,
+  "secs": 0.0
+ },
+ "v_cover": 1,
+ "lambda_stats": {
+  "min": 1,
+  "max": 1,
+  "avg": "1",
+  "certified": true
+ },
+ "lambda_secs": 0.0,
+ "mu": 1,
+ "omega": {
+  "value": 2,
+  "certified": true
+ },
+ "gamma": {
+  "value": 1,
+  "certified": true,
+  "secs": 0.0
+ },
+ "gamma_t": {
+  "value": 2,
+  "certified": true,
+  "secs": 0.0
+ },
+ "gamma_2": {
+  "value": 2,
+  "certified": true,
+  "secs": 0.0
+ },
+ "i": {
+  "value": 1,
+  "certified": true,
+  "secs": 0.0
+ },
+ "alpha_crit": {
+  "D": 0,
+  "aprime": 1,
+  "certified": true,
+  "secs": 0.0
+ },
+ "alpha_2": {
+  "value": 2,
+  "certified": true,
+  "secs": 0.0
+ },
+ "f": {
+  "value": 2,
+  "certified": true,
+  "secs": 0.0
+ },
+ "tree": {
+  "value": 2,
+  "certified": true,
+  "secs": 0.0
+ },
+ "b": {
+  "value": 2,
+  "certified": true,
+  "secs": 0.0
+ },
+ "path_induced": {
+  "value": 2,
+  "certified": true,
+  "secs": 0.0
+ },
+ "p_cov": {
+  "value": 1,
+  "certified": true,
+  "witness": "ham path"
+ },
+ "ham_path": 1,
+ "traceable": 1,
+ "L_s": {
+  "value": 2,
+  "certified": true,
+  "secs": 0.0
+ },
+ "lambda1_numeric": 1.0,
+ "lambda2_numeric": -1.0,
+ "algebraic_connectivity_numeric": 2.0,
+ "q1_signless": 2.0,
+ "qn_signless": 0.0,
+ "mu1_laplacian_largest": 2.0,
+ "proximity": 1.0,
+ "remoteness": 1.0,
+ "avg_distance": 1.0,
+ "avg_distance_exact_num": 2,
+ "avg_distance_exact_den": 2,
+ "randic_index": 1.0
+}

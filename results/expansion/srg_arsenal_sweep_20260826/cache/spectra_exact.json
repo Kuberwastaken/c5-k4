@@ -1,0 +1,2694 @@
+{
+ "T(10)": {
+  "deg": 16,
+  "lam1": "Integer(16)",
+  "a": "Integer(10)",
+  "q1": "Integer(32)",
+  "qn": "Integer(14)",
+  "mu1": "Integer(18)",
+  "spec_adj": [
+   [
+    "Integer(16)",
+    1
+   ],
+   [
+    "Integer(6)",
+    9
+   ],
+   [
+    "Integer(-2)",
+    35
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Integer(10)",
+    9
+   ],
+   [
+    "Integer(18)",
+    35
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(32)",
+    1
+   ],
+   [
+    "Integer(22)",
+    9
+   ],
+   [
+    "Integer(14)",
+    35
+   ]
+  ]
+ },
+ "KG(10,2)": {
+  "deg": 28,
+  "lam1": "Integer(28)",
+  "a": "Integer(27)",
+  "q1": "Integer(56)",
+  "qn": "Integer(21)",
+  "mu1": "Integer(35)",
+  "spec_adj": [
+   [
+    "Integer(28)",
+    1
+   ],
+   [
+    "Integer(1)",
+    35
+   ],
+   [
+    "Integer(-7)",
+    9
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Integer(27)",
+    35
+   ],
+   [
+    "Integer(35)",
+    9
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(56)",
+    1
+   ],
+   [
+    "Integer(29)",
+    35
+   ],
+   [
+    "Integer(21)",
+    9
+   ]
+  ]
+ },
+ "T(11)": {
+  "deg": 18,
+  "lam1": "Integer(18)",
+  "a": "Integer(11)",
+  "q1": "Integer(36)",
+  "qn": "Integer(16)",
+  "mu1": "Integer(20)",
+  "spec_adj": [
+   [
+    "Integer(18)",
+    1
+   ],
+   [
+    "Integer(7)",
+    10
+   ],
+   [
+    "Integer(-2)",
+    44
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Integer(11)",
+    10
+   ],
+   [
+    "Integer(20)",
+    44
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(36)",
+    1
+   ],
+   [
+    "Integer(25)",
+    10
+   ],
+   [
+    "Integer(16)",
+    44
+   ]
+  ]
+ },
+ "KG(11,2)": {
+  "deg": 36,
+  "lam1": "Integer(36)",
+  "a": "Integer(35)",
+  "q1": "Integer(72)",
+  "qn": "Integer(28)",
+  "mu1": "Integer(44)",
+  "spec_adj": [
+   [
+    "Integer(36)",
+    1
+   ],
+   [
+    "Integer(1)",
+    44
+   ],
+   [
+    "Integer(-8)",
+    10
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Integer(35)",
+    44
+   ],
+   [
+    "Integer(44)",
+    10
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(72)",
+    1
+   ],
+   [
+    "Integer(37)",
+    44
+   ],
+   [
+    "Integer(28)",
+    10
+   ]
+  ]
+ },
+ "T(12)": {
+  "deg": 20,
+  "lam1": "Integer(20)",
+  "a": "Integer(12)",
+  "q1": "Integer(40)",
+  "qn": "Integer(18)",
+  "mu1": "Integer(22)",
+  "spec_adj": [
+   [
+    "Integer(20)",
+    1
+   ],
+   [
+    "Integer(8)",
+    11
+   ],
+   [
+    "Integer(-2)",
+    54
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Integer(12)",
+    11
+   ],
+   [
+    "Integer(22)",
+    54
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(40)",
+    1
+   ],
+   [
+    "Integer(28)",
+    11
+   ],
+   [
+    "Integer(18)",
+    54
+   ]
+  ]
+ },
+ "KG(12,2)": {
+  "deg": 45,
+  "lam1": "Integer(45)",
+  "a": "Integer(44)",
+  "q1": "Integer(90)",
+  "qn": "Integer(36)",
+  "mu1": "Integer(54)",
+  "spec_adj": [
+   [
+    "Integer(45)",
+    1
+   ],
+   [
+    "Integer(1)",
+    54
+   ],
+   [
+    "Integer(-9)",
+    11
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Integer(44)",
+    54
+   ],
+   [
+    "Integer(54)",
+    11
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(90)",
+    1
+   ],
+   [
+    "Integer(46)",
+    54
+   ],
+   [
+    "Integer(36)",
+    11
+   ]
+  ]
+ },
+ "T(13)": {
+  "deg": 22,
+  "lam1": "Integer(22)",
+  "a": "Integer(13)",
+  "q1": "Integer(44)",
+  "qn": "Integer(20)",
+  "mu1": "Integer(24)",
+  "spec_adj": [
+   [
+    "Integer(22)",
+    1
+   ],
+   [
+    "Integer(9)",
+    12
+   ],
+   [
+    "Integer(-2)",
+    65
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Integer(13)",
+    12
+   ],
+   [
+    "Integer(24)",
+    65
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(44)",
+    1
+   ],
+   [
+    "Integer(31)",
+    12
+   ],
+   [
+    "Integer(20)",
+    65
+   ]
+  ]
+ },
+ "KG(13,2)": {
+  "deg": 55,
+  "lam1": "Integer(55)",
+  "a": "Integer(54)",
+  "q1": "Integer(110)",
+  "qn": "Integer(45)",
+  "mu1": "Integer(65)",
+  "spec_adj": [
+   [
+    "Integer(55)",
+    1
+   ],
+   [
+    "Integer(1)",
+    65
+   ],
+   [
+    "Integer(-10)",
+    12
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Integer(54)",
+    65
+   ],
+   [
+    "Integer(65)",
+    12
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(110)",
+    1
+   ],
+   [
+    "Integer(56)",
+    65
+   ],
+   [
+    "Integer(45)",
+    12
+   ]
+  ]
+ },
+ "T(14)": {
+  "deg": 24,
+  "lam1": "Integer(24)",
+  "a": "Integer(14)",
+  "q1": "Integer(48)",
+  "qn": "Integer(22)",
+  "mu1": "Integer(26)",
+  "spec_adj": [
+   [
+    "Integer(24)",
+    1
+   ],
+   [
+    "Integer(10)",
+    13
+   ],
+   [
+    "Integer(-2)",
+    77
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Integer(14)",
+    13
+   ],
+   [
+    "Integer(26)",
+    77
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(48)",
+    1
+   ],
+   [
+    "Integer(34)",
+    13
+   ],
+   [
+    "Integer(22)",
+    77
+   ]
+  ]
+ },
+ "KG(14,2)": {
+  "deg": 66,
+  "lam1": "Integer(66)",
+  "a": "Integer(65)",
+  "q1": "Integer(132)",
+  "qn": "Integer(55)",
+  "mu1": "Integer(77)",
+  "spec_adj": [
+   [
+    "Integer(66)",
+    1
+   ],
+   [
+    "Integer(1)",
+    77
+   ],
+   [
+    "Integer(-11)",
+    13
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Integer(65)",
+    77
+   ],
+   [
+    "Integer(77)",
+    13
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(132)",
+    1
+   ],
+   [
+    "Integer(67)",
+    77
+   ],
+   [
+    "Integer(55)",
+    13
+   ]
+  ]
+ },
+ "T(15)": {
+  "deg": 26,
+  "lam1": "Integer(26)",
+  "a": "Integer(15)",
+  "q1": "Integer(52)",
+  "qn": "Integer(24)",
+  "mu1": "Integer(28)",
+  "spec_adj": [
+   [
+    "Integer(26)",
+    1
+   ],
+   [
+    "Integer(11)",
+    14
+   ],
+   [
+    "Integer(-2)",
+    90
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Integer(15)",
+    14
+   ],
+   [
+    "Integer(28)",
+    90
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(52)",
+    1
+   ],
+   [
+    "Integer(37)",
+    14
+   ],
+   [
+    "Integer(24)",
+    90
+   ]
+  ]
+ },
+ "KG(15,2)": {
+  "deg": 78,
+  "lam1": "Integer(78)",
+  "a": "Integer(77)",
+  "q1": "Integer(156)",
+  "qn": "Integer(66)",
+  "mu1": "Integer(90)",
+  "spec_adj": [
+   [
+    "Integer(78)",
+    1
+   ],
+   [
+    "Integer(1)",
+    90
+   ],
+   [
+    "Integer(-12)",
+    14
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Integer(77)",
+    90
+   ],
+   [
+    "Integer(90)",
+    14
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(156)",
+    1
+   ],
+   [
+    "Integer(79)",
+    90
+   ],
+   [
+    "Integer(66)",
+    14
+   ]
+  ]
+ },
+ "T(16)": {
+  "deg": 28,
+  "lam1": "Integer(28)",
+  "a": "Integer(16)",
+  "q1": "Integer(56)",
+  "qn": "Integer(26)",
+  "mu1": "Integer(30)",
+  "spec_adj": [
+   [
+    "Integer(28)",
+    1
+   ],
+   [
+    "Integer(12)",
+    15
+   ],
+   [
+    "Integer(-2)",
+    104
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Integer(16)",
+    15
+   ],
+   [
+    "Integer(30)",
+    104
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(56)",
+    1
+   ],
+   [
+    "Integer(40)",
+    15
+   ],
+   [
+    "Integer(26)",
+    104
+   ]
+  ]
+ },
+ "KG(16,2)": {
+  "deg": 91,
+  "lam1": "Integer(91)",
+  "a": "Integer(90)",
+  "q1": "Integer(182)",
+  "qn": "Integer(78)",
+  "mu1": "Integer(104)",
+  "spec_adj": [
+   [
+    "Integer(91)",
+    1
+   ],
+   [
+    "Integer(1)",
+    104
+   ],
+   [
+    "Integer(-13)",
+    15
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Integer(90)",
+    104
+   ],
+   [
+    "Integer(104)",
+    15
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(182)",
+    1
+   ],
+   [
+    "Integer(92)",
+    104
+   ],
+   [
+    "Integer(78)",
+    15
+   ]
+  ]
+ },
+ "Paley(13)": {
+  "deg": 6,
+  "lam1": "Integer(6)",
+  "a": "Add(Rational(13, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(13), Rational(1, 2))))",
+  "q1": "Integer(12)",
+  "qn": "Add(Rational(11, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(13), Rational(1, 2))))",
+  "mu1": "Add(Mul(Rational(1, 2), Pow(Integer(13), Rational(1, 2))), Rational(13, 2))",
+  "spec_adj": [
+   [
+    "Integer(6)",
+    1
+   ],
+   [
+    "Add(Rational(-1, 2), Mul(Rational(1, 2), Pow(Integer(13), Rational(1, 2))))",
+    6
+   ],
+   [
+    "Add(Mul(Integer(-1), Rational(1, 2), Pow(Integer(13), Rational(1, 2))), Rational(-1, 2))",
+    6
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Add(Rational(13, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(13), Rational(1, 2))))",
+    6
+   ],
+   [
+    "Add(Mul(Rational(1, 2), Pow(Integer(13), Rational(1, 2))), Rational(13, 2))",
+    6
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(12)",
+    1
+   ],
+   [
+    "Add(Mul(Rational(1, 2), Pow(Integer(13), Rational(1, 2))), Rational(11, 2))",
+    6
+   ],
+   [
+    "Add(Rational(11, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(13), Rational(1, 2))))",
+    6
+   ]
+  ]
+ },
+ "Paley(17)": {
+  "deg": 8,
+  "lam1": "Integer(8)",
+  "a": "Add(Rational(17, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(17), Rational(1, 2))))",
+  "q1": "Integer(16)",
+  "qn": "Add(Rational(15, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(17), Rational(1, 2))))",
+  "mu1": "Add(Mul(Rational(1, 2), Pow(Integer(17), Rational(1, 2))), Rational(17, 2))",
+  "spec_adj": [
+   [
+    "Integer(8)",
+    1
+   ],
+   [
+    "Add(Rational(-1, 2), Mul(Rational(1, 2), Pow(Integer(17), Rational(1, 2))))",
+    8
+   ],
+   [
+    "Add(Mul(Integer(-1), Rational(1, 2), Pow(Integer(17), Rational(1, 2))), Rational(-1, 2))",
+    8
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Add(Rational(17, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(17), Rational(1, 2))))",
+    8
+   ],
+   [
+    "Add(Mul(Rational(1, 2), Pow(Integer(17), Rational(1, 2))), Rational(17, 2))",
+    8
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(16)",
+    1
+   ],
+   [
+    "Add(Mul(Rational(1, 2), Pow(Integer(17), Rational(1, 2))), Rational(15, 2))",
+    8
+   ],
+   [
+    "Add(Rational(15, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(17), Rational(1, 2))))",
+    8
+   ]
+  ]
+ },
+ "Paley(29)": {
+  "deg": 14,
+  "lam1": "Integer(14)",
+  "a": "Add(Rational(29, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(29), Rational(1, 2))))",
+  "q1": "Integer(28)",
+  "qn": "Add(Rational(27, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(29), Rational(1, 2))))",
+  "mu1": "Add(Mul(Rational(1, 2), Pow(Integer(29), Rational(1, 2))), Rational(29, 2))",
+  "spec_adj": [
+   [
+    "Integer(14)",
+    1
+   ],
+   [
+    "Add(Rational(-1, 2), Mul(Rational(1, 2), Pow(Integer(29), Rational(1, 2))))",
+    14
+   ],
+   [
+    "Add(Mul(Integer(-1), Rational(1, 2), Pow(Integer(29), Rational(1, 2))), Rational(-1, 2))",
+    14
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Add(Rational(29, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(29), Rational(1, 2))))",
+    14
+   ],
+   [
+    "Add(Mul(Rational(1, 2), Pow(Integer(29), Rational(1, 2))), Rational(29, 2))",
+    14
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(28)",
+    1
+   ],
+   [
+    "Add(Mul(Rational(1, 2), Pow(Integer(29), Rational(1, 2))), Rational(27, 2))",
+    14
+   ],
+   [
+    "Add(Rational(27, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(29), Rational(1, 2))))",
+    14
+   ]
+  ]
+ },
+ "Paley(37)": {
+  "deg": 18,
+  "lam1": "Integer(18)",
+  "a": "Add(Rational(37, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(37), Rational(1, 2))))",
+  "q1": "Integer(36)",
+  "qn": "Add(Rational(35, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(37), Rational(1, 2))))",
+  "mu1": "Add(Mul(Rational(1, 2), Pow(Integer(37), Rational(1, 2))), Rational(37, 2))",
+  "spec_adj": [
+   [
+    "Integer(18)",
+    1
+   ],
+   [
+    "Add(Rational(-1, 2), Mul(Rational(1, 2), Pow(Integer(37), Rational(1, 2))))",
+    18
+   ],
+   [
+    "Add(Mul(Integer(-1), Rational(1, 2), Pow(Integer(37), Rational(1, 2))), Rational(-1, 2))",
+    18
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Add(Rational(37, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(37), Rational(1, 2))))",
+    18
+   ],
+   [
+    "Add(Mul(Rational(1, 2), Pow(Integer(37), Rational(1, 2))), Rational(37, 2))",
+    18
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(36)",
+    1
+   ],
+   [
+    "Add(Mul(Rational(1, 2), Pow(Integer(37), Rational(1, 2))), Rational(35, 2))",
+    18
+   ],
+   [
+    "Add(Rational(35, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(37), Rational(1, 2))))",
+    18
+   ]
+  ]
+ },
+ "Paley(41)": {
+  "deg": 20,
+  "lam1": "Integer(20)",
+  "a": "Add(Rational(41, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(41), Rational(1, 2))))",
+  "q1": "Integer(40)",
+  "qn": "Add(Rational(39, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(41), Rational(1, 2))))",
+  "mu1": "Add(Mul(Rational(1, 2), Pow(Integer(41), Rational(1, 2))), Rational(41, 2))",
+  "spec_adj": [
+   [
+    "Integer(20)",
+    1
+   ],
+   [
+    "Add(Rational(-1, 2), Mul(Rational(1, 2), Pow(Integer(41), Rational(1, 2))))",
+    20
+   ],
+   [
+    "Add(Mul(Integer(-1), Rational(1, 2), Pow(Integer(41), Rational(1, 2))), Rational(-1, 2))",
+    20
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Add(Rational(41, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(41), Rational(1, 2))))",
+    20
+   ],
+   [
+    "Add(Mul(Rational(1, 2), Pow(Integer(41), Rational(1, 2))), Rational(41, 2))",
+    20
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(40)",
+    1
+   ],
+   [
+    "Add(Mul(Rational(1, 2), Pow(Integer(41), Rational(1, 2))), Rational(39, 2))",
+    20
+   ],
+   [
+    "Add(Rational(39, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(41), Rational(1, 2))))",
+    20
+   ]
+  ]
+ },
+ "Paley(53)": {
+  "deg": 26,
+  "lam1": "Integer(26)",
+  "a": "Add(Rational(53, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(53), Rational(1, 2))))",
+  "q1": "Integer(52)",
+  "qn": "Add(Rational(51, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(53), Rational(1, 2))))",
+  "mu1": "Add(Mul(Rational(1, 2), Pow(Integer(53), Rational(1, 2))), Rational(53, 2))",
+  "spec_adj": [
+   [
+    "Integer(26)",
+    1
+   ],
+   [
+    "Add(Rational(-1, 2), Mul(Rational(1, 2), Pow(Integer(53), Rational(1, 2))))",
+    26
+   ],
+   [
+    "Add(Mul(Integer(-1), Rational(1, 2), Pow(Integer(53), Rational(1, 2))), Rational(-1, 2))",
+    26
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Add(Rational(53, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(53), Rational(1, 2))))",
+    26
+   ],
+   [
+    "Add(Mul(Rational(1, 2), Pow(Integer(53), Rational(1, 2))), Rational(53, 2))",
+    26
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(52)",
+    1
+   ],
+   [
+    "Add(Mul(Rational(1, 2), Pow(Integer(53), Rational(1, 2))), Rational(51, 2))",
+    26
+   ],
+   [
+    "Add(Rational(51, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(53), Rational(1, 2))))",
+    26
+   ]
+  ]
+ },
+ "Paley(61)": {
+  "deg": 30,
+  "lam1": "Integer(30)",
+  "a": "Add(Rational(61, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(61), Rational(1, 2))))",
+  "q1": "Integer(60)",
+  "qn": "Add(Rational(59, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(61), Rational(1, 2))))",
+  "mu1": "Add(Mul(Rational(1, 2), Pow(Integer(61), Rational(1, 2))), Rational(61, 2))",
+  "spec_adj": [
+   [
+    "Integer(30)",
+    1
+   ],
+   [
+    "Add(Rational(-1, 2), Mul(Rational(1, 2), Pow(Integer(61), Rational(1, 2))))",
+    30
+   ],
+   [
+    "Add(Mul(Integer(-1), Rational(1, 2), Pow(Integer(61), Rational(1, 2))), Rational(-1, 2))",
+    30
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Add(Rational(61, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(61), Rational(1, 2))))",
+    30
+   ],
+   [
+    "Add(Mul(Rational(1, 2), Pow(Integer(61), Rational(1, 2))), Rational(61, 2))",
+    30
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(60)",
+    1
+   ],
+   [
+    "Add(Mul(Rational(1, 2), Pow(Integer(61), Rational(1, 2))), Rational(59, 2))",
+    30
+   ],
+   [
+    "Add(Rational(59, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(61), Rational(1, 2))))",
+    30
+   ]
+  ]
+ },
+ "Paley(73)": {
+  "deg": 36,
+  "lam1": "Integer(36)",
+  "a": "Add(Rational(73, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(73), Rational(1, 2))))",
+  "q1": "Integer(72)",
+  "qn": "Add(Rational(71, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(73), Rational(1, 2))))",
+  "mu1": "Add(Mul(Rational(1, 2), Pow(Integer(73), Rational(1, 2))), Rational(73, 2))",
+  "spec_adj": [
+   [
+    "Integer(36)",
+    1
+   ],
+   [
+    "Add(Rational(-1, 2), Mul(Rational(1, 2), Pow(Integer(73), Rational(1, 2))))",
+    36
+   ],
+   [
+    "Add(Mul(Integer(-1), Rational(1, 2), Pow(Integer(73), Rational(1, 2))), Rational(-1, 2))",
+    36
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Add(Rational(73, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(73), Rational(1, 2))))",
+    36
+   ],
+   [
+    "Add(Mul(Rational(1, 2), Pow(Integer(73), Rational(1, 2))), Rational(73, 2))",
+    36
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(72)",
+    1
+   ],
+   [
+    "Add(Mul(Rational(1, 2), Pow(Integer(73), Rational(1, 2))), Rational(71, 2))",
+    36
+   ],
+   [
+    "Add(Rational(71, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(73), Rational(1, 2))))",
+    36
+   ]
+  ]
+ },
+ "Paley(89)": {
+  "deg": 44,
+  "lam1": "Integer(44)",
+  "a": "Add(Rational(89, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(89), Rational(1, 2))))",
+  "q1": "Integer(88)",
+  "qn": "Add(Rational(87, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(89), Rational(1, 2))))",
+  "mu1": "Add(Mul(Rational(1, 2), Pow(Integer(89), Rational(1, 2))), Rational(89, 2))",
+  "spec_adj": [
+   [
+    "Integer(44)",
+    1
+   ],
+   [
+    "Add(Rational(-1, 2), Mul(Rational(1, 2), Pow(Integer(89), Rational(1, 2))))",
+    44
+   ],
+   [
+    "Add(Mul(Integer(-1), Rational(1, 2), Pow(Integer(89), Rational(1, 2))), Rational(-1, 2))",
+    44
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Add(Rational(89, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(89), Rational(1, 2))))",
+    44
+   ],
+   [
+    "Add(Mul(Rational(1, 2), Pow(Integer(89), Rational(1, 2))), Rational(89, 2))",
+    44
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(88)",
+    1
+   ],
+   [
+    "Add(Mul(Rational(1, 2), Pow(Integer(89), Rational(1, 2))), Rational(87, 2))",
+    44
+   ],
+   [
+    "Add(Rational(87, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(89), Rational(1, 2))))",
+    44
+   ]
+  ]
+ },
+ "Paley(97)": {
+  "deg": 48,
+  "lam1": "Integer(48)",
+  "a": "Add(Rational(97, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(97), Rational(1, 2))))",
+  "q1": "Integer(96)",
+  "qn": "Add(Rational(95, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(97), Rational(1, 2))))",
+  "mu1": "Add(Mul(Rational(1, 2), Pow(Integer(97), Rational(1, 2))), Rational(97, 2))",
+  "spec_adj": [
+   [
+    "Integer(48)",
+    1
+   ],
+   [
+    "Add(Rational(-1, 2), Mul(Rational(1, 2), Pow(Integer(97), Rational(1, 2))))",
+    48
+   ],
+   [
+    "Add(Mul(Integer(-1), Rational(1, 2), Pow(Integer(97), Rational(1, 2))), Rational(-1, 2))",
+    48
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Add(Rational(97, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(97), Rational(1, 2))))",
+    48
+   ],
+   [
+    "Add(Mul(Rational(1, 2), Pow(Integer(97), Rational(1, 2))), Rational(97, 2))",
+    48
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(96)",
+    1
+   ],
+   [
+    "Add(Mul(Rational(1, 2), Pow(Integer(97), Rational(1, 2))), Rational(95, 2))",
+    48
+   ],
+   [
+    "Add(Rational(95, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(97), Rational(1, 2))))",
+    48
+   ]
+  ]
+ },
+ "Paley(101)": {
+  "deg": 50,
+  "lam1": "Integer(50)",
+  "a": "Add(Rational(101, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(101), Rational(1, 2))))",
+  "q1": "Integer(100)",
+  "qn": "Add(Rational(99, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(101), Rational(1, 2))))",
+  "mu1": "Add(Mul(Rational(1, 2), Pow(Integer(101), Rational(1, 2))), Rational(101, 2))",
+  "spec_adj": [
+   [
+    "Integer(50)",
+    1
+   ],
+   [
+    "Add(Rational(-1, 2), Mul(Rational(1, 2), Pow(Integer(101), Rational(1, 2))))",
+    50
+   ],
+   [
+    "Add(Mul(Integer(-1), Rational(1, 2), Pow(Integer(101), Rational(1, 2))), Rational(-1, 2))",
+    50
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Add(Rational(101, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(101), Rational(1, 2))))",
+    50
+   ],
+   [
+    "Add(Mul(Rational(1, 2), Pow(Integer(101), Rational(1, 2))), Rational(101, 2))",
+    50
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(100)",
+    1
+   ],
+   [
+    "Add(Mul(Rational(1, 2), Pow(Integer(101), Rational(1, 2))), Rational(99, 2))",
+    50
+   ],
+   [
+    "Add(Rational(99, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(101), Rational(1, 2))))",
+    50
+   ]
+  ]
+ },
+ "CP(2)": {
+  "deg": 2,
+  "lam1": "Integer(2)",
+  "a": "Integer(2)",
+  "q1": "Integer(4)",
+  "qn": "Integer(0)",
+  "mu1": "Integer(4)",
+  "spec_adj": [
+   [
+    "Integer(-2)",
+    1
+   ],
+   [
+    "Integer(2)",
+    1
+   ],
+   [
+    "Integer(0)",
+    2
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(4)",
+    1
+   ],
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Integer(2)",
+    2
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Integer(4)",
+    1
+   ],
+   [
+    "Integer(2)",
+    2
+   ]
+  ]
+ },
+ "CP(3)": {
+  "deg": 4,
+  "lam1": "Integer(4)",
+  "a": "Integer(4)",
+  "q1": "Integer(8)",
+  "qn": "Integer(2)",
+  "mu1": "Integer(6)",
+  "spec_adj": [
+   [
+    "Integer(4)",
+    1
+   ],
+   [
+    "Integer(-2)",
+    2
+   ],
+   [
+    "Integer(0)",
+    3
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Integer(6)",
+    2
+   ],
+   [
+    "Integer(4)",
+    3
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(8)",
+    1
+   ],
+   [
+    "Integer(2)",
+    2
+   ],
+   [
+    "Integer(4)",
+    3
+   ]
+  ]
+ },
+ "CP(4)": {
+  "deg": 6,
+  "lam1": "Integer(6)",
+  "a": "Integer(6)",
+  "q1": "Integer(12)",
+  "qn": "Integer(4)",
+  "mu1": "Integer(8)",
+  "spec_adj": [
+   [
+    "Integer(6)",
+    1
+   ],
+   [
+    "Integer(-2)",
+    3
+   ],
+   [
+    "Integer(0)",
+    4
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Integer(8)",
+    3
+   ],
+   [
+    "Integer(6)",
+    4
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(12)",
+    1
+   ],
+   [
+    "Integer(4)",
+    3
+   ],
+   [
+    "Integer(6)",
+    4
+   ]
+  ]
+ },
+ "CP(5)": {
+  "deg": 8,
+  "lam1": "Integer(8)",
+  "a": "Integer(8)",
+  "q1": "Integer(16)",
+  "qn": "Integer(6)",
+  "mu1": "Integer(10)",
+  "spec_adj": [
+   [
+    "Integer(8)",
+    1
+   ],
+   [
+    "Integer(-2)",
+    4
+   ],
+   [
+    "Integer(0)",
+    5
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Integer(10)",
+    4
+   ],
+   [
+    "Integer(8)",
+    5
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(16)",
+    1
+   ],
+   [
+    "Integer(6)",
+    4
+   ],
+   [
+    "Integer(8)",
+    5
+   ]
+  ]
+ },
+ "CP(6)": {
+  "deg": 10,
+  "lam1": "Integer(10)",
+  "a": "Integer(10)",
+  "q1": "Integer(20)",
+  "qn": "Integer(8)",
+  "mu1": "Integer(12)",
+  "spec_adj": [
+   [
+    "Integer(10)",
+    1
+   ],
+   [
+    "Integer(-2)",
+    5
+   ],
+   [
+    "Integer(0)",
+    6
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Integer(12)",
+    5
+   ],
+   [
+    "Integer(10)",
+    6
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(20)",
+    1
+   ],
+   [
+    "Integer(8)",
+    5
+   ],
+   [
+    "Integer(10)",
+    6
+   ]
+  ]
+ },
+ "CP(7)": {
+  "deg": 12,
+  "lam1": "Integer(12)",
+  "a": "Integer(12)",
+  "q1": "Integer(24)",
+  "qn": "Integer(10)",
+  "mu1": "Integer(14)",
+  "spec_adj": [
+   [
+    "Integer(12)",
+    1
+   ],
+   [
+    "Integer(-2)",
+    6
+   ],
+   [
+    "Integer(0)",
+    7
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Integer(14)",
+    6
+   ],
+   [
+    "Integer(12)",
+    7
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(24)",
+    1
+   ],
+   [
+    "Integer(10)",
+    6
+   ],
+   [
+    "Integer(12)",
+    7
+   ]
+  ]
+ },
+ "CP(8)": {
+  "deg": 14,
+  "lam1": "Integer(14)",
+  "a": "Integer(14)",
+  "q1": "Integer(28)",
+  "qn": "Integer(12)",
+  "mu1": "Integer(16)",
+  "spec_adj": [
+   [
+    "Integer(14)",
+    1
+   ],
+   [
+    "Integer(-2)",
+    7
+   ],
+   [
+    "Integer(0)",
+    8
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Integer(16)",
+    7
+   ],
+   [
+    "Integer(14)",
+    8
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(28)",
+    1
+   ],
+   [
+    "Integer(12)",
+    7
+   ],
+   [
+    "Integer(14)",
+    8
+   ]
+  ]
+ },
+ "CMP(2)": {
+  "deg": null,
+  "lam1": "Pow(Integer(2), Rational(1, 2))",
+  "a": "Integer(1)",
+  "q1": "Integer(3)",
+  "qn": "Integer(0)",
+  "mu1": "Integer(3)",
+  "spec_adj": [
+   [
+    "Mul(Integer(-1), Pow(Integer(2), Rational(1, 2)))",
+    1
+   ],
+   [
+    "Pow(Integer(2), Rational(1, 2))",
+    1
+   ],
+   [
+    "Integer(0)",
+    1
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(3)",
+    1
+   ],
+   [
+    "Integer(1)",
+    1
+   ],
+   [
+    "Integer(0)",
+    1
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(3)",
+    1
+   ],
+   [
+    "Integer(1)",
+    1
+   ],
+   [
+    "Integer(0)",
+    1
+   ]
+  ]
+ },
+ "CMP(3)": {
+  "deg": null,
+  "lam1": "Add(Integer(1), Pow(Integer(5), Rational(1, 2)))",
+  "a": "Integer(3)",
+  "q1": "Add(Mul(Rational(1, 2), Pow(Integer(17), Rational(1, 2))), Rational(9, 2))",
+  "qn": "Integer(1)",
+  "mu1": "Integer(5)",
+  "spec_adj": [
+   [
+    "Integer(-2)",
+    1
+   ],
+   [
+    "Add(Integer(1), Mul(Integer(-1), Pow(Integer(5), Rational(1, 2))))",
+    1
+   ],
+   [
+    "Add(Integer(1), Pow(Integer(5), Rational(1, 2)))",
+    1
+   ],
+   [
+    "Integer(0)",
+    2
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(5)",
+    2
+   ],
+   [
+    "Integer(3)",
+    2
+   ],
+   [
+    "Integer(0)",
+    1
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Add(Mul(Rational(1, 2), Pow(Integer(17), Rational(1, 2))), Rational(9, 2))",
+    1
+   ],
+   [
+    "Integer(3)",
+    2
+   ],
+   [
+    "Add(Rational(9, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(17), Rational(1, 2))))",
+    1
+   ],
+   [
+    "Integer(1)",
+    1
+   ]
+  ]
+ },
+ "CMP(4)": {
+  "deg": null,
+  "lam1": "Add(Integer(2), Pow(Integer(10), Rational(1, 2)))",
+  "a": "Integer(5)",
+  "q1": "Add(Mul(Rational(1, 2), Pow(Integer(33), Rational(1, 2))), Rational(15, 2))",
+  "qn": "Integer(3)",
+  "mu1": "Integer(7)",
+  "spec_adj": [
+   [
+    "Integer(-2)",
+    2
+   ],
+   [
+    "Add(Integer(2), Mul(Integer(-1), Pow(Integer(10), Rational(1, 2))))",
+    1
+   ],
+   [
+    "Add(Integer(2), Pow(Integer(10), Rational(1, 2)))",
+    1
+   ],
+   [
+    "Integer(0)",
+    3
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(7)",
+    3
+   ],
+   [
+    "Integer(5)",
+    3
+   ],
+   [
+    "Integer(0)",
+    1
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Add(Mul(Rational(1, 2), Pow(Integer(33), Rational(1, 2))), Rational(15, 2))",
+    1
+   ],
+   [
+    "Integer(5)",
+    3
+   ],
+   [
+    "Add(Rational(15, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(33), Rational(1, 2))))",
+    1
+   ],
+   [
+    "Integer(3)",
+    2
+   ]
+  ]
+ },
+ "CMP(5)": {
+  "deg": null,
+  "lam1": "Add(Integer(3), Pow(Integer(17), Rational(1, 2)))",
+  "a": "Integer(7)",
+  "q1": "Add(Mul(Rational(1, 2), Pow(Integer(57), Rational(1, 2))), Rational(21, 2))",
+  "qn": "Integer(5)",
+  "mu1": "Integer(9)",
+  "spec_adj": [
+   [
+    "Integer(-2)",
+    3
+   ],
+   [
+    "Add(Integer(3), Mul(Integer(-1), Pow(Integer(17), Rational(1, 2))))",
+    1
+   ],
+   [
+    "Add(Integer(3), Pow(Integer(17), Rational(1, 2)))",
+    1
+   ],
+   [
+    "Integer(0)",
+    4
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(9)",
+    4
+   ],
+   [
+    "Integer(7)",
+    4
+   ],
+   [
+    "Integer(0)",
+    1
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Add(Mul(Rational(1, 2), Pow(Integer(57), Rational(1, 2))), Rational(21, 2))",
+    1
+   ],
+   [
+    "Integer(7)",
+    4
+   ],
+   [
+    "Add(Rational(21, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(57), Rational(1, 2))))",
+    1
+   ],
+   [
+    "Integer(5)",
+    3
+   ]
+  ]
+ },
+ "CMP(6)": {
+  "deg": null,
+  "lam1": "Add(Integer(4), Pow(Integer(26), Rational(1, 2)))",
+  "a": "Integer(9)",
+  "q1": "Add(Mul(Rational(1, 2), Pow(Integer(89), Rational(1, 2))), Rational(27, 2))",
+  "qn": "Integer(7)",
+  "mu1": "Integer(11)",
+  "spec_adj": [
+   [
+    "Integer(-2)",
+    4
+   ],
+   [
+    "Add(Integer(4), Mul(Integer(-1), Pow(Integer(26), Rational(1, 2))))",
+    1
+   ],
+   [
+    "Add(Integer(4), Pow(Integer(26), Rational(1, 2)))",
+    1
+   ],
+   [
+    "Integer(0)",
+    5
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(11)",
+    5
+   ],
+   [
+    "Integer(9)",
+    5
+   ],
+   [
+    "Integer(0)",
+    1
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Add(Mul(Rational(1, 2), Pow(Integer(89), Rational(1, 2))), Rational(27, 2))",
+    1
+   ],
+   [
+    "Integer(9)",
+    5
+   ],
+   [
+    "Add(Rational(27, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(89), Rational(1, 2))))",
+    1
+   ],
+   [
+    "Integer(7)",
+    4
+   ]
+  ]
+ },
+ "CMP(7)": {
+  "deg": null,
+  "lam1": "Add(Integer(5), Pow(Integer(37), Rational(1, 2)))",
+  "a": "Integer(11)",
+  "q1": "Add(Mul(Rational(1, 2), Pow(Integer(129), Rational(1, 2))), Rational(33, 2))",
+  "qn": "Integer(9)",
+  "mu1": "Integer(13)",
+  "spec_adj": [
+   [
+    "Integer(-2)",
+    5
+   ],
+   [
+    "Add(Integer(5), Mul(Integer(-1), Pow(Integer(37), Rational(1, 2))))",
+    1
+   ],
+   [
+    "Add(Integer(5), Pow(Integer(37), Rational(1, 2)))",
+    1
+   ],
+   [
+    "Integer(0)",
+    6
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(13)",
+    6
+   ],
+   [
+    "Integer(11)",
+    6
+   ],
+   [
+    "Integer(0)",
+    1
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Add(Mul(Rational(1, 2), Pow(Integer(129), Rational(1, 2))), Rational(33, 2))",
+    1
+   ],
+   [
+    "Integer(11)",
+    6
+   ],
+   [
+    "Add(Rational(33, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(129), Rational(1, 2))))",
+    1
+   ],
+   [
+    "Integer(9)",
+    5
+   ]
+  ]
+ },
+ "CMP(8)": {
+  "deg": null,
+  "lam1": "Add(Integer(6), Mul(Integer(5), Pow(Integer(2), Rational(1, 2))))",
+  "a": "Integer(13)",
+  "q1": "Add(Mul(Rational(1, 2), Pow(Integer(177), Rational(1, 2))), Rational(39, 2))",
+  "qn": "Integer(11)",
+  "mu1": "Integer(15)",
+  "spec_adj": [
+   [
+    "Integer(-2)",
+    6
+   ],
+   [
+    "Add(Integer(6), Mul(Integer(-1), Integer(5), Pow(Integer(2), Rational(1, 2))))",
+    1
+   ],
+   [
+    "Add(Integer(6), Mul(Integer(5), Pow(Integer(2), Rational(1, 2))))",
+    1
+   ],
+   [
+    "Integer(0)",
+    7
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(15)",
+    7
+   ],
+   [
+    "Integer(13)",
+    7
+   ],
+   [
+    "Integer(0)",
+    1
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Add(Mul(Rational(1, 2), Pow(Integer(177), Rational(1, 2))), Rational(39, 2))",
+    1
+   ],
+   [
+    "Integer(13)",
+    7
+   ],
+   [
+    "Add(Rational(39, 2), Mul(Integer(-1), Rational(1, 2), Pow(Integer(177), Rational(1, 2))))",
+    1
+   ],
+   [
+    "Integer(11)",
+    6
+   ]
+  ]
+ },
+ "comp(C5[K2])": {
+  "deg": 4,
+  "lam1": "Integer(4)",
+  "a": "Add(Integer(5), Mul(Integer(-1), Pow(Integer(5), Rational(1, 2))))",
+  "q1": "Integer(8)",
+  "qn": "Add(Integer(3), Mul(Integer(-1), Pow(Integer(5), Rational(1, 2))))",
+  "mu1": "Add(Pow(Integer(5), Rational(1, 2)), Integer(5))",
+  "spec_adj": [
+   [
+    "Integer(4)",
+    1
+   ],
+   [
+    "Add(Mul(Integer(-1), Pow(Integer(5), Rational(1, 2))), Integer(-1))",
+    2
+   ],
+   [
+    "Add(Integer(-1), Pow(Integer(5), Rational(1, 2)))",
+    2
+   ],
+   [
+    "Integer(0)",
+    5
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Add(Pow(Integer(5), Rational(1, 2)), Integer(5))",
+    2
+   ],
+   [
+    "Add(Integer(5), Mul(Integer(-1), Pow(Integer(5), Rational(1, 2))))",
+    2
+   ],
+   [
+    "Integer(4)",
+    5
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(8)",
+    1
+   ],
+   [
+    "Add(Integer(3), Mul(Integer(-1), Pow(Integer(5), Rational(1, 2))))",
+    2
+   ],
+   [
+    "Add(Pow(Integer(5), Rational(1, 2)), Integer(3))",
+    2
+   ],
+   [
+    "Integer(4)",
+    5
+   ]
+  ]
+ },
+ "comp(C5[K3])": {
+  "deg": 6,
+  "lam1": "Integer(6)",
+  "a": "Add(Rational(15, 2), Mul(Integer(-1), Rational(3, 2), Pow(Integer(5), Rational(1, 2))))",
+  "q1": "Integer(12)",
+  "qn": "Add(Rational(9, 2), Mul(Integer(-1), Rational(3, 2), Pow(Integer(5), Rational(1, 2))))",
+  "mu1": "Add(Mul(Rational(3, 2), Pow(Integer(5), Rational(1, 2))), Rational(15, 2))",
+  "spec_adj": [
+   [
+    "Integer(6)",
+    1
+   ],
+   [
+    "Add(Mul(Integer(-1), Rational(3, 2), Pow(Integer(5), Rational(1, 2))), Rational(-3, 2))",
+    2
+   ],
+   [
+    "Add(Rational(-3, 2), Mul(Rational(3, 2), Pow(Integer(5), Rational(1, 2))))",
+    2
+   ],
+   [
+    "Integer(0)",
+    10
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Add(Mul(Rational(3, 2), Pow(Integer(5), Rational(1, 2))), Rational(15, 2))",
+    2
+   ],
+   [
+    "Add(Rational(15, 2), Mul(Integer(-1), Rational(3, 2), Pow(Integer(5), Rational(1, 2))))",
+    2
+   ],
+   [
+    "Integer(6)",
+    10
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(12)",
+    1
+   ],
+   [
+    "Add(Rational(9, 2), Mul(Integer(-1), Rational(3, 2), Pow(Integer(5), Rational(1, 2))))",
+    2
+   ],
+   [
+    "Add(Mul(Rational(3, 2), Pow(Integer(5), Rational(1, 2))), Rational(9, 2))",
+    2
+   ],
+   [
+    "Integer(6)",
+    10
+   ]
+  ]
+ },
+ "comp(C5[K4])": {
+  "deg": 8,
+  "lam1": "Integer(8)",
+  "a": "Add(Integer(10), Mul(Integer(-1), Integer(2), Pow(Integer(5), Rational(1, 2))))",
+  "q1": "Integer(16)",
+  "qn": "Add(Integer(6), Mul(Integer(-1), Integer(2), Pow(Integer(5), Rational(1, 2))))",
+  "mu1": "Add(Mul(Integer(2), Pow(Integer(5), Rational(1, 2))), Integer(10))",
+  "spec_adj": [
+   [
+    "Integer(8)",
+    1
+   ],
+   [
+    "Add(Mul(Integer(-1), Integer(2), Pow(Integer(5), Rational(1, 2))), Integer(-2))",
+    2
+   ],
+   [
+    "Add(Integer(-2), Mul(Integer(2), Pow(Integer(5), Rational(1, 2))))",
+    2
+   ],
+   [
+    "Integer(0)",
+    15
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Add(Mul(Integer(2), Pow(Integer(5), Rational(1, 2))), Integer(10))",
+    2
+   ],
+   [
+    "Add(Integer(10), Mul(Integer(-1), Integer(2), Pow(Integer(5), Rational(1, 2))))",
+    2
+   ],
+   [
+    "Integer(8)",
+    15
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(16)",
+    1
+   ],
+   [
+    "Add(Integer(6), Mul(Integer(-1), Integer(2), Pow(Integer(5), Rational(1, 2))))",
+    2
+   ],
+   [
+    "Add(Mul(Integer(2), Pow(Integer(5), Rational(1, 2))), Integer(6))",
+    2
+   ],
+   [
+    "Integer(8)",
+    15
+   ]
+  ]
+ },
+ "comp(C5[K5])": {
+  "deg": 10,
+  "lam1": "Integer(10)",
+  "a": "Add(Rational(25, 2), Mul(Integer(-1), Rational(5, 2), Pow(Integer(5), Rational(1, 2))))",
+  "q1": "Integer(20)",
+  "qn": "Add(Rational(15, 2), Mul(Integer(-1), Rational(5, 2), Pow(Integer(5), Rational(1, 2))))",
+  "mu1": "Add(Mul(Rational(5, 2), Pow(Integer(5), Rational(1, 2))), Rational(25, 2))",
+  "spec_adj": [
+   [
+    "Integer(10)",
+    1
+   ],
+   [
+    "Add(Mul(Integer(-1), Rational(5, 2), Pow(Integer(5), Rational(1, 2))), Rational(-5, 2))",
+    2
+   ],
+   [
+    "Add(Rational(-5, 2), Mul(Rational(5, 2), Pow(Integer(5), Rational(1, 2))))",
+    2
+   ],
+   [
+    "Integer(0)",
+    20
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Add(Mul(Rational(5, 2), Pow(Integer(5), Rational(1, 2))), Rational(25, 2))",
+    2
+   ],
+   [
+    "Add(Rational(25, 2), Mul(Integer(-1), Rational(5, 2), Pow(Integer(5), Rational(1, 2))))",
+    2
+   ],
+   [
+    "Integer(10)",
+    20
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(20)",
+    1
+   ],
+   [
+    "Add(Rational(15, 2), Mul(Integer(-1), Rational(5, 2), Pow(Integer(5), Rational(1, 2))))",
+    2
+   ],
+   [
+    "Add(Mul(Rational(5, 2), Pow(Integer(5), Rational(1, 2))), Rational(15, 2))",
+    2
+   ],
+   [
+    "Integer(10)",
+    20
+   ]
+  ]
+ },
+ "comp(C5[K6])": {
+  "deg": 12,
+  "lam1": "Integer(12)",
+  "a": "Add(Integer(15), Mul(Integer(-1), Integer(3), Pow(Integer(5), Rational(1, 2))))",
+  "q1": "Integer(24)",
+  "qn": "Add(Integer(9), Mul(Integer(-1), Integer(3), Pow(Integer(5), Rational(1, 2))))",
+  "mu1": "Add(Mul(Integer(3), Pow(Integer(5), Rational(1, 2))), Integer(15))",
+  "spec_adj": [
+   [
+    "Integer(12)",
+    1
+   ],
+   [
+    "Add(Mul(Integer(-1), Integer(3), Pow(Integer(5), Rational(1, 2))), Integer(-3))",
+    2
+   ],
+   [
+    "Add(Integer(-3), Mul(Integer(3), Pow(Integer(5), Rational(1, 2))))",
+    2
+   ],
+   [
+    "Integer(0)",
+    25
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Add(Mul(Integer(3), Pow(Integer(5), Rational(1, 2))), Integer(15))",
+    2
+   ],
+   [
+    "Add(Integer(15), Mul(Integer(-1), Integer(3), Pow(Integer(5), Rational(1, 2))))",
+    2
+   ],
+   [
+    "Integer(12)",
+    25
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(24)",
+    1
+   ],
+   [
+    "Add(Integer(9), Mul(Integer(-1), Integer(3), Pow(Integer(5), Rational(1, 2))))",
+    2
+   ],
+   [
+    "Add(Mul(Integer(3), Pow(Integer(5), Rational(1, 2))), Integer(9))",
+    2
+   ],
+   [
+    "Integer(12)",
+    25
+   ]
+  ]
+ },
+ "comp(C5[K7])": {
+  "deg": 14,
+  "lam1": "Integer(14)",
+  "a": "Add(Rational(35, 2), Mul(Integer(-1), Rational(7, 2), Pow(Integer(5), Rational(1, 2))))",
+  "q1": "Integer(28)",
+  "qn": "Add(Rational(21, 2), Mul(Integer(-1), Rational(7, 2), Pow(Integer(5), Rational(1, 2))))",
+  "mu1": "Add(Mul(Rational(7, 2), Pow(Integer(5), Rational(1, 2))), Rational(35, 2))",
+  "spec_adj": [
+   [
+    "Integer(14)",
+    1
+   ],
+   [
+    "Add(Mul(Integer(-1), Rational(7, 2), Pow(Integer(5), Rational(1, 2))), Rational(-7, 2))",
+    2
+   ],
+   [
+    "Add(Rational(-7, 2), Mul(Rational(7, 2), Pow(Integer(5), Rational(1, 2))))",
+    2
+   ],
+   [
+    "Integer(0)",
+    30
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Add(Mul(Rational(7, 2), Pow(Integer(5), Rational(1, 2))), Rational(35, 2))",
+    2
+   ],
+   [
+    "Add(Rational(35, 2), Mul(Integer(-1), Rational(7, 2), Pow(Integer(5), Rational(1, 2))))",
+    2
+   ],
+   [
+    "Integer(14)",
+    30
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(28)",
+    1
+   ],
+   [
+    "Add(Rational(21, 2), Mul(Integer(-1), Rational(7, 2), Pow(Integer(5), Rational(1, 2))))",
+    2
+   ],
+   [
+    "Add(Mul(Rational(7, 2), Pow(Integer(5), Rational(1, 2))), Rational(21, 2))",
+    2
+   ],
+   [
+    "Integer(14)",
+    30
+   ]
+  ]
+ },
+ "comp(C5[K8])": {
+  "deg": 16,
+  "lam1": "Integer(16)",
+  "a": "Add(Integer(20), Mul(Integer(-1), Integer(4), Pow(Integer(5), Rational(1, 2))))",
+  "q1": "Integer(32)",
+  "qn": "Add(Integer(12), Mul(Integer(-1), Integer(4), Pow(Integer(5), Rational(1, 2))))",
+  "mu1": "Add(Mul(Integer(4), Pow(Integer(5), Rational(1, 2))), Integer(20))",
+  "spec_adj": [
+   [
+    "Integer(16)",
+    1
+   ],
+   [
+    "Add(Mul(Integer(-1), Integer(4), Pow(Integer(5), Rational(1, 2))), Integer(-4))",
+    2
+   ],
+   [
+    "Add(Integer(-4), Mul(Integer(4), Pow(Integer(5), Rational(1, 2))))",
+    2
+   ],
+   [
+    "Integer(0)",
+    35
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Add(Mul(Integer(4), Pow(Integer(5), Rational(1, 2))), Integer(20))",
+    2
+   ],
+   [
+    "Add(Integer(20), Mul(Integer(-1), Integer(4), Pow(Integer(5), Rational(1, 2))))",
+    2
+   ],
+   [
+    "Integer(16)",
+    35
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(32)",
+    1
+   ],
+   [
+    "Add(Integer(12), Mul(Integer(-1), Integer(4), Pow(Integer(5), Rational(1, 2))))",
+    2
+   ],
+   [
+    "Add(Mul(Integer(4), Pow(Integer(5), Rational(1, 2))), Integer(12))",
+    2
+   ],
+   [
+    "Integer(16)",
+    35
+   ]
+  ]
+ },
+ "C7[K3]": {
+  "deg": 8,
+  "lam1": "Integer(8)",
+  "a": "Add(Integer(6), Mul(Integer(-1), Integer(6), cos(Mul(Rational(2, 7), pi))))",
+  "q1": "Integer(16)",
+  "qn": "Add(Integer(10), Mul(Integer(-1), Integer(6), cos(Mul(Rational(1, 7), pi))))",
+  "mu1": "Add(Mul(Integer(6), cos(Mul(Rational(1, 7), pi))), Integer(6))",
+  "spec_adj": [
+   [
+    "Integer(8)",
+    1
+   ],
+   [
+    "Add(Integer(2), Mul(Integer(6), cos(Mul(Rational(2, 7), pi))))",
+    2
+   ],
+   [
+    "Add(Integer(2), Mul(Integer(-1), Integer(6), sin(Mul(Rational(1, 14), pi))))",
+    2
+   ],
+   [
+    "Add(Integer(2), Mul(Integer(-1), Integer(6), cos(Mul(Rational(1, 7), pi))))",
+    2
+   ],
+   [
+    "Integer(-1)",
+    14
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Add(Integer(6), Mul(Integer(-1), Integer(6), cos(Mul(Rational(2, 7), pi))))",
+    2
+   ],
+   [
+    "Add(Mul(Integer(6), sin(Mul(Rational(1, 14), pi))), Integer(6))",
+    2
+   ],
+   [
+    "Add(Mul(Integer(6), cos(Mul(Rational(1, 7), pi))), Integer(6))",
+    2
+   ],
+   [
+    "Integer(9)",
+    14
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(16)",
+    1
+   ],
+   [
+    "Add(Mul(Integer(6), cos(Mul(Rational(2, 7), pi))), Integer(10))",
+    2
+   ],
+   [
+    "Add(Integer(10), Mul(Integer(-1), Integer(6), sin(Mul(Rational(1, 14), pi))))",
+    2
+   ],
+   [
+    "Add(Integer(10), Mul(Integer(-1), Integer(6), cos(Mul(Rational(1, 7), pi))))",
+    2
+   ],
+   [
+    "Integer(7)",
+    14
+   ]
+  ]
+ },
+ "C9[K3]": {
+  "deg": 8,
+  "lam1": "Integer(8)",
+  "a": "Add(Integer(6), Mul(Integer(-1), Integer(6), cos(Mul(Rational(2, 9), pi))))",
+  "q1": "Integer(16)",
+  "qn": "Add(Integer(10), Mul(Integer(-1), Integer(6), cos(Mul(Rational(1, 9), pi))))",
+  "mu1": "Add(Mul(Integer(6), cos(Mul(Rational(1, 9), pi))), Integer(6))",
+  "spec_adj": [
+   [
+    "Integer(8)",
+    1
+   ],
+   [
+    "Add(Integer(2), Mul(Integer(6), cos(Mul(Rational(2, 9), pi))))",
+    2
+   ],
+   [
+    "Add(Mul(Integer(6), sin(Mul(Rational(1, 18), pi))), Integer(2))",
+    2
+   ],
+   [
+    "Integer(-1)",
+    2
+   ],
+   [
+    "Add(Integer(2), Mul(Integer(-1), Integer(6), cos(Mul(Rational(1, 9), pi))))",
+    2
+   ],
+   [
+    "Integer(-1)",
+    18
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Add(Integer(6), Mul(Integer(-1), Integer(6), cos(Mul(Rational(2, 9), pi))))",
+    2
+   ],
+   [
+    "Add(Integer(6), Mul(Integer(-1), Integer(6), sin(Mul(Rational(1, 18), pi))))",
+    2
+   ],
+   [
+    "Integer(9)",
+    2
+   ],
+   [
+    "Add(Mul(Integer(6), cos(Mul(Rational(1, 9), pi))), Integer(6))",
+    2
+   ],
+   [
+    "Integer(9)",
+    18
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(16)",
+    1
+   ],
+   [
+    "Add(Mul(Integer(6), cos(Mul(Rational(2, 9), pi))), Integer(10))",
+    2
+   ],
+   [
+    "Add(Mul(Integer(6), sin(Mul(Rational(1, 18), pi))), Integer(10))",
+    2
+   ],
+   [
+    "Integer(7)",
+    2
+   ],
+   [
+    "Add(Integer(10), Mul(Integer(-1), Integer(6), cos(Mul(Rational(1, 9), pi))))",
+    2
+   ],
+   [
+    "Integer(7)",
+    18
+   ]
+  ]
+ },
+ "K(3,3)": {
+  "deg": 3,
+  "lam1": "Integer(3)",
+  "a": "Integer(3)",
+  "q1": "Integer(6)",
+  "qn": "Integer(0)",
+  "mu1": "Integer(6)",
+  "spec_adj": [
+   [
+    "Integer(-3)",
+    1
+   ],
+   [
+    "Integer(3)",
+    1
+   ],
+   [
+    "Integer(0)",
+    4
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(6)",
+    1
+   ],
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Integer(3)",
+    4
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Integer(6)",
+    1
+   ],
+   [
+    "Integer(3)",
+    4
+   ]
+  ]
+ },
+ "K(3,3,3)": {
+  "deg": 6,
+  "lam1": "Integer(6)",
+  "a": "Integer(6)",
+  "q1": "Integer(12)",
+  "qn": "Integer(3)",
+  "mu1": "Integer(9)",
+  "spec_adj": [
+   [
+    "Integer(6)",
+    1
+   ],
+   [
+    "Integer(-3)",
+    2
+   ],
+   [
+    "Integer(0)",
+    6
+   ]
+  ],
+  "spec_lap": [
+   [
+    "Integer(0)",
+    1
+   ],
+   [
+    "Integer(9)",
+    2
+   ],
+   [
+    "Integer(6)",
+    6
+   ]
+  ],
+  "spec_signless": [
+   [
+    "Integer(12)",
+    1
+   ],
+   [
+    "Integer(3)",
+    2
+   ],
+   [
+    "Integer(6)",
+    6
+   ]
+  ]
+ }
+}

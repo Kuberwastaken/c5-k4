@@ -1,0 +1,702 @@
+{
+ "T(10)": {
+  "family": "T",
+  "param": "10",
+  "n": 45,
+  "m": 360,
+  "delta": 16,
+  "Delta": 16,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 9
+  }
+ },
+ "KG(10,2)": {
+  "family": "KG",
+  "param": "10",
+  "n": 45,
+  "m": 630,
+  "delta": 28,
+  "Delta": 28,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 9
+  }
+ },
+ "T(11)": {
+  "family": "T",
+  "param": "11",
+  "n": 55,
+  "m": 495,
+  "delta": 18,
+  "Delta": 18,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 10
+  }
+ },
+ "KG(11,2)": {
+  "family": "KG",
+  "param": "11",
+  "n": 55,
+  "m": 990,
+  "delta": 36,
+  "Delta": 36,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 10
+  }
+ },
+ "T(12)": {
+  "family": "T",
+  "param": "12",
+  "n": 66,
+  "m": 660,
+  "delta": 20,
+  "Delta": 20,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 11
+  }
+ },
+ "KG(12,2)": {
+  "family": "KG",
+  "param": "12",
+  "n": 66,
+  "m": 1485,
+  "delta": 45,
+  "Delta": 45,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 11
+  }
+ },
+ "T(13)": {
+  "family": "T",
+  "param": "13",
+  "n": 78,
+  "m": 858,
+  "delta": 22,
+  "Delta": 22,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 12
+  }
+ },
+ "KG(13,2)": {
+  "family": "KG",
+  "param": "13",
+  "n": 78,
+  "m": 2145,
+  "delta": 55,
+  "Delta": 55,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 12
+  }
+ },
+ "T(14)": {
+  "family": "T",
+  "param": "14",
+  "n": 91,
+  "m": 1092,
+  "delta": 24,
+  "Delta": 24,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 13
+  }
+ },
+ "KG(14,2)": {
+  "family": "KG",
+  "param": "14",
+  "n": 91,
+  "m": 3003,
+  "delta": 66,
+  "Delta": 66,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 13
+  }
+ },
+ "T(15)": {
+  "family": "T",
+  "param": "15",
+  "n": 105,
+  "m": 1365,
+  "delta": 26,
+  "Delta": 26,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 14
+  }
+ },
+ "KG(15,2)": {
+  "family": "KG",
+  "param": "15",
+  "n": 105,
+  "m": 4095,
+  "delta": 78,
+  "Delta": 78,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 14
+  }
+ },
+ "T(16)": {
+  "family": "T",
+  "param": "16",
+  "n": 120,
+  "m": 1680,
+  "delta": 28,
+  "Delta": 28,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 15
+  }
+ },
+ "KG(16,2)": {
+  "family": "KG",
+  "param": "16",
+  "n": 120,
+  "m": 5460,
+  "delta": 91,
+  "Delta": 91,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 15
+  }
+ },
+ "Paley(13)": {
+  "family": "Paley",
+  "param": "13",
+  "n": 13,
+  "m": 39,
+  "delta": 6,
+  "Delta": 6,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 13
+  }
+ },
+ "Paley(17)": {
+  "family": "Paley",
+  "param": "17",
+  "n": 17,
+  "m": 68,
+  "delta": 8,
+  "Delta": 8,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 17
+  }
+ },
+ "Paley(29)": {
+  "family": "Paley",
+  "param": "29",
+  "n": 29,
+  "m": 203,
+  "delta": 14,
+  "Delta": 14,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 29
+  }
+ },
+ "Paley(37)": {
+  "family": "Paley",
+  "param": "37",
+  "n": 37,
+  "m": 333,
+  "delta": 18,
+  "Delta": 18,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 37
+  }
+ },
+ "Paley(41)": {
+  "family": "Paley",
+  "param": "41",
+  "n": 41,
+  "m": 410,
+  "delta": 20,
+  "Delta": 20,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 41
+  }
+ },
+ "Paley(53)": {
+  "family": "Paley",
+  "param": "53",
+  "n": 53,
+  "m": 689,
+  "delta": 26,
+  "Delta": 26,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 53
+  }
+ },
+ "Paley(61)": {
+  "family": "Paley",
+  "param": "61",
+  "n": 61,
+  "m": 915,
+  "delta": 30,
+  "Delta": 30,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 61
+  }
+ },
+ "Paley(73)": {
+  "family": "Paley",
+  "param": "73",
+  "n": 73,
+  "m": 1314,
+  "delta": 36,
+  "Delta": 36,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 73
+  }
+ },
+ "Paley(89)": {
+  "family": "Paley",
+  "param": "89",
+  "n": 89,
+  "m": 1958,
+  "delta": 44,
+  "Delta": 44,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 89
+  }
+ },
+ "Paley(97)": {
+  "family": "Paley",
+  "param": "97",
+  "n": 97,
+  "m": 2328,
+  "delta": 48,
+  "Delta": 48,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 97
+  }
+ },
+ "Paley(101)": {
+  "family": "Paley",
+  "param": "101",
+  "n": 101,
+  "m": 2525,
+  "delta": 50,
+  "Delta": 50,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 101
+  }
+ },
+ "CP(2)": {
+  "family": "CP",
+  "param": "{'parts': [2, 2]}",
+  "n": 4,
+  "m": 4,
+  "delta": 2,
+  "Delta": 2,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 3
+  }
+ },
+ "CP(3)": {
+  "family": "CP",
+  "param": "{'parts': [2, 2, 2]}",
+  "n": 6,
+  "m": 12,
+  "delta": 4,
+  "Delta": 4,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 5
+  }
+ },
+ "CP(4)": {
+  "family": "CP",
+  "param": "{'parts': [2, 2, 2, 2]}",
+  "n": 8,
+  "m": 24,
+  "delta": 6,
+  "Delta": 6,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 7
+  }
+ },
+ "CP(5)": {
+  "family": "CP",
+  "param": "{'parts': [2, 2, 2, 2, 2]}",
+  "n": 10,
+  "m": 40,
+  "delta": 8,
+  "Delta": 8,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 9
+  }
+ },
+ "CP(6)": {
+  "family": "CP",
+  "param": "{'parts': [2, 2, 2, 2, 2, 2]}",
+  "n": 12,
+  "m": 60,
+  "delta": 10,
+  "Delta": 10,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 11
+  }
+ },
+ "CP(7)": {
+  "family": "CP",
+  "param": "{'parts': [2, 2, 2, 2, 2, 2, 2]}",
+  "n": 14,
+  "m": 84,
+  "delta": 12,
+  "Delta": 12,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 13
+  }
+ },
+ "CP(8)": {
+  "family": "CP",
+  "param": "{'parts': [2, 2, 2, 2, 2, 2, 2, 2]}",
+  "n": 16,
+  "m": 112,
+  "delta": 14,
+  "Delta": 14,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 15
+  }
+ },
+ "CMP(2)": {
+  "family": "CMP",
+  "param": "{'parts': [2, 1]}",
+  "n": 3,
+  "m": 2,
+  "delta": 1,
+  "Delta": 2,
+  "regular": false,
+  "vt": {
+   "orbit_full": false,
+   "perms_valid": true,
+   "num_gens": 1
+  }
+ },
+ "CMP(3)": {
+  "family": "CMP",
+  "param": "{'parts': [2, 2, 1]}",
+  "n": 5,
+  "m": 8,
+  "delta": 3,
+  "Delta": 4,
+  "regular": false,
+  "vt": {
+   "orbit_full": false,
+   "perms_valid": true,
+   "num_gens": 3
+  }
+ },
+ "CMP(4)": {
+  "family": "CMP",
+  "param": "{'parts': [2, 2, 2, 1]}",
+  "n": 7,
+  "m": 18,
+  "delta": 5,
+  "Delta": 6,
+  "regular": false,
+  "vt": {
+   "orbit_full": false,
+   "perms_valid": true,
+   "num_gens": 5
+  }
+ },
+ "CMP(5)": {
+  "family": "CMP",
+  "param": "{'parts': [2, 2, 2, 2, 1]}",
+  "n": 9,
+  "m": 32,
+  "delta": 7,
+  "Delta": 8,
+  "regular": false,
+  "vt": {
+   "orbit_full": false,
+   "perms_valid": true,
+   "num_gens": 7
+  }
+ },
+ "CMP(6)": {
+  "family": "CMP",
+  "param": "{'parts': [2, 2, 2, 2, 2, 1]}",
+  "n": 11,
+  "m": 50,
+  "delta": 9,
+  "Delta": 10,
+  "regular": false,
+  "vt": {
+   "orbit_full": false,
+   "perms_valid": true,
+   "num_gens": 9
+  }
+ },
+ "CMP(7)": {
+  "family": "CMP",
+  "param": "{'parts': [2, 2, 2, 2, 2, 2, 1]}",
+  "n": 13,
+  "m": 72,
+  "delta": 11,
+  "Delta": 12,
+  "regular": false,
+  "vt": {
+   "orbit_full": false,
+   "perms_valid": true,
+   "num_gens": 11
+  }
+ },
+ "CMP(8)": {
+  "family": "CMP",
+  "param": "{'parts': [2, 2, 2, 2, 2, 2, 2, 1]}",
+  "n": 15,
+  "m": 98,
+  "delta": 13,
+  "Delta": 14,
+  "regular": false,
+  "vt": {
+   "orbit_full": false,
+   "perms_valid": true,
+   "num_gens": 13
+  }
+ },
+ "comp(C5[K2])": {
+  "family": "compC5Km",
+  "param": "2",
+  "n": 10,
+  "m": 20,
+  "delta": 4,
+  "Delta": 4,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 5
+  }
+ },
+ "comp(C5[K3])": {
+  "family": "compC5Km",
+  "param": "3",
+  "n": 15,
+  "m": 45,
+  "delta": 6,
+  "Delta": 6,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 5
+  }
+ },
+ "comp(C5[K4])": {
+  "family": "compC5Km",
+  "param": "4",
+  "n": 20,
+  "m": 80,
+  "delta": 8,
+  "Delta": 8,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 5
+  }
+ },
+ "comp(C5[K5])": {
+  "family": "compC5Km",
+  "param": "5",
+  "n": 25,
+  "m": 125,
+  "delta": 10,
+  "Delta": 10,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 5
+  }
+ },
+ "comp(C5[K6])": {
+  "family": "compC5Km",
+  "param": "6",
+  "n": 30,
+  "m": 180,
+  "delta": 12,
+  "Delta": 12,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 5
+  }
+ },
+ "comp(C5[K7])": {
+  "family": "compC5Km",
+  "param": "7",
+  "n": 35,
+  "m": 245,
+  "delta": 14,
+  "Delta": 14,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 5
+  }
+ },
+ "comp(C5[K8])": {
+  "family": "compC5Km",
+  "param": "8",
+  "n": 40,
+  "m": 320,
+  "delta": 16,
+  "Delta": 16,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 5
+  }
+ },
+ "C7[K3]": {
+  "family": "CkK3",
+  "param": "7",
+  "n": 21,
+  "m": 84,
+  "delta": 8,
+  "Delta": 8,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 7
+  }
+ },
+ "C9[K3]": {
+  "family": "CkK3",
+  "param": "9",
+  "n": 27,
+  "m": 108,
+  "delta": 8,
+  "Delta": 8,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 9
+  }
+ },
+ "K(3,3)": {
+  "family": "multipartite",
+  "param": "{'parts': [3, 3]}",
+  "n": 6,
+  "m": 9,
+  "delta": 3,
+  "Delta": 3,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 3
+  }
+ },
+ "K(3,3,3)": {
+  "family": "multipartite",
+  "param": "{'parts': [3, 3, 3]}",
+  "n": 9,
+  "m": 27,
+  "delta": 6,
+  "Delta": 6,
+  "regular": true,
+  "vt": {
+   "orbit_full": true,
+   "perms_valid": true,
+   "num_gens": 5
+  }
+ }
+}

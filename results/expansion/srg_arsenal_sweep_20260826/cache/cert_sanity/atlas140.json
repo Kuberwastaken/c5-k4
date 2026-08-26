@@ -1,0 +1,276 @@
+{
+ "n": 6,
+ "m_edges": 14,
+ "delta": 4,
+ "Delta": 5,
+ "sigma_2nd_smallest": 4,
+ "Sigma_2nd_largest": 5,
+ "deg_avg": "14/3",
+ "dd": 2,
+ "mode_mode_min": 5,
+ "mode_mode_max": 5,
+ "mode_dd_mode": 1,
+ "mode_even_mode_min": null,
+ "mode_even_mode_max": null,
+ "median_median": "5",
+ "median_lower": 5,
+ "median_upper": 5,
+ "q1_ceil": 4,
+ "q1_floor": 4,
+ "annihilation": 3,
+ "CW": "16/15",
+ "CW_float": 1.0666666666666667,
+ "maxine": 6,
+ "WP_complement": 5,
+ "SW_G": 4,
+ "SW_comp": 1,
+ "length_sq": 132,
+ "residue": 2,
+ "HH_steps": 4,
+ "chi_residue2": 1,
+ "bipartite": 0,
+ "kappa_vertex": 4,
+ "kappa_edge": 4,
+ "components": 1,
+ "isolates": 0,
+ "cut_vertices": 0,
+ "ecc": {
+  "0": 2,
+  "1": 1,
+  "2": 1,
+  "3": 2,
+  "4": 1,
+  "5": 1
+ },
+ "diam": 2,
+ "rad": 1,
+ "dist_even": {
+  "0": 2,
+  "1": 1,
+  "2": 1,
+  "3": 2,
+  "4": 1,
+  "5": 1
+ },
+ "dist_odd": {
+  "0": 4,
+  "1": 5,
+  "2": 5,
+  "3": 4,
+  "4": 5,
+  "5": 5
+ },
+ "Tdist": {
+  "0": 6,
+  "1": 5,
+  "2": 5,
+  "3": 6,
+  "4": 5,
+  "5": 5
+ },
+ "even_horizontal": {
+  "0": 0,
+  "1": 0,
+  "2": 0,
+  "3": 0,
+  "4": 0,
+  "5": 0
+ },
+ "odd_horizontal": {
+  "0": 6,
+  "1": 9,
+  "2": 9,
+  "3": 6,
+  "4": 9,
+  "5": 9
+ },
+ "periphery_B": [
+  0,
+  3
+ ],
+ "center_C": [
+  1,
+  2,
+  4,
+  5
+ ],
+ "M_set": [
+  1,
+  2,
+  4,
+  5
+ ],
+ "A_set": [
+  0,
+  3
+ ],
+ "dist_max_M": 1,
+ "dist_min_M": 1,
+ "dist_max_A": 2,
+ "dist_min_A": 2,
+ "radial_circle_orders_at_center": {
+  "1": [
+   5
+  ],
+  "2": [
+   5
+  ],
+  "4": [
+   5
+  ],
+  "5": [
+   5
+  ]
+ },
+ "triangles_total": 16,
+ "T_v": {
+  "0": 6,
+  "1": 9,
+  "2": 9,
+  "3": 6,
+  "4": 9,
+  "5": 9
+ },
+ "T_min": 6,
+ "T_max": 9,
+ "freq_T_max": 4,
+ "K4_v": {
+  "0": 1,
+  "1": 2,
+  "2": 2,
+  "3": 1,
+  "4": 2,
+  "5": 2
+ },
+ "K4_min": 1,
+ "K4_max": 2,
+ "freq_K4_max": 4,
+ "dd_K4_seq": 2,
+ "disp": {
+  "0": 1,
+  "1": 2,
+  "2": 2,
+  "3": 1,
+  "4": 2,
+  "5": 2
+ },
+ "disp_min": 1,
+ "disp_max": 2,
+ "disp_sum": 10,
+ "disp_avg": "5/3",
+ "N_edge_max": 4,
+ "N_edge_min": 4,
+ "Nbar_edge_max": 0,
+ "Nbar_edge_min": 0,
+ "card_N_M": 6,
+ "card_NM_minus_M": 2,
+ "card_N_A": 4,
+ "card_NA_minus_A": 4,
+ "card_NB_minus_B": 4,
+ "D2_set": [],
+ "card_N_D2": 0,
+ "card_ND2_minus_D2": 0,
+ "pendant_P": [],
+ "support_S": [],
+ "f1_deg1_freq": 0,
+ "E_in_A": 0,
+ "E_in_M": 6,
+ "E_in_D2": 0,
+ "E_between_AB_cross": 8,
+ "chi_C4free": 0,
+ "dp_diametral_pairs": 1,
+ "two_B_pairs": 1,
+ "alpha": {
+  "value": 2,
+  "certified": true,
+  "secs": 0.0
+ },
+ "v_cover": 4,
+ "lambda_stats": {
+  "min": 1,
+  "max": 2,
+  "avg": "5/3",
+  "certified": true
+ },
+ "lambda_secs": 0.0,
+ "mu": 3,
+ "omega": {
+  "value": 5,
+  "certified": true
+ },
+ "gamma": {
+  "value": 1,
+  "certified": true,
+  "secs": 0.0
+ },
+ "gamma_t": {
+  "value": 2,
+  "certified": true,
+  "secs": 0.0
+ },
+ "gamma_2": {
+  "value": 2,
+  "certified": true,
+  "secs": 0.0
+ },
+ "i": {
+  "value": 1,
+  "certified": true,
+  "secs": 0.0
+ },
+ "alpha_crit": {
+  "D": 0,
+  "aprime": 0,
+  "certified": true,
+  "secs": 0.0
+ },
+ "alpha_2": {
+  "value": 3,
+  "certified": true,
+  "secs": 0.0
+ },
+ "f": {
+  "value": 3,
+  "certified": true,
+  "secs": 0.0
+ },
+ "tree": {
+  "value": 3,
+  "certified": true,
+  "secs": 0.0
+ },
+ "b": {
+  "value": 3,
+  "certified": true,
+  "secs": 0.0
+ },
+ "path_induced": {
+  "value": 3,
+  "certified": true,
+  "secs": 0.0
+ },
+ "p_cov": {
+  "value": 1,
+  "certified": true,
+  "witness": "ham path"
+ },
+ "ham_path": 1,
+ "traceable": 1,
+ "L_s": {
+  "value": 5,
+  "certified": true,
+  "secs": 0.0
+ },
+ "lambda1_numeric": 4.701562118716428,
+ "lambda2_numeric": -4.626066713443018e-16,
+ "algebraic_connectivity_numeric": 3.999999999999999,
+ "q1_signless": 9.464101615137752,
+ "qn_signless": 2.5358983848622447,
+ "mu1_laplacian_largest": 6.0000000000000036,
+ "proximity": 1.0,
+ "remoteness": 1.2,
+ "avg_distance": 1.0666666666666667,
+ "avg_distance_exact_num": 32,
+ "avg_distance_exact_den": 30,
+ "randic_index": 2.9888543819998317
+}

@@ -1,0 +1,132 @@
+{
+ "235": {
+  "verdict": "VIOLATED_CANDIDATE",
+  "counts": {
+   "vio": 3,
+   "hold": 0,
+   "bracket": 97,
+   "premise_false": 0,
+   "undef": 0
+  }
+ },
+ "252": {
+  "verdict": "BRACKET",
+  "counts": {
+   "vio": 0,
+   "hold": 0,
+   "bracket": 1,
+   "premise_false": 49,
+   "undef": 0
+  }
+ },
+ "253": {
+  "verdict": "BRACKET",
+  "counts": {
+   "vio": 0,
+   "hold": 0,
+   "bracket": 1,
+   "premise_false": 49,
+   "undef": 0
+  }
+ },
+ "269": {
+  "verdict": "BRACKET",
+  "counts": {
+   "vio": 0,
+   "hold": 0,
+   "bracket": 1,
+   "premise_false": 49,
+   "undef": 0
+  }
+ },
+ "404": {
+  "verdict": "PREMISE_FALSE_EVERYWHERE",
+  "counts": {
+   "vio": 0,
+   "hold": 0,
+   "bracket": 0,
+   "premise_false": 49,
+   "undef": 1
+  }
+ },
+ "405": {
+  "verdict": "PREMISE_FALSE_EVERYWHERE",
+  "counts": {
+   "vio": 0,
+   "hold": 0,
+   "bracket": 0,
+   "premise_false": 49,
+   "undef": 1
+  }
+ },
+ "406": {
+  "verdict": "PREMISE_FALSE_EVERYWHERE",
+  "counts": {
+   "vio": 0,
+   "hold": 0,
+   "bracket": 0,
+   "premise_false": 49,
+   "undef": 1
+  }
+ },
+ "407": {
+  "verdict": "PREMISE_FALSE_EVERYWHERE",
+  "counts": {
+   "vio": 0,
+   "hold": 0,
+   "bracket": 0,
+   "premise_false": 49,
+   "undef": 1
+  }
+ },
+ "111": {
+  "verdict": "VIOLATED_CANDIDATE",
+  "counts": {
+   "vio": 116,
+   "hold": 84,
+   "bracket": 0,
+   "premise_false": 0,
+   "undef": 0
+  }
+ },
+ "63": {
+  "verdict": "VIOLATED_CANDIDATE",
+  "counts": {
+   "vio": 6,
+   "hold": 24,
+   "bracket": 0,
+   "premise_false": 0,
+   "undef": 20
+  }
+ },
+ "64": {
+  "verdict": "VIOLATED_CANDIDATE",
+  "counts": {
+   "vio": 4,
+   "hold": 32,
+   "bracket": 0,
+   "premise_false": 0,
+   "undef": 14
+  }
+ },
+ "255": {
+  "verdict": "VIOLATED_CANDIDATE",
+  "counts": {
+   "vio": 12,
+   "hold": 0,
+   "bracket": 38,
+   "premise_false": 0,
+   "undef": 0
+  }
+ },
+ "256": {
+  "verdict": "VIOLATED_CANDIDATE",
+  "counts": {
+   "vio": 18,
+   "hold": 0,
+   "bracket": 32,
+   "premise_false": 0,
+   "undef": 0
+  }
+ }
+}

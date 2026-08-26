@@ -1,0 +1,349 @@
+{
+ "n": 9,
+ "m_edges": 27,
+ "delta": 6,
+ "Delta": 6,
+ "sigma_2nd_smallest": 6,
+ "Sigma_2nd_largest": 6,
+ "deg_avg": "6",
+ "dd": 1,
+ "mode_mode_min": 6,
+ "mode_mode_max": 6,
+ "mode_dd_mode": 1,
+ "mode_even_mode_min": 6,
+ "mode_even_mode_max": 6,
+ "median_median": 6,
+ "median_lower": 6,
+ "median_upper": 6,
+ "q1_ceil": 6,
+ "q1_floor": 6,
+ "annihilation": 4,
+ "CW": "9/7",
+ "CW_float": 1.2857142857142858,
+ "maxine": 9,
+ "WP_complement": 7,
+ "SW_G": 6,
+ "SW_comp": 2,
+ "length_sq": 324,
+ "residue": 2,
+ "HH_steps": 6,
+ "chi_residue2": 1,
+ "bipartite": 0,
+ "kappa_vertex": 6,
+ "kappa_edge": 6,
+ "components": 1,
+ "isolates": 0,
+ "cut_vertices": 0,
+ "ecc": {
+  "0": 2,
+  "1": 2,
+  "2": 2,
+  "3": 2,
+  "4": 2,
+  "5": 2,
+  "6": 2,
+  "7": 2,
+  "8": 2
+ },
+ "diam": 2,
+ "rad": 2,
+ "dist_even": {
+  "0": 3,
+  "1": 3,
+  "2": 3,
+  "3": 3,
+  "4": 3,
+  "5": 3,
+  "6": 3,
+  "7": 3,
+  "8": 3
+ },
+ "dist_odd": {
+  "0": 6,
+  "1": 6,
+  "2": 6,
+  "3": 6,
+  "4": 6,
+  "5": 6,
+  "6": 6,
+  "7": 6,
+  "8": 6
+ },
+ "Tdist": {
+  "0": 10,
+  "1": 10,
+  "2": 10,
+  "3": 10,
+  "4": 10,
+  "5": 10,
+  "6": 10,
+  "7": 10,
+  "8": 10
+ },
+ "even_horizontal": {
+  "0": 0,
+  "1": 0,
+  "2": 0,
+  "3": 0,
+  "4": 0,
+  "5": 0,
+  "6": 0,
+  "7": 0,
+  "8": 0
+ },
+ "odd_horizontal": {
+  "0": 9,
+  "1": 9,
+  "2": 9,
+  "3": 9,
+  "4": 9,
+  "5": 9,
+  "6": 9,
+  "7": 9,
+  "8": 9
+ },
+ "periphery_B": [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8
+ ],
+ "center_C": [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8
+ ],
+ "M_set": [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8
+ ],
+ "A_set": [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8
+ ],
+ "dist_max_M": 2,
+ "dist_min_M": 1,
+ "dist_max_A": 2,
+ "dist_min_A": 1,
+ "radial_circle_orders_at_center": {
+  "0": [
+   2
+  ],
+  "1": [
+   2
+  ],
+  "2": [
+   2
+  ],
+  "3": [
+   2
+  ],
+  "4": [
+   2
+  ],
+  "5": [
+   2
+  ],
+  "6": [
+   2
+  ],
+  "7": [
+   2
+  ],
+  "8": [
+   2
+  ]
+ },
+ "triangles_total": 27,
+ "T_v": {
+  "0": 9,
+  "1": 9,
+  "2": 9,
+  "3": 9,
+  "4": 9,
+  "5": 9,
+  "6": 9,
+  "7": 9,
+  "8": 9
+ },
+ "T_min": 9,
+ "T_max": 9,
+ "freq_T_max": 9,
+ "K4_v": {
+  "0": 0,
+  "1": 0,
+  "2": 0,
+  "3": 0,
+  "4": 0,
+  "5": 0,
+  "6": 0,
+  "7": 0,
+  "8": 0
+ },
+ "K4_min": 0,
+ "K4_max": 0,
+ "freq_K4_max": 9,
+ "dd_K4_seq": 1,
+ "disp": {
+  "0": 1,
+  "1": 1,
+  "2": 1,
+  "3": 1,
+  "4": 1,
+  "5": 1,
+  "6": 1,
+  "7": 1,
+  "8": 1
+ },
+ "disp_min": 1,
+ "disp_max": 1,
+ "disp_sum": 9,
+ "disp_avg": "1",
+ "N_edge_max": 7,
+ "N_edge_min": 7,
+ "Nbar_edge_max": 1,
+ "Nbar_edge_min": 1,
+ "card_N_M": 9,
+ "card_NM_minus_M": 0,
+ "card_N_A": 9,
+ "card_NA_minus_A": 0,
+ "card_NB_minus_B": 0,
+ "D2_set": [],
+ "card_N_D2": 0,
+ "card_ND2_minus_D2": 0,
+ "pendant_P": [],
+ "support_S": [],
+ "f1_deg1_freq": 0,
+ "E_in_A": 27,
+ "E_in_M": 27,
+ "E_in_D2": 0,
+ "E_between_AB_cross": 0,
+ "chi_C4free": 0,
+ "dp_diametral_pairs": 9,
+ "two_B_pairs": 9,
+ "alpha": {
+  "value": 3,
+  "certified": true,
+  "secs": 0.0
+ },
+ "v_cover": 6,
+ "lambda_stats": {
+  "min": 3,
+  "max": 3,
+  "avg": "3",
+  "certified": true
+ },
+ "lambda_secs": 0.0,
+ "mu": 4,
+ "omega": {
+  "value": 3,
+  "certified": true
+ },
+ "gamma": {
+  "value": 2,
+  "certified": true,
+  "secs": 0.0
+ },
+ "gamma_t": {
+  "value": 2,
+  "certified": true,
+  "secs": 0.0
+ },
+ "gamma_2": {
+  "value": 3,
+  "certified": true,
+  "secs": 0.0
+ },
+ "i": {
+  "value": 3,
+  "certified": true,
+  "secs": 0.0
+ },
+ "alpha_crit": {
+  "D": 0,
+  "aprime": 0,
+  "certified": true,
+  "secs": 0.0
+ },
+ "alpha_2": {
+  "value": 4,
+  "certified": true,
+  "secs": 0.0
+ },
+ "f": {
+  "value": 4,
+  "certified": true,
+  "secs": 0.0
+ },
+ "tree": {
+  "value": 4,
+  "certified": true,
+  "secs": 0.0
+ },
+ "b": {
+  "value": 6,
+  "certified": true,
+  "secs": 0.0
+ },
+ "path_induced": {
+  "value": 3,
+  "certified": true,
+  "secs": 0.0
+ },
+ "p_cov": {
+  "value": 1,
+  "certified": true,
+  "witness": "ham path"
+ },
+ "ham_path": 1,
+ "traceable": 1,
+ "L_s": {
+  "value": 7,
+  "certified": true,
+  "secs": 0.0
+ },
+ "wtd_search": {
+  "found": false,
+  "sizes": [
+   2
+  ],
+  "gt": 2
+ },
+ "lambda1_numeric": 6.000000000000001,
+ "lambda2_numeric": 5.112051864805671e-17,
+ "algebraic_connectivity_numeric": 5.999999999999997,
+ "q1_signless": 12.0,
+ "qn_signless": 2.9999999999999987,
+ "mu1_laplacian_largest": 9.000000000000004,
+ "proximity": 1.25,
+ "remoteness": 1.25,
+ "avg_distance": 1.25,
+ "avg_distance_exact_num": 90,
+ "avg_distance_exact_den": 72,
+ "randic_index": 4.5
+}

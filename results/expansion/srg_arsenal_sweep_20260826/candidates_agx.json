@@ -1,0 +1,1062 @@
+{
+ "agx-survey-C30": {
+  "id": "agx-survey-C30",
+  "readings": [
+   {
+    "graph": "C7[K3]",
+    "ri": 0,
+    "interp": "C30odd: pi*a >= (3n+1)/pi*(1-cos(pi/n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=57/5 - 57*cos(2*pi/7)/5 >= RHS(exact)=32*(1 - cos(2*pi/21))/pi"
+   },
+   {
+    "graph": "C9[K3]",
+    "ri": 0,
+    "interp": "C30odd: pi*a >= (3n+1)/pi*(1-cos(pi/n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=186/13 - 186*cos(2*pi/9)/13 >= RHS(exact)=41*(1 - cos(2*pi/27))/pi"
+   },
+   {
+    "graph": "CMP(2)",
+    "ri": 0,
+    "interp": "C30odd: pi*a >= (3n+1)/pi*(1-cos(pi/n))/2",
+    "status": "VIO",
+    "detail": "LHS=1 < RHS=15/(2*pi)"
+   },
+   {
+    "graph": "CMP(3)",
+    "ri": 0,
+    "interp": "C30odd: pi*a >= (3n+1)/pi*(1-cos(pi/n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=3 >= RHS(exact)=8*(5/4 - sqrt(5)/4)/pi"
+   },
+   {
+    "graph": "CMP(4)",
+    "ri": 0,
+    "interp": "C30odd: pi*a >= (3n+1)/pi*(1-cos(pi/n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=5 >= RHS(exact)=11*(1 - cos(2*pi/7))/pi"
+   },
+   {
+    "graph": "CMP(5)",
+    "ri": 0,
+    "interp": "C30odd: pi*a >= (3n+1)/pi*(1-cos(pi/n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=7 >= RHS(exact)=14*(1 - cos(2*pi/9))/pi"
+   },
+   {
+    "graph": "CMP(6)",
+    "ri": 0,
+    "interp": "C30odd: pi*a >= (3n+1)/pi*(1-cos(pi/n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=9 >= RHS(exact)=17*(1 - cos(2*pi/11))/pi"
+   },
+   {
+    "graph": "CMP(7)",
+    "ri": 0,
+    "interp": "C30odd: pi*a >= (3n+1)/pi*(1-cos(pi/n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=11 >= RHS(exact)=20*(1 - cos(2*pi/13))/pi"
+   },
+   {
+    "graph": "CMP(8)",
+    "ri": 0,
+    "interp": "C30odd: pi*a >= (3n+1)/pi*(1-cos(pi/n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=13 >= RHS(exact)=23*(-sqrt(3)*sqrt(5/8 - sqrt(5)/8)/2 - sqrt(5)/8 + 7/8)/pi"
+   },
+   {
+    "graph": "CP(2)",
+    "ri": 0,
+    "interp": "C30even: pi*a >= (3n-2)/pi*(1-cos(pi/2n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=8/3 >= RHS(exact)=5*(1 - sqrt(2)/2)/pi"
+   },
+   {
+    "graph": "CP(3)",
+    "ri": 0,
+    "interp": "C30even: pi*a >= (3n-2)/pi*(1-cos(pi/2n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=24/5 >= RHS(exact)=8*(1 - sqrt(3)/2)/pi"
+   },
+   {
+    "graph": "CP(4)",
+    "ri": 0,
+    "interp": "C30even: pi*a >= (3n-2)/pi*(1-cos(pi/2n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=48/7 >= RHS(exact)=11*(1 - sqrt(sqrt(2)/4 + 1/2))/pi"
+   },
+   {
+    "graph": "CP(5)",
+    "ri": 0,
+    "interp": "C30even: pi*a >= (3n-2)/pi*(1-cos(pi/2n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=80/9 >= RHS(exact)=14*(1 - sqrt(sqrt(5)/8 + 5/8))/pi"
+   },
+   {
+    "graph": "CP(6)",
+    "ri": 0,
+    "interp": "C30even: pi*a >= (3n-2)/pi*(1-cos(pi/2n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=120/11 >= RHS(exact)=17*(-sqrt(6)/4 - sqrt(2)/4 + 1)/pi"
+   },
+   {
+    "graph": "CP(7)",
+    "ri": 0,
+    "interp": "C30even: pi*a >= (3n-2)/pi*(1-cos(pi/2n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=168/13 >= RHS(exact)=20*(1 - cos(pi/14))/pi"
+   },
+   {
+    "graph": "CP(8)",
+    "ri": 0,
+    "interp": "C30even: pi*a >= (3n-2)/pi*(1-cos(pi/2n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=224/15 >= RHS(exact)=23*(1 - cos(pi/16))/pi"
+   },
+   {
+    "graph": "K(3,3)",
+    "ri": 0,
+    "interp": "C30even: pi*a >= (3n-2)/pi*(1-cos(pi/2n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=21/5 >= RHS(exact)=8*(1 - sqrt(3)/2)/pi"
+   },
+   {
+    "graph": "K(3,3,3)",
+    "ri": 0,
+    "interp": "C30odd: pi*a >= (3n+1)/pi*(1-cos(pi/n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=15/2 >= RHS(exact)=14*(1 - cos(2*pi/9))/pi"
+   },
+   {
+    "graph": "KG(10,2)",
+    "ri": 0,
+    "interp": "C30odd: pi*a >= (3n+1)/pi*(1-cos(pi/n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=405/11 >= RHS(exact)=68*(1 - cos(2*pi/45))/pi"
+   },
+   {
+    "graph": "KG(11,2)",
+    "ri": 0,
+    "interp": "C30odd: pi*a >= (3n+1)/pi*(1-cos(pi/n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=140/3 >= RHS(exact)=83*(1 - cos(2*pi/55))/pi"
+   },
+   {
+    "graph": "KG(12,2)",
+    "ri": 0,
+    "interp": "C30even: pi*a >= (3n-2)/pi*(1-cos(pi/2n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=748/13 >= RHS(exact)=98*(1 - cos(pi/66))/pi"
+   },
+   {
+    "graph": "KG(13,2)",
+    "ri": 0,
+    "interp": "C30even: pi*a >= (3n-2)/pi*(1-cos(pi/2n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=486/7 >= RHS(exact)=116*(1 - cos(pi/78))/pi"
+   },
+   {
+    "graph": "KG(14,2)",
+    "ri": 0,
+    "interp": "C30odd: pi*a >= (3n+1)/pi*(1-cos(pi/n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=247/3 >= RHS(exact)=137*(1 - cos(2*pi/91))/pi"
+   },
+   {
+    "graph": "KG(15,2)",
+    "ri": 0,
+    "interp": "C30odd: pi*a >= (3n+1)/pi*(1-cos(pi/n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=385/4 >= RHS(exact)=158*(1 - cos(2*pi/105))/pi"
+   },
+   {
+    "graph": "KG(16,2)",
+    "ri": 0,
+    "interp": "C30even: pi*a >= (3n-2)/pi*(1-cos(pi/2n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=1890/17 >= RHS(exact)=179*(-((-1/4 + sqrt(5)/4)*sqrt(1/2 - sqrt(2)/4) + sqrt(sqrt(2)/4 + 1/2)*sqrt(sqrt(5)/8 + 5/8))*((-sqrt(2)*sqrt(5/8 - sqrt(5)/8)/2 + sqrt(2)*(1/4 + sqrt(5)/4)/2)*(-sqrt(5)/8 - 1/8 + sqrt(3)*sqrt(5/8 - sqrt(5)/8)/2) + (sqrt(2)*sqrt(5/8 - sqrt(5)/8)/2 + sqrt(2)*(1/4 + sqrt(5)/4)/2)*(sqrt(5/8 - sqrt(5)/8)/2 + sqrt(3)*(1/4 + sqrt(5)/4)/2)) - ((1/4 - sqrt(5)/4)*sqrt(sqrt(2)/4 + 1/2) + sqrt(1/2 - sqrt(2)/4)*sqrt(sqrt(5)/8 + 5/8))*((-sqrt(2)*(1/4 + sqrt(5)/4)/2 - sqrt(2)*sqrt(5/8 - sqrt(5)/8)/2)*(-sqrt(5)/8 - 1/8 + sqrt(3)*sqrt(5/8 - sqrt(5)/8)/2) + (-sqrt(2)*(1/4 + sqrt(5)/4)/2 + sqrt(2)*sqrt(5/8 - sqrt(5)/8)/2)*(-sqrt(3)*(1/4 + sqrt(5)/4)/2 - sqrt(5/8 - sqrt(5)/8)/2)) + 1)/pi"
+   },
+   {
+    "graph": "Paley(101)",
+    "ri": 0,
+    "interp": "C30odd: pi*a >= (3n+1)/pi*(1-cos(pi/n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=303/4 - 3*sqrt(101)/4 >= RHS(exact)=152*(1 - cos(2*pi/101))/pi"
+   },
+   {
+    "graph": "Paley(13)",
+    "ri": 0,
+    "interp": "C30odd: pi*a >= (3n+1)/pi*(1-cos(pi/n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=39/4 - 3*sqrt(13)/4 >= RHS(exact)=20*(1 - cos(2*pi/13))/pi"
+   },
+   {
+    "graph": "Paley(17)",
+    "ri": 0,
+    "interp": "C30odd: pi*a >= (3n+1)/pi*(1-cos(pi/n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=51/4 - 3*sqrt(17)/4 >= RHS(exact)=26*(1 - cos(2*pi/17))/pi"
+   },
+   {
+    "graph": "Paley(29)",
+    "ri": 0,
+    "interp": "C30odd: pi*a >= (3n+1)/pi*(1-cos(pi/n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=87/4 - 3*sqrt(29)/4 >= RHS(exact)=44*(1 - cos(2*pi/29))/pi"
+   },
+   {
+    "graph": "Paley(37)",
+    "ri": 0,
+    "interp": "C30odd: pi*a >= (3n+1)/pi*(1-cos(pi/n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=111/4 - 3*sqrt(37)/4 >= RHS(exact)=56*(1 - cos(2*pi/37))/pi"
+   },
+   {
+    "graph": "Paley(41)",
+    "ri": 0,
+    "interp": "C30odd: pi*a >= (3n+1)/pi*(1-cos(pi/n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=123/4 - 3*sqrt(41)/4 >= RHS(exact)=62*(1 - cos(2*pi/41))/pi"
+   },
+   {
+    "graph": "Paley(53)",
+    "ri": 0,
+    "interp": "C30odd: pi*a >= (3n+1)/pi*(1-cos(pi/n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=159/4 - 3*sqrt(53)/4 >= RHS(exact)=80*(1 - cos(2*pi/53))/pi"
+   },
+   {
+    "graph": "Paley(61)",
+    "ri": 0,
+    "interp": "C30odd: pi*a >= (3n+1)/pi*(1-cos(pi/n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=183/4 - 3*sqrt(61)/4 >= RHS(exact)=92*(1 - cos(2*pi/61))/pi"
+   },
+   {
+    "graph": "Paley(73)",
+    "ri": 0,
+    "interp": "C30odd: pi*a >= (3n+1)/pi*(1-cos(pi/n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=219/4 - 3*sqrt(73)/4 >= RHS(exact)=110*(1 - cos(2*pi/73))/pi"
+   },
+   {
+    "graph": "Paley(89)",
+    "ri": 0,
+    "interp": "C30odd: pi*a >= (3n+1)/pi*(1-cos(pi/n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=267/4 - 3*sqrt(89)/4 >= RHS(exact)=134*(1 - cos(2*pi/89))/pi"
+   },
+   {
+    "graph": "Paley(97)",
+    "ri": 0,
+    "interp": "C30odd: pi*a >= (3n+1)/pi*(1-cos(pi/n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=291/4 - 3*sqrt(97)/4 >= RHS(exact)=146*(1 - cos(2*pi/97))/pi"
+   },
+   {
+    "graph": "T(10)",
+    "ri": 0,
+    "interp": "C30odd: pi*a >= (3n+1)/pi*(1-cos(pi/n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=180/11 >= RHS(exact)=68*(1 - cos(2*pi/45))/pi"
+   },
+   {
+    "graph": "T(11)",
+    "ri": 0,
+    "interp": "C30odd: pi*a >= (3n+1)/pi*(1-cos(pi/n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=55/3 >= RHS(exact)=83*(1 - cos(2*pi/55))/pi"
+   },
+   {
+    "graph": "T(12)",
+    "ri": 0,
+    "interp": "C30even: pi*a >= (3n-2)/pi*(1-cos(pi/2n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=264/13 >= RHS(exact)=98*(1 - cos(pi/66))/pi"
+   },
+   {
+    "graph": "T(13)",
+    "ri": 0,
+    "interp": "C30even: pi*a >= (3n-2)/pi*(1-cos(pi/2n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=156/7 >= RHS(exact)=116*(1 - cos(pi/78))/pi"
+   },
+   {
+    "graph": "T(14)",
+    "ri": 0,
+    "interp": "C30odd: pi*a >= (3n+1)/pi*(1-cos(pi/n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=364/15 >= RHS(exact)=137*(1 - cos(2*pi/91))/pi"
+   },
+   {
+    "graph": "T(15)",
+    "ri": 0,
+    "interp": "C30odd: pi*a >= (3n+1)/pi*(1-cos(pi/n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=105/4 >= RHS(exact)=158*(1 - cos(2*pi/105))/pi"
+   },
+   {
+    "graph": "T(16)",
+    "ri": 0,
+    "interp": "C30even: pi*a >= (3n-2)/pi*(1-cos(pi/2n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=480/17 >= RHS(exact)=179*(-((-1/4 + sqrt(5)/4)*sqrt(1/2 - sqrt(2)/4) + sqrt(sqrt(2)/4 + 1/2)*sqrt(sqrt(5)/8 + 5/8))*((-sqrt(2)*sqrt(5/8 - sqrt(5)/8)/2 + sqrt(2)*(1/4 + sqrt(5)/4)/2)*(-sqrt(5)/8 - 1/8 + sqrt(3)*sqrt(5/8 - sqrt(5)/8)/2) + (sqrt(2)*sqrt(5/8 - sqrt(5)/8)/2 + sqrt(2)*(1/4 + sqrt(5)/4)/2)*(sqrt(5/8 - sqrt(5)/8)/2 + sqrt(3)*(1/4 + sqrt(5)/4)/2)) - ((1/4 - sqrt(5)/4)*sqrt(sqrt(2)/4 + 1/2) + sqrt(1/2 - sqrt(2)/4)*sqrt(sqrt(5)/8 + 5/8))*((-sqrt(2)*(1/4 + sqrt(5)/4)/2 - sqrt(2)*sqrt(5/8 - sqrt(5)/8)/2)*(-sqrt(5)/8 - 1/8 + sqrt(3)*sqrt(5/8 - sqrt(5)/8)/2) + (-sqrt(2)*(1/4 + sqrt(5)/4)/2 + sqrt(2)*sqrt(5/8 - sqrt(5)/8)/2)*(-sqrt(3)*(1/4 + sqrt(5)/4)/2 - sqrt(5/8 - sqrt(5)/8)/2)) + 1)/pi"
+   },
+   {
+    "graph": "comp(C5[K2])",
+    "ri": 0,
+    "interp": "C30even: pi*a >= (3n-2)/pi*(1-cos(pi/2n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=70/9 - 14*sqrt(5)/9 >= RHS(exact)=14*(1 - sqrt(sqrt(5)/8 + 5/8))/pi"
+   },
+   {
+    "graph": "comp(C5[K3])",
+    "ri": 0,
+    "interp": "C30odd: pi*a >= (3n+1)/pi*(1-cos(pi/n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=165/14 - 33*sqrt(5)/14 >= RHS(exact)=23*(-sqrt(3)*sqrt(5/8 - sqrt(5)/8)/2 - sqrt(5)/8 + 7/8)/pi"
+   },
+   {
+    "graph": "comp(C5[K4])",
+    "ri": 0,
+    "interp": "C30even: pi*a >= (3n-2)/pi*(1-cos(pi/2n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=300/19 - 60*sqrt(5)/19 >= RHS(exact)=29*(-sqrt(2)*(1/4 + sqrt(5)/4)/2 - sqrt(2)*sqrt(5/8 - sqrt(5)/8)/2 + 1)/pi"
+   },
+   {
+    "graph": "comp(C5[K5])",
+    "ri": 0,
+    "interp": "C30odd: pi*a >= (3n+1)/pi*(1-cos(pi/n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=475/24 - 95*sqrt(5)/24 >= RHS(exact)=38*(1 - cos(2*pi/25))/pi"
+   },
+   {
+    "graph": "comp(C5[K6])",
+    "ri": 0,
+    "interp": "C30even: pi*a >= (3n-2)/pi*(1-cos(pi/2n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=690/29 - 138*sqrt(5)/29 >= RHS(exact)=44*(-sqrt(3)*(1/4 + sqrt(5)/4)/2 - sqrt(5/8 - sqrt(5)/8)/2 + 1)/pi"
+   },
+   {
+    "graph": "comp(C5[K7])",
+    "ri": 0,
+    "interp": "C30odd: pi*a >= (3n+1)/pi*(1-cos(pi/n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=945/34 - 189*sqrt(5)/34 >= RHS(exact)=53*(1 - cos(2*pi/35))/pi"
+   },
+   {
+    "graph": "comp(C5[K8])",
+    "ri": 0,
+    "interp": "C30even: pi*a >= (3n-2)/pi*(1-cos(pi/2n))/2",
+    "status": "HOLD",
+    "detail": "LHS(exact)=1240/39 - 248*sqrt(5)/39 >= RHS(exact)=59*(-sqrt(sqrt(2)/4 + 1/2)*sqrt(sqrt(5)/8 + 5/8) - (-1/4 + sqrt(5)/4)*sqrt(1/2 - sqrt(2)/4) + 1)/pi"
+   }
+  ]
+ },
+ "agx-survey-C42": {
+  "id": "agx-survey-C42",
+  "readings": [
+   {
+    "graph": "C7[K3]",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "C7[K3]",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "C9[K3]",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "C9[K3]",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "CMP(2)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "HOLD",
+    "detail": "LHS(exact)=1 <= RHS(exact)=2"
+   },
+   {
+    "graph": "CMP(2)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "HOLD",
+    "detail": "LHS(exact)=1 <= RHS(exact)=1"
+   },
+   {
+    "graph": "CMP(3)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "CMP(3)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "CMP(4)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "CMP(4)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "CMP(5)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "CMP(5)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "CMP(6)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "CMP(6)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "CMP(7)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "CMP(7)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "CMP(8)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "CMP(8)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "CP(2)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "UNDEF",
+    "detail": "1 zero distance-eigenvalues; p- ambiguous"
+   },
+   {
+    "graph": "CP(2)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "UNDEF",
+    "detail": "1 zero distance-eigenvalues; p- ambiguous"
+   },
+   {
+    "graph": "CP(3)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "CP(3)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "CP(4)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "CP(4)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "CP(5)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "CP(5)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "CP(6)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "CP(6)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "CP(7)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "CP(7)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "CP(8)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "CP(8)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "K(3,3)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "HOLD",
+    "detail": "LHS(exact)=3 <= RHS(exact)=4"
+   },
+   {
+    "graph": "K(3,3)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "VIO",
+    "detail": "LHS=3 > RHS=2"
+   },
+   {
+    "graph": "K(3,3,3)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "K(3,3,3)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "KG(10,2)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "KG(10,2)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "KG(11,2)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "KG(11,2)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "KG(12,2)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "KG(12,2)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "KG(13,2)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "KG(13,2)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "KG(14,2)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "KG(14,2)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "KG(15,2)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "KG(15,2)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "KG(16,2)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "KG(16,2)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "Paley(101)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "Paley(101)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "Paley(13)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "Paley(13)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "Paley(17)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "Paley(17)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "Paley(29)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "Paley(29)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "Paley(37)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "Paley(37)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "Paley(41)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "Paley(41)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "Paley(53)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "Paley(53)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "Paley(61)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "Paley(61)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "Paley(73)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "Paley(73)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "Paley(89)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "Paley(89)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "Paley(97)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "Paley(97)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "T(10)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "T(10)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "T(11)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "T(11)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "T(12)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "T(12)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "T(13)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "T(13)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "T(14)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "T(14)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "T(15)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "T(15)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "T(16)",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "T(16)",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "PREMISE_FALSE",
+    "detail": ""
+   },
+   {
+    "graph": "comp(C5[K2])",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "HOLD",
+    "detail": "LHS(exact)=5 <= RHS(exact)=7"
+   },
+   {
+    "graph": "comp(C5[K2])",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "VIO",
+    "detail": "LHS=5 > RHS=3"
+   },
+   {
+    "graph": "comp(C5[K3])",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "HOLD",
+    "detail": "LHS(exact)=15/2 <= RHS(exact)=12"
+   },
+   {
+    "graph": "comp(C5[K3])",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "VIO",
+    "detail": "LHS=15/2 > RHS=3"
+   },
+   {
+    "graph": "comp(C5[K4])",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "HOLD",
+    "detail": "LHS(exact)=10 <= RHS(exact)=17"
+   },
+   {
+    "graph": "comp(C5[K4])",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "VIO",
+    "detail": "LHS=10 > RHS=3"
+   },
+   {
+    "graph": "comp(C5[K5])",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "HOLD",
+    "detail": "LHS(exact)=25/2 <= RHS(exact)=22"
+   },
+   {
+    "graph": "comp(C5[K5])",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "VIO",
+    "detail": "LHS=25/2 > RHS=3"
+   },
+   {
+    "graph": "comp(C5[K6])",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "HOLD",
+    "detail": "LHS(exact)=15 <= RHS(exact)=27"
+   },
+   {
+    "graph": "comp(C5[K6])",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "VIO",
+    "detail": "LHS=15 > RHS=3"
+   },
+   {
+    "graph": "comp(C5[K7])",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "HOLD",
+    "detail": "LHS(exact)=35/2 <= RHS(exact)=32"
+   },
+   {
+    "graph": "comp(C5[K7])",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "VIO",
+    "detail": "LHS=35/2 > RHS=3"
+   },
+   {
+    "graph": "comp(C5[K8])",
+    "ri": 0,
+    "interp": "C42i: m/alpha <= p-(D)",
+    "status": "HOLD",
+    "detail": "LHS(exact)=20 <= RHS(exact)=37"
+   },
+   {
+    "graph": "comp(C5[K8])",
+    "ri": 1,
+    "interp": "C42ii: m/alpha <= n - p-(D)",
+    "status": "VIO",
+    "detail": "LHS=20 > RHS=3"
+   }
+  ]
+ }
+}

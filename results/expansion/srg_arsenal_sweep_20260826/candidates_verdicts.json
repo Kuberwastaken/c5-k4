@@ -1,0 +1,1244 @@
+{
+ "418b": {
+  "id": "418b",
+  "statement": "Let G be a connected graph on n > 3 vertices, A the set of minimum degree vertices of G. Then i(G) \u2264 \u03b1(G[V-A]) + |E(G[N(A)])|*p(G).",
+  "readings": [
+   {
+    "graph": "C7[K3]",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=3 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "C9[K3]",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=3 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "CMP(2)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "HOLD",
+    "detail": "LHS(ub)=1 <= RHS(exact)=1",
+    "confidence": "high"
+   },
+   {
+    "graph": "CMP(3)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "HOLD",
+    "detail": "LHS(ub)=1 <= RHS(exact)=1",
+    "confidence": "high"
+   },
+   {
+    "graph": "CMP(4)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "HOLD",
+    "detail": "LHS(ub)=1 <= RHS(exact)=1",
+    "confidence": "high"
+   },
+   {
+    "graph": "CMP(5)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "HOLD",
+    "detail": "LHS(ub)=1 <= RHS(exact)=1",
+    "confidence": "high"
+   },
+   {
+    "graph": "CMP(6)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "HOLD",
+    "detail": "LHS(ub)=1 <= RHS(exact)=1",
+    "confidence": "high"
+   },
+   {
+    "graph": "CMP(7)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "HOLD",
+    "detail": "LHS(ub)=1 <= RHS(exact)=1",
+    "confidence": "high"
+   },
+   {
+    "graph": "CMP(8)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "HOLD",
+    "detail": "LHS(ub)=1 <= RHS(exact)=1",
+    "confidence": "high"
+   },
+   {
+    "graph": "CP(2)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=2 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "CP(3)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=2 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "CP(4)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=2 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "CP(5)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=2 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "CP(6)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=2 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "CP(7)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=2 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "CP(8)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=2 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "K(3,3)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=3 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "K(3,3,3)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=3 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "KG(10,2)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=3 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "KG(11,2)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=3 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "KG(12,2)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=3 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "KG(13,2)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=3 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "KG(14,2)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=3 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "KG(15,2)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=3 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "KG(16,2)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=3 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "Paley(101)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=5 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "Paley(13)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=3 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "Paley(17)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=3 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "Paley(29)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=4 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "Paley(37)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=4 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "Paley(41)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=5 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "Paley(53)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=5 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "Paley(61)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=4 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "Paley(73)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=5 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "Paley(89)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=5 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "Paley(97)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=5 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "T(10)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=5 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "T(11)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=5 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "T(12)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=6 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "T(13)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=6 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "T(14)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=7 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "T(15)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=7 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "T(16)",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "UNDEF",
+    "detail": "p_cov not exactly certified ({'bracket': True, 'note': 'no ham path found'})",
+    "confidence": "high"
+   },
+   {
+    "graph": "comp(C5[K2])",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=4 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "comp(C5[K3])",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=6 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "comp(C5[K4])",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=8 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "comp(C5[K5])",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "UNDEF",
+    "detail": "p_cov not exactly certified ({'bracket': True, 'note': 'no ham path found'})",
+    "confidence": "high"
+   },
+   {
+    "graph": "comp(C5[K6])",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=12 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "comp(C5[K7])",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=14 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "comp(C5[K8])",
+    "ri": 0,
+    "interp": "418b: i <= alpha(G[V-A]) + |E(G[N(A)])|*p_cov",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=16 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   }
+  ],
+  "verdict": "BRACKET",
+  "counts": {
+   "vio": 0,
+   "hold": 7,
+   "bracket": 41,
+   "premise_false": 0,
+   "undef": 2
+  }
+ },
+ "418c": {
+  "id": "418c",
+  "statement": "Let G be a connected graph on n > 3 vertices, A the set of minimum degree vertices of G. Then i(G) \u2264 \u03b1(G[V-A]) + |E(G[N(A)])| + |A \u2229 I_c |.",
+  "readings": [
+   {
+    "graph": "C7[K3]",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=3 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "C9[K3]",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=3 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "CMP(2)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "UNDEF",
+    "detail": "core unavailable",
+    "confidence": "high"
+   },
+   {
+    "graph": "CMP(3)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "UNDEF",
+    "detail": "core unavailable",
+    "confidence": "high"
+   },
+   {
+    "graph": "CMP(4)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "UNDEF",
+    "detail": "core unavailable",
+    "confidence": "high"
+   },
+   {
+    "graph": "CMP(5)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "UNDEF",
+    "detail": "core unavailable",
+    "confidence": "high"
+   },
+   {
+    "graph": "CMP(6)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "UNDEF",
+    "detail": "core unavailable",
+    "confidence": "high"
+   },
+   {
+    "graph": "CMP(7)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "UNDEF",
+    "detail": "core unavailable",
+    "confidence": "high"
+   },
+   {
+    "graph": "CMP(8)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "UNDEF",
+    "detail": "core unavailable",
+    "confidence": "high"
+   },
+   {
+    "graph": "CP(2)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=2 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "CP(3)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=2 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "CP(4)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=2 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "CP(5)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=2 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "CP(6)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=2 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "CP(7)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=2 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "CP(8)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=2 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "K(3,3)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=3 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "K(3,3,3)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=3 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "KG(10,2)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=3 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "KG(11,2)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=3 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "KG(12,2)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=3 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "KG(13,2)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=3 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "KG(14,2)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=3 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "KG(15,2)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=3 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "KG(16,2)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=3 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "Paley(101)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=5 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "Paley(13)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=3 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "Paley(17)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=3 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "Paley(29)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=4 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "Paley(37)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=4 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "Paley(41)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=5 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "Paley(53)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=5 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "Paley(61)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=4 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "Paley(73)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=5 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "Paley(89)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=5 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "Paley(97)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=5 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "T(10)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=5 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "T(11)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=5 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "T(12)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=6 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "T(13)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=6 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "T(14)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=7 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "T(15)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=7 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "T(16)",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=8 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "comp(C5[K2])",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=4 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "comp(C5[K3])",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=6 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "comp(C5[K4])",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=8 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "comp(C5[K5])",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=10 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "comp(C5[K6])",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=12 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "comp(C5[K7])",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=14 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   },
+   {
+    "graph": "comp(C5[K8])",
+    "ri": 0,
+    "interp": "418c: i <= alpha(G[V-A]) + |E(G[N(A)])| + |A cap I_core|",
+    "status": "BRACKET",
+    "detail": "LHS(ub)=16 > RHS(exact)=0; bounds insufficient",
+    "confidence": "high"
+   }
+  ],
+  "verdict": "BRACKET",
+  "counts": {
+   "vio": 0,
+   "hold": 0,
+   "bracket": 43,
+   "premise_false": 0,
+   "undef": 7
+  }
+ },
+ "450": {
+  "id": 450,
+  "statement": "Let G be a connected graph on n > 3 vertices. Then \u03b1_2(G) \u2264 p \u039d(\u0391_2 ) + |V\\S| + p \u039d( V \\ \u0397_3 ), where A_2 is the set of degree two vertices, S is the set of support vertices and H_3 is the set of vertices of degree at least 3.",
+  "readings": [
+   {
+    "graph": "C7[K3]",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "C9[K3]",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "CMP(2)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "CMP(3)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "CMP(4)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "CMP(5)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "CMP(6)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "CMP(7)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "CMP(8)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "CP(2)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "CP(3)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "CP(4)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "CP(5)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "CP(6)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "CP(7)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "CP(8)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "K(3,3)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "K(3,3,3)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "KG(10,2)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "KG(11,2)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "KG(12,2)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "KG(13,2)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "KG(14,2)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "KG(15,2)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "KG(16,2)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "Paley(101)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "Paley(13)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "Paley(17)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "Paley(29)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "Paley(37)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "Paley(41)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "Paley(53)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "Paley(61)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "Paley(73)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "Paley(89)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "Paley(97)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "T(10)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "T(11)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "T(12)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "T(13)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "T(14)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "T(15)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "T(16)",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "comp(C5[K2])",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "comp(C5[K3])",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "comp(C5[K4])",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "comp(C5[K5])",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "comp(C5[K6])",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "comp(C5[K7])",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   },
+   {
+    "graph": "comp(C5[K8])",
+    "ri": 0,
+    "interp": "450: alpha_2 <= rho(<N(A_2)>) + |V\\S_support| + rho(<N(V\\H_3)>) [rho:=radius readings, low-conf]",
+    "status": "UNDEF",
+    "detail": "<N(A_2)> disconnected",
+    "confidence": "low"
+   }
+  ],
+  "verdict": "HOLDS_PARTIAL",
+  "counts": {
+   "vio": 0,
+   "hold": 0,
+   "bracket": 0,
+   "premise_false": 0,
+   "undef": 50
+  }
+ }
+}
