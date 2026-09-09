@@ -1005,6 +1005,532 @@ static int pgwire_build(int n,int variant,AS2*A){
     return 0;
 }
 
+/* ===== vertex reinsert (large-neighborhood) move for pattern SA ===== */
+static int IP[MAXN];
+static void set_initperm_from_points(Pt*pt,int n){
+    /* as2_from_points relabels by x-rank and sorts swaps by slope: time-0 perm is identity */
+    (void)pt; for(int i=0;i<n;i++) IP[i]=i;
+}
+static void reinsert_move(AS2*A,int v){
+    int n=A->n,M=A->M;
+    static uint8_t s2[MAXM][2]; int m2=0;
+    for(int t=0;t<M;t++){ int a=A->sw[t][0],b=A->sw[t][1]; if(a==v||b==v)continue; s2[m2][0]=a; s2[m2][1]=b; m2++; }
+    static uint8_t out[MAXM][2];
+    for(int att=0;att<400;att++){
+        int cur[MAXN]; for(int i=0;i<n;i++)cur[i]=IP[i];
+        int rkv=0; for(int i=0;i<n;i++) if(cur[i]==v){rkv=i;break;}
+        int crossed[MAXN]; for(int i=0;i<n;i++)crossed[i]=0;
+        int ncross=0,mo=0,i=0,ok=1;
+        while(i<m2 || ncross<n-1){
+            while(ncross<n-1){
+                int cand[2],nc=0;
+                if(rkv>0 && !crossed[cur[rkv-1]]) cand[nc++]=cur[rkv-1];
+                if(rkv<n-1 && !crossed[cur[rkv+1]]) cand[nc++]=cur[rkv+1];
+                if(nc==0) break;
+                if(i<m2 && rndf()<0.55) break;
+                int u=cand[rnd(nc)];
+                out[mo][0]=v; out[mo][1]=u; mo++;
+                crossed[u]=1; ncross++;
+                int ru = (rkv>0 && cur[rkv-1]==u)? rkv-1 : rkv+1;
+                cur[ru]=v; cur[rkv]=u; rkv=ru;
+            }
+            if(i<m2){
+                int a=s2[i][0],b=s2[i][1],ra=-1,rb=-1;
+                for(int k=0;k<n;k++){ if(cur[k]==a)ra=k; else if(cur[k]==b)rb=k; }
+                if(ra<0||rb<0){ ok=0; break; }
+                int d=ra-rb; if(d!=1&&d!=-1){ ok=0; break; }
+                cur[ra]=b; cur[rb]=a; i++;
+            }
+        }
+        if(ok && i==m2 && ncross==n-1 && mo==M){
+            for(int t=0;t<M;t++){ A->sw[t][0]=out[t][0]; A->sw[t][1]=out[t][1]; }
+            as2_build_pos(A);
+            return;
+        }
+    }
+}
+
+static long pat_mis_all(AS2*A);
+/* targeted LNS: tally mismatches per vertex, reinsert worst vertex greedily */
+static int pat_worst_vertex(AS2*A){
+    int n=A->n; static int cnt[MAXN];
+    for(int i=0;i<n;i++)cnt[i]=0;
+    for(int i=0;i<n;i++)for(int j=i+1;j<n;j++)for(int k=j+1;k<n;k++)for(int l=k+1;l<n;l++){
+        long m=0;
+        if(ascross2(A,i,j,k,l)!=truth_pair_g(i,j,k,l))m++;
+        if(ascross2(A,i,k,j,l)!=truth_pair_g(i,k,j,l))m++;
+        if(ascross2(A,i,l,j,k)!=truth_pair_g(i,l,j,k))m++;
+        if(m){ cnt[i]+=m; cnt[j]+=m; cnt[k]+=m; cnt[l]+=m; }
+    }
+    int bv=0; for(int i=1;i<n;i++) if(cnt[i]>cnt[bv]) bv=i;
+    return bv;
+}
+/* greedy destroy+repair: NTRY random reinsertions of v, keep best; returns best mism (A set to best) */
+static long lns_repair(AS2*A,int v,int ntry){
+    AS2 BASE=*A, BEST=*A; long bm=pat_mis_all(A);
+    for(int t=0;t<ntry;t++){
+        AS2 T=BASE;
+        reinsert_move(&T,v);
+        long m=pat_mis_all(&T);
+        if(m<bm){ bm=m; BEST=T; if(bm==0)break; }
+    }
+    *A=BEST; return bm;
+}
+
+static void ip_save(const char*seedpath){
+    char p[512]; snprintf(p,sizeof p,"%s.ip",seedpath);
+    FILE*f=fopen(p,"w"); if(!f)return;
+    extern int IP[MAXN];
+    for(int i=0;i<MAXN;i++){ fprintf(f,"%d ",IP[i]); }
+    fprintf(f,"\n"); fclose(f);
+}
+static int ip_load(const char*seedpath,int n){
+    char p[512]; snprintf(p,sizeof p,"%s.ip",seedpath);
+    FILE*f=fopen(p,"r"); if(!f)return 0;
+    extern int IP[MAXN];
+    for(int i=0;i<n;i++) if(fscanf(f,"%d",&IP[i])!=1){ fclose(f); return 0; }
+    fclose(f); return 1;
+}
+/* ===== insertion SA: insert wire v=n-1 into fixed (n-1)-skeleton to match nested pg target ===== */
+typedef struct { int n, M2; uint8_t skel[MAXM][2]; int sig[MAXN]; int gap[MAXN]; int r0; } InsS;
+static long ins_eval(InsS*S,int n,int*infeas_out){
+    /* build full sequence; returns mismatch + penalty; fills A via pos */
+    int M2=n*(n-1)/2 - (n-1); /* skeleton size C(n-1,2) */
+    int v=n-1;
+    int cur[MAXN],rki[MAXN];
+    /* initperm: IP[0..n-2] skeleton, insert v at rank r0 */
+    int m=0;
+    for(int r=0;r<n;r++){
+        if(r==S->r0) cur[m++]=v;
+        if(m-1-(r==S->r0?1:0) < n-1){ /* place skeleton wire with IP rank r (shifted) */ }
+    }
+    /* simpler: build IPn */
+    int sk[MAXN]; for(int i=0;i<n-1;i++) sk[i]=IP[i];
+    m=0; int si=0;
+    for(int r=0;r<n;r++){
+        if(r==S->r0) cur[m++]=v;
+        else cur[m++]=sk[si++];
+    }
+    for(int i=0;i<n;i++) rki[cur[i]]=i;
+    /* emission */
+    static uint8_t outsw[MAXM][2]; int mo=0; long infeas=0;
+    int gi=0; /* next v-crossing index in sig order */
+    for(int g=0; g<=M2; g++){
+        while(gi<n-1 && S->gap[gi]<=g){
+            int u=S->sig[gi++];
+            int ru=rki[u], rv=rki[v];
+            if(ru==rv-1||ru==rv+1){ /* adjacent: cross */
+                int t=cur[ru]; cur[ru]=cur[rv]; cur[rv]=t;
+                rki[u]=rv; rki[v]=ru;
+            } else {
+                infeas++;
+                /* force-swap positions anyway (teleport) to keep sim going */
+                int t=cur[ru]; cur[ru]=cur[rv]; cur[rv]=t; rki[u]=rv; rki[v]=ru;
+            }
+            outsw[mo][0]=v; outsw[mo][1]=u; mo++;
+        }
+        if(g<M2){
+            int a=S->skel[g][0], b=S->skel[g][1];
+            int ra=rki[a], rb=rki[b];
+            if(ra==rb-1||ra==rb+1){ int t=cur[ra];cur[ra]=cur[rb];cur[rb]=t; rki[a]=rb; rki[b]=ra; }
+            else { infeas++; int t=cur[ra];cur[ra]=cur[rb];cur[rb]=t; rki[a]=rb; rki[b]=ra; }
+            outsw[mo][0]=a; outsw[mo][1]=b; mo++;
+        }
+    }
+    /* build pos from outsw */
+    static AS2 A; A.n=n; A.M=n*(n-1)/2;
+    for(int i=0;i<n;i++)for(int j=0;j<n;j++)A.pos[i][j]=-1;
+    for(int t=0;t<mo;t++){ A.pos[outsw[t][0]][outsw[t][1]]=t; A.pos[outsw[t][1]][outsw[t][0]]=t; }
+    long mism=0;
+    for(int i=0;i<n;i++)for(int j=i+1;j<n;j++)for(int k=j+1;k<n;k++)for(int l=k+1;l<n;l++){
+        if(ascross2(&A,i,j,k,l)!=truth_pair_g(i,j,k,l))mism++;
+        if(ascross2(&A,i,k,j,l)!=truth_pair_g(i,k,j,l))mism++;
+        if(ascross2(&A,i,l,j,k)!=truth_pair_g(i,l,j,k))mism++;
+    }
+    if(infeas_out) *infeas_out=(int)infeas;
+    /* stash last sequence for saving */
+    extern uint8_t INS_LAST[MAXM][2]; extern int INS_LAST_M;
+    for(int t=0;t<mo;t++){ INS_LAST[t][0]=outsw[t][0]; INS_LAST[t][1]=outsw[t][1]; }
+    INS_LAST_M=mo;
+    return mism + 50*infeas;
+}
+uint8_t INS_LAST[MAXM][2]; int INS_LAST_M=0;
+/* ===== insertion v2: greedy-earliest eval over (sig, r0); brute force or SA ===== */
+static long ins2_eval(int n,const uint8_t skel[][2],int M2,const int*sig,int r0,long*mism_out,int*inf_out){
+    int v=n-1;
+    int cur[MAXN], rki[MAXN];
+    int sk[MAXN]; for(int i=0;i<n-1;i++) sk[i]=IP[i];
+    int m=0,si=0;
+    for(int r=0;r<n;r++){ if(r==r0) cur[m++]=v; else cur[m++]=sk[si++]; }
+    for(int i=0;i<n;i++) rki[cur[i]]=i;
+    static uint8_t outsw[MAXM][2]; int mo=0;
+    int gi=0; long infeas=0;
+    for(int g=0; g<M2; g++){
+        while(gi<n-1){
+            int u=sig[gi]; int ru=rki[u], rv=rki[v];
+            if(ru==rv-1||ru==rv+1){
+                int t=cur[ru];cur[ru]=cur[rv];cur[rv]=t; rki[u]=rv;rki[v]=ru;
+                outsw[mo][0]=v;outsw[mo][1]=u;mo++; gi++;
+            } else break;
+        }
+        int a=skel[g][0], b=skel[g][1];
+        int ra=rki[a], rb=rki[b];
+        if(!(ra==rb-1||ra==rb+1)) infeas++;
+        int t=cur[ra];cur[ra]=cur[rb];cur[rb]=t; rki[a]=rb;rki[b]=ra;
+        outsw[mo][0]=a;outsw[mo][1]=b;mo++;
+    }
+    while(gi<n-1){
+        int u=sig[gi]; int ru=rki[u], rv=rki[v];
+        if(ru==rv-1||ru==rv+1){
+            int t=cur[ru];cur[ru]=cur[rv];cur[rv]=t; rki[u]=rv;rki[v]=ru;
+            outsw[mo][0]=v;outsw[mo][1]=u;mo++; gi++;
+        } else { infeas += (n-1-gi); break; }
+    }
+    static AS2 A; A.n=n; A.M=n*(n-1)/2;
+    for(int i=0;i<n;i++)for(int j=0;j<n;j++)A.pos[i][j]=-1;
+    for(int t=0;t<mo;t++){ A.pos[outsw[t][0]][outsw[t][1]]=t; A.pos[outsw[t][1]][outsw[t][0]]=t; }
+    long mism=0;
+    for(int i=0;i<n;i++)for(int j=i+1;j<n;j++)for(int k=j+1;k<n;k++)for(int l=k+1;l<n;l++){
+        if(ascross2(&A,i,j,k,l)!=truth_pair_g(i,j,k,l))mism++;
+        if(ascross2(&A,i,k,j,l)!=truth_pair_g(i,k,j,l))mism++;
+        if(ascross2(&A,i,l,j,k)!=truth_pair_g(i,l,j,k))mism++;
+    }
+    for(int t=0;t<mo;t++){ INS_LAST[t][0]=outsw[t][0]; INS_LAST[t][1]=outsw[t][1]; }
+    INS_LAST_M=mo;
+    if(mism_out)*mism_out=mism;
+    if(inf_out)*inf_out=(int)infeas;
+    return mism+50*infeas;
+}
+static int nextperm(int*a,int n){ int i=n-2; while(i>=0&&a[i]>a[i+1])i--; if(i<0)return 0; int j=n-1; while(a[j]<a[i])j--; int t=a[i];a[i]=a[j];a[j]=t; for(int x=i+1,y=n-1;x<y;x++,y--){t=a[x];a[x]=a[y];a[y]=t;} return 1; }
+static int ins_save_solved(int n,int r0,const char*outseed){
+    AS2 A; A.n=n; A.M=n*(n-1)/2;
+    for(int t=0;t<A.M;t++){ A.sw[t][0]=INS_LAST[t][0]; A.sw[t][1]=INS_LAST[t][1]; }
+    as2_build_pos(&A);
+    as2_save(&A,0,outseed);
+    int sk[MAXN]; for(int i=0;i<n-1;i++) sk[i]=IP[i];
+    char pth[512]; snprintf(pth,sizeof pth,"%s.ip",outseed);
+    FILE*f=fopen(pth,"w");
+    int si2=0;
+    for(int r=0;r<n;r++){ if(r==r0) fprintf(f,"%d ",n-1); else fprintf(f,"%d ",sk[si2++]); }
+    fprintf(f,"\n"); fclose(f);
+    return as2_count(&A);
+}
+static void insbf_run(int n,const char*pgfile,const char*skelfile,const char*outseed){
+    if(!pg_load(pgfile)){ fprintf(stderr,"pg load fail\n"); return; }
+    pg_mode=1;
+    AS2 SK;
+    if(!as2_load(&SK,n-1,skelfile)){ fprintf(stderr,"skel load fail\n"); return; }
+    if(!ip_load(skelfile,n-1)){ fprintf(stderr,"ip load fail\n"); return; }
+    int M2=SK.M;
+    long bestobj=-1; int bestr0=-1; long total=0; long bestmm=-1; int bestinf=-1;
+    int sig[MAXN]; for(int i=0;i<n-1;i++)sig[i]=i;
+    for(int r0=0;r0<n;r0++){
+        int s2[MAXN]; for(int i=0;i<n-1;i++)s2[i]=sig[i];
+        do {
+            long mm; int inf;
+            long obj=ins2_eval(n,SK.sw,M2,s2,r0,&mm,&inf);
+            total++;
+            if(bestobj<0||obj<bestobj){ bestobj=obj; bestr0=r0; bestmm=mm; bestinf=inf; }
+            if(mm==0 && inf==0){
+                int cnt=ins_save_solved(n,r0,outseed);
+                printf("SOLVED n=%d r0=%d evals=%ld count=%d\n",n,r0,total,cnt);
+                pg_mode=0; return;
+            }
+        } while(nextperm(s2,n-1));
+    }
+    printf("INSBF_DONE n=%d evals=%ld bestobj=%ld (mism=%ld infeas=%d) bestr0=%d\n",n,total,bestobj,bestmm,bestinf,bestr0);
+    pg_mode=0;
+}
+static void inssa_run(int n,const char*pgfile,const char*skelfile,double seconds,uint64_t seed,const char*logpath,const char*outseed){
+    if(!pg_load(pgfile)){ fprintf(stderr,"pg load fail\n"); return; }
+    pg_mode=1;
+    AS2 SK;
+    if(!as2_load(&SK,n-1,skelfile)){ fprintf(stderr,"skel load fail\n"); return; }
+    if(!ip_load(skelfile,n-1)){ fprintf(stderr,"ip load fail\n"); return; }
+    seed_rng(seed);
+    FILE*log=fopen(logpath,"a"); if(log) setvbuf(log,NULL,_IOLBF,0);
+    int M2=SK.M;
+    int sig[MAXN],bsig[MAXN]; for(int i=0;i<n-1;i++)sig[i]=i;
+    int r0=n-1, br0=r0;
+    int bfsig[MAXN], bfr0=r0; long bfmm=1L<<60;
+    long cur=ins2_eval(n,SK.sw,M2,sig,r0,NULL,NULL), best=cur;
+    if(cur==0){ int cnt=ins_save_solved(n,r0,outseed);
+        if(log){ fprintf(log,"SOLVED t=0.0 moves=0 (init state) count=%d\nDONE t=0.0 best=0 solved=1 moves=0 restarts=0\n",cnt); fclose(log); }
+        pg_mode=0; return; }
+    double THI=env_d("INS_THI",3.0), TLO=env_d("INS_TLO",0.005), CYC=env_d("INS_CYC",8.0);
+    long STUCK=env_l("INS_STUCK",2000000);
+    double t0=now_sec(); long moves=0,restarts=0,since=0; int solved=0;
+    while(now_sec()-t0<seconds){
+        double frac=(now_sec()-t0)/seconds;
+        double phase=frac*CYC-(double)(int)(frac*CYC);
+        double T=THI*pow(TLO/THI,phase);
+        int ns[MAXN]; for(int i=0;i<n-1;i++)ns[i]=sig[i];
+        int nr0=r0;
+        if(rndf()<0.15){ nr0+=rnd(2)?1:-1; if(nr0<0)nr0=0; if(nr0>n-1)nr0=n-1; }
+        else { int i=rnd(n-1),j=rnd(n-1); int t=ns[i];ns[i]=ns[j];ns[j]=t; }
+        long nm=ins2_eval(n,SK.sw,M2,ns,nr0,NULL,NULL);
+        long delta=nm-cur;
+        if(delta<=0 || rndf()<exp(-(double)delta/T)){
+            for(int i=0;i<n-1;i++)sig[i]=ns[i];
+            r0=nr0; cur=nm;
+            { long mm0; int inf0; ins2_eval(n,SK.sw,M2,sig,r0,&mm0,&inf0);
+              if(inf0==0 && mm0<bfmm){ bfmm=mm0; for(int i=0;i<n-1;i++)bfsig[i]=sig[i]; bfr0=r0; } }
+            if(cur<best){ best=cur; for(int i=0;i<n-1;i++)bsig[i]=sig[i]; br0=r0; since=0;
+                if(log){long mm;int inf; ins2_eval(n,SK.sw,M2,sig,r0,&mm,&inf); fprintf(log,"NEWBEST t=%.1f obj=%ld mism=%ld infeas=%d moves=%ld\n",now_sec()-t0,best,mm,inf,moves);}
+                long mm; int inf; ins2_eval(n,SK.sw,M2,sig,r0,&mm,&inf);
+                if(mm==0&&inf==0){ solved=1; int cnt=ins_save_solved(n,r0,outseed);
+                    if(log) fprintf(log,"SOLVED t=%.1f moves=%ld count=%d\n",now_sec()-t0,moves,cnt);
+                    break; }
+            }
+        }
+        moves++; since++;
+        if((moves&0xFFFFF)==0 && log) fprintf(log,"LOG t=%.1f cur=%ld best=%ld restarts=%ld mps=%.0f\n",now_sec()-t0,cur,best,restarts,moves/(now_sec()-t0+1e-9));
+        if(since>STUCK){ restarts++; since=0;
+            if(bfmm<(1L<<60) && rndf()<0.5){
+                for(int i=0;i<n-1;i++)sig[i]=bfsig[i]; r0=bfr0;
+                for(int k=0;k<8;k++){ int i=rnd(n-1),j=rnd(n-1); int t=sig[i];sig[i]=sig[j];sig[j]=t; }
+            } else {
+                for(int i=0;i<n-1;i++){ int j=rnd(n-1); int t=sig[i];sig[i]=sig[j];sig[j]=t; }
+                r0=rnd(n);
+            }
+            cur=ins2_eval(n,SK.sw,M2,sig,r0,NULL,NULL);
+        }
+    }
+    if(log) fprintf(log,"DONE t=%.1f best=%ld solved=%d moves=%ld restarts=%ld\n",now_sec()-t0,best,solved,moves,restarts);
+    if(!solved && bfmm<(1L<<60)){
+        long mm; int inf; ins2_eval(n,SK.sw,M2,bfsig,bfr0,&mm,&inf);
+        if(inf==0){ char p[512]; snprintf(p,sizeof p,"%s.best",outseed); ins_save_solved(n,bfr0,p);
+            if(log) fprintf(log,"SAVEDBEST mism=%ld -> %s\n",mm,p); }
+    }
+    if(log) fclose(log);
+    pg_mode=0;
+}
+
+/* ===== insxa: insertion SA with skeleton co-evolution via braid moves ===== */
+static void insxa_run(int n,const char*pgfile,const char*skelfile,double seconds,uint64_t seed,const char*logpath,const char*outseed){
+    if(!pg_load(pgfile)){ fprintf(stderr,"pg load fail\n"); return; }
+    pg_mode=1;
+    AS2 SK;
+    if(!as2_load(&SK,n-1,skelfile)){ fprintf(stderr,"skel load fail\n"); return; }
+    if(!ip_load(skelfile,n-1)){ fprintf(stderr,"ip load fail\n"); return; }
+    seed_rng(seed);
+    FILE*log=fopen(logpath,"a"); if(log) setvbuf(log,NULL,_IOLBF,0);
+    int M2=SK.M;
+    static uint8_t csk[MAXM][2], bsk[MAXM][2], bfsk[MAXM][2];
+    for(int i=0;i<M2;i++){ csk[i][0]=SK.sw[i][0]; csk[i][1]=SK.sw[i][1]; bsk[i][0]=csk[i][0]; bsk[i][1]=csk[i][1]; bfsk[i][0]=csk[i][0]; bfsk[i][1]=csk[i][1]; }
+    int sig[MAXN],bsig[MAXN]; for(int i=0;i<n-1;i++)sig[i]=i;
+    int r0=n-1, br0=r0;
+    int bfsig[MAXN], bfr0=r0; long bfmm=1L<<60;
+    long cur=ins2_eval(n,csk,M2,sig,r0,NULL,NULL), best=cur;
+    if(cur==0){ int cnt=ins_save_solved(n,r0,outseed);
+        if(log){ fprintf(log,"SOLVED t=0.0 moves=0 (init state) count=%d\nDONE t=0.0 best=0 solved=1 moves=0 restarts=0\n",cnt); fclose(log); }
+        pg_mode=0; return; }
+    double THI=env_d("INS_THI",3.0), TLO=env_d("INS_TLO",0.005), CYC=env_d("INS_CYC",8.0);
+    double PB=env_d("INS_PB",0.3);
+    long STUCK=env_l("INS_STUCK",2000000);
+    double t0=now_sec(); long moves=0,restarts=0,since=0; int solved=0;
+    while(now_sec()-t0<seconds){
+        double frac=(now_sec()-t0)/seconds;
+        double phase=frac*CYC-(double)(int)(frac*CYC);
+        double T=THI*pow(TLO/THI,phase);
+        int ns[MAXN]; for(int i=0;i<n-1;i++)ns[i]=sig[i];
+        int nr0=r0;
+        int bt=-1; uint8_t o0[2]={0,0},o2[2]={0,0};
+        if(rndf()<PB){
+            for(int att=0;att<20;att++){
+                int t3=rnd(M2-2);
+                int w[6]={csk[t3][0],csk[t3][1],csk[t3+1][0],csk[t3+1][1],csk[t3+2][0],csk[t3+2][1]};
+                int u[3],nu=0,ok=1;
+                for(int i=0;i<6;i++){int f=0;for(int j=0;j<nu;j++)if(u[j]==w[i]){f=1;break;}if(!f){if(nu>=3){ok=0;break;}u[nu++]=w[i];}}
+                if(ok&&nu==3){ bt=t3; o0[0]=csk[t3][0];o0[1]=csk[t3][1]; o2[0]=csk[t3+2][0];o2[1]=csk[t3+2][1];
+                    csk[t3][0]=o2[0];csk[t3][1]=o2[1]; csk[t3+2][0]=o0[0];csk[t3+2][1]=o0[1]; break; }
+            }
+        }
+        else if(rndf()<0.15){ nr0+=rnd(2)?1:-1; if(nr0<0)nr0=0; if(nr0>n-1)nr0=n-1; }
+        else { int i=rnd(n-1),j=rnd(n-1); int t=ns[i];ns[i]=ns[j];ns[j]=t; }
+        long nm=ins2_eval(n,csk,M2,ns,nr0,NULL,NULL);
+        long delta=nm-cur;
+        if(delta<=0 || rndf()<exp(-(double)delta/T)){
+            for(int i=0;i<n-1;i++)sig[i]=ns[i];
+            r0=nr0; cur=nm;
+            { long mm0; int inf0; ins2_eval(n,csk,M2,sig,r0,&mm0,&inf0);
+              if(inf0==0 && mm0<bfmm){ bfmm=mm0; for(int i=0;i<n-1;i++)bfsig[i]=sig[i]; bfr0=r0; for(int i=0;i<M2;i++){bfsk[i][0]=csk[i][0];bfsk[i][1]=csk[i][1];} } }
+            if(cur<best){ best=cur; for(int i=0;i<n-1;i++)bsig[i]=sig[i]; br0=r0; for(int i=0;i<M2;i++){bsk[i][0]=csk[i][0];bsk[i][1]=csk[i][1];} since=0;
+                if(log){long mm;int inf; ins2_eval(n,csk,M2,sig,r0,&mm,&inf); fprintf(log,"NEWBEST t=%.1f obj=%ld mism=%ld infeas=%d moves=%ld\n",now_sec()-t0,best,mm,inf,moves);}
+                long mm; int inf; ins2_eval(n,csk,M2,sig,r0,&mm,&inf);
+                if(mm==0&&inf==0){ solved=1; int cnt=ins_save_solved(n,r0,outseed);
+                    if(log) fprintf(log,"SOLVED t=%.1f moves=%ld count=%d\n",now_sec()-t0,moves,cnt);
+                    break; }
+            }
+        } else if(bt>=0){
+            csk[bt][0]=o0[0];csk[bt][1]=o0[1]; csk[bt+2][0]=o2[0];csk[bt+2][1]=o2[1];
+        }
+        moves++; since++;
+        if((moves&0xFFFFF)==0 && log) fprintf(log,"LOG t=%.1f cur=%ld best=%ld restarts=%ld mps=%.0f\n",now_sec()-t0,cur,best,restarts,moves/(now_sec()-t0+1e-9));
+        if(since>STUCK){ restarts++; since=0;
+            if(bfmm<(1L<<60) && rndf()<0.5){
+                for(int i=0;i<n-1;i++)sig[i]=bfsig[i]; r0=bfr0;
+                for(int i=0;i<M2;i++){csk[i][0]=bfsk[i][0];csk[i][1]=bfsk[i][1];}
+                for(int k=0;k<8;k++){ int i=rnd(n-1),j=rnd(n-1); int t=sig[i];sig[i]=sig[j];sig[j]=t; }
+                for(int k=0;k<6;k++){
+                    int t3=rnd(M2-2);
+                    int w[6]={csk[t3][0],csk[t3][1],csk[t3+1][0],csk[t3+1][1],csk[t3+2][0],csk[t3+2][1]};
+                    int u[3],nu=0,ok=1;
+                    for(int i=0;i<6;i++){int f=0;for(int j=0;j<nu;j++)if(u[j]==w[i]){f=1;break;}if(!f){if(nu>=3){ok=0;break;}u[nu++]=w[i];}}
+                    if(ok&&nu==3){ uint8_t a0=csk[t3][0],a1=csk[t3][1]; csk[t3][0]=csk[t3+2][0];csk[t3][1]=csk[t3+2][1]; csk[t3+2][0]=a0;csk[t3+2][1]=a1; }
+                }
+            } else {
+                for(int i=0;i<n-1;i++){ int j=rnd(n-1); int t=sig[i];sig[i]=sig[j];sig[j]=t; }
+                r0=rnd(n);
+            }
+            cur=ins2_eval(n,csk,M2,sig,r0,NULL,NULL);
+        }
+    }
+    if(log) fprintf(log,"DONE t=%.1f best=%ld solved=%d moves=%ld restarts=%ld\n",now_sec()-t0,best,solved,moves,restarts);
+    if(!solved && bfmm<(1L<<60)){
+        long mm; int inf; ins2_eval(n,bfsk,M2,bfsig,bfr0,&mm,&inf);
+        if(inf==0){ char p[512]; snprintf(p,sizeof p,"%s.best",outseed); ins_save_solved(n,bfr0,p);
+            if(log) fprintf(log,"SAVEDBEST mism=%ld -> %s\n",mm,p); }
+    }
+    if(log) fclose(log);
+    pg_mode=0;
+}
+
+/* full-gene insertion brute force: sig x monotone gaps x r0 */
+static long INSBF2_BEST; static int INSBF2_FOUND;
+static void insbf2_rec(int n,const uint8_t skel[][2],int M2,InsS*S,int idx,int prev,int r0,
+                       const char*outseed,long*evals){
+    if(INSBF2_FOUND) return;
+    if(idx==n-1){
+        (*evals)++;
+        long mm; int inf;
+        ins_eval(S,n,NULL); /* obj unused; recompute parts */
+        /* ins_eval returns obj; recompute mm/inf via ins2-like: use returned */
+        long obj=0; /* recompute properly */
+        /* We need mism and infeas separately: ins_eval gives mism+50*infeas; infeas via pointer */
+        int inf2; long obj2=ins_eval(S,n,&inf2);
+        long mm2=obj2-50L*inf2;
+        if(obj2<INSBF2_BEST) INSBF2_BEST=obj2;
+        if(mm2==0 && inf2==0){
+            INSBF2_FOUND=1;
+            int cnt=ins_save_solved(n,r0,outseed);
+            printf("SOLVED n=%d r0=%d evals=%ld count=%d\n",n,r0,*evals,cnt);
+        }
+        (void)obj; (void)mm;
+        return;
+    }
+    for(int g=prev; g<=M2 && !INSBF2_FOUND; g++){
+        S->gap[idx]=g;
+        insbf2_rec(n,skel,M2,S,idx+1,g,r0,outseed,evals);
+    }
+}
+static int PERM_SIG[MAXN];
+static void insbf2_permrec(int n,const uint8_t skel[][2],int M2,InsS*S,int idx,int r0,
+                           const char*outseed,long*evals){
+    if(INSBF2_FOUND) return;
+    S->r0=r0;
+    if(idx==n-1){
+        insbf2_rec(n,skel,M2,S,0,0,r0,outseed,evals);
+        return;
+    }
+    for(int i=idx;i<n-1 && !INSBF2_FOUND;i++){
+        int t=PERM_SIG[idx];PERM_SIG[idx]=PERM_SIG[i];PERM_SIG[i]=t;
+        S->sig[idx]=PERM_SIG[idx];
+        insbf2_permrec(n,skel,M2,S,idx+1,r0,outseed,evals);
+        t=PERM_SIG[idx];PERM_SIG[idx]=PERM_SIG[i];PERM_SIG[i]=t;
+    }
+}
+static void insbf2_run(int n,const char*pgfile,const char*skelfile,const char*outseed){
+    if(!pg_load(pgfile)){ fprintf(stderr,"pg load fail\n"); return; }
+    pg_mode=1;
+    AS2 SK;
+    if(!as2_load(&SK,n-1,skelfile)){ fprintf(stderr,"skel load fail\n"); return; }
+    if(!ip_load(skelfile,n-1)){ fprintf(stderr,"ip load fail\n"); return; }
+    InsS S; S.n=n; S.M2=SK.M;
+    for(int i=0;i<SK.M;i++){ S.skel[i][0]=SK.sw[i][0]; S.skel[i][1]=SK.sw[i][1]; }
+    long evals=0; INSBF2_BEST=-1; INSBF2_FOUND=0;
+    for(int r0=0;r0<n && !INSBF2_FOUND;r0++){
+        for(int i=0;i<n-1;i++) PERM_SIG[i]=i;
+        insbf2_permrec(n,SK.sw,SK.M,&S,0,r0,outseed,&evals);
+    }
+    if(!INSBF2_FOUND) printf("INSBF2_DONE n=%d evals=%ld bestobj=%ld\n",n,evals,INSBF2_BEST);
+    pg_mode=0;
+}
+static void insas_run(int n,const char*pgfile,const char*skelfile,double seconds,uint64_t seed,const char*logpath,const char*outseed){
+    if(!pg_load(pgfile)){ fprintf(stderr,"pg load fail\n"); return; }
+    pg_mode=1;
+    AS2 SK;
+    if(!as2_load(&SK,n-1,skelfile)){ fprintf(stderr,"skel load fail\n"); return; }
+    if(!ip_load(skelfile,n-1)){ fprintf(stderr,"ip load fail\n"); return; }
+    seed_rng(seed);
+    FILE*log=fopen(logpath,"a"); if(log) setvbuf(log,NULL,_IOLBF,0);
+    int M2=SK.M;
+    InsS S,BEST;
+    S.n=n; S.M2=M2;
+    for(int i=0;i<M2;i++){ S.skel[i][0]=SK.sw[i][0]; S.skel[i][1]=SK.sw[i][1]; }
+    for(int i=0;i<n-1;i++) S.sig[i]=i;
+    for(int i=0;i<n-1;i++) S.gap[i]=(int)((long)i*M2/(n-1));
+    S.r0=n-1;
+    long cur=ins_eval(&S,n,NULL), best=cur; BEST=S;
+    double THI=env_d("INS_THI",2.0), TLO=env_d("INS_TLO",0.01), CYC=env_d("INS_CYC",6.0);
+    double t0=now_sec(); long moves=0,restarts=0,since_improve=0; int solved=0;
+    while(now_sec()-t0<seconds){
+        double frac=(now_sec()-t0)/seconds;
+        double phase=frac*CYC-(double)(int)(frac*CYC);
+        double T=THI*pow(TLO/THI,phase);
+        InsS N=S;
+        int mv=rnd(3);
+        if(mv==0){ /* adjacent swap in sig */
+            int i=rnd(n-2); int t=N.sig[i];N.sig[i]=N.sig[i+1];N.sig[i+1]=t;
+        } else if(mv==1){ /* gap +-1, keep monotone */
+            int i=rnd(n-1); N.gap[i]+= rnd(2)?1:-1;
+            if(i>0 && N.gap[i]<N.gap[i-1]) N.gap[i]=N.gap[i-1];
+            if(i<n-2 && N.gap[i]>N.gap[i+1]) N.gap[i]=N.gap[i+1];
+            if(N.gap[i]<0)N.gap[i]=0; if(N.gap[i]>M2)N.gap[i]=M2;
+        } else { /* r0 +-1 */
+            N.r0 += rnd(2)?1:-1; if(N.r0<0)N.r0=0; if(N.r0>n-1)N.r0=n-1;
+        }
+        long nm=ins_eval(&N,n,NULL);
+        long delta=nm-cur;
+        if(delta<=0 || rndf()<exp(-(double)delta/T)){
+            S=N; cur=nm;
+            if(cur<best){ best=cur; BEST=S;
+                if(log){int inf; ins_eval(&S,n,&inf); fprintf(log,"NEWBEST t=%.1f obj=%ld (infeas part) moves=%ld\n",t0? now_sec()-t0:0,best,moves);}
+                if(best==0){ solved=1;
+                    /* save sequence: ins_eval stashed INS_LAST */
+                    AS2 A; A.n=n; A.M=n*(n-1)/2;
+                    for(int t=0;t<A.M;t++){ A.sw[t][0]=INS_LAST[t][0]; A.sw[t][1]=INS_LAST[t][1]; }
+                    as2_build_pos(&A);
+                    as2_save(&A,0,outseed);
+                    /* save IP_n sidecar */
+                    int sk[MAXN]; for(int i=0;i<n-1;i++) sk[i]=IP[i];
+                    char pth[512]; snprintf(pth,sizeof pth,"%s.ip",outseed);
+                    FILE*f=fopen(pth,"w");
+                    int si2=0;
+                    for(int r=0;r<n;r++){ if(r==S.r0) fprintf(f,"%d ",n-1); else fprintf(f,"%d ",sk[si2++]); }
+                    fprintf(f,"\n"); fclose(f);
+                    if(log) fprintf(log,"SOLVED t=%.1f moves=%ld count=%ld\n",now_sec()-t0,moves,as2_count(&A));
+                    break;
+                }
+                since_improve=0;
+            }
+        }
+        moves++; since_improve++;
+        if((moves&0x3FFFF)==0 && log) fprintf(log,"LOG t=%.1f cur=%ld best=%ld restarts=%ld mps=%.0f\n",now_sec()-t0,cur,best,restarts,moves/(now_sec()-t0+1e-9));
+        if(since_improve>3000000){
+            restarts++; since_improve=0;
+            for(int i=0;i<n-1;i++){ int j=rnd(n-1); int t=S.sig[i];S.sig[i]=S.sig[j];S.sig[j]=t; }
+            for(int i=0;i<n-1;i++) S.gap[i]=rnd(M2+1);
+            for(int i=1;i<n-1;i++){ int g=S.gap[i]; int j=i-1; while(j>=0&&S.gap[j]>g){S.gap[j+1]=S.gap[j];j--;} S.gap[j+1]=g; }
+            S.r0=rnd(n);
+            cur=ins_eval(&S,n,NULL);
+        }
+    }
+    if(log) fprintf(log,"DONE t=%.1f best=%ld solved=%d moves=%ld restarts=%ld\n",now_sec()-t0,best,solved,moves,restarts);
+    if(log) fclose(log);
+    pg_mode=0;
+}
+
 /* ===== pattern-matching SA: drive swap list to a target 2-page crossing pattern ===== */
 static long pat_mis_tuple(AS2*A,int w,int x,int y,int z){
     long m=0;
@@ -1037,7 +1563,8 @@ static void match_as(int n,double seconds,uint64_t seed,const char*pgfile,const 
     AS2 A,B; Pt p[MAXN];
     const char*INITF=getenv("AS3_INITF");
     int haveinit = INITF && as2_load(&A,n,INITF);
-    if(!haveinit){ for(int i=0;i<n;i++){ p[i].x=i*3.0+rndf(); p[i].y=rndf()*10; } as2_from_points(&A,p,n); }
+    if(!haveinit){ for(int i=0;i<n;i++){ p[i].x=i*3.0+rndf(); p[i].y=rndf()*10; } as2_from_points(&A,p,n); set_initperm_from_points(p,n); }
+    double PR=env_d("AS3_PR",0.15);
     long cur=pat_mis_all(&A),best=cur; B=A;
     FILE*log=fopen(logpath,"a"); if(log) setvbuf(log,NULL,_IOLBF,0);
     double t0=now_sec();
@@ -1049,7 +1576,22 @@ static void match_as(int n,double seconds,uint64_t seed,const char*pgfile,const 
         double phase=frac*CYC-(double)(int)(frac*CYC);
         double T=THI*pow(TLO/THI,phase);
         int M=A.M;
-        if(rndf()<CP){
+        double rr=rndf();
+        if(!haveinit && rr<PR){
+            int vv = (rndf()<0.7) ? pat_worst_vertex(&A) : rnd(n);
+            long nm=lns_repair(&A,vv,250);
+            long delta=nm-cur;
+            if(delta<=0 || rndf()<exp(-(double)delta/T)){
+                cur=nm;
+                if(cur<best){ best=cur; B=A; if(log) fprintf(log,"NEWBEST t=%.1f mism=%ld moves=%ld (reinsert)\n",now_sec()-t0,best,moves);
+                    if(cur==0){ solved=1; as2_save(&B,0,bestpath); ip_save(bestpath); if(log) fprintf(log,"SOLVED t=%.1f moves=%ld count=%ld\n",now_sec()-t0,moves,as2_count(&B)); break; }
+                    since_improve=0; }
+            }
+            moves++; since_improve++;
+            if(now_sec()-t0>=seconds) break;
+            continue;
+        }
+        if(rr<PR+CP*(1-PR)){
             int t2=rnd(M-1);
             int a=A.sw[t2][0],b=A.sw[t2][1],c=A.sw[t2+1][0],d=A.sw[t2+1][1];
             if(a!=c&&a!=d&&b!=c&&b!=d){
@@ -1078,7 +1620,7 @@ static void match_as(int n,double seconds,uint64_t seed,const char*pgfile,const 
             cur+=delta;
             if(cur<best){ best=cur; B=A;
                 if(log) fprintf(log,"NEWBEST t=%.1f mism=%ld moves=%ld\n",t-t0,best,moves);
-                if(cur==0){ solved=1; as2_save(&B,0,bestpath);
+                if(cur==0){ solved=1; as2_save(&B,0,bestpath); ip_save(bestpath);
                     if(log) fprintf(log,"SOLVED t=%.1f moves=%ld count=%ld\n",t-t0,moves,as2_count(&B));
                     break;
                 }
@@ -1093,12 +1635,13 @@ static void match_as(int n,double seconds,uint64_t seed,const char*pgfile,const 
         if(since_improve>=STUCK){
             if(log) fprintf(log,"RESTART t=%.1f min=%ld restarts=%ld\n",t-t0,best,restarts);
             restarts++; since_improve=0;
-            if(rndf()<FRESHP){ for(int i=0;i<n;i++){ p[i].x=i*3.0+rndf(); p[i].y=rndf()*10; } as2_from_points(&A,p,n); cur=pat_mis_all(&A); }
+            if(rndf()<FRESHP){ for(int i=0;i<n;i++){ p[i].x=i*3.0+rndf(); p[i].y=rndf()*10; } as2_from_points(&A,p,n); set_initperm_from_points(p,n); cur=pat_mis_all(&A); }
             else { long dummy=0; A=B; kick_braids(&A,(int)KICKB,&dummy); cur=pat_mis_all(&A); }
         }
     }
     if(log) fprintf(log,"DONE t=%.1f best=%ld solved=%d moves=%ld restarts=%ld mps=%.0f\n",now_sec()-t0,best,solved,moves,restarts,moves/(now_sec()-t0));
     if(solved) as2_save(&B,0,bestpath);
+    { char pb[512]; snprintf(pb,sizeof pb,"%s.part",bestpath); as2_save(&B,best,pb); }
     if(log) fclose(log);
     pg_mode=0;
 }
@@ -1164,7 +1707,7 @@ static void anneal_as3(int n,double seconds,uint64_t seed,const char*logpath,con
             A.pos[a0][b0]=t2;A.pos[b0][a0]=t2;A.pos[a2][b2]=t2+2;A.pos[b2][a2]=t2+2;
         }
         moves++; since_improve++;
-        if((moves&0x3FFFF)==0){ long tr=pat_mis_all(&A); if(log) fprintf(log,"LOG t=%.1f cur=%ld true=%ld best=%ld restarts=%ld braids=%ld commutes=%ld T=%.3g\n",t-t0,cur,tr,best,restarts,braids,commutes,T); if(tr!=cur){ if(log) fprintf(log,"DRIFT cur=%ld true=%ld\n",cur,tr); cur=tr; } }
+        if((moves&0x3FFFF)==0 && log) fprintf(log,"LOG t=%.1f cur=%ld best=%ld restarts=%ld braids=%ld commutes=%ld T=%.3g\n",t-t0,cur,best,restarts,braids,commutes,T);
         if(since_improve>=STUCK){
             if(log) fprintf(log,"RESTART t=%.1f min=%ld restarts=%ld\n",t-t0,best,restarts);
             restarts++; since_improve=0;
@@ -1319,5 +1862,13 @@ int main(int argc,char**argv){
         }
         pg_mode=0; return 0;
     }
+    if(!strcmp(argv[1],"insas")){
+        int n=atoi(argv[2]); double sec=atof(argv[4]); uint64_t sd=strtoull(argv[5],NULL,10);
+        insas_run(n,argv[3],argv[6],sec,sd,argv[7],argv[8]); return 0;
+    }
+    if(!strcmp(argv[1],"insbf")){ insbf_run(atoi(argv[2]),argv[3],argv[4],argv[5]); return 0; }
+    if(!strcmp(argv[1],"inssa")){ inssa_run(atoi(argv[2]),argv[3],argv[4],atof(argv[5]),strtoull(argv[6],NULL,10),argv[7],argv[8]); return 0; }
+    if(!strcmp(argv[1],"insxa")){ insxa_run(atoi(argv[2]),argv[3],argv[4],atof(argv[5]),strtoull(argv[6],NULL,10),argv[7],argv[8]); return 0; }
+    if(!strcmp(argv[1],"insbf2")){ insbf2_run(atoi(argv[2]),argv[3],argv[4],argv[5]); return 0; }
     fprintf(stderr,"unknown mode\n"); return 1;
 }
