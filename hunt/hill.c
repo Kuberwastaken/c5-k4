@@ -1306,6 +1306,478 @@ static void inssa_run(int n,const char*pgfile,const char*skelfile,double seconds
     pg_mode=0;
 }
 
+
+
+/* ===== pgdfs: direct DFS for full wiring diagram from identity start, 4-tuple prefix constraints ===== */
+static int PD_N, PD_M;
+static int PD_TID[MAXN][MAXN][MAXN][MAXN];
+static int PD_W[800][4];
+static int PD_ALLOW[800][16][6];
+static int PD_NA[800];
+static int PD_PRE[800][6]; static int PD_NP[800];
+static int PD_NT;
+static long PD_NODES, PD_BUDGET;
+static int PD_SOLVED;
+static uint8_t PD_OUT[MAXM][2]; static int PD_OM;
+static int PD_CUR[MAXN], PD_RKI[MAXN];
+static uint8_t PD_DONE[MAXN][MAXN];
+static int PD_LEFT;
+static int PD_BESTD;
+
+static int pd_pid(int t,int x,int y){
+    /* pair-id of (x,y) within tuple t: pairs sorted-label order: (w0,w1)=0,(w0,w2)=1,(w0,w3)=2,(w1,w2)=3,(w1,w3)=4,(w2,w3)=5 */
+    int *w=PD_W[t]; int px=-1,py=-1;
+    for(int i=0;i<4;i++){ if(w[i]==x)px=i; if(w[i]==y)py=i; }
+    if(px<0||py<0) return -1;
+    if(px>py){int t2=px;px=py;py=t2;}
+    static const int idm[4][4]={{-1,0,1,2},{-1,-1,3,4},{-1,-1,-1,5},{-1,-1,-1,-1}};
+    return idm[px][py];
+}
+static int PD_E4T;
+static long E4CALLS,E4HITS;
+static int PE_PERM[4], PE_CUR[6][2];
+static uint8_t PE_DONE[MAXN][MAXN];
+static void pd_enum(int d,AS2*T4,int*tgt){
+    E4CALLS++;
+    if(d==6){
+        E4HITS++;
+        int *w=PD_W[PD_E4T];
+        for(int i=0;i<4;i++)for(int j=0;j<4;j++) T4->pos[w[i]][w[j]]=-1;
+        for(int t=0;t<6;t++){ T4->pos[PE_CUR[t][0]][PE_CUR[t][1]]=t; T4->pos[PE_CUR[t][1]][PE_CUR[t][0]]=t; }
+        int bA=ascross2(T4,w[0],w[1],w[2],w[3]);
+        int bB=ascross2(T4,w[0],w[2],w[1],w[3]);
+        int bC=ascross2(T4,w[0],w[3],w[1],w[2]);
+        if(getenv("PD_DEBUG")&&PD_E4T==19){ fprintf(stderr,"E4 d6 sig=%d%d%d tgt=%d%d%d seq=",bA,bB,bC,tgt[0],tgt[1],tgt[2]); for(int q=0;q<6;q++) fprintf(stderr,"(%d,%d)",PE_CUR[q][0],PE_CUR[q][1]); fprintf(stderr,"\n"); }
+        if(bA==tgt[0]&&bB==tgt[1]&&bC==tgt[2] && PD_NA[PD_E4T]<16){
+            int *dst=PD_ALLOW[PD_E4T][PD_NA[PD_E4T]++];
+            for(int t=0;t<6;t++) dst[t]=pd_pid(PD_E4T,PE_CUR[t][0],PE_CUR[t][1]);
+        }
+        return;
+    }
+    for(int i=0;i<3;i++){
+        int a=PE_PERM[i],b=PE_PERM[i+1];
+        if(PE_DONE[a][b]) continue;
+        PE_DONE[a][b]=1;PE_DONE[b][a]=1;
+        PE_PERM[i]=b;PE_PERM[i+1]=a;
+        PE_CUR[d][0]=a;PE_CUR[d][1]=b;
+        pd_enum(d+1,T4,tgt);
+        PE_PERM[i]=a;PE_PERM[i+1]=b;
+        PE_DONE[a][b]=0;PE_DONE[b][a]=0;
+    }
+}
+static int PD_TGT[800][3]; static int PD_TGTSET=0;
+static void pd_build(void){
+    PD_NT=0;
+    static AS2 T4; T4.n=4;
+    for(int a=0;a<PD_N;a++)for(int b=a+1;b<PD_N;b++)for(int c=b+1;c<PD_N;c++)for(int d=c+1;d<PD_N;d++){
+        int t=PD_NT++;
+        PD_W[t][0]=a;PD_W[t][1]=b;PD_W[t][2]=c;PD_W[t][3]=d;
+        PD_TID[a][b][c][d]=t; PD_NA[t]=0; PD_NP[t]=0;
+        int tgt[3];
+        if(PD_TGTSET){ tgt[0]=PD_TGT[t][0]; tgt[1]=PD_TGT[t][1]; tgt[2]=PD_TGT[t][2]; }
+        else { tgt[0]=truth_pair_g(a,b,c,d); tgt[1]=truth_pair_g(a,c,b,d); tgt[2]=truth_pair_g(a,d,b,c); }
+        if(getenv("PD_DEBUG")&&t==19) fprintf(stderr,"TUPLE19 wires %d %d %d %d tgt=%d%d%d\n",a,b,c,d,tgt[0],tgt[1],tgt[2]);
+        PD_E4T=t; E4CALLS=0;E4HITS=0;
+        PE_PERM[0]=a;PE_PERM[1]=b;PE_PERM[2]=c;PE_PERM[3]=d;
+        { for(int i=0;i<MAXN;i++)for(int j=0;j<MAXN;j++)PE_DONE[i][j]=0; } pd_enum(0,&T4,tgt);
+        if(getenv("PD_DEBUG")&&t==0) fprintf(stderr,"tuple0 calls=%ld hits=%ld na=%d\n",E4CALLS,E4HITS,PD_NA[t]);
+    }
+}
+static int pd_ok(int t,int pid){
+    int np=PD_NP[t];
+    for(int a=0;a<PD_NA[t];a++){
+        int *sq=PD_ALLOW[t][a]; int ok=1;
+        for(int i=0;i<np;i++) if(sq[i]!=PD_PRE[t][i]){ok=0;break;}
+        if(ok && sq[np]==pid) return 1;
+    }
+    return 0;
+}
+static void pd_rec(int depth){
+    if(PD_SOLVED||PD_NODES>PD_BUDGET) return;
+    PD_NODES++;
+    if(depth>PD_BESTD) PD_BESTD=depth;
+    if(depth==PD_M){ PD_SOLVED=1; return; }
+    int n=PD_N;
+    /* gather options: adjacent uncrossed pairs */
+    int opt[MAXN],nop=0;
+    long oscore[MAXN];
+    for(int i=0;i<n-1;i++){
+        int a=PD_CUR[i],b=PD_CUR[i+1];
+        if(!PD_DONE[a][b]) opt[nop++]=i;
+    }
+    for(int oi=0;oi<nop;oi++){
+        int i=opt[oi]; int x=PD_CUR[i],y=PD_CUR[i+1];
+        long sc=0; int ok=1;
+        for(int u=0;u<n && ok;u++){ if(u==x||u==y)continue;
+            for(int w2=u+1;w2<n && ok;w2++){ if(w2==x||w2==y)continue;
+                int s[4]={x,y,u,w2};
+                for(int p=0;p<3;p++)for(int q=p+1;q<4;q++) if(s[p]>s[q]){int t=s[p];s[p]=s[q];s[q]=t;}
+                int t=PD_TID[s[0]][s[1]][s[2]][s[3]];
+                int pid=pd_pid(t,x,y);
+                int np=PD_NP[t], cnt=0;
+                for(int a2=0;a2<PD_NA[t];a2++){
+                    int *sq=PD_ALLOW[t][a2]; int m=1;
+                    for(int k=0;k<np;k++) if(sq[k]!=PD_PRE[t][k]){m=0;break;}
+                    if(m && sq[np]==pid) cnt++;
+                }
+                if(cnt==0){ok=0;break;}
+                sc+=cnt;
+            }
+        }
+        oscore[oi]= ok ? sc : -1;
+    }
+    /* sort options by score desc with small random jitter */
+    for(int a2=0;a2<nop;a2++)for(int b2=a2+1;b2<nop;b2++)
+        if(oscore[b2]>oscore[a2]){ long ts=oscore[a2];oscore[a2]=oscore[b2];oscore[b2]=ts; int ti=opt[a2];opt[a2]=opt[b2];opt[b2]=ti; }
+    for(int oi=0;oi<nop && !PD_SOLVED && PD_NODES<=PD_BUDGET;oi++){
+        if(oscore[oi]<0) continue;
+        int i=opt[oi]; int x=PD_CUR[i],y=PD_CUR[i+1];
+        /* constraint check: tuples containing x and y */
+        int chg[64],nc=0,ok=1;
+        for(int u=0;u<n && ok;u++){ if(u==x||u==y)continue;
+            for(int w2=u+1;w2<n && ok;w2++){ if(w2==x||w2==y)continue;
+                int s[4]={x,y,u,w2};
+                for(int p=0;p<3;p++)for(int q=p+1;q<4;q++) if(s[p]>s[q]){int t=s[p];s[p]=s[q];s[q]=t;}
+                int t=PD_TID[s[0]][s[1]][s[2]][s[3]];
+                int pid=pd_pid(t,x,y);
+                if(!pd_ok(t,pid)){ok=0;break;}
+                chg[nc++]=t;
+            }
+        }
+        if(!ok) continue;
+        for(int k=0;k<nc;k++){ int t=chg[k]; PD_PRE[t][PD_NP[t]++]=pd_pid(t,x,y); }
+        PD_DONE[x][y]=1;PD_DONE[y][x]=1; PD_LEFT--;
+        PD_CUR[i]=y;PD_CUR[i+1]=x; PD_RKI[x]=i+1;PD_RKI[y]=i;
+        PD_OUT[PD_OM][0]=x;PD_OUT[PD_OM][1]=y; PD_OM++;
+        pd_rec(depth+1);
+        if(PD_SOLVED) return;
+        PD_OM--;
+        PD_CUR[i]=x;PD_CUR[i+1]=y; PD_RKI[x]=i;PD_RKI[y]=i+1;
+        PD_DONE[x][y]=0;PD_DONE[y][x]=0; PD_LEFT++;
+        for(int k=0;k<nc;k++) PD_NP[chg[k]]--;
+    }
+}
+static void pgdfs2_run(int n,const char*seqfile,double seconds,uint64_t seed,const char*logpath,const char*outseed){
+    AS2 T;
+    if(!as2_load(&T,n,seqfile)){ fprintf(stderr,"seq load fail\n"); return; }
+    int t=0;
+    for(int a=0;a<n;a++)for(int b=a+1;b<n;b++)for(int c=b+1;c<n;c++)for(int d=c+1;d<n;d++){
+        PD_TGT[t][0]=ascross2(&T,a,b,c,d);
+        PD_TGT[t][1]=ascross2(&T,a,c,b,d);
+        PD_TGT[t][2]=ascross2(&T,a,d,b,c);
+        t++;
+    }
+    PD_TGTSET=1;
+    seed_rng(seed);
+    FILE*log=fopen(logpath,"a"); if(log) setvbuf(log,NULL,_IOLBF,0);
+    PD_N=n; PD_M=n*(n-1)/2;
+    pd_build();
+    if(log){ int zero=0; for(int i=0;i<PD_NT;i++) if(PD_NA[i]==0) zero++; fprintf(log,"BUILD tuples=%d zeroallowed=%d\n",PD_NT,zero); }
+    double t0=now_sec(); int solved=0; long attempts=0; int bestdepth=0;
+    while(now_sec()-t0<seconds && !solved){
+        for(int i=0;i<n;i++) PD_CUR[i]=i;
+        for(int i=0;i<n;i++) PD_RKI[i]=i;
+        for(int i=0;i<n;i++)for(int j=0;j<n;j++)PD_DONE[i][j]=0;
+        for(int i=0;i<PD_NT;i++) PD_NP[i]=0;
+        PD_LEFT=PD_M; PD_OM=0; PD_SOLVED=0; PD_NODES=0; PD_BUDGET=env_l("PD_BUDGET",2000000); PD_BESTD=0;
+        pd_rec(0);
+        attempts++;
+        if(PD_BESTD>bestdepth){ bestdepth=PD_BESTD; if(log) fprintf(log,"DEPTH t=%.1f best=%d/%d attempts=%ld\n",now_sec()-t0,bestdepth,PD_M,attempts); }
+        if(PD_SOLVED){
+            solved=1;
+            AS2 A; A.n=n; A.M=PD_M;
+            for(int q=0;q<PD_M;q++){ A.sw[q][0]=PD_OUT[q][0]; A.sw[q][1]=PD_OUT[q][1]; }
+            as2_build_pos(&A);
+            long cnt=as2_count(&A);
+            as2_save(&A,cnt,outseed);
+            if(log) fprintf(log,"SOLVED t=%.1f attempts=%ld count=%ld\n",now_sec()-t0,attempts,cnt);
+        }
+    }
+    if(log){ fprintf(log,"DONE t=%.1f solved=%d attempts=%ld bestdepth=%d\n",now_sec()-t0,solved,attempts,bestdepth); fclose(log); }
+    PD_TGTSET=0;
+}
+static void pgdfs_run(int n,const char*pgfile,double seconds,uint64_t seed,const char*logpath,const char*outseed){
+    if(!pg_load(pgfile)){ fprintf(stderr,"pg load fail\n"); return; }
+    pg_mode=1;
+    seed_rng(seed);
+    FILE*log=fopen(logpath,"a"); if(log) setvbuf(log,NULL,_IOLBF,0);
+    PD_N=n; PD_M=n*(n-1)/2;
+    pd_build();
+    if(log){
+        int zero=0; for(int t=0;t<PD_NT;t++){ if(PD_NA[t]==0){ zero++; if(getenv("PD_DEBUG")&&zero<=8) fprintf(stderr,"ZERO tuple %d %d %d %d tgt=?\n",PD_W[t][0],PD_W[t][1],PD_W[t][2],PD_W[t][3]); } }
+        fprintf(log,"BUILD tuples=%d zeroallowed=%d\n",PD_NT,zero);
+    }
+    double t0=now_sec(); int solved=0; long attempts=0; int bestdepth=0;
+    while(now_sec()-t0<seconds && !solved){
+        for(int i=0;i<n;i++) PD_CUR[i]=i;
+        for(int i=0;i<n;i++) PD_RKI[i]=i;
+        for(int i=0;i<n;i++)for(int j=0;j<n;j++)PD_DONE[i][j]=0;
+        for(int t=0;t<PD_NT;t++) PD_NP[t]=0;
+        PD_LEFT=PD_M; PD_OM=0; PD_SOLVED=0; PD_NODES=0; PD_BUDGET=env_l("PD_BUDGET",2000000); PD_BESTD=0;
+        pd_rec(0);
+        attempts++;
+        if(PD_BESTD>bestdepth){ bestdepth=PD_BESTD; if(log) fprintf(log,"DEPTH t=%.1f best=%d/%d attempts=%ld\n",now_sec()-t0,bestdepth,PD_M,attempts); }
+        if(PD_SOLVED){
+            solved=1;
+            AS2 A; A.n=n; A.M=PD_M;
+            for(int t=0;t<PD_M;t++){ A.sw[t][0]=PD_OUT[t][0]; A.sw[t][1]=PD_OUT[t][1]; }
+            as2_build_pos(&A);
+            long cnt=as2_count(&A); long pm=pat_mis_all(&A);
+            as2_save(&A,cnt,outseed);
+            if(log) fprintf(log,"SOLVED t=%.1f attempts=%ld count=%ld patmism=%ld\n",now_sec()-t0,attempts,cnt,pm);
+        }
+    }
+    if(log){ fprintf(log,"DONE t=%.1f solved=%d attempts=%ld bestdepth=%d\n",now_sec()-t0,solved,attempts,bestdepth); fclose(log); }
+    pg_mode=0;
+}
+
+/* ===== insdfs: exact randomized DFS merge with 4-tuple prefix constraints ===== */
+static int DFS_N, DFS_V, DFS_M2, DFS_N3;
+static uint8_t DFS_SK[MAXM][2];
+static int DFS_IP[MAXN];
+static long DFS_NODES, DFS_BUDGET;
+static int DFS_SOLVED;
+static uint8_t DFS_OUT[MAXM][2]; static int DFS_OM;
+static int DT_W[500][3];          /* sorted skeleton wires of tuple */
+static int DT_ALLOW[500][8][6];   /* allowed seqs as tuple pair-ids */
+static int DT_NA[500];
+static int DT_PRE[500][6]; static int DT_NP[500];
+static int TID[MAXN][MAXN][MAXN];
+static int DFS_R0;
+
+/* pair-id within tuple (sorted skeleton wires w0<w1<w2, v largest):
+   (w0,w1)=0 (w0,w2)=1 (w1,w2)=2 (w0,v)=3 (w1,v)=4 (w2,v)=5 */
+static int dt_pid(int t,int x,int y){
+    int *w=DT_W[t]; int v=DFS_V;
+    int a=x,b=y;
+    int pa=-1,pb=-1;
+    if(a==v) pa=3; else { for(int i=0;i<3;i++) if(w[i]==a) pa=i; }
+    if(b==v) pb=3; else { for(int i=0;i<3;i++) if(w[i]==b) pb=i; }
+    if(pa<0||pb<0) return -1;
+    if(pa>pb){int t2=pa;pa=pb;pb=t2;}
+    if(pb==3) return 3+pa;      /* (w0,v)=3,(w1,v)=4,(w2,v)=5 */
+    if(pa==0&&pb==1) return 0;
+    if(pa==0&&pb==2) return 1;
+    return 2;                    /* (w1,w2) */
+}
+/* enumerate simple 4-wire allowable sequences from start perm pi4 (actual wires),
+   keep those whose signature matches target slots, store as pair-id lists */
+static int E4_PERM[4]; static uint64_t E4_DONE; static int E4_CUR[6][2];
+static AS2 T4;
+static int E4_TARGET[3];
+static int E4_W2IDX[MAXN];
+static int E4_T;
+static void e4_rec(int d){
+    if(d==6){
+        for(int i=0;i<MAXN;i++)for(int j=0;j<MAXN;j++){} /* noop */
+        for(int i=0;i<4;i++)for(int j=0;j<4;j++) T4.pos[E4_PERM[i]][E4_PERM[j]]=-1;
+        for(int t=0;t<6;t++){ T4.pos[E4_CUR[t][0]][E4_CUR[t][1]]=t; T4.pos[E4_CUR[t][1]][E4_CUR[t][0]]=t; }
+        int *w=DT_W[E4_T]; int v=DFS_V;
+        int bA=ascross2(&T4,w[0],w[1],w[2],v);
+        int bB=ascross2(&T4,w[0],w[2],w[1],v);
+        int bC=ascross2(&T4,w[0],v,w[1],w[2]);
+        if(bA==E4_TARGET[0]&&bB==E4_TARGET[1]&&bC==E4_TARGET[2] && DT_NA[E4_T]<8){
+            int *dst=DT_ALLOW[E4_T][DT_NA[E4_T]++];
+            for(int t=0;t<6;t++) dst[t]=dt_pid(E4_T,E4_CUR[t][0],E4_CUR[t][1]);
+        }
+        return;
+    }
+    for(int i=0;i<3;i++){
+        int a=E4_PERM[i],b=E4_PERM[i+1];
+        int ia=E4_W2IDX[a],ib=E4_W2IDX[b];
+        if(ia>ib){int t=ia;ia=ib;ib=t;}
+        if(E4_DONE & (1ULL<<(ia*4+ib))) continue;
+        E4_DONE |= (1ULL<<(ia*4+ib));
+        E4_PERM[i]=b;E4_PERM[i+1]=a;
+        E4_CUR[d][0]=a;E4_CUR[d][1]=b;
+        e4_rec(d+1);
+        E4_PERM[i]=a;E4_PERM[i+1]=b;
+        E4_DONE &= ~(1ULL<<(ia*4+ib));
+    }
+}
+static void dt_build(void){
+    /* initial perm: skeleton IP with v inserted at rank DFS_R0 */
+    int init[MAXN],m=0,si=0;
+    for(int r=0;r<DFS_N;r++){ if(r==DFS_R0) init[m++]=DFS_V; else init[m++]=DFS_IP[si++]; }
+    DFS_N3=0;
+    int nm1=DFS_N-1;
+    for(int a=0;a<nm1;a++)for(int b=a+1;b<nm1;b++)for(int c=b+1;c<nm1;c++){
+        int t=DFS_N3++; DT_W[t][0]=a;DT_W[t][1]=b;DT_W[t][2]=c;
+        TID[a][b][c]=t; DT_NA[t]=0; DT_NP[t]=0;
+        E4_T=t;
+        E4_TARGET[0]=truth_pair_g(a,b,c,DFS_V);
+        E4_TARGET[1]=truth_pair_g(a,c,b,DFS_V);
+        E4_TARGET[2]=truth_pair_g(a,DFS_V,b,c);
+        /* induced start order of {a,b,c,v} in init */
+        int pi4[4],k=0;
+        for(int i=0;i<DFS_N && k<4;i++){ int x=init[i]; if(x==a||x==b||x==c||x==DFS_V) pi4[k++]=x; }
+        for(int i=0;i<4;i++) E4_PERM[i]=pi4[i];
+        for(int i=0;i<MAXN;i++) E4_W2IDX[i]=-1;
+        E4_W2IDX[a]=0;E4_W2IDX[b]=1;E4_W2IDX[c]=2;E4_W2IDX[DFS_V]=3;
+        T4.n=4;
+        E4_DONE=0; e4_rec(0);
+    }
+}
+/* affected tuples for skeleton swap (x,y): all tuples with x,y in them */
+/* prefix consistency after appending pid to tuple t */
+static int dt_ok(int t,int pid){
+    int np=DT_NP[t];
+    for(int a=0;a<DT_NA[t];a++){
+        int *sq=DT_ALLOW[t][a]; int ok=1;
+        for(int i=0;i<np;i++) if(sq[i]!=DT_PRE[t][i]){ok=0;break;}
+        if(ok && sq[np]==pid) return 1;
+    }
+    return 0;
+}
+static int DFS_CUR[MAXN], DFS_RKI[MAXN], DFS_VX[MAXN];
+static int DFS_VLEFT;
+static void dfs_apply_swap(int x,int y){
+    int rx=DFS_RKI[x],ry=DFS_RKI[y];
+    int t=DFS_CUR[rx];DFS_CUR[rx]=DFS_CUR[ry];DFS_CUR[ry]=t;
+    DFS_RKI[x]=ry;DFS_RKI[y]=rx;
+    DFS_OUT[DFS_OM][0]=x;DFS_OUT[DFS_OM][1]=y;DFS_OM++;
+}
+static void dfs_rec(int g){
+    if(DFS_SOLVED || DFS_NODES>DFS_BUDGET) return;
+    DFS_NODES++;
+    if(g==DFS_M2 && DFS_VLEFT==0){ DFS_SOLVED=1; return; }
+    int v=DFS_V;
+    /* build option list: 0=skeleton next, 1+i = cross v with neighbor wire u */
+    int opt[3], nop=0;
+    if(g<DFS_M2){
+        int a=DFS_SK[g][0],b=DFS_SK[g][1];
+        int ra=DFS_RKI[a],rb=DFS_RKI[b];
+        if(ra==rb-1||ra==rb+1) opt[nop++]=0;
+    }
+    if(DFS_VLEFT>0){
+        int rv=DFS_RKI[v];
+        if(rv>0 && !DFS_VX[DFS_CUR[rv-1]]) opt[nop++]=1+DFS_CUR[rv-1];
+        if(rv<DFS_N-1 && !DFS_VX[DFS_CUR[rv+1]]) opt[nop++]=1+DFS_CUR[rv+1];
+    }
+    /* shuffle */
+    for(int i=nop-1;i>0;i--){ int j=rnd(i+1); int t=opt[i];opt[i]=opt[j];opt[j]=t; }
+    for(int oi=0;oi<nop && !DFS_SOLVED && DFS_NODES<=DFS_BUDGET;oi++){
+        int o=opt[oi];
+        if(o==0){
+            int a=DFS_SK[g][0],b=DFS_SK[g][1];
+            /* affected tuples: those containing a,b (and v) */
+            int chg[16],nc=0,ok=1;
+            int nm1=DFS_N-1;
+            for(int c=0;c<nm1 && ok;c++){ if(c==a||c==b)continue;
+                int x=a<b?a:b, y=a<b?b:a, z=c;
+                int s[3]={x,y,z}; /* sort */
+                if(s[0]>s[1]){int t=s[0];s[0]=s[1];s[1]=t;}
+                if(s[1]>s[2]){int t=s[1];s[1]=s[2];s[2]=t;}
+                if(s[0]>s[1]){int t=s[0];s[0]=s[1];s[1]=t;}
+                int t=TID[s[0]][s[1]][s[2]];
+                int pid=dt_pid(t,a,b);
+                if(!dt_ok(t,pid)){ok=0;break;}
+                chg[nc++]=t;
+            }
+            if(!ok) continue;
+            for(int i=0;i<nc;i++){ int t=chg[i]; DT_PRE[t][DT_NP[t]++]=dt_pid(t,a,b); }
+            dfs_apply_swap(a,b);
+            dfs_rec(g+1);
+            if(DFS_SOLVED) return;
+            /* undo */
+            int ra=DFS_RKI[a],rb=DFS_RKI[b];
+            int tt=DFS_CUR[ra];DFS_CUR[ra]=DFS_CUR[rb];DFS_CUR[rb]=tt;
+            DFS_RKI[a]=rb;DFS_RKI[b]=ra; DFS_OM--;
+            for(int i=0;i<nc;i++) DT_NP[chg[i]]--;
+        } else {
+            int u=o-1;
+            /* affected tuples: containing v,u and one more skeleton pair... tuples {v,u,x,y}? no: tuples are (w0,w1,w2,v) - affected if u in {w0,w1,w2}; the swap is (v,u) */
+            int chg[64],nc=0,ok=1;
+            int nm1=DFS_N-1;
+            for(int x=0;x<nm1 && ok;x++){ if(x==u)continue;
+                for(int y=x+1;y<nm1 && ok;y++){ if(y==u)continue;
+                    int s[3]={x,y,u};
+                    if(s[0]>s[1]){int t=s[0];s[0]=s[1];s[1]=t;}
+                    if(s[1]>s[2]){int t=s[1];s[1]=s[2];s[2]=t;}
+                    if(s[0]>s[1]){int t=s[0];s[0]=s[1];s[1]=t;}
+                    int t=TID[s[0]][s[1]][s[2]];
+                    int pid=dt_pid(t,v,u);
+                    if(!dt_ok(t,pid)){ok=0;break;}
+                    chg[nc++]=t;
+                }
+            }
+            if(!ok) continue;
+            for(int i=0;i<nc;i++){ int t=chg[i]; DT_PRE[t][DT_NP[t]++]=dt_pid(t,v,u); }
+            DFS_VX[u]=1; DFS_VLEFT--;
+            dfs_apply_swap(v,u);
+            dfs_rec(g);
+            if(DFS_SOLVED) return;
+            int rv=DFS_RKI[v],ru=DFS_RKI[u];
+            int tt=DFS_CUR[rv];DFS_CUR[rv]=DFS_CUR[ru];DFS_CUR[ru]=tt;
+            DFS_RKI[v]=ru;DFS_RKI[u]=rv; DFS_OM--;
+            DFS_VX[u]=0; DFS_VLEFT++;
+            for(int i=0;i<nc;i++) DT_NP[chg[i]]--;
+        }
+    }
+}
+static void insdfs_run(int n,const char*pgfile,const char*skelfile,double seconds,uint64_t seed,const char*logpath,const char*outseed){
+    if(!pg_load(pgfile)){ fprintf(stderr,"pg load fail\n"); return; }
+    pg_mode=1;
+    AS2 SK;
+    if(!as2_load(&SK,n-1,skelfile)){ fprintf(stderr,"skel load fail\n"); return; }
+    if(!ip_load(skelfile,n-1)){ fprintf(stderr,"ip load fail\n"); return; }
+    seed_rng(seed);
+    FILE*log=fopen(logpath,"a"); if(log) setvbuf(log,NULL,_IOLBF,0);
+    DFS_N=n; DFS_V=n-1; DFS_M2=SK.M;
+    for(int i=0;i<SK.M;i++){ DFS_SK[i][0]=SK.sw[i][0]; DFS_SK[i][1]=SK.sw[i][1]; }
+    for(int i=0;i<n-1;i++) DFS_IP[i]=IP[i];
+    double t0=now_sec();
+    int solved=0; long totnodes=0; int attempts=0;
+    int r0ord[MAXN]; for(int i=0;i<n;i++)r0ord[i]=i;
+    int ROTMAX=env_l("INS_ROT",2*SK.M+1);
+    int rot0=ROTMAX>0?rnd(ROTMAX):0;
+    for(int rotk=0; rotk<ROTMAX && !solved && now_sec()-t0<seconds; rotk++){
+        int rot=(rot0+rotk)%ROTMAX;
+        if(rotk>0){ /* rotate skeleton: move first swap to end, swap its wires in IP */
+            int a=DFS_SK[0][0],b=DFS_SK[0][1];
+            for(int i=0;i<DFS_M2-1;i++){ DFS_SK[i][0]=DFS_SK[i+1][0]; DFS_SK[i][1]=DFS_SK[i+1][1]; }
+            DFS_SK[DFS_M2-1][0]=a; DFS_SK[DFS_M2-1][1]=b;
+            for(int i=0;i<n-2;i++) if((DFS_IP[i]==a&&DFS_IP[i+1]==b)||(DFS_IP[i]==b&&DFS_IP[i+1]==a)){ int t=DFS_IP[i];DFS_IP[i]=DFS_IP[i+1];DFS_IP[i+1]=t; break; }
+        }
+      for(int pass=0; pass<3 && !solved && now_sec()-t0<seconds; pass++){
+        for(int i=n-1;i>0;i--){ int j=rnd(i+1); int t=r0ord[i];r0ord[i]=r0ord[j];r0ord[j]=t; }
+        for(int ri=0;ri<n && !solved && now_sec()-t0<seconds;ri++){
+            DFS_R0=r0ord[ri];
+            dt_build();
+            /* init state */
+            int m=0,si=0;
+            for(int r=0;r<n;r++){ if(r==DFS_R0) DFS_CUR[m++]=DFS_V; else DFS_CUR[m++]=DFS_IP[si++]; }
+            for(int i=0;i<n;i++) DFS_RKI[DFS_CUR[i]]=i;
+            for(int i=0;i<n;i++) DFS_VX[i]=0;
+            DFS_VLEFT=n-1; DFS_OM=0; DFS_SOLVED=0; DFS_NODES=0; DFS_BUDGET=3000000;
+            dfs_rec(0);
+            attempts++; totnodes+=DFS_NODES;
+            if(DFS_SOLVED){
+                solved=1;
+                AS2 A; A.n=n; A.M=n*(n-1)/2;
+                for(int t=0;t<A.M && t<DFS_OM;t++){ A.sw[t][0]=DFS_OUT[t][0]; A.sw[t][1]=DFS_OUT[t][1]; }
+                as2_build_pos(&A);
+                long cnt=as2_count(&A); long pm=pat_mis_all(&A);
+                as2_save(&A,cnt,outseed);
+                if(log) fprintf(log,"DBG patmism=%ld\n",pm);
+                char pth[512]; snprintf(pth,sizeof pth,"%s.ip",outseed);
+                FILE*f=fopen(pth,"w");
+                for(int i=0;i<n;i++) fprintf(f,"%d ",DFS_CUR[i]); /* DFS_CUR at solve = final perm... need initial; rebuild */
+                fclose(f);
+                /* rewrite proper initial perm */
+                f=fopen(pth,"w"); m=0; si=0;
+                for(int r=0;r<n;r++){ if(r==DFS_R0) fprintf(f,"%d ",DFS_V); else fprintf(f,"%d ",DFS_IP[si++]); }
+                fprintf(f,"\n"); fclose(f);
+                if(log) fprintf(log,"SOLVED t=%.1f r0=%d attempts=%d nodes=%ld count=%ld\n",now_sec()-t0,DFS_R0,attempts,totnodes,cnt);
+            } else if(log) fprintf(log,"FAILR0 t=%.1f r0=%d nodes=%ld\n",now_sec()-t0,DFS_R0,DFS_NODES);
+        }
+    }
+      if(log && rotk%25==0) fprintf(log,"ROT t=%.1f rot=%d attempts=%d nodes=%ld\n",now_sec()-t0,rot,attempts,totnodes);
+    }
+    if(log){ fprintf(log,"DONE t=%.1f solved=%d attempts=%d nodes=%ld\n",now_sec()-t0,solved,attempts,totnodes); fclose(log); }
+    pg_mode=0;
+}
+
 /* ===== insxa: insertion SA with skeleton co-evolution via braid moves ===== */
 static void insxa_run(int n,const char*pgfile,const char*skelfile,double seconds,uint64_t seed,const char*logpath,const char*outseed){
     if(!pg_load(pgfile)){ fprintf(stderr,"pg load fail\n"); return; }
@@ -1868,6 +2340,9 @@ int main(int argc,char**argv){
     }
     if(!strcmp(argv[1],"insbf")){ insbf_run(atoi(argv[2]),argv[3],argv[4],argv[5]); return 0; }
     if(!strcmp(argv[1],"inssa")){ inssa_run(atoi(argv[2]),argv[3],argv[4],atof(argv[5]),strtoull(argv[6],NULL,10),argv[7],argv[8]); return 0; }
+    if(!strcmp(argv[1],"pgdfs2")){ pgdfs2_run(atoi(argv[2]),argv[3],atof(argv[4]),strtoull(argv[5],NULL,10),argv[6],argv[7]); return 0; }
+    if(!strcmp(argv[1],"pgdfs")){ pgdfs_run(atoi(argv[2]),argv[3],atof(argv[4]),strtoull(argv[5],NULL,10),argv[6],argv[7]); return 0; }
+    if(!strcmp(argv[1],"insdfs")){ insdfs_run(atoi(argv[2]),argv[3],argv[4],atof(argv[5]),strtoull(argv[6],NULL,10),argv[7],argv[8]); return 0; }
     if(!strcmp(argv[1],"insxa")){ insxa_run(atoi(argv[2]),argv[3],argv[4],atof(argv[5]),strtoull(argv[6],NULL,10),argv[7],argv[8]); return 0; }
     if(!strcmp(argv[1],"insbf2")){ insbf2_run(atoi(argv[2]),argv[3],argv[4],argv[5]); return 0; }
     fprintf(stderr,"unknown mode\n"); return 1;
